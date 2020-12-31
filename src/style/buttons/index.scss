@@ -1,0 +1,57 @@
+.btn {
+    border: none;
+    &:hover {color: inherit}
+}
+
+.btn.blue {
+    background: #00B2A9;
+    color: #fff;
+
+    &:hover {color: #fff}
+}
+
+.btn.gray {
+    background: #909090;
+    color: #fff;
+
+    &:hover {color: #fff}
+}
+
+.btn.dark {
+    background: #181818;
+    color: #fff;
+
+    &:hover {color: #fff}
+}
+
+.icon-button {
+    color: #181818;
+    font-weight: 300;
+
+    .icon {
+        margin-right: 10px;
+        color: #707070;
+        font-size: 10pt;
+    }
+
+    &:hover {
+        color: #00B2A9;
+    }
+}
+
+.btn.icon-button {
+    .icon {
+        margin-right: 10px;
+        color: #fff;
+        font-size: 10pt;
+    }
+
+    span {
+        &:before {
+            content: "|";
+            display: inline-block;
+            margin-right: 10px;
+            font-weight: lighter;
+        }
+    }
+}
