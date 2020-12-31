@@ -1,36 +1,65 @@
 import React from 'react';
+import { Row } from 'react-bootstrap';
 
 import { default as NativeHeader } from "../app/middleware/Header";
 // @ts-ignore
 import logo from "../images/logo.png";
+import AwesomeIcon from '../statics/icon';
+import IconButtonLabel from './buttons/icon-button-label';
+import IconLabel from './buttons/icon-label';
+import Button from './buttons/button';
 
 const Header = () => {
     const navLogo = {
         status: true,
-        className: "nav-logo",
+        className: "logo",
         element: () => logo
     }
 
     const navWidget = {
         status: true,
-        className: "nav-widget",
+        className: "widget-bar bar col",
         element: () => {
             return (
-                <div className="widget">...</div>
+                <div className={navWidget.className}>
+                    <Row className="nav-element">
+                        <div className="left-bar">
+                            <IconLabel href="mail:info@ptpoints.com" className="icon-label" text="info@ptpoints.com" icon={AwesomeIcon.Envolope} />
+                            <IconLabel href="tel:05XXXXXXXXX" className="icon-label" text="05XX XXX XX XX" icon={AwesomeIcon.Phone} />
+                        </div>
+                        <div className="right-bar">
+                            <div className="lang"><a href="#">TR</a> / <a href="#">EN</a></div>
+                        </div>
+                    </Row>
+                </div>
             )
         }
     }
 
     const navMenu = {
         status: true,
-        className: "menu center",
+        className: "container nav-menu center d-flex flex-column",
         element: () => {
             return (
                 <>
                     {navWidget.element()}
-                    <div className="menu-bar">
-                        <div className="left-bar"></div>
-                        <div className="right-bar"></div>
+                    <div className="menu-bar bar col">
+                        <Row className="nav-element">
+                            <div className="left-bar">
+                                <IconButtonLabel className="icon-button" icon={AwesomeIcon.Search} text="Ne arıyorsun?" />
+                                <ul className="manu">
+                                    <li><a href="#">321 Hakkında</a></li>
+                                    <li><a href="#">Blog</a></li>
+                                </ul>
+                            </div>
+                            <div className="right-bar">
+                                <ul className="extend-manu">
+                                    <li><a href="#">Giriş Yap</a></li>
+                                    <li><a href="#">Üye Ol</a></li>
+                                    <li><Button className="" text="Profosyonel"/></li>
+                                </ul>
+                            </div>
+                        </Row>
                     </div>
                 </>
             )

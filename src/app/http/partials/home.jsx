@@ -12,7 +12,6 @@ const Home = props => {
     return (
         <Master>
             <Main className="main">
-                <pre>Header</pre>
                 <Header/>
                 <pre>Banner</pre>
                 <pre>Category</pre>
