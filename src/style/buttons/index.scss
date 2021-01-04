@@ -1,6 +1,29 @@
 .btn {
     border: none;
     &:hover {color: inherit}
+    &:focus, &:active, &.active {border: none; box-shadow: none; background: inherit; color: inherit}
+}
+
+.btn.bg-soft-button {
+    background: transparent;
+    color: #fff;
+    border-radius: 0;
+    font-size: 15pt;
+    padding: 15px 40px;
+    position: relative;
+
+    &:after {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        content: "";
+        display: block;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(rgb(56, 56, 56), rgba(163, 163, 163, 0.53));
+        transform: matrix(1, 0, -.7, 1, 0, 0);
+    }
 }
 
 .btn.blue {
@@ -54,4 +77,14 @@
             font-weight: lighter;
         }
     }
+}
+
+.btn:not(:disabled):not(.disabled).active, .btn:not(:disabled):not(.disabled):active, .show>.btn.dropdown-toggle {
+    color: initial;
+    background-color: initial;
+    border-color: initial;
+}
+
+.btn:not(:disabled):not(.disabled).active:focus, .btn:not(:disabled):not(.disabled):active:focus, .show>.btn.dropdown-toggle:focus {
+    box-shadow: none;
 }

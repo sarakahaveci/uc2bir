@@ -10,6 +10,11 @@ import { Container } from 'react-bootstrap';
 import Categories from '../../middleware/Categories';
 import TopPromotion from '../../middleware/TopPromotion';
 import PT from '../../middleware/PT';
+import FluidBanner from '../../middleware/FluidBanner';
+import Living from '../../middleware/Living';
+import Packet from '../../middleware/Packet';
+import GroupLesson from '../../middleware/GroupLesson';
+import Dietitians from '../../middleware/Dietitians';
 
 /**
  * @param {{ children: React.ReactNode; }} props
@@ -24,12 +29,13 @@ const Home = props => {
                     <Categories/>
                     <TopPromotion background/>
                     <PT/>
+                    <FluidBanner/>
+                    <Living/>
+                    <Packet/>
+                    <GroupLesson/>
+                    <Dietitians/>
                     <Container>
-                        <pre>FluidBanner => extends FluidText</pre>
-                        <pre>LivingSlider => extends SliderTexts, Slider</pre>
-                        <pre>PacketSlider => extends SliderTexts, CenterSlider</pre>
-                        <pre>GroupLessonSlider => extends SliderTexts, CenterSlider</pre>
-                        <pre>FluidExtendBanner => extends FluidText</pre>
+                        <pre>VKI Banner => extends FluidText</pre>
                         <pre>BlogBanner</pre>
                         <pre>Comments</pre>
                         <pre>FluidBanner => extends FluidText</pre>
