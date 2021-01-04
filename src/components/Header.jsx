@@ -10,18 +10,18 @@ import IconLabel from './buttons/icon-label';
 import Button from './buttons/button';
 
 const Header = () => {
-    const navLogo = {
+    const nav_logo = {
         status: true,
         className: "logo",
         element: () => logo
     }
 
-    const navWidget = {
+    const nav_widget = {
         status: true,
         className: "widget-bar bar col-auto d-flex",
         element: () => {
             return (
-                <div className={navWidget.className}>
+                <div className={nav_widget.className}>
                     <Row className="nav-element">
                         <div className="bar-item left-bar">
                             <ul>
@@ -38,13 +38,13 @@ const Header = () => {
         }
     }
 
-    const navMenu = {
+    const nav_menu = {
         status: true,
         className: "container nav-menu center d-flex flex-column",
         element: () => {
             return (
                 <>
-                    {navWidget.element()}
+                    {nav_widget.element()}
                     <div className="menu-bar bar col d-flex">
                         <Row className="nav-element">
                             <div className="bar-item left-bar">
@@ -71,9 +71,9 @@ const Header = () => {
 
     return (
         <NativeHeader
-            className="header"
-            navLogo={navLogo}
-            navMenu={navMenu}
+            className="header position-fixed"
+            navLogo={nav_logo}
+            navMenu={nav_menu}
         />
     );
 };

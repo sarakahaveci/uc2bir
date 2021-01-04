@@ -1,0 +1,35 @@
+.banner {
+    height: 780px;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+
+    .slick-slider {
+        width: 100%;
+        height: 780px;
+
+        .slider-item {
+            width: 100%;
+            height: 780px;
+            position: relative;
+
+            &:before {
+                content: "";
+                position: absolute;
+                z-index: 10;
+                background: rgba(0,0,0,.2);
+                width: 100%;
+                height: 100%;
+            }
+            
+            .img {
+                width: 100%;
+                height: 780px;
+                background-size: cover;
+                position: relative;
+                z-index: 0;
+            }
+        }
+    }
+}

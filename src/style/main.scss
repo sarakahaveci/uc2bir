@@ -5,13 +5,27 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
+.app-root {
+    /*padding-top: 130px;*/
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+
 /* components */
 
-/*
- * buttons  
-*/
+/* header */
+@import "./header";
+
+/* buttons */
 @import "./buttons";
 
+/* sliders */
+@import "./sliders";
+
+/* typography */
+@import "./typography";
+
 /* components */
 
-@import "./header";
+@import "./middleware";

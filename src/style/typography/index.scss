@@ -1,0 +1,54 @@
+.typography {
+    width: 100%;
+    height: auto;
+    font-family: 'Poppins', sans-serif;
+
+    &.text {
+        font-size: 14pt;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+    &.title {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        font-family: 'Poppins', sans-serif;
+        letter-spacing: 3px;
+
+        &.text-left {
+            align-items: flex-start;
+        }
+
+        &.text-right {
+            align-items: flex-end;
+        }
+
+        &.line:after {
+            content: "";
+            width: 140px;
+            background: #00B2A9;
+            height: 2px;
+            margin-top: 20px;
+            display: block;
+        }
+    }
+
+    &.bold {
+        font-weight: 700;
+    }
+
+    &.bolder {
+        font-weight: 900;
+    }
+
+    &.lighter {
+        font-weight: 300;
+    }
+
+    &.normal {
+        font-weight: 500;
+    }
+}

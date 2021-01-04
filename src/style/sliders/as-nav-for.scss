@@ -1,0 +1,48 @@
+.as-nav-for {
+    width: 100%;
+
+    .item {
+        width: 100%;
+        height: 410px;
+        margin-bottom: 10px;
+
+        &.thump {
+            height: 100px;
+        }
+
+        .slider-item {
+            width: 100%;
+            height: 410px;
+            padding: 5px;
+
+            .img {
+                width: 100%;
+                height: 410px;
+                background-size: cover;
+                background-position: center center;
+            }
+        }
+
+        .slider-item-thump {
+            width: 100%;
+            height: 100px;
+            padding: 5px;
+
+            .img {
+                width: 100%;
+                height: 100px;
+                background-size: cover;
+                background-position: center center;
+                border: none;
+            }
+        }
+
+        .slick-active.slick-current {
+            .slider-item-thump {
+                .img {
+                    border: 3px solid #00B2A9;
+                }
+            }
+        }
+    }
+}

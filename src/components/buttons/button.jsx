@@ -1,15 +1,16 @@
 import React, { useLayoutEffect, useState } from 'react';
 import { Button as BaseButton } from 'react-bootstrap';
 
-const Button = ({className, onClick=null, text, children=null, dark=false, gray=false, style={}}) => {
-    const [buttonClass, setButtonClass] = useState("blue");
+const Button = ({className="", onClick=null, text, children=null, dark=false, gray=false, blue=false, style={}, variant=""}) => {
+    const [buttonClass, setButtonClass] = useState("variant");
     useLayoutEffect(() => {
         if(dark) setButtonClass("dark");
         if(gray) setButtonClass("gray");
+        if(blue) setButtonClass("blue");
     }, [buttonClass]);
 
     return (
-        <BaseButton onClick={onClick} className={`${buttonClass} ${className}`} style={style}>
+        <BaseButton variant={variant} onClick={onClick} className={`${buttonClass} ${className}`} style={style}>
             {text}
             {children}
         </BaseButton>

@@ -1,7 +1,5 @@
 .header {
-    height: 130px;
-    display: flex;
-
+    
     .logo {
         height: 155px;
         background: #1A1818;
@@ -17,7 +15,7 @@
     }
 
     .nav-menu {
-        margin: 7px 15px;
+        margin: 0 15px;
         padding: 0;
 
         .bar {
@@ -54,7 +52,7 @@
                             }
 
                             .btn {
-                                height: 50px;
+                                height: 55px;
                                 padding-left: 35px;
                                 padding-right: 35px;
                             }
@@ -71,8 +69,6 @@
 
                     .lang {
                         display: flex;
-                        margin-right: -5px;
-                        margin-left: -5px;
                         border-left: 1px solid #cbcbcb;
                         border-right: 1px solid #cbcbcb;
                         padding: 0 10px;
@@ -93,7 +89,7 @@
             &.widget-bar {
                 border-bottom: 1px solid #707070;
                 padding-bottom: 5px;
-                padding-top: 5px;
+                padding-top: 10px;
 
                 .bar-item {
                     ul {
