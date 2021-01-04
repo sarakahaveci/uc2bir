@@ -1,6 +1,7 @@
+// @ts-nocheck
 import React, { useLayoutEffect, useState } from 'react';
 
-const Text = ({className="", dark=false, gray=false, blue=false, style={}, children, fontSize="14pt", fontWeight="normal"}) => {
+const Text = ({className="", dark=false, gray=false, blue=false, style={}, children, fontSize="14pt", fontWeight="normal", textAlign="left"}) => {
     const [color, setColor] = useState("#000000");
 
     useLayoutEffect(() => {
@@ -10,7 +11,7 @@ const Text = ({className="", dark=false, gray=false, blue=false, style={}, child
     },[color]);
 
     return (
-        <div className={`typography text ${fontWeight} ${className}`} style={{...style, color, fontSize}}>
+        <div className={`typography text ${fontWeight} ${className}`} style={{...style, color, fontSize, textAlign}}>
             {children}
         </div>
     );

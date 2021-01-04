@@ -9,6 +9,7 @@ import Banner from '../../../components/sliders/Banner';
 import { Container } from 'react-bootstrap';
 import Categories from '../../middleware/Categories';
 import TopPromotion from '../../middleware/TopPromotion';
+import PT from '../../middleware/PT';
 
 /**
  * @param {{ children: React.ReactNode; }} props
@@ -19,11 +20,11 @@ const Home = props => {
             <Main className="main">
                 <Header />
                 <Root>
-                    <Banner />
+                    <Banner/>
+                    <Categories/>
+                    <TopPromotion background/>
+                    <PT/>
                     <Container>
-                        <Categories/>
-                        <TopPromotion/>
-                        <pre>PT => extends SliderTexts, Slider</pre>
                         <pre>FluidBanner => extends FluidText</pre>
                         <pre>LivingSlider => extends SliderTexts, Slider</pre>
                         <pre>PacketSlider => extends SliderTexts, CenterSlider</pre>
