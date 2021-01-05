@@ -3,6 +3,22 @@
     height: auto;
     font-family: 'Poppins', sans-serif;
 
+    &.label-text {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        .label {
+            flex: 0 0 auto;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        .text {
+            flex: 1 1 auto;
+        }
+    }
+
     &.text {
         font-size: 14pt;
         padding-top: 15px;

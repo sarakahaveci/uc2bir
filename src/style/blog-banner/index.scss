@@ -1,0 +1,22 @@
+.blog-banner {
+    width: 100%;
+
+    .blog-items {
+        height: 425px;
+
+        &.img {
+            background: #ccc;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        &.text {
+            display: flex;
+            justify-content: flex-start;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-content: center;
+            padding: 30px;
+        }
+    }
+}

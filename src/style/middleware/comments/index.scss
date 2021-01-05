@@ -1,0 +1,72 @@
+.comment-slider {
+    .slider-item {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        .foot {
+            display: flex;
+            margin: 90px 30px;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+
+            b {color: #00b2a9;}
+        }
+
+        .text {
+            font-size: 1.2em;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 50px;
+            padding-top: 50px;
+            padding-bottom: 50px;
+            position: relative;
+            margin: 15px;
+            padding: 5px 70px;
+
+            &:before, &:after {
+                display: block;
+                position: absolute;
+                font-family: "Font Awesome 5 Free";
+                font-size: 3em;
+                color: #00b2a9;
+            }
+
+            &:before {
+                content: "\f10d";
+                top: -50px;
+                left: 0;
+            }
+
+            &:after {
+                content: "\f10e";
+                bottom: -50px;
+                right: 0;
+            }
+        }
+
+        .avatar {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 30px;
+            margin-bottom: 30px;
+
+            .img {
+                width: auto;
+                height: auto;
+                border-radius: 50%;
+                overflow: hidden;
+
+                img {
+                    max-height: 120px;
+                }
+            }
+        }
+    }
+}
