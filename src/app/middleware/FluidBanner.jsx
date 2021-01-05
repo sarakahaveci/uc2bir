@@ -14,7 +14,7 @@ const FluidBanner = (props) => {
         <NativeFluidBanner className={props.className} backgroundImage={backgroundImage} fixed>
             <Container>
                 <Text textAlign="center" white>
-                    <Title variant="h5" component="h5" style={{ maxWidth: "50%", marginLeft: "auto", marginRight: "auto" }} lineDisable>İSTEDİĞİN EĞİTMEN İLE İSTEDİĞİN SALONDA HEMEN DERSLERE BAŞLA</Title>
+                    <Title white variant="h5" component="h5" style={{ maxWidth: "50%", marginLeft: "auto", marginRight: "auto" }} lineDisable>İSTEDİĞİN EĞİTMEN İLE İSTEDİĞİN SALONDA HEMEN DERSLERE BAŞLA</Title>
                     <Text white textAlign="center">Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing Elit, Sed Do Eiusmod Tempor Incididunt Ut Labore Et Dolore Magna Aliqua. Ut Enim Ad Minim Veniam, Quis Nostrud Exercitation</Text>
                     <BgSoftButton text="REZERVAZYON YAP" />
                 </Text>

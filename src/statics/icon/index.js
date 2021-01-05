@@ -25,6 +25,10 @@ import {
      faAngleDoubleUp,
      faPhone,
      faSearch,
+     faLiraSign,
+     faMapMarked,
+     faMap,
+     faMapMarker,
 } from '@fortawesome/free-solid-svg-icons';
 import { icon } from '@fortawesome/fontawesome-svg-core';
 
@@ -48,6 +52,8 @@ const AwesomeIcon = {
     Envolope: props => <FontAwesomeIcon icon={faEnvelope} {...props}/>,
     Phone: props => <FontAwesomeIcon icon={faPhone} {...props}/>,
     Search: props => <FontAwesomeIcon icon={faSearch} {...props}/>,
+    Tl: props => <FontAwesomeIcon icon={faLiraSign} {...props}/>,
+    Map: props => <FontAwesomeIcon icon={faMapMarker} {...props}/>
 }
 
 export default AwesomeIcon;

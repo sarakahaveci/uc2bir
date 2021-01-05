@@ -98,19 +98,21 @@
                     a {
                         height: 40px;
                         display: flex;
-                        color: #1a1818;
-                        border: 1px solid #1a1818;
+                        color: #838383;
+                        border: 1px solid #838383;
                         font-size: 10pt;
                         padding-left: 30px;
                         padding-right: 30px;
                         align-items: center;
                         margin: 5px;
+                        font-weight: bold;
                     }
 
                     &:hover {
                         a {
-                            background: #32b09d;
-                            color: #fff;
+                            background: rgb(50, 176, 157);
+                            color: rgb(255, 255, 255);
+                            border: 1px solid #32b09d;
                         }
                     }
                 }
@@ -157,12 +159,13 @@
 
             .list {
                 width: 50%;
+                margin-top: 15px;
 
                 ul {
                     li {
                         a {
                             color: #6d6d6d;
-                            padding: 10px 0;
+                            padding: 5px 0;
                             display: block;
                         }
 

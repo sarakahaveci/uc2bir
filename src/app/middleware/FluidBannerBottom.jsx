@@ -14,7 +14,7 @@ const FluidBanner = (props) => {
         <NativeFluidBanner className={props.className} backgroundImage={backgroundImage}>
             <Container>
                 <Text style={{paddingBottom: "60px",}} textAlign="center" white>
-                    <Title variant="h5" component="h5" style={{ maxWidth: "50%", marginLeft: "auto", marginRight: "auto" }} lineDisable>Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing</Title>
+                    <Title white variant="h5" component="h5" style={{ maxWidth: "50%", marginLeft: "auto", marginRight: "auto" }} lineDisable>Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing</Title>
                     <Text white textAlign="center">
                         Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing Elit, Sed Do Eiusmod Tempor Incididunt Ut Labore Et Dolore Magna Aliqua. Ut Enim Ad Minim Veniam, Quis Nostrud Exercitation
                         <br />
