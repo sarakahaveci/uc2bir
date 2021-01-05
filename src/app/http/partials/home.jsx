@@ -15,6 +15,7 @@ import Living from '../../middleware/Living';
 import Packet from '../../middleware/Packet';
 import GroupLesson from '../../middleware/GroupLesson';
 import Dietitians from '../../middleware/Dietitians';
+import VKI from '../../middleware/VKI';
 
 /**
  * @param {{ children: React.ReactNode; }} props
@@ -34,8 +35,8 @@ const Home = props => {
                     <Packet/>
                     <GroupLesson/>
                     <Dietitians/>
+                    <VKI/>
                     <Container>
-                        <pre>VKI Banner => extends FluidText</pre>
                         <pre>BlogBanner</pre>
                         <pre>Comments</pre>
                         <pre>FluidBanner => extends FluidText</pre>
