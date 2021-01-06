@@ -29,6 +29,7 @@ import {
      faMapMarked,
      faMap,
      faMapMarker,
+     faMapMarkerAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import { icon } from '@fortawesome/fontawesome-svg-core';
 
@@ -53,7 +54,7 @@ const AwesomeIcon = {
     Phone: props => <FontAwesomeIcon icon={faPhone} {...props}/>,
     Search: props => <FontAwesomeIcon icon={faSearch} {...props}/>,
     Tl: props => <FontAwesomeIcon icon={faLiraSign} {...props}/>,
-    Map: props => <FontAwesomeIcon icon={faMapMarker} {...props}/>
+    Map: props => <FontAwesomeIcon icon={faMapMarkerAlt} {...props}/>
 }
 
 export default AwesomeIcon;

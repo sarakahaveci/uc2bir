@@ -33,7 +33,7 @@ const SliderFocus = (props) => {
                 <div className="row">
                     <div className="col-4 left">
                         <SlickSlider
-                            asNavFor={nav1}
+                            asNavFor={nav2}
                             ref={slider => (slider1 = slider)}
                         >
                             <div className="slider-item">
@@ -113,13 +113,11 @@ const SliderFocus = (props) => {
                     <div className="col right">
                         <div className="item-right">
                             <SlickSlider
-                                asNavFor={nav2}
-                                ref={slider => (slider1 = slider)}
+                                asNavFor={nav1}
+                                ref={slider => (slider2 = slider)}
                                 slidesToShow={3}
-                                slidesToScroll={3}
                                 swipeToSlide={true}
                                 focusOnSelect={true}
-                                infinite={true}
                             >
                                 <div className="slider-item">
                                     <div className="img" style={{ backgroundImage: `url(${efe})` }}></div>
