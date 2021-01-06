@@ -30,8 +30,14 @@ import {
      faMap,
      faMapMarker,
      faMapMarkerAlt,
+     faArrowAltCircleLeft,
+     faArrowAltCircleRight,
+     faAngleRight,
+     faAngleLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import { icon } from '@fortawesome/fontawesome-svg-core';
+import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
+import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
 
 const AwesomeIcon = {
     Facebook: props => <FontAwesomeIcon icon={faFacebookF} {...props}/>,
@@ -54,7 +60,11 @@ const AwesomeIcon = {
     Phone: props => <FontAwesomeIcon icon={faPhone} {...props}/>,
     Search: props => <FontAwesomeIcon icon={faSearch} {...props}/>,
     Tl: props => <FontAwesomeIcon icon={faLiraSign} {...props}/>,
-    Map: props => <FontAwesomeIcon icon={faMapMarkerAlt} {...props}/>
+    Map: props => <FontAwesomeIcon icon={faMapMarkerAlt} {...props}/>,
+    StarRegular: props => <FontAwesomeIcon icon={faStarRegular} {...props}/>,
+    StarSolid: props => <FontAwesomeIcon icon={faStarSolid} {...props}/>,
+    Next: props => <FontAwesomeIcon icon={faAngleRight} {...props}/>,
+    Prev: props => <FontAwesomeIcon icon={faAngleLeft} {...props}/>,
 }
 
 export default AwesomeIcon;

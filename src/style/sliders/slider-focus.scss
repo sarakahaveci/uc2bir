@@ -1,16 +1,45 @@
 .slider-focus {
-    height: 600px;
+    height: 565px;
     position: relative;
     margin-top: 50px;
-    margin-bottom: 50px;
+    margin-bottom: 120px;
 
-    &>.container, &>.container>.row {
-        height: 600px;
+    .slick-slider-buttons {
+        width: 100%;
+        position: relative;
+        height: 1px;
+        z-index: 1000;
+
+        .slick-button {
+            position: absolute;
+            padding: 0 15px;
+            background: #00B2A9;
+            color: #fff;
+            font-size: 2.5em;
+            top: calc(565px / 2);
+            cursor: pointer;
+
+            &.next {
+                right: 30px;
+                transform: matrix(1, 0, -0.3, 1, 0, 0);
+
+            }
+
+            &.prev {
+                right: -60px;
+                transform: matrix(1, 0, -0.3, 1, 0, 0);
+            }
+        }
+    }
+
+    &>.container,
+    &>.container>.row {
+        height: 565px;
     }
 
     .slider-item-content {
         width: 100%;
-        height: 600px;
+        height: 565px;
         display: flex;
         align-content: center;
         flex-direction: row;
@@ -22,24 +51,85 @@
     .right {
         .item-right {
             position: absolute;
-            width: calc(50% + 740px);
-            height: 600px;
+            width: calc(50% + 990px);
+            height: calc(565px + 70px);
+
+            .slick-slider {
+                .slick-arrow {
+                    display: none !important;
+                }
+            }
 
             .slider-item {
                 width: 100%;
-                height: 600px;
+                height: calc(565px + 70px);
                 padding: 10px;
-    
+                position: relative;
+
                 .img {
                     border-radius: 60px;
                     width: 100%;
-                    height: 600px;
+                    height: 565px;
                     background-size: cover;
                     background-position: center center;
                     background-repeat: no-repeat;
                     margin: 0;
+                    position: relative;
+                    opacity: .5;
+                    transition: all cubic-bezier(0, 0, 1, -0.43) 0.7s;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
 
-                    &.item-two {
+                    .team {
+                        position: absolute;
+                        color: #fff;
+                        background: #00B2A9;
+                        width: 70px;
+                        height: 70px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: 70px;
+                        bottom: -30px;
+                        border: 3px solid #fff;
+                        font-size: 2.3em;
+                        font-weight: bold;
+                    }
+
+                    .points {
+                        display: flex;
+                        background: #fff;
+                        position: absolute;
+                        top: 0px;
+                        left: 0px;
+                        padding: 15px;
+                        -webkit-border-bottom-right-radius: 30px;
+                        -moz-border-radius-bottomright: 30px;
+                        border-bottom-right-radius: 30px;
+                        -webkit-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.3);
+                        -moz-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.3);
+                        box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.3);
+
+                        li {
+                            margin: 2px;
+                            cursor: pointer;
+
+                            svg {
+                                color: #ccc;
+                                font-size: 9pt;
+                            }
+
+                            &:hover,
+                            &.active {
+                                svg {
+                                    color: #FFBA00;
+                                }
+                            }
+                        }
+                    }
+
+                    /*&.item-two {
                         width: calc(100% - 50px);
                         height: calc(600px - 50px);
                         margin-left: 25px;
@@ -51,19 +141,17 @@
                         height: calc(600px - 100px);
                         margin-left: 0;
                         margin-top: 50px;
-                    }
+                    }*/
                 }
             }
 
-            /*.slick-active.slick-current {
+            .slick-active.slick-current {
                 .slider-item {
                     .img {
-                        width: 100%;
-                        height: 600px;
-                        margin: 0;
+                        opacity: 1;
                     }
                 }
-            }*/
+            }
         }
     }
 }
