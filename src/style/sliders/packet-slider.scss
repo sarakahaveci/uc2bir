@@ -1,0 +1,189 @@
+.packet-slider {
+    height: auto;
+    position: relative;
+    width: 100%;
+
+    .slick-slider-buttons {
+        width: 100%;
+        position: relative;
+        height: 1px;
+        z-index: 1000;
+
+        .slick-button {
+            position: absolute;
+            padding: 0 15px;
+            color: #fff;
+            font-size: 2.5em;
+            top: 0;
+            cursor: pointer;
+
+            &.next {
+                right: -80px;
+                top: -48px;
+                background: #00B2A9;
+                font-size: 4.5em;
+                transform: matrix(1, 0, -0.3, 1, 0, 0);
+
+            }
+
+            &.prev {
+                right: 0;
+                background: #ccc;
+                transform: matrix(1, 0, -0.3, 1, 0, 0);
+            }
+        }
+    }
+
+    .sliders {
+        margin-top: 45px;
+        height: 610px;
+    }
+
+    .slider-item {
+        padding: 15px;
+        cursor: pointer;
+        height: 610px;
+
+        .slider-item-content {
+            width: 100%;
+            height: 580px;
+            background: #fff;
+            -webkit-box-shadow: 5px 5px 7px -4px rgba(0, 0, 0, 0.38);
+            -moz-box-shadow: 5px 5px 7px -4px rgba(0, 0, 0, 0.38);
+            box-shadow: 5px 5px 7px -4px rgba(0, 0, 0, 0.38);
+            background: #FEFEFE;
+            border-radius: 30px;
+            position: relative;
+            transition: all cubic-bezier(0, 0, 1, -0.43) 0.7s;
+            top: 0;
+
+            &:hover {
+                top: -15px;
+            }
+
+            .img-item {
+                width: 100%;
+                display: flex;
+                padding: 15px 30px;
+                padding-top: 30px;
+
+                .img {
+                    width: 100%;
+                    height: 420px;
+                    border-radius: 30px;
+                    background-size: cover;
+                    background-position: center center;
+                    flex: 1 1 100%;
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                .team {
+                    position: absolute;
+                    color: #fff;
+                    background: #00B2A9;
+                    width: 50px;
+                    height: 50px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 50px;
+                    bottom: -25px;
+                    border: 3px solid #fff;
+                    font-size: 2em;
+                    font-weight: bold;
+                }
+
+                .info {
+                    writing-mode: vertical-rl;
+                    text-orientation: mixed;
+                    justify-content: flex-start;
+                    align-items: flex-start;
+                    margin-left: 5px;
+                    margin-right: -17px;
+                    margin-top: 15px;
+                    margin-bottom: 15px;
+
+                    p {
+                        justify-content: flex-start;
+                        align-items: flex-start;
+                        font-size: 1.2em;
+                        letter-spacing: 10px;
+                    }
+                }
+                
+            }
+    
+            .text-item {
+                width: 100%;
+                padding: 15px;
+                display: flex;
+                flex-wrap: wrap;
+                flex-direction: row;
+
+                .info {
+                    width: 100%;
+
+                    ul {
+                        width: 100%;
+
+                        li {
+                            display: list-item;
+                        }
+                    }
+
+                    span {
+                        font-size: 1.2em;
+                        font-weight: 900;
+                    }
+                }
+            }
+        }
+    }
+
+    .slick-active.slick-current {
+        .slider-item {
+            .slider-item-content {
+                top: -15px;
+            }
+        }
+    }
+
+    .packet-category {
+        width: 100%;
+        position: relative;
+
+        ul {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: -15px;
+            margin-right: -15px;
+
+            li {
+                width: auto;
+                display: flex;
+                margin: 15px;
+
+                a {
+                    display: flex;
+                    padding: 15px;
+                    color: #303030;
+                    font-weight: 700;
+                    font-size: 14pt;
+                    border-bottom: 2px solid #fff;
+                }
+
+                &:hover,
+                &.active {
+                    a {
+                        color: #00b2a9;
+                        border-bottom: 2px solid #00b2a9;
+                    }
+                }
+            }
+        }
+    }
+}

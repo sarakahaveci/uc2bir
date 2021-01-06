@@ -51,7 +51,7 @@ const SliderFocus = (props) => {
                                         <Text fontWeight="lighter" fontSize="10pt">
                                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum. dolore eu fugiat nulla pariatur.
                                             </Text>
-                                        <ul className="row">
+                                        <ul className="slick-button-group row">
                                             <li><Button text="Meditasyon" /></li>
                                             <li><Button text="Plates" /></li>
                                             <li><Button text="Fitnes" /></li>
@@ -125,6 +125,9 @@ const SliderFocus = (props) => {
                                     slidesToShow={3}
                                     swipeToSlide={true}
                                     focusOnSelect={true}
+                                    autoplay={true}
+                                    autoplaySpeed={7500}
+                                    speed={2000}
                                 >
                                     <div className="slider-item">
                                         <div className="img" style={{ backgroundImage: `url(${efe})` }}>

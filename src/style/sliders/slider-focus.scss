@@ -46,6 +46,15 @@
         flex-wrap: wrap;
         margin-left: 5px;
         margin-right: 5px;
+
+        ul {
+            li {
+                .btn {
+                    font-size: 10pt;
+                    font-weight: 700;
+                }
+            }
+        }
     }
 
     .right {

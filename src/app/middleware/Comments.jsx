@@ -13,7 +13,7 @@ import "slick-carousel/slick/slick-theme.css";
 import avatar from "../../images/avatar/a1.png";
 
 const Comments = (props) => {
-    const slider_settings = {
+    const settings = {
         dots: false,
         infinite: true,
         speed: 2000,
@@ -34,7 +34,7 @@ const Comments = (props) => {
                     Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
                 </Text>
                 <section className="comment-slider">
-                    <SlickSlider>
+                    <SlickSlider {...settings}>
                         <div className="slider-item">
                             <div className="avatar"><div className="img"><img src={avatar}/></div></div>
                             <div className="text">

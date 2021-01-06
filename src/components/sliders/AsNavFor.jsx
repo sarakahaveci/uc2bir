@@ -51,6 +51,9 @@ const AsNavFor = ({ className = "" }) => {
                     slidesToShow={3}
                     swipeToSlide={true}
                     focusOnSelect={true}
+                    autoplay={true}
+                    autoplaySpeed={7500}
+                    speed={2000}
                 >
                     <div className="slider-item-thump">
                         <div className="img" style={{ backgroundImage: `url(${womanThumpImg})` }}></div>
