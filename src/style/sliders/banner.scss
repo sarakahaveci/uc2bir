@@ -30,6 +30,10 @@
                 position: relative;
                 z-index: 0;
             }
+
+            &.have-map {
+                &:before {display: none}
+            }
         }
     }
 }

@@ -8,6 +8,7 @@ import "slick-carousel/slick/slick-theme.css";
 //bunları şimdilik ekliyoruz
 // @ts-ignore
 import s1 from "../../images/banner/slider-item-1.png";
+import GoogleApp from '../../components/google-maps';
 
 function Banner({ className = "", settings, searchBar }) {
     return (
@@ -16,8 +17,10 @@ function Banner({ className = "", settings, searchBar }) {
                 <div className="slider-item" >
                     <div className="img" style={{ backgroundImage: `url(${s1})` }}></div>
                 </div>
-                <div className="slider-item">
-                    <div className="img" style={{ backgroundImage: `url(${s1})` }}></div>
+                <div className="slider-item have-map">
+                    <div className="img">
+                        <GoogleApp frame={{width: "100%", height: "780px"}}/>
+                    </div>
                 </div>
             </SlickSlider>
             {searchBar.status && searchBar.element()}
