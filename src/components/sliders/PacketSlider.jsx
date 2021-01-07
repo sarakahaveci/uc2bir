@@ -11,6 +11,7 @@ import p1 from "../../images/slider/p1.jpg";
 import p2 from "../../images/slider/p2.jpg";
 import Title from '../typography/title';
 import AwesomeIcon from '../../statics/icon';
+import LineButton from '../buttons/line-button';
 
 function PacketSlider(props) {
     let slider;
@@ -155,6 +156,13 @@ function PacketSlider(props) {
                             </div>
                         </div>
                     </SlickSlider>
+                </div>
+            </Container>
+            <Container>
+                <div className="row">
+                    <div style={{marginTop: "45px"}} className="col d-flex justify-content-center">
+                        <LineButton text="Tümünü Gör"/>
+                    </div>
                 </div>
             </Container>
         </div>

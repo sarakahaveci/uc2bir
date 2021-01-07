@@ -23,7 +23,7 @@ const FluidBanner = (props) => {
                     </Text>
                     <br />
                     <br />
-                    <BgSoftButton text="ÜYE OL" />
+                    <BgSoftButton style={{paddingLeft: "70px", paddingRight: "70px"}} text="ÜYE OL" />
                 </Text>
             </Container>
         </NativeFluidBanner>

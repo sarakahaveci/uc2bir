@@ -14,6 +14,7 @@ import IconLabel from '../../components/buttons/icon-label';
 
 import efe from "../../images/slider/04.jpg";
 import hazal from "../../images/slider/05.jpg";
+import LineButton from '../buttons/line-button';
 
 const SliderFocus = (props) => {
     const [nav1, setNav1] = useState(null);
@@ -185,8 +186,8 @@ const SliderFocus = (props) => {
             </div>
             <Container>
                 <div className="row">
-                    <div className="col d-flex justify-content-center">
-                        <Button text="Tümün Gör" blue />
+                    <div style={{marginTop: "-45px"}} className="col d-flex justify-content-center">
+                        <LineButton text="Tümünü Gör"/>
                     </div>
                 </div>
             </Container>

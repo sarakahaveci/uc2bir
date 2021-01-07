@@ -28,7 +28,6 @@ const Home = props => {
     return (
         <Master>
             <Main className="main">
-                <Header />
                 <Root>
                     <Banner/>
                     <Categories/>
@@ -43,7 +42,6 @@ const Home = props => {
                     <Blog/>
                     <Comments/>
                     <FluidBannerBottom/>
-                    <Footer/>
                 </Root>
             </Main>
         </Master>

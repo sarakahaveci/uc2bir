@@ -4,6 +4,47 @@
     &:focus, &:active, &.active {border: none; box-shadow: none; background: inherit; color: inherit}
 }
 
+.btn.btn-line {
+    background: transparent;
+    font-weight: bold;
+    border-radius: 0;
+    color: #00B2A9;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    &:after {
+        display: block;
+        content: "";
+        width: 90px;
+        height: 2px;
+        background: #00B2A9;
+        margin-top: 5px;
+    }
+}
+
+.btn.btn-line.blue {
+    background: transparent;
+    color: #00B2A9;
+
+    &:after {background: #00B2A9}
+}
+
+.btn.btn-line.gray {
+    background: transparent;
+    color: #909090;
+
+    &:after {background: #909090}
+}
+
+.btn.btn-line.dark {
+    background: transparent;
+    color: #181818;
+
+    &:after {background: #181818}
+}
+
 .btn.bg-soft-button {
     background: transparent;
     color: #fff;
