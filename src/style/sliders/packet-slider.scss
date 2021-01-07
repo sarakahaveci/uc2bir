@@ -42,6 +42,10 @@
     .sliders {
         margin-top: 45px;
         height: 610px;
+
+        .slick-slider {
+            height: 610px;
+        }
     }
 
     .slider-item {
@@ -60,7 +64,7 @@
             top: 0px;
 
             &:hover {
-                top: -15px;
+                top: -12px;
                 box-shadow: rgba(0, 178, 169, 0.12) 5px 5px 7px 5px;
             }
 
@@ -81,6 +85,34 @@
                     display: flex;
                     align-items: center;
                     justify-content: center;
+
+                    .points {
+                        display: flex;
+                        position: absolute;
+                        top: 0px;
+                        left: 0px;
+                        padding: 15px;
+                        border-bottom-right-radius: 40px;
+                        background: radial-gradient(rgb(255, 255, 255), rgba(255, 255, 255, 0.53));
+                        opacity: .7;
+
+                        li {
+                            margin: 2px;
+                            cursor: pointer;
+
+                            svg {
+                                color: #ccc;
+                                font-size: 9pt;
+                            }
+
+                            &:hover,
+                            &.active {
+                                svg {
+                                    color: #FFBA00;
+                                }
+                            }
+                        }
+                    }
                 }
 
                 .team {
@@ -95,7 +127,7 @@
                     border-radius: 50px;
                     bottom: -25px;
                     border: 2px solid #fff;
-                    font-size: 1.7em;
+                    font-size: 1.3em;
                     font-weight: bold;
                 }
 
@@ -121,10 +153,16 @@
     
             .text-item {
                 width: 100%;
-                padding: 15px;
+                padding: 15px 30px;
                 display: flex;
                 flex-wrap: wrap;
                 flex-direction: row;
+
+                .typography.title {
+                    justify-content: flex-start;
+                    text-align: left;
+                    align-items: flex-start;
+                }
 
                 .info {
                     width: 100%;
@@ -140,6 +178,8 @@
                     span {
                         font-size: 1.2em;
                         font-weight: 900;
+                        position: relative;
+                        left: 30px;
                     }
                 }
             }
@@ -149,7 +189,7 @@
     .slick-active.slick-current {
         .slider-item {
             .slider-item-content {
-                top: -15px;
+                top: -12px;
                 box-shadow: rgba(0, 178, 169, 0.12) 5px 5px 7px 5px;
             }
         }

@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, {useLayoutEffect, useState} from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 
 import { default as SlickSlider } from "react-slick";
@@ -31,8 +31,8 @@ function PacketSlider(props) {
         <div className={`packet-slider ${props.className}`}>
             <Container>
                 <div className="slick-slider-buttons">
-                    <a className="slick-button next" onClick={() => slider.slickNext()}><AwesomeIcon.Next/></a>
-                    <a className="slick-button prev" onClick={() => slider.slickPrev()}><AwesomeIcon.Prev/></a>
+                    <a className="slick-button next" onClick={() => slider.slickNext()}><AwesomeIcon.Next /></a>
+                    <a className="slick-button prev" onClick={() => slider.slickPrev()}><AwesomeIcon.Prev /></a>
                 </div>
                 <div className="packet-category">
                     <ul>
@@ -48,7 +48,16 @@ function PacketSlider(props) {
                         <div className="slider-item">
                             <div className="slider-item-content">
                                 <div className="img-item">
-                                    <div className="img" style={{ backgroundImage: `url(${p1})` }}><div className="team">A</div></div>
+                                    <div className="img" style={{ backgroundImage: `url(${p1})` }}>
+                                        <div className="team">A</div>
+                                        <ul className="points">
+                                            <li className="active"><AwesomeIcon.StarSolid /></li>
+                                            <li className="active"><AwesomeIcon.StarSolid /></li>
+                                            <li className="active"><AwesomeIcon.StarSolid /></li>
+                                            <li className="active"><AwesomeIcon.StarSolid /></li>
+                                            <li><AwesomeIcon.StarSolid /></li>
+                                        </ul>
+                                    </div>
                                     <div className="info"><Title lineDisable fontWeight="ligher">GELİN PAKETİ</Title></div>
                                 </div>
                                 <div className="text-item">
@@ -70,7 +79,16 @@ function PacketSlider(props) {
                         <div className="slider-item">
                             <div className="slider-item-content">
                                 <div className="img-item">
-                                    <div className="img" style={{ backgroundImage: `url(${p2})` }}><div className="team">C</div></div>
+                                    <div className="img" style={{ backgroundImage: `url(${p2})` }}>
+                                        <div className="team">C</div>
+                                        <ul className="points">
+                                            <li className="active"><AwesomeIcon.StarSolid /></li>
+                                            <li className="active"><AwesomeIcon.StarSolid /></li>
+                                            <li className="active"><AwesomeIcon.StarSolid /></li>
+                                            <li className="active"><AwesomeIcon.StarSolid /></li>
+                                            <li><AwesomeIcon.StarSolid /></li>
+                                        </ul>
+                                    </div>
                                     <div className="info"><Title lineDisable fontWeight="ligher">ZAYIFLAMA PAKETİ</Title></div>
                                 </div>
                                 <div className="text-item">
@@ -92,7 +110,16 @@ function PacketSlider(props) {
                         <div className="slider-item">
                             <div className="slider-item-content">
                                 <div className="img-item">
-                                    <div className="img" style={{ backgroundImage: `url(${p1})` }}><div className="team">B</div></div>
+                                    <div className="img" style={{ backgroundImage: `url(${p1})` }}>
+                                        <div className="team">B</div>
+                                        <ul className="points">
+                                            <li className="active"><AwesomeIcon.StarSolid /></li>
+                                            <li className="active"><AwesomeIcon.StarSolid /></li>
+                                            <li className="active"><AwesomeIcon.StarSolid /></li>
+                                            <li className="active"><AwesomeIcon.StarSolid /></li>
+                                            <li><AwesomeIcon.StarSolid /></li>
+                                        </ul>
+                                    </div>
                                     <div className="info"><Title lineDisable fontWeight="ligher">GELİN PAKETİ</Title></div>
                                 </div>
                                 <div className="text-item">
@@ -114,7 +141,16 @@ function PacketSlider(props) {
                         <div className="slider-item">
                             <div className="slider-item-content">
                                 <div className="img-item">
-                                    <div className="img" style={{ backgroundImage: `url(${p2})` }}><div className="team">E</div></div>
+                                    <div className="img" style={{ backgroundImage: `url(${p2})` }}>
+                                        <div className="team">E</div>
+                                        <ul className="points">
+                                            <li className="active"><AwesomeIcon.StarSolid /></li>
+                                            <li className="active"><AwesomeIcon.StarSolid /></li>
+                                            <li className="active"><AwesomeIcon.StarSolid /></li>
+                                            <li className="active"><AwesomeIcon.StarSolid /></li>
+                                            <li><AwesomeIcon.StarSolid /></li>
+                                        </ul>
+                                    </div>
                                     <div className="info"><Title lineDisable fontWeight="ligher">GELİN PAKETİ</Title></div>
                                 </div>
                                 <div className="text-item">
@@ -136,7 +172,16 @@ function PacketSlider(props) {
                         <div className="slider-item">
                             <div className="slider-item-content">
                                 <div className="img-item">
-                                    <div className="img" style={{ backgroundImage: `url(${p1})` }}><div className="team">G</div></div>
+                                    <div className="img" style={{ backgroundImage: `url(${p1})` }}>
+                                        <div className="team">G</div>
+                                        <ul className="points">
+                                            <li className="active"><AwesomeIcon.StarSolid /></li>
+                                            <li className="active"><AwesomeIcon.StarSolid /></li>
+                                            <li className="active"><AwesomeIcon.StarSolid /></li>
+                                            <li className="active"><AwesomeIcon.StarSolid /></li>
+                                            <li><AwesomeIcon.StarSolid /></li>
+                                        </ul>
+                                    </div>
                                     <div className="info"><Title lineDisable fontWeight="ligher">KAS YAPMA PAKETİ</Title></div>
                                 </div>
                                 <div className="text-item">
@@ -160,8 +205,8 @@ function PacketSlider(props) {
             </Container>
             <Container>
                 <div className="row">
-                    <div style={{marginTop: "45px"}} className="col d-flex justify-content-center">
-                        <LineButton text="Tümünü Gör"/>
+                    <div style={{ marginTop: "45px" }} className="col d-flex justify-content-center">
+                        <LineButton text="Tümünü Gör" />
                     </div>
                 </div>
             </Container>
