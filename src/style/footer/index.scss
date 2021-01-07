@@ -6,6 +6,7 @@
 
     pre {
         font-family: 'Poppins', sans-serif;
+        font-weight: 300;
     }
 
     .footer-line {
@@ -43,6 +44,47 @@
             width: 100%;
             flex: 1 1 100%;
             display: flex;
+
+            a {
+                flex: 1 1 100%;
+                padding: 0;
+                background: inherit;
+                color: inherit;
+                border: none;
+                height: auto;
+            }
+
+            &:hover {
+                a {
+                    background: inherit;
+                    color: inherit;
+                }
+            }
+        }
+    }
+
+    .download-row {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        margin-top: 3px;
+        margin-bottom: 3px;
+    }
+
+    ul.download-row {
+        max-width: 289px;
+        min-height: 50px;
+        display: flex;
+        flex-direction: row;
+
+        li {
+            width: 100%;
+            flex: 1 1 100%;
+            display: flex;
+            height: 50px;
 
             a {
                 flex: 1 1 100%;

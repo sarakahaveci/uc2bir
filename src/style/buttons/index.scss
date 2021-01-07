@@ -120,6 +120,47 @@
     }
 }
 
+.btn.perspective-button {
+    background: transparent;
+    position: relative;
+    color: #fff;
+    padding: 15px 30px;
+
+    &::after{
+        top: 0;
+        left: 0;
+        z-index: -1;
+        display: block;
+        content: "";
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background: #00B2A9;
+        transform: matrix(1, 0, -0.4, 1, 0, 0);
+    }
+}
+
+.btn.perspective-button.blue {
+    background: transparent;
+    color: #fff;
+
+    &:after {background: #00B2A9}
+}
+
+.btn.perspective-button.gray {
+    background: transparent;
+    color: #fff;
+
+    &:after {background: #909090}
+}
+
+.btn.perspective-button.dark {
+    background: transparent;
+    color: #fff;
+
+    &:after {background: #181818}
+}
+
 .btn:not(:disabled):not(.disabled).active, .btn:not(:disabled):not(.disabled):active, .show>.btn.dropdown-toggle {
     color: initial;
     background-color: initial;

@@ -8,7 +8,7 @@ import IconLabel from './buttons/icon-label';
 import Title from './typography/title';
 
 // @ts-ignore
-import download from '../statics/background/images/download.png';
+import downloadRow from '../statics/background/images/download-row.png';
 
 const Footer = () => {
     return (
@@ -80,8 +80,8 @@ const Footer = () => {
             <div className="footer-line"></div>
             <div className="footer-and">
                 <pre>©2020 321. All Rights Reserved</pre>
-                <div className="download">
-                    <ul className="download" style={{ backgroundImage: `url(${download})` }}>
+                <div className="download-row">
+                    <ul className="download-row" style={{ backgroundImage: `url(${downloadRow})` }}>
                         <li><a href="#"></a></li>
                         <li><a href="#"></a></li>
                     </ul>
