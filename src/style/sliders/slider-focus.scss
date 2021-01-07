@@ -132,6 +132,18 @@
                                 }
                             }
                         }
+
+                        &:hover {
+                            li {
+                                svg {
+                                    color: #ccc;
+
+                                    &:hover {
+                                        color: #FFBA00;
+                                    }
+                                }
+                            }
+                        }
                     }
 
                     /*&.item-two {

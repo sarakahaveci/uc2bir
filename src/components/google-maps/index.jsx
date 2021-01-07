@@ -8,6 +8,7 @@ import {
     Marker,
 } from "react-google-maps";
 import { MarkerClusterer } from "react-google-maps/lib/components/addons/MarkerClusterer";
+import avatar from "../../images/avatar/avatar.png";
 
 const MapWithAMarkerClusterer = compose(
     withProps({
@@ -38,6 +39,7 @@ const MapWithAMarkerClusterer = compose(
         >
             {props.markers.map(marker => (
                 <Marker
+                	icon={avatar}
                     key={marker.photo_id}
                     position={{ lat: marker.latitude, lng: marker.longitude }}
                 />
@@ -51,6 +53,7 @@ class GoogleApp extends React.PureComponent {
         this.setState({ markers: [] })
     }
 
+    //https://gist.githubusercontent.com/farrrr/dfda7dd7fccfec5474d3/raw/758852bbc1979f6c4522ab4e92d1c92cba8fb0dc/data.json
     componentDidMount() {
         const url = [
             // Length issue
