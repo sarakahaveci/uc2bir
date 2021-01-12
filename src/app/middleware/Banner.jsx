@@ -19,7 +19,7 @@ function Banner({ className = "", settings, searchBar }) {
                 </div>
                 <div className="slider-item have-map">
                     <div className="img">
-                        <GoogleApp frame={{width: "100%", height: "780px"}}/>
+                        {/*<GoogleApp frame={{width: "100%", height: "780px"}}/>*/}
                     </div>
                 </div>
             </SlickSlider>
