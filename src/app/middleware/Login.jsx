@@ -18,6 +18,7 @@ import { login } from '../../redux/reducers/login';
 import FormData from 'form-data';
 import { initialState } from '../../redux/reducers/login/initial';
 
+import { ToastContainer, toast } from 'react-toastify';
 import { navigate } from "gatsby";
 
 const Login = (props) => {
@@ -35,13 +36,36 @@ const Login = (props) => {
                 sessionStorage.setItem("refresh_token", lg.entity.refresh_token);
                 sessionStorage.setItem("user_id", lg.entity.user.id);
             }
-            if (lg.entity.token) {
-                resolve(sessionAdd());
-            } else {
-                reject(console.log("Hatalı Giriş"));
+            if ( lg.isSuccess ) {
+                if ( lg.entity.token ) {
+                    sessionAdd();
+                    resolve("Giriş Başarılı!");
+                } else {
+                    reject("Hatalı Giriş!");
+                }
             }
         });
-        session.then(data => navigate("/"));
+        
+        session
+            .then(data => toast.success(data, {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            }))
+            .then(data => navigate("/"))
+            .catch(err => toast.error(err, {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            }));
     }, [lg]);
 
     return (
