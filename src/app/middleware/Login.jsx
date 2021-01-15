@@ -18,7 +18,7 @@ import { login } from '../../redux/reducers/login';
 import FormData from 'form-data';
 import { initialState } from '../../redux/reducers/login/initial';
 
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { navigate } from "gatsby";
 
 const Login = (props) => {
@@ -49,17 +49,28 @@ const Login = (props) => {
         session
             .then(data => toast.success(data, {
                 position: "bottom-right",
-                autoClose: 5000,
+                autoClose: 2000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
             }))
-            .then(data => navigate("/"))
+            .then(data => setTimeout(() => {
+                toast.info("Lütfen Bekleyiniz! Yönlendiriliyorsunuz...", {
+                    position: "bottom-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                })
+            }, 1000))
+            .then(data => setTimeout(() => navigate("/"), 3050))
             .catch(err => toast.error(err, {
                 position: "bottom-right",
-                autoClose: 5000,
+                autoClose: 2000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -89,15 +100,20 @@ const Login = (props) => {
                                         <div className="col-auto"><Material.CheckBox label="Beni Hatırla" /></div>
                                         <div className="col-auto remember-password"><a href="#">Şifremi Unuttum</a></div>
                                     </div>
-                                    <Button onClick={async () => {
-                                        const result = await login(data);
-                                        setLg({
-                                            ...initialState,
-                                            loading: false,
-                                            isSuccess: true,
-                                            entity: result.payload,
-                                        });
-                                    }} text={`${!loginReducers.loading ? "Giriş Yap" : "Yükleniyor..." }`} blue/>
+                                    {!loginReducers.loading ? 
+                                        <Button onClick={async () => {
+                                            const result = await login(data);
+                                            setLg({
+                                                ...initialState,
+                                                loading: false,
+                                                isSuccess: true,
+                                                entity: result.payload,
+                                            });
+                                        }} text={`Giriş Yap`} blue/> :
+                                        <Button onClick={async () => {
+                                            console.log("Lütfen Bekleyiniz...")
+                                        }} text={`Yükleniyor...`} blue/>
+                                    }
                                     <Text style={{ marginTop: 30, marginBottom: 10 }} fontSize="12pt" gray textAlign="center">
                                         Hesabınız yok mu? <a href="#">Üye ol</a>
                                     </Text>

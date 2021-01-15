@@ -11,6 +11,7 @@ import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
 
 import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 /**
  * @param {{ children: void; }} props
@@ -30,13 +31,7 @@ const Master = props => {
             <Header />
             {props.children}
             <Footer />
-            <ToastContainer
-                toastClassName={({ type }) => toastContextClass[type || "default"] +
-                    " flex p-1 min-h-10 rounded-md justify-between overflow-hidden cursor-pointer"
-                }
-                bodyClassName={() => "text-sm font-white font-med block p-3"}
-                position="bottom-left"
-                autoClose={3000} />
+            <ToastContainer autoClose={2000} />
         </>
     )
 };
