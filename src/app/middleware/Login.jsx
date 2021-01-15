@@ -36,6 +36,11 @@ const Login = (props) => {
                 sessionStorage.setItem("refresh_token", lg.entity.refresh_token);
                 sessionStorage.setItem("user_id", lg.entity.user.id);
             }
+            const localAdd = () => {
+                localStorage.setItem("token", lg.entity.token);
+                localStorage.setItem("refresh_token", lg.entity.refresh_token);
+                localStorage.setItem("user_id", lg.entity.user.id);
+            }
             if ( lg.isSuccess ) {
                 if ( lg.entity.token ) {
                     sessionAdd();
@@ -56,7 +61,7 @@ const Login = (props) => {
                 draggable: true,
                 progress: undefined,
             }))
-            .then(data => setTimeout(() => {
+            .then(() => setTimeout(() => {
                 toast.info("Lütfen Bekleyiniz! Yönlendiriliyorsunuz...", {
                     position: "bottom-right",
                     autoClose: 2000,
@@ -67,7 +72,7 @@ const Login = (props) => {
                     progress: undefined,
                 })
             }, 1000))
-            .then(data => setTimeout(() => navigate("/"), 3050))
+            .then(() => setTimeout(() => navigate("/"), 3050))
             .catch(err => toast.error(err, {
                 position: "bottom-right",
                 autoClose: 2000,

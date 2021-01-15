@@ -12,7 +12,7 @@ import avatar from "../../images/avatar/avatar.png";
 
 const MapWithAMarkerClusterer = compose(
     withProps({
-        googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyAvw9khV9waiQA416RrEqMFw8h4X2QwkLs&v=3.exp&libraries=geometry,drawing,places",
+        googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyArKuphrY7IUV6DURrwRRyWU3h7SeC_ngc",
         loadingElement: <div style={{ height: `100%` }} />,
         containerElement: <div style={{ height: `780px` }} />,
         mapElement: <div style={{ height: `100%` }} />,
