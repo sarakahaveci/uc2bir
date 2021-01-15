@@ -8,7 +8,8 @@ const Banner = () => {
         infinite: true,
         slidesToShow: 1,
         slidesToScroll: 1,
-        pauseOnHover: true
+        pauseOnHover: true,
+        lazyLoad: true,
     };
 
     const search_bar = {

@@ -6,7 +6,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
-const CheckBox = ({className="", position="left", variant="primary", label}) => {
+const CheckBox = ({className="", position="left", variant="primary", label, checked=false, onChange=() => {}}) => {
     return (
         <>
             <FormControl className="materials" component="fieldset">
@@ -14,7 +14,7 @@ const CheckBox = ({className="", position="left", variant="primary", label}) => 
                     <FormControlLabel
                         className={`material-check-box ${className}`}
                         value={position}
-                        control={<MaterialCheckbox color={variant} />}
+                        control={<MaterialCheckbox color={variant} checked={checked} onChange={onChange} />}
                         label={label}
                     />
                 </FormGroup>

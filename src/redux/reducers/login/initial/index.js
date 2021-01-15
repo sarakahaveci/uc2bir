@@ -1,26 +1,26 @@
-export const macro = {
-    email: {
-        type: "text",
+export const macro = [
+    {
+        type: "email",
         required: true,
         name: "email",
         forHtml: "email",
-        text: "E Mail"
+        text: "E mail veya Telefon"
     },
-    password: {
+    {
         type: "password",
         required: true,
         name: "password",
         forHtml: "password",
         text: "Şifre"
     },
-    remember_me: {
+    {
         type: "checkbox",
         required: false,
         name: "remember_me",
         forHtml: "remember_me",
         text: "Beni Hatırla"
     }
-}
+]
 
 export const model = {
     token: false,

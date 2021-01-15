@@ -16,18 +16,34 @@ import { bindActionCreators } from "redux";
 import { login } from '../../redux/reducers/login';
 
 import FormData from 'form-data';
-import { initialState } from '../../redux/reducers/login/initial';
+import { initialState, macro } from '../../redux/reducers/login/initial';
 
 import { toast } from 'react-toastify';
 import { navigate } from "gatsby";
 
 const Login = (props) => {
     const { login, loginReducers } = props;
-    const [lg, setLg] = useState({...initialState});
+    const [lg, setLg] = useState({ ...initialState });
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [rememberMe, setRememberMe] = useState(false);
+
+    const onSubmit = async (event) => {
+        event.preventDefault();
+        const result = await login(data);
+        setLg({
+            ...initialState,
+            loading: false,
+            isSuccess: true,
+            entity: result.payload,
+        });
+    }
+
     const data = new FormData();
 
-    data.append('email', 'omer_dogan@outlook.com');
-    data.append('password', '123456');
+    data.append('email', email);
+    data.append('password', password);
 
     useEffect(() => {
         const session = new Promise((resolve, reject) => {
@@ -41,16 +57,20 @@ const Login = (props) => {
                 localStorage.setItem("refresh_token", lg.entity.refresh_token);
                 localStorage.setItem("user_id", lg.entity.user.id);
             }
-            if ( lg.isSuccess ) {
-                if ( lg.entity.token ) {
-                    sessionAdd();
+            if (lg.isSuccess) {
+                if (lg.entity.token) {
+                    if (!rememberMe)
+                        sessionAdd();
+                    else
+                        localAdd();
+
                     resolve("Giriş Başarılı!");
                 } else {
                     reject("Hatalı Giriş!");
                 }
             }
         });
-        
+
         session
             .then(data => toast.success(data, {
                 position: "bottom-right",
@@ -99,29 +119,24 @@ const Login = (props) => {
                                     <Text style={{ marginBottom: 10 }} fontFamily="'Bebas Neue', cursive" fontSize="2em" children="HER AN HER YERDE İSTEDİĞİN GİBİ ANTRENMAN YAP" softDark />
                                     <Text style={{ marginBottom: 40 }} fontFamily="'Montserrat', sans-serif" fontSize="10pt" children="Hedeflerine uygun antrenman planları ile İçindeki atleti özgür bırak" />
                                     <Title fontWeight="normal" style={{ marginBottom: 30 }} className="material-title" variant="h6" component="h6" children="Giriş Yap" dark lineDisable textLeft />
-                                    <Material.TextField id="login-email" name="login-email" label="E mail veya Telefon" type="text" icon={AwesomeIcon.At} />
-                                    <Material.TextField id="login-password" name="login-password" label="Şifre" type="password" icon={AwesomeIcon.Lock} />
-                                    <div style={{ paddingTop: "15px", paddingBottom: "0px" }} className="row justify-content-between">
-                                        <div className="col-auto"><Material.CheckBox label="Beni Hatırla" /></div>
-                                        <div className="col-auto remember-password"><a href="#">Şifremi Unuttum</a></div>
-                                    </div>
-                                    {!loginReducers.loading ? 
-                                        <Button onClick={async () => {
-                                            const result = await login(data);
-                                            setLg({
-                                                ...initialState,
-                                                loading: false,
-                                                isSuccess: true,
-                                                entity: result.payload,
-                                            });
-                                        }} text={`Giriş Yap`} blue/> :
-                                        <Button onClick={async () => {
-                                            console.log("Lütfen Bekleyiniz...")
-                                        }} text={`Yükleniyor...`} blue/>
-                                    }
-                                    <Text style={{ marginTop: 30, marginBottom: 10 }} fontSize="12pt" gray textAlign="center">
-                                        Hesabınız yok mu? <a href="#">Üye ol</a>
-                                    </Text>
+
+                                    <form onSubmit={onSubmit}>
+                                        <Material.TextField required onChange={(e) => setEmail(e.target.value)} id="login-email" name="login-email" label="E mail veya Telefon" type="text" icon={AwesomeIcon.At} />
+                                        <Material.TextField required onChange={(e) => setPassword(e.target.value)} id="login-password" name="login-password" label="Şifre" type="password" icon={AwesomeIcon.Lock} />
+                                        <div style={{ paddingTop: "15px", paddingBottom: "0px" }} className="row justify-content-between">
+                                            <div className="col-auto"><Material.CheckBox checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} label="Beni Hatırla" /></div>
+                                            <div className="col-auto remember-password"><a href="#">Şifremi Unuttum</a></div>
+                                        </div>
+                                        {!loginReducers.loading ?
+                                            <Button type="submit" text={`Giriş Yap`} blue /> :
+                                            <Button onClick={async () => {
+                                                console.log("Lütfen Bekleyiniz...")
+                                            }} text={`Yükleniyor...`} blue />
+                                        }
+                                        <Text style={{ marginTop: 30, marginBottom: 10 }} fontSize="12pt" gray textAlign="center">
+                                            Hesabınız yok mu? <a href="#">Üye ol</a>
+                                        </Text>
+                                    </form>
                                     <div className="identfy">
                                         <span>Veya</span>
                                     </div>
