@@ -8,15 +8,9 @@ export const login = data => async dispatch => {
     });
     try {
         const payload = await loginServices.GETTOKEN(data);
-
-        const { response } = payload;
-        sessionStorage.setItem("token", response.token);
-        sessionStorage.setItem("refresh_token", response.refresh_token);
-        sessionStorage.setItem("user_id", response.user.id);
-
         return dispatch({
             type: TYPES.FETCH_SUCCESS,
-            payload: payload.data
+            payload: payload.data.data
         });
     } catch(err) {
         return dispatch({

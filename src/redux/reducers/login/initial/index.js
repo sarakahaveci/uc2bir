@@ -23,8 +23,8 @@ export const macro = {
 }
 
 export const model = {
-    token: 0,
-    refresh_token: 0,
+    token: false,
+    refresh_token: false,
     user: {},
 }
 

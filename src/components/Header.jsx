@@ -9,7 +9,11 @@ import IconButtonLabel from './buttons/icon-button-label';
 import IconLabel from './buttons/icon-label';
 import Button from './buttons/button';
 
-const Header = () => {
+import { connect } from "react-redux";
+
+import { Link } from "gatsby";
+
+const Header = ({loginReducers}) => {
     const nav_logo = {
         status: true,
         className: "logo",
@@ -56,10 +60,10 @@ const Header = () => {
                             </div>
                             <div className="bar-item right-bar">
                                 <ul>
-                                    <li><a href="#">Giriş Yap</a></li>
+                                    {!loginReducers.entity.token ? <li><Link to="login">Giriş Yap</Link></li> : <li><Link to="profile">{loginReducers.entity.user.name}</Link></li>}
                                     <li className="line"><span></span></li>
-                                    <li><a href="#">Üye Ol</a></li>
-                                    <li><Button className="" text="Profosyonel" dark/></li>
+                                    {!loginReducers.entity.token ? <li><a href="#">Üye Ol</a></li> : <li><Link to="profile">{loginReducers.entity.user.email}</Link></li>}
+                                    {!loginReducers.entity.token && <li><Button className="" text="Profosyonel" dark/></li>}
                                 </ul>
                             </div>
                         </Row>
@@ -78,4 +82,6 @@ const Header = () => {
     );
 };
 
-export default Header;
+const mapStateToProps = ({ loginReducers }) => ({ loginReducers });
+
+export default connect(mapStateToProps)(Header);

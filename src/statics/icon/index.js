@@ -7,6 +7,7 @@ import {
     faInstagram,
     faWhatsapp,
     faLinkedin,
+    faGoogle,
     
  } from '@fortawesome/free-brands-svg-icons';
 
@@ -34,6 +35,8 @@ import {
      faArrowAltCircleRight,
      faAngleRight,
      faAngleLeft,
+     faAt,
+     faLock,
 } from '@fortawesome/free-solid-svg-icons';
 import { icon } from '@fortawesome/fontawesome-svg-core';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
@@ -41,6 +44,7 @@ import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
 
 const AwesomeIcon = {
     Facebook: props => <FontAwesomeIcon icon={faFacebookF} {...props}/>,
+    Google: props => <FontAwesomeIcon icon={faGoogle} {...props}/>,
     Twitter: props => <FontAwesomeIcon icon={faTwitter} {...props}/>,
     Youtube: props => <FontAwesomeIcon icon={faYoutube} {...props}/>,
     Instagram: props => <FontAwesomeIcon icon={faInstagram} {...props}/>,
@@ -65,6 +69,8 @@ const AwesomeIcon = {
     StarSolid: props => <FontAwesomeIcon icon={faStarSolid} {...props}/>,
     Next: props => <FontAwesomeIcon icon={faAngleRight} {...props}/>,
     Prev: props => <FontAwesomeIcon icon={faAngleLeft} {...props}/>,
+    At: props => <FontAwesomeIcon icon={faAt} {...props}/>,
+    Lock: props => <FontAwesomeIcon icon={faLock} {...props}/>,
 }
 
 export default AwesomeIcon;

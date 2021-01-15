@@ -21,26 +21,34 @@ import Comments from '../../middleware/Comments';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { login } from '../../../redux/reducers/login';
+import { get } from '../../../redux/reducers/json-placeholder';
 
 import FormData from 'form-data';
+import { initialState as jpInitial } from '../../../redux/reducers/json-placeholder/initial';
+import { initialState as lgInitial } from '../../../redux/reducers/login/initial';
 
 /**
  * @param {{ children: React.ReactNode; }} props
  */
 const Home = props => {
-    const { loginReducers, login } = props;
+    const { loginReducers, login, get, jsonplaceholder } = props;
+
+    const [lg, setLg] = useState(lgInitial);
+
     const data = new FormData();
 
     data.append('email', 'omer_dogan@outlook.com');
     data.append('password', '123456');
 
     useEffect(() => {
-        login(data);
-    }, []);
+        const getS = async () => {
+            const result = await login(data);
+            return setLg(result);
+        };
+    },[]);
 
     return (
         <Master>
-            {loginReducers.isSuccess && !loginReducers.loading && loginReducers.error && alert(loginReducers.error)}
             <Main className="main">
                 <Root>
                     <Banner/>
@@ -65,10 +73,10 @@ const Home = props => {
 const mapDispatchToProps = dispatch => {
     return {
       dispatch,
-      ...bindActionCreators({ login }, dispatch),
+      ...bindActionCreators({ login, get }, dispatch),
     }
 }
   
-const mapStateToProps = ({ loginReducers }) => ({ loginReducers })
+const mapStateToProps = ({ loginReducers, jsonplaceholder }) => ({ loginReducers, jsonplaceholder })
   
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

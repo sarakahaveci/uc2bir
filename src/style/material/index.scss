@@ -1,0 +1,71 @@
+.materials {
+    width: 100%;
+    position: relative;
+
+    .material-inputs-icon {
+        position: absolute;
+        top: 22px;
+        left: 0;
+        color: #909090;
+        z-index: 100;
+    }
+
+    .material-inputs {
+        width: 100%;
+        position: relative;
+
+        .MuiInputLabel-formControl {
+            font-weight: 800;
+            font-size: 9pt;
+            color: #909090;
+        }
+
+        &.has-icon .MuiInputLabel-formControl {
+            padding-left: 30px;
+        }
+
+        &.has-icon .MuiInputBase-input {
+            padding-left: 30px;
+        }
+
+        textarea,
+        select[multiple],
+        input[type=date],
+        input[type=datetime],
+        input[type=datetime-local],
+        input[type=email],
+        input[type=month],
+        input[type=number],
+        input[type=password],
+        input[type=search],
+        input[type=tel],
+        input[type=text],
+        input[type=time],
+        input[type=url],
+        input[type=week] {
+            width: 100%;
+            background: none;
+            border: none;
+            border-color: none;
+            color: inherit;
+            margin: 0;
+            padding-top: 0px;
+            padding-left: 0px;
+            padding-right: 0px;
+            font-family: 'Poppins', sans-serif;
+        }
+    }
+
+    .material-check-box {
+        .MuiTypography-body1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 11pt;
+            color: #909090;
+        }
+
+        svg {
+            font-size: 14pt;
+            margin-right: -5px;
+        }
+    }
+}

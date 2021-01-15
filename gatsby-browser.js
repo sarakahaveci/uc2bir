@@ -1,2 +1,5 @@
-import wrapWithProvider from "./provider"
-export const wrapRootElement = wrapWithProvider
+import wrapWithProvider from "./provider";
+export const onInitialClientRender = () => {
+    
+};
+export const wrapRootElement = wrapWithProvider;

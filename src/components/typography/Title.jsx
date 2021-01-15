@@ -12,14 +12,7 @@ const Title = ({white=false, dark=false, gray=false, blue=false, className="", v
     },[color]);
 
     return (
-        <Typography className={`
-            typography 
-            title 
-            ${fontWeight}
-            ${className}
-            ${lineDisable ? "" : "line"}
-            ${!textLeft ? "" : "text-left"}
-            ${!textRight ? "" : "text-right"}`}
+        <Typography className={`typography title ${fontWeight} ${className} ${lineDisable ? "" : "line"} ${!textLeft ? "" : "text-left"} ${!textRight ? "" : "text-right"}`}
             variant={variant}
             component={component}
             gutterBottom
