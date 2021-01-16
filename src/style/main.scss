@@ -4,6 +4,16 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
+#pt-point-page {
+    position: relative;
+    right: 0;
+    transition: right .5s ease;
+
+    &.open-hamburger-menu {
+        right: -70%;
+    }
+}
+
 .app-root {
     /*padding-top: 130px;*/
     width: 100%;

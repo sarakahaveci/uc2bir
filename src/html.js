@@ -6,6 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import LoaderSVG from './images/2.gif';
+
 export default function HTML({
   htmlAttributes,
   headComponents,
@@ -19,15 +21,37 @@ export default function HTML({
       <head>
         <meta charSet="utf-8" />
         <meta httpEquiv="x-ua-compatible" content="ie=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <link rel="preconnect" href="https://fonts.gstatic.com"/>
-        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
         {headComponents}
       </head>
       <body {...bodyAttributes}>
         {preBodyComponents}
-        <div key={`loader`} id="___loader"/>
-        <div key="body" id="___gatsby" dangerouslySetInnerHTML={{ __html: body }}/>
+        <div
+          key={`loader`}
+          id="___loader"
+          style={{
+            alignItems: "center",
+            backgroundColor: "#fff",
+            display: "flex",
+            justifyContent: "center",
+            position: "fixed",
+            left: 0,
+            top: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 100000,
+          }}
+        >
+          <img
+            src={LoaderSVG}
+            alt="loading spinner"
+            width="160"
+            height="20"
+          />
+        </div>
+        <div key="body" id="___gatsby" dangerouslySetInnerHTML={{ __html: body }} />
         {postBodyComponents}
       </body>
     </html>

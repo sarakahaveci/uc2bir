@@ -16,7 +16,7 @@ import { Link } from "gatsby";
 const Header = ({loginReducers}) => {
     const nav_logo = {
         status: true,
-        className: "logo",
+        className: "col logo",
         element: () => logo
     }
 

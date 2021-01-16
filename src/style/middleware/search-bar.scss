@@ -4,6 +4,14 @@
     bottom: 15px;
     width: 70%;
 
+    @media (max-width: 1366px) {
+        width: 95%;
+    }
+
+    @media (max-width: 768px) {
+        display: none;
+    }
+
     .search-container {
         height: 120px;
         width: 100%;

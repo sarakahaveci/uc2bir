@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { Material } from '../../components/inputs/material';
 
@@ -22,6 +22,25 @@ import { toast } from 'react-toastify';
 import { navigate } from "gatsby";
 
 const Login = (props) => {
+    const [windowSize, setWindowSize] = useState(false);
+    useLayoutEffect(() => {
+        window.addEventListener('resize', () => setWindowSize(window.innerWidth));
+        const page = window.innerWidth;
+        if (!windowSize) {
+            setWindowSize(page);
+        }
+        const container = document.querySelector(".login-widget").offsetWidth;
+        const col = document.querySelector(".login-page-widget").offsetWidth;
+        const el = document.querySelector(".login-fluid-img");
+
+        if ( windowSize > 1200 ) {
+            const size = ((windowSize - container) / 2) + col;
+            el.style.width = `${size}px`;
+        } else {
+            el.style.width = "100%";
+        }
+    },[windowSize]);
+
     const { login, loginReducers } = props;
     const [lg, setLg] = useState({ ...initialState });
 
@@ -106,12 +125,12 @@ const Login = (props) => {
 
     return (
         <section className="login">
-            <Container>
+            <Container className="login-widget">
                 <div className="row justify-content-end">
-                    <div className="fluid-img">
+                    <div className="fluid-img login-fluid-img">
                         <div className="img" style={{ backgroundImage: `url(${background})` }}></div>
                     </div>
-                    <section className="col-lg-6 page">
+                    <section className="col-12 col-xl-6 page login-page-widget">
                         <div className="row">
                             <div className="page-content">
                                 <div className="contain">
@@ -121,9 +140,9 @@ const Login = (props) => {
                                     <Title fontWeight="normal" style={{ marginBottom: 30 }} className="material-title" variant="h6" component="h6" children="Giriş Yap" dark lineDisable textLeft />
 
                                     <form onSubmit={onSubmit}>
-                                        <Material.TextField required onChange={(e) => setEmail(e.target.value)} id="login-email" name="login-email" label="E mail veya Telefon" type="text" icon={AwesomeIcon.At} />
+                                        <Material.TextField required onChange={(e) => setEmail(e.target.value)} id="login-email" name="login-email" label="E mail veya Telefon" type="email" icon={AwesomeIcon.At} />
                                         <Material.TextField required onChange={(e) => setPassword(e.target.value)} id="login-password" name="login-password" label="Şifre" type="password" icon={AwesomeIcon.Lock} />
-                                        <div style={{ paddingTop: "15px", paddingBottom: "0px" }} className="row justify-content-between">
+                                        <div style={{ paddingTop: "15px", paddingBottom: "0px", flexWrap: "nowrap" }} className="row justify-content-between">
                                             <div className="col-auto"><Material.CheckBox checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} label="Beni Hatırla" /></div>
                                             <div className="col-auto remember-password"><a href="#">Şifremi Unuttum</a></div>
                                         </div>
@@ -140,7 +159,7 @@ const Login = (props) => {
                                     <div className="identfy">
                                         <span>Veya</span>
                                     </div>
-                                    <div style={{ height: 45 }} className="row">
+                                    <div className="d-flex login-footer-start">
                                         <div className="col"><IconButtonLabel style={{ fontSize: "9pt", height: 45 }} icon={AwesomeIcon.Google} text="Google il giriş yap" dark /></div>
                                         <div className="col"><IconButtonLabel style={{ fontSize: "9pt", height: 45 }} icon={AwesomeIcon.Facebook} text="Facebook il giriş yap" dark /></div>
                                     </div>

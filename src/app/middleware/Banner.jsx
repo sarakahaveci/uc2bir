@@ -7,7 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 //bunları şimdilik ekliyoruz
 // @ts-ignore
-import s1 from "../../images/banner/slider-item-1.png";
+import s1 from "../../images/banner/download.jpg";
 import GoogleApp from '../../components/google-maps';
 
 function Banner({ className = "", settings, searchBar }) {

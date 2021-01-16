@@ -36,7 +36,70 @@ const SliderFocus = (props) => {
                 </div>
                 <Container>
                     <div className="row">
-                        <div className="col-4 left">
+                        <div className="col-xl-8 order-xl-2 right">
+                            <div className="item-right">
+                                <SlickSlider
+                                    asNavFor={nav1}
+                                    ref={slider => (slider2 = slider)}
+                                    slidesToShow={3}
+                                    swipeToSlide={true}
+                                    focusOnSelect={true}
+                                    autoplay={true}
+                                    autoplaySpeed={7500}
+                                    speed={2000}
+                                >
+                                    <div className="slider-item">
+                                        <div className="img" style={{ backgroundImage: `url(${efe})` }}>
+                                            <ul className="points">
+                                                <li className="active"><AwesomeIcon.StarSolid /></li>
+                                                <li className="active"><AwesomeIcon.StarSolid /></li>
+                                                <li className="active"><AwesomeIcon.StarSolid /></li>
+                                                <li><AwesomeIcon.StarSolid /></li>
+                                                <li><AwesomeIcon.StarSolid /></li>
+                                            </ul>
+                                            <div className="team">A</div>
+                                        </div>
+                                    </div>
+                                    <div className="slider-item">
+                                        <div className="img item-two" style={{ backgroundImage: `url(${hazal})` }}>
+                                            <ul className="points">
+                                                <li className="active"><AwesomeIcon.StarSolid /></li>
+                                                <li className="active"><AwesomeIcon.StarSolid /></li>
+                                                <li className="active"><AwesomeIcon.StarSolid /></li>
+                                                <li className="active"><AwesomeIcon.StarSolid /></li>
+                                                <li className="active"><AwesomeIcon.StarSolid /></li>
+                                            </ul>
+                                            <div className="team">C</div>
+                                        </div>
+                                    </div>
+                                    <div className="slider-item">
+                                        <div className="img item-three" style={{ backgroundImage: `url(${efe})` }}>
+                                            <ul className="points">
+                                                <li className="active"><AwesomeIcon.StarSolid /></li>
+                                                <li className="active"><AwesomeIcon.StarSolid /></li>
+                                                <li><AwesomeIcon.StarSolid /></li>
+                                                <li><AwesomeIcon.StarSolid /></li>
+                                                <li><AwesomeIcon.StarSolid /></li>
+                                            </ul>
+                                            <div className="team">A</div>
+                                        </div>
+                                    </div>
+                                    <div className="slider-item">
+                                        <div className="img item-three" style={{ backgroundImage: `url(${hazal})` }}>
+                                            <ul className="points">
+                                                <li className="active"><AwesomeIcon.StarSolid /></li>
+                                                <li><AwesomeIcon.StarSolid /></li>
+                                                <li><AwesomeIcon.StarSolid /></li>
+                                                <li><AwesomeIcon.StarSolid /></li>
+                                                <li><AwesomeIcon.StarSolid /></li>
+                                            </ul>
+                                            <div className="team">D</div>
+                                        </div>
+                                    </div>
+                                </SlickSlider>
+                            </div>
+                        </div>
+                        <div className="col-xl-4 order-xl-1 left">
                             <div className="slick-slider-buttons">
                                 <a className="slick-button prev" onClick={() => slider1.slickPrev()}><AwesomeIcon.Prev/></a>
                             </div>
@@ -118,69 +181,7 @@ const SliderFocus = (props) => {
                                 </div>
                             </SlickSlider>
                         </div>
-                        <div className="col right">
-                            <div className="item-right">
-                                <SlickSlider
-                                    asNavFor={nav1}
-                                    ref={slider => (slider2 = slider)}
-                                    slidesToShow={3}
-                                    swipeToSlide={true}
-                                    focusOnSelect={true}
-                                    autoplay={true}
-                                    autoplaySpeed={7500}
-                                    speed={2000}
-                                >
-                                    <div className="slider-item">
-                                        <div className="img" style={{ backgroundImage: `url(${efe})` }}>
-                                            <ul className="points">
-                                                <li className="active"><AwesomeIcon.StarSolid /></li>
-                                                <li className="active"><AwesomeIcon.StarSolid /></li>
-                                                <li className="active"><AwesomeIcon.StarSolid /></li>
-                                                <li><AwesomeIcon.StarSolid /></li>
-                                                <li><AwesomeIcon.StarSolid /></li>
-                                            </ul>
-                                            <div className="team">A</div>
-                                        </div>
-                                    </div>
-                                    <div className="slider-item">
-                                        <div className="img item-two" style={{ backgroundImage: `url(${hazal})` }}>
-                                            <ul className="points">
-                                                <li className="active"><AwesomeIcon.StarSolid /></li>
-                                                <li className="active"><AwesomeIcon.StarSolid /></li>
-                                                <li className="active"><AwesomeIcon.StarSolid /></li>
-                                                <li className="active"><AwesomeIcon.StarSolid /></li>
-                                                <li className="active"><AwesomeIcon.StarSolid /></li>
-                                            </ul>
-                                            <div className="team">C</div>
-                                        </div>
-                                    </div>
-                                    <div className="slider-item">
-                                        <div className="img item-three" style={{ backgroundImage: `url(${efe})` }}>
-                                            <ul className="points">
-                                                <li className="active"><AwesomeIcon.StarSolid /></li>
-                                                <li className="active"><AwesomeIcon.StarSolid /></li>
-                                                <li><AwesomeIcon.StarSolid /></li>
-                                                <li><AwesomeIcon.StarSolid /></li>
-                                                <li><AwesomeIcon.StarSolid /></li>
-                                            </ul>
-                                            <div className="team">A</div>
-                                        </div>
-                                    </div>
-                                    <div className="slider-item">
-                                        <div className="img item-three" style={{ backgroundImage: `url(${hazal})` }}>
-                                            <ul className="points">
-                                                <li className="active"><AwesomeIcon.StarSolid /></li>
-                                                <li><AwesomeIcon.StarSolid /></li>
-                                                <li><AwesomeIcon.StarSolid /></li>
-                                                <li><AwesomeIcon.StarSolid /></li>
-                                                <li><AwesomeIcon.StarSolid /></li>
-                                            </ul>
-                                            <div className="team">D</div>
-                                        </div>
-                                    </div>
-                                </SlickSlider>
-                            </div>
-                        </div>
+                        
                     </div>
                 </Container>
             </div>

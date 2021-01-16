@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 // @ts-ignore
 import { ReactComponent as I1 } from './images/pt.svg';
@@ -18,8 +19,15 @@ import { ReactComponent as I8 } from './images/pt.svg';
 // @ts-ignore
 import { ReactComponent as I9 } from './images/pt.svg';
 
+// @ts-ignore
+import { ReactComponent as Menu } from './images/menu.svg';
+// @ts-ignore
+import { ReactComponent as Search } from './images/search.svg';
+
 const Svg = {
     I1: props => <I1 {...props}/>,
+    Menu: props => <Menu {...props}/>,
+    Search: props => <Search {...props}/>,
     Categories: [
         {
             name: "PT",

@@ -27,12 +27,12 @@ const Master = props => {
     };
 
     return (
-        <>
+        <div id="pt-point-page">
             <Header />
             {props.children}
             <Footer />
             <ToastContainer autoClose={2000} />
-        </>
+        </div>
     )
 };
 

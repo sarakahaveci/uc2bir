@@ -12,7 +12,7 @@ const Categories = (props) => {
                 <Title variant="h5" component="h2">
                     Tarzını Seç, Hemen Kategorilere Göz At
                 </Title>
-                <ul>{Svg.Categories.map((val, key) => <li key={key}><a title={val.name} href={val.link}>{val.svg({ className: "category-svg" })} <span>{val.name}</span></a></li>)}</ul>
+                <ul>{Svg.Categories.map((val, key) => <li className="col-6 col-xl col-lg-2 col-md-3 col-sm-4" key={key}><a title={val.name} href={val.link}>{val.svg({ className: "category-svg" })} <span>{val.name}</span></a></li>)}</ul>
                 {props.children}
             </Container>
         </section>

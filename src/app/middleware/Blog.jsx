@@ -11,11 +11,11 @@ const Blog = ({className}) => {
             <Title variant="h3" component="h3" children="Blog"/>
             <Container fluid>
                 <div className="row">
-                    <div className="col-lg-8">
+                    <div className="col-xl-8">
                         <BlogBanners left/>
                         <BlogBanners right/>
                     </div>
-                    <div className="col-lg-4">
+                    <div className="col-xl-4">
                         <BlogBanners top/>
                     </div>
                     <div style={{marginBottom: "90px", marginTop: "30px"}} className="col d-flex justify-content-center">

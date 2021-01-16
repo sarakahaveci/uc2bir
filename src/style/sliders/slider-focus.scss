@@ -4,11 +4,19 @@
     margin-top: 50px;
     margin-bottom: 120px;
 
+    @media (max-width: 1200px) {
+        height: auto;
+    }
+
     .slick-slider-buttons {
         width: 100%;
         position: relative;
         height: 1px;
         z-index: 1000;
+
+        @media (max-width: 1200px) {
+            display: none;
+        }
 
         .slick-button {
             position: absolute;
@@ -35,6 +43,10 @@
     &>.container,
     &>.container>.row {
         height: 565px;
+
+        @media (max-width: 1200px) {
+            height: auto;
+        }
     }
 
     .slider-item-content {
@@ -47,6 +59,12 @@
         margin-left: 5px;
         margin-right: 5px;
 
+        @media (max-width: 1200px) {
+            height: auto;
+            margin-top: 120px;
+            margin-bottom: 30px;
+        }
+
         ul {
             li {
                 .btn {
@@ -58,10 +76,16 @@
     }
 
     .right {
+        height: 565px;
+        
         .item-right {
             position: absolute;
             width: calc(50% + 990px);
             height: calc(565px + 70px);
+
+            @media (max-width: 1200px) {
+                height: calc(565px + 70px);
+            }
 
             .slick-slider {
                 .slick-arrow {
@@ -89,6 +113,10 @@
                     display: flex;
                     align-items: center;
                     justify-content: center;
+
+                    @media (max-width: 1200px) {
+                        
+                    }
 
                     .team {
                         position: absolute;
