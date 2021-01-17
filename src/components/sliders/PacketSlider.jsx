@@ -21,7 +21,7 @@ function PacketSlider(props) {
         infinite: true,
         slidesToShow: 4,
         slidesToScroll: 1,
-        autoplay: false,
+        autoplay: true,
         autoplaySpeed: 7500,
         speed: 2000,
         pauseOnHover: false,

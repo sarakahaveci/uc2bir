@@ -1,5 +1,5 @@
 .header {
-    
+
     .logo {
         height: 155px;
         background: #1A1818;
@@ -32,13 +32,19 @@
 
         @media (max-width: 1200px) {
             height: 100vh;
-            width: 50%;
+            width: 70%;
             top: 0;
-            background: #fff;
+            background: #ebebeb;
             margin: 0;
-            left: -50%;
+            left: -70%;
             position: fixed;
-            overflow: hidden;
+            padding: 5%;
+            overflow: auto;
+            transition: left .5s ease;
+
+            &.open {
+                left: 0;
+            }
         }
 
         .bar {
@@ -52,11 +58,17 @@
                 @media (max-width: 1200px) {
                     padding-top: 15px;
                     padding-bottom: 15px;
+                    align-content: flex-start;
                 }
 
                 .bar-item {
                     display: flex;
                     align-items: center;
+
+                    @media (max-width: 1200px) {
+                        width: 100%;
+                        height: auto;
+                    }
 
                     ul {
                         display: flex;
@@ -64,13 +76,30 @@
                         margin-left: -15px;
                         margin-right: -15px;
 
+                        @media (max-width: 1200px) {
+                            width: 100%;
+                            flex-direction: column;
+                        }
+
                         li {
                             margin: 0 15px;
                             font-size: 10pt;
                             display: flex;
 
+                            @media (max-width: 1200px) {
+                                width: 100%;
+                                margin-top: 15px;
+                                border: 1px solid #fff;
+                                padding: 15px;
+                                background: #e5e5e5;
+                            }
+
                             &.line {
                                 align-items: center;
+
+                                @media (max-width: 1200px) {
+                                    display: none;
+                                }
 
                                 span {
                                     width: 1px;
@@ -83,6 +112,10 @@
                                 height: 55px;
                                 padding-left: 35px;
                                 padding-right: 35px;
+
+                                @media (max-width: 1200px) {
+                                    width: 100%;
+                                }
                             }
 
                             a {
@@ -91,6 +124,10 @@
                                 align-items: center;
                                 font-size: 13pt;
                                 font-weight: 600;
+
+                                @media (max-width: 1200px) {
+                                    width: 100%;
+                                }
                             }
                         }
                     }
@@ -100,6 +137,15 @@
                         border-left: 1px solid #cbcbcb;
                         border-right: 1px solid #cbcbcb;
                         padding: 0 10px;
+
+                        @media (max-width: 1200px) {
+                            position: absolute;
+                            top: calc(-5% - 15px);
+                            background: #dbdbdb;
+                            width: 100%;
+                            padding: 15px;
+                            border: none;
+                        }
 
                         a {
                             color: #181818;
@@ -118,6 +164,14 @@
                 border-bottom: 1px solid #707070;
                 padding-bottom: 5px;
                 padding-top: 10px;
+
+                @media (max-width: 1200px) {
+                    border-bottom: 1px solid #707070;
+                    padding-bottom: 5px;
+                    padding-top: 10px;
+                    margin-top: 15px;
+                    margin-bottom: -15px;
+                }
 
                 .bar-item {
                     ul {

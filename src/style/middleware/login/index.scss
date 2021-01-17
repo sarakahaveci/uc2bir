@@ -2,7 +2,7 @@
     min-height: calc(100vh);
     position: relative;
 
-    @media (max-width: 768px) {
+    @media (max-width: 1200px) {
         min-height: inherit;
         height: auto;
     }
@@ -45,6 +45,8 @@
 
         @media (max-width: 1200px) {
             left: 0;
+            min-height: inherit;
+            height: auto;
         }
 
         @media (max-width: 768px) {
@@ -63,7 +65,8 @@
             padding-top: 150px;
 
             @media (max-width: 1200px) {
-                padding-top: 80px;
+                padding-top: 15px;
+                min-height: inherit;
             }
 
             @media (max-width: 768px) {
