@@ -6,11 +6,18 @@ import Svg from '../../statics/svg';
 import { Pivot as Hamburger } from 'hamburger-react';
 
 const Header = ({className, navLogo, navMenu}) => {
+    useLayoutEffect(() => {
+        const page = document.getElementById("pt-point-page");
+        const menu = document.getElementById("pt-point-menu");
+        setPage(page);
+        setMenu(menu);
+    });
+
     const [page, setPage] = useState(false);
     const [menu, setMenu] = useState(false);
     const [toggle, setToggle] = useState(false);
 
-    const toggleEl = () => {
+    const toggleEl = (toggle) => {
         if (!toggle) {
             page.classList.add("open-hamburger-menu");
             menu.classList.add("open");
@@ -21,18 +28,11 @@ const Header = ({className, navLogo, navMenu}) => {
         return setToggle(!toggle);
     }
 
-    useLayoutEffect(() => {
-        const page = document.getElementById("pt-point-page");
-        const menu = document.getElementById("pt-point-menu");
-        setPage(page);
-        setMenu(menu);
-    });
-
     return (
         <nav className={className}>
             <div className="col-auto hamburgers left-menu">
                 {/*<Svg.Menu/>*/}
-                <a onClick={() => toggleEl()}><Hamburger color="#000" /></a>
+                <a onClick={() => toggleEl(toggle)}><Hamburger color="#000" easing="ease-in" onToggle={toggled => toggleEl(toggled)} /></a>
             </div>
             <Link to="/" className={navLogo.className}>
                 <img src={navLogo.element()}/>

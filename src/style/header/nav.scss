@@ -141,10 +141,15 @@
                         @media (max-width: 1200px) {
                             position: absolute;
                             top: calc(-5% - 15px);
-                            background: #dbdbdb;
+                            background: transparent;
                             width: 100%;
-                            padding: 15px;
+                            padding: 15px 0;
                             border: none;
+                            display: flex;
+                            align-items: center;
+                            margin: 0;
+                            border: none;
+                            justify-content: space-between;
                         }
 
                         a {
@@ -155,6 +160,22 @@
                             font-weight: 300;
                             margin-left: 5px;
                             margin-right: 5px;
+
+                            @media (max-width: 1200px) {
+                                display: flex;
+                                align-items: center;
+                                font-size: 11pt;
+                                font-weight: 300;
+                                margin-left: 5px;
+                                margin-right: 5px;
+                                width: 45%;
+                                background: #181818;
+                                color: #fff;
+                                padding: 5px;
+                                text-align: center;
+                                justify-content: center;
+                                margin: 0;
+                            }
                         }
                     }
                 }

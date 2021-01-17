@@ -60,9 +60,9 @@ const Header = ({loginReducers}) => {
                             </div>
                             <div className="bar-item right-bar">
                                 <ul>
-                                    {!loginReducers.entity.token ? <li><Link to="login">Giriş Yap</Link></li> : <li><Link to="profile">{loginReducers.entity.user.name}</Link></li>}
+                                    {!loginReducers.entity.token ? <li><Link to="/login">Giriş Yap</Link></li> : <li><Link to="profile">{loginReducers.entity.user.name}</Link></li>}
                                     <li className="line"><span></span></li>
-                                    {!loginReducers.entity.token ? <li><a href="#">Üye Ol</a></li> : <li><Link to="profile">{loginReducers.entity.user.email}</Link></li>}
+                                    {!loginReducers.entity.token ? <li><Link to="/register">Üye Ol</Link></li> : <li><Link to="profile">{loginReducers.entity.user.email}</Link></li>}
                                     {!loginReducers.entity.token && <li><Button className="" text="Profosyonel" dark/></li>}
                                 </ul>
                             </div>

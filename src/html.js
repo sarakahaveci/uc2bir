@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import LoaderSVG from './images/2.gif';
+import LoaderSVG from './images/321intro.gif';
 
 export default function HTML({
   htmlAttributes,
@@ -33,7 +33,7 @@ export default function HTML({
           id="___loader"
           style={{
             alignItems: "center",
-            backgroundColor: "#fff",
+            backgroundColor: "#000",
             display: "flex",
             justifyContent: "center",
             position: "fixed",
@@ -47,8 +47,8 @@ export default function HTML({
           <img
             src={LoaderSVG}
             alt="loading spinner"
-            width="160"
-            height="20"
+            width="25%"
+            height="auto"
           />
         </div>
         <div key="body" id="___gatsby" dangerouslySetInnerHTML={{ __html: body }} />

@@ -20,6 +20,14 @@ body {
     }
 }
 
+.main {
+    min-height: 100vh;
+
+    @media (max-width: 1200px) {
+        min-height: inherit;
+    }
+}
+
 .app-root {
     /*padding-top: 130px;*/
     width: 100%;

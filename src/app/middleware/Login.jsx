@@ -10,6 +10,7 @@ import Button from '../../components/buttons/button';
 import Title from '../../components/typography/title';
 import Text from '../../components/typography/Text';
 import IconButtonLabel from '../../components/buttons/icon-button-label';
+import { Link } from "gatsby";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -152,10 +153,10 @@ const Login = (props) => {
                                                 console.log("Lütfen Bekleyiniz...")
                                             }} text={`Yükleniyor...`} blue />
                                         }
-                                        <Text style={{ marginTop: 30, marginBottom: 10 }} fontSize="12pt" gray textAlign="center">
-                                            Hesabınız yok mu? <a href="#">Üye ol</a>
-                                        </Text>
                                     </form>
+                                    <Text style={{ marginTop: 30, marginBottom: 10 }} fontSize="12pt" gray textAlign="center">
+                                        Hesabınız yok mu? <Link to="/register">Üye ol</Link>
+                                    </Text>
                                     <div className="identfy">
                                         <span>Veya</span>
                                     </div>
