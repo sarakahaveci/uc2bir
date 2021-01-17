@@ -258,6 +258,10 @@
             background: #1a1818;
             padding: 5px 0;
 
+            @media (max-width: 1200px) {
+                display: none;
+            }
+
             img {
                 height: 140px;
             }

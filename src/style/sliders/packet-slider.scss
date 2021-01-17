@@ -49,6 +49,10 @@
 
         .slick-slider {
             height: 610px;
+        
+            @media (max-width: 768px) {
+                
+            }
         }
     }
 
