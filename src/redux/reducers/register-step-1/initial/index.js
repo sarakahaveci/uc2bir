@@ -62,13 +62,9 @@ export const inputs = {
 }
 
 export const model = {
-    message: {
-        ...inputs
-    },
-    info: false,
-    warning: false,
-    error: false,
-    code: 0,
+    token: false,
+    refresh_token: false,
+    user: {},
 }
 
 export const initialState = {

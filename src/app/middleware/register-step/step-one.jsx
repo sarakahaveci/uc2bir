@@ -13,33 +13,54 @@ import { bindActionCreators } from "redux";
 import { register_step_one } from '../../../redux/reducers/register-step-1';
 
 import FormData from 'form-data';
+import { login } from '../../../redux/reducers/login';
 
 const StepOne = (props) => {
-    const { register_step_one, registerStepOne, setSteps } = props;
+    const { register_step_one, registerStepOne, setSteps, login } = props;
     const [data, setData] = useState({ ...inputs });
     const Fdata = new FormData();
-
-    useEffect(() => {
-        for (const [key, val] of Object.entries(data)) {
-            Fdata.append(key, val)
-        }
-    }, [data]);
+    const Ldata = new FormData();
 
     const onSubmit = async (event) => {
         event.preventDefault();
+
+        for (const [key, val] of Object.entries(data)) {
+            Fdata.append(key, val)
+        }
+
+        Ldata.append("email", data.email);
+        Ldata.append("password", data.password);
+
         const result = await register_step_one(Fdata);
         if (result.type === "FETCH_ERROR") {
-            toast.error(result.payload, {
-                position: "bottom-right",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            })
+            //kayıt var step yok
+            const lgn = await login(Ldata);
+            if ( lgn.type === "FETCH_SUCCESS" ) {
+                if ( lgn.payload.token && lgn.payload.refresh_token && lgn.payload.user ) {
+                    localStorage.setItem("token", lgn.payload.token);
+                    localStorage.setItem("refresh_token", lgn.payload.token);
+                    localStorage.setItem("user_id", lgn.payload.user.id);
+                    return setSteps("step2");
+                }
+            } else {
+                toast.error(result.payload, {
+                    position: "bottom-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            }
         } else {
-            return setSteps("step2");
+            //kayıt yok
+            if ( result.payload.token && result.payload.refresh_token && result.payload.user ) {
+                localStorage.setItem("token", result.payload.token);
+                localStorage.setItem("refresh_token", result.payload.token);
+                localStorage.setItem("user_id", result.payload.user.id);
+                return setSteps("step2");
+            }
         }
     }
     return (
@@ -82,7 +103,7 @@ const StepOne = (props) => {
 const mapDispatchToProps = dispatch => {
     return {
         dispatch,
-        ...bindActionCreators({ register_step_one }, dispatch),
+        ...bindActionCreators({ register_step_one, login }, dispatch),
     }
 }
 

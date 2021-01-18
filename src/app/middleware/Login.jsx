@@ -21,27 +21,9 @@ import { initialState, macro } from '../../redux/reducers/login/initial';
 
 import { toast } from 'react-toastify';
 import { navigate } from "gatsby";
+import FormPages from '../../components/FormPages';
 
 const Login = (props) => {
-    const [windowSize, setWindowSize] = useState(false);
-    useLayoutEffect(() => {
-        window.addEventListener('resize', () => setWindowSize(window.innerWidth));
-        const page = window.innerWidth;
-        if (!windowSize) {
-            setWindowSize(page);
-        }
-        const container = document.querySelector(".login-widget").offsetWidth;
-        const col = document.querySelector(".login-page-widget").offsetWidth;
-        const el = document.querySelector(".login-fluid-img");
-
-        if ( windowSize > 1200 ) {
-            const size = ((windowSize - container) / 2) + col;
-            el.style.width = `${size}px`;
-        } else {
-            el.style.width = "100%";
-        }
-    },[windowSize]);
-
     const { login, loginReducers } = props;
     const [lg, setLg] = useState({ ...initialState });
 
@@ -125,53 +107,46 @@ const Login = (props) => {
     }, [lg]);
 
     return (
-        <section className="login">
-            <Container className="login-widget">
-                <div className="row justify-content-end">
-                    <div className="fluid-img login-fluid-img">
-                        <div className="img" style={{ backgroundImage: `url(${background})` }}></div>
-                    </div>
-                    <section className="col-12 col-xl-6 page login-page-widget">
-                        <div className="row">
-                            <div className="page-content">
-                                <div className="contain">
-                                    <Text style={{ letterSpacing: 5, marginBottom: 25 }} fontFamily="'Montserrat', sans-serif" children="321 VE YENİ BİR SEN!" trunge />
-                                    <Text style={{ marginBottom: 10 }} fontFamily="'Bebas Neue', cursive" fontSize="2em" children="HER AN HER YERDE İSTEDİĞİN GİBİ ANTRENMAN YAP" softDark />
-                                    <Text style={{ marginBottom: 40 }} fontFamily="'Montserrat', sans-serif" fontSize="10pt" children="Hedeflerine uygun antrenman planları ile İçindeki atleti özgür bırak" />
-                                    <Title fontWeight="normal" style={{ marginBottom: 30 }} className="material-title" variant="h6" component="h6" children="Giriş Yap" dark lineDisable textLeft />
+        <FormPages>
+            <section className="col-12 col-xl-6 page login-page-widget">
+                <div className="row">
+                    <div className="page-content">
+                        <div className="contain">
+                            <Text style={{ letterSpacing: 5, marginBottom: 25 }} fontFamily="'Montserrat', sans-serif" children="321 VE YENİ BİR SEN!" trunge />
+                            <Text style={{ marginBottom: 10 }} fontFamily="'Bebas Neue', cursive" fontSize="2em" children="HER AN HER YERDE İSTEDİĞİN GİBİ ANTRENMAN YAP" softDark />
+                            <Text style={{ marginBottom: 40 }} fontFamily="'Montserrat', sans-serif" fontSize="10pt" children="Hedeflerine uygun antrenman planları ile İçindeki atleti özgür bırak" />
+                            <Title fontWeight="normal" style={{ marginBottom: 30 }} className="material-title" variant="h6" component="h6" children="Giriş Yap" dark lineDisable textLeft />
 
-                                    <form onSubmit={onSubmit}>
-                                        <Material.TextField required onChange={(e) => setEmail(e.target.value)} id="login-email" name="login-email" label="E mail veya Telefon" type="email" icon={AwesomeIcon.At} />
-                                        <Material.TextField required onChange={(e) => setPassword(e.target.value)} id="login-password" name="login-password" label="Şifre" type="password" icon={AwesomeIcon.Lock} />
-                                        <div style={{ paddingTop: "15px", paddingBottom: "0px", flexWrap: "nowrap" }} className="row justify-content-between">
-                                            <div className="col-auto"><Material.CheckBox checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} label="Beni Hatırla" /></div>
-                                            <div className="col-auto remember-password"><a href="#">Şifremi Unuttum</a></div>
-                                        </div>
-                                        {!loginReducers.loading ?
-                                            <Button type="submit" text={`Giriş Yap`} blue /> :
-                                            <Button onClick={async () => {
-                                                console.log("Lütfen Bekleyiniz...")
-                                            }} text={`Yükleniyor...`} blue />
-                                        }
-                                    </form>
-                                    <Text style={{ marginTop: 30, marginBottom: 10 }} fontSize="12pt" gray textAlign="center">
-                                        Hesabınız yok mu? <Link to="/register">Üye ol</Link>
-                                    </Text>
-                                    <div className="identfy">
-                                        <span>Veya</span>
-                                    </div>
-                                    <div className="d-flex login-footer-start">
-                                        <div className="col"><IconButtonLabel style={{ fontSize: "9pt", height: 45 }} icon={AwesomeIcon.Google} text="Google il giriş yap" dark /></div>
-                                        <div className="col"><IconButtonLabel style={{ fontSize: "9pt", height: 45 }} icon={AwesomeIcon.Facebook} text="Facebook il giriş yap" dark /></div>
-                                    </div>
-                                    <a className="login-footer" href="#">Sistemimizde hizmet vermek için tıklayın</a>
+                            <form onSubmit={onSubmit}>
+                                <Material.TextField required onChange={(e) => setEmail(e.target.value)} id="login-email" name="login-email" label="E mail veya Telefon" type="email" icon={AwesomeIcon.At} />
+                                <Material.TextField required onChange={(e) => setPassword(e.target.value)} id="login-password" name="login-password" label="Şifre" type="password" icon={AwesomeIcon.Lock} />
+                                <div style={{ paddingTop: "15px", paddingBottom: "0px", flexWrap: "nowrap" }} className="row justify-content-between">
+                                    <div className="col-auto"><Material.CheckBox checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} label="Beni Hatırla" /></div>
+                                    <div className="col-auto remember-password"><a href="#">Şifremi Unuttum</a></div>
                                 </div>
+                                {!loginReducers.loading ?
+                                    <Button type="submit" text={`Giriş Yap`} blue /> :
+                                    <Button onClick={async () => {
+                                        console.log("Lütfen Bekleyiniz...")
+                                    }} text={`Yükleniyor...`} blue />
+                                }
+                            </form>
+                            <Text style={{ marginTop: 30, marginBottom: 10 }} fontSize="12pt" gray textAlign="center">
+                                Hesabınız yok mu? <Link to="/register">Üye ol</Link>
+                            </Text>
+                            <div className="identfy">
+                                <span>Veya</span>
                             </div>
+                            <div className="d-flex login-footer-start">
+                                <div className="col"><IconButtonLabel style={{ fontSize: "9pt", height: 45 }} icon={AwesomeIcon.Google} text="Google il giriş yap" dark /></div>
+                                <div className="col"><IconButtonLabel style={{ fontSize: "9pt", height: 45 }} icon={AwesomeIcon.Facebook} text="Facebook il giriş yap" dark /></div>
+                            </div>
+                            <a className="login-footer" href="#">Sistemimizde hizmet vermek için tıklayın</a>
                         </div>
-                    </section>
+                    </div>
                 </div>
-            </Container>
-        </section>
+            </section>
+        </FormPages>
     );
 }
 
