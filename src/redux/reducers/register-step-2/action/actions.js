@@ -3,13 +3,13 @@ import { TYPES } from "./type";
 
 export default(state = initialState, { type, payload }) => {
     switch (type) {
-        case TYPES.FETCH_PENDING:
+        case TYPES.FETCH_PENDING_STEP_TWO:
             return {
                 ...state,
                 loading: true,
             }
 
-        case TYPES.FETCH_SUCCESS:
+        case TYPES.FETCH_SUCCESS_STEP_TWO:
             return {
                 ...state,
                 loading: false,
@@ -17,7 +17,7 @@ export default(state = initialState, { type, payload }) => {
                 entity: payload,
             }
 
-        case TYPES.FETCH_LIST_SUCCESS:
+        case TYPES.FETCH_LIST_SUCCESS_STEP_TWO:
             return {
                 ...state,
                 loading: false,
@@ -25,7 +25,7 @@ export default(state = initialState, { type, payload }) => {
                 entities: payload,
             }
 
-        case TYPES.FETCH_ERROR:
+        case TYPES.FETCH_ERROR_STEP_TWO:
             return {
                 ...state,
                 loading: false,
