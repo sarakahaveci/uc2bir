@@ -15,10 +15,7 @@ import { Link } from "gatsby";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
-import FormData from 'form-data';
-
-import { toast } from 'react-toastify';
-import { navigate } from "gatsby";
+import RegisterStep from './register-step';
 
 const Register = (props) => {
     const [windowSize, setWindowSize] = useState(false);
@@ -40,10 +37,6 @@ const Register = (props) => {
         }
     }, [windowSize]);
 
-    const onSubmit = (event) => {
-        event.preventDefault();
-    }
-
     return (
         <section className="login">
             <Container className="login-widget">
@@ -55,7 +48,7 @@ const Register = (props) => {
                         <div className="row page-info-row">
                             <div className="ballon">
                                 <Text style={{ letterSpacing: 5, marginBottom: 15 }} fontFamily="'Montserrat', sans-serif" children="321 VE YENİ BİR SEN!" trunge />
-                                <Text style={{ marginBottom: 10 }} fontFamily="'Bebas Neue', cursive" fontSize="2em" children="HER AN HER YERDE İSTEDİĞİN GİBİ ANTRENMAN YAP" softDark />
+                                <Text style={{ marginBottom: 10, lineHeight: "100%" }} fontFamily="'Bebas Neue', cursive" fontSize="2em" children="HER AN HER YERDE İSTEDİĞİN GİBİ ANTRENMAN YAP" softDark />
                                 <Text style={{ marginBottom: 0 }} fontFamily="'Montserrat', sans-serif" fontSize="10pt" children="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." />
                             </div>
                         </div>
@@ -64,11 +57,7 @@ const Register = (props) => {
                         <div className="row">
                             <div className="page-content">
                                 <div className="contain">
-
-
-                                    <form onSubmit={onSubmit}>
-
-                                    </form>
+                                    <RegisterStep/>
                                     <Text style={{ marginTop: 30, marginBottom: 10 }} fontSize="12pt" gray textAlign="center">
                                         Hesabınız var mı? <Link to="/login">Giriş Yap</Link>
                                     </Text>

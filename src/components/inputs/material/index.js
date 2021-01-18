@@ -7,6 +7,7 @@ export const Material = {
     CheckBox,
 
     email: props => <TextField {...props}/>,
+    date: props => <TextField {...props}/>,
     password: props => <TextField {...props}/>,
     text: props => <TextField {...props}/>,
 
