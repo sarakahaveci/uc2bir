@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Row } from 'react-bootstrap';
 
 import { default as NativeHeader } from "../app/middleware/Header";
@@ -9,16 +9,21 @@ import IconButtonLabel from './buttons/icon-button-label';
 import IconLabel from './buttons/icon-label';
 import Button from './buttons/button';
 
+import { Link, navigate } from "gatsby";
+
 import { connect } from "react-redux";
+import {searchChangeNameButton} from '../redux/reducers/search';
+import {hamburgerActionButton} from '../redux/reducers/hamberger';
+import { bindActionCreators } from "redux";
 
-import { Link } from "gatsby";
-
-const Header = ({loginReducers}) => {
+const Header = ({ loginReducers, searchChangeNameButton, actionLeftBar, hamburgerActionButton }) => {
     const nav_logo = {
         status: true,
         className: "col logo",
         element: () => logo
     }
+
+    const [toggle, setToggle] = useState(false);
 
     const nav_widget = {
         status: true,
@@ -31,6 +36,15 @@ const Header = ({loginReducers}) => {
                             <ul>
                                 <li><IconLabel href="mail:info@ptpoints.com" className="icon-label" text="info@ptpoints.com" icon={AwesomeIcon.Envolope} /></li>
                                 <li><IconLabel href="tel:05XXXXXXXXX" className="icon-label" text="05XX XXX XX XX" icon={AwesomeIcon.Phone} /></li>
+                                <li onClick={() => setToggle(!toggle)} className="d-xl-none dropdown flex-column">
+                                    Kategoriye Göre Arama
+                                    <ul className={`dropdown ${toggle ? "open": "close"}`}>
+                                        <li><a onClick={() => {searchChangeNameButton("pt"); hamburgerActionButton(!actionLeftBar); return navigate("/");}}>EĞİTMEN</a></li>
+                                        <li><a onClick={() => {searchChangeNameButton("living"); hamburgerActionButton(!actionLeftBar); return navigate("/");}}>SALON</a></li>
+                                        <li><a onClick={() => {searchChangeNameButton("nutritionist"); hamburgerActionButton(!actionLeftBar); return navigate("/");}}>DİYETİSYEN</a></li>
+                                        <li><a onClick={() => {searchChangeNameButton("map"); hamburgerActionButton(!actionLeftBar); return navigate("/");}}>HARİTA</a></li>
+                                    </ul>
+                                </li>
                             </ul>
                         </div>
                         <div className="bar-item right-bar">
@@ -57,13 +71,14 @@ const Header = ({loginReducers}) => {
                                     <li><a href="#">Üç2Bir HAKKINDA</a></li>
                                     <li><a href="#">BLOG</a></li>
                                 </ul>
+
                             </div>
                             <div className="bar-item right-bar">
                                 <ul>
                                     {!loginReducers.entity.token ? <li><Link to="/login">Giriş Yap</Link></li> : <li><Link to="profile">{loginReducers.entity.user.name}</Link></li>}
                                     <li className="line"><span></span></li>
                                     {!loginReducers.entity.token ? <li><Link to="/register">Üye Ol</Link></li> : <li><Link to="profile">{loginReducers.entity.user.email}</Link></li>}
-                                    {!loginReducers.entity.token && <li><Button className="" text="Profosyonel" dark/></li>}
+                                    {!loginReducers.entity.token && <li><Button className="" text="Profosyonel" dark /></li>}
                                 </ul>
                             </div>
                         </Row>
@@ -78,10 +93,19 @@ const Header = ({loginReducers}) => {
             className="header position-fixed"
             navLogo={nav_logo}
             navMenu={nav_menu}
+            toggle={actionLeftBar}
+            setToggle={hamburgerActionButton}
         />
     );
 };
 
-const mapStateToProps = ({ loginReducers }) => ({ loginReducers });
+const mapDispatchToProps = dispatch => {
+    return {
+        dispatch,
+        ...bindActionCreators({ searchChangeNameButton, hamburgerActionButton }, dispatch),
+    }
+}
 
-export default connect(mapStateToProps)(Header);
+const mapStateToProps = ({ loginReducers, actionSearchButton, actionLeftBar }) => ({ loginReducers, actionSearchButton, actionLeftBar });
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

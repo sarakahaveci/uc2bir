@@ -7,6 +7,8 @@ import jsonplaceholder from "./reducers/json-placeholder/action/actions"; //this
 import loginReducers from "./reducers/login/action/actions";
 import registerStepOne from './reducers/register-step-1/action/actions';
 import registerStepTwo from './reducers/register-step-2/action/actions';
+import actionSearchButton from './reducers/search';
+import actionLeftBar from './reducers/hamberger';
 
 const reducers = combineReducers({
     counterReducers,
@@ -14,6 +16,8 @@ const reducers = combineReducers({
     loginReducers,
     registerStepOne,
     registerStepTwo,
+    actionSearchButton,
+    actionLeftBar,
 });
   
 export default reducers;

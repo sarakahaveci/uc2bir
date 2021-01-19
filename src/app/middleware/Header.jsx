@@ -5,17 +5,23 @@ import Svg from '../../statics/svg';
 
 import { Pivot as Hamburger } from 'hamburger-react';
 
-const Header = ({className, navLogo, navMenu}) => {
+const Header = ({className, navLogo, navMenu, toggle, setToggle}) => {
     useLayoutEffect(() => {
         const page = document.getElementById("pt-point-page");
         const menu = document.getElementById("pt-point-menu");
+        if (toggle) {
+            page.classList.add("open-hamburger-menu");
+            menu.classList.add("open");
+        } else {
+            page.classList.remove("open-hamburger-menu");
+            menu.classList.remove("open");
+        }
         setPage(page);
         setMenu(menu);
     });
 
     const [page, setPage] = useState(false);
     const [menu, setMenu] = useState(false);
-    const [toggle, setToggle] = useState(false);
 
     const toggleEl = (toggle) => {
         if (!toggle) {

@@ -15,8 +15,10 @@ body {
     right: 0;
     transition: right .5s ease;
 
-    &.open-hamburger-menu {
-        right: -70%;
+    @media (max-width: 1200px) {
+        &.open-hamburger-menu {
+            right: -70%;
+        }
     }
 }
 

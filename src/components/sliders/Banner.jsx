@@ -10,8 +10,12 @@ import s1 from "../../images/banner/dw1.jpg";
 import s2 from "../../images/banner/download.jpg";
 import s3 from "../../images/banner/dw2.jpg";
 
-const Banner = () => {
-    const [virtual, setVirtual] = useState("pt");
+import { connect } from "react-redux";
+import {searchChangeNameButton} from '../../redux/reducers/search';
+import { bindActionCreators } from "redux";
+
+const Banner = (props) => {
+    const {actionSearchButton, searchChangeNameButton} = props;
 
     const virtuals = {
         pt: {
@@ -72,18 +76,27 @@ const Banner = () => {
     const search_bar = {
         status: true,
         className: "search-bar",
-        element: () => <SearchBar className={search_bar.className} virtual={virtual} setVirtual={setVirtual} virtuals={virtuals}/>
+        element: () => <SearchBar className={search_bar.className} virtual={actionSearchButton} setVirtual={searchChangeNameButton} virtuals={virtuals}/>
     }
 
     return (
         <NativeBanner
             settings={slider_settings}
             searchBar={search_bar}
-            virtual={virtual}
-            setVirtual={setVirtual}
+            virtual={actionSearchButton}
+            setVirtual={searchChangeNameButton}
             virtuals={virtuals}
         />
     );
 };
 
-export default Banner;
+const mapDispatchToProps = dispatch => {
+    return {
+        dispatch,
+        ...bindActionCreators({ searchChangeNameButton }, dispatch),
+    }
+}
+
+const mapStateToProps = ({ actionSearchButton }) => ({ actionSearchButton });
+
+export default connect(mapStateToProps, mapDispatchToProps)(Banner);
