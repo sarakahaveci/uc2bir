@@ -31,8 +31,8 @@ const Header = ({className, navLogo, navMenu}) => {
     return (
         <nav className={className}>
             <div className="col-auto hamburgers left-menu">
-                {/*<Svg.Menu/>*/}
-                <a onClick={() => toggleEl(toggle)}><Hamburger color="#000" easing="ease-in" onToggle={toggled => toggleEl(toggled)} /></a>
+                <Svg.Menu onClick={() => toggleEl(toggle)}/>
+                {/* <a onClick={() => toggleEl(toggle)}><Hamburger color="#000" easing="ease-in" onToggle={toggled => toggleEl(toggled)} /></a> */}
             </div>
             <Link to="/" className={navLogo.className}>
                 <img src={navLogo.element()}/>

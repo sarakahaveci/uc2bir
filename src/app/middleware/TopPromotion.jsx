@@ -22,7 +22,7 @@ const TopPromotion = (props) => {
                             <Button className="p-0" variant="link" text="İNCELE" />
                         </Text>
                     </div>
-                    <div className="col-lg-6 d-flex">
+                    <div className=".slider-p0 col-lg-6 d-flex">
                         <AsNavFor />
                     </div>
                 </div>

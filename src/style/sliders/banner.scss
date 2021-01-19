@@ -5,14 +5,27 @@
     display: flex;
     justify-content: center;
 
+    @media (max-width: 1200px) {
+        margin-top: 110px;
+        height: 65vh;
+    }
+
     .slick-slider {
         width: 100%;
         height: 780px;
+
+        @media (max-width: 1200px) {
+            height: 65vh;
+        }
 
         .slider-item {
             width: 100%;
             height: 780px;
             position: relative;
+
+            @media (max-width: 1200px) {
+                height: 65vh;
+            }
 
             &:before {
                 content: "";
@@ -30,6 +43,14 @@
                 position: relative;
                 z-index: 0;
                 background-position: center center;
+
+                @media (max-width: 1200px) {
+                    height: 65vh;
+
+                    &>div {
+                        height: 65vh!important;
+                    }
+                }
             }
 
             &.have-map {

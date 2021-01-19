@@ -1,4 +1,5 @@
-import React from 'react';
+// @ts-nocheck
+import React, { useLayoutEffect, useState } from 'react';
 
 import { default as SlickSlider } from "react-slick";
 
@@ -10,7 +11,17 @@ import "slick-carousel/slick/slick-theme.css";
 import s1 from "../../images/banner/download.jpg";
 import GoogleApp from '../../components/google-maps';
 
-function Banner({ className = "", settings, searchBar }) {
+const Banner = ({ className = "", settings, searchBar }) => {
+    const [height, setHeight] = useState("768px");
+    const [windowSize, setWindowSize] = useState(false);
+
+    useLayoutEffect(() => {
+        window.addEventListener('resize', () => setWindowSize(window.innerWidth));
+        if ( windowSize < 1200 ) {
+            setHeight("65vh");
+        }
+    }, [windowSize]);
+
     return (
         <section className={`banner ${className}`}>
             <SlickSlider {...settings}>
@@ -19,7 +30,7 @@ function Banner({ className = "", settings, searchBar }) {
                 </div>
                 <div className="slider-item have-map">
                     <div className="img">
-                        {<GoogleApp frame={{width: "100%", height: "780px"}}/>}
+                        {<GoogleApp frame={{width: "100%", height}}/>}
                     </div>
                 </div>
             </SlickSlider>
