@@ -54,7 +54,7 @@ const Header = ({loginReducers}) => {
                             <div className="bar-item left-bar">
                                 <ul>
                                     <li><IconButtonLabel className="icon-button" icon={AwesomeIcon.Search} text="Ne arıyorsun?" /></li>
-                                    <li><a href="#">321 HAKKINDA</a></li>
+                                    <li><a href="#">Üç2Bir HAKKINDA</a></li>
                                     <li><a href="#">BLOG</a></li>
                                 </ul>
                             </div>

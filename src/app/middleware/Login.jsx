@@ -112,7 +112,7 @@ const Login = (props) => {
                 <div className="row">
                     <div className="page-content">
                         <div className="contain">
-                            <Text style={{ letterSpacing: 5, marginBottom: 25 }} fontFamily="'Montserrat', sans-serif" children="321 VE YENİ BİR SEN!" trunge />
+                            <Text style={{ letterSpacing: 5, marginBottom: 25 }} fontFamily="'Montserrat', sans-serif" children="BAŞARMAK İÇİN BAŞLA!" trunge />
                             <Text style={{ marginBottom: 10 }} fontFamily="'Bebas Neue', cursive" fontSize="2em" children="HER AN HER YERDE İSTEDİĞİN GİBİ ANTRENMAN YAP" softDark />
                             <Text style={{ marginBottom: 40 }} fontFamily="'Montserrat', sans-serif" fontSize="10pt" children="Hedeflerine uygun antrenman planları ile İçindeki atleti özgür bırak" />
                             <Title fontWeight="normal" style={{ marginBottom: 30 }} className="material-title" variant="h6" component="h6" children="Giriş Yap" dark lineDisable textLeft />

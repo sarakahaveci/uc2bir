@@ -1,0 +1,88 @@
+.banner-virtual {
+    width: 100%;
+    height: auto;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+
+    @media (max-width: 1200px) {
+        margin-top: 110px;
+        margin-bottom: 15px;
+    }
+
+    .virtual-banner {
+        width: 100%;
+        height: 780px;
+        position: relative;
+        background: #fff;
+
+        @media (max-width: 1200px) {
+            height: 60vh;
+        }
+
+        .loading {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+
+            img {
+                width: 160px;
+                height: 20px;
+            }
+        }
+
+        &::before {
+            content: "";
+            position: absolute;
+            z-index: 10;
+            background: rgba(0, 0, 0, .2);
+            width: 100%;
+            height: 100%;
+        }
+
+        .slider-item {
+            width: 100%;
+            height: 768px;
+            position: relative;
+            z-index: 100;
+
+            @media (max-width: 1200px) {
+                height: 60vh;
+
+                &>div {
+                    height: 60vh !important;
+                }
+            }
+
+            .img {
+                width: 100%;
+                height: 780px;
+                background-size: cover;
+                position: relative;
+                z-index: 0;
+                background-position: center center;
+
+                @media (max-width: 1200px) {
+                    height: 60vh;
+                    background-position: top right;
+
+                    &>div {
+                        height: 60vh !important;
+                    }
+                }
+            }
+        }
+
+        &.have-map {
+            &::before {
+                display: none
+            }
+        }
+    }
+}

@@ -13,12 +13,18 @@ const FormPages = ({children=""}) => {
         if (!windowSize) {
             setWindowSize(page);
         }
-        const container = document.querySelector(".login-widget").offsetWidth;
-        const col = document.querySelector(".login-page-widget").offsetWidth;
+        const container = document.querySelector(".login-widget");
+        const col = document.querySelector(".login-page-widget");
         const el = document.querySelector(".login-fluid-img");
 
+        if ( col.innerHeight > 1029 ) {
+            col.style.marginBottom = "15px";
+        } else {
+            col.style.marginBottom = "0px";
+        }
+
         if ( windowSize > 1200 ) {
-            const size = ((windowSize - container) / 2) + col;
+            const size = ((windowSize - container.offsetWidth) / 2) + col.offsetWidth;
             el.style.width = `${size}px`;
         } else {
             el.style.width = "100%";

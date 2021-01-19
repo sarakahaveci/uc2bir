@@ -12,28 +12,29 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import NativeSelect from '@material-ui/core/NativeSelect';
 
-const SearchBar = ({ className }) => {
+const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
     return (
         <div className={className}>
             <div className="search-container">
                 <ul className="top-items">
-                    <li className="active"><a href="#">PT</a></li>
-                    <li><a href="#">SALON</a></li>
-                    <li><a href="#">DİYETİSYEN</a></li>
-                    <li><a href="#">HARİTA</a></li>
+                    <li className={`${virtual === "pt" ? "active" : ""}`}><a onClick={() => setVirtual("pt")}>EĞİTMEN</a></li>
+                    <li className={`${virtual === "living" ? "active" : ""}`}><a onClick={() => setVirtual("living")}>SALON</a></li>
+                    <li className={`${virtual === "nutritionist" ? "active" : ""}`}><a onClick={() => setVirtual("nutritionist")}>DİYETİSYEN</a></li>
+                    <li className={`${virtual === "map" ? "active" : ""}`}><a onClick={() => setVirtual("map")}>HARİTA</a></li>
                 </ul>
                 <div className="search-items">
                     <ul className="list-items">
-                        <li><IconLabel className="item" text="Eğitmen Ara" icon={AwesomeIcon.Search} /></li>
+                        <li><IconLabel className="item" text={virtuals[virtual].text} icon={AwesomeIcon.Search} /></li>
                         <li><IconLabel className="item" text="Lokasyon" icon={AwesomeIcon.Map} /></li>
                         <li>
                             <FormControl className={"material-selectbox"}>
                                 <InputLabel htmlFor="age-native-helper">Tüm Kategoriler</InputLabel>
                                 <NativeSelect>
                                     <option aria-label="None" value="" />
-                                    <option value={10}>Ten</option>
-                                    <option value={20}>Twenty</option>
-                                    <option value={30}>Thirty</option>
+                                    <option value={10}>EĞİTMEN</option>
+                                    <option value={10}>SALON</option>
+                                    <option value={20}>DİYETİSYEN</option>
+                                    <option value={30}>HARİTA</option>
                                 </NativeSelect>
 
                             </FormControl>
