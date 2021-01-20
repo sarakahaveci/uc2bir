@@ -1,5 +1,27 @@
 #pt-point-page {
+    @media (max-width: 1200px) {
+
+        .categories,
+        .top-promotion,
+        .pt,
+        .blog {
+            padding-bottom: 0;
+            padding-top: 5px;
+        }
+
+        .slider-focus {
+            margin-bottom: 30px;
+        }
+
+        .fluid-banner {
+            .MuiTypography-h5 {
+                min-width: 100%;
+            }
+        }
+    }
+
     @media (max-width: 768px) {
+
         .categories,
         .top-promotion,
         .pt,

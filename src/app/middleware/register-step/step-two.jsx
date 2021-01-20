@@ -1,91 +1,77 @@
 // @ts-nocheck
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
-import { Material } from '../../../components/inputs/material';
-import Button from '../../../components/buttons/button';
-import { toast } from 'react-toastify';
+const useStyles = makeStyles((theme) => ({
+	form: {
+		display: 'flex',
+		flexDirection: 'column',
+		margin: 'auto',
+		width: 'fit-content',
+	},
+	formControl: {
+		marginTop: theme.spacing(2),
+		minWidth: 120,
+	},
+	formControlLabel: {
+		marginTop: theme.spacing(1),
+	},
+}));
 
-import { macro } from '../../../redux/reducers/register-step-2/initial';
-import { inputs } from '../../../redux/reducers/register-step-2/initial';
+const stepTwo = (props) => {
+	const classes = useStyles();
+	const [open, setOpen] = React.useState(true);
+	const [fullWidth, setFullWidth] = React.useState(true);
+	const [maxWidth, setMaxWidth] = React.useState('sm');
 
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { register_step_two } from '../../../redux/reducers/register-step-2';
+	const handleClickOpen = () => {
+		setOpen(true);
+	};
 
-import FormData from 'form-data';
+	const handleClose = () => {
+		setOpen(false);
+	};
 
-const StepOne = (props) => {
-    const { register_step_two, registerStepTwo, setSteps } = props;
-    const [data, setData] = useState({ ...inputs });
-    const Fdata = new FormData();
+	const handleMaxWidthChange = (event) => {
+		setMaxWidth(event.target.value);
+	};
 
-    useEffect(() => {
-        for (const [key, val] of Object.entries(data)) {
-            Fdata.append(key, val)
-        }
-    }, [data]);
+	const handleFullWidthChange = (event) => {
+		setFullWidth(event.target.checked);
+	};
 
-    const onSubmit = async (event) => {
-        event.preventDefault();
-        const result = await register_step_two(Fdata);
-        if (result.type === "FETCH_ERROR") {
-            toast.error(result.payload, {
-                position: "bottom-right",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            })
-        } else {
-            return setSteps("finish");
-        }
-    }
-    return (
-        <form onSubmit={onSubmit} autoComplete="off">
-            {macro.map((val, key) => {
-                return (
-                    <div style={{ width: "100%" }} key={key}>
-                        {(val.type !== "checkbox") ?
-                            Material[val.type]({
-                                id: val.name,
-                                name: val.name,
-                                type: val.type,
-                                label: val.text,
-                                required: val.required,
-                                onChange: e => setData({ ...data, [e.target.name]: e.target.value }),
-                                autoComplete: "off",
-                            }) :
-                            Material[val.type]({
-                                id: val.name,
-                                name: val.name,
-                                required: val.required,
-                                type: val.type,
-                                label: val.text,
-                                onChange: e => setData({ ...data, [val.name]: e.target.checked ? 1 : 0 }),
-                                checked: data[val.name] ? true : false,
-                            })}
-                    </div>
-                );
-            })}
-            {!registerStepTwo.loading ?
-                <Button type="submit" text={`İleri`} blue /> :
-                <Button onClick={async () => {
-                    console.log("Lütfen Bekleyiniz...")
-                }} text={`Yükleniyor...`} blue />
-            }
-        </form>
-    );
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        dispatch,
-        ...bindActionCreators({ register_step_two }, dispatch),
-    }
+	return (
+		<React.Fragment>
+			<Button variant="outlined" color="primary" onClick={handleClickOpen}>
+				Open max-width dialog
+      		</Button>
+			<Dialog
+				fullWidth={fullWidth}
+				maxWidth={maxWidth}
+				open={open}
+				onClose={handleClose}
+				aria-labelledby="max-width-dialog-title">
+				<DialogTitle id="max-width-dialog-title">Optional sizes</DialogTitle>
+				<DialogContent>
+					<DialogContentText>
+						You can set my maximum width and whether to adapt or not.
+          			</DialogContentText>
+					
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={handleClose} color="primary">
+						Close
+					</Button>
+				</DialogActions>
+			</Dialog>
+		</React.Fragment>
+	);
 }
 
-const mapStateToProps = ({ registerStepTwo }) => ({ registerStepTwo });
-
-export default connect(mapStateToProps, mapDispatchToProps)(StepOne);
+export default stepTwo;

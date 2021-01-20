@@ -9,6 +9,14 @@
     .blog-items {
         height: 425px;
 
+        @media (max-width: 1200px) {
+            height: 340px;
+        }
+
+        @media (max-width: 768px) {
+            height: 260px;
+        }
+
         &.img {
             background: #ccc;
             background-size: cover;

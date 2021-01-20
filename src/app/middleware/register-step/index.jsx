@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 
 import StepOne from './step-one';
 import StepTwo from './step-two';
+import StepThree from './step-three';
+import StepFour from './step-four';
+import StepFinish from './step-finish';
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -15,9 +18,9 @@ const RegisterStep = (props) => {
     const step = step => {
         const step1 = {key: 0, num: 1, page: () => <StepOne setSteps={setSteps}/>, action: registerStepOne.isSuccess}
         const step2 = {key: 1, num: 2, page: () => <StepTwo setSteps={setSteps}/>, action: registerStepTwo.isSuccess}
-        const step3 = {key: 2, num: 3, page: () => <StepTwo setSteps={setSteps}/>, action: registerStepTwo.isSuccess}
-        const step4 = {key: 3, num: 4, page: () => <StepTwo setSteps={setSteps}/>, action: registerStepTwo.isSuccess}
-        const finish = {key: 4, num: 5, page: () => <StepTwo setSteps={setSteps}/>, action: registerStepTwo.isSuccess}
+        const step3 = {key: 2, num: 3, page: () => <StepThree setSteps={setSteps}/>, action: registerStepTwo.isSuccess}
+        const step4 = {key: 3, num: 4, page: () => <StepFour setSteps={setSteps}/>, action: registerStepTwo.isSuccess}
+        const finish = {key: 4, num: 4, page: () => <StepFinish setSteps={setSteps}/>, action: registerStepTwo.isSuccess}
 
         switch (step) {
             case "finish":
