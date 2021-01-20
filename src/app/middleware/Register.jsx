@@ -42,8 +42,8 @@ const Register = (props) => {
                                 <span>Veya</span>
                             </div>
                             <div className="d-flex login-footer-start">
-                                <div className="col"><IconButtonLabel style={{ fontSize: "9pt", height: 45 }} icon={AwesomeIcon.Google} text="Google il giriş yap" dark /></div>
-                                <div className="col"><IconButtonLabel style={{ fontSize: "9pt", height: 45 }} icon={AwesomeIcon.Facebook} text="Facebook il giriş yap" dark /></div>
+                                <div className="col"><IconButtonLabel style={{ fontSize: "9pt", height: 45 }} icon={AwesomeIcon.Google} text="Google ile giriş yap" dark /></div>
+                                <div className="col"><IconButtonLabel style={{ fontSize: "9pt", height: 45 }} icon={AwesomeIcon.Facebook} text="Facebook ile giriş yap" dark /></div>
                             </div>
                         </div>
                     </div>
