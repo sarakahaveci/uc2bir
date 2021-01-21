@@ -14,12 +14,12 @@
             padding-top: 30px;
             padding-bottom: 45px;
             margin-bottom: 20px;
-            height: 120px;
+            height: 125px;
             max-width: 215px;
         }
 
         @media (max-width: 768px) {
-            max-width: 126px;
+            max-width: 115px;
         }
 
         img {
@@ -30,7 +30,7 @@
             }
 
             @media (max-width: 768px) {
-                max-height: 60px;
+                max-height: 75px;
             }
         }
     }

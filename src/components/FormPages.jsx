@@ -9,19 +9,17 @@ const FormPages = ({children=""}) => {
     const [windowSize, setWindowSize] = useState(false);
     useLayoutEffect(() => {
         window.addEventListener('resize', () => setWindowSize(window.innerWidth));
+
         const page = window.innerWidth;
+        const height = window.innerHeight;
+
         if (!windowSize) {
             setWindowSize(page);
         }
+
         const container = document.querySelector(".login-widget");
         const col = document.querySelector(".login-page-widget");
         const el = document.querySelector(".login-fluid-img");
-
-        if ( col.innerHeight > 1029 ) {
-            col.style.marginBottom = "15px";
-        } else {
-            col.style.marginBottom = "0px";
-        }
 
         if ( windowSize > 1200 ) {
             const size = ((windowSize - container.offsetWidth) / 2) + col.offsetWidth;

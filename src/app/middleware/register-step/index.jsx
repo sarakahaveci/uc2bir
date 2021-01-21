@@ -11,7 +11,7 @@ import { bindActionCreators } from "redux";
 
 const RegisterStep = (props) => {
     const { registerStepOne, registerStepTwo } = props;
-    const [steps, setSteps] = useState("step2");
+    const [steps, setSteps] = useState("step1");
     /**
      * @param {string} step
      */

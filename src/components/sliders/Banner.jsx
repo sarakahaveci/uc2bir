@@ -57,7 +57,7 @@ const Banner = (props) => {
             component: () => {
                 return (
                     <div className="img">
-                        <GoogleApp frame={{width: "100%", height: "768px"}}/>
+                        <GoogleApp frame={{width: "100%", height: "660px"}}/>
                     </div>
                 )
             }
