@@ -57,14 +57,6 @@ const Svg = {
             name: "PT",
             svg: props => <I7 {...props}/>
         },
-        {
-            name: "PT",
-            svg: props => <I8 {...props}/>
-        },
-        {
-            name: "PT",
-            svg: props => <I9 {...props}/>
-        }
     ]
 }
 
