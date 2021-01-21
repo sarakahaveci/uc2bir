@@ -3,7 +3,7 @@ import React from 'react';
 // @ts-ignore
 import { ReactComponent as I1 } from './images/pt.svg';
 // @ts-ignore
-import { ReactComponent as I2 } from './images/pt.svg';
+import { ReactComponent as I2 } from './images/fitness.svg';
 // @ts-ignore
 import { ReactComponent as I3 } from './images/pt.svg';
 // @ts-ignore
@@ -14,10 +14,6 @@ import { ReactComponent as I5 } from './images/pt.svg';
 import { ReactComponent as I6 } from './images/pt.svg';
 // @ts-ignore
 import { ReactComponent as I7 } from './images/pt.svg';
-// @ts-ignore
-import { ReactComponent as I8 } from './images/pt.svg';
-// @ts-ignore
-import { ReactComponent as I9 } from './images/pt.svg';
 
 // @ts-ignore
 import { ReactComponent as Menu } from './images/menu.svg';
