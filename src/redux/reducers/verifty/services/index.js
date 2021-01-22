@@ -4,7 +4,7 @@ import env from "../../../../env";
 
 const POST = data => axios({
     method: 'POST',
-    url: env.defaultUri.register.step1,
+    url: env.defaultUri.register.verify,
     data: data,
     headers: {
         'Content-Type': 'application/json',

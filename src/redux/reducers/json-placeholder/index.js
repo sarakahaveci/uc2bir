@@ -13,7 +13,7 @@ export const get = () => async dispatch => {
         });
     } catch(err) {
         return dispatch({
-            type: TYPES.FETCH_ERROR,
+            type: TYPES.FETCH_ERROR_JP_PLACEHOLDER,
             payload: err.message
         });
     }
@@ -26,12 +26,12 @@ export const getAll = () => async dispatch => {
     try {
         const payload = await jPService.GETALL();
         return dispatch({
-            type: TYPES.FETCH_LIST_SUCCESS,
+            type: TYPES.FETCH_LIST_SUCCESS_JP_PLACEHOLDER,
             payload: payload.data
         });
     } catch(err) {
         return dispatch({
-            type: TYPES.FETCH_ERROR,
+            type: TYPES.FETCH_ERROR_JP_PLACEHOLDER,
             payload: err.message
         });
     }

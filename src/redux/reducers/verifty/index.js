@@ -19,12 +19,12 @@ export const verifty_data = data => async dispatch => {
     try {
         const payload = await services.POST(data);
         return dispatch({
-            type: TYPES.FETCH_SUCCESS,
+            type: TYPES.FETCH_SUCCESS_VERIFTY,
             payload: payload.data.data
         });
     } catch(err) {
         return dispatch({
-            type: TYPES.FETCH_ERROR,
+            type: TYPES.FETCH_ERROR_VERIFTY,
             payload: err.message
         });
     }
