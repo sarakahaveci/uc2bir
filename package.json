@@ -71,6 +71,7 @@
     "react-reveal": "^1.2.2",
     "react-scroll": "^1.7.16",
     "react-slick": "^0.27.11",
+    "react-svg": "^11.2.2",
     "react-table": "^7.5.1",
     "react-tilt": "^0.1.4",
     "react-toastify": "^6.2.0",

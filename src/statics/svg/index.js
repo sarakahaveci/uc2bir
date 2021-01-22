@@ -1,57 +1,52 @@
 // @ts-nocheck
 import React from 'react';
-// @ts-ignore
-import { ReactComponent as I1 } from './images/pt.svg';
-// @ts-ignore
-import { ReactComponent as I2 } from './images/fitness.svg';
-// @ts-ignore
-import { ReactComponent as I3 } from './images/pt.svg';
-// @ts-ignore
-import { ReactComponent as I4 } from './images/pt.svg';
-// @ts-ignore
-import { ReactComponent as I5 } from './images/pt.svg';
-// @ts-ignore
-import { ReactComponent as I6 } from './images/pt.svg';
-// @ts-ignore
-import { ReactComponent as I7 } from './images/pt.svg';
+import { ReactSVG } from 'react-svg';
 
-// @ts-ignore
+//import svg
 import { ReactComponent as Menu } from './images/menu.svg';
-// @ts-ignore
 import { ReactComponent as Search } from './images/search.svg';
 
+//categories
+import I1 from './images/pt.svg';
+import I2 from './images/fitness.svg';
+import I3 from './images/tennis.svg';
+import I4 from './images/yoga.svg';
+import I5 from './images/kick-boks.svg';
+import I6 from './images/athletic-performance.svg';
+import I7 from './images/swimming.svg';
+
 const Svg = {
-    I1: props => <I1 {...props}/>,
     Menu: props => <Menu {...props}/>,
     Search: props => <Search {...props}/>,
+
     Categories: [
         {
-            name: "PT",
-            svg: props => <I1 {...props}/>
+            name: "Body Builder",
+            svg: props => <ReactSVG {...props} src={I1} />
         },
         {
-            name: "PT",
-            svg: props => <I2 {...props}/>
+            name: "Fitness",
+            svg: props => <ReactSVG {...props} src={I2} />
         },
         {
-            name: "PT",
-            svg: props => <I3 {...props}/>
+            name: "Tenis",
+            svg: props => <ReactSVG {...props} src={I3} />
         },
         {
-            name: "PT",
-            svg: props => <I4 {...props}/>
+            name: "Yoga",
+            svg: props => <ReactSVG {...props} src={I4} />
         },
         {
-            name: "PT",
-            svg: props => <I5 {...props}/>
+            name: "Kick Boks",
+            svg: props => <ReactSVG {...props} src={I5} />
         },
         {
-            name: "PT",
-            svg: props => <I6 {...props}/>
+            name: "Athlet",
+            svg: props => <ReactSVG {...props} src={I6} />
         },
         {
-            name: "PT",
-            svg: props => <I7 {...props}/>
+            name: "Yüzücülük",
+            svg: props => <ReactSVG {...props} src={I7} />
         },
     ]
 }
