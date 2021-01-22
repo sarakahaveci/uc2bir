@@ -3,12 +3,12 @@ import { jPService } from "./services";
 
 export const get = () => async dispatch => {
     dispatch({
-        type: TYPES.FETCH_PENDING,
+        type: TYPES.FETCH_PENDING_JP_PLACEHOLDER,
     });
     try {
         const payload = await jPService.GET();
         return dispatch({
-            type: TYPES.FETCH_SUCCESS,
+            type: TYPES.FETCH_SUCCESS_JP_PLACEHOLDER,
             payload: payload.data
         });
     } catch(err) {
@@ -21,7 +21,7 @@ export const get = () => async dispatch => {
 
 export const getAll = () => async dispatch => {
     dispatch({
-        type: TYPES.FETCH_PENDING,
+        type: TYPES.FETCH_PENDING_JP_PLACEHOLDER,
     });
     try {
         const payload = await jPService.GETALL();
