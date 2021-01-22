@@ -68,10 +68,23 @@
         }
 
         ul {
+            margin-left: -4px;
+            margin-right: -4px;
             li {
                 .btn {
-                    font-size: 10pt;
-                    font-weight: 700;
+                    font-size: 9pt!important;
+                    font-weight: 500!important;
+                    border: 1px solid #000;
+                    margin: 0 4px;
+                    padding: 3px 15px;
+                    border-radius: 15px;
+                }
+
+                &:hover {
+                    .btn {
+                        background: #000;
+                        color: #fff;
+                    }
                 }
             }
         }
