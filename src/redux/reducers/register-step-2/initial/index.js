@@ -22,7 +22,7 @@ export const macro = [
                 text: "Erkek" 
             },
             {
-                id: 1,
+                id: 2,
                 val: "k",
                 text: "Kadın" 
             }

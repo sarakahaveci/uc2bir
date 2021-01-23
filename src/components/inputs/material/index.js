@@ -3,6 +3,7 @@ import TextField from "./text-field";
 import DateField from "./date-field";
 import CheckBox from "./check-box";
 import SimpleSelect from "./simple-select";
+import RadioButtonsGroup from "./radio-button-groups";
 import {default as MCheckBox} from "./m-check-box";
 
 export const Material = {
@@ -14,6 +15,7 @@ export const Material = {
     password: props => <TextField {...props}/>,
     text: props => <TextField {...props}/>,
     select: props => <SimpleSelect {...props}/>,
+    radio: props => <RadioButtonsGroup {...props}/>,
 
     checkbox: props => <CheckBox {...props}/>,
     mcheckbox: props => <MCheckBox {...props}/>,
