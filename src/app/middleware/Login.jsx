@@ -115,12 +115,12 @@ const Login = (props) => {
                             <Text style={{ letterSpacing: 5, marginBottom: 25 }} fontFamily="'Montserrat', sans-serif" children="BAŞARMAK İÇİN BAŞLA!" trunge />
                             <Text style={{ marginBottom: 10 }} fontFamily="'Bebas Neue', cursive" fontSize="2em" children="HER AN HER YERDE İSTEDİĞİN GİBİ ANTRENMAN YAP" softDark />
                             <Text style={{ marginBottom: 40 }} fontFamily="'Montserrat', sans-serif" fontSize="10pt" children="Hedeflerine uygun antrenman planları ile İçindeki atleti özgür bırak" />
-                            <Title fontWeight="normal" style={{ marginBottom: 30 }} className="material-title" variant="h6" component="h6" children="Giriş Yap" dark lineDisable textLeft />
+                            <Title fontWeight="normal" style={{ marginBottom: 15 }} className="material-title" variant="h6" component="h6" children="Giriş Yap" dark lineDisable textLeft />
 
                             <form onSubmit={onSubmit}>
                                 <Material.TextField required onChange={(e) => setEmail(e.target.value)} id="login-email" name="login-email" label="E mail veya Telefon" type="email" icon={AwesomeIcon.At} />
                                 <Material.TextField required onChange={(e) => setPassword(e.target.value)} id="login-password" name="login-password" label="Şifre" type="password" icon={AwesomeIcon.Lock} />
-                                <div style={{ paddingTop: "15px", paddingBottom: "0px", flexWrap: "nowrap" }} className="row justify-content-between">
+                                <div style={{ paddingTop: "15px", paddingBottom: "15px", flexWrap: "nowrap" }} className="row justify-content-between">
                                     <div className="col-auto"><Material.CheckBox checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} label="Beni Hatırla" /></div>
                                     <div className="col-auto remember-password"><a href="#">Şifremi Unuttum</a></div>
                                 </div>

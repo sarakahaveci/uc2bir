@@ -14,6 +14,7 @@ import { register_step_one } from '../../../redux/reducers/register-step-1';
 
 import FormData from 'form-data';
 import { login } from '../../../redux/reducers/login';
+import { icon } from '@fortawesome/fontawesome-svg-core';
 
 const StepOne = (props) => {
     const { register_step_one, registerStepOne, setSteps, login } = props;
@@ -35,8 +36,8 @@ const StepOne = (props) => {
         if (result.type === "FETCH_ERROR") {
             //kayıt var step yok
             const lgn = await login(Ldata);
-            if ( lgn.type === "FETCH_SUCCESS" ) {
-                if ( lgn.payload.token && lgn.payload.refresh_token && lgn.payload.user ) {
+            if (lgn.type === "FETCH_SUCCESS") {
+                if (lgn.payload.token && lgn.payload.refresh_token && lgn.payload.user) {
                     localStorage.setItem("token", lgn.payload.token);
                     localStorage.setItem("refresh_token", lgn.payload.token);
                     localStorage.setItem("user_id", lgn.payload.user.id);
@@ -55,7 +56,7 @@ const StepOne = (props) => {
             }
         } else {
             //kayıt yok
-            if ( result.payload.token && result.payload.refresh_token && result.payload.user ) {
+            if (result.payload.token && result.payload.refresh_token && result.payload.user) {
                 localStorage.setItem("token", result.payload.token);
                 localStorage.setItem("refresh_token", result.payload.token);
                 localStorage.setItem("user_id", result.payload.user.id);
@@ -68,7 +69,7 @@ const StepOne = (props) => {
             {macro.map((val, key) => {
                 return (
                     <div style={{ width: "100%" }} key={key}>
-                        {(val.type !== "checkbox") ?
+                        {(val.type !== "checkbox") &&
                             Material[val.type]({
                                 id: val.name,
                                 name: val.name,
@@ -77,19 +78,31 @@ const StepOne = (props) => {
                                 required: val.required,
                                 onChange: e => setData({ ...data, [e.target.name]: e.target.value }),
                                 autoComplete: "off",
-                            }) :
-                            Material[val.type]({
-                                id: val.name,
-                                name: val.name,
-                                required: val.required,
-                                type: val.type,
-                                label: val.text,
-                                onChange: e => setData({ ...data, [val.name]: e.target.checked ? 1 : 0 }),
-                                checked: data[val.name] ? true : false,
-                            })}
+                                icon: val.icon
+                            })
+                        }
                     </div>
                 );
             })}
+            <div style={{ width: "100%", marginBottom: 25, marginTop: 40 }}>
+                {macro.map((val, key) => {
+                    return (
+                        <div style={{ width: "100%" }} key={`check-${key}`}>
+                            {(val.type === "checkbox") &&
+                                Material[val.type]({
+                                    id: val.name,
+                                    name: val.name,
+                                    required: val.required,
+                                    type: val.type,
+                                    label: val.text,
+                                    onChange: e => setData({ ...data, [val.name]: e.target.checked ? 1 : 0 }),
+                                    checked: data[val.name] ? true : false,
+                                })
+                            }
+                        </div>
+                    )
+                })}
+            </div>
             {!registerStepOne.loading ?
                 <Button type="submit" text={`İleri`} blue /> :
                 <Button onClick={async () => {

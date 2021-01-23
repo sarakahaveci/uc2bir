@@ -1,31 +1,37 @@
+import AwesomeIcon from "../../../../statics/icon"
+
 export const macro = [
     {
         type: "text",
         required: true,
         name: "name",
         forHtml: "name",
-        text: "Ad Soyad"
+        text: "Ad Soyad",
+        icon: AwesomeIcon.User,
     },
     {
         type: "email",
         required: true,
         name: "email",
         forHtml: "email",
-        text: "E-mail"
+        text: "E-mail",
+        icon: AwesomeIcon.Envolope,
     },
     {
         type: "text",
         required: true,
         name: "phone",
         forHtml: "phone",
-        text: "Telefon"
+        text: "Telefon (05XXXXXXXXX)",
+        icon: AwesomeIcon.Phone,
     },
     {
         type: "password",
         required: true,
         name: "password",
         forHtml: "password",
-        text: "Şifre"
+        text: "Şifre",
+        icon: AwesomeIcon.Lock,
     },
     {
         type: "checkbox",

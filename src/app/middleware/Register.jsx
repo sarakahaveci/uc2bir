@@ -24,9 +24,9 @@ const Register = (props) => {
             <section className="col-12 col-xl-6 page-info">
                 <div className="row page-info-row">
                     <div className="ballon">
-                        <Text style={{ letterSpacing: 5, marginBottom: 15 }} fontFamily="'Montserrat', sans-serif" children="BAŞARMAK İÇİN BAŞLA!" trunge />
-                        <Text style={{ marginBottom: 10, lineHeight: "100%" }} fontFamily="'Bebas Neue', cursive" fontSize="2em" children="HER AN HER YERDE İSTEDİĞİN GİBİ ANTRENMAN YAP" softDark />
-                        <Text style={{ marginBottom: 0 }} fontFamily="'Montserrat', sans-serif" fontSize="10pt" children="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." />
+                        <Text style={{ letterSpacing: 5, marginBottom: 15 }} fontFamily="'Montserrat', sans-serif" children="321 ve Yeni Bir Sen!" trunge />
+                        <Text style={{ marginBottom: 10, lineHeight: "100%" }} fontFamily="'Bebas Neue', cursive" fontSize="2em" children="HER AN HER YERDE" softDark />
+                        <Text style={{ marginBottom: 0 }} fontFamily="'Montserrat', sans-serif" fontSize="10pt" children="Hedeflerine uygun antrenman planları ile İçindeki atleti özgür bırak" />
                     </div>
                 </div>
             </section>

@@ -37,6 +37,7 @@ import {
      faAngleLeft,
      faAt,
      faLock,
+     faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import { icon } from '@fortawesome/fontawesome-svg-core';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
@@ -71,6 +72,7 @@ const AwesomeIcon = {
     Prev: props => <FontAwesomeIcon icon={faAngleLeft} {...props}/>,
     At: props => <FontAwesomeIcon icon={faAt} {...props}/>,
     Lock: props => <FontAwesomeIcon icon={faLock} {...props}/>,
+    User: props => <FontAwesomeIcon icon={faUser} {...props}/>,
 }
 
 export default AwesomeIcon;

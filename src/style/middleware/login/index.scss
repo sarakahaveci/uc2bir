@@ -39,7 +39,7 @@
 
                 .typography.text {
                     padding: 0;
-                } 
+                }
             }
         }
     }
@@ -193,11 +193,14 @@
                 }
 
                 .remember-password {
-                    padding-top: 5px;
+                    padding: 0;
+                    margin-right: -15px;
 
                     a {
-                        font-size: 9pt;
+                        font-size: 10pt;
                         color: #1A1818;
+                        position: relative;
+                        top: -2px;
 
                         &:hover {
                             color: #00B2A9;
