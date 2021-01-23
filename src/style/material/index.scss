@@ -137,10 +137,23 @@
             padding-left: 30px;
         }
 
+        &.date-has-icon .MuiInputLabel-formControl {
+            padding-left: 30px;
+        }
+
         &.has-icon .MuiInputBase-input {
             padding-left: 30px;
         }
 
+        &.date-has-icon .MuiInputBase-input {
+            padding-left: 10px;
+            font-size: 10pt;
+            margin: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        .MuiSelect-nativeInput,
         textarea,
         select[multiple],
         input[type=date],
@@ -166,6 +179,23 @@
             padding-left: 0px;
             padding-right: 0px;
             font-family: 'Poppins', sans-serif;
+            order: 1;
+        }
+    }
+
+    .MuiIconButton-root {
+        padding: 0;
+        margin-left: -10px;
+    }
+
+    button {
+        &:focus {
+            outline: none;
+        }
+
+        .MuiSvgIcon-root {
+            fill: #909090;
+            font-size: 1.2rem;
         }
     }
 
@@ -179,6 +209,31 @@
         svg {
             font-size: 14pt;
             margin-right: -5px;
+        }
+    }
+
+    .MuiSelect-select:focus {
+        background: transparent;
+    }
+
+    .MuiSelect-select.MuiSelect-select {
+        padding-right: 24px;
+        font-size: 10pt;
+        font-family: 'Poppins', sans-serif;
+        color: #8f8f8f;
+    }
+
+    .MuiInputBase-root, label {
+        font-size: 10pt;
+        font-family: 'Poppins', sans-serif;
+        color: #8f8f8f;
+    }
+
+    &.select-materials {
+        &.has-icon {
+            label, .MuiSelect-select.MuiSelect-select {
+                padding-left: 30px;
+            }
         }
     }
 }

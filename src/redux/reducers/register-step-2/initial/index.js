@@ -1,3 +1,5 @@
+import AwesomeIcon from "../../../../statics/icon"
+
 export const macro = [
     {
         type: "date",
@@ -7,28 +9,42 @@ export const macro = [
         text: "Doğum Tarihi"
     },
     {
-        type: "text",
+        type: "select",
         required: true,
         name: "genre",
         forHtml: "genre",
-        text: "Cinsiyet"
+        text: "Cinsiyet",
+        icon: AwesomeIcon.Gender,
+        items: [
+            {
+                id: 1,
+                val: "e",
+                text: "Erkek" 
+            },
+            {
+                id: 1,
+                val: "k",
+                text: "Kadın" 
+            }
+        ]
     },
     {
         type: "text",
         required: false,
         name: "about",
         forHtml: "about",
-        text: "Hakkında"
+        text: "Hakkında",
+        icon: AwesomeIcon.AddressCard
     },
     {
-        type: "text",
+        type: "select",
         required: true,
         name: "city",
         forHtml: "city",
-        text: "İl Seçiniz"
+        text: "İl Seçiniz",
     },
     {
-        type: "text",
+        type: "select",
         required: true,
         name: "town",
         forHtml: "town",
@@ -39,14 +55,16 @@ export const macro = [
         required: true,
         name: "district",
         forHtml: "district",
-        text: "Adres"
+        text: "Adres",
+        icon: AwesomeIcon.Map
     },
     {
         type: "text",
         required: false,
         name: "address_detail",
         forHtml: "address_detail",
-        text: "Açık Adres"
+        text: "Açık Adres",
+        icon: AwesomeIcon.Map
     },
 ]
 

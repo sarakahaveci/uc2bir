@@ -47,7 +47,18 @@ const StepThree = (props) => {
             {macro.map((val, key) => {
                 return (
                     <div style={{ width: "100%" }} key={key}>
-                        {(val.type !== "checkbox") ?
+                        {val.type === "select" ?
+                           Material[val.type]({
+                            id: val.name,
+                            name: val.name,
+                            type: val.type,
+                            label: val.text,
+                            required: val.required,
+                            onChange: e => setData({ ...data, [e.target.name]: e.target.value }),
+                            autoComplete: "off",
+                            icon: val.icon,
+                            items: val.items ? val.items : [],
+                        }) : (val.type !== "checkbox") ?
                             Material[val.type]({
                                 id: val.name,
                                 name: val.name,
@@ -56,6 +67,7 @@ const StepThree = (props) => {
                                 required: val.required,
                                 onChange: e => setData({ ...data, [e.target.name]: e.target.value }),
                                 autoComplete: "off",
+                                icon: val.icon,
                             }) :
                             Material[val.type]({
                                 id: val.name,
@@ -65,16 +77,19 @@ const StepThree = (props) => {
                                 label: val.text,
                                 onChange: e => setData({ ...data, [val.name]: e.target.checked ? 1 : 0 }),
                                 checked: data[val.name] ? true : false,
-                            })}
+                            })
+                        }
                     </div>
                 );
             })}
+            <div style={{marginTop: 30, marginBottom: 15}}>
             {!registerStepTwo.loading ?
                 <Button type="submit" text={`İleri`} blue /> :
                 <Button onClick={async () => {
                     console.log("Lütfen Bekleyiniz...")
                 }} text={`Yükleniyor...`} blue />
             }
+            </div>
         </form>
     );
 };

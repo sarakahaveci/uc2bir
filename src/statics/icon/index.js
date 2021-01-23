@@ -38,6 +38,9 @@ import {
      faAt,
      faLock,
      faUser,
+     faMale,
+     faVenusMars,
+     faAddressCard,
 } from '@fortawesome/free-solid-svg-icons';
 import { icon } from '@fortawesome/fontawesome-svg-core';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
@@ -73,6 +76,8 @@ const AwesomeIcon = {
     At: props => <FontAwesomeIcon icon={faAt} {...props}/>,
     Lock: props => <FontAwesomeIcon icon={faLock} {...props}/>,
     User: props => <FontAwesomeIcon icon={faUser} {...props}/>,
+    Gender: props => <FontAwesomeIcon icon={faVenusMars} {...props}/>,
+    AddressCard: props => <FontAwesomeIcon icon={faAddressCard} {...props}/>
 }
 
 export default AwesomeIcon;
