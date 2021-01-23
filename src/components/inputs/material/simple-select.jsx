@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -20,10 +20,11 @@ const useStyles = makeStyles((theme) => ({
 
 const SimpleSelect = ({ id, name, label, type, items = [], required = false, defaultValue = "", autoComplete = "on", className = "", icon = false, onChange = () => { }, value = "", onKeyUp = () => { }, maxLength = "" }) => {
     const classes = useStyles();
-    const [val, setVal] = React.useState(defaultValue);
+    const [val, setVal] = useState(defaultValue);
 
-    const handleChange = (event) => {
+    const handleChange = (event, callback) => {
         setVal(event.target.value);
+        return callback(event);
     };
     return (
         <div className={`materials select-materials ${icon ? "has-icon" : ""}`}>
@@ -35,7 +36,7 @@ const SimpleSelect = ({ id, name, label, type, items = [], required = false, def
                     id={name}
                     name={name}
                     value={val}
-                    onChange={handleChange}
+                    onChange={e => handleChange(e, onChange)}
                     required={required}
                 >
                     {items.map((val, key) => <MenuItem key={`select-${name}-${key}`} value={val.val}>{val.text}</MenuItem>)}

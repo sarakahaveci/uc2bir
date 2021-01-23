@@ -12,8 +12,15 @@ import {
 const DateField = ({ id, name, label, type, required = false, defaultValue = "", autoComplete = "on", className = "", icon = false, onChange = () => { }, value = "", onKeyUp = () => { }, maxLength = "" }) => {
     const [selectedDate, setSelectedDate] = useState(new Date('2002-01-01T21:00:00'));
 
-    const handleDateChange = (date) => {
+    const handleDateChange = (date, callBack) => {
+        const event = {
+            target: {
+                name: name,
+                value: date
+            }
+        }
         setSelectedDate(date);
+        return callBack(event);
     };
     return (
         <div className="materials">
@@ -28,7 +35,7 @@ const DateField = ({ id, name, label, type, required = false, defaultValue = "",
                         required={required}
                         label={label}
                         value={selectedDate}
-                        onChange={handleDateChange}
+                        onChange={date => handleDateChange(date, onChange)}
                         KeyboardButtonProps={{
                             'aria-label': 'Tarih Gir',
                         }}

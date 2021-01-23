@@ -19,28 +19,14 @@ const StepThree = (props) => {
     const [data, setData] = useState({ ...inputs });
     const Fdata = new FormData();
 
-    useEffect(() => {
+    const onSubmit = async (event) => {
+        event.preventDefault();
+
         for (const [key, val] of Object.entries(data)) {
             Fdata.append(key, val)
         }
-    }, [data]);
 
-    const onSubmit = async (event) => {
-        event.preventDefault();
-        const result = await register_step_two(Fdata);
-        if (result.type === "FETCH_ERROR") {
-            toast.error(result.payload, {
-                position: "bottom-right",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            })
-        } else {
-            return setSteps("finish");
-        }
+        return console.log(data);
     }
     return (
         <form onSubmit={onSubmit} autoComplete="off">
