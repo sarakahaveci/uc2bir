@@ -3,7 +3,7 @@
     height: 130px;
     display: flex;
     z-index: 10000;
-    background: rgba(255,255,255,1);
+    background: rgba(255, 255, 255, 1);
     -webkit-box-shadow: 0px 5px 10px -8px rgba(0, 0, 0, 0.4);
     -moz-box-shadow: 0px 5px 10px -8px rgba(0, 0, 0, 0.4);
     box-shadow: 0px 5px 10px -8px rgba(0, 0, 0, 0.4);
@@ -15,7 +15,6 @@
     @media (max-width: 1200px) {
         justify-content: space-around;
         height: auto;
-        /*position: relative !important;*/
         flex-direction: row;
         flex-wrap: nowrap;
         background: transparent;
@@ -23,7 +22,7 @@
         box-shadow: none;
 
         &::before {
-            background: rgba(255,255,255,1);
+            background: rgba(255, 255, 255, 1);
             content: "";
             width: 100%;
             height: 95px;
@@ -37,6 +36,71 @@
             align-items: center;
             justify-content: center;
             height: 120px;
+
+            .svg-hamburder-menu {
+                width: 25px;
+                height: auto;
+                display: flex;
+                align-items: flex-end;
+                justify-content: center;
+                flex-direction: column;
+
+                .line {
+                    width: 100%;
+                    height: 4px;
+                    background: #000;
+                    margin: 2px 0;
+                    border-radius: 5px;
+                    position: relative;
+                    left: 0;
+                    right: 0;
+                    transition: all cubic-bezier(0, 1.64, 0.17, 1) .4s;
+
+                    &-1 {
+                        width: 50%;
+                        align-self: flex-start;
+                    }
+
+                    &-2 {
+                        width: 100%;
+                        transform: rotate(0deg);
+                    }
+
+                    &-3 {
+                        width: 50%;
+                    }
+                }
+
+                &.h-open {
+                    .line {
+                        width: 100%;
+                        height: 4px;
+                        background: #000;
+                        margin: 2px 0;
+                        border-radius: 5px;
+
+                        &-1 {
+                            width: 50%;
+                            align-self: flex-start;
+                            transform: rotate(-45deg);
+                            left: 9px;
+                            top: 4px;
+                        }
+
+                        &-2 {
+                            width: 100%;
+                            transform: rotate(45deg);
+                        }
+
+                        &-3 {
+                            width: 50%;
+                            transform: rotate(-45deg);
+                            left: -11px;
+                            top: -4px;
+                        }
+                    }
+                }
+            }
 
             svg {
                 width: 25px;

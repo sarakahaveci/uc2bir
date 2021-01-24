@@ -37,7 +37,12 @@ const Header = ({className, navLogo, navMenu, toggle, setToggle}) => {
     return (
         <nav className={className}>
             <div className="col-auto hamburgers left-menu">
-                <Svg.Menu onClick={() => toggleEl(toggle)}/>
+                <a onClick={() => toggleEl(toggle)} className={`svg-hamburder-menu ${toggle ? "h-open" : "h-close"}`}>
+                    <div className="line line-1"></div>
+                    <div className="line line-2"></div>
+                    <div className="line line-3"></div>
+                </a>
+                {/* <Svg.Menu onClick={() => toggleEl(toggle)}/> */}
                 {/* <a onClick={() => toggleEl(toggle)}><Hamburger color="#000" easing="ease-in" onToggle={toggled => toggleEl(toggled)} /></a> */}
             </div>
             <Link to="/" className={navLogo.className}>
