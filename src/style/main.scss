@@ -19,6 +19,14 @@ body {
         &.open-hamburger-menu {
             right: -70%;
         }
+
+        .over-flow-y-auto {
+            width: calc(100% + 45px);
+            margin: 0 -30px;
+            padding: 0 30px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+        }
     }
 }
 

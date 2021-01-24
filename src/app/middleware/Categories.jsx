@@ -12,7 +12,9 @@ const Categories = (props) => {
                 <Title variant="h5" component="h2">
                     Tarzını Seç, Hemen Kategorilere Göz At
                 </Title>
-                <ul>{Svg.Categories.map((val, key) => <li className="col-3 col-xl col-lg col-md-2 col-sm-3" key={key}><a title={val.name} href={val.link}>{val.svg({ className: "category-svg" })} <span>{val.name}</span></a></li>)}</ul>
+                <div className="over-flow-y-auto">
+                    <ul>{Svg.Categories.map((val, key) => <li className="col-4 col-xl col-lg col-md-2 col-sm-3" key={key}><a title={val.name} href={val.link}>{val.svg({ className: "category-svg" })} <span>{val.name}</span></a></li>)}</ul>
+                </div>
                 {props.children}
             </Container>
         </section>

@@ -194,6 +194,10 @@
                         background: radial-gradient(rgb(255, 255, 255), rgba(255, 255, 255, 0.53));
                         opacity: .7;
 
+                        @media (max-width: 1200px) {
+                            padding: 10px;
+                        }
+
                         li {
                             margin: 2px;
                             cursor: pointer;
@@ -201,6 +205,10 @@
                             svg {
                                 color: #ccc;
                                 font-size: 9pt;
+
+                                @media (max-width: 1200px) {
+                                    font-size: 5pt;
+                                }
                             }
 
                             &:hover,
