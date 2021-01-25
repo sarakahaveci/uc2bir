@@ -1,6 +1,6 @@
 ---
 id: 1
-image: './04.png'
+image: './04.jpg'
 name: "Efe Parlak"
 category: "Fitness Eğitmeni"
 purce: "100"
