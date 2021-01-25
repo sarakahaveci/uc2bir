@@ -1,8 +1,17 @@
-export const baseUri = "http://gateway.ms.321.4alabs.com";
-export const token = localStorage.getItem("token") || sessionStorage.getItem("token");
-export const refresh_token = localStorage.getItem("refresh_token") || sessionStorage.getItem("refresh_token");
-export const user = {};
+let _token = "";
+let _refresh_token = "";
 
+if (typeof(localStorage) !== "undefined") {
+    _token = localStorage.getItem("token") || sessionStorage.getItem("token");
+    _refresh_token = localStorage.getItem("refresh_token") || sessionStorage.getItem("refresh_token");
+} else {
+    console.log("Bundle Succsess");
+}
+
+export const baseUri = "http://gateway.ms.321.4alabs.com";
+export const token = _token;
+export const refresh_token = _refresh_token;
+export const user = {};
 const env = {
     baseUri,
     token,
