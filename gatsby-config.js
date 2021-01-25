@@ -1,8 +1,8 @@
 module.exports = {
   siteMetadata: {
-    title: `Dinamik Otomotiv`,
-    description: `Dinamik Otomotiv B2B`,
-    siteUrl: `https://b2b-dinamik-oto-v2.azurewebsites.net/`,
+    title: `321UcIkiBir`,
+    description: `321UcIkiBir`,
+    siteUrl: `https://321.4alabs.com/`,
   },
   plugins: [
     `gatsby-transformer-json`,
@@ -78,8 +78,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Dinamik Oto`,
-        short_name: `Dinamik OTO`,
+        name: `321UcIkiBir`,
+        short_name: `321UcIkiBir`,
         start_url: `/`,
         background_color: `#fff`,
         theme_color: `#02aab0`,
