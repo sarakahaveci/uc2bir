@@ -69,7 +69,7 @@ const StepOne = (props) => {
             {macro.map((val, key) => {
                 return (
                     <div style={{ width: "100%" }} key={key}>
-                        {(val.type !== "checkbox") &&
+                        {(val.type === "text" || val.type === "email" || val.type === "password" || val.type === "date") &&
                             Material[val.type]({
                                 id: val.name,
                                 name: val.name,
@@ -84,6 +84,47 @@ const StepOne = (props) => {
                     </div>
                 );
             })}
+            <div style={{ width: "100%" }}>
+                {macro.map((val, key) => {
+                    return (
+                        <div style={{ width: "100%" }} key={`radio-${key}`}>
+                            {(val.type === "radio") &&
+                                Material[val.type]({
+                                    id: val.name,
+                                    name: val.name,
+                                    type: val.type,
+                                    label: val.text,
+                                    required: val.required,
+                                    onChange: e => setData({ ...data, [e.target.name]: e.target.value }),
+                                    autoComplete: "off",
+                                    items: val.items ? val.items : [],
+                                })
+                            }
+                        </div>
+                    )
+                })}
+            </div>
+            <div style={{ width: "100%" }}>
+                {macro.map((val, key) => {
+                    return (
+                        <div style={{ width: "100%" }} key={`select-${key}`}>
+                            {(val.type === "select") &&
+                                Material[val.type]({
+                                    id: val.name,
+                                    name: val.name,
+                                    type: val.type,
+                                    label: val.text,
+                                    required: val.required,
+                                    onChange: e => setData({ ...data, [e.target.name]: e.target.value }),
+                                    autoComplete: "off",
+                                    icon: val.icon,
+                                    items: val.items ? val.items : [],
+                                })
+                            }
+                        </div>
+                    )
+                })}
+            </div>
             <div style={{ width: "100%", marginBottom: 25, marginTop: 40 }}>
                 {macro.map((val, key) => {
                     return (

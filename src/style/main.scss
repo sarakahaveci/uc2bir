@@ -17,7 +17,7 @@ body {
 
     @media (max-width: 1200px) {
         &.open-hamburger-menu {
-            right: -70%;
+            right: -55%;
         }
 
         .over-flow-y-auto {
@@ -26,6 +26,12 @@ body {
             padding: 0 30px;
             overflow-y: auto;
             margin-bottom: 15px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        &.open-hamburger-menu {
+            right: -70%;
         }
     }
 }
