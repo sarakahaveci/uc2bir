@@ -42,13 +42,27 @@ export const macro = [
         name: "city",
         forHtml: "city",
         text: "İl Seçiniz",
+        items: [
+            {
+                id: 1,
+                val: 1,
+                text: "Ankara"
+            }
+        ]
     },
     {
         type: "select",
         required: true,
         name: "town",
         forHtml: "town",
-        text: "İlçe Seçiniz"
+        text: "İlçe Seçiniz",
+        items: [
+            {
+                id: 1,
+                val: 1,
+                text: "Çankaya"
+            }
+        ]
     },
     {
         type: "text",

@@ -9,6 +9,8 @@ import registerStepOne from './reducers/register-step-1/action/actions';
 import registerStepTwo from './reducers/register-step-2/action/actions';
 import actionSearchButton from './reducers/search';
 import actionLeftBar from './reducers/hamberger';
+import verifty from './reducers/verifty/action/actions';
+import quiz from './reducers/quiz/action/actions';
 
 const reducers = combineReducers({
     counterReducers,
@@ -18,6 +20,8 @@ const reducers = combineReducers({
     registerStepTwo,
     actionSearchButton,
     actionLeftBar,
+    verifty,
+    quiz,
 });
   
 export default reducers;

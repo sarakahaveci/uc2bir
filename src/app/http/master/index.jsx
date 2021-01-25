@@ -12,6 +12,7 @@ import Footer from '../../../components/Footer';
 
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import env from '../../../env';
 
 /**
  * @param {{ children: void; }} props
@@ -28,6 +29,7 @@ const Master = props => {
 
     return (
         <div id="pt-point-page">
+            {console.log(env.token)}
             <Header />
             {props.children}
             <Footer />

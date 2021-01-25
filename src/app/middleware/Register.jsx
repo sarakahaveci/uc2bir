@@ -35,16 +35,6 @@ const Register = (props) => {
                     <div className="page-content">
                         <div className="contain">
                             <RegisterStep />
-                            <Text style={{ marginTop: 30, marginBottom: 10 }} fontSize="12pt" gray textAlign="center">
-                                Hesabınız var mı? <Link to="/login">Giriş Yap</Link>
-                            </Text>
-                            <div className="identfy">
-                                <span>Veya</span>
-                            </div>
-                            <div className="d-flex login-footer-start">
-                                <div className="col"><IconButtonLabel style={{ fontSize: "9pt", height: 45 }} icon={AwesomeIcon.Google} text="Google ile giriş yap" dark /></div>
-                                <div className="col"><IconButtonLabel style={{ fontSize: "9pt", height: 45 }} icon={AwesomeIcon.Facebook} text="Facebook ile giriş yap" dark /></div>
-                            </div>
                         </div>
                     </div>
                 </div>

@@ -15,7 +15,7 @@ import { register_step_two } from '../../../redux/reducers/register-step-2';
 import FormData from 'form-data';
 
 const StepThree = (props) => {
-    const { register_step_two, registerStepTwo, setSteps } = props;
+    const { register_step_two, registerStepTwo, setSteps, loginReducers } = props;
     const [data, setData] = useState({ ...inputs });
     const Fdata = new FormData();
 
@@ -26,7 +26,38 @@ const StepThree = (props) => {
             Fdata.append(key, val)
         }
 
-        return console.log(data);
+        const response = await register_step_two(data);
+        if ( response.type !== "FETCH_ERROR_STEP_TWO" ) {
+            toast.success("Güncelleme işlemi başarılı!", {
+                position: "bottom-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+			toast.info("Lütfen Bekleyiniz! Yönlendiriliyorsunuz...", {
+				position: "bottom-right",
+				autoClose: 2000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+            });
+            return setTimeout(() => setSteps("step4"), 1200);
+        } else {
+            toast.error(response.payload, {
+                position: "bottom-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
     }
     return (
         <form onSubmit={onSubmit} autoComplete="off">
@@ -97,6 +128,6 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-const mapStateToProps = ({ registerStepTwo }) => ({ registerStepTwo });
+const mapStateToProps = ({ registerStepTwo, loginReducers }) => ({ registerStepTwo, loginReducers });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StepThree);

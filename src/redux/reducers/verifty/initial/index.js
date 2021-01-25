@@ -13,8 +13,14 @@ export const inputs = {
     health_status: 0,
 }
 
+export const create = {
+    email: "",
+    phone: "",
+    user_token: null,
+}
+
 export const model = {
-    create: "",
+    ...create,
     data: [],
     type: "success",
     code: 200,
@@ -30,5 +36,7 @@ export const initialState = {
     isSuccess: false,
     deleteSuccess: false,
     updateSuccess: false,
+    result: false,
+    response: false,
     error: undefined,
 }

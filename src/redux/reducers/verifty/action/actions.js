@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { initialState } from "../initial";
 import { TYPES } from "./type";
 
@@ -14,7 +15,34 @@ export default(state = initialState, { type, payload }) => {
                 ...state,
                 loading: false,
                 isSuccess: true,
-                entity: payload,
+                entity: {
+                    ...state.entity,
+                    ...payload
+                },
+            }
+
+        case TYPES.FETCH_RESULT_VERIFTY:
+            return {
+                ...state,
+                loading: false,
+                isSuccess: true,
+                result: true,
+                entity: {
+                    ...state.entity,
+                    ...payload
+                },
+            }
+
+        case TYPES.FETCH_RESPONSE_VERIFTY:
+            return {
+                ...state,
+                loading: false,
+                isSuccess: true,
+                response: true,
+                entity: {
+                    ...state.entity,
+                    ...payload
+                },
             }
 
         case TYPES.FETCH_LIST_SUCCESS_VERIFTY:
@@ -30,7 +58,10 @@ export default(state = initialState, { type, payload }) => {
                 ...state,
                 loading: false,
                 isSuccess: true,
-                create: payload,
+                entity: {
+                    ...state.entity,
+                    ...payload
+                },
             }
 
         case TYPES.FETCH_ERROR_VERIFTY:
