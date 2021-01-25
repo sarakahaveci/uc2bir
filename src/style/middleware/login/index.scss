@@ -74,7 +74,7 @@
     }
 
     .page {
-        min-height: 999px;
+        /*min-height: 999px;*/
         /*height: calc(100vh);*/
         height: auto;
         position: relative;
@@ -97,7 +97,7 @@
             position: relative;
             background: transparent;
             width: 100%;
-            min-height: 100vh;
+            /*min-height: 100vh;*/
             top: 0;
             box-shadow: none;
             margin-bottom: 55px;
@@ -131,7 +131,7 @@
                 display: flex;
                 flex-direction: row;
                 flex-wrap: wrap;
-                min-height: 818px;
+                min-height: calc(100vh - 130px - 20px);
                 align-content: center;
 
                 @media (max-width: 1200px) {
