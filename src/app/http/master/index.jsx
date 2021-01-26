@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -18,18 +18,14 @@ import env from '../../../env';
  * @param {{ children: void; }} props
  */
 const Master = props => {
-    const toastContextClass = {
-        success: "bg-blue-600",
-        error: "bg-red-600",
-        info: "bg-gray-600",
-        warning: "bg-orange-400",
-        default: "bg-indigo-600",
-        dark: "bg-white-600 font-gray-300",
-    };
-
+    useLayoutEffect(() => {
+        if ( env.token ) {
+            console.log(env.token);
+            return axios.defaults.headers.common['Authorization'] = env.token;
+        }
+    });
     return (
         <div id="pt-point-page">
-            {console.log(env.token)}
             <Header />
             {props.children}
             <Footer />

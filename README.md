@@ -76,3 +76,77 @@ $ yarn
 # Start development server
 $ yarn develop
 ```
+
+```example graphql query
+# graphql query
+---------------------------------------------------
+query MyQuery {
+  allMarkdownRemark {
+    edges {
+      node {
+        frontmatter {
+          id
+          capasity
+          category
+          content
+          location
+          name
+          price
+          purce
+          square_meters
+          star
+          title
+          image {
+            childImageSharp {
+              fluid {
+                src
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+---------------------------------------------------
+
+# Call Component
+---------------------------------------------------
+import React from "react"
+import { graphql } from "gatsby"
+
+const ComponentName = ({ data }) => <pre>{JSON.stringify(data, null, 4)}</pre>
+
+export const query = graphql`
+  {
+    allMarkdownRemark {
+      edges {
+        node {
+          frontmatter {
+            id
+            capasity
+            category
+            content
+            location
+            name
+            price
+            purce
+            square_meters
+            star
+            title
+            image {
+              childImageSharp {
+                fluid {
+                  src
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`
+export default ComponentName
+---------------------------------------------------
+```example graphql query

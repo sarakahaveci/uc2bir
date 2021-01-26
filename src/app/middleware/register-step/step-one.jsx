@@ -21,6 +21,7 @@ import IconButtonLabel from '../../../components/buttons/icon-button-label';
 
 import { Link } from "gatsby";
 import AwesomeIcon from '../../../statics/icon';
+import env from '../../../env';
 
 const StepOne = (props) => {
     const [isload, setIsLoad] = useState(false);
@@ -46,9 +47,14 @@ const StepOne = (props) => {
             const lgn = await login(Ldata);
             if (lgn.type === "FETCH_SUCCESS") {
                 if (lgn.payload.token && lgn.payload.refresh_token && lgn.payload.user) {
-                    localStorage.setItem("token", lgn.payload.token);
-                    localStorage.setItem("refresh_token", lgn.payload.token);
-                    localStorage.setItem("user_id", lgn.payload.user.id);
+                    sessionStorage.setItem("token", lgn.payload.token);
+                    sessionStorage.setItem("refresh_token", lgn.payload.token);
+                    sessionStorage.setItem("user_id", lgn.payload.user.id);
+
+                    env.token = result.payload.token;
+                    env.refresh_token = result.payload.refresh_token; 
+                    env.user = result.payload.user.id;
+
                     return setSteps("step2");
                 }
             } else {
@@ -65,9 +71,13 @@ const StepOne = (props) => {
         } else {
             //kayıt yok
             if (result.payload.token && result.payload.refresh_token && result.payload.user) {
-                localStorage.setItem("token", result.payload.token);
-                localStorage.setItem("refresh_token", result.payload.token);
-                localStorage.setItem("user_id", result.payload.user.id);
+                sessionStorage.setItem("token", result.payload.token);
+                sessionStorage.setItem("refresh_token", result.payload.token);
+                sessionStorage.setItem("user_id", result.payload.user.id);
+
+                env.token = result.payload.token;
+                env.refresh_token = result.payload.refresh_token; 
+                env.user = result.payload.user.id;
 
                 new Promise(async (resolve, reject) => {
                     const _verifty_create = await verifty_create({

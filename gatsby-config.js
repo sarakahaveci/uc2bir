@@ -20,19 +20,6 @@ module.exports = {
         }
       }
     },
-    /*
-    {
-      resolve: `gatsby-plugin-prefetch-google-fonts`,
-      options: {
-        fonts: [
-          {
-            family: `Roboto`,
-            variants: [`100`,`300`,`400`,`500`,`700`, `900`]
-          },
-        ],
-      },
-    },
-    */
     {
       resolve: 'gatsby-source-filesystem',
       options: {
@@ -64,6 +51,20 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
+        name: `pt`,
+        path: `${__dirname}/src/images/pt/`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `gym`,
+        path: `${__dirname}/src/images/gym/`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
         name: `pages`,
         path: `${__dirname}/src/pages/`,
       },
@@ -73,6 +74,22 @@ module.exports = {
       options: {
         name: `images_background`,
         path: `${__dirname}/src/statics/background/images/`,
+      },
+    },
+    {
+      resolve: 'gatsby-transformer-remark',
+      options: {
+        plugins: [
+          {
+            resolve: 'gatsby-remark-images',
+          },
+          {
+            resolve: 'gatsby-remark-responsive-iframe',
+          },
+          'gatsby-remark-prismjs',
+          'gatsby-remark-copy-linked-files',
+          'gatsby-remark-smartypants',
+        ],
       },
     },
     {

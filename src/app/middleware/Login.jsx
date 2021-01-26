@@ -23,6 +23,9 @@ import { toast } from 'react-toastify';
 import { navigate } from "gatsby";
 import FormPages from '../../components/FormPages';
 
+import axios from 'axios';
+import env from '../../env';
+
 const Login = (props) => {
     const { login, loginReducers } = props;
     const [lg, setLg] = useState({ ...initialState });
@@ -83,6 +86,10 @@ const Login = (props) => {
                 draggable: true,
                 progress: undefined,
             }))
+            //set header axios
+            .then(() => axios.defaults.headers.common['Authorization'] = lg.entity.token)
+            //set config
+            .then(() => {env.token = lg.entity.token; env.refresh_token = lg.entity.refresh_token; env.user = lg.entity.user.id;})
             .then(() => setTimeout(() => {
                 toast.info("Lütfen Bekleyiniz! Yönlendiriliyorsunuz...", {
                     position: "bottom-right",

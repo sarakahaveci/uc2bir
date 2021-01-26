@@ -11,7 +11,7 @@ if (typeof(localStorage) !== "undefined") {
 export const baseUri = "http://gateway.ms.321.4alabs.com";
 export const token = _token;
 export const refresh_token = _refresh_token;
-export const user = {};
+export const user = 0;
 const env = {
     baseUri,
     token,
