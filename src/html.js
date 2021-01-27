@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import LoaderSVG from './images/321intro.gif';
+import LoaderMP4 from './images/321intro.mp4';
 
 export default function HTML({
   htmlAttributes,
@@ -44,12 +45,13 @@ export default function HTML({
             zIndex: 100000,
           }}
         >
-          <img
-            src={LoaderSVG}
+          <video
             alt="loading spinner"
             width="25%"
             height="auto"
-          />
+            autoPlay>
+              <source src={LoaderMP4} type="video/mp4" />
+          </video>
         </div>
         <div key="body" id="___gatsby" dangerouslySetInnerHTML={{ __html: body }} />
         {postBodyComponents}
