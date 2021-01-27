@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { default as NativeBanner } from "../../app/middleware/Banner";
 import SearchBar from '../../app/middleware/SearchBar';
 
@@ -18,6 +18,16 @@ import { bindActionCreators } from "redux";
 const Banner = (props) => {
     const { actionSearchButton, searchChangeNameButton } = props;
 
+    useLayoutEffect(() => {
+        const player = document.getElementById("vd-io");
+        if (player) {
+            player.controls = false;
+            player.playsinline = true;
+            player.muted = true;
+            player.setAttribute("muted", ""); // leave no stones unturned :)
+            player.autoplay = true;
+        }
+    });
     const virtuals = {
         pt: {
             className: "",
@@ -26,7 +36,7 @@ const Banner = (props) => {
                 return (
                     <>
                         <div className="video" style={{ /*backgroundImage: `url(${s1})`*/ }}>
-                            <video autoPlay loop>
+                            <video id="vd-io" meted="true" autoPlay playsInline loop>
                                 <source src={vid} type="video/mp4" />
                             </video>
                         </div>

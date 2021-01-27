@@ -49,7 +49,10 @@ export default function HTML({
             alt="loading spinner"
             width="25%"
             height="auto"
-            autoPlay>
+            meted="true"
+            autoPlay
+            playsInline
+            >
               <source src={LoaderMP4} type="video/mp4" />
           </video>
         </div>
