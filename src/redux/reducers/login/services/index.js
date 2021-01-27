@@ -13,6 +13,16 @@ const GETTOKEN = data => axios({
     }
 });
 
+const GETPROFILE = () => axios({
+    method: 'GET',
+    url: env.defaultUri.get_profile,
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${env.token}`
+    }
+});
+
 export const loginServices = {
     GETTOKEN,
+    GETPROFILE
 }

@@ -17,7 +17,7 @@
         height: 120px;
         width: 100%;
         position: relative;
-        background: radial-gradient(#383838, #a3a3a387);
+        background: radial-gradient(rgb(255,255,255), rgba(255,255,255,.5));
         border-radius: 10px;
         padding: 15px;
         display: flex;
@@ -51,7 +51,7 @@
                             content: "";
                             display: block;
                             border-color: transparent;
-                            border-bottom-color: #c6c6c7;
+                            border-bottom-color: rgba(255, 255, 255, 0.7);
                             border-style: dashed dashed solid;
                             border-width: 0 17px 25px;
                             top: 60px;

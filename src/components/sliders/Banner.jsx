@@ -1,6 +1,6 @@
 // @ts-nocheck
-import React, {useState} from 'react';
-import {default as NativeBanner} from "../../app/middleware/Banner";
+import React, { useState } from 'react';
+import { default as NativeBanner } from "../../app/middleware/Banner";
 import SearchBar from '../../app/middleware/SearchBar';
 
 import GoogleApp from '../../components/google-maps';
@@ -9,13 +9,14 @@ import GoogleApp from '../../components/google-maps';
 import s1 from "../../images/banner/dw1.jpg";
 import s2 from "../../images/banner/download.jpg";
 import s3 from "../../images/banner/dw2.jpg";
+import vid from "../../images/girisvideo1920x660.mp4";
 
 import { connect } from "react-redux";
-import {searchChangeNameButton} from '../../redux/reducers/search';
+import { searchChangeNameButton } from '../../redux/reducers/search';
 import { bindActionCreators } from "redux";
 
 const Banner = (props) => {
-    const {actionSearchButton, searchChangeNameButton} = props;
+    const { actionSearchButton, searchChangeNameButton } = props;
 
     const virtuals = {
         pt: {
@@ -24,7 +25,11 @@ const Banner = (props) => {
             component: () => {
                 return (
                     <>
-                        <div className="img" style={{ backgroundImage: `url(${s1})` }}></div>
+                        <div className="video" style={{ /*backgroundImage: `url(${s1})`*/ }}>
+                            <video autoPlay loop>
+                                <source src={vid} type="video/mp4" />
+                            </video>
+                        </div>
                     </>
                 )
             }
@@ -57,7 +62,7 @@ const Banner = (props) => {
             component: () => {
                 return (
                     <div className="img">
-                        <GoogleApp frame={{width: "100%", height: "660px"}}/>
+                        <GoogleApp frame={{ width: "100%", height: "660px" }} />
                     </div>
                 )
             }
@@ -76,7 +81,7 @@ const Banner = (props) => {
     const search_bar = {
         status: true,
         className: "search-bar",
-        element: () => <SearchBar className={search_bar.className} virtual={actionSearchButton} setVirtual={searchChangeNameButton} virtuals={virtuals}/>
+        element: () => <SearchBar className={search_bar.className} virtual={actionSearchButton} setVirtual={searchChangeNameButton} virtuals={virtuals} />
     }
 
     return (

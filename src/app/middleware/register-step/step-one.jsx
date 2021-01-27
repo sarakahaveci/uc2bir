@@ -51,9 +51,9 @@ const StepOne = (props) => {
                     sessionStorage.setItem("refresh_token", lgn.payload.token);
                     sessionStorage.setItem("user_id", lgn.payload.user.id);
 
-                    env.token = result.payload.token;
-                    env.refresh_token = result.payload.refresh_token; 
-                    env.user = result.payload.user.id;
+                    env.token = lgn.payload.token;
+                    env.refresh_token = lgn.payload.refresh_token;
+                    env.user = lgn.payload.user.id;
 
                     return setSteps("step2");
                 }

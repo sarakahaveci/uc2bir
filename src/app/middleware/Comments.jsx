@@ -30,9 +30,6 @@ const Comments = (props) => {
                 <Title variant="h3" component="h3">
                     Sizden Gelen Yorumlar
                 </Title>
-                <Text textAlign="center">
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-                </Text>
                 <section className="comment-slider">
                     <SlickSlider {...settings}>
                         <div className="slider-item">

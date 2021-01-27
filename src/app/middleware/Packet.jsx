@@ -14,9 +14,6 @@ const Packet = (props) => {
                 <Title variant="h5" component="h5" fontWeight="lighter" lineDisable>
                     SANA UYGUN OLAN PAKETİ SEÇ, HEMEN ÇALIŞMAYA BAŞLA
                 </Title>
-                <Text textAlign="center">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                </Text>
             </Container>
             <PacketSlider/>
         </section>

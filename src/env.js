@@ -19,6 +19,7 @@ const env = {
     user,
     defaultUri: {
         login: `${baseUri}/login`,
+        get_profile: `${baseUri}/user/profile`,
         register: {
             step1: `${baseUri}/register`,
             step2: `${baseUri}/user/profile/information`,

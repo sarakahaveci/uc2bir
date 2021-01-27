@@ -75,9 +75,9 @@ const Header = ({ loginReducers, searchChangeNameButton, actionLeftBar, hamburge
                             </div>
                             <div className="bar-item right-bar">
                                 <ul>
-                                    {!loginReducers.entity.token ? <li><Link to="/login">Giriş Yap</Link></li> : <li><Link to="profile">{loginReducers.entity.user.name}</Link></li>}
-                                    <li className="line"><span></span></li>
-                                    {!loginReducers.entity.token ? <li><Link to="/register">Üye Ol</Link></li> : <li><Link to="profile">{loginReducers.entity.user.email}</Link></li>}
+                                    {!loginReducers.entity.token ? <li><Link to="/login">Giriş Yap</Link></li> : <li><Link to="profile"><AwesomeIcon.User style={{color: "#585858", fontSize: "10pt", marginRight: 7}}/> {`${loginReducers.entity.user.name}`}</Link></li>}
+                                    {!loginReducers.entity.token ? <li className="line"><span></span></li> : ""}
+                                    {!loginReducers.entity.token ? <li><Link to="/register">Üye Ol</Link></li> : ""}
                                     {!loginReducers.entity.token && <li><Button className="" text="Profosyonel" dark /></li>}
                                 </ul>
                             </div>
