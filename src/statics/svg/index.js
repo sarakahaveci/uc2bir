@@ -6,6 +6,11 @@ import { ReactSVG } from 'react-svg';
 import { ReactComponent as Menu } from './images/menu.svg';
 import { ReactComponent as Search } from './images/search.svg';
 
+//import resct svg
+import InfoHome from './images/info-home.svg';
+import InfoOnline from './images/info-online.svg';
+import InfoSport from './images/info-sport.svg';
+
 //categories
 import I1 from './images/pt.svg';
 import I2 from './images/fitness.svg';
@@ -18,6 +23,10 @@ import I7 from './images/swimming.svg';
 const Svg = {
     Menu: props => <Menu {...props}/>,
     Search: props => <Search {...props}/>,
+
+    InfoHome: props => <ReactSVG {...props} src={InfoHome}/>,
+    InfoOnline: props => <ReactSVG {...props} src={InfoOnline}/>,
+    InfoSport: props => <ReactSVG {...props} src={InfoSport}/>,
 
     Categories: [
         {

@@ -68,7 +68,7 @@ const Header = ({ loginReducers, searchChangeNameButton, actionLeftBar, hamburge
                             <div className="bar-item left-bar">
                                 <ul>
                                     <li><IconButtonLabel className="icon-button" icon={AwesomeIcon.Search} text="Ne arıyorsun?" /></li>
-                                    <li><a href="#">Üç2Bir HAKKINDA</a></li>
+                                    <li><Link to="/info">Üç2Bir HAKKINDA</Link></li>
                                     <li><a href="#">BLOG</a></li>
                                 </ul>
 

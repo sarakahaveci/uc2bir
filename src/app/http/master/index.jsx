@@ -18,16 +18,61 @@ import axios from 'axios';
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { getProfile } from '../../../redux/reducers/login';
+import { getProfile, refreshToken } from '../../../redux/reducers/login';
+
+import FormData from 'form-data';
 
 /**
  * @param {{ children: void; }} props
  */
 const Master = props => {
-    const { getProfile, loginReducers } = props;
+    const { getProfile, loginReducers, refreshToken } = props;
     const [ref, setRef] = useState(false);
 
+    const removeKit = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('refresh_token');
+        localStorage.removeItem('user_id');
+
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('refresh_token');
+        sessionStorage.removeItem('user_id');
+    }
+
     const refToken = async () => {
+        const data = new FormData();
+        data.append("refresh_token", env.refresh_token);
+
+        const post = await refreshToken(data);
+        const response = new Promise((resolve, reject) => {
+            if ( post ) {
+                resolve(post);
+            } else {
+                removeKit();
+                reject("Lütfen tekrar giriş yapın.");
+            }
+        });
+
+        return response
+            .then((data) => {
+                console.log(data);
+                if ( data.type === "FETCH_ERROR" ) {
+                    return removeKit();
+                }
+            })
+            .then(() => setRef(true))
+            .catch(err => toast.error(err, {
+                position: "bottom-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            }));
+    }
+
+    const profile = async () => {
         const get = await getProfile();
         const response = new Promise((resolve, reject) => {
             if ( get ) {
@@ -52,7 +97,7 @@ const Master = props => {
     useLayoutEffect(() => {
         if ( env.token ) {
             if ( !ref ) {
-                refToken();
+                profile();
             }
         }
     }, [ref]);
@@ -69,7 +114,7 @@ const Master = props => {
 const mapDispatchToProps = dispatch => {
     return {
         dispatch,
-        ...bindActionCreators({ getProfile }, dispatch),
+        ...bindActionCreators({ getProfile, refreshToken }, dispatch),
     }
 }
 

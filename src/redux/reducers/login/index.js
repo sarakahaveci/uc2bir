@@ -45,3 +45,21 @@ export const getProfile = () => async dispatch => {
         });
     }
 };
+
+export const refreshToken = data => async dispatch => {
+    dispatch({
+        type: TYPES.FETCH_PENDING,
+    });
+    try {
+        const payload = await loginServices.GETREFRESHTOKEN(data);
+        return dispatch({
+            type: TYPES.FETCH_SUCCESS,
+            payload: payload.data.data
+        });
+    } catch(err) {
+        return dispatch({
+            type: TYPES.FETCH_ERROR,
+            payload: err.message
+        });
+    }
+};

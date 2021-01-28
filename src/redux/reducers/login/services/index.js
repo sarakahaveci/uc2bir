@@ -22,7 +22,18 @@ const GETPROFILE = () => axios({
     }
 });
 
+const GETREFRESHTOKEN = data => axios({
+    method: 'POST',
+    url: env.defaultUri.get_profile,
+    data: data,
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${env.token}`
+    }
+});
+
 export const loginServices = {
     GETTOKEN,
-    GETPROFILE
+    GETPROFILE,
+    GETREFRESHTOKEN,
 }
