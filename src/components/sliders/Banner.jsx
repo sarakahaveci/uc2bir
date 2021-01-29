@@ -36,7 +36,7 @@ const Banner = (props) => {
                 return (
                     <>
                         <div className="video" style={{ /*backgroundImage: `url(${s1})`*/ }}>
-                            <video id="vd-io" meted="true" autoPlay playsInline loop>
+                            <video id="vd-io" autoPlay loop>
                                 <source src={vid} type="video/mp4" />
                             </video>
                         </div>

@@ -1,11 +1,12 @@
 ---
-id: 1
-image: './04.jpg'
-name: "Efe Parlak"
+id: 4
+image: './07.jpg'
+name: "Birol Kaplan"
 category: "Fitness Eğitmeni"
 price: "100"
-star: "5"
+stars: "4"
 content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum. dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-categories: ["Meditasyon", "Plates", "Fitness"]
-location: "İstanbul, Beşiktaş"
+ctn: "[Meditasyon, Plates, Fitness]"
+location: "Ankara, Çankaya"
+team: "C"
 ---

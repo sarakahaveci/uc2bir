@@ -51,8 +51,15 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `pt`,
-        path: `${__dirname}/src/images/pt/`,
+        name: `pt-groups`,
+        path: `${__dirname}/src/images/pt-groups/`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `group-lesson`,
+        path: `${__dirname}/src/images/group-lesson/`,
       },
     },
     {

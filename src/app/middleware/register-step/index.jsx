@@ -8,6 +8,7 @@ import StepFinish from './step-finish';
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import StepBar from '../../../components/steps/StepBar';
 
 const RegisterStep = (props) => {
     const { registerStepOne, registerStepTwo } = props;
@@ -44,10 +45,7 @@ const RegisterStep = (props) => {
     }
     return (
         <>
-            <div className="step-bar">
-                <div style={{ width: `${Math.ceil(100 / (4 / step(steps).key))}%` }} className="bar"></div>
-                <span>{step(steps).num}/4</span>
-            </div>
+            <StepBar stepKey={step(steps).key} stepNum={step(steps).num}/>
             {step(steps).page()}
         </>
     );

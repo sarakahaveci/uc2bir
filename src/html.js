@@ -45,16 +45,12 @@ export default function HTML({
             zIndex: 100000,
           }}
         >
-          <video
+          <img
             alt="loading spinner"
             width="25%"
             height="auto"
-            meted="true"
-            autoPlay
-            playsInline
-            >
-              <source src={LoaderMP4} type="video/mp4" />
-          </video>
+            src={LoaderSVG}
+            />
         </div>
         <div key="body" id="___gatsby" dangerouslySetInnerHTML={{ __html: body }} />
         {postBodyComponents}
