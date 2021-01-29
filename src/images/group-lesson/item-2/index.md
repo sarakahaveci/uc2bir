@@ -2,10 +2,12 @@
 id: 2
 image: '02.jpg'
 name: "Fatih Kale"
-category: "boks living room:Fighting Fit Cl…"
-price: "2000"
+category: "Salon Figt Night Fit Cl…"
+price: "2.000"
 star: "5"
 date: "03.04.2021"
-content: "boxing instructor"
+content: "Box Eğitmeni"
 location: "İstanbul, Beşiktaş"
+ctn: "Boks"
+seater: "2/6"
 ---

@@ -4,7 +4,59 @@ import Title from '../../components/typography/title';
 import Text from '../../components/typography/text';
 import PacketSlider from '../../components/sliders/PacketSlider';
 
-const Packet = (props) => {
+import { useStaticQuery, graphql } from "gatsby";
+
+const Packet = props => {
+    const query = useStaticQuery(graphql`
+    {
+        allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/packets/"}}, sort: {order: DESC, fields: id}) {
+            edges {
+                node {
+                    frontmatter {
+                    name
+                    title
+                    category
+                    price
+                    content
+                    package_included
+                        image {
+                            childImageSharp {
+                                fluid {
+                                    src
+                                }
+                            }
+                        }
+                    }
+                    id
+                }
+            }
+        }
+    }
+    `);
+
+    const data = query.allMarkdownRemark.edges;
+    const groups = "Packet";
+    const link = "/packets";
+    const categories = [
+        {
+            id: 1,
+            name: "Tümü",
+            activeClass: "active",
+            link: "#all"
+        },
+        {
+            id: 2,
+            name: "Eğitmen Paketleri",
+            activeClass: "",
+            link: "#all"
+        },
+        {
+            id: 3,
+            name: "Diyetisyen Paketleri",
+            activeClass: "",
+            link: "#all"
+        }
+    ];
     return (
         <section className={`pt ${props.className}`}>
             <Container>
@@ -15,7 +67,7 @@ const Packet = (props) => {
                     SANA UYGUN OLAN PAKETİ SEÇ, HEMEN ÇALIŞMAYA BAŞLA
                 </Title>
             </Container>
-            <PacketSlider/>
+            <PacketSlider query={query} data={data} groups={groups} categories={categories} link={link}/>
         </section>
     );
 };

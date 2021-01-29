@@ -1,11 +1,11 @@
 ---
 id: "4"
 image: '04.jpg'
-name: "trainer package"
-title: "building muscle in fifteen days"
-category: "muscle building pack"
-price: "1500"
+name: "15 Günde Kas Geliştirin"
+title: "Kas Yapma Paketi"
+category: "Diyetisyen"
+price: "1.500"
 time: "15 day"
-content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna"
-package_included: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna"
+content: "-Paket içeriği 1, Paket içeriği 2..."
+package_included: "15"
 ---

@@ -65,6 +65,13 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
+        name: `packets`,
+        path: `${__dirname}/src/images/packets/`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
         name: `gym`,
         path: `${__dirname}/src/images/gym/`,
       },
