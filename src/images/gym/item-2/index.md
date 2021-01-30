@@ -2,7 +2,7 @@
 id: 2
 image: './02.jpg'
 name: "Fighting fit studio"
-title: "crossfit"
+title: "Crossfit"
 category: "yoga,meditasyon,tenis"
 price: "180"
 capasity: "90"

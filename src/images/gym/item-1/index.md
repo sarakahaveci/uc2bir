@@ -2,7 +2,7 @@
 id: 1
 image: './01.jpg'
 name: "Bfit studio"
-title: "crossfit"
+title: "Crossfit"
 category: "Boks, plates, fitness"
 price: "200"
 capasity: "100"

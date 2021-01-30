@@ -23,8 +23,7 @@ const Packet = ({ val }) => {
                         <div className="row info">
                             <div className="col">
                                 <ul>
-                                    <li>1. Paket İçeriği...</li>
-                                    <li>2. Paket İçeriği...</li>
+                                    <li>{val.node.frontmatter.content}</li>
                                 </ul>
                             </div>
                             <div className="col-auto">

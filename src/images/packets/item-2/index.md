@@ -6,6 +6,6 @@ title: "Zayıflama Paketi"
 category: "Diyetisyen"
 price: "2.00"
 time: "15 day"
-content: "-Paket içeriği 1, Paket içeriği 2..."
+content: "Paket içeriği"
 package_included: "14"
 ---

@@ -2,7 +2,7 @@
 id: 3
 image: '03.jpg'
 name: "Wind Life Studio"
-title: "crossfit"
+title: "Crossfit"
 category: "Fitness,plates,tenis"
 price: "80"
 capasity: "90"

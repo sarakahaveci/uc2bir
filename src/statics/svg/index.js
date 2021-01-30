@@ -30,11 +30,11 @@ const Svg = {
 
     Categories: [
         {
-            name: "Body Builder",
+            name: "Fitness",
             svg: props => <ReactSVG {...props} src={I1} />
         },
         {
-            name: "Fitness",
+            name: "Pilates",
             svg: props => <ReactSVG {...props} src={I2} />
         },
         {
@@ -50,11 +50,11 @@ const Svg = {
             svg: props => <ReactSVG {...props} src={I5} />
         },
         {
-            name: "Athlet",
+            name: "Athletic Performans",
             svg: props => <ReactSVG {...props} src={I6} />
         },
         {
-            name: "Yüzücülük",
+            name: "Cimnastik",
             svg: props => <ReactSVG {...props} src={I7} />
         },
     ]
