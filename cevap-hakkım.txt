@@ -1,0 +1,53 @@
+Merhaba! Yapılan toplantıya katılamama sebebim? Ben diş çektirmiştim sorun olduğunda dikiş atarız demişti doktorum.
+Sorun olduda ağzım burnum kan için de uyandım ve hemen arkadaşımın yanına gittim, oficce ini açıp küçük bi dikiş attı.
+Aceleyle telefonumu falan evde unutmuşum. Bu yüzden toplantıya katılamadım zaten iki gündür o toplantıya hazırlanıyordum. 
+Sizinlede daha önce solid kavramlar üstüne konuştuk ve yapımı ona göre yapmaya çalıştım. Bir kaç revizelerim vardı onları anlatacaktım.
+
+Toplantıya mütemadiyen.
+
+    1. Responsive için kullandığım bootstrap 4.5.0 kütüphanesini kullanıyorum bundle tarafındada o kütüphaneyi sıkıştırıp 
+dışarı aktırılıyor. web config dosyasında ve gatsby-config dosyasında ayarları mevcuttur.
+    1.1 Ben material ui ları ise textbox, chackbox, datebox, radiobox gibi ui lar için kullanıyorum ama onlar şimdilik hızlı olsun eklemiştim,
+geriye kaldığında filed ları ve errorları hallettikten sonra temizleyecektim.
+    
+    Dosya yolu: src/component/material bu componentlerden referans alıp ui yımı <Material.email ...props> gibi ui oluşturuyorum. bunlarıda macro ile 
+    birleştirdim onları birazdan anlatacağım.
+    Ayrıca responsive için bakacağınız yer arkadaşlara anlatmıştım söylemişler bakacağınız dosya yolu
+    style/main.scss burada ben bir componentin hatta middleware componentin ve hatta responsive aldığım ui componentlerin bile css ini burada scss olarak
+    yazdım...
+
+    2. Gatsby' i tabiki çıkartabiliriz. Ama jamstack özellikle markdown image birde statick page ve birazdan anlatacağım rooter yapılarını
+kendi elimizle yada ona yakın kütüphaneler kullanmamız gerekmetedir. Siz bana kütüphaneleri yada kullanılan base yöntemleri söyleyebilirsiniz. Gatsby i ben
+hızlı olsun birde statick pagelerde kurduğum markdown yapısında herkes içerik güncelleyebilsin diye şimdilik backend e ihtiyaç duymadan onu sizinle yaptığımız
+toplantıda da söylemiştim ama siz çıkarın dediğiniz hemen çıkaracak şekilde yaz demiştiniz ona göre ayar verdim zaten.
+
+    3. Kod kirli dediğiniz yerlerin hiç bir yerine bakmamışsınız muhtemelen şikayet üzerine gelip söylemişsiniz. Dosya yapısını anlatıyım ben;
+    public => içerisinde statick pagelerimizi tutuyoruz.
+    app => içerisinde master ve base halini tutuyoruz.
+    app/master => layaut da denilebilir master tutuyoruz.
+    app/partials => partials alan tutuyoruz... daha ayrıntılı konuşuruz
+    static => bütün static yerleri burda tutuyoruz örneğin ben icon çekeceğim direk herkes ayrı ayrı icon çekmek yerine ui bir bütünlük olsun diye 
+    bütün kod parçalarını burada tutuyoruz. örneğin <Awesome.Map> map iconu oluşturur fontawesome giderek...
+
+    4. Bütün componentleri ben zaten tekilleştirdim. Mesala FocusSlider ağitmenler salonlar diyetisyenler bu componente gidiyor burda referans alıp ui oluşuyor. dosya yapısı components/sliders/... gibi
+Bir diğer örnek. Button komponenti veya text componenti veya icon button componenti bunların hepsi tek bir componente gidip ordan ui alıyor.
+Malzemeye de bakmak isterseniz size oda verilmedi galiba. 321.4alabs.com hala geliştiriyorum...
+
+    5.React reach kullanmıyorum. Arkadaşlara ben onu her konuştuğumda anlatmaya çalıştım ama size şikayet olarak söylemiş. Jamstack için gatsby nin hazırladığı ssr tarafında çalışan
+rooter yapısı var klasör /provider.js ve /gatsby-ssr.js o klasör orada ben örnek base bunu yazmak yerine demek için eklenmiş bi klasör onu silecekrim tabi ki unutmuşum birde orda counter ve json-placeholder
+var onlar test için hazırlanan srr için yerler silmeyi unumtuşum. gerçek alan public/... içerisinden gerekli navigationu takip edebilirsiniz.
+Zaten orda first commit diyor ilk kütüphaneyle gelen bi bunu böyle kullanmayın diyen örnek. Daha ayrıntılı bilgi için arkadaşlara da linki atmıştım ama size hiç söylemişler onu kullanmadığımı bile söylemiştim hatta
+https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-link/ linki burada.
+
+    6. Eslintler var onlarıda anlattım arkadaşlara projede de bağlı hatta kendi config ayarlarımı da atacağım. Onu da söylemişler size malesef.
+
+    7. Imageların hepsi statickden geliyor markdown şimdilik eklediğim imagelar hariç çünkü mesala sporcunun imageleri backendden gelecek ben şimdilik
+(gösterim, sunum için) images ın altına topluyorum. markdowlar için backend olmadan bir graphql yapı oluşturdum. images ın içerisinde örneğin pt groups var ordaki item-1 var orada
+index.md var oranın adını değiştirdiğiniz anda sitede de değişiyor. (içerde küçük bir backend yazdık sunumlar için.)
+
+    8. Redux ve service yapılarını da anlattım neden çift yönlü yaptığımı neden macro yaptığımıda anlattım yine hiç biri size anlatılmamış.
+sevice oradaki sadece kabul ediyorum onlara da en başta dedim ya isimleri cidden kötü oldu dedim çünkü 1 saatte yazdım. 
+mesala logine bakalım. bir redux yapısını üç ayrı klasöre böldüm temel amacım backend ile haberleşirken bire bir cevapları yönetibilmek ve backend in isteğine göre ui kırılımları oluşturabilmek (bunlarıda anlattım)
+    8.1 1. action yapısı 1. action 
+
+

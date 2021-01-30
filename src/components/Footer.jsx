@@ -48,7 +48,7 @@ const Footer = () => {
                         <ul>
                             <li><a href="#">Lorem Ipsum</a></li>
                             <li><a href="#">Lorem Ipsum</a></li>
-                            <li><IconLabel href="mail:info@ptpoints.com" className="icon-label" text="info@ptpoints.com" icon={AwesomeIcon.Envolope} /></li>
+                            <li><IconLabel href="mail:info@uc2bir.com" className="icon-label" text="info@uc2bir.com" icon={AwesomeIcon.Envolope} /></li>
                             <li><IconLabel href="tel:05XXXXXXXXX" className="icon-label" text="05XX XXX XX XX" icon={AwesomeIcon.Phone} /></li>
                         </ul>
                     </div>

@@ -34,7 +34,7 @@ const Header = ({ loginReducers, searchChangeNameButton, actionLeftBar, hamburge
                     <Row className="nav-element">
                         <div className="bar-item left-bar">
                             <ul>
-                                <li><IconLabel href="mail:info@ptpoints.com" className="icon-label" text="info@ptpoints.com" icon={AwesomeIcon.Envolope} /></li>
+                                <li><IconLabel href="mailto:info@uc2bir.com" className="icon-label" text="info@uc2bir.com" icon={AwesomeIcon.Envolope} /></li>
                                 <li><IconLabel href="tel:05XXXXXXXXX" className="icon-label" text="05XX XXX XX XX" icon={AwesomeIcon.Phone} /></li>
                                 <li onClick={() => setToggle(!toggle)} className="d-xl-none dropdown flex-column">
                                     Kategoriye Göre Arama
