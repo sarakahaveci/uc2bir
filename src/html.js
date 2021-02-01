@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import LoaderSVG from './images/321intro.gif';
+import LoaderSVG from './images/321-loading.gif';
 import LoaderMP4 from './images/321intro.mp4';
 
 export default function HTML({
