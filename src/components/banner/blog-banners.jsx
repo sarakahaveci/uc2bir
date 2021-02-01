@@ -7,7 +7,6 @@ import LabelText from '../typography/LabelText';
 /* bunu şimdilik ekliyoruz */
 // @ts-ignore
 import img from '../../images/blog/image-1.png';
-import PersPectiveButton from '../buttons/perspective-button';
 
 const initialData = {
     img: "",
@@ -26,7 +25,7 @@ const BlogBanners = ({ left = false, right = false, top = false, bottom = false,
                     <Title variant="h5" component="h5" textLeft children="Quis autem vel eum iure qui inea voluptate velit esse quam nihil" lineDisable />
                     <Text fontSize="10pt">There are many variations of passages of Lorem Ipsum available the majority have suffered alteration in some form, by injected humour, or randomised don't look even slightly believable alteration in lore ipsu..</Text>
                     <LabelText label="Yazar:" children="DYT, Ezgi FINDIK" />
-                    <PersPectiveButton className="bl-btn" text="Devamını Oku"/>
+                    <Button perspective className="bl-btn" text="Devamını Oku"/>
                 </div>
             </div>
         )
@@ -40,7 +39,7 @@ const BlogBanners = ({ left = false, right = false, top = false, bottom = false,
                     <Title variant="h5" component="h5" textLeft children="Quis autem vel eum iure qui inea voluptate velit esse quam nihil" lineDisable />
                     <Text fontSize="10pt">There are many variations of passages of Lorem Ipsum available the majority have suffered alteration in some form, by injected humour, or randomised don't look even slightly believable alteration in lore ipsu..</Text>
                     <LabelText label="Yazar:" children="DYT, Ezgi FINDIK" />
-                    <PersPectiveButton className="bl-btn" text="Devamını Oku"/>
+                    <Button perspective className="bl-btn" text="Devamını Oku"/>
                 </div>
             </div>
         )
@@ -54,7 +53,7 @@ const BlogBanners = ({ left = false, right = false, top = false, bottom = false,
                     <Title variant="h5" component="h5" textLeft children="Quis autem vel eum iure qui inea voluptate velit esse quam nihil" lineDisable />
                     <Text fontSize="10pt">There are many variations of passages of Lorem Ipsum available the majority have suffered alteration in some form, by injected humour, or randomised don't look even slightly believable alteration in lore ipsu..</Text>
                     <LabelText label="Yazar:" children="DYT, Ezgi FINDIK" />
-                    <PersPectiveButton className="bl-btn" text="Devamını Oku"/>
+                    <Button perspective className="bl-btn" text="Devamını Oku"/>
                 </div>
             </div>
         )
@@ -67,7 +66,7 @@ const BlogBanners = ({ left = false, right = false, top = false, bottom = false,
                     <Title variant="h5" component="h5" textLeft children="Quis autem vel eum iure qui inea voluptate velit esse quam nihil" lineDisable />
                     <Text fontSize="10pt">There are many variations of passages of Lorem Ipsum available the majority have suffered alteration in some form, by injected humour, or randomised don't look even slightly believable alteration in lore ipsu..</Text>
                     <LabelText label="Yazar:" children="DYT, Ezgi FINDIK" />
-                    <PersPectiveButton className="bl-btn" text="Devamını Oku"/>
+                    <Button perspective className="bl-btn" text="Devamını Oku"/>
                 </div>
                 <div className="col-xl-12 blog-items img" style={{ backgroundImage: `url(${img})` }}></div>
             </div>

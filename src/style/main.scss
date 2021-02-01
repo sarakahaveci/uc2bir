@@ -1,93 +1,102 @@
-@import "./reset/index.css";
+@import './reset/index.css';
+
+:root {
+  --light-blue: #00b2a9;
+  --black1: #1a1818;
+  --black2: #181818;
+  --gray1: #909090;
+  --yellow: #ffba00;
+  --pink: #f01c62;
+}
 
 body {
-    font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 #___gatsby {
-    width: 100%;
-    height: auto;
-    overflow: hidden;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
 }
 
 #pt-point-page {
-    position: relative;
-    right: 0;
-    transition: right .5s ease;
+  position: relative;
+  right: 0;
+  transition: right 0.5s ease;
 
-    @media (max-width: 1200px) {
-        &.open-hamburger-menu {
-            right: -55%;
-        }
-
-        .over-flow-y-auto {
-            width: calc(100% + 45px);
-            margin: 0 -30px;
-            padding: 0 30px;
-            overflow-y: auto;
-            margin-bottom: 15px;
-        }
+  @media (max-width: 1200px) {
+    &.open-hamburger-menu {
+      right: -55%;
     }
 
-    @media (max-width: 768px) {
-        &.open-hamburger-menu {
-            right: -70%;
-        }
+    .over-flow-y-auto {
+      width: calc(100% + 45px);
+      margin: 0 -30px;
+      padding: 0 30px;
+      overflow-y: auto;
+      margin-bottom: 15px;
     }
+  }
+
+  @media (max-width: 768px) {
+    &.open-hamburger-menu {
+      right: -70%;
+    }
+  }
 }
 
 .main {
-    min-height: 100vh;
+  min-height: 100vh;
 
-    @media (max-width: 1200px) {
-        min-height: inherit;
-    }
+  @media (max-width: 1200px) {
+    min-height: inherit;
+  }
 }
 
 .app-root {
-    /*padding-top: 130px;*/
-    width: 100%;
-    height: auto;
-    overflow: hidden;
+  /*padding-top: 130px;*/
+  width: 100%;
+  height: auto;
+  overflow: hidden;
 }
 
 /* components */
 
 /* header */
-@import "./header";
+@import './header';
 
 /* buttons */
-@import "./buttons";
+@import './buttons';
 
 /* sliders */
-@import "./sliders";
+@import './sliders';
 
 /* typography */
-@import "./typography";
+@import './typography';
 
 /* material */
-@import "./material";
+@import './material';
 
 /* banner */
-@import "./banner";
+@import './banner';
 
 /* inputs */
-@import "./inputs";
+@import './inputs';
 
 /* blog-banner */
-@import "./blog-banner";
+@import './blog-banner';
 
 /* step-bar */
-@import "./step-bar";
+@import './step-bar';
 
 /* footer */
-@import "./footer";
+@import './footer';
 
 /* dialog */
-@import "./dialog";
+@import './dialog';
 
 /* components */
 
-@import "./middleware";
+@import './middleware';
 
-@import "./responsive";
+@import './responsive';
