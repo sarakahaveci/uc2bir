@@ -1,8 +1,8 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import Title from '../../components/typography/title';
-import Text from '../../components/typography/text';
-import SliderFocus from '../../components/sliders/SliderFocus';
+import Title from '../../../components/typography/title';
+import Text from '../../../components/typography/text';
+import SliderFocus from '../../../components/sliders/SliderFocus';
 
 import { useStaticQuery, graphql } from "gatsby";
 

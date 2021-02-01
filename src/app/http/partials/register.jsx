@@ -1,20 +1,20 @@
 // @ts-nocheck
 import React from 'react';
-import Main from '../../middleware/Main';
-import Root from '../../middleware/Root';
-import Master from '../master';
+import Main from '../../sub-page/Main';
+import SubPages from '../../sub-page/SubPages';
+import Layout from '../layout';
 
-import {default as DefaultRegister} from '../../middleware/Register';
+import {default as RegisterSubPage} from '../../sub-page/register/Register';
 
 const Register = () => {
     return (
-        <Master>
+        <Layout>
             <Main className="main">
-                <Root>
-                    <DefaultRegister/>
-                </Root>
+                <SubPages>
+                    <RegisterSubPage/>
+                </SubPages>
             </Main>
-        </Master>
+        </Layout>
     );
 };
 

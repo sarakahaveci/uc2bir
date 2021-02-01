@@ -2,14 +2,14 @@
 import React from 'react';
 import { Container, Row } from 'react-bootstrap';
 
-import Title from '../../components/typography/title';
-import Text from '../../components/typography/text';
+import Title from '../../../components/typography/title';
+import Text from '../../../components/typography/text';
 
-import Svg from '../../statics/svg';
+import Svg from '../../../statics/svg';
 
 /* images */
-import img from '../../images/info/banner/info-img.png';
-import item1 from '../../images/info/item-1.jpg';
+import img from '../../../images/info/banner/info-img.png';
+import item1 from '../../../images/info/item-1.jpg';
 
 const Info = (props) => {
     return (

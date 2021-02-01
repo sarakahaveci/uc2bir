@@ -1,13 +1,13 @@
 import React from 'react';
 // @ts-ignore
-import { default as NativeFluidBanner } from "../../components/banner/fluid-banner";
-import Title from '../../components/typography/title';
-import Text from '../../components/typography/text';
+import { default as NativeFluidBanner } from "../../../components/banner/fluid-banner";
+import Title from '../../../components/typography/title';
+import Text from '../../../components/typography/text';
 
 // @ts-ignore
-import backgroundImage from '../../statics/background/images/banner-bottom.jpg';
+import backgroundImage from '../../../statics/background/images/banner-bottom.jpg';
 import { Container } from 'react-bootstrap';
-import Button from '../../components/buttons/button';
+import Button from '../../../components/buttons/button';
 
 const FluidBanner = (props) => {
     return (

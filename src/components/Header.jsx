@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Row } from 'react-bootstrap';
 
-import { default as NativeHeader } from '../app/middleware/Header';
+import { default as NativeHeader } from '../app/sub-page/Header';
 // @ts-ignore
 import logo from '../images/logo.png';
 import AwesomeIcon from '../statics/icon';

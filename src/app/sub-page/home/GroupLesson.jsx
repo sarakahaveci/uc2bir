@@ -1,8 +1,8 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import Title from '../../components/typography/title';
-import Text from '../../components/typography/text';
-import PacketSlider from '../../components/sliders/PacketSlider';
+import Title from '../../../components/typography/title';
+import Text from '../../../components/typography/text';
+import PacketSlider from '../../../components/sliders/PacketSlider';
 
 import { useStaticQuery, graphql } from "gatsby";
 

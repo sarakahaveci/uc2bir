@@ -1,10 +1,10 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import Button from '../../components/buttons/button';
-import AsNavFor from '../../components/sliders/AsNavFor';
-import Text from '../../components/typography/Text';
-import Title from '../../components/typography/title';
-import DefBackground from '../../statics/background';
+import Button from '../../../components/buttons/button';
+import AsNavFor from '../../../components/sliders/AsNavFor';
+import Text from '../../../components/typography/Text';
+import Title from '../../../components/typography/title';
+import DefBackground from '../../../statics/background';
 
 const TopPromotion = (props) => {
     return (

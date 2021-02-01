@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import Title from '../../components/typography/title';
-import Text from '../../components/typography/text';
+import Title from '../../../components/typography/title';
+import Text from '../../../components/typography/text';
 
 import { default as SlickSlider } from "react-slick";
 
@@ -10,7 +10,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 //bunları şimdilik ekliyoruz
 // @ts-ignore
-import avatar from "../../images/avatar/a1.png";
+import avatar from "../../../images/avatar/a1.png";
 
 const Comments = (props) => {
     const settings = {

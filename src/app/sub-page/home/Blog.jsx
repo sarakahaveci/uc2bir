@@ -1,8 +1,8 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import BlogBanners from '../../components/banner/blog-banners';
-import Button from '../../components/buttons/button';
-import Title from '../../components/typography/title';
+import BlogBanners from '../../../components/banner/blog-banners';
+import Button from '../../../components/buttons/button';
+import Title from '../../../components/typography/title';
 
 const Blog = ({ className }) => {
   return (

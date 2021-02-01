@@ -3,9 +3,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import Text from '../../components/typography/Text';
-import RegisterStep from './register-step';
-import FormPages from '../../components/FormPages';
+import Text from '../../../components/typography/Text';
+import RegisterStep from './';
+import FormPages from '../../../components/FormPages';
 
 const Register = () => {
   return (

@@ -1,10 +1,10 @@
 // @ts-nocheck
 import React, { useEffect, useState } from 'react';
-import Title from '../../components/typography/title';
-import Text from '../../components/typography/text';
-import DefBackground from '../../statics/background';
-import InputText from '../../components/inputs/InputText';
-import Button from '../../components/buttons/button';
+import Title from '../../../components/typography/title';
+import Text from '../../../components/typography/text';
+import DefBackground from '../../../statics/background';
+import InputText from '../../../components/inputs/InputText';
+import Button from '../../../components/buttons/button';
 
 const VKI = props => {
     const [size, setSize] = useState();

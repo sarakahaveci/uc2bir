@@ -1,8 +1,8 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import Title from '../../components/typography/title';
-import DefBackground from '../../statics/background';
-import Svg from '../../statics/svg';
+import Title from '../../../components/typography/title';
+import DefBackground from '../../../statics/background';
+import Svg from '../../../statics/svg';
 
 const Categories = (props) => {
     return (

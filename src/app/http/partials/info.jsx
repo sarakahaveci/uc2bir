@@ -1,21 +1,22 @@
 // @ts-nocheck
 import React from 'react';
 
-import Main from '../../../components/Main';
-import Master from '../master';
-import Root from '../../middleware/Root';
+import Layout from '../layout';
+import SubPages from '../../sub-page/SubPages';
 
-import {default as InfoMiddleware} from '../../middleware/Info';
+import Main from '../../../components/Main';
+
+import {default as InfoSubPage} from '../../sub-page/info/Info';
 
 const Info = () => {
     return (
-        <Master>
+        <Layout>
             <Main className="main">
-                <Root>
-                    <InfoMiddleware className="basic-info"/>
-                </Root>
+                <SubPages>
+                    <InfoSubPage className="basic-info"/>
+                </SubPages>
             </Main>
-        </Master>
+        </Layout>
     );
 };
 

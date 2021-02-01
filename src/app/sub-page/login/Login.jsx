@@ -7,15 +7,15 @@ import { navigate, Link } from 'gatsby';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
 
-import { Material } from '../../components/inputs/material';
-import AwesomeIcon from '../../statics/icon';
-import Title from '../../components/typography/title';
-import Text from '../../components/typography/Text';
-import Button from '../../components/buttons/button';
-import { login } from '../../redux/reducers/login';
-import { initialState } from '../../redux/reducers/login/initial';
-import FormPages from '../../components/FormPages';
-import env from '../../env';
+import { Material } from '../../../components/inputs/material';
+import AwesomeIcon from '../../../statics/icon';
+import Title from '../../../components/typography/title';
+import Text from '../../../components/typography/Text';
+import Button from '../../../components/buttons/button';
+import { login } from '../../../redux/reducers/login';
+import { initialState } from '../../../redux/reducers/login/initial';
+import FormPages from '../../../components/FormPages';
+import env from '../../../env';
 
 const Login = (props) => {
   const { login, loginReducers } = props;

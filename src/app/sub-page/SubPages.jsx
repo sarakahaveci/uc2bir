@@ -3,7 +3,7 @@ import React from 'react';
 /**
  * @param {JSX.IntrinsicAttributes & React.ClassAttributes<HTMLElement> & React.HTMLAttributes<HTMLElement>} props
  */
-const Root = ({className, children}) => {
+const SubPages = ({className, children}) => {
     return (
         <section className={`${className} app-root`}>
             {children}
@@ -11,4 +11,4 @@ const Root = ({className, children}) => {
     );
 };
 
-export default Root;
+export default SubPages;

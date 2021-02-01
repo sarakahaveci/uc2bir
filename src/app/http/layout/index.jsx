@@ -14,8 +14,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import env from '../../../env';
 
-import axios from 'axios';
-
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { getProfile, refreshToken } from '../../../redux/reducers/login';
@@ -25,7 +23,7 @@ import FormData from 'form-data';
 /**
  * @param {{ children: void; }} props
  */
-const Master = props => {
+const Layout = props => {
     const { getProfile, loginReducers, refreshToken } = props;
     const [ref, setRef] = useState(false);
 
@@ -120,4 +118,4 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = ({ loginReducers }) => ({ loginReducers });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Master);
+export default connect(mapStateToProps, mapDispatchToProps)(Layout);
