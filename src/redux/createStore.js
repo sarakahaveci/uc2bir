@@ -2,11 +2,16 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import requestMiddleware from './requestMiddleware';
 import reducers from './reducers';
-import promiseMiddleware from 'redux-promise-middleware';
 
 const configureStore = () => {
-  return createStore(reducers, composeWithDevTools(applyMiddleware(thunk)));
+  const middleware = [thunk, requestMiddleware];
+
+  return createStore(
+    reducers,
+    composeWithDevTools(applyMiddleware(...middleware))
+  );
 };
 
 export default configureStore;
