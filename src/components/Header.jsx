@@ -134,7 +134,7 @@ const Header = ({
                     <Button
                       icon={AwesomeIcon.Search}
                       text="Ne arıyorsun?"
-                      customClass="blue"
+                      className="blue"
                     />
                   </li>
                   <li>
@@ -181,7 +181,11 @@ const Header = ({
                   )}
                   {!loginReducers.entity.token && (
                     <li>
-                      <Button text="Profesyonel" customClass="dark" />
+                      <Button
+                        text="Profesyonel"
+                        className="dark"
+                        fontWeight="500"
+                      />
                     </li>
                   )}
                 </ul>

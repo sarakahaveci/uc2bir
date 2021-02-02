@@ -1,22 +1,30 @@
 // @ts-nocheck
-import React, { useLayoutEffect, useState } from 'react';
+import React from 'react';
+import styled from 'styled-components';
 
-const LabelText = ({className="", label, labelClassName="", textClassName="", white=false, dark=false, gray=false, blue=false, style={}, children, fontSize="9pt", fontWeight="normal", textAlign="left"}) => {
-    const [color, setColor] = useState("#000000");
+import { colorGenerator } from '../../utils';
 
-    useLayoutEffect(() => {
-        if(dark) setColor("#1A1818");
-        if(gray) setColor("#909090");
-        if(blue) setColor("#00B2A9");
-        if(white) setColor("#fff");
-    },[color]);
+const StyledLabelText = styled.div`
+  color: ${(props) => colorGenerator(props.color)};
+  font-weight: ${(props) => props.fontWeight || '400'};
+  font-size: ${(props) => props.fontSize || '1.6rem'};
+  text-align: ${(props) => props.textAlign || 'left'};
+`;
 
-    return (
-        <div className={`typography label-text ${fontWeight} ${className}`} style={{...style, color, fontSize, textAlign}}>
-            <label className={`label ${labelClassName}`}>{label}</label>
-            <div className={`text ${textClassName}`}>{children}</div>
-        </div>
-    );
+const LabelText = ({
+  label,
+  labelClassName = '',
+  textClassName = '',
+  children,
+  className,
+  ...rest
+}) => {
+  return (
+    <StyledLabelText className={`typography label-text ${className}`} {...rest}>
+      <label className={`label ${labelClassName}`}>{label}</label>
+      <div className={`text ${textClassName}`}>{children}</div>
+    </StyledLabelText>
+  );
 };
 
 export default LabelText;

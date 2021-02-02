@@ -1,24 +1,24 @@
 // @ts-nocheck
-import React, { useLayoutEffect, useState } from 'react';
+import React from 'react';
+import styled from 'styled-components';
 
-const Text = ({className="", white=false, dark=false, softDark=false, gray=false, blue=false, trunge=false, red=false, style={}, children, fontSize="14pt", fontFamily="'Poppins', sans-serif", fontWeight="normal", textAlign="left"}) => {
-    const [color, setColor] = useState("#000000");
+import { colorGenerator } from '../../utils';
 
-    useLayoutEffect(() => {
-        if(dark) setColor("#1A1818");
-        if(softDark) setColor("#1a1818");
-        if(trunge) setColor("#ffba00");
-        if(red) setColor("#f01c62");
-        if(gray) setColor("#909090");
-        if(blue) setColor("#00B2A9");
-        if(white) setColor("#fff");
-    },[color]);
+const StyledText = styled.div`
+  padding: 15px 0;
+  color: ${(props) => colorGenerator(props.color)};
+  font-weight: ${(props) => props.fontWeight || '400'};
+  font-size: ${(props) => props.fontSize || '1.6rem'};
+  text-align: ${(props) => props.textAlign || 'initial'};
+`;
 
-    return (
-        <div className={`typography text ${fontWeight} ${className}`} style={{...style, color, fontSize, textAlign, fontFamily}}>
-            {children}
-        </div>
-    );
-};
+const Text = (props) => (
+  <StyledText
+    {...props}
+    className={`typography ${props.className ? props.className : ''}`}
+  >
+    {props.children}
+  </StyledText>
+);
 
 export default Text;

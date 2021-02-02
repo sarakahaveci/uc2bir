@@ -250,7 +250,7 @@ const StepOne = (props) => {
             height="45px"
             icon={AwesomeIcon.Google}
             text="Google ile giriş yap"
-            customClass="dark"
+            className="dark"
           />
         </div>
         <div className="col">
@@ -259,7 +259,7 @@ const StepOne = (props) => {
             height="45px"
             icon={AwesomeIcon.Facebook}
             text="Facebook ile giriş yap"
-            customClass="dark"
+            className="dark"
           />
         </div>
       </div>

@@ -58,7 +58,11 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
               </FormControl>
             </li>
             <li className="buttons">
-              <Button customClass="col" text="Ara" icon={AwesomeIcon.Search} />
+              <Button
+                className="col blue"
+                text="Ara"
+                icon={AwesomeIcon.Search}
+              />
             </li>
           </ul>
         </div>

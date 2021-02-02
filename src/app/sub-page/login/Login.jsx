@@ -124,20 +124,25 @@ const Login = (props) => {
                 style={{ letterSpacing: 5, marginBottom: 25 }}
                 fontFamily="'Montserrat', sans-serif"
                 children="BAŞARMAK İÇİN BAŞLA!"
-                trunge
+                fontSize="2.4rem"
+                fontWeight="500"
+                color="orange2"
               />
               <Text
                 style={{ marginBottom: 10 }}
                 fontFamily="'Bebas Neue', cursive"
-                fontSize="2em"
+                fontSize="3.2rem"
                 children="HER AN HER YERDE İSTEDİĞİN GİBİ ANTRENMAN YAP"
-                softDark
+                fontWeight="bold"
+                color="dark"
               />
               <Text
                 style={{ marginBottom: 40 }}
                 fontFamily="'Montserrat', sans-serif"
-                fontSize="10pt"
+                fontSize="1.6rem"
+                fontWeight="500"
                 children="Hedeflerine uygun antrenman planları ile İçindeki atleti özgür bırak"
+                color="dark"
               />
               <Title
                 fontWeight="normal"
@@ -190,14 +195,14 @@ const Login = (props) => {
                   </div>
                 </div>
                 {!loginReducers.loading ? (
-                  <Button type="submit" text={`Giriş Yap`} customClass="blue" />
+                  <Button type="submit" text={`Giriş Yap`} className="blue" />
                 ) : (
                   <Button
                     onClick={async () => {
                       console.log('Lütfen Bekleyiniz...');
                     }}
                     text={`Yükleniyor...`}
-                    customClass="blue"
+                    className="blue"
                   />
                 )}
               </form>
@@ -219,7 +224,7 @@ const Login = (props) => {
                     fontSize="9pt"
                     icon={AwesomeIcon.Google}
                     text="Google ile giriş yap"
-                    customClass="dark"
+                    className="dark"
                   />
                 </div>
                 <div className="col">
@@ -228,7 +233,7 @@ const Login = (props) => {
                     fontSize="9pt"
                     icon={AwesomeIcon.Facebook}
                     text="Facebook ile giriş yap"
-                    customClass="dark"
+                    className="dark"
                   />
                 </div>
               </div>

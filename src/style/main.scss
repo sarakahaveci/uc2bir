@@ -1,12 +1,19 @@
 @import './reset/index.css';
 
 :root {
+  --base-font-size: 10px;
   --light-blue: #00b2a9;
   --black1: #1a1818;
   --black2: #181818;
   --gray1: #909090;
-  --yellow: #ffba00;
-  --pink: #f01c62;
+  --gray2: #bbbbbb;
+  --trunge: #ffba00;
+  --orange2: #f77e0b;
+  --red: #f01c62;
+}
+
+html {
+  font-size: var(--base-font-size);
 }
 
 body {

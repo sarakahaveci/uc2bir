@@ -3,7 +3,10 @@ import styled, { css } from 'styled-components';
 import { Button as BaseButton } from 'react-bootstrap';
 
 const StyledButton = styled(BaseButton)`
-    color: white;
+  color: white;
+  font-size: 1.6rem;
+  font-weight: ${(props) => (props.fontWeight && props.fontWeight) || 'normal'};
+  border-radius: 4px;
 
     ${(props) =>
       props.soft &&
@@ -13,10 +16,6 @@ const StyledButton = styled(BaseButton)`
         border-radius: 0;
         padding: 15px 40px;
         position: relative;
-
-        span {
-          font-size: 15pt;
-        }
 
         &:after {
           position: absolute;
@@ -34,7 +33,6 @@ const StyledButton = styled(BaseButton)`
           transform: matrix(1, 0, -0.7, 1, 0, 0);
         }
       `}
-
     ${(props) =>
       props.perspective &&
       css`
@@ -43,6 +41,7 @@ const StyledButton = styled(BaseButton)`
         position: relative;
         color: #fff;
         padding: 15px 30px;
+        border-radius: unset;
 
         &:after {
           top: 0;
@@ -57,7 +56,6 @@ const StyledButton = styled(BaseButton)`
           transform: matrix(1, 0, -0.4, 1, 0, 0);
         }
       `}
-
     ${(props) =>
       props.lineButton &&
       css`
@@ -79,23 +77,20 @@ const StyledButton = styled(BaseButton)`
           margin-top: 5px;
         }
       `}
-
-      ${(props) =>
-        !!props.icon &&
-        css`
-          span {
-            font-size: ${props.fontSize && props.fontSize};
-          }
-        `}
+    ${(props) =>
+      !!props.icon &&
+      css`
+        span {
+          font-size: ${props.fontSize && props.fontSize};
+        }
+      `};
 `;
 
 const Button = (props) => (
   <StyledButton
     {...props}
     variant=""
-    className={
-      props.icon ? `icon-button ${props.customClass}` : props.customClass
-    }
+    className={props.icon ? `icon-button ${props.className}` : props.className}
   >
     {props.icon && props.icon({ className: 'icon' })}
     <span>{props.text}</span>

@@ -1,25 +1,32 @@
-import React, {useLayoutEffect, useState} from 'react';
-import Typography from '@material-ui/core/Typography';
+import React from 'react';
+import styled from 'styled-components';
 
-const Title = ({white=false, dark=false, gray=false, blue=false, className="", variant, component, gutterBottom=false, children, lineDisable=false, textLeft=false, textRight=false, fontWeight="bold", style={}}) => {
-    const [color, setColor] = useState("#000000");
+import { colorGenerator } from '../../utils';
 
-    useLayoutEffect(() => {
-        if(dark) setColor("#1A1818");
-        if(gray) setColor("#909090");
-        if(blue) setColor("#00B2A9");
-        if(white) setColor("#fff");
-    },[color]);
+const StyledTitle = styled.h1`
+  color: ${(props) => colorGenerator(props.color)};
+  font-weight: ${(props) => props.fontWeight || 'bold'};
+  text-align: center;
+  display: block;
+`;
 
-    return (
-        <Typography className={`typography title ${fontWeight} ${className} ${lineDisable ? "" : "line"} ${!textLeft ? "" : "text-left"} ${!textRight ? "" : "text-right"}`}
-            variant={variant}
-            component={component}
-            gutterBottom
-            style={{...style, color}}>
-            {children}
-        </Typography>
-    );
-};
+const Title = ({
+  component,
+  textRight,
+  textLeft,
+  lineDisable,
+  children,
+  ...rest
+}) => (
+  <StyledTitle
+    as={`${component}`}
+    className={`${lineDisable ? '' : 'line'} ${textLeft ? 'text-left' : ''} ${
+      textRight ? 'text-right' : ''
+    }`}
+    {...rest}
+  >
+    {children}
+  </StyledTitle>
+);
 
 export default Title;
