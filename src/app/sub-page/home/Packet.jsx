@@ -65,7 +65,7 @@ const Packet = (props) => {
         <Title variant="h3" component="h3">
           PAKETLER
         </Title>
-        <Title variant="h5" component="h5" fontWeight="lighter" lineDisable>
+        <Title variant="h5" component="h5" fontWeight="500" lineDisable>
           SANA UYGUN OLAN PAKETİ SEÇ, HEMEN ÇALIŞMAYA BAŞLA
         </Title>
       </Container>

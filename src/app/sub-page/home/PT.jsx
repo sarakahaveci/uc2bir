@@ -49,7 +49,7 @@ const PT = (props) => {
         <Title variant="h3" component="h3">
           EĞİTMENLER
         </Title>
-        <Title variant="h5" component="h5" fontWeight="lighter" lineDisable>
+        <Title variant="h5" component="h5" fontWeight="500" lineDisable>
           EN İYİ EĞİTMENLER İLE ÇALIŞMA FIRSATI
         </Title>
       </Container>

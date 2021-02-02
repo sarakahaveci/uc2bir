@@ -87,7 +87,7 @@ const GroupLesson = (props) => {
         <Title variant="h3" component="h3">
           GRUP DERSLERİ
         </Title>
-        <Title variant="h5" component="h5" fontWeight="lighter" lineDisable>
+        <Title variant="h5" component="h5" fontWeight="500" lineDisable>
           ARKADAŞLARINLA BERABER, İSTEDİĞİN SALONDA, İSTEDİĞİN EĞİTMENDEN DERS
           ALMA FIRSATI
         </Title>

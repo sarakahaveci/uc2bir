@@ -1,11 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import Typography from '@material-ui/core/Typography';
 
 import { colorGenerator } from '../../utils';
 
-const StyledTitle = styled.h1`
+const StyledTitle = styled(Typography)`
+  font-family: 'Poppins', sans-serif;
   color: ${(props) => colorGenerator(props.color)};
-  font-weight: ${(props) => props.fontWeight || 'bold'};
+  font-weight: ${(props) => props.fontWeight || 'bold'} !important;
   text-align: center;
   display: block;
 `;
@@ -14,15 +16,15 @@ const Title = ({
   component,
   textRight,
   textLeft,
-  lineDisable,
+  lineDisable = false,
   children,
   ...rest
 }) => (
   <StyledTitle
-    as={`${component}`}
-    className={`${lineDisable ? '' : 'line'} ${textLeft ? 'text-left' : ''} ${
-      textRight ? 'text-right' : ''
-    }`}
+    gutterBottom
+    className={`typography title ${lineDisable ? '' : 'line'} ${
+      textLeft ? 'text-left' : ''
+    } ${textRight ? 'text-right' : ''}`}
     {...rest}
   >
     {children}

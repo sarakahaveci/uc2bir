@@ -19,7 +19,7 @@ const FluidBanner = (props) => {
       <Container>
         <Text textAlign="center">
           <Title
-            white
+            color="white"
             variant="h5"
             component="h5"
             style={{ maxWidth: '50%', marginLeft: 'auto', marginRight: 'auto' }}

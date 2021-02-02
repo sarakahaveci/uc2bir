@@ -1,71 +1,71 @@
 .typography {
-    width: 100%;
-    height: auto;
+  width: 100%;
+  height: auto;
+  font-family: 'Poppins', sans-serif;
+
+  &.label-text {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .label {
+      flex: 0 0 auto;
+      font-weight: bold;
+      margin-right: 5px;
+    }
+
+    .text {
+      flex: 1 1 auto;
+    }
+  }
+
+  &.text {
+    font-size: 14pt;
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+
+  &.title {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     font-family: 'Poppins', sans-serif;
+    letter-spacing: 3px;
+    text-align: center;
 
-    &.label-text {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-
-        .label {
-            flex: 0 0 auto;
-            font-weight: bold;
-            margin-right: 5px;
-        }
-
-        .text {
-            flex: 1 1 auto;
-        }
+    &.text-left {
+      align-items: flex-start;
     }
 
-    &.text {
-        font-size: 14pt;
-        padding-top: 15px;
-        padding-bottom: 15px;
+    &.text-right {
+      align-items: flex-end;
     }
 
-    &.title {
-        position: relative;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        align-items: center;
-        font-family: 'Poppins', sans-serif;
-        letter-spacing: 3px;
-        text-align: center;
-
-        &.text-left {
-            align-items: flex-start;
-        }
-
-        &.text-right {
-            align-items: flex-end;
-        }
-
-        &.line:after {
-            content: "";
-            width: 140px;
-            background: #00B2A9;
-            height: 2px;
-            margin-top: 20px;
-            display: block;
-        }
+    &.line:after {
+      content: '';
+      width: 140px;
+      background: #00b2a9;
+      height: 2px;
+      margin-top: 16px;
+      display: block;
     }
+  }
 
-    &.bold {
-        font-weight: 700;
-    }
+  &.bold {
+    font-weight: 700;
+  }
 
-    &.bolder {
-        font-weight: 900;
-    }
+  &.bolder {
+    font-weight: 900;
+  }
 
-    &.lighter {
-        font-weight: 300;
-    }
+  &.lighter {
+    font-weight: 300;
+  }
 
-    &.normal {
-        font-weight: normal;
-    }
+  &.normal {
+    font-weight: normal;
+  }
 }

@@ -48,7 +48,7 @@ const Living = (props) => {
         <Title variant="h3" component="h3">
           SALONLAR
         </Title>
-        <Title variant="h5" component="h5" fontWeight="lighter" lineDisable>
+        <Title variant="h5" component="h5" fontWeight="500" lineDisable>
           İSTEDİĞİN SALONDA ÇALIŞMA FIRSATI
         </Title>
       </Container>
