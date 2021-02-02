@@ -3,7 +3,7 @@ import React, { useLayoutEffect, useState } from 'react';
 
 import { default as SlickSlider } from "react-slick";
 
-import loading from '../../images/2.gif';
+import loading from '../../../images/2.gif';
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";

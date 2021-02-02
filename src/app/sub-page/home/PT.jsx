@@ -1,15 +1,16 @@
-import React from 'react';
+// @ts-nocheck
+import React, { useLayoutEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
-import Title from '../../components/typography/title';
-import Text from '../../components/typography/text';
-import SliderFocus from '../../components/sliders/SliderFocus';
+import Title from '../../../components/typography/title';
+import Text from '../../../components/typography/text';
+import SliderFocus from '../../../components/sliders/SliderFocus';
 
 import { useStaticQuery, graphql } from "gatsby";
 
-const Dietitians = (props) => {
+const PT = (props) => {
     const query = useStaticQuery(graphql`
         {
-            allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/dietitians/"}}, sort: {order: DESC, fields: id}) {
+            allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/pt-groups/"}}, sort: {order: DESC, fields: id}) {
                 edges {
                     node {
                         frontmatter {
@@ -38,16 +39,16 @@ const Dietitians = (props) => {
     `);
 
     const data = query.allMarkdownRemark.edges;
-    const groups = "Dietitians";
-    const link = "/dietitians";
+    const groups = "PT";
+    const link = "/instructor";
     return (
         <section className={`pt ${props.className}`}>
             <Container>
                 <Title variant="h3" component="h3">
-                    DİYETİSYENLER
+                    EĞİTMENLER
                 </Title>
                 <Title variant="h5" component="h5" fontWeight="lighter" lineDisable>
-                    SANA UYGUN DİYET PROGRAMINI, SANA ÖZEL DİYETİSYENLERLE BELİRLE
+                    EN İYİ EĞİTMENLER İLE ÇALIŞMA FIRSATI
                 </Title>
             </Container>
             <SliderFocus query={query} data={data} groups={groups} link={link}/>
@@ -55,4 +56,4 @@ const Dietitians = (props) => {
     );
 };
 
-export default Dietitians;
+export default PT;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {default as NativeMain} from '../app/middleware/Main';
+import {default as NativeMain} from '../app/sub-page/Main';
 
 /**
  * @param {JSX.IntrinsicAttributes & React.ClassAttributes<HTMLElement> & React.HTMLAttributes<HTMLElement>} props

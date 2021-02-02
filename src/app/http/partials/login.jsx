@@ -1,20 +1,20 @@
 // @ts-nocheck
 import React from 'react';
-import Main from '../../middleware/Main';
-import Root from '../../middleware/Root';
-import Master from '../master';
+import Main from '../../sub-page/Main';
+import SubPages from '../../sub-page/SubPages';
+import Layout from '../layout';
 
-import {default as DefaultLogin} from "../../middleware/Login";
+import {default as LoginSubPage} from "../../sub-page/login/Login";
 
 const Login = () => {
     return (
-        <Master>
+        <Layout>
             <Main className="main">
-                <Root>
-                    <DefaultLogin/>
-                </Root>
+                <SubPages>
+                    <LoginSubPage/>
+                </SubPages>
             </Main>
-        </Master>
+        </Layout>
     );
 };
 

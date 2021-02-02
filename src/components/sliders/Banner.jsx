@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React, { useLayoutEffect, useState } from 'react';
-import { default as NativeBanner } from "../../app/middleware/Banner";
-import SearchBar from '../../app/middleware/SearchBar';
+import { default as NativeBanner } from "../../app/sub-page/home/Banner";
+import SearchBar from '../../app/sub-page/SearchBar';
 
 import GoogleApp from '../../components/google-maps';
 

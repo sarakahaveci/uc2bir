@@ -1,10 +1,10 @@
 // @ts-nocheck
 import React, { useEffect, useState } from 'react';
-import Title from '../../components/typography/title';
-import Text from '../../components/typography/text';
-import DefBackground from '../../statics/background';
-import InputText from '../../components/inputs/InputText';
-import Button from '../../components/buttons/button';
+import Title from '../../../components/typography/title';
+import Text from '../../../components/typography/text';
+import DefBackground from '../../../statics/background';
+import InputText from '../../../components/inputs/InputText';
+import Button from '../../../components/buttons/button';
 
 const VKI = props => {
     const [size, setSize] = useState();
@@ -27,7 +27,7 @@ const VKI = props => {
                         </div>
                         <div className="d-flex el-flex">
                             <div className="col"><InputText inputVal={result > 0 ? result : ""} labelText="Sonuç:" labelName="width" inputName="width" /></div>
-                            <div className="col"><Button onClick={() => setResult(Number(weight / (size * size)).toFixed(2))} text="Hesapla" blue /></div>
+                            <div className="col"><Button onClick={() => setResult(Number(weight / (size * size)).toFixed(2))} text="Hesapla" customClass="blue" /></div>
                         </div>
                     </div>
                 </div>
