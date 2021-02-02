@@ -266,6 +266,12 @@
                         max-width: 30px;
                         white-space: nowrap;
 
+                        @media (max-width: 1200px) {
+                            max-width: inherit;
+                            max-height: inherit;
+                            white-space: inherit;
+                        }
+
                         @media (max-width: 768px) {
                             width: 100%;
                             justify-self: center;
