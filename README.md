@@ -1,6 +1,49 @@
 # Gatsby Framework
 
-## File system => /app /components /context /data /images /pages /redux /stateful /statics /style .html.js
+## File system
+.
+├── LICENSE.md
+├── README.md
+├── gatsby-browser.js
+├── gatsby-config.js
+├── gatsby-node.js
+├── gatsby-ssr.js
+├── package-lock.json
+├── package.json
+├── webpack.config.js
+├── provider.js
+└── src
+├── images
+└── app
+└── ├── http
+└── ├── ├── layout
+└── ├── └── ├── index.jsx
+    ├── ├── partials
+    ├── └── ├── ...jsx 
+    └── sub-page
+        ├── ...jsx
+├── components
+│   ├── ...jsx
+├── constants
+├── ├── actionTypes.js
+├── ├── index.js
+├── redux
+├── ├── ... redux promise middleware pattern
+│   ├── ...png, jpg, gif
+└── pages
+├── 404.js
+├── index.js
+└── ...js
+├── statics
+├── ├── backgorund
+├── ├── icon
+├── ├── svg
+├── style
+├── ├── ...
+├── ├── main.scss
+└── utils
+└── ├── ...util settings
+└── ├── index.js
 
 ## Get Deploy URL 👍
 
