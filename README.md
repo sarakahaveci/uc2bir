@@ -1,6 +1,6 @@
 # Gatsby Framework
 
-## File system
+## File pattern
 .
 ├── LICENSE.md
 ├── README.md
@@ -44,6 +44,16 @@
 └── utils
 └── ├── ...util settings
 └── ├── index.js
+
+## Case Pattern
+
+⚡️ dosya isimleri: kebab-case
+⚡️ component isimleri: PascalCase ve jsx element
+⚡️ props, settings, switch component isimleri: camelCase ve js element
+⚡️ path component isimleri: kebab-case ve js element
+⚡️ variables: snake_case
+⚡️ function variables: camelCase arrow and default function
+⚡️ component variables: arrow function, PascalCase, functional component ve set prop required default
 
 ## Get Deploy URL 👍
 
