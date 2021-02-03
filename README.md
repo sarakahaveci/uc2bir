@@ -135,7 +135,8 @@ $ yarn
 $ yarn develop
 ```
 
-```example graphql query
+```bash
+example graphql query
 # graphql query
 ---------------------------------------------------
 query MyQuery {
@@ -166,10 +167,12 @@ query MyQuery {
     }
   }
 }
+```
 ---------------------------------------------------
 
 # Call Component
 ---------------------------------------------------
+```bash
 import React from "react"
 import { graphql } from "gatsby"
 
@@ -207,4 +210,4 @@ export const query = graphql`
 `
 export default ComponentName
 ---------------------------------------------------
-```example graphql query
+```
