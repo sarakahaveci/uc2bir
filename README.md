@@ -60,23 +60,6 @@
 ⚡️ component variables: arrow function, PascalCase, functional component ve set prop required default
 ```
 
-## Get Deploy URL 👍
-
-<a href="">Deploy</a>
-
-## Features
-
-⚡️ Modern UI Design + Reveal Animations\
-⚡️ One Page Layout built with React\
-⚡️ Styled with Bootstrap v4.3 + Custom SCSS\
-⚡️ Fully Responsive\
-⚡️ Configurable color scheme\
-⚡️ Image optimization with Gatsby\
-⚡️ Easy site customization\
-⚡️ Well organized documentation
-
----
-
 ## Getting Started 🚀
 
 # npm install
