@@ -59,7 +59,8 @@ const Dietitians = ({ top = false, bottom = false, val }) => {
             />
             <Title
               lineDisable
-              fontWeight="lighter"
+              color="gray3"
+              fontWeight="normal"
               textLeft
               variant="h6"
               component="h6"

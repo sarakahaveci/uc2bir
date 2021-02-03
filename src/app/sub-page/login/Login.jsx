@@ -4,12 +4,12 @@ import { navigate, Link } from 'gatsby';
 import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
 
+import { login } from 'actions';
 import { Material } from '../../../components/inputs/material';
 import AwesomeIcon from '../../../statics/icon';
 import Title from '../../../components/typography/title';
 import Text from '../../../components/typography/Text';
 import Button from '../../../components/buttons/button';
-import { login } from 'actions';
 import FormPages from '../../../components/FormPages';
 
 const Login = () => {
@@ -76,22 +76,21 @@ const Login = () => {
                 style={{ letterSpacing: 5, marginBottom: 25 }}
                 fontFamily="'Montserrat', sans-serif"
                 children="BAŞARMAK İÇİN BAŞLA!"
-                fontSize="2.4rem"
-                fontWeight="500"
+                fontSize="1.2rem"
                 color="orange2"
               />
               <Text
                 style={{ marginBottom: 10 }}
                 fontFamily="'Bebas Neue', cursive"
-                fontSize="3.2rem"
+                fontSize="2rem"
                 children="HER AN HER YERDE İSTEDİĞİN GİBİ ANTRENMAN YAP"
-                fontWeight="bold"
+                fontWeight="500"
                 color="dark"
               />
               <Text
                 style={{ marginBottom: 40 }}
                 fontFamily="'Montserrat', sans-serif"
-                fontSize="1.6rem"
+                fontSize="0.8rem"
                 fontWeight="500"
                 children="Hedeflerine uygun antrenman planları ile İçindeki atleti özgür bırak"
                 color="dark"

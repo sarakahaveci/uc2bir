@@ -18,7 +18,7 @@ const FluidBanner = (props) => {
       <Container>
         <Text style={{ paddingBottom: '60px' }} textAlign="center">
           <Title
-            white
+            color="white"
             variant="h5"
             component="h5"
             style={{ maxWidth: '50%', marginLeft: 'auto', marginRight: 'auto' }}
@@ -26,7 +26,7 @@ const FluidBanner = (props) => {
           >
             Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing
           </Title>
-          <Text textAlign="center" color="white" fontSize="1.8rem">
+          <Text textAlign="center" color="white" fontSize="1.2rem">
             Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing Elit, Sed Do
             Eiusmod Tempor Incididunt Ut Labore Et Dolore Magna Aliqua. Ut Enim
             Ad Minim Veniam, Quis Nostrud Exercitation

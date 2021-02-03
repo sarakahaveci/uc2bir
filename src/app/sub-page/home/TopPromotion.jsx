@@ -18,7 +18,14 @@ const TopPromotion = (props) => {
       <Container>
         <div className="row">
           <div className="col-lg-6">
-            <Title variant="h3" component="h3" lineDisable textLeft>
+            <Title
+              variant="h3"
+              component="h3"
+              fontSize="2rem"
+              lineDisable
+              textLeft
+              fontWeight="400"
+            >
               Başarmak için başla!
             </Title>
             <Title fontWeight="normal" variant="h4" component="h4" textLeft>

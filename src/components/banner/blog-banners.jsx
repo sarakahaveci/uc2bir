@@ -44,7 +44,11 @@ const BlogBanners = ({
             or randomised don't look even slightly believable alteration in lore
             ipsu..
           </Text>
-          <LabelText label="Yazar:" children="DYT, Ezgi FINDIK" />
+          <LabelText
+            label="Yazar:"
+            children="DYT, Ezgi FINDIK"
+            fontSize="0.8rem"
+          />
           <Button perspective className="bl-btn" text="Devamını Oku" />
         </div>
       </div>
@@ -72,7 +76,11 @@ const BlogBanners = ({
             or randomised don't look even slightly believable alteration in lore
             ipsu..
           </Text>
-          <LabelText label="Yazar:" children="DYT, Ezgi FINDIK" />
+          <LabelText
+            label="Yazar:"
+            children="DYT, Ezgi FINDIK"
+            fontSize="0.8rem"
+          />
           <Button perspective className="bl-btn blue" text="Devamını Oku" />
         </div>
       </div>
@@ -100,7 +108,11 @@ const BlogBanners = ({
             or randomised don't look even slightly believable alteration in lore
             ipsu..
           </Text>
-          <LabelText label="Yazar:" children="DYT, Ezgi FINDIK" />
+          <LabelText
+            label="Yazar:"
+            fontSize="0.8rem"
+            children="DYT, Ezgi FINDIK"
+          />
           <Button perspective className="bl-btn" text="Devamını Oku" />
         </div>
       </div>
@@ -124,7 +136,11 @@ const BlogBanners = ({
             or randomised don't look even slightly believable alteration in lore
             ipsu..
           </Text>
-          <LabelText label="Yazar:" children="DYT, Ezgi FINDIK" />
+          <LabelText
+            label="Yazar:"
+            children="DYT, Ezgi FINDIK"
+            fontSize="0.8rem"
+          />
           <Button perspective className="bl-btn" text="Devamını Oku" />
         </div>
         <div

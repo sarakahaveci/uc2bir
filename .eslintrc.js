@@ -30,6 +30,14 @@ module.exports = {
         depth: 3,
       },
     ],
+
+    'import/no-unresolved': [
+      'warn',
+      {
+        caseSensitive: false,
+        ignore: ['^components', 'constants', '^actions', '^reducers', '^utils'],
+      },
+    ],
     // Prefer destructuring from arrays and objects
     // http://eslint.org/docs/rules/prefer-destructuring
     'prefer-destructuring': [

@@ -5,9 +5,11 @@ import Typography from '@material-ui/core/Typography';
 import { colorGenerator } from '../../utils';
 
 const StyledTitle = styled(Typography)`
-  font-family: 'Poppins', sans-serif;
+  font-family: ${(props) =>
+    (props.fontFamily && props.fontFamily) || 'Poppins, sans-serif'} !important;
   color: ${(props) => colorGenerator(props.color)};
   font-weight: ${(props) => props.fontWeight || 'bold'} !important;
+  font-size: ${(props) => props.fontSize && props.fontSize} !important;
   text-align: center;
   display: block;
 `;

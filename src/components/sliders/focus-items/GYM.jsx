@@ -31,10 +31,11 @@ const GYM = ({ top = false, bottom = false, val }) => {
             />
             <Title
               lineDisable
-              fontWeight="lighter"
               textLeft
               variant="h6"
               component="h6"
+              color="gray3"
+              fontWeight="normal"
               children={val.node.frontmatter.category}
             />
             <Title textLeft variant="h4" component="h4">

@@ -1,281 +1,283 @@
 .materials {
+  width: 100%;
+  position: relative;
+
+  .material-inputs-icon {
+    position: absolute;
+    top: 22px;
+    left: 0;
+    color: #909090;
+    z-index: 100;
+  }
+
+  label {
+    margin-bottom: 0;
+
+    span {
+      font-size: 10pt;
+    }
+  }
+
+  .MuiInputLabel-shrink {
+    display: none;
+  }
+
+  textarea,
+  select[multiple],
+  input[type='date'],
+  input[type='datetime'],
+  input[type='datetime-local'],
+  input[type='email'],
+  input[type='month'],
+  input[type='number'],
+  input[type='password'],
+  input[type='search'],
+  input[type='tel'],
+  input[type='text'],
+  input[type='time'],
+  input[type='url'],
+  input[type='week'] {
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 400;
+    color: #a3a3a3 !important;
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  textarea:-webkit-autofill,
+  textarea:-webkit-autofill:hover,
+  textarea:-webkit-autofill:focus,
+  select:-webkit-autofill,
+  select:-webkit-autofill:hover,
+  select:-webkit-autofill:focus {
+    border: 1px solid #fff;
+    -webkit-text-fill-color: #a3a3a3;
+    -webkit-box-shadow: 0 0 0px 1000px #fafafa inset;
+    transition: background-color 5000s ease-in-out 0s;
+    color: #a3a3a3 !important;
+  }
+
+  &-container {
+    display: block;
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 10pt;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-family: 'Poppins', sans-serif;
+    color: #707070;
+
+    input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+
+      &:checked ~ .checkmark {
+        background-color: #00b2a9;
+        border: 1px solid #00b2a9;
+      }
+    }
+
+    .checkmark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 20px;
+      width: 20px;
+      background-color: #ffffff;
+      border-radius: 20px;
+      border: 1px solid #c8c8c8;
+
+      &:after {
+        content: '';
+        position: absolute;
+        display: none;
+      }
+
+      &:after {
+        left: 7px;
+        top: 3px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        transform: rotate(45deg);
+      }
+    }
+
+    &:hover input ~ .checkmark {
+      background-color: #00b2a9;
+    }
+
+    input:checked ~ .checkmark:after {
+      display: block;
+    }
+  }
+
+  .material-inputs {
     width: 100%;
     position: relative;
+    font-family: 'Poppins', sans-serif;
 
-    .material-inputs-icon {
-        position: absolute;
-        top: 22px;
-        left: 0;
-        color: #909090;
-        z-index: 100;
+    .MuiInputLabel-formControl {
+      font-weight: 400;
+      font-size: 10pt;
+      color: #909090;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    &.has-icon .MuiInputLabel-formControl {
+      padding-left: 30px;
+    }
+
+    &.date-has-icon .MuiInputLabel-formControl {
+      padding-left: 30px;
+    }
+
+    &.has-icon .MuiInputBase-input {
+      padding-left: 30px;
+    }
+
+    &.date-has-icon .MuiInputBase-input {
+      padding-left: 10px;
+      font-size: 10pt;
+      margin: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .MuiSelect-nativeInput,
+    textarea,
+    select[multiple],
+    input[type='date'],
+    input[type='datetime'],
+    input[type='datetime-local'],
+    input[type='email'],
+    input[type='month'],
+    input[type='number'],
+    input[type='password'],
+    input[type='search'],
+    input[type='tel'],
+    input[type='text'],
+    input[type='time'],
+    input[type='url'],
+    input[type='week'] {
+      width: 100%;
+      background: none;
+      border: none;
+      border-color: none;
+      color: inherit;
+      margin: 0;
+      padding-top: 0px;
+      padding-left: 0px;
+      padding-right: 0px;
+      font-family: 'Poppins', sans-serif;
+      order: 1;
+    }
+  }
+
+  .MuiIconButton-root {
+    padding: 0;
+    margin-left: -10px;
+  }
+
+  button {
+    &:focus {
+      outline: none;
+    }
+
+    .MuiSvgIcon-root {
+      fill: #909090;
+      font-size: 1.2rem;
+    }
+  }
+
+  .material-check-box {
+    .MuiTypography-body1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 10pt;
+      color: #909090;
+    }
+
+    svg {
+      font-size: 14pt;
+      margin-right: -5px;
+    }
+  }
+
+  .MuiSelect-select:focus {
+    background: transparent;
+  }
+
+  .MuiSelect-select.MuiSelect-select {
+    padding-right: 24px;
+    font-size: 10pt;
+    font-family: 'Poppins', sans-serif;
+    color: #8f8f8f;
+  }
+
+  .MuiInputBase-root,
+  label {
+    font-size: 10pt;
+    font-family: 'Poppins', sans-serif;
+    color: #8f8f8f;
+  }
+
+  &.select-materials {
+    &.has-icon {
+      label,
+      .MuiSelect-select.MuiSelect-select {
+        padding-left: 30px;
+      }
+    }
+  }
+
+  .MuiFormLabel-root {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  &.radio-materials {
+    .MuiFormLabel-root {
+      font-family: 'Poppins', sans-serif;
+      font-size: 11pt;
+      color: #181818;
+      line-height: 175%;
+    }
+
+    .MuiFormGroup-root {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      margin: 3px 20px;
     }
 
     label {
-        margin-bottom: 0;
-
-        span {
-            font-size: 10pt;
-        }
+      font-size: 10pt;
+      font-family: 'Poppins', sans-serif;
+      color: #8f8f8f;
+      margin-top: 4px;
+      margin-bottom: 4px;
     }
 
-    .MuiInputLabel-shrink {
-        display: none;
+    .MuiTypography-body1 {
+      font-family: 'Poppins', sans-serif;
+      padding-left: 7px;
     }
 
-    textarea,
-    select[multiple],
-    input[type=date],
-    input[type=datetime],
-    input[type=datetime-local],
-    input[type=email],
-    input[type=month],
-    input[type=number],
-    input[type=password],
-    input[type=search],
-    input[type=tel],
-    input[type=text],
-    input[type=time],
-    input[type=url],
-    input[type=week] {
-        font-family: 'Poppins', sans-serif !important;
-        font-weight: 400;
-        color: #a3a3a3 !important;
+    .MuiFormLabel-root.Mui-focused {
+      color: #000;
     }
 
-    input:-webkit-autofill,
-    input:-webkit-autofill:hover,
-    input:-webkit-autofill:focus,
-    textarea:-webkit-autofill,
-    textarea:-webkit-autofill:hover,
-    textarea:-webkit-autofill:focus,
-    select:-webkit-autofill,
-    select:-webkit-autofill:hover,
-    select:-webkit-autofill:focus {
-        border: 1px solid #fff;
-        -webkit-text-fill-color: #a3a3a3;
-        -webkit-box-shadow: 0 0 0px 1000px #fafafa inset;
-        transition: background-color 5000s ease-in-out 0s;
-        color: #a3a3a3 !important;
+    .MuiSvgIcon-root {
+      width: 0.8em;
+      height: 0.8em;
     }
-
-    &-container {
-        display: block;
-        position: relative;
-        padding-left: 30px;
-        margin-bottom: 12px;
-        cursor: pointer;
-        font-size: 10pt;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        font-family: 'Poppins', sans-serif;
-        color: #707070;
-
-        input {
-            position: absolute;
-            opacity: 0;
-            cursor: pointer;
-            height: 0;
-            width: 0;
-
-            &:checked~.checkmark {
-                background-color: #00b2a9;
-                border: 1px solid #00b2a9;
-            }
-        }
-
-        .checkmark {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 20px;
-            width: 20px;
-            background-color: #ffffff;
-            border-radius: 20px;
-            border: 1px solid #c8c8c8;
-
-            &:after {
-                content: "";
-                position: absolute;
-                display: none;
-            }
-
-            &:after {
-                left: 7px;
-                top: 3px;
-                width: 5px;
-                height: 10px;
-                border: solid white;
-                border-width: 0 3px 3px 0;
-                transform: rotate(45deg);
-            }
-        }
-
-        &:hover input~.checkmark {
-            background-color: #00b2a9;
-        }
-
-        input:checked~.checkmark:after {
-            display: block;
-        }
-    }
-
-    .material-inputs {
-        width: 100%;
-        position: relative;
-        font-family: 'Poppins', sans-serif;
-
-        .MuiInputLabel-formControl {
-            font-weight: 400;
-            font-size: 10pt;
-            color: #909090;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        &.has-icon .MuiInputLabel-formControl {
-            padding-left: 30px;
-        }
-
-        &.date-has-icon .MuiInputLabel-formControl {
-            padding-left: 30px;
-        }
-
-        &.has-icon .MuiInputBase-input {
-            padding-left: 30px;
-        }
-
-        &.date-has-icon .MuiInputBase-input {
-            padding-left: 10px;
-            font-size: 10pt;
-            margin: 0;
-            padding-top: 0;
-            padding-bottom: 0;
-        }
-
-        .MuiSelect-nativeInput,
-        textarea,
-        select[multiple],
-        input[type=date],
-        input[type=datetime],
-        input[type=datetime-local],
-        input[type=email],
-        input[type=month],
-        input[type=number],
-        input[type=password],
-        input[type=search],
-        input[type=tel],
-        input[type=text],
-        input[type=time],
-        input[type=url],
-        input[type=week] {
-            width: 100%;
-            background: none;
-            border: none;
-            border-color: none;
-            color: inherit;
-            margin: 0;
-            padding-top: 0px;
-            padding-left: 0px;
-            padding-right: 0px;
-            font-family: 'Poppins', sans-serif;
-            order: 1;
-        }
-    }
-
-    .MuiIconButton-root {
-        padding: 0;
-        margin-left: -10px;
-    }
-
-    button {
-        &:focus {
-            outline: none;
-        }
-
-        .MuiSvgIcon-root {
-            fill: #909090;
-            font-size: 1.2rem;
-        }
-    }
-
-    .material-check-box {
-        .MuiTypography-body1 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 10pt;
-            color: #909090;
-        }
-
-        svg {
-            font-size: 14pt;
-            margin-right: -5px;
-        }
-    }
-
-    .MuiSelect-select:focus {
-        background: transparent;
-    }
-
-    .MuiSelect-select.MuiSelect-select {
-        padding-right: 24px;
-        font-size: 10pt;
-        font-family: 'Poppins', sans-serif;
-        color: #8f8f8f;
-    }
-
-    .MuiInputBase-root, label {
-        font-size: 10pt;
-        font-family: 'Poppins', sans-serif;
-        color: #8f8f8f;
-    }
-
-    &.select-materials {
-        &.has-icon {
-            label, .MuiSelect-select.MuiSelect-select {
-                padding-left: 30px;
-            }
-        }
-    }
-
-    .MuiFormLabel-root {
-        font-family: 'Poppins', sans-serif;
-    }
-
-    &.radio-materials {
-        .MuiFormLabel-root {
-            font-family: 'Poppins', sans-serif;
-            font-size: 11pt;
-            color: #181818;
-            line-height: 175%;
-        }
-
-        .MuiFormGroup-root {
-            display: flex;
-            flex-wrap: wrap;
-            flex-direction: column;
-            margin: 3px 20px;
-        }
-
-        label {
-            font-size: 10pt;
-            font-family: 'Poppins', sans-serif;
-            color: #8f8f8f;
-            margin-top: 4px;
-            margin-bottom: 4px;
-        }
-
-        .MuiTypography-body1 {
-            font-family: 'Poppins', sans-serif;
-            padding-left: 7px;
-        }
-
-        .MuiFormLabel-root.Mui-focused {
-            color: #000
-        }
-
-        .MuiSvgIcon-root {
-            width: .8em;
-            height: .8em;
-        }
-    }
+  }
 }

@@ -122,9 +122,14 @@ const Header = () => {
                       </Link>
                     </li>
                   ) : (
-                    <li>
-                      <Link to="/login">Giriş Yap</Link>
-                    </li>
+                    <>
+                      <li>
+                        <Link to="/login">Giriş Yap</Link>
+                      </li>
+                      <li className="line">
+                        <span></span>
+                      </li>
+                    </>
                   )}
 
                   {isAuthenticated ? (

@@ -4,7 +4,7 @@ import { Button as BaseButton } from 'react-bootstrap';
 
 const StyledButton = styled(BaseButton)`
   color: black;
-  font-size: 1.6rem;
+  font-size: 1rem;
   font-weight: ${(props) => (props.fontWeight && props.fontWeight) || 'normal'};
   border-radius: 4px;
 

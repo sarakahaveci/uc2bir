@@ -1,12 +1,20 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React from 'react';
+import styled from 'styled-components';
+import { Link } from 'gatsby';
 
-const IconLabel = ({href="", className="", text, icon, onClick=null, style={}}) => {
-    return (
-        <a href={href} target="_blank" className={`icon-button ${className}`} onClick={onClick} style={style}>
-            {icon && icon({className: "icon"})}
-            <span>{text}</span>
-        </a>
-    )
-}
+const StyledLink = styled(Link)`
+  span {
+    font-size: ${(props) => (props.fontSize && props.fontSize) || '1rem'};
+  }
+`;
+
+const IconLabel = (props) => {
+  return (
+    <StyledLink {...props} className={`icon-button ${props.className}`}>
+      {props.icon && props.icon({ className: 'icon' })}
+      <span>{props.text}</span>
+    </StyledLink>
+  );
+};
 
 export default IconLabel;
