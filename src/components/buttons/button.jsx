@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import { Button as BaseButton } from 'react-bootstrap';
 
 const StyledButton = styled(BaseButton)`
-  color: white;
+  color: black;
   font-size: 1.6rem;
   font-weight: ${(props) => (props.fontWeight && props.fontWeight) || 'normal'};
   border-radius: 4px;
@@ -33,6 +33,7 @@ const StyledButton = styled(BaseButton)`
           transform: matrix(1, 0, -0.7, 1, 0, 0);
         }
       `}
+
     ${(props) =>
       props.perspective &&
       css`
@@ -56,6 +57,7 @@ const StyledButton = styled(BaseButton)`
           transform: matrix(1, 0, -0.4, 1, 0, 0);
         }
       `}
+
     ${(props) =>
       props.lineButton &&
       css`
@@ -77,6 +79,7 @@ const StyledButton = styled(BaseButton)`
           margin-top: 5px;
         }
       `}
+
     ${(props) =>
       !!props.icon &&
       css`

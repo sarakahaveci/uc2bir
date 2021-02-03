@@ -1,33 +1,25 @@
 import React, { useState } from 'react';
 import { Row } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import { Link } from 'gatsby';
 
 import { default as NativeHeader } from '../app/sub-page/Header';
-// @ts-ignore
 import logo from '../images/logo.png';
 import AwesomeIcon from '../statics/icon';
 import IconLabel from './buttons/icon-label';
 import Button from './buttons/button';
 
-import { Link, navigate } from 'gatsby';
+const Header = () => {
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
 
-import { connect } from 'react-redux';
-import { searchChangeNameButton } from '../redux/reducers/search';
-import { hamburgerActionButton } from '../redux/reducers/hamberger';
-import { bindActionCreators } from 'redux';
+  const [menuActive, setMenuActive] = useState(false);
+  const [toggle, setToggle] = useState(false);
 
-const Header = ({
-  loginReducers,
-  searchChangeNameButton,
-  actionLeftBar,
-  hamburgerActionButton,
-}) => {
   const nav_logo = {
     status: true,
     className: 'col logo',
     element: () => logo,
   };
-
-  const [toggle, setToggle] = useState(false);
 
   const nav_widget = {
     status: true,
@@ -61,48 +53,17 @@ const Header = ({
                   Kategoriye Göre Arama
                   <ul className={`dropdown ${toggle ? 'open' : 'close'}`}>
                     <li>
-                      <a
-                        onClick={() => {
-                          searchChangeNameButton('pt');
-                          hamburgerActionButton(!actionLeftBar);
-                          return navigate('/');
-                        }}
-                      >
-                        EĞİTMEN
-                      </a>
+                      {/* TODO: Add function */}
+                      <a onClick={() => {}}>EĞİTMEN</a>
                     </li>
                     <li>
-                      <a
-                        onClick={() => {
-                          searchChangeNameButton('living');
-                          hamburgerActionButton(!actionLeftBar);
-                          return navigate('/');
-                        }}
-                      >
-                        SALON
-                      </a>
+                      <a onClick={() => {}}>SALON</a>
                     </li>
                     <li>
-                      <a
-                        onClick={() => {
-                          searchChangeNameButton('nutritionist');
-                          hamburgerActionButton(!actionLeftBar);
-                          return navigate('/');
-                        }}
-                      >
-                        DİYETİSYEN
-                      </a>
+                      <a onClick={() => {}}>DİYETİSYEN</a>
                     </li>
                     <li>
-                      <a
-                        onClick={() => {
-                          searchChangeNameButton('map');
-                          hamburgerActionButton(!actionLeftBar);
-                          return navigate('/');
-                        }}
-                      >
-                        HARİTA
-                      </a>
+                      <a onClick={() => {}}>HARİTA</a>
                     </li>
                   </ul>
                 </li>
@@ -147,11 +108,7 @@ const Header = ({
               </div>
               <div className="bar-item right-bar">
                 <ul>
-                  {!loginReducers.entity.token ? (
-                    <li>
-                      <Link to="/login">Giriş Yap</Link>
-                    </li>
-                  ) : (
+                  {isAuthenticated ? (
                     <li>
                       <Link to="profile">
                         <AwesomeIcon.User
@@ -160,26 +117,24 @@ const Header = ({
                             fontSize: '10pt',
                             marginRight: 7,
                           }}
-                        />{' '}
-                        {`${loginReducers.entity.user.name}`}
+                        />
+                        {`${user?.name}`}
                       </Link>
                     </li>
-                  )}
-                  {!loginReducers.entity.token ? (
-                    <li className="line">
-                      <span></span>
-                    </li>
                   ) : (
-                    ''
+                    <li>
+                      <Link to="/login">Giriş Yap</Link>
+                    </li>
                   )}
-                  {!loginReducers.entity.token ? (
+
+                  {isAuthenticated ? (
+                    ''
+                  ) : (
                     <li>
                       <Link to="/register">Üye Ol</Link>
                     </li>
-                  ) : (
-                    ''
                   )}
-                  {!loginReducers.entity.token && (
+                  {!isAuthenticated && (
                     <li>
                       <Button
                         text="Profesyonel"
@@ -202,26 +157,10 @@ const Header = ({
       className="header position-fixed"
       navLogo={nav_logo}
       navMenu={nav_menu}
-      toggle={actionLeftBar}
-      setToggle={hamburgerActionButton}
+      toggle={menuActive}
+      setToggle={() => setMenuActive(!menuActive)}
     />
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    dispatch,
-    ...bindActionCreators(
-      { searchChangeNameButton, hamburgerActionButton },
-      dispatch
-    ),
-  };
-};
-
-const mapStateToProps = ({
-  loginReducers,
-  actionSearchButton,
-  actionLeftBar,
-}) => ({ loginReducers, actionSearchButton, actionLeftBar });
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default Header;

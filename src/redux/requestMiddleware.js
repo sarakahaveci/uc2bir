@@ -22,11 +22,10 @@ export default ({ getState }) => (next) => async ({ payload = {}, type }) => {
     return;
   }
 
-  const { isAuthenticated } = getState().auth || {};
+  const { isAuthenticated, accessToken } = getState().auth || {};
 
   if (isAuthenticated) {
-    const userData = getState().auth.data;
-    headers.Authorization = `Bearer ${userData.accessToken}`;
+    headers.Authorization = `Bearer ${accessToken}`;
   }
 
   next({
@@ -36,7 +35,7 @@ export default ({ getState }) => (next) => async ({ payload = {}, type }) => {
   try {
     const options = {
       url,
-      baseUrl,
+      baseURL: baseUrl,
       headers,
       method,
       data: body,

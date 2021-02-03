@@ -1,118 +1,70 @@
 // @ts-nocheck
-import React, { useEffect, useState } from 'react';
-import FormData from 'form-data';
-import axios from 'axios';
-import { bindActionCreators } from 'redux';
+import React, { useState } from 'react';
 import { navigate, Link } from 'gatsby';
-import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { Material } from '../../../components/inputs/material';
 import AwesomeIcon from '../../../statics/icon';
 import Title from '../../../components/typography/title';
 import Text from '../../../components/typography/Text';
 import Button from '../../../components/buttons/button';
-import { login } from '../../../redux/reducers/login';
-import { initialState } from '../../../redux/reducers/login/initial';
+import { login } from 'actions';
 import FormPages from '../../../components/FormPages';
-import env from '../../../env';
 
-const Login = (props) => {
-  const { login, loginReducers } = props;
-  const [lg, setLg] = useState({ ...initialState });
+const Login = () => {
+  const { isLoading } = useSelector((state) => state.auth);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
 
-  const onSubmit = async (event) => {
-    event.preventDefault();
-    const result = await login(data);
-    setLg({
-      ...initialState,
-      loading: false,
-      isSuccess: true,
-      entity: result.payload,
+  const dispatch = useDispatch();
+
+  const loginSuccessHandler = () => {
+    toast.success('Giriş Başarılı!', {
+      position: 'bottom-right',
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+
+    setTimeout(() => {
+      toast.info('Lütfen Bekleyiniz! Yönlendiriliyorsunuz...', {
+        position: 'bottom-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        onClose: () => navigate('/'),
+      });
+    }, 1000);
+  };
+
+  const loginErrorHandler = () => {
+    toast.error('Hatalı Giriş', {
+      position: 'bottom-right',
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
     });
   };
 
-  const data = new FormData();
+  const onSubmit = async (event) => {
+    event.preventDefault();
 
-  data.append('email', email);
-  data.append('password', password);
-
-  useEffect(() => {
-    const session = new Promise((resolve, reject) => {
-      const sessionAdd = () => {
-        sessionStorage.setItem('token', lg.entity.token);
-        sessionStorage.setItem('refresh_token', lg.entity.refresh_token);
-        sessionStorage.setItem('user_id', lg.entity.user.id);
-      };
-      const localAdd = () => {
-        localStorage.setItem('token', lg.entity.token);
-        localStorage.setItem('refresh_token', lg.entity.refresh_token);
-        localStorage.setItem('user_id', lg.entity.user.id);
-      };
-      if (lg.isSuccess) {
-        if (lg.entity.token) {
-          if (!rememberMe) sessionAdd();
-          else localAdd();
-
-          resolve('Giriş Başarılı!');
-        } else {
-          reject('Hatalı Giriş!');
-        }
-      }
-    });
-
-    session
-      .then((data) =>
-        toast.success(data, {
-          position: 'bottom-right',
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        })
-      )
-      //set header axios
-      .then(
-        () => (axios.defaults.headers.common['Authorization'] = lg.entity.token)
-      )
-      //set config
-      .then(() => {
-        env.token = lg.entity.token;
-        env.refresh_token = lg.entity.refresh_token;
-        env.user = lg.entity.user.id;
-      })
-      .then(() =>
-        setTimeout(() => {
-          toast.info('Lütfen Bekleyiniz! Yönlendiriliyorsunuz...', {
-            position: 'bottom-right',
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-        }, 1000)
-      )
-      .then(() => setTimeout(() => navigate('/'), 3050))
-      .catch((err) =>
-        toast.error(err, {
-          position: 'bottom-right',
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        })
-      );
-  }, [lg]);
+    dispatch(
+      login({ email, password }, loginSuccessHandler, loginErrorHandler)
+    );
+  };
 
   return (
     <FormPages>
@@ -194,16 +146,10 @@ const Login = (props) => {
                     <a href="#">Şifremi Unuttum</a>
                   </div>
                 </div>
-                {!loginReducers.loading ? (
-                  <Button type="submit" text={`Giriş Yap`} className="blue" />
+                {isLoading ? (
+                  <Button text={`Yükleniyor...`} className="blue" />
                 ) : (
-                  <Button
-                    onClick={async () => {
-                      console.log('Lütfen Bekleyiniz...');
-                    }}
-                    text={`Yükleniyor...`}
-                    className="blue"
-                  />
+                  <Button type="submit" text={`Giriş Yap`} className="blue" />
                 )}
               </form>
               <Text
@@ -248,13 +194,4 @@ const Login = (props) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    dispatch,
-    ...bindActionCreators({ login }, dispatch),
-  };
-};
-
-const mapStateToProps = ({ loginReducers }) => ({ loginReducers });
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default Login;

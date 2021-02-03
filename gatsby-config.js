@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   siteMetadata: {
     title: `321UcIkiBir`,
@@ -12,13 +14,22 @@ module.exports = {
     `gatsby-plugin-sharp`,
     `gatsby-plugin-styled-components`,
     {
+      resolve: 'gatsby-plugin-root-import',
+      options: {
+        actions: path.join(__dirname, 'src/actions'),
+        reducers: path.join(__dirname, 'src/reducers'),
+        components: path.join(__dirname, 'src/components'),
+        constants: path.join(__dirname, 'src/constants'),
+      },
+    },
+    {
       resolve: 'gatsby-plugin-zopfli',
       options: {
         extensions: ['css', 'html', 'js', 'svg'],
         compression: {
-          numiterations: 25
-        }
-      }
+          numiterations: 25,
+        },
+      },
     },
     {
       resolve: 'gatsby-source-filesystem',
