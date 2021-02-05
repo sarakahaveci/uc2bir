@@ -18,6 +18,7 @@ html {
 
 body {
   font-family: 'Poppins', sans-serif;
+  overflow-y: overlay;
 }
 
 #___gatsby {
@@ -107,3 +108,6 @@ body {
 @import './sub-page';
 
 @import './responsive';
+
+/* bootstrap */
+@import './bootstrap';

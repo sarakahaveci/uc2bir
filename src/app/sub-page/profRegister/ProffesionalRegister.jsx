@@ -1,13 +1,9 @@
-// @ts-nocheck
 import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
-import Text from '../../../components/typography/Text';
-import RegisterStep from './';
-import FormPages from '../../../components/FormPages';
+import { Text, FormPages } from 'components';
+import RegisterSteps from './RegisterSteps/RegisterSteps';
 
-const Register = () => {
+const ProffesionalRegister = () => {
   return (
     <FormPages>
       <section className="col-12 col-xl-6 page-info">
@@ -37,7 +33,7 @@ const Register = () => {
         <div className="row">
           <div className="page-content">
             <div className="contain">
-              <RegisterStep />
+              <RegisterSteps />
             </div>
           </div>
         </div>
@@ -46,13 +42,4 @@ const Register = () => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    dispatch,
-    ...bindActionCreators({}),
-  };
-};
-
-const mapStateToProps = ({}) => ({});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Register);
+export default ProffesionalRegister;

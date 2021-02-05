@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import { Link } from 'gatsby';
+import { Link, navigate } from 'gatsby';
 
 import { default as NativeHeader } from '../app/sub-page/Header';
 import logo from '../images/logo.png';
@@ -145,6 +145,7 @@ const Header = () => {
                         text="Profesyonel"
                         className="dark"
                         fontWeight="500"
+                        onClick={() => navigate('/profesyonel/register')}
                       />
                     </li>
                   )}

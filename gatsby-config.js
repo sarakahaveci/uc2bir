@@ -20,6 +20,7 @@ module.exports = {
         reducers: path.join(__dirname, 'src/reducers'),
         components: path.join(__dirname, 'src/components'),
         constants: path.join(__dirname, 'src/constants'),
+        utils: path.join(__dirname, 'src/utils'),
       },
     },
     {

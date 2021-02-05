@@ -1,0 +1,17 @@
+@import 'layout/grid';
+
+.step-one-wrapper {
+  .underline-text {
+    text-decoration: underline;
+    color: var(--light-blue);
+  }
+
+  .checkbox-area {
+    margin-top: 60px;
+  }
+}
+
+.modal-register {
+  width: 500px;
+  height: 500px;
+}
