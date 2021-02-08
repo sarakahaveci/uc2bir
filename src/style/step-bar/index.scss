@@ -1,28 +1,29 @@
 .step-bar {
-    width: 100%;
+  width: 100%;
+  height: 10px;
+  background: #d6d5d5;
+  border-radius: 4px;
+  position: relative;
+  margin: 0 30px 50px;
+
+  .bar {
+    position: absolute;
     height: 10px;
-    background: #D6D5D5;
+    background: #00b2a9;
+    width: 0;
     border-radius: 4px;
-    position: relative;
-    margin-bottom: 50px;
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1) all 0.5s;
+  }
 
-    .bar {
-        position: absolute;
-        height: 10px;
-        background: #00b2a9;
-        width: 0;
-        border-radius: 4px;
-        transition: cubic-bezier(0.075, 0.82, 0.165, 1) all .5s;
-    }
-
-    span {
-        top: 15px;
-        position: absolute;
-        height: 30px;
-        line-height: 30px;
-        width: 100%;
-        display: flex;
-        justify-content: flex-end;
-        font-size: 9pt;
-    }
+  span {
+    top: 15px;
+    position: absolute;
+    height: 30px;
+    line-height: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    font-size: 9pt;
+    color: var(--gray1);
+  }
 }

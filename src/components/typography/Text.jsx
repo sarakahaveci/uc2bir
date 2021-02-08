@@ -11,6 +11,7 @@ const StyledText = styled.div`
   font-weight: ${(props) => props.fontWeight || '400'};
   font-size: ${(props) => props.fontSize || '1rem'};
   text-align: ${(props) => props.textAlign || 'initial'};
+  margin: ${(props) => props.margin && props.margin};
 `;
 
 const Text = (props) => (
