@@ -7,7 +7,9 @@ const baseUrl = 'http://gateway.ms.321.4alabs.com';
 export default ({ getState }) => (next) => async ({ payload = {}, type }) => {
   const {
     body = null,
-    headers = {},
+    headers = {
+      'Accept-Language': navigator.language || navigator.userLanguage,
+    },
     label,
     method,
     transformData = (data) => data,
@@ -26,6 +28,7 @@ export default ({ getState }) => (next) => async ({ payload = {}, type }) => {
 
   if (isAuthenticated) {
     headers.Authorization = `Bearer ${accessToken}`;
+    //Accept-Language = tr
   }
 
   next({
