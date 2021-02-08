@@ -1,4 +1,4 @@
-import { HTTP_REQUEST, LOGIN } from 'constants';
+import { HTTP_REQUEST, LOGIN } from '../constants';
 
 export const login = (
   { email, password },

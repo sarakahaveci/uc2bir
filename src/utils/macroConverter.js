@@ -1,4 +1,4 @@
-import { Material } from 'components';
+import { Material } from '../components';
 
 const macroConverter = (data, setData, val) => {
   return val.type === 'radio'

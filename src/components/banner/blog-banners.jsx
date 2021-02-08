@@ -1,12 +1,12 @@
 import React from 'react';
-import Title from '../typography/title';
-import Text from '../typography/text';
+import Title from '../typography/Titles';
+import Text from '../typography/Text';
 import Button from '../buttons/button';
 import LabelText from '../typography/LabelText';
 
 /* bunu şimdilik ekliyoruz */
 // @ts-ignore
-import img from '../../images/blog/image-1.png';
+import img from '../../assets/blog/image-1.png';
 
 const initialData = {
   img: '',

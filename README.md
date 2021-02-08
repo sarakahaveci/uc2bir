@@ -1,196 +1,70 @@
-# Gatsby Framework
+# Getting Started with Create React App
 
-## File pattern
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-```bash
-.
-├── LICENSE.md
-├── README.md
-├── gatsby-browser.js
-├── gatsby-config.js
-├── gatsby-node.js
-├── gatsby-ssr.js
-├── package-lock.json
-├── package.json
-├── webpack.config.js
-├── provider.js
-└── src
-├── images
-└── app
-└── ├── http
-└── ├── ├── layout
-└── ├── └── ├── index.jsx
-    ├── ├── partials
-    ├── └── ├── ...jsx 
-    └── sub-page
-        ├── ...jsx
-├── components
-│   ├── ...jsx
-├── constants
-├── ├── actionTypes.js
-├── ├── index.js
-├── redux
-├── ├── ... redux promise middleware pattern
-│   ├── ...png, jpg, gif
-└── pages
-├── 404.js
-├── index.js
-└── ...js
-├── statics
-├── ├── backgorund
-├── ├── icon
-├── ├── svg
-├── style
-├── ├── ...
-├── ├── main.scss
-└── utils
-└── ├── ...util settings
-└── ├── index.js
-```
+## Available Scripts
 
-## Case Pattern
+In the project directory, you can run:
 
-```bash
-⚡️ dosya isimleri: kebab-case
-⚡️ component isimleri: PascalCase ve jsx element
-⚡️ props, settings, switch component isimleri: camelCase ve js element
-⚡️ path component isimleri: kebab-case ve js element
-⚡️ variables: snake_case
-⚡️ function variables: camelCase arrow and default function
-⚡️ component variables: arrow function, PascalCase, functional component ve set prop required default
-```
+### `yarn start`
 
-## Getting Started 🚀
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-# npm install
-# npm run develop
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-### Prerequisites 📋
+### `yarn test`
 
-...
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-```
-node@v10.16.0 or higher
-npm@6.9.0 or higher
-git@2.17.1 or higher
-gatsby-cli@2.8.22 or higher
-```
+### `yarn build`
 
-Also, you can use [Yarn](https://yarnpkg.com/) instead of NPM ☝️
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-```
-yarn@v1.21.1 or higher
-```
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
----
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-## How To Use 🔧
+### `yarn eject`
 
-From your command line, first clone Simplefolio:
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-```bash
-# Clone this repository
-$ git clone clone coppy
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-# Go into the repository
-$ cd pt-points-web
-```
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-Then you can install the dependencies either using NPM or Yarn:
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-Using NPM:
+## Learn More
 
-```bash
-# Install dependencies
-$ npm install
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-# Start development server
-$ npm run develop
-```
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-Using Yarn:
+### Code Splitting
 
-```bash
-# Install dependencies
-$ yarn
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-# Start development server
-$ yarn develop
-```
+### Analyzing the Bundle Size
 
-```bash
-example graphql query
-# graphql query
----------------------------------------------------
-query MyQuery {
-  allMarkdownRemark {
-    edges {
-      node {
-        frontmatter {
-          id
-          capasity
-          category
-          content
-          location
-          name
-          price
-          purce
-          square_meters
-          star
-          title
-          image {
-            childImageSharp {
-              fluid {
-                src
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-```
----------------------------------------------------
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-# Call Component
----------------------------------------------------
-```bash
-import React from "react"
-import { graphql } from "gatsby"
+### Making a Progressive Web App
 
-const ComponentName = ({ data }) => <pre>{JSON.stringify(data, null, 4)}</pre>
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-export const query = graphql`
-  {
-    allMarkdownRemark {
-      edges {
-        node {
-          frontmatter {
-            id
-            capasity
-            category
-            content
-            location
-            name
-            price
-            purce
-            square_meters
-            star
-            title
-            image {
-              childImageSharp {
-                fluid {
-                  src
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`
-export default ComponentName
----------------------------------------------------
-```
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `yarn build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

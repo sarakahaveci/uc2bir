@@ -6,11 +6,11 @@ import { default as SlickSlider } from 'react-slick';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import AwesomeIcon from '../../statics/icon';
+import AwesomeIcon from '../statics/icon';
 import Button from '../buttons/button';
 
 import Groups from './focus-items';
-import { navigate } from 'gatsby';
+import history from '../../utils/history';
 
 const SliderFocus = (props) => {
   const { data, query } = props;
@@ -81,7 +81,7 @@ const SliderFocus = (props) => {
           >
             <Button
               lineButton
-              onClick={() => navigate(props.link)}
+              onClick={() => history.push(props.link)}
               text="Tümünü Gör"
             />
           </div>

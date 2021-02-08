@@ -3,7 +3,7 @@ import React, {useLayoutEffect, useState} from 'react';
 
 import { Container } from 'react-bootstrap';
 
-import background from '../statics/background/images/login.jpg';
+import background from './statics/background/images/login.jpg';
 
 const FormPages = ({children=""}) => {
     const [windowSize, setWindowSize] = useState(false);

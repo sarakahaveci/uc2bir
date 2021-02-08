@@ -1,9 +1,8 @@
 import React from 'react';
 
-import Title from '../../../components/typography/title';
-import Text from '../../../components/typography/text';
-import AwesomeIcon from '../../../statics/icon';
-import Button from '../../../components/buttons/button';
+import Title from '../../../components/typography/Titles';
+import Text from '../../../components/typography/Text';
+import AwesomeIcon from '../../statics/icon';
 import IconLabel from '../../../components/buttons/icon-label';
 
 const Dietitians = ({ top = false, bottom = false, val }) => {

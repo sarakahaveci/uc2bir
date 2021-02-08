@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'gatsby';
+import { Link } from 'react-router-dom';
 
-const StyledLink = styled(Link)`
+const StyledLink = styled.a`
   span {
     font-size: ${(props) => (props.fontSize && props.fontSize) || '1rem'};
   }

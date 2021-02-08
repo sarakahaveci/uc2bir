@@ -1,172 +1,67 @@
-import React, { useState } from 'react';
-import { Row } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
-import { Link, navigate } from 'gatsby';
+// @ts-nocheck
+import React, { useLayoutEffect, useState } from 'react';
+import { Link } from "react-router-dom";
+import Svg from './statics/svg';
 
-import { default as NativeHeader } from '../app/sub-page/Header';
-import logo from '../images/logo.png';
-import AwesomeIcon from '../statics/icon';
-import IconLabel from './buttons/icon-label';
-import Button from './buttons/button';
+const Header = ({className, navLogo, navMenu, toggle, setToggle}) => {
+  const [page, setPage] = useState(false);
+	const [menu, setMenu] = useState(false);
 
-const Header = () => {
-  const { isAuthenticated, user } = useSelector((state) => state.auth);
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	useLayoutEffect(() => {
+		const page = document.getElementById("pt-point-page");
+		const menu = document.getElementById("pt-point-menu");
+		if (toggle) {
+			page.classList.add("open-hamburger-menu");
+			menu.classList.add("open");
+		} else {
+			page.classList.remove("open-hamburger-menu");
+			menu.classList.remove("open");
+		}
+		setPage(page);
+		setMenu(menu);
+	});
 
-  const [menuActive, setMenuActive] = useState(false);
-  const [toggle, setToggle] = useState(false);
+	const toggleEl = (toggle) => {
+		if (!toggle) {
+			page.classList.add("open-hamburger-menu");
+			menu.classList.add("open");
+		} else {
+			page.classList.remove("open-hamburger-menu");
+			menu.classList.remove("open");
+		}
+		return setToggle(!toggle);
+	}
 
-  const nav_logo = {
-    status: true,
-    className: 'col logo',
-    element: () => logo,
-  };
-
-  const nav_widget = {
-    status: true,
-    className: 'widget-bar bar col-auto d-flex',
-    element: () => {
-      return (
-        <div className={nav_widget.className}>
-          <Row className="nav-element">
-            <div className="bar-item left-bar">
-              <ul>
-                <li>
-                  <IconLabel
-                    href="mailto:info@uc2bir.com"
-                    className="icon-label"
-                    text="info@uc2bir.com"
-                    icon={AwesomeIcon.Envolope}
-                  />
-                </li>
-                <li>
-                  <IconLabel
-                    href="tel:05XXXXXXXXX"
-                    className="icon-label"
-                    text="05XX XXX XX XX"
-                    icon={AwesomeIcon.Phone}
-                  />
-                </li>
-                <li
-                  onClick={() => setToggle(!toggle)}
-                  className="d-xl-none dropdown flex-column"
-                >
-                  Kategoriye Göre Arama
-                  <ul className={`dropdown ${toggle ? 'open' : 'close'}`}>
-                    <li>
-                      {/* TODO: Add function */}
-                      <a onClick={() => {}}>EĞİTMEN</a>
-                    </li>
-                    <li>
-                      <a onClick={() => {}}>SALON</a>
-                    </li>
-                    <li>
-                      <a onClick={() => {}}>DİYETİSYEN</a>
-                    </li>
-                    <li>
-                      <a onClick={() => {}}>HARİTA</a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-            <div className="bar-item right-bar">
-              <div className="lang">
-                <a href="#">TR</a> / <a href="#">EN</a>
-              </div>
-            </div>
-          </Row>
-        </div>
-      );
-    },
-  };
-
-  const nav_menu = {
-    status: true,
-    className: 'container nav-menu center d-flex flex-column',
-    element: () => {
-      return (
-        <>
-          {nav_widget.element()}
-          <div className="menu-bar bar col d-flex">
-            <Row className="nav-element">
-              <div className="bar-item left-bar">
-                <ul>
-                  <li>
-                    <Button
-                      icon={AwesomeIcon.Search}
-                      text="Ne arıyorsun?"
-                      className="blue"
-                    />
-                  </li>
-                  <li>
-                    <Link to="/info">Üç2Bir HAKKINDA</Link>
-                  </li>
-                  <li>
-                    <a href="#">BLOG</a>
-                  </li>
-                </ul>
-              </div>
-              <div className="bar-item right-bar">
-                <ul>
-                  {isAuthenticated ? (
-                    <li>
-                      <Link to="profile">
-                        <AwesomeIcon.User
-                          style={{
-                            color: '#585858',
-                            fontSize: '10pt',
-                            marginRight: 7,
-                          }}
-                        />
-                        {`${user?.name}`}
-                      </Link>
-                    </li>
-                  ) : (
-                    <>
-                      <li>
-                        <Link to="/login">Giriş Yap</Link>
-                      </li>
-                      <li className="line">
-                        <span></span>
-                      </li>
-                    </>
-                  )}
-
-                  {isAuthenticated ? (
-                    ''
-                  ) : (
-                    <li>
-                      <Link to="/register">Üye Ol</Link>
-                    </li>
-                  )}
-                  {!isAuthenticated && (
-                    <li>
-                      <Button
-                        text="Profesyonel"
-                        className="dark"
-                        fontWeight="500"
-                        onClick={() => navigate('/profesyonel/register')}
-                      />
-                    </li>
-                  )}
-                </ul>
-              </div>
-            </Row>
-          </div>
-        </>
-      );
-    },
-  };
-
-  return (
-    <NativeHeader
-      className="header position-fixed"
-      navLogo={nav_logo}
-      navMenu={nav_menu}
-      toggle={menuActive}
-      setToggle={() => setMenuActive(!menuActive)}
-    />
-  );
+	return (
+		<nav className={className}>
+			<div className="col-auto hamburgers left-menu">
+				<a
+          href
+          className={`svg-hamburder-menu ${toggle ? "h-open" : "h-close"}`}
+          onClick={() => toggleEl(toggle)}
+        >
+					<div className="line line-1"></div>
+					<div className="line line-2"></div>
+					<div className="line line-3"></div>
+				</a>
+			</div>
+			<Link 
+        to="/"
+        className={navLogo.className}>
+				<img 
+          src={navLogo.element()} 
+          alt="logo"
+        />
+			</Link>
+			<div className="col-auto hamburgers right-menu">
+				<Svg.Search />
+			</div>
+			<div id="pt-point-menu" className={navMenu.className}>
+				{navMenu.element()}
+			</div>
+		</nav>
+	);
 };
 
 export default Header;

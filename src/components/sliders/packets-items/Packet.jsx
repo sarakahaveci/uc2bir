@@ -1,8 +1,8 @@
 // @ts-nocheck
 import React from 'react';
 
-import Title from '../../typography/title';
-import AwesomeIcon from '../../../statics/icon';
+import Title from '../../typography/Titles';
+import AwesomeIcon from '../../statics/icon';
 
 const Packet = ({ val }) => {
   return (

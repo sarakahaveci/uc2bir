@@ -3,13 +3,13 @@ import Slider from "react-slick";
 
 //bunları şimdilik ekliyoruz.
 // @ts-ignore
-import womanThumpImg from "../../images/as-nav-for/thump-woman.png";
+import womanThumpImg from "../../assets/as-nav-for/thump-woman.png";
 // @ts-ignore
-import womanImg from "../../images/as-nav-for/woman.png";
+import womanImg from "../../assets/as-nav-for/woman.png";
 // @ts-ignore
-import womansThumpImg from "../../images/as-nav-for/thump-womans.png";
+import womansThumpImg from "../../assets/as-nav-for/thump-womans.png";
 // @ts-ignore
-import womansImg from "../../images/as-nav-for/womans.png";
+import womansImg from "../../assets/as-nav-for/womans.png";
 
 const AsNavFor = ({ className = "" }) => {
     const [nav1, setNav1] = useState(null);

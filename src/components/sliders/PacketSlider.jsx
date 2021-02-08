@@ -1,15 +1,16 @@
 // @ts-nocheck
-import React, { useLayoutEffect, useState } from 'react';
+import React from 'react';
 import { Container } from 'react-bootstrap';
 
 import { default as SlickSlider } from 'react-slick';
 
 import 'slick-carousel/slick/slick.css';
 
-import AwesomeIcon from '../../statics/icon';
+import AwesomeIcon from '../statics/icon';
 import Button from '../buttons/button';
 
 import Groups from './packets-items';
+import history from '../../utils/history';
 
 function PacketSlider(props) {
   const { data, query, categories } = props;
@@ -103,7 +104,7 @@ function PacketSlider(props) {
           >
             <Button
               lineButton
-              onClick={() => navigate(props.link)}
+              onClick={() => history.push(props.link)}
               text="Tümünü Gör"
             />
           </div>

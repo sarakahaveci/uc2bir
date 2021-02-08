@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Title from '../../typography/title';
-import Text from '../../typography/text';
-import AwesomeIcon from '../../../statics/icon';
+import Title from '../../typography/Titles';
+import Text from '../../typography/Text';
+import AwesomeIcon from '../../statics/icon';
 import Button from '../../buttons/button';
 import IconLabel from '../../buttons/icon-label';
 
