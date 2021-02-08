@@ -114,9 +114,7 @@ export const setStepFour = (
   });
 };
 
-export const getRegisterData = (successCallback, errorCallback) => async (
-  dispatch
-) => {
+export const getRegisterData = (errorCallback) => async (dispatch) => {
   const url = '/user/registration-data';
 
   await dispatch({
@@ -125,7 +123,7 @@ export const getRegisterData = (successCallback, errorCallback) => async (
       method: 'GET',
       url,
       label: REGISTER_DATA,
-      callBack: () => successCallback(),
+
       errorHandler: () => errorCallback(),
     },
   });
