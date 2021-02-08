@@ -1,4 +1,4 @@
-import { REGISTER_STEP_FOUR_REQUEST, REGISTER_STEP_FOUR_SUCCESS, REGISTER_STEP_FOUR_FAILURE } from '../constants';
+import { REGISTER_DATA_REQUEST, REGISTER_DATA_SUCCESS, REGISTER_DATA_FAILURE } from '../constants';
 
 const initialState = {
 	data: null,
@@ -13,13 +13,13 @@ const initialState = {
 
 export default (state = initialState, action) => {
 	switch (action.type) {
-		case REGISTER_STEP_FOUR_REQUEST:
+		case REGISTER_DATA_REQUEST:
 			return {
 				...state,
 				isLoading: true,
 			};
 
-		case REGISTER_STEP_FOUR_SUCCESS:
+		case REGISTER_DATA_SUCCESS:
 			return {
 				...state,
 				data: action.payload.data,
@@ -29,7 +29,7 @@ export default (state = initialState, action) => {
 				error: null,
 			};
 
-		case REGISTER_STEP_FOUR_FAILURE:
+		case REGISTER_DATA_FAILURE:
 			return {
 				...state,
 				isLoading: false,

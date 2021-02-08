@@ -14,7 +14,7 @@ const StepFour = (props) => {
   const dispatch = useDispatch();
 	
 	const getStepFour = useSelector((state) => state.stepFour);
-	const getQuiz = useSelector((state) => state.quiz);
+	const getQuiz = useSelector((state) => state.registerData);
 	
   const [data, setData] = useState({ ...macro.inputs });
   const [macData, setMacroData] = useState([]);
@@ -81,7 +81,7 @@ const StepFour = (props) => {
     if ( !getQuiz.isSuccess ) {
       actionQuiz();
     }
-  },[getQuiz]);
+  },[getQuiz.isSuccess]);
 
 	const actionStepFour = () => {
 		dispatch(
