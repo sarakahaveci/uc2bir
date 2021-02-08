@@ -6,7 +6,7 @@ import stepOne from '../reducers/stepOneReducer';
 import stepTwo from '../reducers/stepTwoReducer';
 import stepThree from '../reducers/stepThreeReducer';
 import stepFour from '../reducers/stepFourReducer';
-import quiz from '../reducers/quizReducer';
+import registerData from '../reducers/registerDataReducer';
 
 const reducers = combineReducers({
   auth,
@@ -15,7 +15,7 @@ const reducers = combineReducers({
   stepTwo,
   stepThree,
   stepFour,
-  quiz,
+  registerData,
 });
 
 export default reducers;

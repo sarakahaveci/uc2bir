@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, {useLayoutEffect, useState} from 'react';
+import React, { useLayoutEffect, useState, useEffect } from 'react';
 
 import { toast } from 'react-toastify';
 
@@ -7,64 +7,60 @@ import { Button, MacroMap } from '../../../components';
 
 import { stepFour as macro } from '../../../macros/registerMacros';
 import { useSelector, useDispatch } from 'react-redux';
-import { setStepFour, quiz } from '../../../actions';
+import { setStepFour, getRegisterData } from '../../../actions';
 
 const StepFour = (props) => {
   const { setSteps } = props;
   const dispatch = useDispatch();
-	
-	const getStepFour = useSelector((state) => state.stepFour);
-	const getQuiz = useSelector((state) => state.quiz);
-	
+
+  const getStepFour = useSelector((state) => state.stepFour);
+  const { data: registerData, isSuccess: isSuccessFetch } = useSelector(
+    (state) => state.registerData
+  );
+
   const [data, setData] = useState({ ...macro.inputs });
   const [macData, setMacroData] = useState([]);
 
-	const isSuccess = () => {
+  const isSuccess = () => {
     toast.success('Kayıt alındı.', {
-			position: 'bottom-right',
-			autoClose: 2000,
-			hideProgressBar: false,
-			closeOnClick: true,
-			pauseOnHover: true,
-			draggable: true,
-			progress: undefined,
-		});
+      position: 'bottom-right',
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
 
-		setTimeout(() => {
-			toast.info('Lütfen Bekleyiniz! Yönlendiriliyorsunuz...', {
-				position: 'bottom-right',
-				autoClose: 2000,
-				hideProgressBar: false,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-				onClose: () => setSteps('finish'),
-			});
-		}, 1000);
+    setTimeout(() => {
+      toast.info('Lütfen Bekleyiniz! Yönlendiriliyorsunuz...', {
+        position: 'bottom-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        onClose: () => setSteps('finish'),
+      });
+    }, 1000);
   };
   const isError = () => {
     toast.error('Hatalı Giriş', {
-			position: 'bottom-right',
-			autoClose: 2000,
-			hideProgressBar: false,
-			closeOnClick: true,
-			pauseOnHover: true,
-			draggable: true,
-			progress: undefined,
-		});
+      position: 'bottom-right',
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   };
 
   const actionQuiz = () => {
     dispatch(
-      quiz({}, 
-        () => {
-          console.log(getQuiz);
-          if ( getQuiz.data ) {
-            setMacroData(getQuiz.data.tests["par-q-testi"]);
-          }
-        }, 
-        () => toast.error('Sorular yüklenemedi.', {
+      getRegisterData(() =>
+        toast.error('Sorular yüklenemedi.', {
           position: 'bottom-right',
           autoClose: 2000,
           hideProgressBar: false,
@@ -74,46 +70,42 @@ const StepFour = (props) => {
           progress: undefined,
         })
       )
-    )
+    );
   };
 
   useLayoutEffect(() => {
-    if ( !getQuiz.isSuccess ) {
+    if (!isSuccessFetch) {
       actionQuiz();
+    } else {
+      setMacroData(registerData.tests['par-q-testi']);
     }
-  },[getQuiz]);
+  }, [registerData]);
 
-	const actionStepFour = () => {
-		dispatch(
-			setStepFour({ ...data }, isSuccess, isError)
-		);
-	};
+  const actionStepFour = () => {
+    dispatch(setStepFour({ ...data }, isSuccess, isError));
+  };
 
-	const onSubmit = async (event) => {
-		event.preventDefault();
-		const response = await actionStepFour();
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    const response = await actionStepFour();
     return response;
-	}
+  };
   return (
     <>
       <form onSubmit={onSubmit} autoComplete="off">
-				{console.log(macData)}
-				{!(getStepFour.isLoading) || !(getStepFour.isSuccess) ? (
-          <Button 
-            type="submit" 
-            text={`İleri`} 
+        {console.log(macData)}
+        {!getStepFour.isLoading || !getStepFour.isSuccess ? (
+          <Button type="submit" text={`İleri`} className="blue" />
+        ) : (
+          <Button
+            onClick={() => {
+              console.log('Lütfen Bekleyiniz...');
+            }}
+            text={`Yükleniyor...`}
             className="blue"
           />
-        ) : (
-            <Button
-              onClick={() => {
-                console.log('Lütfen Bekleyiniz...');
-              }}
-              text={`Yükleniyor...`}
-              className="blue"
-            />
-          )}
-			</form>
+        )}
+      </form>
     </>
   );
 };
