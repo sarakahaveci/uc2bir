@@ -63,16 +63,14 @@ export default ({ getState }) => (next) => async ({ payload = {}, type }) => {
       callBack(data);
     }
   } catch (error) {
-    console.error('error', error?.message);
-
     if (error?.response?.status === 401) {
       // TODO: Set Authorization Process
       console.error('error', error?.message);
     }
 
     const enhancedError = {
-      ...error,
-      message: error.message,
+      ...error?.response?.data,
+      message: error?.response?.data?.message,
     };
 
     if (typeof errorHandler === 'function') {

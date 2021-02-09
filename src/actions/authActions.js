@@ -23,31 +23,3 @@ export const login = (
     },
   });
 };
-
-//   export const getProfile = (data) => async (dispatch) => {
-//     const url = '/login';
-
-//     await dispatch({
-//       type: HTTP_REQUEST,
-//       payload: {
-//         method: 'GET',
-//         url,
-//         label: USER_PROFILE,
-//         body: data
-//       },
-//     });
-//   };
-
-//   export const getRefreshToken = (data) => async (dispatch) => {
-//     const url = '/login';
-
-//     await dispatch({
-//       type: HTTP_REQUEST,
-//       payload: {
-//         method: 'POST',
-//         url,
-//         label: REFRESH_TOKEN,
-//         body: data
-//       },
-//     });
-//   };

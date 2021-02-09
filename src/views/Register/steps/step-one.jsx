@@ -19,58 +19,60 @@ const StepOne = (props) => {
 
   const isSuccess = () => {
     toast.success('Kayıt alındı.', {
-			position: 'bottom-right',
-			autoClose: 2000,
-			hideProgressBar: false,
-			closeOnClick: true,
-			pauseOnHover: true,
-			draggable: true,
-			progress: undefined,
-		});
+      position: 'bottom-right',
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
 
-		setTimeout(() => {
-			toast.info('Lütfen Bekleyiniz! Yönlendiriliyorsunuz...', {
-				position: 'bottom-right',
-				autoClose: 2000,
-				hideProgressBar: false,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-				onClose: () => {
+    setTimeout(() => {
+      toast.info('Lütfen Bekleyiniz! Yönlendiriliyorsunuz...', {
+        position: 'bottom-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        onClose: () => {
           dispatch(
-            login({ email: data.email, password: data.password }, 
-              () => setSteps('step2'), 
-              () => toast.error('Hatalı Giriş', {
-                position: 'bottom-right',
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              })
+            login(
+              { email: data.email, password: data.password },
+              () => setSteps('step2'),
+              () =>
+                toast.error('Hatalı Giriş', {
+                  position: 'bottom-right',
+                  autoClose: 2000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                })
             )
           );
         },
-			});
-		}, 1000);
+      });
+    }, 1000);
   };
   const isError = () => {
     toast.error('Hatalı Giriş', {
-			position: 'bottom-right',
-			autoClose: 2000,
-			hideProgressBar: false,
-			closeOnClick: true,
-			pauseOnHover: true,
-			draggable: true,
-			progress: undefined,
-		});
+      position: 'bottom-right',
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   };
 
   useEffect(() => {
-    if ( getStepOne.error ) {
-      if ( getStepOne.error.message ) {
+    if (getStepOne.error) {
+      if (getStepOne.error.message) {
         for (const [key, val] of Object.entries(getStepOne.error.message)) {
           toast.error(`${key}: ${val}`, {
             position: 'bottom-right',
@@ -84,17 +86,15 @@ const StepOne = (props) => {
         }
       }
     }
-  },[getStepOne.error]);
+  }, [getStepOne.error]);
 
   const actionStepOne = () => {
-    dispatch(
-			setStepOne({ ...data }, isSuccess, isError)
-		);
+    dispatch(setStepOne({ ...data }, isSuccess, isError));
   };
 
   const onSubmit = async (event) => {
     event.preventDefault();
-		const response = await actionStepOne();
+    const response = await actionStepOne();
     return response;
   };
   return (
@@ -184,21 +184,17 @@ const StepOne = (props) => {
             );
           })}
         </div>
-        {!(getStepOne.isLoading) && !(getStepOne.isAuthenticated) ? (
-          <Button 
-            type="submit" 
-            text={`İleri`} 
+        {!getStepOne.isLoading && !getStepOne.isAuthenticated ? (
+          <Button type="submit" text={`İleri`} className="blue" />
+        ) : (
+          <Button
+            onClick={() => {
+              console.log('Lütfen Bekleyiniz...');
+            }}
+            text={`Yükleniyor...`}
             className="blue"
           />
-        ) : (
-            <Button
-              onClick={() => {
-                console.log('Lütfen Bekleyiniz...');
-              }}
-              text={`Yükleniyor...`}
-              className="blue"
-            />
-          )}
+        )}
       </form>
       <Text
         style={{ marginTop: 30, marginBottom: 10 }}

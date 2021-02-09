@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import { Modal, Spinner } from 'react-bootstrap';
 
 import { StepContext } from './RegisterSteps';
-import { Modal } from 'react-bootstrap';
+import { login, verifyCode, setStepOne } from 'actions';
 import { Button, Text, Material, AwesomeIcon } from 'components';
 import { macroConverter } from 'utils';
 import Otp from '../Otp';
@@ -11,10 +14,9 @@ import Svg from 'components/statics/svg';
 const macro = [
   {
     type: 'select',
-    required: true,
-    name: 'memberType',
-    forHtml: 'memberType',
+    name: 'type_id',
     text: 'Üyelik Tipi Seçiniz',
+    required: true,
     items: [
       {
         id: 1,
@@ -25,37 +27,42 @@ const macro = [
   },
   {
     type: 'text',
-    required: true,
     name: 'name',
+    required: true,
     text: 'Ad Soyad',
-    icon: AwesomeIcon.User,
+    icon: Svg.UsernameIcon,
   },
   {
     type: 'email',
-    required: true,
     name: 'email',
     text: 'E mail',
-    icon: AwesomeIcon.Envolope,
+    required: true,
+    icon: Svg.EmailIcon,
   },
   {
     type: 'text',
-    required: true,
     name: 'phone',
     forHtml: 'phone',
+    required: true,
     text: 'Telefon',
-    icon: AwesomeIcon.Phone,
+    icon: Svg.PhoneIcon,
   },
   {
     type: 'password',
-    required: true,
     name: 'password',
+    required: true,
     text: 'Şifre',
-    icon: AwesomeIcon.Lock,
+    icon: Svg.PasswordIcon,
   },
 ];
 
 const StepOne = () => {
   const [form, setForm] = useState({});
+
+  const { isLoading: verifyLoading, error } = useSelector(
+    (state) => state.registerData.verifyCode
+  );
+  const { isLoading: registerLoading } = useSelector((state) => state.stepOne);
 
   const { stepNumber, setStepNumber } = useContext(StepContext);
 
@@ -65,48 +72,115 @@ const StepOne = () => {
 
   const [open, setOpen] = useState(false);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (stepNumber === 2) {
       setOpen(true);
     }
   }, [stepNumber]);
 
+  const registerSuccessCallback = () => {
+    toast.success('Kayıt alındı.', {
+      position: 'bottom-right',
+      autoClose: 2000,
+    });
+
+    setTimeout(() => {
+      toast.info('Lütfen Bekleyiniz! Yönlendiriliyorsunuz...', {
+        position: 'bottom-right',
+        autoClose: 1000,
+        onClose: () => {
+          dispatch(verifyCode());
+
+          setStepNumber((step) => step + 1);
+
+          dispatch(
+            login(
+              { email: form.email, password: form.password },
+              () => {},
+              () =>
+                toast.error('Hatalı Giriş', {
+                  position: 'bottom-right',
+                  autoClose: 2000,
+                })
+            )
+          );
+        },
+      });
+    }, 1000);
+  };
+
+  const registerErrorCallback = () => {
+    toast.error('Hatalı Kayıt İşlemi', {
+      position: 'bottom-right',
+      autoClose: 2000,
+    });
+  };
+
   return (
     <div className="step-one-wrapper">
-      {macro.map((item) => macroConverter(form, setForm, item))}
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
 
-      <div className="checkbox-area">
-        <Material.CheckBox
-          checked={acceptMemberAgreement}
-          onChange={(e) => setAcceptMemberAgreement(e.target.checked)}
-          label={
-            <div>
-              <span className="underline-text">Üyelik Sözleşmesini</span> ve
-              &nbsp;
-              <span className="underline-text">Ekleri'ni</span> kabul ediyorum.
-            </div>
-          }
+          dispatch(
+            setStepOne(
+              {
+                ...form,
+                kvkk: acceptKvkk ? 1 : 0,
+                agreement: acceptMemberAgreement ? 1 : 0,
+                health_status: acceptHealthAgreement ? 1 : 0,
+              },
+              registerSuccessCallback,
+              registerErrorCallback
+            )
+          );
+        }}
+      >
+        {macro.map((item) => macroConverter(form, setForm, item))}
+
+        <div className="step-one-wrapper__checkbox-wrapper">
+          <Material.CheckBox
+            checked={acceptMemberAgreement}
+            onChange={(e) => setAcceptMemberAgreement(e.target.checked)}
+            label={
+              <div>
+                <span className="underline-text">Üyelik Sözleşmesini</span> ve
+                &nbsp;
+                <span className="underline-text">Ekleri'ni</span> kabul
+                ediyorum.
+              </div>
+            }
+          />
+
+          <Material.CheckBox
+            checked={acceptHealthAgreement}
+            onChange={(e) => setAcceptHealthAgreement(e.target.checked)}
+            label="Sağlık muvafakatnamesi okudum, onaylıyorum."
+          />
+
+          <Material.CheckBox
+            onChange={(e) => setAcceptKvkk(e.target.checked)}
+            checked={acceptKvkk}
+            label="KVKK okudum, onaylıyorum."
+          />
+
+          <Material.CheckBox
+            onChange={(e) => setAcceptKvkk(e.target.checked)}
+            checked={acceptKvkk}
+            label="Açık rıza ve aydınlatma metinleri"
+          />
+        </div>
+
+        <Button
+          type="submit"
+          text="İleri"
+          className="blue"
+          fontWeight="bold"
+          isLoading={registerLoading}
         />
-
-        <Material.CheckBox
-          checked={acceptHealthAgreement}
-          onChange={(e) => setAcceptHealthAgreement(e.target.checked)}
-          label="Sağlık muvafakatnamesi okudum, onaylıyorum."
-        />
-
-        <Material.CheckBox
-          onChange={(e) => setAcceptKvkk(e.target.checked)}
-          checked={acceptKvkk}
-          label="KVKK okudum, onaylıyorum."
-        />
-      </div>
-
-      <Button
-        text="İleri"
-        className="blue"
-        fontWeight="bold"
-        onClick={() => setOpen(true)}
-      />
+      </form>
 
       <Text
         style={{ marginTop: 30, marginBottom: 10 }}
@@ -142,38 +216,24 @@ const StepOne = () => {
         </div>
       </div>
 
-      <Modal show={open} onHide={() => setOpen(false)}>
+      <Modal show={open} onHide={() => setOpen(false)} backdrop="static">
         <div className="prof-register-modal">
-          <Svg.CloseIcon
-            className="close-icon"
-            onClick={() => setOpen(false)}
-          />
-
           <Text variant="h2" fontSize="1.2rem" color="dark">
             Telefon Numaranızı Doğrulayın
           </Text>
 
           <Text textAlign="center" fontSize="1rem" color="dark">
-            <span className="prof-register-modal__phone">
-              +90 422 243 35 30
-            </span>
+            <span className="prof-register-modal__phone">{form.phone}</span>
             &nbsp; numaralı telefona gönderdiğimiz 6 haneli kodu girin.
           </Text>
 
           <div>
-            <Otp />
+            <Otp setStepNumber={setStepNumber} />
           </div>
 
-          <Text fontSize="0.9rem" color="blue" textAlign="center">
-            Güvenlik kodunu tekrar gönder (1:24)
-          </Text>
+          {verifyLoading && <Spinner animation="border" />}
 
-          <Button
-            fontWeight="bold"
-            className="blue"
-            text="İleri"
-            onClick={() => setStepNumber((step) => step + 2)}
-          />
+          <div className="prof-register-modal__error">{error?.message}</div>
         </div>
       </Modal>
     </div>

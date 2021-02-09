@@ -15,6 +15,11 @@ import Error from './images/error.svg';
 import Tick from './images/tick.svg';
 import Trash from './images/trash.svg';
 import Close from './images/close.svg';
+import Username from './images/username.svg';
+import Email from './images/email.svg';
+import Phone from './images/phone.svg';
+import Password from './images/password.svg';
+import Eye from './images/eye.svg';
 
 //categories
 import I1 from './images/pt.svg';
@@ -36,6 +41,11 @@ const Svg = {
   TickIcon: (props) => <ReactSVG {...props} src={Tick} />,
   ErrorIcon: (props) => <ReactSVG {...props} src={Error} />,
   CloseIcon: (props) => <ReactSVG {...props} src={Close} />,
+  UsernameIcon: (props) => <ReactSVG {...props} src={Username} />,
+  EmailIcon: (props) => <ReactSVG {...props} src={Email} />,
+  PhoneIcon: (props) => <ReactSVG {...props} src={Phone} />,
+  EyeIcon: (props) => <ReactSVG {...props} src={Eye} />,
+  PasswordIcon: (props) => <ReactSVG {...props} src={Password} />,
 
   Categories: [
     {

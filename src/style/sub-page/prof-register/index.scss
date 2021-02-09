@@ -96,8 +96,8 @@
     color: var(--light-blue);
   }
 
-  .checkbox-area {
-    margin-top: 60px;
+  &__checkbox-wrapper {
+    margin: 30px 0 15px;
   }
 }
 
@@ -113,6 +113,12 @@
     font-weight: bold;
     color: var(--black1);
     text-align: center;
+  }
+
+  &__error {
+    font-size: 0.9rem;
+    color: var(--red);
+    margin-top: 15px;
   }
 
   button.blue {

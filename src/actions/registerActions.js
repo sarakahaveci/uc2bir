@@ -5,6 +5,7 @@ import {
   REGISTER_STEP_THREE,
   REGISTER_STEP_FOUR,
   REGISTER_DATA,
+  VERIFY_CODE,
 } from '../constants';
 
 export const setStepOne = (
@@ -125,6 +126,29 @@ export const getRegisterData = (errorCallback) => async (dispatch) => {
       label: REGISTER_DATA,
 
       errorHandler: () => errorCallback(),
+    },
+  });
+};
+
+export const verifyCode = (code, successCallback) => async (
+  dispatch,
+  getState
+) => {
+  const phone = getState().auth.user.phone;
+
+  const url = '/verify-code';
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'POST',
+      url,
+      label: VERIFY_CODE,
+      callBack: () => successCallback(),
+      body: {
+        phone,
+        code,
+      },
     },
   });
 };
