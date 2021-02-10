@@ -20,6 +20,7 @@ import Email from './images/email.svg';
 import Phone from './images/phone.svg';
 import Password from './images/password.svg';
 import Eye from './images/eye.svg';
+import Info from './images/info.svg';
 
 //categories
 import I1 from './images/pt.svg';
@@ -46,6 +47,7 @@ const Svg = {
   PhoneIcon: (props) => <ReactSVG {...props} src={Phone} />,
   EyeIcon: (props) => <ReactSVG {...props} src={Eye} />,
   PasswordIcon: (props) => <ReactSVG {...props} src={Password} />,
+  InfoIcon: (props) => <ReactSVG {...props} src={Info} />,
 
   Categories: [
     {

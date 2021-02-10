@@ -1,49 +1,54 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useCallback } from 'react';
 import axios from 'axios';
 import { useDropzone } from 'react-dropzone';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 import { StepContext } from './RegisterSteps';
 import { Text, Button } from 'components';
 import Svg from 'components/statics/svg';
 
 const FileUpload = ({ title, children, buttonText, showPassButton }) => {
+  const { accessToken } = useSelector((state) => state.auth);
+
   const [uploadPercentage, setUploadPercentage] = useState(0);
 
   const { setStepNumber } = useContext(StepContext);
 
-  const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
-    onDrop: () => onSubmit(),
-  });
-
-  const files = acceptedFiles.map((file) => (
-    <li key={file.path} className="file-path">
-      {file.path}
-    </li>
-  ));
-
-  const onSubmit = async () => {
+  const onDrop = useCallback(async (files) => {
     const formData = new FormData();
-    formData.append('file', acceptedFiles);
+
+    formData.append('files', files);
+    formData.append('type_id', 1);
+
+    console.log('acceptedFiles1: ', files);
 
     try {
-      const res = await axios.post('/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-        onUploadProgress: (progressEvent) => {
-          setUploadPercentage(
-            parseInt(
-              Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            )
-          );
+      const res = await axios.post(
+        'http://gateway.ms.321.4alabs.com/user/profile/file',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${accessToken}`,
+          },
 
-          // Clear percentage
-          setTimeout(() => setUploadPercentage(0), 10000);
-        },
-      });
+          onUploadProgress: (progressEvent) => {
+            setUploadPercentage(
+              parseInt(
+                Math.round((progressEvent.loaded * 100) / progressEvent.total)
+              )
+            );
 
-      // const { fileName, filePath } = res.data;
+            // Clear percentage
+            setTimeout(() => setUploadPercentage(0), 10000);
+          },
+        }
+      );
+
+      console.log(res);
+
+      //   const { fileName, filePath } = res.data;
 
       // setUploadedFile({ fileName, filePath });
 
@@ -55,7 +60,19 @@ const FileUpload = ({ title, children, buttonText, showPassButton }) => {
       //   setMessage(err.response.data.msg);
       // }
     }
-  };
+  }, []);
+
+  const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
+    onDrop,
+  });
+
+  console.log('acceptedFiles:2 ', acceptedFiles);
+
+  const files = acceptedFiles.map((file) => (
+    <li key={file.path} className="file-path">
+      {file.path}
+    </li>
+  ));
 
   return (
     <div className="file-upload">

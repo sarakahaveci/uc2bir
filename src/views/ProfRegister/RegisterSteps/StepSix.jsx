@@ -1,6 +1,7 @@
 import React from 'react';
 
 import FileUpload from './FileUpload';
+import Svg from 'components/statics/svg';
 
 const StepSix = () => {
   return (
@@ -10,6 +11,7 @@ const StepSix = () => {
         Aşağıdaki linkten e-devlete ulaşabilirsiniz."
       >
         <div className="step-six__criminal-record">
+          <Svg.InfoIcon />
           E-devlet üzerinden alabileceğiniz adli sicil kaydınızı ekleyin.
           Aşağıdaki linkten e-devlete ulaşabilirsiniz.
         </div>

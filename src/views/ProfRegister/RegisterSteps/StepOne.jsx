@@ -6,9 +6,8 @@ import { Modal, Spinner } from 'react-bootstrap';
 
 import { StepContext } from './RegisterSteps';
 import { login, verifyCode, setStepOne } from 'actions';
-import { Button, Text, Material, AwesomeIcon } from 'components';
+import { Button, Text, Material, AwesomeIcon, Otp } from 'components';
 import { macroConverter } from 'utils';
-import Otp from '../Otp';
 import Svg from 'components/statics/svg';
 
 const macro = [
@@ -117,6 +116,8 @@ const StepOne = () => {
       autoClose: 2000,
     });
   };
+
+  const verifySuccessCallback = () => setStepNumber((step) => step + 1);
 
   return (
     <div className="step-one-wrapper">
@@ -228,7 +229,7 @@ const StepOne = () => {
           </Text>
 
           <div>
-            <Otp setStepNumber={setStepNumber} />
+            <Otp verifySuccessCallback={verifySuccessCallback} />
           </div>
 
           {verifyLoading && <Spinner animation="border" />}

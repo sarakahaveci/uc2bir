@@ -17,7 +17,7 @@ const OtpInput = styled.input`
   text-align: center;
 `;
 
-const Otp = ({ setStepNumber }) => {
+const Otp = ({ verifySuccessCallback }) => {
   const [otp1, setOtp1] = useState('');
   const [otp2, setOtp2] = useState('');
   const [otp3, setOtp3] = useState('');
@@ -26,8 +26,6 @@ const Otp = ({ setStepNumber }) => {
   const [otp6, setOtp6] = useState('');
 
   const dispatch = useDispatch();
-
-  const verifySuccessCallback = () => setStepNumber((step) => step + 1);
 
   useEffect(() => {
     if (otp1 && otp2 && otp3 && otp4 && otp5 && otp6) {
