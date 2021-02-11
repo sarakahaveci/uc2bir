@@ -8,6 +8,9 @@ import {
   GET_DISTICK_REQUEST,
   GET_DISTICK_SUCCESS,
   GET_DISTICK_FAILURE,
+  VERIFY_CODE_REQUEST,
+  VERIFY_CODE_FAILURE,
+  VERIFY_CODE_SUCCESS,
 } from '../constants';
 
 const initialState = {
@@ -18,6 +21,11 @@ const initialState = {
   isSuccess: false,
   cities: [],
   distict: [{ id: 0, name: 'İl seçimi yapınız' }],
+  verifyCode: {
+    isLoading: false,
+    error: null,
+    data: '',
+  },
 };
 
 export default (state = initialState, action) => {
@@ -27,6 +35,24 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoading: true,
+      };
+
+    case VERIFY_CODE_REQUEST:
+      return {
+        ...state,
+        verifyCode: {
+          ...state.verifyCode,
+          isLoading: true,
+        },
+      };
+
+    case VERIFY_CODE_SUCCESS:
+      return {
+        ...state,
+        verifyCode: {
+          ...state.verifyCode,
+          isLoading: false,
+        },
       };
 
     case REGISTER_DATA_SUCCESS:
@@ -65,6 +91,17 @@ export default (state = initialState, action) => {
         ...state,
         isLoading: false,
       };
+
+    case VERIFY_CODE_FAILURE:
+      return {
+        ...state,
+        verifyCode: {
+          ...state.verifyCode,
+          isLoading: false,
+          error: action.payload,
+        },
+      };
+
     default:
       return state;
   }

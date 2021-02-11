@@ -47,7 +47,7 @@
 
   &__next-button {
     width: 100%;
-    margin: 45px 30px 0;
+    margin-top: 30px;
   }
 
   &__next-link {
@@ -58,15 +58,52 @@
     font-weight: 500;
     margin-top: 15px;
   }
+
+  .progress {
+    margin: 10px 0;
+  }
+
+  .progress-bar {
+    background-color: var(--light-blue);
+  }
+
+  &__info-row {
+    display: flex;
+    align-items: center;
+    margin: 10px 0 5px;
+    font-size: 0.9rem;
+    color: var(--black1);
+
+    span {
+      display: flex;
+      height: 100%;
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+    }
+  }
+
+  &__trash-icon {
+    margin-left: auto;
+    cursor: pointer;
+  }
 }
 
 .step-six {
   &__criminal-record {
+    display: flex;
     font-size: 0.8rem;
     text-align: left;
     color: var(--red);
     font-weight: 500;
     margin-top: 30px;
+
+    svg {
+      margin: 0 10px 3px 0;
+    }
   }
 
   &__criminal-record-link {
@@ -96,8 +133,8 @@
     color: var(--light-blue);
   }
 
-  .checkbox-area {
-    margin-top: 60px;
+  &__checkbox-wrapper {
+    margin: 30px 0 15px;
   }
 }
 
@@ -113,6 +150,12 @@
     font-weight: bold;
     color: var(--black1);
     text-align: center;
+  }
+
+  &__error {
+    font-size: 0.9rem;
+    color: var(--red);
+    margin-top: 15px;
   }
 
   button.blue {

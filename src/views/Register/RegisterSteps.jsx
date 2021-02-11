@@ -1,9 +1,44 @@
-import React, { useState } from 'react';
+// @ts-nocheck
+import React, { useLayoutEffect, useState } from 'react';
 
 import { StepOne, StepTwo, StepThree, StepFour, StepFinish } from './steps';
 import { StepBar } from '../../components';
 
+import { toast } from 'react-toastify';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { getRegisterData } from '../../actions';
+
 const RegisterSteps = (props) => {
+  const {data: registerData, isSuccess} = useSelector((state) => state.registerData);
+  const dispatch = useDispatch();
+
+  const err = () => {
+    toast.error('Bir sorun oluştu lütfen daha sonra tekrar deneyiniz.', {
+			position: 'bottom-right',
+			autoClose: 2000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+		});
+  };
+
+  const actionRegisterData = () => {
+    dispatch(
+			getRegisterData(err)
+		);
+  };
+
+  useLayoutEffect(() => {
+    if ( !isSuccess ) {
+      actionRegisterData();
+    } else {
+      console.log(registerData);
+    }
+  },[registerData]);
+
   const [steps, setSteps] = useState('step1');
   /**
    * @param {string} step
@@ -12,27 +47,27 @@ const RegisterSteps = (props) => {
     const step1 = {
       key: 0,
       num: 1,
-      page: () => <StepOne setSteps={setSteps} />,
+      page: () => <StepOne setSteps={setSteps} registerData={registerData} />,
     };
     const step2 = {
       key: 1,
       num: 2,
-      page: () => <StepTwo setSteps={setSteps} />,
+      page: () => <StepTwo setSteps={setSteps} registerData={registerData} />,
     };
     const step3 = {
       key: 2,
       num: 3,
-      page: () => <StepThree setSteps={setSteps} />,
+      page: () => <StepThree setSteps={setSteps} registerData={registerData} />,
     };
     const step4 = {
       key: 3,
       num: 4,
-      page: () => <StepFour setSteps={setSteps} />,
+      page: () => <StepFour setSteps={setSteps} registerData={registerData} />,
     };
     const finish = {
       key: 4,
       num: 4,
-      page: () => <StepFinish setSteps={setSteps} />,
+      page: () => <StepFinish setSteps={setSteps} registerData={registerData} />,
     };
 
     switch (step) {

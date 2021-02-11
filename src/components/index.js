@@ -14,4 +14,5 @@ export { default as BlogBanners } from './banner/blog-banners';
 export { default as Svg } from './statics/svg';
 export { default as MacroMap } from './MacroMap';
 export { default as DefBackground } from './statics/background';
+export { default as Otp } from './Otp';
 export { Material } from './inputs/material';

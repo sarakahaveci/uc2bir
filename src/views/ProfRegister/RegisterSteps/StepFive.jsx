@@ -5,7 +5,10 @@ import FileUpload from './FileUpload';
 const StepFour = () => {
   return (
     <>
-      <FileUpload title="Sertifikalarınızı veya Diplomanızı yükleyiniz" />
+      <FileUpload
+        title="Sertifikalarınızı veya Diplomanızı yükleyiniz"
+        fileTypeName="Sertifika"
+      />
     </>
   );
 };

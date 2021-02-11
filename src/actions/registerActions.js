@@ -7,6 +7,8 @@ import {
   REGISTER_DATA,
   GET_REGIONS,
   GET_DISTICK,
+  VERIFY_CODE,
+  DELETE_FILE,
 } from '../constants';
 
 export const setStepOne = (
@@ -135,7 +137,6 @@ export const getRegisterData = (errorCallback = () => {}) => async (
 
 export const getCitiesAndDistict = (cityId) => async (dispatch) => {
   const url = '/regions';
-
   const body = !!cityId
     ? {
         city_id: cityId,
@@ -149,6 +150,42 @@ export const getCitiesAndDistict = (cityId) => async (dispatch) => {
       url,
       label: !!cityId ? GET_DISTICK : GET_REGIONS,
       body: body,
+    },
+  });
+};
+
+export const verifyCode = (code, successCallback) => async (
+  dispatch,
+  getState
+) => {
+  const phone = getState().auth.user.phone;
+
+  const url = '/verify-code';
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'POST',
+      url,
+      label: VERIFY_CODE,
+      callBack: () => successCallback(),
+      body: {
+        phone,
+        code,
+      },
+    },
+  });
+};
+
+export const deleteFile = (fileId) => async (dispatch) => {
+  const url = `/user/profile/file/${fileId}`;
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'DELETE',
+      url,
+      label: DELETE_FILE,
     },
   });
 };

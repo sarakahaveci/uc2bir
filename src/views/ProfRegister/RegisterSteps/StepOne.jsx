@@ -1,69 +1,77 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import { Modal, Spinner } from 'react-bootstrap';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
+import { GoogleLogin } from 'react-google-login';
 
 import { StepContext } from './RegisterSteps';
-import { Modal } from 'react-bootstrap';
-import { Button, Text, Material, AwesomeIcon } from 'components';
+import { login, verifyCode, setStepOne, getRegisterData } from 'actions';
+import { Button, Text, Material, AwesomeIcon, Otp } from 'components';
 import { macroConverter } from 'utils';
-import Otp from '../Otp';
 import Svg from 'components/statics/svg';
 
 const macro = [
   {
-    type: 'select',
-    required: true,
-    name: 'memberType',
-    forHtml: 'memberType',
-    text: 'Üyelik Tipi Seçiniz',
-    items: [
-      {
-        id: 1,
-        val: 1,
-        text: 'Spor Eğitmeni',
-      },
-    ],
-  },
-  {
     type: 'text',
-    required: true,
     name: 'name',
+    required: true,
     text: 'Ad Soyad',
-    icon: AwesomeIcon.User,
+    icon: Svg.UsernameIcon,
   },
   {
     type: 'email',
-    required: true,
     name: 'email',
     text: 'E mail',
-    icon: AwesomeIcon.Envolope,
+    required: true,
+    icon: Svg.EmailIcon,
   },
   {
     type: 'text',
-    required: true,
     name: 'phone',
     forHtml: 'phone',
+    required: true,
     text: 'Telefon',
-    icon: AwesomeIcon.Phone,
+    icon: Svg.PhoneIcon,
   },
   {
     type: 'password',
-    required: true,
     name: 'password',
+    required: true,
     text: 'Şifre',
-    icon: AwesomeIcon.Lock,
+    icon: Svg.PasswordIcon,
   },
 ];
 
 const StepOne = () => {
-  const [form, setForm] = useState({});
+  const { data: registerData } = useSelector((state) => state.registerData);
+
+  const { isLoading: verifyLoading, error } = useSelector(
+    (state) => state.registerData.verifyCode
+  );
+
+  const { isLoading: registerLoading } = useSelector((state) => state.stepOne);
 
   const { stepNumber, setStepNumber } = useContext(StepContext);
 
+  const [form, setForm] = useState({});
+  const [userTypeId, setUserTypeId] = useState('');
   const [acceptMemberAgreement, setAcceptMemberAgreement] = useState(false);
   const [acceptHealthAgreement, setAcceptHealthAgreement] = useState(false);
   const [acceptKvkk, setAcceptKvkk] = useState(false);
-
+  const [acceptPermissions, setAcceptPermissions] = useState(false);
   const [open, setOpen] = useState(false);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getRegisterData());
+  }, []);
 
   useEffect(() => {
     if (stepNumber === 2) {
@@ -71,42 +79,130 @@ const StepOne = () => {
     }
   }, [stepNumber]);
 
+  const registerSuccessCallback = () => {
+    toast.success('Kayıt alındı.', {
+      position: 'bottom-right',
+      autoClose: 2000,
+    });
+
+    setTimeout(() => {
+      toast.info('Lütfen Bekleyiniz! Yönlendiriliyorsunuz...', {
+        position: 'bottom-right',
+        autoClose: 1000,
+        onClose: () => {
+          dispatch(verifyCode());
+
+          setStepNumber((step) => step + 1);
+
+          dispatch(
+            login(
+              { email: form.email, password: form.password },
+              () => {},
+              () =>
+                toast.error('Hatalı Giriş', {
+                  position: 'bottom-right',
+                  autoClose: 2000,
+                })
+            )
+          );
+        },
+      });
+    }, 1000);
+  };
+
+  const registerErrorCallback = () => {
+    toast.error('Hatalı Kayıt İşlemi', {
+      position: 'bottom-right',
+      autoClose: 2000,
+    });
+  };
+
+  const verifySuccessCallback = () => setStepNumber((step) => step + 1);
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    dispatch(
+      setStepOne(
+        {
+          ...form,
+          type_id: userTypeId,
+          kvkk: acceptKvkk ? 1 : 0,
+          agreement: acceptMemberAgreement ? 1 : 0,
+          health_status: acceptHealthAgreement ? 1 : 0,
+        },
+        registerSuccessCallback,
+        registerErrorCallback
+      )
+    );
+  };
+
+  const responseFacebook = (response) => console.log(response);
+
+  const responseGoogle = (response) => console.log(response);
+
   return (
     <div className="step-one-wrapper">
-      {macro.map((item) => macroConverter(form, setForm, item))}
+      <form onSubmit={submitHandler}>
+        <FormControl style={{ width: '100%' }}>
+          <InputLabel>Üyelik Tipi Seçiniz</InputLabel>
+          <Select
+            value={userTypeId}
+            onChange={(e) => setUserTypeId(e.target.value)}
+          >
+            {registerData?.['user-type'].map((item) => (
+              <MenuItem value={item.id}>{item.name}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
 
-      <div className="checkbox-area">
-        <Material.CheckBox
-          checked={acceptMemberAgreement}
-          onChange={(e) => setAcceptMemberAgreement(e.target.checked)}
-          label={
-            <div>
-              <span className="underline-text">Üyelik Sözleşmesini</span> ve
-              &nbsp;
-              <span className="underline-text">Ekleri'ni</span> kabul ediyorum.
-            </div>
-          }
+        {macro.map((item) => macroConverter(form, setForm, item))}
+
+        <div className="step-one-wrapper__checkbox-wrapper">
+          <Material.CheckBox
+            checked={acceptMemberAgreement}
+            onChange={(e) => setAcceptMemberAgreement(e.target.checked)}
+            required
+            label={
+              <div>
+                <span className="underline-text">Üyelik Sözleşmesini</span> ve
+                &nbsp;
+                <span className="underline-text">Ekleri'ni</span> kabul
+                ediyorum.
+              </div>
+            }
+          />
+
+          <Material.CheckBox
+            checked={acceptHealthAgreement}
+            onChange={(e) => setAcceptHealthAgreement(e.target.checked)}
+            label="Sağlık muvafakatnamesi okudum, onaylıyorum."
+            required
+          />
+
+          <Material.CheckBox
+            onChange={(e) => setAcceptKvkk(e.target.checked)}
+            checked={acceptKvkk}
+            label="KVKK okudum, onaylıyorum."
+            required
+          />
+
+          <Material.CheckBox
+            onChange={(e) => setAcceptPermissions(e.target.checked)}
+            checked={acceptPermissions}
+            label="Açık rıza ve aydınlatma metinleri"
+            required
+          />
+        </div>
+
+        <Button
+          type="submit"
+          text="İleri"
+          className="blue"
+          fontWeight="bold"
+          isLoading={registerLoading}
         />
-
-        <Material.CheckBox
-          checked={acceptHealthAgreement}
-          onChange={(e) => setAcceptHealthAgreement(e.target.checked)}
-          label="Sağlık muvafakatnamesi okudum, onaylıyorum."
-        />
-
-        <Material.CheckBox
-          onChange={(e) => setAcceptKvkk(e.target.checked)}
-          checked={acceptKvkk}
-          label="KVKK okudum, onaylıyorum."
-        />
-      </div>
-
-      <Button
-        text="İleri"
-        className="blue"
-        fontWeight="bold"
-        onClick={() => setOpen(true)}
-      />
+      </form>
 
       <Text
         style={{ marginTop: 30, marginBottom: 10 }}
@@ -121,59 +217,61 @@ const StepOne = () => {
         <span>Veya</span>
       </div>
 
-      <div className="d-flex login-footer-start">
-        <div className="col">
-          <Button
-            fontSize="9pt"
-            height="45px"
-            icon={AwesomeIcon.Google}
-            text="Google ile giriş yap"
-            className="dark"
-          />
-        </div>
-        <div className="col">
-          <Button
-            fontSize="9pt"
-            height="45px"
-            icon={AwesomeIcon.Facebook}
-            text="Facebook ile giriş yap"
-            className="dark"
-          />
-        </div>
+      <div className="col">
+        <FacebookLogin
+          appId="911942052953063"
+          fields="name,email,picture"
+          callback={responseFacebook}
+          render={({ onClick }) => (
+            <Button
+              onClick={onClick}
+              height="45px"
+              fontSize="9pt"
+              icon={AwesomeIcon.Facebook}
+              text="Facebook"
+              className="dark"
+            />
+          )}
+        />
+      </div>
+      <div className="col">
+        <GoogleLogin
+          clientId="714924963055-gbido715qc9pcsqspfi1cktte5naca4b.apps.googleusercontent.com"
+          buttonText="Login"
+          render={({ onClick }) => (
+            <Button
+              onClick={onClick}
+              height="45px"
+              fontSize="9pt"
+              icon={AwesomeIcon.Google}
+              text="Google"
+              className="dark"
+            />
+          )}
+          onSuccess={responseGoogle}
+          onFailure={responseGoogle}
+          cookiePolicy={'single_host_origin'}
+        />
       </div>
 
-      <Modal show={open} onHide={() => setOpen(false)}>
+      <Modal show={open} onHide={() => setOpen(false)} backdrop="static">
         <div className="prof-register-modal">
-          <Svg.CloseIcon
-            className="close-icon"
-            onClick={() => setOpen(false)}
-          />
-
           <Text variant="h2" fontSize="1.2rem" color="dark">
             Telefon Numaranızı Doğrulayın
           </Text>
 
           <Text textAlign="center" fontSize="1rem" color="dark">
-            <span className="prof-register-modal__phone">
-              +90 422 243 35 30
-            </span>
+            <span className="prof-register-modal__phone">{form.phone}</span>
             &nbsp; numaralı telefona gönderdiğimiz 6 haneli kodu girin.
           </Text>
 
           <div>
-            <Otp />
+            <Otp verifySuccessCallback={verifySuccessCallback} />
           </div>
 
-          <Text fontSize="0.9rem" color="blue" textAlign="center">
-            Güvenlik kodunu tekrar gönder (1:24)
-          </Text>
+          {verifyLoading && <Spinner animation="border" />}
 
-          <Button
-            fontWeight="bold"
-            className="blue"
-            text="İleri"
-            onClick={() => setStepNumber((step) => step + 2)}
-          />
+          <div className="prof-register-modal__error">{error?.message}</div>
         </div>
       </Modal>
     </div>

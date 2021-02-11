@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { Button as BaseButton } from 'react-bootstrap';
+import { Button as BaseButton, Spinner } from 'react-bootstrap';
 
 const StyledButton = styled(BaseButton)`
   color: black;
@@ -8,6 +8,8 @@ const StyledButton = styled(BaseButton)`
   font-weight: ${(props) => (props.fontWeight && props.fontWeight) || 'normal'};
   border-radius: 4px;
   margin: ${(props) => props.margin && props.margin};
+  min-height: 45px;
+  background: ${(props) => props.disabled && 'lightgray'} !important;
 
   ${(props) =>
     props.soft &&
@@ -31,7 +33,6 @@ const StyledButton = styled(BaseButton)`
         transform: matrix(1, 0, -0.7, 1, 0, 0);
       }
     `}
-
   ${(props) =>
     props.perspective &&
     css`
@@ -55,7 +56,6 @@ const StyledButton = styled(BaseButton)`
         transform: matrix(1, 0, -0.4, 1, 0, 0);
       }
     `}
-
     ${(props) =>
     props.lineButton &&
     css`
@@ -77,7 +77,6 @@ const StyledButton = styled(BaseButton)`
         margin-top: 5px;
       }
     `}
-
     ${(props) =>
     !!props.icon &&
     css`
@@ -87,7 +86,15 @@ const StyledButton = styled(BaseButton)`
     `};
 `;
 
-const Button = ({ onClick, icon, variant, className, text, ...restProps }) => (
+const Button = ({
+  onClick,
+  icon,
+  variant,
+  className,
+  text,
+  isLoading,
+  ...restProps
+}) => (
   <StyledButton
     {...restProps}
     onClick={onClick}
@@ -95,7 +102,12 @@ const Button = ({ onClick, icon, variant, className, text, ...restProps }) => (
     className={icon ? `icon-button ${className}` : className}
   >
     {icon && icon({ className: 'icon' })}
-    <span>{text}</span>
+
+    {isLoading ? (
+      <Spinner animation="border" variant="light" size="md" />
+    ) : (
+      <span>{text}</span>
+    )}
   </StyledButton>
 );
 

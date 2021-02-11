@@ -5,7 +5,10 @@ import FileUpload from './FileUpload';
 const StepSeven = () => {
   return (
     <>
-      <FileUpload title="Nüfus cüzdanınızın fotoğrafını ekleyin." />
+      <FileUpload
+        title="Nüfus cüzdanınızın fotoğrafını ekleyin."
+        fileTypeName="Nüfus Cüzdanı"
+      />
     </>
   );
 };

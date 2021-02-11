@@ -5,7 +5,10 @@ import FileUpload from './FileUpload';
 const StepFour = () => {
   return (
     <>
-      <FileUpload title="Yüzünüzün net bir şekilde görüldüğü fotoğrafınızı ekleyin. " />
+      <FileUpload
+        fileTypeName="Profil Resmi"
+        title="Yüzünüzün net bir şekilde görüldüğü fotoğrafınızı ekleyin. "
+      />
     </>
   );
 };

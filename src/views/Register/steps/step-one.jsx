@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setStepOne, login } from '../../../actions';
 
 const StepOne = (props) => {
-  const { setSteps } = props;
+  const { setSteps, registerData } = props;
   const dispatch = useDispatch();
 
   const getStepOne = useSelector((state) => state.stepOne);
@@ -38,10 +38,11 @@ const StepOne = (props) => {
 				draggable: true,
 				progress: undefined,
 				onClose: () => {
-          dispatch(
-            login({ email: data.email, password: data.password }, 
-              () => setSteps('step2'), 
-              () => toast.error('Hatalı Giriş', {
+          login(
+            { email: data.email, password: data.password },
+            () => setSteps('step2'),
+            () =>
+              toast.error('Hatalı Giriş', {
                 position: 'bottom-right',
                 autoClose: 2000,
                 hideProgressBar: false,
@@ -50,8 +51,8 @@ const StepOne = (props) => {
                 draggable: true,
                 progress: undefined,
               })
-            )
           );
+          return setSteps('step2');
         },
 			});
 		}, 1000);
@@ -94,8 +95,22 @@ const StepOne = (props) => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-		const response = await actionStepOne();
-    return response;
+    if ( registerData ) {
+      const user_type = registerData["user-type"].filter(f => f.key === "st");
+      setData({...data, [data.type_id]: user_type.id});
+      const response = await actionStepOne();
+      return response;
+    } else {
+      toast.error('Bir sorun oluştu lütfen daha sonra tekrar deneyiniz.', {
+        position: 'bottom-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
   };
   return (
     <>
@@ -106,7 +121,8 @@ const StepOne = (props) => {
               {(val.type === 'text' ||
                 val.type === 'email' ||
                 val.type === 'password' ||
-                val.type === 'date') &&
+                val.type === 'date' ||
+                val.number === 'number') &&
                 Material[val.type]({
                   id: val.name,
                   name: val.name,

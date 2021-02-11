@@ -1,6 +1,7 @@
 import React from 'react';
 
 import FileUpload from './FileUpload';
+import Svg from 'components/statics/svg';
 
 const StepSix = () => {
   return (
@@ -8,8 +9,10 @@ const StepSix = () => {
       <FileUpload
         title="E-devlet üzerinden alabileceğiniz adli sicil kaydınızı ekleyin. 
         Aşağıdaki linkten e-devlete ulaşabilirsiniz."
+        fileTypeName="Adli Sicil Kaydı"
       >
         <div className="step-six__criminal-record">
+          <Svg.InfoIcon />
           E-devlet üzerinden alabileceğiniz adli sicil kaydınızı ekleyin.
           Aşağıdaki linkten e-devlete ulaşabilirsiniz.
         </div>
