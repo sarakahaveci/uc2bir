@@ -9,6 +9,7 @@ const StepSix = () => {
       <FileUpload
         title="E-devlet üzerinden alabileceğiniz adli sicil kaydınızı ekleyin. 
         Aşağıdaki linkten e-devlete ulaşabilirsiniz."
+        fileTypeName="Adli Sicil Kaydı"
       >
         <div className="step-six__criminal-record">
           <Svg.InfoIcon />

@@ -6,6 +6,7 @@ import {
   REGISTER_STEP_FOUR,
   REGISTER_DATA,
   VERIFY_CODE,
+  DELETE_FILE,
 } from '../constants';
 
 export const setStepOne = (
@@ -149,6 +150,19 @@ export const verifyCode = (code, successCallback) => async (
         phone,
         code,
       },
+    },
+  });
+};
+
+export const deleteFile = (fileId) => async (dispatch) => {
+  const url = `/user/profile/file/${fileId}`;
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'DELETE',
+      url,
+      label: DELETE_FILE,
     },
   });
 };

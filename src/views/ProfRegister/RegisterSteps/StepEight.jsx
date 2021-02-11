@@ -5,7 +5,10 @@ import FileUpload from './FileUpload';
 const StepEight = () => {
   return (
     <>
-      <FileUpload title="İlgili kurumlardan aldığınız sağlık raporunuzu ekleyin.">
+      <FileUpload
+        fileTypeName="Sağlık Raporu"
+        title="İlgili kurumlardan aldığınız sağlık raporunuzu ekleyin."
+      >
         <div className="health-report">
           Sağlık raporunuzu 30 gün içerisinde sistemimize yüklemeniz
           gerekmektedir.

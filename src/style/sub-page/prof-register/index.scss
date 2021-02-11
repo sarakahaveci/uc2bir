@@ -58,6 +58,38 @@
     font-weight: 500;
     margin-top: 15px;
   }
+
+  .progress {
+    margin: 10px 0;
+  }
+
+  .progress-bar {
+    background-color: var(--light-blue);
+  }
+
+  &__info-row {
+    display: flex;
+    align-items: center;
+    margin: 10px 0 5px;
+    font-size: 0.9rem;
+    color: var(--black1);
+
+    span {
+      display: flex;
+      height: 100%;
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+    }
+  }
+
+  &__trash-icon {
+    margin-left: auto;
+    cursor: pointer;
+  }
 }
 
 .step-six {

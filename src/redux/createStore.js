@@ -7,10 +7,15 @@ import reducers from './reducers';
 const configureStore = () => {
   const middleware = [thunk, requestMiddleware];
 
-  return createStore(
-    reducers,
-    composeWithDevTools(applyMiddleware(...middleware))
-  );
+  let enhancer;
+
+  if (process.env.NODE_ENV !== 'production') {
+    enhancer = composeWithDevTools(applyMiddleware(...middleware));
+  } else {
+    enhancer = applyMiddleware(...middleware);
+  }
+
+  return createStore(reducers, enhancer);
 };
 
 export default configureStore;
