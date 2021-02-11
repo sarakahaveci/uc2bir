@@ -154,10 +154,11 @@ export const getCitiesAndDistict = (cityId) => async (dispatch) => {
   });
 };
 
-export const verifyCode = (code, successCallback) => async (
-  dispatch,
-  getState
-) => {
+export const verifyCode = (
+  code,
+  successCallback,
+  verifyErrorCallback
+) => async (dispatch, getState) => {
   const phone = getState().auth.user.phone;
 
   const url = '/verify-code';
@@ -169,6 +170,7 @@ export const verifyCode = (code, successCallback) => async (
       url,
       label: VERIFY_CODE,
       callBack: () => successCallback(),
+      errorHandler: (error) => verifyErrorCallback(error.message),
       body: {
         phone,
         code,

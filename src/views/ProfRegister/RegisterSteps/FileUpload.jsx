@@ -23,8 +23,6 @@ const FileUpload = ({
   const { accessToken, isAuthenticated } = useSelector((state) => state.auth);
 
   const fileTypeId = useFileTypeIdFinder(fileTypeName);
-  console.log('fileTypeName: ', fileTypeName);
-  console.log('fileTypeId: ', fileTypeId);
 
   const [uploadedFiles, setUploadedFiles] = useState({});
 
@@ -105,8 +103,6 @@ const FileUpload = ({
     onDrop,
   });
 
-  const deleteFileHandler = (fileId) => dispatch(deleteFile(fileId));
-
   const FilesInfoList = Object.keys(uploadedFiles).map((key) => {
     const { progressPercentage, fileId } = uploadedFiles[key];
 
@@ -122,10 +118,12 @@ const FileUpload = ({
           <span>{key}</span>
 
           {/* TODO: File delete  */}
-          <Svg.TrashIcon
-            className="file-upload__trash-icon"
-            onClick={() => deleteFileHandler(fileId)}
-          />
+          {['error', 100].includes(progressPercentage) && (
+            <Svg.TrashIcon
+              className="file-upload__trash-icon"
+              onClick={() => dispatch(deleteFile(fileId))}
+            />
+          )}
         </div>
 
         <ProgressBar

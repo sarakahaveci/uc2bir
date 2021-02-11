@@ -9,21 +9,23 @@ import Info from './views/Info';
 import Register from './views/Register';
 import ProfRegister from './views/ProfRegister';
 import NotFoundPage from './views/NotFoundPage';
+import { ScrollToTop } from 'components';
 
 const App = () => {
   return (
-    <Layout>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/info" component={Info} />
-        <Route exact path="/register" component={Register} />
-        <Route exact path="/profesyonel/register" component={ProfRegister} />
-        <Route component={NotFoundPage} />
-      </Switch>
-    </Layout>
-  )
-}
+    <ScrollToTop>
+      <Layout>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/info" component={Info} />
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/profesyonel/register" component={ProfRegister} />
+          <Route component={NotFoundPage} />
+        </Switch>
+      </Layout>
+    </ScrollToTop>
+  );
+};
 
-export default App
-
+export default App;
