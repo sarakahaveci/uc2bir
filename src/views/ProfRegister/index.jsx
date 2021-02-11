@@ -1,7 +1,9 @@
 // @ts-nocheck
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 
+import { getRegisterData } from '../../actions';
 import { Text, FormPages, Main, Title } from '../../components';
 import RegisterSteps from './RegisterSteps/RegisterSteps';
 
@@ -14,6 +16,12 @@ const List = styled.ul`
 `;
 
 const ProfRegister = () => {
+  const dispatch = useDispatch();
+
+  useLayoutEffect(() => {
+    dispatch(getRegisterData());
+  }, []);
+
   return (
     <Main>
       <FormPages>

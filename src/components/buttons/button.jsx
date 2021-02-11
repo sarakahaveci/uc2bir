@@ -87,9 +87,10 @@ const StyledButton = styled(BaseButton)`
     `};
 `;
 
-const Button = ({ icon, variant, className, text, ...restProps }) => (
+const Button = ({ onClick, icon, variant, className, text, ...restProps }) => (
   <StyledButton
     {...restProps}
+    onClick={onClick}
     variant=""
     className={icon ? `icon-button ${className}` : className}
   >

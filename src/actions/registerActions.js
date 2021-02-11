@@ -5,6 +5,8 @@ import {
   REGISTER_STEP_THREE,
   REGISTER_STEP_FOUR,
   REGISTER_DATA,
+  GET_REGIONS,
+  GET_DISTICK,
 } from '../constants';
 
 export const setStepOne = (
@@ -114,7 +116,9 @@ export const setStepFour = (
   });
 };
 
-export const getRegisterData = (errorCallback) => async (dispatch) => {
+export const getRegisterData = (errorCallback = () => {}) => async (
+  dispatch
+) => {
   const url = '/user/registration-data';
 
   await dispatch({
@@ -125,6 +129,26 @@ export const getRegisterData = (errorCallback) => async (dispatch) => {
       label: REGISTER_DATA,
 
       errorHandler: () => errorCallback(),
+    },
+  });
+};
+
+export const getCitiesAndDistict = (cityId) => async (dispatch) => {
+  const url = '/regions';
+
+  const body = !!cityId
+    ? {
+        city_id: cityId,
+      }
+    : null;
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'POST',
+      url,
+      label: !!cityId ? GET_DISTICK : GET_REGIONS,
+      body: body,
     },
   });
 };

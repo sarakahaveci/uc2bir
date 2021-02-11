@@ -2,6 +2,8 @@ import React, { createContext, useState } from 'react';
 
 import { StepBar } from 'components';
 import StepOne from './StepOne';
+import StepThree from './StepThree';
+import StepFour from './StepFour';
 import StepFive from './StepFive';
 import StepSix from './StepSix';
 import StepSeven from './StepSeven';
@@ -20,11 +22,12 @@ const RegisterSteps = () => {
     case 2:
       page = <StepOne />;
       break;
-
     case 3:
-    case 4:
+      page = <StepThree />;
       break;
-
+    case 4:
+      page = <StepFour />;
+      break;
     case 5:
       page = <StepFive />;
       break;

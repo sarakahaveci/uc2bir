@@ -2,6 +2,12 @@ import {
   REGISTER_DATA_REQUEST,
   REGISTER_DATA_SUCCESS,
   REGISTER_DATA_FAILURE,
+  GET_REGIONS_REQUEST,
+  GET_REGIONS_SUCCESS,
+  GET_REGIONS_FAILURE,
+  GET_DISTICK_REQUEST,
+  GET_DISTICK_SUCCESS,
+  GET_DISTICK_FAILURE,
 } from '../constants';
 
 const initialState = {
@@ -10,11 +16,14 @@ const initialState = {
   isLoading: false,
   error: null,
   isSuccess: false,
+  cities: [],
+  distict: [{ id: 0, name: 'İl seçimi yapınız' }],
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case REGISTER_DATA_REQUEST:
+    case GET_REGIONS_REQUEST:
       return {
         ...state,
         isLoading: true,
@@ -37,7 +46,25 @@ export default (state = initialState, action) => {
         message: action.payload,
         isSuccess: false,
       };
-
+    case GET_REGIONS_SUCCESS:
+      return {
+        ...state,
+        cities: action.payload.data,
+        isLoading: false,
+      };
+    case GET_DISTICK_SUCCESS:
+      return {
+        ...state,
+        distict: action.payload.data,
+        isLoading: false,
+      };
+    case GET_DISTICK_REQUEST:
+    case GET_REGIONS_FAILURE:
+    case GET_DISTICK_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+      };
     default:
       return state;
   }
