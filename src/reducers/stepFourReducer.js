@@ -11,7 +11,6 @@ const initialState = {
   message: '',
   isLoading: false,
   error: null,
-  isAuthenticated: false,
   isSuccsess: false,
 };
 
@@ -27,7 +26,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         data: action.payload.data,
-        isAuthenticated: true,
         isSuccsess: true,
         isLoading: false,
         error: null,

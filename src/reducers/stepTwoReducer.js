@@ -7,7 +7,7 @@ const initialState = {
   message: "",
 	isLoading: false,
 	error: null,
-	isAuthenticated: false,
+	isSuccess: false,
 };
 
 export default (state = initialState, action) => {
@@ -22,9 +22,9 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				data: action.payload.data,
-				isAuthenticated: true,
 				isLoading: false,
 				error: null,
+				isSuccess: true,
 			};
 
 		case REGISTER_STEP_TWO_FAILURE:
