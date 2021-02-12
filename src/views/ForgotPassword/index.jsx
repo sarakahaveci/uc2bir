@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { FormPages, AwesomeIcon, Button, Material } from '../../components';
 import { toast } from 'react-toastify';
