@@ -5,12 +5,7 @@ import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { login } from '../../actions';
-import { Material } from '../../components/inputs/material';
-import AwesomeIcon from '../../components/statics/icon';
-import Title from '../../components/typography/Titles';
-import Text from '../../components/typography/Text';
-import Button from '../../components/buttons/button';
-import FormPages from '../../components/FormPages';
+import { FormPages, AwesomeIcon, Title, Text, Button, Material } from '../../components';
 
 const Login = () => {
 	const { isLoading } = useSelector((state) => state.auth);
@@ -143,7 +138,7 @@ const Login = () => {
 										/>
 									</div>
 									<div className="col-auto remember-password">
-										<a href="#">Şifremi Unuttum</a>
+										<a href="/forgot-password">Şifremi Unuttum</a>
 									</div>
 								</div>
 								{isLoading ? (
