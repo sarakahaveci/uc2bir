@@ -92,7 +92,8 @@ export const stepThree = {
 		town: "",
 		district: "",
 		address_detail: "",
-	}, //regions post boş gönderirsek illeri döncek city id gönderirsek ilçeler dönecek mahalle içinde ilçe id city_id district_id
+	},
+	uri: "http://gateway.ms.321.4alabs.com/regions",
 	macro: [
 		{
 			type: "date",
@@ -112,12 +113,12 @@ export const stepThree = {
 				{
 					id: 1,
 					val: "m",
-					text: "Erkek"
+					name: "Erkek"
 				},
 				{
 					id: 2,
 					val: "f",
-					text: "Kadın"
+					name: "Kadın"
 				}
 			]
 		},
@@ -129,50 +130,6 @@ export const stepThree = {
 			text: "Hakkında",
 			icon: AwesomeIcon.AddressCard
 		},
-		{
-			type: "select",
-			required: true,
-			name: "city",
-			forHtml: "city",
-			text: "İl Seçiniz",
-			items: [
-				{
-					id: 1,
-					val: 1,
-					text: "Ankara"
-				}
-			]
-		},
-		{
-			type: "select",
-			required: true,
-			name: "town",
-			forHtml: "town",
-			text: "İlçe Seçiniz",
-			items: [
-				{
-					id: 1,
-					val: 1,
-					text: "Çankaya"
-				}
-			]
-		},
-		{
-			type: "number",
-			required: true,
-			name: "district",
-			forHtml: "district",
-			text: "Adres",
-			icon: AwesomeIcon.Map
-		},
-		{
-			type: "text",
-			required: false,
-			name: "address_detail",
-			forHtml: "address_detail",
-			text: "Açık Adres",
-			icon: AwesomeIcon.Map
-		},
 	]
 }
 
@@ -183,8 +140,43 @@ export const stepFour = {
 		answer: 0
 	},
 	macro: [
-		/*
-			test.par-q-testi => [...]
-		*/
+		{
+			type: "radio",
+			required: true,
+			name: "s1",
+			forHtml: "s1",
+			text: "1. Kalp rahatsızlığınız var mı?",
+			items: [
+				{
+					id: 1,
+					val: "1",
+					name: "Evet"
+				},
+				{
+					id: 2,
+					val: "0",
+					name: "Hayır"
+				}
+			]
+		},
+		{
+			type: "radio",
+			required: true,
+			name: "s2",
+			forHtml: "s2",
+			text: "2. Kalbiniz ya da göğsünüzde sık sık ağrı olur mu?",
+			items: [
+				{
+					id: 1,
+					val: "1",
+					name: "Evet"
+				},
+				{
+					id: 2,
+					val: "0",
+					name: "Hayır"
+				}
+			]
+		},
 	]
 }

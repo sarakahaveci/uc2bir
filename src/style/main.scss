@@ -28,6 +28,10 @@ body {
   overflow: hidden;
 }
 
+.MuiPopover-root {
+  z-index: 100000!important;
+}
+
 #pt-point-page {
   position: relative;
   right: 0;

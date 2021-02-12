@@ -29,7 +29,7 @@ const RadioButtonsGroup = ({ id, name, label, type, items = [], required = false
                 <FormLabel component="legend">{label}</FormLabel>
                 <RadioGroup aria-label={name} name={name} value={val} onChange={e => handleChange(e, onChange)}>
                     {items.map((val, key) => 
-                        <FormControlLabel key={`radio-${name}-${key}`} value={val.val} control={<BlueRadio />} label={val.label} />
+                        <FormControlLabel key={`radio-${name}-${key}`} value={val.val} control={<BlueRadio />} label={val.name} />
                     )}
                 </RadioGroup>
             </FormControl>

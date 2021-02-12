@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -98,7 +98,7 @@ const StepTwo = (props) => {
 	const handleClose = () => setOpen(false);
 	const handleClickOpen = () => setOpen(true);
 
-	useLayoutEffect(() => {
+	useEffect(() => {
 		if ( verifyCode ) {
 			setOpen(true);
 		} else {
