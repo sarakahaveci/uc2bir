@@ -179,7 +179,7 @@ export const verifyCode = (
   });
 };
 
-export const deleteFile = (fileId) => async (dispatch) => {
+export const deleteFile = (fileId, successCallback) => async (dispatch) => {
   const url = `/user/profile/file/${fileId}`;
 
   await dispatch({
@@ -188,6 +188,7 @@ export const deleteFile = (fileId) => async (dispatch) => {
       method: 'DELETE',
       url,
       label: DELETE_FILE,
+      callBack: () => successCallback(),
     },
   });
 };

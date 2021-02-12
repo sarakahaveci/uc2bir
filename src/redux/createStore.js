@@ -2,10 +2,11 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import requestMiddleware from './requestMiddleware';
+import storageMiddleware from './storageMiddleware';
 import reducers from './reducers';
 
 const configureStore = () => {
-  const middleware = [thunk, requestMiddleware];
+  const middleware = [thunk, requestMiddleware, storageMiddleware];
 
   let enhancer;
 

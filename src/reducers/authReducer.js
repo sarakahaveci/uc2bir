@@ -1,4 +1,9 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from '../constants';
+import {
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+  USER_DETAILS_SET_FROM_STORAGE,
+} from '../constants';
 
 const initialState = {
   user: {},
@@ -11,6 +16,14 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case USER_DETAILS_SET_FROM_STORAGE:
+      return {
+        ...action.payload,
+        isLoading: false,
+        error: null,
+        isAuthenticated: true,
+      };
+
     case LOGIN_REQUEST:
       return {
         ...state,

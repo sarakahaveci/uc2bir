@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Layout from './views/Layout';
+import { useDispatch } from 'react-redux';
 
 //views
 import Home from './views/Home';
+import { setUserDetailsFromStorage } from 'actions';
 import Login from './views/Login';
 import Info from './views/Info';
 import Register from './views/Register';
@@ -13,6 +15,12 @@ import { ScrollToTop } from 'components';
 import ForgotPassword from 'views/ForgotPassword';
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useLayoutEffect(() => {
+    dispatch(setUserDetailsFromStorage());
+  }, []);
+
   return (
     <ScrollToTop>
       <Layout>
@@ -22,7 +30,7 @@ const App = () => {
           <Route exact path="/info" component={Info} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/profesyonel/register" component={ProfRegister} />
-          <Route exact path="/forgot-password" component={ForgotPassword}/>
+          <Route exact path="/forgot-password" component={ForgotPassword} />
           <Route component={NotFoundPage} />
         </Switch>
       </Layout>
