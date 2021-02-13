@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React, { useEffect, useState } from 'react';
 
-import { Material, Button, AwesomeIcon, Text } from '../../../components';
+import { Material, Button, SocialLogin, Text } from '../../../components';
 
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
@@ -70,7 +70,7 @@ const StepOne = (props) => {
 
   useEffect(() => {
     if ( getStepOne.error ) {
-      if ( Array.isArray(getStepOne.error) ) {
+      if ( getStepOne.error ) {
         for (const [key, val] of Object.entries(getStepOne.error)) {
           toast.error(`${key}: ${val}`, {
             position: 'bottom-right',
@@ -236,26 +236,7 @@ const StepOne = (props) => {
       <div className="identfy">
         <span>Veya</span>
       </div>
-      <div className="d-flex login-footer-start">
-        <div className="col">
-          <Button
-            fontSize="9pt"
-            height="45px"
-            icon={AwesomeIcon.Google}
-            text="Google ile giriş yap"
-            className="dark"
-          />
-        </div>
-        <div className="col">
-          <Button
-            fontSize="9pt"
-            height="45px"
-            icon={AwesomeIcon.Facebook}
-            text="Facebook ile giriş yap"
-            className="dark"
-          />
-        </div>
-      </div>
+      <SocialLogin />
     </>
   );
 };

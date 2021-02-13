@@ -120,6 +120,7 @@ const StepOne = () => {
           kvkk: acceptKvkk ? 1 : 0,
           agreement: acceptMemberAgreement ? 1 : 0,
           health_status: acceptHealthAgreement ? 1 : 0,
+          permission: acceptPermissions ? 1 : 0,
         },
         registerSuccessCallback,
         registerErrorCallback

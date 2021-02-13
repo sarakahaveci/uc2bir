@@ -35,6 +35,7 @@ const TextField = ({
         maxLength={maxLength}
         onKeyUp={onKeyUp}
         variant="standard"
+        required={required}
       />
       {icon2 &&
         icon2({

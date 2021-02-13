@@ -7,7 +7,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
@@ -143,7 +142,13 @@ const ForgotPassword = () => {
                 }
                 {getForgotPassword.isSuccsess && !getResetPassword.isSuccsess &&
                   <React.Fragment>
-                    <Button className="blue" style={{ marginBottom: 15 }} onClick={handleClickOpen} fontSize="11pt" text="Kodu Gir!" />
+                    <Button 
+                      className="blue" 
+                      style={{ marginBottom: 15 }} 
+                      onClick={handleClickOpen} 
+                      fontSize="11pt" 
+                      text="Kodu Gir!" 
+                    />
                     <Dialog
                       className="material-dialog"
                       fullWidth={fullWidth}
@@ -154,19 +159,39 @@ const ForgotPassword = () => {
                       <DialogContent>
                         <div className="d-flex flex-wrap dialog-center">
                           <div className="d-flex flex-wrap" style={{marginBottom: 35}}>
-                            <Material.TextField type="text" name="code" label="Kodu giriniz." onChange={e => setCode({ ...code, [e.target.name]: e.target.value })} />
-                            <Material.TextField type="password" name="password" label="Yeni Password" onChange={e => setCode({ ...code, [e.target.name]: e.target.value })} />
-                            <Material.TextField type="password" name="password_retry" label="Yeni Password Tekrar" onChange={e => setCode({ ...code, [e.target.name]: e.target.value })} />
+                            <Material.TextField 
+                              type="text" 
+                              name="code" 
+                              label="Kodu giriniz." 
+                              onChange={e => setCode({ ...code, [e.target.name]: e.target.value })}
+                            />
+                            <Material.TextField 
+                              type="password" 
+                              name="password" 
+                              label="Yeni Password" 
+                              onChange={e => setCode({ ...code, [e.target.name]: e.target.value })} 
+                            />
+                            <Material.TextField 
+                              type="password" 
+                              name="password_retry" 
+                              label="Yeni Password Tekrar" 
+                              onChange={e => setCode({ ...code, [e.target.name]: e.target.value })} 
+                            />
                           </div>
                           {getResetPassword.isLoading ? (
-                            <Button text={`Yükleniyor...`} className="blue" />
+                            <Button 
+                              text={`Yükleniyor...`} 
+                              className="blue"
+                            />
                           ) : (
-                            <Button onClick={onClick} text={`Gönder`} className="blue" />
+                            <Button 
+                              onClick={onClick} 
+                              text={`Gönder`} 
+                              className="blue"
+                            />
                           )}
                         </div>
                       </DialogContent>
-                      <DialogActions>
-                      </DialogActions>
                     </Dialog>
                   </React.Fragment>
                 }

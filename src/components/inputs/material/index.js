@@ -18,6 +18,7 @@ export const Material = {
     date: props => <DateField {...props}/>,
     password: props => <TextField {...props}/>,
     text: props => <TextField {...props}/>,
+    hidden: props => <TextField {...props}/>,
     select: props => <SimpleSelect {...props}/>,
     radio: props => <RadioButtonsGroup {...props}/>,
 

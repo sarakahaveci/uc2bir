@@ -1,5 +1,5 @@
 import React from 'react';
-import { AwesomeIcon } from '../components';
+import { AwesomeIcon, Svg } from '../components';
 
 export const stepOne = {
 	inputs: {
@@ -7,10 +7,11 @@ export const stepOne = {
 		email: "",
 		phone: "",
 		password: "",
-		type_id: 1, //usertype key st olanın id sini basılacak
+		type_id: 0,
 		kvkk: 0,
 		agreement: 0,
 		health_status: 0,
+		permission: 0,
 	},
 	macro: [
 		{
@@ -19,7 +20,7 @@ export const stepOne = {
 			name: "name",
 			forHtml: "name",
 			text: "Ad Soyad",
-			icon: AwesomeIcon.User,
+			icon: Svg.UsernameIcon,
 		},
 		{
 			type: "email",
@@ -27,7 +28,7 @@ export const stepOne = {
 			name: "email",
 			forHtml: "email",
 			text: "E-mail",
-			icon: AwesomeIcon.Envolope,
+			icon: Svg.EmailIcon,
 		},
 		{
 			type: "text",
@@ -35,7 +36,7 @@ export const stepOne = {
 			name: "phone",
 			forHtml: "phone",
 			text: "Telefon (05XXXXXXXXX)",
-			icon: AwesomeIcon.Phone,
+			icon: Svg.PhoneIcon,
 		},
 		{
 			type: "password",
@@ -43,7 +44,7 @@ export const stepOne = {
 			name: "password",
 			forHtml: "password",
 			text: "Şifre",
-			icon: AwesomeIcon.Lock,
+			icon: Svg.PasswordIcon,
 		},
 		{
 			type: "checkbox",
@@ -69,6 +70,14 @@ export const stepOne = {
 			text: false,
 			component: () => <>KVKK <a href="/">okudum</a>, onaylıyorum.</>
 		},
+		{
+			type: "checkbox",
+			required: true,
+			name: "permission",
+			forHtml: "permission",
+			text: false,
+			component: () => <>Açık rıza aydınlatma <a href="/">metinleri</a>.</>
+		},
 	]
 }
 
@@ -92,6 +101,8 @@ export const stepThree = {
 		town: "",
 		district: "",
 		address_detail: "",
+		build_no: "",
+		apt_no: "",
 	},
 	uri: "http://gateway.ms.321.4alabs.com/regions",
 	macro: [
@@ -139,44 +150,5 @@ export const stepFour = {
 		question_id: 0,
 		answer: 0
 	},
-	macro: [
-		{
-			type: "radio",
-			required: true,
-			name: "s1",
-			forHtml: "s1",
-			text: "1. Kalp rahatsızlığınız var mı?",
-			items: [
-				{
-					id: 1,
-					val: "1",
-					name: "Evet"
-				},
-				{
-					id: 2,
-					val: "0",
-					name: "Hayır"
-				}
-			]
-		},
-		{
-			type: "radio",
-			required: true,
-			name: "s2",
-			forHtml: "s2",
-			text: "2. Kalbiniz ya da göğsünüzde sık sık ağrı olur mu?",
-			items: [
-				{
-					id: 1,
-					val: "1",
-					name: "Evet"
-				},
-				{
-					id: 2,
-					val: "0",
-					name: "Hayır"
-				}
-			]
-		},
-	]
+	macro: []
 }

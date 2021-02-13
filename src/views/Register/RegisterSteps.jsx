@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
 import { getRegisterData } from '../../actions';
 
-const RegisterSteps = (props) => {
+const RegisterSteps = () => {
   const {data: registerData, isSuccess} = useSelector((state) => state.registerData);
   const dispatch = useDispatch();
 
@@ -34,8 +34,6 @@ const RegisterSteps = (props) => {
   useEffect(() => {
     if ( !isSuccess ) {
       actionRegisterData();
-    } else {
-      console.log(registerData);
     }
   },[isSuccess]);
 

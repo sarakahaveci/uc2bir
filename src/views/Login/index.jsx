@@ -12,6 +12,7 @@ import {
   Text,
   Button,
   Material,
+  SocialLogin,
 } from '../../components';
 
 const Login = () => {
@@ -153,27 +154,8 @@ const Login = () => {
               <div className="identfy">
                 <span>Veya</span>
               </div>
-              <div className="d-flex login-footer-start">
-                <div className="col">
-                  <Button
-                    height="45px"
-                    fontSize="9pt"
-                    icon={AwesomeIcon.Google}
-                    text="Google ile giriş yap"
-                    className="dark"
-                  />
-                </div>
-                <div className="col">
-                  <Button
-                    height="45px"
-                    fontSize="9pt"
-                    icon={AwesomeIcon.Facebook}
-                    text="Facebook ile giriş yap"
-                    className="dark"
-                  />
-                </div>
-              </div>
-              <a className="login-footer" href="#">
+              <SocialLogin/>
+              <a className="login-footer" href="/profesyonel/register">
                 Sistemimizde hizmet vermek için tıklayın
               </a>
             </div>
