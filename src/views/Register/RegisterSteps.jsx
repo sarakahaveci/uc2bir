@@ -39,7 +39,7 @@ const RegisterSteps = (props) => {
     }
   },[registerData]);
 
-  const [steps, setSteps] = useState('step1');
+  const [steps, setSteps] = useState('step3');
   /**
    * @param {string} step
    */

@@ -1,10 +1,11 @@
 /* eslint-disable react/jsx-pascal-case */
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState, useLayoutEffect, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { Modal } from 'react-bootstrap';
 import { StepContext } from './RegisterSteps';
 import { getCitiesAndDistict } from 'actions';
-import { Button, Material } from 'components';
+import { Button, Material, GoogleMaps, Text } from 'components';
 import { genderData } from '../../../constants';
 
 const StepOne = () => {
@@ -15,7 +16,6 @@ const StepOne = () => {
   const { isLoading, cities, distict } = useSelector(
     (state) => state.registerData
   );
-  console.log(distict);
   useLayoutEffect(() => {
     dispatch(getCitiesAndDistict());
   }, []);
@@ -119,7 +119,12 @@ const StepOne = () => {
           />
         </div>
       </div>
-      <Button text="İleri" className="blue" fontWeight="bold" />
+      <Button
+        text="İleri"
+        className="blue"
+        fontWeight="bold"
+        onClick={() => getCurrentAdress()}
+      />
     </div>
   );
 };

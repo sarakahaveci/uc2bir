@@ -138,6 +138,18 @@
   }
 }
 
+.google-map-modal {
+  height: 50vh;
+  width: 80vh;
+  padding: 20px;
+}
+
+.soft-text {
+  font-size: 15px;
+  font-weight: 300;
+  color: #000000;
+}
+
 .prof-register-modal {
   width: 600px;
   padding: 35px 150px;
@@ -161,6 +173,12 @@
   button.blue {
     width: 300px;
   }
+}
+
+.centered-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .step-four-wrapper {
