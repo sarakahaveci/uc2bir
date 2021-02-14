@@ -1,6 +1,7 @@
 import React from 'react';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 import { GoogleLogin } from 'react-google-login';
+import AppleLogin from 'react-apple-login';
 
 import { Button, AwesomeIcon } from 'components';
 
@@ -48,6 +49,19 @@ const SocialLogin = () => {
           )}
         />
       </div>
+
+      {/* <div className="col">
+        <AppleLogin
+          clientId={'com.react.apple.login'}
+          redirectURI={'https://redirectUrl.com'}
+          responseType={'code'}
+          responseMode={'query'}
+          usePopup
+          designProp={{
+            locale: 'en_US',
+          }}
+        />
+      </div> */}
     </div>
   );
 };

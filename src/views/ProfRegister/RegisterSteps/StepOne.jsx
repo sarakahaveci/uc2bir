@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Modal, Spinner } from 'react-bootstrap';
+import InputMask from 'react-input-mask';
 
 import { StepContext } from './RegisterSteps';
 import { login, verifyCode, setStepOne, getRegisterData } from 'actions';
 import { Button, Text, Material, Otp, SocialLogin } from 'components';
 import { macroConverter } from 'utils';
 import Svg from 'components/statics/svg';
+import { TextField } from '@material-ui/core';
 
 const macro = [
   {
@@ -24,14 +26,6 @@ const macro = [
     text: 'E mail',
     required: true,
     icon: Svg.EmailIcon,
-  },
-  {
-    type: 'text',
-    name: 'phone',
-    forHtml: 'phone',
-    required: true,
-    text: 'Telefon',
-    icon: Svg.PhoneIcon,
   },
 ];
 
@@ -49,12 +43,14 @@ const StepOne = () => {
   const [form, setForm] = useState({});
   const [userTypeId, setUserTypeId] = useState('');
   const [password, setPassword] = useState('');
+  const [phone, setPhone] = useState('');
   const [acceptMemberAgreement, setAcceptMemberAgreement] = useState(false);
   const [acceptHealthAgreement, setAcceptHealthAgreement] = useState(false);
   const [acceptKvkk, setAcceptKvkk] = useState(false);
   const [acceptPermissions, setAcceptPermissions] = useState(false);
   const [open, setOpen] = useState(false);
   const [inputType, setInputType] = useState('password');
+  const [shrink, setShrink] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -141,6 +137,40 @@ const StepOne = () => {
         />
 
         {macro.map((item) => macroConverter(form, setForm, item))}
+
+        <div className="materials">
+          <InputMask
+            mask="+\9\0(999) 999 99 99"
+            value={phone}
+            disabled={false}
+            onChange={(e) => setPhone(e.target.value)}
+            alwaysShowMask={false}
+            maskChar=" "
+            onFocus={() => setShrink(true)}
+            onBlur={() =>
+              // Had to do that for fixing shrink
+              phone !== '+90(   )          '
+                ? setShrink(true)
+                : setShrink(false)
+            }
+          >
+            {() => (
+              <TextField
+                InputLabelProps={{ shrink }}
+                label="Telefon"
+                className="material-inputs has-icon"
+                InputProps={{
+                  startAdornment: (
+                    <Svg.PhoneIcon
+                      className="material-inputs-icon"
+                      style={{ top: '6px' }}
+                    />
+                  ),
+                }}
+              />
+            )}
+          </InputMask>
+        </div>
 
         <Material.text
           required

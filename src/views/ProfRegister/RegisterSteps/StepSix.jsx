@@ -17,7 +17,11 @@ const StepSix = () => {
           Aşağıdaki linkten e-devlete ulaşabilirsiniz.
         </div>
 
-        <a href="/" target="_blank" className="step-six__criminal-record-link">
+        <a
+          href="https://www.turkiye.gov.tr/adli-sicil-kaydi"
+          target="_blank"
+          className="step-six__criminal-record-link"
+        >
           E-devlet’e giriş yapmak için tıklayınız
         </a>
       </FileUpload>

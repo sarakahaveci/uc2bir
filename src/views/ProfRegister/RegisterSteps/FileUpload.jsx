@@ -25,7 +25,6 @@ const FileUpload = ({
   const fileTypeId = useFileTypeIdFinder(fileTypeName);
 
   const [uploadedFiles, setUploadedFiles] = useState({});
-  console.log('uploadedFiles: ', uploadedFiles);
 
   const { setStepNumber } = useContext(StepContext);
 
@@ -132,6 +131,7 @@ const FileUpload = ({
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
+    accept: ['image/*', '.pdf'],
   });
 
   const deleteFileSuccessHandler = (key) => {
@@ -230,7 +230,13 @@ const FileUpload = ({
           disabled={!isValidProgress}
         />
 
-        {/* {showPassButton && <button className="file-upload__next-link" onClick={() => }>Geç</button>} */}
+        {showPassButton && (
+          <div className="file-upload__next-link">
+            <button onClick={() => setStepNumber((value) => value + 1)}>
+              Geç
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
