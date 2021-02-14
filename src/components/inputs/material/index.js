@@ -9,12 +9,16 @@ import {default as MCheckBox} from "./m-check-box";
 export const Material = {
     TextField,
     CheckBox,
+    SimpleSelect,
+    MCheckBox,
+    RadioButtonsGroup,
 
     email: props => <TextField {...props}/>,
     number: props => <TextField {...props}/>,
     date: props => <DateField {...props}/>,
     password: props => <TextField {...props}/>,
     text: props => <TextField {...props}/>,
+    hidden: props => <TextField {...props}/>,
     select: props => <SimpleSelect {...props}/>,
     radio: props => <RadioButtonsGroup {...props}/>,
 

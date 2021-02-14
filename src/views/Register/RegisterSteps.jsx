@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { StepOne, StepTwo, StepThree, StepFour, StepFinish } from './steps';
 import { StepBar } from '../../components';
@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
 import { getRegisterData } from '../../actions';
 
-const RegisterSteps = (props) => {
+const RegisterSteps = () => {
   const {data: registerData, isSuccess} = useSelector((state) => state.registerData);
   const dispatch = useDispatch();
 
@@ -31,13 +31,11 @@ const RegisterSteps = (props) => {
 		);
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if ( !isSuccess ) {
       actionRegisterData();
-    } else {
-      console.log(registerData);
     }
-  },[registerData]);
+  },[isSuccess]);
 
   const [steps, setSteps] = useState('step3');
   /**

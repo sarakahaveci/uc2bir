@@ -5,13 +5,12 @@ import { Container } from 'react-bootstrap';
 
 import background from './statics/background/images/login.jpg';
 
-const FormPages = ({children=""}) => {
+const FormPages = ({children}) => {
     const [windowSize, setWindowSize] = useState(false);
     useLayoutEffect(() => {
         window.addEventListener('resize', () => setWindowSize(window.innerWidth));
 
         const page = window.innerWidth;
-        const height = window.innerHeight;
 
         if (!windowSize) {
             setWindowSize(page);

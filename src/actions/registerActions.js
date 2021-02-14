@@ -12,7 +12,7 @@ import {
 } from '../constants';
 
 export const setStepOne = (
-  { name, email, phone, password, type_id, kvkk, agreement, health_status },
+  { name, email, phone, password, type_id, kvkk, agreement, health_status, permission },
   successCallback,
   errorCallback
 ) => async (dispatch) => {
@@ -33,6 +33,7 @@ export const setStepOne = (
         kvkk,
         agreement,
         health_status,
+        permission,
       },
       transformData: (data) => data.data,
       callBack: () => successCallback(),
@@ -66,7 +67,7 @@ export const setStepTwo = (
 };
 
 export const setStepThree = (
-  { birthday, genre, about, city, town, district, address_detail },
+  { birthday, genre, about, city, town, district, address_detail, build_no, apt_no },
   successCallback,
   errorCallback
 ) => async (dispatch) => {
@@ -86,6 +87,8 @@ export const setStepThree = (
         town,
         district,
         address_detail,
+        build_no,
+        apt_no,
       },
       transformData: (data) => data.data,
       callBack: () => successCallback(),
@@ -154,10 +157,11 @@ export const getCitiesAndDistict = (cityId) => async (dispatch) => {
   });
 };
 
-export const verifyCode = (code, successCallback) => async (
-  dispatch,
-  getState
-) => {
+export const verifyCode = (
+  code,
+  successCallback,
+  verifyErrorCallback
+) => async (dispatch, getState) => {
   const phone = getState().auth.user.phone;
 
   const url = '/verify-code';
@@ -169,6 +173,7 @@ export const verifyCode = (code, successCallback) => async (
       url,
       label: VERIFY_CODE,
       callBack: () => successCallback(),
+      errorHandler: (error) => verifyErrorCallback(error.message),
       body: {
         phone,
         code,
@@ -177,7 +182,7 @@ export const verifyCode = (code, successCallback) => async (
   });
 };
 
-export const deleteFile = (fileId) => async (dispatch) => {
+export const deleteFile = (fileId, successCallback) => async (dispatch) => {
   const url = `/user/profile/file/${fileId}`;
 
   await dispatch({
@@ -186,6 +191,7 @@ export const deleteFile = (fileId) => async (dispatch) => {
       method: 'DELETE',
       url,
       label: DELETE_FILE,
+      callBack: () => successCallback(),
     },
   });
 };

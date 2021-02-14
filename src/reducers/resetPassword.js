@@ -1,7 +1,7 @@
 import {
-  REGISTER_STEP_FOUR_REQUEST,
-  REGISTER_STEP_FOUR_SUCCESS,
-  REGISTER_STEP_FOUR_FAILURE,
+  RESET_PASSWORD_REQUEST,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAILURE,
 } from '../constants';
 
 const initialState = {
@@ -16,13 +16,13 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case REGISTER_STEP_FOUR_REQUEST:
+    case RESET_PASSWORD_REQUEST:
       return {
         ...state,
         isLoading: true,
       };
 
-    case REGISTER_STEP_FOUR_SUCCESS:
+    case RESET_PASSWORD_SUCCESS:
       return {
         ...state,
         data: action.payload.data,
@@ -31,7 +31,7 @@ export default (state = initialState, action) => {
         error: null,
       };
 
-    case REGISTER_STEP_FOUR_FAILURE:
+    case RESET_PASSWORD_FAILURE:
       return {
         ...state,
         isLoading: false,

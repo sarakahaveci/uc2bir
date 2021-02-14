@@ -1,5 +1,5 @@
 import React from 'react';
-import { AwesomeIcon } from '../components';
+import { AwesomeIcon, Svg } from '../components';
 
 export const stepOne = {
 	inputs: {
@@ -7,10 +7,11 @@ export const stepOne = {
 		email: "",
 		phone: "",
 		password: "",
-		type_id: 1, //usertype key st olanın id sini basılacak
+		type_id: 0,
 		kvkk: 0,
 		agreement: 0,
 		health_status: 0,
+		permission: 0,
 	},
 	macro: [
 		{
@@ -19,7 +20,7 @@ export const stepOne = {
 			name: "name",
 			forHtml: "name",
 			text: "Ad Soyad",
-			icon: AwesomeIcon.User,
+			icon: Svg.UsernameIcon,
 		},
 		{
 			type: "email",
@@ -27,7 +28,7 @@ export const stepOne = {
 			name: "email",
 			forHtml: "email",
 			text: "E-mail",
-			icon: AwesomeIcon.Envolope,
+			icon: Svg.EmailIcon,
 		},
 		{
 			type: "text",
@@ -35,7 +36,7 @@ export const stepOne = {
 			name: "phone",
 			forHtml: "phone",
 			text: "Telefon (05XXXXXXXXX)",
-			icon: AwesomeIcon.Phone,
+			icon: Svg.PhoneIcon,
 		},
 		{
 			type: "password",
@@ -43,7 +44,7 @@ export const stepOne = {
 			name: "password",
 			forHtml: "password",
 			text: "Şifre",
-			icon: AwesomeIcon.Lock,
+			icon: Svg.PasswordIcon,
 		},
 		{
 			type: "checkbox",
@@ -69,6 +70,14 @@ export const stepOne = {
 			text: false,
 			component: () => <>KVKK <a href="/">okudum</a>, onaylıyorum.</>
 		},
+		{
+			type: "checkbox",
+			required: true,
+			name: "permission",
+			forHtml: "permission",
+			text: false,
+			component: () => <>Açık rıza aydınlatma <a href="/">metinleri</a>.</>
+		},
 	]
 }
 
@@ -92,7 +101,10 @@ export const stepThree = {
 		town: "",
 		district: "",
 		address_detail: "",
-	}, //regions post boş gönderirsek illeri döncek city id gönderirsek ilçeler dönecek mahalle içinde ilçe id city_id district_id
+		build_no: "",
+		apt_no: "",
+	},
+	uri: "http://gateway.ms.321.4alabs.com/regions",
 	macro: [
 		{
 			type: "date",
@@ -112,12 +124,12 @@ export const stepThree = {
 				{
 					id: 1,
 					val: "m",
-					text: "Erkek"
+					name: "Erkek"
 				},
 				{
 					id: 2,
 					val: "f",
-					text: "Kadın"
+					name: "Kadın"
 				}
 			]
 		},
@@ -129,50 +141,6 @@ export const stepThree = {
 			text: "Hakkında",
 			icon: AwesomeIcon.AddressCard
 		},
-		{
-			type: "select",
-			required: true,
-			name: "city",
-			forHtml: "city",
-			text: "İl Seçiniz",
-			items: [
-				{
-					id: 1,
-					val: 1,
-					text: "Ankara"
-				}
-			]
-		},
-		{
-			type: "select",
-			required: true,
-			name: "town",
-			forHtml: "town",
-			text: "İlçe Seçiniz",
-			items: [
-				{
-					id: 1,
-					val: 1,
-					text: "Çankaya"
-				}
-			]
-		},
-		{
-			type: "number",
-			required: true,
-			name: "district",
-			forHtml: "district",
-			text: "Adres",
-			icon: AwesomeIcon.Map
-		},
-		{
-			type: "text",
-			required: false,
-			name: "address_detail",
-			forHtml: "address_detail",
-			text: "Açık Adres",
-			icon: AwesomeIcon.Map
-		},
 	]
 }
 
@@ -182,9 +150,5 @@ export const stepFour = {
 		question_id: 0,
 		answer: 0
 	},
-	macro: [
-		/*
-			test.par-q-testi => [...]
-		*/
-	]
+	macro: []
 }

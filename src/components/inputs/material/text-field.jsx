@@ -17,6 +17,8 @@ const TextField = ({
   value = '',
   onKeyUp = () => {},
   maxLength = '',
+  icon2,
+  icon2Callback,
 }) => {
   return (
     <div className="materials">
@@ -25,7 +27,6 @@ const TextField = ({
         className={`material-inputs ${className} ${icon ? 'has-icon' : ''}`}
         id={id}
         onChange={onChange}
-        required={required}
         defaultValue={defaultValue}
         name={name}
         label={label}
@@ -34,7 +35,13 @@ const TextField = ({
         maxLength={maxLength}
         onKeyUp={onKeyUp}
         variant="standard"
+        required={required}
       />
+      {icon2 &&
+        icon2({
+          className: 'material-inputs-icon2',
+          onClick: () => icon2Callback(),
+        })}
     </div>
   );
 };

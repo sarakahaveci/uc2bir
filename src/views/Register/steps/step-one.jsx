@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React, { useEffect, useState } from 'react';
 
-import { Material, Button, AwesomeIcon, Text } from '../../../components';
+import { Material, Button, SocialLogin, Text } from '../../../components';
 
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
@@ -37,12 +37,11 @@ const StepOne = (props) => {
 				pauseOnHover: true,
 				draggable: true,
 				progress: undefined,
-				onClose: () => {
+				onClose: () => {dispatch(
           login(
             { email: data.email, password: data.password },
             () => setSteps('step2'),
-            () =>
-              toast.error('Hatalı Giriş', {
+            () => toast.error('Hatalı Giriş', {
                 position: 'bottom-right',
                 autoClose: 2000,
                 hideProgressBar: false,
@@ -51,7 +50,7 @@ const StepOne = (props) => {
                 draggable: true,
                 progress: undefined,
               })
-          );
+          ));
           return setSteps('step2');
         },
 			});
@@ -71,8 +70,8 @@ const StepOne = (props) => {
 
   useEffect(() => {
     if ( getStepOne.error ) {
-      if ( getStepOne.error.message ) {
-        for (const [key, val] of Object.entries(getStepOne.error.message)) {
+      if ( getStepOne.error ) {
+        for (const [key, val] of Object.entries(getStepOne.error)) {
           toast.error(`${key}: ${val}`, {
             position: 'bottom-right',
             autoClose: 4500,
@@ -83,6 +82,16 @@ const StepOne = (props) => {
             progress: undefined,
           });
         }
+      } else {
+        toast.error(getStepOne.error, {
+          position: 'bottom-right',
+          autoClose: 4500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       }
     }
   },[getStepOne.error]);
@@ -227,26 +236,7 @@ const StepOne = (props) => {
       <div className="identfy">
         <span>Veya</span>
       </div>
-      <div className="d-flex login-footer-start">
-        <div className="col">
-          <Button
-            fontSize="9pt"
-            height="45px"
-            icon={AwesomeIcon.Google}
-            text="Google ile giriş yap"
-            className="dark"
-          />
-        </div>
-        <div className="col">
-          <Button
-            fontSize="9pt"
-            height="45px"
-            icon={AwesomeIcon.Facebook}
-            text="Facebook ile giriş yap"
-            className="dark"
-          />
-        </div>
-      </div>
+      <SocialLogin />
     </>
   );
 };

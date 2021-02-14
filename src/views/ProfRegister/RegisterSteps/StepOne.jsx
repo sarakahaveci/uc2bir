@@ -3,16 +3,10 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Modal, Spinner } from 'react-bootstrap';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
-import { GoogleLogin } from 'react-google-login';
 
 import { StepContext } from './RegisterSteps';
 import { login, verifyCode, setStepOne, getRegisterData } from 'actions';
-import { Button, Text, Material, AwesomeIcon, Otp } from 'components';
+import { Button, Text, Material, Otp, SocialLogin } from 'components';
 import { macroConverter } from 'utils';
 import Svg from 'components/statics/svg';
 
@@ -39,19 +33,12 @@ const macro = [
     text: 'Telefon',
     icon: Svg.PhoneIcon,
   },
-  {
-    type: 'password',
-    name: 'password',
-    required: true,
-    text: 'Şifre',
-    icon: Svg.PasswordIcon,
-  },
 ];
 
 const StepOne = () => {
   const { data: registerData } = useSelector((state) => state.registerData);
 
-  const { isLoading: verifyLoading, error } = useSelector(
+  const { isLoading: verifyLoading } = useSelector(
     (state) => state.registerData.verifyCode
   );
 
@@ -61,11 +48,13 @@ const StepOne = () => {
 
   const [form, setForm] = useState({});
   const [userTypeId, setUserTypeId] = useState('');
+  const [password, setPassword] = useState('');
   const [acceptMemberAgreement, setAcceptMemberAgreement] = useState(false);
   const [acceptHealthAgreement, setAcceptHealthAgreement] = useState(false);
   const [acceptKvkk, setAcceptKvkk] = useState(false);
   const [acceptPermissions, setAcceptPermissions] = useState(false);
   const [open, setOpen] = useState(false);
+  const [inputType, setInputType] = useState('password');
 
   const dispatch = useDispatch();
 
@@ -126,10 +115,12 @@ const StepOne = () => {
       setStepOne(
         {
           ...form,
+          password,
           type_id: userTypeId,
           kvkk: acceptKvkk ? 1 : 0,
           agreement: acceptMemberAgreement ? 1 : 0,
           health_status: acceptHealthAgreement ? 1 : 0,
+          permission: acceptPermissions ? 1 : 0,
         },
         registerSuccessCallback,
         registerErrorCallback
@@ -137,26 +128,34 @@ const StepOne = () => {
     );
   };
 
-  const responseFacebook = (response) => console.log(response);
-
-  const responseGoogle = (response) => console.log(response);
-
   return (
     <div className="step-one-wrapper">
       <form onSubmit={submitHandler}>
-        <FormControl style={{ width: '100%' }}>
-          <InputLabel>Üyelik Tipi Seçiniz</InputLabel>
-          <Select
-            value={userTypeId}
-            onChange={(e) => setUserTypeId(e.target.value)}
-          >
-            {registerData?.['user-type'].map((item) => (
-              <MenuItem value={item.id}>{item.name}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+        <Material.select
+          required
+          name="userType"
+          forHtml="userType"
+          label="Üyelik Tipi Seçiniz"
+          onChange={(e) => setUserTypeId(e.target.value)}
+          items={registerData?.['user-type']}
+        />
 
         {macro.map((item) => macroConverter(form, setForm, item))}
+
+        <Material.text
+          required
+          type={inputType}
+          name="password"
+          forHtml="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          label="Şifre"
+          icon={Svg.PasswordIcon}
+          icon2={Svg.EyeIcon}
+          icon2Callback={() =>
+            setInputType(inputType === 'password' ? 'text' : 'password')
+          }
+        />
 
         <div className="step-one-wrapper__checkbox-wrapper">
           <Material.CheckBox
@@ -217,42 +216,7 @@ const StepOne = () => {
         <span>Veya</span>
       </div>
 
-      <div className="col">
-        <FacebookLogin
-          appId="911942052953063"
-          fields="name,email,picture"
-          callback={responseFacebook}
-          render={({ onClick }) => (
-            <Button
-              onClick={onClick}
-              height="45px"
-              fontSize="9pt"
-              icon={AwesomeIcon.Facebook}
-              text="Facebook"
-              className="dark"
-            />
-          )}
-        />
-      </div>
-      <div className="col">
-        <GoogleLogin
-          clientId="714924963055-gbido715qc9pcsqspfi1cktte5naca4b.apps.googleusercontent.com"
-          buttonText="Login"
-          render={({ onClick }) => (
-            <Button
-              onClick={onClick}
-              height="45px"
-              fontSize="9pt"
-              icon={AwesomeIcon.Google}
-              text="Google"
-              className="dark"
-            />
-          )}
-          onSuccess={responseGoogle}
-          onFailure={responseGoogle}
-          cookiePolicy={'single_host_origin'}
-        />
-      </div>
+      <SocialLogin />
 
       <Modal show={open} onHide={() => setOpen(false)} backdrop="static">
         <div className="prof-register-modal">
@@ -270,8 +234,6 @@ const StepOne = () => {
           </div>
 
           {verifyLoading && <Spinner animation="border" />}
-
-          <div className="prof-register-modal__error">{error?.message}</div>
         </div>
       </Modal>
     </div>

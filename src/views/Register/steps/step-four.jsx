@@ -1,66 +1,53 @@
 // @ts-nocheck
-import React, { useLayoutEffect, useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { toast } from 'react-toastify';
 
-import { Button, MacroMap } from '../../../components';
+import { Button, Material } from '../../../components';
 
-import { stepFour as macro } from '../../../macros/registerMacros';
 import { useSelector, useDispatch } from 'react-redux';
-import { setStepFour, getRegisterData } from '../../../actions';
+import { setStepFour } from '../../../actions';
 
 const StepFour = (props) => {
-  const { setSteps } = props;
+  const { setSteps, registerData } = props;
   const dispatch = useDispatch();
 
+  const [data, setData] = useState([]);
   const getStepFour = useSelector((state) => state.stepFour);
-  const { data: registerData, isSuccess: isSuccessFetch } = useSelector(
-    (state) => state.registerData
-  );
+  const [macro, setMacro] = useState(false);
 
-  const [data, setData] = useState({ ...macro.inputs });
-  const [macData, setMacroData] = useState([]);
+  useEffect(() => {
+    if (registerData) {
+      if (registerData["par_q_testi"]) {
+        const new_data = registerData["par_q_testi"].map((val) => {
+          return {
+            type: "radio",
+            required: true,
+            name: val.id,
+            forHtml: val.id,
+            text: val.name,
+            survey_id: val.survey_id,
+            id: val.id,
+            items: val.options.map((item) => {
+              return {
+                id: item.id,
+                val: item.name,
+                name: item.name
+              }
+            }) 
+          }
+        });
+        setMacro(new_data);
+      }
+    }
+  }, [registerData])
 
-  const isSuccess = () => {
-    toast.success('Kayıt alındı.', {
-      position: 'bottom-right',
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-
-    setTimeout(() => {
-      toast.info('Lütfen Bekleyiniz! Yönlendiriliyorsunuz...', {
-        position: 'bottom-right',
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        onClose: () => setSteps('finish'),
-      });
-    }, 1000);
-  };
-  const isError = () => {
-    toast.error('Hatalı Giriş', {
-      position: 'bottom-right',
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  };
-
-  const actionQuiz = () => {
-    dispatch(
-      getRegisterData(() =>
-        toast.error('Sorular yüklenemedi.', {
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    const response = await data.map((val) => dispatch(
+			setStepFour(
+        { ...val }, 
+        () => toast.success('Cevap güncellendi', {
           position: 'bottom-right',
           autoClose: 2000,
           hideProgressBar: false,
@@ -68,43 +55,44 @@ const StepFour = (props) => {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-        })
-      )
-    );
-  };
-
-  useLayoutEffect(() => {
-    if (!isSuccessFetch) {
-      actionQuiz();
-    } else {
-      setMacroData(registerData.tests['par-q-testi']);
+        }), 
+        () => toast.error('Cevap gönderilemedi', {
+          position: 'bottom-right',
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }))
+		));
+    if ( response ) {
+      return setSteps("finish");
     }
-  }, [registerData]);
-
-  const actionStepFour = () => {
-    dispatch(setStepFour({ ...data }, isSuccess, isError));
-  };
-
-  const onSubmit = async (event) => {
-    event.preventDefault();
-    const response = await actionStepFour();
-    return response;
   };
   return (
     <>
       <form onSubmit={onSubmit} autoComplete="off">
-        {console.log(macData)}
+        {macro && macro.map((val, key) =>
+          <Material.RadioButtonsGroup
+            key={key}
+            name={val.name}
+            label={val.text}
+            items={val.items}
+            onChange={e => setData([ ...data, {survey_id: val.survey_id, question_id: val.id, answer: e.target.value}])}
+          />
+        )}
         {!getStepFour.isLoading || !getStepFour.isSuccess ? (
           <Button type="submit" text={`İleri`} className="blue" />
         ) : (
-          <Button
-            onClick={() => {
-              console.log('Lütfen Bekleyiniz...');
-            }}
-            text={`Yükleniyor...`}
-            className="blue"
-          />
-        )}
+            <Button
+              onClick={() => {
+                console.log('Lütfen Bekleyiniz...');
+              }}
+              text={`Yükleniyor...`}
+              className="blue"
+            />
+          )}
       </form>
     </>
   );

@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import { verifyCode } from 'actions';
+import { Text } from 'components';
+import { useHistory } from 'react-router-dom';
 
 const Form = styled.form`
   display: flex;
@@ -25,6 +28,43 @@ const Otp = ({ verifySuccessCallback }) => {
   const [otp5, setOtp5] = useState('');
   const [otp6, setOtp6] = useState('');
 
+  const [counter, setCounter] = useState(70);
+
+  const interval = useRef();
+
+  const history = useHistory();
+
+  useEffect(() => {
+    interval.current = setInterval(() => {
+      setCounter((counter) => counter - 1);
+    }, 1000);
+
+    return () => clearInterval(interval.current);
+  }, []);
+
+  useEffect(() => {
+    if (counter === 1) {
+      return () => {
+        clearInterval(interval.current);
+
+        toast.info(
+          'Telefon Doğrulama Başarısız Anasayfaya Yönlendiriliyorsunuz.',
+          {
+            position: 'bottom-right',
+            autoClose: 2000,
+            onClose: () => history.push('/'),
+          }
+        );
+      };
+    }
+  }, [counter]);
+
+  const verifyErrorCallback = (errorMessage) =>
+    toast.error(errorMessage, {
+      position: 'bottom-right',
+      autoClose: 2000,
+    });
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -32,7 +72,8 @@ const Otp = ({ verifySuccessCallback }) => {
       dispatch(
         verifyCode(
           +`${otp1}${otp2}${otp3}${otp4}${otp5}${otp6}`,
-          verifySuccessCallback
+          verifySuccessCallback,
+          verifyErrorCallback
         )
       );
     }
@@ -144,6 +185,11 @@ const Otp = ({ verifySuccessCallback }) => {
           onKeyUp={inputFocus}
         />
       </Form>
+
+      <Text fontSize="0.9rem" color="blue" textAlign="center">
+        Güvenlik kodunu tekrar gönder ({Math.floor(counter / 60)}:
+        {`${Math.ceil(counter % 60) < 10 ? 0 : ''}${Math.ceil(counter % 60)}`})
+      </Text>
     </div>
   );
 };

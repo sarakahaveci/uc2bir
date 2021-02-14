@@ -13,20 +13,23 @@ const Register = () => {
               <Text
                 style={{ letterSpacing: 5 }}
                 fontFamily="'Montserrat', sans-serif"
-                children="321 ve Yeni Bir Sen!"
                 color="trunge"
-              />
+              >
+                321 ve Yeni Bir Sen!
+              </Text>
               <Text
                 fontFamily="'Bebas Neue', cursive"
                 fontSize="2em"
-                children="HER AN HER YERDE"
                 color="softDark"
-              />
+              >
+                HER AN HER YERDE İSTEDİĞİN GİBİ ANTRENMAN YAP
+              </Text>
               <Text
                 fontFamily="'Montserrat', sans-serif"
                 fontSize="10pt"
-                children="Hedeflerine uygun antrenman planları ile İçindeki atleti özgür bırak"
-              />
+              >
+                Hedeflerine uygun antrenman planları ile İçindeki atleti özgür bırak
+              </Text>
             </div>
           </div>
         </section>

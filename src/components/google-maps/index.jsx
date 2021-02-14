@@ -8,7 +8,7 @@ import {
     Marker,
 } from "react-google-maps";
 import { MarkerClusterer } from "react-google-maps/lib/components/addons/MarkerClusterer";
-import avatar from "../../images/avatar/avatar.png";
+import avatar from "../../assets/avatar/avatar.png";
 
 const MapWithAMarkerClusterer = compose(
     withProps({

@@ -1,4 +1,10 @@
-import { HTTP_REQUEST, LOGIN } from '../constants';
+import {
+  HTTP_REQUEST,
+  LOGIN,
+  FORGOT_PASSWORD,
+  USER_DETAILS_SET_FROM_STORAGE,
+} from '../constants';
+import { localStorage } from 'utils';
 
 export const login = (
   { email, password },
@@ -22,4 +28,68 @@ export const login = (
       errorHandler: () => errorCallback(),
     },
   });
+};
+
+export const forgot_password = (
+  { email },
+  successCallback,
+  errorCallback
+) => async (dispatch) => {
+  const url = '/forgot-password';
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'POST',
+      url,
+      label: FORGOT_PASSWORD,
+      body: {
+        email,
+      },
+      transformData: (data) => data.data,
+      callBack: () => successCallback(),
+      errorHandler: () => errorCallback(),
+    },
+  });
+};
+
+export const reset_password = (
+  { email, code, password, password_retry },
+  successCallback,
+  errorCallback
+) => async (dispatch) => {
+  const url = '/password-reset';
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'POST',
+      url,
+      label: FORGOT_PASSWORD,
+      body: {
+        email,
+        code,
+        password,
+        password_retry,
+      },
+      transformData: (data) => data.data,
+      callBack: () => successCallback(),
+      errorHandler: () => errorCallback(),
+    },
+  });
+};
+
+export const setUserDetailsFromStorage = () => (dispatch, getState) => {
+  const { user, accessToken, refreshToken } = localStorage.get('auth') || {};
+
+  if (user) {
+    dispatch({
+      type: USER_DETAILS_SET_FROM_STORAGE,
+      payload: {
+        user,
+        accessToken,
+        refreshToken,
+      },
+    });
+  }
 };

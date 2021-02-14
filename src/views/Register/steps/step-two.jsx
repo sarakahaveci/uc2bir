@@ -1,8 +1,7 @@
 // @ts-nocheck
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -90,21 +89,21 @@ const StepTwo = (props) => {
 			setStepTwo({ phone: getStepOne.user.phone, code: Object.values(code).map(val => val).join("") }, isResultSuccess, isResultError)
 		);
 	}
-	
+
 	const [open, setOpen] = useState(true);
 	const fullWidth = true;
 	const maxWidth = 'sm';
-	
+
 	const handleClose = () => setOpen(false);
 	const handleClickOpen = () => setOpen(true);
 
-	useLayoutEffect(() => {
-		if ( verifyCode ) {
+	useEffect(() => {
+		if (verifyCode) {
 			setOpen(true);
 		} else {
 			vrf_response();
 		}
-	},[verifyCode]);
+	}, [verifyCode]);
 
 	useEffect(() => {
 		if (counter > 0) {
@@ -117,11 +116,16 @@ const StepTwo = (props) => {
 			};
 		}
 	}, [counter]);
+
+	const onSubmit = (event) => {
+		event.preventDefault();
+		return vrf_result();
+	}
 	return (
 		<>
 			<React.Fragment>
-				<Button className="blue" style={{ marginBottom: 15 }} onClick={handleClickOpen} fontSize="11pt" text="Kodu Gir!"/>
-				<Button className="blue" style={{ marginBottom: 15 }} onClick={vrf_response} fontSize="11pt" text="Telefonuma Kodu Tekrar Gönder!"/>
+				<Button className="blue" style={{ marginBottom: 15 }} onClick={handleClickOpen} fontSize="11pt" text="Kodu Gir!" />
+				<Button className="blue" style={{ marginBottom: 15 }} onClick={vrf_response} fontSize="11pt" text="Telefonuma Kodu Tekrar Gönder!" />
 				<Dialog
 					className="material-dialog"
 					fullWidth={fullWidth}
@@ -132,19 +136,42 @@ const StepTwo = (props) => {
 					<DialogContent>
 						<DialogContentText style={{ padding: "15px 30px" }} className="text-center">
 							<b>{getStepOne.user.phone}</b> numaralı telefona gönderdiğimiz 6 haneli kodu girin.
-          			</DialogContentText>
+          	</DialogContentText>
 						<div className="d-flex flex-wrap dialog-center">
-							<div className="d-flex group-text">
-								{Object.keys(code).map(name =>
-									<Material.TextField key={`code-${name}`} type="number" name={name} maxLength={1} onChange={e => setCode({ ...code, [e.target.name]: e.target.value })} />
-								)}
-							</div>
-							<Button onClick={vrf_response} variant="link" text={counter > 0 ? `Güvenlik kodunu girmek için kalan süreniz ${counter} veya tekrar gönder.` : `Güvenlik kodunu tekrar gönder.`}/>
-							{!getStepTwo.isLoading ? <Button onClick={vrf_result} text={`İleri`} className="blue" /> : <Button className="blue" onClick={() => console.log("Lütfen Bekleyiniz...")} text={`Lütfen Bekleyiniz...`} />}
+							<form className="d-flex flex-wrap dialog-center" onSubmit={onSubmit}>
+								<div className="d-flex group-text">
+									{Object.keys(code).map(name =>
+										<Material.TextField
+											required 
+											key={`code-${name}`} 
+											type="number" 
+											name={name} 
+											maxLength={1} 
+											onChange={e => setCode({ ...code, [e.target.name]: e.target.value })}
+										/>
+									)}
+								</div>
+								<Button 
+									onClick={vrf_response} 
+									variant="link" 
+									text={counter > 0 ? `Güvenlik kodunu girmek için kalan süreniz ${counter} veya tekrar gönder.` 
+									: `Güvenlik kodunu tekrar gönder.`} 
+								/>
+								{!getStepTwo.isLoading ? 
+									<Button 
+										type="submit"
+										text={`İleri`} 
+										className="blue" 
+									/> : 
+									<Button 
+										className="blue" 
+										onClick={() => console.log("Lütfen Bekleyiniz...")} 
+										text={`Lütfen Bekleyiniz...`} 
+									/>
+								}
+							</form>
 						</div>
 					</DialogContent>
-					<DialogActions>
-					</DialogActions>
 				</Dialog>
 			</React.Fragment>
 		</>

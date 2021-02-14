@@ -1,4 +1,4 @@
-import React, { useState, useContext, useCallback } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { useDropzone } from 'react-dropzone';
 import PropTypes from 'prop-types';
@@ -23,17 +23,16 @@ const FileUpload = ({
   const { accessToken, isAuthenticated } = useSelector((state) => state.auth);
 
   const fileTypeId = useFileTypeIdFinder(fileTypeName);
-  console.log('fileTypeName: ', fileTypeName);
-  console.log('fileTypeId: ', fileTypeId);
 
   const [uploadedFiles, setUploadedFiles] = useState({});
+  console.log('uploadedFiles: ', uploadedFiles);
 
   const { setStepNumber } = useContext(StepContext);
 
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const onDrop = useCallback(async (files) => {
+  const onDrop = async (files) => {
     const formData = new FormData();
 
     files.forEach((file) => {
@@ -43,10 +42,16 @@ const FileUpload = ({
     formData.append('type_id', fileTypeId);
 
     try {
-      // TODO: Servislerde iyileştirme yapılması bekleniyor
-      if (!isAuthenticated) throw new Error();
+      if (!isAuthenticated) {
+        toast.error('Giriş yapma sayfasına yönlendiriliyorsunuz.', {
+          position: 'bottom-right',
+          autoClose: 2000,
+          onClose: () => history.push('/'),
+        });
+        return;
+      }
 
-      await axios.post(
+      const { data } = await axios.post(
         'http://gateway.ms.321.4alabs.com/user/profile/file',
         formData,
         {
@@ -54,13 +59,14 @@ const FileUpload = ({
             'Content-Type': 'multipart/form-data',
             Authorization: `Bearer ${accessToken}`,
           },
+          // Setting file objects progress during upload
           onUploadProgress: (progressEvent) => {
-            let tempUploadedFiles;
+            const inProgressFiles = files.reduce((acc, curr) => {
+              let tempAcc = {};
 
-            files.forEach((file) => {
-              tempUploadedFiles = {
-                ...tempUploadedFiles,
-                [file.name]: {
+              tempAcc = {
+                ...acc,
+                [curr.name]: {
                   fileId: 0,
                   progressPercentage: parseInt(
                     Math.round(
@@ -69,43 +75,71 @@ const FileUpload = ({
                   ),
                 },
               };
-            });
+
+              return tempAcc;
+            }, {});
 
             setUploadedFiles((files) => ({
               ...files,
-              ...tempUploadedFiles,
+              ...inProgressFiles,
             }));
           },
         }
       );
-    } catch (err) {
-      let tempUploadedFiles;
 
-      files.forEach((file) => {
-        tempUploadedFiles = {
-          ...tempUploadedFiles,
-          [file.name]: {
+      // If response is success add fileIds to them
+      const filesWithFileIds = data?.data.reduce((acc, curr, index) => {
+        let tempAcc = {};
+
+        tempAcc = {
+          ...acc,
+          [files[index].name]: {
+            fileId: curr.id,
+            progressPercentage: 100,
+          },
+        };
+
+        return tempAcc;
+      }, {});
+
+      setUploadedFiles((files) => ({
+        ...files,
+        ...filesWithFileIds,
+      }));
+    } catch (err) {
+      const failedFiles = files.reduce((acc, curr) => {
+        let tempAcc = {};
+
+        tempAcc = {
+          ...acc,
+          [curr.name]: {
             fileId: 0,
             progressPercentage: 'error',
           },
         };
-      });
 
-      setUploadedFiles((files) => ({ ...files, ...tempUploadedFiles }));
+        return tempAcc;
+      }, {});
 
-      toast.error('Giriş yapma sayfasına yönlendiriliyorsunuz.', {
+      setUploadedFiles((files) => ({ ...files, ...failedFiles }));
+
+      toast.error(err.response.data.message, {
         position: 'bottom-right',
         autoClose: 2000,
-        onClose: () => history.push('/'),
       });
     }
-  }, []);
+  };
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
   });
 
-  const deleteFileHandler = (fileId) => dispatch(deleteFile(fileId));
+  const deleteFileSuccessHandler = (key) => {
+    // Deletes selected key
+    const { [key]: dynamicFileName, ...rest } = uploadedFiles;
+
+    setUploadedFiles(rest);
+  };
 
   const FilesInfoList = Object.keys(uploadedFiles).map((key) => {
     const { progressPercentage, fileId } = uploadedFiles[key];
@@ -121,11 +155,18 @@ const FileUpload = ({
 
           <span>{key}</span>
 
-          {/* TODO: File delete  */}
-          <Svg.TrashIcon
-            className="file-upload__trash-icon"
-            onClick={() => deleteFileHandler(fileId)}
-          />
+          {progressPercentage === 100 && (
+            <span
+              className="file-upload__trash-icon"
+              onClick={() =>
+                dispatch(
+                  deleteFile(fileId, () => deleteFileSuccessHandler(key))
+                )
+              }
+            >
+              <Svg.TrashIcon />
+            </span>
+          )}
         </div>
 
         <ProgressBar

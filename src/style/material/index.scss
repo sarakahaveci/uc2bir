@@ -4,10 +4,19 @@
 
   .material-inputs-icon {
     position: absolute;
-    top: 22px;
+    top: 18px;
     left: 0;
     color: #909090;
     z-index: 100;
+  }
+
+  .material-inputs-icon2 {
+    position: absolute;
+    top: 18px;
+    right: 0;
+    color: #909090;
+    z-index: 100;
+    cursor: pointer;
   }
 
   label {
