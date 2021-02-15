@@ -190,7 +190,10 @@ const Otp = ({ verifySuccessCallback }) => {
         fontSize="0.9rem"
         color="blue"
         textAlign="center"
-        onClick={() => dispatch(verifyCode())}
+        cursor="pointer"
+        onClick={() =>
+          dispatch(verifyCode(null, verifySuccessCallback, verifyErrorCallback))
+        }
       >
         Güvenlik kodunu tekrar gönder ({Math.floor(counter / 60)}:
         {`${Math.ceil(counter % 60) < 10 ? 0 : ''}${Math.ceil(counter % 60)}`})

@@ -12,6 +12,7 @@ const StyledText = styled.div`
   font-size: ${(props) => props.fontSize || '1rem'};
   text-align: ${(props) => props.textAlign || 'initial'};
   margin: ${(props) => props.margin && props.margin};
+  cursor: ${(props) => props.cursor && props.cursor};
   line-height: 120%;
 `;
 

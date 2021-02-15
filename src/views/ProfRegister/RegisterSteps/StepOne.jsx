@@ -71,13 +71,19 @@ const StepOne = () => {
         position: 'bottom-right',
         autoClose: 1000,
         onClose: () => {
-          dispatch(verifyCode());
+          dispatch(
+            verifyCode(
+              null,
+              () => {},
+              () => {}
+            )
+          );
 
           setStepNumber((step) => step + 1);
 
           dispatch(
             login(
-              { email: form.email, password: form.password },
+              { email: form.email, password },
               () => {},
               () =>
                 toast.error('Hatalı Giriş', {
@@ -113,6 +119,7 @@ const StepOne = () => {
           agreement: acceptMemberAgreement ? 1 : 0,
           health_status: acceptHealthAgreement ? 1 : 0,
           permission: acceptPermissions ? 1 : 0,
+          phone,
         },
         registerSuccessCallback,
         registerErrorCallback
@@ -138,7 +145,7 @@ const StepOne = () => {
 
         <div className="materials">
           <InputMask
-            mask="+\9\0(999) 999 99 99"
+            mask="\0(999) 999 99 99"
             value={phone}
             disabled={false}
             onChange={(e) => setPhone(e.target.value)}
@@ -147,9 +154,7 @@ const StepOne = () => {
             onFocus={() => setShrink(true)}
             onBlur={() =>
               // Had to do that for fixing shrink
-              phone !== '+90(   )          '
-                ? setShrink(true)
-                : setShrink(false)
+              phone !== '0(   )          ' ? setShrink(true) : setShrink(false)
             }
           >
             {() => (
@@ -246,6 +251,8 @@ const StepOne = () => {
 
       <SocialLogin />
 
+      {/* STEP TWO  */}
+
       <Modal show={open} onHide={() => setOpen(false)} backdrop="static">
         <div className="prof-register-modal">
           <Text variant="h2" fontSize="1.2rem" color="dark">
@@ -253,7 +260,7 @@ const StepOne = () => {
           </Text>
 
           <Text textAlign="center" fontSize="1rem" color="dark">
-            <span className="prof-register-modal__phone">{form.phone}</span>
+            <span className="prof-register-modal__phone">{phone}</span>
             &nbsp; numaralı telefona gönderdiğimiz 6 haneli kodu girin.
           </Text>
 

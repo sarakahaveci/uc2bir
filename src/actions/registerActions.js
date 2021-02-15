@@ -12,11 +12,26 @@ import {
 } from '../constants';
 
 export const setStepOne = (
-  { name, email, phone, password, type_id, kvkk, agreement, health_status, permission },
+  {
+    name,
+    email,
+    phone,
+    password,
+    type_id,
+    kvkk,
+    agreement,
+    health_status,
+    permission,
+  },
   successCallback,
   errorCallback
 ) => async (dispatch) => {
   const url = '/register';
+
+  const editedPhone = phone
+    .replace('(', '')
+    .replace(')', '')
+    .replaceAll(' ', '');
 
   await dispatch({
     type: HTTP_REQUEST,
@@ -27,7 +42,7 @@ export const setStepOne = (
       body: {
         name,
         email,
-        phone,
+        phone: editedPhone,
         password,
         type_id,
         kvkk,
@@ -67,7 +82,17 @@ export const setStepTwo = (
 };
 
 export const setStepThree = (
-  { birthday, genre, about, city, town, district, address_detail, build_no, apt_no },
+  {
+    birthday,
+    genre,
+    about,
+    city,
+    town,
+    district,
+    address_detail,
+    build_no,
+    apt_no,
+  },
   successCallback,
   errorCallback
 ) => async (dispatch) => {
