@@ -134,7 +134,7 @@ const Login = () => {
                     />
                   </div>
                   <div className="col-auto remember-password">
-                    <a href="/forgot-password">Şifremi Unuttum</a>
+                    <Link to="/forgot-password">Şifremi Unuttum</Link>
                   </div>
                 </div>
                 {isLoading ? (
@@ -154,7 +154,7 @@ const Login = () => {
               <div className="identfy">
                 <span>Veya</span>
               </div>
-              <SocialLogin/>
+              <SocialLogin />
               <a className="login-footer" href="/profesyonel/register">
                 Sistemimizde hizmet vermek için tıklayın
               </a>

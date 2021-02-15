@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Modal, Spinner } from 'react-bootstrap';
 import InputMask from 'react-input-mask';
+import styled from 'styled-components';
 
 import { StepContext } from './RegisterSteps';
 import { login, verifyCode, setStepOne } from 'actions';
@@ -51,6 +52,7 @@ const StepOne = () => {
   const [open, setOpen] = useState(false);
   const [inputType, setInputType] = useState('password');
   const [shrink, setShrink] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const dispatch = useDispatch();
 
@@ -80,34 +82,35 @@ const StepOne = () => {
           );
 
           setStepNumber((step) => step + 1);
-
-          dispatch(
-            login(
-              { email: form.email, password },
-              () => {},
-              () =>
-                toast.error('Hatalı Giriş', {
-                  position: 'bottom-right',
-                  autoClose: 2000,
-                })
-            )
-          );
         },
       });
     }, 1000);
   };
 
-  const registerErrorCallback = () => {
+  const registerErrorCallback = () =>
     toast.error('Hatalı Kayıt İşlemi', {
       position: 'bottom-right',
       autoClose: 2000,
     });
-  };
 
   const verifySuccessCallback = () => setStepNumber((step) => step + 1);
 
   const submitHandler = (e) => {
     e.preventDefault();
+
+    if (
+      ![
+        acceptHealthAgreement,
+        acceptMemberAgreement,
+        acceptKvkk,
+        acceptMemberAgreement,
+      ].every((value) => value)
+    ) {
+      setErrorMessage('Lütfen boş alanları doldurunuz.');
+      return;
+    }
+
+    setErrorMessage('');
 
     dispatch(
       setStepOne(
@@ -194,7 +197,6 @@ const StepOne = () => {
           <Material.CheckBox
             checked={acceptMemberAgreement}
             onChange={(e) => setAcceptMemberAgreement(e.target.checked)}
-            required
             label={
               <div>
                 <span className="underline-text">Üyelik Sözleşmesini</span> ve
@@ -209,23 +211,26 @@ const StepOne = () => {
             checked={acceptHealthAgreement}
             onChange={(e) => setAcceptHealthAgreement(e.target.checked)}
             label="Sağlık muvafakatnamesi okudum, onaylıyorum."
-            required
           />
 
           <Material.CheckBox
             onChange={(e) => setAcceptKvkk(e.target.checked)}
             checked={acceptKvkk}
             label="KVKK okudum, onaylıyorum."
-            required
           />
 
           <Material.CheckBox
             onChange={(e) => setAcceptPermissions(e.target.checked)}
             checked={acceptPermissions}
             label="Açık rıza ve aydınlatma metinleri"
-            required
           />
         </div>
+
+        {errorMessage && (
+          <ErrorMessage>
+            <Svg.ErrorIcon /> {errorMessage}
+          </ErrorMessage>
+        )}
 
         <Button
           type="submit"
@@ -242,7 +247,10 @@ const StepOne = () => {
         color="gray"
         textAlign="center"
       >
-        Hesabınız var mı? <Link to="/login">Giriş Yap</Link>
+        Hesabınız var mı?{' '}
+        <Link style={{ color: 'var(--blue)' }} to="/login">
+          Giriş Yap
+        </Link>
       </Text>
 
       <div className="identfy">
@@ -276,3 +284,18 @@ const StepOne = () => {
 };
 
 export default StepOne;
+
+const ErrorMessage = styled.div`
+  display: flex;
+  font-size: 0.9rem;
+  color: var(--red);
+  font-weight: 500;
+  margin-bottom: 15px;
+  align-items: center;
+
+  svg {
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+  }
+`;
