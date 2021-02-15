@@ -1,14 +1,22 @@
 /* eslint-disable react/jsx-pascal-case */
-import React, { useState, useLayoutEffect, useEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { geolocated } from 'react-geolocated';
+import { toast } from 'react-toastify';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import { getCitiesAndDistict } from 'actions';
-import { Button, Material, IconLabel, AwesomeIcon } from 'components';
+import { getCitiesAndDistict, getRegisterData, setStepThree } from 'actions';
+import {
+  Button,
+  Material,
+  IconLabel,
+  AwesomeIcon,
+  Text,
+  Svg,
+} from 'components';
 import Map from '../../../components/google-maps/MapWidthSearchBox';
 import { genderData, yesNo } from '../../../constants';
 
@@ -16,30 +24,65 @@ const StepThree = (props) => {
   const dispatch = useDispatch();
   const [hasTaxNumber, setHasTaxNumber] = useState(false);
   const [open, setOpen] = useState(false);
+  const [showBranchModal, setShowBranchModal] = useState(false);
   const [formData, setFormData] = useState({});
 
   const handleClose = () => setOpen(false);
   const handleClickOpen = () => setOpen(true);
 
-  const { isLoading, cities, distict } = useSelector(
+  const { data: registerData, isLoading, cities, distict } = useSelector(
     (state) => state.registerData
   );
+
+  const [selectedButtons, setSelectedButtons] = useState([]);
+  const [showAddBranchArea, setShowAddBranchArea] = useState(false);
+
   useLayoutEffect(() => {
+    dispatch(getRegisterData());
     dispatch(getCitiesAndDistict());
   }, []);
+
+  const selectButtonHandler = (key) => {
+    if (selectedButtons.includes(key)) {
+      setSelectedButtons(selectedButtons.filter((item) => item !== key));
+    } else {
+      setSelectedButtons((selecteds) => [...selecteds, key]);
+    }
+  };
 
   const handleFormOnChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
+  const handleBirthdayChange = (event) => {
+    const value = event.target.value.toLocaleDateString().replaceAll('/', '.');
+    setFormData({ ...formData, [event.target.name]: value });
+  };
+
+  const isSuccess = () => {
+    setShowAddBranchArea(true);
+  };
+
+  const isError = () => {
+    toast.error('Hatalı Giriş', {
+      position: 'bottom-right',
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+
+  const submitStepThree = (e) => {
+    e.preventDefault();
+    dispatch(setStepThree({ ...formData }, isSuccess, isError));
+  };
+
   const handleSelectCity = (event) => {
     dispatch(getCitiesAndDistict(event.target.value));
     setFormData({ ...formData, [event.target.name]: event.target.value });
-  };
-
-  const onSubmit = async (event) => {
-    event.preventDefault();
-    // TODO: Add service for each case of step
   };
 
   return isLoading ? (
@@ -69,19 +112,19 @@ const StepThree = (props) => {
       </Dialog>
       <form
         className="step-four-wrapper"
-        onSubmit={onSubmit}
+        onSubmit={submitStepThree}
         autoComplete="off"
       >
         <Material.date
           required
-          name="date"
-          forHtml="date"
+          name="birthday"
+          forHtml="birthday"
           text="Doğum Tarihi"
-          onChange={handleFormOnChange}
+          onChange={handleBirthdayChange}
         />
         <Material.select
           required
-          name="gender"
+          name="genre"
           forHtml="gender"
           label="Cinsiyet"
           onChange={handleFormOnChange}
@@ -167,6 +210,60 @@ const StepThree = (props) => {
         </div>
         <Button type="submit" text="İleri" className="blue" fontWeight="bold" />
       </form>
+      {showBranchModal && (
+        <div className="branch-modal">
+          <div className="modal-content">
+            <Svg.CloseIcon
+              className="close"
+              onClick={() => setShowBranchModal(false)}
+            />
+
+            <p>Lütfen Branş Seçiminizi Yapınız</p>
+
+            <div className="branchWrapper">
+              {registerData?.['spor_branslari']?.map((button) => {
+                const buttonClass = selectedButtons.includes(button.id)
+                  ? 'button activeButton'
+                  : 'button';
+
+                return (
+                  <Button
+                    key={button.id}
+                    className={buttonClass}
+                    onClick={() => selectButtonHandler(button.id)}
+                    text={button.name}
+                  />
+                );
+              })}
+              <Material.CheckBox
+                onChange={(e) => setShowAddBranchArea(e.target.checked)}
+                checked={showAddBranchArea}
+                label="Diğer Branşlar"
+              />
+              {showAddBranchArea && (
+                <>
+                  <Text fontSize="13px" fontWeight="500" className="no-margin">
+                    Ekleyin
+                  </Text>
+                  <Material.TextField
+                    id="branch"
+                    name="branch"
+                    label="Eklemek istediğiniz branşları yazınız"
+                    type="text"
+                  />
+                </>
+              )}
+              <div className="buttonWrapper">
+                <IconLabel
+                  text="Vazgeç"
+                  onClick={() => setShowBranchModal(false)}
+                />
+                <Button fontWeight="bold" className="blue" text="İleri" />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
