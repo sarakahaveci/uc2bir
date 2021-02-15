@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-pascal-case */
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { geolocated } from 'react-geolocated';
 import { toast } from 'react-toastify';
@@ -8,37 +8,42 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import { getCitiesAndDistict, getRegisterData, setStepThree } from 'actions';
-import {
-  Button,
-  Material,
-  IconLabel,
-  AwesomeIcon,
-  Text,
-  Svg,
-} from 'components';
+import { getCitiesAndDistict, setStepThree, submitUserBranch } from 'actions';
+import { Button, Material, IconLabel, AwesomeIcon, Text } from 'components';
 import Map from '../../../components/google-maps/MapWidthSearchBox';
-import { genderData, yesNo } from '../../../constants';
+import { genderData, yesNo, WORK_PLACE } from '../../../constants';
+import { StepContext } from './RegisterSteps';
 
 const StepThree = (props) => {
   const dispatch = useDispatch();
-  const [hasTaxNumber, setHasTaxNumber] = useState(false);
-  const [open, setOpen] = useState(false);
-  const [showBranchModal, setShowBranchModal] = useState(false);
-  const [formData, setFormData] = useState({});
-
-  const handleClose = () => setOpen(false);
-  const handleClickOpen = () => setOpen(true);
-
   const { data: registerData, isLoading, cities, distict } = useSelector(
     (state) => state.registerData
   );
 
+  const { stepNumber, setStepNumber } = useContext(StepContext);
+
+  const { user } = useSelector((state) => state.auth);
+
+  const isWorkPlace = user?.user?.type_id === WORK_PLACE;
+
+  const [hasTaxNumber, setHasTaxNumber] = useState(isWorkPlace);
+  const [open, setOpen] = useState(false);
+  const [formData, setFormData] = useState({});
+
   const [selectedButtons, setSelectedButtons] = useState([]);
   const [showAddBranchArea, setShowAddBranchArea] = useState(false);
+  const [showBranchModal, setShowBranchModal] = useState(false);
 
-  useLayoutEffect(() => {
-    dispatch(getRegisterData());
+  const handleClose = () => setOpen(false);
+  const handleClickOpen = () => setOpen(true);
+
+  useEffect(() => {
+    if (stepNumber === 4) {
+      setShowBranchModal(true);
+    }
+  }, [stepNumber]);
+
+  useEffect(() => {
     dispatch(getCitiesAndDistict());
   }, []);
 
@@ -55,12 +60,23 @@ const StepThree = (props) => {
   };
 
   const handleBirthdayChange = (event) => {
-    const value = event.target.value.toLocaleDateString().replaceAll('/', '.');
+    const value = event.target?.value
+      ?.toLocaleDateString?.()
+      .replaceAll('/', '.');
     setFormData({ ...formData, [event.target.name]: value });
   };
 
   const isSuccess = () => {
-    setShowAddBranchArea(true);
+    toast.success('Giriş Başarılı!', {
+      position: 'bottom-right',
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    setStepNumber((value) => value + 1);
   };
 
   const isError = () => {
@@ -80,13 +96,18 @@ const StepThree = (props) => {
     dispatch(setStepThree({ ...formData }, isSuccess, isError));
   };
 
+  const submitBranch = (e) => {
+    e.preventDefault();
+    dispatch(submitUserBranch(selectedButtons, isSuccess, isError));
+  };
+
   const handleSelectCity = (event) => {
     dispatch(getCitiesAndDistict(event.target.value));
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
   return isLoading ? (
-    'Loading'
+    <div>Yükleniyor</div>
   ) : (
     <>
       <Dialog
@@ -117,28 +138,33 @@ const StepThree = (props) => {
       >
         <Material.date
           required
-          name="birthday"
+          name={isWorkPlace ? 'company_date' : 'birthday'}
           forHtml="birthday"
-          text="Doğum Tarihi"
+          label={isWorkPlace ? 'İş Yeri Kuruluş tarihi' : 'Doğum Tarihi'}
           onChange={handleBirthdayChange}
         />
-        <Material.select
-          required
-          name="genre"
-          forHtml="gender"
-          label="Cinsiyet"
-          onChange={handleFormOnChange}
-          items={genderData}
-          icon={AwesomeIcon.Gender}
-        />
-        <Material.select
-          required
-          name="tax"
-          forHtml="tax"
-          label="Vergi Mükellefi misiniz?"
-          onChange={(event) => setHasTaxNumber(!!event.target.value)}
-          items={yesNo}
-        />
+
+        {!isWorkPlace && (
+          <>
+            <Material.select
+              required
+              name="genre"
+              forHtml="gender"
+              label="Cinsiyet"
+              onChange={handleFormOnChange}
+              items={genderData}
+              icon={AwesomeIcon.Gender}
+            />
+            <Material.select
+              required
+              name="tax"
+              forHtml="tax"
+              label="Vergi Mükellefi misiniz?"
+              onChange={(event) => setHasTaxNumber(!!event.target.value)}
+              items={yesNo}
+            />
+          </>
+        )}
         <IconLabel
           icon={AwesomeIcon.Map}
           text="Haritadan Ekle"
@@ -176,7 +202,7 @@ const StepThree = (props) => {
               id="taxNumber"
               name="tax_number"
               label="Vergi No"
-              type="text"
+              type="number"
               onChange={handleFormOnChange}
             />
           </>
@@ -194,7 +220,7 @@ const StepThree = (props) => {
               id="apartmentNo"
               name="apt_no"
               label="Bina"
-              type="text"
+              type="number"
               onChange={handleFormOnChange}
             />
           </div>
@@ -203,7 +229,7 @@ const StepThree = (props) => {
               id="buildNo"
               name="build_no"
               label="Daire"
-              type="text"
+              type="number"
               onChange={handleFormOnChange}
             />
           </div>
@@ -212,11 +238,13 @@ const StepThree = (props) => {
       </form>
       {showBranchModal && (
         <div className="branch-modal">
-          <div className="modal-content">
-            <Svg.CloseIcon
-              className="close"
+          <div className="branch-modal-content col-md-5 col-xs-12">
+            <Text
+              className="text-right"
               onClick={() => setShowBranchModal(false)}
-            />
+            >
+              X
+            </Text>
 
             <p>Lütfen Branş Seçiminizi Yapınız</p>
 
@@ -254,11 +282,21 @@ const StepThree = (props) => {
                 </>
               )}
               <div className="buttonWrapper">
-                <IconLabel
-                  text="Vazgeç"
-                  onClick={() => setShowBranchModal(false)}
-                />
-                <Button fontWeight="bold" className="blue" text="İleri" />
+                <div className="col-3 col-md-3 col-sm-12">
+                  <IconLabel
+                    text="Vazgeç"
+                    onClick={() => setShowBranchModal(false)}
+                  />
+                </div>
+                <div className="col-8 col-md-8 col-sm-12">
+                  <Button
+                    fontWeight="bold"
+                    className="blue ml-auto"
+                    text="İleri"
+                    size="lg"
+                    onClick={submitBranch}
+                  />
+                </div>
               </div>
             </div>
           </div>

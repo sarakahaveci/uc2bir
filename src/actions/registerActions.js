@@ -9,10 +9,21 @@ import {
   GET_DISTICK,
   VERIFY_CODE,
   DELETE_FILE,
+  SUBMIT_BRANCH,
 } from '../constants';
 
 export const setStepOne = (
-  { name, email, phone, password, type_id, kvkk, agreement, health_status, permission },
+  {
+    name,
+    email,
+    phone,
+    password,
+    type_id,
+    kvkk,
+    agreement,
+    health_status,
+    permission,
+  },
   successCallback,
   errorCallback
 ) => async (dispatch) => {
@@ -67,7 +78,17 @@ export const setStepTwo = (
 };
 
 export const setStepThree = (
-  { birthday, genre, about, city, town, district, address_detail, build_no, apt_no },
+  {
+    birthday,
+    genre,
+    about,
+    city,
+    town,
+    district,
+    address_detail,
+    build_no,
+    apt_no,
+  },
   successCallback,
   errorCallback
 ) => async (dispatch) => {
@@ -177,6 +198,28 @@ export const verifyCode = (
       body: {
         phone,
         code,
+      },
+    },
+  });
+};
+
+export const submitUserBranch = (
+  branch,
+  successCallback,
+  errorCallback
+) => async (dispatch, getState) => {
+  const url = '/user/profile/branch';
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'POST',
+      url,
+      label: SUBMIT_BRANCH,
+      callBack: () => successCallback(),
+      errorHandler: errorCallback(),
+      body: {
+        branch,
       },
     },
   });
