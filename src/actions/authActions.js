@@ -3,6 +3,7 @@ import {
   LOGIN,
   FORGOT_PASSWORD,
   USER_DETAILS_SET_FROM_STORAGE,
+  SOCIAL_LOGIN,
 } from '../constants';
 import { localStorage } from 'utils';
 
@@ -92,4 +93,23 @@ export const setUserDetailsFromStorage = () => (dispatch, getState) => {
       },
     });
   }
+};
+
+export const socialLogin = (user, successCallback) => async (
+  dispatch,
+  getState
+) => {
+  const url = '/social-login';
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'POST',
+      url,
+      label: SOCIAL_LOGIN,
+      transformData: (data) => data.data,
+      callBack: () => successCallback(),
+      body: user,
+    },
+  });
 };

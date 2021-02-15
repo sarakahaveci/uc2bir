@@ -52,7 +52,7 @@ const StyledButton = styled(BaseButton)`
         width: 100%;
         height: 100%;
         position: absolute;
-        background: var(--light-blue);
+        background: var(--blue);
         transform: matrix(1, 0, -0.4, 1, 0, 0);
       }
     `}
@@ -62,7 +62,7 @@ const StyledButton = styled(BaseButton)`
       background: transparent;
       font-weight: bold;
       border-radius: 0;
-      color: var(--light-blue);
+      color: var(--blue);
       display: flex;
       justify-content: center;
       flex-direction: column;
@@ -73,7 +73,7 @@ const StyledButton = styled(BaseButton)`
         content: '';
         width: 90px;
         height: 2px;
-        background: var(--light-blue);
+        background: var(--blue);
         margin-top: 5px;
       }
     `}

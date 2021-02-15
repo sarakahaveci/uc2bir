@@ -14,7 +14,7 @@ const Form = styled.form`
 
 const OtpInput = styled.input`
   border: none !important;
-  border-bottom: 1px solid var(--light-blue) !important;
+  border-bottom: 1px solid var(--blue) !important;
   width: 35px !important;
   margin-right: 15px !important;
   text-align: center;

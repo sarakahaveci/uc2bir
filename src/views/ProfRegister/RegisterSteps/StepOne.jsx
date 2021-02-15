@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -6,7 +6,7 @@ import { Modal, Spinner } from 'react-bootstrap';
 import InputMask from 'react-input-mask';
 
 import { StepContext } from './RegisterSteps';
-import { login, verifyCode, setStepOne, getRegisterData } from 'actions';
+import { login, verifyCode, setStepOne } from 'actions';
 import { Button, Text, Material, Otp, SocialLogin } from 'components';
 import { macroConverter } from 'utils';
 import Svg from 'components/statics/svg';
@@ -53,10 +53,6 @@ const StepOne = () => {
   const [shrink, setShrink] = useState(false);
 
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getRegisterData());
-  }, []);
 
   useEffect(() => {
     if (stepNumber === 2) {
@@ -136,7 +132,9 @@ const StepOne = () => {
           items={registerData?.['user-type']}
         />
 
-        {macro.map((item) => macroConverter(form, setForm, item))}
+        {macro.map((item, index) => (
+          <Fragment key={index}>{macroConverter(form, setForm, item)}</Fragment>
+        ))}
 
         <div className="materials">
           <InputMask

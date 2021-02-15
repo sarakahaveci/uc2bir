@@ -2,7 +2,7 @@
 
 :root {
   --base-font-size: 16px;
-  --light-blue: #00b2a9;
+  --blue: #00b2a9;
   --black1: #1a1818;
   --black2: #181818;
   --gray1: #909090;
@@ -29,7 +29,7 @@ body {
 }
 
 .MuiPopover-root {
-  z-index: 100000!important;
+  z-index: 100000 !important;
 }
 
 #pt-point-page {

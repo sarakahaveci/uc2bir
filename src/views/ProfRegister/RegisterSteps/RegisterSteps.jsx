@@ -1,7 +1,9 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { Modal } from 'react-bootstrap';
+import styled from 'styled-components';
 
-import { StepBar, Text } from 'components';
+import { StepBar, Text, Svg } from 'components';
+import { Link } from 'react-router-dom';
 import StepOne from './StepOne';
 import StepThree from './StepThree';
 import StepFour from './StepFour';
@@ -14,7 +16,7 @@ import StepNine from './StepNine';
 export const StepContext = createContext();
 
 const RegisterSteps = () => {
-  const [stepNumber, setStepNumber] = useState(10);
+  const [stepNumber, setStepNumber] = useState(1);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -72,19 +74,27 @@ const RegisterSteps = () => {
       {page}
 
       <Modal show={open} onHide={() => setOpen(false)} backdrop="static">
-        <div className="prof-register-modal">
-          <Text variant="h2" fontSize="1.2rem" color="dark">
-            Tebrikler
+        <Container>
+          <Svg.SuccessIcon />
+
+          <Text
+            variant="h2"
+            fontSize="1.2rem"
+            color="dark"
+            fontWeight="500"
+            textAlign="center"
+          >
+            ARAMIZA HOŞGELDİN!
           </Text>
 
           <Text textAlign="center" fontSize="1rem" color="dark">
-            Başlangıç yapmak için harika bir gün… Şimdinin gücüne inan! Paketini
-            seçmek için buradan devam et
+            Sistem onayın için ilgili arkadaşlarımız en kısa zamanda seninle
+            iletişime geçecek.
           </Text>
+        </Container>
 
-          <Text textAlign="center" fontSize="1rem" color="dark">
-            ANASAYFA
-          </Text>
+        <div className="modal-footer">
+          <StyledLink to="/">ANASAYFA</StyledLink>
         </div>
       </Modal>
     </StepContext.Provider>
@@ -92,3 +102,27 @@ const RegisterSteps = () => {
 };
 
 export default RegisterSteps;
+
+const StyledLink = styled(Link)`
+  font-size: 1.2rem;
+  color: var(--blue);
+  text-align: center;
+  display: block;
+  width: 100%;
+
+  &:hover {
+    color: var(--blue);
+  }
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 110px 30px;
+
+  svg {
+    margin-bottom: 15px;
+  }
+`;
