@@ -6,7 +6,6 @@ import { StepBar, Text, Svg } from 'components';
 import { Link } from 'react-router-dom';
 import StepOne from './StepOne';
 import StepThree from './StepThree';
-import StepFour from './StepFour';
 import StepFive from './StepFive';
 import StepSix from './StepSix';
 import StepSeven from './StepSeven';
@@ -33,10 +32,8 @@ const RegisterSteps = () => {
       page = <StepOne />;
       break;
     case 3:
-      page = <StepThree />;
-      break;
     case 4:
-      page = <StepFour />;
+      page = <StepThree />;
       break;
     case 5:
       page = <StepFive />;

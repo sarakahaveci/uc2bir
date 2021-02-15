@@ -1,4 +1,15 @@
 export const genderData = [
-  { id: 0, name: 'Erkek' },
-  { id: 1, name: 'Kadın' },
+  { id: 'm', name: 'Erkek' },
+  { id: 'f', name: 'Kadın' },
+];
+
+export const yesNo = [
+  {
+    id: 0,
+    name: 'Hayır',
+  },
+  {
+    id: 1,
+    name: 'Evet',
+  },
 ];

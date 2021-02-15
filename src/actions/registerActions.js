@@ -9,6 +9,7 @@ import {
   GET_DISTICK,
   VERIFY_CODE,
   DELETE_FILE,
+  SUBMIT_BRANCH,
 } from '../constants';
 
 export const setStepOne = (
@@ -202,6 +203,28 @@ export const verifyCode = (
       body: {
         phone,
         code,
+      },
+    },
+  });
+};
+
+export const submitUserBranch = (
+  branch,
+  successCallback,
+  errorCallback
+) => async (dispatch, getState) => {
+  const url = '/user/profile/branch';
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'POST',
+      url,
+      label: SUBMIT_BRANCH,
+      callBack: () => successCallback(),
+      errorHandler: errorCallback(),
+      body: {
+        branch,
       },
     },
   });
