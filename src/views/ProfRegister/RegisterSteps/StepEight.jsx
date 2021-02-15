@@ -8,6 +8,7 @@ const StepEight = () => {
       <FileUpload
         fileTypeName="Sağlık Raporu"
         title="İlgili kurumlardan aldığınız sağlık raporunuzu ekleyin."
+        showPassButton
       >
         <div className="health-report">
           Sağlık raporunuzu 30 gün içerisinde sistemimize yüklemeniz

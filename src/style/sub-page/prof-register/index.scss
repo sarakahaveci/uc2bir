@@ -4,7 +4,7 @@
 
 .file {
   padding: 35px 130px;
-  border: 2px dashed var(--light-blue);
+  border: 2px dashed var(--blue);
   border-radius: 4px;
   display: flex;
   flex-direction: column;
@@ -64,7 +64,7 @@
   }
 
   .progress-bar {
-    background-color: var(--light-blue);
+    background-color: var(--blue);
   }
 
   &__info-row {
@@ -130,7 +130,7 @@
 .step-one-wrapper {
   .underline-text {
     text-decoration: underline;
-    color: var(--light-blue);
+    color: var(--blue);
   }
 
   &__checkbox-wrapper {

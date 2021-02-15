@@ -1,5 +1,4 @@
-// @ts-nocheck
-import React, { useLayoutEffect } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 
@@ -18,7 +17,7 @@ const List = styled.ul`
 const ProfRegister = () => {
   const dispatch = useDispatch();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     dispatch(getRegisterData());
   }, []);
 
@@ -65,7 +64,7 @@ const ProfRegister = () => {
         </section>
         <section className="col-12 col-xl-6 page login-page-widget">
           <div className="row">
-            <div className="page-content">
+            <div className="page-content-register">
               <div className="contain">
                 <RegisterSteps />
               </div>

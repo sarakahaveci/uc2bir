@@ -3,6 +3,9 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
   USER_DETAILS_SET_FROM_STORAGE,
+  SOCIAL_LOGIN_REQUEST,
+  SOCIAL_LOGIN_SUCCESS,
+  SOCIAL_LOGIN_FAILURE,
 } from '../constants';
 
 const initialState = {
@@ -16,18 +19,20 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case LOGIN_REQUEST:
+    case SOCIAL_LOGIN_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+
+    case SOCIAL_LOGIN_SUCCESS:
     case USER_DETAILS_SET_FROM_STORAGE:
       return {
         ...action.payload,
         isLoading: false,
         error: null,
         isAuthenticated: true,
-      };
-
-    case LOGIN_REQUEST:
-      return {
-        ...state,
-        isLoading: true,
       };
 
     case LOGIN_SUCCESS:
@@ -42,6 +47,7 @@ export default (state = initialState, action) => {
       };
 
     case LOGIN_FAILURE:
+    case SOCIAL_LOGIN_FAILURE:
       return {
         ...state,
         isLoading: false,

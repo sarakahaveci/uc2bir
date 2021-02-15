@@ -14,7 +14,7 @@ const Form = styled.form`
 
 const OtpInput = styled.input`
   border: none !important;
-  border-bottom: 1px solid var(--light-blue) !important;
+  border-bottom: 1px solid var(--blue) !important;
   width: 35px !important;
   margin-right: 15px !important;
   text-align: center;
@@ -28,7 +28,7 @@ const Otp = ({ verifySuccessCallback }) => {
   const [otp5, setOtp5] = useState('');
   const [otp6, setOtp6] = useState('');
 
-  const [counter, setCounter] = useState(70);
+  const [counter, setCounter] = useState(119);
 
   const interval = useRef();
 
@@ -186,7 +186,12 @@ const Otp = ({ verifySuccessCallback }) => {
         />
       </Form>
 
-      <Text fontSize="0.9rem" color="blue" textAlign="center">
+      <Text
+        fontSize="0.9rem"
+        color="blue"
+        textAlign="center"
+        onClick={() => dispatch(verifyCode())}
+      >
         Güvenlik kodunu tekrar gönder ({Math.floor(counter / 60)}:
         {`${Math.ceil(counter % 60) < 10 ? 0 : ''}${Math.ceil(counter % 60)}`})
       </Text>

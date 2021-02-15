@@ -93,8 +93,6 @@ export default (state = initialState, action) => {
       };
 
     case VERIFY_CODE_FAILURE:
-      console.log('action.payload: ', action.payload);
-
       return {
         ...state,
         verifyCode: {
