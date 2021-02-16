@@ -6,20 +6,24 @@ import Typography from '@material-ui/core/Typography';
 import { colorGenerator } from '../../utils';
 
 const StyledTitle = styled(Typography)`
-  font-family: ${(props) => (props.fontFamily && props.fontFamily) || 'Poppins, sans-serif'} !important;
+  font-family: ${(props) =>
+    (props.fontFamily && props.fontFamily) || 'Poppins, sans-serif'} !important;
   color: ${(props) => props.color && colorGenerator(props.color)};
   font-weight: ${(props) => props.fontWeight || 'bold'} !important;
   font-size: ${(props) => props.fontSize && props.fontSize} !important;
-  text-align: center;
-  display: block;
+  letter-spacing: ${(props) => !props.letterSpacing && 'initial'} !important;
+  text-align: ${(props) =>
+    props.textAlign ? props.textAlign : 'center'} !important;
+  display: block !important;
+  margin: ${(props) => props.margin && props.margin} !important;
 `;
 
 const Titles = ({
   component,
   textRight,
   textLeft,
-  lineDisable = false,
-  color = "dark",
+  lineDisable = true,
+  color = 'dark',
   children,
   ...rest
 }) => (
@@ -28,7 +32,7 @@ const Titles = ({
     className={`typography title ${lineDisable ? '' : 'line'} ${
       textLeft ? 'text-left' : ''
     } ${textRight ? 'text-right' : ''}`}
-    color={color} 
+    color={color}
     {...rest}
   >
     {children}

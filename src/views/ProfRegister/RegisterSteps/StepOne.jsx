@@ -7,11 +7,12 @@ import InputMask from 'react-input-mask';
 import styled from 'styled-components';
 
 import { StepContext } from './RegisterSteps';
-import { login, verifyCode, setStepOne } from 'actions';
+import { verifyCode, setStepOne } from 'actions';
 import { Button, Text, Material, Otp, SocialLogin } from 'components';
 import { macroConverter } from 'utils';
 import Svg from 'components/statics/svg';
 import { TextField } from '@material-ui/core';
+import Agreement from './Agreement';
 
 const macro = [
   {
@@ -53,6 +54,7 @@ const StepOne = () => {
   const [inputType, setInputType] = useState('password');
   const [shrink, setShrink] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [openAgreement, setOpenAgreement] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -163,7 +165,7 @@ const StepOne = () => {
             {() => (
               <TextField
                 InputLabelProps={{ shrink }}
-                label="Telefon"
+                label="Telefon *"
                 className="material-inputs has-icon"
                 InputProps={{
                   startAdornment: (
@@ -199,10 +201,26 @@ const StepOne = () => {
             onChange={(e) => setAcceptMemberAgreement(e.target.checked)}
             label={
               <div>
-                <span className="underline-text">Üyelik Sözleşmesini</span> ve
-                &nbsp;
-                <span className="underline-text">Ekleri'ni</span> kabul
-                ediyorum.
+                <span
+                  className="underline-text"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setOpenAgreement(true);
+                  }}
+                >
+                  Üyelik Sözleşmesini
+                </span>
+                ve &nbsp;
+                <span
+                  className="underline-text"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setOpenAgreement(true);
+                  }}
+                >
+                  Ekleri'ni
+                </span>
+                kabul ediyorum.
               </div>
             }
           />
@@ -247,7 +265,7 @@ const StepOne = () => {
         color="gray"
         textAlign="center"
       >
-        Hesabınız var mı?{' '}
+        Hesabınız var mı?
         <Link style={{ color: 'var(--blue)' }} to="/login">
           Giriş Yap
         </Link>
@@ -279,11 +297,26 @@ const StepOne = () => {
           {verifyLoading && <Spinner animation="border" />}
         </div>
       </Modal>
+
+      <StyledModal show={openAgreement} onHide={() => setOpenAgreement(false)}>
+        <Agreement
+          setAcceptMemberAgreement={setAcceptMemberAgreement}
+          setOpenAgreement={setOpenAgreement}
+        />
+      </StyledModal>
     </div>
   );
 };
 
 export default StepOne;
+
+const StyledModal = styled(Modal)`
+  .modal-content {
+    width: 600px;
+    background-color: var(--white1);
+    padding: 15px 30px;
+  }
+`;
 
 const ErrorMessage = styled.div`
   display: flex;

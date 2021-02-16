@@ -10,6 +10,7 @@ const StyledButton = styled(BaseButton)`
   margin: ${(props) => props.margin && props.margin};
   min-height: 45px;
   background: ${(props) => props.disabled && 'lightgray'} !important;
+  width: ${(props) => props.width && props.width};
 
   ${(props) =>
     props.soft &&

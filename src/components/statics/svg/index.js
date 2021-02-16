@@ -22,6 +22,8 @@ import Password from './images/password.svg';
 import Eye from './images/eye.svg';
 import Info from './images/info.svg';
 import Success from './images/success.svg';
+import ListItem from './images/list-item.svg';
+import ArrowDown from './images/arrow-down.svg';
 
 //categories
 import I1 from './images/pt.svg';
@@ -50,6 +52,9 @@ const Svg = {
   PasswordIcon: (props) => <ReactSVG {...props} src={Password} />,
   InfoIcon: (props) => <ReactSVG {...props} src={Info} />,
   SuccessIcon: (props) => <ReactSVG {...props} src={Success} />,
+  ListItemIcon: (props) => <ReactSVG {...props} src={ListItem} />,
+  ArrowDownIcon: (props) => <ReactSVG {...props} src={ArrowDown} />,
+  YogaIcon: (props) => <ReactSVG {...props} src={I4} />,
 
   Categories: [
     {
