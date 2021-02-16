@@ -11,12 +11,12 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { getCitiesAndDistict, setStepThree, submitUserBranch } from 'actions';
 import { Button, Material, IconLabel, AwesomeIcon, Text } from 'components';
 import Map from '../../../components/google-maps/MapWidthSearchBox';
-import { genderData, yesNo, WORK_PLACE } from '../../../constants';
+import { genderData, yesNo, WORK_PLACE, DIETITIAN } from '../../../constants';
 import { StepContext } from './RegisterSteps';
 
 const StepThree = (props) => {
   const dispatch = useDispatch();
-  const { data: registerData, isLoading, cities, distict } = useSelector(
+  const { data: registerData, isLoading, cities, distict, town } = useSelector(
     (state) => state.registerData
   );
 
@@ -24,7 +24,8 @@ const StepThree = (props) => {
 
   const { user } = useSelector((state) => state.auth);
 
-  const isWorkPlace = user?.user?.type_id === WORK_PLACE;
+  const isWorkPlace = user?.type_id === WORK_PLACE;
+  const isDietitian = user?.type_id === DIETITIAN;
 
   const [hasTaxNumber, setHasTaxNumber] = useState(isWorkPlace);
   const [open, setOpen] = useState(false);
@@ -44,7 +45,7 @@ const StepThree = (props) => {
   }, [stepNumber]);
 
   useEffect(() => {
-    dispatch(getCitiesAndDistict());
+    dispatch(getCitiesAndDistict({}));
   }, []);
 
   const selectButtonHandler = (key) => {
@@ -76,7 +77,8 @@ const StepThree = (props) => {
       draggable: true,
       progress: undefined,
     });
-    setStepNumber((value) => value + 1);
+
+    setStepNumber((value) => (isDietitian ? value + 2 : value + 1));
   };
 
   const isError = () => {
@@ -101,8 +103,8 @@ const StepThree = (props) => {
     dispatch(submitUserBranch(selectedButtons, isSuccess, isError));
   };
 
-  const handleSelectCity = (event) => {
-    dispatch(getCitiesAndDistict(event.target.value));
+  const handleSelectRelion = (event) => {
+    dispatch(getCitiesAndDistict({ [event.target.name]: event.target.value }));
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
@@ -176,22 +178,29 @@ const StepThree = (props) => {
           name="city"
           forHtml="city"
           label="İl Seçiniz"
-          onChange={handleSelectCity}
+          onChange={handleSelectRelion}
           items={cities}
         />
-
-        {!hasTaxNumber ? (
-          <Material.select
-            required
-            name="district"
-            forHtml="district"
-            label="İlçe Seçiniz"
-            onChange={handleFormOnChange}
-            items={distict ?? []}
-          />
-        ) : (
+        <Material.select
+          required
+          name="district"
+          forHtml="district"
+          label="İlçe Seçiniz"
+          onChange={handleSelectRelion}
+          items={distict ?? []}
+        />
+        <Material.select
+          required
+          name="town"
+          forHtml="rown"
+          label="Mahalle Seçiniz"
+          onChange={handleFormOnChange}
+          items={town ?? []}
+        />
+        {hasTaxNumber && (
           <>
             <Material.TextField
+              required
               id="taxOffice"
               name="tax_office"
               label="Vergi Dairesi"
@@ -199,6 +208,7 @@ const StepThree = (props) => {
               onChange={handleFormOnChange}
             />
             <Material.TextField
+              required
               id="taxNumber"
               name="tax_number"
               label="Vergi No"
@@ -208,6 +218,7 @@ const StepThree = (props) => {
           </>
         )}
         <Material.TextField
+          required
           id="addressDetail"
           name="address_detail"
           label="Açık Adres"
@@ -217,6 +228,7 @@ const StepThree = (props) => {
         <div className="d-flex">
           <div className="adress-no">
             <Material.TextField
+              required
               id="apartmentNo"
               name="apt_no"
               label="Bina"
@@ -226,6 +238,7 @@ const StepThree = (props) => {
           </div>
           <div className="adress-apartment">
             <Material.TextField
+              required
               id="buildNo"
               name="build_no"
               label="Daire"

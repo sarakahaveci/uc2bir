@@ -10,6 +10,7 @@ import {
   VERIFY_CODE,
   DELETE_FILE,
   SUBMIT_BRANCH,
+  GET_TOWN,
 } from '../constants';
 
 export const setStepOne = (
@@ -164,21 +165,29 @@ export const getRegisterData = (errorCallback = () => {}) => async (
   });
 };
 
-export const getCitiesAndDistict = (cityId) => async (dispatch) => {
+export const getCitiesAndDistict = ({ district, city }) => async (dispatch) => {
   const url = '/regions';
-  const body = !!cityId
-    ? {
-        city_id: cityId,
-      }
-    : null;
+  let body;
+  let label = GET_REGIONS;
 
+  if (!!city) {
+    body = {
+      city_id: city,
+    };
+    label = GET_DISTICK;
+  } else if (district) {
+    body = {
+      district_id: district,
+    };
+    label = GET_TOWN;
+  }
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
       method: 'POST',
       url,
-      label: !!cityId ? GET_DISTICK : GET_REGIONS,
-      body: body,
+      label,
+      body,
     },
   });
 };
@@ -222,9 +231,9 @@ export const submitUserBranch = (
       url,
       label: SUBMIT_BRANCH,
       callBack: () => successCallback(),
-      errorHandler: errorCallback(),
+      errorHandler: () => errorCallback(),
       body: {
-        branch,
+        branches: branch,
       },
     },
   });

@@ -11,6 +11,9 @@ import {
   VERIFY_CODE_REQUEST,
   VERIFY_CODE_FAILURE,
   VERIFY_CODE_SUCCESS,
+  GET_TOWN_REQUEST,
+  GET_TOWN_SUCCESS,
+  GET_TOWN_FAILURE,
 } from '../constants';
 
 const initialState = {
@@ -21,6 +24,7 @@ const initialState = {
   isSuccess: false,
   cities: [],
   distict: [{ id: 0, name: 'İl seçimi yapınız' }],
+  town: [{ id: 0, name: 'İl veya ilçe seçimi yapınız' }],
   verifyCode: {
     isLoading: false,
     error: null,
@@ -84,6 +88,14 @@ export default (state = initialState, action) => {
         distict: action.payload.data,
         isLoading: false,
       };
+    case GET_TOWN_SUCCESS:
+      return {
+        ...state,
+        town: action.payload.data,
+        isLoading: false,
+      };
+    case GET_TOWN_FAILURE:
+    case GET_TOWN_REQUEST:
     case GET_DISTICK_REQUEST:
     case GET_REGIONS_FAILURE:
     case GET_DISTICK_FAILURE:
