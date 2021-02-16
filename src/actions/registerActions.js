@@ -231,9 +231,9 @@ export const submitUserBranch = (
       url,
       label: SUBMIT_BRANCH,
       callBack: () => successCallback(),
-      errorHandler: errorCallback(),
+      errorHandler: () => errorCallback(),
       body: {
-        branch,
+        branches: branch,
       },
     },
   });
