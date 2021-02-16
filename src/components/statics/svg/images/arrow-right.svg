@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="7.692" height="13.077" viewBox="0 0 7.692 13.077">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Shape" d="M7.354,1.97,2.786,6.538l4.569,4.569a1.154,1.154,0,1,1-1.632,1.632L.338,7.354a1.154,1.154,0,0,1,0-1.632L5.723.338A1.154,1.154,0,0,1,7.354,1.97Z" transform="translate(0 0)" fill="#909090"/>
+    </clipPath>
+  </defs>
+  <g id="Group_7180" data-name="Group 7180" transform="translate(7.692 13.077) rotate(-180)" clip-path="url(#clip-path)">
+    <g id="_Color" data-name="↳ 🎨Color" transform="translate(-0.769 -3.846)">
+      <rect id="_Color_background" data-name="↳ 🎨Color background" width="20" height="20" fill="#909090"/>
+      <rect id="Color" width="20" height="20" fill="#909090"/>
+    </g>
+  </g>
+</svg>

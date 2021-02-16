@@ -24,6 +24,7 @@ import Info from './images/info.svg';
 import Success from './images/success.svg';
 import ListItem from './images/list-item.svg';
 import ArrowDown from './images/arrow-down.svg';
+import ArrowRight from './images/arrow-right.svg';
 
 //categories
 import I1 from './images/pt.svg';
@@ -54,6 +55,7 @@ const Svg = {
   SuccessIcon: (props) => <ReactSVG {...props} src={Success} />,
   ListItemIcon: (props) => <ReactSVG {...props} src={ListItem} />,
   ArrowDownIcon: (props) => <ReactSVG {...props} src={ArrowDown} />,
+  ArrowRightIcon: (props) => <ReactSVG {...props} src={ArrowRight} />,
   YogaIcon: (props) => <ReactSVG {...props} src={I4} />,
 
   Categories: [
