@@ -181,29 +181,26 @@ const StepThree = (props) => {
           onChange={handleSelectRelion}
           items={cities}
         />
-
-        {!hasTaxNumber ? (
-          <>
-            <Material.select
-              required
-              name="district"
-              forHtml="district"
-              label="İlçe Seçiniz"
-              onChange={handleSelectRelion}
-              items={distict ?? []}
-            />
-            <Material.select
-              required
-              name="town"
-              forHtml="rown"
-              label="Mahalle Seçiniz"
-              onChange={handleFormOnChange}
-              items={town ?? []}
-            />
-          </>
-        ) : (
+        <Material.select
+          required
+          name="district"
+          forHtml="district"
+          label="İlçe Seçiniz"
+          onChange={handleSelectRelion}
+          items={distict ?? []}
+        />
+        <Material.select
+          required
+          name="town"
+          forHtml="rown"
+          label="Mahalle Seçiniz"
+          onChange={handleFormOnChange}
+          items={town ?? []}
+        />
+        {hasTaxNumber && (
           <>
             <Material.TextField
+              required
               id="taxOffice"
               name="tax_office"
               label="Vergi Dairesi"
@@ -211,6 +208,7 @@ const StepThree = (props) => {
               onChange={handleFormOnChange}
             />
             <Material.TextField
+              required
               id="taxNumber"
               name="tax_number"
               label="Vergi No"
@@ -220,6 +218,7 @@ const StepThree = (props) => {
           </>
         )}
         <Material.TextField
+          required
           id="addressDetail"
           name="address_detail"
           label="Açık Adres"
@@ -229,6 +228,7 @@ const StepThree = (props) => {
         <div className="d-flex">
           <div className="adress-no">
             <Material.TextField
+              required
               id="apartmentNo"
               name="apt_no"
               label="Bina"
@@ -238,6 +238,7 @@ const StepThree = (props) => {
           </div>
           <div className="adress-apartment">
             <Material.TextField
+              required
               id="buildNo"
               name="build_no"
               label="Daire"
