@@ -18,7 +18,9 @@ export { default as MacroMap } from './MacroMap';
 export { default as MacroCollections } from './MacroCollections';
 export { default as DefBackground } from './statics/background';
 export { default as Otp } from './Otp';
+/*
 export { default as SocialLogin } from './SocialLogin/SocialLogin';
+*/
 export { default as ScrollToTop } from './ScrollToTop';
 export { default as Accordion } from './Accordion/Accordion';
 export { default as Modal } from './Modal/Modal';

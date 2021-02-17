@@ -12,7 +12,6 @@ import {
   Text,
   Button,
   Material,
-  SocialLogin,
 } from '../../components';
 
 const Login = () => {
@@ -154,7 +153,6 @@ const Login = () => {
               <div className="identfy">
                 <span>Veya</span>
               </div>
-              <SocialLogin />
               <a className="login-footer" href="/profesyonel/register">
                 Sistemimizde hizmet vermek için tıklayın
               </a>
