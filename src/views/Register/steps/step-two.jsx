@@ -12,12 +12,12 @@ import { toast } from 'react-toastify';
 
 import { stepTwo as macro } from '../../../macros/registerMacros';
 import { useSelector, useDispatch } from 'react-redux';
-import { setStepTwo } from '../../../actions';
+import { setStepTwo, verifyCode } from '../../../actions';
 
 const StepTwo = (props) => {
 	const getStepOne = useSelector((state) => state.stepOne);
 	const getStepTwo = useSelector((state) => state.stepTwo);
-	const { setSteps, phone } = props;
+	const { setSteps } = props;
 
 	const [verifyCode, setVerifyCode] = useState(false);
 	const [code, setCode] = useState({ ...macro.inputs });
@@ -62,7 +62,22 @@ const StepTwo = (props) => {
 				pauseOnHover: true,
 				draggable: true,
 				progress: undefined,
-				onClose: () => setSteps("step3"),
+				onClose: () => {
+					dispatch(
+						setStepTwo({ ...getStepOne.data, code: Object.values(code).map(val => val).join("") },
+							() => setSteps("step3"),
+							() => toast.error('Bir sorun oluştu lütfen yeniden üye olunuz.', {
+								position: 'bottom-right',
+								autoClose: 2000,
+								hideProgressBar: false,
+								closeOnClick: true,
+								pauseOnHover: true,
+								draggable: true,
+								progress: undefined,
+								onClose: setSteps("step2")
+							}))
+					);
+				},
 			});
 		}, 1000);
 	};
@@ -81,12 +96,12 @@ const StepTwo = (props) => {
 	const dispatch = useDispatch();
 	const vrf_response = () => {
 		dispatch(
-			setStepTwo({ phone: phone, code: "" }, isResponseSuccess, isResponseError)
+			verifyCode({ phone: getStepOne.data.phone, code: "" }, isResponseSuccess, isResponseError)
 		);
 	}
 	const vrf_result = () => {
 		dispatch(
-			setStepTwo({ phone: getStepOne.user.phone, code: Object.values(code).map(val => val).join("") }, isResultSuccess, isResultError)
+			setStepTwo({ phone: getStepOne.data.phone, code: Object.values(code).map(val => val).join("") }, isResultSuccess, isResultError)
 		);
 	}
 
@@ -123,7 +138,6 @@ const StepTwo = (props) => {
 	}
 	return (
 		<>
-			{console.log(getStepOne)}
 			<React.Fragment>
 				<Button className="blue" style={{ marginBottom: 15 }} onClick={handleClickOpen} fontSize="11pt" text="Kodu Gir!" />
 				<Button className="blue" style={{ marginBottom: 15 }} onClick={vrf_response} fontSize="11pt" text="Telefonuma Kodu Tekrar Gönder!" />

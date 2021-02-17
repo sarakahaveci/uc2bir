@@ -11,6 +11,7 @@ import {
   DELETE_FILE,
   SUBMIT_BRANCH,
   GET_TOWN,
+  LOGIN,
 } from '../constants';
 
 export const setStepOne = (
@@ -60,20 +61,39 @@ export const setStepOne = (
 };
 
 export const setStepTwo = (
-  { phone, code },
+  {
+    name,
+    email,
+    phone,
+    password,
+    type_id,
+    kvkk,
+    agreement,
+    health_status,
+    permission,
+    code,
+  },
   successCallback,
   errorCallback
 ) => async (dispatch) => {
-  const url = '/verify-code';
+  const url = '/register';
 
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
       method: 'POST',
       url,
-      label: REGISTER_STEP_TWO,
+      label: LOGIN,
       body: {
+        name,
+        email,
         phone,
+        password,
+        type_id,
+        kvkk,
+        agreement,
+        health_status,
+        permission,
         code,
       },
       transformData: (data) => data.data,

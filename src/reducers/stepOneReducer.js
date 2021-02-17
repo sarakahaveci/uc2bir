@@ -22,7 +22,7 @@ export default (state = initialState, action) => {
     case REGISTER_STEP_ONE_SUCCESS:
       return {
         ...state,
-        data: action.payload.data,
+        data: action.payload,
         isLoading: false,
         isSuccess: true,
         error: null,
