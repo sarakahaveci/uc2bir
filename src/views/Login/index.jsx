@@ -61,7 +61,7 @@ const Login = () => {
     <FormPages>
       <section className="col-12 col-xl-6 page login-page-widget">
         <div className="row">
-          <div className="page-content">
+          <div className="page-content-login">
             <div className="contain">
               <Text
                 style={{ letterSpacing: 5, marginBottom: 25 }}

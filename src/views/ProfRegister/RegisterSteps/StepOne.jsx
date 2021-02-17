@@ -96,7 +96,7 @@ const StepOne = () => {
         acceptHealthAgreement,
         acceptMemberAgreement,
         acceptKvkk,
-        acceptMemberAgreement,
+        acceptPermissions,
       ].every((value) => value)
     ) {
       setErrorMessage('Lütfen boş alanları doldurunuz.');
@@ -253,14 +253,14 @@ const StepOne = () => {
         textAlign="center"
       >
         Hesabınız var mı?
-        <Link style={{ color: 'var(--blue)' }} to="/login">
+        <Link style={{ color: 'var(--blue)', marginLeft: '5px' }} to="/login">
           Giriş Yap
         </Link>
       </Text>
 
-      <div className="identfy">
+      {/* <div className="identfy">
         <span>Veya</span>
-      </div>
+      </div> */}
 
       {/* <SocialLogin /> */}
 
