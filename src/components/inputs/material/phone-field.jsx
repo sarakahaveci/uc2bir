@@ -6,30 +6,25 @@ import { Svg } from 'components';
 import { TextField } from '@material-ui/core';
 
 const PhoneField = ({
-  id,
-  name,
-  label,
-  type,
   required = false,
-  defaultValue = '',
-  autoComplete = 'on',
-  className = '',
-  icon = false,
+  setData = '',
+  data="",
   onChange = () => { },
   value = '',
-  onKeyUp = () => { },
-  maxLength = '',
-  icon2,
-  icon2Callback,
 }) => {
   const [shrink, setShrink] = useState(false);
+  const [val, setVal] = useState(value);
+  onChange = (event) => {
+    setVal(event.target.value);
+    setData({...data, phone: event.target.value})
+  }
   return (
     <div className="materials">
       <InputMask
         mask="\0(999) 999 99 99"
-        value={value}
         disabled={false}
         onChange={onChange}
+        value={val}
         alwaysShowMask={false}
         maskChar=" "
         onFocus={() => setShrink(true)}
@@ -41,7 +36,8 @@ const PhoneField = ({
         {() => (
           <TextField
             InputLabelProps={{ shrink }}
-            label="Telefon *"
+            label="Telefon"
+            required={required}
             className="material-inputs has-icon"
             InputProps={{
               startAdornment: (

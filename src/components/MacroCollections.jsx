@@ -23,6 +23,8 @@ const MacroCollections = ({macro=[], data={}, setData}) => {
                     setData({ ...data, [e.target.name]: e.target.value }),
                   autoComplete: 'off',
                   icon: val.icon,
+                  setData: setData,
+                  data: data,
                 })}
             </div>
           );
