@@ -221,7 +221,7 @@
 
     .page-content-register {
       @extend .page-content;
-
+      padding-top: 0;
       .file {
         @include sm {
           padding: 35px;
