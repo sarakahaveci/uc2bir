@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React, { useEffect, useState } from 'react';
 
-import { Button, SocialLogin, Text, MacroCollections } from '../../../components';
+import { Button, Text, MacroCollections } from '../../../components';
 
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
@@ -90,7 +90,7 @@ const StepOne = (props) => {
   const onSubmit = async (event) => {
     event.preventDefault();
     if ( registerData ) {
-      const user_type = registerData["user-type"].filter(f => f.key === "st");
+      const user_type = registerData["user-type"].filter(f => f.key === "st") || 0;
       setData({...data, [data.type_id]: user_type.id});
       const response = await actionStepOne();
       return response;
@@ -137,7 +137,7 @@ const StepOne = (props) => {
       <div className="identfy">
         <span>Veya</span>
       </div>
-      <SocialLogin />
+      
     </>
   );
 };

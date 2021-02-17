@@ -6,7 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import { Material, Button } from '../../../components';
+import { Button, Otp } from '../../../components';
 
 import { toast } from 'react-toastify';
 
@@ -88,7 +88,7 @@ const StepTwo = (props) => {
 	}
 	const vrf_result = () => {
 		dispatch(
-			setStepTwo({ ...getStepOne.data, code: Object.values(code).map(val => val).join("") }, isResultSuccess, isResultError)
+			setStepTwo({ ...getStepOne.data, code: code }, isResultSuccess, isResultError)
 		);
 	}
 
@@ -136,16 +136,7 @@ const StepTwo = (props) => {
 						<div className="d-flex flex-wrap dialog-center">
 							<form className="d-flex flex-wrap dialog-center" onSubmit={onSubmit}>
 								<div className="d-flex group-text">
-									{Object.keys(code).map(name =>
-										<Material.TextField
-											required 
-											key={`code-${name}`} 
-											type="number" 
-											name={name} 
-											maxLength={1} 
-											onChange={e => setCode({ ...code, [e.target.name]: e.target.value })}
-										/>
-									)}
+									<Otp otpCallback={setCode}/>
 								</div>
 								<Button 
 									onClick={vrf_response} 
