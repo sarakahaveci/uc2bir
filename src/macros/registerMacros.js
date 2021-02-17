@@ -31,7 +31,7 @@ export const stepOne = {
 			icon: Svg.EmailIcon,
 		},
 		{
-			type: "text",
+			type: "phone",
 			required: true,
 			name: "phone",
 			forHtml: "phone",

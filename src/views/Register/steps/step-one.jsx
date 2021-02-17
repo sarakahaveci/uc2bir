@@ -1,21 +1,24 @@
 // @ts-nocheck
 import React, { useEffect, useState } from 'react';
 
-import { Material, Button, SocialLogin, Text } from '../../../components';
+import { Button, SocialLogin, Text, MacroCollections } from '../../../components';
 
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 
 import { stepOne as macro } from '../../../macros/registerMacros';
 import { useSelector, useDispatch } from 'react-redux';
-import { setStepOne, login } from '../../../actions';
+import { setStepOne, login, setStepTwo } from '../../../actions';
+import StepTwo from './step-two';
 
 const StepOne = (props) => {
   const { setSteps, registerData } = props;
   const dispatch = useDispatch();
 
   const getStepOne = useSelector((state) => state.stepOne);
+  const getStepTwo = useSelector((state) => state.stepTwo);
   const [data, setData] = useState({ ...macro.inputs });
+  const [step_two, set_step_two] = useState(false);
 
   const isSuccess = () => {
     toast.success('Kayıt alındı.', {
@@ -121,100 +124,60 @@ const StepOne = (props) => {
       });
     }
   };
+
+  const isResponseSuccess = () => {
+		toast.success('Kod gönderildi...', {
+			position: 'bottom-right',
+			autoClose: 2000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+		});
+	};
+
+  const isResponseError = () => {
+		toast.error('Kod gönderilemedi...', {
+			position: 'bottom-right',
+			autoClose: 2000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+      onClose: set_step_two(false)
+		});
+	};
+
+  const onClick = async () => {
+    dispatch(
+			setStepTwo({ phone: data.phone, code: "" }, isResponseSuccess, isResponseError)
+		);
+    set_step_two(true);
+  }
   return (
     <>
       <form onSubmit={onSubmit} autoComplete="off">
-        {macro.macro.map((val, key) => {
-          return (
-            <div style={{ width: '100%' }} key={key}>
-              {(val.type === 'text' ||
-                val.type === 'email' ||
-                val.type === 'password' ||
-                val.type === 'date' ||
-                val.number === 'number') &&
-                Material[val.type]({
-                  id: val.name,
-                  name: val.name,
-                  type: val.type,
-                  label: val.text,
-                  required: val.required,
-                  onChange: (e) =>
-                    setData({ ...data, [e.target.name]: e.target.value }),
-                  autoComplete: 'off',
-                  icon: val.icon,
-                })}
-            </div>
-          );
-        })}
-        <div style={{ width: '100%' }}>
-          {macro.macro.map((val, key) => {
-            return (
-              <div style={{ width: '100%' }} key={`radio-${key}`}>
-                {val.type === 'radio' &&
-                  Material[val.type]({
-                    id: val.name,
-                    name: val.name,
-                    type: val.type,
-                    label: val.text,
-                    required: val.required,
-                    onChange: (e) =>
-                      setData({ ...data, [e.target.name]: e.target.value }),
-                    autoComplete: 'off',
-                    items: val.items ? val.items : [],
-                  })}
-              </div>
-            );
-          })}
-        </div>
-        <div style={{ width: '100%' }}>
-          {macro.macro.map((val, key) => {
-            return (
-              <div style={{ width: '100%' }} key={`select-${key}`}>
-                {val.type === 'select' &&
-                  Material[val.type]({
-                    id: val.name,
-                    name: val.name,
-                    type: val.type,
-                    label: val.text,
-                    required: val.required,
-                    onChange: (e) =>
-                      setData({ ...data, [e.target.name]: e.target.value }),
-                    autoComplete: 'off',
-                    icon: val.icon,
-                    items: val.items ? val.items : [],
-                  })}
-              </div>
-            );
-          })}
-        </div>
-        <div style={{ width: '100%', marginBottom: 25, marginTop: 40 }}>
-          {macro.macro.map((val, key) => {
-            return (
-              <div style={{ width: '100%' }} key={`check-${key}`}>
-                {val.type === 'checkbox' &&
-                  Material[val.type]({
-                    id: val.name,
-                    name: val.name,
-                    required: val.required,
-                    type: val.type,
-                    label: val.text || (val.component && val.component()),
-                    onChange: (e) =>
-                      setData({
-                        ...data,
-                        [val.name]: e.target.checked ? 1 : 0,
-                      }),
-                    checked: data[val.name] ? true : false,
-                  })}
-              </div>
-            );
-          })}
-        </div>
-        {!(getStepOne.isLoading) && !(getStepOne.isAuthenticated) ? (
-          <Button 
-            type="submit" 
-            text={`İleri`} 
-            className="blue"
+        <MacroCollections macro={macro.macro} data={data} setData={setData} />
+        {step_two && 
+          <StepTwo
+            phone={data.phone}
+            setSteps={setSteps}
           />
+        }
+        {!(getStepOne.isLoading) && !(getStepOne.isAuthenticated) ? (
+          step_two && !(getStepTwo.isSuccess) && !(getStepTwo.error) ?
+            <Button 
+              onClick={onSubmit}
+              text={`İleri`} 
+              className="blue"
+            /> :           
+            <Button 
+              onClick={onClick}
+              text={`İleri`} 
+              className="blue"
+            />
         ) : (
             <Button
               onClick={() => {

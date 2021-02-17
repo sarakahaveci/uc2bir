@@ -17,7 +17,7 @@ import { setStepTwo } from '../../../actions';
 const StepTwo = (props) => {
 	const getStepOne = useSelector((state) => state.stepOne);
 	const getStepTwo = useSelector((state) => state.stepTwo);
-	const { setSteps } = props;
+	const { setSteps, phone } = props;
 
 	const [verifyCode, setVerifyCode] = useState(false);
 	const [code, setCode] = useState({ ...macro.inputs });
@@ -81,7 +81,7 @@ const StepTwo = (props) => {
 	const dispatch = useDispatch();
 	const vrf_response = () => {
 		dispatch(
-			setStepTwo({ phone: getStepOne.user.phone, code: "" }, isResponseSuccess, isResponseError)
+			setStepTwo({ phone: phone, code: "" }, isResponseSuccess, isResponseError)
 		);
 	}
 	const vrf_result = () => {

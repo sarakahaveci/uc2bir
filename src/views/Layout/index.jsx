@@ -10,14 +10,14 @@ import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
 const Layout = (props) => {
-    return (
-        <div id="pt-point-page">
+	return (
+		<div id="pt-point-page">
 			<Header />
 			{props.children}
 			<Footer />
 			<ToastContainer autoClose={2000} />
 		</div>
-    )
+	)
 }
 
 export default Layout
