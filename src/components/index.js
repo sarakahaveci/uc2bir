@@ -22,4 +22,6 @@ export { default as SocialLogin } from './SocialLogin/SocialLogin';
 export { default as ScrollToTop } from './ScrollToTop';
 export { default as Accordion } from './Accordion/Accordion';
 export { default as Modal } from './Modal/Modal';
+export { default as Tab } from './Tab/Tab';
+export { default as Certificate } from './Certificate/Certificate';
 export { Material } from './inputs/material';
