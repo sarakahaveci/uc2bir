@@ -83,7 +83,7 @@ export const setStepTwo = (
     payload: {
       method: 'POST',
       url,
-      label: LOGIN,
+      label: REGISTER_STEP_TWO,
       body: {
         name,
         email,
