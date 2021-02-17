@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-import { Button, Title, Material, Row, Text } from 'components';
+import { Button, Title, Material, Row, Text, Svg } from 'components';
 
 const Agreement = ({ setAcceptMemberAgreement, setOpenAgreement }) => {
   return (
     <AgreementWrapper>
+      <Svg.CloseIcon
+        className="close-icon"
+        onClick={() => setOpenAgreement(false)}
+      />
+
       <Title
         variant="h5"
         color="softDark"

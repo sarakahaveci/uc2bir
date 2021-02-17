@@ -12,20 +12,23 @@ import { toast } from 'react-toastify';
 
 import { stepTwo as macro } from '../../../macros/registerMacros';
 import { useSelector, useDispatch } from 'react-redux';
-import { setStepTwo } from '../../../actions';
+import { setStepTwo, verifyCode } from '../../../actions';
 
 const StepTwo = (props) => {
 	const getStepOne = useSelector((state) => state.stepOne);
 	const getStepTwo = useSelector((state) => state.stepTwo);
-	const { setSteps, phone } = props;
+	const { setSteps } = props;
 
-	const [verifyCode, setVerifyCode] = useState(false);
+	const [open, setOpen] = useState(true);
+	const fullWidth = true;
+	const maxWidth = 'sm';
+
 	const [code, setCode] = useState({ ...macro.inputs });
 	const [counter, setCounter] = useState(0);
 	const time = 120;
 
 	const isResponseSuccess = () => {
-		setVerifyCode(true);
+		setOpen(true);
 		return setCounter(time);
 	};
 	const isResponseError = () => {
@@ -38,7 +41,6 @@ const StepTwo = (props) => {
 			draggable: true,
 			progress: undefined,
 		});
-		setVerifyCode(false);
 		return setCounter(0);
 	};
 
@@ -51,6 +53,7 @@ const StepTwo = (props) => {
 			pauseOnHover: true,
 			draggable: true,
 			progress: undefined,
+			onClose: setSteps("step3"),
 		});
 
 		setTimeout(() => {
@@ -62,7 +65,6 @@ const StepTwo = (props) => {
 				pauseOnHover: true,
 				draggable: true,
 				progress: undefined,
-				onClose: () => setSteps("step3"),
 			});
 		}, 1000);
 	};
@@ -81,29 +83,23 @@ const StepTwo = (props) => {
 	const dispatch = useDispatch();
 	const vrf_response = () => {
 		dispatch(
-			setStepTwo({ phone: phone, code: "" }, isResponseSuccess, isResponseError)
+			verifyCode({ phone: getStepOne.data.phone, code: "" }, isResponseSuccess, isResponseError)
 		);
 	}
 	const vrf_result = () => {
 		dispatch(
-			setStepTwo({ phone: getStepOne.user.phone, code: Object.values(code).map(val => val).join("") }, isResultSuccess, isResultError)
+			setStepTwo({ ...getStepOne.data, code: Object.values(code).map(val => val).join("") }, isResultSuccess, isResultError)
 		);
 	}
-
-	const [open, setOpen] = useState(true);
-	const fullWidth = true;
-	const maxWidth = 'sm';
 
 	const handleClose = () => setOpen(false);
 	const handleClickOpen = () => setOpen(true);
 
 	useEffect(() => {
-		if (verifyCode) {
-			setOpen(true);
-		} else {
-			vrf_response();
+		if ( getStepOne.isSuccess ) {
+			setCounter(time);
 		}
-	}, [verifyCode]);
+	},[getStepOne.isSuccess]);
 
 	useEffect(() => {
 		if (counter > 0) {
@@ -135,7 +131,7 @@ const StepTwo = (props) => {
 					<DialogTitle className="text-center">Telefon Numaranızı Doğrulayın</DialogTitle>
 					<DialogContent>
 						<DialogContentText style={{ padding: "15px 30px" }} className="text-center">
-							<b>{getStepOne.user.phone}</b> numaralı telefona gönderdiğimiz 6 haneli kodu girin.
+							<b></b> numaralı telefona gönderdiğimiz 6 haneli kodu girin.
           	</DialogContentText>
 						<div className="d-flex flex-wrap dialog-center">
 							<form className="d-flex flex-wrap dialog-center" onSubmit={onSubmit}>

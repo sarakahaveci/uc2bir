@@ -7,8 +7,9 @@ import InputMask from 'react-input-mask';
 import styled from 'styled-components';
 
 import { StepContext } from './RegisterSteps';
-import { verifyCode, setStepOne } from 'actions';
-import { Button, Text, Material, Otp, SocialLogin } from 'components';
+import { setStepOne } from 'actions';
+import { Button, Text, Material } from 'components';
+import StepTwo from './StepTwo';
 import { macroConverter } from 'utils';
 import Svg from 'components/statics/svg';
 import { TextField } from '@material-ui/core';
@@ -34,10 +35,6 @@ const macro = [
 const StepOne = () => {
   const { data: registerData } = useSelector((state) => state.registerData);
 
-  const { isLoading: verifyLoading } = useSelector(
-    (state) => state.registerData.verifyCode
-  );
-
   const { isLoading: registerLoading } = useSelector((state) => state.stepOne);
 
   const { stepNumber, setStepNumber } = useContext(StepContext);
@@ -50,7 +47,7 @@ const StepOne = () => {
   const [acceptHealthAgreement, setAcceptHealthAgreement] = useState(false);
   const [acceptKvkk, setAcceptKvkk] = useState(false);
   const [acceptPermissions, setAcceptPermissions] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [isOtpModalActive, setIsOtpModalActive] = useState(false);
   const [inputType, setInputType] = useState('password');
   const [shrink, setShrink] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -60,7 +57,7 @@ const StepOne = () => {
 
   useEffect(() => {
     if (stepNumber === 2) {
-      setOpen(true);
+      setIsOtpModalActive(true);
     }
   }, [stepNumber]);
 
@@ -75,27 +72,21 @@ const StepOne = () => {
         position: 'bottom-right',
         autoClose: 1000,
         onClose: () => {
-          dispatch(
-            verifyCode(
-              null,
-              () => {},
-              () => {}
-            )
-          );
-
           setStepNumber((step) => step + 1);
         },
       });
     }, 1000);
   };
 
-  const registerErrorCallback = () =>
-    toast.error('Hatalı Kayıt İşlemi', {
-      position: 'bottom-right',
-      autoClose: 2000,
+  const registerErrorCallback = (errorMessages) =>
+    Object.keys(errorMessages)?.forEach((errorKey) => {
+      errorMessages?.[errorKey].forEach((error) =>
+        toast.error(error, {
+          position: 'bottom-right',
+          autoClose: 2000,
+        })
+      );
     });
-
-  const verifySuccessCallback = () => setStepNumber((step) => step + 1);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -141,13 +132,13 @@ const StepOne = () => {
           forHtml="userType"
           label="Üyelik Tipi Seçiniz"
           onChange={(e) => setUserTypeId(e.target.value)}
-          items={registerData?.['user-type']}
+          items={registerData?.['user-type'].filter(
+            (userType) => userType.key !== 'st'
+          )}
         />
-
         {macro.map((item, index) => (
           <Fragment key={index}>{macroConverter(form, setForm, item)}</Fragment>
         ))}
-
         <div className="materials">
           <InputMask
             mask="\0(999) 999 99 99"
@@ -179,7 +170,6 @@ const StepOne = () => {
             )}
           </InputMask>
         </div>
-
         <Material.text
           required
           type={inputType}
@@ -194,7 +184,6 @@ const StepOne = () => {
             setInputType(inputType === 'password' ? 'text' : 'password')
           }
         />
-
         <div className="step-one-wrapper__checkbox-wrapper">
           <Material.CheckBox
             checked={acceptMemberAgreement}
@@ -243,13 +232,11 @@ const StepOne = () => {
             label="Açık rıza ve aydınlatma metinleri"
           />
         </div>
-
         {errorMessage && (
           <ErrorMessage>
             <Svg.ErrorIcon /> {errorMessage}
           </ErrorMessage>
         )}
-
         <Button
           type="submit"
           text="İleri"
@@ -275,28 +262,27 @@ const StepOne = () => {
         <span>Veya</span>
       </div>
 
-      <SocialLogin />
+      {/* <SocialLogin /> */}
 
       {/* STEP TWO  */}
 
-      <Modal show={open} onHide={() => setOpen(false)} backdrop="static">
-        <div className="prof-register-modal">
-          <Text variant="h2" fontSize="1.2rem" color="dark">
-            Telefon Numaranızı Doğrulayın
-          </Text>
-
-          <Text textAlign="center" fontSize="1rem" color="dark">
-            <span className="prof-register-modal__phone">{phone}</span>
-            &nbsp; numaralı telefona gönderdiğimiz 6 haneli kodu girin.
-          </Text>
-
-          <div>
-            <Otp verifySuccessCallback={verifySuccessCallback} />
-          </div>
-
-          {verifyLoading && <Spinner animation="border" />}
-        </div>
-      </Modal>
+      {isOtpModalActive && (
+        <StepTwo
+          formData={{
+            ...form,
+            password,
+            type_id: userTypeId,
+            kvkk: acceptKvkk ? 1 : 0,
+            agreement: acceptMemberAgreement ? 1 : 0,
+            health_status: acceptHealthAgreement ? 1 : 0,
+            permission: acceptPermissions ? 1 : 0,
+            phone,
+          }}
+          isOtpModalActive={isOtpModalActive}
+          setIsOtpModalActive={setIsOtpModalActive}
+          setStepNumber={setStepNumber}
+        />
+      )}
 
       <StyledModal show={openAgreement} onHide={() => setOpenAgreement(false)}>
         <Agreement

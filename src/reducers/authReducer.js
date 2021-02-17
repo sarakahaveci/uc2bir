@@ -6,9 +6,9 @@ import {
   SOCIAL_LOGIN_REQUEST,
   SOCIAL_LOGIN_SUCCESS,
   SOCIAL_LOGIN_FAILURE,
-  REGISTER_STEP_ONE_REQUEST,
-  REGISTER_STEP_ONE_SUCCESS,
-  REGISTER_STEP_ONE_FAILURE,
+  REGISTER_STEP_TWO_REQUEST,
+  REGISTER_STEP_TWO_SUCCESS,
+  REGISTER_STEP_TWO_FAILURE,
 } from '../constants';
 
 const initialState = {
@@ -24,7 +24,7 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_REQUEST:
     case SOCIAL_LOGIN_REQUEST:
-    case REGISTER_STEP_ONE_REQUEST:
+    case REGISTER_STEP_TWO_REQUEST:
       return {
         ...state,
         isLoading: true,
@@ -40,7 +40,7 @@ export default (state = initialState, action) => {
       };
 
     case LOGIN_SUCCESS:
-    case REGISTER_STEP_ONE_SUCCESS:
+    case REGISTER_STEP_TWO_SUCCESS:
       return {
         ...state,
         user: action.payload.user,
@@ -53,7 +53,7 @@ export default (state = initialState, action) => {
 
     case LOGIN_FAILURE:
     case SOCIAL_LOGIN_FAILURE:
-    case REGISTER_STEP_ONE_FAILURE:
+    case REGISTER_STEP_TWO_FAILURE:
       return {
         ...state,
         isLoading: false,

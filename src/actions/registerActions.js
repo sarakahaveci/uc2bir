@@ -54,17 +54,33 @@ export const setStepOne = (
       },
       transformData: (data) => data.data,
       callBack: () => successCallback(),
-      errorHandler: () => errorCallback(),
+      errorHandler: (error) => errorCallback(error.message),
     },
   });
 };
 
 export const setStepTwo = (
-  { phone, code },
+  {
+    name,
+    email,
+    phone,
+    password,
+    type_id,
+    kvkk,
+    agreement,
+    health_status,
+    permission,
+    code,
+  },
   successCallback,
   errorCallback
 ) => async (dispatch) => {
-  const url = '/verify-code';
+  const url = '/register';
+
+  const editedPhone = phone
+    .replace('(', '')
+    .replace(')', '')
+    .replaceAll(' ', '');
 
   await dispatch({
     type: HTTP_REQUEST,
@@ -73,12 +89,20 @@ export const setStepTwo = (
       url,
       label: REGISTER_STEP_TWO,
       body: {
-        phone,
+        name,
+        email,
+        phone: editedPhone,
+        password,
+        type_id,
+        kvkk,
+        agreement,
+        health_status,
+        permission,
         code,
       },
       transformData: (data) => data.data,
       callBack: () => successCallback(),
-      errorHandler: () => errorCallback(),
+      errorHandler: (error) => errorCallback(error.message),
     },
   });
 };
@@ -193,22 +217,20 @@ export const getCitiesAndDistict = ({ district, city }) => async (dispatch) => {
 };
 
 export const verifyCode = (
-  code,
+  { phone, code },
   successCallback,
-  verifyErrorCallback
-) => async (dispatch, getState) => {
-  const phone = getState().auth.user.phone;
-
+  errorCallback
+) => async (dispatch) => {
   const url = '/verify-code';
-
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
       method: 'POST',
       url,
       label: VERIFY_CODE,
+      transformData: (data) => data.data,
       callBack: () => successCallback(),
-      errorHandler: (error) => verifyErrorCallback(error.message),
+      errorHandler: () => errorCallback(),
       body: {
         phone,
         code,
