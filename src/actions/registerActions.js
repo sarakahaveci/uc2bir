@@ -54,7 +54,7 @@ export const setStepOne = (
       },
       transformData: (data) => data.data,
       callBack: () => successCallback(),
-      errorHandler: () => errorCallback(),
+      errorHandler: (error) => errorCallback(error.message),
     },
   });
 };
@@ -77,6 +77,11 @@ export const setStepTwo = (
 ) => async (dispatch) => {
   const url = '/register';
 
+  const editedPhone = phone
+    .replace('(', '')
+    .replace(')', '')
+    .replaceAll(' ', '');
+
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
@@ -86,7 +91,7 @@ export const setStepTwo = (
       body: {
         name,
         email,
-        phone,
+        phone: editedPhone,
         password,
         type_id,
         kvkk,
@@ -97,7 +102,7 @@ export const setStepTwo = (
       },
       transformData: (data) => data.data,
       callBack: () => successCallback(),
-      errorHandler: () => errorCallback(),
+      errorHandler: (error) => errorCallback(error.message),
     },
   });
 };
@@ -212,7 +217,7 @@ export const getCitiesAndDistict = ({ district, city }) => async (dispatch) => {
 };
 
 export const verifyCode = (
-  {phone, code},
+  { phone, code },
   successCallback,
   errorCallback
 ) => async (dispatch) => {

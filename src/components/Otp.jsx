@@ -1,26 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
-import { toast } from 'react-toastify';
 
-import { verifyCode } from 'actions';
-import { Text } from 'components';
-import { useHistory } from 'react-router-dom';
-
-const Form = styled.form`
-  display: flex;
-  margin-bottom: 20px;
-`;
-
-const OtpInput = styled.input`
-  border: none !important;
-  border-bottom: 1px solid var(--blue) !important;
-  width: 35px !important;
-  margin-right: 15px !important;
-  text-align: center;
-`;
-
-const Otp = ({ verifySuccessCallback }) => {
+const Otp = ({ otpCallback }) => {
   const [otp1, setOtp1] = useState('');
   const [otp2, setOtp2] = useState('');
   const [otp3, setOtp3] = useState('');
@@ -28,54 +9,9 @@ const Otp = ({ verifySuccessCallback }) => {
   const [otp5, setOtp5] = useState('');
   const [otp6, setOtp6] = useState('');
 
-  const [counter, setCounter] = useState(119);
-
-  const interval = useRef();
-
-  const history = useHistory();
-
-  useEffect(() => {
-    interval.current = setInterval(() => {
-      setCounter((counter) => counter - 1);
-    }, 1000);
-
-    return () => clearInterval(interval.current);
-  }, []);
-
-  useEffect(() => {
-    if (counter === 1) {
-      return () => {
-        clearInterval(interval.current);
-
-        toast.info(
-          'Telefon Doğrulama Başarısız Anasayfaya Yönlendiriliyorsunuz.',
-          {
-            position: 'bottom-right',
-            autoClose: 2000,
-            onClose: () => history.push('/'),
-          }
-        );
-      };
-    }
-  }, [counter]);
-
-  const verifyErrorCallback = (errorMessage) =>
-    toast.error(errorMessage, {
-      position: 'bottom-right',
-      autoClose: 2000,
-    });
-
-  const dispatch = useDispatch();
-
   useEffect(() => {
     if (otp1 && otp2 && otp3 && otp4 && otp5 && otp6) {
-      dispatch(
-        verifyCode(
-          +`${otp1}${otp2}${otp3}${otp4}${otp5}${otp6}`,
-          verifySuccessCallback,
-          verifyErrorCallback
-        )
-      );
+      otpCallback(+`${otp1}${otp2}${otp3}${otp4}${otp5}${otp6}`);
     }
   }, [otp1, otp2, otp3, otp4, otp5, otp6]);
 
@@ -185,21 +121,21 @@ const Otp = ({ verifySuccessCallback }) => {
           onKeyUp={inputFocus}
         />
       </Form>
-
-      <Text
-        fontSize="0.9rem"
-        color="blue"
-        textAlign="center"
-        cursor="pointer"
-        onClick={() =>
-          dispatch(verifyCode(null, verifySuccessCallback, verifyErrorCallback))
-        }
-      >
-        Güvenlik kodunu tekrar gönder ({Math.floor(counter / 60)}:
-        {`${Math.ceil(counter % 60) < 10 ? 0 : ''}${Math.ceil(counter % 60)}`})
-      </Text>
     </div>
   );
 };
 
 export default Otp;
+
+const Form = styled.form`
+  display: flex;
+  margin-bottom: 20px;
+`;
+
+const OtpInput = styled.input`
+  border: none !important;
+  border-bottom: 1px solid var(--blue) !important;
+  width: 35px !important;
+  margin-right: 15px !important;
+  text-align: center;
+`;

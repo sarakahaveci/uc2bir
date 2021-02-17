@@ -13,7 +13,7 @@ const EditedModal = forwardRef(({ children, className }, ref) => {
   });
 
   return (
-    <Modal className={className} open={open} onHide={() => setOpen(!open)}>
+    <Modal className={className} show={open} onHide={() => setOpen(!open)}>
       {children}
     </Modal>
   );
