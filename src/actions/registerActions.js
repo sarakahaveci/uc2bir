@@ -11,7 +11,6 @@ import {
   DELETE_FILE,
   SUBMIT_BRANCH,
   GET_TOWN,
-  LOGIN,
 } from '../constants';
 
 export const setStepOne = (
@@ -213,22 +212,20 @@ export const getCitiesAndDistict = ({ district, city }) => async (dispatch) => {
 };
 
 export const verifyCode = (
-  code,
+  {phone, code},
   successCallback,
-  verifyErrorCallback
-) => async (dispatch, getState) => {
-  const phone = getState().auth.user.phone;
-
+  errorCallback
+) => async (dispatch) => {
   const url = '/verify-code';
-
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
       method: 'POST',
       url,
       label: VERIFY_CODE,
+      transformData: (data) => data.data,
       callBack: () => successCallback(),
-      errorHandler: (error) => verifyErrorCallback(error.message),
+      errorHandler: () => errorCallback(),
       body: {
         phone,
         code,

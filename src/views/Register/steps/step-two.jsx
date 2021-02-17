@@ -19,13 +19,16 @@ const StepTwo = (props) => {
 	const getStepTwo = useSelector((state) => state.stepTwo);
 	const { setSteps } = props;
 
-	const [verifyCode, setVerifyCode] = useState(false);
+	const [open, setOpen] = useState(true);
+	const fullWidth = true;
+	const maxWidth = 'sm';
+
 	const [code, setCode] = useState({ ...macro.inputs });
 	const [counter, setCounter] = useState(0);
 	const time = 120;
 
 	const isResponseSuccess = () => {
-		setVerifyCode(true);
+		setOpen(true);
 		return setCounter(time);
 	};
 	const isResponseError = () => {
@@ -38,7 +41,6 @@ const StepTwo = (props) => {
 			draggable: true,
 			progress: undefined,
 		});
-		setVerifyCode(false);
 		return setCounter(0);
 	};
 
@@ -51,6 +53,7 @@ const StepTwo = (props) => {
 			pauseOnHover: true,
 			draggable: true,
 			progress: undefined,
+			onClose: setSteps("step3"),
 		});
 
 		setTimeout(() => {
@@ -62,22 +65,6 @@ const StepTwo = (props) => {
 				pauseOnHover: true,
 				draggable: true,
 				progress: undefined,
-				onClose: () => {
-					dispatch(
-						setStepTwo({ ...getStepOne.data, code: Object.values(code).map(val => val).join("") },
-							() => setSteps("step3"),
-							() => toast.error('Bir sorun oluştu lütfen yeniden üye olunuz.', {
-								position: 'bottom-right',
-								autoClose: 2000,
-								hideProgressBar: false,
-								closeOnClick: true,
-								pauseOnHover: true,
-								draggable: true,
-								progress: undefined,
-								onClose: setSteps("step2")
-							}))
-					);
-				},
 			});
 		}, 1000);
 	};
@@ -101,24 +88,18 @@ const StepTwo = (props) => {
 	}
 	const vrf_result = () => {
 		dispatch(
-			setStepTwo({ phone: getStepOne.data.phone, code: Object.values(code).map(val => val).join("") }, isResultSuccess, isResultError)
+			setStepTwo({ ...getStepOne.data, code: Object.values(code).map(val => val).join("") }, isResultSuccess, isResultError)
 		);
 	}
-
-	const [open, setOpen] = useState(true);
-	const fullWidth = true;
-	const maxWidth = 'sm';
 
 	const handleClose = () => setOpen(false);
 	const handleClickOpen = () => setOpen(true);
 
 	useEffect(() => {
-		if (verifyCode) {
-			setOpen(true);
-		} else {
-			vrf_response();
+		if ( getStepOne.isSuccess ) {
+			setCounter(time);
 		}
-	}, [verifyCode]);
+	},[getStepOne.isSuccess]);
 
 	useEffect(() => {
 		if (counter > 0) {
