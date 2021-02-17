@@ -8,17 +8,14 @@ import { Link } from 'react-router-dom';
 
 import { stepOne as macro } from '../../../macros/registerMacros';
 import { useSelector, useDispatch } from 'react-redux';
-import { setStepOne, login, setStepTwo } from '../../../actions';
-import StepTwo from './step-two';
+import { setStepOne } from '../../../actions';
 
 const StepOne = (props) => {
   const { setSteps, registerData } = props;
   const dispatch = useDispatch();
 
   const getStepOne = useSelector((state) => state.stepOne);
-  const getStepTwo = useSelector((state) => state.stepTwo);
   const [data, setData] = useState({ ...macro.inputs });
-  const [step_two, set_step_two] = useState(false);
 
   const isSuccess = () => {
     toast.success('Kayıt alındı.', {
@@ -40,22 +37,7 @@ const StepOne = (props) => {
 				pauseOnHover: true,
 				draggable: true,
 				progress: undefined,
-				onClose: () => {dispatch(
-          login(
-            { email: data.email, password: data.password },
-            () => setSteps('step2'),
-            () => toast.error('Hatalı Giriş', {
-                position: 'bottom-right',
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              })
-          ));
-          return setSteps('step2');
-        },
+				onClose: () => setSteps('step2')
 			});
 		}, 1000);
   };
@@ -124,60 +106,16 @@ const StepOne = (props) => {
       });
     }
   };
-
-  const isResponseSuccess = () => {
-		toast.success('Kod gönderildi...', {
-			position: 'bottom-right',
-			autoClose: 2000,
-			hideProgressBar: false,
-			closeOnClick: true,
-			pauseOnHover: true,
-			draggable: true,
-			progress: undefined,
-		});
-	};
-
-  const isResponseError = () => {
-		toast.error('Kod gönderilemedi...', {
-			position: 'bottom-right',
-			autoClose: 2000,
-			hideProgressBar: false,
-			closeOnClick: true,
-			pauseOnHover: true,
-			draggable: true,
-			progress: undefined,
-      onClose: set_step_two(false)
-		});
-	};
-
-  const onClick = async () => {
-    dispatch(
-			setStepTwo({ phone: data.phone, code: "" }, isResponseSuccess, isResponseError)
-		);
-    set_step_two(true);
-  }
   return (
     <>
       <form onSubmit={onSubmit} autoComplete="off">
         <MacroCollections macro={macro.macro} data={data} setData={setData} />
-        {step_two && 
-          <StepTwo
-            phone={data.phone}
-            setSteps={setSteps}
+        {!(getStepOne.isLoading) && !(getStepOne.isSuccess) ? (
+          <Button 
+            onClick={onSubmit}
+            text={`İleri`} 
+            className="blue"
           />
-        }
-        {!(getStepOne.isLoading) && !(getStepOne.isAuthenticated) ? (
-          step_two && !(getStepTwo.isSuccess) && !(getStepTwo.error) ?
-            <Button 
-              onClick={onSubmit}
-              text={`İleri`} 
-              className="blue"
-            /> :           
-            <Button 
-              onClick={onClick}
-              text={`İleri`} 
-              className="blue"
-            />
         ) : (
             <Button
               onClick={() => {

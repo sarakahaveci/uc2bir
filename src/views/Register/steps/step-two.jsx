@@ -123,6 +123,7 @@ const StepTwo = (props) => {
 	}
 	return (
 		<>
+			{console.log(getStepOne)}
 			<React.Fragment>
 				<Button className="blue" style={{ marginBottom: 15 }} onClick={handleClickOpen} fontSize="11pt" text="Kodu Gir!" />
 				<Button className="blue" style={{ marginBottom: 15 }} onClick={vrf_response} fontSize="11pt" text="Telefonuma Kodu Tekrar Gönder!" />
@@ -135,7 +136,7 @@ const StepTwo = (props) => {
 					<DialogTitle className="text-center">Telefon Numaranızı Doğrulayın</DialogTitle>
 					<DialogContent>
 						<DialogContentText style={{ padding: "15px 30px" }} className="text-center">
-							<b>{getStepOne.user.phone}</b> numaralı telefona gönderdiğimiz 6 haneli kodu girin.
+							<b></b> numaralı telefona gönderdiğimiz 6 haneli kodu girin.
           	</DialogContentText>
 						<div className="d-flex flex-wrap dialog-center">
 							<form className="d-flex flex-wrap dialog-center" onSubmit={onSubmit}>

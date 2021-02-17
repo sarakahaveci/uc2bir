@@ -5,12 +5,10 @@ import {
 } from '../constants';
 
 const initialState = {
-  user: {},
-  accessToken: '',
-  refreshToken: '',
+  data: null,
   isLoading: false,
   error: null,
-  isAuthenticated: false,
+  isSuccess: false,
 };
 
 export default (state = initialState, action) => {
@@ -24,11 +22,9 @@ export default (state = initialState, action) => {
     case REGISTER_STEP_ONE_SUCCESS:
       return {
         ...state,
-        user: action.payload.user,
-        accessToken: action.payload.token,
-        refreshToken: action.payload.refresh_token,
-        isAuthenticated: true,
+        data: action.payload.data,
         isLoading: false,
+        isSuccess: true,
         error: null,
       };
 

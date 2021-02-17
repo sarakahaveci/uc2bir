@@ -8,7 +8,7 @@ import { TextField } from '@material-ui/core';
 const PhoneField = ({
   required = false,
   setData = '',
-  data="",
+  data = '',
   onChange = () => { },
   value = '',
 }) => {
