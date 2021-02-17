@@ -201,6 +201,14 @@ const StepThree = (props) => {
           <>
             <Material.TextField
               required
+              id="title"
+              name="title"
+              label="Şirket Ünvanı"
+              type="text"
+              onChange={handleFormOnChange}
+            />
+            <Material.TextField
+              required
               id="taxOffice"
               name="tax_office"
               label="Vergi Dairesi"
