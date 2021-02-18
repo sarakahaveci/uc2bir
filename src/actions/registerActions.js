@@ -167,6 +167,7 @@ export const setStepFour = (
         answer,
       },
       transformData: (data) => data.data,
+      callBack: () => successCallback(),
       errorHandler: () => errorCallback(),
     },
   });

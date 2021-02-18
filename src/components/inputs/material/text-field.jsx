@@ -14,7 +14,7 @@ const TextField = ({
   className = '',
   icon = false,
   onChange = () => {},
-  value = '',
+  value = null,
   onKeyUp = () => {},
   maxLength = '',
   icon2,
@@ -36,6 +36,7 @@ const TextField = ({
         onKeyUp={onKeyUp}
         variant="standard"
         required={required}
+        value={value}
       />
       {icon2 &&
         icon2({

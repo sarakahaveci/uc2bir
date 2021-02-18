@@ -27,3 +27,5 @@ export { default as Modal } from './Modal/Modal';
 export { default as Tab } from './Tabs/Tabs';
 export { default as Certificate } from './Certificate/Certificate';
 export { Material } from './inputs/material';
+export { default as ProfileBanner } from './banner/profile-banner';
+export { default as MasonaryGallery } from './MasonaryGallery';

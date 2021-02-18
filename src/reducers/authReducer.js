@@ -9,6 +9,10 @@ import {
   REGISTER_STEP_TWO_REQUEST,
   REGISTER_STEP_TWO_SUCCESS,
   REGISTER_STEP_TWO_FAILURE,
+  RESET_PASSWORD_REQUEST,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAILURE,
+  LOGOUT,
 } from '../constants';
 
 const initialState = {
@@ -23,6 +27,7 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_REQUEST:
+    case RESET_PASSWORD_REQUEST:
     case SOCIAL_LOGIN_REQUEST:
     case REGISTER_STEP_TWO_REQUEST:
       return {
@@ -41,6 +46,7 @@ export default (state = initialState, action) => {
 
     case LOGIN_SUCCESS:
     case REGISTER_STEP_TWO_SUCCESS:
+    case RESET_PASSWORD_SUCCESS:
       return {
         ...state,
         user: action.payload.user,
@@ -51,9 +57,20 @@ export default (state = initialState, action) => {
         error: null,
       };
 
+    case LOGOUT:
+      return {
+        user: {},
+        accessToken: '',
+        refreshToken: '',
+        isLoading: false,
+        error: null,
+        isAuthenticated: false,
+      };
+
     case LOGIN_FAILURE:
     case SOCIAL_LOGIN_FAILURE:
     case REGISTER_STEP_TWO_FAILURE:
+    case RESET_PASSWORD_FAILURE:
       return {
         ...state,
         isLoading: false,

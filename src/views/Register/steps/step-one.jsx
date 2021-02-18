@@ -17,6 +17,12 @@ const StepOne = (props) => {
   const getStepOne = useSelector((state) => state.stepOne);
   const [data, setData] = useState({ ...macro.inputs });
 
+  useEffect(() => {
+    if (getStepOne.isSuccess) {
+      setData({ ...getStepOne.data });
+    }
+  }, [getStepOne.isSuccess]);
+
   const isSuccess = () => {
     toast.success('Kayıt alındı.', {
       position: 'bottom-right',
@@ -89,7 +95,7 @@ const StepOne = (props) => {
     event.preventDefault();
     if (registerData) {
       const user_type =
-        registerData['user-type'].filter((f) => f.key === 'st') || 0;
+        registerData['user-type'].filter((f) => f.key === 'st');
       setData({ ...data, [data.type_id]: user_type.id });
       const response = await actionStepOne();
       return response;
@@ -109,7 +115,7 @@ const StepOne = (props) => {
     <>
       <form onSubmit={onSubmit} autoComplete="off">
         <MacroCollections macro={macro.macro} data={data} setData={setData} />
-        {!getStepOne.isLoading && !getStepOne.isSuccess ? (
+        {!getStepOne.isLoading ? (
           <Button onClick={onSubmit} text={`İleri`} className="blue" />
         ) : (
           <Button

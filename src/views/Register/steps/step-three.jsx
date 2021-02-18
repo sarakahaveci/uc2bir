@@ -3,30 +3,17 @@ import React, { useEffect, useState } from 'react';
 
 import { toast } from 'react-toastify';
 
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-
-import { Button, MacroMap, Material, AwesomeIcon, IconLabel } from '../../../components';
+import { Button, MacroMap, Material, AwesomeIcon } from '../../../components';
 
 import { stepThree as macro } from '../../../macros/registerMacros';
 import { useSelector, useDispatch } from 'react-redux';
 import { setStepThree } from '../../../actions';
 
-import Map from "../../../components/google-maps/MapWidthSearchBox";
-
 import axios from 'axios';
-import { geolocated } from "react-geolocated";
 
 const StepThree = (props) => {
 	const { setSteps } = props;
 	const dispatch = useDispatch();
-
-	const [open, setOpen] = useState(false);
-	const fullWidth = true;
-	const maxWidth = 'md';
-	const handleClose = () => setOpen(false);
-	const handleClickOpen = () => setOpen(true);
 
 	const getStepThree = useSelector((state) => state.stepThree);
 
@@ -34,7 +21,6 @@ const StepThree = (props) => {
 	const [city, setCity] = useState(false);
 	const [town, setTown] = useState([]);
 	const [district, setDistrict] = useState([]);
-	const [googleLocation, setGoogleLocation] = useState(false);
 
 	useEffect(() => {
 		if (!city) {
@@ -112,39 +98,13 @@ const StepThree = (props) => {
 	}
 	return (
 		<>
-			<React.Fragment>
-				<Dialog
-					className="material-dialog"
-					fullWidth={fullWidth}
-					maxWidth={maxWidth}
-					open={open}
-					onClose={handleClose}>
-					<DialogTitle className="text-center">Haritadan Seçin!</DialogTitle>
-					<DialogContent>
-						<Map 
-							google={props.google}
-							center={{lat: props.coords?.latitude, lng: props.coords?.longitude}}
-							height='350px'
-							zoom={15}
-							setGoogleLocation={setGoogleLocation}
-							modalClose={handleClose}
-						/>
-					</DialogContent>
-				</Dialog>
-			</React.Fragment>
-			{console.log(googleLocation)}
 			<form onSubmit={onSubmit} autoComplete="off">
 				<div className="d-flex w-100 flex-wrap">
 					<MacroMap macro={macro.macro} data={data} setData={setData} />
-					{props.coords?.latitude && props.coords?.longitude &&
-					<IconLabel
-						icon={AwesomeIcon.Map}
-						text="Haritadan Ekle"
-						onClick={handleClickOpen}
-					/>}
 					{city && (
 						<>
 							<Material.SimpleSelect
+								required
 								label="İl Seçiniz"
 								items={city}
 								name="city"
@@ -166,6 +126,7 @@ const StepThree = (props) => {
 								}}
 							/>
 							<Material.SimpleSelect
+								required
 								label={town ? 'Önce İl Seçiniz' : 'İlçe Seçiniz'}
 								items={town ? town : []}
 								name="town"
@@ -187,12 +148,14 @@ const StepThree = (props) => {
 								}}
 							/>
 							<Material.SimpleSelect
+								required
 								label={district ? 'Önce İlçe Seçiniz' : 'Mahalle Seçiniz'}
 								items={district ? district : []}
 								name="district"
 								onChange={(e) => setData({ ...data, [e.target.name]: e.target.value })}
 							/>
 							<Material.TextField
+								required
 								label="Açık Adres"
 								name="address_detail"
 								icon={AwesomeIcon.Map}
@@ -201,6 +164,7 @@ const StepThree = (props) => {
 							<div className="d-flex w-100 justify-content-between">
 								<div className="col-5 p-0">
 									<Material.TextField
+										required
 										label="Bina"
 										name="build_no"
 										onChange={(e) => setData({ ...data, [e.target.name]: e.target.value })}
@@ -208,6 +172,7 @@ const StepThree = (props) => {
 								</div>
 								<div className="col-5 p-0">
 									<Material.TextField
+										required
 										label="Daire"
 										name="apt_no"
 										onChange={(e) => setData({ ...data, [e.target.name]: e.target.value })}
@@ -237,9 +202,4 @@ const StepThree = (props) => {
 	);
 };
 
-export default geolocated({
-	positionOptions: {
-			enableHighAccuracy: false,
-	},
-	userDecisionTimeout: 5000,
-})(StepThree);
+export default StepThree;

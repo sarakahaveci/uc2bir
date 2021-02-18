@@ -26,6 +26,9 @@ import ListItem from './images/list-item.svg';
 import ArrowDown from './images/arrow-down.svg';
 import ArrowRight from './images/arrow-right.svg';
 import Certificate from './images/certificate.svg';
+import Comment from './images/comment.svg';
+import Heart from './images/heart.svg';
+import Player from './images/player.svg';
 
 //categories
 import I1 from './images/pt.svg';
@@ -59,6 +62,9 @@ const Svg = {
   ArrowRightIcon: (props) => <ReactSVG {...props} src={ArrowRight} />,
   YogaIcon: (props) => <ReactSVG {...props} src={I4} />,
   CertificateIcon: (props) => <ReactSVG {...props} src={Certificate} />,
+  Comment: (props) => <ReactSVG {...props} src={Comment} />,
+  Heart: (props) => <ReactSVG {...props} src={Heart} />,
+  Player: (props) => <ReactSVG {...props} src={Player} />,
 
   Categories: [
     {

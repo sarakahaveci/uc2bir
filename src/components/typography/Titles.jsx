@@ -13,7 +13,7 @@ const StyledTitle = styled(Typography)`
   font-size: ${(props) => props.fontSize && props.fontSize} !important;
   letter-spacing: ${(props) => !props.letterSpacing && 'initial'} !important;
   text-align: ${(props) =>
-    props.textAlign ? props.textAlign : 'center'} !important;
+    !props.textLeft ? (props.textAlign ? props.textAlign : 'center') : 'left' } !important;
   display: block !important;
   margin: ${(props) => props.margin && props.margin} !important;
 `;
@@ -29,6 +29,7 @@ const Titles = ({
 }) => (
   <StyledTitle
     gutterBottom
+    textLeft
     className={`typography title ${lineDisable ? '' : 'line'} ${
       textLeft ? 'text-left' : ''
     } ${textRight ? 'text-right' : ''}`}
