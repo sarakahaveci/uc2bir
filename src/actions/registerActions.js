@@ -108,21 +108,9 @@ export const setStepTwo = (
   });
 };
 
-export const setStepThree = (
-  {
-    birthday,
-    genre,
-    about,
-    city,
-    town,
-    district,
-    address_detail,
-    build_no,
-    apt_no,
-  },
-  successCallback,
-  errorCallback
-) => async (dispatch) => {
+export const setStepThree = (data, successCallback, errorCallback) => async (
+  dispatch
+) => {
   const url = '/user/profile/information';
 
   await dispatch({
@@ -131,17 +119,7 @@ export const setStepThree = (
       method: 'POST',
       url,
       label: REGISTER_STEP_THREE,
-      body: {
-        birthday,
-        genre,
-        about,
-        city,
-        town,
-        district,
-        address_detail,
-        build_no,
-        apt_no,
-      },
+      body: { ...data },
       transformData: (data) => data.data,
       callBack: () => successCallback(),
       errorHandler: () => errorCallback(),

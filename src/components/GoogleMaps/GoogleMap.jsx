@@ -13,6 +13,7 @@ import Geocode from 'react-geocode';
 import { GoogleMapsAPI } from '../../utils/config';
 import mapStyles from './mapStyles';
 import MarkerSvg from './markerSvg.svg';
+Geocode.setApiKey(GoogleMapsAPI);
 
 export default function MyComponent({ onPositionChange }) {
   const [position, setPosition] = useState(null);

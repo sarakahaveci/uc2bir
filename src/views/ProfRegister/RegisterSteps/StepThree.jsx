@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Modal } from 'react-bootstrap';
 import { isEmpty } from 'lodash';
+import { getGeocode } from 'use-places-autocomplete';
 
 import {
   getCitiesAndDistict,
@@ -94,9 +95,38 @@ const StepThree = (props) => {
     });
   };
 
-  const submitStepThree = (e) => {
+  const handleAdressSearch = async () => {
+    const cityName = cities.find((city) => city.id === formData.city);
+    const districtName = distict.find((dist) => dist.id === formData.distict);
+    const townName = town.find((towns) => towns.id === formData.town);
+    const results = await getGeocode({
+      address:
+        cityName?.name +
+        ' ' +
+        districtName?.name +
+        ' ' +
+        townName?.name +
+        ' ' +
+        formData?.address_detail,
+    });
+    dispatch(
+      setStepThree(
+        {
+          ...formData,
+          lat: results?.[0]?.geometry?.location?.lat(),
+          lng: results?.[0]?.geometry?.location?.lng(),
+        },
+        isSuccess,
+        isError
+      )
+    );
+  };
+
+  const submitStepThree = async (e) => {
     e.preventDefault();
-    dispatch(setStepThree({ ...formData }, isSuccess, isError));
+    if (!(formData.lat && formData.lng)) {
+      await handleAdressSearch();
+    } else dispatch(setStepThree({ ...formData }, isSuccess, isError));
   };
 
   const submitBranch = (e) => {
@@ -149,8 +179,6 @@ const StepThree = (props) => {
       progress: undefined,
     });
   };
-
-  console.log(formData);
 
   const onPositionChange = (data) => {
     setAdressFromMap(data);
