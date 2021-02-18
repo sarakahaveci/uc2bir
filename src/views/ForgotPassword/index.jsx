@@ -159,7 +159,7 @@ const ForgotPassword = () => {
                     ) : (
                       <Button
                         type="submit"
-                        text={`Giriş Yap`}
+                        text={`Kod Gönder`}
                         className="blue"
                       />
                     )}
@@ -239,7 +239,7 @@ const ForgotPassword = () => {
                               ) : (
                                 <Button
                                   type="submit"
-                                  text={`Gönder`}
+                                  text={`Şifremi Güncelle`}
                                   className="blue w-100"
                                   style={{marginTop: 30}}
                                 />
