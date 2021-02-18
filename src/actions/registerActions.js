@@ -12,6 +12,7 @@ import {
   SUBMIT_BRANCH,
   GET_TOWN,
   GET_ADRESS_IDS,
+  OFF_NEW_BRANCH,
 } from '../constants';
 
 export const setStepOne = (
@@ -270,6 +271,20 @@ export const getAdressIds = (body, errorCallback) => async (
       transformData: (data) => data.data,
       errorHandler: () => errorCallback(),
       body,
+    },
+  });
+};
+
+export const offerBranch = ({ branch }) => async (dispatch, getState) => {
+  const url = '/user/profile/offer-branch';
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'POST',
+      url,
+      label: OFF_NEW_BRANCH,
+      body: { branch },
     },
   });
 };

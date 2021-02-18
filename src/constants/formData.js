@@ -13,3 +13,8 @@ export const yesNo = [
     name: 'Evet',
   },
 ];
+
+export const inputProps = {
+  minLength: 6,
+  maxLength: 50,
+};

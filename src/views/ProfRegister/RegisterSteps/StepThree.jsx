@@ -11,10 +11,17 @@ import {
   setStepThree,
   submitUserBranch,
   getAdressIds,
+  offerBranch,
 } from 'actions';
 import { Button, Material, IconLabel, AwesomeIcon, Text } from 'components';
 import GoogleMap from 'components/GoogleMaps/GoogleMap';
-import { genderData, yesNo, WORK_PLACE, DIETITIAN } from '../../../constants';
+import {
+  genderData,
+  yesNo,
+  WORK_PLACE,
+  DIETITIAN,
+  inputProps,
+} from '../../../constants';
 import { StepContext } from './RegisterSteps';
 
 const StepThree = (props) => {
@@ -38,14 +45,21 @@ const StepThree = (props) => {
   const isWorkPlace = user?.type_id === WORK_PLACE;
   const isDietitian = user?.type_id === DIETITIAN;
 
+  const branchType = isWorkPlace ? 'pt' : 'bs';
+
+  const branches = registerData?.['spor_branslari'].filter(
+    (branch) => branch.type === branchType
+  );
+
   const [hasTaxNumber, setHasTaxNumber] = useState(isWorkPlace);
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({});
   const [adressFromMap, setAdressFromMap] = useState({});
 
   const [selectedButtons, setSelectedButtons] = useState([]);
-  const [showAddBranchArea, setShowAddBranchArea] = useState(false);
+  const [showAddBranchArea, setShowAddBranchArea] = useState(true);
   const [showBranchModal, setShowBranchModal] = useState(false);
+  const [offeredBranch, setOfferedBranch] = useState('');
 
   const handleClose = () => setOpen(false);
   const handleClickOpen = () => setOpen(true);
@@ -84,7 +98,7 @@ const StepThree = (props) => {
   };
 
   const isError = () => {
-    toast.error('Hatalı Giriş', {
+    toast.error('Girilen bilgileri kontrol ediniz.', {
       position: 'bottom-right',
       autoClose: 2000,
       hideProgressBar: false,
@@ -131,6 +145,7 @@ const StepThree = (props) => {
 
   const submitBranch = (e) => {
     e.preventDefault();
+    if (!!offeredBranch) dispatch(offerBranch({ branch: offeredBranch }));
     dispatch(submitUserBranch(selectedButtons, isSuccess, isError));
   };
 
@@ -182,6 +197,11 @@ const StepThree = (props) => {
 
   const onPositionChange = (data) => {
     setAdressFromMap(data);
+  };
+
+  const onCloseBranchModal = () => {
+    setShowBranchModal(false);
+    setStepNumber((value) => value - 1);
   };
 
   return isLoading ? (
@@ -285,6 +305,7 @@ const StepThree = (props) => {
               label="Şirket Ünvanı"
               type="text"
               onChange={handleFormOnChange}
+              inputProps={inputProps}
             />
             <Material.TextField
               required
@@ -293,6 +314,7 @@ const StepThree = (props) => {
               label="Vergi Dairesi"
               type="text"
               onChange={handleFormOnChange}
+              inputProps={inputProps}
             />
             <Material.TextField
               required
@@ -301,6 +323,7 @@ const StepThree = (props) => {
               label="Vergi No"
               type="number"
               onChange={handleFormOnChange}
+              inputProps={inputProps}
             />
           </>
         )}
@@ -312,6 +335,7 @@ const StepThree = (props) => {
           type="text"
           changeValue={formData?.address_detail}
           onChange={handleFormOnChange}
+          inputProps={inputProps}
         />
         <div className="d-flex">
           <div className="adress-no">
@@ -337,72 +361,72 @@ const StepThree = (props) => {
         </div>
         <Button type="submit" text="İleri" className="blue" fontWeight="bold" />
       </form>
-      {showBranchModal && (
-        <div className="branch-modal">
-          <div className="branch-modal-content col-md-5 col-xs-12">
-            <Text
-              className="text-right"
-              onClick={() => setShowBranchModal(false)}
-            >
-              X
-            </Text>
+      <Modal
+        show={showBranchModal}
+        onHide={onCloseBranchModal}
+        className="material-dialog"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Lütfen Branş Seçiminizi Yapınız</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="branchWrapper">
+            {branches?.map((button) => {
+              const buttonClass = selectedButtons.includes(button.id)
+                ? 'branch-button activeButton'
+                : 'branch-button';
 
-            <p>Lütfen Branş Seçiminizi Yapınız</p>
+              return (
+                <Button
+                  key={button.id}
+                  className={buttonClass}
+                  onClick={() => selectButtonHandler(button.id)}
+                  text={button.name}
+                />
+              );
+            })}
+            <Material.CheckBox
+              onChange={(e) => setShowAddBranchArea(e.target.checked)}
+              checked={showAddBranchArea}
+              label="Diğer Branşlar"
+            />
+            {showAddBranchArea && (
+              <>
+                <Text fontSize="13px" fontWeight="500" className="no-margin">
+                  Ekleyin
+                </Text>
+                <Material.TextField
+                  id="branch"
+                  name="branch"
+                  label="Eklemek istediğiniz branşı yazınız"
+                  type="text"
+                  onChange={(event) => setOfferedBranch(event.target.value)}
+                />
 
-            <div className="branchWrapper">
-              {registerData?.['spor_branslari']?.map((button) => {
-                const buttonClass = selectedButtons.includes(button.id)
-                  ? 'button activeButton'
-                  : 'button';
-
-                return (
-                  <Button
-                    key={button.id}
-                    className={buttonClass}
-                    onClick={() => selectButtonHandler(button.id)}
-                    text={button.name}
-                  />
-                );
-              })}
-              <Material.CheckBox
-                onChange={(e) => setShowAddBranchArea(e.target.checked)}
-                checked={showAddBranchArea}
-                label="Diğer Branşlar"
-              />
-              {showAddBranchArea && (
-                <>
-                  <Text fontSize="13px" fontWeight="500" className="no-margin">
-                    Ekleyin
-                  </Text>
-                  <Material.TextField
-                    id="branch"
-                    name="branch"
-                    label="Eklemek istediğiniz branşları yazınız"
-                    type="text"
-                  />
-                </>
-              )}
-              <div className="buttonWrapper">
-                <div className="col-3 col-md-3 col-sm-12">
-                  <IconLabel
-                    text="Vazgeç"
-                    onClick={() => setShowBranchModal(false)}
-                  />
-                </div>
-                <div className="col-8 col-md-8 col-sm-12">
-                  <Button
-                    fontWeight="bold"
-                    className="blue ml-auto"
-                    text="İleri"
-                    size="lg"
-                    onClick={submitBranch}
-                  />
-                </div>
+                <span className="text-danger mt-2 mb-2 infoText">
+                  Eklemiş olduğunuz branşlar çok yakında hizmette olacak! En
+                  kısa sürede seninle iletişime geçeceeğiz
+                </span>
+              </>
+            )}
+            <div className="buttonWrapper">
+              <div className="col-3 col-md-3 col-sm-12 d-flex align-items-center">
+                <IconLabel text="Vazgeç" onClick={onCloseBranchModal} />
+              </div>
+              <div className="col-8 col-md-8 col-sm-12">
+                <Button
+                  fontWeight="bold"
+                  className="blue ml-auto w-100"
+                  text="İleri"
+                  size="lg"
+                  disabled={!offeredBranch && !selectedButtons.length > 0}
+                  onClick={submitBranch}
+                />
               </div>
             </div>
           </div>
-        </div>
-      )}
+        </Modal.Body>
+      </Modal>
     </>
   );
 };
