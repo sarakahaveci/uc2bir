@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -22,9 +22,10 @@ const SimpleSelect = ({
   label,
   items = [],
   required = false,
-  defaultValue = '',
   icon = false,
   onChange = () => {},
+  changeValue,
+  defaultValue = '',
 }) => {
   const classes = useStyles();
   const [val, setVal] = useState(defaultValue);
@@ -33,6 +34,11 @@ const SimpleSelect = ({
     setVal(event.target.value);
     onChange(event);
   };
+
+  useEffect(() => {
+    if (changeValue) setVal(changeValue);
+  }, [changeValue]);
+
   return (
     <div className={`materials select-materials ${icon ? 'has-icon' : ''}`}>
       <FormControl className={classes.formControl}>

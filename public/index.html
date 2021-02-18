@@ -3,10 +3,23 @@
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1.0"
+    />
     <meta name="theme-color" content="#000000" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <script
+      async
+      defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArKuphrY7IUV6DURrwRRyWU3h7SeC_ngc&libraries=places&callback=initMap"
+    ></script>
+
     <meta
       name="description"
       content="Web site created using create-react-app"
@@ -30,18 +43,26 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div style="width: 100%; 
-            height: 100vh; 
-            background: #000; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center;
-            position: fixed;
-            z-index: 1000000;
-            top: 0;
-            left: 0"
-        id="load">
-        <img style="width: 20%; height: auto;" src="%PUBLIC_URL%/321-loading.gif" alt="Üç2Bir"/>
+    <div
+      style="
+        width: 100%;
+        height: 100vh;
+        background: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        z-index: 1000000;
+        top: 0;
+        left: 0;
+      "
+      id="load"
+    >
+      <img
+        style="width: 20%; height: auto"
+        src="%PUBLIC_URL%/321-loading.gif"
+        alt="Üç2Bir"
+      />
     </div>
     <div id="root"></div>
     <!--
@@ -57,11 +78,11 @@
   </body>
   <script type="text/javascript" language="javascript">
     const load = () => {
-      const div = document.getElementById("load");
+      const div = document.getElementById('load');
       div.remove();
-    }
+    };
     window.onload = () => {
       setTimeout(load, 4000);
-    }
+    };
   </script>
 </html>

@@ -1,24 +1,34 @@
 /* eslint-disable react/jsx-pascal-case */
 import React, { useState, useEffect, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { geolocated } from 'react-geolocated';
 import { toast } from 'react-toastify';
+import { Modal } from 'react-bootstrap';
+import { isEmpty } from 'lodash';
 
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-
-import { getCitiesAndDistict, setStepThree, submitUserBranch } from 'actions';
+import {
+  getCitiesAndDistict,
+  setStepThree,
+  submitUserBranch,
+  getAdressIds,
+} from 'actions';
 import { Button, Material, IconLabel, AwesomeIcon, Text } from 'components';
-import Map from '../../../components/google-maps/MapWidthSearchBox';
+import GoogleMap from 'components/GoogleMaps/GoogleMap';
 import { genderData, yesNo, WORK_PLACE, DIETITIAN } from '../../../constants';
 import { StepContext } from './RegisterSteps';
 
 const StepThree = (props) => {
   const dispatch = useDispatch();
-  const { data: registerData, isLoading, cities, distict, town } = useSelector(
-    (state) => state.registerData
-  );
+  const {
+    data: registerData,
+    isLoading,
+    cities,
+    distict,
+    town,
+    isSuccessGetId,
+    cityId,
+    districtId,
+    townId,
+  } = useSelector((state) => state.registerData);
 
   const { stepNumber, setStepNumber } = useContext(StepContext);
 
@@ -30,6 +40,7 @@ const StepThree = (props) => {
   const [hasTaxNumber, setHasTaxNumber] = useState(isWorkPlace);
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({});
+  const [adressFromMap, setAdressFromMap] = useState({});
 
   const [selectedButtons, setSelectedButtons] = useState([]);
   const [showAddBranchArea, setShowAddBranchArea] = useState(false);
@@ -68,16 +79,6 @@ const StepThree = (props) => {
   };
 
   const isSuccess = () => {
-    toast.success('Giriş Başarılı!', {
-      position: 'bottom-right',
-      autoClose: 1500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-
     setStepNumber((value) => (isDietitian ? value + 2 : value + 1));
   };
 
@@ -108,31 +109,78 @@ const StepThree = (props) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
+  const useAdressFromMap = () => {
+    dispatch(
+      getAdressIds(
+        {
+          city: adressFromMap.city,
+          district: adressFromMap.district,
+          town: adressFromMap.town,
+        },
+        isFailGetIds
+      )
+    );
+  };
+
+  useEffect(() => {
+    if (isSuccessGetId) isSuccessGetIds();
+  }, [isSuccessGetId]);
+
+  const isSuccessGetIds = () => {
+    dispatch(getCitiesAndDistict({ district: districtId }));
+    dispatch(getCitiesAndDistict({ city: cityId }));
+    setFormData({
+      ...formData,
+      ...adressFromMap,
+      city: cityId,
+      district: districtId,
+      town: townId,
+    });
+  };
+
+  const isFailGetIds = () => {
+    toast.error('Haritadan adres eklenirken bir sorun ile karışlaşıldı', {
+      position: 'bottom-right',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+
+  console.log(formData);
+
+  const onPositionChange = (data) => {
+    setAdressFromMap(data);
+  };
+
   return isLoading ? (
     <div>Yükleniyor</div>
   ) : (
     <>
-      <Dialog
-        className="material-dialog"
-        fullWidth
-        maxWidth="md"
-        open={open}
-        onClose={handleClose}
-      >
-        <DialogTitle className="text-center">Haritadan Seçin!</DialogTitle>
-        <DialogContent>
-          <Map
-            google={props.google}
-            center={{
-              lat: props.coords?.latitude,
-              lng: props.coords?.longitude,
-            }}
-            height="350px"
-            zoom={15}
-            modalClose={handleClose}
-          />
-        </DialogContent>
-      </Dialog>
+      <Modal show={open} onHide={handleClose} className="material-dialog">
+        <Modal.Header closeButton>
+          <Modal.Title>Haritadan Seçin!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="branchWrapper">
+          <Text textAlign="center">
+            Mahalle, Cadde veya Sokak adı ile arayın yada Pini Sürükleyin
+          </Text>
+          <GoogleMap onPositionChange={onPositionChange} />
+          <div className="d-flex w-100 mt-2">
+            <Button
+              fontWeight="bold"
+              className="blue mx-auto"
+              text="Bu Adresi Kullan"
+              disabled={isEmpty(adressFromMap)}
+              onClick={useAdressFromMap}
+            />
+          </div>
+        </Modal.Body>
+      </Modal>
+
       <form
         className="step-four-wrapper"
         onSubmit={submitStepThree}
@@ -178,6 +226,7 @@ const StepThree = (props) => {
           name="city"
           forHtml="city"
           label="İl Seçiniz"
+          changeValue={cityId}
           onChange={handleSelectRelion}
           items={cities}
         />
@@ -186,6 +235,7 @@ const StepThree = (props) => {
           name="district"
           forHtml="district"
           label="İlçe Seçiniz"
+          changeValue={districtId}
           onChange={handleSelectRelion}
           items={distict ?? []}
         />
@@ -194,6 +244,7 @@ const StepThree = (props) => {
           name="town"
           forHtml="rown"
           label="Mahalle Seçiniz"
+          changeValue={townId}
           onChange={handleFormOnChange}
           items={town ?? []}
         />
@@ -231,6 +282,7 @@ const StepThree = (props) => {
           name="address_detail"
           label="Açık Adres"
           type="text"
+          changeValue={formData?.address_detail}
           onChange={handleFormOnChange}
         />
         <div className="d-flex">
@@ -327,9 +379,4 @@ const StepThree = (props) => {
   );
 };
 
-export default geolocated({
-  positionOptions: {
-    enableHighAccuracy: false,
-  },
-  userDecisionTimeout: 5000,
-})(StepThree);
+export default StepThree;
