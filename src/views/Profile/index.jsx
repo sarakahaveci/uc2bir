@@ -4,6 +4,8 @@ import { Tab, Title, Main } from 'components';
 import ProfileCertificate from './ProfileCertificate';
 import Branch from './Branch';
 
+import { WorkPlaceRow } from 'components';
+
 export default function Profile({ match }) {
   const trainerData = [
     {
@@ -77,6 +79,8 @@ export default function Profile({ match }) {
       <div className="col-md-8 col-sm-12 mx-auto">
         <div>Efe Tainer </div>
         <Tab tabData={trainerData} defaultActiveKey="branch" />
+
+        <WorkPlaceRow />
       </div>
     </Main>
   );

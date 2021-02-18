@@ -18,6 +18,11 @@ export { default as MacroMap } from './MacroMap';
 export { default as MacroCollections } from './MacroCollections';
 export { default as DefBackground } from './statics/background';
 export { default as Otp } from './Otp';
+export { default as Col } from './Col/Col';
+export { default as Agreement } from './Confirmations/Agreement';
+export { default as Health } from './Confirmations/Health';
+export { default as Permission } from './Confirmations/Permission';
+export { default as Kvkk } from './Confirmations/Kvkk';
 /*
 export { default as SocialLogin } from './SocialLogin/SocialLogin';
 */
@@ -29,3 +34,4 @@ export { default as Certificate } from './Certificate/Certificate';
 export { Material } from './inputs/material';
 export { default as ProfileBanner } from './banner/profile-banner';
 export { default as MasonaryGallery } from './MasonaryGallery';
+export { default as WorkPlaceRow } from './WorkPlaceRow/WorkPlaceRow';

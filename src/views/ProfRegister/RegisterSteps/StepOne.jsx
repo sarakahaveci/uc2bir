@@ -8,12 +8,19 @@ import styled from 'styled-components';
 
 import { StepContext } from './RegisterSteps';
 import { setStepOne } from 'actions';
-import { Button, Text, Material } from 'components';
+import {
+  Button,
+  Text,
+  Material,
+  Agreement,
+  Health,
+  Kvkk,
+  Permission,
+} from 'components';
 import StepTwo from './StepTwo';
 import { macroConverter } from 'utils';
 import Svg from 'components/statics/svg';
 import { TextField } from '@material-ui/core';
-import Agreement from './Agreement';
 
 const macro = [
   {
@@ -36,7 +43,10 @@ const macro = [
 ];
 
 const StepOne = () => {
-  const { data: registerData } = useSelector((state) => state.registerData);
+  const {
+    confirmation: { data: confirmationData },
+    data: registerData,
+  } = useSelector((state) => state.registerData);
 
   const { isLoading: registerLoading } = useSelector((state) => state.stepOne);
 
@@ -54,7 +64,9 @@ const StepOne = () => {
   const [inputType, setInputType] = useState('password');
   const [shrink, setShrink] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [openAgreement, setOpenAgreement] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+
+  const [confirmationType, setConfirmationType] = useState('');
 
   const dispatch = useDispatch();
 
@@ -119,6 +131,58 @@ const StepOne = () => {
     );
   };
 
+  let confirmation;
+
+  switch (confirmationType) {
+    case 'agreement':
+      confirmation = (
+        <Agreement
+          setAcceptMemberAgreement={setAcceptMemberAgreement}
+          acceptMemberAgreement={acceptMemberAgreement}
+          setOpenModal={setOpenModal}
+          agreementData={confirmationData?.['agreement']}
+          extraAgreementData={confirmationData?.['agreementExtra']}
+        />
+      );
+      break;
+
+    case 'health':
+      confirmation = (
+        <Health
+          acceptHealthAgreement={acceptHealthAgreement}
+          setAcceptHealthAgreement={setAcceptHealthAgreement}
+          setOpenModal={setOpenModal}
+          healthData={confirmationData?.['health']}
+        />
+      );
+      break;
+
+    case 'kvkk':
+      confirmation = (
+        <Kvkk
+          acceptKvkk={acceptKvkk}
+          setAcceptKvkk={setAcceptKvkk}
+          setOpenModal={setOpenModal}
+          kvkkData={confirmationData?.['kvkk']}
+        />
+      );
+      break;
+
+    case 'permission':
+      confirmation = (
+        <Permission
+          acceptPermissions={acceptPermissions}
+          setAcceptPermissions={setAcceptPermissions}
+          setOpenModal={setOpenModal}
+          permissionData={confirmationData?.['permission']}
+        />
+      );
+      break;
+
+    default:
+      break;
+  }
+
   return (
     <div className="step-one-wrapper">
       <form onSubmit={submitHandler}>
@@ -128,7 +192,7 @@ const StepOne = () => {
           forHtml="userType"
           label="Üyelik Tipi Seçiniz"
           onChange={(e) => setUserTypeId(e.target.value)}
-          items={registerData?.['user-type'].filter(
+          items={registerData?.['user-type']?.filter(
             (userType) => userType.key !== 'st'
           )}
         />
@@ -193,7 +257,8 @@ const StepOne = () => {
                   className="underline-text"
                   onClick={(e) => {
                     e.preventDefault();
-                    setOpenAgreement(true);
+                    setConfirmationType('agreement');
+                    setOpenModal(true);
                   }}
                 >
                   Üyelik Sözleşmesini
@@ -203,7 +268,8 @@ const StepOne = () => {
                   className="underline-text"
                   onClick={(e) => {
                     e.preventDefault();
-                    setOpenAgreement(true);
+                    setConfirmationType('agreement');
+                    setOpenModal(true);
                   }}
                 >
                   Ekleri'ni
@@ -216,19 +282,60 @@ const StepOne = () => {
           <Material.CheckBox
             checked={acceptHealthAgreement}
             onChange={(e) => setAcceptHealthAgreement(e.target.checked)}
-            label="Sağlık muvafakatnamesi okudum, onaylıyorum."
+            label={
+              <div>
+                <span
+                  className="underline-text"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setConfirmationType('health');
+                    setOpenModal(true);
+                  }}
+                >
+                  Sağlık muvafakatnamesi
+                </span>
+                okudum, onaylıyorum.
+              </div>
+            }
           />
 
           <Material.CheckBox
             onChange={(e) => setAcceptKvkk(e.target.checked)}
             checked={acceptKvkk}
-            label="KVKK okudum, onaylıyorum."
+            label={
+              <div>
+                <span
+                  className="underline-text"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setConfirmationType('kvkk');
+                    setOpenModal(true);
+                  }}
+                >
+                  KVKK
+                </span>
+                , okudum onaylıyorum.
+              </div>
+            }
           />
 
           <Material.CheckBox
             onChange={(e) => setAcceptPermissions(e.target.checked)}
             checked={acceptPermissions}
-            label="Açık rıza ve aydınlatma metinleri"
+            label={
+              <div>
+                <span
+                  className="underline-text"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setConfirmationType('permission');
+                    setOpenModal(true);
+                  }}
+                >
+                  Açık rıza ve aydınlatma metinleri
+                </span>
+              </div>
+            }
           />
         </div>
         {errorMessage && (
@@ -283,12 +390,8 @@ const StepOne = () => {
         />
       )}
 
-      <StyledModal show={openAgreement} onHide={() => setOpenAgreement(false)}>
-        <Agreement
-          setAcceptMemberAgreement={setAcceptMemberAgreement}
-          setOpenAgreement={setOpenAgreement}
-          acceptMemberAgreement={acceptMemberAgreement}
-        />
+      <StyledModal show={openModal} onHide={() => setOpenModal(false)}>
+        {confirmation}
       </StyledModal>
     </div>
   );

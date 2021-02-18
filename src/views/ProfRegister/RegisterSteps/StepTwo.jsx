@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import { Modal, Spinner } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { Otp, Text, Svg } from 'components';
+import { Otp, Text, Svg, Button } from 'components';
 import { setStepTwo, verifyCode } from 'actions';
 
 const StepTwo = ({
@@ -16,6 +16,7 @@ const StepTwo = ({
 
   const [counter, setCounter] = useState(119);
 
+  const otpInputRef = useRef();
   const interval = useRef();
 
   const modalCloseHandler = () => {
@@ -61,11 +62,17 @@ const StepTwo = ({
       autoClose: 2000,
     });
 
-  const otpCallback = (code) => {
+  const registerHandler = (code) => {
     dispatch(
       setStepTwo(
         { ...formData, code },
-        () => setStepNumber((val) => val + 1),
+        () => {
+          toast.success('Kayıt Alındı.', {
+            position: 'bottom-right',
+            autoClose: 2000,
+            onClose: () => setStepNumber((val) => val + 1),
+          });
+        },
         verifyErrorCallback
       )
     );
@@ -88,7 +95,7 @@ const StepTwo = ({
         </Text>
 
         <div>
-          <Otp otpCallback={otpCallback} />
+          <Otp otpCallback={registerHandler} ref={otpInputRef} />
         </div>
 
         <Text
@@ -96,7 +103,7 @@ const StepTwo = ({
           color="blue"
           textAlign="center"
           cursor="pointer"
-          onClose={() =>
+          onClick={() =>
             dispatch(
               verifyCode(
                 { phone: formData.phone },
@@ -118,6 +125,16 @@ const StepTwo = ({
           {`${Math.ceil(counter % 60) < 10 ? 0 : ''}${Math.ceil(counter % 60)}`}
           )
         </Text>
+
+        <Button
+          text="İleri"
+          margin="15px 0 0 0"
+          className="blue"
+          onClick={() => {
+            const code = otpInputRef.current.getCode();
+            registerHandler(code);
+          }}
+        />
 
         {registerLoading && <Spinner animation="border" />}
       </div>

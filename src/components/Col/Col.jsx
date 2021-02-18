@@ -1,11 +1,14 @@
 import styled, { css } from 'styled-components';
-import { flexbox } from 'styled-system';
+import { flexbox, space, layout } from 'styled-system';
 
-const Row = styled.div`
+const Col = styled.div`
   display: flex;
+  flex-direction: column;
   margin: ${(props) => props.margin && props.margin};
 
   ${flexbox}
+  ${space}
+  ${layout}
 
   ${(p) =>
     p.center &&
@@ -15,4 +18,4 @@ const Row = styled.div`
     `}
 `;
 
-export default Row;
+export default Col;

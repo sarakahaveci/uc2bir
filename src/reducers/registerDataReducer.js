@@ -18,10 +18,13 @@ import {
   GET_ADRESS_IDS_REQUEST,
   GET_ADRESS_IDS_SUCCESS,
   GET_ADRESS_IDS_FAILURE,
+  CONFIRMATION_DATA_REQUEST,
+  CONFIRMATION_DATA_SUCCESS,
+  CONFIRMATION_DATA_FAILURE,
 } from '../constants';
 
 const initialState = {
-  data: null,
+  data: {},
   message: '',
   isLoading: false,
   error: null,
@@ -38,6 +41,11 @@ const initialState = {
     error: null,
     data: '',
   },
+  confirmation: {
+    data: {},
+    isLoading: false,
+    error: null,
+  },
 };
 
 export default (state = initialState, action) => {
@@ -49,12 +57,34 @@ export default (state = initialState, action) => {
         isLoading: true,
       };
 
+    case CONFIRMATION_DATA_REQUEST:
+      return {
+        ...state,
+        confirmation: {
+          ...state.confirmation,
+          isLoading: true,
+        },
+      };
+
     case VERIFY_CODE_REQUEST:
       return {
         ...state,
         verifyCode: {
           ...state.verifyCode,
           isLoading: true,
+        },
+      };
+
+    case CONFIRMATION_DATA_REQUEST:
+      return {};
+
+    case CONFIRMATION_DATA_SUCCESS:
+      return {
+        ...state,
+        confirmation: {
+          data: action.payload,
+          isLoading: false,
+          error: null,
         },
       };
 
@@ -110,6 +140,16 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
+      };
+
+    case CONFIRMATION_DATA_FAILURE:
+      return {
+        ...state,
+        confirmation: {
+          ...state.confirmation,
+          isLaoding: false,
+          error: action.payload,
+        },
       };
 
     case VERIFY_CODE_FAILURE:

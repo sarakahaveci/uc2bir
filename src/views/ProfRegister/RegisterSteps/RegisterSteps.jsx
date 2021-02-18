@@ -1,9 +1,11 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { Modal } from 'react-bootstrap';
 import styled from 'styled-components';
-
-import { StepBar, Text, Svg } from 'components';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { getConfirmationData } from 'actions';
+import { StepBar, Text, Svg } from 'components';
 import StepOne from './StepOne';
 import StepThree from './StepThree';
 import StepFive from './StepFive';
@@ -15,6 +17,8 @@ import StepNine from './StepNine';
 export const StepContext = createContext();
 
 const RegisterSteps = () => {
+  const { data: registerData } = useSelector((state) => state.registerData);
+
   const [stepNumber, setStepNumber] = useState(1);
   const [open, setOpen] = useState(false);
 
@@ -24,6 +28,14 @@ const RegisterSteps = () => {
     }
   }, [stepNumber]);
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (Object.keys(registerData).length) {
+      dispatch(getConfirmationData());
+    }
+  }, [registerData]);
+
   let page;
 
   switch (stepNumber) {
@@ -31,10 +43,12 @@ const RegisterSteps = () => {
     case 2:
       page = <StepOne />;
       break;
+
     case 3:
     case 4:
       page = <StepThree />;
       break;
+
     case 5:
       page = <StepFive />;
       break;

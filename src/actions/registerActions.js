@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import {
   HTTP_REQUEST,
   REGISTER_STEP_ONE,
@@ -13,6 +15,9 @@ import {
   GET_TOWN,
   GET_ADRESS_IDS,
   OFF_NEW_BRANCH,
+  CONFIRMATION_DATA_REQUEST,
+  CONFIRMATION_DATA_SUCCESS,
+  CONFIRMATION_DATA_FAILURE,
 } from '../constants';
 
 export const setStepOne = (
@@ -287,4 +292,52 @@ export const offerBranch = ({ branch }) => async (dispatch, getState) => {
       body: { branch },
     },
   });
+};
+
+export const getConfirmationData = () => async (dispatch, getState) => {
+  const registerData = getState().registerData.data;
+
+  try {
+    dispatch({
+      type: CONFIRMATION_DATA_REQUEST,
+    });
+
+    const filteredRegisterData = registerData.pages.filter(
+      (page) => page.title !== 'Açık rıza ve aydınlatma metni english'
+    );
+
+    const response = await axios.all(
+      filteredRegisterData.map((page) => axios.get(page.url))
+    );
+
+    dispatch({
+      type: CONFIRMATION_DATA_SUCCESS,
+      payload: {
+        agreement: {
+          title: response[0].data.data.title,
+          detail: response[0].data.data.detail,
+        },
+        permission: {
+          title: response[1].data.data.title,
+          detail: response[1].data.data.detail,
+        },
+        kvkk: {
+          title: response[2].data.data.title,
+          detail: response[2].data.data.detail,
+        },
+        health: {
+          title: response[3].data.data.title,
+          detail: response[3].data.data.detail,
+        },
+        agreementExtra: {
+          title: response[4].data.data.title,
+          detail: response[4].data.data.detail,
+        },
+      },
+    });
+  } catch (error) {
+    dispatch({
+      type: CONFIRMATION_DATA_FAILURE,
+    });
+  }
 };

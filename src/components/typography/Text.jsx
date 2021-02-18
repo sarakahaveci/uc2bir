@@ -1,6 +1,7 @@
 // @ts-nocheck
 import React from 'react';
 import styled from 'styled-components';
+import { space, typography } from 'styled-system';
 
 import { colorGenerator } from '../../utils';
 
@@ -14,6 +15,9 @@ const StyledText = styled.div`
   margin: ${(props) => props.margin && props.margin};
   cursor: ${(props) => props.cursor && props.cursor};
   line-height: 120%;
+
+  ${typography}
+  ${space}
 `;
 
 const Text = (props) => (
