@@ -13,7 +13,6 @@ import Register from './views/Register';
 import ProfRegister from './views/ProfRegister';
 import NotFoundPage from './views/NotFoundPage';
 import ForgotPassword from 'views/ForgotPassword';
-import UserDetails from 'views/UserDetails';
 import Profile from 'views/Profile';
 
 const App = () => {
@@ -32,7 +31,6 @@ const App = () => {
           <Route exact path="/info" component={Info} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/profesyonel/register" component={ProfRegister} />
-          <Route path="/user/details" component={UserDetails} />
           <Route exact path="/forgot-password" component={ForgotPassword} />
           <Route exact path="/profile/:id" component={Profile} />
           <Route component={NotFoundPage} />

@@ -19,6 +19,7 @@ const TextField = ({
   maxLength = '',
   icon2,
   icon2Callback,
+  inputProps,
 }) => {
   return (
     <div className="materials">
@@ -37,6 +38,7 @@ const TextField = ({
         variant="standard"
         required={required}
         value={value}
+        inputProps={inputProps}
       />
       {icon2 &&
         icon2({

@@ -22,6 +22,9 @@ const macro = [
     required: true,
     text: 'Ad Soyad',
     icon: Svg.UsernameIcon,
+    inputProps: {
+      minLength: 3,
+    },
   },
   {
     type: 'email',
@@ -62,20 +65,13 @@ const StepOne = () => {
   }, [stepNumber]);
 
   const registerSuccessCallback = () => {
-    toast.success('Kayıt alındı.', {
+    toast.info('Lütfen Bekleyiniz! Yönlendiriliyorsunuz...', {
       position: 'bottom-right',
-      autoClose: 2000,
+      autoClose: 1000,
+      onClose: () => {
+        setStepNumber((step) => step + 1);
+      },
     });
-
-    setTimeout(() => {
-      toast.info('Lütfen Bekleyiniz! Yönlendiriliyorsunuz...', {
-        position: 'bottom-right',
-        autoClose: 1000,
-        onClose: () => {
-          setStepNumber((step) => step + 1);
-        },
-      });
-    }, 1000);
   };
 
   const registerErrorCallback = (errorMessages) =>
@@ -177,6 +173,9 @@ const StepOne = () => {
           forHtml="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          inputProps={{
+            minLength: 6,
+          }}
           label="Şifre"
           icon={Svg.PasswordIcon}
           icon2={Svg.EyeIcon}
@@ -288,6 +287,7 @@ const StepOne = () => {
         <Agreement
           setAcceptMemberAgreement={setAcceptMemberAgreement}
           setOpenAgreement={setOpenAgreement}
+          acceptMemberAgreement={acceptMemberAgreement}
         />
       </StyledModal>
     </div>

@@ -29,15 +29,13 @@ import Certificate from './images/certificate.svg';
 import Comment from './images/comment.svg';
 import Heart from './images/heart.svg';
 import Player from './images/player.svg';
-
-//categories
-import I1 from './images/pt.svg';
-import I2 from './images/fitness.svg';
-import I3 from './images/tennis.svg';
-import I4 from './images/yoga.svg';
-import I5 from './images/kick-boks.svg';
-import I6 from './images/athletic-performance.svg';
-import I7 from './images/swimming.svg';
+import Fitness from './images/fitness.svg';
+import Yoga from './images/yoga.svg';
+import KickBoks from './images/kick-boks.svg';
+import AthleticPerformance from './images/athletic-performance.svg';
+import Tennis from './images/tennis.svg';
+import Swimming from './images/swimming.svg';
+import Pilates from './images/pilates.svg';
 
 const Svg = {
   Menu: (props) => <Menu {...props} />,
@@ -60,7 +58,10 @@ const Svg = {
   ListItemIcon: (props) => <ReactSVG {...props} src={ListItem} />,
   ArrowDownIcon: (props) => <ReactSVG {...props} src={ArrowDown} />,
   ArrowRightIcon: (props) => <ReactSVG {...props} src={ArrowRight} />,
-  YogaIcon: (props) => <ReactSVG {...props} src={I4} />,
+  YogaIcon: (props) => <ReactSVG {...props} src={Yoga} />,
+  FitnessIcon: (props) => <ReactSVG {...props} src={Fitness} />,
+  PilatesIcon: (props) => <ReactSVG {...props} src={Pilates} />,
+  TennisIcon: (props) => <ReactSVG {...props} src={Tennis} />,
   CertificateIcon: (props) => <ReactSVG {...props} src={Certificate} />,
   Comment: (props) => <ReactSVG {...props} src={Comment} />,
   Heart: (props) => <ReactSVG {...props} src={Heart} />,
@@ -69,31 +70,32 @@ const Svg = {
   Categories: [
     {
       name: 'Fitness',
-      svg: (props) => <ReactSVG {...props} src={I1} />,
+      svg: (props) => <ReactSVG {...props} src={Fitness} />,
     },
     {
       name: 'Pilates',
-      svg: (props) => <ReactSVG {...props} src={I2} />,
+      svg: (props) => <ReactSVG {...props} src={Pilates} />,
     },
     {
       name: 'Tenis',
-      svg: (props) => <ReactSVG {...props} src={I3} />,
+      svg: (props) => <ReactSVG {...props} src={Tennis} />,
     },
     {
       name: 'Yoga',
-      svg: (props) => <ReactSVG {...props} src={I4} />,
+      svg: (props) => <ReactSVG {...props} src={Yoga} />,
     },
     {
       name: 'Kick Boks',
-      svg: (props) => <ReactSVG {...props} src={I5} />,
+      svg: (props) => <ReactSVG {...props} src={KickBoks} />,
     },
     {
       name: 'Athletic Performans',
-      svg: (props) => <ReactSVG {...props} src={I6} />,
+      svg: (props) => <ReactSVG {...props} src={AthleticPerformance} />,
     },
     {
+      // Değişecek
       name: 'Cimnastik',
-      svg: (props) => <ReactSVG {...props} src={I7} />,
+      svg: (props) => <ReactSVG {...props} src={Swimming} />,
     },
   ],
 };

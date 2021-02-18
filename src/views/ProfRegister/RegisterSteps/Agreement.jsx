@@ -1,9 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import { Button, Title, Material, Row, Text, Svg } from 'components';
 
-const Agreement = ({ setAcceptMemberAgreement, setOpenAgreement }) => {
+const Agreement = ({
+  acceptMemberAgreement,
+  setAcceptMemberAgreement,
+  setOpenAgreement,
+}) => {
+  const [acceptFirst, setAcceptFirst] = useState(false);
+  const [acceptSecond, setAcceptSecond] = useState(false);
+  const [acceptThird, setAcceptThird] = useState(false);
+
+  useEffect(() => {
+    if (acceptMemberAgreement) {
+      setAcceptFirst(true);
+      setAcceptSecond(true);
+      setAcceptThird(true);
+    }
+  }, []);
+
+  useEffect(() => {}, []);
+
   return (
     <AgreementWrapper>
       <Svg.CloseIcon
@@ -32,34 +50,40 @@ const Agreement = ({ setAcceptMemberAgreement, setOpenAgreement }) => {
         Cayma Hakkı
       </Title>
 
-      <TextAreaWrapper>
-        <Material.checkbox checked={false} />
+      <InfoField>
+        <Material.checkbox
+          checked={acceptFirst}
+          onChange={() => setAcceptFirst(!acceptFirst)}
+        />
 
-        <TextArea>
-          Lorem ipsum dolor sit amet, consectetur urna adipiscing elit, sed do
-          eiusmod tempor eget commodo viverra maeceaccumsan.Lorem ipsum dolor
-          sit amet, consectetur urna adipiscing eliti.Lorem ipsum dolor sit
-          amet, consectetur urna adipiscing elit, sed do eiusmod tempor eget
-          commodo viverra maecenas accumsan.Lorem ipsum dolor sit amet,
-          consectetur urna adipiscing litiLorem ipsum dolor sit amet,
-          consectetur urna adipiscing elit, sed do eiusmod tempor eget commodo
-          viverra maaccumsan.Lorem ipsum dolor sit amet, consectetur urna
-          adipiscing elitiLorem ipsum dolor sit amet, consectetur urna
-          adipiscing elitdo eiusmod tempor ecommodo viverra maecenas
-          accumsan.Lorem ipsum dolor sit amet, consectetur urna adipiscing
-          elitiLorem ipsum dolor sit amet, consecteturadipiscing elit, sed do
-          eiusmod tempor eget commodo viverra maecenas accumsan.Lorem ipsum
-          dolor sit amet, consectetur urna adipiscing elitiLorem ipsum dolor sit
-          amet, consectetur urna adipiscing elit, sed do eiusmod tempor eget
-          commodo viverra maecenas Lorem ipsum dolor sit amet, consectetur urna
-          adipiscing elitiLorem ipsum dolor sit amet, consectetur urna
-          adipiscing elit, sed do eiusmod tempor eget commodo viverra maecenas
-          accumsan.Lorem ipsum dolor sit amet, consectetur urna adipiscing
-          elitiLorem ipsum dolor sit amet, consectetur urna adipiscing elit, sed
-          do eiusmod tempor eget commodo viverra maecenas accumsan.Lorem ipsum
-          dolor sit amet, consectetur urna adipiscing eliti
-        </TextArea>
-      </TextAreaWrapper>
+        <TextAreaWrapper>
+          <TextArea>
+            Lorem ipsum dolor sit amet, consectetur urna adipiscing elit, sed do
+            eiusmod tempor eget commodo viverra maeceaccumsan.Lorem ipsum dolor
+            sit amet, consectetur urna adipiscing eliti.Lorem ipsum dolor sit
+            amet, consectetur urna adipiscing elit, sed do eiusmod tempor eget
+            commodo viverra maecenas accumsan.Lorem ipsum dolor sit amet,
+            consectetur urna adipiscing litiLorem ipsum dolor sit amet,
+            consectetur urna adipiscing elit, sed do eiusmod tempor eget commodo
+            viverra maaccumsan.Lorem ipsum dolor sit amet, consectetur urna
+            adipiscing elitiLorem ipsum dolor sit amet, consectetur urna
+            adipiscing elitdo eiusmod tempor ecommodo viverra maecenas
+            accumsan.Lorem ipsum dolor sit amet, consectetur urna adipiscing
+            elitiLorem ipsum dolor sit amet, consecteturadipiscing elit, sed do
+            eiusmod tempor eget commodo viverra maecenas accumsan.Lorem ipsum
+            dolor sit amet, consectetur urna adipiscing elitiLorem ipsum dolor
+            sit amet, consectetur urna adipiscing elit, sed do eiusmod tempor
+            eget commodo viverra maecenas Lorem ipsum dolor sit amet,
+            consectetur urna adipiscing elitiLorem ipsum dolor sit amet,
+            consectetur urna adipiscing elit, sed do eiusmod tempor eget commodo
+            viverra maecenas accumsan.Lorem ipsum dolor sit amet, consectetur
+            urna adipiscing elitiLorem ipsum dolor sit amet, consectetur urna
+            adipiscing elit, sed do eiusmod tempor eget commodo viverra maecenas
+            accumsan.Lorem ipsum dolor sit amet, consectetur urna adipiscing
+            eliti
+          </TextArea>
+        </TextAreaWrapper>
+      </InfoField>
 
       <Title
         variant="h5"
@@ -72,34 +96,40 @@ const Agreement = ({ setAcceptMemberAgreement, setOpenAgreement }) => {
         Ön Bilgilendirme Formu
       </Title>
 
-      <TextAreaWrapper>
-        <Material.checkbox checked={false} />
+      <InfoField>
+        <Material.checkbox
+          checked={acceptSecond}
+          onChange={() => setAcceptSecond(!acceptSecond)}
+        />
 
-        <TextArea rows={6}>
-          Lorem ipsum dolor sit amet, consectetur urna adipiscing elit, sed do
-          eiusmod tempor eget commodo viverra maeceaccumsan.Lorem ipsum dolor
-          sit amet, consectetur urna adipiscing eliti.Lorem ipsum dolor sit
-          amet, consectetur urna adipiscing elit, sed do eiusmod tempor eget
-          commodo viverra maecenas accumsan.Lorem ipsum dolor sit amet,
-          consectetur urna adipiscing litiLorem ipsum dolor sit amet,
-          consectetur urna adipiscing elit, sed do eiusmod tempor eget commodo
-          viverra maaccumsan.Lorem ipsum dolor sit amet, consectetur urna
-          adipiscing elitiLorem ipsum dolor sit amet, consectetur urna
-          adipiscing elitdo eiusmod tempor ecommodo viverra maecenas
-          accumsan.Lorem ipsum dolor sit amet, consectetur urna adipiscing
-          elitiLorem ipsum dolor sit amet, consecteturadipiscing elit, sed do
-          eiusmod tempor eget commodo viverra maecenas accumsan.Lorem ipsum
-          dolor sit amet, consectetur urna adipiscing elitiLorem ipsum dolor sit
-          amet, consectetur urna adipiscing elit, sed do eiusmod tempor eget
-          commodo viverra maecenas Lorem ipsum dolor sit amet, consectetur urna
-          adipiscing elitiLorem ipsum dolor sit amet, consectetur urna
-          adipiscing elit, sed do eiusmod tempor eget commodo viverra maecenas
-          accumsan.Lorem ipsum dolor sit amet, consectetur urna adipiscing
-          elitiLorem ipsum dolor sit amet, consectetur urna adipiscing elit, sed
-          do eiusmod tempor eget commodo viverra maecenas accumsan.Lorem ipsum
-          dolor sit amet, consectetur urna adipiscing eliti
-        </TextArea>
-      </TextAreaWrapper>
+        <TextAreaWrapper>
+          <TextArea rows={6}>
+            Lorem ipsum dolor sit amet, consectetur urna adipiscing elit, sed do
+            eiusmod tempor eget commodo viverra maeceaccumsan.Lorem ipsum dolor
+            sit amet, consectetur urna adipiscing eliti.Lorem ipsum dolor sit
+            amet, consectetur urna adipiscing elit, sed do eiusmod tempor eget
+            commodo viverra maecenas accumsan.Lorem ipsum dolor sit amet,
+            consectetur urna adipiscing litiLorem ipsum dolor sit amet,
+            consectetur urna adipiscing elit, sed do eiusmod tempor eget commodo
+            viverra maaccumsan.Lorem ipsum dolor sit amet, consectetur urna
+            adipiscing elitiLorem ipsum dolor sit amet, consectetur urna
+            adipiscing elitdo eiusmod tempor ecommodo viverra maecenas
+            accumsan.Lorem ipsum dolor sit amet, consectetur urna adipiscing
+            elitiLorem ipsum dolor sit amet, consecteturadipiscing elit, sed do
+            eiusmod tempor eget commodo viverra maecenas accumsan.Lorem ipsum
+            dolor sit amet, consectetur urna adipiscing elitiLorem ipsum dolor
+            sit amet, consectetur urna adipiscing elit, sed do eiusmod tempor
+            eget commodo viverra maecenas Lorem ipsum dolor sit amet,
+            consectetur urna adipiscing elitiLorem ipsum dolor sit amet,
+            consectetur urna adipiscing elit, sed do eiusmod tempor eget commodo
+            viverra maecenas accumsan.Lorem ipsum dolor sit amet, consectetur
+            urna adipiscing elitiLorem ipsum dolor sit amet, consectetur urna
+            adipiscing elit, sed do eiusmod tempor eget commodo viverra maecenas
+            accumsan.Lorem ipsum dolor sit amet, consectetur urna adipiscing
+            eliti
+          </TextArea>
+        </TextAreaWrapper>
+      </InfoField>
 
       <Title
         variant="h5"
@@ -112,34 +142,40 @@ const Agreement = ({ setAcceptMemberAgreement, setOpenAgreement }) => {
         Mesafeli Satış Sözleşmesi
       </Title>
 
-      <TextAreaWrapper>
-        <Material.checkbox checked={false} />
+      <InfoField>
+        <Material.checkbox
+          checked={acceptThird}
+          onChange={() => setAcceptThird(!acceptThird)}
+        />
 
-        <TextArea rows={6}>
-          Lorem ipsum dolor sit amet, consectetur urna adipiscing elit, sed do
-          eiusmod tempor eget commodo viverra maeceaccumsan.Lorem ipsum dolor
-          sit amet, consectetur urna adipiscing eliti.Lorem ipsum dolor sit
-          amet, consectetur urna adipiscing elit, sed do eiusmod tempor eget
-          commodo viverra maecenas accumsan.Lorem ipsum dolor sit amet,
-          consectetur urna adipiscing litiLorem ipsum dolor sit amet,
-          consectetur urna adipiscing elit, sed do eiusmod tempor eget commodo
-          viverra maaccumsan.Lorem ipsum dolor sit amet, consectetur urna
-          adipiscing elitiLorem ipsum dolor sit amet, consectetur urna
-          adipiscing elitdo eiusmod tempor ecommodo viverra maecenas
-          accumsan.Lorem ipsum dolor sit amet, consectetur urna adipiscing
-          elitiLorem ipsum dolor sit amet, consecteturadipiscing elit, sed do
-          eiusmod tempor eget commodo viverra maecenas accumsan.Lorem ipsum
-          dolor sit amet, consectetur urna adipiscing elitiLorem ipsum dolor sit
-          amet, consectetur urna adipiscing elit, sed do eiusmod tempor eget
-          commodo viverra maecenas Lorem ipsum dolor sit amet, consectetur urna
-          adipiscing elitiLorem ipsum dolor sit amet, consectetur urna
-          adipiscing elit, sed do eiusmod tempor eget commodo viverra maecenas
-          accumsan.Lorem ipsum dolor sit amet, consectetur urna adipiscing
-          elitiLorem ipsum dolor sit amet, consectetur urna adipiscing elit, sed
-          do eiusmod tempor eget commodo viverra maecenas accumsan.Lorem ipsum
-          dolor sit amet, consectetur urna adipiscing eliti
-        </TextArea>
-      </TextAreaWrapper>
+        <TextAreaWrapper>
+          <TextArea rows={6}>
+            Lorem ipsum dolor sit amet, consectetur urna adipiscing elit, sed do
+            eiusmod tempor eget commodo viverra maeceaccumsan.Lorem ipsum dolor
+            sit amet, consectetur urna adipiscing eliti.Lorem ipsum dolor sit
+            amet, consectetur urna adipiscing elit, sed do eiusmod tempor eget
+            commodo viverra maecenas accumsan.Lorem ipsum dolor sit amet,
+            consectetur urna adipiscing litiLorem ipsum dolor sit amet,
+            consectetur urna adipiscing elit, sed do eiusmod tempor eget commodo
+            viverra maaccumsan.Lorem ipsum dolor sit amet, consectetur urna
+            adipiscing elitiLorem ipsum dolor sit amet, consectetur urna
+            adipiscing elitdo eiusmod tempor ecommodo viverra maecenas
+            accumsan.Lorem ipsum dolor sit amet, consectetur urna adipiscing
+            elitiLorem ipsum dolor sit amet, consecteturadipiscing elit, sed do
+            eiusmod tempor eget commodo viverra maecenas accumsan.Lorem ipsum
+            dolor sit amet, consectetur urna adipiscing elitiLorem ipsum dolor
+            sit amet, consectetur urna adipiscing elit, sed do eiusmod tempor
+            eget commodo viverra maecenas Lorem ipsum dolor sit amet,
+            consectetur urna adipiscing elitiLorem ipsum dolor sit amet,
+            consectetur urna adipiscing elit, sed do eiusmod tempor eget commodo
+            viverra maecenas accumsan.Lorem ipsum dolor sit amet, consectetur
+            urna adipiscing elitiLorem ipsum dolor sit amet, consectetur urna
+            adipiscing elit, sed do eiusmod tempor eget commodo viverra maecenas
+            accumsan.Lorem ipsum dolor sit amet, consectetur urna adipiscing
+            eliti
+          </TextArea>
+        </TextAreaWrapper>
+      </InfoField>
 
       <Text
         color="gray1"
@@ -156,6 +192,7 @@ const Agreement = ({ setAcceptMemberAgreement, setOpenAgreement }) => {
           className="blue"
           text="Onaylıyorum"
           width="300px"
+          disabled={!acceptFirst || !acceptSecond || !acceptThird}
           fontWeight="500"
           onClick={() => {
             setAcceptMemberAgreement(true);
@@ -175,7 +212,7 @@ const AgreementWrapper = styled.div`
   }
 `;
 
-const TextAreaWrapper = styled.div`
+const InfoField = styled.div`
   display: flex;
   align-items: center;
 
@@ -186,16 +223,12 @@ const TextAreaWrapper = styled.div`
 `;
 
 const TextArea = styled.div`
-  max-height: 127px;
-  border-radius: 20px;
-  background: #fff;
-  border: 1px solid #c6c6c6;
+  max-height: 100px;
   font-size: 0.9rem;
   overflow-y: scroll;
-  padding: 15px;
   letter-spacing: 0.01em;
   color: var(--black3);
-  margin-bottom: 15px;
+  padding: 10px;
 
   ::-webkit-scrollbar {
     width: 6px;
@@ -207,4 +240,14 @@ const TextArea = styled.div`
     border-radius: 3px;
     background: rgba(155, 155, 155, 0.4);
   }
+`;
+
+const TextAreaWrapper = styled.div`
+  border-radius: 20px;
+  background: #fff;
+  border: 1px solid #c6c6c6;
+  padding: 5px;
+  letter-spacing: 0.01em;
+  color: var(--black3);
+  margin-bottom: 15px;
 `;

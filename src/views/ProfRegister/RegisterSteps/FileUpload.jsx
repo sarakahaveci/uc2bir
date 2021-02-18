@@ -177,7 +177,7 @@ const FileUpload = ({
   });
 
   const isValidProgress = Object.keys(uploadedFiles).some(
-    (key) => uploadedFiles[key] !== 'error'
+    (key) => uploadedFiles[key].progressPercentage === 100
   );
 
   return (
