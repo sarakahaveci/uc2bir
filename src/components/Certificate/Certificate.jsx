@@ -9,11 +9,12 @@ export default function Certificate({ isOdd, fileText }) {
     width: 100%;
     align-items: center;
     background: ${isOdd && '#e8fcfb'} !important;
+    padding: 5px 0;
   `;
 
   return (
     <Wrapper>
-      <Svg.CertificateIcon />
+      <Svg.CertificateIcon className="mb-2 ml-2" />
       <Text fontSize="15px" className="ml-10">
         {fileText}
       </Text>
