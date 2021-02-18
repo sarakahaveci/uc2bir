@@ -14,12 +14,13 @@ const TextField = ({
   className = '',
   icon = false,
   onChange = () => {},
-  value = '',
+  value = null,
   onKeyUp = () => {},
   maxLength = '',
   icon2,
   icon2Callback,
   changeValue,
+  inputProps,
 }) => {
   const [val, setVal] = useState(defaultValue);
 
@@ -48,6 +49,7 @@ const TextField = ({
         onKeyUp={onKeyUp}
         variant="standard"
         required={required}
+        inputProps={inputProps}
       />
       {icon2 &&
         icon2({

@@ -2,17 +2,14 @@ import React from 'react';
 
 import { Tab, Title, Main } from 'components';
 import ProfileCertificate from './ProfileCertificate';
+import Branch from './Branch';
 
 export default function Profile({ match }) {
   const trainerData = [
     {
       eventKey: 'branch',
       title: 'Branşlar',
-      component: (
-        <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-          Branşlar
-        </Title>
-      ),
+      component: <Branch />,
     },
     {
       eventKey: 'certificate',

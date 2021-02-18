@@ -11,6 +11,7 @@ const macroConverter = (data, setData, val) => {
         onChange: (e) => setData({ ...data, [e.target.name]: e.target.value }),
         autoComplete: 'off',
         items: val.items ? val.items : [],
+        inputProps: val.inputProps,
       })
     : val.type === 'select'
     ? Material[val.type]({
@@ -23,6 +24,7 @@ const macroConverter = (data, setData, val) => {
         autoComplete: 'off',
         icon: val.icon,
         items: val.items ? val.items : [],
+        inputProps: val.inputProps,
       })
     : val.type !== 'checkbox'
     ? Material[val.type]({
@@ -34,6 +36,7 @@ const macroConverter = (data, setData, val) => {
         onChange: (e) => setData({ ...data, [e.target.name]: e.target.value }),
         autoComplete: 'off',
         icon: val.icon,
+        inputProps: val.inputProps,
       })
     : Material[val.type]({
         id: val.name,
@@ -44,6 +47,7 @@ const macroConverter = (data, setData, val) => {
         onChange: (e) =>
           setData({ ...data, [val.name]: e.target.checked ? 1 : 0 }),
         checked: data[val.name] ? true : false,
+        inputProps: val.inputProps,
       });
 };
 

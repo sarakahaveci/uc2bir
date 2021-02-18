@@ -4,7 +4,7 @@ import { Modal, Spinner } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { Otp, Text, Svg } from 'components';
-import { setStepTwo } from 'actions';
+import { setStepTwo, verifyCode } from 'actions';
 
 const StepTwo = ({
   formData,
@@ -12,7 +12,7 @@ const StepTwo = ({
   setIsOtpModalActive,
   setStepNumber,
 }) => {
-  const { isLoading: registerLoading } = useSelector((state) => state.stepOne);
+  const { isLoading: registerLoading } = useSelector((state) => state.auth);
 
   const [counter, setCounter] = useState(119);
 
@@ -72,9 +72,11 @@ const StepTwo = ({
   };
 
   return (
-    <Modal show={isOtpModalActive} onHide={modalCloseHandler}>
+    <Modal show={isOtpModalActive} onHide={modalCloseHandler} backdrop="static">
       <div className="prof-register-modal">
-        <Svg.CloseIcon className="close-icon" onClick={modalCloseHandler} />
+        <div onClick={modalCloseHandler}>
+          <Svg.CloseIcon className="close-icon" />
+        </div>
 
         <Text variant="h2" fontSize="1.2rem" color="dark">
           Telefon Numaranızı Doğrulayın
@@ -94,6 +96,23 @@ const StepTwo = ({
           color="blue"
           textAlign="center"
           cursor="pointer"
+          onClose={() =>
+            dispatch(
+              verifyCode(
+                { phone: formData.phone },
+                () =>
+                  toast.success('Kod Gönderildi.', {
+                    position: 'bottom-right',
+                    autoClose: 2000,
+                  }),
+                () =>
+                  toast.error('Mesaj gönderilirken hata oluştu...', {
+                    position: 'bottom-right',
+                    autoClose: 2000,
+                  })
+              )
+            )
+          }
         >
           Güvenlik kodunu tekrar gönder ({Math.floor(counter / 60)}:
           {`${Math.ceil(counter % 60) < 10 ? 0 : ''}${Math.ceil(counter % 60)}`}

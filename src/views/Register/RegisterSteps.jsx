@@ -10,32 +10,32 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getRegisterData } from '../../actions';
 
 const RegisterSteps = () => {
-  const {data: registerData, isSuccess} = useSelector((state) => state.registerData);
+  const { data: registerData, isSuccess } = useSelector(
+    (state) => state.registerData
+  );
   const dispatch = useDispatch();
 
   const err = () => {
     toast.error('Bir sorun oluştu lütfen daha sonra tekrar deneyiniz.', {
-			position: 'bottom-right',
-			autoClose: 2000,
-			hideProgressBar: false,
-			closeOnClick: true,
-			pauseOnHover: true,
-			draggable: true,
-			progress: undefined,
-		});
+      position: 'bottom-right',
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   };
 
   const actionRegisterData = () => {
-    dispatch(
-			getRegisterData(err)
-		);
+    dispatch(getRegisterData(err));
   };
 
   useEffect(() => {
-    if ( !isSuccess ) {
+    if (!isSuccess) {
       actionRegisterData();
     }
-  },[isSuccess]);
+  }, [isSuccess]);
 
   const [steps, setSteps] = useState('step1');
   /**
@@ -65,7 +65,9 @@ const RegisterSteps = () => {
     const finish = {
       key: 4,
       num: 4,
-      page: () => <StepFinish setSteps={setSteps} registerData={registerData} />,
+      page: () => (
+        <StepFinish setSteps={setSteps} registerData={registerData} />
+      ),
     };
 
     switch (step) {

@@ -2,13 +2,13 @@ import React from 'react';
 import styled, { css } from 'styled-components/macro';
 
 import { Svg, AwesomeIcon, Row } from 'components';
+import { sportIconGenerator } from 'utils';
 
 const BranchCardHeader = ({ isActive, sportType, sportName, level, price }) => {
   return (
     <StyledCardHeader isActive={isActive}>
       <StyledRow center className="first">
-        {/* <Svg.YogaIcon className="yoga" /> */}
-        {sportType}
+        {sportIconGenerator(sportType)}
         <Title>{sportName}</Title>
       </StyledRow>
 
@@ -78,8 +78,6 @@ const StyledCardHeader = styled.div`
   padding: 15px 20px;
   border-radius: 10px;
   background: #fcfcfc;
-  box-shadow: ${(p) =>
-    p.isActive ? 'initial' : '0px 2px 7px rgba(0, 0, 0, 0.08)'};
   border-bottom: 0.5px solid transparent;
 
   .last {

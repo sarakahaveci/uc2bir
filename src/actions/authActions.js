@@ -4,6 +4,8 @@ import {
   FORGOT_PASSWORD,
   USER_DETAILS_SET_FROM_STORAGE,
   SOCIAL_LOGIN,
+  LOGOUT,
+  RESET_PASSWORD,
 } from '../constants';
 import { localStorage } from 'utils';
 
@@ -31,7 +33,9 @@ export const login = (
   });
 };
 
-export const forgot_password = (
+export const logOut = () => (dispatch, getState) => dispatch({type: LOGOUT});
+
+export const forgotPassword = (
   { email },
   successCallback,
   errorCallback
@@ -54,7 +58,7 @@ export const forgot_password = (
   });
 };
 
-export const reset_password = (
+export const resetPassword = (
   { email, code, password, password_retry },
   successCallback,
   errorCallback
@@ -66,7 +70,7 @@ export const reset_password = (
     payload: {
       method: 'POST',
       url,
-      label: FORGOT_PASSWORD,
+      label: RESET_PASSWORD,
       body: {
         email,
         code,

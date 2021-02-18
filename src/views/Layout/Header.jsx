@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
 import { Row } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { Link, useHistory } from 'react-router-dom';
 
 import { default as NativeHeader } from '../../components/Header';
 import logo from '../../assets/logo.png';
-import {AwesomeIcon, IconLabel, Button} from '../../components';
+import { AwesomeIcon, IconLabel, Button } from '../../components';
+import { logOut } from 'actions';
 
 const Header = () => {
-  const {isAuthenticated, user} = useSelector((state) => state.auth);
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  const logOutAction = () => {
+    dispatch(logOut());
+  };
 
   const [menuActive, setMenuActive] = useState(false);
   const [toggle, setToggle] = useState(false);
@@ -69,11 +75,11 @@ const Header = () => {
                 </li>
               </ul>
             </div>
-            <div className="bar-item right-bar">
+            {/*<div className="bar-item right-bar">
               <div className="lang">
                 <a href="#">TR</a> / <a href="#">EN</a>
               </div>
-            </div>
+            </div>*/}
           </Row>
         </div>
       );
@@ -120,6 +126,13 @@ const Header = () => {
                         />
                         {`${user?.name}`}
                       </Link>
+                      <Button
+                        className="blue"
+                        icon={AwesomeIcon.FaClose}
+                        text="Çıkış"
+                        style={{ marginLeft: 15 }}
+                        onClick={logOutAction}
+                      />
                     </li>
                   ) : (
                     <>

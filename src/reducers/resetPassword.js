@@ -35,7 +35,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        isSuccsess: true,
+        isSuccsess: false,
         error: action.payload.message,
       };
 

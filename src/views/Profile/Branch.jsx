@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 
-import { Accordion } from 'components';
-import CardHeader from '../../components/BranchCardHeader';
-import BranchCardBody from '../../components/BranchCardBody';
+import { Accordion, Svg } from 'components';
+import BranchCardHeader from '../../components/BranchCard/BranchCardHeader';
+import BranchCardBody from '../../components/BranchCard/BranchCardBody';
 
 const mockData = [
   {
@@ -18,8 +18,8 @@ const mockData = [
     ],
   },
   {
-    sportType: 1,
-    sportName: 'FITNESS',
+    sportType: 2,
+    sportName: 'YOGA',
     level: 'A',
     price: 150,
     speciality: [
@@ -29,8 +29,8 @@ const mockData = [
     ],
   },
   {
-    sportType: 1,
-    sportName: 'FITNESS',
+    sportType: 3,
+    sportName: 'PLATES',
     level: 'A',
     price: 150,
     speciality: [
@@ -40,8 +40,8 @@ const mockData = [
     ],
   },
   {
-    sportType: 1,
-    sportName: 'FITNESS',
+    sportType: 4,
+    sportName: 'TENIS',
     level: 'A',
     price: 150,
     speciality: [
@@ -60,20 +60,22 @@ const UserDetails = () => {
           const { sportType, sportName, level, price, speciality } = item;
 
           return (
-            <Accordion.Item>
-              <Accordion.Toggle>
-                <CardHeader
-                  sportType={sportType}
-                  sportName={sportName}
-                  level={level}
-                  price={price}
-                />
-              </Accordion.Toggle>
+            <AccordionItem>
+              <Accordion.Item>
+                <Accordion.Toggle>
+                  <BranchCardHeader
+                    sportType={sportType}
+                    sportName={sportName}
+                    level={level}
+                    price={price}
+                  />
+                </Accordion.Toggle>
 
-              <Accordion.Collapse>
-                <BranchCardBody speciality={speciality} />
-              </Accordion.Collapse>
-            </Accordion.Item>
+                <Accordion.Collapse>
+                  <BranchCardBody speciality={speciality} />
+                </Accordion.Collapse>
+              </Accordion.Item>
+            </AccordionItem>
           );
         })}
       </Accordion>
@@ -82,3 +84,8 @@ const UserDetails = () => {
 };
 
 export default UserDetails;
+
+const AccordionItem = styled.div`
+  margin-bottom: 30px;
+  box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.08);
+`;
