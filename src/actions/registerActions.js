@@ -11,6 +11,7 @@ import {
   DELETE_FILE,
   SUBMIT_BRANCH,
   GET_TOWN,
+  GET_ADRESS_IDS,
 } from '../constants';
 
 export const setStepOne = (
@@ -271,6 +272,25 @@ export const deleteFile = (fileId, successCallback) => async (dispatch) => {
       url,
       label: DELETE_FILE,
       callBack: () => successCallback(),
+    },
+  });
+};
+
+export const getAdressIds = (body, errorCallback) => async (
+  dispatch,
+  getState
+) => {
+  const url = '/regions-map';
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'POST',
+      url,
+      label: GET_ADRESS_IDS,
+      transformData: (data) => data.data,
+      errorHandler: () => errorCallback(),
+      body,
     },
   });
 };

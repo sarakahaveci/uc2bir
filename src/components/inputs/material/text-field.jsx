@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { default as MaterialTextField } from '@material-ui/core/TextField';
 
@@ -19,15 +19,27 @@ const TextField = ({
   maxLength = '',
   icon2,
   icon2Callback,
+  changeValue,
 }) => {
+  const [val, setVal] = useState(defaultValue);
+
+  const onChangeHandler = (event) => {
+    setVal(event.target.value);
+    onChange(event);
+  };
+
+  useEffect(() => {
+    if (changeValue) setVal(changeValue);
+  }, [changeValue]);
   return (
     <div className="materials">
       {icon && icon({ className: 'material-inputs-icon' })}
       <MaterialTextField
         className={`material-inputs ${className} ${icon ? 'has-icon' : ''}`}
         id={id}
-        onChange={onChange}
+        onChange={onChangeHandler}
         defaultValue={defaultValue}
+        value={val}
         name={name}
         label={label}
         type={type}

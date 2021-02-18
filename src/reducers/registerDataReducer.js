@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import {
   REGISTER_DATA_REQUEST,
   REGISTER_DATA_SUCCESS,
@@ -14,6 +15,9 @@ import {
   GET_TOWN_REQUEST,
   GET_TOWN_SUCCESS,
   GET_TOWN_FAILURE,
+  GET_ADRESS_IDS_REQUEST,
+  GET_ADRESS_IDS_SUCCESS,
+  GET_ADRESS_IDS_FAILURE,
 } from '../constants';
 
 const initialState = {
@@ -25,6 +29,10 @@ const initialState = {
   cities: [],
   distict: [{ id: 0, name: 'İl seçimi yapınız' }],
   town: [{ id: 0, name: 'İl veya ilçe seçimi yapınız' }],
+  cityId: null,
+  districtId: null,
+  townId: null,
+  isSuccessGetId: false,
   verifyCode: {
     isLoading: false,
     error: null,
@@ -112,6 +120,26 @@ export default (state = initialState, action) => {
           isLoading: false,
           error: action.payload.message,
         },
+      };
+
+    case GET_ADRESS_IDS_REQUEST:
+    case GET_ADRESS_IDS_FAILURE:
+      return {
+        ...state,
+        cityId: null,
+        districtId: null,
+        townId: null,
+        isSuccessGetId: false,
+      };
+
+    case GET_ADRESS_IDS_SUCCESS:
+      return {
+        ...state,
+
+        cityId: action.payload.city.id,
+        districtId: action.payload.district.id,
+        townId: action.payload.town.id,
+        isSuccessGetId: true,
       };
 
     default:

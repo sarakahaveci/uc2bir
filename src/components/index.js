@@ -4,7 +4,7 @@ export { default as Main } from './Main';
 export { default as Header } from './Header';
 export { default as Footer } from './Footer';
 export { default as Row } from './Row/Row';
-export { default as GoogleMaps } from './google-maps/index';
+export { default as GoogleMaps } from './GoogleMaps/index';
 export { default as Button } from './buttons/button';
 export { default as IconLabel } from './buttons/icon-label';
 export { default as Text } from './typography/Text';

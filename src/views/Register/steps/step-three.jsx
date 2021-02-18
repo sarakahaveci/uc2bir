@@ -13,7 +13,7 @@ import { stepThree as macro } from '../../../macros/registerMacros';
 import { useSelector, useDispatch } from 'react-redux';
 import { setStepThree } from '../../../actions';
 
-import Map from "../../../components/google-maps/MapWidthSearchBox";
+import Map from "../../../components/GoogleMaps/MapWidthSearchBox";
 
 import axios from 'axios';
 import { geolocated } from "react-geolocated";
