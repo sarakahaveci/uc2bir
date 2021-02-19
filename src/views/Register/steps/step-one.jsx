@@ -148,7 +148,7 @@ const StepOne = (props) => {
               <div style={{margin: 15}} className="d-flex">
                 <Material.CheckBox
                   name={modalConfiguration.name}
-                  checked={data.agreement ? true : false}
+                  checked={data[modalConfiguration.name] ? true : false}
                   onChange={(e) => {
                     setData({
                       ...data,
@@ -170,7 +170,6 @@ const StepOne = (props) => {
             required
             name="agreement"
             checked={data.agreement ? true : false}
-            
             label={
               <div>
                 <span
@@ -210,7 +209,6 @@ const StepOne = (props) => {
             required
             name="health_status"
             checked={data.health_status ? true : false}
-            
             label={
               <div>
                 <span
@@ -239,7 +237,6 @@ const StepOne = (props) => {
             required
             name="kvkk"
             checked={data.kvkk ? true : false}
-            
             label={
               <div>
                 <span
@@ -268,7 +265,6 @@ const StepOne = (props) => {
             required
             name="permission"
             checked={data.permission ? true : false}
-            
             label={
               <div>
                 Açık rıza ve aydınlatma
