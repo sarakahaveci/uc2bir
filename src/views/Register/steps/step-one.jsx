@@ -24,7 +24,11 @@ const StepOne = (props) => {
   const getStepOne = useSelector((state) => state.stepOne);
   const [data, setData] = useState({ ...macro.inputs });
   const [modal, setModal] = useState('');
-  const [modalConfiguration, setModalConfiguration] = useState({});
+  const [modalConfiguration, setModalConfiguration] = useState({
+    name: '',
+    text: {},
+    label: '',
+  });
 
   const [openModal, setOpenModal] = useState(false);
   const fullWidth = true;
@@ -137,10 +141,24 @@ const StepOne = (props) => {
               style={{ padding: '15px 30px' }}
               className="text-center"
             >
-              Lütfen okuyunuz!
+              {modalConfiguration.text.title} Lütfen okuyunuz!
             </DialogContentText>
             <div className="d-flex flex-wrap dialog-center">
-              
+              {modalConfiguration.text.text}
+              <div style={{margin: 15}} className="d-flex">
+                <Material.CheckBox
+                  name={modalConfiguration.name}
+                  checked={data.agreement ? true : false}
+                  onChange={(e) => {
+                    setData({
+                      ...data,
+                      [e.target.name]: e.target.checked ? 1 : 0,
+                    });
+                    return setOpenModal(false);
+                  }}
+                  label={modalConfiguration.label}
+                />
+              </div>
             </div>
           </DialogContent>
         </Dialog>
@@ -152,23 +170,29 @@ const StepOne = (props) => {
             required
             name="agreement"
             checked={data.agreement ? true : false}
-            onChange={(e) => setData({...data, [e.target.name]: e.target.checked ? 1 : 0})}
+            
             label={
               <div>
                 <span
-                  style={{color: colorGenerator("blue")}}
+                  style={{ color: colorGenerator('blue') }}
                   className="underline-text"
                   onClick={(e) => {
                     setOpenModal(true);
-                    setData({...data, agreement: 0});
-                    return setModalConfiguration({name: "agreement", text: ""});
+                    setData({ ...data, agreement: 0 });
+                    return setModalConfiguration({
+                      name: 'agreement',
+                      text: registerData?.pages?.filter(
+                        (f) => f.seo_friendly_url === 'uyelik-sozlesmesi-ekleri'
+                      ),
+                      label: 'Üyelik Sözleşmesini ve Ekleri ’ni kabul ediyorum',
+                    });
                   }}
                 >
                   Üyelik Sözleşmesini
                 </span>
                 ve &nbsp;
                 <span
-                  style={{color: colorGenerator("blue")}}
+                  style={{ color: colorGenerator('blue') }}
                   className="underline-text"
                   onClick={(e) => {
                     e.preventDefault();
@@ -186,21 +210,27 @@ const StepOne = (props) => {
             required
             name="health_status"
             checked={data.health_status ? true : false}
-            onChange={(e) => setData({...data, [e.target.name]: e.target.checked ? 1 : 0})}
+            
             label={
               <div>
                 <span
-                  style={{color: colorGenerator("blue")}}
+                  style={{ color: colorGenerator('blue') }}
                   className="underline-text"
                   onClick={(e) => {
                     setOpenModal(true);
-                    setData({...data, health_status: 0});
-                    return setModalConfiguration({name: "health_status", text: ""});
+                    setData({ ...data, health_status: 0 });
+                    return setModalConfiguration({
+                      name: 'health_status',
+                      text: registerData?.pages?.filter(
+                        (f) => f.seo_friendly_url === 'uyelik-sozlesmesi-ekleri'
+                      ),
+                      label: 'Sağlık muvafakatnamesi okudum, onaylıyorum',
+                    });
                   }}
                 >
-                  Sağlık muvafakatnamesi
+                Sağlık muvafakatnamesi
                 </span>
-                okudum, onaylıyorum.
+                &nbsp;okudum, onaylıyorum.
               </div>
             }
           />
@@ -209,16 +239,22 @@ const StepOne = (props) => {
             required
             name="kvkk"
             checked={data.kvkk ? true : false}
-            onChange={(e) => setData({...data, [e.target.name]: e.target.checked ? 1 : 0})}
+            
             label={
               <div>
                 <span
-                  style={{color: colorGenerator("blue")}}
+                  style={{ color: colorGenerator('blue') }}
                   className="underline-text"
                   onClick={(e) => {
                     setOpenModal(true);
-                    setData({...data, kvkk: 0});
-                    return setModalConfiguration({name: "kvkk", text: ""});
+                    setData({ ...data, kvkk: 0 });
+                    return setModalConfiguration({
+                      name: 'kvkk',
+                      text: registerData?.pages?.filter(
+                        (f) => f.seo_friendly_url === 'uyelik-sozlesmesi-ekleri'
+                      ),
+                      label: 'KVKK okudum, onaylıyorum.',
+                    });
                   }}
                 >
                   KVKK
@@ -232,20 +268,26 @@ const StepOne = (props) => {
             required
             name="permission"
             checked={data.permission ? true : false}
-            onChange={(e) => setData({...data, [e.target.name]: e.target.checked ? 1 : 0})}
+            
             label={
               <div>
                 Açık rıza ve aydınlatma
                 <span
-                  style={{color: colorGenerator("blue")}}
+                  style={{ color: colorGenerator('blue') }}
                   className="underline-text"
                   onClick={(e) => {
                     setOpenModal(true);
-                    setData({...data, permission: 0});
-                    return setModalConfiguration({name: "permission", text: ""});
+                    setData({ ...data, permission: 0 });
+                    return setModalConfiguration({
+                      name: 'permission',
+                      text: registerData?.pages?.filter(
+                        (f) => f.seo_friendly_url === 'uyelik-sozlesmesi-ekleri'
+                      ),
+                      label: 'Açık rıza aydınlatma metinleri',
+                    });
                   }}
                 >
-                &nbsp;metinleri
+                  &nbsp;metinleri
                 </span>
               </div>
             }
