@@ -15,6 +15,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { colorGenerator } from 'utils';
 
 const StepOne = (props) => {
   const { setSteps, registerData } = props;
@@ -23,6 +24,7 @@ const StepOne = (props) => {
   const getStepOne = useSelector((state) => state.stepOne);
   const [data, setData] = useState({ ...macro.inputs });
   const [modal, setModal] = useState('');
+  const [modalConfiguration, setModalConfiguration] = useState({});
 
   const [openModal, setOpenModal] = useState(false);
   const fullWidth = true;
@@ -154,16 +156,19 @@ const StepOne = (props) => {
             label={
               <div>
                 <span
+                  style={{color: colorGenerator("blue")}}
                   className="underline-text"
                   onClick={(e) => {
-                    e.preventDefault();
                     setOpenModal(true);
+                    setData({...data, agreement: 0});
+                    return setModalConfiguration({name: "agreement", text: ""});
                   }}
                 >
                   Üyelik Sözleşmesini
                 </span>
                 ve &nbsp;
                 <span
+                  style={{color: colorGenerator("blue")}}
                   className="underline-text"
                   onClick={(e) => {
                     e.preventDefault();
@@ -185,10 +190,12 @@ const StepOne = (props) => {
             label={
               <div>
                 <span
+                  style={{color: colorGenerator("blue")}}
                   className="underline-text"
                   onClick={(e) => {
-                    e.preventDefault();
                     setOpenModal(true);
+                    setData({...data, health_status: 0});
+                    return setModalConfiguration({name: "health_status", text: ""});
                   }}
                 >
                   Sağlık muvafakatnamesi
@@ -206,10 +213,12 @@ const StepOne = (props) => {
             label={
               <div>
                 <span
+                  style={{color: colorGenerator("blue")}}
                   className="underline-text"
                   onClick={(e) => {
-                    e.preventDefault();
                     setOpenModal(true);
+                    setData({...data, kvkk: 0});
+                    return setModalConfiguration({name: "kvkk", text: ""});
                   }}
                 >
                   KVKK
@@ -226,14 +235,17 @@ const StepOne = (props) => {
             onChange={(e) => setData({...data, [e.target.name]: e.target.checked ? 1 : 0})}
             label={
               <div>
+                Açık rıza ve aydınlatma
                 <span
+                  style={{color: colorGenerator("blue")}}
                   className="underline-text"
                   onClick={(e) => {
-                    e.preventDefault();
                     setOpenModal(true);
+                    setData({...data, permission: 0});
+                    return setModalConfiguration({name: "permission", text: ""});
                   }}
                 >
-                  Açık rıza ve aydınlatma metinleri
+                &nbsp;metinleri
                 </span>
               </div>
             }
