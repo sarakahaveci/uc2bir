@@ -19,6 +19,7 @@ import {
   CONFIRMATION_DATA_SUCCESS,
   CONFIRMATION_DATA_FAILURE,
   QUIZ_GET,
+  SUBMIT_BENEFIT,
 } from '../constants';
 
 export const setStepOne = (
@@ -228,7 +229,7 @@ export const verifyCode = (
 
 export const submitUserBranch = (
   branch,
-  successCallback,
+
   errorCallback
 ) => async (dispatch, getState) => {
   const url = '/user/profile/branch';
@@ -239,7 +240,6 @@ export const submitUserBranch = (
       method: 'POST',
       url,
       label: SUBMIT_BRANCH,
-      callBack: () => successCallback(),
       errorHandler: () => errorCallback(),
       body: {
         branches: branch,
@@ -307,6 +307,26 @@ export const offerBranch = ({ branch }) => async (dispatch, getState) => {
       url,
       label: OFF_NEW_BRANCH,
       body: { branch },
+    },
+  });
+};
+
+export const submitBenefits = (
+  { facilities },
+  successCallback,
+  errorCallback
+) => async (dispatch, getState) => {
+  const url = '/user/profile/facility';
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'POST',
+      url,
+      label: SUBMIT_BENEFIT,
+      body: { facilities },
+      callBack: () => successCallback(),
+      errorHandler: () => errorCallback(),
     },
   });
 };

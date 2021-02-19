@@ -26,43 +26,45 @@ const RegisterPage = ({ stepNumber, setUserTypeId, userTypeId }) => {
   }
 
   if (userTypeId === WORK_PLACE) {
-    if (stepNumber === 4) {
+    if (stepNumber === 4 ||stepNumber === 5  ) {
+      page = <StepThree />;
+    }
+    
+    if (stepNumber === 6) {
       page = <WorkPlaceCriminalRecordStep />;
     }
 
-    if (stepNumber === 5) {
+    if (stepNumber === 7) {
       page = <WorkPlaceContractStep />;
     }
 
-    if (stepNumber === 6) {
+    if (stepNumber === 8) {
       page = <WorkPlaceLicenseStep />;
     }
 
-    if (stepNumber === 7 || stepNumber === 8) {
+    if (stepNumber === 9 || stepNumber === 10) {
       page = <WorkPlaceHirePlaceStep />;
     }
   } else if (userTypeId === DIETITIAN) {
-    if (stepNumber === 4) {
-      page = <StepThree />;
-    }
+  
 
-    if (stepNumber === 5) {
+    if (stepNumber === 4) {
       page = <CertificateStep />;
     }
 
-    if (stepNumber === 6) {
+    if (stepNumber === 5) {
       page = <DegreeStep />;
     }
 
-    if (stepNumber === 7) {
+    if (stepNumber === 6) {
       page = <CriminalRecordStep />;
     }
 
-    if (stepNumber === 8) {
+    if (stepNumber ===7) {
       page = <IdentityCardStep />;
     }
 
-    if (stepNumber === 9 || stepNumber === 10) {
+    if (stepNumber === 8 || stepNumber === 9) {
       page = <FacePictureStep />;
     }
   } else {
