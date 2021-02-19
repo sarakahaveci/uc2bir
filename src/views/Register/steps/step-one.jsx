@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { stepOne as macro } from '../../../macros/registerMacros';
 import { useSelector, useDispatch } from 'react-redux';
 import { setStepOne } from '../../../actions';
+import StepTwo from './step-two';
 
 const StepOne = (props) => {
   const { setSteps, registerData } = props;
@@ -16,12 +17,7 @@ const StepOne = (props) => {
 
   const getStepOne = useSelector((state) => state.stepOne);
   const [data, setData] = useState({ ...macro.inputs });
-
-  useEffect(() => {
-    if (getStepOne.isSuccess) {
-      setData({ ...getStepOne.data });
-    }
-  }, [getStepOne.isSuccess]);
+  const [modal, setModal] = useState("");
 
   const isSuccess = () => {
     toast.success('Kayıt alındı.', {
@@ -43,7 +39,7 @@ const StepOne = (props) => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        onClose: () => setSteps('step2'),
+        onClose: () => setModal(true),
       });
     }, 1000);
   };
@@ -117,7 +113,7 @@ const StepOne = (props) => {
         <MacroCollections macro={macro.macro} data={data} setData={setData} />
         {!getStepOne.isLoading ? (
           <Button onClick={onSubmit} text={`İleri`} className="blue" />
-        ) : (
+          ) : (
           <Button
             onClick={() => {
               console.log('Lütfen Bekleyiniz...');
@@ -127,6 +123,7 @@ const StepOne = (props) => {
           />
         )}
       </form>
+      {modal && <StepTwo setSteps={setSteps}/>}
       <Text
         style={{ marginTop: 30, marginBottom: 10 }}
         fontSize="12pt"

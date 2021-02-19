@@ -128,27 +128,6 @@ const StepTwo = (props) => {
   return (
     <>
       <React.Fragment>
-        <Button
-          className="blue"
-          style={{ marginBottom: 15 }}
-          onClick={handleClickOpen}
-          fontSize="11pt"
-          text="Kodu Gir!"
-        />
-        <Button
-          className="blue"
-          style={{ marginBottom: 15 }}
-          onClick={vrf_response}
-          fontSize="11pt"
-          text="Telefonuma Kodu Tekrar Gönder!"
-        />
-        <Button
-          className="blue"
-          style={{ marginBottom: 15 }}
-          onClick={() => setSteps('step1')}
-          fontSize="11pt"
-          text="Bilgilerimi Tekrar Gönder"
-        />
         <Dialog
           className="material-dialog"
           fullWidth={fullWidth}

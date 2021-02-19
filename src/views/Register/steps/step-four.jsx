@@ -15,6 +15,7 @@ const StepFour = (props) => {
   const [data, setData] = useState([]);
   const getStepFour = useSelector((state) => state.stepFour);
   const [macro, setMacro] = useState(false);
+  const [next, setNext] = useState(false);
 
   useEffect(() => {
     if (registerData) {
@@ -44,35 +45,51 @@ const StepFour = (props) => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    const response = await data.map((val, key) =>
-      dispatch(
-        setStepFour(
-          { ...val },
-          () =>
-            toast.success(`${++key}. Soru cevabı gönderildi.`, {
-              position: 'bottom-right',
-              autoClose: 2000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            }),
-          () =>
-            toast.error(`${++key}. Soru cevabı gönderilemedi!`, {
-              position: 'bottom-right',
-              autoClose: 2000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            })
+    if (data.length === macro.length) {
+      const response = await data.map((val, key) =>
+        dispatch(
+          setStepFour(
+            { ...val },
+            () =>
+              toast.success(`${++key}. Soru cevabı gönderildi.`, {
+                position: 'bottom-right',
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                onClose: () => setNext(true)
+              }),
+            () =>
+              toast.error(`${++key}. Soru cevabı gönderilemedi!`, {
+                position: 'bottom-right',
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                onClose: () => setNext(false)
+              })
+          )
         )
-      )
-    );
-    if (response) {
-      return setSteps('finish');
+      );
+      if (response) {
+        if ( next ) {
+          return setSteps('finish');
+        }
+      }
+    } else {
+      toast.info(`Lütfen tüm soruları cevaplayın!`, {
+        position: 'bottom-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
   return (
