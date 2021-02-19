@@ -47,7 +47,7 @@ const StepThree = (props) => {
 
   const branchType = isWorkPlace ? 'pt' : 'bs';
 
-  const branches = registerData?.['spor_branslari'].filter(
+  const branches = registerData?.['spor_branslari']?.filter(
     (branch) => branch.type === branchType
   );
 
