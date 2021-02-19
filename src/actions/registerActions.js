@@ -18,6 +18,7 @@ import {
   CONFIRMATION_DATA_REQUEST,
   CONFIRMATION_DATA_SUCCESS,
   CONFIRMATION_DATA_FAILURE,
+  QUIZ_GET,
 } from '../constants';
 
 export const setStepOne = (
@@ -243,6 +244,26 @@ export const submitUserBranch = (
       body: {
         branches: branch,
       },
+    },
+  });
+};
+
+export const getQuiz = (
+  successCallback,
+  errorCallback
+) => async (
+  dispatch
+) => {
+  const url = '/user/profile/quiz';
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'GET',
+      url,
+      label: QUIZ_GET,
+      callBack: () => successCallback(),
+      errorHandler: () => errorCallback(),
     },
   });
 };

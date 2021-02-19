@@ -9,6 +9,7 @@ import stepFour from '../reducers/stepFourReducer';
 import registerData from '../reducers/registerDataReducer';
 import forgotPassword from '../reducers/forgotPaswword';
 import resetPassword from '../reducers/resetPassword';
+import quizGet from '../reducers/quizGetReducer'
 
 const reducers = combineReducers({
   auth,
@@ -20,6 +21,7 @@ const reducers = combineReducers({
   registerData,
   forgotPassword,
   resetPassword,
+  quizGet,
 });
 
 export default reducers;

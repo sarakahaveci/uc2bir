@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { Button, Material } from '../../../components';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { setStepFour } from '../../../actions';
+import { setStepFour, getQuiz } from '../../../actions';
 
 const StepFour = (props) => {
   const { setSteps, registerData } = props;
@@ -14,6 +14,7 @@ const StepFour = (props) => {
 
   const [data, setData] = useState([]);
   const getStepFour = useSelector((state) => state.stepFour);
+  const quiz = useSelector((state) => state.quizGet);
   const [macro, setMacro] = useState(false);
   const [next, setNext] = useState(false);
 
@@ -46,7 +47,12 @@ const StepFour = (props) => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    console.log(data.length, "|", macro.length)
+    dispatch(getQuiz(
+      () => console.log("succsess"),
+      () => console.log("err")
+    ));
+    console.log(data.length, "|", macro.length);
+    console.log(quiz);
     if (data.length >= macro.length) {
       const response = await data.map((val, key) =>
         dispatch(
