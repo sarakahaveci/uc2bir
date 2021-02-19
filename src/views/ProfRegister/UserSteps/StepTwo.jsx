@@ -15,6 +15,7 @@ const StepTwo = ({
   const { isLoading: registerLoading } = useSelector((state) => state.auth);
 
   const [counter, setCounter] = useState(119);
+  const [isVerifyButtonDisabled, setIsVerifyButtonDisabled] = useState(false);
 
   const otpInputRef = useRef();
   const interval = useRef();
@@ -78,6 +79,12 @@ const StepTwo = ({
     );
   };
 
+  useEffect(() => {
+    const code = otpInputRef.current.getCode();
+
+    setIsVerifyButtonDisabled(code.toString().length !== 6);
+  }, [otpInputRef?.current?.getCode() || false]);
+
   return (
     <Modal show={isOtpModalActive} onHide={modalCloseHandler} backdrop="static">
       <div className="prof-register-modal">
@@ -95,7 +102,7 @@ const StepTwo = ({
         </Text>
 
         <div>
-          <Otp otpCallback={registerHandler} ref={otpInputRef} />
+          <Otp ref={otpInputRef} />
         </div>
 
         <Text
@@ -130,8 +137,10 @@ const StepTwo = ({
           text="İleri"
           margin="15px 0 0 0"
           className="blue"
+          disabled={isVerifyButtonDisabled}
           onClick={() => {
             const code = otpInputRef.current.getCode();
+
             registerHandler(code);
           }}
         />

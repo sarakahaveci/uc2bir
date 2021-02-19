@@ -1,12 +1,13 @@
 import React from 'react';
 
 import FileUpload from './FileUpload';
+import { HEALTH_REPORT } from '../../../constants';
 
-const StepEight = () => {
+const HealthReportStep = () => {
   return (
     <>
       <FileUpload
-        fileTypeName="Sağlık Raporu"
+        fileTypeId={HEALTH_REPORT}
         title="İlgili kurumlardan aldığınız sağlık raporunuzu ekleyin."
         showPassButton
       >
@@ -19,4 +20,4 @@ const StepEight = () => {
   );
 };
 
-export default StepEight;
+export default HealthReportStep;
