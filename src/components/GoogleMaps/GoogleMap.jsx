@@ -16,7 +16,7 @@ import MarkerSvg from './markerSvg.svg';
 Geocode.setApiKey(GoogleMapsAPI);
 
 export default function MyComponent({ onPositionChange }) {
-  const [position, setPosition] = useState(null);
+  const [position, setPosition] = useState({ lat: 41.015137, lng: 28.97953 });
   const [searchAdress, setSearchAdress] = useState(null);
   const [selectedAdress, setSelectedAdress] = useState({});
   const [debouncedSearchAdress] = useDebounce(searchAdress, 2000);
@@ -97,7 +97,7 @@ export default function MyComponent({ onPositionChange }) {
   }, [position]);
 
   useEffect(() => {
-    if (!!debouncedSearchAdress) handleAdressSearch();
+    if (!!searchAdress) handleAdressSearch();
   }, [debouncedSearchAdress]);
 
   const panTo = React.useCallback(({ lat, lng }) => {
@@ -126,10 +126,7 @@ export default function MyComponent({ onPositionChange }) {
 
   if (loadError) return 'Yüklenme Hatası';
   if (!isLoaded) return 'Yükleniyor';
-  const center = {
-    lat: 43.6532,
-    lng: -79.3832,
-  };
+
   return (
     <div className=" mx-auto map-wrapper">
       <SearchBar
@@ -149,7 +146,7 @@ export default function MyComponent({ onPositionChange }) {
         options={options}
         onLoad={onMapLoad}
       >
-        <InfoWindow position={position ?? center}>
+        <InfoWindow position={position}>
           <div>{selectedAdress?.address_detail || ''}</div>
         </InfoWindow>
         <Marker
