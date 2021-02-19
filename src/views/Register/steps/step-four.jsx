@@ -20,9 +20,10 @@ const StepFour = (props) => {
   useEffect(() => {
     if (registerData) {
       if (registerData['par_q_testi']) {
+        console.log(registerData)
         const new_data = registerData['par_q_testi'].map((val) => {
           return {
-            type: 'radio',
+            type: val.answer_type,
             required: true,
             name: val.id,
             forHtml: val.id,
@@ -45,7 +46,8 @@ const StepFour = (props) => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    if (data.length === macro.length) {
+    console.log(data.length, "|", macro.length)
+    if (data.length >= macro.length) {
       const response = await data.map((val, key) =>
         dispatch(
           setStepFour(
@@ -59,7 +61,7 @@ const StepFour = (props) => {
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
-                onClose: () => setNext(true)
+                onClose: () => setNext(true),
               }),
             () =>
               toast.error(`${++key}. Soru cevabı gönderilemedi!`, {
@@ -70,13 +72,13 @@ const StepFour = (props) => {
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
-                onClose: () => setNext(false)
+                onClose: () => setNext(false),
               })
           )
         )
       );
       if (response) {
-        if ( next ) {
+        if (next) {
           return setSteps('finish');
         }
       }
@@ -95,26 +97,48 @@ const StepFour = (props) => {
   return (
     <>
       <form onSubmit={onSubmit} autoComplete="off">
-        {macro &&
-          macro.map((val, key) => (
-            <Material.RadioButtonsGroup
-              key={key}
-              name={val.name}
-              label={`${++key}. ${val.text}`}
-              items={val.items}
-              required
-              onChange={(e) =>
-                setData([
-                  ...data,
-                  {
-                    survey_id: val.survey_id,
-                    question_id: val.id,
-                    answer: val.id,
-                  },
-                ])
-              }
-            />
-          ))}
+        {macro.length &&
+          macro.map((val, key) => {
+            if (val.type === "radio") {
+              return (
+                <Material.RadioButtonsGroup
+                  key={key}
+                  name={val.name}
+                  label={`${++key}. ${val.text}`}
+                  items={val.items}
+                  required
+                  onChange={(e) =>
+                    setData([
+                      ...data,
+                      {
+                        survey_id: val.survey_id,
+                        question_id: val.id,
+                        answer: val.id,
+                      },
+                    ])
+                  }
+                />
+              );
+            } else if ( val.type === "string" ) {
+              return (
+                <div style={{marginTop: 15, marginBottom: 30}}>
+                  <div style={{fontSize: "11pt"}} className="label">{`${++key}. ${val.text}`}</div>
+                  <Material.TextField
+                    key={key}
+                    name={val.name}
+                    onChange={(e) => setData([
+                      ...data,
+                      {
+                        survey_id: val.survey_id,
+                        question_id: val.id,
+                        answer: e.target.value,
+                      },
+                    ])}
+                  />
+                </div>
+              )
+            }
+          })}
         {!getStepFour.isLoading || !getStepFour.isSuccess ? (
           <Button type="submit" text={`İleri`} className="blue" />
         ) : (
