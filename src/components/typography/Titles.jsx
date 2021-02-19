@@ -13,7 +13,7 @@ const StyledTitle = styled(Typography)`
   font-size: ${(props) => props.fontSize && props.fontSize} !important;
   letter-spacing: ${(props) => !props.letterSpacing && 'initial'} !important;
   text-align: ${(props) =>
-    !props.textLeft ? (props.textAlign ? props.textAlign : 'center') : 'left' } !important;
+    props.textLeft ? (props.textAlign ? props.textAlign : 'center') : 'left' } !important;
   display: block !important;
   margin: ${(props) => props.margin && props.margin} !important;
 `;
