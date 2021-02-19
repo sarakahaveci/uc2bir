@@ -8,10 +8,6 @@ export const stepOne = {
 		phone: "",
 		password: "",
 		type_id: 0,
-		kvkk: 0,
-		agreement: 0,
-		health_status: 0,
-		permission: 0,
 	},
 	macro: [
 		{
