@@ -46,7 +46,7 @@ export const stepOne = {
 			text: "Şifre",
 			icon: Svg.PasswordIcon,
 		},
-		{
+		/*{
 			type: "checkbox",
 			required: true,
 			name: "agreement",
@@ -77,7 +77,7 @@ export const stepOne = {
 			forHtml: "permission",
 			text: false,
 			component: () => <>Açık rıza aydınlatma <a href="/">metinleri</a>.</>
-		},
+		},*/
 	]
 }
 
