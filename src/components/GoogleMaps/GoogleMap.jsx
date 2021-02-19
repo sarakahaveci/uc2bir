@@ -42,7 +42,7 @@ export default function MyComponent({ onPositionChange }) {
       Geocode.fromLatLng(position.lat, position.lng).then(
         (response) => {
           const address_detail = response.results[0].formatted_address;
-          let city, district, town, postalCode;
+          let city, district, town;
           for (
             let i = 0;
             i < response.results[0].address_components.length;
@@ -65,11 +65,6 @@ export default function MyComponent({ onPositionChange }) {
                 case 'administrative_area_level_4':
                   town = response.results[0].address_components[i].long_name;
                   break;
-
-                case 'postal_code':
-                  postalCode =
-                    response.results[0].address_components[i].long_name;
-                  break;
               }
             }
           }
@@ -77,14 +72,12 @@ export default function MyComponent({ onPositionChange }) {
             city,
             district,
             town,
-            postalCode,
             address_detail,
           });
           onPositionChange({
             city,
             district,
             town,
-            postalCode,
             address_detail,
             ...position,
           });

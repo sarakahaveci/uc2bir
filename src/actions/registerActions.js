@@ -248,12 +248,7 @@ export const submitUserBranch = (
   });
 };
 
-export const getQuiz = (
-  successCallback,
-  errorCallback
-) => async (
-  dispatch
-) => {
+export const getQuiz = (successCallback, errorCallback) => async (dispatch) => {
   const url = '/user/profile/quiz';
 
   await dispatch({
@@ -282,7 +277,7 @@ export const deleteFile = (fileId, successCallback) => async (dispatch) => {
   });
 };
 
-export const getAdressIds = (body, errorCallback) => async (
+export const getAdressIds = (body, successCallback, errorCallback) => async (
   dispatch,
   getState
 ) => {
@@ -295,6 +290,7 @@ export const getAdressIds = (body, errorCallback) => async (
       url,
       label: GET_ADRESS_IDS,
       transformData: (data) => data.data,
+      callBack: () => successCallback(),
       errorHandler: () => errorCallback(),
       body,
     },

@@ -47,9 +47,7 @@ const StepThree = (props) => {
 
   const branchType = isWorkPlace ? 'pt' : 'bs';
 
-  const branches = registerData?.['spor_branslari'].filter(
-    (branch) => branch.type === branchType
-  );
+  const branches = [];
 
   const [hasTaxNumber, setHasTaxNumber] = useState(isWorkPlace);
   const [open, setOpen] = useState(false);
@@ -154,6 +152,10 @@ const StepThree = (props) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
+  const successCallback = () => {
+    setOpen(false);
+  };
+
   const useAdressFromMap = () => {
     dispatch(
       getAdressIds(
@@ -162,7 +164,8 @@ const StepThree = (props) => {
           district: adressFromMap.district,
           town: adressFromMap.town,
         },
-        isFailGetIds
+        () => successCallback(),
+        () => isFailGetIds()
       )
     );
   };
@@ -208,11 +211,11 @@ const StepThree = (props) => {
     <div>Yükleniyor</div>
   ) : (
     <>
-      <Modal show={open} onHide={handleClose} className="material-dialog">
+      <Modal show={open} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Haritadan Seçin!</Modal.Title>
+          <Modal.Title textAlign="center">Haritadan Seçin!</Modal.Title>
         </Modal.Header>
-        <Modal.Body className="branchWrapper">
+        <Modal.Body>
           <Text textAlign="center">
             Mahalle, Cadde veya Sokak adı ile arayın yada Pini Sürükleyin
           </Text>
