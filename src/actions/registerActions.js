@@ -144,7 +144,7 @@ export const setStepFour = (
       url,
       label: REGISTER_STEP_FOUR,
       body: {
-        ...data
+        ...data,
       },
       transformData: (data) => data.data,
       callBack: () => successCallback(),

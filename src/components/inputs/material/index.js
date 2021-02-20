@@ -7,6 +7,7 @@ import SimpleSelect from "./simple-select";
 import RadioButtonsGroup from "./radio-button-groups";
 import { default as MCheckBox } from "./m-check-box";
 import PhoneField from './phone-field';
+import CheckBoxGroup from './check-box-group';
 
 export const Material = {
 	TextField,
@@ -16,6 +17,7 @@ export const Material = {
 	RadioButtonsGroup,
 	PhoneField,
 	MaterialDateField,
+	CheckBoxGroup,
 
 	email: props => <TextField {...props} />,
 	number: props => <TextField {...props} />,
