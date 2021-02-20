@@ -447,7 +447,9 @@ const StepThree = () => {
                   className="blue ml-auto w-100"
                   text="İleri"
                   size="lg"
-                  disabled={!offeredBranch && !selectedButtons.length > 0}
+                  disabled={
+                    offeredBranch.length < 3 && !selectedButtons.length > 0
+                  }
                   onClick={submitBranch}
                 />
               </div>
