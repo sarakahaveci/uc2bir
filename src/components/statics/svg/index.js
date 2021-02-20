@@ -36,6 +36,12 @@ import AthleticPerformance from './images/athletic-performance.svg';
 import Tennis from './images/tennis.svg';
 import Swimming from './images/swimming.svg';
 import Pilates from './images/pilates.svg';
+import Notification from './images/notification.svg';
+import Date from './images/date.svg';
+import Packet from './images/packet.svg';
+import Wallet from './images/wallet.svg';
+import CommentBlack from './images/comment-black.svg';
+import Closed from './images/closed.svg';
 
 const Svg = {
   Menu: (props) => <Menu {...props} />,
@@ -66,6 +72,12 @@ const Svg = {
   Comment: (props) => <ReactSVG {...props} src={Comment} />,
   Heart: (props) => <ReactSVG {...props} src={Heart} />,
   Player: (props) => <ReactSVG {...props} src={Player} />,
+  Notification: (props) => <ReactSVG {...props} src={Notification} />,
+  Date: (props) => <ReactSVG {...props} src={Date} />,
+  Packet: (props) => <ReactSVG {...props} src={Packet} />,
+  Wallet: (props) => <ReactSVG {...props} src={Wallet} />,
+  CommentBlack: (props) => <ReactSVG {...props} src={CommentBlack} />,
+  Closed: (props) => <ReactSVG {...props} src={Closed} />,
 
   Categories: [
     {

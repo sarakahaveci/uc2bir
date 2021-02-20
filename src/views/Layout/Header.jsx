@@ -1,22 +1,16 @@
 import React, { useState } from 'react';
 import { Row } from 'react-bootstrap';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { Link, useHistory } from 'react-router-dom';
 
 import { default as NativeHeader } from '../../components/Header';
 import logo from '../../assets/logo.png';
-import { AwesomeIcon, IconLabel, Button } from '../../components';
-import { logOut } from 'actions';
+import { AwesomeIcon, IconLabel, Button, HeaderLogin } from '../../components';
 
 const Header = () => {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
   const history = useHistory();
-  const dispatch = useDispatch();
-
-  const logOutAction = () => {
-    dispatch(logOut());
-  };
 
   const [menuActive, setMenuActive] = useState(false);
   const [toggle, setToggle] = useState(false);
@@ -115,25 +109,10 @@ const Header = () => {
               <div className="bar-item right-bar">
                 <ul>
                   {isAuthenticated ? (
-                    <li>
-                      <Link to="profile">
-                        <AwesomeIcon.User
-                          style={{
-                            color: '#585858',
-                            fontSize: '10pt',
-                            marginRight: 7,
-                          }}
-                        />
-                        {`${user?.name}`}
-                      </Link>
-                      <Button
-                        className="blue"
-                        icon={AwesomeIcon.FaClose}
-                        text="Çıkış"
-                        style={{ marginLeft: 15 }}
-                        onClick={logOutAction}
-                      />
-                    </li>
+                    <HeaderLogin
+                      type_id={1}
+                      user={user}
+                    />
                   ) : (
                     <>
                       <li>
