@@ -173,9 +173,9 @@ export default (state = initialState, action) => {
       return {
         ...state,
 
-        cityId: action.payload.city.id,
-        districtId: action.payload.district.id,
-        townId: action.payload.town.id,
+        cityId: action.payload.city?.id,
+        districtId: action.payload.district?.id,
+        townId: action.payload.town?.id,
         isSuccessGetId: true,
       };
 
