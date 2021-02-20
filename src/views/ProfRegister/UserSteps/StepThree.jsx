@@ -67,14 +67,8 @@ const StepThree = () => {
 
   useEffect(() => {
     if (stepNumber === 4) {
-      setShowBranchModal(true);
-    }
-  }, [stepNumber]);
-
-  useEffect(() => {
-    if (stepNumber === 5) {
-      setShowBranchModal(false);
-      setShowBenefitModal(true);
+      if (isWorkPlace) setShowBenefitModal(true);
+      else setShowBranchModal(true);
     }
   }, [stepNumber]);
 
@@ -235,6 +229,7 @@ const StepThree = () => {
 
   const handleCloseBenefitModal = () => {
     setShowBenefitModal(false);
+    setStepNumber((value) => value - 1);
   };
 
   return isLoading ? (
