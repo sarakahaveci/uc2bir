@@ -9,48 +9,68 @@ import Item from '../Item';
 import { useDispatch } from 'react-redux';
 import { logOut } from 'actions';
 
-const Individual = ({ user_name, user_img = null }) => {
+const Pt = ({ user_name, user_id, user_img = null }) => {
   const dispatch = useDispatch();
 
   const logOutAction = () => {
     dispatch(logOut());
   };
 
+  const notification = [
+    {
+      name: "1. Bildirim",
+      link: `/profile/${user_id}`
+    },
+    {
+      name: "2. Bildirim",
+      link: `/profile/${user_id}`
+    },
+    {
+      name: "3. Bildirim",
+      link: `/profile/${user_id}`
+    },
+  ];
+
   const menu = [
     {
       name: 'Profilim',
       icon: <Svg.UsernameIcon />,
-    },
-    {
-      name: 'Rezervasyonlarım',
-      icon: <Svg.Date />,
-      tabs: [
-        {
-          name: 'Tab 1',
-        },
-        {
-          name: 'Tab 2',
-          tabs: [
-            {
-              name: 'Tab 1',
-            },
-            {
-              name: 'Tab 2',
-            },
-          ],
-        },
-        {
-          name: 'Tab 3',
-        },
-      ],
+      link: `/profile/${user_id}`
     },
     {
       name: 'Paketlerim',
       icon: <Svg.Packet />,
+      link: `/profile/${user_id}`
+    },
+    {
+      name: 'Oturum Türleri & Çalıştığım Yerler',
+      icon: <Svg.PtHome />,
+      link: `/profile/${user_id}`
+    },
+    {
+      name: 'Branşlarım & Ücretlerim',
+      icon: <Svg.PtBranch />,
+      link: `/profile/${user_id}`
+    },
+    {
+      name: 'Uzmanlıklarım',
+      icon: <Svg.Expert />,
+      link: `/profile/${user_id}`
     },
     {
       name: 'Cüzdanım',
       icon: <Svg.Wallet />,
+      link: `/profile/${user_id}`
+    },
+    {
+      name: 'Galeri',
+      icon: <Svg.Gallery />,
+      link: `/profile/${user_id}`
+    },
+    {
+      name: 'Blog',
+      icon: <Svg.Blog />,
+      link: `/profile/${user_id}`
     },
     {
       name: 'Çıkış Yap',
@@ -63,7 +83,7 @@ const Individual = ({ user_name, user_img = null }) => {
     {
       name: 'Bildirimler',
       icon: <Svg.Notification />,
-      notify: [],
+      notify: [...notification],
     },
     {
       name: 'Mesajlarım',
@@ -71,14 +91,13 @@ const Individual = ({ user_name, user_img = null }) => {
       notify: [],
     },
     {
-      name: 'Favorilerim',
-      icon: <Svg.Heart />,
+      name: 'Rezervasyonlarım',
+      icon: <Svg.Date />,
       notify: [],
     },
     {
       name: user_name,
       icon: user_img || <Svg.UsernameIcon />,
-      drop: [],
       menu: [...menu],
     },
   ];
@@ -87,7 +106,7 @@ const Individual = ({ user_name, user_img = null }) => {
     <>
       {list.map((val, key) => {
         return (
-          <List key={key} className="header-login" dropDown={val?.menu}>
+          <List key={key} className="header-login" dropDown={val.menu || val.notify}>
             <Item icon={val.icon} span={val.name} notify={val.notify?.length} />
           </List>
         );
@@ -96,8 +115,9 @@ const Individual = ({ user_name, user_img = null }) => {
   );
 };
 
-Individual.propTypes = {
+Pt.propTypes = {
   user_name: PropTypes.string,
+  user_id: PropTypes.number,
 };
 
-export default Individual;
+export default Pt;

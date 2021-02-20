@@ -17,16 +17,30 @@
     .drop-down {
       width: 255px;
       position: absolute;
-      right: -37px;
+      right: 0;
       height: auto;
       flex-wrap: wrap;
-      top: 74px;
+      top: 85px;
       background: #fff;
       border-radius: 10px;
       padding: 5px;
       box-shadow: 6px 4px 6px -5px rgba(0,0,0,0.51);
       transition: all 0.5s cubic-bezier(1, 0, 0, 0.99);
       transform: scale(0) rotate(360deg);
+
+      .drop-li {
+        & > ul > li > .ul-drop-down {
+          top: -40px;
+          right: 0;
+          transform: scale(0) translateX(-200%);
+          transition: all 0.5s cubic-bezier(1, 0, 0, 0.99);
+        }
+        &:hover {
+          & > ul > li > .ul-drop-down {
+            transform: scale(1) translateX(0);
+          }
+        }
+      }
 
       li {
         width: 100%;
@@ -37,6 +51,7 @@
         height: auto;
         padding: 0;
         margin: 0;
+        border-bottom: 1px solid #ddd;
 
         a {
           font-size: 10pt;
@@ -48,7 +63,7 @@
           color: #6b6b6b;
         }
 
-        span {
+        span.item-icon {
           margin-right: 15px;
           opacity: .7;
         }
@@ -57,7 +72,7 @@
           a {
             color: #000;
           }
-          span {
+          span.item-icon {
             transform: scale(1.2);
             opacity: 1;
           }

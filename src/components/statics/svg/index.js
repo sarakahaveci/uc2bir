@@ -42,6 +42,15 @@ import Packet from './images/packet.svg';
 import Wallet from './images/wallet.svg';
 import CommentBlack from './images/comment-black.svg';
 import Closed from './images/closed.svg';
+import PtHome from './images/pt-home.svg';
+import PtBranch from './images/pt-branch.svg';
+import Expert from './images/expert.svg';
+import Gallery from './images/gallery.svg';
+import Blog from './images/blog.svg';
+import TickTick from './images/tick-tick.svg';
+import UsersGym from './images/users-gym.svg';
+import PeopleGroups from './images/people-groups.svg';
+import Monies from './images/monies.svg';
 
 const Svg = {
   Menu: (props) => <Menu {...props} />,
@@ -78,6 +87,15 @@ const Svg = {
   Wallet: (props) => <ReactSVG {...props} src={Wallet} />,
   CommentBlack: (props) => <ReactSVG {...props} src={CommentBlack} />,
   Closed: (props) => <ReactSVG {...props} src={Closed} />,
+  PtHome: (props) => <ReactSVG {...props} src={PtHome} />,
+  PtBranch: (props) => <ReactSVG {...props} src={PtBranch} />,
+  Expert: (props) => <ReactSVG {...props} src={Expert} />,
+  Gallery: (props) => <ReactSVG {...props} src={Gallery} />,
+  Blog: (props) => <ReactSVG {...props} src={Blog} />,
+  TickTick: (props) => <ReactSVG {...props} src={TickTick} />,
+  UsersGym: (props) => <ReactSVG {...props} src={UsersGym} />,
+  PeopleGroups: (props) => <ReactSVG {...props} src={PeopleGroups} />,
+  Monies: (props) => <ReactSVG {...props} src={Monies} />,
 
   Categories: [
     {

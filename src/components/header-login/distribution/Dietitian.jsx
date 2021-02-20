@@ -9,7 +9,7 @@ import Item from '../Item';
 import { useDispatch } from 'react-redux';
 import { logOut } from 'actions';
 
-const Gym = ({ user_name, user_id, user_img = null }) => {
+const Dietitian = ({ user_name, user_id, user_img = null }) => {
   const dispatch = useDispatch();
 
   const logOutAction = () => {
@@ -35,37 +35,42 @@ const Gym = ({ user_name, user_id, user_img = null }) => {
     {
       name: 'Profilim',
       icon: <Svg.UsernameIcon />,
-      link: `/profile/${user_id}`,
+      link: `/profile/${user_id}`
     },
     {
-      name: 'Olanaklar',
-      icon: <Svg.TickTick />,
-      link: `/profile/${user_id}`,
+      name: 'Paketlerim',
+      icon: <Svg.Packet />,
+      link: `/profile/${user_id}`
     },
     {
-      name: 'Branşlarım & Ücretlerim',
+      name: 'Oturum Türleri & Çalıştığım Yerler',
       icon: <Svg.PtHome />,
-      link: `/profile/${user_id}`,
+      link: `/profile/${user_id}`
     },
     {
-      name: 'Sınıf & Kontenjan',
-      icon: <Svg.UsersGym />,
-      link: `/profile/${user_id}`,
+      name: 'Ücretlerim',
+      icon: <Svg.Monies />,
+      link: `/profile/${user_id}`
     },
     {
-      name: 'Eğitmenler',
-      icon: <Svg.PeopleGroups />,
-      link: `/profile/${user_id}`,
+      name: 'Uzmanlıklarım',
+      icon: <Svg.Expert />,
+      link: `/profile/${user_id}`
     },
     {
       name: 'Cüzdanım',
       icon: <Svg.Wallet />,
-      link: `/profile/${user_id}`,
+      link: `/profile/${user_id}`
     },
     {
       name: 'Galeri',
       icon: <Svg.Gallery />,
-      link: `/profile/${user_id}`,
+      link: `/profile/${user_id}`
+    },
+    {
+      name: 'Blog',
+      icon: <Svg.Blog />,
+      link: `/profile/${user_id}`
     },
     {
       name: 'Çıkış Yap',
@@ -114,9 +119,9 @@ const Gym = ({ user_name, user_id, user_img = null }) => {
   );
 };
 
-Gym.propTypes = {
+Dietitian.propTypes = {
   user_name: PropTypes.string,
   user_id: PropTypes.number,
 };
 
-export default Gym;
+export default Dietitian;

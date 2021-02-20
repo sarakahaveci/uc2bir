@@ -17,7 +17,7 @@ const Notify = styled.div`
   border-radius: 100%;
   background: ${colorGenerator('blue')};
   right: 0px;
-  top: -5px;
+  top: 5px;
   font-size: 9pt;
   font-weight: bold;
   width: 20px;
