@@ -47,9 +47,8 @@ const StepThree = () => {
     (branch) => branch.type === userType?.key
   );
 
-  console.log({ userType: userType });
-  const isWorkPlace = userType.keys === 'bs';
-  const isDietitian = userType.keys === 'dt';
+  const isWorkPlace = userType?.key === 'bs';
+  const isDietitian = userType?.key === 'dt';
 
   const benefits = registerData?.['is_yeri_olanaklari'] || [];
 
