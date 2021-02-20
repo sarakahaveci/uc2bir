@@ -14,81 +14,58 @@ import WorkPlaceLicenseStep from './WorkPlaceSteps/WorkPlaceLicenseStep';
 import WorkPlaceHirePlaceStep from './WorkPlaceSteps/WorkPlaceHirePlaceStep';
 import { WORK_PLACE, DIETITIAN } from '../../constants';
 
+const setPageByStepNumber = {
+  // 8 Steps + 1 Finish = 9
+  workPlace: {
+    4: <StepThree />,
+    5: <WorkPlaceCriminalRecordStep />,
+    6: <WorkPlaceContractStep />,
+    7: <WorkPlaceLicenseStep />,
+    8: <WorkPlaceHirePlaceStep />,
+    9: <WorkPlaceHirePlaceStep />,
+  },
+  //  9 Steps + 1 Finish = 10
+  dietitian: {
+    4: <StepThree />,
+    5: <CertificateStep />,
+    6: <DegreeStep />,
+    7: <CriminalRecordStep />,
+    8: <IdentityCardStep />,
+    9: <FacePictureStep />,
+    10: <FacePictureStep />,
+  },
+  // 10 Steps + 1 Finish = 11
+  personalTrainer: {
+    4: <StepThree />,
+    5: <CertificateStep />,
+    6: <DegreeStep />,
+    7: <CriminalRecordStep />,
+    8: <IdentityCardStep />,
+    9: <HealthReportStep />,
+    10: <FacePictureStep />,
+    11: <FacePictureStep />,
+  },
+};
+
 const RegisterPage = ({ stepNumber, setUserTypeId, userTypeId }) => {
   let page;
 
   if (stepNumber === 1 || stepNumber === 2) {
-    page = <StepOne setUserTypeId={setUserTypeId} userTypeId={userTypeId} />;
+    return (page = (
+      <StepOne setUserTypeId={setUserTypeId} userTypeId={userTypeId} />
+    ));
   }
 
   if (stepNumber === 3) {
-    page = <StepThree />;
+    return (page = <StepThree />);
   }
 
   if (userTypeId === WORK_PLACE) {
-    if (stepNumber === 4) {
-      page = <StepThree />;
-    }
-
-    if (stepNumber === 5) {
-      page = <WorkPlaceCriminalRecordStep />;
-    }
-
-    if (stepNumber === 6) {
-      page = <WorkPlaceContractStep />;
-    }
-
-    if (stepNumber === 7) {
-      page = <WorkPlaceLicenseStep />;
-    }
-
-    if (stepNumber === 8 || stepNumber === 9) {
-      page = <WorkPlaceHirePlaceStep />;
-    }
+    page = setPageByStepNumber['workPlace'][stepNumber];
   } else if (userTypeId === DIETITIAN) {
-    if (stepNumber === 4) {
-      page = <CertificateStep />;
-    }
-
-    if (stepNumber === 5) {
-      page = <DegreeStep />;
-    }
-
-    if (stepNumber === 6) {
-      page = <CriminalRecordStep />;
-    }
-
-    if (stepNumber === 7) {
-      page = <IdentityCardStep />;
-    }
-
-    if (stepNumber === 8 || stepNumber === 9) {
-      page = <FacePictureStep />;
-    }
+    page = setPageByStepNumber['dietitian'][stepNumber];
   } else {
-    if (stepNumber === 4) {
-      page = <StepThree />;
-    }
-
-    if (stepNumber === 5) {
-      page = <CertificateStep />;
-    }
-
-    if (stepNumber === 6) {
-      page = <CriminalRecordStep />;
-    }
-
-    if (stepNumber === 7) {
-      page = <IdentityCardStep />;
-    }
-
-    if (stepNumber === 8) {
-      page = <HealthReportStep />;
-    }
-
-    if (stepNumber === 9 || stepNumber === 10) {
-      page = <FacePictureStep />;
-    }
+    page = setPageByStepNumber['personalTrainer'][stepNumber];
   }
 
   return <> {page} </>;
