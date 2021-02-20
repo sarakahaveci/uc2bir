@@ -102,6 +102,7 @@ const Section = styled.section`
   padding: 0;d
   width: 100%;
   flex-wrap: wrap;
+  transition: all 0.5s cubic-bezier(1, 0, 0, 0.99);
 `;
 
 HeaderLogin.propTypes = {

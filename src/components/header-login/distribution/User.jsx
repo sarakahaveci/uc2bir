@@ -48,10 +48,21 @@ const User = ({ user_name, user_id, user_img = null }) => {
           name: 'Tab 2',
           tabs: [
             {
-              name: 'Tab 1',
+              name: 'Tab 2.1',
             },
             {
-              name: 'Tab 2',
+              name: 'Tab 2.2',
+              tabs: [
+                {
+                  name: 'Tab 2.2.1',
+                },
+                {
+                  name: 'Tab 2.2.2',
+                },
+                {
+                  name: 'Tab 2.2.3',
+                },
+              ],
             },
           ],
         },
