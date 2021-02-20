@@ -324,7 +324,7 @@ const StepThree = () => {
           onChange={handleFormOnChange}
           items={town ?? []}
         />
-        {hasTaxNumber && (
+        {(hasTaxNumber || isWorkPlace) && (
           <>
             <Material.TextField
               required
