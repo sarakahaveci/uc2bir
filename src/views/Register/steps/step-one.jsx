@@ -21,7 +21,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setStepOne, getConfirmationData } from '../../../actions';
 import StepTwo from './step-two';
 
-import { Modal, Spinner } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 
 const StepOne = (props) => {
   const { setSteps, registerData } = props;
@@ -43,8 +43,10 @@ const StepOne = (props) => {
   const [acceptPermissions, setAcceptPermissions] = useState(false);
 
   useEffect(() => {
-    dispatch(getConfirmationData());
-  }, []);
+    if (Object.keys(registerData).length) {
+      dispatch(getConfirmationData());
+    }
+  }, [registerData]);
 
   const isSuccess = () => {
     return setModal(true);
