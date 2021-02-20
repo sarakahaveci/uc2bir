@@ -31,6 +31,7 @@ const macro = [
     icon: Svg.UsernameIcon,
     inputProps: {
       minLength: 3,
+      maxLength: 35,
     },
   },
   {
@@ -39,6 +40,9 @@ const macro = [
     text: 'E mail',
     required: true,
     icon: Svg.EmailIcon,
+    inputProps: {
+      maxLength: 40,
+    },
   },
 ];
 
@@ -238,6 +242,7 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
           onChange={(e) => setPassword(e.target.value)}
           inputProps={{
             minLength: 6,
+            maxLength: 15,
           }}
           label="Şifre"
           icon={Svg.PasswordIcon}

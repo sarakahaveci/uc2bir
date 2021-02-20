@@ -70,7 +70,7 @@ const StepTwo = ({
         () => {
           toast.success('Kayıt Alındı.', {
             position: 'bottom-right',
-            autoClose: 2000,
+            autoClose: 1500,
             onClose: () => setStepNumber((val) => val + 1),
           });
         },

@@ -3,6 +3,7 @@
 :root {
   --base-font-size: 16px;
   --blue: #00b2a9;
+  --blue2: #8cdeda;
   --black1: #1a1818;
   --black2: #181818;
   --black3: #383838;
@@ -29,6 +30,14 @@ body {
   width: 100%;
   height: auto;
   overflow: hidden;
+}
+
+.modal-backdrop {
+  z-index: 100000 !important;
+}
+
+.modal {
+  z-index: 10000000 !important;
 }
 
 .MuiPopover-root {

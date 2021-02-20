@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+import { unMaskPhone } from 'utils';
 import {
   HTTP_REQUEST,
   REGISTER_STEP_ONE,
@@ -39,10 +40,7 @@ export const setStepOne = (
 ) => async (dispatch) => {
   const url = '/register';
 
-  const editedPhone = phone
-    .replace('(', '')
-    .replace(')', '')
-    .replaceAll(' ', '');
+  const editedPhone = unMaskPhone(phone);
 
   await dispatch({
     type: HTTP_REQUEST,
@@ -86,10 +84,7 @@ export const setStepTwo = (
 ) => async (dispatch) => {
   const url = '/register';
 
-  const editedPhone = phone
-    .replace('(', '')
-    .replace(')', '')
-    .replaceAll(' ', '');
+  const editedPhone = unMaskPhone(phone);
 
   await dispatch({
     type: HTTP_REQUEST,
@@ -208,6 +203,9 @@ export const verifyCode = (
   errorCallback
 ) => async (dispatch) => {
   const url = '/verify-code';
+
+  const editedPhone = unMaskPhone(phone);
+
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
@@ -218,7 +216,7 @@ export const verifyCode = (
       callBack: () => successCallback(),
       errorHandler: () => errorCallback(),
       body: {
-        phone,
+        phone: editedPhone,
         code,
       },
     },
