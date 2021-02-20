@@ -12,16 +12,17 @@ const StepFour = (props) => {
   const { setSteps, registerData } = props;
   const dispatch = useDispatch();
 
-  const [data, setData] = useState([]);
+  const [servey_id, _servey_id] = useState([]);
+  const [question, _question] = useState([]);
+  const [answer, _answer] = useState([]);
+
   const getStepFour = useSelector((state) => state.stepFour);
   const quiz = useSelector((state) => state.quizGet);
   const [macro, setMacro] = useState(false);
-  const [next, setNext] = useState(false);
 
   useEffect(() => {
     if (registerData) {
       if (registerData['par_q_testi']) {
-        console.log(registerData)
         const new_data = registerData['par_q_testi'].map((val) => {
           return {
             type: val.answer_type,
@@ -45,60 +46,48 @@ const StepFour = (props) => {
     }
   }, [registerData]);
 
+  const succsess = () => {
+    toast.success(`Soru cevapları gönderildi.`, {
+      position: 'bottom-right',
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+
+    setTimeout(() => {
+			toast.info('Lütfen Bekleyiniz! Yönlendiriliyorsunuz...', {
+				position: 'bottom-right',
+				autoClose: 2000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				onClose: () => setSteps('finish'),
+			});
+		}, 1000);
+  };
+
+  const err = () => {
+    toast.error(`Soru cevapları gönderilemedi!`, {
+      position: 'bottom-right',
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    })
+  }
+
   const onSubmit = async (event) => {
     event.preventDefault();
-    dispatch(getQuiz(
-      () => console.log("succsess"),
-      () => console.log("err")
-    ));
-    console.log(data.length, "|", macro.length);
-    console.log(quiz);
-    if (data.length >= macro.length) {
-      const response = await data.map((val, key) =>
-        dispatch(
-          setStepFour(
-            { ...val },
-            () =>
-              toast.success(`${++key}. Soru cevabı gönderildi.`, {
-                position: 'bottom-right',
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                onClose: () => setNext(true),
-              }),
-            () =>
-              toast.error(`${++key}. Soru cevabı gönderilemedi!`, {
-                position: 'bottom-right',
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                onClose: () => setNext(false),
-              })
-          )
-        )
-      );
-      if (response) {
-        if (next) {
-          return setSteps('finish');
-        }
-      }
-    } else {
-      toast.info(`Lütfen tüm soruları cevaplayın!`, {
-        position: 'bottom-right',
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    }
+    return dispatch(
+      setStepFour({servey_id: [...servey_id], question: [...question], answer: [...answer]}, succsess, err)
+    );
   };
   return (
     <>
@@ -108,20 +97,17 @@ const StepFour = (props) => {
             if (val.type === "radio") {
               return (
                 <Material.RadioButtonsGroup
+                  required={true}
                   key={key}
                   name={val.name}
                   label={`${++key}. ${val.text}`}
                   items={val.items}
-                  required
-                  onChange={(e) =>
-                    setData([
-                      ...data,
-                      {
-                        survey_id: val.survey_id,
-                        question_id: val.id,
-                        answer: val.id,
-                      },
-                    ])
+                  onChange={(e) => 
+                    {
+                      _servey_id([...servey_id, val.survey_id]);
+                      _question([...question, val.id]);
+                      _answer([...answer, val.id]);
+                    }
                   }
                 />
               );
@@ -130,16 +116,16 @@ const StepFour = (props) => {
                 <div style={{marginTop: 15, marginBottom: 30}}>
                   <div style={{fontSize: "11pt"}} className="label">{`${++key}. ${val.text}`}</div>
                   <Material.TextField
+                    required={true}
                     key={key}
                     name={val.name}
-                    onChange={(e) => setData([
-                      ...data,
+                    onChange={(e) => 
                       {
-                        survey_id: val.survey_id,
-                        question_id: val.id,
-                        answer: e.target.value,
-                      },
-                    ])}
+                        _servey_id([...servey_id, val.survey_id]);
+                        _question([...question, val.id]);
+                        _answer([...answer, e.target.value]);
+                      }
+                    }
                   />
                 </div>
               )

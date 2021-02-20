@@ -135,7 +135,7 @@ export const setStepThree = (data, successCallback, errorCallback) => async (
 };
 
 export const setStepFour = (
-  { survey_id, question_id, answer },
+  { ...data },
   successCallback,
   errorCallback
 ) => async (dispatch) => {
@@ -148,9 +148,7 @@ export const setStepFour = (
       url,
       label: REGISTER_STEP_FOUR,
       body: {
-        survey_id,
-        question_id,
-        answer,
+        ...data
       },
       transformData: (data) => data.data,
       callBack: () => successCallback(),

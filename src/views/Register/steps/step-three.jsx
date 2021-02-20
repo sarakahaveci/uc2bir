@@ -50,7 +50,7 @@ const StepThree = (props) => {
 	}, [city]);
 
 	const isSuccess = () => {
-		toast.success('Kayıt alındı.', {
+		toast.success('Bilgileriniz güncellendi.', {
 			position: 'bottom-right',
 			autoClose: 2000,
 			hideProgressBar: false,
