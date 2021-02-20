@@ -75,9 +75,6 @@ export default (state = initialState, action) => {
         },
       };
 
-    case CONFIRMATION_DATA_REQUEST:
-      return {};
-
     case CONFIRMATION_DATA_SUCCESS:
       return {
         ...state,

@@ -12,19 +12,14 @@ import {
   submitUserBranch,
   getAdressIds,
   offerBranch,
+  submitBenefits,
 } from 'actions';
 import { Button, Material, IconLabel, AwesomeIcon, Text } from 'components';
 import GoogleMap from 'components/GoogleMaps/GoogleMap';
-import {
-  genderData,
-  yesNo,
-  WORK_PLACE,
-  DIETITIAN,
-  inputProps,
-} from '../../../constants';
-import { StepContext } from './RegisterSteps';
+import { genderData, yesNo, inputProps } from '../../../constants';
+import { StepContext } from '../RegisterSteps';
 
-const StepThree = (props) => {
+const StepThree = () => {
   const dispatch = useDispatch();
   const {
     data: registerData,
@@ -41,15 +36,22 @@ const StepThree = (props) => {
   const { stepNumber, setStepNumber } = useContext(StepContext);
 
   const { user } = useSelector((state) => state.auth);
+  const [selectedBenefits, setSelectedBenefits] = useState([]);
+  const [showBenefitModal, setShowBenefitModal] = useState(false);
 
-  const isWorkPlace = user?.type_id === WORK_PLACE;
-  const isDietitian = user?.type_id === DIETITIAN;
-
-  const branchType = isWorkPlace ? 'pt' : 'bs';
+  const userType = registerData?.['user-type']?.find(
+    (userType) => userType.id === user?.type_id
+  );
 
   const branches = registerData?.['spor_branslari']?.filter(
-    (branch) => branch.type === branchType
+    (branch) => branch.type === userType?.key
   );
+
+  console.log({ userType: userType });
+  const isWorkPlace = userType.keys === 'bs';
+  const isDietitian = userType.keys === 'dt';
+
+  const benefits = registerData?.['is_yeri_olanaklari'] || [];
 
   const [hasTaxNumber, setHasTaxNumber] = useState(isWorkPlace);
   const [open, setOpen] = useState(false);
@@ -67,6 +69,13 @@ const StepThree = (props) => {
   useEffect(() => {
     if (stepNumber === 4) {
       setShowBranchModal(true);
+    }
+  }, [stepNumber]);
+
+  useEffect(() => {
+    if (stepNumber === 5) {
+      setShowBranchModal(false);
+      setShowBenefitModal(true);
     }
   }, [stepNumber]);
 
@@ -146,12 +155,24 @@ const StepThree = (props) => {
   const submitBranch = (e) => {
     e.preventDefault();
     if (!!offeredBranch) dispatch(offerBranch({ branch: offeredBranch }));
-    dispatch(submitUserBranch(selectedButtons, isSuccess, isError));
+    if (selectedButtons.length > 0)
+      dispatch(submitUserBranch(selectedButtons, isError));
+    isSuccess();
   };
 
+  const submitBenefitsHandler = (e) => {
+    e.preventDefault();
+    dispatch(
+      submitBenefits({ facilities: selectedBenefits }, isSuccess, isError)
+    );
+  };
   const handleSelectRelion = (event) => {
     dispatch(getCitiesAndDistict({ [event.target.name]: event.target.value }));
     setFormData({ ...formData, [event.target.name]: event.target.value });
+  };
+
+  const successCallback = () => {
+    setOpen(false);
   };
 
   const useAdressFromMap = () => {
@@ -162,7 +183,8 @@ const StepThree = (props) => {
           district: adressFromMap.district,
           town: adressFromMap.town,
         },
-        isFailGetIds
+        () => successCallback(),
+        () => isFailGetIds()
       )
     );
   };
@@ -204,15 +226,27 @@ const StepThree = (props) => {
     setStepNumber((value) => value - 1);
   };
 
+  const selectBenefitHandler = (key) => {
+    if (selectedButtons.includes(key)) {
+      setSelectedBenefits(selectedButtons.filter((item) => item !== key));
+    } else {
+      setSelectedBenefits((selecteds) => [...selecteds, key]);
+    }
+  };
+
+  const handleCloseBenefitModal = () => {
+    setShowBenefitModal(false);
+  };
+
   return isLoading ? (
     <div>Yükleniyor</div>
   ) : (
     <>
-      <Modal show={open} onHide={handleClose} className="material-dialog">
+      <Modal show={open} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Haritadan Seçin!</Modal.Title>
+          <Modal.Title textAlign="center">Haritadan Seçin!</Modal.Title>
         </Modal.Header>
-        <Modal.Body className="branchWrapper">
+        <Modal.Body>
           <Text textAlign="center">
             Mahalle, Cadde veya Sokak adı ile arayın yada Pini Sürükleyin
           </Text>
@@ -421,6 +455,49 @@ const StepThree = (props) => {
                   size="lg"
                   disabled={!offeredBranch && !selectedButtons.length > 0}
                   onClick={submitBranch}
+                />
+              </div>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
+
+      <Modal
+        show={showBenefitModal}
+        onHide={handleCloseBenefitModal}
+        className="material-dialog"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>İş Yeri Olanaklarını seçiniz</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="branchWrapper">
+            {benefits?.map((button) => {
+              const buttonClass = selectedBenefits.includes(button.id)
+                ? 'branch-button activeButton'
+                : 'branch-button';
+
+              return (
+                <Button
+                  key={button.id}
+                  className={buttonClass}
+                  onClick={() => selectBenefitHandler(button.id)}
+                  text={button.name}
+                />
+              );
+            })}
+
+            <div className="buttonWrapper">
+              <div className="col-3 col-md-3 col-sm-12 d-flex align-items-center">
+                <IconLabel text="Vazgeç" onClick={handleCloseBenefitModal} />
+              </div>
+              <div className="col-8 col-md-8 col-sm-12">
+                <Button
+                  fontWeight="bold"
+                  className="blue ml-auto w-100"
+                  text="İleri"
+                  size="lg"
+                  onClick={submitBenefitsHandler}
                 />
               </div>
             </div>

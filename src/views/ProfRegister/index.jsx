@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 
-import { getRegisterData } from '../../actions';
-import { Text, FormPages, Main, Title } from '../../components';
-import RegisterSteps from './RegisterSteps/RegisterSteps';
+import { getRegisterData } from 'actions';
+import { Text, FormPages, Main, Title } from 'components';
+import { DIETITIAN, WORK_PLACE } from '../../constants';
+import RegisterSteps from './RegisterSteps';
 
 const List = styled.ul`
   li {
@@ -15,6 +16,8 @@ const List = styled.ul`
 `;
 
 const ProfRegister = () => {
+  const [userTypeId, setUserTypeId] = useState(null);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -48,17 +51,35 @@ const ProfRegister = () => {
                 doldurmak. Burası tam sana göre!
               </Text>
 
-              <Text color="black2" fontWeight="700">
-                Kayıt için Gerekli Belgeler
-              </Text>
+              {userTypeId && (
+                <>
+                  <Text color="black2" fontWeight="700">
+                    Kayıt için Gerekli Belgeler
+                  </Text>
 
-              <List>
-                <li>- Sertifika/Diploma</li>
-                <li>- Adli Sicil Kaydı</li>
-                <li>- Nüfus Cüzdanı</li>
-                <li>- Sağlık Raporu </li>
-                <li>- Fotoğraf</li>
-              </List>
+                  <List>
+                    {userTypeId === WORK_PLACE ? (
+                      <>
+                        <li>- Adli Sicil Kaydı</li>
+                        <li>- Kira Kontratı / Tapu</li>
+                        <li>- İş Yeri Ruhsatı</li>
+                        <li>- İş Yeri Kiralama Kararı</li>
+                      </>
+                    ) : (
+                      <>
+                        <li>- Sertifika</li>
+                        <li>- Diploma</li>
+                        <li>- Adli Sicil Kaydı</li>
+                        <li>- Nüfus Cüzdanı</li>
+                        {userTypeId !== DIETITIAN ? (
+                          <li>- Sağlık Raporu </li>
+                        ) : null}
+                        <li>- Fotoğraf</li>
+                      </>
+                    )}
+                  </List>
+                </>
+              )}
             </div>
           </div>
         </section>
@@ -66,7 +87,10 @@ const ProfRegister = () => {
           <div className="row">
             <div className="page-content-register">
               <div className="contain">
-                <RegisterSteps />
+                <RegisterSteps
+                  userTypeId={userTypeId}
+                  setUserTypeId={setUserTypeId}
+                />
               </div>
             </div>
           </div>

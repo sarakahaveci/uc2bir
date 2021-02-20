@@ -138,6 +138,10 @@ const Otp = forwardRef(({ otpCallback }, ref) => {
 
 export default Otp;
 
+Otp.defaultProps = {
+  otpCallback: () => {},
+};
+
 const Form = styled.form`
   display: flex;
   margin-bottom: 20px;

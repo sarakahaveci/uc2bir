@@ -2,11 +2,11 @@ import React, { useState, useEffect, useContext, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-import { Modal, Spinner } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import InputMask from 'react-input-mask';
 import styled from 'styled-components';
 
-import { StepContext } from './RegisterSteps';
+import { StepContext } from '../RegisterSteps';
 import { setStepOne } from 'actions';
 import {
   Button,
@@ -42,7 +42,7 @@ const macro = [
   },
 ];
 
-const StepOne = () => {
+const StepOne = ({ userTypeId, setUserTypeId }) => {
   const {
     confirmation: { data: confirmationData },
     data: registerData,
@@ -53,7 +53,6 @@ const StepOne = () => {
   const { stepNumber, setStepNumber } = useContext(StepContext);
 
   const [form, setForm] = useState({});
-  const [userTypeId, setUserTypeId] = useState('');
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
   const [acceptMemberAgreement, setAcceptMemberAgreement] = useState(false);

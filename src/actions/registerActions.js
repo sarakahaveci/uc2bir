@@ -19,6 +19,7 @@ import {
   CONFIRMATION_DATA_SUCCESS,
   CONFIRMATION_DATA_FAILURE,
   QUIZ_GET,
+  SUBMIT_BENEFIT,
 } from '../constants';
 
 export const setStepOne = (
@@ -226,7 +227,7 @@ export const verifyCode = (
 
 export const submitUserBranch = (
   branch,
-  successCallback,
+
   errorCallback
 ) => async (dispatch, getState) => {
   const url = '/user/profile/branch';
@@ -237,7 +238,6 @@ export const submitUserBranch = (
       method: 'POST',
       url,
       label: SUBMIT_BRANCH,
-      callBack: () => successCallback(),
       errorHandler: () => errorCallback(),
       body: {
         branches: branch,
@@ -246,12 +246,7 @@ export const submitUserBranch = (
   });
 };
 
-export const getQuiz = (
-  successCallback,
-  errorCallback
-) => async (
-  dispatch
-) => {
+export const getQuiz = (successCallback, errorCallback) => async (dispatch) => {
   const url = '/user/profile/quiz';
 
   await dispatch({
@@ -280,7 +275,7 @@ export const deleteFile = (fileId, successCallback) => async (dispatch) => {
   });
 };
 
-export const getAdressIds = (body, errorCallback) => async (
+export const getAdressIds = (body, successCallback, errorCallback) => async (
   dispatch,
   getState
 ) => {
@@ -293,6 +288,7 @@ export const getAdressIds = (body, errorCallback) => async (
       url,
       label: GET_ADRESS_IDS,
       transformData: (data) => data.data,
+      callBack: () => successCallback(),
       errorHandler: () => errorCallback(),
       body,
     },
@@ -309,6 +305,26 @@ export const offerBranch = ({ branch }) => async (dispatch, getState) => {
       url,
       label: OFF_NEW_BRANCH,
       body: { branch },
+    },
+  });
+};
+
+export const submitBenefits = (
+  { facilities },
+  successCallback,
+  errorCallback
+) => async (dispatch, getState) => {
+  const url = '/user/profile/facility';
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'POST',
+      url,
+      label: SUBMIT_BENEFIT,
+      body: { facilities },
+      callBack: () => successCallback(),
+      errorHandler: () => errorCallback(),
     },
   });
 };
