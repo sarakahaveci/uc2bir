@@ -99,7 +99,7 @@ const HeaderLogin = ({ type_id, user }) => {
 
 const Section = styled.section`
   display: flex;
-  padding: 0;d
+  padding: 0;
   width: 100%;
   flex-wrap: wrap;
   transition: all 0.5s cubic-bezier(1, 0, 0, 0.99);
