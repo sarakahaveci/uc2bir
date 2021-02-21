@@ -25,6 +25,7 @@ const Titles = ({
   lineDisable = true,
   color = 'dark',
   children,
+  icon = null,
   ...rest
 }) => (
   <StyledTitle
@@ -36,6 +37,7 @@ const Titles = ({
     color={color}
     {...rest}
   >
+    {icon && icon}
     {children}
   </StyledTitle>
 );

@@ -51,6 +51,7 @@ import TickTick from './images/tick-tick.svg';
 import UsersGym from './images/users-gym.svg';
 import PeopleGroups from './images/people-groups.svg';
 import Monies from './images/monies.svg';
+import Hki from './images/hki.svg';
 
 const Svg = {
   Menu: (props) => <Menu {...props} />,
@@ -96,6 +97,7 @@ const Svg = {
   UsersGym: (props) => <ReactSVG {...props} src={UsersGym} />,
   PeopleGroups: (props) => <ReactSVG {...props} src={PeopleGroups} />,
   Monies: (props) => <ReactSVG {...props} src={Monies} />,
+  Hki: (props) => <ReactSVG {...props} src={Hki} />,
 
   Categories: [
     {
