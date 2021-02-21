@@ -85,7 +85,6 @@ const StepFour = (props) => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    console.log(answer);
     return dispatch(
       setStepFour(
         {

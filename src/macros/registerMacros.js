@@ -103,11 +103,13 @@ export const stepThree = {
 	uri: "http://gateway.ms.321.4alabs.com/regions",
 	macro: [
 		{
-			type: "date",
+			type: "materialdate",
 			required: true,
 			name: "birthday",
 			forHtml: "birthday",
-			text: "Doğum Tarihi"
+			text: "Doğum Tarihi",
+			minDate: "01.01.1945",
+    	maxDate: "01.01.2014"
 		},
 		{
 			type: "select",
