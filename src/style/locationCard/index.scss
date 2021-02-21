@@ -1,0 +1,42 @@
+.locationCardWrapper {
+  display: flex;
+  border-radius: 25px;
+  box-shadow: 2px 3px 18px rgba(0, 0, 0, 0.09);
+  margin-bottom: 10px;
+
+  svg,
+  div > div {
+    height: 100%;
+  }
+
+  .infoTextArea {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+  }
+
+  .titleText {
+    font-size: 15px;
+    text-align: left;
+    font-weight: 600;
+    color: #000;
+  }
+
+  .subText {
+    font-size: 13px;
+    line-height: 24px;
+    text-align: left;
+    color: var(--gray1);
+  }
+
+  .knock {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 5rem;
+    border-radius: 0px 25px;
+    background: var(--blue);
+    margin-left: auto;
+    margin-bottom: auto;
+  }
+}

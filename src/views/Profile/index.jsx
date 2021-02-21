@@ -3,6 +3,7 @@ import React from 'react';
 import { Tab, Title, Main } from 'components';
 import ProfileCertificate from './ProfileCertificate';
 import Branch from './Branch';
+import WorkPlace from './WorkPlace';
 
 export default function Profile({ match }) {
   const trainerData = [
@@ -28,11 +29,7 @@ export default function Profile({ match }) {
     {
       eventKey: 'workPlace',
       title: 'Çalıştığı Yerler',
-      component: (
-        <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-          Çalıştığı yerler
-        </Title>
-      ),
+      component: <WorkPlace />,
     },
     {
       eventKey: 'calendar',

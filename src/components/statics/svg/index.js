@@ -36,6 +36,8 @@ import AthleticPerformance from './images/athletic-performance.svg';
 import Tennis from './images/tennis.svg';
 import Swimming from './images/swimming.svg';
 import Pilates from './images/pilates.svg';
+import ArrowUp from './images/arraw-up.svg';
+import Location from './images/location.svg';
 
 const Svg = {
   Menu: (props) => <Menu {...props} />,
@@ -66,6 +68,8 @@ const Svg = {
   Comment: (props) => <ReactSVG {...props} src={Comment} />,
   Heart: (props) => <ReactSVG {...props} src={Heart} />,
   Player: (props) => <ReactSVG {...props} src={Player} />,
+  LocationIcon: (props) => <ReactSVG {...props} src={Location} />,
+  ArrowUpIcon: (props) => <ReactSVG {...props} src={ArrowUp} />,
 
   Categories: [
     {
