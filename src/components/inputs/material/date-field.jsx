@@ -27,6 +27,10 @@ const DateField = ({
         type="date"
         autoComplete={autoComplete}
         maxLength={maxLength}
+        inputProps={{
+          min: '1950-01-24',
+          max: new Date().toISOString().split('T')[0],
+        }}
         onKeyUp={onKeyUp}
         variant="standard"
         required={required}

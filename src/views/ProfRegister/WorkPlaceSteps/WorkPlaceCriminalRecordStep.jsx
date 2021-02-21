@@ -1,15 +1,16 @@
 import React from 'react';
 
-import FileUpload from './FileUpload';
+import FileUpload from '../UserSteps/FileUpload';
 import Svg from 'components/statics/svg';
+import { CRIMINAL_RECORD } from '../../../constants';
 
-const StepSix = () => {
+const WorkPlaceCriminalRecordStep = () => {
   return (
     <div className="step-six">
       <FileUpload
         title="E-devlet üzerinden alabileceğiniz adli sicil kaydınızı ekleyin. 
         Aşağıdaki linkten e-devlete ulaşabilirsiniz."
-        fileTypeName="Adli Sicil Kaydı"
+        fileTypeId={CRIMINAL_RECORD}
       >
         <div className="step-six__criminal-record">
           <Svg.InfoIcon />
@@ -29,4 +30,4 @@ const StepSix = () => {
   );
 };
 
-export default StepSix;
+export default WorkPlaceCriminalRecordStep;

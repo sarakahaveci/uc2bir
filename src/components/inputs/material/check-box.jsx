@@ -8,6 +8,7 @@ const CheckBox = ({
   position = 'left',
   variant = 'primary',
   label,
+  name,
   required = false,
   checked = false,
   onChange = () => {},
@@ -19,6 +20,7 @@ const CheckBox = ({
           <label className={`materials-container ${className}`}>
             {label}
             <input
+              name={name}
               type="checkbox"
               checked={checked}
               required={required}

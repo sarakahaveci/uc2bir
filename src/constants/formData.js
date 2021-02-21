@@ -18,3 +18,5 @@ export const inputProps = {
   minLength: 6,
   maxLength: 50,
 };
+
+export const symbolsArr = ['e', 'E', '+', '-', '.'];

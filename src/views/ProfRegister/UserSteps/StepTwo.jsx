@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import { Modal, Spinner } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { Otp, Text, Svg } from 'components';
+import { Otp, Text, Svg, Button } from 'components';
 import { setStepTwo, verifyCode } from 'actions';
 
 const StepTwo = ({
@@ -15,7 +15,9 @@ const StepTwo = ({
   const { isLoading: registerLoading } = useSelector((state) => state.auth);
 
   const [counter, setCounter] = useState(119);
+  const [isVerifyButtonDisabled, setIsVerifyButtonDisabled] = useState(false);
 
+  const otpInputRef = useRef();
   const interval = useRef();
 
   const modalCloseHandler = () => {
@@ -61,15 +63,27 @@ const StepTwo = ({
       autoClose: 2000,
     });
 
-  const otpCallback = (code) => {
+  const registerHandler = (code) => {
     dispatch(
       setStepTwo(
         { ...formData, code },
-        () => setStepNumber((val) => val + 1),
+        () => {
+          toast.success('Kayıt Alındı.', {
+            position: 'bottom-right',
+            autoClose: 1500,
+            onClose: () => setStepNumber((val) => val + 1),
+          });
+        },
         verifyErrorCallback
       )
     );
   };
+
+  useEffect(() => {
+    const code = otpInputRef.current.getCode();
+
+    setIsVerifyButtonDisabled(code.toString().length !== 6);
+  }, [otpInputRef?.current?.getCode() || false]);
 
   return (
     <Modal show={isOtpModalActive} onHide={modalCloseHandler} backdrop="static">
@@ -88,7 +102,7 @@ const StepTwo = ({
         </Text>
 
         <div>
-          <Otp otpCallback={otpCallback} />
+          <Otp ref={otpInputRef} />
         </div>
 
         <Text
@@ -96,7 +110,7 @@ const StepTwo = ({
           color="blue"
           textAlign="center"
           cursor="pointer"
-          onClose={() =>
+          onClick={() =>
             dispatch(
               verifyCode(
                 { phone: formData.phone },
@@ -118,6 +132,18 @@ const StepTwo = ({
           {`${Math.ceil(counter % 60) < 10 ? 0 : ''}${Math.ceil(counter % 60)}`}
           )
         </Text>
+
+        <Button
+          text="İleri"
+          margin="15px 0 0 0"
+          className="blue"
+          disabled={isVerifyButtonDisabled}
+          onClick={() => {
+            const code = otpInputRef.current.getCode();
+
+            registerHandler(code);
+          }}
+        />
 
         {registerLoading && <Spinner animation="border" />}
       </div>

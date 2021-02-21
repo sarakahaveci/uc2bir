@@ -6,25 +6,27 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import { Button, Otp } from '../../../components';
+import { AwesomeIcon, Button, Otp, Svg } from '../../../components';
 
 import { toast } from 'react-toastify';
 
 import { stepTwo as macro } from '../../../macros/registerMacros';
 import { useSelector, useDispatch } from 'react-redux';
 import { setStepTwo, verifyCode } from '../../../actions';
+import { right } from 'styled-system';
 
 const StepTwo = (props) => {
+
   const getStepOne = useSelector((state) => state.stepOne);
   const getStepTwo = useSelector((state) => state.stepTwo);
-  const { setSteps } = props;
+  const { setSteps, count, modal, setModal } = props;
 
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(modal);
   const fullWidth = true;
   const maxWidth = 'sm';
 
   const [code, setCode] = useState({ ...macro.inputs });
-  const [counter, setCounter] = useState(0);
+  const [counter, setCounter] = useState(count);
   const time = 120;
 
   const isResponseSuccess = () => {
@@ -110,6 +112,12 @@ const StepTwo = (props) => {
   }, [getStepOne.isSuccess]);
 
   useEffect(() => {
+    if ( counter === 0 ) {
+      setModal(false);
+    }
+  },[counter])
+
+  useEffect(() => {
     if (counter > 0) {
       const interval = setInterval(() => {
         setCounter(counter - 1);
@@ -128,36 +136,26 @@ const StepTwo = (props) => {
   return (
     <>
       <React.Fragment>
-        <Button
-          className="blue"
-          style={{ marginBottom: 15 }}
-          onClick={handleClickOpen}
-          fontSize="11pt"
-          text="Kodu Gir!"
-        />
-        <Button
-          className="blue"
-          style={{ marginBottom: 15 }}
-          onClick={vrf_response}
-          fontSize="11pt"
-          text="Telefonuma Kodu Tekrar Gönder!"
-        />
-        <Button
-          className="blue"
-          style={{ marginBottom: 15 }}
-          onClick={() => setSteps('step1')}
-          fontSize="11pt"
-          text="Bilgilerimi Tekrar Gönder"
-        />
         <Dialog
           className="material-dialog"
           fullWidth={fullWidth}
           maxWidth={maxWidth}
-          open={open}
-          onClose={handleClose}
+          open={modal}
         >
           <DialogTitle className="text-center">
-            Telefon Numaranızı Doğrulayın
+            Telefon Numaranızı Doğrulayın 
+            <span
+              style={{
+                position: "absolute",
+                right: "5px",
+                top: "5px",
+                cursor: "pointer",
+                fontWeight: "bold",
+                padding: "5px 15px"
+              }} 
+              onClick={() => setModal(false)}>
+              x
+            </span>
           </DialogTitle>
           <DialogContent>
             <DialogContentText
@@ -180,7 +178,7 @@ const StepTwo = (props) => {
                   variant="link"
                   text={
                     counter > 0
-                      ? `Güvenlik kodunu girmek için kalan süreniz ${counter} veya tekrar gönder.`
+                      ? `Güvenlik kodunu girmek için kalan süreniz ${Math.floor(counter / 60)}:${Math.ceil(counter % 60) < 10 ? 0 : ''}${Math.ceil(counter % 60)} veya tekrar gönder.`
                       : `Güvenlik kodunu tekrar gönder.`
                   }
                 />

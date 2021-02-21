@@ -16,7 +16,7 @@ import MarkerSvg from './markerSvg.svg';
 Geocode.setApiKey(GoogleMapsAPI);
 
 export default function MyComponent({ onPositionChange }) {
-  const [position, setPosition] = useState(null);
+  const [position, setPosition] = useState({ lat: 41.015137, lng: 28.97953 });
   const [searchAdress, setSearchAdress] = useState(null);
   const [selectedAdress, setSelectedAdress] = useState({});
   const [debouncedSearchAdress] = useDebounce(searchAdress, 2000);
@@ -42,7 +42,7 @@ export default function MyComponent({ onPositionChange }) {
       Geocode.fromLatLng(position.lat, position.lng).then(
         (response) => {
           const address_detail = response.results[0].formatted_address;
-          let city, district, town, postalCode;
+          let city, district, town;
           for (
             let i = 0;
             i < response.results[0].address_components.length;
@@ -65,11 +65,6 @@ export default function MyComponent({ onPositionChange }) {
                 case 'administrative_area_level_4':
                   town = response.results[0].address_components[i].long_name;
                   break;
-
-                case 'postal_code':
-                  postalCode =
-                    response.results[0].address_components[i].long_name;
-                  break;
               }
             }
           }
@@ -77,14 +72,12 @@ export default function MyComponent({ onPositionChange }) {
             city,
             district,
             town,
-            postalCode,
             address_detail,
           });
           onPositionChange({
             city,
             district,
             town,
-            postalCode,
             address_detail,
             ...position,
           });
@@ -97,7 +90,7 @@ export default function MyComponent({ onPositionChange }) {
   }, [position]);
 
   useEffect(() => {
-    if (!!debouncedSearchAdress) handleAdressSearch();
+    if (!!searchAdress) handleAdressSearch();
   }, [debouncedSearchAdress]);
 
   const panTo = React.useCallback(({ lat, lng }) => {
@@ -126,10 +119,7 @@ export default function MyComponent({ onPositionChange }) {
 
   if (loadError) return 'Yüklenme Hatası';
   if (!isLoaded) return 'Yükleniyor';
-  const center = {
-    lat: 43.6532,
-    lng: -79.3832,
-  };
+
   return (
     <div className=" mx-auto map-wrapper">
       <SearchBar
@@ -149,7 +139,7 @@ export default function MyComponent({ onPositionChange }) {
         options={options}
         onLoad={onMapLoad}
       >
-        <InfoWindow position={position ?? center}>
+        <InfoWindow position={position}>
           <div>{selectedAdress?.address_detail || ''}</div>
         </InfoWindow>
         <Marker

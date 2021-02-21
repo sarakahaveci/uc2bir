@@ -8,10 +8,6 @@ export const stepOne = {
 		phone: "",
 		password: "",
 		type_id: 0,
-		kvkk: 0,
-		agreement: 0,
-		health_status: 0,
-		permission: 0,
 	},
 	macro: [
 		{
@@ -46,7 +42,7 @@ export const stepOne = {
 			text: "Şifre",
 			icon: Svg.PasswordIcon,
 		},
-		{
+		/*{
 			type: "checkbox",
 			required: true,
 			name: "agreement",
@@ -77,7 +73,7 @@ export const stepOne = {
 			forHtml: "permission",
 			text: false,
 			component: () => <>Açık rıza aydınlatma <a href="/">metinleri</a>.</>
-		},
+		},*/
 	]
 }
 
@@ -107,11 +103,13 @@ export const stepThree = {
 	uri: "http://gateway.ms.321.4alabs.com/regions",
 	macro: [
 		{
-			type: "date",
+			type: "materialdate",
 			required: true,
 			name: "birthday",
 			forHtml: "birthday",
-			text: "Doğum Tarihi"
+			text: "Doğum Tarihi",
+			minDate: "01.01.1945",
+    	maxDate: "01.01.2014"
 		},
 		{
 			type: "select",

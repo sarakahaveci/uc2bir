@@ -1,64 +1,50 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useCallback } from 'react';
 import { Modal } from 'react-bootstrap';
 import styled from 'styled-components';
-
-import { StepBar, Text, Svg } from 'components';
 import { Link } from 'react-router-dom';
-import StepOne from './StepOne';
-import StepThree from './StepThree';
-import StepFive from './StepFive';
-import StepSix from './StepSix';
-import StepSeven from './StepSeven';
-import StepEight from './StepEight';
-import StepNine from './StepNine';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { getConfirmationData } from 'actions';
+import { StepBar, Text, Svg } from 'components';
+import RegisterPage from './RegisterPage';
+import { PERSONAL_TRAINER, WORK_PLACE } from '../../constants';
 
 export const StepContext = createContext();
 
-const RegisterSteps = () => {
+const RegisterSteps = ({ userTypeId, setUserTypeId }) => {
+  const { data: registerData } = useSelector((state) => state.registerData);
+
   const [stepNumber, setStepNumber] = useState(1);
   const [open, setOpen] = useState(false);
 
+  const dispatch = useDispatch();
+
+  const setUserTypeIdHandler = useCallback((value) => setUserTypeId(value), [
+    userTypeId,
+  ]);
+
+  let stepCount;
+
+  if (userTypeId === WORK_PLACE) {
+    stepCount = 8;
+  } else if (userTypeId === PERSONAL_TRAINER) {
+    stepCount = 10;
+  } else {
+    stepCount = 9;
+  }
+
   useEffect(() => {
-    if (stepNumber === 10) {
+    if (stepNumber > stepCount) {
+      setStepNumber(stepCount);
       setOpen(true);
     }
   }, [stepNumber]);
 
-  let page;
-
-  switch (stepNumber) {
-    case 1:
-    case 2:
-      page = <StepOne />;
-      break;
-    case 3:
-    case 4:
-      page = <StepThree />;
-      break;
-    case 5:
-      page = <StepFive />;
-      break;
-
-    case 6:
-      page = <StepSix />;
-      break;
-
-    case 7:
-      page = <StepSeven />;
-      break;
-
-    case 8:
-      page = <StepEight />;
-      break;
-
-    case 9:
-    case 10:
-      page = <StepNine />;
-      break;
-
-    default:
-      break;
-  }
+  useEffect(() => {
+    if (Object.keys(registerData).length) {
+      dispatch(getConfirmationData());
+    }
+  }, [registerData]);
 
   return (
     <StepContext.Provider
@@ -67,8 +53,13 @@ const RegisterSteps = () => {
         setStepNumber,
       }}
     >
-      <StepBar step={stepNumber} stepCount={9} />
-      {page}
+      <StepBar step={stepNumber} stepCount={stepCount} />
+
+      <RegisterPage
+        setUserTypeId={setUserTypeIdHandler}
+        userTypeId={userTypeId}
+        stepNumber={stepNumber}
+      />
 
       <Modal show={open} onHide={() => setOpen(false)} backdrop="static">
         <Container>

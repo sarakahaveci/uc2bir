@@ -43,30 +43,25 @@ const RegisterSteps = () => {
    */
   const step = (step) => {
     const step1 = {
-      key: 0,
       num: 1,
       page: () => <StepOne setSteps={setSteps} registerData={registerData} />,
     };
     const step2 = {
-      key: 1,
       num: 2,
       page: () => <StepTwo setSteps={setSteps} registerData={registerData} />,
     };
     const step3 = {
-      key: 2,
       num: 3,
       page: () => <StepThree setSteps={setSteps} registerData={registerData} />,
     };
     const step4 = {
-      key: 3,
       num: 4,
       page: () => <StepFour setSteps={setSteps} registerData={registerData} />,
     };
     const finish = {
-      key: 4,
       num: 4,
       page: () => (
-        <StepFinish setSteps={setSteps} registerData={registerData} />
+      <StepFinish setSteps={setSteps} registerData={registerData} />
       ),
     };
 

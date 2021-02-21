@@ -95,6 +95,8 @@
               flex-direction: column;
             }
 
+            @import '../header-login';
+
             li {
               margin: 0 15px;
               font-size: 10pt;

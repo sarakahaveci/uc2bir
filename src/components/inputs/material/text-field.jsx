@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 
 import { default as MaterialTextField } from '@material-ui/core/TextField';
 
+import { symbolsArr } from '../../../constants';
+
 const TextField = ({
   id,
   name,
@@ -21,6 +23,7 @@ const TextField = ({
   icon2Callback,
   changeValue,
   inputProps,
+  ...restProps
 }) => {
   const [val, setVal] = useState(defaultValue);
 
@@ -50,6 +53,10 @@ const TextField = ({
         variant="standard"
         required={required}
         inputProps={inputProps}
+        onKeyDown={(e) =>
+          type === 'number' && symbolsArr.includes(e.key) && e.preventDefault()
+        }
+        {...restProps}
       />
       {icon2 &&
         icon2({

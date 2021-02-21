@@ -7,6 +7,15 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 
+import trLocale from 'date-fns/locale/tr';
+import enLocale from 'date-fns/locale/en-US';
+
+const localeMap = {
+  /* set locale */
+  en: enLocale,
+  tr: trLocale,
+};
+
 const DateField = ({
   id,
   name,
@@ -21,6 +30,8 @@ const DateField = ({
   value = '',
   onKeyUp = () => {},
   maxLength = '',
+  minDate,
+  maxDate,
 }) => {
   const [selectedDate, setSelectedDate] = useState(
     new Date('2002-01-01T21:00:00')
@@ -38,13 +49,14 @@ const DateField = ({
   };
   return (
     <div className="materials">
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <MuiPickersUtilsProvider utils={DateFnsUtils} locale={localeMap.tr}>
         <>
           <KeyboardDatePicker
+            minDate={minDate}
+            maxDate={maxDate}
             className={`material-inputs ${className} ${
               icon ? 'has-icon' : 'date-has-icon'
             }`}
-            disableToolbar
             variant="inline"
             format="dd.MM.yyyy"
             name={name}

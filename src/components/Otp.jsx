@@ -1,13 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, {
+  useState,
+  useEffect,
+  forwardRef,
+  useImperativeHandle,
+} from 'react';
 import styled from 'styled-components';
 
-const Otp = ({ otpCallback }) => {
+const Otp = forwardRef(({ otpCallback }, ref) => {
   const [otp1, setOtp1] = useState('');
   const [otp2, setOtp2] = useState('');
   const [otp3, setOtp3] = useState('');
   const [otp4, setOtp4] = useState('');
   const [otp5, setOtp5] = useState('');
   const [otp6, setOtp6] = useState('');
+
+  useImperativeHandle(ref, () => {
+    return {
+      getCode: () => +`${otp1}${otp2}${otp3}${otp4}${otp5}${otp6}`,
+    };
+  });
 
   useEffect(() => {
     if (otp1 && otp2 && otp3 && otp4 && otp5 && otp6) {
@@ -123,9 +134,13 @@ const Otp = ({ otpCallback }) => {
       </Form>
     </div>
   );
-};
+});
 
 export default Otp;
+
+Otp.defaultProps = {
+  otpCallback: () => {},
+};
 
 const Form = styled.form`
   display: flex;

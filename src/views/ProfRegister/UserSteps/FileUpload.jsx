@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 
 import { deleteFile } from 'actions';
 import { useFileTypeIdFinder } from 'utils';
-import { StepContext } from './RegisterSteps';
+import { StepContext } from '../RegisterSteps';
 import { Text, Button } from 'components';
 import Svg from 'components/statics/svg';
 
@@ -17,12 +17,12 @@ const FileUpload = ({
   title,
   children,
   buttonText,
-  fileTypeName,
+  fileTypeId,
   showPassButton,
 }) => {
   const { accessToken, isAuthenticated } = useSelector((state) => state.auth);
 
-  const fileTypeId = useFileTypeIdFinder(fileTypeName);
+  const foundFileTypeId = useFileTypeIdFinder(fileTypeId);
 
   const [uploadedFiles, setUploadedFiles] = useState({});
 
@@ -38,7 +38,7 @@ const FileUpload = ({
       formData.append('files[]', file);
     });
 
-    formData.append('type_id', fileTypeId);
+    formData.append('type_id', foundFileTypeId);
 
     try {
       if (!isAuthenticated) {
