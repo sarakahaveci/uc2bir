@@ -13,7 +13,7 @@ const GroupLesson = ({ val }) => {
             <div
               className="img"
               style={{
-                backgroundImage: `url(${val.node.frontmatter.image.childImageSharp.fluid.src})`,
+                backgroundImage: `url(${val.image?.default})`,
               }}
             >
               <div className="team">A</div>
@@ -38,27 +38,27 @@ const GroupLesson = ({ val }) => {
                 <span className="icon">
                   <AwesomeIcon.Clock />
                 </span>
-                <span className="text">{val.node.frontmatter.date}</span>
+                <span className="text">{val.date}</span>
               </div>
             </div>
             <div className="info">
               <Title lineDisable fontWeight="ligher">
-                {val.node.frontmatter.category}
+                {val.category}
               </Title>
             </div>
           </div>
           <div className="text-item">
             <Title lineDisable fontWeight="bold">
-              {val.node.frontmatter.name}
+              {val.name}
             </Title>
             <div className="row info">
               <div className="col">
                 <ul>
                   <li style={{ fontSize: '10pt' }}>
-                    {val.node.frontmatter.content}
+                    {val.content}
                   </li>
                   <li style={{ fontSize: '8pt', marginTop: 5 }}>
-                    <AwesomeIcon.Map /> {val.node.frontmatter.location}
+                    <AwesomeIcon.Map /> {val.location}
                   </li>
                 </ul>
               </div>
@@ -74,14 +74,14 @@ const GroupLesson = ({ val }) => {
                     right: '0',
                   }}
                 >
-                  {val.node.frontmatter.seater} Kişilik
+                  {val.seater} Kişilik
                 </span>
 
                 <span>
-                  {val.node.frontmatter.price} <AwesomeIcon.Tl />
+                  {val.price} <AwesomeIcon.Tl />
                 </span>
                 <br />
-                <span>{val.node.frontmatter.ctn}</span>
+                <span>{val.ctn}</span>
               </div>
             </div>
           </div>

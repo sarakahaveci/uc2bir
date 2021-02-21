@@ -4,10 +4,13 @@ import { Container } from 'react-bootstrap';
 import Title from '../../components/typography/Titles';
 import SliderFocus from '../../components/sliders/SliderFocus';
 
-const PT = (props) => {
-  const query = false;
+//mocdata
+import * as Data from './MocData';
 
-  const data = [];
+const PT = (props) => {
+  const query = true;
+
+  const data = Data.Pt;
   const groups = 'PT';
   const link = '/instructor';
   return (

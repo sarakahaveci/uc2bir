@@ -3,10 +3,13 @@ import { Container } from 'react-bootstrap';
 import Title from '../../components/typography/Titles';
 import SliderFocus from '../../components/sliders/SliderFocus';
 
-const Dietitians = (props) => {
-  const query = false;
+//mocdata
+import * as Data from './MocData';
 
-  const data = [];
+const Dietitians = (props) => {
+  const query = true;
+
+  const data = Data.Dietitians;
   const groups = 'Dietitians';
   const link = '/dietitians';
   return (

@@ -74,7 +74,7 @@ const ProfileBanner = ({
           >
             {info.category}
           </Title>
-          <Title textLeft variant="h5" component="h5">
+          <Title textAlign="left" variant="h5" component="h5">
             {info.price} <AwesomeIcon.Tl />
           </Title>
           {categories.length > 0 && (

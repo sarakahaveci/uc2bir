@@ -20,7 +20,7 @@ const Footer = () => {
           <div className="list">
             <Title
               color="white"
-              textLeft
+              textAlign="left"
               lineDisable
               variant="h6"
               component="h6"
@@ -45,7 +45,7 @@ const Footer = () => {
           <div className="list">
             <Title
               color="white"
-              textLeft
+              textAlign="left"
               lineDisable
               variant="h6"
               component="h6"
@@ -70,7 +70,7 @@ const Footer = () => {
           <div className="list">
             <Title
               color="white"
-              textLeft
+              textAlign="left"
               lineDisable
               variant="h6"
               component="h6"
@@ -95,7 +95,7 @@ const Footer = () => {
           <div className="list">
             <Title
               color="white"
-              textLeft
+              textAlign="left"
               lineDisable
               variant="h6"
               component="h6"
@@ -134,7 +134,7 @@ const Footer = () => {
           <div className="item-lists">
             <Title
               color="blue"
-              textLeft
+              textAlign="left"
               lineDisable
               variant="h4"
               component="h4"

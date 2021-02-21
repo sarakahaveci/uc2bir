@@ -13,32 +13,32 @@ const Dietitians = ({ top = false, bottom = false, val }) => {
           <div
             className="img"
             style={{
-              backgroundImage: `url(${val.node.frontmatter.image.childImageSharp.fluid.src})`,
+              backgroundImage: `url(${val.image?.default})`,
             }}
           >
             <ul className="points">
               <li
-                className={`${val.node.frontmatter.stars > 0 ? 'active' : ''}`}
+                className={`${val.stars > 0 ? 'active' : ''}`}
               >
                 <AwesomeIcon.StarSolid />
               </li>
               <li
-                className={`${val.node.frontmatter.stars > 1 ? 'active' : ''}`}
+                className={`${val.stars > 1 ? 'active' : ''}`}
               >
                 <AwesomeIcon.StarSolid />
               </li>
               <li
-                className={`${val.node.frontmatter.stars > 2 ? 'active' : ''}`}
+                className={`${val.stars > 2 ? 'active' : ''}`}
               >
                 <AwesomeIcon.StarSolid />
               </li>
               <li
-                className={`${val.node.frontmatter.stars > 3 ? 'active' : ''}`}
+                className={`${val.stars > 3 ? 'active' : ''}`}
               >
                 <AwesomeIcon.StarSolid />
               </li>
               <li
-                className={`${val.node.frontmatter.stars > 4 ? 'active' : ''}`}
+                className={`${val.stars > 4 ? 'active' : ''}`}
               >
                 <AwesomeIcon.StarSolid />
               </li>
@@ -50,35 +50,35 @@ const Dietitians = ({ top = false, bottom = false, val }) => {
         <div className="slider-item">
           <div className="slider-item-content">
             <Title
-              textLeft
+              textAlign="left"
               lineDisable
               variant="h5"
               component="h5"
-              children={val.node.frontmatter.name}
+              children={val.name}
             />
             <Title
               lineDisable
               color="gray3"
               fontWeight="normal"
-              textLeft
+              textAlign="left"
               variant="h6"
               component="h6"
-              children={val.node.frontmatter.category}
+              children={val.category}
             />
-            <Title textLeft variant="h4" component="h4">
+            <Title textAlign="left" variant="h4" component="h4">
               <span>
-                {val.node.frontmatter.price} <AwesomeIcon.Tl />
+                {val.price} <AwesomeIcon.Tl />
               </span>
             </Title>
             <Text
               fontSize="1.6rem"
               color="gray2"
-              children={val.node.frontmatter.content}
+              children={val.content}
             />
 
             <div style={{ width: '100%', margin: '15px 0' }}>
               <IconLabel
-                text={val.node.frontmatter.location}
+                text={val.location}
                 icon={AwesomeIcon.Map}
               />
             </div>

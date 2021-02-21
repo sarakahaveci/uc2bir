@@ -3,10 +3,13 @@ import { Container } from 'react-bootstrap';
 import Title from '../../components/typography/Titles';
 import PacketSlider from '../../components/sliders/PacketSlider';
 
-const Packet = (props) => {
-  const query = false;
+//mocdata
+import * as Data from './MocData';
 
-  const data = [];
+const Packet = (props) => {
+  const query = true;
+
+  const data = Data.Packets;
   const groups = 'Packet';
   const link = '/packets';
   const categories = [

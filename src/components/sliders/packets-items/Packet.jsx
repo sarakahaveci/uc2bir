@@ -13,31 +13,31 @@ const Packet = ({ val }) => {
             <div
               className="img"
               style={{
-                backgroundImage: `url(${val.node.frontmatter.image.childImageSharp.fluid.src})`,
+                backgroundImage: `url(${val.image?.default})`,
               }}
             >
               <div className="team">A</div>
             </div>
             <div className="info">
               <Title lineDisable fontWeight="ligher">
-                {val.node.frontmatter.title}
+                {val.title}
               </Title>
             </div>
           </div>
           <div className="text-item">
             <Title lineDisable fontWeight="bold">
-              {val.node.frontmatter.name}
+              {val.name}
             </Title>
             <div className="row info">
               <div className="col">
                 <ul>
-                  <li>{val.node.frontmatter.content}</li>
+                  <li>{val.content}</li>
                 </ul>
               </div>
               <div className="col-auto">
                 <span>
-                  {val.node.frontmatter.price} <AwesomeIcon.Tl /> /{' '}
-                  {val.node.frontmatter.package_included} Gün
+                  {val.price} <AwesomeIcon.Tl /> /{' '}
+                  {val.package_included} Gün
                 </span>
               </div>
             </div>
