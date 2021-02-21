@@ -1,12 +1,12 @@
 import React, { useLayoutEffect } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import Layout from './views/Layout';
 import { useDispatch } from 'react-redux';
+import { setUserDetailsFromStorage } from 'actions';
 
 import { ScrollToTop } from 'components';
 //views
 import Home from './views/Home';
-import { setUserDetailsFromStorage } from 'actions';
 import Login from './views/Login';
 import Info from './views/Info';
 import Register from './views/Register';
@@ -24,18 +24,20 @@ const App = () => {
 
   return (
     <ScrollToTop>
-      <Layout>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/info" component={Info} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/profesyonel/register" component={ProfRegister} />
-          <Route exact path="/forgot-password" component={ForgotPassword} />
-          <Route exact path="/profile/:id" component={Profile} />
-          <Route component={NotFoundPage} />
-        </Switch>
-      </Layout>
+      <Router>
+        <Layout>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/info" component={Info} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/profesyonel/register" component={ProfRegister} />
+            <Route exact path="/forgot-password" component={ForgotPassword} />
+            <Route exact path="/profile/:id" component={Profile} />
+            <Route component={NotFoundPage} />
+          </Switch>
+        </Layout>
+      </Router>
     </ScrollToTop>
   );
 };
