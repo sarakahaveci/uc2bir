@@ -1,14 +1,11 @@
 import React from 'react';
+import { Container, Row } from 'react-bootstrap';
 
-import { Tab, Title, Main } from 'components';
+import Place from './Place';
+import { Tab, Title, Main, ProfileBanner } from 'components';
 import ProfileCertificate from './ProfileCertificate';
 import Branch from './Branch';
-
-import { WorkPlaceRow, ProfileBanner } from 'components';
-
-//moc img
 import profileImg from '../../assets/pt-groups/item-1/04.jpg';
-import { Container, Row } from 'react-bootstrap';
 
 export default function Profile({ match }) {
   const trainerData = [
@@ -23,22 +20,9 @@ export default function Profile({ match }) {
       component: <ProfileCertificate userId={match?.params?.id} />,
     },
     {
-      eventKey: 'location',
-      title: 'Konum',
-      component: (
-        <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-          Konum
-        </Title>
-      ),
-    },
-    {
       eventKey: 'workPlace',
       title: 'Çalıştığı Yerler',
-      component: (
-        <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-          Çalıştığı yerler
-        </Title>
-      ),
+      component: <Place />,
     },
     {
       eventKey: 'calendar',
@@ -119,7 +103,6 @@ export default function Profile({ match }) {
         </Row>
       </Container>
       <div className="col-md-8 col-sm-12 mx-auto">
-        <div>Efe Tainer </div>
         <Tab tabData={trainerData} defaultActiveKey="branch" />
       </div>
     </Main>

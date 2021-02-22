@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 
-import { Accordion, Svg } from 'components';
+import { Accordion, Row } from 'components';
 import BranchCardHeader from '../../components/BranchCard/BranchCardHeader';
 import BranchCardBody from '../../components/BranchCard/BranchCardBody';
 
@@ -56,26 +56,30 @@ const UserDetails = () => {
   return (
     <div>
       <Accordion>
-        {mockData.map((item) => {
+        {mockData.map((item, index) => {
           const { sportType, sportName, level, price, speciality } = item;
 
           return (
-            <AccordionItem>
-              <Accordion.Item>
-                <Accordion.Toggle>
-                  <BranchCardHeader
-                    sportType={sportType}
-                    sportName={sportName}
-                    level={level}
-                    price={price}
-                  />
-                </Accordion.Toggle>
+            <StyledRow>
+              <Order>{index + 1}.</Order>
 
-                <Accordion.Collapse>
-                  <BranchCardBody speciality={speciality} />
-                </Accordion.Collapse>
-              </Accordion.Item>
-            </AccordionItem>
+              <AccordionItem>
+                <Accordion.Item>
+                  <Accordion.Toggle>
+                    <BranchCardHeader
+                      sportType={sportType}
+                      sportName={sportName}
+                      level={level}
+                      price={price}
+                    />
+                  </Accordion.Toggle>
+
+                  <Accordion.Collapse>
+                    <BranchCardBody speciality={speciality} />
+                  </Accordion.Collapse>
+                </Accordion.Item>
+              </AccordionItem>
+            </StyledRow>
           );
         })}
       </Accordion>
@@ -85,7 +89,19 @@ const UserDetails = () => {
 
 export default UserDetails;
 
+const StyledRow = styled(Row)`
+  &:not(:first-child) {
+    margin-top: 30px;
+  }
+`;
+
 const AccordionItem = styled.div`
-  margin-bottom: 30px;
   box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.08);
+  flex: 1;
+`;
+
+const Order = styled.span`
+  font-weight: 600;
+  color: ${(p) => p.theme.colors.white2};
+  margin: 15px 10px 0 0;
 `;

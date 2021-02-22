@@ -50,7 +50,7 @@ const RightCell = styled.div`
   &.first {
     font-size: 0.9rem;
     line-height: 17px;
-    color: var(--black1);
+    color: ${(p) => p.theme.colors.dark};
   }
 
   &.mid {
