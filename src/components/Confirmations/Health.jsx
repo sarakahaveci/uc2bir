@@ -6,6 +6,7 @@ import {
   InfoField,
   TextArea,
   TextAreaWrapper,
+  ConfirmationTitle,
 } from './Common.styles.jsx';
 
 const Health = ({
@@ -39,13 +40,7 @@ const Health = ({
         Sözleşmeler ve Formlar
       </Title>
 
-      <Title
-        variant="h5"
-        color="softDark"
-        fontWeight="600"
-        letterSpacing={false}
-        textAlign="left"
-        fontSize="1.1rem"
+      <ConfirmationTitle
         dangerouslySetInnerHTML={{ __html: healthData?.title }}
       />
 

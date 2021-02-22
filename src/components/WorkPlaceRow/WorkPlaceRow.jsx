@@ -18,6 +18,8 @@ const WorkPlaceRow = () => {
           color="gray1"
           fontWeight="400"
           fontSize="0.9rem"
+          variant="h5"
+          textAlign="left"
         >
           180 m , 100 kişi kapasiteli
         </Title>
@@ -29,7 +31,7 @@ const WorkPlaceRow = () => {
           aliquip ex ea commodo consequat.
         </Text>
 
-        <Address color="gray1" fontSize="0.9rem" pt="20px">
+        <Address fontSize="0.9rem" pt="20px">
            Cevdet Paşa Caddesi No: 52-54 Bebek - İstanbul
         </Address>
       </Col>

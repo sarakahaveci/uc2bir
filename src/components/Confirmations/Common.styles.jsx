@@ -10,6 +10,11 @@ export const Container = styled.div`
   }
 `;
 
+export const ConfirmationTitle = styled.h5`
+  font-weight: 600;
+  color: ${(p) => p.theme.colors.softDark};
+`;
+
 export const InfoField = styled.div`
   display: flex;
   align-items: center;

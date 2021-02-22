@@ -394,16 +394,16 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
         />
       )}
 
-      <StyledModal show={openModal} onHide={() => setOpenModal(false)}>
+      <ConfirmationModal show={openModal} onHide={() => setOpenModal(false)}>
         {confirmation}
-      </StyledModal>
+      </ConfirmationModal>
     </div>
   );
 };
 
 export default StepOne;
 
-const StyledModal = styled(Modal)`
+const ConfirmationModal = styled(Modal)`
   .modal-content {
     width: 600px;
     background-color: var(--white1);

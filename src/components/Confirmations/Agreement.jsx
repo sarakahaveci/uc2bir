@@ -6,6 +6,7 @@ import {
   InfoField,
   TextArea,
   TextAreaWrapper,
+  ConfirmationTitle,
 } from './Common.styles.jsx';
 
 const Agreement = ({
@@ -42,13 +43,7 @@ const Agreement = ({
         Sözleşmeler ve Formlar
       </Title>
 
-      <Title
-        variant="h5"
-        color="softDark"
-        fontWeight="600"
-        letterSpacing={false}
-        textAlign="left"
-        fontSize="1.1rem"
+      <ConfirmationTitle
         dangerouslySetInnerHTML={{ __html: agreementData?.title }}
       />
 
@@ -65,13 +60,7 @@ const Agreement = ({
         </TextAreaWrapper>
       </InfoField>
 
-      <Title
-        variant="h5"
-        color="dark"
-        fontWeight="600"
-        latterSpacing={false}
-        textAlign="left"
-        fontSize="1.1rem"
+      <ConfirmationTitle
         dangerouslySetInnerHTML={{ __html: extraAgreementData?.title }}
       />
 

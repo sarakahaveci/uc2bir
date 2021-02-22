@@ -121,8 +121,6 @@ export default function Profile({ match }) {
       <div className="col-md-8 col-sm-12 mx-auto">
         <div>Efe Tainer </div>
         <Tab tabData={trainerData} defaultActiveKey="branch" />
-
-        <WorkPlaceRow />
       </div>
     </Main>
   );
