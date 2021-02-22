@@ -110,7 +110,7 @@ const Header = () => {
                 <ul>
                   {isAuthenticated ? (
                     <HeaderLogin
-                      type_id={1}
+                      type_id={user.type_id}
                       user={user}
                     />
                   ) : (

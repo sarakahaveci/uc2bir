@@ -44,8 +44,7 @@ const CheckBoxGroup = ({
         control={
           <GreenCheckbox
             required={required}
-            checked={val} 
-            onChange={handleChange} 
+            onChange={onChange} 
             name={name} 
           />}
         label={label}

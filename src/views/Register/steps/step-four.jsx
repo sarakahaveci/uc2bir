@@ -35,7 +35,7 @@ const StepFour = (props) => {
             items: val.options.map((item) => {
               return {
                 id: item.id,
-                val: item.name,
+                val: `${item.id}`,
                 name: item.name,
               };
             }),
@@ -89,11 +89,7 @@ const StepFour = (props) => {
       setStepFour(
         {
           survey_id: survey_id,
-          answer: registerData['par_q_testi'].map((val) => {
-            return {
-              [`answer[${[val.id]}]${[]}`]: answer[val.id],
-            };
-          }),
+          answer: answer,
         },
         succsess,
         err
@@ -102,6 +98,7 @@ const StepFour = (props) => {
   };
   return (
     <>
+    {console.log(answer)}
       <form onSubmit={onSubmit} autoComplete="off">
         {macro.length &&
           macro.map((val, key) => {
@@ -116,7 +113,8 @@ const StepFour = (props) => {
                   onChange={(e) => {
                     _survey_id(val.survey_id);
                     _question([...question, val.id]);
-                    _answer({ ...answer, [e.target.name]: val.id });
+                    _answer({ ...answer, [e.target.name]: [e.target.value] });
+                    
                   }}
                 />
               );
@@ -133,7 +131,7 @@ const StepFour = (props) => {
                     onChange={(e) => {
                       _survey_id(val.survey_id);
                       _question([...question, val.id]);
-                      _answer({ ...answer, [e.target.name]: e.target.value });
+                      _answer({ ...answer, [e.target.name]: [e.target.value] });
                     }}
                   />
                 </div>
@@ -149,7 +147,6 @@ const StepFour = (props) => {
                       return (
                         <>
                           <Material.CheckBoxGroup
-                            required={val.required}
                             key={`checkbox-key-${key}`}
                             name={val.name}
                             label={item.name}
@@ -158,7 +155,7 @@ const StepFour = (props) => {
                               _question([...question, val.id]);
                               _answer({
                                 ...answer,
-                                [e.target.name]: e.target.value,
+                                [e.target.name]: [item.id]
                               });
                             }}
                           />
@@ -171,7 +168,7 @@ const StepFour = (props) => {
             }
           })}
         {!getStepFour.isLoading || !getStepFour.isSuccess ? (
-          <Button type="submit" text={`İleri`} className="blue" />
+          <Button type="submit" text={`Kaydı Tamamla`} className="blue" />
         ) : (
           <Button
             onClick={() => {
