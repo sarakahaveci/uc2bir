@@ -41,12 +41,12 @@ const App = () => {
                 component={ProfRegister}
               />
               <Route exact path="/forgot-password" component={ForgotPassword} />
-              <Route exact path="/profile/:id" component={Profile} />
               <Route
                 exact
                 path="/profile/settings"
                 component={ProfileSettings}
               />
+              <Route exact path="/profile/:id" component={Profile} />
               <Route component={NotFoundPage} />
             </Switch>
           </Layout>
