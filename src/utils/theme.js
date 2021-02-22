@@ -12,6 +12,8 @@ export default {
     gray1: '#909090',
     gray2: '#bbbbbb',
     gray3: '#2C2C2C',
+    gray4: '#7b7b7b',
+    gray5: '#e8f0f8',
     black: 'black',
   },
 };

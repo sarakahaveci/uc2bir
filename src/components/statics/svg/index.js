@@ -25,6 +25,7 @@ import Success from './images/success.svg';
 import ListItem from './images/list-item.svg';
 import ArrowDown from './images/arrow-down.svg';
 import ArrowRight from './images/arrow-right.svg';
+import ArrowUp from './images/arrow-up.svg';
 import Certificate from './images/certificate.svg';
 import Comment from './images/comment.svg';
 import Heart from './images/heart.svg';
@@ -98,6 +99,7 @@ const Svg = {
   PeopleGroups: (props) => <ReactSVG {...props} src={PeopleGroups} />,
   Monies: (props) => <ReactSVG {...props} src={Monies} />,
   Hki: (props) => <ReactSVG {...props} src={Hki} />,
+  ArrowUpIcon: (props) => <ReactSVG {...props} src={ArrowUp} />,
 
   Categories: [
     {
