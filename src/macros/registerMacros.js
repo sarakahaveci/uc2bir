@@ -99,6 +99,8 @@ export const stepThree = {
 		address_detail: "",
 		build_no: "",
 		apt_no: "",
+		lat: "",
+		lng: "",
 	},
 	uri: "http://gateway.ms.321.4alabs.com/regions",
 	macro: [
