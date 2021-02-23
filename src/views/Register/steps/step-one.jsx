@@ -7,7 +7,6 @@ import {
   MacroCollections,
   Material,
   Agreement,
-  Health,
   Kvkk,
   Permission,
 } from '../../../components';
@@ -38,7 +37,7 @@ const StepOne = (props) => {
   const [confirmationType, setConfirmationType] = useState('');
   const [openModal, setOpenModal] = useState(false);
   const [acceptMemberAgreement, setAcceptMemberAgreement] = useState(false);
-  const [acceptHealthAgreement, setAcceptHealthAgreement] = useState(false);
+  const [acceptHealthAgreement, setAcceptHealthAgreement] = useState(true);
   const [acceptKvkk, setAcceptKvkk] = useState(false);
   const [acceptPermissions, setAcceptPermissions] = useState(false);
 
@@ -142,17 +141,6 @@ const StepOne = (props) => {
       );
       break;
 
-    case 'health':
-      confirmation = (
-        <Health
-          acceptHealthAgreement={acceptHealthAgreement}
-          setAcceptHealthAgreement={setAcceptHealthAgreement}
-          setOpenModal={setOpenModal}
-          healthData={confirmationData?.['health']}
-        />
-      );
-      break;
-
     case 'kvkk':
       confirmation = (
         <Kvkk
@@ -216,26 +204,6 @@ const StepOne = (props) => {
           />
 
           <Material.CheckBox
-            checked={acceptHealthAgreement}
-            onChange={(e) => setAcceptHealthAgreement(e.target.checked)}
-            label={
-              <div>
-                <span
-                  className="underline-text"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setConfirmationType('health');
-                    setOpenModal(true);
-                  }}
-                >
-                  Sağlık muvafakatnamesi
-                </span>
-                okudum, onaylıyorum.
-              </div>
-            }
-          />
-
-          <Material.CheckBox
             onChange={(e) => setAcceptKvkk(e.target.checked)}
             checked={acceptKvkk}
             label={
@@ -286,7 +254,7 @@ const StepOne = (props) => {
           />
         )}
       </form>
-      {modal && <StepTwo setSteps={setSteps} count={1} modal={modal} setModal={setModal} />}
+      {modal && <StepTwo setSteps={setSteps} phone={data.phone} count={1} modal={modal} setModal={setModal} />}
       <Text
         style={{ marginTop: 30, marginBottom: 10 }}
         fontSize="12pt"

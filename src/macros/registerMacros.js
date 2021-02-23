@@ -92,7 +92,7 @@ export const stepThree = {
 	inputs: {
 		birthday: "",
 		genre: "",
-		about: "",
+		/*about: "",
 		city: "",
 		town: "",
 		district: "",
@@ -100,7 +100,7 @@ export const stepThree = {
 		build_no: "",
 		apt_no: "",
 		lat: "",
-		lng: "",
+		lng: "",*/
 	},
 	uri: "http://gateway.ms.321.4alabs.com/regions",
 	macro: [
@@ -133,14 +133,14 @@ export const stepThree = {
 				}
 			]
 		},
-		{
+		/*{
 			type: "text",
 			required: false,
 			name: "about",
 			forHtml: "about",
 			text: "Hakkında",
 			icon: AwesomeIcon.AddressCard
-		},
+		},*/
 	]
 }
 
