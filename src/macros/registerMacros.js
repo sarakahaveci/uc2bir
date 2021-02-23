@@ -42,38 +42,6 @@ export const stepOne = {
 			text: "Şifre",
 			icon: Svg.PasswordIcon,
 		},
-		/*{
-			type: "checkbox",
-			required: true,
-			name: "agreement",
-			forHtml: "agreement",
-			text: false,
-			component: () => <>Üyelik Sözleşmesini ve <a href="/">Ekleri</a> ’ni kabul ediyorum.</>
-		},
-		{
-			type: "checkbox",
-			required: true,
-			name: "health_status",
-			forHtml: "health_status",
-			text: false,
-			component: () => <>Sağlık muvafakatnamesi <a href="/">okudum</a>, onaylıyorum.</>
-		},
-		{
-			type: "checkbox",
-			required: true,
-			name: "kvkk",
-			forHtml: "kvkk",
-			text: false,
-			component: () => <>KVKK <a href="/">okudum</a>, onaylıyorum.</>
-		},
-		{
-			type: "checkbox",
-			required: true,
-			name: "permission",
-			forHtml: "permission",
-			text: false,
-			component: () => <>Açık rıza aydınlatma <a href="/">metinleri</a>.</>
-		},*/
 	]
 }
 

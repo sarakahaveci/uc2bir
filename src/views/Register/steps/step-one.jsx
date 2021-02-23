@@ -65,16 +65,18 @@ const StepOne = (props) => {
   useEffect(() => {
     if (getStepOne.error) {
       if (getStepOne.error) {
-        for (const [key, val] of Object.entries(getStepOne.error)) {
-          toast.error(`${key}: ${val}`, {
-            position: 'bottom-right',
-            autoClose: 4500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
+        if ( Object.entries(getStepOne.error).length < 6 ) {
+          for (const [key, val] of Object.entries(getStepOne.error)) {
+            toast.error(`${key}: ${val}`, {
+              position: 'bottom-right',
+              autoClose: 4500,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+          }
         }
       } else {
         toast.error(getStepOne.error, {
@@ -174,6 +176,7 @@ const StepOne = (props) => {
         <div className="step-one-wrapper__checkbox-wrapper">
           <Material.CheckBox
             checked={acceptMemberAgreement}
+            required={true}
             onChange={(e) => setAcceptMemberAgreement(e.target.checked)}
             label={
               <div>
@@ -205,6 +208,7 @@ const StepOne = (props) => {
 
           <Material.CheckBox
             onChange={(e) => setAcceptKvkk(e.target.checked)}
+            required={true}
             checked={acceptKvkk}
             label={
               <div>
@@ -225,6 +229,7 @@ const StepOne = (props) => {
 
           <Material.CheckBox
             onChange={(e) => setAcceptPermissions(e.target.checked)}
+            required={true}
             checked={acceptPermissions}
             label={
               <div>
@@ -243,7 +248,7 @@ const StepOne = (props) => {
           />
         </div>
         {!getStepOne.isLoading ? (
-          <Button onClick={onSubmit} text={`İleri`} className="blue" />
+          <Button type="submit" text={`İleri`} className="blue" />
         ) : (
           <Button
             onClick={() => {
