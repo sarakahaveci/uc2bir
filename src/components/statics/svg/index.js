@@ -53,6 +53,7 @@ import UsersGym from './images/users-gym.svg';
 import PeopleGroups from './images/people-groups.svg';
 import Monies from './images/monies.svg';
 import Hki from './images/hki.svg';
+import Camera from './images/camera.svg';
 
 const Svg = {
   Menu: (props) => <Menu {...props} />,
@@ -100,6 +101,7 @@ const Svg = {
   Monies: (props) => <ReactSVG {...props} src={Monies} />,
   Hki: (props) => <ReactSVG {...props} src={Hki} />,
   ArrowUpIcon: (props) => <ReactSVG {...props} src={ArrowUp} />,
+  Camera: (props) => <ReactSVG {...props} src={Camera} />,
 
   Categories: [
     {
