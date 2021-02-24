@@ -112,7 +112,7 @@ const StepOne = (props) => {
     event.preventDefault();
     if (registerData) {
       const user_type = registerData['user-type'].filter((f) => f.key === 'st');
-      setData({ ...data, [data.type_id]: user_type.id });
+      setData({ ...data, [data.type_id]: user_type[0].id });
       const response = await actionStepOne();
       return response;
     } else {
