@@ -4,7 +4,7 @@ import Profile from './Profile/Profile';
 
 const ProfileSettings = () => {
   return (
-    <div>
+    <div style={{ padding: '500px' }}>
       <Profile />
     </div>
   );

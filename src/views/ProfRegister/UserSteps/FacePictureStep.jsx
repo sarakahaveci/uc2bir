@@ -1,11 +1,11 @@
 import React from 'react';
 
-import FileUpload from './FileUpload';
+import RegisterFileUpload from './RegisterFileUpload';
 import { FACE_PICTURE } from '../../../constants';
 
 const FacePictureStep = () => {
   return (
-    <FileUpload
+    <RegisterFileUpload
       fileTypeId={FACE_PICTURE}
       title="Yüzünüzün net bir şekilde görüldüğü fotoğrafınızı ekleyin. "
     />

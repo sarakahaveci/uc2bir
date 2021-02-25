@@ -1,13 +1,13 @@
 import React from 'react';
 
-import FileUpload from '../UserSteps/FileUpload';
+import RegisterFileUpload from '../UserSteps/RegisterFileUpload';
 import Svg from 'components/statics/svg';
 import { CRIMINAL_RECORD } from '../../../constants';
 
 const WorkPlaceCriminalRecordStep = () => {
   return (
     <div className="step-six">
-      <FileUpload
+      <RegisterFileUpload
         title="E-devlet üzerinden alabileceğiniz adli sicil kaydınızı ekleyin. 
         Aşağıdaki linkten e-devlete ulaşabilirsiniz."
         fileTypeId={CRIMINAL_RECORD}
@@ -25,7 +25,7 @@ const WorkPlaceCriminalRecordStep = () => {
         >
           E-devlet’e giriş yapmak için tıklayınız
         </a>
-      </FileUpload>
+      </RegisterFileUpload>
     </div>
   );
 };

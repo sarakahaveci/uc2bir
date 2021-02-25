@@ -18,16 +18,16 @@ const User = ({ user_name, user_id, user_img = null }) => {
 
   const notification = [
     {
-      name: "1. Bildirim",
-      link: `/profile/${user_id}`
+      name: '1. Bildirim',
+      link: `/profile/${user_id}`,
     },
     {
-      name: "2. Bildirim",
-      link: `/profile/${user_id}`
+      name: '2. Bildirim',
+      link: `/profile/${user_id}`,
     },
     {
-      name: "3. Bildirim",
-      link: `/profile/${user_id}`
+      name: '3. Bildirim',
+      link: `/profile/${user_id}`,
     },
   ];
 
@@ -35,7 +35,8 @@ const User = ({ user_name, user_id, user_img = null }) => {
     {
       name: 'Profilim',
       icon: <Svg.UsernameIcon />,
-      link: `/profile/${user_id}`
+      // It will be updated
+      link: `/profile/settings`,
     },
     {
       name: 'Rezervasyonlarım',
@@ -113,7 +114,11 @@ const User = ({ user_name, user_id, user_img = null }) => {
     <>
       {list.map((val, key) => {
         return (
-          <List key={key} className="header-login" dropDown={val.menu || val.notify}>
+          <List
+            key={key}
+            className="header-login"
+            dropDown={val.menu || val.notify}
+          >
             <Item icon={val.icon} span={val.name} notify={val.notify?.length} />
           </List>
         );

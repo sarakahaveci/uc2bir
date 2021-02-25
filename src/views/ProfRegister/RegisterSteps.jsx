@@ -14,7 +14,7 @@ export const StepContext = createContext();
 const RegisterSteps = ({ userTypeId, setUserTypeId }) => {
   const { data: registerData } = useSelector((state) => state.registerData);
 
-  const [stepNumber, setStepNumber] = useState(1);
+  const [stepNumber, setStepNumber] = useState(5);
   const [open, setOpen] = useState(false);
 
   const dispatch = useDispatch();
@@ -81,7 +81,7 @@ const RegisterSteps = ({ userTypeId, setUserTypeId }) => {
           </Text>
         </Container>
 
-        <div className="modal-footer">
+        <div className="modal-footer" closeIcon={false}>
           <StyledLink to="/">ANASAYFA</StyledLink>
         </div>
       </Modal>

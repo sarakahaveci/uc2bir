@@ -15,11 +15,12 @@ const TextField = ({
   autoComplete = 'on',
   className = '',
   icon = false,
+  iconCallback = () => {},
   onChange = () => {},
   value = null,
   onKeyUp = () => {},
   maxLength = '',
-  icon2,
+  icon2 = () => {},
   icon2Callback,
   changeValue,
   inputProps,
@@ -37,7 +38,11 @@ const TextField = ({
   }, [changeValue]);
   return (
     <div className="materials">
-      {icon && icon({ className: 'material-inputs-icon' })}
+      {icon &&
+        icon({
+          className: 'material-inputs-icon',
+          onClick: () => iconCallback(),
+        })}
       <MaterialTextField
         className={`material-inputs ${className} ${icon ? 'has-icon' : ''}`}
         id={id}

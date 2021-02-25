@@ -1,11 +1,11 @@
 import React from 'react';
 
-import FileUpload from '../UserSteps/FileUpload';
+import RegisterFileUpload from '../UserSteps/RegisterFileUpload';
 import { CONTRACT } from '../../../constants';
 
 const WorkPlaceContractStep = () => {
   return (
-    <FileUpload
+    <RegisterFileUpload
       title="Kira Kontratı veya tapuyu yükleyin"
       fileTypeId={CONTRACT}
     />

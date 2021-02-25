@@ -54,6 +54,9 @@ import PeopleGroups from './images/people-groups.svg';
 import Monies from './images/monies.svg';
 import Hki from './images/hki.svg';
 import Camera from './images/camera.svg';
+import Edit from './images/edit.svg';
+import InputClear from './images/input-clear.svg';
+import Warning from './images/warning.svg';
 
 const Svg = {
   Menu: (props) => <Menu {...props} />,
@@ -102,6 +105,9 @@ const Svg = {
   Hki: (props) => <ReactSVG {...props} src={Hki} />,
   ArrowUpIcon: (props) => <ReactSVG {...props} src={ArrowUp} />,
   Camera: (props) => <ReactSVG {...props} src={Camera} />,
+  EditIcon: (props) => <ReactSVG {...props} src={Edit} />,
+  InputClearIcon: (props) => <ReactSVG {...props} src={InputClear} />,
+  WarningIcon: (props) => <ReactSVG {...props} src={Warning} />,
 
   Categories: [
     {

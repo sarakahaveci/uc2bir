@@ -1,12 +1,15 @@
 import React from 'react';
 
-import FileUpload from './FileUpload';
 import { CERTIFICATE } from '../../../constants';
+import RegisterFileUpload from './RegisterFileUpload';
 
 const CertificateStep = () => {
   return (
     <>
-      <FileUpload title="Sertifikalarınızı yükleyin" fileTypeId={CERTIFICATE} />
+      <RegisterFileUpload
+        title="Sertifikalarınızı yükleyin"
+        fileTypeId={CERTIFICATE}
+      />
     </>
   );
 };
