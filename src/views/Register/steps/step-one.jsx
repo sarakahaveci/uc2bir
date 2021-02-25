@@ -110,6 +110,17 @@ const StepOne = (props) => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
+    const regex = new RegExp(
+      '^(?=.{6,})(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+*!=.,]).*$'
+    );
+
+    if (!regex.test(data.password)) {
+      toast.error('Şifrenizin en az 6 karakter, 1 sayı, 1 büyük ve 1 özel karakter içermesi gerekmektedir.', {
+        position: 'bottom-right',
+        autoClose: 2500,
+      });
+      return;
+    }
     if (registerData) {
       const user_type = registerData['user-type'].filter((f) => f.key === 'st');
       setData({ ...data, [data.type_id]: user_type[0].id });

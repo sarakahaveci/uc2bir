@@ -3,6 +3,19 @@ export const genderData = [
   { id: 'f', name: 'Kadın' },
 ];
 
+export const genderMacro = [
+  {
+    id: 1,
+    val: "m",
+    name: "Erkek"
+  },
+  {
+    id: 2,
+    val: "f",
+    name: "Kadın"
+  }
+];
+
 export const yesNo = [
   {
     id: 0,

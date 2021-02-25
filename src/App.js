@@ -16,6 +16,7 @@ import NotFoundPage from './views/NotFoundPage';
 import ForgotPassword from 'views/ForgotPassword';
 import Profile from 'views/Profile';
 import ProfileSettings from 'views/ProfileSettings';
+import Components from 'views/Components';
 import { theme } from 'utils';
 
 const App = () => {
@@ -47,6 +48,7 @@ const App = () => {
                 component={ProfileSettings}
               />
               <Route exact path="/profile/:id" component={Profile} />
+              <Route exact path="/components" component={Components} />
               <Route component={NotFoundPage} />
             </Switch>
           </Layout>

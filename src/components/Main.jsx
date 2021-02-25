@@ -6,7 +6,7 @@ import React from 'react';
  */
 const Main = (props) => {
 	return (
-		<main className="main">
+		<main style={props.style} className="main">
 			<section className="app-root">
 				{props.children}
 			</section>

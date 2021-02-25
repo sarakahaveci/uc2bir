@@ -5,25 +5,34 @@ import styled from 'styled-components/macro';
 import { Button, Svg } from 'components';
 import { Link } from 'react-router-dom';
 
-import Card, {CardFooter} from './Card';
+import Card, { CardFooter, CardInfo } from './Card';
+import { Col } from 'react-bootstrap';
 
-const ProfileCard = ({ img, comment, reservationAction }) => {
+const ProfileCard = ({ img, user = false, name = null, location = null, children }) => {
+  const reservationAction = () => {};
+  const changeProfilePhoto = () => {};
+  const comment = () => {};
   return (
-    <Card img={img}>
-      <span className="span background">
+    <Card img={img} user={user}>
+      <span onClick={changeProfilePhoto} className="span background camera">
         <Svg.Camera />
       </span>
-      <CardFooter>
-        <Comment to={comment} className="list">
-          <Svg.Comment />
-        </Comment>
-        <Button
-          onClick={() => reservationAction}
-          text="Rezervasyon Yap"
-          className="blue list"
-          style={{ fontSize: '9pt' }}
-        ></Button>
-      </CardFooter>
+      {!user && (
+        <CardFooter>
+          <Comment onClick={comment} className="list">
+            <Svg.Comment />
+          </Comment>
+          <Button
+            onClick={reservationAction}
+            text="Rezervasyon Yap"
+            className="blue list"
+            style={{ fontSize: '9pt' }}
+          ></Button>
+        </CardFooter>
+      )}
+      <Cols>
+        <CardInfo name={name} location={location} info={children} />
+      </Cols>
     </Card>
   );
 };
@@ -42,13 +51,24 @@ const Comment = styled(Link)`
   }
 `;
 
+const Cols = styled(Col)`
+  height: auto;
+  padding: 15px 30px;
+  margin-left: 130px;
+`;
+
 export default ProfileCard;
 
 /*
   * example
   * <ProfileCard
       img={img}
-      comment="/"
-      reservationAction=""
+  />
+
+  * <ProfileCard
+      img={img}
+      name="Efe Parlak"
+      location="İstanbul Beşiktaş"
+      user
   />
 */

@@ -57,6 +57,7 @@ import Camera from './images/camera.svg';
 import Edit from './images/edit.svg';
 import InputClear from './images/input-clear.svg';
 import Warning from './images/warning.svg';
+import Pencil from './images/pencil.svg';
 
 const Svg = {
   Menu: (props) => <Menu {...props} />,
@@ -108,6 +109,7 @@ const Svg = {
   EditIcon: (props) => <ReactSVG {...props} src={Edit} />,
   InputClearIcon: (props) => <ReactSVG {...props} src={InputClear} />,
   WarningIcon: (props) => <ReactSVG {...props} src={Warning} />,
+  Pencil: (props) => <ReactSVG {...props} src={Pencil} />,
 
   Categories: [
     {

@@ -245,7 +245,7 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
           </InputMask>
         </div>
 
-        <Material.text
+        <Material.TextField
           required
           type={inputType}
           name="password"
@@ -257,10 +257,7 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
           }}
           label="Şifre"
           icon={Svg.PasswordIcon}
-          icon2={Svg.EyeIcon}
-          icon2Callback={() =>
-            setInputType(inputType === 'password' ? 'text' : 'password')
-          }
+          password={Svg.EyeIcon}
         />
         <div className="step-one-wrapper__checkbox-wrapper">
           <Material.CheckBox

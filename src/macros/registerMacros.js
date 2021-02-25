@@ -41,6 +41,7 @@ export const stepOne = {
 			forHtml: "password",
 			text: "Şifre",
 			icon: Svg.PasswordIcon,
+			password: Svg.EyeIcon,
 		},
 	]
 }
