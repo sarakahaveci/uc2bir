@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { Button, Material } from '../../../components';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { setStepFour, getQuiz } from '../../../actions';
+import { setStepFour } from '../../../actions';
 
 const StepFour = (props) => {
   const { setSteps, registerData } = props;
@@ -17,7 +17,6 @@ const StepFour = (props) => {
   const [answer, _answer] = useState({});
 
   const getStepFour = useSelector((state) => state.stepFour);
-  const quiz = useSelector((state) => state.quizGet);
   const [macro, setMacro] = useState(false);
 
   useEffect(() => {
@@ -98,7 +97,6 @@ const StepFour = (props) => {
   };
   return (
     <>
-    {console.log(answer)}
       <form onSubmit={onSubmit} autoComplete="off">
         {macro.length &&
           macro.map((val, key) => {

@@ -12,32 +12,29 @@ import * as KEYS from '../../constants/userKeys';
 
 import styled from 'styled-components/macro';
 import { useSelector, useDispatch } from 'react-redux';
-import { getRegisterData } from '../../actions';
+import { getUserKeys } from '../../actions';
 
 const HeaderLogin = ({ type_id, user }) => {
-  const { data: registerData, isSuccess } = useSelector(
-    (state) => state.registerData
-  );
+  const dispatch = useDispatch();
+  const {
+    userKeys: { data: userKeys, isSuccess }
+  } = useSelector((state) => state.registerData);
 
-  const err = () => {
-    console.log("err");
-  };
+  const [type, setType] = useState([]);
+
+  useEffect(() => {
+    if ( isSuccess ) {
+      setType(userKeys.filter((f) => f.id === type_id ));
+    }
+  },[isSuccess]);
 
   const actionRegisterData = () => {
-    dispatch(getRegisterData(err));
+    dispatch(getUserKeys());
   };
-
-  const dispatch = useDispatch();
+  
   useEffect(() => {
     actionRegisterData();
   },[]);
-
-  const [type, setType] = useState([]);
-  useEffect(() => {
-    if ( isSuccess ) {
-      setType(registerData['user-type'].filter((f) => f.id === type_id ));
-    }
-  },[isSuccess]);
 
   switch (type[0]?.key) {
     case KEYS.USER:
@@ -87,7 +84,7 @@ const HeaderLogin = ({ type_id, user }) => {
     default:
       return (
         <Section>
-          <NoUser
+          <User
             user_id={user.id}
             user_name={user.name}
             user_img={user.img}

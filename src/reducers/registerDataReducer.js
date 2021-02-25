@@ -21,6 +21,9 @@ import {
   CONFIRMATION_DATA_REQUEST,
   CONFIRMATION_DATA_SUCCESS,
   CONFIRMATION_DATA_FAILURE,
+  GET_USER_KEYS_REQUEST,
+  GET_USER_KEYS_SUCCESS,
+  GET_USER_KEYS_FAILURE,
 } from '../constants';
 
 const initialState = {
@@ -46,6 +49,12 @@ const initialState = {
     isLoading: false,
     error: null,
   },
+  userKeys: {
+    data: {},
+    isLoading: false,
+    error: null,
+    isSuccess: false
+  }
 };
 
 export default (state = initialState, action) => {
@@ -66,6 +75,15 @@ export default (state = initialState, action) => {
         },
       };
 
+    case GET_USER_KEYS_REQUEST:
+      return {
+        ...state,
+        userKeys: {
+          ...state.userKeys,
+          isLoading: true,
+        },
+      };
+
     case VERIFY_CODE_REQUEST:
       return {
         ...state,
@@ -81,6 +99,17 @@ export default (state = initialState, action) => {
         confirmation: {
           data: action.payload,
           isLoading: false,
+          error: null,
+        },
+      };
+
+    case GET_USER_KEYS_SUCCESS:
+      return {
+        ...state,
+        userKeys: {
+          data: action.payload,
+          isLoading: false,
+          isSuccess: true,
           error: null,
         },
       };
@@ -148,6 +177,16 @@ export default (state = initialState, action) => {
           error: action.payload,
         },
       };
+
+    case GET_USER_KEYS_FAILURE:
+        return {
+          ...state,
+          userKeys: {
+            ...state.userKeys,
+            isLaoding: false,
+            error: action.payload,
+          },
+        };
 
     case VERIFY_CODE_FAILURE:
       return {

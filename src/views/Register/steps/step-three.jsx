@@ -101,7 +101,7 @@ const StepThree = (props) => {
 			<form onSubmit={onSubmit} autoComplete="off">
 				<div className="d-flex w-100 flex-wrap">
 					<MacroMap macro={macro.macro} data={data} setData={setData} />
-					{city && (
+					{/*city && (
 						<>
 							<Material.SimpleSelect
 								required
@@ -180,7 +180,7 @@ const StepThree = (props) => {
 								</div>
 							</div>
 						</>
-					)}
+					)*/}
 				</div>
 				{!(getStepThree.isLoading) || !(getStepThree.isSuccess) ? (
 					<Button

@@ -13,13 +13,12 @@ import { toast } from 'react-toastify';
 import { stepTwo as macro } from '../../../macros/registerMacros';
 import { useSelector, useDispatch } from 'react-redux';
 import { setStepTwo, verifyCode } from '../../../actions';
-import { right } from 'styled-system';
 
 const StepTwo = (props) => {
 
   const getStepOne = useSelector((state) => state.stepOne);
   const getStepTwo = useSelector((state) => state.stepTwo);
-  const { setSteps, count, modal, setModal } = props;
+  const { setSteps, count, modal, setModal, phone } = props;
 
   const [open, setOpen] = useState(modal);
   const fullWidth = true;
@@ -57,18 +56,6 @@ const StepTwo = (props) => {
       progress: undefined,
       onClose: setSteps('step3'),
     });
-
-    setTimeout(() => {
-      toast.info('Lütfen Bekleyiniz! Yönlendiriliyorsunuz...', {
-        position: 'bottom-right',
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    }, 1000);
   };
   const isResultError = () => {
     toast.error('Kod doğrulanamadı...', {
@@ -162,7 +149,7 @@ const StepTwo = (props) => {
               style={{ padding: '15px 30px' }}
               className="text-center"
             >
-              <b>{getStepOne?.data?.phone}</b> numaralı telefona gönderdiğimiz 6
+              <b>{phone}</b> numaralı telefona gönderdiğimiz 6
               haneli kodu girin.
             </DialogContentText>
             <div className="d-flex flex-wrap dialog-center">
@@ -183,7 +170,7 @@ const StepTwo = (props) => {
                   }
                 />
                 {!getStepTwo.isLoading ? (
-                  <Button type="submit" text={`İleri`} className="blue" />
+                  <Button type="submit" text={`İleri`} className="blue" disabled={!(typeof code === "number")} />
                 ) : (
                   <Button
                     className="blue"

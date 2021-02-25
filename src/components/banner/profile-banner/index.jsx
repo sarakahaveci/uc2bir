@@ -10,6 +10,8 @@ import { AwesomeIcon, Title, Text, IconLabel, Button, Svg } from 'components';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
+import Card, { CardFooter } from './Card';
+
 const ProfileBanner = ({
   className = null,
   info,
@@ -22,7 +24,7 @@ const ProfileBanner = ({
       <Rows>
         <Card img={info.img}>
           <span className="team">{info.team}</span>
-          <span className="heart">
+          <span className="span">
             <Svg.Heart />
           </span>
           <Stars>
@@ -112,40 +114,6 @@ const Rows = styled(Row)`
   min-height: 340px;
 `;
 
-const Card = styled(Col)`
-  max-width: 375px;
-  height: 285px;
-  position: relative;
-  background-image: url('${(props) => props.img}');
-  background-repeat: no-repeat;
-  background-size: cover;
-  border-top-left-radius: 30px;
-  border-top-right-radius: 30px;
-
-  span.team {
-    position: absolute;
-    left: 0;
-    top: 0;
-    padding: 7px 15px;
-    color: #00b2a9;
-    font-weight: bold;
-    font-size: 1.2rem;
-    background: rgba(255, 255, 255, 0.5);
-    border-top-left-radius: 30px;
-  }
-
-  span.heart {
-    position: absolute;
-    right: 30px;
-    top: 30px;
-
-    svg {
-      width: 25px;
-      height: 25px;
-    }
-  }
-`;
-
 const Cols = styled(Col)`
   height: auto;
   padding: ${(props) => props.padding && props.padding};
@@ -211,20 +179,6 @@ const Star = styled.li`
     svg {
       color: #ffba00;
     }
-  }
-`;
-
-const CardFooter = styled.div`
-  display: flex;
-  position: absolute;
-  bottom: -15px;
-  width: 100%;
-  justify-content: flex-end;
-  padding-right: 30px;
-
-  .list {
-    margin-left: 7px;
-    box-shadow: 5px 5px 10px -8px rgba(0, 0, 0, 0.75);
   }
 `;
 

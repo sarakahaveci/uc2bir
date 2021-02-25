@@ -21,6 +21,7 @@ import {
   CONFIRMATION_DATA_FAILURE,
   QUIZ_GET,
   SUBMIT_BENEFIT,
+  GET_USER_KEYS,
 } from '../constants';
 
 export const setStepOne = (
@@ -373,4 +374,18 @@ export const getConfirmationData = () => async (dispatch, getState) => {
       type: CONFIRMATION_DATA_FAILURE,
     });
   }
+};
+
+export const getUserKeys = () => async (dispatch) => {
+  const url = '/user/registration-data';
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'GET',
+      url,
+      label: GET_USER_KEYS,
+      transformData: (data) => data['user-type'],
+    },
+  });
 };

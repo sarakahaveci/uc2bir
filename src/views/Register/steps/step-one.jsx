@@ -7,7 +7,6 @@ import {
   MacroCollections,
   Material,
   Agreement,
-  Health,
   Kvkk,
   Permission,
 } from '../../../components';
@@ -38,7 +37,7 @@ const StepOne = (props) => {
   const [confirmationType, setConfirmationType] = useState('');
   const [openModal, setOpenModal] = useState(false);
   const [acceptMemberAgreement, setAcceptMemberAgreement] = useState(false);
-  const [acceptHealthAgreement, setAcceptHealthAgreement] = useState(false);
+  const [acceptHealthAgreement, setAcceptHealthAgreement] = useState(true);
   const [acceptKvkk, setAcceptKvkk] = useState(false);
   const [acceptPermissions, setAcceptPermissions] = useState(false);
 
@@ -66,16 +65,18 @@ const StepOne = (props) => {
   useEffect(() => {
     if (getStepOne.error) {
       if (getStepOne.error) {
-        for (const [key, val] of Object.entries(getStepOne.error)) {
-          toast.error(`${key}: ${val}`, {
-            position: 'bottom-right',
-            autoClose: 4500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
+        if ( Object.entries(getStepOne.error).length < 6 ) {
+          for (const [key, val] of Object.entries(getStepOne.error)) {
+            toast.error(`${key}: ${val}`, {
+              position: 'bottom-right',
+              autoClose: 4500,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+          }
         }
       } else {
         toast.error(getStepOne.error, {
@@ -111,7 +112,7 @@ const StepOne = (props) => {
     event.preventDefault();
     if (registerData) {
       const user_type = registerData['user-type'].filter((f) => f.key === 'st');
-      setData({ ...data, [data.type_id]: user_type.id });
+      setData({ ...data, [data.type_id]: user_type[0].id });
       const response = await actionStepOne();
       return response;
     } else {
@@ -138,17 +139,6 @@ const StepOne = (props) => {
           setOpenModal={setOpenModal}
           agreementData={confirmationData?.['agreement']}
           extraAgreementData={confirmationData?.['agreementExtra']}
-        />
-      );
-      break;
-
-    case 'health':
-      confirmation = (
-        <Health
-          acceptHealthAgreement={acceptHealthAgreement}
-          setAcceptHealthAgreement={setAcceptHealthAgreement}
-          setOpenModal={setOpenModal}
-          healthData={confirmationData?.['health']}
         />
       );
       break;
@@ -186,6 +176,7 @@ const StepOne = (props) => {
         <div className="step-one-wrapper__checkbox-wrapper">
           <Material.CheckBox
             checked={acceptMemberAgreement}
+            required={true}
             onChange={(e) => setAcceptMemberAgreement(e.target.checked)}
             label={
               <div>
@@ -216,27 +207,8 @@ const StepOne = (props) => {
           />
 
           <Material.CheckBox
-            checked={acceptHealthAgreement}
-            onChange={(e) => setAcceptHealthAgreement(e.target.checked)}
-            label={
-              <div>
-                <span
-                  className="underline-text"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setConfirmationType('health');
-                    setOpenModal(true);
-                  }}
-                >
-                  Sağlık muvafakatnamesi
-                </span>
-                okudum, onaylıyorum.
-              </div>
-            }
-          />
-
-          <Material.CheckBox
             onChange={(e) => setAcceptKvkk(e.target.checked)}
+            required={true}
             checked={acceptKvkk}
             label={
               <div>
@@ -257,6 +229,7 @@ const StepOne = (props) => {
 
           <Material.CheckBox
             onChange={(e) => setAcceptPermissions(e.target.checked)}
+            required={true}
             checked={acceptPermissions}
             label={
               <div>
@@ -275,7 +248,7 @@ const StepOne = (props) => {
           />
         </div>
         {!getStepOne.isLoading ? (
-          <Button onClick={onSubmit} text={`İleri`} className="blue" />
+          <Button type="submit" text={`İleri`} className="blue" />
         ) : (
           <Button
             onClick={() => {
@@ -286,7 +259,7 @@ const StepOne = (props) => {
           />
         )}
       </form>
-      {modal && <StepTwo setSteps={setSteps} count={1} modal={modal} setModal={setModal} />}
+      {modal && <StepTwo setSteps={setSteps} phone={data.phone} count={1} modal={modal} setModal={setModal} />}
       <Text
         style={{ marginTop: 30, marginBottom: 10 }}
         fontSize="12pt"

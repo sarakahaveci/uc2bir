@@ -37,7 +37,7 @@ const RegisterSteps = () => {
     }
   }, [isSuccess]);
 
-  const [steps, setSteps] = useState('step4');
+  const [steps, setSteps] = useState('step1');
   /**
    * @param {string} step
    */

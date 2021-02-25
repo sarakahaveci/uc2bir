@@ -33,6 +33,7 @@ export { default as Tab } from './Tabs/Tabs';
 export { default as Certificate } from './Certificate/Certificate';
 export { Material } from './inputs/material';
 export { default as ProfileBanner } from './banner/profile-banner';
+export { default as ProfileCard } from './banner/profile-banner/ProfileCard';
 export { default as MasonaryGallery } from './MasonaryGallery';
 export { default as WorkPlaceRow } from './WorkPlaceRow/WorkPlaceRow';
 export { default as HeaderLogin } from './header-login';
