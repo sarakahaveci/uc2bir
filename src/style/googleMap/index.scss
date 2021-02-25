@@ -31,3 +31,15 @@
     width: 100% !important;
   }
 }
+
+.medium-map-wrapper {
+  height: 35vh;
+  width: 60vh;
+  @media (max-width: 768px) {
+    width: 100% !important;
+  }
+}
+
+.marginTop {
+  margin-top: 7%;
+}

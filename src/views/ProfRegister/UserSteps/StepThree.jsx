@@ -244,7 +244,11 @@ const StepThree = () => {
           <Text textAlign="center">
             Mahalle, Cadde veya Sokak adı ile arayın yada Pini Sürükleyin
           </Text>
-          <GoogleMap onPositionChange={onPositionChange} />
+          <GoogleMap
+            onPositionChange={onPositionChange}
+            showSearchBox
+            draggable
+          />
           <div className="d-flex w-100 mt-2">
             <Button
               fontWeight="bold"
