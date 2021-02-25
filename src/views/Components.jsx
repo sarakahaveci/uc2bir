@@ -16,13 +16,13 @@ const Components = () => {
             <Col>
               <ProfileCard
                 img={item1}
-                name="Arif GEVENCİ"
+                name="Efe Parlak"
                 location="İstanbul Beşiktaş"
                 user
               />
               <ProfileCard
                 img={item1}
-                name="Arif GEVENCİ"
+                name="Efe Parlak"
                 location="İstanbul Beşiktaş"
                 user
               >
