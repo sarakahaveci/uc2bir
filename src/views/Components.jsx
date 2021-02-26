@@ -77,7 +77,7 @@ const Components = () => {
               >
                 <div>Gönderdiğimiz child burada gözükür.</div>
               </ProfileBanner>
-              <ProfileFormCollections tab="profile" />
+              <ProfileFormCollections tab="profile"/>
             </Col>
           </Row>
         </Container>

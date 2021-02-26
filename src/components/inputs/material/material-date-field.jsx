@@ -63,10 +63,11 @@ const DateField = ({
             }`}
             variant="inline"
             format="dd.MM.yyyy"
+            defaultValue={defaultValue}
             name={name}
             required={required}
             label={label}
-            value={selectedDate}
+            value={value || selectedDate}
             onChange={(date) => handleDateChange(date, onChange)}
             KeyboardButtonProps={{
               'aria-label': 'Tarih Gir',

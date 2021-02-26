@@ -57,7 +57,7 @@ const SimpleSelect = ({
           required={required}
         >
           {items.map((val, key) => (
-            <MenuItem key={`select-${name}-${key}`} value={val.id}>
+            <MenuItem key={`select-${name}-${key}`} value={val.id} selected={val.selected}>
               {val.name}
             </MenuItem>
           ))}

@@ -97,6 +97,7 @@ const StepOne = (props) => {
       setStepOne(
         {
           ...data,
+          type_id: registerData?.['user-type'].filter((f) => f.key === 'st')[0]?.id,
           kvkk: acceptKvkk ? 1 : 0,
           agreement: acceptMemberAgreement ? 1 : 0,
           health_status: acceptHealthAgreement ? 1 : 0,
@@ -110,7 +111,7 @@ const StepOne = (props) => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    const regex = new RegExp(
+    /*const regex = new RegExp(
       '^(?=.{6,})(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+*!=.,]).*$'
     );
 
@@ -120,10 +121,10 @@ const StepOne = (props) => {
         autoClose: 2500,
       });
       return;
-    }
+    }*/
     if (registerData) {
       const user_type = registerData['user-type'].filter((f) => f.key === 'st');
-      setData({ ...data, [data.type_id]: user_type[0].id });
+      setData({ ...data, type_id: user_type[0].id });
       const response = await actionStepOne();
       return response;
     } else {

@@ -7,7 +7,6 @@ export const stepOne = {
 		email: "",
 		phone: "",
 		password: "",
-		type_id: 0,
 	},
 	macro: [
 		{
