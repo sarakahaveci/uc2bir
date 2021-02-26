@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 import { getProfile, setProfile } from 'actions';
 import styled from 'styled-components/macro';
 
-const Profile = () => {
+const Profile = ({ footer = false }) => {
   const dispatch = useDispatch();
   const detail = useSelector((state) => state.profileSettings.detail);
 
@@ -33,30 +33,20 @@ const Profile = () => {
     );
   };
 
-  const actionSetData = async () => {
+  const actionSetData = async (name, value) => {
     dispatch(
       setProfile(
-        { ...data },
+        { [name]: value },
         () => {
           toast.success('Bilgileriniz güncellendi.', {
             position: 'bottom-right',
             autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
           });
         },
         () => {
           toast.error('Güncelleme işlemi yapılamadı.', {
             position: 'bottom-right',
             autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
           });
         }
       )
@@ -79,26 +69,20 @@ const Profile = () => {
     }
   }, [detail.isSuccess]);
 
-  const onSubmit = (event) => {
-    event.preventDefault();
-    actionSetData();
-  };
-
   return (
     <Section>
       {detail.isSuccess && (
-        <form onSubmit={onSubmit}>
+        <>
           <Material.TextField
             required
             label="Adınız Soyadınız"
             type="text"
-            settings
             name="name"
             value={detail.data.name}
             defaultValue={detail.data.name}
-            onChange={(e) =>
-              setData({ ...data, [e.target.name]: e.target.value })
-            }
+            settings
+            action={actionSetData}
+            state={detail}
           />
           <Material.TextField
             required
@@ -108,9 +92,8 @@ const Profile = () => {
             name="about"
             value={detail.data.about}
             defaultValue={detail.data.about}
-            onChange={(e) =>
-              setData({ ...data, [e.target.name]: e.target.value })
-            }
+            action={actionSetData}
+            state={detail}
           />
           <Material.SimpleSelect
             required
@@ -136,10 +119,16 @@ const Profile = () => {
               setData({ ...data, [e.target.name]: e.target.value })
             }
           />
-          <Footer>
-            <Button type="submit" text="Güncelle" isLoading={detail.isLoading} />
-          </Footer>
-        </form>
+          {footer && (
+            <Footer>
+              <Button
+                type="submit"
+                text="Güncelle"
+                isLoading={detail.isLoading}
+              />
+            </Footer>
+          )}
+        </>
       )}
     </Section>
   );

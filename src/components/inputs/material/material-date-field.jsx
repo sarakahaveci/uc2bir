@@ -36,9 +36,13 @@ const DateField = ({
   minDate,
   maxDate,
   settings = false,
+  minYears = 13,
 }) => {
+  const now = new Date();
+  const defaultDate = `${now.getFullYear() - minYears}-${now.getMonth()}-${now.getDay()}`;
+  
   const [selectedDate, setSelectedDate] = useState(
-    new Date('2002-01-01T21:00:00')
+    new Date(value || defaultDate)
   );
 
   const handleDateChange = (date, callBack) => {
@@ -67,7 +71,7 @@ const DateField = ({
             name={name}
             required={required}
             label={label}
-            value={value || selectedDate}
+            value={selectedDate}
             onChange={(date) => handleDateChange(date, onChange)}
             KeyboardButtonProps={{
               'aria-label': 'Tarih Gir',

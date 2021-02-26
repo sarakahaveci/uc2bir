@@ -44,7 +44,7 @@ export const updateFile = (fileId, fileName, successCallback) => async (
 };
 
 export const setProfile = (
-  { name, title, birthday, genre, about },
+  { ...data },
   successCallback,
   errorCallback
 ) => async (dispatch) => {
@@ -57,11 +57,7 @@ export const setProfile = (
       url,
       label: SET_PROFILE_UPDATE,
       body: {
-        name,
-        title,
-        birthday,
-        genre,
-        about,
+        ...data
       },
       transformData: (data) => data.data,
       callBack: () => successCallback(),
