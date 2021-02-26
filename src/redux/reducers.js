@@ -10,6 +10,7 @@ import registerData from '../reducers/registerDataReducer';
 import forgotPassword from '../reducers/forgotPaswword';
 import resetPassword from '../reducers/resetPassword';
 import quizGet from '../reducers/quizGetReducer';
+import profileSettings from '../reducers/profileSettingsReducer';
 
 const reducers = combineReducers({
   auth,
@@ -22,6 +23,7 @@ const reducers = combineReducers({
   forgotPassword,
   resetPassword,
   quizGet,
+  profileSettings,
 });
 
 export default reducers;

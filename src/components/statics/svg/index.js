@@ -12,7 +12,7 @@ import InfoOnline from './images/info-online.svg';
 import InfoSport from './images/info-sport.svg';
 import Upload from './images/upload.svg';
 import Error from './images/error.svg';
-import Tick from './images/tick.svg';
+import TickWithBg from './images/tick-with-bg.svg';
 import Trash from './images/trash.svg';
 import Close from './images/close.svg';
 import Username from './images/username.svg';
@@ -54,6 +54,11 @@ import PeopleGroups from './images/people-groups.svg';
 import Monies from './images/monies.svg';
 import Hki from './images/hki.svg';
 import Camera from './images/camera.svg';
+import Edit from './images/edit.svg';
+import InputClear from './images/input-clear.svg';
+import Warning from './images/warning.svg';
+import Pencil from './images/pencil.svg';
+import Tick from './images/tick.svg';
 
 const Svg = {
   Menu: (props) => <Menu {...props} />,
@@ -63,7 +68,7 @@ const Svg = {
   InfoSport: (props) => <ReactSVG {...props} src={InfoSport} />,
   TrashIcon: (props) => <ReactSVG {...props} src={Trash} />,
   UploadIcon: (props) => <ReactSVG {...props} src={Upload} />,
-  TickIcon: (props) => <ReactSVG {...props} src={Tick} />,
+  TickWithBgIcon: (props) => <ReactSVG {...props} src={TickWithBg} />,
   ErrorIcon: (props) => <ReactSVG {...props} src={Error} />,
   CloseIcon: (props) => <ReactSVG {...props} src={Close} />,
   UsernameIcon: (props) => <ReactSVG {...props} src={Username} />,
@@ -102,6 +107,11 @@ const Svg = {
   Hki: (props) => <ReactSVG {...props} src={Hki} />,
   ArrowUpIcon: (props) => <ReactSVG {...props} src={ArrowUp} />,
   Camera: (props) => <ReactSVG {...props} src={Camera} />,
+  EditIcon: (props) => <ReactSVG {...props} src={Edit} />,
+  InputClearIcon: (props) => <ReactSVG {...props} src={InputClear} />,
+  WarningIcon: (props) => <ReactSVG {...props} src={Warning} />,
+  Pencil: (props) => <ReactSVG {...props} src={Pencil} />,
+  TickIcon: (props) => <ReactSVG {...props} src={Tick} />,
 
   Categories: [
     {

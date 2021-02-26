@@ -1,16 +1,33 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { Button as BaseButton, Spinner } from 'react-bootstrap';
+import { color, space } from 'styled-system';
 
 const StyledButton = styled(BaseButton)`
-  color: black;
   font-size: 1rem;
   font-weight: ${(props) => (props.fontWeight && props.fontWeight) || 'normal'};
   border-radius: 4px;
-  margin: ${(props) => props.margin && props.margin};
   min-height: 45px;
   background: ${(props) => props.disabled && '#8CDEDA'} !important;
   width: ${(props) => props.width && props.width};
+
+  ${color}
+  ${space}
+
+  &:hover {
+    ${color}
+  }
+
+  ${(props) =>
+    props.light &&
+    css`
+      border: 1px solid rgba(144, 144, 144, 0.3);
+      width: 100%;
+
+      &:focus {
+        border: 1px solid rgba(144, 144, 144, 0.5);
+      }
+    `}
 
   ${(props) =>
     props.soft &&
@@ -34,6 +51,7 @@ const StyledButton = styled(BaseButton)`
         transform: matrix(1, 0, -0.7, 1, 0, 0);
       }
     `}
+
   ${(props) =>
     props.perspective &&
     css`
@@ -57,6 +75,7 @@ const StyledButton = styled(BaseButton)`
         transform: matrix(1, 0, -0.4, 1, 0, 0);
       }
     `}
+
     ${(props) =>
     props.lineButton &&
     css`
@@ -78,6 +97,7 @@ const StyledButton = styled(BaseButton)`
         margin-top: 5px;
       }
     `}
+
     ${(props) =>
     !!props.icon &&
     css`

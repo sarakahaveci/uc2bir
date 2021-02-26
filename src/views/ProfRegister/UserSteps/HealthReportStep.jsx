@@ -1,12 +1,12 @@
 import React from 'react';
 
-import FileUpload from './FileUpload';
+import RegisterFileUpload from './RegisterFileUpload';
 import { HEALTH_REPORT } from '../../../constants';
 
 const HealthReportStep = () => {
   return (
     <>
-      <FileUpload
+      <RegisterFileUpload
         fileTypeId={HEALTH_REPORT}
         title="İlgili kurumlardan aldığınız sağlık raporunuzu ekleyin."
         showPassButton
@@ -15,7 +15,7 @@ const HealthReportStep = () => {
           Sağlık raporunuzu 30 gün içerisinde sistemimize yüklemeniz
           gerekmektedir.
         </div>
-      </FileUpload>
+      </RegisterFileUpload>
     </>
   );
 };

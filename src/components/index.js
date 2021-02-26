@@ -23,6 +23,10 @@ export { default as Agreement } from './Confirmations/Agreement';
 export { default as Health } from './Confirmations/Health';
 export { default as Permission } from './Confirmations/Permission';
 export { default as Kvkk } from './Confirmations/Kvkk';
+export { default as Span } from './Span/Span';
+export { default as FileUpload } from './FileUpload/FileUpload';
+export * from './CommonStyles/Common.styles';
+
 /*
 export { default as SocialLogin } from './SocialLogin/SocialLogin';
 */
@@ -37,3 +41,4 @@ export { default as ProfileCard } from './banner/profile-banner/ProfileCard';
 export { default as MasonaryGallery } from './MasonaryGallery';
 export { default as WorkPlaceRow } from './WorkPlaceRow/WorkPlaceRow';
 export { default as HeaderLogin } from './header-login';
+export { default as ProfileFormCollections } from './profile-form-collections';

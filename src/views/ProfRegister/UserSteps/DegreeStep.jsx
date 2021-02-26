@@ -1,10 +1,12 @@
 import React from 'react';
 
-import FileUpload from './FileUpload';
+import RegisterFileUpload from './RegisterFileUpload';
 import { DEGREE } from '../../../constants';
 
 const DegreeStep = () => {
-  return <FileUpload title="Diplomanızı ekleyin." fileTypeId={DEGREE} />;
+  return (
+    <RegisterFileUpload title="Diplomanızı ekleyin." fileTypeId={DEGREE} />
+  );
 };
 
 export default DegreeStep;

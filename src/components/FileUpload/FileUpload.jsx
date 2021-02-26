@@ -1,32 +1,23 @@
-import React, { useState, useContext } from 'react';
+import React from 'react';
 import axios from 'axios';
 import { useDropzone } from 'react-dropzone';
-import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { ProgressBar } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import PropTypes from 'prop-types';
 
 import { deleteFile } from 'actions';
-import { useFileTypeIdFinder } from 'utils';
-import { StepContext } from '../RegisterSteps';
-import { Text, Button } from 'components';
-import Svg from 'components/statics/svg';
+import { Text, Button, Svg } from 'components';
 
 const FileUpload = ({
-  title,
-  children,
-  buttonText,
   fileTypeId,
-  showPassButton,
+  uploadedFiles,
+  setUploadedFiles,
+  showRegisterInfo,
+  title,
 }) => {
   const { accessToken, isAuthenticated } = useSelector((state) => state.auth);
-
-  const foundFileTypeId = useFileTypeIdFinder(fileTypeId);
-
-  const [uploadedFiles, setUploadedFiles] = useState({});
-
-  const { setStepNumber } = useContext(StepContext);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -38,14 +29,14 @@ const FileUpload = ({
       formData.append('files[]', file);
     });
 
-    formData.append('type_id', foundFileTypeId);
+    formData.append('type_id', fileTypeId);
 
     try {
       if (!isAuthenticated) {
         toast.error('Giriş yapma sayfasına yönlendiriliyorsunuz.', {
           position: 'bottom-right',
           autoClose: 2000,
-          onClose: () => history.push('/'),
+          onClose: () => history.push('/login'),
         });
         return;
       }
@@ -122,7 +113,7 @@ const FileUpload = ({
 
       setUploadedFiles((files) => ({ ...files, ...failedFiles }));
 
-      toast.error(err.response.data.message, {
+      toast.error(err?.response?.data?.message, {
         position: 'bottom-right',
         autoClose: 2000,
       });
@@ -150,7 +141,7 @@ const FileUpload = ({
           {progressPercentage === 'error' ? (
             <Svg.ErrorIcon />
           ) : (
-            progressPercentage === 100 && <Svg.TickIcon />
+            progressPercentage === 100 && <Svg.TickWithBgIcon />
           )}
 
           <span>{key}</span>
@@ -176,16 +167,14 @@ const FileUpload = ({
     );
   });
 
-  const isValidProgress = Object.keys(uploadedFiles).some(
-    (key) => uploadedFiles[key].progressPercentage === 100
-  );
-
   return (
     <div className="file-upload">
       <div className="file-upload__text-wrapper">
-        <Text color="dark" fontSize="1.2rem" fontWeight="300">
-          Lütfen Kayıt Için Gerekli Belgeleri Yükleyin
-        </Text>
+        {showRegisterInfo && (
+          <Text color="dark" fontSize="1.2rem" fontWeight="300">
+            Lütfen Kayıt Için Gerekli Belgeleri Yükleyin
+          </Text>
+        )}
 
         <Text color="dark" fontSize="1rem">
           {title}
@@ -219,39 +208,24 @@ const FileUpload = ({
         </div>
         <aside>{FilesInfoList}</aside>
       </section>
-
-      {children}
-
-      <div className="file-upload__next-button">
-        <Button
-          onClick={() => setStepNumber((value) => value + 1)}
-          text={buttonText}
-          className="blue"
-          disabled={!isValidProgress}
-        />
-
-        {showPassButton && (
-          <div className="file-upload__next-link">
-            <button onClick={() => setStepNumber((value) => value + 1)}>
-              Geç
-            </button>
-          </div>
-        )}
-      </div>
     </div>
   );
 };
 
-FileUpload.propTypes = {
-  buttonText: PropTypes.string,
-  showPassButton: PropTypes.bool,
-  title: PropTypes.string,
+FileUpload.defaultProps = {
+  fileTypeId: null,
+  uploadedFiles: {},
+  setUploadedFiles: () => {},
+  title: '',
+  showRegisterInfo: true,
 };
 
-FileUpload.defaultProps = {
-  buttonText: 'Devam Et',
-  showPassButton: false,
-  title: '',
+FileUpload.propTypes = {
+  fileTypeId: PropTypes.number,
+  uploadedFiles: PropTypes.object,
+  setUploadedFiles: PropTypes.func,
+  title: PropTypes.string,
+  showRegisterInfo: PropTypes.bool,
 };
 
 export default FileUpload;

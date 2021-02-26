@@ -9,7 +9,10 @@
   margin: auto;
 
   .modal-content {
+    padding: 15px 30px;
     border-radius: 20px;
+    background: var(--white1);
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.13);
   }
 
   .modal-dialog {

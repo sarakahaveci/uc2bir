@@ -7,7 +7,6 @@ export const stepOne = {
 		email: "",
 		phone: "",
 		password: "",
-		type_id: 0,
 	},
 	macro: [
 		{
@@ -41,6 +40,7 @@ export const stepOne = {
 			forHtml: "password",
 			text: "Şifre",
 			icon: Svg.PasswordIcon,
+			password: Svg.EyeIcon,
 		},
 	]
 }

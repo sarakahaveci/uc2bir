@@ -26,6 +26,7 @@ const MacroCollections = ({ macro = [], data = {}, setData }) => {
                 setData: setData,
                 data: data,
                 value: data[val.name],
+                password: val.password
               })}
           </div>
         );

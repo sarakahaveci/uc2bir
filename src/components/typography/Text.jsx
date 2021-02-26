@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { space, typography, color } from 'styled-system';
+import { space, typography, color, flexbox } from 'styled-system';
 
 const StyledText = styled.div`
   padding: 7px 0;
@@ -22,6 +22,7 @@ const StyledText = styled.div`
       }
     `}
 
+  ${flexbox}
   ${color}
   ${typography}
   ${space}

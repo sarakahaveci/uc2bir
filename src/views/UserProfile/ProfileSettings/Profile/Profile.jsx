@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components/macro';
 
 import { Accordion, Text, Col, Svg } from 'components';
+import Files from '../../../components/ProfileSettings/Files/Files';
 
 const SettingsData = [
   {
@@ -19,7 +20,7 @@ const SettingsData = [
     settingsName: 'Belgeler',
     settingsDetails:
       'Sistemimize yüklediğiniz belgelerinize göz atın; eksik belgelerinizi yükleyin, güncelleyin',
-    body: <div>Component</div>,
+    body: <Files />,
   },
   {
     settingsName: 'Adresim',
@@ -81,6 +82,7 @@ const SettingsRow = styled.div`
   align-items: center;
   justify-content: space-between;
   position: relative;
+  border-bottom: 1px solid transparent;
   border-bottom: ${(p) => p.isActive && `1px solid ${p.theme.colors.gray5}`};
   padding: 10px 15px;
 

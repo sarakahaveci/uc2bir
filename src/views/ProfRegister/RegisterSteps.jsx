@@ -81,7 +81,7 @@ const RegisterSteps = ({ userTypeId, setUserTypeId }) => {
           </Text>
         </Container>
 
-        <div className="modal-footer">
+        <div className="modal-footer" closeIcon={false}>
           <StyledLink to="/">ANASAYFA</StyledLink>
         </div>
       </Modal>

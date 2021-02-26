@@ -221,7 +221,7 @@ export default function Address() {
           onSubmit={updateAddress}
           autoComplete="off"
         >
-          <Material.select
+          <Material.SimpleSelect
             required
             name="city"
             forHtml="city"
@@ -230,7 +230,7 @@ export default function Address() {
             onChange={handleSelectRelion}
             items={cities}
           />
-          <Material.select
+          <Material.SimpleSelect
             required
             name="district"
             forHtml="district"
@@ -239,7 +239,7 @@ export default function Address() {
             onChange={handleSelectRelion}
             items={distict ?? []}
           />
-          <Material.select
+          <Material.SimpleSelect
             required
             name="town"
             forHtml="rown"
@@ -267,6 +267,7 @@ export default function Address() {
                 type="number"
                 changeValue={+formData?.apt_no}
                 onChange={handleFormOnChange}
+                settings
               />
             </div>
             <div className="adress-apartment">

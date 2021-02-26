@@ -1,11 +1,11 @@
 import React from 'react';
 
-import FileUpload from '../UserSteps/FileUpload';
+import RegisterFileUpload from '../UserSteps/RegisterFileUpload';
 import { CONTRACT } from '../../../constants';
 
 const WorkPlaceHirePlaceStep = () => {
   return (
-    <FileUpload
+    <RegisterFileUpload
       title="İş Yeri Kiralama Kararını yükleyin"
       fileTypeId={CONTRACT}
     />

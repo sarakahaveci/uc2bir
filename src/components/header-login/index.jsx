@@ -84,7 +84,7 @@ const HeaderLogin = ({ type_id, user }) => {
     default:
       return (
         <Section>
-          <User
+          <NoUser
             user_id={user.id}
             user_name={user.name}
             user_img={user.img}

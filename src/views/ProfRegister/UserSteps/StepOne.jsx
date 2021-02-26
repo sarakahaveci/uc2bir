@@ -102,6 +102,17 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
   const submitHandler = (e) => {
     e.preventDefault();
 
+    const regex = new RegExp(
+      '^(?=.{6,})(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+*!=.,]).*$'
+    );
+
+    if (!regex.test(password)) {
+      setErrorMessage(
+        'Şifrenizin en az 6 karakter, 1 sayı, 1 büyük ve 1 özel karakter içermesi gerekmektedir.'
+      );
+      return;
+    }
+
     if (
       ![
         acceptHealthAgreement,
@@ -110,7 +121,7 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
         acceptPermissions,
       ].every((value) => value)
     ) {
-      setErrorMessage('Lütfen boş alanları doldurunuz.');
+      setErrorMessage('Lütfen sözleşmeleri kabul ediniz.');
       return;
     }
 
@@ -233,7 +244,8 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
             )}
           </InputMask>
         </div>
-        <Material.text
+
+        <Material.TextField
           required
           type={inputType}
           name="password"
@@ -241,15 +253,11 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           inputProps={{
-            minLength: 6,
             maxLength: 15,
           }}
           label="Şifre"
           icon={Svg.PasswordIcon}
-          icon2={Svg.EyeIcon}
-          icon2Callback={() =>
-            setInputType(inputType === 'password' ? 'text' : 'password')
-          }
+          password={Svg.EyeIcon}
         />
         <div className="step-one-wrapper__checkbox-wrapper">
           <Material.CheckBox
@@ -406,8 +414,6 @@ export default StepOne;
 const ConfirmationModal = styled(Modal)`
   .modal-content {
     width: 600px;
-    background-color: var(--white1);
-    padding: 15px 30px;
   }
 `;
 

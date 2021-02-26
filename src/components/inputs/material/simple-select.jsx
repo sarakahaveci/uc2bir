@@ -6,6 +6,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
+import svg from '../../statics/svg/images/pencil.svg';
+import styled from 'styled-components/macro';
+
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: 0,
@@ -26,6 +29,7 @@ const SimpleSelect = ({
   onChange = () => {},
   changeValue,
   defaultValue = '',
+  settings = false,
 }) => {
   const classes = useStyles();
   const [val, setVal] = useState(defaultValue);
@@ -40,10 +44,10 @@ const SimpleSelect = ({
   }, [changeValue]);
 
   return (
-    <div className={`materials select-materials ${icon ? 'has-icon' : ''}`}>
+    <Materials settings={settings} className={`materials select-materials ${icon ? 'has-icon' : ''}`}>
       <FormControl className={classes.formControl}>
         {icon && icon({ className: 'material-inputs-icon' })}
-        <InputLabel id={name}>{label}</InputLabel>
+        <InputLabel id={name}>{label}{required && <> *</>}</InputLabel>
         <Select
           labelId={name}
           id={name}
@@ -53,14 +57,39 @@ const SimpleSelect = ({
           required={required}
         >
           {items.map((val, key) => (
-            <MenuItem key={`select-${name}-${key}`} value={val.id}>
+            <MenuItem key={`select-${name}-${key}`} value={val.id} selected={val.selected}>
               {val.name}
             </MenuItem>
           ))}
         </Select>
       </FormControl>
-    </div>
+    </Materials>
   );
 };
+
+const Materials = styled.div`
+  ${(props) =>
+    props.settings &&
+    `
+      border-bottom: 1px solid #AFAFAF;
+      position: relative;
+      margin-top: 30px;
+      margin-bottom: 30px;
+
+      &:focus-within {
+        &:after {
+          content: "";
+          background: url("${svg}");
+          position: absolute;
+          right: 25px;
+          bottom: 15px;
+          width: 20px;
+          height: 20px;
+          background-size: cover;
+          background-repeat: no-repeat; 
+        }
+      }
+    `}
+`;
 
 export default SimpleSelect;

@@ -2,23 +2,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { colorGenerator } from 'utils';
-
 import styled from 'styled-components/macro';
-import { AwesomeIcon, Title, Text, IconLabel, Button, Svg } from 'components';
+import { AwesomeIcon, Text, Button, Svg } from 'components';
 
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-import Card, { CardFooter } from './Card';
+import Card, { CardFooter, CardInfo } from './Card';
 
 const ProfileBanner = ({
   className = null,
   info,
   categories = [],
   about,
-  reservationAction,
+  children
 }) => {
+  const reservationAction = () => {};
   return (
     <Containers className={className}>
       <Rows>
@@ -49,7 +48,7 @@ const ProfileBanner = ({
               <Svg.Comment />
             </Comment>
             <Button
-              onClick={() => reservationAction}
+              onClick={reservationAction}
               text="Rezervasyon Yap"
               className="blue list"
               style={{ fontSize: '9pt' }}
@@ -57,41 +56,13 @@ const ProfileBanner = ({
           </CardFooter>
         </Card>
         <Cols lg={'auto'} padding="0 30px">
-          <Title
-            variant={'h5'}
-            component={'h5'}
-            textAlign="left"
-            fontWeight="normal"
-            margin="0"
-            lineDisable
-          >
-            {info.name}
-          </Title>
-          <Title
-            variant={'h6'}
-            component={'h6'}
-            textAlign="left"
-            fontWeight="normal"
-            lineDisable
-          >
-            {info.category}
-          </Title>
-          <Title textAlign="left" variant="h5" component="h5">
-            {info.price} <AwesomeIcon.Tl />
-          </Title>
-          {categories.length > 0 && (
-            <Categories>
-              {categories.map((val) => (
-                <List>
-                  <A to={val.link}>{val.text}</A>
-                </List>
-              ))}
-            </Categories>
-          )}
-          <IconLabel
-            text={info.location}
-            icon={AwesomeIcon.Map}
-            style={{ marginTop: 30, display: 'block' }}
+          <CardInfo
+            name={info.name}
+            category={info.category}
+            price={info.price}
+            location={info.location}
+            categories={categories}
+            info={children}
           />
         </Cols>
         <Line />
@@ -126,29 +97,6 @@ const Line = styled.div`
   margin-left: 5px;
   margin-right: 5px;
   flex: 1 1 100%;
-`;
-
-const Categories = styled.ul`
-  display: flex;
-  margin-left: -5px;
-  margin-right: -5px;
-`;
-
-const List = styled.li`
-  border: 1px solid #707070;
-  border-radius: 15px;
-  margin: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const A = styled(Link)`
-  padding: 5px 10px;
-  display: flex;
-  flex: 1 1 100%;
-  font-size: 8pt;
-  color: ${colorGenerator('black')};
 `;
 
 const Stars = styled.ul`
