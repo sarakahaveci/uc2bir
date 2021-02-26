@@ -147,6 +147,18 @@ const Materials = styled.div`
         cursor: pointer;
       }
     `}
+  ${(props) =>
+    props.settings === 'current' &&
+    `
+      border-bottom: 1px solid #AFAFAF;
+      position: relative;
+      margin-top: 30px;
+      margin-bottom: 30px;
+
+      .save {
+        display: none!important;
+      }
+    `}
 `;
 
 const Save = styled.button`

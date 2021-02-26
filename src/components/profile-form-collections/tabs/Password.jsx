@@ -61,7 +61,7 @@ const Password = () => {
           required
           label="Şifreniz"
           type="password"
-          settings
+          settings="current"
           name="password"
           onChange={(e) =>
             setData({ ...data, [e.target.name]: e.target.value })
@@ -72,7 +72,7 @@ const Password = () => {
           required
           label="Yeni Şifreniz"
           type="password"
-          settings
+          settings="current"
           name="new_password"
           onChange={(e) =>
             setData({ ...data, [e.target.name]: e.target.value })
@@ -83,7 +83,7 @@ const Password = () => {
           required
           label="Yeni Şifre Tekrar"
           type="password"
-          settings
+          settings="current"
           name="new_password_confirmation"
           onChange={(e) =>
             setData({ ...data, [e.target.name]: e.target.value })

@@ -88,10 +88,10 @@ const Profile = ({ footer = false }) => {
             required
             label="Hakkında"
             type="text"
-            settings
             name="about"
             value={detail.data.about}
             defaultValue={detail.data.about}
+            settings
             action={actionSetData}
             state={detail}
           />
