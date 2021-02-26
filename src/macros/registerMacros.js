@@ -90,12 +90,12 @@ export const stepThree = {
 			icon: AwesomeIcon.Gender,
 			items: [
 				{
-					id: 1,
+					id: "m",
 					val: "m",
 					name: "Erkek"
 				},
 				{
-					id: 2,
+					id: "m",
 					val: "f",
 					name: "Kadın"
 				}
