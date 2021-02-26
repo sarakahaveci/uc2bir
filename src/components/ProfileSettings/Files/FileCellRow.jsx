@@ -1,35 +1,53 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
 
-import { Text } from 'components';
+import { Text, Row } from 'components';
 import { Plus } from './Files.styles';
 
 const FileCellRow = ({
   setIsEditClicked,
-  openModal,
-  fileCount = 5,
-  fileName = 'Sertifika',
+  addFileHandler,
+  file,
+  setFileGroup,
+  setFileTypeId,
+  fileTypeId,
 }) => {
+  // TODO: check if more item is needed
+
+  const moreItemNeeded = false;
+
   return (
-    <FileRow onClick={() => setIsEditClicked(true)}>
-      <FileCell>{fileCount}</FileCell>
+    <FileRow
+      width={['100%', '45%']}
+      onClick={() => {
+        setFileGroup(file);
+        setIsEditClicked(true);
+        setFileTypeId(file.id);
+      }}
+    >
+      <FileCell moreItemNeeded={moreItemNeeded}>
+        {moreItemNeeded
+          ? `${file.count} / ${file.neededCount || 3}`
+          : file.count}
+      </FileCell>
 
       <Text fontSize="0.9rem" fontColor="dark" flex="1">
-        {fileName}
+        {file.name}
       </Text>
 
-      <Plus onClick={openModal}>+</Plus>
+      {moreItemNeeded && (
+        <Plus onClick={(e) => addFileHandler(e, file.id)}>+</Plus>
+      )}
     </FileRow>
   );
 };
 
 export default FileCellRow;
 
-const FileRow = styled.div`
+const FileRow = styled(Row)`
   cursor: pointer;
   display: flex;
   align-items: center;
-  flex: 0 0 45%;
   margin-bottom: 20px;
 `;
 
@@ -48,9 +66,10 @@ const FileCell = styled.div`
   justify-content: center;
 
   ${(p) =>
-    p.children === '0' &&
+    p.moreItemNeeded &&
     css`
       color: ${(p) => p.theme.colors.red};
-      border: 1px solid ${(p) => p.theme.colors.red}; ;
+      border: 1px solid ${(p) => p.theme.colors.red};
+      font-size: 1.2rem;
     `}
 `;

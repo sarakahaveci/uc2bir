@@ -1,4 +1,5 @@
-export default {
+const theme = {
+  breakpoints: ['767px', '1279px', '1280px'],
   colors: {
     dark: '#1a1818',
     softDark: '#181818',
@@ -18,3 +19,4 @@ export default {
     black: 'black',
   },
 };
+export default theme;

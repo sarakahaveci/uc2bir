@@ -7,7 +7,7 @@ const FacePictureStep = () => {
   return (
     <RegisterFileUpload
       fileTypeId={FACE_PICTURE}
-      title="Yüzünüzün net bir şekilde görüldüğü fotoğrafınızı ekleyin. "
+      title="Yüzünüzün net bir şekilde görüldüğü fotoğrafınızı ekleyin."
     />
   );
 };

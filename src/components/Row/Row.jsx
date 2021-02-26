@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components/macro';
 import { flexbox, space, layout } from 'styled-system';
 
 const Row = styled.div`

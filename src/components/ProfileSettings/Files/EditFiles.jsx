@@ -1,19 +1,45 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import styled, { css } from 'styled-components/macro';
+import { useDispatch } from 'react-redux';
 
-import { Row, Text, Material, Svg, Span, Modal, Button, Col } from 'components';
+import {
+  Row,
+  Text,
+  Material,
+  Svg,
+  Span,
+  Modal,
+  Button,
+  Col,
+  scrollbar,
+} from 'components';
 import { deleteFile } from 'actions';
 import { Plus } from './Files.styles';
 
-const EditFile = ({ setIsEditClicked }) => {
+const EditFiles = ({
+  setIsEditClicked,
+  fileGroup,
+  addFileHandler,
+  fileGroupsArr,
+  fileTypeId,
+}) => {
+  const [files, setFiles] = useState(fileGroup?.files || []);
   const deleteFileModalRef = useRef();
+  const fileId = useRef(null);
+
+  useEffect(() => {
+    setFiles(fileGroupsArr.find((file) => file.id === fileTypeId)?.files);
+  }, [fileGroupsArr]);
+
+  const dispatch = useDispatch();
 
   const openDeleteModal = () => deleteFileModalRef.current.openModal();
 
   const closeDeleteModal = () => deleteFileModalRef.current.closeModal();
 
   const deleteFileSuccessHandler = () => {
-    console.log('message');
+    setFiles(files.filter((file) => file.id !== fileId.current));
+    closeDeleteModal();
   };
 
   return (
@@ -22,23 +48,35 @@ const EditFile = ({ setIsEditClicked }) => {
         color="blue"
         fontWeight="500"
         fontSize="0.9rem"
+        cursor="pointer"
         onClick={() => setIsEditClicked(false)}
       >
-        Sertifika & Diploma
+        {fileGroup.name}
       </Text>
 
       <EditWrapper>
-        <InputWrapper>
-          <Material.TextField />
-          <EditIcon />
-          <InputClearIcon onClick={openDeleteModal} />
-        </InputWrapper>
+        {files?.map((file) => (
+          <InputWrapper width={['100%', '45%']}>
+            <Material.TextField name={file.name} defaultValue={file.name} />
+            <EditIcon />
+            <InputClearIcon
+              onClick={() => {
+                fileId.current = file.id;
+                openDeleteModal();
+              }}
+            />
+          </InputWrapper>
+        ))}
 
-        <Row alignItems="center" flexBasis="45%" mt="10px">
+        <Row
+          alignItems="center"
+          justifyContent="flexStart"
+          width={['100%', '45%', '45%']}
+        >
           <Span color="dark" fontWeight="500" fontSize="0.8rem" mr="7px">
             Dosya yükle
           </Span>
-          <Plus>+</Plus>
+          <Plus onClick={(e) => addFileHandler(e, fileGroup.id)}>+</Plus>
         </Row>
       </EditWrapper>
 
@@ -57,7 +95,9 @@ const EditFile = ({ setIsEditClicked }) => {
           <Button
             light
             text="SİL"
-            onClick={(id) => deleteFile(id, deleteFileSuccessHandler)}
+            onClick={() =>
+              dispatch(deleteFile(fileId.current, deleteFileSuccessHandler))
+            }
           />
         </Row>
       </StyledModal>
@@ -65,7 +105,11 @@ const EditFile = ({ setIsEditClicked }) => {
   );
 };
 
-export default EditFile;
+export default EditFiles;
+
+EditFiles.defaultProps = {
+  fileGroup: {},
+};
 
 const StyledModal = styled(Modal)`
   .modal-content {
@@ -75,15 +119,21 @@ const StyledModal = styled(Modal)`
   }
 `;
 
-const InputWrapper = styled.div`
+const InputWrapper = styled(Row)`
   position: relative;
+  margin-bottom: 10px;
+
+  input {
+    padding-right: 60px !important;
+    padding-left: 25px !important;
+  }
 `;
 
 const icon = css`
   z-index: 5;
   position: absolute;
   right: 0;
-  bottom: 10px;
+  bottom: 15px;
   cursor: pointer;
 `;
 
@@ -104,8 +154,8 @@ const EditWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  max-height: 230px;
+  overflow: auto;
 
-  .materials {
-    flex: 0 0 45%;
-  }
+  ${scrollbar}
 `;

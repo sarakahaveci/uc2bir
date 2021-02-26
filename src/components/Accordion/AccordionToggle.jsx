@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { AccordionContext } from './Accordion';
+import { AccordionContext } from './AccordionContext';
 
 const AccordionToggle = ({ children, uid }) => {
   const { activeId, setActiveId } = useContext(AccordionContext);

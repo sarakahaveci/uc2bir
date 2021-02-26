@@ -4,29 +4,43 @@ import styled from 'styled-components/macro';
 import { Svg } from 'components';
 import { Modal } from 'react-bootstrap';
 
-const EditedModal = forwardRef(({ children, className, closeIcon }, ref) => {
-  const [open, setOpen] = useState();
+const EditedModal = forwardRef(
+  ({ children, className, closeIcon, onExit }, ref) => {
+    const [open, setOpen] = useState();
 
-  useImperativeHandle(ref, () => {
-    return {
-      openModal: () => setOpen(true),
-      closeModal: () => setOpen(false),
-    };
-  });
+    useImperativeHandle(ref, () => {
+      return {
+        openModal: () => setOpen(true),
+        closeModal: () => setOpen(false),
+      };
+    });
 
-  return (
-    <Modal className={className} show={open} onHide={() => setOpen(!open)}>
-      {closeIcon && <CloseIcon onClick={() => setOpen(false)} />}
+    return (
+      <Modal
+        className={className}
+        show={open}
+        onExit={() => {
+          onExit();
+          setOpen(false);
+        }}
+        onHide={() => {
+          onExit();
+          setOpen(false);
+        }}
+      >
+        {closeIcon && <CloseIcon onClick={() => setOpen(false)} />}
 
-      {children}
-    </Modal>
-  );
-});
+        {children}
+      </Modal>
+    );
+  }
+);
 
 export default EditedModal;
 
 EditedModal.defaultProps = {
   closeIcon: true,
+  onExit: () => {},
 };
 
 const CloseIcon = styled(Svg.CloseIcon)`

@@ -25,6 +25,7 @@ export { default as Permission } from './Confirmations/Permission';
 export { default as Kvkk } from './Confirmations/Kvkk';
 export { default as Span } from './Span/Span';
 export { default as FileUpload } from './FileUpload/FileUpload';
+export * from './CommonStyles/Common.styles';
 
 /*
 export { default as SocialLogin } from './SocialLogin/SocialLogin';

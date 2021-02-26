@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components/macro';
 
-import { AccordionContext } from './Accordion';
+import { AccordionContext, CollapseContext } from './AccordionContext';
+import { scrollbar } from 'components';
 
 const Collapse = ({ children, uid }) => {
   const { activeId } = useContext(AccordionContext);
@@ -18,14 +19,15 @@ const Collapse = ({ children, uid }) => {
   }, [isActive]);
 
   return (
-    <CollapseWrapper id={`item-${uid}`} isActive={isActive} height={height}>
-      {React.Children.map(children, (child) =>
-        React.cloneElement(child, {
-          isActive,
-          height,
-        })
-      )}
-    </CollapseWrapper>
+    <CollapseContext.Provider value={{ setHeight, isActive }}>
+      <CollapseWrapper id={`item-${uid}`} isActive={isActive} height={height}>
+        {React.Children.map(children, (child) =>
+          React.cloneElement(child, {
+            isActive,
+          })
+        )}
+      </CollapseWrapper>
+    </CollapseContext.Provider>
   );
 };
 

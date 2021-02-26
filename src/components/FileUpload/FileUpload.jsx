@@ -8,7 +8,6 @@ import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 
 import { deleteFile } from 'actions';
-import { useFileTypeIdFinder } from 'utils';
 import { Text, Button, Svg } from 'components';
 
 const FileUpload = ({
@@ -20,8 +19,6 @@ const FileUpload = ({
 }) => {
   const { accessToken, isAuthenticated } = useSelector((state) => state.auth);
 
-  const foundFileTypeId = useFileTypeIdFinder(fileTypeId);
-
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -32,7 +29,7 @@ const FileUpload = ({
       formData.append('files[]', file);
     });
 
-    formData.append('type_id', foundFileTypeId);
+    formData.append('type_id', fileTypeId);
 
     try {
       if (!isAuthenticated) {
