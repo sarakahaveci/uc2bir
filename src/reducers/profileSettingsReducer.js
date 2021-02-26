@@ -117,7 +117,7 @@ export default (state = initialState, action) => {
           ...state.files,
           isLoading: false,
           error: action.payload,
-          isSuccess: true,
+          isSuccess: false,
         },
       };
 
@@ -128,7 +128,7 @@ export default (state = initialState, action) => {
           ...state.files,
           isLoading: false,
           error: action.payload,
-          isSuccess: true,
+          isSuccess: false,
         },
       };
 
