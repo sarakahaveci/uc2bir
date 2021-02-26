@@ -15,7 +15,7 @@ import ProfRegister from './views/ProfRegister';
 import NotFoundPage from './views/NotFoundPage';
 import ForgotPassword from 'views/ForgotPassword';
 import Profile from 'views/Profile';
-import ProfileSettings from 'views/ProfileSettings';
+import UserProfile from 'views/UserProfile';
 import { theme } from 'utils';
 
 const App = () => {
@@ -41,12 +41,8 @@ const App = () => {
                 component={ProfRegister}
               />
               <Route exact path="/forgot-password" component={ForgotPassword} />
-              <Route
-                exact
-                path="/profile/settings"
-                component={ProfileSettings}
-              />
               <Route exact path="/profile/:id" component={Profile} />
+              <Route exact path="/profile/settings" component={UserProfile} />
               <Route component={NotFoundPage} />
             </Switch>
           </Layout>
