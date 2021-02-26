@@ -107,7 +107,6 @@ const Files = () => {
               addFileHandler={addFileHandler}
               setFileGroup={setFileGroup}
               setFileTypeId={setFileTypeId}
-              fileTypeId={fileTypeId}
             />
           ))}
         </Row>

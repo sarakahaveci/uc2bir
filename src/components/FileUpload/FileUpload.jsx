@@ -141,7 +141,7 @@ const FileUpload = ({
           {progressPercentage === 'error' ? (
             <Svg.ErrorIcon />
           ) : (
-            progressPercentage === 100 && <Svg.TickIcon />
+            progressPercentage === 100 && <Svg.TickWithBgIcon />
           )}
 
           <span>{key}</span>

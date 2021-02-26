@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components/macro';
 
 import { Text, Row } from 'components';
+import { requiredFileCount } from '../../../constants';
 import { Plus } from './Files.styles';
 
 const FileCellRow = ({
@@ -10,11 +11,10 @@ const FileCellRow = ({
   file,
   setFileGroup,
   setFileTypeId,
-  fileTypeId,
 }) => {
-  // TODO: check if more item is needed
+  const requiredCount = requiredFileCount[file.id];
 
-  const moreItemNeeded = false;
+  const moreItemNeeded = file.count < requiredCount;
 
   return (
     <FileRow
@@ -26,9 +26,7 @@ const FileCellRow = ({
       }}
     >
       <FileCell moreItemNeeded={moreItemNeeded}>
-        {moreItemNeeded
-          ? `${file.count} / ${file.neededCount || 3}`
-          : file.count}
+        {moreItemNeeded ? `${file.count} / ${requiredCount}` : file.count}
       </FileCell>
 
       <Text fontSize="0.9rem" fontColor="dark" flex="1">

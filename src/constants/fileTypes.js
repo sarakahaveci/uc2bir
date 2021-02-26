@@ -5,6 +5,7 @@ export const DEGREE = 4;
 export const CERTIFICATE = 5;
 export const HEALTH_REPORT = 6;
 export const CONTRACT = 7;
+export const GALLERY = 8;
 export const LICENSE = 9;
 
 export const fileDetails = {
@@ -28,4 +29,5 @@ export const requiredFileCount = {
   [HEALTH_REPORT]: 1,
   [CONTRACT]: 1,
   [LICENSE]: 1,
+  [GALLERY]: 0,
 };

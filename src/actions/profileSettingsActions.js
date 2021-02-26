@@ -1,4 +1,10 @@
-import { HTTP_REQUEST, GET_MY_PROFILE_FILES, SET_PROFILE_UPDATE, GET_PROFILE_UPDATE } from '../constants';
+import {
+  HTTP_REQUEST,
+  GET_MY_PROFILE_FILES,
+  SET_PROFILE_UPDATE,
+  GET_PROFILE_UPDATE,
+  UPDATE_FILE,
+} from '../constants';
 
 export const getMyProfileFiles = () => async (dispatch, getState) => {
   const url = `/user/profile/my-files`;
@@ -14,14 +20,30 @@ export const getMyProfileFiles = () => async (dispatch, getState) => {
   });
 };
 
+export const updateFile = (fileId, fileName, successCallback) => async (
+  dispatch,
+  getState
+) => {
+  const url = `/user/profile/file-update`;
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'POST',
+      body: {
+        id: fileId,
+        name: fileName,
+      },
+      url,
+      label: UPDATE_FILE,
+      transformData: (data) => data.data,
+      callBack: successCallback,
+    },
+  });
+};
+
 export const setProfile = (
-  {
-    name,
-    title,
-    birthday,
-    genre,
-    about
-  },
+  { name, title, birthday, genre, about },
   successCallback,
   errorCallback
 ) => async (dispatch) => {
@@ -38,7 +60,7 @@ export const setProfile = (
         title,
         birthday,
         genre,
-        about
+        about,
       },
       transformData: (data) => data.data,
       callBack: () => successCallback(),
@@ -47,10 +69,10 @@ export const setProfile = (
   });
 };
 
-export const getProfile = (
-  successCallback,
-  errorCallback
-) => async (dispatch, getState) => {
+export const getProfile = (successCallback, errorCallback) => async (
+  dispatch,
+  getState
+) => {
   const url = `/user/profile/detail`;
 
   await dispatch({

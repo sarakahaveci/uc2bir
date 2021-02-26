@@ -1,11 +1,10 @@
 import React, { useRef, useState, useEffect } from 'react';
-import styled, { css } from 'styled-components/macro';
+import styled from 'styled-components/macro';
 import { useDispatch } from 'react-redux';
 
 import {
   Row,
   Text,
-  Material,
   Svg,
   Span,
   Modal,
@@ -13,8 +12,9 @@ import {
   Col,
   scrollbar,
 } from 'components';
-import { deleteFile } from 'actions';
+import { deleteFile, getMyProfileFiles, updateFile } from 'actions';
 import { Plus } from './Files.styles';
+import EditWithClearInput from 'components/inputs/material/EditWithClearInput';
 
 const EditFiles = ({
   setIsEditClicked,
@@ -40,6 +40,7 @@ const EditFiles = ({
   const deleteFileSuccessHandler = () => {
     setFiles(files.filter((file) => file.id !== fileId.current));
     closeDeleteModal();
+    dispatch(getMyProfileFiles());
   };
 
   return (
@@ -50,22 +51,27 @@ const EditFiles = ({
         fontSize="0.9rem"
         cursor="pointer"
         onClick={() => setIsEditClicked(false)}
+        mb="5px"
       >
         {fileGroup.name}
       </Text>
 
       <EditWrapper>
         {files?.map((file) => (
-          <InputWrapper width={['100%', '45%']}>
-            <Material.TextField name={file.name} defaultValue={file.name} />
-            <EditIcon />
-            <InputClearIcon
-              onClick={() => {
-                fileId.current = file.id;
-                openDeleteModal();
-              }}
-            />
-          </InputWrapper>
+          <EditWithClearInput
+            width={['100%', '45%']}
+            data={file}
+            onClear={() => {
+              fileId.current = file.id;
+              openDeleteModal();
+            }}
+            onEditComplete={(value) => {
+              dispatch(
+                updateFile(file.id, value, () => dispatch(getMyProfileFiles()))
+              );
+            }}
+            value={file.name}
+          />
         ))}
 
         <Row
@@ -116,37 +122,6 @@ const StyledModal = styled(Modal)`
     padding: 0;
     width: 450px;
     align-items: center;
-  }
-`;
-
-const InputWrapper = styled(Row)`
-  position: relative;
-  margin-bottom: 10px;
-
-  input {
-    padding-right: 60px !important;
-    padding-left: 25px !important;
-  }
-`;
-
-const icon = css`
-  z-index: 5;
-  position: absolute;
-  right: 0;
-  bottom: 15px;
-  cursor: pointer;
-`;
-
-const InputClearIcon = styled(Svg.InputClearIcon)`
-  svg {
-    ${icon}
-  }
-`;
-
-const EditIcon = styled(Svg.EditIcon)`
-  svg {
-    ${icon}
-    right: 30px;
   }
 `;
 
