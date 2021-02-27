@@ -119,6 +119,21 @@ const Profile = ({ footer = false }) => {
               setData({ ...data, [e.target.name]: e.target.value })
             }
           />
+          <pre>
+            {`
+            <Material.TextField
+              required
+              label="label" //input label
+              type="text" // input type
+              name="name" // input name
+              value={reduicer.name} // reduicer gelen value 
+              defaultValue={reduicer.name} // reduicer gelen value
+              settings // ayarları açmak için
+              action={(name, value) => dispatch({[name]: value})} // action bağlantısı
+              state={reduicer} // reduicer isSuccsess and isLoading
+            />
+            `}
+          </pre>
           {footer && (
             <Footer>
               <Button
