@@ -3,6 +3,13 @@
     margin-top: 90px;
     margin-bottom: 90px;
 
+    .material-vki {
+        input {
+            height: 50px;
+            padding: 0 5px;
+        }
+    }
+
     @media (max-width: 1200px) {
         background: #DEDEE0;
         margin: 0;
