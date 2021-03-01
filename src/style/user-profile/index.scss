@@ -44,3 +44,31 @@
     }
   }
 }
+
+.MuiInput-underline:after {
+  display: none;
+}
+
+.MuiInput-underline:before {
+  display: none;
+}
+
+.about-hr {
+  margin-left: 0;
+  width: 87%;
+}
+
+.saveButton {
+  cursor: pointer;
+  margin-left: 2%;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.01em;
+  color: var(--blue);
+}
+
+.disable {
+  cursor: not-allowed;
+  opacity: 0.8;
+  color: var(--gray2);
+}

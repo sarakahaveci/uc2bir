@@ -43,7 +43,7 @@ const App = () => {
               />
               <Route exact path="/forgot-password" component={ForgotPassword} />
               <Route exact path="/profile/:id" component={Profile} />
-              <Route exact path="/profile/settings" component={UserProfile} />
+              <Route exact path="/myprofile/settings" component={UserProfile} />
               <Route exact path="/components" component={Components} />
               <Route component={NotFoundPage} />
             </Switch>
