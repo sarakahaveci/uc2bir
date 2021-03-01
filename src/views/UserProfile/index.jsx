@@ -7,6 +7,7 @@ import { USER, PERSONAL_TRAINER, WORK_PLACE, DIETITIAN } from '../../constants';
 
 import profileImg from '../../assets/banner/slider-item-1.png';
 import ProfileSettings from './ProfileSettings';
+import WorkPlaceFacility from './WorkPlaceFacility';
 
 const regularUserTabs = [
   {
@@ -88,11 +89,7 @@ const workPlaceTabs = [
   {
     eventKey: 'facility',
     title: 'Olanaklar',
-    component: (
-      <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-        Olanaklar
-      </Title>
-    ),
+    component: <WorkPlaceFacility />,
   },
   {
     eventKey: 'activity',

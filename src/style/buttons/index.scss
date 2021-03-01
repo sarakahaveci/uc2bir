@@ -137,3 +137,13 @@
 .show > .btn.dropdown-toggle:focus {
   box-shadow: none;
 }
+
+.button-close-icon {
+  background: white;
+  border-radius: 25px;
+  width: 30px;
+  height: 25px;
+  color: var(--blue);
+  margin-left: 10px;
+  display: inline-block;
+}
