@@ -71,7 +71,7 @@ export const stepThree = {
 		lat: "",
 		lng: "",*/
 	},
-	uri: "http://gateway.ms.321.4alabs.com/regions",
+	uri: "http://gateway.321.4alabs.com/regions",
 	macro: [
 		{
 			type: "materialdate",
