@@ -3,18 +3,26 @@ import styled from 'styled-components/macro';
 
 import { Accordion, Text, Col, Svg } from 'components';
 import Files from '../../../components/ProfileSettings/Files/Files';
+import Password from '../../../components/ProfileSettings/Forms/tabs/Password';
+import SettingsForm from '../../../components/ProfileSettings/Forms/SettingsForm';
+import About from '../../../components/ProfileSettings/Forms/tabs/About';
 
 const SettingsData = [
   {
     settingsName: 'Profil',
     settingsDetails:
       'Adınız soyadınız, ünvanınız ve diğer bilgilerinizi güncel tutun',
-    body: <div>Component</div>,
+    body: <div><SettingsForm/></div>,
   },
   {
     settingsName: 'Hakkımda',
     settingsDetails: 'Hakkımda yazınızı düzenleyin, güncelleyin',
-    body: <div>Component</div>,
+    body: <div><About/></div>,
+  },
+  {
+    settingsName: 'Şifre İşlemleri',
+    settingsDetails: 'Şifrenizi buradan güncelleyebilirsiniz',
+    body: <div><Password/></div>,
   },
   {
     settingsName: 'Belgeler',

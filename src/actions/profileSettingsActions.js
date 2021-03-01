@@ -4,6 +4,7 @@ import {
   SET_PROFILE_UPDATE,
   GET_PROFILE_UPDATE,
   UPDATE_FILE,
+  SET_PASSWORD_UPDATE,
 } from '../constants';
 
 export const getMyProfileFiles = () => async (dispatch, getState) => {
@@ -43,7 +44,7 @@ export const updateFile = (fileId, fileName, successCallback) => async (
 };
 
 export const setProfile = (
-  { name, title, birthday, genre, about },
+  { ...data },
   successCallback,
   errorCallback
 ) => async (dispatch) => {
@@ -56,11 +57,36 @@ export const setProfile = (
       url,
       label: SET_PROFILE_UPDATE,
       body: {
-        name,
-        title,
-        birthday,
-        genre,
-        about,
+        ...data
+      },
+      transformData: (data) => data.data,
+      callBack: () => successCallback(),
+      errorHandler: (error) => errorCallback(error.message),
+    },
+  });
+};
+
+export const setPassword = (
+  {
+    password,
+    new_password,
+    new_password_confirmation
+  },
+  successCallback,
+  errorCallback
+) => async (dispatch) => {
+  const url = '/user/profile/password';
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'POST',
+      url,
+      label: SET_PASSWORD_UPDATE,
+      body: {
+        password,
+        new_password,
+        new_password_confirmation
       },
       transformData: (data) => data.data,
       callBack: () => successCallback(),

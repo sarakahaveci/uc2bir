@@ -102,7 +102,7 @@ const Header = () => {
                     <Link to="/info">Üç2Bir HAKKINDA</Link>
                   </li>
                   <li>
-                    <a href="#">BLOG</a>
+                    <Link to="/blog">Blog</Link>
                   </li>
                 </ul>
               </div>

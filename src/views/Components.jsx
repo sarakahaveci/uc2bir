@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { Main, ProfileFormCollections } from 'components';
+import { Main } from 'components';
 import React from 'react';
 
 import { Container, Row, Col } from 'react-bootstrap';
@@ -31,16 +31,33 @@ const Components = () => {
               <ProfileCard img={item1} />
               <Material.TextField
                 required
+                name="name"
                 label="Adınız Soyadınız"
                 type="text"
                 settings
+                action={() => {}}
+                state={{isSuccess: false, isLoading: false}}
               />
               <Material.TextField
                 required
+                name="phone"
+                label="Telefon Numaranız"
+                mask="0(999) 999 99 99"
+                defaultValue="05389999999"
+                type="text"
+                settings
+                action={() => {}}
+                state={{isSuccess: false, isLoading: false}}
+              />
+              <Material.TextField
+                required
+                name="password"
                 label="Şifre"
                 type="password"
                 password={Svg.EyeIcon}
                 settings
+                action={() => {}}
+                state={{isSuccess: false, isLoading: false}}
               />
               <ProfileBanner
                 info={{
@@ -77,7 +94,6 @@ const Components = () => {
               >
                 <div>Gönderdiğimiz child burada gözükür.</div>
               </ProfileBanner>
-              <ProfileFormCollections tab="profile"/>
             </Col>
           </Row>
         </Container>

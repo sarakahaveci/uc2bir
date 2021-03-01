@@ -1,5 +1,6 @@
 import React from 'react';
 import { AwesomeIcon, Svg } from '../components';
+import { genderData } from '../constants/formData';
 
 export const stepOne = {
 	inputs: {
@@ -88,18 +89,7 @@ export const stepThree = {
 			forHtml: "genre",
 			text: "Cinsiyet",
 			icon: AwesomeIcon.Gender,
-			items: [
-				{
-					id: 1,
-					val: "m",
-					name: "Erkek"
-				},
-				{
-					id: 2,
-					val: "f",
-					name: "Kadın"
-				}
-			]
+			items: [...genderData]
 		},
 		/*{
 			type: "text",

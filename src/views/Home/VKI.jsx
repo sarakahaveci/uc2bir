@@ -1,6 +1,13 @@
 // @ts-nocheck
-import React, {useState} from 'react';
-import {Title, Text, DefBackground, InputText, Button} from '../../components';
+import React, { useState } from 'react';
+import {
+  Title,
+  Text,
+  DefBackground,
+  InputText,
+  Button,
+  Material,
+} from '../../components';
 
 const VKI = (props) => {
   const [size, setSize] = useState();
@@ -24,23 +31,27 @@ const VKI = (props) => {
             </Text>
             <div className="d-flex el-flex">
               <div className="col">
-                <InputText
-                  inputType="number"
-                  inputVal={size}
+                <Material.TextField
+                  type="text"
+                  name="size"
+                  defaultValue={size}
+                  value={size}
                   onChange={(e) => setSize(e.target.value)}
-                  labelText="Boyunuz:"
-                  labelName="width"
-                  inputName="size"
+                  mask="9.99"
+                  label="Boyunuz"
+                  className="material-vki"
                 />
               </div>
               <div className="col">
-                <InputText
-                  inputType="number"
-                  inputVal={weight}
+                <Material.TextField
+                  type="text"
+                  name="weight"
+                  defaultValue={weight}
+                  value={weight}
                   onChange={(e) => setWeight(e.target.value)}
-                  labelText="Kilonuz:"
-                  labelName="width"
-                  inputName="weight"
+                  mask="999"
+                  label="Kilonuz"
+                  className="material-vki"
                 />
               </div>
             </div>

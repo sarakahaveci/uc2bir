@@ -36,6 +36,14 @@ body {
   z-index: 100000 !important;
 }
 
+.MuiPopover-paper {
+  border-radius: 0!important;
+}
+
+.MuiPickersToolbar-toolbar, .MuiPickersDay-daySelected {
+  background-color: var(--blue)!important;
+}
+
 #pt-point-page {
   position: relative;
   right: 0;

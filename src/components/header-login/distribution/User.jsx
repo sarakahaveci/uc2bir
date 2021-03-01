@@ -8,6 +8,7 @@ import Item from '../Item';
 
 import { useDispatch } from 'react-redux';
 import { logOut } from 'actions';
+import ROLE from 'constants/role';
 
 const User = ({ user_name, user_id, user_img = null }) => {
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ const User = ({ user_name, user_id, user_img = null }) => {
       name: 'Profilim',
       icon: <Svg.UsernameIcon />,
       // It will be updated
-      link: `/profile/settings`,
+      link: ROLE.USER.link,
     },
     {
       name: 'Rezervasyonlarım',
@@ -47,25 +48,6 @@ const User = ({ user_name, user_id, user_img = null }) => {
         },
         {
           name: 'Tab 2',
-          tabs: [
-            {
-              name: 'Tab 2.1',
-            },
-            {
-              name: 'Tab 2.2',
-              tabs: [
-                {
-                  name: 'Tab 2.2.1',
-                },
-                {
-                  name: 'Tab 2.2.2',
-                },
-                {
-                  name: 'Tab 2.2.3',
-                },
-              ],
-            },
-          ],
         },
         {
           name: 'Tab 3',

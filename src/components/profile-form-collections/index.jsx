@@ -1,21 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
 
-//tabs
-import Profile from './tabs/Profile';
+function componentName() {
+  return (
+    <div>
+      
+    </div>
+  )
+}
 
-const ProfileFormCollections = ({ tab }) => {
-  switch (tab) {
-    case 'profile':
-      return <Profile />;
+export default componentName
 
-    default:
-      return <></>;
-  }
-};
-
-ProfileFormCollections.propTypes = {
-  tab: PropTypes.string.isRequired,
-};
-
-export default ProfileFormCollections;
