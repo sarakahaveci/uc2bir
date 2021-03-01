@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components/macro';
 
-import { Accordion, Text, Col, Svg } from 'components';
-import Files from '../../../components/ProfileSettings/Files/Files';
+import {
+  Accordion,
+  Text,
+  Col,
+  Svg,
+  Files,
+  Modal,
+  CancellationDismissInfo,
+  CancellationReason,
+  Span,
+} from 'components';
 import Password from '../../../components/ProfileSettings/Forms/tabs/Password';
 import SettingsForm from '../../../components/ProfileSettings/Forms/SettingsForm';
 import About from '../../../components/ProfileSettings/Forms/tabs/About';
@@ -12,17 +21,29 @@ const SettingsData = [
     settingsName: 'Profil',
     settingsDetails:
       'Adınız soyadınız, ünvanınız ve diğer bilgilerinizi güncel tutun',
-    body: <div><SettingsForm/></div>,
+    body: (
+      <div>
+        <SettingsForm />
+      </div>
+    ),
   },
   {
     settingsName: 'Hakkımda',
     settingsDetails: 'Hakkımda yazınızı düzenleyin, güncelleyin',
-    body: <div><About/></div>,
+    body: (
+      <div>
+        <About />
+      </div>
+    ),
   },
   {
     settingsName: 'Şifre İşlemleri',
     settingsDetails: 'Şifrenizi buradan güncelleyebilirsiniz',
-    body: <div><Password/></div>,
+    body: (
+      <div>
+        <Password />
+      </div>
+    ),
   },
   {
     settingsName: 'Belgeler',
@@ -36,14 +57,22 @@ const SettingsData = [
       'Güncel tuttuğunuz adres bilgileriniz ile sporseverler size daha kolay ulaşır.',
     body: <div>Component</div>,
   },
-  {
-    settingsName: 'Üyelik İptali',
-    settingsDetails: 'Üyelik iptali durumunda kişiler size ulaşamayacaklardır.',
-    body: <div>Component</div>,
-  },
 ];
 
 const Profile = () => {
+  const [isProfileCancellationPage, setIsProfileCancellationPage] = useState(
+    false
+  );
+  const cancellationDismissModalRef = useRef();
+
+  const checkIsValidCancellation = () => {
+    if (true) {
+      setIsProfileCancellationPage(true);
+    } else {
+      cancellationDismissModalRef.current.openModal();
+    }
+  };
+
   const settings = SettingsData.map((item) => (
     <Wrapper>
       <Accordion.Item>
@@ -71,7 +100,36 @@ const Profile = () => {
 
   return (
     <>
-      <Accordion>{settings}</Accordion>
+      {isProfileCancellationPage ? (
+        <CancellationReason
+          setIsProfileCancellationPage={setIsProfileCancellationPage}
+        />
+      ) : (
+        <>
+          <Accordion>{settings}</Accordion>
+
+          <Col mx="10px" onClick={checkIsValidCancellation}>
+            <Span
+              textDecoration="underline"
+              color="black2"
+              fontSize="0.9rem"
+              opacity="0.8"
+              cursor="pointer"
+              onClick={checkIsValidCancellation}
+            >
+              Üyelik İptali
+            </Span>
+
+            <Text color="gray4" fontWeight="300" fontSize="0.8rem">
+              Üyelik iptali durumunda kişiler size ulaşamayacaklardır.
+            </Text>
+          </Col>
+        </>
+      )}
+
+      <Modal ref={cancellationDismissModalRef}>
+        <CancellationDismissInfo />
+      </Modal>
     </>
   );
 };

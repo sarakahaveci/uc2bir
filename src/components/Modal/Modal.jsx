@@ -5,7 +5,7 @@ import { Svg } from 'components';
 import { Modal } from 'react-bootstrap';
 
 const EditedModal = forwardRef(
-  ({ children, className, closeIcon, onExit }, ref) => {
+  ({ children, className, closeIcon, onExit, backdrop }, ref) => {
     const [open, setOpen] = useState();
 
     useImperativeHandle(ref, () => {
@@ -18,6 +18,7 @@ const EditedModal = forwardRef(
     return (
       <Modal
         className={className}
+        backdrop={backdrop}
         show={open}
         onExit={() => {
           onExit();

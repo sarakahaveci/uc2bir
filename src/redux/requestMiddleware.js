@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { HTTP_REQUEST } from '../constants';
 
-const baseUrl = 'http://gateway.ms.321.4alabs.com';
+const baseUrl = process.env.REACT_APP_API_URL;
 
 export default ({ getState }) => (next) => async ({ payload = {}, type }) => {
   const {
