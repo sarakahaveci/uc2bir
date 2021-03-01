@@ -1,6 +1,10 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components/macro';
 
+import Password from 'components/ProfileSettings/Forms/tabs/Password';
+import SettingsForm from 'components/ProfileSettings/Forms/SettingsForm';
+import Address from 'components/ProfileSettings/Address';
+import About from 'components/ProfileSettings/About';
 import {
   Accordion,
   Text,
@@ -12,38 +16,23 @@ import {
   CancellationReason,
   Span,
 } from 'components';
-import Password from '../../../components/ProfileSettings/Forms/tabs/Password';
-import SettingsForm from '../../../components/ProfileSettings/Forms/SettingsForm';
-import About from '../../../components/ProfileSettings/Forms/tabs/About';
 
 const SettingsData = [
   {
     settingsName: 'Profil',
     settingsDetails:
       'Adınız soyadınız, ünvanınız ve diğer bilgilerinizi güncel tutun',
-    body: (
-      <div>
-        <SettingsForm />
-      </div>
-    ),
+    body: <SettingsForm />,
   },
   {
     settingsName: 'Hakkımda',
     settingsDetails: 'Hakkımda yazınızı düzenleyin, güncelleyin',
-    body: (
-      <div>
-        <About />
-      </div>
-    ),
+    body: <About />,
   },
   {
     settingsName: 'Şifre İşlemleri',
     settingsDetails: 'Şifrenizi buradan güncelleyebilirsiniz',
-    body: (
-      <div>
-        <Password />
-      </div>
-    ),
+    body: <Password />,
   },
   {
     settingsName: 'Belgeler',
@@ -55,7 +44,7 @@ const SettingsData = [
     settingsName: 'Adresim',
     settingsDetails:
       'Güncel tuttuğunuz adres bilgileriniz ile sporseverler size daha kolay ulaşır.',
-    body: <div>Component</div>,
+    body: <Address />,
   },
 ];
 
