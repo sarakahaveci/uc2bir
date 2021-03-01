@@ -42,7 +42,7 @@ const FileUpload = ({
       }
 
       const { data } = await axios.post(
-        'http://gateway.321.4alabs.com/user/profile/file',
+        `${process.env.REACT_APP_API_URL}/user/profile/file`,
         formData,
         {
           headers: {

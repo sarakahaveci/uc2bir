@@ -16,7 +16,10 @@ const theme = {
     gray3: '#2C2C2C',
     gray4: '#7b7b7b',
     gray5: '#e8f0f8',
+    gray6: '#f2f2f2',
+    gray7: '#c4c4c4',
     black: 'black',
+    black2: '#6e6d6d',
   },
 };
 export default theme;

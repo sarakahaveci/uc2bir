@@ -1,12 +1,21 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components/macro';
 
-import { Accordion, Text, Col, Svg } from 'components';
-import Files from 'components/ProfileSettings/Files/Files';
 import Password from 'components/ProfileSettings/Forms/tabs/Password';
 import SettingsForm from 'components/ProfileSettings/Forms/SettingsForm';
-import Address from './Address';
-import About from './About';
+import Address from 'components/ProfileSettings/Address';
+import About from 'components/ProfileSettings/About';
+import {
+  Accordion,
+  Text,
+  Col,
+  Svg,
+  Files,
+  Modal,
+  CancellationDismissInfo,
+  CancellationReason,
+  Span,
+} from 'components';
 
 const SettingsData = [
   {
@@ -23,11 +32,7 @@ const SettingsData = [
   {
     settingsName: 'Şifre İşlemleri',
     settingsDetails: 'Şifrenizi buradan güncelleyebilirsiniz',
-    body: (
-      <div>
-        <Password />
-      </div>
-    ),
+    body: <Password />,
   },
   {
     settingsName: 'Belgeler',
@@ -41,14 +46,22 @@ const SettingsData = [
       'Güncel tuttuğunuz adres bilgileriniz ile sporseverler size daha kolay ulaşır.',
     body: <Address />,
   },
-  {
-    settingsName: 'Üyelik İptali',
-    settingsDetails: 'Üyelik iptali durumunda kişiler size ulaşamayacaklardır.',
-    body: <div>Component</div>,
-  },
 ];
 
 const Profile = () => {
+  const [isProfileCancellationPage, setIsProfileCancellationPage] = useState(
+    false
+  );
+  const cancellationDismissModalRef = useRef();
+
+  const checkIsValidCancellation = () => {
+    if (true) {
+      setIsProfileCancellationPage(true);
+    } else {
+      cancellationDismissModalRef.current.openModal();
+    }
+  };
+
   const settings = SettingsData.map((item) => (
     <Wrapper>
       <Accordion.Item>
@@ -76,7 +89,36 @@ const Profile = () => {
 
   return (
     <>
-      <Accordion>{settings}</Accordion>
+      {isProfileCancellationPage ? (
+        <CancellationReason
+          setIsProfileCancellationPage={setIsProfileCancellationPage}
+        />
+      ) : (
+        <>
+          <Accordion>{settings}</Accordion>
+
+          <Col mx="10px" onClick={checkIsValidCancellation}>
+            <Span
+              textDecoration="underline"
+              color="black2"
+              fontSize="0.9rem"
+              opacity="0.8"
+              cursor="pointer"
+              onClick={checkIsValidCancellation}
+            >
+              Üyelik İptali
+            </Span>
+
+            <Text color="gray4" fontWeight="300" fontSize="0.8rem">
+              Üyelik iptali durumunda kişiler size ulaşamayacaklardır.
+            </Text>
+          </Col>
+        </>
+      )}
+
+      <Modal ref={cancellationDismissModalRef}>
+        <CancellationDismissInfo />
+      </Modal>
     </>
   );
 };

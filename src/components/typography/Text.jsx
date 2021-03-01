@@ -1,13 +1,14 @@
 // @ts-nocheck
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { space, typography, color, flexbox } from 'styled-system';
+import { space, typography, color, flexbox, border } from 'styled-system';
 
 const StyledText = styled.div`
   padding: 7px 0;
   position: relative;
   cursor: ${(props) => props.cursor && props.cursor};
   line-height: 120%;
+  cursor: ${(p) => p.cursor && p.cursor};
 
   ${(p) =>
     p.underline &&
@@ -22,6 +23,7 @@ const StyledText = styled.div`
       }
     `}
 
+  ${border}
   ${flexbox}
   ${color}
   ${typography}

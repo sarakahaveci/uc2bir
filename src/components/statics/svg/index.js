@@ -58,8 +58,10 @@ import Edit from './images/edit.svg';
 import InputClear from './images/input-clear.svg';
 import Warning from './images/warning.svg';
 import Pencil from './images/pencil.svg';
+import SadFace from './images/sad-face.svg';
 import Tick from './images/tick.svg';
 import BigClose from './images/big-close.svg';
+import ArrowLeft from './images/arrow-left.svg';
 
 const Svg = {
   Menu: (props) => <Menu {...props} />,
@@ -114,6 +116,8 @@ const Svg = {
   Pencil: (props) => <ReactSVG {...props} src={Pencil} />,
   TickIcon: (props) => <ReactSVG {...props} src={Tick} />,
   BigClose: (props) => <ReactSVG {...props} src={BigClose} />,
+  SadFaceIcon: (props) => <ReactSVG {...props} src={SadFace} />,
+  ArrowLeftIcon: (props) => <ReactSVG {...props} src={ArrowLeft} />,
 
   Categories: [
     {

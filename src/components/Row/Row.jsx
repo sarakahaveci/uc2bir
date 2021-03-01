@@ -3,7 +3,7 @@ import { flexbox, space, layout } from 'styled-system';
 
 const Row = styled.div`
   display: flex;
-  margin: ${(props) => props.margin && props.margin};
+  cursor: ${(p) => p.cursor && p.cursor};
 
   ${flexbox}
   ${space}

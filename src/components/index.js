@@ -20,22 +20,26 @@ export { default as DefBackground } from './statics/background';
 export { default as Otp } from './Otp';
 export { default as Col } from './Col/Col';
 export { default as Agreement } from './Confirmations/Agreement';
+export { default as Modal } from './Modal/Modal';
 export { default as Health } from './Confirmations/Health';
 export { default as Permission } from './Confirmations/Permission';
 export { default as Kvkk } from './Confirmations/Kvkk';
+export { default as Accordion } from './Accordion/Accordion';
+export { Material } from './inputs/material';
 export { default as Span } from './Span/Span';
 export { default as FileUpload } from './FileUpload/FileUpload';
+export { default as Files } from './ProfileSettings/Files/Files';
+export { default as CancellationFinalize } from './ProfileSettings/ProfileCancellation/CancellationFinalize';
+export { default as CancellationReason } from './ProfileSettings/ProfileCancellation/CancellationReason';
+export { default as CancellationDismissInfo } from './ProfileSettings/ProfileCancellation/CancellationDismissInfo';
 export * from './CommonStyles/Common.styles';
 
 /*
 export { default as SocialLogin } from './SocialLogin/SocialLogin';
 */
 export { default as ScrollToTop } from './ScrollToTop';
-export { default as Accordion } from './Accordion/Accordion';
-export { default as Modal } from './Modal/Modal';
 export { default as Tab } from './Tabs/Tabs';
 export { default as Certificate } from './Certificate/Certificate';
-export { Material } from './inputs/material';
 export { default as ProfileBanner } from './banner/profile-banner';
 export { default as ProfileCard } from './banner/profile-banner/ProfileCard';
 export { default as MasonaryGallery } from './MasonaryGallery';

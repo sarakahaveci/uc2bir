@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { flexbox, space, layout } from 'styled-system';
+import { flexbox, space, layout, color } from 'styled-system';
 
 const Col = styled.div`
   display: flex;
@@ -9,6 +9,7 @@ const Col = styled.div`
   ${flexbox}
   ${space}
   ${layout}
+  ${color}
 
   ${(p) =>
     p.center &&
