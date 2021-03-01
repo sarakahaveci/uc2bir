@@ -1,64 +1,48 @@
 // @ts-nocheck
 import React, { useState, useEffect, useRef } from 'react';
 
-import DateFnsUtils from '@date-io/date-fns';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
+import { default as MaterialTextField } from '@material-ui/core/TextField';
+import InputMask from 'react-input-mask';
 
-import trLocale from 'date-fns/locale/tr';
-import enLocale from 'date-fns/locale/en-US';
+import { symbolsArr } from '../../../constants';
 
 import editIcon from '../../statics/svg/images/pencil.svg';
 import closeIcon from '../../statics/svg/images/big-close.svg';
 import styled from 'styled-components/macro';
 import { Spinner } from 'react-bootstrap';
 
-const localeMap = {
-  /* set locale */
-  en: enLocale,
-  tr: trLocale,
-};
-
-const DateField = ({
+const TextField = ({
   id,
   name,
   label,
   type,
   required = false,
+  disabled = false,
   defaultValue = '',
   autoComplete = 'on',
   className = '',
   icon = false,
+  iconCallback = () => {},
   onChange = () => {},
-  value = '',
+  value = null,
   onKeyUp = () => {},
   maxLength = '',
-  minDate,
-  maxDate,
-  minYears = 13,
-  disabled = false,
+  password,
+  changeValue,
+  inputProps,
   settings = false,
   state = {},
   action = () => {},
+  mask = null,
+  rows = 6,
+  ...restProps
 }) => {
-  const now = new Date();
-  const defaultDate = `${now.getFullYear() - minYears}-${now.getMonth()}-${now.getDay()}`;
-  
-  const [selectedDate, setSelectedDate] = useState(
-    new Date(value || defaultDate)
-  );
+  const [val, setVal] = useState(defaultValue);
+  const [newType, setNewType] = useState(type);
 
-  const handleDateChange = (date, callBack) => {
-    const event = {
-      target: {
-        name: name,
-        value: date,
-      },
-    };
-    setSelectedDate(date);
-    return callBack(event);
+  const onChangeHandler = (event) => {
+    setVal(event.target.value);
+    onChange(event);
   };
 
   const editRef = useRef(null);
@@ -109,31 +93,46 @@ const DateField = ({
       material.current?.contains(event.target) ? editShow() : editClose();
     });
   }, [material]);
+
+  useEffect(() => {
+    if (changeValue) setVal(changeValue);
+  }, [changeValue]);
   return (
     <Materials ref={material} settings={settings} className="materials">
-      <MuiPickersUtilsProvider utils={DateFnsUtils} locale={localeMap.tr}>
-        <>
-          <KeyboardDatePicker
-            minDate={minDate}
-            maxDate={maxDate}
-            className={`material-inputs ${className} ${
-              icon ? 'has-icon' : 'date-has-icon'
-            }`}
-            variant="inline"
-            format="dd.MM.yyyy"
-            defaultValue={defaultValue}
-            name={name}
-            required={required}
-            label={label}
-            value={selectedDate}
-            onChange={(date) => handleDateChange(date, onChange)}
-            disabled={textDisbled()}
-            KeyboardButtonProps={{
-              'aria-label': 'Tarih Gir',
-            }}
-          />
-        </>
-      </MuiPickersUtilsProvider>
+      {icon &&
+        icon({
+          className: 'material-inputs-icon',
+          onClick: () => iconCallback(),
+        })}
+      <MaterialTextField
+        className={`material-inputs ${className} ${icon ? 'has-icon' : ''}`}
+        id={id}
+        defaultValue={defaultValue}
+        label={label}
+        type={newType}
+        autoComplete={autoComplete}
+        maxLength={maxLength}
+        onKeyUp={onKeyUp}
+        variant="standard"
+        required={required}
+        inputProps={inputProps}
+        onKeyDown={(e) =>
+          type === 'number' && symbolsArr.includes(e.key) && e.preventDefault()
+        }
+        disabled={textDisbled()}
+        onChange={onChangeHandler}
+        value={val}
+        name={name}
+        multiline
+        rows={rows}
+        {...restProps}
+      />
+      {password &&
+        password({
+          className: 'material-inputs-icon2',
+          onClick: () =>
+            setNewType(newType === 'password' ? 'text' : 'password'),
+        })}
       {settings && (
         <>
           <Edit
@@ -146,7 +145,7 @@ const DateField = ({
           <Save
             type="button"
             className={`${name} save`}
-            onClick={() => save(name, selectedDate)}
+            onClick={() => save(name, val)}
             edit={edit}
           >
             Kaydet
@@ -230,4 +229,4 @@ const StyledSpinner = styled(Spinner)`
   display: ${(props) => (props.loading ? 'block' : 'none')};
 `;
 
-export default DateField;
+export default TextField;

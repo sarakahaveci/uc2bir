@@ -8,6 +8,7 @@ import Item from '../Item';
 
 import { useDispatch } from 'react-redux';
 import { logOut } from 'actions';
+import ROLE from 'constants/role';
 
 const Pt = ({ user_name, user_id, user_img = null }) => {
   const dispatch = useDispatch();
@@ -35,7 +36,7 @@ const Pt = ({ user_name, user_id, user_img = null }) => {
     {
       name: 'Profilim',
       icon: <Svg.UsernameIcon />,
-      link: `/profile/${user_id}`
+      link: ROLE.PT.link,
     },
     {
       name: 'Paketlerim',

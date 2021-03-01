@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { useState } from 'react';
-import Section from '../Section';
+import Section from '../../../profile-form-collections/Section';
 
 import { Material, Svg, Button } from 'components';
 
@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import { setPassword } from 'actions';
 import styled from 'styled-components/macro';
 
-const Password = () => {
+const Password = (props) => {
   const dispatch = useDispatch();
   const password = useSelector((state) => state.profileSettings.password);
 
@@ -98,6 +98,7 @@ const Password = () => {
           />
         </Footer>
       </form>
+      {props.children}
     </Section>
   );
 };

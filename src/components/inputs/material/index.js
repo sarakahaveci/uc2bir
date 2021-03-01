@@ -1,5 +1,6 @@
 import React from 'react';
 import TextField from "./text-field";
+import TexAreaField from "./textarea-field";
 import DateField from "./date-field";
 import { default as MaterialDateField } from "./material-date-field";
 import CheckBox from "./check-box";
@@ -18,6 +19,7 @@ export const Material = {
 	PhoneField,
 	MaterialDateField,
 	CheckBoxGroup,
+	TexAreaField,
 
 	email: props => <TextField {...props} />,
 	number: props => <TextField {...props} />,
@@ -29,6 +31,7 @@ export const Material = {
 	select: props => <SimpleSelect {...props} />,
 	phone: props => <PhoneField {...props} />,
 	radio: props => <RadioButtonsGroup {...props} />,
+	textarea: props => <TexAreaField {...props} />,
 
 	checkbox: props => <CheckBox {...props} />,
 	mcheckbox: props => <MCheckBox {...props} />,

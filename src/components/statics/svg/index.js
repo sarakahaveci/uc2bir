@@ -59,6 +59,7 @@ import InputClear from './images/input-clear.svg';
 import Warning from './images/warning.svg';
 import Pencil from './images/pencil.svg';
 import Tick from './images/tick.svg';
+import BigClose from './images/big-close.svg';
 
 const Svg = {
   Menu: (props) => <Menu {...props} />,
@@ -112,6 +113,7 @@ const Svg = {
   WarningIcon: (props) => <ReactSVG {...props} src={Warning} />,
   Pencil: (props) => <ReactSVG {...props} src={Pencil} />,
   TickIcon: (props) => <ReactSVG {...props} src={Tick} />,
+  BigClose: (props) => <ReactSVG {...props} src={BigClose} />,
 
   Categories: [
     {

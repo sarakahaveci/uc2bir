@@ -3,3 +3,4 @@ export * from './formData';
 export * from './userTypes';
 export * from './sportTypes';
 export * from './fileTypes';
+export * from './role';

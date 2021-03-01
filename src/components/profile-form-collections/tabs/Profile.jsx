@@ -1,39 +1,37 @@
 // @ts-nocheck
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Section from '../Section';
 
-import { Material, Svg, Button } from 'components';
+import { Material } from 'components';
 import { genderData } from '../../../constants/formData';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { getProfile, setProfile } from 'actions';
-import styled from 'styled-components/macro';
+import { unMaskPhone } from 'utils';
 
-const Profile = ({ footer = false }) => {
+const Profile = ({ about = false, st = true }) => {
   const dispatch = useDispatch();
-  const detail = useSelector((state) => state.profileSettings.detail);
-
-  const [data, setData] = useState({});
+  const { detail } = useSelector((state) => state.profileSettings);
 
   const actionGetData = async () => {
     await dispatch(
       getProfile(
+        () => {},
         () => {
-          setData({
-            name: detail.data.name,
-            title: detail.data.title,
-            birthday: detail.data.birthday,
-            genre: detail.data.genre,
-            about: detail.data.about,
+          toast.error('Profil Bilgileri Getirilemedi.', {
+            position: 'bottom-right',
+            autoClose: 2000,
           });
-        },
-        () => {}
+        }
       )
     );
   };
 
   const actionSetData = async (name, value) => {
+    if (name === 'phone') {
+      value = unMaskPhone(value);
+    }
     dispatch(
       setProfile(
         { [name]: value },
@@ -57,103 +55,100 @@ const Profile = ({ footer = false }) => {
     actionGetData();
   }, []);
 
-  useLayoutEffect(() => {
-    if (detail.isSuccess) {
-      setData({
-        name: detail.data.name,
-        title: detail.data.title,
-        birthday: detail.data.birthday,
-        genre: detail.data.genre,
-        about: detail.data.about,
-      });
-    }
-  }, [detail.isSuccess]);
-
-  return (
-    <Section>
-      {detail.isSuccess && (
-        <>
-          <Material.TextField
-            required
-            label="Adınız Soyadınız"
-            type="text"
-            name="name"
-            value={detail.data.name}
-            defaultValue={detail.data.name}
-            settings
-            action={actionSetData}
-            state={detail}
-          />
-          <Material.TextField
-            required
-            label="Hakkında"
-            type="text"
-            name="about"
-            value={detail.data.about}
-            defaultValue={detail.data.about}
-            settings
-            action={actionSetData}
-            state={detail}
-          />
-          <Material.SimpleSelect
-            required
-            label="Cinsiyetiniz"
-            items={genderData}
-            settings
-            name="genre"
-            value={detail.data.genre}
-            defaultValue={detail.data.genre}
-            onChange={(e) =>
-              setData({ ...data, [e.target.name]: e.target.value })
-            }
-          />
-          <Material.MaterialDateField
-            required
-            label="Doğum Tarihiniz"
-            type="text"
-            settings
-            name="birthday"
-            value={detail.data.birthday}
-            defaultValue={detail.data.birthday}
-            onChange={(e) =>
-              setData({ ...data, [e.target.name]: e.target.value })
-            }
-          />
-          <pre>
-            {`
-            <Material.TextField
-              required
-              label="label" //input label
-              type="text" // input type
-              name="name" // input name
-              value={reduicer.name} // reduicer gelen value 
-              defaultValue={reduicer.name} // reduicer gelen value
-              settings // ayarları açmak için
-              action={(name, value) => dispatch({[name]: value})} // action bağlantısı
-              state={reduicer} // reduicer isSuccsess and isLoading
+  if (about) {
+    return (
+      <Section>
+        {detail.isSuccess && (
+          <>
+            <Material.TexAreaField
+              label="Hakkında"
+              type="text"
+              name="about"
+              value={detail?.data?.about}
+              defaultValue={detail?.data?.about}
+              settings
+              action={actionSetData}
+              state={detail}
             />
-            `}
-          </pre>
-          {footer && (
-            <Footer>
-              <Button
-                type="submit"
-                text="Güncelle"
-                isLoading={detail.isLoading}
+          </>
+        )}
+      </Section>
+    );
+  } else {
+    return (
+      <Section>
+        {detail.isSuccess && (
+          <>
+            <Material.TextField
+              label="Adınız Soyadınız"
+              type="text"
+              name="name"
+              value={detail?.data?.name}
+              defaultValue={detail?.data?.name}
+              settings
+              action={actionSetData}
+              state={detail}
+            />
+            {!st && (
+              <Material.TextField
+                label="Ünvan"
+                type="text"
+                name="title"
+                value={detail?.data?.title}
+                defaultValue={detail?.data?.title}
+                settings
+                action={actionSetData}
+                state={detail}
               />
-            </Footer>
-          )}
-        </>
-      )}
-    </Section>
-  );
+            )}
+            {st && (
+              <Material.TextField
+                label="Mail Adresiniz"
+                type="email"
+                name="name"
+                value={detail?.data?.email}
+                defaultValue={detail?.data?.email}
+                settings
+                action={actionSetData}
+                state={detail}
+              />
+            )}
+            <Material.TextField
+              label="Telefon Numaranız"
+              type="text"
+              name="phone"
+              mask="\0(999) 999 99 99"
+              value={detail?.data?.phone}
+              defaultValue={detail?.data?.phone}
+              settings
+              action={actionSetData}
+              state={detail}
+            />
+            <Material.SimpleSelect
+              label="Cinsiyetiniz"
+              items={genderData}
+              name="genre"
+              value={detail?.data?.genre}
+              defaultValue={detail?.data?.genre}
+              settings
+              action={actionSetData}
+              state={detail}
+            />
+            <Material.MaterialDateField
+              label="Doğum Tarihiniz"
+              type="text"
+              name="birthday"
+              value={detail?.data?.birthday}
+              defaultValue={detail?.data?.birthday}
+              settings
+              action={actionSetData}
+              state={detail}
+            />
+          </>
+        )}
+      </Section>
+    );
+  }
 };
-
-const Footer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  margin-left: -15px;
-  margin-right: -15px;
-`;
 
 export default Profile;
