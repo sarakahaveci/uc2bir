@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components/macro';
-import { flexbox, space, layout } from 'styled-system';
+import { flexbox, space, layout, border } from 'styled-system';
 
 const Row = styled.div`
   display: flex;
@@ -8,6 +8,7 @@ const Row = styled.div`
   ${flexbox}
   ${space}
   ${layout}
+  ${border}
 
   ${(p) =>
     p.center &&

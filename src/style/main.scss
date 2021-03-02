@@ -1,20 +1,35 @@
 @import './reset/index.css';
 
+// Some of them are same on purpose
 :root {
+  --z-index-dropdown: 2;
   --base-font-size: 16px;
   --blue: #00b2a9;
   --blue2: #8cdeda;
+  --blue3: #d6f7f5;
   --black1: #1a1818;
   --black2: #181818;
   --black3: #383838;
+  --black4: #6e6d6d;
+  --dark: #1a1818;
+  --softDark: #181818;
   --gray1: #909090;
   --gray2: #bbbbbb;
   --gray3: #666666;
   --gray4: #d3d3d3;
+  --gray5: #2c2c2c;
+  --gray6: #7b7b7b;
+  --gray7: #e8f0f8;
+  --gray8: #f2f2f2;
+  --gray9: #c4c4c4;
+  --gray10: #707070;
   --white1: #f8f8f8;
   --trunge: #ffba00;
   --orange2: #f77e0b;
   --red: #f01c62;
+  --white: #ffff;
+  --white2: #c5c4c4;
+  --white3: #f7f8fa;
 }
 
 html {
@@ -37,11 +52,12 @@ body {
 }
 
 .MuiPopover-paper {
-  border-radius: 0!important;
+  border-radius: 0 !important;
 }
 
-.MuiPickersToolbar-toolbar, .MuiPickersDay-daySelected {
-  background-color: var(--blue)!important;
+.MuiPickersToolbar-toolbar,
+.MuiPickersDay-daySelected {
+  background-color: var(--blue) !important;
 }
 
 #pt-point-page {
@@ -85,7 +101,13 @@ body {
   overflow: hidden;
 }
 
+/* pages */
+
 /* components */
+@import './components/search-trainer';
+@import './components/trainer-select';
+@import './components/trainer-card';
+@import './components/trainers';
 
 /* header */
 @import './header';

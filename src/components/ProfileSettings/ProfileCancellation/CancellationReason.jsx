@@ -15,25 +15,6 @@ import {
   Span,
 } from 'components';
 
-const items = [
-  {
-    value: 'DEneme',
-    name: 'deneme',
-  },
-  {
-    value: 'DEneme',
-    name: 'deneme',
-  },
-  {
-    value: 'DEneme',
-    name: 'deneme',
-  },
-  {
-    value: 'DEneme',
-    name: 'deneme',
-  },
-];
-
 const CancellationReason = ({ setIsProfileCancellationPage }) => {
   const cancellationFinalizeRef = useRef();
 
@@ -43,6 +24,7 @@ const CancellationReason = ({ setIsProfileCancellationPage }) => {
     <div>
       <Row cursor="pointer" onClick={() => setIsProfileCancellationPage(false)}>
         <Svg.ArrowLeftIcon />
+
         <Span
           ml="10px"
           color="softDark"
@@ -57,6 +39,7 @@ const CancellationReason = ({ setIsProfileCancellationPage }) => {
       <Text fontSize="1.5rem" color="softDark" fontWeight="500">
         Merhaba <Span textTransform="capitalize">{name}</Span>,
       </Text>
+
       <Text fontSize="1.5rem" color="softDark" fontWeight="500" mb="20px">
         Gittiğini Görmek Çok Üzücü!
       </Text>
@@ -81,13 +64,20 @@ const CancellationReason = ({ setIsProfileCancellationPage }) => {
 
       <MaterialWrapper>
         <FormControlLabel value="female" control={<Radio />} label="Female" />
+
         <FormControlLabel value="female" control={<Radio />} label="Female" />
+
         <FormControlLabel value="female" control={<Radio />} label="Female" />
+
         <FormControlLabel value="female" control={<Radio />} label="Female" />
+
         <FormControlLabel value="female" control={<Radio />} label="Female" />
+
         <FormControlLabel value="female" control={<Radio />} label="Female" />
+
         <Col bg="gray6">
           <FormControlLabel value="female" control={<Radio />} label="Female" />
+
           <TextArea
             rows={6}
             placeholder="Lütfen üyeliğinizi neden iptal etmek istediğinizi kısaca belirtin"

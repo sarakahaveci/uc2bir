@@ -14,8 +14,8 @@ import {
   Modal,
   CancellationDismissInfo,
   CancellationReason,
-  Span,
 } from 'components';
+import ProfileCancellation from 'components/ProfileSettings/ProfileCancellation/ProfileCancellation';
 
 const SettingsData = [
   {
@@ -97,22 +97,9 @@ const Profile = () => {
         <>
           <Accordion>{settings}</Accordion>
 
-          <Col mx="10px" onClick={checkIsValidCancellation}>
-            <Span
-              textDecoration="underline"
-              color="black2"
-              fontSize="0.9rem"
-              opacity="0.8"
-              cursor="pointer"
-              onClick={checkIsValidCancellation}
-            >
-              Üyelik İptali
-            </Span>
-
-            <Text color="gray4" fontWeight="300" fontSize="0.8rem">
-              Üyelik iptali durumunda kişiler size ulaşamayacaklardır.
-            </Text>
-          </Col>
+          <ProfileCancellation
+            checkIsValidCancellation={checkIsValidCancellation}
+          />
         </>
       )}
 

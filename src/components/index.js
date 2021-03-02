@@ -1,3 +1,4 @@
+export { default as Box } from './Box/Box';
 export { default as InputText } from './inputs/InputText';
 export { default as AwesomeIcon } from './statics/icon';
 export { default as Main } from './Main';
@@ -32,6 +33,7 @@ export { default as Files } from './ProfileSettings/Files/Files';
 export { default as CancellationFinalize } from './ProfileSettings/ProfileCancellation/CancellationFinalize';
 export { default as CancellationReason } from './ProfileSettings/ProfileCancellation/CancellationReason';
 export { default as CancellationDismissInfo } from './ProfileSettings/ProfileCancellation/CancellationDismissInfo';
+export { default as PlusButton } from './buttons/PlusButton';
 export * from './CommonStyles/Common.styles';
 
 /*

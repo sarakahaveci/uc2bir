@@ -1,12 +1,12 @@
 import React, { useRef, useState, useEffect, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { isEmpty } from 'lodash';
 
 import { Row, Modal, Title, Text, Button, FileUpload } from 'components';
 import { CollapseContext } from 'components/Accordion/AccordionContext';
 import { getMyProfileFiles } from 'actions';
 import FileCellRow from './FileCellRow';
 import EditFiles from './EditFiles';
-import { isEmptyObject } from 'utils';
 import { fileDetails } from '../../../constants';
 
 const Files = () => {
@@ -37,7 +37,7 @@ const Files = () => {
   }, [isEditClicked]);
 
   const modalOnExitHandler = () => {
-    if (!isEmptyObject(uploadedFiles)) {
+    if (!isEmpty(uploadedFiles)) {
       dispatch(getMyProfileFiles());
     }
 

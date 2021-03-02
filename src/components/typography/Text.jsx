@@ -8,7 +8,6 @@ const StyledText = styled.div`
   position: relative;
   cursor: ${(props) => props.cursor && props.cursor};
   line-height: 120%;
-  cursor: ${(p) => p.cursor && p.cursor};
 
   ${(p) =>
     p.underline &&
@@ -23,11 +22,11 @@ const StyledText = styled.div`
       }
     `}
 
-  ${border}
-  ${flexbox}
-  ${color}
-  ${typography}
-  ${space}
+  ${border};
+  ${flexbox};
+  ${color};
+  ${typography};
+  ${space};
 `;
 
 const Text = (props) => (

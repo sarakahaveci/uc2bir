@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
 
-import { Svg, AwesomeIcon, Row } from 'components';
+import { Svg, AwesomeIcon, Box } from 'components';
 import { sportIconGenerator } from 'utils';
 
 const BranchCardHeader = ({ isActive, sportType, sportName, level, price }) => {
@@ -12,7 +12,7 @@ const BranchCardHeader = ({ isActive, sportType, sportName, level, price }) => {
         <Title>{sportName}</Title>
       </StyledRow>
 
-      <Row>
+      <Box row>
         <RightCell>{level} Seviye</RightCell>
         <RightCell className="mid">
           <span>{price}</span>
@@ -21,14 +21,14 @@ const BranchCardHeader = ({ isActive, sportType, sportName, level, price }) => {
         <RightCell className="last">
           <Svg.ArrowRightIcon />
         </RightCell>
-      </Row>
+      </Box>
     </StyledCardHeader>
   );
 };
 
 export default BranchCardHeader;
 
-const StyledRow = styled(Row)`
+const StyledRow = styled(Box)`
   .yoga {
     svg {
       width: 22px;

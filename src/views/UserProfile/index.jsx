@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { Tab, Title, Main } from 'components';
 import { USER, PERSONAL_TRAINER, WORK_PLACE, DIETITIAN } from '../../constants';
 
+import Trainers from 'components/ProfileSettings/WorkPlace/Trainers/Trainers';
 import profileImg from '../../assets/banner/slider-item-1.png';
 import ProfileSettings from './ProfileSettings';
 import WorkPlaceFacility from './WorkPlaceFacility';
@@ -103,11 +104,7 @@ const workPlaceTabs = [
   {
     eventKey: 'trainers',
     title: 'Eğitmenler',
-    component: (
-      <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-        Eğitmenler
-      </Title>
-    ),
+    component: <Trainers />,
   },
   {
     eventKey: 'wallet',

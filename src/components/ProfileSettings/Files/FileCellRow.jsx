@@ -1,9 +1,8 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
 
-import { Text, Row } from 'components';
+import { Text, Box, PlusButton } from 'components';
 import { requiredFileCount } from '../../../constants';
-import { Plus } from './Files.styles';
 
 const FileCellRow = ({
   setIsEditClicked,
@@ -34,7 +33,7 @@ const FileCellRow = ({
       </Text>
 
       {moreItemNeeded && (
-        <Plus onClick={(e) => addFileHandler(e, file.id)}>+</Plus>
+        <PlusButton onClick={(e) => addFileHandler(e, file.id)}>+</PlusButton>
       )}
     </FileRow>
   );
@@ -42,7 +41,8 @@ const FileCellRow = ({
 
 export default FileCellRow;
 
-const FileRow = styled(Row)`
+const FileRow = styled(Box)`
+  display: flex;
   cursor: pointer;
   display: flex;
   align-items: center;

@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components/macro';
 import { layout } from 'styled-system';
 
 import { Material } from './';
-import { Svg, Row } from 'components';
+import { Svg, Box } from 'components';
 
 const EditWithClearInput = ({ value, onClear, onEditComplete, ...rest }) => {
   const [readOnly, setReadOnly] = useState(true);
@@ -50,8 +50,9 @@ EditWithClearInput.defaultProps = {
   onClear: () => {},
 };
 
-const InputWrapper = styled(Row)`
+const InputWrapper = styled(Box)`
   position: relative;
+  display: flex;
   margin-bottom: 10px;
 
   ${layout}
