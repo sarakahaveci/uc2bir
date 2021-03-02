@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { Col, Span, Text } from 'components';
+import { Box, Span, Text } from 'components';
 
 const ProfileCancellation = ({ checkIsValidCancellation }) => {
   return (
-    <Col mx="10px" onClick={checkIsValidCancellation}>
+    <Box col mx="10px" onClick={checkIsValidCancellation}>
       <Span
         textDecoration="underline"
         color="black2"
@@ -18,7 +18,7 @@ const ProfileCancellation = ({ checkIsValidCancellation }) => {
       <Text color="gray4" fontWeight="300" fontSize="0.8rem">
         Üyelik iptali durumunda kişiler size ulaşamayacaklardır.
       </Text>
-    </Col>
+    </Box>
   );
 };
 

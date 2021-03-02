@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 
-import { Row, Col, Text, AwesomeIcon } from 'components';
+import { Box, Text, AwesomeIcon } from 'components';
 
 const WorkPlaceRow = ({ title, area, description, price, address }) => {
   return (
     <Container>
       <Image />
 
-      <Col py="15px" height="100%" justifyContent="space-between">
+      <Box col py="15px" height="100%" justifyContent="space-between">
         <Text fontWeight="600" fontSize="1.2rem">
           {title}
         </Text>
@@ -28,7 +28,7 @@ const WorkPlaceRow = ({ title, area, description, price, address }) => {
         <Address fontSize="0.9rem" pt="20px" color="gray1">
           {address}
         </Address>
-      </Col>
+      </Box>
     </Container>
   );
 };
@@ -39,7 +39,8 @@ const Address = styled(Text)`
   border-top: 0.5px solid rgba(112, 112, 112, 0.2);
 `;
 
-const Container = styled(Row)`
+const Container = styled(Box)`
+  display: flex;
   border-radius: 25px;
   background: #fff;
   box-shadow: 2px 3px 18px rgba(0, 0, 0, 0.09);

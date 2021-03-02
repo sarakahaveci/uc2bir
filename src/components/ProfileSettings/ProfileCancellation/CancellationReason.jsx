@@ -8,9 +8,8 @@ import {
   CancellationFinalize,
   Text,
   Button,
-  Col,
+  Box,
   Modal,
-  Row,
   Svg,
   Span,
 } from 'components';
@@ -22,7 +21,11 @@ const CancellationReason = ({ setIsProfileCancellationPage }) => {
 
   return (
     <div>
-      <Row cursor="pointer" onClick={() => setIsProfileCancellationPage(false)}>
+      <Box
+        row
+        cursor="pointer"
+        onClick={() => setIsProfileCancellationPage(false)}
+      >
         <Svg.ArrowLeftIcon />
 
         <Span
@@ -34,7 +37,7 @@ const CancellationReason = ({ setIsProfileCancellationPage }) => {
         >
           Üyelik İptali
         </Span>
-      </Row>
+      </Box>
 
       <Text fontSize="1.5rem" color="softDark" fontWeight="500">
         Merhaba <Span textTransform="capitalize">{name}</Span>,
@@ -75,24 +78,24 @@ const CancellationReason = ({ setIsProfileCancellationPage }) => {
 
         <FormControlLabel value="female" control={<Radio />} label="Female" />
 
-        <Col bg="gray6">
+        <Box col bg="gray6">
           <FormControlLabel value="female" control={<Radio />} label="Female" />
 
           <TextArea
             rows={6}
             placeholder="Lütfen üyeliğinizi neden iptal etmek istediğinizi kısaca belirtin"
           />
-        </Col>
+        </Box>
       </MaterialWrapper>
 
-      <Row justifyContent="flex-end" mt="15px">
+      <Box row justifyContent="flex-end" mt="15px">
         <Button
           className="blue"
           width="300px"
           text="Üyeliğimi İptal Et"
           onClick={() => cancellationFinalizeRef.current.openModal()}
         />
-      </Row>
+      </Box>
 
       <FinalizeModal
         ref={cancellationFinalizeRef}

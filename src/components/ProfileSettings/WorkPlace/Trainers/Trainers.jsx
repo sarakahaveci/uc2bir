@@ -2,7 +2,7 @@ import React from 'react';
 
 import TrainerCard from './TrainerCard';
 import SearchTrainer from './SearchTrainer';
-import { Title, Text, Col } from 'components';
+import { Title, Text, Box } from 'components';
 
 const PersonalTrainers = () => {
   return (
@@ -24,41 +24,41 @@ const PersonalTrainers = () => {
       <SearchTrainer />
 
       <div className="personal-trainers__wrapper">
-        <Col p="0 20px" width={[1, 1 / 2, 1 / 4]}>
+        <Box col p="0 20px" width={[1, 1 / 2, 1 / 4]}>
           <TrainerCard
             fullName="Nazlı Parlak"
             description="Fitness Eğitmeni"
             location="İstanbul, Beşiktaş"
             fee="150"
           />
-        </Col>
+        </Box>
 
-        <Col p="0 20px" width={[1, 1 / 2, 1 / 4]}>
+        <Box col p="0 20px" width={[1, 1 / 2, 1 / 4]}>
           <TrainerCard
             fullName="Nazlı Parlak"
             description="Fitness Eğitmeni"
             location="İstanbul, Beşiktaş"
             fee="150"
           />
-        </Col>
+        </Box>
 
-        <Col p="0 20px" width={[1, 1 / 2, 1 / 4]}>
+        <Box col p="0 20px" width={[1, 1 / 2, 1 / 4]}>
           <TrainerCard
             fullName="Nazlı Parlak"
             description="Fitness Eğitmeni"
             location="İstanbul, Beşiktaş"
             fee="150"
           />
-        </Col>
+        </Box>
 
-        <Col p="0 20px" width={[1, 1 / 2, 1 / 4]}>
+        <Box col p="0 20px" width={[1, 1 / 2, 1 / 4]}>
           <TrainerCard
             fullName="Nazlı Parlak"
             description="Fitness Eğitmeni"
             location="İstanbul, Beşiktaş"
             fee="150"
           />
-        </Col>
+        </Box>
       </div>
     </div>
   );

@@ -9,7 +9,6 @@ import {
   Span,
   Modal,
   Button,
-  Col,
   scrollbar,
   PlusButton,
 } from 'components';
@@ -90,14 +89,14 @@ const EditFiles = ({
       </EditWrapper>
 
       <StyledModal ref={deleteFileModalRef}>
-        <Col p="60px 30px 0" alignItems="center">
+        <Box col p="60px 30px 0" alignItems="center">
           <Svg.WarningIcon />
 
           <Text my="30px" textAlign="center" color="dark" lineHeight="27px">
             Seçtiğiniz belgeyi silmek üzeresiniz. Bu işlemi yapmak istediğinize
             emin misiniz?
           </Text>
-        </Col>
+        </Box>
 
         <Box row mb="40px" width="100%">
           <Button color="red" light text="VAZGEÇ" onClick={closeDeleteModal} />

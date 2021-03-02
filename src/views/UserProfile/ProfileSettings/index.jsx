@@ -8,7 +8,7 @@ import About from 'components/ProfileSettings/About';
 import {
   Accordion,
   Text,
-  Col,
+  Box,
   Svg,
   Files,
   Modal,
@@ -67,7 +67,7 @@ const Profile = () => {
       <Accordion.Item>
         <Accordion.Toggle>
           <SettingsRow>
-            <Col>
+            <Box col>
               <Text color="dark" textAlign="left" fontWeight="500" p="2px">
                 {item.settingsName}
               </Text>
@@ -75,7 +75,7 @@ const Profile = () => {
               <Text color="gray4" fontSize="0.8rem" fontWeight="300">
                 {item.settingsDetails}
               </Text>
-            </Col>
+            </Box>
 
             <Svg.ArrowUpIcon />
           </SettingsRow>

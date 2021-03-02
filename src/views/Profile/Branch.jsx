@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 
-import { Accordion, Row } from 'components';
+import { Accordion, Box } from 'components';
 import BranchCardHeader from '../../components/BranchCard/BranchCardHeader';
 import BranchCardBody from '../../components/BranchCard/BranchCardBody';
 
@@ -89,7 +89,9 @@ const UserDetails = () => {
 
 export default UserDetails;
 
-const StyledRow = styled(Row)`
+const StyledRow = styled(Box)`
+  display: flex;
+
   &:not(:first-child) {
     margin-top: 30px;
   }
