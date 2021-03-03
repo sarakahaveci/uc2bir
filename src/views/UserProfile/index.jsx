@@ -7,7 +7,8 @@ import { USER, PERSONAL_TRAINER, WORK_PLACE, DIETITIAN } from '../../constants';
 
 import profileImg from '../../assets/banner/slider-item-1.png';
 import ProfileSettings from './ProfileSettings';
-import WorkPlaceFacility from './WorkPlaceFacility';
+import WorkPlaceFacility from 'components/ProfileSettings/WorkPlaceFacility';
+import WorkPlaceActivity from 'components/ProfileSettings/WorkPlaceActivity';
 
 const regularUserTabs = [
   {
@@ -94,11 +95,7 @@ const workPlaceTabs = [
   {
     eventKey: 'activity',
     title: 'Faaliyet Alanları',
-    component: (
-      <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-        Faaliyet Alanları
-      </Title>
-    ),
+    component: <WorkPlaceActivity />,
   },
   {
     eventKey: 'trainers',
@@ -300,7 +297,7 @@ const trainerTabs = [
   },
 ];
 
-export default function Profile({ match }) {
+export default function Profile() {
   const user = useSelector((state) => state.auth.user);
 
   let tabData;

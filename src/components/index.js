@@ -29,6 +29,8 @@ export { Material } from './inputs/material';
 export { default as Span } from './Span/Span';
 export { default as FileUpload } from './FileUpload/FileUpload';
 export { default as Files } from './ProfileSettings/Files/Files';
+export { default as ActivityCard } from './ActivityCard';
+export { default as FacilityCard } from './FacilityCard';
 export { default as CancellationFinalize } from './ProfileSettings/ProfileCancellation/CancellationFinalize';
 export { default as CancellationReason } from './ProfileSettings/ProfileCancellation/CancellationReason';
 export { default as CancellationDismissInfo } from './ProfileSettings/ProfileCancellation/CancellationDismissInfo';

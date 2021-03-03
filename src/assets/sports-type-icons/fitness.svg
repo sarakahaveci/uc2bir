@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="49.651" height="46.262" viewBox="0 0 49.651 46.262">
+  <g id="Group_8997" data-name="Group 8997" transform="translate(-145.243 -103.77)">
+    <rect id="Rectangle_4058" data-name="Rectangle 4058" width="32.712" height="32.712" transform="translate(146.938 126.901) rotate(-45)" fill="#8bc53f" opacity="0.5"/>
+    <g id="Group_8996" data-name="Group 8996" transform="translate(145.743 113.401)">
+      <rect id="Rectangle_4059" data-name="Rectangle 4059" width="7.725" height="26.998" rx="3.862" transform="translate(7.639)" fill="none" stroke="#181818" stroke-miterlimit="10" stroke-width="1"/>
+      <rect id="Rectangle_4060" data-name="Rectangle 4060" width="4.967" height="18.703" rx="2.484" transform="translate(2.672 4.148)" fill="none" stroke="#181818" stroke-miterlimit="10" stroke-width="1"/>
+      <path id="Rectangle_4061" data-name="Rectangle 4061" d="M1.985,0h.687a0,0,0,0,1,0,0V3.971a0,0,0,0,1,0,0H1.985A1.985,1.985,0,0,1,0,1.985v0A1.985,1.985,0,0,1,1.985,0Z" transform="translate(0 11.514)" fill="none" stroke="#181818" stroke-miterlimit="10" stroke-width="1"/>
+      <path id="Rectangle_4062" data-name="Rectangle 4062" d="M3.862,0h0A3.862,3.862,0,0,1,7.725,3.862V23.136A3.862,3.862,0,0,1,3.862,27h0A3.862,3.862,0,0,1,0,23.136V3.862A3.862,3.862,0,0,1,3.862,0Z" transform="translate(41.012 26.998) rotate(180)" fill="none" stroke="#181818" stroke-miterlimit="10" stroke-width="1"/>
+      <rect id="Rectangle_4063" data-name="Rectangle 4063" width="4.967" height="18.703" rx="2.484" transform="translate(45.979 22.851) rotate(180)" fill="none" stroke="#181818" stroke-miterlimit="10" stroke-width="1"/>
+      <path id="Rectangle_4064" data-name="Rectangle 4064" d="M1.985,0h.686a0,0,0,0,1,0,0V3.971a0,0,0,0,1,0,0H1.985A1.985,1.985,0,0,1,0,1.985v0A1.985,1.985,0,0,1,1.985,0Z" transform="translate(48.651 15.485) rotate(180)" fill="none" stroke="#181818" stroke-miterlimit="10" stroke-width="1"/>
+      <rect id="Rectangle_4065" data-name="Rectangle 4065" width="17.924" height="4.711" transform="translate(15.364 11.144)" fill="none" stroke="#181818" stroke-miterlimit="10" stroke-width="1"/>
+    </g>
+  </g>
+</svg>

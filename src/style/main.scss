@@ -37,11 +37,16 @@ body {
 }
 
 .MuiPopover-paper {
-  border-radius: 0!important;
+  border-radius: 0 !important;
 }
 
-.MuiPickersToolbar-toolbar, .MuiPickersDay-daySelected {
-  background-color: var(--blue)!important;
+.MuiPickersToolbar-toolbar,
+.MuiPickersDay-daySelected {
+  background-color: var(--blue) !important;
+}
+
+.cp {
+  cursor: pointer;
 }
 
 #pt-point-page {
@@ -135,6 +140,8 @@ body {
 /* components */
 
 @import './sub-page';
+
+@import './facilityCard';
 
 @import './responsive';
 

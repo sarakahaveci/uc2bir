@@ -63,6 +63,15 @@ import Tick from './images/tick.svg';
 import BigClose from './images/big-close.svg';
 import ArrowLeft from './images/arrow-left.svg';
 
+import AthleticSportIcon from 'assets/sports-type-icons/atletic.svg';
+import FitnessSportIcon from 'assets/sports-type-icons/fitness.svg';
+import CimnastikSportIcon from 'assets/sports-type-icons/cimnastik.svg';
+import KickBoxSportIcon from 'assets/sports-type-icons/kickbox.svg';
+import PilatesSportIcon from 'assets/sports-type-icons/pilates.svg';
+import SwimSportIcon from 'assets/sports-type-icons/swim.svg';
+import TenisSportIcon from 'assets/sports-type-icons/tenis.svg';
+import YogaSportIcon from 'assets/sports-type-icons/yoga.svg';
+
 const Svg = {
   Menu: (props) => <Menu {...props} />,
   Search: (props) => <Search {...props} />,
@@ -118,6 +127,16 @@ const Svg = {
   BigClose: (props) => <ReactSVG {...props} src={BigClose} />,
   SadFaceIcon: (props) => <ReactSVG {...props} src={SadFace} />,
   ArrowLeftIcon: (props) => <ReactSVG {...props} src={ArrowLeft} />,
+  AthleticSportIcon: (props) => <ReactSVG {...props} src={AthleticSportIcon} />,
+  FitnessSportIcon: (props) => <ReactSVG {...props} src={FitnessSportIcon} />,
+  CimnastikSportIcon: (props) => (
+    <ReactSVG {...props} src={CimnastikSportIcon} />
+  ),
+  KickBoxSportIcon: (props) => <ReactSVG {...props} src={KickBoxSportIcon} />,
+  PilatesSportIcon: (props) => <ReactSVG {...props} src={PilatesSportIcon} />,
+  SwimSportIcon: (props) => <ReactSVG {...props} src={SwimSportIcon} />,
+  TenisSportIcon: (props) => <ReactSVG {...props} src={TenisSportIcon} />,
+  YogaSportIcon: (props) => <ReactSVG {...props} src={YogaSportIcon} />,
 
   Categories: [
     {

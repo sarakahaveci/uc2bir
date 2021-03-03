@@ -63,8 +63,8 @@ export default function Address() {
       });
 
       if (
-        userInfo?.addresses?.[0]?.lat.replaceAll(' ', '') &&
-        userInfo?.addresses?.[0]?.lng.replaceAll(' ', '')
+        userInfo?.addresses?.[0]?.lat?.replaceAll(' ', '') &&
+        userInfo?.addresses?.[0]?.lng?.replaceAll(' ', '')
       ) {
         setLocation({
           lat: userInfo?.addresses?.[0]?.lat,
