@@ -3,17 +3,16 @@ import styled from 'styled-components/macro';
 import { useDispatch } from 'react-redux';
 
 import {
-  Row,
+  Box,
   Text,
   Svg,
   Span,
   Modal,
   Button,
-  Col,
   scrollbar,
+  PlusButton,
 } from 'components';
 import { deleteFile, getMyProfileFiles, updateFile } from 'actions';
-import { Plus } from './Files.styles';
 import EditWithClearInput from 'components/inputs/material/EditWithClearInput';
 
 const EditFiles = ({
@@ -74,7 +73,8 @@ const EditFiles = ({
           />
         ))}
 
-        <Row
+        <Box
+          row
           alignItems="center"
           justifyContent="flexStart"
           width={['100%', '45%', '45%']}
@@ -82,21 +82,23 @@ const EditFiles = ({
           <Span color="dark" fontWeight="500" fontSize="0.8rem" mr="7px">
             Dosya yükle
           </Span>
-          <Plus onClick={(e) => addFileHandler(e, fileGroup.id)}>+</Plus>
-        </Row>
+          <PlusButton onClick={(e) => addFileHandler(e, fileGroup.id)}>
+            +
+          </PlusButton>
+        </Box>
       </EditWrapper>
 
       <StyledModal ref={deleteFileModalRef}>
-        <Col p="60px 30px 0" alignItems="center">
+        <Box col p="60px 30px 0" alignItems="center">
           <Svg.WarningIcon />
 
           <Text my="30px" textAlign="center" color="dark" lineHeight="27px">
             Seçtiğiniz belgeyi silmek üzeresiniz. Bu işlemi yapmak istediğinize
             emin misiniz?
           </Text>
-        </Col>
+        </Box>
 
-        <Row mb="40px" width="100%">
+        <Box row mb="40px" width="100%">
           <Button color="red" light text="VAZGEÇ" onClick={closeDeleteModal} />
           <Button
             light
@@ -105,7 +107,7 @@ const EditFiles = ({
               dispatch(deleteFile(fileId.current, deleteFileSuccessHandler))
             }
           />
-        </Row>
+        </Box>
       </StyledModal>
     </>
   );

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { Button, Title, Material, Row, Text, Svg } from 'components';
+import { Button, Title, Material, Box, Text, Svg } from 'components';
 import {
   Container,
   InfoField,
@@ -87,7 +87,7 @@ const Agreement = ({
         Ön Bilgilendirme Koşullarını ve Mesafeli Satış Sözleşmesi’ni okudum.
       </Text>
 
-      <Row center margin="20px 0">
+      <Box center margin="20px 0">
         <Button
           className="blue"
           text="Onaylıyorum"
@@ -99,7 +99,7 @@ const Agreement = ({
             setOpenModal(false);
           }}
         />
-      </Row>
+      </Box>
     </Container>
   );
 };

@@ -18,8 +18,10 @@ const theme = {
     gray5: '#e8f0f8',
     gray6: '#f2f2f2',
     gray7: '#c4c4c4',
+    gray8: '#707070',
     black: 'black',
     black2: '#6e6d6d',
   },
 };
+
 export default theme;

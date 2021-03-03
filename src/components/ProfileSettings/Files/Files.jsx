@@ -1,12 +1,12 @@
 import React, { useRef, useState, useEffect, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { isEmpty } from 'lodash';
 
-import { Row, Modal, Title, Text, Button, FileUpload } from 'components';
+import { Box, Modal, Title, Text, Button, FileUpload } from 'components';
 import { CollapseContext } from 'components/Accordion/AccordionContext';
 import { getMyProfileFiles } from 'actions';
 import FileCellRow from './FileCellRow';
 import EditFiles from './EditFiles';
-import { isEmptyObject } from 'utils';
 import { fileDetails } from '../../../constants';
 
 const Files = () => {
@@ -37,7 +37,7 @@ const Files = () => {
   }, [isEditClicked]);
 
   const modalOnExitHandler = () => {
-    if (!isEmptyObject(uploadedFiles)) {
+    if (!isEmpty(uploadedFiles)) {
       dispatch(getMyProfileFiles());
     }
 
@@ -71,7 +71,7 @@ const Files = () => {
         fileTypeId={fileTypeId}
       />
 
-      <Row center my="15px">
+      <Box center my="15px">
         <Button
           disabled={!isValidProgress}
           className="blue"
@@ -79,7 +79,7 @@ const Files = () => {
           text="Tamam"
           onClick={() => fileRef.current.closeModal()}
         />
-      </Row>
+      </Box>
     </>
   );
 
@@ -94,7 +94,8 @@ const Files = () => {
           fileTypeId={fileTypeId}
         />
       ) : (
-        <Row
+        <Box
+          row
           alignItems="center"
           flexWrap="wrap"
           justifyContent="space-between"
@@ -109,7 +110,7 @@ const Files = () => {
               setFileTypeId={setFileTypeId}
             />
           ))}
-        </Row>
+        </Box>
       )}
 
       <Modal onExit={modalOnExitHandler} ref={fileRef}>

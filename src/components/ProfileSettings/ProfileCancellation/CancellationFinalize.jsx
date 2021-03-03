@@ -23,6 +23,7 @@ const CancellationFinalize = () => {
           bilgilendireceğiz.
         </Text>
       </Wrapper>
+
       <Footer>
         <Button text="Çıkış Yap" fontWeight="500" />
       </Footer>

@@ -5,5 +5,4 @@ export { default as sportIconGenerator } from './sportIconGenerator';
 export { default as sportTypeIconGenerator } from './sportTypeIconGenerator';
 export { default as unMaskPhone } from './unMaskPhone';
 export { default as theme } from './theme';
-export { default as isEmptyObject } from './isEmptyObject';
 export * from './hooks';

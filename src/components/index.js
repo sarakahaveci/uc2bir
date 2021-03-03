@@ -1,9 +1,9 @@
+export { default as Box } from './Box/Box';
 export { default as InputText } from './inputs/InputText';
 export { default as AwesomeIcon } from './statics/icon';
 export { default as Main } from './Main';
 export { default as Header } from './Header';
 export { default as Footer } from './Footer';
-export { default as Row } from './Row/Row';
 export { default as GoogleMaps } from './GoogleMaps/index';
 export { default as Button } from './buttons/button';
 export { default as IconLabel } from './buttons/icon-label';
@@ -18,7 +18,6 @@ export { default as MacroMap } from './MacroMap';
 export { default as MacroCollections } from './MacroCollections';
 export { default as DefBackground } from './statics/background';
 export { default as Otp } from './Otp';
-export { default as Col } from './Col/Col';
 export { default as Agreement } from './Confirmations/Agreement';
 export { default as Modal } from './Modal/Modal';
 export { default as Health } from './Confirmations/Health';
@@ -34,6 +33,7 @@ export { default as FacilityCard } from './FacilityCard';
 export { default as CancellationFinalize } from './ProfileSettings/ProfileCancellation/CancellationFinalize';
 export { default as CancellationReason } from './ProfileSettings/ProfileCancellation/CancellationReason';
 export { default as CancellationDismissInfo } from './ProfileSettings/ProfileCancellation/CancellationDismissInfo';
+export { default as PlusButton } from './buttons/PlusButton';
 export * from './CommonStyles/Common.styles';
 
 /*

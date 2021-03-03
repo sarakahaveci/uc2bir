@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import { setProfile } from 'actions';
-import { Row } from 'components';
+import { Box } from 'components';
 import TextField from '@material-ui/core/TextField';
 
 export default function About() {
@@ -47,7 +47,7 @@ export default function About() {
         defaultValue={about}
         onChange={(e) => setData(e.target.value)}
       />
-      <Row>
+      <Box row>
         <hr className="about-hr" />
         {250 - data.length}
         <span
@@ -56,7 +56,7 @@ export default function About() {
         >
           KAYDET
         </span>
-      </Row>
+      </Box>
     </div>
   );
 }

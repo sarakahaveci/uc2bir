@@ -1,7 +1,8 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { Button as BaseButton, Spinner } from 'react-bootstrap';
-import { color, space } from 'styled-system';
+import { color, space, layout, flexbox } from 'styled-system';
+import Svg from 'components/statics/svg';
 
 const StyledButton = styled(BaseButton)`
   font-size: 1rem;
@@ -13,6 +14,8 @@ const StyledButton = styled(BaseButton)`
 
   ${color}
   ${space}
+  ${layout}
+  ${flexbox}
 
   &:hover {
     ${color}
@@ -107,6 +110,10 @@ const StyledButton = styled(BaseButton)`
     `};
 `;
 
+const Search = styled(Svg.Search)`
+  fill: white;
+`;
+
 const Button = ({
   onClick,
   icon,
@@ -114,6 +121,7 @@ const Button = ({
   className,
   text,
   isLoading,
+  search,
   ...restProps
 }) => (
   <StyledButton
@@ -127,7 +135,10 @@ const Button = ({
     {isLoading ? (
       <Spinner animation="border" variant="light" size="md" />
     ) : (
-      <span>{text}</span>
+      <>
+        <span>{text}</span>
+        {search && <Search />}
+      </>
     )}
   </StyledButton>
 );

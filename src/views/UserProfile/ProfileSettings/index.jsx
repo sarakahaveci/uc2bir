@@ -8,14 +8,14 @@ import About from 'components/ProfileSettings/About';
 import {
   Accordion,
   Text,
-  Col,
+  Box,
   Svg,
   Files,
   Modal,
   CancellationDismissInfo,
   CancellationReason,
-  Span,
 } from 'components';
+import ProfileCancellation from 'components/ProfileSettings/ProfileCancellation/ProfileCancellation';
 
 const SettingsData = [
   {
@@ -67,7 +67,7 @@ const Profile = () => {
       <Accordion.Item>
         <Accordion.Toggle>
           <SettingsRow>
-            <Col>
+            <Box col>
               <Text color="dark" textAlign="left" fontWeight="500" p="2px">
                 {item.settingsName}
               </Text>
@@ -75,7 +75,7 @@ const Profile = () => {
               <Text color="gray4" fontSize="0.8rem" fontWeight="300">
                 {item.settingsDetails}
               </Text>
-            </Col>
+            </Box>
 
             <Svg.ArrowUpIcon />
           </SettingsRow>
@@ -97,22 +97,9 @@ const Profile = () => {
         <>
           <Accordion>{settings}</Accordion>
 
-          <Col mx="10px" onClick={checkIsValidCancellation}>
-            <Span
-              textDecoration="underline"
-              color="black2"
-              fontSize="0.9rem"
-              opacity="0.8"
-              cursor="pointer"
-              onClick={checkIsValidCancellation}
-            >
-              Üyelik İptali
-            </Span>
-
-            <Text color="gray4" fontWeight="300" fontSize="0.8rem">
-              Üyelik iptali durumunda kişiler size ulaşamayacaklardır.
-            </Text>
-          </Col>
+          <ProfileCancellation
+            checkIsValidCancellation={checkIsValidCancellation}
+          />
         </>
       )}
 

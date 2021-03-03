@@ -43,3 +43,9 @@
     border-top: 1px solid var(--gray1);
   }
 }
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1278px !important;
+  }
+}
