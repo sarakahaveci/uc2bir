@@ -102,6 +102,9 @@ export default function ActivityCard({
               items={branches ?? []}
               multiple
               defaultValue={defaultBranch ?? []}
+              inputProps={{
+                readOnly: !isAccepted,
+              }}
             />
             <Material.TextField
               label="Kontenjan"

@@ -13,7 +13,7 @@ export default function FacilityCard({ isAccepted, name = 'Duş' }) {
   const statusText = isAccepted ? 'Onaylandı' : 'Onay Bekliyor';
 
   return (
-    <div className={`d-flex mb-2 justify-content-between ${cardClass}`}>
+    <div className={`d-flex mb-2 mr-2 justify-content-between ${cardClass}`}>
       <div className="d-flex flex-column">
         <img src={GreenTickIcon} alt="" width="55px" height="55px" />
         <Title
