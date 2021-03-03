@@ -60,7 +60,7 @@ export default function WorkPlaceActivity() {
     );
   };
 
-  const newActivityAreaClass = showAddActivity ? 'col-md-7' : 'col-md-12';
+  const newActivityAreaClass = showAddActivity ? 'col-md-8' : 'col-md-12';
 
   return isLoading ? (
     <></>
@@ -79,7 +79,7 @@ export default function WorkPlaceActivity() {
       </Title>
       <div className="row d-flex w-100">
         {showAddActivity && (
-          <div className="col-lg-5 col-md-12 col-sm-12">
+          <div className="col-lg-4 col-md-12 col-sm-12">
             <img src={ActivityImage} alt="" />
           </div>
         )}
@@ -122,6 +122,7 @@ export default function WorkPlaceActivity() {
                   name={activity?.name}
                   isWorkPlace
                   capacity={activity?.capacity}
+                  branch={activity?.branches}
                   price={activity?.price}
                 />
               ))

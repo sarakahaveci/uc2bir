@@ -36,10 +36,12 @@ export default function MyComponent({
     mapRef.current = map;
     if (navigator.geolocation) {
       navigator.geolocation.watchPosition(function (position) {
-        setPosition({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        });
+        if (locationFromUser) {
+          setPosition({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          });
+        }
       });
     }
   }, []);

@@ -36,7 +36,7 @@ export default function About() {
   console.log({ about, data });
 
   return (
-    <div>
+    <div className="about-wrapper">
       <TextField
         id="about"
         name="about"

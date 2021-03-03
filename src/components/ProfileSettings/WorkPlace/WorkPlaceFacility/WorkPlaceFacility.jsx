@@ -24,7 +24,7 @@ export default function WorkPlaceFacility() {
   };
 
   return (
-    <>
+    <div className="p-3">
       <Title
         fontSize="24px"
         letterSpacing="0.03em"
@@ -34,11 +34,11 @@ export default function WorkPlaceFacility() {
         İş Yeri Olanaklar
       </Title>
       <div className="row d-flex w-100">
-        <div className="col-lg-5 col-md-12 col-sm-12">
+        <div className="col-lg-4 col-md-12 col-sm-12">
           <img src={FacilityImage} alt="" />
         </div>
 
-        <div className="col-md-7 col-sm-12">
+        <div className="col-md-8 col-sm-12">
           <Title
             className="mb-2"
             fontSize="16px"
@@ -119,6 +119,6 @@ export default function WorkPlaceFacility() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

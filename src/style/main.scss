@@ -53,15 +53,12 @@ body {
 
 .MuiPopover-paper {
   border-radius: 0 !important;
+  margin-top: 40px !important;
 }
 
 .MuiPickersToolbar-toolbar,
 .MuiPickersDay-daySelected {
   background-color: var(--blue) !important;
-}
-
-.cp {
-  cursor: pointer;
 }
 
 #pt-point-page {
@@ -105,13 +102,13 @@ body {
   overflow: hidden;
 }
 
+/* layout */
+@import './layout/grid';
+
 /* pages */
 
-/* components */
-@import './components/search-trainer';
-@import './components/trainer-select';
-@import './components/trainer-card';
-@import './components/trainers';
+@import './pages/trainers';
+@import './pages/proficiency';
 
 /* header */
 @import './header';
@@ -159,10 +156,11 @@ body {
 @import './user-profile/';
 
 /* components */
+@import './components/search-trainer';
+@import './components/trainer-card';
+@import './components/proficiency-row';
 
 @import './sub-page';
-
-@import './facilityCard';
 
 @import './responsive';
 

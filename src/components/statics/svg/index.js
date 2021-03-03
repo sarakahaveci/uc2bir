@@ -62,6 +62,7 @@ import SadFace from './images/sad-face.svg';
 import Tick from './images/tick.svg';
 import BigClose from './images/big-close.svg';
 import ArrowLeft from './images/arrow-left.svg';
+import SmileyFace from './images/smiley-face.svg';
 
 import AthleticSportIcon from 'assets/sports-type-icons/atletic.svg';
 import FitnessSportIcon from 'assets/sports-type-icons/fitness.svg';
@@ -137,6 +138,7 @@ const Svg = {
   SwimSportIcon: (props) => <ReactSVG {...props} src={SwimSportIcon} />,
   TenisSportIcon: (props) => <ReactSVG {...props} src={TenisSportIcon} />,
   YogaSportIcon: (props) => <ReactSVG {...props} src={YogaSportIcon} />,
+  SmileyFaceIcon: (props) => <ReactSVG {...props} src={SmileyFace} />,
 
   Categories: [
     {

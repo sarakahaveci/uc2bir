@@ -4,7 +4,7 @@ import TrainerCard from './TrainerCard';
 import SearchTrainer from './SearchTrainer';
 import { Title, Text, Box } from 'components';
 
-const PersonalTrainers = () => {
+const Trainers = () => {
   return (
     <div>
       <Title textAlign="left" componet="h5" className="my-4">
@@ -23,7 +23,7 @@ const PersonalTrainers = () => {
 
       <SearchTrainer />
 
-      <div className="personal-trainers__wrapper">
+      <div className="trainers__wrapper">
         <Box col p="0 20px" width={[1, 1 / 2, 1 / 4]}>
           <TrainerCard
             fullName="Nazlı Parlak"
@@ -64,4 +64,4 @@ const PersonalTrainers = () => {
   );
 };
 
-export default PersonalTrainers;
+export default Trainers;

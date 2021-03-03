@@ -1,0 +1,66 @@
+.proficiency-row {
+  &__left-wrapper {
+    display: flex;
+    align-items: center;
+    flex: 1;
+  }
+
+  &__right-wrapper {
+    display: flex;
+    align-items: center;
+    margin-right: 30px;
+  }
+
+  &__save-wrapper {
+    display: flex;
+  }
+
+  &__save {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.01em;
+    color: var(--blue);
+    margin-left: auto;
+  }
+
+  &__modal {
+    .modal-content {
+      width: 500px;
+      padding: 0 !important;
+    }
+
+    &__body {
+      padding: 30px 70px 50px;
+      display: flex;
+      flex-direction: column;
+
+      .icon {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+    }
+
+    &__info {
+      margin-top: 25px;
+      text-align: center;
+      line-height: 22px;
+      color: var(--dark);
+      font-size: 0.9rem;
+    }
+
+    &__footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      color: var(--blue);
+      border-top: 1px solid var(--gray4);
+      cursor: pointer;
+    }
+  }
+
+  &__collapse {
+    padding: 20px;
+  }
+}

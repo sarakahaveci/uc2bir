@@ -143,7 +143,7 @@ export const getAllActivityList = () => async (dispatch, getState) => {
 };
 
 export const updateWorkPlaceActivity = (
-  { capacity, price, id },
+  { capacity, price, id, branch },
   successCallback,
   errorCallback
 ) => async (dispatch, getState) => {
@@ -154,7 +154,7 @@ export const updateWorkPlaceActivity = (
     payload: {
       method: 'PUT',
       url,
-      body: { capacity, price, branch: [id] },
+      body: { capacity, price, branch },
       label: UPDATE_ACTIVITY,
       transformData: (data) => data.data,
       callBack: () => {

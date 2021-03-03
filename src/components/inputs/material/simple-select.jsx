@@ -34,6 +34,7 @@ const SimpleSelect = ({
   defaultValue = '',
   settings = false,
   disabled = false,
+  multiple,
   state = {},
   action = () => {},
 }) => {

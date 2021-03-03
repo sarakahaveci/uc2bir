@@ -1,6 +1,7 @@
 import styled from 'styled-components/macro';
 
 const Plus = styled.button`
+  flex: 0 0 27px;
   width: 27px;
   height: 27px;
   background-color: ${(p) => p.theme.colors.blue2};
