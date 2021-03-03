@@ -51,14 +51,13 @@ body {
   z-index: 100000 !important;
 }
 
-.MuiPopover-paper {
-  border-radius: 0 !important;
-  margin-top: 40px !important;
-}
-
 .MuiPickersToolbar-toolbar,
 .MuiPickersDay-daySelected {
   background-color: var(--blue) !important;
+}
+
+.MuiPickersDatePickerRoot-toolbar, .MuiPaper-root {
+  border-radius: 30px !important;
 }
 
 #pt-point-page {

@@ -266,12 +266,15 @@ const StepThree = () => {
         onSubmit={submitStepThree}
         autoComplete="off"
       >
-        <Material.date
+        <Material.MaterialDateField
           required
           name={isWorkPlace ? 'company_date' : 'birthday'}
-          forHtml="birthday"
           label={isWorkPlace ? 'İş Yeri Kuruluş tarihi' : 'Doğum Tarihi'}
           onChange={handleBirthdayChange}
+          minDate="01.01.1945"
+          maxDate={isWorkPlace ? new Date() : "01.01.2014"}
+          minYears={isWorkPlace ? 0 : 18}
+          forHtml='birthday'
         />
 
         {!isWorkPlace && (
