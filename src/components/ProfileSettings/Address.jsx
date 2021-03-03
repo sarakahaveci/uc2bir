@@ -67,8 +67,8 @@ export default function Address() {
         userInfo?.addresses?.[0]?.lng?.replaceAll(' ', '')
       ) {
         setLocation({
-          lat: userInfo?.addresses?.[0]?.lat,
-          lng: userInfo?.addresses?.[0]?.lng,
+          lat: +userInfo?.addresses?.[0]?.lat?.replaceAll(' ', ''),
+          lng: +userInfo?.addresses?.[0]?.lng?.replaceAll(' ', ''),
         });
       }
       getCityAndDistrict(
@@ -92,7 +92,6 @@ export default function Address() {
       });
     }
   }, [isSuccessGetId]);
-
 
   const getLocationOfAddress = async () => {
     const cityName = cities?.find((city) => city.id === formData.city);
