@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { Main } from 'components';
+import { Main, MasonaryGallery } from 'components';
 import React from 'react';
 
 import { Container, Row, Col } from 'react-bootstrap';
@@ -94,6 +94,16 @@ const Components = () => {
               >
                 <div>Gönderdiğimiz child burada gözükür.</div>
               </ProfileBanner>
+              <MasonaryGallery
+                galleries={[
+                  {
+                    src: item1
+                  },
+                  {
+                    src: item1
+                  }
+                ]}
+              />
             </Col>
           </Row>
         </Container>

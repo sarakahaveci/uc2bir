@@ -14,6 +14,7 @@ import editIcon from '../../statics/svg/images/pencil.svg';
 import closeIcon from '../../statics/svg/images/big-close.svg';
 import styled from 'styled-components/macro';
 import { Spinner } from 'react-bootstrap';
+import { colorGenerator } from 'utils';
 
 const localeMap = {
   /* set locale */
@@ -62,17 +63,16 @@ const DateField = ({
   };
 
   const editRef = useRef(null);
-  const [edit, setEdit] = useState(true);
   const [loading, setLoading] = useState(false);
   const editShow = () => {
     if (editRef.current) {
-      editRef.current.style.display = 'block';
+      editRef.current.style.color = colorGenerator("blue");
       setLoading(true);
     }
   };
   const editClose = () => {
     if (editRef.current) {
-      editRef.current.style.display = 'none';
+      editRef.current.style.color = colorGenerator("gray4");
       setTimeout(() => {
         setLoading(false);
       }, 2000);
@@ -81,22 +81,10 @@ const DateField = ({
 
   const save = (name, val) => {
     action(name, val);
-    setTimeout(() => {
-      setEdit(true);
-    }, 2000);
   };
 
   const spinnerRef = useRef(null);
   const material = useRef();
-  const textDisbled = () => {
-    if (disabled) {
-      return disabled;
-    } else if (settings === true) {
-      return edit;
-    } else {
-      return disabled;
-    }
-  };
 
   useEffect(() => {
     if (state.data) {
@@ -127,7 +115,7 @@ const DateField = ({
             label={label}
             value={selectedDate}
             onChange={(date) => handleDateChange(date, onChange)}
-            disabled={textDisbled()}
+            disabled={disabled}
             KeyboardButtonProps={{
               'aria-label': 'Tarih Gir',
             }}
@@ -136,18 +124,11 @@ const DateField = ({
       </MuiPickersUtilsProvider>
       {settings && (
         <>
-          <Edit
-            type="button"
-            ref={editRef}
-            className={`${name} edit`}
-            onClick={() => setEdit(!edit)}
-            edit={edit}
-          />
           <Save
             type="button"
+            ref={editRef}
             className={`${name} save`}
             onClick={() => save(name, selectedDate)}
-            edit={edit}
           >
             Kaydet
           </Save>
@@ -191,7 +172,7 @@ const Materials = styled.div`
 
 const Save = styled.button`
   position: absolute;
-  right: 50px;
+  right: 25px;
   bottom: 15px;
   width: auto;
   height: 20px;
@@ -200,22 +181,8 @@ const Save = styled.button`
   justify-content: center;
   cursor: pointer;
   background: transparent;
-  color: var(--blue);
+  color: var(--gray4);
   font-size: 10pt;
-`;
-
-const Edit = styled.button`
-  content: '';
-  background: url('${(props) => (props.edit ? editIcon : closeIcon)}');
-  position: absolute;
-  right: 25px;
-  bottom: 15px;
-  width: 20px;
-  height: 20px;
-  background-size: cover;
-  background-repeat: no-repeat;
-  cursor: pointer;
-  display: none;
 `;
 
 const StyledSpinner = styled(Spinner)`
