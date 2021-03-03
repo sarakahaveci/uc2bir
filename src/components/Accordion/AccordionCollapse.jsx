@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components/macro';
 
 import { AccordionContext, CollapseContext } from './AccordionContext';
-import { scrollbar } from 'components';
 
 const Collapse = ({ children, uid }) => {
   const { activeId } = useContext(AccordionContext);

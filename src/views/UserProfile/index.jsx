@@ -10,6 +10,7 @@ import profileImg from '../../assets/banner/slider-item-1.png';
 import ProfileSettings from './ProfileSettings';
 import WorkPlaceFacility from 'components/ProfileSettings/WorkPlace/WorkPlaceFacility/WorkPlaceFacility';
 import WorkPlaceActivity from 'components/ProfileSettings/WorkPlace/WorkPlaceActivity/WorkPlaceActivity';
+import Proficiency from 'components/ProfileSettings/Proficiency/Proficiency';
 
 const regularUserTabs = [
   {
@@ -251,11 +252,7 @@ const trainerTabs = [
   {
     eventKey: 'specialties',
     title: 'Uzmanlıklarım',
-    component: (
-      <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-        Uzmanlıklarım
-      </Title>
-    ),
+    component: <Proficiency />,
   },
   {
     eventKey: 'wallet',
@@ -287,7 +284,7 @@ export default function Profile() {
 
   let tabData;
 
-  switch (user?.type_id) {
+  switch (3) {
     case USER:
       tabData = regularUserTabs;
       break;
