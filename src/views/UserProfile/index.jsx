@@ -2,14 +2,14 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
-import { Tab, Title, Main } from 'components';
+import { Tab, Title, Main, MasonaryGallery } from 'components';
 import { USER, PERSONAL_TRAINER, WORK_PLACE, DIETITIAN } from '../../constants';
 
 import Trainers from 'components/ProfileSettings/WorkPlace/Trainers/Trainers';
 import profileImg from '../../assets/banner/slider-item-1.png';
 import ProfileSettings from './ProfileSettings';
-import WorkPlaceFacility from 'components/ProfileSettings/WorkPlaceFacility';
-import WorkPlaceActivity from 'components/ProfileSettings/WorkPlaceActivity';
+import WorkPlaceFacility from 'components/ProfileSettings/WorkPlace/WorkPlaceFacility/WorkPlaceFacility';
+import WorkPlaceActivity from 'components/ProfileSettings/WorkPlace/WorkPlaceActivity/WorkPlaceActivity';
 
 const regularUserTabs = [
   {
@@ -115,11 +115,7 @@ const workPlaceTabs = [
   {
     eventKey: 'galery',
     title: 'Galeri',
-    component: (
-      <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-        Galeri
-      </Title>
-    ),
+    component: <MasonaryGallery />,
   },
 ];
 
@@ -195,11 +191,7 @@ const dietitianTabs = [
   {
     eventKey: 'galery',
     title: 'Galeri',
-    component: (
-      <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-        Galeri
-      </Title>
-    ),
+    component: <MasonaryGallery />,
   },
   {
     eventKey: 'blog',
@@ -277,11 +269,7 @@ const trainerTabs = [
   {
     eventKey: 'galery',
     title: 'Galeri',
-    component: (
-      <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-        Galeri
-      </Title>
-    ),
+    component: <MasonaryGallery />,
   },
   {
     eventKey: 'blog',

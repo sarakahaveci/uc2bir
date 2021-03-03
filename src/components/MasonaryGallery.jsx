@@ -16,7 +16,7 @@ const MasonaryGallery = ({
     <Section className={className} style={style}>
       <ResponsiveMasonry columnsCountBreakPoints={columnsCountBreakPoints}>
         <Masonry columnsCount={columnsCount} gutter={gutter}>
-          {galleries.map((image, i) => (
+          {galleries?.map((image, i) => (
             <img
               key={i}
               src={image.src}

@@ -11,6 +11,10 @@
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
 
+  .tab-content {
+    margin-bottom: 200px;
+  }
+
   .nav-tabs {
     border: 0;
 
@@ -43,7 +47,9 @@
       box-shadow: none;
     }
   }
+}
 
+.about-wrapper {
   .MuiInput-underline:after {
     display: none;
   }

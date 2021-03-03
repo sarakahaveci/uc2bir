@@ -33,6 +33,7 @@ const SimpleSelect = ({
   defaultValue = '',
   settings = false,
   disabled = false,
+  multiple,
   state = {},
   action = () => {},
 }) => {
@@ -116,6 +117,7 @@ const SimpleSelect = ({
           value={val}
           onChange={(event) => handleChange(event)}
           required={required}
+          multiple={multiple}
           disabled={textDisbled()}
         >
           {items.map((val, key) => (
