@@ -6,16 +6,7 @@ import Svg from 'components/statics/svg';
 import List from '../List';
 import Item from '../Item';
 
-import { useDispatch } from 'react-redux';
-import { logOut } from 'actions';
-
-const NoUser = ({ user_name, user_id, user_img = null }) => {
-  const dispatch = useDispatch();
-
-  const logOutAction = () => {
-    dispatch(logOut());
-  };
-
+const NoUser = ({ user_name, user_id, user_img = null, logOutAction }) => {
   const menu = [
     {
       name: 'Çıkış Yap',
@@ -36,7 +27,11 @@ const NoUser = ({ user_name, user_id, user_img = null }) => {
     <>
       {list.map((val, key) => {
         return (
-          <List key={key} className="header-login" dropDown={val.menu || val.notify}>
+          <List
+            key={key}
+            className="header-login"
+            dropDown={val.menu || val.notify}
+          >
             <Item icon={val.icon} span={val.name} notify={val.notify?.length} />
           </List>
         );

@@ -5,18 +5,9 @@ import PropTypes from 'prop-types';
 import Svg from 'components/statics/svg';
 import List from '../List';
 import Item from '../Item';
-
-import { useDispatch } from 'react-redux';
-import { logOut } from 'actions';
 import ROLE from 'constants/role';
 
-const Dietitian = ({ user_name, user_id, user_img = null }) => {
-  const dispatch = useDispatch();
-
-  const logOutAction = () => {
-    dispatch(logOut());
-  };
-
+const Dietitian = ({ user_name, user_id, user_img = null, logOutAction }) => {
   const notification = [
     {
       name: '1. Bildirim',
@@ -41,37 +32,37 @@ const Dietitian = ({ user_name, user_id, user_img = null }) => {
     {
       name: 'Paketlerim',
       icon: <Svg.Packet />,
-      link: `/profile/${user_id}`
+      link: `/profile/${user_id}`,
     },
     {
       name: 'Oturum Türleri & Çalıştığım Yerler',
       icon: <Svg.PtHome />,
-      link: `/profile/${user_id}`
+      link: `/profile/${user_id}`,
     },
     {
       name: 'Ücretlerim',
       icon: <Svg.Monies />,
-      link: `/profile/${user_id}`
+      link: `/profile/${user_id}`,
     },
     {
       name: 'Uzmanlıklarım',
       icon: <Svg.Expert />,
-      link: `/profile/${user_id}`
+      link: `/profile/${user_id}`,
     },
     {
       name: 'Cüzdanım',
       icon: <Svg.Wallet />,
-      link: `/profile/${user_id}`
+      link: `/profile/${user_id}`,
     },
     {
       name: 'Galeri',
       icon: <Svg.Gallery />,
-      link: `/profile/${user_id}`
+      link: `/profile/${user_id}`,
     },
     {
       name: 'Blog',
       icon: <Svg.Blog />,
-      link: `/profile/${user_id}`
+      link: `/profile/${user_id}`,
     },
     {
       name: 'Çıkış Yap',

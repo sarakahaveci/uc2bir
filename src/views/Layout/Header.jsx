@@ -38,14 +38,16 @@ const Header = () => {
                     icon={AwesomeIcon.Envolope}
                   />
                 </li>
-                <li>
+                {/* 
+                  <li>
                   <IconLabel
                     href="tel:05XXXXXXXXX"
                     className="icon-label"
                     text="05XX XXX XX XX"
                     icon={AwesomeIcon.Phone}
                   />
-                </li>
+                  </li>
+                */}
                 <li
                   onClick={() => setToggle(!toggle)}
                   className="d-xl-none dropdown flex-column"
@@ -109,10 +111,7 @@ const Header = () => {
               <div className="bar-item right-bar">
                 <ul>
                   {isAuthenticated ? (
-                    <HeaderLogin
-                      type_id={user.type_id}
-                      user={user}
-                    />
+                    <HeaderLogin type_id={user.type_id} user={user} />
                   ) : (
                     <>
                       <li>

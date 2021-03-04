@@ -24,9 +24,7 @@ const syncLocalStorage = ({ dispatch, getState }) => {
         accessToken,
         refreshToken,
       });
-    }
-
-    if (action.type === LOGOUT) {
+    } else if (action.type === LOGOUT) {
       localStorage.remove('auth');
     }
 

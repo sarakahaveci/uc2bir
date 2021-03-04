@@ -76,6 +76,14 @@
     font-weight: 500;
   }
 
+  input:invalid {
+    border-bottom: 2px solid #ffabab !important;
+  }
+
+  input:valid, input[value=""] {
+    border: none!important;
+  }
+
   &-container {
     display: block;
     position: relative;

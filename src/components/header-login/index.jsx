@@ -12,10 +12,14 @@ import * as KEYS from '../../constants/userKeys';
 
 import styled from 'styled-components/macro';
 import { useSelector, useDispatch } from 'react-redux';
-import { getUserKeys } from '../../actions';
+import { getUserKeys, logOut } from 'actions';
+
+import { useHistory } from 'react-router-dom';
 
 const HeaderLogin = ({ type_id, user }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
+
   const {
     userKeys: { data: userKeys, isSuccess }
   } = useSelector((state) => state.registerData);
@@ -36,6 +40,13 @@ const HeaderLogin = ({ type_id, user }) => {
     actionRegisterData();
   },[]);
 
+  const logOutAction = async () => {
+    await dispatch(logOut());
+    if ( !localStorage.getItem("user") ) {
+      history.push("/login");
+    }
+  };
+
   switch (type[0]?.key) {
     case KEYS.USER:
       return (
@@ -44,6 +55,7 @@ const HeaderLogin = ({ type_id, user }) => {
             user_id={user.id}
             user_name={user.name}
             user_img={user.img}
+            logOutAction={logOutAction}
           />
         </Section>
       );
@@ -55,6 +67,7 @@ const HeaderLogin = ({ type_id, user }) => {
             user_id={user.id}
             user_name={user.name}
             user_img={user.img}
+            logOutAction={logOutAction}
           />
         </Section>
       );
@@ -66,6 +79,7 @@ const HeaderLogin = ({ type_id, user }) => {
             user_id={user.id}
             user_name={user.name}
             user_img={user.img}
+            logOutAction={logOutAction}
           />
         </Section>
       );
@@ -77,6 +91,7 @@ const HeaderLogin = ({ type_id, user }) => {
             user_id={user.id}
             user_name={user.name}
             user_img={user.img}
+            logOutAction={logOutAction}
           />
         </Section>
       );
@@ -88,6 +103,7 @@ const HeaderLogin = ({ type_id, user }) => {
             user_id={user.id}
             user_name={user.name}
             user_img={user.img}
+            logOutAction={logOutAction}
           />
         </Section>
       );

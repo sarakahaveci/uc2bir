@@ -117,14 +117,14 @@ const Footer = () => {
                   icon={AwesomeIcon.Envolope}
                 />
               </li>
-              <li>
+              {/*<li>
                 <IconLabel
                   href="tel:05XXXXXXXXX"
                   className="icon-label"
                   text="05XX XXX XX XX"
                   icon={AwesomeIcon.Phone}
                 />
-              </li>
+              </li>*/}
             </ul>
           </div>
         </div>

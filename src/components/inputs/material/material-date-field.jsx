@@ -48,11 +48,16 @@ const DateField = ({
   const now = new Date();
   const defaultDate = `${now.getFullYear() - minYears}-${now.getMonth()}-${now.getDay()}`;
   
-  const [selectedDate, setSelectedDate] = useState(
-    new Date(value || defaultDate)
-  );
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  useEffect(() => {
+    if ( defaultValue || value ) {
+      setSelectedDate(value || defaultDate);
+    }
+  },[]);
 
   const handleDateChange = (date, callBack) => {
+    console.log(date);
     const event = {
       target: {
         name: name,

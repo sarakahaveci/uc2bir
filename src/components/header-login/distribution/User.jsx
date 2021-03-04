@@ -5,18 +5,9 @@ import PropTypes from 'prop-types';
 import Svg from 'components/statics/svg';
 import List from '../List';
 import Item from '../Item';
-
-import { useDispatch } from 'react-redux';
-import { logOut } from 'actions';
 import ROLE from 'constants/role';
 
-const User = ({ user_name, user_id, user_img = null }) => {
-  const dispatch = useDispatch();
-
-  const logOutAction = () => {
-    dispatch(logOut());
-  };
-
+const User = ({ user_name, user_id, user_img = null, logOutAction }) => {
   const notification = [
     {
       name: '1. Bildirim',
