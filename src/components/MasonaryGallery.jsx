@@ -54,6 +54,15 @@ const MasonaryGallery = ({
   const [file, setFile] = React.useState('');
   const { accessToken } = useSelector((state) => state.auth);
 
+  const { data: fileGroupsArr } = useSelector(
+    (state) => state.profileSettings.files
+  );
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getMyProfileFiles());
+  }, []);
+
   const createData = new FormData();
   createData.append('files[]', file);
   createData.append('type_id', '8');
@@ -72,7 +81,10 @@ const MasonaryGallery = ({
         toast.success('Dosya yüklendi.', {
           position: 'bottom-right',
           autoClose: 2000,
-          onClose: () => setFile(false),
+          onClose: () => {
+            dispatch(getMyProfileFiles());
+            return setFile(false);
+          },
         });
       })
       .catch(function (err) {
@@ -84,6 +96,7 @@ const MasonaryGallery = ({
   };
 
   const deleted = (id) => {
+    console.log(id);
     axios.delete(`${process.env.REACT_APP_API_URL}/user/profile/file/${id}`,{
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -93,7 +106,10 @@ const MasonaryGallery = ({
         toast.success('Dosya silindi.', {
           position: 'bottom-right',
           autoClose: 2000,
-          onClose: () => setFile(false),
+          onClose: () => {
+            dispatch(getMyProfileFiles());
+            return setFile(false);
+          },
         });
       })
       .catch(function (err) {
@@ -103,15 +119,6 @@ const MasonaryGallery = ({
         });
       });
   };
-
-  const { data: fileGroupsArr } = useSelector(
-    (state) => state.profileSettings.files
-  );
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getMyProfileFiles());
-  }, []);
 
   return (
     <Section className={className} style={style}>
@@ -172,7 +179,7 @@ const MasonaryGallery = ({
                         )
                       }
                     />
-                    <Icon img={closeIcon} top="45px" onClick={(image) => deleted(image.id)} />
+                    <Icon img={closeIcon} name={image.id} top="45px" onClick={(e) => deleted(e.target.name)} />
                     <img
                       key={i}
                       src={image.path}
