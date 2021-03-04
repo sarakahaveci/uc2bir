@@ -56,7 +56,8 @@ body {
   background-color: var(--blue) !important;
 }
 
-.MuiPickersDatePickerRoot-toolbar, .MuiPaper-root {
+.MuiPickersDatePickerRoot-toolbar,
+.MuiPaper-root {
   border-radius: 30px !important;
 }
 
@@ -84,6 +85,14 @@ body {
       right: -70%;
     }
   }
+}
+
+.MuiPopover-paper {
+  margin-top: 40px !important;
+}
+
+.cp {
+  cursor: pointer;
 }
 
 .main {
