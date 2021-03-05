@@ -12,6 +12,7 @@ import WorkPlaceFacility from 'components/ProfileSettings/WorkPlace/WorkPlaceFac
 import WorkPlaceActivity from 'components/ProfileSettings/WorkPlace/WorkPlaceActivity/WorkPlaceActivity';
 import Proficiency from 'components/ProfileSettings/Proficiency/Proficiency';
 import PTBranch from 'components/ProfileSettings/PT/PTBranch';
+import Favorites from 'components/ProfileSettings/Favorites/Favorites';
 
 const regularUserTabs = [
   {
@@ -49,11 +50,7 @@ const regularUserTabs = [
   {
     eventKey: 'favorite',
     title: 'Favorilerim',
-    component: (
-      <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-        Favorilerim
-      </Title>
-    ),
+    component: <Favorites />,
   },
   {
     eventKey: 'notifications',

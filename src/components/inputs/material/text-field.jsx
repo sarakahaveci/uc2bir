@@ -49,13 +49,13 @@ const TextField = ({
   const [loading, setLoading] = useState(false);
   const editShow = () => {
     if (editRef.current) {
-      editRef.current.style.color = colorGenerator("blue");
+      editRef.current.style.color = colorGenerator('blue');
       setLoading(true);
     }
   };
   const editClose = () => {
     if (editRef.current) {
-      editRef.current.style.color = colorGenerator("gray4");
+      editRef.current.style.color = colorGenerator('gray4');
       setTimeout(() => {
         setLoading(false);
       }, 2000);
@@ -141,7 +141,7 @@ const TextField = ({
           >
             Kaydet
           </Save>
-          
+
           {loading && (
             <StyledSpinner
               className={`${name}`}
