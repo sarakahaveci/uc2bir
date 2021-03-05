@@ -11,6 +11,8 @@ import forgotPassword from '../reducers/forgotPaswword';
 import resetPassword from '../reducers/resetPassword';
 import quizGet from '../reducers/quizGetReducer';
 import profileSettings from '../reducers/profileSettingsReducer';
+// TODO: profileSettings değiştirildiğinde bu da düzeltilebilir.
+import profileSettings2 from '../reducers/profileSettingsReducer/index';
 
 const reducers = combineReducers({
   auth,
@@ -24,6 +26,7 @@ const reducers = combineReducers({
   resetPassword,
   quizGet,
   profileSettings,
+  profileSettings2,
 });
 
 export default reducers;

@@ -14,7 +14,7 @@ const Span = styled.span`
         content: '';
         position: absolute;
         bottom: -5px;
-        width: 25%;
+        width: ${(p) => (p.lineWidth ? p.lineWidth : '25%')};
         height: 2px;
         left: 0;
         background-color: ${p.theme.colors.blue};

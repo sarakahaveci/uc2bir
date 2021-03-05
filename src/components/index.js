@@ -1,5 +1,6 @@
 export { default as Box } from './Box/Box';
 export { default as InputText } from './inputs/InputText';
+export { default as Stars } from './Stars/Stars';
 export { default as AwesomeIcon } from './statics/icon';
 export { default as Main } from './Main';
 export { default as Header } from './Header';
@@ -26,6 +27,7 @@ export { default as Kvkk } from './Confirmations/Kvkk';
 export { default as Accordion } from './Accordion/Accordion';
 export { Material } from './inputs/material';
 export { default as Span } from './Span/Span';
+export { default as SubTabs } from './SubTabs/SubTabs';
 export { default as FileUpload } from './FileUpload/FileUpload';
 export { default as Files } from './ProfileSettings/Files/Files';
 export { default as ActivityCard } from './ActivityCard';
