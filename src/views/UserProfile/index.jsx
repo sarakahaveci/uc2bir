@@ -11,6 +11,7 @@ import ProfileSettings from './ProfileSettings';
 import WorkPlaceFacility from 'components/ProfileSettings/WorkPlace/WorkPlaceFacility/WorkPlaceFacility';
 import WorkPlaceActivity from 'components/ProfileSettings/WorkPlace/WorkPlaceActivity/WorkPlaceActivity';
 import Proficiency from 'components/ProfileSettings/Proficiency/Proficiency';
+import PTBranch from 'components/ProfileSettings/PT/PTBranch';
 
 const regularUserTabs = [
   {
@@ -242,11 +243,7 @@ const trainerTabs = [
   {
     eventKey: 'branch',
     title: 'Branşlarım & Ücretlerim',
-    component: (
-      <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-        Branşlarım & Ücretlerim
-      </Title>
-    ),
+    component: <PTBranch />,
   },
 
   {
@@ -284,7 +281,7 @@ export default function Profile() {
 
   let tabData;
 
-  switch (3) {
+  switch (user?.type_id) {
     case USER:
       tabData = regularUserTabs;
       break;

@@ -18,6 +18,12 @@ import {
   GET_ALL_ACTIVITY_LIST_REQUEST,
   GET_ALL_ACTIVITY_LIST_SUCCESS,
   GET_ALL_ACTIVITY_LIST_FAILURE,
+  GET_PT_BRANCH_REQUEST,
+  GET_PT_BRANCH_SUCCESS,
+  GET_PT_BRANCH_FAILURE,
+  GET_PT_ALL_BRANCH_REQUEST,
+  GET_PT_ALL_BRANCH_SUCCESS,
+  GET_PT_ALL_BRANCH_FAILURE,
 } from '../constants';
 
 const initialState = {
@@ -45,10 +51,53 @@ const initialState = {
     error: null,
     allList: [],
   },
+  ptBranchList: {
+    isLoading: false,
+    data: [],
+    error: null,
+    allList: [],
+  },
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case GET_PT_BRANCH_REQUEST:
+    case GET_PT_ALL_BRANCH_REQUEST:
+      return {
+        ...state,
+        ptBranchList: {
+          ...state.ptBranchList,
+          isLoading: true,
+        },
+      };
+    case GET_PT_BRANCH_FAILURE:
+    case GET_PT_ALL_BRANCH_FAILURE:
+      return {
+        ...state,
+        ptBranchList: {
+          ...state.ptBranchList,
+          isLoading: false,
+          error: action.payload.message,
+        },
+      };
+    case GET_PT_BRANCH_SUCCESS:
+      return {
+        ...state,
+        ptBranchList: {
+          ...state.ptBranchList,
+          isLoading: false,
+          data: action.payload,
+        },
+      };
+    case GET_PT_ALL_BRANCH_SUCCESS:
+      return {
+        ...state,
+        ptBranchList: {
+          ...state.ptBranchList,
+          isLoading: false,
+          allList: action.payload,
+        },
+      };
     case GET_ACTIVITY_LIST_REQUEST:
     case GET_ALL_ACTIVITY_LIST_REQUEST:
       return {

@@ -9,6 +9,10 @@ import {
   UPDATE_ACTIVITY,
   GET_ALL_ACTIVITY_LIST,
   ADD_NEW_ACTIVITY,
+  GET_PT_BRANCH,
+  GET_PT_ALL_BRANCH,
+  ADD_NEW_PT_BRANCH,
+  UPDATE_PT_BRANCH,
 } from '../constants';
 
 export const getMyProfileFiles = () => async (dispatch, getState) => {
@@ -180,6 +184,80 @@ export const addWorkPlaceActivity = (
       url,
       label: ADD_NEW_ACTIVITY,
       body: { activity_field: activityIds },
+      callBack: () => successCallback(),
+      errorHandler: (error) => errorCallback(error.message),
+    },
+  });
+};
+
+export const getAllPTBranchList = () => async (dispatch, getState) => {
+  const url = `/cms/branch/all`;
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'GET',
+      url,
+      label: GET_PT_ALL_BRANCH,
+      transformData: (data) => data.data,
+    },
+  });
+};
+
+export const getUserPTBranchList = () => async (dispatch, getState) => {
+  const url = `/user/pt-price`;
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'GET',
+      url,
+      label: GET_PT_BRANCH,
+      transformData: (data) => data.data,
+    },
+  });
+};
+
+export const addNewPTBranch = (body, successCallback, errorCallback) => async (
+  dispatch
+) => {
+  const url = '/user/pt-price/branch';
+
+  let data = {};
+  if (body.branch) {
+    data.branch = body.branch;
+  }
+  if (body.branch_suggest) {
+    data.branch_suggest = body.branch_suggest;
+  }
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'POST',
+      url,
+      label: ADD_NEW_PT_BRANCH,
+      body: data,
+      callBack: () => {
+        successCallback();
+        getUserPTBranchList();
+      },
+      errorHandler: (error) => errorCallback(error.message),
+    },
+  });
+};
+
+export const updatePTBranch = (body, successCallback, errorCallback) => async (
+  dispatch
+) => {
+  const url = '/user/pt-price';
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'POST',
+      url,
+      label: UPDATE_PT_BRANCH,
+      body: { ...body },
       callBack: () => successCallback(),
       errorHandler: (error) => errorCallback(error.message),
     },

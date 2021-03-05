@@ -5,19 +5,26 @@ import { Svg } from 'components';
 
 const sportTypeIconGenerator = (type, className, style) => {
   const icons = {
-    8: <Svg.AthleticSportIcon />,
     1: <Svg.FitnessSportIcon />,
-    7: <Svg.CimnastikSportIcon />,
-    4: <Svg.KickBoxSportIcon />,
+    Fitness: <Svg.FitnessSportIcon />,
     2: <Svg.PilatesSportIcon />,
-    6: <Svg.SwimSportIcon />,
-    5: <Svg.TenisSportIcon />,
+    Pilates: <Svg.PilatesSportIcon />,
     3: <Svg.YogaSportIcon />,
+    Yoga: <Svg.YogaSportIcon />,
+    4: <Svg.KickBoxSportIcon />,
+    'Mücadele Sporları': <Svg.KickBoxSportIcon />,
+    5: <Svg.TenisSportIcon />,
+    Tenis: <Svg.TenisSportIcon />,
+    6: <Svg.SwimSportIcon />,
+    Yüzme: <Svg.SwimSportIcon />,
+    7: <Svg.CimnastikSportIcon />,
+    Jimnastik: <Svg.CimnastikSportIcon />,
+    8: <Svg.AthleticSportIcon />,
   };
 
   return (
     <StyledSpan className={className} style={style}>
-      {icons[type]}
+      {icons[type] ?? icons[1]}
     </StyledSpan>
   );
 };

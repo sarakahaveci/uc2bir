@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 import { Material, Button, Title } from 'components';
 import { sportTypeIconGenerator } from 'utils';
-import { updateWorkPlaceActivity } from 'actions';
+import { updateWorkPlaceActivity, updatePTBranch } from 'actions';
 import { GYM } from '../../constants/userKeys';
 
 export default function ActivityCard({
@@ -15,6 +15,8 @@ export default function ActivityCard({
   price,
   id,
   branch,
+  classification,
+  branch_id,
 }) {
   const dispatch = useDispatch();
   const { data: registerData } = useSelector((state) => state.registerData);
@@ -22,8 +24,6 @@ export default function ActivityCard({
   const cardClass = isAccepted
     ? 'facility-card-wrapper'
     : 'facility-card-wrapper not-accepted-card';
-
-  const sportIcon = sportTypeIconGenerator(id);
 
   const statusTextClass = isAccepted ? 'accepted-text' : 'waiting-accept-text';
 
@@ -36,6 +36,11 @@ export default function ActivityCard({
     branch: branch,
   });
 
+  const [branchData, setBranchData] = useState({
+    price: price,
+    branch_id: branch_id,
+  });
+
   const branches = registerData?.['spor_branslari']?.filter(
     (branch) => branch.type === GYM
   );
@@ -44,6 +49,10 @@ export default function ActivityCard({
 
   const handleFormOnChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
+  };
+
+  const handleBranchFormOnChange = (event) => {
+    setBranchData({ ...branchData, [event.target.name]: +event.target.value });
   };
 
   const submitChange = () => {
@@ -68,16 +77,37 @@ export default function ActivityCard({
           }
         )
       );
+    } else {
+      dispatch(
+        updatePTBranch(
+          branchData,
+          () => {
+            toast.success(
+              'Talebiniz gönderildi incelendikten sonra tarafınıza bildirim gönderilecektir.',
+              {
+                position: 'bottom-right',
+                autoClose: 7000,
+              }
+            );
+          },
+          (error) => {
+            toast.error(error, {
+              position: 'bottom-right',
+              autoClose: 7000,
+            });
+          }
+        )
+      );
     }
   };
 
   return (
-    <div
-      className={`d-flex mb-3 mr-2 p-4 flex-column justify-content-between ${cardClass}`}
-    >
+    <div className={`d-flex mb-3 mr-2 p-4 flex-column  ${cardClass}`}>
       <div className="mb-2">
         <div className="d-flex justify-content-between">
-          {sportIcon}
+          {isWorkPlace
+            ? sportTypeIconGenerator(id)
+            : sportTypeIconGenerator(name)}
           <span className={`ml-auto ${statusTextClass}`}>{statusText} </span>
         </div>
         <Title
@@ -133,8 +163,18 @@ export default function ActivityCard({
               label="Klasifikasyon"
               type="text"
               name="class"
+              changeValue={classification}
+              inputProps={{
+                readOnly: true,
+              }}
             />
-            <Material.TextField label="Ücret (TL)" type="price" name="title" />
+            <Material.TextField
+              label="Ücret (TL)"
+              type="number"
+              name="price"
+              changeValue={price}
+              onChange={handleBranchFormOnChange}
+            />
           </>
         )}
       </div>
