@@ -283,7 +283,7 @@ export default function Address() {
           <div className="d-flex w-100">
             <Button
               type="submit"
-              text="Adresi Güncellee"
+              text="Adresi Güncelle"
               className="blue marginTop mx-auto  w-75"
               fontWeight="bold"
             />
