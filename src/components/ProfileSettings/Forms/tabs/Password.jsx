@@ -51,7 +51,21 @@ const Password = (props) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    actionSetData();
+    if (data.password !== data.new_password) {
+      if ( data.new_password === data.new_password_confirmation ) {
+        actionSetData();
+      } else {
+        toast.info(() => 'Tekrarlanan Şifre Uymuyor.', {
+          position: 'bottom-right',
+          autoClose: 2000,
+        });
+      }
+    } else {
+      toast.info(() => 'Şifreniz bir önceki şifreniz ile aynı olamaz!', {
+        position: 'bottom-right',
+        autoClose: 2000,
+      });
+    }
   };
 
   return (

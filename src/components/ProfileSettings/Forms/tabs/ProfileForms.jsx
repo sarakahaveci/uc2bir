@@ -54,7 +54,7 @@ const ProfileForms = ({ type }) => {
   useEffect(() => {
     actionGetData();
   }, []);
-  
+
   return (
     <Section>
       {detail.isSuccess && (
@@ -69,7 +69,7 @@ const ProfileForms = ({ type }) => {
             action={actionSetData}
             state={detail}
           />
-          {type !== "USER" && (
+          {type !== 'USER' && (
             <Material.TextField
               label="Ünvan"
               type="text"
@@ -81,7 +81,7 @@ const ProfileForms = ({ type }) => {
               state={detail}
             />
           )}
-          {type === "USER" && (
+          {type === 'USER' && (
             <Material.TextField
               label="Mail Adresiniz"
               type="email"
@@ -114,16 +114,29 @@ const ProfileForms = ({ type }) => {
             action={actionSetData}
             state={detail}
           />
-          <Material.MaterialDateField
-            label="Doğum Tarihiniz"
-            type="text"
-            name="birthday"
-            value={detail?.data?.birthday}
-            defaultValue={detail?.data?.birthday}
-            settings
-            action={actionSetData}
-            state={detail}
-          />
+          {type === 'WORK_PLACE' ? (
+            <Material.MaterialDateField
+              label="Şirket Kuruluş Tarihi"
+              type="text"
+              name="birthday"
+              value={detail?.data?.birthday}
+              defaultValue={detail?.data?.birthday}
+              settings
+              action={actionSetData}
+              state={detail}
+            />
+          ) : (
+            <Material.MaterialDateField
+              label="Doğum Tarihiniz"
+              type="text"
+              name="birthday"
+              value={detail?.data?.birthday}
+              defaultValue={detail?.data?.birthday}
+              settings
+              action={actionSetData}
+              state={detail}
+            />
+          )}
         </>
       )}
     </Section>

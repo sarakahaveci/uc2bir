@@ -49,3 +49,5 @@ export { default as ProfileCard } from './banner/profile-banner/ProfileCard';
 export { default as MasonaryGallery } from './MasonaryGallery';
 export { default as WorkPlaceRow } from './WorkPlaceRow/WorkPlaceRow';
 export { default as HeaderLogin } from './header-login';
+export { default as Wallet } from './Wallet';
+export { default as SessionType } from './SessionType';

@@ -34,7 +34,7 @@ const DateField = ({
   className = '',
   icon = false,
   onChange = () => {},
-  value = '',
+  value = null,
   onKeyUp = () => {},
   maxLength = '',
   minDate,
@@ -48,16 +48,9 @@ const DateField = ({
   const now = new Date();
   const defaultDate = `${now.getFullYear() - minYears}-${now.getMonth()}-${now.getDay()}`;
   
-  const [selectedDate, setSelectedDate] = useState(null);
-
-  useEffect(() => {
-    if ( defaultValue || value ) {
-      setSelectedDate(value || defaultDate);
-    }
-  },[]);
+  const [selectedDate, setSelectedDate] = useState(value ? new Date(value) : null);
 
   const handleDateChange = (date, callBack) => {
-    console.log(date);
     const event = {
       target: {
         name: name,
@@ -113,7 +106,9 @@ const DateField = ({
             className={`material-inputs ${className} ${
               icon ? 'has-icon' : 'date-has-icon'
             }`}
-            variant="inline"
+            variant="dialog"
+            okLabel="Tamam"
+            cancelLabel="Çıkış"
             format="dd.MM.yyyy"
             defaultValue={defaultValue}
             name={name}
@@ -124,6 +119,7 @@ const DateField = ({
             disabled={disabled}
             KeyboardButtonProps={{
               'aria-label': 'Tarih Gir',
+              'onKeyDown': "Tamam"
             }}
           />
         </>

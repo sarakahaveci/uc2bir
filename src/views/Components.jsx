@@ -1,10 +1,10 @@
 // @ts-nocheck
-import { Main, MasonaryGallery } from 'components';
+import { Main, MasonaryGallery, SessionType } from 'components';
 import React from 'react';
 
 import { Container, Row, Col } from 'react-bootstrap';
 
-import { ProfileCard, ProfileBanner, Material, Svg } from 'components';
+import { ProfileCard, ProfileBanner, Material, Svg, Wallet } from 'components';
 import item1 from '../assets/pt-groups/item-1/04.jpg';
 
 const Components = () => {
@@ -94,16 +94,9 @@ const Components = () => {
               >
                 <div>Gönderdiğimiz child burada gözükür.</div>
               </ProfileBanner>
-              <MasonaryGallery
-                galleries={[
-                  {
-                    src: item1
-                  },
-                  {
-                    src: item1
-                  }
-                ]}
-              />
+              <MasonaryGallery/>
+              <Wallet/>
+              <SessionType/>
             </Col>
           </Row>
         </Container>
