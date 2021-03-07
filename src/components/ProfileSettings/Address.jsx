@@ -266,7 +266,6 @@ export default function Address() {
                 type="number"
                 changeValue={+formData?.apt_no}
                 onChange={handleFormOnChange}
-                settings
               />
             </div>
             <div className="adress-apartment">
