@@ -1,10 +1,12 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components/macro';
+import { useSelector } from 'react-redux';
 
 import Password from 'components/ProfileSettings/Forms/tabs/Password';
 import SettingsForm from 'components/ProfileSettings/Forms/SettingsForm';
 import Address from 'components/ProfileSettings/Address';
 import About from 'components/ProfileSettings/About';
+import VKI from '../../Home/VKI';
 import {
   Accordion,
   Text,
@@ -16,8 +18,14 @@ import {
   CancellationReason,
 } from 'components';
 import ProfileCancellation from 'components/ProfileSettings/ProfileCancellation/ProfileCancellation';
+import {
+  USER,
+  PERSONAL_TRAINER,
+  WORK_PLACE,
+  DIETITIAN,
+} from '../../../constants';
 
-const SettingsData = [
+const trainerAndDietitanData = [
   {
     settingsName: 'Profil',
     settingsDetails:
@@ -48,11 +56,95 @@ const SettingsData = [
   },
 ];
 
+const regularUserTabs = [
+  {
+    settingsName: 'Profil',
+    settingsDetails:
+      'Adınız soyadınız, ünvanınız ve diğer bilgilerinizi güncel tutun',
+    body: <SettingsForm />,
+  },
+
+  {
+    settingsName: 'Boy & Ağırlık & VKI Bilgineriniz',
+    settingsDetails: 'Bilgilerinizi güncel tutun',
+    body: <VKI />,
+  },
+  {
+    settingsName: 'Tamamlanmış Testler ',
+    settingsDetails: 'Tamamladığınız testlere göz atın',
+    body: <div>Tamamlanmış Testiniz bulunmamaktadır.</div>,
+  },
+  {
+    settingsName: 'Adresim',
+    settingsDetails:
+      'Güncel tuttuğunuz adres bilgileriniz ile sporseverler size daha kolay ulaşır.',
+    body: <Address />,
+  },
+];
+
+const workPlaceData = [
+  {
+    settingsName: 'İş Yeri Profil',
+    settingsDetails: 'İş yerine ait bilgilenirinizi güncel tutun, düzenleyin',
+    body: <SettingsForm />,
+  },
+  {
+    settingsName: 'İş Yeri Bilgileri',
+    settingsDetails: 'Şirket Bilgilerinizi düzenleyin, güncelleyin',
+    body: <SettingsForm />,
+  },
+  {
+    settingsName: 'Şifre İşlemleri',
+    settingsDetails: 'Şifrenizi buradan güncelleyebilirsiniz',
+    body: <Password />,
+  },
+  {
+    settingsName: 'İş Yeri Hakkında',
+    settingsDetails: 'İİş yeri hakkında yazınızı düzenleyin, güncelleyin',
+    body: <About />,
+  },
+
+  {
+    settingsName: 'İş Yeri Belgeler',
+    settingsDetails:
+      'Sistemimize yüklediğiniz belgelerinize göz atın; eksik belgelerinizi yükleyin, güncelleyin',
+    body: <Files />,
+  },
+  {
+    settingsName: 'İş Yeri Adres',
+    settingsDetails:
+      'Güncel tuttuğunuz adres bilgileriniz ile sporseverler size daha kolay ulaşır.',
+    body: <Address />,
+  },
+];
+
 const Profile = () => {
+  const user = useSelector((state) => state.auth.user);
+
   const [isProfileCancellationPage, setIsProfileCancellationPage] = useState(
     false
   );
   const cancellationDismissModalRef = useRef();
+
+  let tabData;
+
+  switch (user?.type_id) {
+    case USER:
+      tabData = regularUserTabs;
+      break;
+    case PERSONAL_TRAINER:
+      tabData = trainerAndDietitanData;
+      break;
+    case WORK_PLACE:
+      tabData = workPlaceData;
+      break;
+    case DIETITIAN:
+      tabData = trainerAndDietitanData;
+      break;
+    default:
+      tabData = regularUserTabs;
+      break;
+  }
 
   const checkIsValidCancellation = () => {
     if (true) {
@@ -62,7 +154,7 @@ const Profile = () => {
     }
   };
 
-  const settings = SettingsData.map((item) => (
+  const settings = tabData?.map((item) => (
     <Wrapper>
       <Accordion.Item>
         <Accordion.Toggle>
