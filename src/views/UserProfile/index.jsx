@@ -2,7 +2,7 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
-import { Tab, Title, Main, MasonaryGallery } from 'components';
+import { Tab, Title, Main, MasonaryGallery, Wallet } from 'components';
 import { USER, PERSONAL_TRAINER, WORK_PLACE, DIETITIAN } from '../../constants';
 
 import Trainers from 'components/ProfileSettings/WorkPlace/Trainers/Trainers';
@@ -41,11 +41,7 @@ const regularUserTabs = [
   {
     eventKey: 'wallet',
     title: 'Cüzdanım',
-    component: (
-      <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-        Cüzdanım
-      </Title>
-    ),
+    component: <Wallet />,
   },
   {
     eventKey: 'favorite',
@@ -105,11 +101,7 @@ const workPlaceTabs = [
   {
     eventKey: 'wallet',
     title: 'Cüzdan',
-    component: (
-      <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-        Cüzdan
-      </Title>
-    ),
+    component: <Wallet />,
   },
   {
     eventKey: 'galery',
@@ -181,11 +173,7 @@ const dietitianTabs = [
   {
     eventKey: 'wallet',
     title: 'Cüzdanım',
-    component: (
-      <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-        Cüzdanım
-      </Title>
-    ),
+    component: <Wallet />,
   },
   {
     eventKey: 'galery',
@@ -251,11 +239,7 @@ const trainerTabs = [
   {
     eventKey: 'wallet',
     title: 'Cüzdanım',
-    component: (
-      <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-        Cüzdanım
-      </Title>
-    ),
+    component: <Wallet />,
   },
   {
     eventKey: 'galery',
