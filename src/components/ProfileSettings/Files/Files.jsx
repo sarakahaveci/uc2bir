@@ -1,9 +1,8 @@
-import React, { useRef, useState, useEffect, useContext } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { isEmpty } from 'lodash';
 
 import { Box, Modal, Title, Text, Button, FileUpload } from 'components';
-import { CollapseContext } from 'components/Accordion/AccordionContext';
 import { getMyProfileFiles } from 'actions';
 import FileCellRow from './FileCellRow';
 import EditFiles from './EditFiles';
@@ -19,8 +18,6 @@ const Files = () => {
   const [fileTypeId, setFileTypeId] = useState(null);
   const [fileGroup, setFileGroup] = useState({});
 
-  const { setHeight, isActive } = useContext(CollapseContext);
-
   const fileRef = useRef();
   const wrapperRef = useRef();
 
@@ -29,12 +26,6 @@ const Files = () => {
   useEffect(() => {
     dispatch(getMyProfileFiles());
   }, []);
-
-  useEffect(() => {
-    const { scrollHeight } = wrapperRef.current;
-
-    setHeight(isActive ? `${scrollHeight + 30}px` : 0);
-  }, [isEditClicked]);
 
   const modalOnExitHandler = () => {
     if (!isEmpty(uploadedFiles)) {

@@ -13,6 +13,7 @@
 
   &__save-wrapper {
     display: flex;
+    margin-top: 15px;
   }
 
   &__save {
@@ -60,7 +61,20 @@
     }
   }
 
+  &__items-wrapper {
+    max-height: 200px;
+    overflow-y: scroll;
+  }
+
   &__collapse {
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__error {
+    color: var(--red);
+    font-weight: 600;
+    font-size: 0.9rem;
   }
 }

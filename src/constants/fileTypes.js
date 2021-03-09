@@ -20,7 +20,7 @@ export const fileDetails = {
   [LICENSE]: 'İş Yeri Ruhsatını yükleyin',
 };
 
-export const requiredFileCount = {
+export const trainerRequiredFileCount = {
   [FACE_PICTURE]: 1,
   [IDENTITY_CARD]: 2,
   [CRIMINAL_RECORD]: 1,
@@ -30,4 +30,21 @@ export const requiredFileCount = {
   [CONTRACT]: 1,
   [LICENSE]: 1,
   [GALLERY]: 0,
+};
+
+export const dietatianRequiredFileCount = {
+  [FACE_PICTURE]: 1,
+  [IDENTITY_CARD]: 2,
+  [CRIMINAL_RECORD]: 1,
+  [DEGREE]: 1,
+  [CERTIFICATE]: 1,
+  [CONTRACT]: 1,
+  [LICENSE]: 1,
+  [GALLERY]: 0,
+};
+
+export const workPlaceRequiredFileCount = {
+  [CRIMINAL_RECORD]: 1,
+  [CONTRACT]: 1,
+  [LICENSE]: 1,
 };

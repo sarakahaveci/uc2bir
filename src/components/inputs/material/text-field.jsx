@@ -27,6 +27,7 @@ const TextField = ({
   onChange = () => {},
   value = null,
   onKeyUp = () => {},
+  onBlur = () => {},
   maxLength = '',
   password,
   changeValue,
@@ -35,6 +36,7 @@ const TextField = ({
   state = {},
   action = () => {},
   mask = null,
+  rightTextNode = null,
   ...restProps
 }) => {
   const [val, setVal] = useState(defaultValue);
@@ -98,10 +100,13 @@ const TextField = ({
         value={val}
         name={name}
         disabled={disabled}
+        onBlur={onBlur}
       >
         {() => (
           <MaterialTextField
-            className={`material-inputs ${className} ${icon ? 'has-icon' : ''}`}
+            className={`material-inputs ${
+              rightTextNode ? 'right-node' : null
+            } ${className} ${icon ? 'has-icon' : ''}`}
             id={id}
             defaultValue={defaultValue}
             label={label}
@@ -125,6 +130,7 @@ const TextField = ({
           />
         )}
       </InputMask>
+
       {password &&
         password({
           className: 'material-inputs-icon2',
@@ -153,6 +159,8 @@ const TextField = ({
           )}
         </>
       )}
+
+      <div className="input-right-node">{rightTextNode && rightTextNode}</div>
     </Materials>
   );
 };

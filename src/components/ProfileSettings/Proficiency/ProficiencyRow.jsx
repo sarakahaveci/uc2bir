@@ -1,18 +1,19 @@
-import React, { useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import styled, { css } from 'styled-components/macro';
+import { useDispatch } from 'react-redux';
 
-import {
-  Accordion,
-  PlusButton,
-  Text,
-  Material,
-  Svg,
-  Modal,
-  Title,
-} from 'components';
+import { Accordion, Svg, Modal, Title } from 'components';
+import ProficiencyToggler from './ProficiencyToggler';
+import ProficiencyCollapser from './ProficiencyCollapser';
+import { addProficiency } from 'actions';
 
-const ProficiencyRow = ({ sport, sportIcon, infoArr }) => {
+const ProficiencyRow = ({ data }) => {
+  const [addedProficiencies, setAddedProficiencies] = useState({});
+  const [showInputError, setShowInputError] = useState(false);
+
   const proficiencyResponseModal = useRef();
+
+  const dispatch = useDispatch();
 
   const openProficiencyResponseModal = () =>
     proficiencyResponseModal.current.openModal();
@@ -20,65 +21,55 @@ const ProficiencyRow = ({ sport, sportIcon, infoArr }) => {
   const closeProficiencyResponseModal = () =>
     proficiencyResponseModal.current.closeModal();
 
+  const addProficiencySuccessHandler = () => openProficiencyResponseModal();
+
   const saveProficiencyHandler = () => {
-    // TODO: send save request and open modal
-    openProficiencyResponseModal();
+    if (
+      Object.keys(addedProficiencies).some(
+        (key) => addedProficiencies[key].trim() === ''
+      )
+    ) {
+      setShowInputError(true);
+      return;
+    }
+
+    dispatch(
+      addProficiency(
+        data.id,
+        Object.keys(addedProficiencies).map((key) => addedProficiencies[key]),
+        addProficiencySuccessHandler
+      )
+    );
   };
 
-  const isWaitingPending = infoArr.some((item) => item.status === 'pending');
+  const isWaitingPending = data.speciality.some(
+    (item) => item.status === 'pending'
+  );
 
   return (
     <>
       <AccordionItemWrapper isWaitingPending={isWaitingPending}>
         <Accordion.Item>
           <Accordion.Toggle>
-            <ToggleRow>
-              <div className="proficiency-row__left-wrapper">
-                {sportIcon}
-                <Text fontSize="0.9rem" color="600">
-                  {sport}
-                </Text>
-              </div>
-
-              <div className="proficiency-row__right-wrapper">
-                <Text mr="10px" color="dark" fontSize="0.9rem">
-                  Uzmanlık Ekle
-                </Text>
-
-                <PlusButton
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    console.log('asd');
-                  }}
-                >
-                  +
-                </PlusButton>
-              </div>
-
-              <Svg.ArrowUpIcon />
-            </ToggleRow>
+            <ProficiencyToggler
+              data={data}
+              addedProficiencies={addedProficiencies}
+              setAddedProficiencies={setAddedProficiencies}
+            />
           </Accordion.Toggle>
-          <Accordion.Collapse>
-            <div className="proficiency-row__collapse">
-              {infoArr.map((item) => (
-                <Material.TextField
-                  value={item.name}
-                  defaultValue={item.name}
-                />
-              ))}
 
-              <div className="proficiency-row__save-wrapper">
-                <span
-                  className="proficiency-row__save"
-                  onClick={saveProficiencyHandler}
-                >
-                  Kaydet
-                </span>
-              </div>
-            </div>
+          <Accordion.Collapse>
+            <ProficiencyCollapser
+              data={data}
+              showInputError={showInputError}
+              addedProficiencies={addedProficiencies}
+              setAddedProficiencies={setAddedProficiencies}
+              saveProficiencyHandler={saveProficiencyHandler}
+            />
           </Accordion.Collapse>
         </Accordion.Item>
       </AccordionItemWrapper>
+
       <Modal
         className="proficiency-row__modal"
         ref={proficiencyResponseModal}
@@ -116,28 +107,13 @@ const AccordionItemWrapper = styled.div`
   background: #fff;
   box-shadow: 2px 3px 18px rgba(0, 0, 0, 0.09);
   margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
 
   ${(p) =>
     p.isWaitingPending &&
     css`
       border: 1px solid ${p.theme.colors.red};
       box-shadow: 2px 3px 18px rgba(0, 0, 0, 0.09);
-    `}
-`;
-
-const ToggleRow = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 10px 20px;
-
-  ${(p) =>
-    p.isActive &&
-    css`
-      border-bottom: 0.5px solid #dbd5d5;
-
-      svg {
-        transition: all 0.3s;
-        transform: ${(p) => p.isActive && 'rotate(180deg)'};
-      }
     `}
 `;

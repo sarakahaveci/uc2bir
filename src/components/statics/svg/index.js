@@ -63,6 +63,7 @@ import Tick from './images/tick.svg';
 import BigClose from './images/big-close.svg';
 import ArrowLeft from './images/arrow-left.svg';
 import SmileyFace from './images/smiley-face.svg';
+import Plus from './images/plus.svg';
 import Tl from './images/tl.svg';
 
 import AthleticSportIcon from 'assets/sports-type-icons/atletic.svg';
@@ -136,6 +137,7 @@ const Svg = {
   ),
   KickBoxSportIcon: (props) => <ReactSVG {...props} src={KickBoxSportIcon} />,
   PilatesSportIcon: (props) => <ReactSVG {...props} src={PilatesSportIcon} />,
+  PlusIcon: (props) => <ReactSVG {...props} src={Plus} />,
   SwimSportIcon: (props) => <ReactSVG {...props} src={SwimSportIcon} />,
   TenisSportIcon: (props) => <ReactSVG {...props} src={TenisSportIcon} />,
   YogaSportIcon: (props) => <ReactSVG {...props} src={YogaSportIcon} />,

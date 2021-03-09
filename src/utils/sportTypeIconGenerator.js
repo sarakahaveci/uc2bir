@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components/macro';
 
 import { Svg } from 'components';
 
@@ -23,19 +22,10 @@ const sportTypeIconGenerator = (type, className, style) => {
   };
 
   return (
-    <StyledSpan className={className} style={style}>
+    <span className={className} style={style}>
       {icons[type] ?? icons[1]}
-    </StyledSpan>
+    </span>
   );
 };
 
 export default sportTypeIconGenerator;
-
-const StyledSpan = styled.span`
-  svg {
-    width: 60px;
-    height: 60px;
-    margin-left: 55%;
-    margin-bottom: 5px;
-  }
-`;

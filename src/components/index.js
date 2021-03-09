@@ -1,4 +1,5 @@
 export { default as Box } from './Box/Box';
+export { default as Spinner } from './Spinner/Spinner';
 export { default as InputText } from './inputs/InputText';
 export { default as Stars } from './Stars/Stars';
 export { default as AwesomeIcon } from './statics/icon';

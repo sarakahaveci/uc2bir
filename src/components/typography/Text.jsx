@@ -6,8 +6,9 @@ import { space, typography, color, flexbox, border } from 'styled-system';
 const StyledText = styled.div`
   padding: 7px 0;
   position: relative;
-  cursor: ${(props) => props.cursor && props.cursor};
+  cursor: ${(p) => p.cursor && p.cursor};
   line-height: 120%;
+  text-transform: ${(p) => p.textTransform && p.textTransform};
 
   ${(p) =>
     p.underline &&
