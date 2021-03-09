@@ -6,6 +6,6 @@ export const DIETITIAN = 4;
 export const USER_KEYS = {
   [USER]: 'st',
   [PERSONAL_TRAINER]: 'pt',
-  [WORK_PLACE]: 'dt',
-  [DIETITIAN]: 'bs',
+  [WORK_PLACE]: 'bs',
+  [DIETITIAN]: 'dt',
 };

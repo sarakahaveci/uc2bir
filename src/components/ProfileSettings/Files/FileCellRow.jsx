@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components/macro';
 
 import { Text, Box, PlusButton } from 'components';
-import { requiredFileCount } from '../../../constants';
+import { trainerRequiredFileCount } from '../../../constants';
 
 const FileCellRow = ({
   setIsEditClicked,
@@ -11,7 +11,7 @@ const FileCellRow = ({
   setFileGroup,
   setFileTypeId,
 }) => {
-  const requiredCount = requiredFileCount[file.id];
+  const requiredCount = trainerRequiredFileCount[file.id];
 
   const moreItemNeeded = file.count < requiredCount;
 
@@ -33,7 +33,7 @@ const FileCellRow = ({
       </Text>
 
       {moreItemNeeded && (
-        <PlusButton onClick={(e) => addFileHandler(e, file.id)}>+</PlusButton>
+        <PlusButton onClick={(e) => addFileHandler(e, file.id)} />
       )}
     </FileRow>
   );

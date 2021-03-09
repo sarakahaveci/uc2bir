@@ -2,6 +2,18 @@
   width: 100%;
   position: relative;
 
+  .right-node {
+    input {
+      padding-right: 100px !important;
+    }
+  }
+
+  .input-right-node {
+    position: absolute;
+    right: 0;
+    bottom: 10px;
+  }
+
   .material-inputs-icon {
     position: absolute;
     top: 18px;
@@ -80,8 +92,9 @@
     border-bottom: 2px solid #ffabab !important;
   }
 
-  input:valid, input[value=""] {
-    border: none!important;
+  input:valid,
+  input[value=''] {
+    border: none !important;
   }
 
   &-container {

@@ -82,9 +82,7 @@ const EditFiles = ({
           <Span color="dark" fontWeight="500" fontSize="0.8rem" mr="7px">
             Dosya yükle
           </Span>
-          <PlusButton onClick={(e) => addFileHandler(e, fileGroup.id)}>
-            +
-          </PlusButton>
+          <PlusButton onClick={(e) => addFileHandler(e, fileGroup.id)} />
         </Box>
       </EditWrapper>
 
