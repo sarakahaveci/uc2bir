@@ -1,4 +1,8 @@
 import React from 'react';
 import { Spinner } from 'react-bootstrap';
 
-export default <Spinner animation="border" variant="info" />;
+const BlueSpinner = () => {
+  return <Spinner animation="border" variant="info" />;
+};
+
+export default BlueSpinner;

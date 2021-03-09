@@ -3,14 +3,14 @@ import styled, { css } from 'styled-components/macro';
 
 import { AwesomeIcon } from 'components';
 
-const Stars = ({ rating = 5, position }) => {
+const Stars = ({ rating, position }) => {
   return (
     <StarsList position={position}>
-      <Star isActive={true}>
+      <Star isActive={rating > 0}>
         <AwesomeIcon.StarSolid />
       </Star>
 
-      <Star isActive={true}>
+      <Star isActive={rating > 1}>
         <AwesomeIcon.StarSolid />
       </Star>
 

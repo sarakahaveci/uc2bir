@@ -1,9 +1,8 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components/macro';
 import { useSelector } from 'react-redux';
-import { Spinner } from 'react-bootstrap';
 
-import { Material, scrollbar } from 'components';
+import { Material, scrollbar, Spinner } from 'components';
 
 const ProficiencyCollapser = ({
   data,
@@ -57,7 +56,7 @@ const ProficiencyCollapser = ({
       <div className="proficiency-row__save-wrapper">
         {showInputError && (
           <div className="proficiency-row__error">
-            Lütfen Boş alanları doldurunuz.
+            Lütfen boş alanları doldurunuz.
           </div>
         )}
 
@@ -66,11 +65,7 @@ const ProficiencyCollapser = ({
             className="proficiency-row__save"
             onClick={saveProficiencyHandler}
           >
-            {isLoading ? (
-              <Spinner animation="border" variant="info" />
-            ) : (
-              'Kaydet'
-            )}
+            {isLoading ? <Spinner /> : 'Kaydet'}
           </span>
         )}
       </div>

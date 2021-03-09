@@ -3,9 +3,9 @@ import styled from 'styled-components/macro';
 import React from 'react';
 import Svg from 'components/statics/svg';
 
-const PlusButton = () => {
+const PlusButton = ({ onClick }) => {
   return (
-    <Plus>
+    <Plus onClick={onClick}>
       <Svg.PlusIcon />
     </Plus>
   );
