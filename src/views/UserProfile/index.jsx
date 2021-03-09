@@ -13,6 +13,7 @@ import WorkPlaceActivity from 'components/ProfileSettings/WorkPlace/WorkPlaceAct
 import Proficiency from 'components/ProfileSettings/Proficiency/Proficiency';
 import PTBranch from 'components/ProfileSettings/PT/PTBranch';
 import Favorites from 'components/ProfileSettings/Favorites/Favorites';
+import DietitianPrice from 'components/ProfileSettings/Dietitian/DietitianPrice';
 
 const regularUserTabs = [
   {
@@ -155,11 +156,7 @@ const dietitianTabs = [
   {
     eventKey: 'price',
     title: 'Ücretlerim',
-    component: (
-      <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-        Ücretlerim
-      </Title>
-    ),
+    component: <DietitianPrice />,
   },
   {
     eventKey: 'specialties',
