@@ -8,6 +8,7 @@ export default function ProfileTab({ tabData, defaultActiveKey }) {
       defaultActiveKey={defaultActiveKey ?? null}
       transition={false}
       id="profile-tab"
+      unmountOnExit
     >
       {tabData.map((tab) => (
         <Tab eventKey={tab.eventKey} title={tab.title}>
