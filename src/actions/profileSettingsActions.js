@@ -13,6 +13,7 @@ import {
   GET_PT_ALL_BRANCH,
   ADD_NEW_PT_BRANCH,
   UPDATE_PT_BRANCH,
+  GET_MY_GALLERIES
 } from '../constants';
 
 export const getMyProfileFiles = () => async (dispatch, getState) => {
@@ -26,6 +27,20 @@ export const getMyProfileFiles = () => async (dispatch, getState) => {
       label: GET_MY_PROFILE_FILES,
       transformData: (data) => data.data,
     },
+  });
+};
+
+export const getMyGalleries = () => async (dispatch, getState) => {
+  const url = `/user/gallery/index/me`;
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'GET',
+      url,
+      label: GET_MY_GALLERIES,
+      transfomrData: (data) => data.data,
+    }
   });
 };
 

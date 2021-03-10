@@ -20,7 +20,7 @@ import {
 import { Row } from 'react-bootstrap';
 import { default as MaterialButton } from '@material-ui/core/Button';
 
-import { getMyProfileFiles, updateFile } from 'actions';
+import { getMyProfileFiles, updateFile, getMyGalleries } from 'actions';
 import axios from 'axios';
 import FormData from 'form-data';
 
@@ -54,26 +54,33 @@ const MasonaryGallery = ({
   const [file, setFile] = React.useState('');
   const { accessToken } = useSelector((state) => state.auth);
 
-  const { data: fileGroupsArr } = useSelector(
-    (state) => state.profileSettings.files
+  const myGalleries = useSelector(
+    (state) => state.myGalleries.me
   );
-
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getMyProfileFiles());
+    dispatch(getMyGalleries());
   }, []);
 
   const createData = new FormData();
   createData.append('files[]', file);
   createData.append('type_id', '8');
 
-  var config = {
+  const config = {
     method: 'post',
-    url: `${process.env.REACT_APP_API_URL}/user/profile/file`,
+    url: `${process.env.REACT_APP_API_URL}/user/gallery/create`,
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
   };
+
+  const delete_config = {
+    method: 'post',
+    url: `${process.env.REACT_APP_API_URL}/user/gallery/destroy`,
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  }
 
   const upload = () => {
     axios({ ...config, data: createData })
@@ -82,7 +89,7 @@ const MasonaryGallery = ({
           position: 'bottom-right',
           autoClose: 2000,
           onClose: () => {
-            dispatch(getMyProfileFiles());
+            dispatch(getMyGalleries());
             return setFile(false);
           },
         });
@@ -95,19 +102,14 @@ const MasonaryGallery = ({
       });
   };
 
-  const deleted = (id) => {
-    console.log(id);
-    axios.delete(`${process.env.REACT_APP_API_URL}/user/profile/file/${id}`,{
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    })
+  const deleted = (gallery_id) => {
+    axios({...delete_config, data: {gallery_id}})
       .then(function (response) {
         toast.success('Dosya silindi.', {
           position: 'bottom-right',
           autoClose: 2000,
           onClose: () => {
-            dispatch(getMyProfileFiles());
+            dispatch(getMyGalleries());
             return setFile(false);
           },
         });
@@ -164,25 +166,17 @@ const MasonaryGallery = ({
           </StyledCategories>
           <ResponsiveMasonry columnsCountBreakPoints={columnsCountBreakPoints}>
             <Masonry columnsCount={columnsCount} gutter={gutter}>
-              {fileGroupsArr
-                ?.filter((f) => f.name === 'Galeri')?.[0]
-                ?.files.map((image, i) => (
+              {myGalleries?.data?.map((image, i) => (
                   <Div padding={15}>
                     <Icon
-                      img={editIcon}
-                      top="15px"
-                      onClick={() =>
-                        dispatch(
-                          updateFile(image.id, image, () =>
-                            dispatch(getMyProfileFiles())
-                          )
-                        )
-                      }
+                      img={closeIcon}
+                      name={image.id}
+                      top="45px"
+                      onClick={(e) => deleted(e.target.name)}
                     />
-                    <Icon img={closeIcon} name={image.id} top="45px" onClick={(e) => deleted(e.target.name)} />
                     <img
                       key={i}
-                      src={image.path}
+                      src={`${image.path}`}
                       style={{ width: '100%', display: 'block' }}
                       alt={image.name}
                     />
