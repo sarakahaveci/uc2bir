@@ -65,6 +65,7 @@ import ArrowLeft from './images/arrow-left.svg';
 import SmileyFace from './images/smiley-face.svg';
 import Plus from './images/plus.svg';
 import Tl from './images/tl.svg';
+import UpDown from './images/up-down.svg';
 
 import AthleticSportIcon from 'assets/sports-type-icons/atletic.svg';
 import FitnessSportIcon from 'assets/sports-type-icons/fitness.svg';
@@ -143,6 +144,7 @@ const Svg = {
   YogaSportIcon: (props) => <ReactSVG {...props} src={YogaSportIcon} />,
   SmileyFaceIcon: (props) => <ReactSVG {...props} src={SmileyFace} />,
   Tl: (props) => <ReactSVG {...props} src={Tl} />,
+  UpDownIcon: (props) => <ReactSVG {...props} src={UpDown} />,
 
   Categories: [
     {
