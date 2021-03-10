@@ -1,4 +1,4 @@
-import React, { css } from 'react';
+import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Switch from '@material-ui/core/Switch';
 
@@ -32,7 +32,7 @@ const BlueSwitch = withStyles((theme) => ({
   track: {
     borderRadius: 26 / 2,
     border: `1px solid ${theme.palette.grey[400]}`,
-    backgroundColor: theme.palette.grey[50],
+    backgroundColor: '#e3e3e3',
     opacity: 1,
     transition: theme.transitions.create(['background-color', 'border']),
   },
@@ -40,8 +40,8 @@ const BlueSwitch = withStyles((theme) => ({
   focusVisible: {},
 }))(Switch);
 
-const CustomizedSwitch = () => {
-  return <BlueSwitch inputProps={{ 'aria-label': 'secondary checkbox' }} />;
+const CustomizedSwitch = (props) => {
+  return <BlueSwitch {...props} />;
 };
 
 export default CustomizedSwitch;

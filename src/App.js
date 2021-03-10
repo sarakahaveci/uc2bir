@@ -6,6 +6,7 @@ import { setUserDetailsFromStorage, getRegisterData } from 'actions';
 import { ThemeProvider } from 'styled-components';
 
 import { ScrollToTop, Spinner } from 'components';
+import ProtectedRoute from 'components/ProtectedRoute/ProtectedRoute';
 //views
 import Home from './views/Home';
 import Login from './views/Login';
@@ -18,7 +19,6 @@ import Profile from 'views/Profile';
 import UserProfile from 'views/UserProfile';
 import Components from 'views/Components';
 import { theme } from 'utils';
-import ProtectedRoute from 'components/ProtectedRoute/ProtectedRoute';
 import Notifications from 'views/ProfileSettings/Notifications';
 
 const App = () => {
