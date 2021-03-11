@@ -76,6 +76,11 @@ import SwimSportIcon from 'assets/sports-type-icons/swim.svg';
 import TenisSportIcon from 'assets/sports-type-icons/tenis.svg';
 import YogaSportIcon from 'assets/sports-type-icons/yoga.svg';
 
+import SessionTypeGym from './images/session_type/gym.svg';
+import SessionTypeOnline from './images/session_type/online.svg';
+import SessionTypePark from './images/session_type/park.svg';
+import SessionTypeClinic from './images/session_type/clinic.svg';
+
 const Svg = {
   Menu: (props) => <Menu {...props} />,
   Search: (props) => <Search {...props} />,
@@ -145,6 +150,13 @@ const Svg = {
   SmileyFaceIcon: (props) => <ReactSVG {...props} src={SmileyFace} />,
   Tl: (props) => <ReactSVG {...props} src={Tl} />,
   UpDownIcon: (props) => <ReactSVG {...props} src={UpDown} />,
+
+  SessionType: {
+    Gym: (props) => <ReactSVG {...props} src={SessionTypeGym} />,
+    Online: (props) => <ReactSVG {...props} src={SessionTypeOnline} />,
+    Park: (props) => <ReactSVG {...props} src={SessionTypePark} />,
+    Clinic: (props) => <ReactSVG {...props} src={SessionTypeClinic} />,
+  },
 
   Categories: [
     {
