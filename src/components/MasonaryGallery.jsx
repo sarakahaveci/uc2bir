@@ -218,8 +218,6 @@ const MasonaryGallery = ({
   const openModal = (image) => {
     setContent(image);
     setOpen(true);
-    console.log(content);
-    console.log(image);
   };
 
   return (
