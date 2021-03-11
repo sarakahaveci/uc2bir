@@ -57,7 +57,11 @@ const Favorites = () => {
           Favorilerim
         </Title>
 
-        <SubTabs data={subTabData} onChange={(value) => setUserType(value)} />
+        <SubTabs
+          data={subTabData}
+          onChange={(value) => setUserType(value)}
+          lineWidth="50%"
+        />
       </div>
 
       <Box position="relative">{content}</Box>

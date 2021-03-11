@@ -14,6 +14,7 @@ import Proficiency from 'components/ProfileSettings/Proficiency/Proficiency';
 import PTBranch from 'components/ProfileSettings/PT/PTBranch';
 import Favorites from 'components/ProfileSettings/Favorites/Favorites';
 import DietitianPrice from 'components/ProfileSettings/Dietitian/DietitianPrice';
+import DietitianProficiency from 'components/ProfileSettings/Dietitian/DietitianProficiency';
 
 const regularUserTabs = [
   {
@@ -161,11 +162,7 @@ const dietitianTabs = [
   {
     eventKey: 'specialties',
     title: 'Uzmanlıklarım',
-    component: (
-      <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-        Uzmanlıklarım
-      </Title>
-    ),
+    component: <DietitianProficiency />,
   },
   {
     eventKey: 'wallet',
