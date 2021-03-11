@@ -14,7 +14,8 @@ import {
   updateUserAdress,
 } from 'actions';
 import GoogleMap from 'components/GoogleMaps/GoogleMap';
-import { Material, Button } from 'components';
+import { Material, Button, AwesomeIcon } from 'components';
+import axios from 'axios';
 
 const AddAdress = () => {
   const dispatch = useDispatch();
@@ -23,25 +24,41 @@ const AddAdress = () => {
   const [adressFromMap, setAdressFromMap] = useState({});
   const [location, setLocation] = useState({});
 
+  const [data, setData] = useState({});
+	const [city, setCity] = useState(false);
+	const [town, setTown] = useState([]);
+	const [district, setDistrict] = useState([]);
+  const uri = `${process.env.REACT_APP_API_URL}/regions`;
+
+  useEffect(() => {
+		if (!city) {
+			axios.post(uri)
+				.then((res) => res.data)
+				.then((data) => data.data)
+				.then((data) => {
+					const new_data = data.map((val) => {
+						return {
+							id: val.id,
+							val: val.id,
+							name: val.name
+						}
+					});
+					return setCity(new_data);
+				})
+				.catch((err) => toast.error(err, {
+					position: 'bottom-right',
+					autoClose: 2000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+				}));
+		}
+	}, [city]);
+
   const onPositionChange = (data) => {
     setAdressFromMap(data);
-  };
-
-  const handleSelectRelion = (event) => {
-    
-  };
-
-  const handleFormOnChange = (event) => {
-    setFormData({ ...formData, [event.target.name]: event.target.value });
-  };
-
-  const handleTownChange = (event) => {
-    getLocationOfAddress();
-    setFormData({ ...formData, [event.target.name]: event.target.value });
-  };
-
-  const getLocationOfAddress = async () => {
-    
   };
 
   const updateAddressSuccess = () => {
@@ -51,8 +68,49 @@ const AddAdress = () => {
     });
   };
 
-  const updateAddress = async (e) => {
+  const isFailGetIds = () => {
+    toast.error('Haritadan adres eklenirken bir sorun ile karışlaşıldı', {
+      position: 'bottom-right',
+      autoClose: 3000,
+    });
+  };
+
+  const useAdressFromMap = () => {
+    dispatch(
+      getAdressIds(
+        {
+          city: adressFromMap.city,
+          district: adressFromMap.district,
+          town: adressFromMap.town,
+        },
+        () => {},
+        () => isFailGetIds()
+      )
+    );
+    return false;
+  }
+
+  const onSubmit = async (e) => {
     e.preventDefault();
+    console.log(data);
+  };
+
+  const handleSelectRelion = (event) => {
+    if (event.target.name === 'city') {
+      setFormData({
+        ...formData,
+        city: event.target.value,
+        district: null,
+        town: null,
+      });
+    } else {
+      setFormData({
+        ...formData,
+        town: null,
+        [event.target.name]: event.target.value,
+      });
+    }
+    dispatch(getCitiesAndDistict({ [event.target.name]: event.target.value }));
   };
 
   return (
@@ -60,69 +118,89 @@ const AddAdress = () => {
       <div className="col-12">
         <form
           style={{ padding: "0 45px", marginBottom: 15 }}
-          onSubmit={updateAddress}
+          onSubmit={onSubmit}
           autoComplete="off"
         >
-          <Material.SimpleSelect
-            required
-            name="city"
-            forHtml="city"
-            label="İl Seçiniz"
-            changeValue={formData.city}
-            onChange={handleSelectRelion}
-            items={[]}
-          />
-          <Material.SimpleSelect
-            required
-            name="district"
-            forHtml="district"
-            label="İlçe Seçiniz"
-            changeValue={formData.district}
-            onChange={handleSelectRelion}
-            items={[]}
-          />
-          <Material.SimpleSelect
-            required
-            name="town"
-            forHtml="rown"
-            label="Mahalle Seçiniz"
-            changeValue={formData.town}
-            onChange={handleTownChange}
-            items={[]}
-          />
-          <Material.TextField
-            required
-            id="addressDetail"
-            name="address_detail"
-            label="Açık Adres"
-            type="text"
-            changeValue={formData?.address_detail}
-            onChange={handleFormOnChange}
-          />
-          <div className="d-flex">
-            <div className="adress-no">
-              <Material.TextField
-                required
-                id="apartmentNo"
-                name="apt_no"
-                label="Bina"
-                type="number"
-                changeValue={+formData?.apt_no}
-                onChange={handleFormOnChange}
-              />
-            </div>
-            <div className="adress-apartment">
-              <Material.TextField
-                required
-                id="buildNo"
-                name="build_no"
-                label="Daire"
-                type="number"
-                changeValue={+formData?.build_no}
-                onChange={handleFormOnChange}
-              />
-            </div>
-          </div>
+          {city && (
+						<>
+							<Material.SimpleSelect
+								required
+								label="İl Seçiniz"
+								items={city}
+								name="city"
+								onChange={(e) => {
+									axios.post(uri, { city_id: e.target.value })
+										.then((res) => res.data)
+										.then((data) => data.data)
+										.then((data) => {
+											const new_data = data.map((val) => {
+												return {
+													id: val.id,
+													val: val.id,
+													name: val.name
+												}
+											});
+											return setTown(new_data);
+										})
+									return setData({ ...data, [e.target.name]: e.target.value });
+								}}
+							/>
+							<Material.SimpleSelect
+								required
+								label={town ? 'Önce İl Seçiniz' : 'İlçe Seçiniz'}
+								items={town ? town : []}
+								name="town"
+								onChange={(e) => {
+									axios.post(uri, { district_id: e.target.value })
+										.then((res) => res.data)
+										.then((data) => data.data)
+										.then((data) => {
+											const new_data = data.map((val) => {
+												return {
+													id: val.id,
+													val: val.id,
+													name: val.name
+												}
+											});
+											return setDistrict(new_data);
+										})
+									return setData({ ...data, [e.target.name]: e.target.value });
+								}}
+							/>
+							<Material.SimpleSelect
+								required
+								label={district ? 'Önce İlçe Seçiniz' : 'Mahalle Seçiniz'}
+								items={district ? district : []}
+								name="district"
+								onChange={(e) => setData({ ...data, [e.target.name]: e.target.value })}
+							/>
+							<Material.TextField
+								required
+								label="Açık Adres"
+								name="address_detail"
+								icon={AwesomeIcon.Map}
+								onChange={(e) => setData({ ...data, [e.target.name]: e.target.value })}
+							/>
+							<div className="d-flex w-100 justify-content-between">
+								<div className="col-5 p-0">
+									<Material.TextField
+										required
+										label="Bina"
+										name="build_no"
+										onChange={(e) => setData({ ...data, [e.target.name]: e.target.value })}
+									/>
+								</div>
+								<div className="col-5 p-0">
+									<Material.TextField
+										required
+										label="Daire"
+										name="apt_no"
+										onChange={(e) => setData({ ...data, [e.target.name]: e.target.value })}
+									/>
+								</div>
+							</div>
+						</>
+					)}
           <div className="d-flex w-100">
             <Button
               type="submit"
@@ -145,6 +223,7 @@ const AddAdress = () => {
             className="blue mx-auto mt-2 w-75"
             text="Haritadaki adresi listeye aktar"
             disabled={isEmpty(adressFromMap)}
+            onClick={useAdressFromMap}
           />
         </div>
       </div>

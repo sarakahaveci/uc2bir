@@ -9,6 +9,7 @@ import search from './statics/svg/images/search.svg';
 
 import editIcon from './statics/svg/images/pencil.svg';
 import closeIcon from './statics/svg/images/big-close.svg';
+import tickIcon from './statics/svg/images/tick.svg';
 import {
   Text,
   Span,
@@ -198,7 +199,9 @@ const MasonaryGallery = ({
 
   let New = () => {
     if (content.file_type === 'image') {
-      return <img style={{ width: '100%', height: 'auto' }} src={content.path} />;
+      return (
+        <img style={{ width: '100%', height: 'auto' }} src={content.path} />
+      );
     } else {
       let results = content.path.match('[\\?&]v=([^&#]*)');
       let video = results === null ? content.path : results[1];
@@ -269,10 +272,10 @@ const MasonaryGallery = ({
                   <>
                     <Div padding={15}>
                       <Icon
-                        img={closeIcon}
+                        img={image.status ? tickIcon : closeIcon}
                         name={image.id}
                         top="0px"
-                        onClick={(e) => deleted(e.target.name)}
+                        onClick={(e) => image.status ? "" : deleted(e.target.name)}
                       />
                       <div className="img" onClick={() => openModal(image)}>
                         <img
@@ -289,10 +292,10 @@ const MasonaryGallery = ({
                     {active === image.file_type && (
                       <Div padding={15}>
                         <Icon
-                          img={closeIcon}
+                          img={image.status ? tickIcon : closeIcon}
                           name={image.id}
                           top="0px"
-                          onClick={(e) => deleted(e.target.name)}
+                          onClick={(e) => image.status ? "" : deleted(e.target.name)}
                         />
                         <div className="img" onClick={() => openModal(image)}>
                           <img
