@@ -10,11 +10,6 @@ export default function ProfileInfoSetting() {
   const { detail, isLoading } = useSelector(
     (state) => state.profileSettings2.profileDetail
   );
-  const { cities } = useSelector((state) => state.registerData);
-
-  const userCity = cities.find(
-    (city) => city.id === detail?.data?.addresses?.[0]?.city
-  );
 
   return isLoading ? (
     <Spinner animation="border" variant="light" size="md" />
