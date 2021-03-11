@@ -40,11 +40,11 @@ const regularUserTabs = [
       </Title>
     ),
   },
-  {
+  /*  {
     eventKey: 'wallet',
     title: 'Cüzdanım',
     component: <Wallet />,
-  },
+  }, */
   {
     eventKey: 'favorite',
     title: 'Favorilerim',
@@ -100,11 +100,11 @@ const workPlaceTabs = [
     title: 'Eğitmenler',
     component: <Trainers />,
   },
-  {
+  /*   {
     eventKey: 'wallet',
     title: 'Cüzdan',
     component: <Wallet />,
-  },
+  }, */
   {
     eventKey: 'galery',
     title: 'Galeri',
@@ -164,11 +164,12 @@ const dietitianTabs = [
     title: 'Uzmanlıklarım',
     component: <DietitianProficiency />,
   },
-  {
+  /* TODO: Tab will active after BE ready
+    {
     eventKey: 'wallet',
     title: 'Cüzdanım',
     component: <Wallet />,
-  },
+  }, */
   {
     eventKey: 'galery',
     title: 'Galeri',
@@ -230,11 +231,11 @@ const trainerTabs = [
     title: 'Uzmanlıklarım',
     component: <Proficiency />,
   },
-  {
+  /*  {
     eventKey: 'wallet',
     title: 'Cüzdanım',
     component: <Wallet />,
-  },
+  }, */
   {
     eventKey: 'galery',
     title: 'Galeri',
