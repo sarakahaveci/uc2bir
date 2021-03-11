@@ -1,61 +1,61 @@
 body {
-    .material-dialog {
-        font-family: 'Poppins', sans-serif;
-        z-index: 10000!important;
-        
-        * {
-            font-family: 'Poppins', sans-serif;
-        }
+  .material-dialog {
+    font-family: 'Poppins', sans-serif;
+    z-index: 10000 !important;
 
-        .MuiTypography-h6 {
-            font-weight: normal;
-        }
-
-        .dialog-center {
-            width: 100%;
-            justify-content: center;
-            align-items: center;
-
-            .btn {
-                width: 65%;
-
-                @media (max-width: 1200px) {
-                    width: 100%;
-                }
-            }
-        }
-
-        .group-text {
-            padding: 30px;
-            max-width: 65%;
-
-            @media (max-width: 1200px) {
-                max-width: 100%;
-            }
-
-            .materials {
-                margin: 5px;
-                border: none;
-
-                &.new-input {
-                    text-align: center;
-                    font-size: 1.7em;
-                    font-weight: bold;
-                    color: #00b2a9;
-                    border-bottom: 2px solid #00b2a9;
-                }
-
-                input {
-                    text-align: center;
-                    font-size: 1.7em;
-                    font-weight: bold;
-                    color: #00b2a9;
-                }
-
-                .MuiInput-underline:before {
-                    border-bottom: 2px solid #00b2a9;
-                }
-            }
-        }
+    * {
+      font-family: 'Poppins', sans-serif;
     }
+
+    .MuiTypography-h6 {
+      font-weight: normal;
+    }
+
+    .dialog-center {
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+
+      .btn {
+        width: 65%;
+
+        @media (max-width: 1200px) {
+          width: 100%;
+        }
+      }
+    }
+
+    .group-text {
+      padding: 30px;
+      max-width: 65%;
+
+      @media (max-width: 1200px) {
+        max-width: 100%;
+      }
+
+      .materials {
+        margin: 5px;
+        border: none;
+
+        &.new-input {
+          text-align: center;
+          font-size: 1.7em;
+          font-weight: bold;
+          color: #00b2a9;
+          border-bottom: 2px solid #00b2a9;
+        }
+
+        input {
+          text-align: center;
+          font-size: 1.7em;
+          font-weight: bold;
+          color: #00b2a9;
+        }
+
+        .MuiInput-underline:before {
+          border-bottom: 2px solid #00b2a9;
+        }
+      }
+    }
+  }
 }

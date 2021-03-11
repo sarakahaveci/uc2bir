@@ -15,6 +15,7 @@ import PTBranch from 'components/ProfileSettings/PT/PTBranch';
 import Favorites from 'components/ProfileSettings/Favorites/Favorites';
 import DietitianPrice from 'components/ProfileSettings/Dietitian/DietitianPrice';
 import DietitianProficiency from 'components/ProfileSettings/Dietitian/DietitianProficiency';
+import MessageSidebar from 'components/ProfileSettings/MessagesSidebar/MessagesSidebar';
 
 const regularUserTabs = [
   {
@@ -62,11 +63,7 @@ const regularUserTabs = [
   {
     eventKey: 'message',
     title: 'Mesajlarım',
-    component: (
-      <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-        Mesajlarım
-      </Title>
-    ),
+    component: <MessageSidebar />,
   },
 ];
 

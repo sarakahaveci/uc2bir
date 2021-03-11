@@ -12,10 +12,9 @@ export const scrollbar = css`
   }
 `;
 
-export const redBackground = css`
+export const svgBackground = css`
   width: 90px;
   height: 90px;
-  background-color: ${(p) => p.theme.colors.red};
   display: flex;
   align-items: center;
   justify-content: center;

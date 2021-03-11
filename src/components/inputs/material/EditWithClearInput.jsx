@@ -5,7 +5,14 @@ import { layout } from 'styled-system';
 import { Material } from './';
 import { Svg, Box } from 'components';
 
-const EditWithClearInput = ({ value, onClear, onEditComplete, ...rest }) => {
+const EditWithClearInput = ({
+  value,
+  onClear,
+  showEditButtons,
+  onEditComplete,
+  showTickIcon,
+  ...rest
+}) => {
   const [readOnly, setReadOnly] = useState(true);
   const [inputValue, setInputValue] = useState(value);
 
@@ -13,7 +20,7 @@ const EditWithClearInput = ({ value, onClear, onEditComplete, ...rest }) => {
 
   return (
     <InputWrapper {...rest}>
-      {!readOnly && (
+      {showTickIcon && (
         <TickIcon
           onClick={() => {
             setReadOnly(true);
@@ -34,10 +41,22 @@ const EditWithClearInput = ({ value, onClear, onEditComplete, ...rest }) => {
         inputProps={{
           readOnly,
         }}
-      />
-      {readOnly && <EditIcon onClick={() => setReadOnly(false)} />}
+        onBlur={() => {
+          setReadOnly(true);
 
-      <InputClearIcon onClick={onClear} />
+          if (valueCopy.current !== inputValue) {
+            onEditComplete(inputValue);
+
+            valueCopy.current = inputValue;
+          }
+        }}
+      />
+      {showEditButtons && (
+        <>
+          {readOnly && <EditIcon onClick={() => setReadOnly(false)} />}
+          <InputClearIcon onClick={onClear} />
+        </>
+      )}
     </InputWrapper>
   );
 };

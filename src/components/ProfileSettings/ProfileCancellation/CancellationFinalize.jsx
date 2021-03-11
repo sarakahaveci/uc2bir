@@ -1,9 +1,13 @@
 import React from 'react';
 import styled from 'styled-components/macro';
+import { useDispatch } from 'react-redux';
 
-import { Svg, Title, Text, redBackground, Button } from 'components';
+import { Svg, Title, Text, svgBackground, Button } from 'components';
+import { logOut } from 'actions';
 
 const CancellationFinalize = () => {
+  const dispatch = useDispatch();
+
   return (
     <>
       <Wrapper>
@@ -25,7 +29,11 @@ const CancellationFinalize = () => {
       </Wrapper>
 
       <Footer>
-        <Button text="Çıkış Yap" fontWeight="500" />
+        <Button
+          onClick={() => dispatch(logOut())}
+          text="Çıkış Yap"
+          fontWeight="500"
+        />
       </Footer>
     </>
   );
@@ -49,6 +57,7 @@ const Footer = styled.div`
 `;
 
 const RedBackground = styled.div`
-  ${redBackground}
+  ${svgBackground};
+  background-color: ${(p) => p.theme.colors.red};
   margin-bottom: 25px;
 `;

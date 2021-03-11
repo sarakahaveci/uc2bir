@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 
-import { Svg, Title, Text, redBackground } from 'components';
+import { Svg, Title, Text, svgBackground } from 'components';
 
 const CancellationInformation = () => {
   return (
@@ -24,5 +24,6 @@ const CancellationInformation = () => {
 export default CancellationInformation;
 
 const RedBackground = styled.div`
-  ${redBackground}
+  ${svgBackground};
+  background-color: ${(p) => p.theme.colors.red};
 `;
