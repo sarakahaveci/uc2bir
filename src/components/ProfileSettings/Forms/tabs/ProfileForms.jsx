@@ -82,16 +82,29 @@ const ProfileForms = ({ type }) => {
             />
           )}
           {type === 'USER' && (
-            <Material.TextField
-              label="Mail Adresiniz"
-              type="email"
-              name="name"
-              value={detail?.data?.email}
-              defaultValue={detail?.data?.email}
-              settings
-              action={actionSetData}
-              state={detail}
-            />
+            <>
+              <Material.TextField
+                label="Mail Adresiniz"
+                type="email"
+                name="email"
+                value={detail?.data?.email}
+                defaultValue={detail?.data?.email}
+                settings
+                action={actionSetData}
+                state={detail}
+              />
+              <Material.TextField
+                label="TC Kimlik Numaranız"
+                type="text"
+                mask="99999999999"
+                name="identity_no"
+                value={detail?.data?.identity_no}
+                defaultValue={detail?.data?.identity_no}
+                settings
+                action={actionSetData}
+                state={detail}
+              />
+            </>
           )}
           <Material.TextField
             label="Telefon Numaranız"

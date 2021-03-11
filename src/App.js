@@ -1,11 +1,12 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import Layout from './views/Layout';
 import { useDispatch } from 'react-redux';
 import { setUserDetailsFromStorage, getRegisterData } from 'actions';
 import { ThemeProvider } from 'styled-components';
 
-import { ScrollToTop } from 'components';
+import { ScrollToTop, Spinner } from 'components';
+import ProtectedRoute from 'components/ProtectedRoute/ProtectedRoute';
 //views
 import Home from './views/Home';
 import Login from './views/Login';
@@ -18,14 +19,22 @@ import Profile from 'views/Profile';
 import UserProfile from 'views/UserProfile';
 import Components from 'views/Components';
 import { theme } from 'utils';
+import Notifications from 'views/ProfileSettings/Notifications';
 
 const App = () => {
+  const [loading, setLoading] = useState(true);
+
   const dispatch = useDispatch();
 
   useLayoutEffect(() => {
+    setLoading(false);
     dispatch(setUserDetailsFromStorage());
     dispatch(getRegisterData());
   }, []);
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   return (
     <ScrollToTop>
@@ -44,7 +53,17 @@ const App = () => {
               />
               <Route exact path="/forgot-password" component={ForgotPassword} />
               <Route exact path="/profile/:id" component={Profile} />
-              <Route exact path="/myprofile/settings" component={UserProfile} />
+
+              <ProtectedRoute
+                exact
+                path="/myprofile/settings"
+                component={UserProfile}
+              />
+              <ProtectedRoute
+                exact
+                path="/myprofile/settings/notifications"
+                component={Notifications}
+              />
               <Route exact path="/components" component={Components} />
               <Route component={NotFoundPage} />
             </Switch>

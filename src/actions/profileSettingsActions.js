@@ -1,9 +1,7 @@
 import {
   HTTP_REQUEST,
-  GET_MY_PROFILE_FILES,
   SET_PROFILE_UPDATE,
   GET_PROFILE_UPDATE,
-  UPDATE_FILE,
   SET_PASSWORD_UPDATE,
   GET_ACTIVITY_LIST,
   UPDATE_ACTIVITY,
@@ -13,40 +11,19 @@ import {
   GET_PT_ALL_BRANCH,
   ADD_NEW_PT_BRANCH,
   UPDATE_PT_BRANCH,
+  GET_MY_GALLERIES,
 } from '../constants';
 
-export const getMyProfileFiles = () => async (dispatch, getState) => {
-  const url = `/user/profile/my-files`;
+export const getMyGalleries = () => async (dispatch, getState) => {
+  const url = `/user/gallery/index/me`;
 
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
       method: 'GET',
       url,
-      label: GET_MY_PROFILE_FILES,
-      transformData: (data) => data.data,
-    },
-  });
-};
-
-export const updateFile = (fileId, fileName, successCallback) => async (
-  dispatch,
-  getState
-) => {
-  const url = `/user/profile/file-update`;
-
-  await dispatch({
-    type: HTTP_REQUEST,
-    payload: {
-      method: 'POST',
-      body: {
-        id: fileId,
-        name: fileName,
-      },
-      url,
-      label: UPDATE_FILE,
-      transformData: (data) => data.data,
-      callBack: successCallback,
+      label: GET_MY_GALLERIES,
+      transfomrData: (data) => data.data,
     },
   });
 };

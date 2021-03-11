@@ -1,3 +1,5 @@
+import { PERSONAL_TRAINER, WORK_PLACE, DIETITIAN } from './userTypes';
+
 export const FACE_PICTURE = 1;
 export const IDENTITY_CARD = 2;
 export const CRIMINAL_RECORD = 3;
@@ -47,4 +49,10 @@ export const workPlaceRequiredFileCount = {
   [CRIMINAL_RECORD]: 1,
   [CONTRACT]: 1,
   [LICENSE]: 1,
+};
+
+export const filesForProfileType = {
+  [PERSONAL_TRAINER]: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+  [WORK_PLACE]: [3, 7, 9],
+  [DIETITIAN]: [1, 2, 3, 4, 5, 7, 8, 9],
 };

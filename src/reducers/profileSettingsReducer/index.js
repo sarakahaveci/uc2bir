@@ -4,12 +4,18 @@ import favoriteSettingsReducer from './favoriteSettingsReducer';
 import dietitianPriceReducer from './dietitianPriceReducer';
 import proficiencySettingsReducer from './proficiencySettingsReducer';
 import dietitianProficiencyReducer from './dietitianProficiencyReducer';
+import fileSettingsReducer from './fileSettingsReducer';
+import messagesReducer from './messagesReducer';
+import sessionTypeReducer from './sessionTypeReducer';
 
 const reducers = combineReducers({
   favoriteSettings: favoriteSettingsReducer,
   dietitianPrice: dietitianPriceReducer,
   proficiencySettings: proficiencySettingsReducer,
   dietitianProficiency: dietitianProficiencyReducer,
+  fileSettings: fileSettingsReducer,
+  messages: messagesReducer,
+  sessionType: sessionTypeReducer,
 });
 
 export default reducers;

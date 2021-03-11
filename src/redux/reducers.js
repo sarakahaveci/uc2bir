@@ -13,6 +13,7 @@ import quizGet from '../reducers/quizGetReducer';
 import profileSettings from '../reducers/profileSettingsReducer';
 // TODO: profileSettings değiştirildiğinde bu da düzeltilebilir.
 import profileSettings2 from '../reducers/profileSettingsReducer/index';
+import myGalleries from '../reducers/profileSettingsReducer/galleriesReducer';
 
 const reducers = combineReducers({
   auth,
@@ -27,6 +28,7 @@ const reducers = combineReducers({
   quizGet,
   profileSettings,
   profileSettings2,
+  myGalleries,
 });
 
 export default reducers;

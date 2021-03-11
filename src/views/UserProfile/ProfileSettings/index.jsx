@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 
 import Password from 'components/ProfileSettings/Forms/tabs/Password';
 import SettingsForm from 'components/ProfileSettings/Forms/SettingsForm';
+import CompanyInf from 'components/ProfileSettings/Forms/CompanyInf';
 import Address from 'components/ProfileSettings/Address';
 import About from 'components/ProfileSettings/About';
 import VKI from '../../Home/VKI';

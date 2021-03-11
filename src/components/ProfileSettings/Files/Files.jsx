@@ -10,7 +10,7 @@ import { fileDetails } from '../../../constants';
 
 const Files = () => {
   const { data: fileGroupsArr } = useSelector(
-    (state) => state.profileSettings.files
+    (state) => state.profileSettings2.fileSettings.files
   );
 
   const [isEditClicked, setIsEditClicked] = useState(false);
