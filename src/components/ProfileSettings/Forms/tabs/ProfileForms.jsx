@@ -12,7 +12,9 @@ import { unMaskPhone } from 'utils';
 
 const ProfileForms = ({ type }) => {
   const dispatch = useDispatch();
-  const { detail } = useSelector((state) => state.profileSettings);
+  const { detail } = useSelector(
+    (state) => state.profileSettings2.profileDetail
+  );
 
   const actionGetData = async () => {
     await dispatch(

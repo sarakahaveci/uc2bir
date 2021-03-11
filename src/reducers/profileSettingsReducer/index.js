@@ -7,6 +7,7 @@ import dietitianProficiencyReducer from './dietitianProficiencyReducer';
 import fileSettingsReducer from './fileSettingsReducer';
 import messagesReducer from './messagesReducer';
 import sessionTypeReducer from './sessionTypeReducer';
+import profileDetailReducer from './profileDetailReducer';
 
 const reducers = combineReducers({
   favoriteSettings: favoriteSettingsReducer,
@@ -16,6 +17,7 @@ const reducers = combineReducers({
   fileSettings: fileSettingsReducer,
   messages: messagesReducer,
   sessionType: sessionTypeReducer,
+  profileDetail: profileDetailReducer,
 });
 
 export default reducers;
