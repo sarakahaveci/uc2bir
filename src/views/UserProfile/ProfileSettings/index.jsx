@@ -55,6 +55,11 @@ const trainerAndDietitanData = [
       'Güncel tuttuğunuz adres bilgileriniz ile sporseverler size daha kolay ulaşır.',
     body: <Address />,
   },
+  {
+    settingsName: 'Şirket Bilgileri',
+    settingsDetails: 'Şirket bilgilerinizi düzenleyin, güncelleyin',
+    body: <CompanyInf />,
+  },
 ];
 
 const regularUserTabs = [
@@ -92,7 +97,7 @@ const workPlaceData = [
   {
     settingsName: 'İş Yeri Bilgileri',
     settingsDetails: 'Şirket Bilgilerinizi düzenleyin, güncelleyin',
-    body: <SettingsForm />,
+    body: <CompanyInf />,
   },
   {
     settingsName: 'Şifre İşlemleri',
