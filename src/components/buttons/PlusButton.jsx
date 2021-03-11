@@ -3,10 +3,10 @@ import styled from 'styled-components/macro';
 import React from 'react';
 import Svg from 'components/statics/svg';
 
-const PlusButton = ({ onClick }) => {
+const PlusButton = ({ onClick, children=null }) => {
   return (
     <Plus onClick={onClick}>
-      <Svg.PlusIcon />
+      {!children ? <Svg.PlusIcon /> : children}
     </Plus>
   );
 };

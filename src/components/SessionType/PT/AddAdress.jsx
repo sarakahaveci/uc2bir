@@ -23,36 +23,12 @@ const AddAdress = () => {
   const [adressFromMap, setAdressFromMap] = useState({});
   const [location, setLocation] = useState({});
 
-  const {
-    cities,
-    distict,
-    town,
-    cityId,
-    districtId,
-    townId,
-    isSuccessGetId,
-  } = useSelector((state) => state.registerData);
-
   const onPositionChange = (data) => {
     setAdressFromMap(data);
   };
 
   const handleSelectRelion = (event) => {
-    if (event.target.name === 'city') {
-      setFormData({
-        ...formData,
-        city: event.target.value,
-        district: null,
-        town: null,
-      });
-    } else {
-      setFormData({
-        ...formData,
-        town: null,
-        [event.target.name]: event.target.value,
-      });
-    }
-    dispatch(getCitiesAndDistict({ [event.target.name]: event.target.value }));
+    
   };
 
   const handleFormOnChange = (event) => {
@@ -65,27 +41,7 @@ const AddAdress = () => {
   };
 
   const getLocationOfAddress = async () => {
-    const cityName = cities?.find((city) => city.id === formData.city);
-    const districtName = distict?.find((dist) => dist.id === formData.distict);
-    const townName = town?.find((towns) => towns.id === formData.town);
-
-    const results = await getGeocode({
-      address:
-        townName?.name + ', ' + districtName?.name + ', ' + cityName?.name,
-    });
-    const lat = results?.[0]?.geometry?.location?.lat();
-    const lng = results?.[0]?.geometry?.location?.lng();
-    setLocation({ lat, lng });
-  };
-
-  const updateAddressFail = () => {
-    toast.error(
-      'Adres güncellenirken hata ile karşılaşıldı. Bilgileri kontrol ediniz',
-      {
-        position: 'bottom-right',
-        autoClose: 3000,
-      }
-    );
+    
   };
 
   const updateAddressSuccess = () => {
@@ -114,7 +70,7 @@ const AddAdress = () => {
             label="İl Seçiniz"
             changeValue={formData.city}
             onChange={handleSelectRelion}
-            items={cities}
+            items={[]}
           />
           <Material.SimpleSelect
             required
@@ -123,7 +79,7 @@ const AddAdress = () => {
             label="İlçe Seçiniz"
             changeValue={formData.district}
             onChange={handleSelectRelion}
-            items={distict ?? []}
+            items={[]}
           />
           <Material.SimpleSelect
             required
@@ -132,7 +88,7 @@ const AddAdress = () => {
             label="Mahalle Seçiniz"
             changeValue={formData.town}
             onChange={handleTownChange}
-            items={town ?? []}
+            items={[]}
           />
           <Material.TextField
             required

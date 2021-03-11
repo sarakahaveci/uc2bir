@@ -5,6 +5,7 @@ import styled from 'styled-components/macro';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
+import search from './statics/svg/images/search.svg';
 
 import editIcon from './statics/svg/images/pencil.svg';
 import closeIcon from './statics/svg/images/big-close.svg';
@@ -20,9 +21,15 @@ import {
 import { Row } from 'react-bootstrap';
 import { default as MaterialButton } from '@material-ui/core/Button';
 
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
 import { getMyProfileFiles, updateFile, getMyGalleries } from 'actions';
 import axios from 'axios';
 import FormData from 'form-data';
+import { Material } from './inputs/material';
 
 const MasonaryGallery = ({
   gutter = '10px',
@@ -35,12 +42,12 @@ const MasonaryGallery = ({
     },
     {
       id: 2,
-      item: 'photo',
+      item: 'image',
       name: 'Fotoğraflar',
     },
     {
       id: 3,
-      item: 'video',
+      item: 'youtube',
       name: 'Videolar',
     },
   ],
@@ -51,20 +58,26 @@ const MasonaryGallery = ({
 }) => {
   const [activePage, setActivePage] = useState('index');
   const [active, setActive] = useState('all');
-  const [file, setFile] = React.useState('');
+  const [type, setType] = useState('');
+  const [link, setLink] = useState('');
+  const [file, setFile] = useState('');
+  const [content, setContent] = useState('');
+
   const { accessToken } = useSelector((state) => state.auth);
 
-  const myGalleries = useSelector(
-    (state) => state.myGalleries.me
-  );
+  const [open, setOpen] = useState(false);
+  const fullWidth = true;
+  const maxWidth = 'md';
+  const handleClose = () => setOpen(false);
+  const handleClickOpen = () => setOpen(true);
+
+  const myGalleries = useSelector((state) => state.myGalleries.me);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getMyGalleries());
   }, []);
 
   const createData = new FormData();
-  createData.append('files[]', file);
-  createData.append('type_id', '8');
 
   const config = {
     method: 'post',
@@ -80,9 +93,38 @@ const MasonaryGallery = ({
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
-  }
+  };
+
+  const uploadLink = () => {
+    createData.append('type_id', '8');
+    createData.append('type', 'youtube');
+    createData.append('link', link);
+    createData.append('name', link);
+    axios({ ...config, data: createData })
+      .then(function (response) {
+        toast.success('Dosya yüklendi.', {
+          position: 'bottom-right',
+          autoClose: 2000,
+          onClose: () => {
+            dispatch(getMyGalleries());
+            return setFile(false);
+          },
+        });
+      })
+      .catch(function (err) {
+        toast.error('Dosya gönderilemedi.', {
+          position: 'bottom-right',
+          autoClose: 2000,
+        });
+      });
+  };
 
   const upload = () => {
+    createData.append('files[]', file);
+    createData.append('type_id', '8');
+    createData.append('type', type);
+    createData.append('link', link);
+    createData.append('name', link);
     axios({ ...config, data: createData })
       .then(function (response) {
         toast.success('Dosya yüklendi.', {
@@ -103,7 +145,7 @@ const MasonaryGallery = ({
   };
 
   const deleted = (gallery_id) => {
-    axios({...delete_config, data: {gallery_id}})
+    axios({ ...delete_config, data: { gallery_id } })
       .then(function (response) {
         toast.success('Dosya silindi.', {
           position: 'bottom-right',
@@ -120,6 +162,64 @@ const MasonaryGallery = ({
           autoClose: 2000,
         });
       });
+  };
+
+  const getImage = (image) => {
+    if (image.file_type === 'youtube') {
+      const Youtube = (function () {
+        let video, results;
+
+        const getThumb = function (url, size) {
+          if (url === null) {
+            return '';
+          }
+          size = size === null ? 'big' : size;
+          results = url.match('[\\?&]v=([^&#]*)');
+          video = results === null ? url : results[1];
+
+          if (size === 'small') {
+            return 'http://img.youtube.com/vi/' + video + '/2.jpg';
+          }
+          return 'http://img.youtube.com/vi/' + video + '/0.jpg';
+        };
+
+        return {
+          thumb: getThumb,
+        };
+      })();
+
+      var thumb = Youtube.thumb(image.path, 'small');
+
+      return thumb;
+    } else {
+      return image.path;
+    }
+  };
+
+  let New = () => {
+    if (content.file_type === 'image') {
+      return <img style={{ width: '100%', height: 'auto' }} src={content.path} />;
+    } else {
+      let results = content.path.match('[\\?&]v=([^&#]*)');
+      let video = results === null ? content.path : results[1];
+      return (
+        <iframe
+          width="1280"
+          height="720"
+          src={`https://www.youtube.com/embed/${video}`}
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      );
+    }
+  };
+
+  const openModal = (image) => {
+    setContent(image);
+    setOpen(true);
+    console.log(content);
+    console.log(image);
   };
 
   return (
@@ -166,22 +266,49 @@ const MasonaryGallery = ({
           </StyledCategories>
           <ResponsiveMasonry columnsCountBreakPoints={columnsCountBreakPoints}>
             <Masonry columnsCount={columnsCount} gutter={gutter}>
-              {myGalleries?.data?.map((image, i) => (
-                  <Div padding={15}>
-                    <Icon
-                      img={closeIcon}
-                      name={image.id}
-                      top="45px"
-                      onClick={(e) => deleted(e.target.name)}
-                    />
-                    <img
-                      key={i}
-                      src={`${image.path}`}
-                      style={{ width: '100%', display: 'block' }}
-                      alt={image.name}
-                    />
-                  </Div>
-                ))}
+              {myGalleries?.data?.map((image, i) =>
+                active === 'all' ? (
+                  <>
+                    <Div padding={15}>
+                      <Icon
+                        img={closeIcon}
+                        name={image.id}
+                        top="0px"
+                        onClick={(e) => deleted(e.target.name)}
+                      />
+                      <div className="img" onClick={() => openModal(image)}>
+                        <img
+                          key={i}
+                          src={`${getImage(image)}`}
+                          style={{ width: '100%', display: 'block' }}
+                          alt={image.name}
+                        />
+                      </div>
+                    </Div>
+                  </>
+                ) : (
+                  <>
+                    {active === image.file_type && (
+                      <Div padding={15}>
+                        <Icon
+                          img={closeIcon}
+                          name={image.id}
+                          top="0px"
+                          onClick={(e) => deleted(e.target.name)}
+                        />
+                        <div className="img" onClick={() => openModal(image)}>
+                          <img
+                            key={i}
+                            src={`${getImage(image)}`}
+                            style={{ width: '100%', display: 'block' }}
+                            alt={image.name}
+                          />
+                        </div>
+                      </Div>
+                    )}
+                  </>
+                )
+              )}
             </Masonry>
           </ResponsiveMasonry>
           <Row className="justify-content-end">
@@ -201,7 +328,7 @@ const MasonaryGallery = ({
             color="blue"
           />
           <Button
-            text="Bilgisayarımdan Yükle"
+            text="Bilgisayarımdan Yükle veya Link Ekle"
             style={{ border: '1px solid var(--blue)', marginLeft: '15px' }}
             onClick={() => setActivePage('action')}
             fontSize="11pt"
@@ -229,22 +356,64 @@ const MasonaryGallery = ({
               <Button text="Geri" onClick={() => setActivePage('index')} />
             </>
           )}
-          {file && (
+          {file ? (
             <>
               <ImageShow image={URL.createObjectURL(file)} />
               <section className="d-flex">
-                <PlusButton onClick={upload}>+</PlusButton>
-                <PlusButton
-                  style={{ marginLeft: 7 }}
-                  onClick={() => setFile(false)}
-                >
-                  <AwesomeIcon.FaClose />
-                </PlusButton>
+                <PlusButton onClick={upload} />
+                <div style={{ marginLeft: 15 }}>
+                  {' '}
+                  <PlusButton onClick={() => setFile(false)}>
+                    <AwesomeIcon.FaClose />
+                  </PlusButton>{' '}
+                </div>
               </section>
+            </>
+          ) : (
+            <>
+              <div className="w-100" style={{ marginTop: 15 }}>
+                <Material.TextField
+                  label="Youtube link' i gir veya boş bırak."
+                  name="link"
+                  onChange={(e) => setLink(e.target.value)}
+                />
+                <div style={{ marginTop: 15 }}>
+                  <PlusButton onClick={uploadLink} />
+                </div>
+              </div>
             </>
           )}
         </Div>
       )}
+      <React.Fragment>
+        <Dialog
+          className="material-dialog"
+          fullWidth={fullWidth}
+          maxWidth={maxWidth}
+          open={open}
+        >
+          <DialogTitle className="text-center">
+            <span
+              style={{
+                position: 'absolute',
+                right: '5px',
+                top: '5px',
+                cursor: 'pointer',
+                fontWeight: 'bold',
+                padding: '5px 15px',
+              }}
+              onClick={() => setOpen(false)}
+            >
+              x
+            </span>
+          </DialogTitle>
+          <DialogContent>
+            <div className="d-flex flex-wrap dialog-center">
+              <New />
+            </div>
+          </DialogContent>
+        </Dialog>
+      </React.Fragment>
     </Section>
   );
 };
@@ -276,6 +445,30 @@ const ImageShow = styled.div`
 const Div = styled.div`
   padding: ${(props) => `${props.padding}px`};
   position: relative;
+  cursor: pointer;
+
+  .img {
+    position: relative;
+
+    &:hover {
+      &:before {
+        content: '';
+        position: absolute;
+        z-index: 10;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 3em;
+        background: rgba(255, 255, 255, 0.7);
+        background-image: url(${search});
+        background-repeat: no-repeat;
+        background-position: center center;
+      }
+    }
+  }
 `;
 
 const Icon = styled.a`
