@@ -261,3 +261,13 @@ export const GET_TYPES = 'GET_TYPES';
 export const GET_TYPES_REQUEST = 'GET_TYPES_REQUEST';
 export const GET_TYPES_SUCCESS = 'GET_TYPES_SUCCESS';
 export const GET_TYPES_FAILURE = 'GET_TYPES_FAILURE';
+
+export const GET_VKI = 'GET_VKI';
+export const GET_VKI_REQUEST = 'GET_VKI_REQUEST';
+export const GET_VKI_SUCCESS = 'GET_VKI_SUCCESS';
+export const GET_VKI_FAILURE = 'GET_VKI_FAILURE';
+
+export const SET_VKI = 'SET_VKI';
+export const SET_VKI_REQUEST = 'SET_VKI_REQUEST';
+export const SET_VKI_SUCCESS = 'SET_VKI_SUCCESS';
+export const SET_VKI_FAILURE = 'SET_VKI_FAILURE';

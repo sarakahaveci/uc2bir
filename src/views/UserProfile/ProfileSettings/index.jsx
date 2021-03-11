@@ -7,7 +7,7 @@ import SettingsForm from 'components/ProfileSettings/Forms/SettingsForm';
 import CompanyInf from 'components/ProfileSettings/Forms/CompanyInf';
 import Address from 'components/ProfileSettings/Address';
 import About from 'components/ProfileSettings/About';
-import VKI from '../../Home/VKI';
+import VKI from 'components/ProfileSettings/Forms/VKI';
 import {
   Accordion,
   Text,
