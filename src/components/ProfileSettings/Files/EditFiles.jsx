@@ -13,6 +13,7 @@ import {
   PlusButton,
 } from 'components';
 import { deleteFile, getMyProfileFiles, updateFile } from 'actions';
+import { ACCEPTED } from '../../../constants';
 import EditWithClearInput from 'components/inputs/material/EditWithClearInput';
 
 const EditFiles = ({
@@ -58,6 +59,8 @@ const EditFiles = ({
       <EditWrapper>
         {files?.map((file) => (
           <EditWithClearInput
+            showTickIcon={file.status.id === ACCEPTED}
+            showEditButtons={file.status.id !== ACCEPTED}
             width={['100%', '45%']}
             data={file}
             onClear={() => {

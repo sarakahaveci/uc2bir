@@ -8,6 +8,7 @@ import fileSettingsReducer from './fileSettingsReducer';
 import messagesReducer from './messagesReducer';
 import sessionTypeReducer from './sessionTypeReducer';
 import profileDetailReducer from './profileDetailReducer';
+import cancellationReducer from './cancellationReducer';
 
 const reducers = combineReducers({
   favoriteSettings: favoriteSettingsReducer,
@@ -18,6 +19,7 @@ const reducers = combineReducers({
   messages: messagesReducer,
   sessionType: sessionTypeReducer,
   profileDetail: profileDetailReducer,
+  cancellation: cancellationReducer,
 });
 
 export default reducers;
