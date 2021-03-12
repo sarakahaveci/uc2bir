@@ -16,6 +16,7 @@ const VKI = () => {
     weight: vki?.data?.weight,
     height: vki?.data?.height,
   });
+  const [result, setResult] = useState("");
 
   const actionGetData = async () => {
     await dispatch(
@@ -31,11 +32,17 @@ const VKI = () => {
     );
   };
 
+  useEffect(() => {
+    if ( vki.isSuccess ) {
+      setResult(vki?.data?.vki);
+    }
+  },[]);
+
   const onSubmit = async (event) => {
     event.preventDefault();
     await dispatch(
       setVKI(
-        { weight: data.weight, height: data.height },
+        { weight: data.weight || vki.data.weight, height: data.height || vki.data.height },
         () => {
           toast.success('Bilgileriniz güncellendi.', {
             position: 'bottom-right',
@@ -63,8 +70,9 @@ const VKI = () => {
         <form onSubmit={onSubmit}>
           <Material.TextField
             label="Boy (cm)"
-            type="number"
+            type="text"
             name="height"
+            mask="999"
             value={vki?.data?.height}
             defaultValue={vki?.data?.height}
             onChange={(e) =>
@@ -73,7 +81,8 @@ const VKI = () => {
           />
           <Material.TextField
             label="Ağarlık (kg)"
-            type="number"
+            type="text"
+            mask="999"
             name="weight"
             value={vki?.data?.weight}
             defaultValue={vki?.data?.weight}
@@ -81,14 +90,7 @@ const VKI = () => {
               setData({ ...data, [e.target.name]: e.target.value })
             }
           />
-          <Material.TextField
-            label="VKI (Vücut kitle endeksi)"
-            type="text"
-            name="vki"
-            value={vki?.data?.vki}
-            defaultValue={vki?.data?.vki}
-            disabled={true}
-          />
+          <Span><b>VKI</b>: {vki?.data?.vki || result}</Span>
           <Footer>
             <Button
               type="submit"
@@ -108,6 +110,11 @@ const Footer = styled.div`
   justify-content: flex-end;
   margin-left: -15px;
   margin-right: -15px;
+`;
+
+const Span = styled.span`
+  display: flex;
+  margin-top: 15px;
 `;
 
 export default VKI;

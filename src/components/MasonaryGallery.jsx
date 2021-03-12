@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import styled from 'styled-components/macro';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
@@ -103,13 +103,12 @@ const MasonaryGallery = ({
     createData.append('name', link);
     axios({ ...config, data: createData })
       .then(function (response) {
+        dispatch(getMyGalleries());
+        setActivePage("index");
+        setFile(false);
         toast.success('Dosya yüklendi.', {
           position: 'bottom-right',
           autoClose: 2000,
-          onClose: () => {
-            dispatch(getMyGalleries());
-            return setFile(false);
-          },
         });
       })
       .catch(function (err) {
@@ -128,13 +127,12 @@ const MasonaryGallery = ({
     createData.append('name', link);
     axios({ ...config, data: createData })
       .then(function (response) {
+        dispatch(getMyGalleries());
+        setActivePage("index");
+        setFile(false);
         toast.success('Dosya yüklendi.', {
           position: 'bottom-right',
           autoClose: 2000,
-          onClose: () => {
-            dispatch(getMyGalleries());
-            return setFile(false);
-          },
         });
       })
       .catch(function (err) {
@@ -148,11 +146,11 @@ const MasonaryGallery = ({
   const deleted = (gallery_id) => {
     axios({ ...delete_config, data: { gallery_id } })
       .then(function (response) {
+        dispatch(getMyGalleries());
         toast.success('Dosya silindi.', {
           position: 'bottom-right',
           autoClose: 2000,
           onClose: () => {
-            dispatch(getMyGalleries());
             return setFile(false);
           },
         });
@@ -254,6 +252,12 @@ const MasonaryGallery = ({
       )}
       {activePage === 'index' && (
         <>
+          <Row style={{margin: 15}} className="justify-content-start">
+            <Span color="dark" fontWeight="500" fontSize="0.8rem" mr="7px">
+              Dosya yükle
+            </Span>
+            <PlusButton onClick={() => setActivePage('create')}>+</PlusButton>
+          </Row>
           <StyledCategories>
             {categories.map((category, i) => (
               <Item
@@ -265,12 +269,13 @@ const MasonaryGallery = ({
               </Item>
             ))}
           </StyledCategories>
+          
           <ResponsiveMasonry columnsCountBreakPoints={columnsCountBreakPoints}>
             <Masonry columnsCount={columnsCount} gutter={gutter}>
               {myGalleries?.data?.map((image, i) =>
                 active === 'all' ? (
                   <>
-                    <Div padding={15}>
+                    <Div padding={15} id={image.id}>
                       <Icon
                         img={image.status ? tickIcon : closeIcon}
                         name={image.id}
@@ -290,7 +295,7 @@ const MasonaryGallery = ({
                 ) : (
                   <>
                     {active === image.file_type && (
-                      <Div padding={15}>
+                      <Div padding={15} id={image.id}>
                         <Icon
                           img={image.status ? tickIcon : closeIcon}
                           name={image.id}
@@ -312,12 +317,7 @@ const MasonaryGallery = ({
               )}
             </Masonry>
           </ResponsiveMasonry>
-          <Row className="justify-content-end">
-            <Span color="dark" fontWeight="500" fontSize="0.8rem" mr="7px">
-              Dosya yükle
-            </Span>
-            <PlusButton onClick={() => setActivePage('create')}>+</PlusButton>
-          </Row>
+          
         </>
       )}
       {activePage === 'create' && (
