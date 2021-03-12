@@ -2,7 +2,14 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
-import { Tab, Title, Main, MasonaryGallery, Wallet } from 'components';
+import {
+  Tab,
+  Title,
+  Main,
+  MasonaryGallery,
+  Wallet,
+  SessionType,
+} from 'components';
 import { USER, PERSONAL_TRAINER, WORK_PLACE, DIETITIAN } from '../../constants';
 
 import Trainers from 'components/ProfileSettings/WorkPlace/Trainers/Trainers';
@@ -23,7 +30,7 @@ const regularUserTabs = [
     title: 'Profilim',
     component: <ProfileSettings />,
   },
-  {
+  /* {
     eventKey: 'rezarvation',
     title: 'Rezarvasyonlarım',
     component: (
@@ -31,7 +38,7 @@ const regularUserTabs = [
         Rezarvasyonlarım
       </Title>
     ),
-  },
+  }, */
   {
     eventKey: 'packets',
     title: 'Paketlerim',
@@ -51,7 +58,7 @@ const regularUserTabs = [
     title: 'Favorilerim',
     component: <Favorites />,
   },
-  {
+  /*  {
     eventKey: 'notifications',
     title: 'Bildirimlerim',
     component: (
@@ -59,7 +66,7 @@ const regularUserTabs = [
         Bildirimlerim
       </Title>
     ),
-  },
+  }, */
   {
     eventKey: 'message',
     title: 'Mesajlarım',
@@ -73,7 +80,7 @@ const workPlaceTabs = [
     title: 'Profilim',
     component: <ProfileSettings />,
   },
-  {
+  /* {
     eventKey: 'rezarvation',
     title: 'Rezarvasyonlarım',
     component: (
@@ -81,7 +88,7 @@ const workPlaceTabs = [
         Rezarvasyonlarım
       </Title>
     ),
-  },
+  }, */
   {
     eventKey: 'facility',
     title: 'Olanaklar',
@@ -115,7 +122,7 @@ const dietitianTabs = [
     title: 'Profilim',
     component: <ProfileSettings />,
   },
-  {
+  /* {
     eventKey: 'rezarvation',
     title: 'Rezarvasyonlarım',
     component: (
@@ -123,7 +130,7 @@ const dietitianTabs = [
         Rezarvasyonlarım
       </Title>
     ),
-  },
+  }, */
   {
     eventKey: 'packets',
     title: 'Paketlerim',
@@ -133,7 +140,7 @@ const dietitianTabs = [
       </Title>
     ),
   },
-  {
+  /*  {
     eventKey: 'service',
     title: 'Hizmetlerim',
     component: (
@@ -141,15 +148,11 @@ const dietitianTabs = [
         Hizmetlerim
       </Title>
     ),
-  },
+  }, */
   {
     eventKey: 'location',
     title: 'Oturum Türleri & Çalıştığım yerler',
-    component: (
-      <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-        Oturum Türleri & Çalıştığım yerler
-      </Title>
-    ),
+    component: <SessionType />,
   },
   {
     eventKey: 'price',
@@ -189,7 +192,7 @@ const trainerTabs = [
     title: 'Profilim',
     component: <ProfileSettings />,
   },
-  {
+  /* {
     eventKey: 'rezarvation',
     title: 'Rezarvasyonlarım',
     component: (
@@ -197,7 +200,7 @@ const trainerTabs = [
         Rezarvasyonlarım
       </Title>
     ),
-  },
+  }, */
   {
     eventKey: 'packets',
     title: 'Paketlerim',
@@ -211,11 +214,7 @@ const trainerTabs = [
   {
     eventKey: 'location',
     title: 'Oturum Türleri & Çalıştığım yerler',
-    component: (
-      <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-        Oturum Türleri & Çalıştığım yerler
-      </Title>
-    ),
+    component: <SessionType />,
   },
   {
     eventKey: 'branch',

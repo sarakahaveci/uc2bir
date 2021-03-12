@@ -210,7 +210,7 @@ export const addWorkPlaceActivity = (
 };
 
 export const getAllPTBranchList = () => async (dispatch, getState) => {
-  const url = `/cms/branch/all`;
+  const url = `/cms/branch/all?type=pt&parent_id=0&status=active`;
 
   await dispatch({
     type: HTTP_REQUEST,
