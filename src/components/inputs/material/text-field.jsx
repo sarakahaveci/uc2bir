@@ -84,8 +84,9 @@ const TextField = ({
   }, [material]);
 
   useEffect(() => {
-    if (changeValue) setVal(changeValue);
+    if (changeValue !== undefined) setVal(changeValue);
   }, [changeValue]);
+
   return (
     <Materials ref={material} settings={settings} className="materials">
       {icon &&
