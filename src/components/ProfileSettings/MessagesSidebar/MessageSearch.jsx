@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { useDispatch } from 'react-redux';
 
-import { searchMessage } from 'actions';
+import { searchMessage, resetProductSearch } from 'actions';
 import { useDebounce } from 'utils';
 import { Box, Svg } from 'components';
+import Facility from 'assets/facility.png';
 
 const MessageSearch = () => {
   const [searchValue, setSearchValue] = useState('');
@@ -15,13 +16,15 @@ const MessageSearch = () => {
   useEffect(() => {
     if (debouncedSearchValue) {
       dispatch(searchMessage(debouncedSearchValue));
+    } else {
+      dispatch(resetProductSearch());
     }
   }, [debouncedSearchValue]);
 
   return (
     <Wrapper>
       <InnerWrapper>
-        <Avatar />
+        <Avatar src={Facility} />
 
         <Box row alignItems="center" position="relative">
           <SearchInput

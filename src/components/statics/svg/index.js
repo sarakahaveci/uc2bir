@@ -66,6 +66,7 @@ import SmileyFace from './images/smiley-face.svg';
 import Plus from './images/plus.svg';
 import Tl from './images/tl.svg';
 import UpDown from './images/up-down.svg';
+import Location from './images/location.svg';
 
 import AthleticSportIcon from 'assets/sports-type-icons/atletic.svg';
 import FitnessSportIcon from 'assets/sports-type-icons/fitness.svg';
@@ -150,6 +151,7 @@ const Svg = {
   SmileyFaceIcon: (props) => <ReactSVG {...props} src={SmileyFace} />,
   Tl: (props) => <ReactSVG {...props} src={Tl} />,
   UpDownIcon: (props) => <ReactSVG {...props} src={UpDown} />,
+  LocationIcon: (props) => <ReactSVG {...props} src={Location} />,
 
   SessionType: {
     Gym: (props) => <ReactSVG {...props} src={SessionTypeGym} />,

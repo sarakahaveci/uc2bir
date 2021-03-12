@@ -23,8 +23,6 @@ const CancellationReason = ({ setIsProfileCancellationPage }) => {
     cancelProfile: { isLoading: cancelLoading },
   } = useSelector((state) => state.profileSettings2.cancellation);
 
-  console.log('cancelLoading: ', cancelLoading);
-
   const { name } = useSelector((state) => state.auth.user);
 
   const [reason, setReason] = useState('');

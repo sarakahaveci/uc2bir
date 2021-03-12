@@ -1,14 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col, Form } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { Button, AwesomeIcon } from 'components';
+import { Button, Svg } from 'components';
+import { getAllPTBranchList } from 'actions';
+import SearchFilters from './SearchFilters';
 
 const SearchTrainer = () => {
+  const allBranchList = useSelector(
+    (state) => state.profileSettings.ptBranchList.allList
+  );
+
+  const [showFilters, setShowFilters] = useState();
   const [trainerName, setTrainerName] = useState();
   const [location, setLocation] = useState();
   const [branch, setBranch] = useState();
-  const [filter, setFilter] = useState();
   const [sort, setSort] = useState();
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllPTBranchList());
+  }, []);
 
   return (
     <div className="search-trainer">
@@ -24,7 +37,7 @@ const SearchTrainer = () => {
 
         <Col lg={3}>
           <div className="search-trainer__location-row">
-            <AwesomeIcon.Map className="mr-1 mb-1" />
+            <Svg.LocationIcon className="mr-1 mb-1" />
 
             <input
               className="search-trainer__search-input"
@@ -43,11 +56,9 @@ const SearchTrainer = () => {
             onChange={(e) => setBranch(e.target.value)}
           >
             <option hidden>Branşlar</option>
-            <option>deneme</option>
-            <option>deneme</option>
-            <option>deneme</option>
-            <option>deneme</option>
-            <option>deneme</option>
+            {allBranchList.map((item) => (
+              <option value={item.id}>{item.name}</option>
+            ))}
           </Form.Control>
         </Col>
 
@@ -67,19 +78,13 @@ const SearchTrainer = () => {
 
       <Row className="search-trainer__sort-row">
         <Col lg={6} sm={12}>
-          <Form.Control
-            as="select"
+          <div
+            onClick={() => setShowFilters(!showFilters)}
             className="search-trainer__select search-trainer__select--bg"
-            value={filter}
-            onChange={(e) => setFilter(e.target.value)}
           >
-            <option hidden>Filtreler</option>
-            <option>deneme</option>
-            <option>deneme</option>
-            <option>deneme</option>
-            <option>deneme</option>
-            <option>deneme</option>
-          </Form.Control>
+            Filtreler
+          </div>
+          {showFilters && <SearchFilters />}
         </Col>
 
         <Col lg={6} sm={12}>
@@ -90,11 +95,9 @@ const SearchTrainer = () => {
             onChange={(e) => setSort(e.target.value)}
           >
             <option hidden>Sırala</option>
-            <option>deneme</option>
-            <option>deneme</option>
-            <option>deneme</option>
-            <option>deneme</option>
-            <option>deneme</option>
+            <option hidden>Fiyata göre artan</option>
+            <option hidden>Fiyata göre azalan</option>
+            <option hidden>Alfabetik sıralama</option>
           </Form.Control>
         </Col>
       </Row>
