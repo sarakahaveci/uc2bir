@@ -1,15 +1,26 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styled, { css } from 'styled-components/macro';
 import { useSelector } from 'react-redux';
+import { differenceInDays } from 'date-fns';
 
-import { Text, Box, Span } from 'components';
+import Facility from 'assets/facility.png';
+import { Text, Box } from 'components';
+import { ISOToTimeConverter, ISOToDateConverter } from 'utils';
 
-const MessageInfoRow = ({ data }) => {
+const MessageInfoRow = ({ messageData, senderData }) => {
   const myProfileId = useSelector((state) => state.auth.user.id);
 
-  const isLastSenderMe = myProfileId === data.sender_id;
+  const isLastSenderMe = myProfileId === messageData.sender_id;
 
   const isCardActive = true;
+
+  const messageDate = useMemo(() => {
+    if (differenceInDays(new Date(), new Date(messageData.created_at)) === 0) {
+      return ISOToTimeConverter(messageData.created_at);
+    } else {
+      return ISOToDateConverter(messageData.created_at);
+    }
+  }, [messageData]);
 
   return (
     <Wrapper
@@ -19,30 +30,34 @@ const MessageInfoRow = ({ data }) => {
       isActive={isCardActive}
     >
       <AvatarWrapper>
-        <Avatar showBorder>{data.user_active && <ActiveCircle />}</Avatar>
+        <Avatar src={Facility} showBorder>
+          {messageData.user_active && <ActiveCircle />}
+        </Avatar>
       </AvatarWrapper>
 
       <Box col flex={1}>
         <Box row justifyContent="space-between" mb="8px" alignItems="center">
           <Text p="0" color="blue" fontSize="0.9rem" fontWeight="600">
-            {data.sender_name}
+            {senderData.name}
           </Text>
 
-          <Span fontSize="0.9rem" color="dark">
-            20:19
-          </Span>
+          <MessageDate fontSize="0.9rem" color="dark">
+            {messageDate}
+          </MessageDate>
         </Box>
 
         <Box row alignItems="center">
           <Box row alignItems="center" pr="5px" flex={1}>
-            {isLastSenderMe && <Avatar small />}
+            {isLastSenderMe && <Avatar src={Facility} small />}
 
             <Box height="14px" flex={1} overflow="hidden" position="relative">
-              <Message>{data.message}</Message>
+              <Message>{messageData.message}</Message>
             </Box>
           </Box>
 
-          <UnReadCount center>{data.unread_notifications}</UnReadCount>
+          {messageData.unread_notifications && (
+            <UnReadCount center>{messageData.unread_notifications}</UnReadCount>
+          )}
         </Box>
       </Box>
     </Wrapper>
@@ -60,6 +75,19 @@ const Wrapper = styled(Box)`
     css`
       background: #efefef;
     `}
+
+  .typography {
+    width: unset;
+  }
+`;
+
+const MessageDate = styled.span`
+  max-width: 70px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  text-align: right;
+  white-space: nowrap;
 `;
 
 const AvatarWrapper = styled.div`
@@ -70,7 +98,7 @@ const AvatarWrapper = styled.div`
   border: 1px solid ${(p) => p.theme.colors.blue};
 `;
 
-const Avatar = styled.div`
+const Avatar = styled.img`
   width: 50px;
   height: 50px;
   background-color: red;
