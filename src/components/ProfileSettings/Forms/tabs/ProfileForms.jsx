@@ -119,16 +119,18 @@ const ProfileForms = ({ type }) => {
             action={actionSetData}
             state={detail}
           />
-          <Material.SimpleSelect
-            label="Cinsiyetiniz"
-            items={genderData}
-            name="genre"
-            value={detail?.data?.genre}
-            defaultValue={detail?.data?.genre}
-            settings
-            action={actionSetData}
-            state={detail}
-          />
+          {type !== 'WORK_PLACE' && (
+            <Material.SimpleSelect
+              label="Cinsiyetiniz"
+              items={genderData}
+              name="genre"
+              value={detail?.data?.genre}
+              defaultValue={detail?.data?.genre}
+              settings
+              action={actionSetData}
+              state={detail}
+            />
+          )}
           {type === 'WORK_PLACE' ? (
             <Material.MaterialDateField
               label="Şirket Kuruluş Tarihi"
@@ -150,6 +152,8 @@ const ProfileForms = ({ type }) => {
               settings
               action={actionSetData}
               state={detail}
+              minDate={'01.01.1945'}
+              maxDate={'01.01.2013'}
             />
           )}
         </>

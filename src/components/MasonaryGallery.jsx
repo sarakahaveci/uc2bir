@@ -55,7 +55,7 @@ const MasonaryGallery = ({
   className = null,
   style = {},
   columnsCountBreakPoints = { 350: 1, 750: 2, 900: 3 },
-  children,
+  children = null,
 }) => {
   const [activePage, setActivePage] = useState('index');
   const [active, setActive] = useState('all');
