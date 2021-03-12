@@ -104,7 +104,7 @@ const MasonaryGallery = ({
     axios({ ...config, data: createData })
       .then(function (response) {
         dispatch(getMyGalleries());
-        setActivePage("index");
+        setActivePage('index');
         setFile(false);
         toast.success('Dosya yüklendi.', {
           position: 'bottom-right',
@@ -128,7 +128,7 @@ const MasonaryGallery = ({
     axios({ ...config, data: createData })
       .then(function (response) {
         dispatch(getMyGalleries());
-        setActivePage("index");
+        setActivePage('index');
         setFile(false);
         toast.success('Dosya yüklendi.', {
           position: 'bottom-right',
@@ -195,7 +195,7 @@ const MasonaryGallery = ({
     }
   };
 
-  let New = () => {
+  const New = () => {
     if (content.file_type === 'image') {
       return (
         <img style={{ width: '100%', height: 'auto' }} src={content.path} />
@@ -236,7 +236,7 @@ const MasonaryGallery = ({
               marginRight="10px"
               marginBottom="-15px"
             >
-              <AwesomeIcon.Left />
+              {`<`}
             </Span>
             <Span>Fotoğraf / Video Yükle</Span>
           </Title>
@@ -252,7 +252,7 @@ const MasonaryGallery = ({
       )}
       {activePage === 'index' && (
         <>
-          <Row style={{margin: 15}} className="justify-content-start">
+          <Row style={{ margin: 15 }} className="justify-content-start">
             <Span color="dark" fontWeight="500" fontSize="0.8rem" mr="7px">
               Dosya yükle
             </Span>
@@ -269,7 +269,7 @@ const MasonaryGallery = ({
               </Item>
             ))}
           </StyledCategories>
-          
+
           <ResponsiveMasonry columnsCountBreakPoints={columnsCountBreakPoints}>
             <Masonry columnsCount={columnsCount} gutter={gutter}>
               {myGalleries?.data?.map((image, i) =>
@@ -280,7 +280,9 @@ const MasonaryGallery = ({
                         img={image.status ? tickIcon : closeIcon}
                         name={image.id}
                         top="0px"
-                        onClick={(e) => image.status ? "" : deleted(e.target.name)}
+                        onClick={(e) =>
+                          image.status ? '' : deleted(e.target.name)
+                        }
                       />
                       <div className="img" onClick={() => openModal(image)}>
                         <img
@@ -300,7 +302,9 @@ const MasonaryGallery = ({
                           img={image.status ? tickIcon : closeIcon}
                           name={image.id}
                           top="0px"
-                          onClick={(e) => image.status ? "" : deleted(e.target.name)}
+                          onClick={(e) =>
+                            image.status ? '' : deleted(e.target.name)
+                          }
                         />
                         <div className="img" onClick={() => openModal(image)}>
                           <img
@@ -317,19 +321,19 @@ const MasonaryGallery = ({
               )}
             </Masonry>
           </ResponsiveMasonry>
-          
         </>
       )}
       {activePage === 'create' && (
         <Div padding={15}>
           <Button
-            text="Fotoğraf Çek"
+            text="Video Yükle"
             style={{ border: '1px solid var(--blue)' }}
             fontSize="11pt"
+            onClick={() => setActivePage('action-video')}
             color="blue"
           />
           <Button
-            text="Bilgisayarımdan Yükle veya Link Ekle"
+            text="Fotoğraf Yükle"
             style={{ border: '1px solid var(--blue)', marginLeft: '15px' }}
             onClick={() => setActivePage('action')}
             fontSize="11pt"
@@ -341,23 +345,23 @@ const MasonaryGallery = ({
         <Div padding={15}>
           {!file && (
             <>
+              <Button text="< Geri" onClick={() => setActivePage('index')} />
               <MaterialButton
                 variant="contained"
                 color="default"
                 component="label"
                 startIcon={<Svg.Pencil />}
               >
-                Fotoğraf veya Video Yükle
+                Fotoğraf Yükle
                 <input
                   type="file"
                   hidden
                   onChange={(event) => setFile(event.target.files[0])}
                 />
               </MaterialButton>
-              <Button text="Geri" onClick={() => setActivePage('index')} />
             </>
           )}
-          {file ? (
+          {file && (
             <>
               <ImageShow image={URL.createObjectURL(file)} />
               <section className="d-flex">
@@ -370,20 +374,28 @@ const MasonaryGallery = ({
                 </div>
               </section>
             </>
-          ) : (
+          )}
+        </Div>
+      )}
+      {activePage === 'action-video' && (
+        <Div padding={15}>
+          {!file && (
             <>
-              <div className="w-100" style={{ marginTop: 15 }}>
-                <Material.TextField
-                  label="Youtube link' i gir veya boş bırak."
-                  name="link"
-                  onChange={(e) => setLink(e.target.value)}
-                />
-                <div style={{ marginTop: 15 }}>
-                  <PlusButton onClick={uploadLink} />
-                </div>
-              </div>
+              <Button text="< Geri" onClick={() => setActivePage('index')} />
             </>
           )}
+          <>
+            <div className="w-100" style={{ marginTop: 15 }}>
+              <Material.TextField
+                label="Youtube link' i gir veya boş bırak."
+                name="link"
+                onChange={(e) => setLink(e.target.value)}
+              />
+              <div style={{ marginTop: 15 }}>
+                <PlusButton onClick={uploadLink} />
+              </div>
+            </div>
+          </>
         </Div>
       )}
       <React.Fragment>
