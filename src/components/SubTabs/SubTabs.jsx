@@ -3,11 +3,11 @@ import styled from 'styled-components/macro';
 
 import { Span } from 'components';
 
-const SubTabs = ({ data, onChange }) => {
+const SubTabs = ({ data, onChange, lineWidth = '50%', className }) => {
   const [activeSubIndex, setActiveSubIndex] = useState(0);
 
   return (
-    <LineWrapper>
+    <LineWrapper className={className}>
       {data.map((item, index) => (
         <Tab
           isActive={activeSubIndex === index}
@@ -16,7 +16,7 @@ const SubTabs = ({ data, onChange }) => {
             onChange(item.value);
           }}
         >
-          <Span lineWidth="50%" underline={activeSubIndex === index}>
+          <Span lineWidth={lineWidth} underline={activeSubIndex === index}>
             {item.label}
           </Span>
         </Tab>

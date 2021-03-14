@@ -30,16 +30,24 @@
   @media (max-width: 768px) {
     width: 100% !important;
   }
+
+  .gm-ui-hover-effect {
+    display: none !important;
+  }
 }
 
 .medium-map-wrapper {
   height: 35vh;
-  width: 60vh;
+
   @media (max-width: 768px) {
     width: 100% !important;
+  }
+
+  .gm-ui-hover-effect {
+    display: none !important;
   }
 }
 
 .marginTop {
-  margin-top: 7%;
+  margin-top: 2%;
 }

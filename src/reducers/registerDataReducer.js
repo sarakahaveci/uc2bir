@@ -53,8 +53,8 @@ const initialState = {
     data: {},
     isLoading: false,
     error: null,
-    isSuccess: false
-  }
+    isSuccess: false,
+  },
 };
 
 export default (state = initialState, action) => {
@@ -150,6 +150,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         distict: action.payload.data,
+        town: [],
         isLoading: false,
       };
     case GET_TOWN_SUCCESS:
@@ -179,14 +180,14 @@ export default (state = initialState, action) => {
       };
 
     case GET_USER_KEYS_FAILURE:
-        return {
-          ...state,
-          userKeys: {
-            ...state.userKeys,
-            isLaoding: false,
-            error: action.payload,
-          },
-        };
+      return {
+        ...state,
+        userKeys: {
+          ...state.userKeys,
+          isLaoding: false,
+          error: action.payload,
+        },
+      };
 
     case VERIFY_CODE_FAILURE:
       return {

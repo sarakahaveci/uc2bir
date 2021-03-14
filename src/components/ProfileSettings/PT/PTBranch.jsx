@@ -143,7 +143,9 @@ export default function WorkPlaceActivity() {
                   <Button
                     className="blue ml-auto"
                     text="Kaydet"
-                    disabled={selectedBranch.length === 0}
+                    disabled={
+                      selectedBranch.length === 0 && branchSuggest.length < 1
+                    }
                     fontWeight="500"
                     onClick={submitNewActivity}
                   />

@@ -92,6 +92,8 @@ body {
 }
 
 .cp {
+  width: 12px;
+  margin-bottom: 3px;
   cursor: pointer;
 }
 
@@ -174,6 +176,8 @@ body {
 @import './facilityCard';
 
 @import './DietitianPriceCard';
+
+@import './proficiencyCard';
 
 @import './responsive';
 

@@ -1,8 +1,9 @@
-import React, { useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components/macro';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import RadioGroup from '@material-ui/core/RadioGroup';
 
 import {
   CancellationFinalize,
@@ -12,12 +13,45 @@ import {
   Modal,
   Svg,
   Span,
+  Spinner,
 } from 'components';
+import { getCancellationReasons, cancelProfile } from 'actions';
 
 const CancellationReason = ({ setIsProfileCancellationPage }) => {
-  const cancellationFinalizeRef = useRef();
+  const {
+    reasons: { data: reasons, isLoading: reasonsLoading },
+    cancelProfile: { isLoading: cancelLoading },
+  } = useSelector((state) => state.profileSettings2.cancellation);
 
   const { name } = useSelector((state) => state.auth.user);
+
+  const [reason, setReason] = useState('');
+  const [otherReasonValue, setOtherReasonValue] = useState('');
+
+  const cancellationFinalizeRef = useRef();
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCancellationReasons());
+  }, []);
+
+  const cancelSuccessHandler = () =>
+    cancellationFinalizeRef.current.openModal();
+
+  const cancellationHandler = () => {
+    let finalReason = reason === 'Other' ? otherReasonValue : reason;
+
+    dispatch(cancelProfile(finalReason, cancelSuccessHandler));
+  };
+
+  const reasonChangeHandler = (e) => setReason(e.target.value);
+
+  const inputChangeHandler = (e) => setOtherReasonValue(e.target.value);
+
+  if (reasonsLoading) {
+    return <Spinner />;
+  }
 
   return (
     <div>
@@ -66,26 +100,24 @@ const CancellationReason = ({ setIsProfileCancellationPage }) => {
       </Text>
 
       <MaterialWrapper>
-        <FormControlLabel value="female" control={<Radio />} label="Female" />
+        <RadioGroup value={reason} onChange={reasonChangeHandler}>
+          {reasons.map((item) => (
+            <FormControlLabel
+              value={item.reason}
+              label={item.reason}
+              control={<Radio />}
+            />
+          ))}
+          <Box col bg="gray6">
+            <FormControlLabel value="Other" control={<Radio />} label="Diğer" />
 
-        <FormControlLabel value="female" control={<Radio />} label="Female" />
-
-        <FormControlLabel value="female" control={<Radio />} label="Female" />
-
-        <FormControlLabel value="female" control={<Radio />} label="Female" />
-
-        <FormControlLabel value="female" control={<Radio />} label="Female" />
-
-        <FormControlLabel value="female" control={<Radio />} label="Female" />
-
-        <Box col bg="gray6">
-          <FormControlLabel value="female" control={<Radio />} label="Female" />
-
-          <TextArea
-            rows={6}
-            placeholder="Lütfen üyeliğinizi neden iptal etmek istediğinizi kısaca belirtin"
-          />
-        </Box>
+            <TextArea
+              rows={6}
+              placeholder="Lütfen üyeliğinizi neden iptal etmek istediğinizi kısaca belirtin"
+              onChange={inputChangeHandler}
+            />
+          </Box>
+        </RadioGroup>
       </MaterialWrapper>
 
       <Box row justifyContent="flex-end" mt="15px">
@@ -93,7 +125,9 @@ const CancellationReason = ({ setIsProfileCancellationPage }) => {
           className="blue"
           width="300px"
           text="Üyeliğimi İptal Et"
-          onClick={() => cancellationFinalizeRef.current.openModal()}
+          disabled={!reason || (reason === 'Other' && !otherReasonValue)}
+          onClick={cancellationHandler}
+          isLoading={cancelLoading}
         />
       </Box>
 

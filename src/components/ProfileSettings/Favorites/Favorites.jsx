@@ -24,7 +24,10 @@ const subTabData = [
 ];
 
 const Favorites = () => {
-  const { data: favoriteUsers, isLoading } = useSelector(
+  const {
+    data: { data: favoriteUsers, currentPage, perPage, totalPage },
+    isLoading,
+  } = useSelector(
     (state) => state.profileSettings2.favoriteSettings.favoriteUsers
   );
   const [userType, setUserType] = useState(PERSONAL_TRAINER);
@@ -40,7 +43,7 @@ const Favorites = () => {
   if (isLoading) {
     content = <Spinner animation="border" variant="info" />;
   } else {
-    content = favoriteUsers.map((item) => (
+    content = favoriteUsers?.map((item) => (
       <LongUserCard data={item} showHeartBg />
     ));
   }
@@ -57,7 +60,11 @@ const Favorites = () => {
           Favorilerim
         </Title>
 
-        <SubTabs data={subTabData} onChange={(value) => setUserType(value)} />
+        <SubTabs
+          data={subTabData}
+          onChange={(value) => setUserType(value)}
+          lineWidth="50%"
+        />
       </div>
 
       <Box position="relative">{content}</Box>

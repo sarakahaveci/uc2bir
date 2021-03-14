@@ -37,11 +37,16 @@ export default function Address() {
   const [formData, setFormData] = useState({});
   const [adressFromMap, setAdressFromMap] = useState({});
   const [location, setLocation] = useState({});
+  const [townList, setTownList] = useState(town);
 
   useEffect(() => {
     dispatch(getCitiesAndDistict({}));
     dispatch(getProfileInformation());
   }, []);
+
+  useEffect(() => {
+    setTownList(town);
+  }, [town]);
 
   const getCityAndDistrict = async (city, district) => {
     await dispatch(getCitiesAndDistict({ city }));
@@ -199,6 +204,9 @@ export default function Address() {
         city: event.target.value,
         district: null,
         town: null,
+        address_detail: null,
+        apt_no: null,
+        build_no: null,
       });
     } else {
       setFormData({
@@ -210,11 +218,13 @@ export default function Address() {
     dispatch(getCitiesAndDistict({ [event.target.name]: event.target.value }));
   };
 
+  console.log(formData);
+
   return isLoading ? (
     <>Yükleniyor</>
   ) : (
     <div className="row w-100 h-100 px-1">
-      <div className="col-md-6 col-sm-12">
+      <div className="col-12">
         <form
           className="step-four-wrapper"
           onSubmit={updateAddress}
@@ -225,7 +235,7 @@ export default function Address() {
             name="city"
             forHtml="city"
             label="İl Seçiniz"
-            changeValue={formData.city}
+            changeValue={formData?.city || ''}
             onChange={handleSelectRelion}
             items={cities}
           />
@@ -234,18 +244,18 @@ export default function Address() {
             name="district"
             forHtml="district"
             label="İlçe Seçiniz"
-            changeValue={formData.district}
+            changeValue={formData?.district || ''}
             onChange={handleSelectRelion}
             items={distict ?? []}
           />
           <Material.SimpleSelect
             required
             name="town"
-            forHtml="rown"
+            forHtml="town"
             label="Mahalle Seçiniz"
-            changeValue={formData.town}
+            changeValue={formData?.town || ''}
             onChange={handleTownChange}
-            items={town ?? []}
+            items={townList ?? []}
           />
           <Material.TextField
             required
@@ -253,7 +263,7 @@ export default function Address() {
             name="address_detail"
             label="Açık Adres"
             type="text"
-            changeValue={formData?.address_detail}
+            changeValue={formData?.address_detail || ''}
             onChange={handleFormOnChange}
           />
           <div className="d-flex">
@@ -264,7 +274,7 @@ export default function Address() {
                 name="apt_no"
                 label="Bina"
                 type="number"
-                changeValue={+formData?.apt_no}
+                changeValue={+formData?.apt_no || ''}
                 onChange={handleFormOnChange}
               />
             </div>
@@ -275,7 +285,7 @@ export default function Address() {
                 name="build_no"
                 label="Daire"
                 type="number"
-                changeValue={+formData?.build_no}
+                changeValue={+formData?.build_no || ''}
                 onChange={handleFormOnChange}
               />
             </div>
@@ -284,13 +294,13 @@ export default function Address() {
             <Button
               type="submit"
               text="Adresi Güncelle"
-              className="blue marginTop mx-auto  w-75"
+              className="blue marginTop mx-auto mb-2 w-50"
               fontWeight="bold"
             />
           </div>
         </form>
       </div>
-      <div className="col-md-6 col-sm-12">
+      <div className="col-12">
         <GoogleMap
           onPositionChange={onPositionChange}
           draggable
@@ -299,7 +309,7 @@ export default function Address() {
         <div className="d-flex w-100">
           <Button
             fontWeight="bold"
-            className="blue mx-auto mt-2 w-75"
+            className="blue mx-auto mt-2 w-50"
             text="Haritadaki adresi listeye aktar"
             disabled={isEmpty(adressFromMap)}
             onClick={useAdressFromMap}

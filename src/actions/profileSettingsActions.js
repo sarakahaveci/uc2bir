@@ -12,6 +12,8 @@ import {
   ADD_NEW_PT_BRANCH,
   UPDATE_PT_BRANCH,
   GET_MY_GALLERIES,
+  GET_VKI,
+  SET_VKI,
 } from '../constants';
 
 export const getMyGalleries = () => async (dispatch, getState) => {
@@ -95,6 +97,46 @@ export const getProfile = (successCallback, errorCallback) => async (
   });
 };
 
+export const getVKI = (successCallback, errorCallback) => async (
+  dispatch,
+  getState
+) => {
+  const url = `/user/profile/vki`;
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'GET',
+      url,
+      label: GET_VKI,
+      transformData: (data) => data.data,
+      callBack: () => successCallback(),
+      errorHandler: () => errorCallback(),
+    },
+  });
+};
+
+export const setVKI = (
+  { ...data },
+  successCallback,
+  errorCallback
+) => async (dispatch) => {
+  const url = '/user/profile/vki';
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'POST',
+      url,
+      label: SET_VKI,
+      body: { ...data },
+      transformData: (data) => data.data,
+      callBack: () => successCallback(),
+      errorHandler: (error) => errorCallback(error.message),
+    },
+  });
+};
+
 export const getWorkPlaceActivityList = () => async (dispatch, getState) => {
   const url = `/user/my-class`;
 
@@ -168,7 +210,7 @@ export const addWorkPlaceActivity = (
 };
 
 export const getAllPTBranchList = () => async (dispatch, getState) => {
-  const url = `/cms/branch/all`;
+  const url = `/cms/branch/all?type=pt&parent_id=0&status=active`;
 
   await dispatch({
     type: HTTP_REQUEST,
