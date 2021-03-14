@@ -13,11 +13,7 @@ const Password = (props) => {
   const dispatch = useDispatch();
   const password = useSelector((state) => state.profileSettings.password);
 
-  const [data, setData] = useState({
-    password: '',
-    new_password: '',
-    new_password_confirmation: '',
-  });
+  const [data, setData] = useState({});
 
   const actionSetData = async () => {
     dispatch(
@@ -52,7 +48,7 @@ const Password = (props) => {
   const onSubmit = (event) => {
     event.preventDefault();
     if (data.password !== data.new_password) {
-      if ( data.new_password === data.new_password_confirmation ) {
+      if (data.new_password === data.new_password_confirmation) {
         actionSetData();
       } else {
         toast.info(() => 'Tekrarlanan Şifre Uymuyor.', {
@@ -106,8 +102,16 @@ const Password = (props) => {
         />
         <Footer>
           <Button
+            style={{
+              margin: 15,
+              paddingLeft: 30,
+              paddingRight: 30,
+              fontSize: '10pt',
+            }}
+            className="blue"
             type="submit"
-            text="Güncelle"
+            text="Kaydet"
+            disabled={Object.keys(data).length === 0 ? true : false}
             isLoading={password.isLoading}
           />
         </Footer>

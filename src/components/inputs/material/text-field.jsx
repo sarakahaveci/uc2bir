@@ -172,7 +172,6 @@ const Materials = styled.div`
     `
       border-bottom: 1px solid #AFAFAF;
       position: relative;
-      margin-top: 30px;
       margin-bottom: 30px;
     `}
   ${(props) =>
@@ -180,7 +179,6 @@ const Materials = styled.div`
     `
       border-bottom: 1px solid #AFAFAF;
       position: relative;
-      margin-top: 30px;
       margin-bottom: 30px;
 
       .save, .edit {

@@ -1,9 +1,10 @@
 // @ts-nocheck
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Section from '../Section';
 
-import { Material } from 'components';
+import { Material, Button, Box } from 'components';
 import { genderData } from 'constants/formData';
+import styled from 'styled-components/macro';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -15,6 +16,7 @@ const ProfileForms = ({ type }) => {
   const { detail } = useSelector(
     (state) => state.profileSettings2.profileDetail
   );
+  const [data, setData] = useState({});
 
   const actionGetData = async () => {
     await dispatch(
@@ -30,18 +32,17 @@ const ProfileForms = ({ type }) => {
     );
   };
 
-  const actionSetData = async (name, value) => {
-    if (name === 'phone') {
-      value = unMaskPhone(value);
-    }
+  const onSubmit = (event) => {
+    event.preventDefault();
     dispatch(
       setProfile(
-        { [name]: value },
+        { ...data },
         () => {
           toast.success('Bilgileriniz güncellendi.', {
             position: 'bottom-right',
             autoClose: 2000,
           });
+          setData({});
         },
         () => {
           toast.error('Güncelleme işlemi yapılamadı.', {
@@ -60,16 +61,17 @@ const ProfileForms = ({ type }) => {
   return (
     <Section>
       {detail.isSuccess && (
-        <>
+        <form onSubmit={onSubmit}>
           <Material.TextField
             label="Adınız Soyadınız"
             type="text"
             name="name"
             value={detail?.data?.name}
             defaultValue={detail?.data?.name}
-            settings
-            action={actionSetData}
-            state={detail}
+            onChange={(e) =>
+              setData({ ...data, [e.target.name]: e.target.value })
+            }
+            settings="current"
           />
           {type !== 'USER' && (
             <Material.TextField
@@ -78,9 +80,10 @@ const ProfileForms = ({ type }) => {
               name="title"
               value={detail?.data?.title}
               defaultValue={detail?.data?.title}
-              settings
-              action={actionSetData}
-              state={detail}
+              onChange={(e) =>
+                setData({ ...data, [e.target.name]: e.target.value })
+              }
+              settings="current"
             />
           )}
           {type === 'USER' && (
@@ -91,9 +94,10 @@ const ProfileForms = ({ type }) => {
                 name="email"
                 value={detail?.data?.email}
                 defaultValue={detail?.data?.email}
-                settings
-                action={actionSetData}
-                state={detail}
+                onChange={(e) =>
+                  setData({ ...data, [e.target.name]: e.target.value })
+                }
+                settings="current"
               />
               <Material.TextField
                 label="TC Kimlik Numaranız"
@@ -102,9 +106,10 @@ const ProfileForms = ({ type }) => {
                 name="identity_no"
                 value={detail?.data?.identity_no}
                 defaultValue={detail?.data?.identity_no}
-                settings
-                action={actionSetData}
-                state={detail}
+                onChange={(e) =>
+                  setData({ ...data, [e.target.name]: e.target.value })
+                }
+                settings="current"
               />
             </>
           )}
@@ -115,9 +120,10 @@ const ProfileForms = ({ type }) => {
             mask="\0(999) 999 99 99"
             value={detail?.data?.phone}
             defaultValue={detail?.data?.phone}
-            settings
-            action={actionSetData}
-            state={detail}
+            onChange={(e) =>
+              setData({ ...data, [e.target.name]: e.target.value })
+            }
+            settings="current"
           />
           {type !== 'WORK_PLACE' && (
             <Material.SimpleSelect
@@ -126,9 +132,10 @@ const ProfileForms = ({ type }) => {
               name="genre"
               value={detail?.data?.genre}
               defaultValue={detail?.data?.genre}
-              settings
-              action={actionSetData}
-              state={detail}
+              onChange={(e) =>
+                setData({ ...data, [e.target.name]: e.target.value })
+              }
+              settings="current"
             />
           )}
           {type === 'WORK_PLACE' ? (
@@ -138,9 +145,10 @@ const ProfileForms = ({ type }) => {
               name="birthday"
               value={detail?.data?.birthday}
               defaultValue={detail?.data?.birthday}
-              settings
-              action={actionSetData}
-              state={detail}
+              onChange={(e) =>
+                setData({ ...data, [e.target.name]: e.target.value })
+              }
+              settings="current"
             />
           ) : (
             <Material.MaterialDateField
@@ -149,17 +157,39 @@ const ProfileForms = ({ type }) => {
               name="birthday"
               value={detail?.data?.birthday}
               defaultValue={detail?.data?.birthday}
-              settings
-              action={actionSetData}
-              state={detail}
+              onChange={(e) =>
+                setData({ ...data, [e.target.name]: e.target.value })
+              }
+              settings="current"
               minDate={'01.01.1945'}
               maxDate={'01.01.2013'}
             />
           )}
-        </>
+          <Footer>
+            <Button
+              style={{
+                margin: 15,
+                paddingLeft: 30,
+                paddingRight: 30,
+              }}
+              className="blue"
+              type="submit"
+              text="KAYDET"
+              disabled={Object.keys(data).length === 0 ? true : false}
+              isLoading={detail.isLoading}
+            />
+          </Footer>
+        </form>
       )}
     </Section>
   );
 };
+
+const Footer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-left: -15px;
+  margin-right: -15px;
+`;
 
 export default ProfileForms;

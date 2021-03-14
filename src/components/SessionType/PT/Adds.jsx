@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
+import { getGeocode } from 'use-places-autocomplete';
 
 import AddAdress from './AddAdress';
 import AddGym from './AddGym';
@@ -7,31 +8,39 @@ import AddGym from './AddGym';
 const Adds = ({ icons }) => {
   const [subPage, setSubPage] = useState('Adds');
 
+  useEffect(() => {
+		getGeocode()
+	},[]);
+
   return (
-    console.log(subPage),
-    <>
-      {subPage === 'Adds' && (
-        <CreateList>
-          {icons.map((val) => {
-            return (
-              <>
-                <List key={val.id} className="col-md-3">
-                  {val.icon}
-                  <Span>{val.name}</Span>
-                  {val.create && (
-                    <Link onClick={() => setSubPage(val.create.action)}>
-                      {val.create.name}
-                    </Link>
-                  )}
-                </List>
-              </>
-            );
-          })}
-        </CreateList>
-      )}
-      {subPage === 'home_park' && <AddAdress />}
-      {subPage === 'gym' && <AddGym />}
-    </>
+    (
+      <>
+        {subPage === 'Adds' && (
+          <CreateList>
+            {icons.map((val) => {
+              return (
+                <>
+                  <List key={val.id} className="col-md-3">
+                    {val.icon}
+                    <Span>{val.name}</Span>
+                    {val.create && (
+                      <Link onClick={() => {
+                        getGeocode();
+                        setSubPage(val.create.action)
+                      }}>
+                        {val.create.name}
+                      </Link>
+                    )}
+                  </List>
+                </>
+              );
+            })}
+          </CreateList>
+        )}
+        {subPage === 'home_park' && <AddAdress setSubPage={setSubPage} />}
+        {subPage === 'gym' && <AddGym setSubPage={setSubPage} />}
+      </>
+    )
   );
 };
 

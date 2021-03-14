@@ -15,7 +15,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setStepTwo, verifyCode } from '../../../actions';
 
 const StepTwo = (props) => {
-
   const getStepOne = useSelector((state) => state.stepOne);
   const getStepTwo = useSelector((state) => state.stepTwo);
   const { setSteps, count, modal, setModal, phone } = props;
@@ -99,12 +98,6 @@ const StepTwo = (props) => {
   }, [getStepOne.isSuccess]);
 
   useEffect(() => {
-    if ( counter === 0 ) {
-      setModal(false);
-    }
-  },[counter])
-
-  useEffect(() => {
     if (counter > 0) {
       const interval = setInterval(() => {
         setCounter(counter - 1);
@@ -130,17 +123,18 @@ const StepTwo = (props) => {
           open={modal}
         >
           <DialogTitle className="text-center">
-            Telefon Numaranızı Doğrulayın 
+            Telefon Numaranızı Doğrulayın
             <span
               style={{
-                position: "absolute",
-                right: "5px",
-                top: "5px",
-                cursor: "pointer",
-                fontWeight: "bold",
-                padding: "5px 15px"
-              }} 
-              onClick={() => setModal(false)}>
+                position: 'absolute',
+                right: '5px',
+                top: '5px',
+                cursor: 'pointer',
+                fontWeight: 'bold',
+                padding: '5px 15px',
+              }}
+              onClick={() => setModal(false)}
+            >
               x
             </span>
           </DialogTitle>
@@ -149,8 +143,8 @@ const StepTwo = (props) => {
               style={{ padding: '15px 30px' }}
               className="text-center"
             >
-              <b>{phone}</b> numaralı telefona gönderdiğimiz 6
-              haneli kodu girin.
+              <b>{phone}</b> numaralı telefona gönderdiğimiz 6 haneli kodu
+              girin.
             </DialogContentText>
             <div className="d-flex flex-wrap dialog-center">
               <form
@@ -160,17 +154,31 @@ const StepTwo = (props) => {
                 <div className="d-flex group-text">
                   <Otp otpCallback={setCode} />
                 </div>
-                <Button
-                  onClick={vrf_response}
-                  variant="link"
-                  text={
-                    counter > 0
-                      ? `Güvenlik kodunu girmek için kalan süreniz ${Math.floor(counter / 60)}:${Math.ceil(counter % 60) < 10 ? 0 : ''}${Math.ceil(counter % 60)} veya tekrar gönder.`
-                      : `Güvenlik kodunu tekrar gönder.`
-                  }
-                />
+                {counter > 0 ? (
+                  <Button
+                    onClick={() => console.log('close')}
+                    variant="link"
+                    text={`Güvenlik kodunu girmek için kalan süreniz ${Math.floor(
+                      counter / 60
+                    )}:${Math.ceil(counter % 60) < 10 ? 0 : ''}${Math.ceil(
+                      counter % 60
+                    )}`}
+                  />
+                ) : (
+                  <Button
+                    onClick={vrf_response}
+                    variant="link"
+                    text={`Güvenlik kodunu tekrar gönder.`}
+                  />
+                )}
+
                 {!getStepTwo.isLoading ? (
-                  <Button type="submit" text={`İleri`} className="blue" disabled={!(typeof code === "number")} />
+                  <Button
+                    type="submit"
+                    text={`İleri`}
+                    className="blue"
+                    disabled={!(typeof code === 'number')}
+                  />
                 ) : (
                   <Button
                     className="blue"
@@ -178,6 +186,7 @@ const StepTwo = (props) => {
                     text={`Lütfen Bekleyiniz...`}
                   />
                 )}
+                <div className={{margin: 30}}></div>
               </form>
             </div>
           </DialogContent>
