@@ -6,3 +6,4 @@ export { default as sportTypeIconGenerator } from './sportTypeIconGenerator';
 export { default as unMaskPhone } from './unMaskPhone';
 export { default as theme } from './theme';
 export * from './hooks';
+export * from './date';
