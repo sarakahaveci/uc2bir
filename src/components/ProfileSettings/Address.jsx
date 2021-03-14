@@ -218,8 +218,6 @@ export default function Address() {
     dispatch(getCitiesAndDistict({ [event.target.name]: event.target.value }));
   };
 
-  console.log(formData);
-
   return isLoading ? (
     <>Yükleniyor</>
   ) : (
