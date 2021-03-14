@@ -1,31 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components/macro';
-import { Slider } from '@material-ui/core';
 
-import { Material, AwesomeIcon, Text, Button, Svg, Box } from 'components';
+import { Material, AwesomeIcon, Text, Button, Slider, Box } from 'components';
 
 const classificationsArr = ['A', 'B', 'C'];
 
-const SearchFilters = () => {
-  const [classification, setClassification] = useState('');
-  const [ratings, setRatings] = useState([]);
-  const [price, setPrice] = useState([0, 500]);
-
-  const ratingChangeHandler = (event) => {
-    const value = event.target.value;
-
-    if (ratings.includes(value)) {
-      setRatings.filter((rating) => rating !== value);
+const SearchFilters = ({
+  classification,
+  setClassification,
+  ratings,
+  setRatings,
+  price,
+  setPrice,
+  searchHandler,
+}) => {
+  const ratingChangeHandler = (starCount) => {
+    if (ratings.includes(starCount)) {
+      setRatings(ratings.filter((rating) => rating !== starCount));
     } else {
-      setRatings([...ratings, value]);
+      setRatings([...ratings, starCount]);
     }
   };
 
   const priceChangeHandler = (event, newValue) => setPrice(newValue);
-
-  const ariaLabelHandler = (value) => {
-    return 'deneme ';
-  };
 
   return (
     <FiltersWrapper>
@@ -43,8 +40,8 @@ const SearchFilters = () => {
         ))}
       </Box>
 
-      <Text color="dark" fontSize="0.9rem" mb="5px">
-        FİYATA GÖRE LİSTELE
+      <Text color="dark" fontSize="0.9rem" m="15px 0 5px 0">
+        FİYATA GÖRE LİSTELE ( TL )
       </Text>
 
       <Slider
@@ -52,12 +49,11 @@ const SearchFilters = () => {
         onChange={priceChangeHandler}
         valueLabelDisplay="on"
         aria-labelledby="range-slider"
-        getAriaLabel={ariaLabelHandler}
         min={0}
         max={1000}
       />
 
-      <Text color="dark" fontSize="0.9rem" mb="15px">
+      <Text color="dark" fontSize="0.9rem" m="15px 0 5px 0">
         DEĞERLENDİRME PUANI
       </Text>
 
@@ -65,8 +61,9 @@ const SearchFilters = () => {
         <StarWrapper row>
           <Material.checkbox
             checked={ratings.includes(starCount)}
-            onChange={ratingChangeHandler}
+            onChange={() => ratingChangeHandler(starCount)}
           />
+
           <Box flex={1}>
             {[...Array(5)].map((_, index) => (
               <Star active={starCount >= index + 1} />
@@ -75,7 +72,12 @@ const SearchFilters = () => {
         </StarWrapper>
       ))}
 
-      <Button mt="10px" text="Uygula" className="blue" />
+      <Button
+        mt="10px"
+        text="Uygula"
+        className="blue"
+        onClick={searchHandler}
+      />
     </FiltersWrapper>
   );
 };

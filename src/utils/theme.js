@@ -21,6 +21,7 @@ const theme = {
     gray8: '#707070',
     black: 'black',
     black2: '#6e6d6d',
+    green: '#51dc8e',
   },
 };
 
