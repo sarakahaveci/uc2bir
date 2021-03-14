@@ -1,10 +1,22 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
+import { Title, Text, Box, Pagination, Spinner } from 'components';
+import { setSearchFilters } from 'actions';
 import TrainerCard from './TrainerCard';
 import SearchTrainer from './SearchTrainer';
-import { Title, Text, Box } from 'components';
 
 const Trainers = () => {
+  const {
+    pageNumber,
+    foundUsers: { data: foundUsers, isLoading, error },
+  } = useSelector((state) => state.profileSettings2.userSearch);
+
+  const dispatch = useDispatch();
+
+  const pageChangeHandler = (event, value) =>
+    dispatch(setSearchFilters('pageNumber', value));
+
   return (
     <div>
       <Title textAlign="left" componet="h5" className="my-4">
@@ -24,14 +36,20 @@ const Trainers = () => {
       <SearchTrainer />
 
       <div className="trainers__wrapper">
-        <Box col p="0 20px" width={[1, 1 / 2, 1 / 4]}>
-          <TrainerCard
-            fullName="Nazlı Parlak"
-            description="Fitness Eğitmeni"
-            location="İstanbul, Beşiktaş"
-            fee="150"
-          />
-        </Box>
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          foundUsers.map((data) => (
+            <Box col p="0 20px" width={[1, 1 / 2, 1 / 4]}>
+              <TrainerCard
+                fullName="Nazlı Parlak"
+                description="Fitness Eğitmeni"
+                location="İstanbul, Beşiktaş"
+                fee="150"
+              />
+            </Box>
+          ))
+        )}
 
         <Box col p="0 20px" width={[1, 1 / 2, 1 / 4]}>
           <TrainerCard
@@ -60,6 +78,8 @@ const Trainers = () => {
           />
         </Box>
       </div>
+
+      <Pagination page={pageNumber} onChange={pageChangeHandler} count={10} />
     </div>
   );
 };
