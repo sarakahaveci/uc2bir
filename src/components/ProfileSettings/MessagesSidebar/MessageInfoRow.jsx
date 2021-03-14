@@ -51,7 +51,9 @@ const MessageInfoRow = ({ messageData, senderData }) => {
             {isLastSenderMe && <Avatar src={Facility} small />}
 
             <Box height="14px" flex={1} overflow="hidden" position="relative">
-              <Message>{messageData.message}</Message>
+              <Message isLastSenderMe={isLastSenderMe}>
+                {messageData.message}
+              </Message>
             </Box>
           </Box>
 
@@ -101,7 +103,6 @@ const AvatarWrapper = styled.div`
 const Avatar = styled.img`
   width: 50px;
   height: 50px;
-  background-color: red;
   border: ${(p) => p.showBorder && '2px solid white'};
   border-radius: 50%;
   position: relative;
@@ -118,7 +119,7 @@ const ActiveCircle = styled.span`
   width: 14px;
   height: 14px;
   border: 2px solid white;
-  background: #51dc8e;
+  background: ${(p) => p.theme.colors.green};
   border-radius: 50%;
   position: absolute;
   right: -2px;
@@ -146,5 +147,5 @@ const Message = styled(Text)`
   padding: 0;
   color: ${(p) => p.theme.colors.dark};
   font-size: 0.9rem;
-  margin-left: 5px;
+  margin-left: ${(p) => (p.isLastSenderMe ? '5px' : '0')};
 `;

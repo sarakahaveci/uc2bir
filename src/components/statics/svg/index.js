@@ -67,6 +67,7 @@ import Plus from './images/plus.svg';
 import Tl from './images/tl.svg';
 import UpDown from './images/up-down.svg';
 import Location from './images/location.svg';
+import ActiveHeart from './images/active-heart.svg';
 
 import AthleticSportIcon from 'assets/sports-type-icons/atletic.svg';
 import FitnessSportIcon from 'assets/sports-type-icons/fitness.svg';
@@ -152,6 +153,7 @@ const Svg = {
   Tl: (props) => <ReactSVG {...props} src={Tl} />,
   UpDownIcon: (props) => <ReactSVG {...props} src={UpDown} />,
   LocationIcon: (props) => <ReactSVG {...props} src={Location} />,
+  ActiveHeartIcon: (props) => <ReactSVG {...props} src={ActiveHeart} />,
 
   SessionType: {
     Gym: (props) => <ReactSVG {...props} src={SessionTypeGym} />,

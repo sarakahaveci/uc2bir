@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Spinner } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 
-import { Title, Box } from 'components';
+import { Title, Pagination, Spinner } from 'components';
 import { getFavoriteUsers } from 'actions';
 import { PERSONAL_TRAINER, WORK_PLACE, DIETITIAN } from '../../../constants';
 import LongUserCard from 'components/UserCards/LongUserCard';
 import SubTabs from 'components/SubTabs/SubTabs';
 
-const subTabData = [
+const subTabsData = [
   {
     label: 'Eğitmenler',
     value: PERSONAL_TRAINER,
@@ -25,27 +25,36 @@ const subTabData = [
 
 const Favorites = () => {
   const {
-    data: { data: favoriteUsers, currentPage, perPage, totalPage },
+    data: { data: favoriteUsers, totalPage },
     isLoading,
   } = useSelector(
     (state) => state.profileSettings2.favoriteSettings.favoriteUsers
   );
   const [userType, setUserType] = useState(PERSONAL_TRAINER);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getFavoriteUsers(userType));
-  }, [userType]);
+    dispatch(getFavoriteUsers(userType, currentPage));
+  }, [userType, currentPage]);
+
+  const pageChangeHandler = (event, value) => setCurrentPage(value);
 
   let content;
 
   if (isLoading) {
-    content = <Spinner animation="border" variant="info" />;
+    content = <Spinner />;
   } else {
-    content = favoriteUsers?.map((item) => (
-      <LongUserCard data={item} showHeartBg />
-    ));
+    content = favoriteUsers?.length ? (
+      favoriteUsers.map((item) => (
+        <Col lg={4} md={6} sm={12}>
+          <LongUserCard data={item} showHeartBg favoritedUser />
+        </Col>
+      ))
+    ) : (
+      <div>Herhangi bir favori kullancınız bulunmamaktır.</div>
+    );
   }
 
   return (
@@ -61,13 +70,25 @@ const Favorites = () => {
         </Title>
 
         <SubTabs
-          data={subTabData}
-          onChange={(value) => setUserType(value)}
+          data={subTabsData}
+          onChange={(value) => {
+            setUserType(value);
+            setCurrentPage(1);
+          }}
           lineWidth="50%"
         />
       </div>
 
-      <Box position="relative">{content}</Box>
+      <Row position="relative">{content}</Row>
+
+      {!!totalPage && !isLoading && (
+        <Pagination
+          mt="150px"
+          count={totalPage}
+          page={currentPage}
+          onChange={pageChangeHandler}
+        />
+      )}
     </div>
   );
 };
