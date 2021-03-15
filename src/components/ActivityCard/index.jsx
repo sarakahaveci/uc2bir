@@ -17,6 +17,7 @@ export default function ActivityCard({
   branch,
   classification,
   branch_id,
+  statusId,
 }) {
   const dispatch = useDispatch();
   const { data: registerData } = useSelector((state) => state.registerData);
@@ -28,6 +29,10 @@ export default function ActivityCard({
   const statusTextClass = isAccepted ? 'accepted-text' : 'waiting-accept-text';
 
   const statusText = isAccepted ? 'Onaylandı' : 'Onay Bekliyor';
+
+  const PTstatusText = registerData?.['global-status']?.find(
+    (globalStatus) => globalStatus.id === statusId
+  );
 
   const [formData, setFormData] = useState({
     id: id,
@@ -108,7 +113,9 @@ export default function ActivityCard({
           {isWorkPlace
             ? sportTypeIconGenerator(id)
             : sportTypeIconGenerator(name)}
-          <span className={`ml-auto ${statusTextClass}`}>{statusText} </span>
+          <span className={`ml-auto ${statusTextClass}`}>
+            {isWorkPlace ? statusText : PTstatusText?.name}
+          </span>
         </div>
         <Title
           fontWeight="600"
@@ -174,6 +181,9 @@ export default function ActivityCard({
               name="price"
               changeValue={price}
               onChange={handleBranchFormOnChange}
+              inputProps={{
+                readOnly: !isAccepted,
+              }}
             />
           </>
         )}

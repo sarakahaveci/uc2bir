@@ -117,6 +117,7 @@ export default function WorkPlaceActivity() {
                   classification={branch?.classification}
                   price={branch?.price}
                   name={branch?.name}
+                  statusId={branch?.status_id}
                 />
               ))
             ) : (
