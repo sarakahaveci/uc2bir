@@ -33,6 +33,7 @@ const MessageSidebar = () => {
           <MessageInfoRow
             messageData={data.last_message}
             senderData={data.user_meta}
+            unreadMessages={data.unread_messages}
           />
         ))}
       </MessagesInfoWrapper>

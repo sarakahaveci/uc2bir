@@ -7,7 +7,7 @@ import Facility from 'assets/facility.png';
 import { Text, Box } from 'components';
 import { ISOToTimeConverter, ISOToDateConverter } from 'utils';
 
-const MessageInfoRow = ({ messageData, senderData }) => {
+const MessageInfoRow = ({ messageData, senderData, unreadMessages }) => {
   const myProfileId = useSelector((state) => state.auth.user.id);
 
   const isLastSenderMe = myProfileId === messageData.sender_id;
@@ -57,8 +57,8 @@ const MessageInfoRow = ({ messageData, senderData }) => {
             </Box>
           </Box>
 
-          {messageData.unread_notifications && (
-            <UnReadCount center>{messageData.unread_notifications}</UnReadCount>
+          {!!unreadMessages && (
+            <UnReadCount center>{unreadMessages}</UnReadCount>
           )}
         </Box>
       </Box>

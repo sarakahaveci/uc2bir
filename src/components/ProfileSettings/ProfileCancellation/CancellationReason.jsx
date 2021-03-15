@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components/macro';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Radio from '@material-ui/core/Radio';
 import { useSelector, useDispatch } from 'react-redux';
 import RadioGroup from '@material-ui/core/RadioGroup';
 
@@ -14,10 +13,11 @@ import {
   Svg,
   Span,
   Spinner,
+  Material,
 } from 'components';
 import { getCancellationReasons, cancelProfile } from 'actions';
 
-const CancellationReason = ({ setIsProfileCancellationPage }) => {
+const CancellationReason = () => {
   const {
     reasons: { data: reasons, isLoading: reasonsLoading },
     cancelProfile: { isLoading: cancelLoading },
@@ -55,11 +55,7 @@ const CancellationReason = ({ setIsProfileCancellationPage }) => {
 
   return (
     <div>
-      <Box
-        row
-        cursor="pointer"
-        onClick={() => setIsProfileCancellationPage(false)}
-      >
+      <Box row cursor="pointer">
         <Svg.ArrowLeftIcon />
 
         <Span
@@ -105,13 +101,18 @@ const CancellationReason = ({ setIsProfileCancellationPage }) => {
             <FormControlLabel
               value={item.reason}
               label={item.reason}
-              control={<Radio />}
+              control={<Material.RadioButton />}
             />
           ))}
           <Box col bg="gray6">
-            <FormControlLabel value="Other" control={<Radio />} label="Diğer" />
+            <FormControlLabel
+              value="Other"
+              control={<Material.RadioButton />}
+              label="Diğer"
+            />
 
             <TextArea
+              readOnly={reason !== 'Other'}
               rows={6}
               placeholder="Lütfen üyeliğinizi neden iptal etmek istediğinizi kısaca belirtin"
               onChange={inputChangeHandler}
@@ -151,6 +152,7 @@ const TextArea = styled.textarea`
   flex: 1;
   width: auto;
   min-width: unset;
+  font-size: 0.9rem;
 
   &::placeholder {
     font-size: 0.9rem;
