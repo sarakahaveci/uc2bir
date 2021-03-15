@@ -5,22 +5,21 @@ import PropTypes from 'prop-types';
 import Svg from 'components/statics/svg';
 import List from '../List';
 import Item from '../Item';
-import ROLE from 'constants/role';
 import TABS from 'constants/tabUri';
 
 const Dietitian = ({ user_name, user_id, user_img = null, logOutAction }) => {
   const notification = [
     {
       name: '1. Bildirim',
-      link: `${ROLE.PT.link.pathname}${TABS.notification}`,
+      link: TABS.notificationPath,
     },
     {
       name: '2. Bildirim',
-      link: `${ROLE.PT.link.pathname}${TABS.notification}`,
+      link: TABS.notificationPath,
     },
     {
       name: '3. Bildirim',
-      link: `${ROLE.PT.link.pathname}${TABS.notification}`,
+      link: TABS.notificationPath,
     },
   ];
 
@@ -28,42 +27,42 @@ const Dietitian = ({ user_name, user_id, user_img = null, logOutAction }) => {
     {
       name: 'Profilim',
       icon: <Svg.UsernameIcon />,
-      link: ROLE.DIETIAN.link,
+      link: TABS.profilePath,
     },
     {
       name: 'Paketlerim',
       icon: <Svg.Packet />,
-      link: `${ROLE.PT.link.pathname}${TABS.packets}`,
+      link: TABS.packetsPath,
     },
     {
       name: 'Oturum Türleri & Çalıştığım Yerler',
       icon: <Svg.PtHome />,
-      link: `${ROLE.PT.link.pathname}${TABS.sessiontype}`,
+      link: TABS.sessiontypePath,
     },
     {
       name: 'Ücretlerim',
       icon: <Svg.Monies />,
-      link: `${ROLE.PT.link.pathname}${TABS.wallet}`,
+      link: TABS.pricePath,
     },
     {
       name: 'Uzmanlıklarım',
       icon: <Svg.Expert />,
-      link: `${ROLE.PT.link.pathname}${TABS.expert}`,
+      link: TABS.specialtiesPath,
     },
     {
       name: 'Cüzdanım',
       icon: <Svg.Wallet />,
-      link: `${ROLE.PT.link.pathname}${TABS.wallet}`,
+      link: TABS.walletPath,
     },
     {
       name: 'Galeri',
       icon: <Svg.Gallery />,
-      link: `${ROLE.PT.link.pathname}${TABS.gallery}`,
+      link: TABS.galleryPath,
     },
     {
       name: 'Blog',
       icon: <Svg.Blog />,
-      link: `${ROLE.PT.link.pathname}${TABS.blog}`,
+      link: TABS.blogPath,
     },
     {
       name: 'Çıkış Yap',

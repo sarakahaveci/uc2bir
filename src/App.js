@@ -19,7 +19,6 @@ import Profile from 'views/Profile';
 import UserProfile from 'views/UserProfile';
 import Components from 'views/Components';
 import { theme } from 'utils';
-import Notifications from 'views/ProfileSettings/Notifications';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -56,14 +55,10 @@ const App = () => {
 
               <ProtectedRoute
                 exact
-                path="/myprofile/settings"
+                path="/myprofile/settings/:activeTabKey"
                 component={UserProfile}
               />
-              <ProtectedRoute
-                exact
-                path="/myprofile/settings/notifications"
-                component={Notifications}
-              />
+
               <Route exact path="/components" component={Components} />
               <Route component={NotFoundPage} />
             </Switch>

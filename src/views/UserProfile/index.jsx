@@ -31,7 +31,7 @@ const regularUserTabs = [
     component: <ProfileSettings />,
   },
   /* {
-    eventKey: 'rezarvation',
+    eventKey: 'reservation',
     title: 'Rezarvasyonlarım',
     component: (
       <Title variant={'h4'} component={'h4'} textLeft lineDisable>
@@ -39,7 +39,7 @@ const regularUserTabs = [
       </Title>
     ),
   }, */
-  {
+  /* {
     eventKey: 'packets',
     title: 'Paketlerim',
     component: (
@@ -47,7 +47,7 @@ const regularUserTabs = [
         Paketlerim
       </Title>
     ),
-  },
+  }, */
   /*  {
     eventKey: 'wallet',
     title: 'Cüzdanım',
@@ -81,7 +81,7 @@ const workPlaceTabs = [
     component: <ProfileSettings />,
   },
   /* {
-    eventKey: 'rezarvation',
+    eventKey: 'reservation',
     title: 'Rezarvasyonlarım',
     component: (
       <Title variant={'h4'} component={'h4'} textLeft lineDisable>
@@ -110,7 +110,7 @@ const workPlaceTabs = [
     component: <Wallet />,
   }, */
   {
-    eventKey: 'galery',
+    eventKey: 'gallery',
     title: 'Galeri',
     component: <MasonaryGallery />,
   },
@@ -123,7 +123,7 @@ const dietitianTabs = [
     component: <ProfileSettings />,
   },
   /* {
-    eventKey: 'rezarvation',
+    eventKey: 'reservation',
     title: 'Rezarvasyonlarım',
     component: (
       <Title variant={'h4'} component={'h4'} textLeft lineDisable>
@@ -131,7 +131,7 @@ const dietitianTabs = [
       </Title>
     ),
   }, */
-  {
+  /* {
     eventKey: 'packets',
     title: 'Paketlerim',
     component: (
@@ -139,7 +139,7 @@ const dietitianTabs = [
         Paketlerim
       </Title>
     ),
-  },
+  }, */
   /*  {
     eventKey: 'service',
     title: 'Hizmetlerim',
@@ -171,7 +171,7 @@ const dietitianTabs = [
     component: <Wallet />,
   }, */
   {
-    eventKey: 'galery',
+    eventKey: 'gallery',
     title: 'Galeri',
     component: <MasonaryGallery />,
   },
@@ -193,7 +193,7 @@ const trainerTabs = [
     component: <ProfileSettings />,
   },
   /* {
-    eventKey: 'rezarvation',
+    eventKey: 'reservation',
     title: 'Rezarvasyonlarım',
     component: (
       <Title variant={'h4'} component={'h4'} textLeft lineDisable>
@@ -201,7 +201,7 @@ const trainerTabs = [
       </Title>
     ),
   }, */
-  {
+  /* {
     eventKey: 'packets',
     title: 'Paketlerim',
     component: (
@@ -209,7 +209,7 @@ const trainerTabs = [
         Paketlerim
       </Title>
     ),
-  },
+  }, */
 
   {
     eventKey: 'location',
@@ -233,7 +233,7 @@ const trainerTabs = [
     component: <Wallet />,
   }, */
   {
-    eventKey: 'galery',
+    eventKey: 'gallery',
     title: 'Galeri',
     component: <MasonaryGallery />,
   },
@@ -248,7 +248,7 @@ const trainerTabs = [
   },
 ];
 
-export default function Profile({history}) {
+export default function Profile({ match }) {
   const user = useSelector((state) => state.auth.user);
 
   let tabData;
@@ -277,7 +277,10 @@ export default function Profile({history}) {
 
       <Container>
         <div className="tab-wrapper">
-          <Tab tabData={tabData} defaultActiveKey={history?.location?.search?.split("=")?.[1] || "profile"} />
+          <Tab
+            tabData={tabData}
+            defaultActiveKey={match?.params?.activeTabKey || 'profile'}
+          />
         </div>
       </Container>
     </Main>

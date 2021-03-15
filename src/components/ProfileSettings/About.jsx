@@ -28,7 +28,7 @@ export default function About() {
       position: 'bottom-right',
       autoClose: 4500,
     });
-    setNewAbout(userInfo?.about)
+    setNewAbout(userInfo?.about);
   };
 
   const handleChangeAbout = () => {
@@ -36,9 +36,6 @@ export default function About() {
       dispatch(setProfile({ about: newAbout }, isSuccess, isFailUpdate));
     }
   };
-
-  console.log({ userInfo, newAbout });
-  console.log(userInfo?.about === newAbout);
 
   return isLoading ? (
     <div>Yükleniyor..</div>
