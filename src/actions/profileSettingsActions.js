@@ -14,7 +14,9 @@ import {
   GET_MY_GALLERIES,
   GET_VKI,
   SET_VKI,
+  GET_TEST,
 } from '../constants';
+import { information } from './authActions';
 
 export const getMyGalleries = () => async (dispatch, getState) => {
   const url = `/user/gallery/index/me`;
@@ -36,7 +38,7 @@ export const setProfile = (
   errorCallback
 ) => async (dispatch) => {
   const url = '/user/profile/detail';
-
+  
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
@@ -47,7 +49,10 @@ export const setProfile = (
         ...data,
       },
       transformData: (data) => data.data,
-      callBack: () => successCallback(),
+      callBack: () => {
+        dispatch(information());
+        return successCallback();
+      },
       errorHandler: (error) => errorCallback(error.message),
     },
   });
@@ -90,6 +95,25 @@ export const getProfile = (successCallback, errorCallback) => async (
       method: 'GET',
       url,
       label: GET_PROFILE_UPDATE,
+      transformData: (data) => data.data,
+      callBack: () => successCallback(),
+      errorHandler: () => errorCallback(),
+    },
+  });
+};
+
+export const getTest = (successCallback, errorCallback) => async (
+  dispatch,
+  getState
+) => {
+  const url = `/user/profile/completed-survey`;
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'GET',
+      url,
+      label: GET_TEST,
       transformData: (data) => data.data,
       callBack: () => successCallback(),
       errorHandler: () => errorCallback(),

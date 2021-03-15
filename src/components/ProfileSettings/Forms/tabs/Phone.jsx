@@ -8,15 +8,17 @@ import styled from 'styled-components/macro';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-import { getProfile, setProfile } from 'actions';
+import { getProfile, setProfile, verifyCode } from 'actions';
 import { unMaskPhone } from 'utils';
+import { StepTwo } from 'views/Register/steps';
 
-const ProfileForms = ({ type }) => {
+const ProfileForms = () => {
   const dispatch = useDispatch();
   const { detail } = useSelector(
     (state) => state.profileSettings2.profileDetail
   );
-  const [data, setData] = useState({});
+  const [phone, setPhone] = useState(false);
+  const [modal, setModal] = useState(false);
 
   const actionGetData = async () => {
     await dispatch(
@@ -32,17 +34,17 @@ const ProfileForms = ({ type }) => {
     );
   };
 
-  const onSubmit = (event) => {
-    event.preventDefault();
+  const newAction = () => {
     dispatch(
       setProfile(
-        { ...data },
+        { phone: unMaskPhone(phone) },
         () => {
           toast.success('Bilgileriniz güncellendi.', {
             position: 'bottom-right',
             autoClose: 2000,
           });
-          setData({});
+          setPhone();
+          setModal(false);
         },
         () => {
           toast.error('Güncelleme işlemi yapılamadı.', {
@@ -50,6 +52,21 @@ const ProfileForms = ({ type }) => {
             autoClose: 2000,
           });
         }
+      )
+    );
+  };
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    dispatch(
+      verifyCode(
+        { phone },
+        () => setModal(true),
+        () =>
+          toast.error('Kod gönderilemedi', {
+            position: 'bottom-right',
+            autoClose: 2000,
+          })
       )
     );
   };
@@ -69,26 +86,30 @@ const ProfileForms = ({ type }) => {
             mask="\0(999) 999 99 99"
             value={detail?.data?.phone}
             defaultValue={detail?.data?.phone}
-            onChange={(e) =>
-              setData({ ...data, [e.target.name]: e.target.value })
-            }
+            onChange={(e) => setPhone(e.target.value)}
           />
           <Footer>
             <Button
-              style={{
-                margin: 15,
-                paddingLeft: 30,
-                paddingRight: 30,
-                fontSize: '10pt',
-              }}
-              className="blue"
+              fontWeight="600"
               type="submit"
-              text="Kaydet"
-              disabled={Object.keys(data).length === 0 ? true : false}
+              text="KAYDET"
+              fontSize="15px"
+              color="blue"
+              transparentDisabled={phone ? false : true}
+              disabled={phone ? false : true}
               isLoading={detail.isLoading}
             />
           </Footer>
         </form>
+      )}
+      {modal && (
+        <StepTwo
+          newAction={newAction}
+          phone={phone}
+          count={120}
+          modal={modal}
+          setModal={setModal}
+        />
       )}
     </Section>
   );

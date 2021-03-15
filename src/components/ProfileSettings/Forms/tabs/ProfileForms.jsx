@@ -8,7 +8,7 @@ import styled from 'styled-components/macro';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-import { getProfile, setProfile } from 'actions';
+import { getProfile, information, setProfile } from 'actions';
 import { unMaskPhone } from 'utils';
 
 const ProfileForms = ({ type }) => {
@@ -113,18 +113,6 @@ const ProfileForms = ({ type }) => {
               />
             </>
           )}
-          <Material.TextField
-            label="Telefon Numaranız"
-            type="text"
-            name="phone"
-            mask="\0(999) 999 99 99"
-            value={detail?.data?.phone}
-            defaultValue={detail?.data?.phone}
-            onChange={(e) =>
-              setData({ ...data, [e.target.name]: e.target.value })
-            }
-            settings="current"
-          />
           {type !== 'WORK_PLACE' && (
             <Material.SimpleSelect
               label="Cinsiyetiniz"
@@ -167,14 +155,14 @@ const ProfileForms = ({ type }) => {
           )}
           <Footer>
             <Button
-              style={{
-                margin: 15,
-                paddingLeft: 30,
-                paddingRight: 30,
-              }}
-              className="blue"
+              fontWeight="600"
               type="submit"
               text="KAYDET"
+              fontSize="15px"
+              color="blue"
+              transparentDisabled={
+                Object.keys(data).length === 0 ? true : false
+              }
               disabled={Object.keys(data).length === 0 ? true : false}
               isLoading={detail.isLoading}
             />

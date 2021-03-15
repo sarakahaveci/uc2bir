@@ -27,7 +27,7 @@ const StepOne = (props) => {
   const dispatch = useDispatch();
 
   const {
-    confirmation: { data: confirmationData }
+    confirmation: { data: confirmationData },
   } = useSelector((state) => state.registerData);
 
   const getStepOne = useSelector((state) => state.stepOne);
@@ -65,7 +65,7 @@ const StepOne = (props) => {
   useEffect(() => {
     if (getStepOne.error) {
       if (getStepOne.error) {
-        if ( Object.entries(getStepOne.error).length < 6 ) {
+        if (Object.entries(getStepOne.error).length < 6) {
           for (const [key, val] of Object.entries(getStepOne.error)) {
             toast.error(`${key}: ${val}`, {
               position: 'bottom-right',
@@ -97,7 +97,8 @@ const StepOne = (props) => {
       setStepOne(
         {
           ...data,
-          type_id: registerData?.['user-type'].filter((f) => f.key === 'st')[0]?.id,
+          type_id: registerData?.['user-type'].filter((f) => f.key === 'st')[0]
+            ?.id,
           kvkk: acceptKvkk ? 1 : 0,
           agreement: acceptMemberAgreement ? 1 : 0,
           health_status: acceptHealthAgreement ? 1 : 0,
@@ -271,7 +272,15 @@ const StepOne = (props) => {
           />
         )}
       </form>
-      {modal && <StepTwo setSteps={setSteps} phone={data.phone} count={1} modal={modal} setModal={setModal} />}
+      {modal && (
+        <StepTwo
+          setSteps={setSteps}
+          phone={data.phone}
+          count={1}
+          modal={modal}
+          setModal={setModal}
+        />
+      )}
       <Text
         style={{ marginTop: 30, marginBottom: 10 }}
         fontSize="12pt"

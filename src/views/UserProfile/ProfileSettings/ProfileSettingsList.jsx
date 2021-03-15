@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux';
 import Password from 'components/ProfileSettings/Forms/tabs/Password';
 import SettingsForm from 'components/ProfileSettings/Forms/SettingsForm';
 import CompanyInf from 'components/ProfileSettings/Forms/CompanyInf';
+import Phone from 'components/ProfileSettings/Forms/tabs/Phone';
+import ComputedTest from 'components/ProfileSettings/Forms/tabs/ComputedTest';
 import Address from 'components/ProfileSettings/Address';
 import About from 'components/ProfileSettings/About';
 import VKI from 'components/ProfileSettings/Forms/VKI';
@@ -39,6 +41,12 @@ const trainerAndDietitanData = [
     body: <About />,
   },
   {
+    settingsName: 'İletişim',
+    settingsDetails:
+      'Telefon numaranızı güncelleyin.',
+    body: <Phone />,
+  },
+  {
     settingsName: 'Şifre İşlemleri',
     settingsDetails: 'Şifrenizi buradan güncelleyebilirsiniz',
     body: <Password />,
@@ -69,7 +77,12 @@ const regularUserTabs = [
       'Adınız soyadınız, ünvanınız ve diğer bilgilerinizi güncel tutun',
     body: <SettingsForm />,
   },
-
+  {
+    settingsName: 'İletişim',
+    settingsDetails:
+      'Telefon numaranızı güncelleyin.',
+    body: <Phone />,
+  },
   {
     settingsName: 'Boy & Ağırlık & VKI Bilgineriniz',
     settingsDetails: 'Bilgilerinizi güncel tutun',
@@ -78,7 +91,7 @@ const regularUserTabs = [
   {
     settingsName: 'Tamamlanmış Testler ',
     settingsDetails: 'Tamamladığınız testlere göz atın',
-    body: <div>Tamamlanmış Testiniz bulunmamaktadır.</div>,
+    body: <ComputedTest/>,
   },
   {
     settingsName: 'Adresim',
@@ -95,6 +108,17 @@ const workPlaceData = [
     body: <SettingsForm />,
   },
   {
+    settingsName: 'İş Yeri Hakkında',
+    settingsDetails: 'İİş yeri hakkında yazınızı düzenleyin, güncelleyin',
+    body: <About />,
+  },
+  {
+    settingsName: 'İletişim',
+    settingsDetails:
+      'Telefon numaranızı güncelleyin.',
+    body: <Phone />,
+  },
+  {
     settingsName: 'İş Yeri Bilgileri',
     settingsDetails: 'Şirket Bilgilerinizi düzenleyin, güncelleyin',
     body: <CompanyInf />,
@@ -104,12 +128,6 @@ const workPlaceData = [
     settingsDetails: 'Şifrenizi buradan güncelleyebilirsiniz',
     body: <Password />,
   },
-  {
-    settingsName: 'İş Yeri Hakkında',
-    settingsDetails: 'İİş yeri hakkında yazınızı düzenleyin, güncelleyin',
-    body: <About />,
-  },
-
   {
     settingsName: 'İş Yeri Belgeler',
     settingsDetails:

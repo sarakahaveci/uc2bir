@@ -17,7 +17,7 @@ import { setStepTwo, verifyCode } from '../../../actions';
 const StepTwo = (props) => {
   const getStepOne = useSelector((state) => state.stepOne);
   const getStepTwo = useSelector((state) => state.stepTwo);
-  const { setSteps, count, modal, setModal, phone } = props;
+  const { setSteps, count, modal, setModal, phone, newAction = false } = props;
 
   const [open, setOpen] = useState(modal);
   const fullWidth = true;
@@ -72,12 +72,23 @@ const StepTwo = (props) => {
   const vrf_response = () => {
     dispatch(
       verifyCode(
-        { phone: getStepOne.data.phone, code: '' },
+        { phone },
         isResponseSuccess,
         isResponseError
       )
     );
   };
+
+  const action_result = () => {
+    dispatch(
+      verifyCode(
+        { phone, code },
+        newAction,
+        isResponseError
+      )
+    );
+  }
+
   const vrf_result = () => {
     dispatch(
       setStepTwo(
@@ -111,7 +122,11 @@ const StepTwo = (props) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    return vrf_result();
+    if ( newAction ) {
+      return action_result();
+    } else {
+      return vrf_result();
+    }
   };
   return (
     <>

@@ -21,6 +21,9 @@ import {
   SET_VKI_REQUEST,
   SET_VKI_SUCCESS,
   SET_VKI_FAILURE,
+  GET_TEST_REQUEST,
+  GET_TEST_SUCCESS,
+  GET_TEST_FAILURE,
 } from '../constants';
 
 const initialState = {
@@ -37,18 +40,27 @@ const initialState = {
     error: null,
     allList: [],
   },
+
   ptBranchList: {
     isLoading: false,
     data: [],
     error: null,
     allList: [],
   },
+
   vki: {
     isLoading: false,
     data: [],
     error: null,
     isSuccsess: false,
-  }
+  },
+
+  test: {
+    isLoading: false,
+    data: [],
+    error: null,
+    isSuccsess: false,
+  },
 };
 
 export default (state = initialState, action) => {
@@ -59,6 +71,14 @@ export default (state = initialState, action) => {
         ...state,
         vki: {
           ...state.vki,
+          isLoading: true,
+        }
+      };
+    case GET_TEST_REQUEST:
+      return {
+        ...state,
+        test: {
+          ...state.test,
           isLoading: true,
         }
       };
@@ -81,6 +101,15 @@ export default (state = initialState, action) => {
           error: action.payload.message,
         },
       };
+    case GET_TEST_FAILURE:
+      return {
+        ...state,
+        test: {
+          ...state.test,
+          isLoading: false,
+          error: action.payload.message,
+        }
+      };
     case GET_PT_BRANCH_SUCCESS:
       return {
         ...state,
@@ -89,6 +118,16 @@ export default (state = initialState, action) => {
           isLoading: false,
           data: action.payload,
         },
+      };
+    case GET_TEST_SUCCESS:
+      return {
+        ...state,
+        test: {
+          ...state.test,
+          isLoading: false,
+          data: action.payload,
+          isSuccsess: true,
+        }
       };
     case GET_PT_ALL_BRANCH_SUCCESS:
       return {

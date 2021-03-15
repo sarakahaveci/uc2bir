@@ -29,6 +29,7 @@ const Password = (props) => {
             draggable: true,
             progress: undefined,
           });
+          setData({});
         },
         () => {
           toast.error('Güncelleme işlemi yapılamadı.', {
@@ -102,15 +103,12 @@ const Password = (props) => {
         />
         <Footer>
           <Button
-            style={{
-              margin: 15,
-              paddingLeft: 30,
-              paddingRight: 30,
-              fontSize: '10pt',
-            }}
-            className="blue"
+            fontWeight="600"
             type="submit"
-            text="Kaydet"
+            text="KAYDET"
+            fontSize="15px"
+            color="blue"
+            transparentDisabled={Object.keys(data).length === 0 ? true : false}
             disabled={Object.keys(data).length === 0 ? true : false}
             isLoading={password.isLoading}
           />

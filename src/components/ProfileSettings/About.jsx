@@ -28,6 +28,7 @@ export default function About() {
       position: 'bottom-right',
       autoClose: 4500,
     });
+    setNewAbout(userInfo?.about)
   };
 
   const handleChangeAbout = () => {
