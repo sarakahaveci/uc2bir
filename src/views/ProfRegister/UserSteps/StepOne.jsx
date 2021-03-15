@@ -7,7 +7,7 @@ import InputMask from 'react-input-mask';
 import styled from 'styled-components';
 
 import { StepContext } from '../RegisterSteps';
-import { setStepOne } from 'actions';
+import { setStepOne, setStepTwo } from 'actions';
 import {
   Button,
   Text,
@@ -18,6 +18,7 @@ import {
   Permission,
 } from 'components';
 import StepTwo from './StepTwo';
+import { default as NewStepTwo } from '../../Register/steps/step-two';
 import { macroConverter } from 'utils';
 import Svg from 'components/statics/svg';
 import { TextField } from '@material-ui/core';
@@ -68,6 +69,7 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
   const [shrink, setShrink] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [openModal, setOpenModal] = useState(false);
+  const [modal, setModal] = useState(false);
 
   const [confirmationType, setConfirmationType] = useState('');
 
@@ -75,7 +77,7 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
 
   useEffect(() => {
     if (stepNumber === 2) {
-      setIsOtpModalActive(true);
+      setModal(true);
     }
   }, [stepNumber]);
 
@@ -87,6 +89,28 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
         setStepNumber((step) => step + 1);
       },
     });
+  };
+
+  const verifyErrorCallback = (error) =>
+    toast.error(error, {
+      position: 'bottom-right',
+      autoClose: 2000,
+    });
+
+  const registerHandler = (form, code) => {
+    dispatch(
+      setStepTwo(
+        { ...form, code },
+        () => {
+          toast.success('Kayıt Alındı.', {
+            position: 'bottom-right',
+            autoClose: 1500,
+            onClose: () => setStepNumber((val) => val + 1),
+          });
+        },
+        verifyErrorCallback
+      )
+    );
   };
 
   const registerErrorCallback = (errorMessages) =>
@@ -401,6 +425,26 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
           setStepNumber={setStepNumber}
         />
       )}
+
+      {modal &&
+        <NewStepTwo
+          formData={{
+            ...form,
+            password,
+            type_id: userTypeId,
+            kvkk: acceptKvkk ? 1 : 0,
+            agreement: acceptMemberAgreement ? 1 : 0,
+            health_status: acceptHealthAgreement ? 1 : 0,
+            permission: acceptPermissions ? 1 : 0,
+            phone,
+          }}
+          phone={phone}
+          count={1}
+          modal={modal}
+          setModal={setModal}
+          newAction={registerHandler}
+        />
+      }
 
       <ConfirmationModal show={openModal} onHide={() => setOpenModal(false)}>
         {confirmation}
