@@ -248,7 +248,7 @@ const trainerTabs = [
   },
 ];
 
-export default function Profile() {
+export default function Profile({history}) {
   const user = useSelector((state) => state.auth.user);
 
   let tabData;
@@ -277,7 +277,7 @@ export default function Profile() {
 
       <Container>
         <div className="tab-wrapper">
-          <Tab tabData={tabData} defaultActiveKey="profile" />
+          <Tab tabData={tabData} defaultActiveKey={history?.location?.search?.split("=")?.[1] || "profile"} />
         </div>
       </Container>
     </Main>

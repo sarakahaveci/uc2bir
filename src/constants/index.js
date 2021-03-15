@@ -4,4 +4,5 @@ export * from './userTypes';
 export * from './sportTypes';
 export * from './fileTypes';
 export * from './role';
+export * from './tabUri';
 export * from './statusTypes';

@@ -6,20 +6,21 @@ import Svg from 'components/statics/svg';
 import List from '../List';
 import Item from '../Item';
 import ROLE from 'constants/role';
+import TABS from 'constants/tabUri';
 
 const Dietitian = ({ user_name, user_id, user_img = null, logOutAction }) => {
   const notification = [
     {
       name: '1. Bildirim',
-      link: `/profile/${user_id}`,
+      link: `${ROLE.PT.link.pathname}${TABS.notification}`,
     },
     {
       name: '2. Bildirim',
-      link: `/profile/${user_id}`,
+      link: `${ROLE.PT.link.pathname}${TABS.notification}`,
     },
     {
       name: '3. Bildirim',
-      link: `/profile/${user_id}`,
+      link: `${ROLE.PT.link.pathname}${TABS.notification}`,
     },
   ];
 
@@ -32,37 +33,37 @@ const Dietitian = ({ user_name, user_id, user_img = null, logOutAction }) => {
     {
       name: 'Paketlerim',
       icon: <Svg.Packet />,
-      link: `/profile/${user_id}`,
+      link: `${ROLE.PT.link.pathname}${TABS.packets}`,
     },
     {
       name: 'Oturum Türleri & Çalıştığım Yerler',
       icon: <Svg.PtHome />,
-      link: `/profile/${user_id}`,
+      link: `${ROLE.PT.link.pathname}${TABS.sessiontype}`,
     },
     {
       name: 'Ücretlerim',
       icon: <Svg.Monies />,
-      link: `/profile/${user_id}`,
+      link: `${ROLE.PT.link.pathname}${TABS.wallet}`,
     },
     {
       name: 'Uzmanlıklarım',
       icon: <Svg.Expert />,
-      link: `/profile/${user_id}`,
+      link: `${ROLE.PT.link.pathname}${TABS.expert}`,
     },
     {
       name: 'Cüzdanım',
       icon: <Svg.Wallet />,
-      link: `/profile/${user_id}`,
+      link: `${ROLE.PT.link.pathname}${TABS.wallet}`,
     },
     {
       name: 'Galeri',
       icon: <Svg.Gallery />,
-      link: `/profile/${user_id}`,
+      link: `${ROLE.PT.link.pathname}${TABS.gallery}`,
     },
     {
       name: 'Blog',
       icon: <Svg.Blog />,
-      link: `/profile/${user_id}`,
+      link: `${ROLE.PT.link.pathname}${TABS.blog}`,
     },
     {
       name: 'Çıkış Yap',
