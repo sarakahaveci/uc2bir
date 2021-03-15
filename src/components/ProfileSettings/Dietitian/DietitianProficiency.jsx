@@ -52,7 +52,11 @@ export default function DietitianProficiency() {
   const [
     modifiedUserProficiencyList,
     setModifiedUserProficiencyList,
-  ] = useState(userProficiencyList);
+  ] = useState(null);
+
+  useEffect(() => {
+    setModifiedUserProficiencyList(userProficiencyList);
+  }, [userProficiencyList]);
 
   useEffect(() => {
     dispatch(getDietitianProficiency());
@@ -210,7 +214,7 @@ export default function DietitianProficiency() {
                 onChange={(value) => filterProficiencyListHandler(value)}
               />
               <div className="dietitianProficiency__wrapper">
-                {modifiedUserProficiencyList.length > 0 ? (
+                {modifiedUserProficiencyList?.length > 0 ? (
                   modifiedUserProficiencyList?.map((proficiencyValue) => (
                     <ProficiencyCard
                       title={proficiencyValue?.name}
