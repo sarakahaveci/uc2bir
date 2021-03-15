@@ -153,4 +153,5 @@ const OtpInput = styled.input`
   width: 35px !important;
   margin-right: 15px !important;
   text-align: center;
+  background-color: transparent !important;
 `;

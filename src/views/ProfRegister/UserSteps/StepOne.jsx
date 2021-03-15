@@ -69,7 +69,6 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
   const [shrink, setShrink] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [openModal, setOpenModal] = useState(false);
-  const [modal, setModal] = useState(false);
 
   const [confirmationType, setConfirmationType] = useState('');
 
@@ -77,7 +76,7 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
 
   useEffect(() => {
     if (stepNumber === 2) {
-      setModal(true);
+      setIsOtpModalActive(true);
     }
   }, [stepNumber]);
 
@@ -96,22 +95,6 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
       position: 'bottom-right',
       autoClose: 2000,
     });
-
-  const registerHandler = (form, code) => {
-    dispatch(
-      setStepTwo(
-        { ...form, code },
-        () => {
-          toast.success('Kayıt Alındı.', {
-            position: 'bottom-right',
-            autoClose: 1500,
-            onClose: () => setStepNumber((val) => val + 1),
-          });
-        },
-        verifyErrorCallback
-      )
-    );
-  };
 
   const registerErrorCallback = (errorMessages) =>
     Object.keys(errorMessages)?.forEach((errorKey) => {
@@ -425,26 +408,6 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
           setStepNumber={setStepNumber}
         />
       )}
-
-      {modal &&
-        <NewStepTwo
-          formData={{
-            ...form,
-            password,
-            type_id: userTypeId,
-            kvkk: acceptKvkk ? 1 : 0,
-            agreement: acceptMemberAgreement ? 1 : 0,
-            health_status: acceptHealthAgreement ? 1 : 0,
-            permission: acceptPermissions ? 1 : 0,
-            phone,
-          }}
-          phone={phone}
-          count={1}
-          modal={modal}
-          setModal={setModal}
-          newAction={registerHandler}
-        />
-      }
 
       <ConfirmationModal show={openModal} onHide={() => setOpenModal(false)}>
         {confirmation}

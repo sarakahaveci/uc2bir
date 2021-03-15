@@ -49,7 +49,6 @@ const StepTwo = ({
         toast.info('Telefon Doğrulama Başarısız.', {
           position: 'bottom-right',
           autoClose: 2000,
-          onClose: () => modalCloseHandler(),
         });
       };
     }
@@ -105,33 +104,51 @@ const StepTwo = ({
           <Otp ref={otpInputRef} />
         </div>
 
-        <Text
-          fontSize="0.9rem"
-          color="blue"
-          textAlign="center"
-          cursor="pointer"
-          onClick={() =>
-            dispatch(
-              verifyCode(
-                { phone: formData.phone },
-                () =>
-                  toast.success('Kod Gönderildi.', {
-                    position: 'bottom-right',
-                    autoClose: 2000,
-                  }),
-                () =>
-                  toast.error('Mesaj gönderilirken hata oluştu...', {
-                    position: 'bottom-right',
-                    autoClose: 2000,
-                  })
+        {counter !== 0 ? (
+          <Text fontSize="0.9rem" color="blue" textAlign="center">
+            Kalan süre {Math.floor(counter / 60)}:
+            {`${Math.ceil(counter % 60) < 10 ? 0 : ''}${Math.ceil(
+              counter % 60
+            )}`}
+          </Text>
+        ) : (
+          <Text
+            fontSize="0.9rem"
+            color="blue"
+            textAlign="center"
+            cursor="pointer"
+            onClick={() =>
+              dispatch(
+                verifyCode(
+                  { phone: formData.phone },
+                  () => {
+                    toast.success('Kod Gönderildi.', {
+                      position: 'bottom-right',
+                      autoClose: 2000,
+                    });
+
+                    setCounter(119);
+
+                    interval.current = setInterval(() => {
+                      setCounter((counter) => counter - 1);
+                    }, 1000);
+                  },
+                  () =>
+                    toast.error('Mesaj gönderilirken hata oluştu...', {
+                      position: 'bottom-right',
+                      autoClose: 2000,
+                    })
+                )
               )
+            }
+          >
+            Güvenlik kodunu tekrar gönder ({Math.floor(counter / 60)}:
+            {`${Math.ceil(counter % 60) < 10 ? 0 : ''}${Math.ceil(
+              counter % 60
+            )}`}
             )
-          }
-        >
-          Güvenlik kodunu tekrar gönder ({Math.floor(counter / 60)}:
-          {`${Math.ceil(counter % 60) < 10 ? 0 : ''}${Math.ceil(counter % 60)}`}
-          )
-        </Text>
+          </Text>
+        )}
 
         <Button
           text="İleri"
