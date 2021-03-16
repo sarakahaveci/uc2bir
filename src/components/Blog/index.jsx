@@ -120,6 +120,7 @@ const Blog = () => {
       .then(function (response) {
         setData(response?.data?.data);
         setSeo(response?.data?.data?.blog?.id);
+        setFile(false);
         setPage('edit');
       })
       .catch(function (err) {
