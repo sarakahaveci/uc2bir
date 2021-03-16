@@ -56,7 +56,9 @@ const Blog = () => {
                         <div className="d-flex align-items-end">
                           <ExtendButton>
                             <Svg.PlusIcon />
-                            <div className="w-100 d-flex justify-content-center">Fotoğraf Ekle</div>
+                            <div className="w-100 d-flex justify-content-center">
+                              Fotoğraf Ekle
+                            </div>
                           </ExtendButton>
                           <Material.TextField
                             label="Başlık giriniz"
@@ -128,7 +130,8 @@ const Blog = () => {
                     </div>
                   </Col>
 
-                  <BlogContent>
+                  {/*
+                      <BlogContent>
                     <div className="text-group">
                       <div className="title">Sporcu Beslenmesi Nedir?</div>
                       <div className="content">
@@ -162,41 +165,7 @@ const Blog = () => {
                       onClick={() => console.log('deleteAddress')}
                     />
                   </BlogContent>
-
-                  <BlogContent>
-                    <div className="text-group">
-                      <div className="title">Sporcu Beslenmesi Nedir?</div>
-                      <div className="content">
-                        Sporcu uygun antrenmanlar eşliğinde, uygun yaşam tarzı
-                        ile sağlıklı beslendiğinde performansı olumlu şekilde
-                        artar.Kişinin beslenme düzenini etkileyen faktörler
-                        arasında kişinin fiziksel aktivite durumu da önem taşır.
-                        Aktif spor hayatı olan kişiler de….. yapılan sporun
-                        çeşidi, yapılma süresi ve sıklığı da beslenme düzenini
-                        ve besin gereksinmelerini etkiler. Sporcunun aldığı
-                        sıvıların ve makro besinlerin türüne, miktarına ve
-                        zamanına önem vermektedir. Ek olarak vitamin...
-                      </div>
-                    </div>
-                    <div
-                      style={{ backgroundImage: `url(${image})` }}
-                      className="img"
-                    ></div>
-                    <Footer>
-                      <div className="footer-title">Yazar : Efe Parlak</div>
-                      <div className="date">05.07.2020</div>
-                    </Footer>
-                    <Button
-                      className="edit"
-                      icon={Svg.EditIcon}
-                      onClick={() => console.log('editAddress')}
-                    />
-                    <Button
-                      className="deleted"
-                      icon={Svg.CencelIcon}
-                      onClick={() => console.log('deleteAddress')}
-                    />
-                  </BlogContent>
+                    */}
                 </Row>
               </Text>
             </Col>
