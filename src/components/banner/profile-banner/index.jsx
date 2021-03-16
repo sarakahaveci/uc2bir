@@ -10,6 +10,8 @@ import { Link } from 'react-router-dom';
 
 import Card, { CardFooter, CardInfo } from './Card';
 
+import defaultImg from '../../../assets/default-profile.jpg'
+
 const ProfileBanner = ({
   className = null,
   info,
@@ -21,7 +23,7 @@ const ProfileBanner = ({
   return (
     <Containers className={className}>
       <Rows>
-        <Card img={info.img}>
+        <Card img={defaultImg}>
           <span className="team">{info.team}</span>
           <span className="span">
             <Svg.Heart />
