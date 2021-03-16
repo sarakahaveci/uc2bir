@@ -50,10 +50,13 @@ export default function About() {
         rows={4}
         defaultValue={newAbout}
         onChange={(e) => setNewAbout(e.target.value)}
+        inputProps={{
+          maxLength: 250,
+        }}
       />
       <Box row>
         <hr className="about-hr" />
-        {250 - newAbout?.length || 250}
+        {250 - newAbout?.length ?? 250}
         <span
           onClick={handleChangeAbout}
           className={
