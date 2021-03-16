@@ -43,7 +43,8 @@ export default function WorkPlaceActivity() {
 
   // Removed seleted branch from branch list for show user only able to add branch list
   const filteredBranchList = allList.filter(
-    (branch) => !Object.entries(data).find(([key, obj]) => obj.id === branch.id)
+    (branch) =>
+      !Object.entries(data?.branches).find(([key, obj]) => obj.id === branch.id)
   );
 
   const submitNewActivity = () => {
@@ -117,7 +118,7 @@ export default function WorkPlaceActivity() {
           )}
           <div className={`w-100 ${!showAddBranch ? 'card-wrapper' : ''}`}>
             {!showAddBranch ? (
-              Object.entries(data).map(([key, branch]) => (
+              Object.entries(data?.branches).map(([key, branch]) => (
                 <ActivityCard
                   key={branch.id}
                   branch_id={branch.id}
@@ -189,6 +190,7 @@ export default function WorkPlaceActivity() {
                   name="branch"
                   label="Diğer Branş Talepleriniz"
                   type="text"
+                  changeValue={data?.suggested}
                   inputProps={{
                     readOnly: true,
                   }}
