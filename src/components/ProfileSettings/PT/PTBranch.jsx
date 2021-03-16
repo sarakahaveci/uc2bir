@@ -50,7 +50,10 @@ export default function WorkPlaceActivity() {
     dispatch(
       addNewPTBranch(
         { branch: selectedBranch, branch_suggest: branchSuggest },
-        () => setOpen(true),
+        () => {
+          dispatch(getUserPTBranchList());
+          setOpen(true);
+        },
         (error) => {
           toast.error(error, {
             position: 'bottom-left',
