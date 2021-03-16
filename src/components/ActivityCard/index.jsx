@@ -18,6 +18,7 @@ export default function ActivityCard({
   classification,
   branch_id,
   statusId,
+  waitingPrice,
 }) {
   const dispatch = useDispatch();
   const { data: registerData } = useSelector((state) => state.registerData);
@@ -182,9 +183,21 @@ export default function ActivityCard({
               changeValue={price}
               onChange={handleBranchFormOnChange}
               inputProps={{
-                readOnly: !isAccepted,
+                readOnly: !isAccepted || waitingPrice,
               }}
             />
+            <div style={{ height: 30 }}>
+              {waitingPrice && (
+                <Title
+                  fontWeight="400"
+                  textAlign="left"
+                  fontSize="11px"
+                  color="#404041"
+                >
+                  Onay Bekleyen {waitingPrice} Tl'lik talebiniz bulunmaktadır
+                </Title>
+              )}
+            </div>
           </>
         )}
       </div>
@@ -193,6 +206,7 @@ export default function ActivityCard({
         text="Kaydet"
         fontWeight="500"
         onClick={submitChange}
+        disabled={!isAccepted || waitingPrice}
       />
     </div>
   );

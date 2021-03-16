@@ -41,6 +41,11 @@ export default function WorkPlaceActivity() {
     }
   };
 
+  // Removed seleted branch from branch list for show user only able to add branch list
+  const filteredBranchList = allList.filter(
+    (branch) => !Object.entries(data).find(([key, obj]) => obj.id === branch.id)
+  );
+
   const submitNewActivity = () => {
     dispatch(
       addNewPTBranch(
@@ -118,11 +123,12 @@ export default function WorkPlaceActivity() {
                   price={branch?.price}
                   name={branch?.name}
                   statusId={branch?.status_id}
+                  waitingPrice={branch?.waiting_approval_price}
                 />
               ))
             ) : (
               <>
-                {allList?.map((branch) => (
+                {filteredBranchList?.map((branch) => (
                   <SelectiveButton
                     key={branch.id}
                     id={branch.id}
