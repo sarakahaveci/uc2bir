@@ -3,6 +3,7 @@ import {
   ADD_TYPE_CREATE,
   GET_TYPES,
   SESSIONTYPE_ADD_ADDRESS,
+  SESSIONTYPE_GET_ADDRESS,
 } from '../../constants';
 
 export const getTypes = () => async (dispatch, getState) => {
@@ -54,6 +55,25 @@ export const addAddress = (
       url,
       body: { ...data },
       label: SESSIONTYPE_ADD_ADDRESS,
+      callBack: () => successCallback(),
+      errorHandler: (error) => errorCallback(error?.message),
+      transformData: (data) => data.data,
+    },
+  });
+};
+
+export const getAddressList = (
+  successCallback,
+  errorCallback
+) => async (dispatch, getState) => {
+  const url = `/user/address`;
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'GET',
+      url,
+      label: SESSIONTYPE_GET_ADDRESS,
       callBack: () => successCallback(),
       errorHandler: (error) => errorCallback(error?.message),
       transformData: (data) => data.data,

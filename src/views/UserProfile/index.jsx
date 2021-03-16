@@ -9,6 +9,7 @@ import {
   MasonaryGallery,
   Wallet,
   SessionType,
+  Blog,
 } from 'components';
 import { USER, PERSONAL_TRAINER, WORK_PLACE, DIETITIAN } from '../../constants';
 
@@ -179,9 +180,7 @@ const dietitianTabs = [
     eventKey: 'blog',
     title: 'Blog',
     component: (
-      <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-        Blog
-      </Title>
+      <Blog/>
     ),
   },
 ];
@@ -241,9 +240,7 @@ const trainerTabs = [
     eventKey: 'blog',
     title: 'Blog',
     component: (
-      <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-        Blog
-      </Title>
+      <Blog/>
     ),
   },
 ];

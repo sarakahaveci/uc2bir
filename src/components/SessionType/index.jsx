@@ -17,6 +17,7 @@ import { Text, Title, Svg } from 'components';
 const SessionType = () => {
   const dispatch = useDispatch();
   const type_id = useSelector((state) => state.auth)?.user?.type_id;
+  const [bannerActive, setBannerActive] = useState(true);
 
   const {
     userKeys: { data: userKeys, isSuccess },
@@ -38,9 +39,25 @@ const SessionType = () => {
     actionRegisterData();
   }, []);
 
-  const Section = ({ children, title, icons = [] }) => {
-    return (
-      <>
+  let icons = [];
+
+  switch (type[0]?.key) {
+    case KEYS.DIETIAN:
+      icons = [
+        {
+          id: 'online',
+          name: 'Online',
+          active: false,
+          icon: <Svg.SessionType.Online />,
+        },
+        {
+          id: 'clinic',
+          name: 'Klinik',
+          active: false,
+          icon: <Svg.SessionType.Clinic />,
+        },
+      ];
+      return (
         <Container>
           <Row>
             <Col lg="12">
@@ -48,7 +65,7 @@ const SessionType = () => {
                 Oturum Türleri & Çalıştığım Yerler
               </Title>
             </Col>
-            <Col lg="4">
+            <Col lg="4" style={{ display: bannerActive ? '' : 'none' }}>
               <ImageBanner src={image} />
               <IconGroup>
                 {icons.map((val) => (
@@ -56,44 +73,17 @@ const SessionType = () => {
                 ))}
               </IconGroup>
             </Col>
-            <Col lg="7">
+            <Col lg={bannerActive ? 7 : 12}>
               <Title fontSize="12pt" textAlign="left">
                 Oturum Türleri
               </Title>
-              <Text fontSize="10pt">{title}</Text>
-              {children}
+              <Text fontSize="10pt">
+                {'Hizmet vereceğiniz oturum türlerini seçin.'}
+              </Text>
+              <Dietitian icons={icons} setBannerActive={setBannerActive} />
             </Col>
           </Row>
         </Container>
-      </>
-    );
-  };
-
-  let icons = [];
-
-  switch (type[0]?.key) {
-    case KEYS.DIETIAN:
-      icons = [
-        {
-          id: "online",
-          name: 'Online',
-          active: false,
-          icon: <Svg.SessionType.Online />,
-        },
-        {
-          id: "clinic",
-          name: 'Klinik',
-          active: false,
-          icon: <Svg.SessionType.Clinic />,
-        },
-      ];
-      return (
-        <Section
-          title="Hizmet vereceğiniz oturum türlerini seçin."
-          icons={icons}
-        >
-          <Dietitian icons={icons} />
-        </Section>
       );
 
     case KEYS.GYM:
@@ -102,38 +92,63 @@ const SessionType = () => {
     case KEYS.PT:
       icons = [
         {
-          id: "online",
+          id: 'online',
           name: 'Online',
           active: false,
           icon: <Svg.SessionType.Online />,
         },
         {
-          id: "gym",
+          id: 'gym',
           name: 'Spor Alanı',
           active: false,
           icon: <Svg.SessionType.Gym />,
           create: {
-            key: "gym",
-            action: "gym",
-            name: "Spor Alanı Ekle +"
-          }
+            key: 'gym',
+            action: 'gym',
+            name: 'Spor Alanı Ekle +',
+            subPage: 'gym-edit',
+          },
         },
-        { 
-          id: "home_park", 
-          name: 'Ev / Park', 
-          active: false, 
+        {
+          id: 'home_park',
+          name: 'Ev / Park',
+          active: false,
           icon: <Svg.SessionType.Park />,
           create: {
-            key: "home_park",
-            action: "home_park",
-            name: "Adres Ekle +"
-          }
+            key: 'home_park',
+            action: 'home_park',
+            name: 'Adres Ekle +',
+            subPage: 'home-park-edit',
+          },
         },
       ];
       return (
-        <Section title="Ders vereceğiniz oturum türlerini seçin." icons={icons}>
-          <Pt icons={icons} />
-        </Section>
+        <Container>
+          <Row>
+            <Col lg="12">
+              <Title fontSize="14pt" style={{ padding: 15 }} textAlign="left">
+                Oturum Türleri & Çalıştığım Yerler
+              </Title>
+            </Col>
+            <Col lg="4" style={{ display: bannerActive ? '' : 'none' }}>
+              <ImageBanner src={image} />
+              <IconGroup>
+                {icons.map((val) => (
+                  <Icons active={val.active}>{val.icon}</Icons>
+                ))}
+              </IconGroup>
+            </Col>
+            <Col lg={bannerActive ? 7 : 12}>
+              <Title fontSize="12pt" textAlign="left">
+                Oturum Türleri
+              </Title>
+              <Text fontSize="10pt">
+                {'Ders vereceğiniz oturum türlerini seçin.'}
+              </Text>
+              <Pt icons={icons} setBannerActive={setBannerActive} />
+            </Col>
+          </Row>
+        </Container>
       );
 
     default:

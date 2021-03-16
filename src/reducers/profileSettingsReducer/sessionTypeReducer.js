@@ -10,6 +10,10 @@ import {
   SESSIONTYPE_ADD_ADDRESS_REQUEST,
   SESSIONTYPE_ADD_ADDRESS_SUCCESS,
   SESSIONTYPE_ADD_ADDRESS_FAILURE,
+
+  SESSIONTYPE_GET_ADDRESS_REQUEST,
+  SESSIONTYPE_GET_ADDRESS_SUCCESS,
+  SESSIONTYPE_GET_ADDRESS_FAILURE,
 } from '../../constants';
 
 const initialState = {
@@ -24,6 +28,12 @@ const initialState = {
     error: null,
   },
   addAddress: {
+    isLoading: false,
+    isSuccsess: false,
+    data: [],
+    error: null,
+  },
+  getAddress: {
     isLoading: false,
     isSuccsess: false,
     data: [],
@@ -60,6 +70,15 @@ const sessionTypeReducer = (state = initialState, action) => {
         },
       };
 
+    case SESSIONTYPE_GET_ADDRESS_REQUEST:
+      return {
+        ...state,
+        getAddress: {
+          ...state.getAddress,
+          isLoading: true,
+        },
+      };
+
     case ADD_TYPE_CREATE_SUCCESS:
       return {
         ...state,
@@ -71,17 +90,29 @@ const sessionTypeReducer = (state = initialState, action) => {
         },
       };
 
-      case SESSIONTYPE_ADD_ADDRESS_SUCCESS:
-        return {
-          ...state,
-          addAddress: {
-            ...state.addAddress,
-            isLoading: false,
-            isSuccsess: true,
-            data: action.payload,
-            error: null,
-          },
-        };
+    case SESSIONTYPE_ADD_ADDRESS_SUCCESS:
+      return {
+        ...state,
+        addAddress: {
+          ...state.addAddress,
+          isLoading: false,
+          isSuccsess: true,
+          data: action.payload,
+          error: null,
+        },
+      };
+
+    case SESSIONTYPE_GET_ADDRESS_SUCCESS:
+      return {
+        ...state,
+        getAddress: {
+          ...state.getAddress,
+          isLoading: false,
+          isSuccsess: true,
+          data: action.payload,
+          error: null,
+        },
+      };
 
     case GET_TYPES_SUCCESS:
       return {
@@ -104,15 +135,25 @@ const sessionTypeReducer = (state = initialState, action) => {
         },
       };
 
-      case SESSIONTYPE_ADD_ADDRESS_FAILURE:
-        return {
-          ...state,
-          addAddress: {
-            ...state.addAddress,
-            isLoading: false,
-            error: action.payload,
-          },
-        };
+    case SESSIONTYPE_ADD_ADDRESS_FAILURE:
+      return {
+        ...state,
+        addAddress: {
+          ...state.addAddress,
+          isLoading: false,
+          error: action.payload,
+        },
+      };
+
+    case SESSIONTYPE_GET_ADDRESS_FAILURE:
+      return {
+        ...state,
+        getAddress: {
+          ...state.getAddress,
+          isLoading: false,
+          error: action.payload,
+        },
+      };
 
     case GET_TYPES_FAILURE:
       return {

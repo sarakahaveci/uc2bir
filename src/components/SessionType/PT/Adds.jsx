@@ -1,21 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { getGeocode } from 'use-places-autocomplete';
+import { Svg } from 'components';
 
 import AddAdress from './AddAdress';
 import AddGym from './AddGym';
+import Edit from './Edit';
+import GYMEdit from './GYMEdit';
 
-const Adds = ({ icons }) => {
+const Adds = ({ icons, setBannerActive }) => {
   const [subPage, setSubPage] = useState('Adds');
 
   useEffect(() => {
-		getGeocode()
-	},[]);
+    getGeocode();
+  }, []);
 
-  return (
-    (
-      <>
-        {subPage === 'Adds' && (
+  switch (subPage) {
+    case 'Adds':
+      return (
+        <>
           <CreateList>
             {icons.map((val) => {
               return (
@@ -24,24 +27,81 @@ const Adds = ({ icons }) => {
                     {val.icon}
                     <Span>{val.name}</Span>
                     {val.create && (
-                      <Link onClick={() => {
-                        getGeocode();
-                        setSubPage(val.create.action)
-                      }}>
-                        {val.create.name}
-                      </Link>
+                      <>
+                        <Link>
+                          <Edits>
+                            <Svg.WhitePencil
+                              onClick={() => setSubPage(val.create.subPage)}
+                            />
+                          </Edits>
+                        </Link>
+                        <Create
+                          onClick={() => {
+                            setSubPage(val.create.action);
+                          }}
+                        >
+                          {val.create.name}
+                        </Create>
+                      </>
                     )}
                   </List>
                 </>
               );
             })}
           </CreateList>
-        )}
-        {subPage === 'home_park' && <AddAdress setSubPage={setSubPage} />}
-        {subPage === 'gym' && <AddGym setSubPage={setSubPage} />}
-      </>
-    )
-  );
+        </>
+      );
+
+    case 'home_park':
+      return <AddAdress setSubPage={setSubPage} />;
+
+    case 'gym':
+      return (
+        <AddGym setSubPage={setSubPage} setBannerActive={setBannerActive} />
+      );
+
+    case 'home-park-edit':
+      return <Edit setSubPage={setSubPage} />;
+
+    case 'gym-edit':
+      return <GYMEdit setSubPage={setSubPage} />;
+
+    default:
+      return (
+        <>
+          <CreateList>
+            {icons.map((val) => {
+              return (
+                <>
+                  <List key={val.id} className="col-md-3">
+                    {val.icon}
+                    <Span>{val.name}</Span>
+                    {val.create && (
+                      <>
+                        <Link>
+                          <Edits>
+                            <Svg.WhitePencil
+                              onClick={() => setSubPage(val.create.subPage)}
+                            />
+                          </Edits>
+                        </Link>
+                        <Create
+                          onClick={() => {
+                            setSubPage(val.create.action);
+                          }}
+                        >
+                          {val.create.name}
+                        </Create>
+                      </>
+                    )}
+                  </List>
+                </>
+              );
+            })}
+          </CreateList>
+        </>
+      );
+  }
 };
 
 const CreateList = styled.ul`
@@ -49,6 +109,28 @@ const CreateList = styled.ul`
   align-items: center;
   justify-content: flex-start;
   margin: 15px -15px;
+`;
+
+const Edits = styled.span`
+  display: flex;
+  position: absolute;
+  background: var(--blue);
+  z-index: 1000;
+  bottom: 17px;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  padding: 5px 30px;
+  cursor: pointer;
+`;
+
+const Create = styled.span`
+  display: flex;
+  position: absolute;
+  z-index: 1000;
+  bottom: -70px;
+  padding-left: 15px;
+  padding-right: 15px;
+  cursor: pointer;
 `;
 
 const List = styled.li`
