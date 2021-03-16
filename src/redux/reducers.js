@@ -14,6 +14,7 @@ import profileSettings from '../reducers/profileSettingsReducer';
 // TODO: profileSettings değiştirildiğinde bu da düzeltilebilir.
 import profileSettings2 from '../reducers/profileSettingsReducer/index';
 import myGalleries from '../reducers/profileSettingsReducer/galleriesReducer';
+import myBlogs from '../reducers/profileSettingsReducer/blogsReducer';
 
 const reducers = combineReducers({
   auth,
@@ -29,6 +30,7 @@ const reducers = combineReducers({
   profileSettings,
   profileSettings2,
   myGalleries,
+  myBlogs,
 });
 
 export default reducers;

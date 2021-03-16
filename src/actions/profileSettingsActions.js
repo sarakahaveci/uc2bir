@@ -15,6 +15,7 @@ import {
   GET_VKI,
   SET_VKI,
   GET_TEST,
+  GET_MY_BLOGS,
 } from '../constants';
 import { information } from './authActions';
 
@@ -27,6 +28,20 @@ export const getMyGalleries = () => async (dispatch, getState) => {
       method: 'GET',
       url,
       label: GET_MY_GALLERIES,
+      transfomrData: (data) => data.data,
+    },
+  });
+};
+
+export const getMyBlogs = () => async (dispatch, getState) => {
+  const url = `/cms/blog/mine`;
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'GET',
+      url,
+      label: GET_MY_BLOGS,
       transfomrData: (data) => data.data,
     },
   });

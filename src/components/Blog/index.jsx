@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+// @ts-nocheck
+import React, { useState, useEffect } from 'react';
 
 import image from '../../assets/blog.jpg';
 import { Container, Row, Col } from 'react-bootstrap';
@@ -10,85 +11,99 @@ import {
   Span,
   Button,
   Material,
+  Spinner,
 } from 'components';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
+import axios from 'axios';
+import FormData from 'form-data';
+import { getMyBlogs } from 'actions';
+import { toast } from 'react-toastify';
+import { default as MaterialButton } from '@material-ui/core/Button';
 
 const Blog = () => {
   const [page, setPage] = useState('');
 
-  const onSubmit = (event) => {
-    event.preventDefault();
+  const [file, setFile] = useState(false);
+  const [title, setTitle] = useState('');
+  const [detail, setDetail] = useState('');
+  const [category_id, setCategory_id] = useState(1);
+
+  const { accessToken, user } = useSelector((state) => state.auth);
+  const myBlogs = useSelector((state) => state.myBlogs.me);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getMyBlogs());
+  }, []);
+
+  const createData = new FormData();
+
+  const config = {
+    method: 'post',
+    url: `${process.env.REACT_APP_API_URL}/cms/blog/create`,
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
   };
 
-  switch (page) {
-    case 'create':
-      return (
-        <>
-          <Container>
-            <Row>
-              <Col lg="12">
-                <Title fontSize="14pt" style={{ padding: 15 }} textAlign="left">
-                  Blog
-                </Title>
-              </Col>
-              <Col lg="4">
-                <ImageBanner src={image} />
-              </Col>
-              <Col lg="7">
-                <Title fontSize="12pt" textAlign="left">
-                  Blog
-                </Title>
-                <Text fontSize="10pt">
-                  <Row>
-                    <Col>
-                      <>
-                        Blog ekleyebilir, profilinizi güncel ve önde
-                        tutabilirsiniz
-                      </>
-                    </Col>
-                    <Col>
-                      <div className="d-flex justify-content-end">
-                        <Button text="< Geri" onClick={() => setPage('')} />
-                      </div>
-                    </Col>
-                    <FormGroups>
-                      <form onSubmit={onSubmit}>
-                        <div className="d-flex align-items-end">
-                          <ExtendButton>
-                            <Svg.PlusIcon />
-                            <div className="w-100 d-flex justify-content-center">
-                              Fotoğraf Ekle
-                            </div>
-                          </ExtendButton>
-                          <Material.TextField
-                            label="Başlık giriniz"
-                            name="title"
-                            required
-                          />
-                        </div>
-                        <Material.TexAreaField
-                          label="Detay Giriniz"
-                          name="detail"
-                          required
-                        />
-                        <div
-                          style={{ marginTop: 15 }}
-                          className="d-flex justify-content-end"
-                        >
-                          <Button className="blue" text="Ekle" type="submit" />
-                        </div>
-                      </form>
-                    </FormGroups>
-                  </Row>
-                </Text>
-              </Col>
-            </Row>
-          </Container>
-        </>
-      );
+  const upload = () => {
+    createData.append('files[]', file);
+    createData.append('category_id', category_id);
+    createData.append('detail', detail);
+    createData.append('title', title);
+    createData.append('files[]', category_id);
 
-    default:
-      return (
+    axios({ ...config, data: createData })
+      .then(function (response) {
+        dispatch(getMyBlogs());
+        setPage('index');
+        toast.success('Yeni blog eklendi.', {
+          position: 'bottom-right',
+          autoClose: 2000,
+        });
+      })
+      .catch((err) => {
+        toast.error(
+          err.response?.data?.message?.detail?.[0] ||
+            'Blog eklenirken hata oluştu',
+          {
+            position: 'bottom-right',
+            autoClose: 2000,
+          }
+        );
+      });
+  };
+
+  const deleted = (id) => {
+    axios
+      .delete(`${process.env.REACT_APP_API_URL}/cms/blog/mine/${id}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then(function (response) {
+        dispatch(getMyBlogs());
+        toast.success('Blog silindi.', {
+          position: 'bottom-right',
+          autoClose: 2000,
+        });
+      })
+      .catch(function (err) {
+        toast.error('Blog eklenirken hata oluştu', {
+          position: 'bottom-right',
+          autoClose: 2000,
+        });
+      });
+  };
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    return upload();
+  };
+
+  return (
+    <>
+      {page !== 'create' && (
         <Container>
           <Row>
             <Col lg="12">
@@ -130,50 +145,162 @@ const Blog = () => {
                     </div>
                   </Col>
 
-                  {/*
-                      <BlogContent>
-                    <div className="text-group">
-                      <div className="title">Sporcu Beslenmesi Nedir?</div>
-                      <div className="content">
-                        Sporcu uygun antrenmanlar eşliğinde, uygun yaşam tarzı
-                        ile sağlıklı beslendiğinde performansı olumlu şekilde
-                        artar.Kişinin beslenme düzenini etkileyen faktörler
-                        arasında kişinin fiziksel aktivite durumu da önem taşır.
-                        Aktif spor hayatı olan kişiler de….. yapılan sporun
-                        çeşidi, yapılma süresi ve sıklığı da beslenme düzenini
-                        ve besin gereksinmelerini etkiler. Sporcunun aldığı
-                        sıvıların ve makro besinlerin türüne, miktarına ve
-                        zamanına önem vermektedir. Ek olarak vitamin...
-                      </div>
-                    </div>
-                    <div
-                      style={{ backgroundImage: `url(${image})` }}
-                      className="img"
-                    ></div>
-                    <Footer>
-                      <div className="footer-title">Yazar : Efe Parlak</div>
-                      <div className="date">05.07.2020</div>
-                    </Footer>
-                    <Button
-                      className="edit"
-                      icon={Svg.EditIcon}
-                      onClick={() => console.log('editAddress')}
-                    />
-                    <Button
-                      className="deleted"
-                      icon={Svg.CencelIcon}
-                      onClick={() => console.log('deleteAddress')}
-                    />
-                  </BlogContent>
-                    */}
+                  {!myBlogs?.isLoading ? (
+                    <>
+                      {myBlogs.data?.blogs?.map((val, key) => {
+                        return (
+                          <>
+                            <BlogContent>
+                              <div className="text-group">
+                                <div className="title">{val.title}</div>
+                                <div className="content">{val.detail}</div>
+                              </div>
+                              <div
+                                style={{ backgroundImage: `url(${val.photo})` }}
+                                className="img"
+                              ></div>
+                              <Footer>
+                                <div className="footer-title">
+                                  Yazar : {user.name}
+                                </div>
+                                <div className="date">{val.created_at}</div>
+                              </Footer>
+                              <Button
+                                className="edit"
+                                icon={Svg.EditIcon}
+                                onClick={() => setPage('edit')}
+                              />
+                              <Button
+                                className="deleted"
+                                icon={Svg.CencelIcon}
+                                onClick={() => deleted(val.id)}
+                              />
+                            </BlogContent>
+                          </>
+                        );
+                      })}
+                    </>
+                  ) : (
+                    <Spinner />
+                  )}
                 </Row>
               </Text>
             </Col>
           </Row>
         </Container>
-      );
-  }
+      )}
+
+      {page === 'create' && (
+        <Container>
+          <Row>
+            <Col lg="12">
+              <Title fontSize="14pt" style={{ padding: 15 }} textAlign="left">
+                Blog
+              </Title>
+            </Col>
+            <Col lg="4">
+              <ImageBanner src={image} />
+            </Col>
+            <Col lg="7">
+              <Title fontSize="12pt" textAlign="left">
+                Blog
+              </Title>
+              <Text fontSize="10pt">
+                <Row>
+                  <Col>
+                    <>
+                      Blog ekleyebilir, profilinizi güncel ve önde
+                      tutabilirsiniz
+                    </>
+                  </Col>
+                  <Col>
+                    <div className="d-flex justify-content-end">
+                      <Button text="< Geri" onClick={() => setPage('')} />
+                    </div>
+                  </Col>
+                  <FormGroups>
+                    <form onSubmit={onSubmit}>
+                      <div
+                        style={{ marginBottom: 15 }}
+                        className="d-flex align-items-end"
+                      >
+                        {/*<ExtendButton>
+                          <Svg.PlusIcon />
+                          <div className="w-100 d-flex justify-content-center">
+                            Fotoğraf Ekle
+                          </div>
+                        </ExtendButton>*/}
+                        {file ? (
+                          <ImageShow image={URL.createObjectURL(file)} />
+                        ) : (
+                          <MaterialButton
+                            style={{ marginRight: 15, width: 192, height: 120 }}
+                            variant="contained"
+                            color="default"
+                            component="label"
+                            startIcon={<Svg.Pencil />}
+                          >
+                            Fotoğraf Yükle
+                            <input
+                              type="file"
+                              hidden
+                              onChange={(event) =>
+                                setFile(event.target.files[0])
+                              }
+                            />
+                          </MaterialButton>
+                        )}
+
+                        <Material.TextField
+                          label="Başlık giriniz"
+                          name="title"
+                          required
+                          onChange={(e) => setTitle(e.target.value)}
+                        />
+                      </div>
+                      <Material.TexAreaField
+                        label="Detay Giriniz"
+                        name="detail"
+                        required
+                        onChange={(e) => setDetail(e.target.value)}
+                      />
+                      <div
+                        style={{ marginTop: 15 }}
+                        className="d-flex justify-content-end"
+                      >
+                        <Button className="blue" text="Ekle" type="submit" />
+                      </div>
+                    </form>
+                  </FormGroups>
+                </Row>
+              </Text>
+            </Col>
+          </Row>
+        </Container>
+      )}
+    </>
+  );
 };
+
+const ImageShow = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 190px;
+  height: 120px;
+  background-image: url('${(props) => props.image}');
+  background-repeat: no-repeat;
+  position: relative;
+  background-size: cover;
+  margin-right: 15px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+`;
 
 const ExtendButton = styled.div`
   width: 190px;
