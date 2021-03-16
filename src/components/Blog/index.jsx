@@ -28,6 +28,8 @@ const Blog = () => {
   const [title, setTitle] = useState('');
   const [detail, setDetail] = useState('');
   const [category_id, setCategory_id] = useState(1);
+  const [data, setData] = useState({});
+  const [seo, setSeo] = useState(0);
 
   const { accessToken, user } = useSelector((state) => state.auth);
   const myBlogs = useSelector((state) => state.myBlogs.me);
@@ -46,17 +48,24 @@ const Blog = () => {
     },
   };
 
+  const update_config = {
+    method: 'post',
+    url: `${process.env.REACT_APP_API_URL}/cms/blog/mine/${seo}`,
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  };
+
   const upload = () => {
     createData.append('files[]', file);
     createData.append('category_id', category_id);
     createData.append('detail', detail);
     createData.append('title', title);
-    createData.append('files[]', category_id);
 
     axios({ ...config, data: createData })
       .then(function (response) {
         dispatch(getMyBlogs());
-        setPage('index');
+        setPage('');
         toast.success('Yeni blog eklendi.', {
           position: 'bottom-right',
           autoClose: 2000,
@@ -64,13 +73,60 @@ const Blog = () => {
       })
       .catch((err) => {
         toast.error(
-          err.response?.data?.message?.detail?.[0] ||
+          err.response?.data?.message ||
             'Blog eklenirken hata oluştu',
           {
             position: 'bottom-right',
             autoClose: 2000,
           }
         );
+      });
+  };
+
+  const updated = () => {
+    createData.append('files[]', file || data.blog.photo);
+    createData.append('category_id', category_id);
+    createData.append('detail', detail || data.blog.detail);
+    createData.append('title', title || data.blog.title);
+
+    axios({ ...update_config, data: createData })
+      .then(function (response) {
+        dispatch(getMyBlogs());
+        setPage('');
+        toast.success('Blog güncellendi eklendi.', {
+          position: 'bottom-right',
+          autoClose: 2000,
+        });
+      })
+      .catch((err) => {
+        toast.error(
+          err.response?.data?.message?.detail?.[0] ||
+            'Blog güncellenirken hata oluştu',
+          {
+            position: 'bottom-right',
+            autoClose: 2000,
+          }
+        );
+      });
+  };
+
+  const edit = (id) => {
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/cms/blog/mine/${id}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then(function (response) {
+        setData(response?.data?.data);
+        setSeo(response?.data?.data?.blog?.id);
+        setPage('edit');
+      })
+      .catch(function (err) {
+        toast.error('Blog getirilirken hata oluştu', {
+          position: 'bottom-right',
+          autoClose: 2000,
+        });
       });
   };
 
@@ -101,9 +157,112 @@ const Blog = () => {
     return upload();
   };
 
+  const onUpdate = (event) => {
+    event.preventDefault();
+    return updated();
+  };
+
   return (
     <>
-      {page !== 'create' && (
+      {page === 'edit' && (
+        <>
+          <Container>
+            <Row>
+              <Col lg="12">
+                <Title fontSize="14pt" style={{ padding: 15 }} textAlign="left">
+                  Blog
+                </Title>
+              </Col>
+              <Col lg="4">
+                <ImageBanner src={image} />
+              </Col>
+              <Col lg="7">
+                <Title fontSize="12pt" textAlign="left">
+                  Blog
+                </Title>
+                <Text fontSize="10pt">
+                  <Row>
+                    <Col>
+                      <>
+                        Blog ekleyebilir, profilinizi güncel ve önde
+                        tutabilirsiniz
+                      </>
+                    </Col>
+                    <Col>
+                      <div className="d-flex justify-content-end">
+                        <Button text="< Geri" onClick={() => setPage('')} />
+                      </div>
+                    </Col>
+                    <FormGroups>
+                      <form onSubmit={onUpdate}>
+                        <div
+                          style={{ marginBottom: 15 }}
+                          className="d-flex align-items-end"
+                        >
+                          {/*<ExtendButton>
+                          <Svg.PlusIcon />
+                          <div className="w-100 d-flex justify-content-center">
+                            Fotoğraf Ekle
+                          </div>
+                        </ExtendButton>*/}
+                          {file ? (
+                            <ImageShow image={URL.createObjectURL(file)} />
+                          ) : (
+                            <MaterialButton
+                              style={{
+                                marginRight: 15,
+                                width: 192,
+                                height: 120,
+                              }}
+                              variant="contained"
+                              color="default"
+                              component="label"
+                              startIcon={<Svg.Pencil />}
+                            >
+                              Fotoğraf Yükle
+                              <input
+                                type="file"
+                                hidden
+                                onChange={(event) =>
+                                  setFile(event.target.files[0])
+                                }
+                              />
+                            </MaterialButton>
+                          )}
+
+                          <Material.TextField
+                            label="Başlık giriniz"
+                            name="title"
+                            required
+                            value={data.blog.title}
+                            defaultValue={data?.blog?.title}
+                            onChange={(e) => setTitle(e.target.value)}
+                          />
+                        </div>
+                        <Material.TexAreaField
+                          label="Detay Giriniz"
+                          name="detail"
+                          value={data?.blog?.detail}
+                          defaultValue={data?.blog?.detail}
+                          required
+                          onChange={(e) => setDetail(e.target.value)}
+                        />
+                        <div
+                          style={{ marginTop: 15 }}
+                          className="d-flex justify-content-end"
+                        >
+                          <Button className="blue" text="Güncelle" type="submit" />
+                        </div>
+                      </form>
+                    </FormGroups>
+                  </Row>
+                </Text>
+              </Col>
+            </Row>
+          </Container>
+        </>
+      )}
+      {page === '' && (
         <Container>
           <Row>
             <Col lg="12">
@@ -165,16 +324,20 @@ const Blog = () => {
                                 </div>
                                 <div className="date">{val.created_at}</div>
                               </Footer>
-                              <Button
-                                className="edit"
-                                icon={Svg.EditIcon}
-                                onClick={() => setPage('edit')}
-                              />
-                              <Button
-                                className="deleted"
-                                icon={Svg.CencelIcon}
-                                onClick={() => deleted(val.id)}
-                              />
+                              {val.status === 'pending' && (
+                                <>
+                                  <Button
+                                    className="edit"
+                                    icon={Svg.EditIcon}
+                                    onClick={() => edit(val.id)}
+                                  />
+                                  <Button
+                                    className="deleted"
+                                    icon={Svg.CencelIcon}
+                                    onClick={() => deleted(val.id)}
+                                  />
+                                </>
+                              )}
                             </BlogContent>
                           </>
                         );
