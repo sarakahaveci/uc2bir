@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components/macro';
 import { useDispatch } from 'react-redux';
 
-import MockImage from 'assets/dietitians/item-1/01.jpg';
+import MockImage from 'assets/default-profile.jpg';
 import { addFavoriteUser, removeFavoriteUser } from 'actions';
 import { Title, AwesomeIcon, Span, Svg, Stars } from 'components';
 
@@ -41,7 +41,10 @@ const LongUserCard = ({ data, showHeartBg, favoritedUser }) => {
           <Heart onClick={favoriteClickHandler} showHeartBg={showHeartBg} />
         )}
 
-        <img className="long-user-card__img" src={MockImage} />
+        <img
+          className="long-user-card__img"
+          src={data.photo ? data.photo : MockImage}
+        />
 
         {showProfileNavigator && (
           <Link className="long-user-card__profile-navigator" to="/">

@@ -53,7 +53,7 @@ const Favorites = () => {
         </Col>
       ))
     ) : (
-      <div>Herhangi bir favori kullancınız bulunmamaktır.</div>
+      <Col>Herhangi bir favori kullancınız bulunmamaktır.</Col>
     );
   }
 

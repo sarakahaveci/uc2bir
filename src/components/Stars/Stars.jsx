@@ -44,6 +44,7 @@ const StarsList = styled.ul`
     css`
       bottom: 0px;
       border-top-right-radius: 30px;
+      border-top-left-radius: 30px;
     `}
 
   ${(p) =>

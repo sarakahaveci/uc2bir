@@ -30,6 +30,7 @@ const ProficiencyRow = ({ data }) => {
       )
     ) {
       setShowInputError(true);
+
       return;
     }
 
@@ -42,7 +43,7 @@ const ProficiencyRow = ({ data }) => {
     );
   };
 
-  const isWaitingPending = data.speciality.some(
+  const isWaitingPending = data?.speciality?.some(
     (item) => item.status === 'pending'
   );
 

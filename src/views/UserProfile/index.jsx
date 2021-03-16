@@ -13,7 +13,6 @@ import {
   CancellationReason,
 } from 'components';
 import { USER, PERSONAL_TRAINER, WORK_PLACE, DIETITIAN } from '../../constants';
-
 import Trainers from 'components/ProfileSettings/WorkPlace/Trainers/Trainers';
 import profileImg from '../../assets/banner/slider-item-1.png';
 import ProfileSettings from './ProfileSettings';
@@ -25,7 +24,6 @@ import Favorites from 'components/ProfileSettings/Favorites/Favorites';
 import DietitianPrice from 'components/ProfileSettings/Dietitian/DietitianPrice';
 import DietitianProficiency from 'components/ProfileSettings/Dietitian/DietitianProficiency';
 import MessageSidebar from 'components/ProfileSettings/MessagesSidebar/MessagesSidebar';
-import Notifications from 'views/ProfileSettings/Notifications';
 import RegularNotifications from 'views/ProfileSettings/RegularNotifications';
 
 const regularUserTabs = [
