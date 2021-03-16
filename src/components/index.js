@@ -41,6 +41,7 @@ export { default as CancellationFinalize } from './ProfileSettings/ProfileCancel
 export { default as CancellationReason } from './ProfileSettings/ProfileCancellation/CancellationReason';
 export { default as CancellationDismissInfo } from './ProfileSettings/ProfileCancellation/CancellationDismissInfo';
 export { default as PlusButton } from './buttons/PlusButton';
+export { default as Select } from './Select/Select';
 export { default as Pagination } from './Pagination/Pagination';
 
 /*

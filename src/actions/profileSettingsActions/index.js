@@ -8,3 +8,4 @@ export * from './sessionTypeActions';
 export * from './cancellationActions';
 export * from './userSearchActions';
 export * from './workplaceFacilityActions';
+export * from './notificationActions';

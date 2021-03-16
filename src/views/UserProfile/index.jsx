@@ -10,6 +10,7 @@ import {
   Wallet,
   SessionType,
   Blog,
+  CancellationReason,
 } from 'components';
 import { USER, PERSONAL_TRAINER, WORK_PLACE, DIETITIAN } from '../../constants';
 
@@ -24,6 +25,8 @@ import Favorites from 'components/ProfileSettings/Favorites/Favorites';
 import DietitianPrice from 'components/ProfileSettings/Dietitian/DietitianPrice';
 import DietitianProficiency from 'components/ProfileSettings/Dietitian/DietitianProficiency';
 import MessageSidebar from 'components/ProfileSettings/MessagesSidebar/MessagesSidebar';
+import Notifications from 'views/ProfileSettings/Notifications';
+import RegularNotifications from 'views/ProfileSettings/RegularNotifications';
 
 const regularUserTabs = [
   {
@@ -31,6 +34,7 @@ const regularUserTabs = [
     title: 'Profilim',
     component: <ProfileSettings />,
   },
+
   /* {
     eventKey: 'reservation',
     title: 'Rezarvasyonlarım',
@@ -59,15 +63,11 @@ const regularUserTabs = [
     title: 'Favorilerim',
     component: <Favorites />,
   },
-  /*  {
+  {
     eventKey: 'notifications',
     title: 'Bildirimlerim',
-    component: (
-      <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-        Bildirimlerim
-      </Title>
-    ),
-  }, */
+    component: <RegularNotifications />,
+  },
   {
     eventKey: 'message',
     title: 'Mesajlarım',
@@ -179,9 +179,7 @@ const dietitianTabs = [
   {
     eventKey: 'blog',
     title: 'Blog',
-    component: (
-      <Blog/>
-    ),
+    component: <Blog />,
   },
 ];
 
@@ -216,6 +214,14 @@ const trainerTabs = [
     component: <SessionType />,
   },
   {
+    eventKey: 'notifications',
+    component: <ProfileSettings />,
+  },
+  {
+    eventKey: 'cancel',
+    component: <CancellationReason />,
+  },
+  {
     eventKey: 'branch',
     title: 'Branşlarım & Ücretlerim',
     component: <PTBranch />,
@@ -239,13 +245,11 @@ const trainerTabs = [
   {
     eventKey: 'blog',
     title: 'Blog',
-    component: (
-      <Blog/>
-    ),
+    component: <Blog />,
   },
 ];
 
-export default function Profile({ match }) {
+export default function UserProfile({ match }) {
   const user = useSelector((state) => state.auth.user);
 
   let tabData;

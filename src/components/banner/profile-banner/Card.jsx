@@ -102,8 +102,8 @@ const StyledCard = styled(Col)`
 
           span.span {
             position: absolute;
-            right: 30px;
-            top: 30px;
+            right: 15px;
+            top: 15px;
 
             &.camera {
               cursor: pointer;

@@ -2,15 +2,21 @@
 import React from 'react';
 
 import styled from 'styled-components/macro';
-import { Button, Svg } from 'components';
-import { Link } from 'react-router-dom';
+import { Button, Svg, Box } from 'components';
+import { NavLink, Link } from 'react-router-dom';
 
 import Card, { CardFooter, CardInfo } from './Card';
 import { Col } from 'react-bootstrap';
 
-import defaultImg from '../../../assets/default-profile.jpg'
+import defaultImg from '../../../assets/default-profile.jpg';
 
-const ProfileCard = ({ img, user = false, name = null, location = null, children }) => {
+const ProfileCard = ({
+  img,
+  user = false,
+  name = null,
+  location = null,
+  children,
+}) => {
   const reservationAction = () => {};
   const changeProfilePhoto = () => {};
   const comment = () => {};
@@ -19,6 +25,14 @@ const ProfileCard = ({ img, user = false, name = null, location = null, children
       <span onClick={changeProfilePhoto} className="span background camera">
         <Svg.Camera />
       </span>
+
+      <NotificationLink
+        activeClassName="active-bell"
+        to="/myprofile/settings/notifications"
+      >
+        <Svg.Notification />
+      </NotificationLink>
+
       {!user && (
         <CardFooter>
           <Comment onClick={comment} className="list">
@@ -57,6 +71,31 @@ const Cols = styled(Col)`
   height: auto;
   padding: 15px 30px;
   margin-left: 130px;
+`;
+
+const NotificationLink = styled(NavLink)`
+  position: absolute;
+  right: 60px;
+  top: 15px;
+  background: #fff;
+  padding: 5px;
+  border-radius: 5px;
+
+  &.active-bell {
+    svg {
+      polyline,
+      path,
+      ellipse,
+      line {
+        stroke: ${(p) => p.theme.colors.blue};
+      }
+    }
+  }
+
+  svg {
+    width: 25px;
+    height: 25px;
+  }
 `;
 
 export default ProfileCard;

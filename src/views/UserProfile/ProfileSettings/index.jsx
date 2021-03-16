@@ -7,12 +7,12 @@ import DefaultProfilePicture from 'assets/pt-groups/item-1/04.jpg';
 import ProfileSettingsList from './ProfileSettingsList';
 
 export default function ProfileInfoSetting() {
-  const { detail, isLoading } = useSelector(
+  const { isLoading } = useSelector(
     (state) => state.profileSettings2.profileDetail
   );
 
   return isLoading ? (
-    <Spinner animation="border" variant="light" size="md" />
+    <Spinner size="md" />
   ) : (
     <Row>
       <Col md={4} sm={12}>
