@@ -19,7 +19,7 @@ const ProficiencyCollapser = ({
     addedProficiencies,
   ]);
 
-  const inputsFromData = data.speciality.map((item, index) => (
+  const inputsFromData = data?.speciality?.map((item, index) => (
     <Material.TextField
       key={index}
       value={item.name}
