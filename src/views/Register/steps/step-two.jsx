@@ -42,7 +42,7 @@ const StepTwo = (props) => {
       draggable: true,
       progress: undefined,
     });
-    return setCounter(0);
+    
   };
 
   const isResultSuccess = () => {
