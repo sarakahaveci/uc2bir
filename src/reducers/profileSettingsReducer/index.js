@@ -10,6 +10,7 @@ import sessionTypeReducer from './sessionTypeReducer';
 import profileDetailReducer from './profileDetailReducer';
 import cancellationReducer from './cancellationReducer';
 import userSearchReducer from './userSearchReducer';
+import workplaceFacilityReducer from './workplaceFacilityReducer';
 
 const reducers = combineReducers({
   favoriteSettings: favoriteSettingsReducer,
@@ -22,6 +23,7 @@ const reducers = combineReducers({
   profileDetail: profileDetailReducer,
   cancellation: cancellationReducer,
   userSearch: userSearchReducer,
+  workplaceFacility: workplaceFacilityReducer,
 });
 
 export default reducers;
