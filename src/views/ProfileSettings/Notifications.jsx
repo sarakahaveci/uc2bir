@@ -1,31 +1,123 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { Row, Col, Form } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { Title, Text, Main, Switch, Span, Svg, Button } from 'components';
+import { subDays } from 'date-fns';
+import { subMonths } from 'date-fns';
+import {
+  getNotifications,
+  readNotifications,
+  updateNotificationSettings,
+  getNotificationSettings,
+} from 'actions';
+import {
+  Title,
+  Text,
+  Switch,
+  Span,
+  Svg,
+  Button,
+  Pagination,
+  Box,
+  Spinner,
+  Select,
+} from 'components';
 
-const mockData = [
+const notificationSettingsTypes = [
   {
-    date: '6.11.2020 - 15:00',
-    note: 'Öğrenciniz ile randevunuz onaylandı',
+    key: 'sms',
+    title: 'Sms almak istiyorum',
   },
   {
-    date: '6.11.2020 - 15:00',
-    note: 'Öğrenciniz ile randevunuz onaylandı',
+    key: 'email',
+    title: 'E-posta almak istiyorum',
   },
   {
-    date: '6.11.2020 - 15:00',
-    note: 'Öğrenciniz ile randevunuz onaylandı',
-  },
-  {
-    date: '6.11.2020 - 15:00',
-    note: 'Öğrenciniz ile randevunuz onaylandı',
+    key: 'push',
+    title: 'Uygulama içi bildirimler',
   },
 ];
 
 const Notifications = () => {
+  const {
+    notifications: { data: notifications, notificationsLoading },
+    notificationSettings: { data: notificationSettings, settingsLoading },
+  } = useSelector((state) => state.profileSettings2.notifications);
+
+  const [pageNumber, setPageNumber] = useState(1);
+  const [date, setDate] = useState(7);
+
+  const dispatch = useDispatch();
+
+  const [settings, setSettings] = useState({
+    sms: false,
+    email: false,
+    push: false,
+  });
+
+  const substractDateHandler = () => {
+    if (date < 7) {
+      return subMonths(new Date(), date).getTime();
+    } else {
+      return subDays(new Date(), date).getTime();
+    }
+  };
+
+  useEffect(() => {
+    dispatch(readNotifications());
+
+    dispatch(getNotificationSettings());
+  }, []);
+
+  useEffect(() => {
+    dispatch(getNotifications(pageNumber, substractDateHandler()));
+  }, [pageNumber]);
+
+  useEffect(() => {
+    setSettings({
+      sms: notificationSettings.sms === '1' ? true : false,
+      email: notificationSettings.email === '1' ? true : false,
+      push: notificationSettings.push === '1' ? true : false,
+    });
+  }, [notificationSettings]);
+
+  const updateNotificationSettingsHandler = (key) => {
+    const changedSettings = { ...settings, [key]: !settings[key] };
+
+    setSettings(changedSettings);
+
+    dispatch(updateNotificationSettings(changedSettings));
+  };
+
+  const pageChangeHandler = (event, value) => setPageNumber(value);
+
+  const listHandler = () => {
+    setPageNumber(1);
+
+    dispatch(getNotifications(1, substractDateHandler()));
+  };
+
+  const tableContent = notifications?.data?.length ? (
+    notifications.data.map((item) => (
+      <tr>
+        <Td>
+          <Span color="dark" fontWeight="500" fontSize="0.9rem">
+            {item.date}
+          </Span>
+
+          <Span color="dark" fontWeight="500" ml="20px" fontSize="0.9rem">
+            {item.note}
+          </Span>
+        </Td>
+      </tr>
+    ))
+  ) : (
+    <Box mt="15px"> Bildirim bulunmamaktadır.</Box>
+  );
+
   return (
-    <Main>
+    <div>
       <Title component="h5" textAlign="left">
         Bildirimlerim
       </Title>
@@ -36,89 +128,88 @@ const Notifications = () => {
       </Text>
 
       <SwitchRowWrapper>
-        <Col lg={4}>
-          <SwitchRow>
-            <Text color="dark" fontWeight="500" fontSize="0.9rem">
-              SMS almak istiyorum
-            </Text>
+        {notificationSettingsTypes.map((item, index) => (
+          <Col lg={4}>
+            <SwitchRow
+              lastChild={notificationSettingsTypes.length - 1 === index}
+            >
+              <Text color="dark" fontWeight="500" fontSize="0.9rem">
+                {item.title}
+              </Text>
 
-            <Switch />
-          </SwitchRow>
-        </Col>
-
-        <Col lg={4}>
-          <SwitchRow>
-            <Text color="dark" fontWeight="500" fontSize="0.9rem">
-              E-posta almak istiyorum
-            </Text>
-
-            <Switch />
-          </SwitchRow>
-        </Col>
-
-        <Col lg={4}>
-          <SwitchRow>
-            <Text color="dark" fontWeight="500" fontSize="0.9rem">
-              Uygulama içi bildirimler
-            </Text>
-
-            <Switch />
-          </SwitchRow>
-        </Col>
+              <Switch
+                checked={settings[item.key]}
+                onChange={() => updateNotificationSettingsHandler(item.key)}
+              />
+            </SwitchRow>
+          </Col>
+        ))}
       </SwitchRowWrapper>
 
       <SortRow>
         <Col lg={6} />
 
-        <Col lg={3}>
-          <Form.Control as="select">
-            <option>Son 7 Gün</option>
-          </Form.Control>
+        <Col lg={4}>
+          <Select
+            className="notification__date"
+            onChange={(e) => setDate(e.target.value)}
+          >
+            <option value={7}>Son 7 Gün</option>
+            <option value={15}>Son 15 Gün</option>
+            <option value={1}>Son 1 Ay</option>
+            <option value={3}>Son 3 Ay</option>
+          </Select>
         </Col>
 
-        <Col lg={3}>
+        <DateCol lg={2}>
           <Button
             fontWeight="bold"
             width="110px"
             className="blue"
             text="Listele"
+            onClick={listHandler}
           />
-        </Col>
+        </DateCol>
       </SortRow>
 
       <Table>
-        <tr>
-          <Th>
-            Tarih <Svg.UpDownIcon />
-          </Th>
-        </tr>
-
-        {mockData.map((item) => (
+        <thead>
           <tr>
-            <Td>
-              <Span color="dark" fontWeight="500" fontSize="0.9rem">
-                {item.date}
-              </Span>
-
-              <Span color="dark" fontWeight="500" ml="20px" fontSize="0.9rem">
-                {item.note}
-              </Span>
-            </Td>
+            <Th>
+              Tarih <Svg.UpDownIcon />
+            </Th>
           </tr>
-        ))}
+        </thead>
+
+        <tbody>{notificationsLoading ? <Spinner /> : tableContent}</tbody>
       </Table>
-    </Main>
+
+      <Pagination
+        mt="100px"
+        page={pageNumber}
+        onChange={pageChangeHandler}
+        count={notifications.total}
+      />
+    </div>
   );
 };
 
 export default Notifications;
 
+const DateCol = styled(Col)`
+  display: flex;
+  justify-content: flex-end;
+`;
+
 const SortRow = styled(Row)`
   margin-bottom: 20px;
+
+  .notification__date {
+    height: 100%;
+  }
 `;
 
 const SwitchRowWrapper = styled(Row)`
-  border-bottom: 1px solid #e3e3e3;
   padding-bottom: 17px;
   margin-bottom: 20px;
 `;
@@ -127,7 +218,7 @@ const SwitchRow = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  border-right: 1px solid #e3e3e3;
+  border-right: ${(p) => (p.lastChild ? null : '1px solid #e3e3e3')};
 
   .MuiSwitch-root {
     margin: 0 15px 0 0;

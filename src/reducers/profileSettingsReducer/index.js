@@ -11,6 +11,7 @@ import profileDetailReducer from './profileDetailReducer';
 import cancellationReducer from './cancellationReducer';
 import userSearchReducer from './userSearchReducer';
 import workplaceFacilityReducer from './workplaceFacilityReducer';
+import notificationsReducer from './notificationsReducer';
 
 const reducers = combineReducers({
   favoriteSettings: favoriteSettingsReducer,
@@ -24,6 +25,7 @@ const reducers = combineReducers({
   cancellation: cancellationReducer,
   userSearch: userSearchReducer,
   workplaceFacility: workplaceFacilityReducer,
+  notifications: notificationsReducer,
 });
 
 export default reducers;
