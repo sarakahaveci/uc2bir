@@ -17,7 +17,7 @@ const ProfileForms = () => {
   const { detail } = useSelector(
     (state) => state.profileSettings2.profileDetail
   );
-  const [phone, setPhone] = useState(false);
+  const [phone, setPhone] = useState(detail?.data?.phone);
   const [modal, setModal] = useState(false);
 
   const actionGetData = async () => {
@@ -58,17 +58,18 @@ const ProfileForms = () => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    dispatch(
-      verifyCode(
-        { phone },
-        () => setModal(true),
-        () =>
-          toast.error('Kod gönderilemedi', {
-            position: 'bottom-right',
-            autoClose: 2000,
-          })
-      )
-    );
+    if (detail?.data?.phone !== unMaskPhone(phone))
+      dispatch(
+        verifyCode(
+          { phone },
+          () => setModal(true),
+          () =>
+            toast.error('Kod gönderilemedi', {
+              position: 'bottom-right',
+              autoClose: 2000,
+            })
+        )
+      );
   };
 
   useEffect(() => {
@@ -95,8 +96,8 @@ const ProfileForms = () => {
               text="KAYDET"
               fontSize="15px"
               color="blue"
-              transparentDisabled={phone ? false : true}
-              disabled={phone ? false : true}
+              transparentDisabled={detail?.data?.phone !== unMaskPhone(phone) ? false : true}
+              disabled={detail?.data?.phone !== unMaskPhone(phone) ? false : true}
               isLoading={detail.isLoading}
             />
           </Footer>

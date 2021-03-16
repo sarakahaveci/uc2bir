@@ -12,15 +12,15 @@ const User = ({ user_name, user_id, user_img = null, logOutAction }) => {
   const notification = [
     {
       name: '1. Bildirim',
-      link: `${ROLE.PT.link.pathname}${TABS.notification}`,
+      link: TABS.notificationPath,
     },
     {
       name: '2. Bildirim',
-      link: `${ROLE.PT.link.pathname}${TABS.notification}`,
+      link: TABS.notificationPath,
     },
     {
       name: '3. Bildirim',
-      link: `${ROLE.PT.link.pathname}${TABS.notification}`,
+      link: TABS.notificationPath,
     },
   ];
 
@@ -29,22 +29,22 @@ const User = ({ user_name, user_id, user_img = null, logOutAction }) => {
       name: 'Profilim',
       icon: <Svg.UsernameIcon />,
       // It will be updated
-      link: ROLE.USER.link,
+      link: TABS.profilePath,
     },
     {
       name: 'Rezervasyonlarım',
       icon: <Svg.Date />,
-      link: `${ROLE.USER.link.pathname}${TABS.reservations}`,
+      link: TABS.reservationsPath,
     },
     {
       name: 'Paketlerim',
       icon: <Svg.Packet />,
-      link: `${ROLE.USER.link.pathname}${TABS.packets}`,
+      link: TABS.profilePath,
     },
     {
       name: 'Cüzdanım',
       icon: <Svg.Wallet />,
-      link: `${ROLE.USER.link.pathname}${TABS.wallet}`,
+      link: TABS.walletPath,
     },
     {
       name: 'Çıkış Yap',

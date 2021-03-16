@@ -99,18 +99,6 @@ const ProfileForms = ({ type }) => {
                 }
                 settings="current"
               />
-              <Material.TextField
-                label="TC Kimlik Numaranız"
-                type="text"
-                mask="99999999999"
-                name="identity_no"
-                value={detail?.data?.identity_no}
-                defaultValue={detail?.data?.identity_no}
-                onChange={(e) =>
-                  setData({ ...data, [e.target.name]: e.target.value })
-                }
-                settings="current"
-              />
             </>
           )}
           {type !== 'WORK_PLACE' && (

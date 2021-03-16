@@ -28,6 +28,7 @@ const StepTwo = (props) => {
   const time = 120;
 
   const isResponseSuccess = () => {
+    setCode({ ...macro.inputs });
     setOpen(true);
     return setCounter(time);
   };
@@ -207,7 +208,7 @@ const StepTwo = (props) => {
                     text={`Lütfen Bekleyiniz...`}
                   />
                 )}
-                <div className={{margin: 30}}></div>
+                <div style={{margin: 30}}></div>
               </form>
             </div>
           </DialogContent>
