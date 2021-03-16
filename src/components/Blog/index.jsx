@@ -88,6 +88,7 @@ const Blog = () => {
     createData.append('category_id', category_id);
     createData.append('detail', detail || data.blog.detail);
     createData.append('title', title || data.blog.title);
+    console.log(seo);
 
     axios({ ...update_config, data: createData })
       .then(function (response) {
@@ -110,9 +111,9 @@ const Blog = () => {
       });
   };
 
-  const edit = (url) => {
+  const edit = (id) => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/cms/blog/detail/${'test-blog'}`, {
+      .get(`${process.env.REACT_APP_API_URL}/cms/blog/mine/${id}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -120,6 +121,7 @@ const Blog = () => {
       .then(function (response) {
         setData(response?.data?.data);
         setSeo(response?.data?.data?.blog?.id);
+        console.log(response?.data?.data?.blog?.id)
         setPage('edit');
       })
       .catch(function (err) {
@@ -235,15 +237,15 @@ const Blog = () => {
                             name="title"
                             required
                             value={data.blog.title}
-                            defaultValue={data.blog.title}
+                            defaultValue={data?.blog?.title}
                             onChange={(e) => setTitle(e.target.value)}
                           />
                         </div>
                         <Material.TexAreaField
                           label="Detay Giriniz"
                           name="detail"
-                          value={data.blog.detail}
-                          defaultValue={data.blog.detail}
+                          value={data?.blog?.detail}
+                          defaultValue={data?.blog?.detail}
                           required
                           onChange={(e) => setDetail(e.target.value)}
                         />
@@ -329,7 +331,7 @@ const Blog = () => {
                                   <Button
                                     className="edit"
                                     icon={Svg.EditIcon}
-                                    onClick={() => edit(val.seo_friendly_url)}
+                                    onClick={() => edit(val.id)}
                                   />
                                   <Button
                                     className="deleted"
