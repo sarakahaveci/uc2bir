@@ -1,25 +1,25 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components/macro';
 
-import { Box, Span, Text } from 'components';
+import { Box, Text } from 'components';
 
-const ProfileCancellation = ({ checkIsValidCancellation }) => {
+export default function ProfileCancellation() {
   return (
-    <Box col mx="10px" onClick={checkIsValidCancellation}>
-      <Span
-        textDecoration="underline"
-        color="black2"
-        fontSize="0.9rem"
-        opacity="0.8"
-        cursor="pointer"
-      >
-        Üyelik İptali
-      </Span>
+    <Box col mx="10px">
+      <StyledLink to="/myprofile/settings/cancel">Üyelik İptali</StyledLink>
 
       <Text color="gray4" fontWeight="300" fontSize="0.8rem">
         Üyelik iptali durumunda kişiler size ulaşamayacaklardır.
       </Text>
     </Box>
   );
-};
+}
 
-export default ProfileCancellation;
+const StyledLink = styled(Link)`
+  text-decoration: underline;
+  color: ${(p) => p.theme.colors.black2};
+  font-size: 0.9rem;
+  opacity: 0.8;
+  cursor: pointer;
+`;

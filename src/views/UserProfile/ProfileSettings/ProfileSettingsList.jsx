@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components/macro';
 import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import Password from 'components/ProfileSettings/Forms/tabs/Password';
 import SettingsForm from 'components/ProfileSettings/Forms/SettingsForm';
@@ -27,6 +28,7 @@ import {
   WORK_PLACE,
   DIETITIAN,
 } from '../../../constants';
+import Notifications from 'views/ProfileSettings/Notifications';
 
 const trainerAndDietitanData = [
   {
@@ -42,8 +44,7 @@ const trainerAndDietitanData = [
   },
   {
     settingsName: 'İletişim',
-    settingsDetails:
-      'Telefon numaranızı güncelleyin.',
+    settingsDetails: 'Telefon numaranızı güncelleyin.',
     body: <Phone />,
   },
   {
@@ -79,8 +80,7 @@ const regularUserTabs = [
   },
   {
     settingsName: 'İletişim',
-    settingsDetails:
-      'Telefon numaranızı güncelleyin.',
+    settingsDetails: 'Telefon numaranızı güncelleyin.',
     body: <Phone />,
   },
   {
@@ -91,7 +91,7 @@ const regularUserTabs = [
   {
     settingsName: 'Tamamlanmış Testler ',
     settingsDetails: 'Tamamladığınız testlere göz atın',
-    body: <ComputedTest/>,
+    body: <ComputedTest />,
   },
   {
     settingsName: 'Adresim',
@@ -114,8 +114,7 @@ const workPlaceData = [
   },
   {
     settingsName: 'İletişim',
-    settingsDetails:
-      'Telefon numaranızı güncelleyin.',
+    settingsDetails: 'Telefon numaranızı güncelleyin.',
     body: <Phone />,
   },
   {
@@ -142,12 +141,11 @@ const workPlaceData = [
   },
 ];
 
-const Profile = () => {
+const ProfileSettingsList = () => {
   const user = useSelector((state) => state.auth.user);
 
-  const [isProfileCancellationPage, setIsProfileCancellationPage] = useState(
-    false
-  );
+  const { activeTabKey } = useParams();
+
   const cancellationDismissModalRef = useRef();
 
   let tabData;
@@ -169,14 +167,6 @@ const Profile = () => {
       tabData = regularUserTabs;
       break;
   }
-
-  const checkIsValidCancellation = () => {
-    if (true) {
-      setIsProfileCancellationPage(true);
-    } else {
-      cancellationDismissModalRef.current.openModal();
-    }
-  };
 
   const settings = tabData?.map((item) => (
     <Wrapper>
@@ -205,19 +195,17 @@ const Profile = () => {
 
   return (
     <>
-      {isProfileCancellationPage ? (
-        <CancellationReason
-          setIsProfileCancellationPage={setIsProfileCancellationPage}
-        />
-      ) : (
+      {activeTabKey !== 'notifications' && (
         <>
           <Accordion>{settings}</Accordion>
 
-          <ProfileCancellation
-            checkIsValidCancellation={checkIsValidCancellation}
-          />
+          <ProfileCancellation />
         </>
       )}
+
+      {activeTabKey === 'notifications' && <Notifications />}
+
+      {/* <CancellationReason /> */}
 
       <Modal ref={cancellationDismissModalRef}>
         <CancellationDismissInfo />
@@ -226,7 +214,7 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default ProfileSettingsList;
 
 const Wrapper = styled.div`
   border-radius: 15px;

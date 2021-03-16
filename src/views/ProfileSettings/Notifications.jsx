@@ -23,9 +23,15 @@ const mockData = [
   },
 ];
 
+const notificationSettings = [
+  'Sms almak istiyorum',
+  'E-posta almak istiyorum',
+  'Uygulama içi bildirimler',
+];
+
 const Notifications = () => {
   return (
-    <Main>
+    <div>
       <Title component="h5" textAlign="left">
         Bildirimlerim
       </Title>
@@ -36,35 +42,17 @@ const Notifications = () => {
       </Text>
 
       <SwitchRowWrapper>
-        <Col lg={4}>
-          <SwitchRow>
-            <Text color="dark" fontWeight="500" fontSize="0.9rem">
-              SMS almak istiyorum
-            </Text>
+        {notificationSettings.map((item) => (
+          <Col lg={4}>
+            <SwitchRow>
+              <Text color="dark" fontWeight="500" fontSize="0.9rem">
+                {item}
+              </Text>
 
-            <Switch />
-          </SwitchRow>
-        </Col>
-
-        <Col lg={4}>
-          <SwitchRow>
-            <Text color="dark" fontWeight="500" fontSize="0.9rem">
-              E-posta almak istiyorum
-            </Text>
-
-            <Switch />
-          </SwitchRow>
-        </Col>
-
-        <Col lg={4}>
-          <SwitchRow>
-            <Text color="dark" fontWeight="500" fontSize="0.9rem">
-              Uygulama içi bildirimler
-            </Text>
-
-            <Switch />
-          </SwitchRow>
-        </Col>
+              <Switch />
+            </SwitchRow>
+          </Col>
+        ))}
       </SwitchRowWrapper>
 
       <SortRow>
@@ -107,7 +95,7 @@ const Notifications = () => {
           </tr>
         ))}
       </Table>
-    </Main>
+    </div>
   );
 };
 
@@ -127,6 +115,7 @@ const SwitchRow = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
   border-right: 1px solid #e3e3e3;
 
   .MuiSwitch-root {

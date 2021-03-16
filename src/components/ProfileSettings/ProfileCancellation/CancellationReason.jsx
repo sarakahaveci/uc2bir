@@ -3,6 +3,7 @@ import styled from 'styled-components/macro';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { useSelector, useDispatch } from 'react-redux';
 import RadioGroup from '@material-ui/core/RadioGroup';
+import { Link } from 'react-router-dom';
 
 import {
   CancellationFinalize,
@@ -55,19 +56,13 @@ const CancellationReason = () => {
 
   return (
     <div>
-      <Box row cursor="pointer">
+      <BackLink to="/myprofile/settings/profile">
         <Svg.ArrowLeftIcon />
 
-        <Span
-          ml="10px"
-          color="softDark"
-          fontWeight="600"
-          fontSize="1.2rem"
-          mb="30px"
-        >
+        <Span ml="10px" color="softDark" fontWeight="600" fontSize="1.2rem">
           Üyelik İptali
         </Span>
-      </Box>
+      </BackLink>
 
       <Text fontSize="1.5rem" color="softDark" fontWeight="500">
         Merhaba <Span textTransform="capitalize">{name}</Span>,
@@ -87,6 +82,7 @@ const CancellationReason = () => {
         pb="20px"
         borderBottom="0.5px solid"
         borderColor="gray7"
+        fontWeight="0.9rem"
       >
         Hesabı silerseniz, profil bilgileriniz beraberinde silinecektir.
       </Text>
@@ -144,6 +140,12 @@ const CancellationReason = () => {
 };
 
 export default CancellationReason;
+
+const BackLink = styled(Link)`
+  display: flex;
+  cursor: pointer;
+  margin-bottom: 15px;
+`;
 
 const TextArea = styled.textarea`
   padding: 15px;
