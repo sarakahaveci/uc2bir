@@ -26,6 +26,7 @@ import DietitianPrice from 'components/ProfileSettings/Dietitian/DietitianPrice'
 import DietitianProficiency from 'components/ProfileSettings/Dietitian/DietitianProficiency';
 import MessageSidebar from 'components/ProfileSettings/MessagesSidebar/MessagesSidebar';
 import Notifications from 'views/ProfileSettings/Notifications';
+import RegularNotifications from 'views/ProfileSettings/RegularNotifications';
 
 const regularUserTabs = [
   {
@@ -65,7 +66,7 @@ const regularUserTabs = [
   {
     eventKey: 'notifications',
     title: 'Bildirimlerim',
-    component: <Notifications />,
+    component: <RegularNotifications />,
   },
   {
     eventKey: 'message',
