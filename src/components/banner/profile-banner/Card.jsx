@@ -7,6 +7,8 @@ import { Title, AwesomeIcon, IconLabel } from 'components';
 import { Link } from 'react-router-dom';
 import { colorGenerator } from 'utils';
 
+import defaultImg from '../../../assets/default-profile.jpg'
+
 export const CardInfo = ({
   name,
   category,
@@ -66,7 +68,7 @@ export const CardFooter = ({ children }) => {
 
 const Card = ({ img, children, user = false }) => {
   return (
-    <StyledCard img={img} user={user}>
+    <StyledCard img={defaultImg} user={user}>
       {children}
       <CardFooter />
     </StyledCard>

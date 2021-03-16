@@ -8,12 +8,14 @@ import { Link } from 'react-router-dom';
 import Card, { CardFooter, CardInfo } from './Card';
 import { Col } from 'react-bootstrap';
 
+import defaultImg from '../../../assets/default-profile.jpg'
+
 const ProfileCard = ({ img, user = false, name = null, location = null, children }) => {
   const reservationAction = () => {};
   const changeProfilePhoto = () => {};
   const comment = () => {};
   return (
-    <Card img={img} user={user}>
+    <Card img={defaultImg} user={user}>
       <span onClick={changeProfilePhoto} className="span background camera">
         <Svg.Camera />
       </span>
