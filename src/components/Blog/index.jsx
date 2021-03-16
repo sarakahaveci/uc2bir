@@ -88,7 +88,6 @@ const Blog = () => {
     createData.append('category_id', category_id);
     createData.append('detail', detail || data.blog.detail);
     createData.append('title', title || data.blog.title);
-    console.log(seo);
 
     axios({ ...update_config, data: createData })
       .then(function (response) {
@@ -121,7 +120,6 @@ const Blog = () => {
       .then(function (response) {
         setData(response?.data?.data);
         setSeo(response?.data?.data?.blog?.id);
-        console.log(response?.data?.data?.blog?.id)
         setPage('edit');
       })
       .catch(function (err) {
