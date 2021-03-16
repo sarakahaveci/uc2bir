@@ -56,3 +56,5 @@ export { default as WorkPlaceRow } from './WorkPlaceRow/WorkPlaceRow';
 export { default as HeaderLogin } from './header-login';
 export { default as Wallet } from './Wallet';
 export { default as SessionType } from './SessionType';
+export { default as GoogleAppZoom } from './GoogleMaps/index';
+export { default as Blog } from './Blog';
