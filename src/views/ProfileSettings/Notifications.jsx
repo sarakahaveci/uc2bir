@@ -42,13 +42,10 @@ const notificationSettingsTypes = [
 const Notifications = () => {
   const {
     notifications: { data: notifications, isLoading: notificationsLoading },
-    notificationSettings: {
-      data: notificationSettings,
-      isLoading: settingsLoading,
-    },
+    notificationSettings: { data: notificationSettings },
   } = useSelector((state) => state.profileSettings2.notifications);
 
-  const [pageNumber, setPageNumber] = useState(1);
+  const [pageNumber, setPageNumber] = useState(0);
   const [date, setDate] = useState(7);
 
   const dispatch = useDispatch();
@@ -229,6 +226,12 @@ const SwitchRow = styled.div`
 `;
 
 const Table = styled.table`
+  min-height: 200px;
+
+  tbody {
+    position: relative;
+  }
+
   tr {
     &:nth-child(even) {
       background-color: ${(p) => p.theme.colors.gray6};

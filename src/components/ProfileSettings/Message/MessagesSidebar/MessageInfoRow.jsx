@@ -3,29 +3,28 @@ import styled, { css } from 'styled-components/macro';
 import { useSelector, useDispatch } from 'react-redux';
 import { differenceInDays } from 'date-fns';
 
-import Facility from 'assets/facility.png';
 import { Text, Box } from 'components';
-import { SET_ROOM_NAME } from 'constants/actionTypes';
+import { setRoomName } from 'actions';
 import { ISOToTimeConverter, ISOToDateConverter } from 'utils';
+import DefaultProfileImg from 'assets/default-profile.jpg';
 
-const MessageInfoRow = ({ messageData, senderData, unreadMessages }) => {
+const MessageInfoRow = ({ messageData, userData, unreadMessages }) => {
+  const { id: myProfileId, profile_image } = useSelector(
+    (state) => state.auth.user
+  );
+
+  const selectedRoomName = useSelector(
+    (state) => state.profileSettings2.messages.selectedRoom.selectedRoomName
+  );
+
   const dispatch = useDispatch();
-
-  const myProfileId = useSelector((state) => state.auth.user.id);
 
   const isLastSenderMe = myProfileId === messageData.sender_id;
 
-  const isCardActive = true;
+  const isCardActive = selectedRoomName === messageData.room_name;
 
-  const setRoomName = () => {
-    dispatch({
-      type: SET_ROOM_NAME,
-      payload: {
-        roomName: messageData?.room_name,
-        user: senderData,
-      },
-    });
-  };
+  const setRoomNameHandler = () =>
+    dispatch(setRoomName(messageData.room_name, userData));
 
   const messageDate = useMemo(() => {
     if (differenceInDays(new Date(), new Date(messageData.created_at)) === 0) {
@@ -41,17 +40,21 @@ const MessageInfoRow = ({ messageData, senderData, unreadMessages }) => {
       p="15px 25px 15px 15px"
       alignItems="center"
       isActive={isCardActive}
+      onClick={setRoomNameHandler}
     >
       <AvatarWrapper>
-        <Avatar src={Facility} showBorder>
+        <Avatar
+          src={userData.user_profile_image?.[0] || DefaultProfileImg}
+          showBorder
+        >
           {messageData.user_active && <ActiveCircle />}
         </Avatar>
       </AvatarWrapper>
 
-      <Box col flex={1} onClick={setRoomName}>
+      <Box col flex={1}>
         <Box row justifyContent="space-between" mb="8px" alignItems="center">
           <Text p="0" color="blue" fontSize="0.9rem" fontWeight="600">
-            {senderData.name}
+            {userData.name}
           </Text>
 
           <MessageDate fontSize="0.9rem" color="dark">
@@ -61,7 +64,9 @@ const MessageInfoRow = ({ messageData, senderData, unreadMessages }) => {
 
         <Box row alignItems="center">
           <Box row alignItems="center" pr="5px" flex={1}>
-            {isLastSenderMe && <Avatar src={Facility} small />}
+            {isLastSenderMe && (
+              <Avatar src={profile_image || DefaultProfileImg} small />
+            )}
 
             <Box height="14px" flex={1} overflow="hidden" position="relative">
               <Message isLastSenderMe={isLastSenderMe}>
@@ -103,6 +108,7 @@ const MessageDate = styled.span`
   display: inline-block;
   text-align: right;
   white-space: nowrap;
+  font-size: 0.9rem;
 `;
 
 const AvatarWrapper = styled.div`

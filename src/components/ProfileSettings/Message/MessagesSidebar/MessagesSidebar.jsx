@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
-
 import { useSelector, useDispatch } from 'react-redux';
+
 import MessageSearch from './MessageSearch';
 import MessageInfoRow from './MessageInfoRow';
-import { scrollbar } from 'components';
+import { scrollbar, Spinner } from 'components';
 import { getRooms } from 'actions';
 
 const MessageSidebar = () => {
-  const { data: allRooms } = useSelector(
+  const { isLoading: roomsLoading, data: allRooms } = useSelector(
     (state) => state.profileSettings2.messages.rooms
   );
 
@@ -19,6 +19,7 @@ const MessageSidebar = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // Settings first room in the success callback
     dispatch(getRooms());
   }, []);
 
@@ -29,13 +30,17 @@ const MessageSidebar = () => {
       <MessageSearch />
 
       <MessagesInfoWrapper>
-        {rooms.map((data) => (
-          <MessageInfoRow
-            messageData={data.last_message}
-            senderData={data.user_meta}
-            unreadMessages={data.unread_messages}
-          />
-        ))}
+        {roomsLoading ? (
+          <Spinner />
+        ) : (
+          rooms.map((data) => (
+            <MessageInfoRow
+              messageData={data.last_message}
+              userData={data.user_meta}
+              unreadMessages={data.unread_messages}
+            />
+          ))
+        )}
       </MessagesInfoWrapper>
     </Sidebar>
   );
@@ -51,4 +56,5 @@ const MessagesInfoWrapper = styled.div`
 
 const Sidebar = styled.div`
   max-width: 350px;
+  position: relative;
 `;

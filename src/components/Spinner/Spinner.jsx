@@ -1,8 +1,18 @@
 import React from 'react';
 import { Spinner } from 'react-bootstrap';
+import styled from 'styled-components/macro';
 
-const BlueSpinner = (props) => {
-  return <Spinner animation="border" variant="info" {...props} />;
-};
+export default function CustomSpinner(props) {
+  return (
+    <Styledwrapper>
+      <Spinner animation="border" variant="info" {...props} />
+    </Styledwrapper>
+  );
+}
 
-export default BlueSpinner;
+const Styledwrapper = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
