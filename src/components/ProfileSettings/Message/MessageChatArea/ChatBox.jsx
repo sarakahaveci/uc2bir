@@ -2,10 +2,7 @@ import React from 'react';
 
 import { Title } from 'components';
 
-export default function ChatBox({
-  message = 'sevglm var yzma seni vurur',
-  isMyMessage,
-}) {
+export default function ChatBox({ message, isMyMessage }) {
   const boxWrapperClass = isMyMessage
     ? 'message-box__wrapper__home'
     : 'message-box__wrapper__away';

@@ -64,7 +64,6 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
   const [acceptKvkk, setAcceptKvkk] = useState(false);
   const [acceptPermissions, setAcceptPermissions] = useState(false);
   const [isOtpModalActive, setIsOtpModalActive] = useState(false);
-  const [inputType, setInputType] = useState('password');
   const [shrink, setShrink] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [openModal, setOpenModal] = useState(false);

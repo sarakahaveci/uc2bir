@@ -11,6 +11,7 @@ import {
   SEND_MESSAGE_REQUEST,
   SEND_MESSAGE_SUCCESS,
   SEND_MESSAGE_FAILURE,
+  RESET_MESSAGES,
 } from '../../constants';
 
 const initialState = {
@@ -25,7 +26,7 @@ const initialState = {
     foundRooms: [],
   },
   messages: {
-    isLoading: false,
+    isLoading: true,
     allMessages: [],
     error: null,
   },
@@ -139,6 +140,9 @@ const messagesReducer = (state = initialState, action) => {
           selectedRoomUser: action.payload.user,
         },
       };
+
+    case RESET_MESSAGES:
+      return initialState;
 
     default:
       return state;

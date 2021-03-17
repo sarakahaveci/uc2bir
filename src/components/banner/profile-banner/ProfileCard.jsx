@@ -47,10 +47,13 @@ const ProfileCard = ({
     axios({ ...config, data: createData })
       .then(function (response) {
         dispatch(information());
-        toast.success('Profil resminiz güncellendi. Onay verildiğinde size bildirim gelecektir.', {
-          position: 'bottom-right',
-          autoClose: 2000,
-        });
+        toast.success(
+          'Profil resminiz güncellendi. Onay verildiğinde size bildirim gelecektir.',
+          {
+            position: 'bottom-right',
+            autoClose: 2000,
+          }
+        );
         setLoading(false);
       })
       .catch(function (err) {
@@ -87,7 +90,7 @@ const ProfileCard = ({
             }}
           />
         ) : (
-          <Spinner/>
+          <Spinner />
         )}
       </span>
 

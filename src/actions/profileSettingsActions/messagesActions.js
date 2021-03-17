@@ -5,6 +5,8 @@ import {
   RESET_MESSAGE_SEARCH,
   GET_ROOM_MESSAGES,
   SEND_MESSAGE,
+  SET_ROOM_NAME,
+  RESET_MESSAGES,
 } from '../../constants';
 
 export const getRooms = () => async (dispatch, getState) => {
@@ -17,6 +19,13 @@ export const getRooms = () => async (dispatch, getState) => {
       url,
       label: GET_ROOMS,
       transformData: (data) => data.data,
+      callBack: (data) => {
+        const allRooms = data.data;
+
+        dispatch(
+          setRoomName(allRooms?.[0]?.room_name, data.data?.[0]?.user_meta)
+        );
+      },
     },
   });
 };
@@ -78,4 +87,16 @@ export const sendMessageToRoom = (
 
 export const resetProductSearch = () => ({
   type: RESET_MESSAGE_SEARCH,
+});
+
+export const setRoomName = (roomName, user) => ({
+  type: SET_ROOM_NAME,
+  payload: {
+    roomName,
+    user,
+  },
+});
+
+export const resetSelectedRoom = () => ({
+  type: RESET_MESSAGES,
 });

@@ -4,6 +4,7 @@
     background-color: #f9f9f9;
     border: 1px solid #dfe4ea;
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.13);
+    border-radius: 8px;
   }
   &__right {
     display: flex;
@@ -12,6 +13,7 @@
     width: 100%;
   }
   &__message__wrapper {
+    position: relative;
     display: flex;
     flex-direction: column;
     height: 88%;
@@ -71,13 +73,13 @@
 
 .message-input {
   border-radius: 10px;
-  border: 1px solid var(--black4);
   height: 30px;
   background-color: #f9f9f9;
   font-size: 12px;
+  padding: 10px 30px;
+  border: 1px solid #dfe4ea;
 
-  ::placeholder {
-    color: 'red';
-    opacity: 0.5;
+  &::placeholder {
+    color: rgba(0, 0, 0, 0.2);
   }
 }
