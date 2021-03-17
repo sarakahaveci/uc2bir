@@ -1,18 +1,31 @@
 import React, { useMemo } from 'react';
 import styled, { css } from 'styled-components/macro';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { differenceInDays } from 'date-fns';
 
 import Facility from 'assets/facility.png';
 import { Text, Box } from 'components';
+import { SET_ROOM_NAME } from 'constants/actionTypes';
 import { ISOToTimeConverter, ISOToDateConverter } from 'utils';
 
 const MessageInfoRow = ({ messageData, senderData }) => {
+  const dispatch = useDispatch();
+
   const myProfileId = useSelector((state) => state.auth.user.id);
 
   const isLastSenderMe = myProfileId === messageData.sender_id;
 
   const isCardActive = true;
+
+  const setRoomName = () => {
+    dispatch({
+      type: SET_ROOM_NAME,
+      payload: {
+        roomName: messageData?.room_name,
+        user: senderData,
+      },
+    });
+  };
 
   const messageDate = useMemo(() => {
     if (differenceInDays(new Date(), new Date(messageData.created_at)) === 0) {
@@ -35,7 +48,7 @@ const MessageInfoRow = ({ messageData, senderData }) => {
         </Avatar>
       </AvatarWrapper>
 
-      <Box col flex={1}>
+      <Box col flex={1} onClick={setRoomName}>
         <Box row justifyContent="space-between" mb="8px" alignItems="center">
           <Text p="0" color="blue" fontSize="0.9rem" fontWeight="600">
             {senderData.name}

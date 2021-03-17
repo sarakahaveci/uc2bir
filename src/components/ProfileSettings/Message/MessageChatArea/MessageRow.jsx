@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components/macro';
 
 import ChatBox from './ChatBox';
 import { Title } from 'components';
@@ -7,7 +8,7 @@ export default function MessageRow({
   time = '20:10',
   isMyMessage = false,
   message,
-  senderProfileAvatar = 'https://i.stack.imgur.com/hdSzv.jpg?s=64&g=1',
+  senderProfileAvatar,
 }) {
   const wrapperClass = isMyMessage
     ? 'message-row__wrapper__home'
@@ -17,7 +18,7 @@ export default function MessageRow({
 
   return (
     <div className={wrapperClass}>
-      {!isMyMessage && <img alt="" src={senderProfileAvatar} />}
+      {!isMyMessage && <Avatar src={senderProfileAvatar} alt="" />}
       <div>
         <ChatBox isMyMessage={isMyMessage} message={message} />
         <div>
@@ -34,3 +35,10 @@ export default function MessageRow({
     </div>
   );
 }
+
+const Avatar = styled.img`
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: red;
+`;

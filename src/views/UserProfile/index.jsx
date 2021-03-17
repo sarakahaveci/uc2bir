@@ -22,7 +22,7 @@ import PTBranch from 'components/ProfileSettings/PT/PTBranch';
 import Favorites from 'components/ProfileSettings/Favorites/Favorites';
 import DietitianPrice from 'components/ProfileSettings/Dietitian/DietitianPrice';
 import DietitianProficiency from 'components/ProfileSettings/Dietitian/DietitianProficiency';
-import MessageSidebar from 'components/ProfileSettings/MessagesSidebar/MessagesSidebar';
+import Message from 'components/ProfileSettings/Message';
 
 const regularUserTabs = [
   {
@@ -70,7 +70,7 @@ const regularUserTabs = [
   {
     eventKey: 'message',
     title: 'Mesajlarım',
-    component: <MessageSidebar />,
+    component: <Message />,
   },
 ];
 
