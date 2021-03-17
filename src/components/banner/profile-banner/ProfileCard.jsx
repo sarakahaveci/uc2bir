@@ -44,8 +44,8 @@ const ProfileCard = ({
   const createData = new FormData();
 
   const upload = () => {
+    createData.append('files[]', files?.file);
     createData.append('type_id', '1');
-    createData.append('files[]', files);
     axios({ ...config, data: createData })
       .then(function (response) {
         dispatch(information());
@@ -69,20 +69,19 @@ const ProfileCard = ({
   },[files]);
 
   return (
-    <Card img={auth?.user?.profile_image.path || defaultImg} user={user}>
+    <Card img={auth?.user?.profile_image?.path || defaultImg} user={user}>
       <span onClick={changeProfilePhoto} className="span background camera">
         <Svg.Camera
           onClick={() => {
             selectFiles(
               { accept: 'image/*' },
               ({ name, size, source, file }) => {
-                console.log('Files Selected', {
+                return {
                   name,
                   size,
                   source,
                   file,
-                  files,
-                });
+                }
               }
             );
           }}
