@@ -33,7 +33,7 @@ const ProfileCard = ({
   const [files, selectFiles] = useFileUpload();
   const config = {
     method: 'post',
-    url: `${process.env.REACT_APP_API_URL}/user/gallery/create`,
+    url: `${process.env.REACT_APP_API_URL}/user/profile/file`,
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
