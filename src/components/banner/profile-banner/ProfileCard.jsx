@@ -98,7 +98,7 @@ const ProfileCard = ({
         <Svg.Notification />
       </NotificationLink>
 
-      {!user || ( auth?.user?.type_id !== 1 ) && (
+      {auth?.user?.type_id !== 1 && (
         <CardFooter>
           <Comment onClick={comment} className="list">
             <Svg.Comment />

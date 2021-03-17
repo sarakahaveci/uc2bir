@@ -94,7 +94,7 @@ const Components = () => {
               >
                 <div>Gönderdiğimiz child burada gözükür.</div>
               </ProfileBanner>
-              <MasonaryGallery/>
+              
               <Wallet/>
               <SessionType/>
             </Col>
