@@ -15,10 +15,14 @@ import { StepTwo } from 'views/Register/steps';
 const ProfileForms = () => {
   const dispatch = useDispatch();
   const { detail } = useSelector(
-    (state) => state.profileSettings2.profileDetail
+    (state) => state?.profileSettings2?.profileDetail
   );
-  const [phone, setPhone] = useState(detail?.data?.phone);
+  const [phone, setPhone] = useState(unMaskPhone(detail?.data?.phone));
   const [modal, setModal] = useState(false);
+
+  useEffect(() => {
+    setPhone(unMaskPhone(detail?.data?.phone));
+  },[detail]);
 
   const actionGetData = async () => {
     await dispatch(
