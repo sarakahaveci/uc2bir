@@ -1,8 +1,8 @@
 // @ts-nocheck
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styled from 'styled-components/macro';
-import { Button, Svg, Box } from 'components';
+import { Button, Svg, Box, Spinner } from 'components';
 import { NavLink, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -24,11 +24,11 @@ const ProfileCard = ({
   children,
 }) => {
   const reservationAction = () => {};
-  const changeProfilePhoto = () => {};
   const comment = () => {};
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const accessToken = auth?.accessToken;
+  const [loading, setLoading] = useState(false);
 
   const [files, selectFiles] = useFileUpload();
   const config = {
@@ -41,15 +41,17 @@ const ProfileCard = ({
   const createData = new FormData();
 
   const upload = () => {
+    setLoading(true);
     createData.append('files[]', files?.file);
     createData.append('type_id', '1');
     axios({ ...config, data: createData })
       .then(function (response) {
         dispatch(information());
-        toast.success('Dosya yüklendi.', {
+        toast.success('Profil resminiz güncellendi. Onay verildiğinde size bildirim gelecektir.', {
           position: 'bottom-right',
           autoClose: 2000,
         });
+        setLoading(false);
       })
       .catch(function (err) {
         toast.error('Dosya gönderilemedi.', {
@@ -60,29 +62,33 @@ const ProfileCard = ({
   };
 
   useEffect(() => {
-    if ( files?.file ) {
+    if (files?.file) {
       upload();
     }
-  },[files]);
+  }, [files]);
 
   return (
     <Card img={auth?.user?.profile_image?.path || defaultImg} user={user}>
-      <span onClick={changeProfilePhoto} className="span background camera">
-        <Svg.Camera
-          onClick={() => {
-            selectFiles(
-              { accept: 'image/*' },
-              ({ name, size, source, file }) => {
-                return {
-                  name,
-                  size,
-                  source,
-                  file,
+      <span className="span background camera">
+        {!loading ? (
+          <Svg.Camera
+            onClick={() => {
+              selectFiles(
+                { accept: 'image/*' },
+                ({ name, size, source, file }) => {
+                  return {
+                    name,
+                    size,
+                    source,
+                    file,
+                  };
                 }
-              }
-            );
-          }}
-        />
+              );
+            }}
+          />
+        ) : (
+          <Spinner/>
+        )}
       </span>
 
       <NotificationLink
@@ -92,7 +98,7 @@ const ProfileCard = ({
         <Svg.Notification />
       </NotificationLink>
 
-      {!user && (
+      {!user || ( auth?.user?.type_id !== 1 ) && (
         <CardFooter>
           <Comment onClick={comment} className="list">
             <Svg.Comment />
