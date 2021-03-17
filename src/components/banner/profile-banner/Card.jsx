@@ -68,7 +68,7 @@ export const CardFooter = ({ children }) => {
 
 const Card = ({ img, children, user = false }) => {
   return (
-    <StyledCard img={defaultImg} user={user}>
+    <StyledCard img={img} user={user}>
       {children}
       <CardFooter />
     </StyledCard>
