@@ -9,9 +9,10 @@ import {
   MasonaryGallery,
   Wallet,
   SessionType,
+  Blog,
+  CancellationReason,
 } from 'components';
 import { USER, PERSONAL_TRAINER, WORK_PLACE, DIETITIAN } from '../../constants';
-
 import Trainers from 'components/ProfileSettings/WorkPlace/Trainers/Trainers';
 import profileImg from '../../assets/banner/slider-item-1.png';
 import ProfileSettings from './ProfileSettings';
@@ -23,6 +24,7 @@ import Favorites from 'components/ProfileSettings/Favorites/Favorites';
 import DietitianPrice from 'components/ProfileSettings/Dietitian/DietitianPrice';
 import DietitianProficiency from 'components/ProfileSettings/Dietitian/DietitianProficiency';
 import Message from 'components/ProfileSettings/Message';
+import RegularNotifications from 'views/ProfileSettings/RegularNotifications';
 
 const regularUserTabs = [
   {
@@ -30,8 +32,9 @@ const regularUserTabs = [
     title: 'Profilim',
     component: <ProfileSettings />,
   },
+
   /* {
-    eventKey: 'rezarvation',
+    eventKey: 'reservation',
     title: 'Rezarvasyonlarım',
     component: (
       <Title variant={'h4'} component={'h4'} textLeft lineDisable>
@@ -39,7 +42,7 @@ const regularUserTabs = [
       </Title>
     ),
   }, */
-  {
+  /* {
     eventKey: 'packets',
     title: 'Paketlerim',
     component: (
@@ -47,7 +50,7 @@ const regularUserTabs = [
         Paketlerim
       </Title>
     ),
-  },
+  }, */
   /*  {
     eventKey: 'wallet',
     title: 'Cüzdanım',
@@ -58,15 +61,11 @@ const regularUserTabs = [
     title: 'Favorilerim',
     component: <Favorites />,
   },
-  /*  {
+  {
     eventKey: 'notifications',
     title: 'Bildirimlerim',
-    component: (
-      <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-        Bildirimlerim
-      </Title>
-    ),
-  }, */
+    component: <RegularNotifications />,
+  },
   {
     eventKey: 'message',
     title: 'Mesajlarım',
@@ -81,7 +80,7 @@ const workPlaceTabs = [
     component: <ProfileSettings />,
   },
   /* {
-    eventKey: 'rezarvation',
+    eventKey: 'reservation',
     title: 'Rezarvasyonlarım',
     component: (
       <Title variant={'h4'} component={'h4'} textLeft lineDisable>
@@ -110,7 +109,7 @@ const workPlaceTabs = [
     component: <Wallet />,
   }, */
   {
-    eventKey: 'galery',
+    eventKey: 'gallery',
     title: 'Galeri',
     component: <MasonaryGallery />,
   },
@@ -123,7 +122,7 @@ const dietitianTabs = [
     component: <ProfileSettings />,
   },
   /* {
-    eventKey: 'rezarvation',
+    eventKey: 'reservation',
     title: 'Rezarvasyonlarım',
     component: (
       <Title variant={'h4'} component={'h4'} textLeft lineDisable>
@@ -131,7 +130,7 @@ const dietitianTabs = [
       </Title>
     ),
   }, */
-  {
+  /* {
     eventKey: 'packets',
     title: 'Paketlerim',
     component: (
@@ -139,7 +138,7 @@ const dietitianTabs = [
         Paketlerim
       </Title>
     ),
-  },
+  }, */
   /*  {
     eventKey: 'service',
     title: 'Hizmetlerim',
@@ -171,18 +170,14 @@ const dietitianTabs = [
     component: <Wallet />,
   }, */
   {
-    eventKey: 'galery',
+    eventKey: 'gallery',
     title: 'Galeri',
     component: <MasonaryGallery />,
   },
   {
     eventKey: 'blog',
     title: 'Blog',
-    component: (
-      <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-        Blog
-      </Title>
-    ),
+    component: <Blog />,
   },
 ];
 
@@ -193,7 +188,7 @@ const trainerTabs = [
     component: <ProfileSettings />,
   },
   /* {
-    eventKey: 'rezarvation',
+    eventKey: 'reservation',
     title: 'Rezarvasyonlarım',
     component: (
       <Title variant={'h4'} component={'h4'} textLeft lineDisable>
@@ -201,7 +196,7 @@ const trainerTabs = [
       </Title>
     ),
   }, */
-  {
+  /* {
     eventKey: 'packets',
     title: 'Paketlerim',
     component: (
@@ -209,12 +204,20 @@ const trainerTabs = [
         Paketlerim
       </Title>
     ),
-  },
+  }, */
 
   {
     eventKey: 'location',
     title: 'Oturum Türleri & Çalıştığım yerler',
     component: <SessionType />,
+  },
+  {
+    eventKey: 'notifications',
+    component: <ProfileSettings />,
+  },
+  {
+    eventKey: 'cancel',
+    component: <CancellationReason />,
   },
   {
     eventKey: 'branch',
@@ -233,22 +236,18 @@ const trainerTabs = [
     component: <Wallet />,
   }, */
   {
-    eventKey: 'galery',
+    eventKey: 'gallery',
     title: 'Galeri',
     component: <MasonaryGallery />,
   },
   {
     eventKey: 'blog',
     title: 'Blog',
-    component: (
-      <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-        Blog
-      </Title>
-    ),
+    component: <Blog />,
   },
 ];
 
-export default function Profile() {
+export default function UserProfile({ match }) {
   const user = useSelector((state) => state.auth.user);
 
   let tabData;
@@ -277,7 +276,10 @@ export default function Profile() {
 
       <Container>
         <div className="tab-wrapper">
-          <Tab tabData={tabData} defaultActiveKey="profile" />
+          <Tab
+            tabData={tabData}
+            defaultActiveKey={match?.params?.activeTabKey || 'profile'}
+          />
         </div>
       </Container>
     </Main>

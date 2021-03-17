@@ -1,17 +1,21 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Tabs, Tab } from 'react-bootstrap';
 
 export default function ProfileTab({ tabData, defaultActiveKey }) {
+  const history = useHistory();
+
   return (
     <Tabs
-      defaultActiveKey={defaultActiveKey ?? null}
+      activeKey={defaultActiveKey ?? null}
       transition={false}
       id="profile-tab"
       unmountOnExit
+      onSelect={(key) => history.push(`/myprofile/settings/${key}`)}
     >
       {tabData.map((tab) => (
-        <Tab eventKey={tab.eventKey} title={tab.title}>
+        <Tab eventKey={tab.eventKey} title={tab.title} key={tab.eventKey}>
           {tab.component}
         </Tab>
       ))}

@@ -45,9 +45,6 @@ const DateField = ({
   state = {},
   action = () => {},
 }) => {
-  const now = new Date();
-  const defaultDate = `${now.getFullYear() - minYears}-${now.getMonth()}-${now.getDay()}`;
-  
   const [selectedDate, setSelectedDate] = useState(value ? new Date(value) : null);
 
   const handleDateChange = (date, callBack) => {
@@ -155,7 +152,6 @@ const Materials = styled.div`
     `
       border-bottom: 1px solid #AFAFAF;
       position: relative;
-      margin-top: 30px;
       margin-bottom: 30px;
     `}
   ${(props) =>
@@ -163,7 +159,6 @@ const Materials = styled.div`
     `
       border-bottom: 1px solid #AFAFAF;
       position: relative;
-      margin-top: 30px;
       margin-bottom: 30px;
 
       .save, .edit {

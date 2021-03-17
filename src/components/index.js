@@ -1,6 +1,7 @@
 export * from './CommonStyles/Common.styles';
 export { default as Box } from './Box/Box';
 export { default as Spinner } from './Spinner/Spinner';
+export { default as Slider } from './MaterialSlider/MaterialSlider';
 export { default as InputText } from './inputs/InputText';
 export { default as Switch } from './Switch/Switch';
 export { default as Stars } from './Stars/Stars';
@@ -40,6 +41,8 @@ export { default as CancellationFinalize } from './ProfileSettings/ProfileCancel
 export { default as CancellationReason } from './ProfileSettings/ProfileCancellation/CancellationReason';
 export { default as CancellationDismissInfo } from './ProfileSettings/ProfileCancellation/CancellationDismissInfo';
 export { default as PlusButton } from './buttons/PlusButton';
+export { default as Select } from './Select/Select';
+export { default as Pagination } from './Pagination/Pagination';
 
 /*
 export { default as SocialLogin } from './SocialLogin/SocialLogin';
@@ -54,3 +57,5 @@ export { default as WorkPlaceRow } from './WorkPlaceRow/WorkPlaceRow';
 export { default as HeaderLogin } from './header-login';
 export { default as Wallet } from './Wallet';
 export { default as SessionType } from './SessionType';
+export { default as GoogleAppZoom } from './GoogleMaps/index';
+export { default as Blog } from './Blog';

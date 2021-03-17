@@ -1,8 +1,9 @@
 // @ts-nocheck
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Section from '../Section';
 
-import { Material } from 'components';
+import { Material, Button } from 'components';
+import styled from 'styled-components/macro';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -14,6 +15,7 @@ const ProfileForms = ({ type }) => {
   const { detail } = useSelector(
     (state) => state.profileSettings2.profileDetail
   );
+  const [data, setData] = useState({});
 
   const actionGetData = async () => {
     await dispatch(
@@ -29,18 +31,21 @@ const ProfileForms = ({ type }) => {
     );
   };
 
-  const actionSetData = async (name, value) => {
-    if (name === 'phone') {
-      value = unMaskPhone(value);
-    }
+  useEffect(() => {
+    actionGetData();
+  }, []);
+
+  const onSubmit = (event) => {
+    event.preventDefault();
     dispatch(
       setProfile(
-        { [name]: value },
+        { ...data },
         () => {
           toast.success('Bilgileriniz güncellendi.', {
             position: 'bottom-right',
             autoClose: 2000,
           });
+          setData({});
         },
         () => {
           toast.error('Güncelleme işlemi yapılamadı.', {
@@ -52,14 +57,10 @@ const ProfileForms = ({ type }) => {
     );
   };
 
-  useEffect(() => {
-    actionGetData();
-  }, []);
-
   return (
     <Section>
       {detail.isSuccess && (
-        <>
+        <form onSubmit={onSubmit}>
           {(type === 'PERSONAL_TRAINER' || 'WORK_PLACE') && (
             <>
               <Material.TextField
@@ -68,9 +69,10 @@ const ProfileForms = ({ type }) => {
                 name="title"
                 value={detail?.data?.title}
                 defaultValue={detail?.data?.title}
-                settings
-                action={actionSetData}
-                state={detail}
+                onChange={(e) =>
+                  setData({ ...data, [e.target.name]: e.target.value })
+                }
+                settings="current"
               />
               <Material.TextField
                 label="Vergi Dairesi"
@@ -78,9 +80,10 @@ const ProfileForms = ({ type }) => {
                 name="tax_office"
                 value={detail?.data?.tax_office}
                 defaultValue={detail?.data?.tax_office}
-                settings
-                action={actionSetData}
-                state={detail}
+                onChange={(e) =>
+                  setData({ ...data, [e.target.name]: e.target.value })
+                }
+                settings="current"
               />
               <Material.TextField
                 label="Vergi No"
@@ -88,16 +91,38 @@ const ProfileForms = ({ type }) => {
                 name="tax_number"
                 value={detail?.data?.tax_number}
                 defaultValue={detail?.data?.tax_number}
-                settings
-                action={actionSetData}
-                state={detail}
+                onChange={(e) =>
+                  setData({ ...data, [e.target.name]: e.target.value })
+                }
+                settings="current"
               />
+              <Footer>
+                <Button
+                  fontWeight="600"
+                  type="submit"
+                  text="KAYDET"
+                  fontSize="15px"
+                  color="blue"
+                  transparentDisabled={
+                    Object.keys(data).length === 0 ? true : false
+                  }
+                  disabled={Object.keys(data).length === 0 ? true : false}
+                  isLoading={detail.isLoading}
+                />
+              </Footer>
             </>
           )}
-        </>
+        </form>
       )}
     </Section>
   );
 };
+
+const Footer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-left: -15px;
+  margin-right: -15px;
+`;
 
 export default ProfileForms;

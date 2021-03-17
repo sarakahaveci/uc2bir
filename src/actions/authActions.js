@@ -6,6 +6,7 @@ import {
   SOCIAL_LOGIN,
   LOGOUT,
   RESET_PASSWORD,
+  USER_INFORMATION,
 } from '../constants';
 import { localStorage } from 'utils';
 
@@ -80,6 +81,30 @@ export const resetPassword = (
       transformData: (data) => data.data,
       callBack: () => successCallback(),
       errorHandler: () => errorCallback(),
+    },
+  });
+};
+
+export const information = () => async (
+  dispatch
+) => {
+  const url = '/user/profile/detail';
+  const { accessToken, refreshToken } = localStorage.get('auth') || {};
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'GET',
+      url,
+      label: USER_INFORMATION,
+      transformData: (data) => {
+        return {
+          user: data.data,
+          token: accessToken,
+          refresh_token: refreshToken,
+          type_id: data.data?.type?.id,
+        };
+      },
     },
   });
 };

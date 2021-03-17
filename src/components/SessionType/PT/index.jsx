@@ -2,15 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { createTypes, getTypes } from 'actions';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
+import { getGeocode } from 'use-places-autocomplete';
 
 import Home from './Home';
 import Adds from './Adds';
 
-const PT = ({ icons }) => {
+const PT = ({ icons, setBannerActive }) => {
   const dispatch = useDispatch();
   const [selected, setSelected] = useState([]);
   const [types, setTypes] = useState([]);
   const [page, setPage] = useState('Home');
+
+  useEffect(() => {
+    getGeocode();
+  }, []);
 
   const { create } = useSelector((state) => state.profileSettings2.sessionType);
   const { get } = useSelector((state) => state.profileSettings2.sessionType);
@@ -59,7 +64,7 @@ const PT = ({ icons }) => {
       );
 
     case 'Adds':
-      return <Adds icons={icons} />;
+      return <Adds icons={icons} setBannerActive={setBannerActive} />;
 
     default:
       return <></>;

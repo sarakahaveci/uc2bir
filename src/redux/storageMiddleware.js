@@ -3,7 +3,8 @@ import {
   SOCIAL_LOGIN_SUCCESS,
   REGISTER_STEP_TWO_SUCCESS,
   LOGOUT,
-  RESET_PASSWORD,
+  USER_INFORMATION_SUCCESS,
+  RESET_PASSWORD_SUCCESS,
 } from '../constants';
 import { localStorage } from 'utils';
 
@@ -15,7 +16,8 @@ const syncLocalStorage = ({ dispatch, getState }) => {
       action.type === LOGIN_SUCCESS ||
       action.type === SOCIAL_LOGIN_SUCCESS ||
       action.type === REGISTER_STEP_TWO_SUCCESS ||
-      action.type === RESET_PASSWORD
+      action.type === RESET_PASSWORD_SUCCESS ||
+      action.type === USER_INFORMATION_SUCCESS
     ) {
       const { user, accessToken, refreshToken } = getState().auth;
 

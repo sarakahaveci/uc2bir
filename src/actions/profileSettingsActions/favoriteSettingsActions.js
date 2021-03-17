@@ -6,8 +6,11 @@ import {
   USER_KEYS,
 } from '../../constants';
 
-export const getFavoriteUsers = (userTypeId) => async (dispatch, getState) => {
-  const url = `/user/favorite/${USER_KEYS[userTypeId]}`;
+export const getFavoriteUsers = (userTypeId, page) => async (
+  dispatch,
+  getState
+) => {
+  const url = `/user/favorite/${USER_KEYS[userTypeId]}?page=${page}`;
 
   await dispatch({
     type: HTTP_REQUEST,

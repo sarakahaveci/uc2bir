@@ -26,7 +26,8 @@
 
 .map-wrapper {
   height: 50vh;
-  width: 100vh;
+  //width: 100vh;
+  width: 100%;
   @media (max-width: 768px) {
     width: 100% !important;
   }

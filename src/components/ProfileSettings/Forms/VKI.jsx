@@ -12,10 +12,7 @@ import { getVKI, setVKI } from 'actions';
 const VKI = () => {
   const dispatch = useDispatch();
   const { vki } = useSelector((state) => state.profileSettings);
-  const [data, setData] = useState({
-    weight: vki?.data?.weight,
-    height: vki?.data?.height,
-  });
+  const [data, setData] = useState({});
   const [result, setResult] = useState("");
 
   const actionGetData = async () => {
@@ -48,6 +45,7 @@ const VKI = () => {
             position: 'bottom-right',
             autoClose: 2000,
           });
+          setData({});
           actionGetData();
         },
         () => {
@@ -75,6 +73,7 @@ const VKI = () => {
             mask="999"
             value={vki?.data?.height}
             defaultValue={vki?.data?.height}
+            settings="current"
             onChange={(e) =>
               setData({ ...data, [e.target.name]: e.target.value })
             }
@@ -86,16 +85,21 @@ const VKI = () => {
             name="weight"
             value={vki?.data?.weight}
             defaultValue={vki?.data?.weight}
+            settings="current"
             onChange={(e) =>
               setData({ ...data, [e.target.name]: e.target.value })
             }
           />
           <Span><b>VKI</b>: {vki?.data?.vki || result}</Span>
           <Footer>
-            <Button
+          <Button
+              fontWeight="600"
               type="submit"
-              text="Hesapla ve Kaydet"
+              text="KAYDET"
+              fontSize="15px"
               color="blue"
+              transparentDisabled={Object.keys(data).length === 0 ? true : false}
+              disabled={Object.keys(data).length === 0 ? true : false}
               isLoading={vki.isLoading}
             />
           </Footer>

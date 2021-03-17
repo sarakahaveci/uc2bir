@@ -5,12 +5,14 @@ import { color, space, layout, flexbox } from 'styled-system';
 import Svg from 'components/statics/svg';
 
 const StyledButton = styled(BaseButton)`
-  font-size: 1rem;
+  font-size: ${(props) => (props.fontSize && props.fontSize) || '1rem'};
   font-weight: ${(props) => (props.fontWeight && props.fontWeight) || 'normal'};
   border-radius: 4px;
   min-height: 45px;
-  background: ${(props) => props.disabled && '#8CDEDA'} !important;
+  background: ${(props) => !props.transparentDisabled && props.disabled && '#8CDEDA'} !important;
+  color: ${(props) => props.transparentDisabled && 'var(--gray2)'} !important;
   width: ${(props) => props.width && props.width};
+  cursor: ${(props) => props.disabled && 'not-allowed'} !important;
 
   ${color}
   ${space}

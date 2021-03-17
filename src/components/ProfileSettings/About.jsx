@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 
@@ -8,14 +8,16 @@ import TextField from '@material-ui/core/TextField';
 
 export default function About() {
   const dispatch = useDispatch();
-  const { about } = useSelector((state) => state?.profile?.userInfo);
+  const { userInfo, isLoading } = useSelector((state) => state?.profile);
 
-  const [data, setData] = useState(about ?? '');
+  const [newAbout, setNewAbout] = useState(userInfo?.about);
 
-  const disable = about === data;
+  useEffect(() => {
+    setNewAbout(userInfo?.about);
+  }, [userInfo]);
 
-  const isFailUpdate = () => {
-    toast.error('Güncelleme yapılırken hata ile karşılaşıldı.', {
+  const isFailUpdate = (message) => {
+    toast.error(message || 'Güncelleme yapılırken hata ile karşılaşıldı.', {
       position: 'bottom-right',
       autoClose: 4500,
     });
@@ -26,16 +28,18 @@ export default function About() {
       position: 'bottom-right',
       autoClose: 4500,
     });
+    setNewAbout(userInfo?.about);
   };
 
   const handleChangeAbout = () => {
-    if (!disable)
-      dispatch(setProfile({ about: data }, isFailUpdate, isSuccess));
+    if (!(userInfo?.about === newAbout)) {
+      dispatch(setProfile({ about: newAbout }, isSuccess, isFailUpdate));
+    }
   };
 
-  console.log({ about, data });
-
-  return (
+  return isLoading ? (
+    <div>Yükleniyor..</div>
+  ) : (
     <div className="about-wrapper">
       <TextField
         id="about"
@@ -44,15 +48,20 @@ export default function About() {
         className="w-100"
         multiline
         rows={4}
-        defaultValue={about}
-        onChange={(e) => setData(e.target.value)}
+        defaultValue={newAbout}
+        onChange={(e) => setNewAbout(e.target.value)}
+        inputProps={{
+          maxLength: 250,
+        }}
       />
       <Box row>
         <hr className="about-hr" />
-        {250 - data.length}
+        {250 - newAbout?.length ?? 250}
         <span
           onClick={handleChangeAbout}
-          className={!disable ? 'saveButton' : 'saveButton disable'}
+          className={
+            userInfo?.about === newAbout ? 'saveButton disable' : 'saveButton'
+          }
         >
           KAYDET
         </span>

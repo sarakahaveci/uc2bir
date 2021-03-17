@@ -218,13 +218,11 @@ export default function Address() {
     dispatch(getCitiesAndDistict({ [event.target.name]: event.target.value }));
   };
 
-  console.log(formData);
-
   return isLoading ? (
     <>Yükleniyor</>
   ) : (
-    <div className="row w-100 h-100 px-1">
-      <div className="col-12">
+    <div className="w-100 h-100">
+      <div className="w-100">
         <form
           className="step-four-wrapper"
           onSubmit={updateAddress}
@@ -300,7 +298,7 @@ export default function Address() {
           </div>
         </form>
       </div>
-      <div className="col-12">
+      <div className="w-100">
         <GoogleMap
           onPositionChange={onPositionChange}
           draggable

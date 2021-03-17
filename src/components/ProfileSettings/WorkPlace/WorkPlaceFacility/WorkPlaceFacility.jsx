@@ -1,19 +1,56 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import { Title, Button, FacilityCard } from 'components';
+import {
+  getMyProfileFacilities,
+  getAllFacilities,
+  addNewFacility,
+} from 'actions';
 import SelectiveButton from 'components/buttons/SelectiveButton';
 import ArrowLeftIcon from 'components/statics/svg/images/arrow-left.svg';
 import FacilityImage from 'assets/facility.png';
 import BluePlusIcon from 'assets/blue-plus.svg';
 
-const currentWorkPlace = [1, 3, 5, 7];
-
 export default function WorkPlaceFacility() {
+  const dispatch = useDispatch();
+
   const { data } = useSelector((state) => state.registerData);
+  const { myFacilities } = useSelector(
+    (state) => state.profileSettings2.workplaceFacility
+  );
 
   const [showAddFacilty, setShowAddFacilty] = useState(false);
   const [selectedFacilty, setSelectedFacilty] = useState([]);
+
+  useEffect(() => {
+    dispatch(getAllFacilities());
+    dispatch(getMyProfileFacilities());
+  }, []);
+
+  const allFacilityList = data?.['is_yeri_olanaklari']?.filter(
+    (facility) =>
+      !myFacilities?.data?.find((myfacility) => myfacility.id === facility.id)
+  );
+
+  const isSuccessAddNewFacilitiesCallback = () => {
+    dispatch(getMyProfileFacilities());
+    toast.success('Başarı ile eklendi');
+    setShowAddFacilty(false);
+  };
+
+  const submitNewFacilities = () => {
+    dispatch(
+      addNewFacility(
+        { facilities: selectedFacilty },
+        isSuccessAddNewFacilitiesCallback,
+        (message) => toast.error(message)
+      )
+    );
+  };
+
+  console.log(selectedFacilty);
 
   const selectBenefitHandler = (key) => {
     if (selectedFacilty.includes(key)) {
@@ -87,16 +124,16 @@ export default function WorkPlaceFacility() {
           )}
           <div className={`w-100 ${!showAddFacilty ? 'card-wrapper' : ''}`}>
             {!showAddFacilty ? (
-              data?.['is_yeri_olanaklari']?.map((facility) => (
+              myFacilities?.data?.map((facility) => (
                 <FacilityCard
                   key={facility.id}
                   name={facility.name}
-                  isAccepted={currentWorkPlace.includes(facility.id)}
+                  isAccepted={facility.status === 'success'}
                 />
               ))
             ) : (
               <>
-                {data?.['is_yeri_olanaklari']?.map((facility) => (
+                {allFacilityList?.map((facility) => (
                   <SelectiveButton
                     key={facility.id}
                     id={facility.id}
@@ -111,7 +148,7 @@ export default function WorkPlaceFacility() {
                     text="Kaydet"
                     disabled={selectedFacilty.length === 0}
                     fontWeight="500"
-                    onClick={() => {}}
+                    onClick={submitNewFacilities}
                   />
                 </div>
               </>

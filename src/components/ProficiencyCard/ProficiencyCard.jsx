@@ -3,7 +3,6 @@ import React from 'react';
 import { Title } from 'components';
 
 export default function ProficiencyCard({ title, data }) {
-  console.log({ title, data });
   return (
     <div className="proficiencyCard__wrapper">
       <Title

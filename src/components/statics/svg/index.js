@@ -9,6 +9,7 @@ import { ReactComponent as Search } from './images/search.svg';
 //import resct svg
 import InfoHome from './images/info-home.svg';
 import InfoOnline from './images/info-online.svg';
+import CencelIcon from './images/cancel-icon.svg';
 import InfoSport from './images/info-sport.svg';
 import Upload from './images/upload.svg';
 import Error from './images/error.svg';
@@ -67,6 +68,7 @@ import Plus from './images/plus.svg';
 import Tl from './images/tl.svg';
 import UpDown from './images/up-down.svg';
 import Location from './images/location.svg';
+import ActiveHeart from './images/active-heart.svg';
 
 import AthleticSportIcon from 'assets/sports-type-icons/atletic.svg';
 import FitnessSportIcon from 'assets/sports-type-icons/fitness.svg';
@@ -81,6 +83,8 @@ import SessionTypeGym from './images/session_type/gym.svg';
 import SessionTypeOnline from './images/session_type/online.svg';
 import SessionTypePark from './images/session_type/park.svg';
 import SessionTypeClinic from './images/session_type/clinic.svg';
+
+import WhitePencil from './images/white-pencil.svg';
 
 const Svg = {
   Menu: (props) => <Menu {...props} />,
@@ -152,6 +156,9 @@ const Svg = {
   Tl: (props) => <ReactSVG {...props} src={Tl} />,
   UpDownIcon: (props) => <ReactSVG {...props} src={UpDown} />,
   LocationIcon: (props) => <ReactSVG {...props} src={Location} />,
+  ActiveHeartIcon: (props) => <ReactSVG {...props} src={ActiveHeart} />,
+  WhitePencil: (props) => <ReactSVG {...props} src={WhitePencil} />,
+  CencelIcon: (props) => <ReactSVG {...props} src={CencelIcon} />,
 
   SessionType: {
     Gym: (props) => <ReactSVG {...props} src={SessionTypeGym} />,

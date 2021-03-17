@@ -77,7 +77,6 @@
             background: rgb(254, 254, 254);
             border-radius: 30px;
             position: relative;
-            transition: all 0.7s cubic-bezier(0, 0, 0, -0.02) 0s;
             top: 0px;
 
             @media (max-width: 768px) {
@@ -130,7 +129,6 @@
                         right: 12px;
                         display: flex;
                         flex-direction: row-reverse;
-                        transition: all 0.7s cubic-bezier(0, 0, 0, -0.02) 0s;
 
                         span.icon {
                             font-size: 1.4em;
@@ -145,7 +143,6 @@
                             position: relative;
                             z-index: 2;
                             transform: rotate(0deg);
-                            transition: all 0.7s cubic-bezier(0, 0, 0, -0.02) 0s;
                         }
 
                         span.text {
@@ -164,7 +161,6 @@
                             z-index: 1;
                             border-radius: 40px;
                             overflow: hidden;
-                            transition: all 0.7s cubic-bezier(0, 0, 0, -0.02) 0s;
                         }
 
                         &:hover, &.active {

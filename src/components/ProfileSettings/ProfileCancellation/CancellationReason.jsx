@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components/macro';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Radio from '@material-ui/core/Radio';
 import { useSelector, useDispatch } from 'react-redux';
 import RadioGroup from '@material-ui/core/RadioGroup';
+import { Link } from 'react-router-dom';
 
 import {
   CancellationFinalize,
@@ -14,10 +14,11 @@ import {
   Svg,
   Span,
   Spinner,
+  Material,
 } from 'components';
 import { getCancellationReasons, cancelProfile } from 'actions';
 
-const CancellationReason = ({ setIsProfileCancellationPage }) => {
+const CancellationReason = () => {
   const {
     reasons: { data: reasons, isLoading: reasonsLoading },
     cancelProfile: { isLoading: cancelLoading },
@@ -55,23 +56,13 @@ const CancellationReason = ({ setIsProfileCancellationPage }) => {
 
   return (
     <div>
-      <Box
-        row
-        cursor="pointer"
-        onClick={() => setIsProfileCancellationPage(false)}
-      >
+      <BackLink to="/myprofile/settings/profile">
         <Svg.ArrowLeftIcon />
 
-        <Span
-          ml="10px"
-          color="softDark"
-          fontWeight="600"
-          fontSize="1.2rem"
-          mb="30px"
-        >
+        <Span ml="10px" color="softDark" fontWeight="600" fontSize="1.2rem">
           Üyelik İptali
         </Span>
-      </Box>
+      </BackLink>
 
       <Text fontSize="1.5rem" color="softDark" fontWeight="500">
         Merhaba <Span textTransform="capitalize">{name}</Span>,
@@ -91,6 +82,7 @@ const CancellationReason = ({ setIsProfileCancellationPage }) => {
         pb="20px"
         borderBottom="0.5px solid"
         borderColor="gray7"
+        fontWeight="0.9rem"
       >
         Hesabı silerseniz, profil bilgileriniz beraberinde silinecektir.
       </Text>
@@ -105,13 +97,18 @@ const CancellationReason = ({ setIsProfileCancellationPage }) => {
             <FormControlLabel
               value={item.reason}
               label={item.reason}
-              control={<Radio />}
+              control={<Material.RadioButton />}
             />
           ))}
           <Box col bg="gray6">
-            <FormControlLabel value="Other" control={<Radio />} label="Diğer" />
+            <FormControlLabel
+              value="Other"
+              control={<Material.RadioButton />}
+              label="Diğer"
+            />
 
             <TextArea
+              readOnly={reason !== 'Other'}
               rows={6}
               placeholder="Lütfen üyeliğinizi neden iptal etmek istediğinizi kısaca belirtin"
               onChange={inputChangeHandler}
@@ -144,6 +141,12 @@ const CancellationReason = ({ setIsProfileCancellationPage }) => {
 
 export default CancellationReason;
 
+const BackLink = styled(Link)`
+  display: flex;
+  cursor: pointer;
+  margin-bottom: 15px;
+`;
+
 const TextArea = styled.textarea`
   padding: 15px;
   border-radius: 15px;
@@ -151,6 +154,7 @@ const TextArea = styled.textarea`
   flex: 1;
   width: auto;
   min-width: unset;
+  font-size: 0.9rem;
 
   &::placeholder {
     font-size: 0.9rem;

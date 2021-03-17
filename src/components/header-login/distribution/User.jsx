@@ -6,20 +6,21 @@ import Svg from 'components/statics/svg';
 import List from '../List';
 import Item from '../Item';
 import ROLE from 'constants/role';
+import TABS from 'constants/tabUri';
 
 const User = ({ user_name, user_id, user_img = null, logOutAction }) => {
   const notification = [
     {
       name: '1. Bildirim',
-      link: `/profile/${user_id}`,
+      link: TABS.notificationPath,
     },
     {
       name: '2. Bildirim',
-      link: `/profile/${user_id}`,
+      link: TABS.notificationPath,
     },
     {
       name: '3. Bildirim',
-      link: `/profile/${user_id}`,
+      link: TABS.notificationPath,
     },
   ];
 
@@ -28,30 +29,22 @@ const User = ({ user_name, user_id, user_img = null, logOutAction }) => {
       name: 'Profilim',
       icon: <Svg.UsernameIcon />,
       // It will be updated
-      link: ROLE.USER.link,
+      link: TABS.profilePath,
     },
     {
       name: 'Rezervasyonlarım',
       icon: <Svg.Date />,
-      tabs: [
-        {
-          name: 'Tab 1',
-        },
-        {
-          name: 'Tab 2',
-        },
-        {
-          name: 'Tab 3',
-        },
-      ],
+      link: TABS.reservationsPath,
     },
     {
       name: 'Paketlerim',
       icon: <Svg.Packet />,
+      link: TABS.profilePath,
     },
     {
       name: 'Cüzdanım',
       icon: <Svg.Wallet />,
+      link: TABS.walletPath,
     },
     {
       name: 'Çıkış Yap',

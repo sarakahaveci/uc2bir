@@ -5,21 +5,21 @@ import PropTypes from 'prop-types';
 import Svg from 'components/statics/svg';
 import List from '../List';
 import Item from '../Item';
-import ROLE from 'constants/role';
+import TABS from 'constants/tabUri';
 
 const Pt = ({ user_name, user_id, user_img = null, logOutAction }) => {
   const notification = [
     {
       name: '1. Bildirim',
-      link: `/profile/${user_id}`,
+      link: TABS.notificationPath,
     },
     {
       name: '2. Bildirim',
-      link: `/profile/${user_id}`,
+      link: TABS.notificationPath,
     },
     {
       name: '3. Bildirim',
-      link: `/profile/${user_id}`,
+      link: TABS.notificationPath,
     },
   ];
 
@@ -27,42 +27,42 @@ const Pt = ({ user_name, user_id, user_img = null, logOutAction }) => {
     {
       name: 'Profilim',
       icon: <Svg.UsernameIcon />,
-      link: ROLE.PT.link,
+      link: TABS.profilePath,
     },
     {
       name: 'Paketlerim',
       icon: <Svg.Packet />,
-      link: `/profile/${user_id}`,
+      link: TABS.packetsPath,
     },
     {
       name: 'Oturum Türleri & Çalıştığım Yerler',
       icon: <Svg.PtHome />,
-      link: `/profile/${user_id}`,
+      link: TABS.sessiontypePath,
     },
     {
       name: 'Branşlarım & Ücretlerim',
       icon: <Svg.PtBranch />,
-      link: `/profile/${user_id}`,
+      link: TABS.branchPath,
     },
     {
       name: 'Uzmanlıklarım',
       icon: <Svg.Expert />,
-      link: `/profile/${user_id}`,
+      link: TABS.specialtiesPath,
     },
     {
       name: 'Cüzdanım',
       icon: <Svg.Wallet />,
-      link: `/profile/${user_id}`,
+      link: TABS.walletPath,
     },
     {
       name: 'Galeri',
       icon: <Svg.Gallery />,
-      link: `/profile/${user_id}`,
+      link: TABS.galleryPath,
     },
     {
       name: 'Blog',
       icon: <Svg.Blog />,
-      link: `/profile/${user_id}`,
+      link: TABS.blogPath,
     },
     {
       name: 'Çıkış Yap',
