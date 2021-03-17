@@ -30,9 +30,6 @@ const ProfileCard = ({
   const dispatch = useDispatch();
   const accessToken = auth?.accessToken;
 
-  console.log(auth);
-  console.log(auth?.user?.profile_image.path);
-
   const [files, selectFiles] = useFileUpload();
   const config = {
     method: 'post',
@@ -63,7 +60,7 @@ const ProfileCard = ({
   };
 
   useEffect(() => {
-    if ( files ) {
+    if ( files?.file ) {
       upload();
     }
   },[files]);
