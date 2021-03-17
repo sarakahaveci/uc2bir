@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { toast } from 'react-toastify';
 import { Modal, Spinner } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
@@ -20,10 +20,10 @@ const StepTwo = ({
   const otpInputRef = useRef();
   const interval = useRef();
 
-  const modalCloseHandler = () => {
+  const modalCloseHandler = useCallback(() => {
     setIsOtpModalActive(false);
     setStepNumber(1);
-  };
+  }, [isOtpModalActive, setIsOtpModalActive]);
 
   useEffect(() => {
     interval.current = setInterval(() => {
@@ -87,9 +87,7 @@ const StepTwo = ({
   return (
     <Modal show={isOtpModalActive} onHide={modalCloseHandler} backdrop="static">
       <div className="prof-register-modal">
-        <div onClick={modalCloseHandler}>
-          <Svg.CloseIcon className="close-icon" />
-        </div>
+        <Svg.CloseIcon className="close-icon" onClick={modalCloseHandler} />
 
         <Text variant="h2" fontSize="1.2rem" color="dark">
           Telefon Numaranızı Doğrulayın

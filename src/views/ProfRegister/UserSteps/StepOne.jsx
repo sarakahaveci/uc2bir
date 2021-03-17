@@ -4,10 +4,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Modal } from 'react-bootstrap';
 import InputMask from 'react-input-mask';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
+import { TextField } from '@material-ui/core';
 
 import { StepContext } from '../RegisterSteps';
-import { setStepOne, setStepTwo } from 'actions';
+import { setStepOne } from 'actions';
 import {
   Button,
   Text,
@@ -16,12 +17,10 @@ import {
   Health,
   Kvkk,
   Permission,
+  Svg,
 } from 'components';
 import StepTwo from './StepTwo';
-import { default as NewStepTwo } from '../../Register/steps/step-two';
 import { macroConverter } from 'utils';
-import Svg from 'components/statics/svg';
-import { TextField } from '@material-ui/core';
 
 const macro = [
   {
@@ -89,12 +88,6 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
       },
     });
   };
-
-  const verifyErrorCallback = (error) =>
-    toast.error(error, {
-      position: 'bottom-right',
-      autoClose: 2000,
-    });
 
   const registerErrorCallback = (errorMessages) =>
     Object.keys(errorMessages)?.forEach((errorKey) => {
@@ -254,8 +247,8 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
 
         <Material.TextField
           required
-          type={inputType}
           name="password"
+          type="password"
           forHtml="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
