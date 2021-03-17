@@ -7,7 +7,7 @@ import { Title, AwesomeIcon, IconLabel } from 'components';
 import { Link } from 'react-router-dom';
 import { colorGenerator } from 'utils';
 
-import defaultImg from '../../../assets/default-profile.jpg'
+import defaultImg from '../../../assets/default-profile.jpg';
 
 export const CardInfo = ({
   name,

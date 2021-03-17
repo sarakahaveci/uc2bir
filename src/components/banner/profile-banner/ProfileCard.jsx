@@ -1,14 +1,20 @@
 // @ts-nocheck
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import styled from 'styled-components/macro';
 import { Button, Svg, Box } from 'components';
 import { NavLink, Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Card, { CardFooter, CardInfo } from './Card';
 import { Col } from 'react-bootstrap';
+import { useFileUpload } from 'use-file-upload';
+import FormData from 'form-data';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 import defaultImg from '../../../assets/default-profile.jpg';
+import { information } from 'actions';
 
 const ProfileCard = ({
   img,
@@ -20,10 +26,66 @@ const ProfileCard = ({
   const reservationAction = () => {};
   const changeProfilePhoto = () => {};
   const comment = () => {};
+  const auth = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const accessToken = auth?.accessToken;
+
+  console.log(auth);
+
+  const [files, selectFiles] = useFileUpload();
+  const config = {
+    method: 'post',
+    url: `${process.env.REACT_APP_API_URL}/user/gallery/create`,
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  };
+  const createData = new FormData();
+
+  const upload = () => {
+    createData.append('type_id', '1');
+    createData.append('files[]', files?.file);
+    axios({ ...config, data: createData })
+      .then(function (response) {
+        dispatch(information());
+        toast.success('Dosya yüklendi.', {
+          position: 'bottom-right',
+          autoClose: 2000,
+        });
+      })
+      .catch(function (err) {
+        toast.error('Dosya gönderilemedi.', {
+          position: 'bottom-right',
+          autoClose: 2000,
+        });
+      });
+  };
+
+  useEffect(() => {
+    if ( files ) {
+      upload();
+    }
+  },[files]);
+
   return (
-    <Card img={defaultImg} user={user}>
+    <Card img={auth?.user?.profile_image?.path || defaultImg} user={user}>
       <span onClick={changeProfilePhoto} className="span background camera">
-        <Svg.Camera />
+        <Svg.Camera
+          onClick={() => {
+            selectFiles(
+              { accept: 'image/*' },
+              ({ name, size, source, file }) => {
+                console.log('Files Selected', {
+                  name,
+                  size,
+                  source,
+                  file,
+                  files,
+                });
+              }
+            );
+          }}
+        />
       </span>
 
       <NotificationLink

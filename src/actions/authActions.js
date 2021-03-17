@@ -88,7 +88,7 @@ export const resetPassword = (
 export const information = () => async (
   dispatch
 ) => {
-  const url = '/user/profile/information';
+  const url = '/user/profile/detail';
   const { accessToken, refreshToken } = localStorage.get('auth') || {};
 
   await dispatch({
