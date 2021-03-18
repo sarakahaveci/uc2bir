@@ -2,14 +2,14 @@ import { getHours, getMinutes } from 'date-fns';
 import format from 'date-fns/format';
 import tr from 'date-fns/locale/tr';
 
-export const ISOToTimeConverter = (createdDate) => {
-  const hours = getHours(new Date(createdDate));
-  const minutes = getMinutes(new Date(createdDate));
+export const ISOToTimeConverter = (value) => {
+  const hours = getHours(new Date(value));
+  const minutes = getMinutes(new Date(value));
 
   return `${hours}:${minutes}`;
 };
 
-export const ISOToDateConverter = () =>
-  format(new Date(), 'd MMMM', {
+export const ISOToDateConverter = (value) =>
+  format(new Date(value), 'd MMMM', {
     locale: tr,
   });

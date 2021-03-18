@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { searchMessage, resetProductSearch } from 'actions';
 import { useDebounce } from 'utils';
 import { Box, Svg } from 'components';
-import Facility from 'assets/facility.png';
+import DefaultProfileImg from 'assets/default-profile.jpg';
 
 const MessageSearch = () => {
+  const { profile_image } = useSelector((state) => state.auth.user);
+
   const [searchValue, setSearchValue] = useState('');
   const debouncedSearchValue = useDebounce(searchValue, 1000);
 
@@ -24,7 +26,7 @@ const MessageSearch = () => {
   return (
     <Wrapper>
       <InnerWrapper>
-        <Avatar src={Facility} />
+        <Avatar src={profile_image || DefaultProfileImg} />
 
         <Box row alignItems="center" position="relative">
           <SearchInput

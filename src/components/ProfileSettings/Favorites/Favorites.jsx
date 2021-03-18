@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
+import styled from 'styled-components/macro';
 
-import { Title, Pagination, Spinner } from 'components';
+import { Title, Pagination, Spinner, Box } from 'components';
 import { getFavoriteUsers } from 'actions';
 import { PERSONAL_TRAINER, WORK_PLACE, DIETITIAN } from '../../../constants';
 import LongUserCard from 'components/UserCards/LongUserCard';
@@ -58,7 +59,7 @@ const Favorites = () => {
   }
 
   return (
-    <div>
+    <Box>
       <div>
         <Title
           textAlign="left"
@@ -79,7 +80,7 @@ const Favorites = () => {
         />
       </div>
 
-      <Row position="relative">{content}</Row>
+      <ContentRow>{content}</ContentRow>
 
       {!!totalPage && !isLoading && (
         <Pagination
@@ -89,8 +90,12 @@ const Favorites = () => {
           onChange={pageChangeHandler}
         />
       )}
-    </div>
+    </Box>
   );
 };
+
+const ContentRow = styled(Row)`
+  position: relative;
+`;
 
 export default Favorites;

@@ -272,7 +272,7 @@ const MasonaryGallery = ({
 
           <ResponsiveMasonry columnsCountBreakPoints={columnsCountBreakPoints}>
             <Masonry columnsCount={columnsCount} gutter={gutter}>
-              {myGalleries?.data?.map((image, i) =>
+              {myGalleries?.data?.data?.map((image, i) =>
                 active === 'all' ? (
                   <>
                     <Div padding={15} id={image.id}>

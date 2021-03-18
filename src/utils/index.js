@@ -7,3 +7,4 @@ export { default as unMaskPhone } from './unMaskPhone';
 export { default as theme } from './theme';
 export * from './dateConverters';
 export * from './hooks';
+export * from './date';
