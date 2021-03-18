@@ -17,6 +17,7 @@ import {
   GET_TEST,
   GET_MY_BLOGS,
   GET_BLOGS,
+  GET_BLOGS_DETAIL,
 } from '../constants';
 import { information } from './authActions';
 
@@ -57,6 +58,20 @@ export const getBlogList = () => async (dispatch, getState) => {
       method: 'GET',
       url,
       label: GET_BLOGS,
+      transfomrData: (data) => data.data,
+    },
+  });
+};
+
+export const getBlogDetail = (detail) => async (dispatch, getState) => {
+  const url = `/cms/blog/detail/${detail}`;
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'GET',
+      url,
+      label: GET_BLOGS_DETAIL,
       transfomrData: (data) => data.data,
     },
   });

@@ -6,10 +6,6 @@ import Button from '../buttons/button';
 import LabelText from '../typography/LabelText';
 import { useHistory } from 'react-router-dom';
 
-/* bunu şimdilik ekliyoruz */
-// @ts-ignore
-import img from '../../assets/blog/image-1.png';
-
 const BlogBanners = ({
   left = false,
   right = false,

@@ -5,6 +5,9 @@ import {
   GET_BLOGS_REQUEST,
   GET_BLOGS_SUCCESS,
   GET_BLOGS_FAILURE,
+  GET_BLOGS_DETAIL_REQUEST,
+  GET_BLOGS_DETAIL_SUCCESS,
+  GET_BLOGS_DETAIL_FAILURE,
 } from '../../constants';
 
 const initialState = {
@@ -25,6 +28,12 @@ const initialState = {
     isSuccess: false,
     error: null,
   },
+  detail: {
+    data: [],
+    isLoading: false,
+    isSuccess: false,
+    error: null,
+  }
 };
 
 export default (state = initialState, action) => {
@@ -47,11 +56,32 @@ export default (state = initialState, action) => {
         },
       };
 
+    case GET_BLOGS_DETAIL_REQUEST:
+      return {
+        ...state,
+        detail: {
+          ...state.detail,
+          isLoading: true,
+        },
+      };
+
     case GET_MY_BLOGS_SUCCESS:
       return {
         ...state,
         me: {
           ...state.me,
+          data: action.payload.data,
+          isLoading: false,
+          isSuccess: true,
+          error: null,
+        },
+      };
+
+    case GET_BLOGS_DETAIL_SUCCESS:
+      return {
+        ...state,
+        detail: {
+          ...state.detail,
           data: action.payload.data,
           isLoading: false,
           isSuccess: true,
@@ -76,6 +106,16 @@ export default (state = initialState, action) => {
         ...state,
         me: {
           ...state.me,
+          error: action.payload,
+          isLoading: false,
+        },
+      };
+
+    case GET_BLOGS_DETAIL_FAILURE:
+      return {
+        ...state,
+        detail: {
+          ...state.detail,
           error: action.payload,
           isLoading: false,
         },
