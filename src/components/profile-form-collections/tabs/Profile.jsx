@@ -66,7 +66,6 @@ const Profile = ({ about = false, st = true }) => {
               label="Hakkında"
               type="text"
               name="about"
-              value={detail?.data?.about}
               defaultValue={detail?.data?.about}
               settings
               action={actionSetData}
@@ -85,7 +84,6 @@ const Profile = ({ about = false, st = true }) => {
               label="Adınız Soyadınız"
               type="text"
               name="name"
-              value={detail?.data?.name}
               defaultValue={detail?.data?.name}
               settings
               action={actionSetData}
@@ -96,7 +94,6 @@ const Profile = ({ about = false, st = true }) => {
                 label="Ünvan"
                 type="text"
                 name="title"
-                value={detail?.data?.title}
                 defaultValue={detail?.data?.title}
                 settings
                 action={actionSetData}
@@ -108,7 +105,6 @@ const Profile = ({ about = false, st = true }) => {
                 label="Mail Adresiniz"
                 type="email"
                 name="name"
-                value={detail?.data?.email}
                 defaultValue={detail?.data?.email}
                 settings
                 action={actionSetData}
@@ -120,7 +116,6 @@ const Profile = ({ about = false, st = true }) => {
               type="text"
               name="phone"
               mask="\0(999) 999 99 99"
-              value={detail?.data?.phone}
               defaultValue={detail?.data?.phone}
               settings
               action={actionSetData}
@@ -130,7 +125,6 @@ const Profile = ({ about = false, st = true }) => {
               label="Cinsiyetiniz"
               items={genderData}
               name="genre"
-              value={detail?.data?.genre}
               defaultValue={detail?.data?.genre}
               settings
               action={actionSetData}
@@ -140,7 +134,6 @@ const Profile = ({ about = false, st = true }) => {
               label="Doğum Tarihiniz"
               type="text"
               name="birthday"
-              value={detail?.data?.birthday}
               defaultValue={detail?.data?.birthday}
               settings
               action={actionSetData}
