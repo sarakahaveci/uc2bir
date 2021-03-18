@@ -20,6 +20,7 @@ import UserProfile from 'views/UserProfile';
 import Components from 'views/Components';
 import Message from 'views/Message';
 import { theme } from 'utils';
+import BlogDetail from 'views/BlogDetail';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -61,6 +62,7 @@ const App = () => {
               />
 
               <Route exact path="/components" component={Components} />
+              <Route exact path="/blog-detail/:seo" component={BlogDetail} />
               <Route exact path="/messages" component={Message} />
               <Route component={NotFoundPage} />
             </Switch>

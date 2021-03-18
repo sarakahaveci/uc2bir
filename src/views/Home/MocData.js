@@ -26,7 +26,7 @@ export const Pt = [
   {
     id: 3,
     image: require('../../assets/pt-groups/item-3/07.jpg'),
-    name: 'Aylin Kurt',
+    name: 'Efe Kurt',
     category: 'Fitness Eğitmeni',
     price: '100',
     stars: '4',

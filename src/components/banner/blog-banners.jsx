@@ -4,6 +4,7 @@ import Title from '../typography/Titles';
 import Text from '../typography/Text';
 import Button from '../buttons/button';
 import LabelText from '../typography/LabelText';
+import { useHistory } from 'react-router-dom';
 
 /* bunu şimdilik ekliyoruz */
 // @ts-ignore
@@ -16,14 +17,18 @@ const BlogBanners = ({
   bottom = false,
   data = [],
 }) => {
+  const history = useHistory();
+  const go = () => {
+    return history.push('/blog-detail/' + data?.seo_friendly_url);
+  };
   const leftBlog = () => {
     return (
       <div className="row">
         <div
-          className="col-xl-6 blog-items img"
+          className="col-xl-12 blog-items img"
           style={{ backgroundImage: `url(${data?.photo})` }}
         ></div>
-        <div className="col-xl-6 blog-items text">
+        <div className="col-xl-12 blog-items text">
           <Title variant="h5" component="h5" textLeft lineDisable>
             {data?.title}
           </Title>
@@ -31,7 +36,12 @@ const BlogBanners = ({
           <LabelText label="Yazar:" fontSize="0.8rem">
             {data?.description}
           </LabelText>
-          <Button perspective className="bl-btn" text="Devamını Oku" />
+          <Button
+            perspective
+            className="bl-btn"
+            text="Devamını Oku"
+            onClick={go}
+          />
         </div>
       </div>
     );
@@ -41,10 +51,10 @@ const BlogBanners = ({
     return (
       <div className="row">
         <div
-          className="col-xl-6 order-xl-2 blog-items img"
+          className="col-xl-12 order-xl-2 blog-items img"
           style={{ backgroundImage: `url(${data?.photo})` }}
         ></div>
-        <div className="col-xl-6 order-xl-1 blog-items text">
+        <div className="col-xl-12 order-xl-1 blog-items text">
           <Title variant="h5" component="h5" textLeft lineDisable>
             {data?.title}
           </Title>
@@ -52,7 +62,12 @@ const BlogBanners = ({
           <LabelText label="Yazar:" fontSize="0.8rem">
             {data?.description}
           </LabelText>
-          <Button perspective className="bl-btn" text="Devamını Oku" />
+          <Button
+            perspective
+            className="bl-btn"
+            text="Devamını Oku"
+            onClick={go}
+          />
         </div>
       </div>
     );
@@ -73,7 +88,12 @@ const BlogBanners = ({
           <LabelText label="Yazar:" fontSize="0.8rem">
             {data?.description}
           </LabelText>
-          <Button perspective className="bl-btn" text="Devamını Oku" />
+          <Button
+            perspective
+            className="bl-btn"
+            text="Devamını Oku"
+            onClick={go}
+          />
         </div>
       </div>
     );
@@ -90,7 +110,12 @@ const BlogBanners = ({
           <LabelText label="Yazar:" fontSize="0.8rem">
             {data?.description}
           </LabelText>
-          <Button perspective className="bl-btn" text="Devamını Oku" />
+          <Button
+            perspective
+            className="bl-btn"
+            text="Devamını Oku"
+            onClick={go}
+          />
         </div>
         <div
           className="col-xl-12 blog-items img"

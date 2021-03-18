@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Container } from 'react-bootstrap';
-import {BlogBanners, Button, Title} from '../../components';
+import { BlogBanners, Button, Title } from '../../components';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { getBlogList } from 'actions';
@@ -14,11 +14,15 @@ const Blog = (props) => {
 
   return (
     <section className={`blog ${props.className}`}>
-      <Title variant="h3" component="h3">Blog</Title>
+      <Title variant="h3" component="h3">
+        Blog
+      </Title>
       <Container fluid>
         <div className="row">
-          <div className="col-xl-8">
+          <div className="col-xl-4">
             <BlogBanners left data={blogs?.data?.blogs?.[0]} />
+          </div>
+          <div className="col-xl-4">
             <BlogBanners right data={blogs?.data?.blogs?.[1]} />
           </div>
           <div className="col-xl-4">
