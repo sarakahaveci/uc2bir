@@ -16,6 +16,7 @@ import {
   SET_VKI,
   GET_TEST,
   GET_MY_BLOGS,
+  GET_BLOGS,
 } from '../constants';
 import { information } from './authActions';
 
@@ -42,6 +43,20 @@ export const getMyBlogs = () => async (dispatch, getState) => {
       method: 'GET',
       url,
       label: GET_MY_BLOGS,
+      transfomrData: (data) => data.data,
+    },
+  });
+};
+
+export const getBlogList = () => async (dispatch, getState) => {
+  const url = `/cms/blog/list`;
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'GET',
+      url,
+      label: GET_BLOGS,
       transfomrData: (data) => data.data,
     },
   });
