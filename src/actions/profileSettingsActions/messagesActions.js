@@ -7,6 +7,7 @@ import {
   SEND_MESSAGE,
   SET_ROOM_NAME,
   RESET_MESSAGES,
+  READ_MESSAGE,
 } from '../../constants';
 
 export const getRooms = () => async (dispatch, getState) => {
@@ -46,6 +47,24 @@ export const searchMessage = (searchValue) => async (dispatch, getState) => {
   });
 };
 
+export const updateUserRead = () => async (dispatch, getState) => {
+  const url = `/user/message/update-unread`;
+
+  const {
+    selectedRoomName,
+  } = getState().profileSettings2.messages.selectedRoom;
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'POST',
+      url,
+      label: READ_MESSAGE,
+      body: { room_name: selectedRoomName },
+    },
+  });
+};
+
 export const getRoomMessages = (roomName) => async (dispatch, getState) => {
   const url = `/user/message/messages`;
 
@@ -57,6 +76,7 @@ export const getRoomMessages = (roomName) => async (dispatch, getState) => {
       label: GET_ROOM_MESSAGES,
       body: { room_name: roomName },
       transformData: (data) => data.data,
+      callBack: () => dispatch(updateUserRead()),
     },
   });
 };

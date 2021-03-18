@@ -24,7 +24,10 @@ export default function MyComponent({
   disabled = false,
   locationFromUser,
 }) {
-  const [position, setPosition] = useState({ lat: 41.015137, lng: 28.97953 });
+  const [position, setPosition] = useState({
+    lat: 41.0428465,
+    lng: 29.0075283,
+  });
   const [searchAdress, setSearchAdress] = useState('');
   const [selectedAdress, setSelectedAdress] = useState({});
   const [debouncedSearchAdress] = useDebounce(searchAdress, 2000);
@@ -168,7 +171,7 @@ export default function MyComponent({
         </InfoWindow>
         <Marker
           draggable={draggable}
-          position={position ?? { lat: 41.015137, lng: 28.97953 }}
+          position={position ?? { lat: 41.0428465, lng: 29.0075283 }}
           onDragEnd={async (event) => {
             panTo({
               lat: event.latLng.lat(),

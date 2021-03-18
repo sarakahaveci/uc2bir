@@ -26,7 +26,7 @@ const MessageSearch = () => {
   return (
     <Wrapper>
       <InnerWrapper>
-        <Avatar src={profile_image || DefaultProfileImg} />
+        <Avatar src={profile_image.path || DefaultProfileImg} />
 
         <Box row alignItems="center" position="relative">
           <SearchInput

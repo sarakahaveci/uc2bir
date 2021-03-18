@@ -71,6 +71,7 @@ const Gym = ({ user_name, user_img = null, logOutAction }) => {
       name: 'Mesajlarım',
       icon: <Svg.CommentBlack />,
       notify: [],
+      linkPath: TABS.proMessagesPath,
     },
     {
       name: 'Rezervasyonlarım',
@@ -92,6 +93,7 @@ const Gym = ({ user_name, user_img = null, logOutAction }) => {
             key={key}
             className="header-login"
             dropDown={val.menu || val.notify}
+            linkPath={val?.linkPath}
           >
             <Item icon={val.icon} span={val.name} notify={val.notify?.length} />
           </List>

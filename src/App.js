@@ -18,7 +18,7 @@ import ForgotPassword from 'views/ForgotPassword';
 import Profile from 'views/Profile';
 import UserProfile from 'views/UserProfile';
 import Components from 'views/Components';
-import Message from 'components/ProfileSettings/Message';
+import Message from 'views/Message';
 import { theme } from 'utils';
 
 const App = () => {

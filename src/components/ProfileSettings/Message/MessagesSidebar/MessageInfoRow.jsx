@@ -44,7 +44,7 @@ const MessageInfoRow = ({ messageData, userData, unreadMessages }) => {
     >
       <AvatarWrapper>
         <Avatar
-          src={userData.user_profile_image?.[0] || DefaultProfileImg}
+          src={userData.user_profile_image?.path || DefaultProfileImg}
           showBorder
         >
           {messageData.user_active && <ActiveCircle />}
@@ -65,7 +65,7 @@ const MessageInfoRow = ({ messageData, userData, unreadMessages }) => {
         <Box row alignItems="center">
           <Box row alignItems="center" pr="5px" flex={1}>
             {isLastSenderMe && (
-              <Avatar src={profile_image || DefaultProfileImg} small />
+              <Avatar src={profile_image?.path || DefaultProfileImg} small />
             )}
 
             <Box height="14px" flex={1} overflow="hidden" position="relative">
