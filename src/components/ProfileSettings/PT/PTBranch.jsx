@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -44,7 +45,7 @@ export default function WorkPlaceActivity() {
   // Removed seleted branch from branch list for show user only able to add branch list
   const filteredBranchList = allList.filter(
     (branch) =>
-      !Object.entries(data?.branches).find(([obj]) => obj.id === branch.id)
+      !Object.entries(data?.branches).find(([key, obj]) => obj.id === branch.id)
   );
 
   const submitNewActivity = () => {
@@ -118,7 +119,7 @@ export default function WorkPlaceActivity() {
           )}
           <div className={`w-100 ${!showAddBranch ? 'card-wrapper' : ''}`}>
             {!showAddBranch ? (
-              Object.entries(data?.branches).map(([branch]) => (
+              Object.entries(data?.branches).map(([key, branch]) => (
                 <ActivityCard
                   key={branch.id}
                   branch_id={branch.id}
