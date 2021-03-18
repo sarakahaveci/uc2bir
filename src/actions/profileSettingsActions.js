@@ -15,6 +15,7 @@ import {
   GET_VKI,
   SET_VKI,
   GET_TEST,
+  GET_TEST_DETAIL,
   GET_MY_BLOGS,
   GET_BLOGS,
   GET_BLOGS_DETAIL,
@@ -49,8 +50,8 @@ export const getMyBlogs = () => async (dispatch, getState) => {
   });
 };
 
-export const getBlogList = () => async (dispatch, getState) => {
-  const url = `/cms/blog/list`;
+export const getBlogList = (perPage = 10, page = 1) => async (dispatch, getState) => {
+  const url = `/cms/blog/list?perPage=${perPage}&page=${page}`;
 
   await dispatch({
     type: HTTP_REQUEST,
@@ -83,7 +84,7 @@ export const setProfile = (
   errorCallback
 ) => async (dispatch) => {
   const url = '/user/profile/detail';
-  
+
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
@@ -159,6 +160,25 @@ export const getTest = (successCallback, errorCallback) => async (
       method: 'GET',
       url,
       label: GET_TEST,
+      transformData: (data) => data.data,
+      callBack: () => successCallback(),
+      errorHandler: () => errorCallback(),
+    },
+  });
+};
+
+export const getTestDetail = (id, successCallback, errorCallback) => async (
+  dispatch,
+  getState
+) => {
+  const url = `/user/profile/completed-survey/${id}`;
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'GET',
+      url,
+      label: GET_TEST_DETAIL,
       transformData: (data) => data.data,
       callBack: () => successCallback(),
       errorHandler: () => errorCallback(),

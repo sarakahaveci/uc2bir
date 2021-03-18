@@ -1,33 +1,48 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { Col, Container, Row } from 'react-bootstrap';
-import { BlogBanners, Pagination } from 'components';
+import { BlogBanners, Pagination, Spinner } from 'components';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { getBlogList } from 'actions';
 
 const BlogList = () => {
+  // @ts-ignore
   const blogs = useSelector((state) => state?.myBlogs?.blogs);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getBlogList());
   }, []);
 
+  const pageChangeHandler = (event, value) => {
+    dispatch(getBlogList(10, value));
+  };
+
   return (
-    <Container fluid>
-      <Section>
-        <List>
-          {blogs?.data?.blogs?.map((val, key) => (
-            <Col key={key} xs="4">
-              <BlogBanners left data={val} />
-            </Col>
-          ))}
-        </List>
-      </Section>
-      <End>
-        <Pagination page={1} onChange={1} count={10} />
-      </End>
-    </Container>
+    <Section>
+      <Container fluid>
+        {!blogs.isLoading ? (
+          <>
+            <List>
+              {blogs?.data?.blogs?.map((val, key) => (
+                <Col key={key} xs="4">
+                  <BlogBanners
+                    left={key % 2 === 0 ? true : false}
+                    right={key % 2 === 0 ? false : true}
+                    data={val}
+                  />
+                </Col>
+              ))}
+            </List>
+          </>
+        ) : (
+          <Spinner />
+        )}
+        <End>
+          <Pagination page={blogs?.data?.currentPage} onChange={pageChangeHandler} count={blogs?.data?.totalPage} />
+        </End>
+      </Container>
+    </Section>
   );
 };
 
@@ -36,14 +51,14 @@ const End = styled(Container)`
 `;
 
 const List = styled(Row)`
-  margin-top: 10%;
+  margin-top: 120px;
   margin-bottom: 50px;
 `;
 
 const Section = styled.section`
   width: 100%;
   height: auto;
-  padding: 30px;
+  padding: 50px;
 `;
 
 export default BlogList;
