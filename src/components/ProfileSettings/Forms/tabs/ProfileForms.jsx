@@ -65,7 +65,6 @@ const ProfileForms = ({ type }) => {
             label="Adınız Soyadınız"
             type="text"
             name="name"
-            value={detail?.data?.name}
             defaultValue={detail?.data?.name}
             onChange={(e) =>
               setData({ ...data, [e.target.name]: e.target.value })
@@ -77,7 +76,6 @@ const ProfileForms = ({ type }) => {
               label="Ünvan"
               type="text"
               name="title"
-              value={detail?.data?.title}
               defaultValue={detail?.data?.title}
               onChange={(e) =>
                 setData({ ...data, [e.target.name]: e.target.value })
@@ -91,7 +89,6 @@ const ProfileForms = ({ type }) => {
                 label="Mail Adresiniz"
                 type="email"
                 name="email"
-                value={detail?.data?.email}
                 defaultValue={detail?.data?.email}
                 onChange={(e) =>
                   setData({ ...data, [e.target.name]: e.target.value })
@@ -105,7 +102,6 @@ const ProfileForms = ({ type }) => {
               label="Cinsiyetiniz"
               items={genderData}
               name="genre"
-              value={detail?.data?.genre}
               defaultValue={detail?.data?.genre}
               onChange={(e) =>
                 setData({ ...data, [e.target.name]: e.target.value })

@@ -43,7 +43,7 @@ const SliderFocus = (props) => {
                   slidesToShow={3}
                   swipeToSlide={true}
                   focusOnSelect={true}
-                  autoplay={true}
+                  autoplay={false}
                   autoplaySpeed={7500}
                   speed={2000}
                 >

@@ -74,7 +74,6 @@ const VKI = () => {
             type="text"
             name="height"
             mask="999"
-            value={vki?.data?.height}
             defaultValue={vki?.data?.height}
             settings="current"
             onChange={(e) =>
@@ -86,7 +85,6 @@ const VKI = () => {
             type="text"
             mask="999"
             name="weight"
-            value={vki?.data?.weight}
             defaultValue={vki?.data?.weight}
             settings="current"
             onChange={(e) =>

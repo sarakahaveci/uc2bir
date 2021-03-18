@@ -88,7 +88,6 @@ const ProfileForms = () => {
             type="text"
             name="phone"
             mask="\0(999) 999 99 99"
-            value={detail?.data?.phone}
             defaultValue={detail?.data?.phone}
             onChange={(e) => setPhone(e.target.value)}
           />

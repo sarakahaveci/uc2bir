@@ -66,7 +66,6 @@ const ProfileForms = ({ type }) => {
                 label="Şirket Ünvanı"
                 type="text"
                 name="title"
-                value={detail?.data?.title}
                 defaultValue={detail?.data?.title}
                 onChange={(e) =>
                   setData({ ...data, [e.target.name]: e.target.value })
@@ -77,7 +76,6 @@ const ProfileForms = ({ type }) => {
                 label="Vergi Dairesi"
                 type="text"
                 name="tax_office"
-                value={detail?.data?.tax_office}
                 defaultValue={detail?.data?.tax_office}
                 onChange={(e) =>
                   setData({ ...data, [e.target.name]: e.target.value })
@@ -88,7 +86,6 @@ const ProfileForms = ({ type }) => {
                 label="Vergi No"
                 type="text"
                 name="tax_number"
-                value={detail?.data?.tax_number}
                 defaultValue={detail?.data?.tax_number}
                 onChange={(e) =>
                   setData({ ...data, [e.target.name]: e.target.value })
