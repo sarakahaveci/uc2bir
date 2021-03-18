@@ -12,8 +12,7 @@ const List = ({
   linkPath,
 }) => {
   const history = useHistory();
-  // eslint-disable-next-line no-console
-  console.log(linkPath);
+
   const pushToLink = () => {
     history.push(linkPath);
   };

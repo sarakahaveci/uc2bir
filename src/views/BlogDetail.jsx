@@ -35,7 +35,7 @@ const BlogDetail = ({ match }) => {
         <>
           {!detail.isLoading ? (
             <>
-              <Row style={{marginTop: 30}}>
+              <Row style={{ marginTop: 30 }}>
                 <Col xs="auto">
                   <ShareButtons>
                     <Title fontSize="9pt">Paylaş</Title>

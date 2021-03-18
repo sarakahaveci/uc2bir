@@ -280,6 +280,7 @@ export default function UserProfile({ match }) {
           <Tab
             tabData={tabData}
             defaultActiveKey={match?.params?.activeTabKey || 'profile'}
+            baseUrl="/myprofile/settings/"
           />
         </div>
       </Container>
