@@ -9,7 +9,7 @@ import {
   Material,
 } from '../../components';
 
-const VKI = (props) => {
+const VKI = () => {
   const [size, setSize] = useState();
   const [weight, setWeight] = useState();
   const [result, setResult] = useState(0);

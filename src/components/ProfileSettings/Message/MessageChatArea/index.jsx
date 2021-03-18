@@ -61,6 +61,7 @@ export default function MessageArea() {
 
                 return (
                   <MessageRow
+                    key={'message' + hour + minute}
                     time={hour + ':' + minute}
                     message={message?.message}
                     isMyMessage={message?.sender_id === user?.id}

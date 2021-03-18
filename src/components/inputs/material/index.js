@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import React from 'react';
 import TextField from './text-field';
 import TexAreaField from './textarea-field';

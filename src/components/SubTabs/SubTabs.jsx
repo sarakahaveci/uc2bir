@@ -10,6 +10,7 @@ const SubTabs = ({ data, onChange, lineWidth = '50%', className }) => {
     <LineWrapper className={className}>
       {data.map((item, index) => (
         <Tab
+          key={index}
           isActive={activeSubIndex === index}
           onClick={() => {
             setActiveSubIndex(index);

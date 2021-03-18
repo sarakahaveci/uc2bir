@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import ProfileForms from './tabs/CompanyForms';
 
-const CompanyInf = (props) => {
+const CompanyInf = () => {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
 
   const [type, setType] = useState();
@@ -27,9 +27,7 @@ const CompanyInf = (props) => {
       }
     }
   }, [isAuthenticated]);
-  return (
-    <ProfileForms type={type}/>
-  )
-}
+  return <ProfileForms type={type} />;
+};
 
 export default CompanyInf;

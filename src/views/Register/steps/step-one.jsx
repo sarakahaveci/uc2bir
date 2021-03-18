@@ -37,7 +37,7 @@ const StepOne = (props) => {
   const [confirmationType, setConfirmationType] = useState('');
   const [openModal, setOpenModal] = useState(false);
   const [acceptMemberAgreement, setAcceptMemberAgreement] = useState(false);
-  const [acceptHealthAgreement, setAcceptHealthAgreement] = useState(true);
+  const [acceptHealthAgreement] = useState(true);
   const [acceptKvkk, setAcceptKvkk] = useState(false);
   const [acceptPermissions, setAcceptPermissions] = useState(false);
 
@@ -212,7 +212,7 @@ const StepOne = (props) => {
                     setOpenModal(true);
                   }}
                 >
-                  Ekleri'ni
+                  Ekleri&apos;ni
                 </span>
                 kabul ediyorum.
               </div>
@@ -263,13 +263,7 @@ const StepOne = (props) => {
         {!getStepOne.isLoading ? (
           <Button type="submit" text={`İleri`} className="blue" />
         ) : (
-          <Button
-            onClick={() => {
-              console.log('Lütfen Bekleyiniz...');
-            }}
-            text={`Yükleniyor...`}
-            className="blue"
-          />
+          <Button text={`Yükleniyor...`} className="blue" />
         )}
       </form>
       {modal && (

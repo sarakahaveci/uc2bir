@@ -1,9 +1,6 @@
 // @ts-nocheck
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Section from '../Section';
-
-import { Material, Button } from 'components';
-import styled from 'styled-components/macro';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -27,10 +24,6 @@ const ComputedTest = () => {
     );
   };
 
-  const onSubmit = (event) => {
-    event.preventDefault();
-  };
-
   useEffect(() => {
     actionGetData();
   }, []);
@@ -41,7 +34,7 @@ const ComputedTest = () => {
         <div className="text-field__Materials-sc-1sjbx6i-0 KPGYc materials">
           <div
             className="MuiFormControl-root MuiTextField-root material-inputs null  "
-            maxlength=""
+            maxLength=""
           >
             <label
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled"
@@ -53,6 +46,7 @@ const ComputedTest = () => {
               {test.data.length > 0 &&
                 test.data.map((val) => (
                   <div
+                    key={val?.name}
                     style={{
                       cursor: 'pointer',
                       color: 'var(--black2)',
@@ -62,7 +56,7 @@ const ComputedTest = () => {
                     }}
                     className="MuiInputBase-input MuiInput-input"
                   >
-                    {val.name}
+                    {val?.name}
                   </div>
                 ))}
             </div>

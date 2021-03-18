@@ -1,4 +1,3 @@
-/* eslint-disable import/no-anonymous-default-export */
 import {
   GET_NOTIFICATIONS_REQUEST,
   GET_NOTIFICATIONS_SUCCESS,

@@ -2,14 +2,13 @@
 import React, { useEffect, useState } from 'react';
 import Section from '../Section';
 
-import { Material, Button, Box } from 'components';
+import { Material, Button } from 'components';
 import { genderData } from 'constants/formData';
 import styled from 'styled-components/macro';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-import { getProfile, information, setProfile } from 'actions';
-import { unMaskPhone } from 'utils';
+import { getProfile, setProfile } from 'actions';
 
 const ProfileForms = ({ type }) => {
   const dispatch = useDispatch();

@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 // @ts-nocheck
 import React from 'react';
 import { ReactSVG } from 'react-svg';

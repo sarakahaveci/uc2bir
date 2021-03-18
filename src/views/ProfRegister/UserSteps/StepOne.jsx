@@ -283,7 +283,7 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
                     setOpenModal(true);
                   }}
                 >
-                  Ekleri'ni
+                  Ekleri&apos;ni
                 </span>
                 kabul ediyorum.
               </div>

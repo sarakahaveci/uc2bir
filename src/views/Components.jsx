@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { Main, MasonaryGallery, SessionType } from 'components';
+import { Main, SessionType } from 'components';
 import React from 'react';
 
 import { Container, Row, Col } from 'react-bootstrap';
@@ -10,7 +10,7 @@ import item1 from '../assets/pt-groups/item-1/04.jpg';
 const Components = () => {
   return (
     <>
-      <Main style={{paddingBottom: 70}}>
+      <Main style={{ paddingBottom: 70 }}>
         <Container>
           <Row>
             <Col>
@@ -36,7 +36,7 @@ const Components = () => {
                 type="text"
                 settings
                 action={() => {}}
-                state={{isSuccess: false, isLoading: false}}
+                state={{ isSuccess: false, isLoading: false }}
               />
               <Material.TextField
                 required
@@ -47,7 +47,7 @@ const Components = () => {
                 type="text"
                 settings
                 action={() => {}}
-                state={{isSuccess: false, isLoading: false}}
+                state={{ isSuccess: false, isLoading: false }}
               />
               <Material.TextField
                 required
@@ -57,7 +57,7 @@ const Components = () => {
                 password={Svg.EyeIcon}
                 settings
                 action={() => {}}
-                state={{isSuccess: false, isLoading: false}}
+                state={{ isSuccess: false, isLoading: false }}
               />
               <ProfileBanner
                 info={{
@@ -94,9 +94,9 @@ const Components = () => {
               >
                 <div>Gönderdiğimiz child burada gözükür.</div>
               </ProfileBanner>
-              
-              <Wallet/>
-              <SessionType/>
+
+              <Wallet />
+              <SessionType />
             </Col>
           </Row>
         </Container>

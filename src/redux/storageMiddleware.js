@@ -8,7 +8,7 @@ import {
 } from '../constants';
 import { localStorage } from 'utils';
 
-const syncLocalStorage = ({ dispatch, getState }) => {
+const syncLocalStorage = ({ getState }) => {
   return (next) => (action) => {
     const returnValue = next(action);
 

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-children-prop */
 import React from 'react';
 
 import Title from '../../typography/Titles';
@@ -43,11 +44,7 @@ const GYM = ({ top = false, bottom = false, val }) => {
                 {val.price} <AwesomeIcon.Tl />
               </span>
             </Title>
-            <Text
-              fontSize="16px"
-              color="gray2"
-              children={val.content}
-            />
+            <Text fontSize="16px" color="gray2" children={val.content} />
             <ul className="slick-button-group row">
               <li>
                 <Button text="Box" />
@@ -60,10 +57,7 @@ const GYM = ({ top = false, bottom = false, val }) => {
               </li>
             </ul>
             <div style={{ width: '100%', margin: '15px 0' }}>
-              <IconLabel
-                text={val.location}
-                icon={AwesomeIcon.Map}
-              />
+              <IconLabel text={val.location} icon={AwesomeIcon.Map} />
             </div>
           </div>
         </div>

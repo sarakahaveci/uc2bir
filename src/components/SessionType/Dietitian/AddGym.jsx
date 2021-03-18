@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Material, Button, AwesomeIcon } from 'components';
+import { Material, Button } from 'components';
 import GYMAdd from './GYMAdd';
 
 const AddGym = ({ setSubPage, setBannerActive }) => {
   const [editPage, setEditPage] = useState('page');
   const submit = (event) => {
     event.preventDefault();
-    setEditPage("add-gym-list");
+    setEditPage('add-gym-list');
     setBannerActive(false);
   };
 

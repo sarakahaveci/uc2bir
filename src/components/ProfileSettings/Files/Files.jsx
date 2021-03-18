@@ -92,8 +92,9 @@ const Files = () => {
           justifyContent="space-between"
           isEditClicked={isEditClicked}
         >
-          {fileGroupsArr.map((file) => (
+          {fileGroupsArr.map((file, index) => (
             <FileCellRow
+              key={'files' + index}
               file={file}
               setIsEditClicked={setIsEditClicked}
               addFileHandler={addFileHandler}

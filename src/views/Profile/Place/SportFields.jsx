@@ -31,8 +31,8 @@ const SportFields = () => {
         ut labore et dolore magna aliqua. Ut enim ad minim veniam.
       </Description>
 
-      {mockData.map((data) => (
-        <WorkPlaceRow {...data} />
+      {mockData.map((data, index) => (
+        <WorkPlaceRow key={index} {...data} />
       ))}
     </div>
   );

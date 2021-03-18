@@ -217,6 +217,7 @@ export default function DietitianProficiency() {
                 {modifiedUserProficiencyList?.length > 0 ? (
                   modifiedUserProficiencyList?.map((proficiencyValue) => (
                     <ProficiencyCard
+                      key={proficiencyValue?.name}
                       title={proficiencyValue?.name}
                       data={proficiencyValue?.speciality}
                     />

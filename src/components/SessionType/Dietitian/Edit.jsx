@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
 
-import { Material, Button, AwesomeIcon, Svg, Spinner } from 'components';
-import { getCitiesAndDistict, addAddress, getAddressList } from 'actions';
+import { Button, AwesomeIcon, Svg, Spinner } from 'components';
+import { getAddressList } from 'actions';
 import { useSelector, useDispatch } from 'react-redux';
 
 const Edit = ({ setSubPage }) => {
@@ -41,16 +41,8 @@ const Edit = ({ setSubPage }) => {
                           {val?.address_detail}
                         </div>
                       </div>
-                      <Button
-                        className="edit"
-                        icon={Svg.EditIcon}
-                        onClick={() => console.log('editAddress')}
-                      />
-                      <Button
-                        className="cencel"
-                        icon={Svg.CencelIcon}
-                        onClick={() => console.log('deleteAddress')}
-                      />
+                      <Button className="edit" icon={Svg.EditIcon} />
+                      <Button className="cencel" icon={Svg.CencelIcon} />
                     </Item>
                   </>
                 ))}

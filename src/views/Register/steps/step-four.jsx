@@ -112,7 +112,6 @@ const StepFour = (props) => {
                     _survey_id(val.survey_id);
                     _question([...question, val.id]);
                     _answer({ ...answer, [e.target.name]: [e.target.value] });
-                    
                   }}
                 />
               );
@@ -140,7 +139,7 @@ const StepFour = (props) => {
                   <div style={{ fontSize: '11pt' }} className="label">
                     {`${++key}. ${val.text}`}
                   </div>
-                  <div style={{margin: "15px 20px 0"}}>
+                  <div style={{ margin: '15px 20px 0' }}>
                     {val.items.map((item, key) => {
                       return (
                         <>
@@ -153,7 +152,7 @@ const StepFour = (props) => {
                               _question([...question, val.id]);
                               _answer({
                                 ...answer,
-                                [e.target.name]: [item.id]
+                                [e.target.name]: [item.id],
                               });
                             }}
                           />
@@ -168,13 +167,7 @@ const StepFour = (props) => {
         {!getStepFour.isLoading || !getStepFour.isSuccess ? (
           <Button type="submit" text={`Kaydı Tamamla`} className="blue" />
         ) : (
-          <Button
-            onClick={() => {
-              console.log('Lütfen Bekleyiniz...');
-            }}
-            text={`Yükleniyor...`}
-            className="blue"
-          />
+          <Button text={`Yükleniyor...`} className="blue" />
         )}
       </form>
     </>

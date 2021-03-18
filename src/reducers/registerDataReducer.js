@@ -1,4 +1,3 @@
-/* eslint-disable import/no-anonymous-default-export */
 import {
   REGISTER_DATA_REQUEST,
   REGISTER_DATA_SUCCESS,

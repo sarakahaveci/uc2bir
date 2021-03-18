@@ -1,4 +1,3 @@
-/* eslint-disable import/no-anonymous-default-export */
 import {
   GET_CANCELLATION_REASONS_REQUEST,
   GET_CANCELLATION_REASONS_SUCCESS,

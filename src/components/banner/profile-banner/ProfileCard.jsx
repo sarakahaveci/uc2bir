@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 
 import styled from 'styled-components/macro';
-import { Button, Svg, Box, Spinner } from 'components';
+import { Button, Svg, Spinner } from 'components';
 import { NavLink, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -17,7 +17,6 @@ import defaultImg from '../../../assets/default-profile.jpg';
 import { information } from 'actions';
 
 const ProfileCard = ({
-  img,
   user = false,
   name = null,
   location = null,
@@ -45,7 +44,7 @@ const ProfileCard = ({
     createData.append('files[]', files?.file);
     createData.append('type_id', '1');
     axios({ ...config, data: createData })
-      .then(function (response) {
+      .then(function () {
         dispatch(information());
         toast.success(
           'Profil resminiz güncellendi. Onay verildiğinde size bildirim gelecektir.',
@@ -56,7 +55,7 @@ const ProfileCard = ({
         );
         setLoading(false);
       })
-      .catch(function (err) {
+      .catch(function () {
         toast.error('Dosya gönderilemedi.', {
           position: 'bottom-right',
           autoClose: 2000,

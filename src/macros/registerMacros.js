@@ -1,4 +1,3 @@
-import React from 'react';
 import { AwesomeIcon, Svg } from '../components';
 import { genderData } from '../constants/formData';
 

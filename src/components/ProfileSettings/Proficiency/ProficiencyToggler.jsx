@@ -2,7 +2,6 @@ import React from 'react';
 import styled, { css } from 'styled-components/macro';
 
 import { PlusButton, Text, Svg } from 'components';
-import { sportTypeIconGenerator } from 'utils';
 
 const ProficiencyToggler = ({
   data,

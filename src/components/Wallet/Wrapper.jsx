@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Text, Title, Accordion, Box, Button, Svg } from 'components';
+import { Text, Title, Accordion, Box, Svg } from 'components';
 import styled from 'styled-components/macro';
 
 const Wrapper = () => {
@@ -97,7 +97,7 @@ const CapsuleItem = styled.div`
   border-bottom: 1px solid #ddd;
 
   tr {
-    background: transparent!important;
+    background: transparent !important;
 
     td {
       padding: 7px 0;

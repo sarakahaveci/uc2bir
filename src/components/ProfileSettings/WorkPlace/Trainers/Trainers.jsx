@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -9,7 +10,7 @@ import SearchTrainer from './SearchTrainer';
 const Trainers = () => {
   const {
     pageNumber,
-    foundUsers: { data: foundUsers, isLoading, error },
+    foundUsers: { data: foundUsers, isLoading },
   } = useSelector((state) => state.profileSettings2.userSearch);
 
   const dispatch = useDispatch();
@@ -39,8 +40,8 @@ const Trainers = () => {
         {isLoading ? (
           <Spinner />
         ) : (
-          foundUsers.map((data) => (
-            <Box col p="0 20px" width={[1, 1 / 2, 1 / 4]}>
+          foundUsers.map((data, index) => (
+            <Box key={index} col p="0 20px" width={[1, 1 / 2, 1 / 4]}>
               <TrainerCard
                 fullName="Nazlı Parlak"
                 description="Fitness Eğitmeni"

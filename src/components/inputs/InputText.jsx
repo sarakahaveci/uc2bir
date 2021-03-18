@@ -9,7 +9,6 @@ const InputText = ({
   inputVal = null,
   required = false,
   inputType = 'text',
-  ref = '',
   onKeyUp = () => {},
   onChange = () => {},
   maxLength = '',

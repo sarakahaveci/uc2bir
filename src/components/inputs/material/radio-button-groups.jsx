@@ -7,20 +7,15 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
 const RadioButtonsGroup = ({
-  id,
   name,
   label,
-  type,
+
   items = [],
   required = false,
   defaultValue = '',
-  autoComplete = 'on',
-  className = '',
+
   icon = false,
   onChange = () => {},
-  value = '',
-  onKeyUp = () => {},
-  maxLength = '',
 }) => {
   const [val, setVal] = React.useState(defaultValue);
 

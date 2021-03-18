@@ -50,8 +50,6 @@ export default function WorkPlaceFacility() {
     );
   };
 
-  console.log(selectedFacilty);
-
   const selectBenefitHandler = (key) => {
     if (selectedFacilty.includes(key)) {
       setSelectedFacilty(selectedFacilty.filter((item) => item !== key));

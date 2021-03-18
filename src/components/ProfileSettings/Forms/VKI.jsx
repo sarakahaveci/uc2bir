@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Section from './Section';
 
-import { Material, Button, Svg } from 'components';
+import { Material, Button } from 'components';
 import styled from 'styled-components/macro';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -13,7 +13,7 @@ const VKI = () => {
   const dispatch = useDispatch();
   const { vki } = useSelector((state) => state.profileSettings);
   const [data, setData] = useState({});
-  const [result, setResult] = useState("");
+  const [result, setResult] = useState('');
 
   const actionGetData = async () => {
     await dispatch(
@@ -30,16 +30,19 @@ const VKI = () => {
   };
 
   useEffect(() => {
-    if ( vki.isSuccess ) {
+    if (vki.isSuccess) {
       setResult(vki?.data?.vki);
     }
-  },[]);
+  }, []);
 
   const onSubmit = async (event) => {
     event.preventDefault();
     await dispatch(
       setVKI(
-        { weight: data.weight || vki.data.weight, height: data.height || vki.data.height },
+        {
+          weight: data.weight || vki.data.weight,
+          height: data.height || vki.data.height,
+        },
         () => {
           toast.success('Bilgileriniz güncellendi.', {
             position: 'bottom-right',
@@ -90,15 +93,19 @@ const VKI = () => {
               setData({ ...data, [e.target.name]: e.target.value })
             }
           />
-          <Span><b>VKI</b>: {vki?.data?.vki || result}</Span>
+          <Span>
+            <b>VKI</b>: {vki?.data?.vki || result}
+          </Span>
           <Footer>
-          <Button
+            <Button
               fontWeight="600"
               type="submit"
               text="KAYDET"
               fontSize="15px"
               color="blue"
-              transparentDisabled={Object.keys(data).length === 0 ? true : false}
+              transparentDisabled={
+                Object.keys(data).length === 0 ? true : false
+              }
               disabled={Object.keys(data).length === 0 ? true : false}
               isLoading={vki.isLoading}
             />

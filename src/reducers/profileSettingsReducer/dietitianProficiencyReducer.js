@@ -1,4 +1,3 @@
-/* eslint-disable import/no-anonymous-default-export */
 import {
   GET_DIETITIAN_PROFICIENCY_REQUEST,
   GET_DIETITIAN_PROFICIENCY_SUCCESS,

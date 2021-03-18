@@ -68,8 +68,10 @@ const SessionType = () => {
             <Col lg="4" style={{ display: bannerActive ? '' : 'none' }}>
               <ImageBanner src={image} />
               <IconGroup>
-                {icons.map((val) => (
-                  <Icons active={val.active}>{val.icon}</Icons>
+                {icons.map((val, index) => (
+                  <Icons key={'icon' + index} active={val.active}>
+                    {val.icon}
+                  </Icons>
                 ))}
               </IconGroup>
             </Col>
@@ -133,8 +135,10 @@ const SessionType = () => {
             <Col lg="4" style={{ display: bannerActive ? '' : 'none' }}>
               <ImageBanner src={image} />
               <IconGroup>
-                {icons.map((val) => (
-                  <Icons active={val.active}>{val.icon}</Icons>
+                {icons.map((val, index) => (
+                  <Icons key={index} active={val.active}>
+                    {val.icon}
+                  </Icons>
                 ))}
               </IconGroup>
             </Col>

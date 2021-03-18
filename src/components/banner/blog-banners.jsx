@@ -1,3 +1,4 @@
+/* eslint-disable react/no-children-prop */
 import React from 'react';
 import Title from '../typography/Titles';
 import Text from '../typography/Text';
@@ -8,20 +9,11 @@ import LabelText from '../typography/LabelText';
 // @ts-ignore
 import img from '../../assets/blog/image-1.png';
 
-const initialData = {
-  img: '',
-  author: '',
-  title: '',
-  text: '',
-  link: '',
-};
-
 const BlogBanners = ({
   left = false,
   right = false,
   top = false,
   bottom = false,
-  data = initialData,
 }) => {
   const leftBlog = () => {
     return (
@@ -41,8 +33,8 @@ const BlogBanners = ({
           <Text fontSize="10pt">
             There are many variations of passages of Lorem Ipsum available the
             majority have suffered alteration in some form, by injected humour,
-            or randomised don't look even slightly believable alteration in lore
-            ipsu..
+            or randomised don&apos;t look even slightly believable alteration in
+            lore ipsu..
           </Text>
           <LabelText
             label="Yazar:"
@@ -73,8 +65,8 @@ const BlogBanners = ({
           <Text fontSize="10pt">
             There are many variations of passages of Lorem Ipsum available the
             majority have suffered alteration in some form, by injected humour,
-            or randomised don't look even slightly believable alteration in lore
-            ipsu..
+            or randomised don &apos; t look even slightly believable alteration
+            in lore ipsu..
           </Text>
           <LabelText
             label="Yazar:"
@@ -105,8 +97,8 @@ const BlogBanners = ({
           <Text fontSize="10pt">
             There are many variations of passages of Lorem Ipsum available the
             majority have suffered alteration in some form, by injected humour,
-            or randomised don't look even slightly believable alteration in lore
-            ipsu..
+            or randomised don&apos;t look even slightly believable alteration in
+            lore ipsu..
           </Text>
           <LabelText
             label="Yazar:"
@@ -133,8 +125,8 @@ const BlogBanners = ({
           <Text fontSize="10pt">
             There are many variations of passages of Lorem Ipsum available the
             majority have suffered alteration in some form, by injected humour,
-            or randomised don't look even slightly believable alteration in lore
-            ipsu..
+            or randomised don&apos;t look even slightly believable alteration in
+            lore ipsu..
           </Text>
           <LabelText
             label="Yazar:"

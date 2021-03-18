@@ -7,7 +7,7 @@ import List from '../List';
 import Item from '../Item';
 import TABS from 'constants/tabUri';
 
-const Gym = ({ user_name, user_id, user_img = null, logOutAction }) => {
+const Gym = ({ user_name, user_img = null, logOutAction }) => {
   const notification = [
     {
       name: '1. Bildirim',

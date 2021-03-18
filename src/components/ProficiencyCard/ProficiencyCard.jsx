@@ -16,7 +16,10 @@ export default function ProficiencyCard({ title, data }) {
       </Title>
       <div className="d-flex proficiencyCard__line__wrapper">
         {data?.map((value) => (
-          <div className="d-flex  justify-content-between proficiencyCard__line">
+          <div
+            className="d-flex  justify-content-between proficiencyCard__line"
+            key={value?.name}
+          >
             <Title
               fontSize="14px"
               letterSpacing="0.01em"

@@ -1,4 +1,3 @@
-/* eslint-disable import/no-anonymous-default-export */
 export default {
   profilePath: '/myprofile/settings/profile',
   reservationsPath: '/myprofile/settings/reservation',

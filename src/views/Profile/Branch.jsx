@@ -60,7 +60,7 @@ const UserDetails = () => {
           const { sportType, sportName, level, price, speciality } = item;
 
           return (
-            <StyledRow>
+            <StyledRow key={index}>
               <Order>{index + 1}.</Order>
 
               <AccordionItem>

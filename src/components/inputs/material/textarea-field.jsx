@@ -2,7 +2,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 import { default as MaterialTextField } from '@material-ui/core/TextField';
-import InputMask from 'react-input-mask';
 
 import { symbolsArr } from '../../../constants';
 
@@ -24,7 +23,6 @@ const TextField = ({
   icon = false,
   iconCallback = () => {},
   onChange = () => {},
-  value = null,
   onKeyUp = () => {},
   maxLength = '',
   password,
@@ -33,7 +31,6 @@ const TextField = ({
   settings = false,
   state = {},
   action = () => {},
-  mask = null,
   rows = 6,
   ...restProps
 }) => {

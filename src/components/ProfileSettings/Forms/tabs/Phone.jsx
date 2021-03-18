@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import Section from '../Section';
 
 import { Material, Button } from 'components';
-import { genderData } from 'constants/formData';
 import styled from 'styled-components/macro';
 
 import { useSelector, useDispatch } from 'react-redux';

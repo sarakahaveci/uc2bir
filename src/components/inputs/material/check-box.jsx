@@ -5,8 +5,6 @@ import FormControl from '@material-ui/core/FormControl';
 
 const CheckBox = ({
   className = '',
-  position = 'left',
-  variant = 'primary',
   label,
   name,
   required = false,

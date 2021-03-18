@@ -6,8 +6,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-import editIcon from '../../statics/svg/images/pencil.svg';
-import closeIcon from '../../statics/svg/images/big-close.svg';
 import styled from 'styled-components/macro';
 import { Spinner } from 'react-bootstrap';
 import { colorGenerator } from 'utils';
@@ -34,7 +32,6 @@ const SimpleSelect = ({
   defaultValue = '',
   settings = false,
   disabled = false,
-  multiple,
   state = {},
   action = () => {},
 }) => {
@@ -50,13 +47,13 @@ const SimpleSelect = ({
   const [loading, setLoading] = useState(false);
   const editShow = () => {
     if (editRef.current) {
-      editRef.current.style.color = colorGenerator("blue");
+      editRef.current.style.color = colorGenerator('blue');
       setLoading(true);
     }
   };
   const editClose = () => {
     if (editRef.current) {
-      editRef.current.style.color = colorGenerator("gray4");
+      editRef.current.style.color = colorGenerator('gray4');
       setTimeout(() => {
         setLoading(false);
       }, 2000);

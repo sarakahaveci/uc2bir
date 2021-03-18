@@ -127,6 +127,7 @@ const FileUpload = ({
 
   const deleteFileSuccessHandler = (key) => {
     // Deletes selected key
+    // eslint-disable-next-line no-unused-vars
     const { [key]: dynamicFileName, ...rest } = uploadedFiles;
 
     setUploadedFiles(rest);

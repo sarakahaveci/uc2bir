@@ -194,7 +194,8 @@ export default function ActivityCard({
                   fontSize="11px"
                   color="#404041"
                 >
-                  Onay Bekleyen {waitingPrice} Tl'lik talebiniz bulunmaktadır
+                  Onay Bekleyen {waitingPrice} Tl&apos;lik talebiniz
+                  bulunmaktadır
                 </Title>
               )}
             </div>

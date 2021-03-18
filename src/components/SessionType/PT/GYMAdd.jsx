@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
-  Material,
   Button,
   AwesomeIcon,
   Svg,
   Pagination,
   GoogleAppZoom,
-  Box,
   Title,
   IconLabel,
 } from 'components';

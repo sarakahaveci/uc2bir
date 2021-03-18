@@ -6,7 +6,7 @@ import Svg from 'components/statics/svg';
 import List from '../List';
 import Item from '../Item';
 
-const NoUser = ({ user_name, user_id, user_img = null, logOutAction }) => {
+const NoUser = ({ user_name, user_img = null, logOutAction }) => {
   const menu = [
     {
       name: 'Çıkış Yap',

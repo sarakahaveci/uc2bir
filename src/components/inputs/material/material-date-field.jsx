@@ -10,8 +10,6 @@ import {
 import trLocale from 'date-fns/locale/tr';
 import enLocale from 'date-fns/locale/en-US';
 
-import editIcon from '../../statics/svg/images/pencil.svg';
-import closeIcon from '../../statics/svg/images/big-close.svg';
 import styled from 'styled-components/macro';
 import { Spinner } from 'react-bootstrap';
 import { colorGenerator } from 'utils';
@@ -23,29 +21,24 @@ const localeMap = {
 };
 
 const DateField = ({
-  id,
   name,
   label,
-  forHtml=null,
-  type,
   required = false,
   defaultValue = '',
-  autoComplete = 'on',
   className = '',
   icon = false,
   onChange = () => {},
   value = null,
-  onKeyUp = () => {},
-  maxLength = '',
   minDate,
   maxDate,
-  minYears = 18,
   disabled = false,
   settings = false,
   state = {},
   action = () => {},
 }) => {
-  const [selectedDate, setSelectedDate] = useState(value ? new Date(value) : null);
+  const [selectedDate, setSelectedDate] = useState(
+    value ? new Date(value) : null
+  );
 
   const handleDateChange = (date, callBack) => {
     const event = {
@@ -62,13 +55,13 @@ const DateField = ({
   const [loading, setLoading] = useState(false);
   const editShow = () => {
     if (editRef.current) {
-      editRef.current.style.color = colorGenerator("blue");
+      editRef.current.style.color = colorGenerator('blue');
       setLoading(true);
     }
   };
   const editClose = () => {
     if (editRef.current) {
-      editRef.current.style.color = colorGenerator("gray4");
+      editRef.current.style.color = colorGenerator('gray4');
       setTimeout(() => {
         setLoading(false);
       }, 2000);
@@ -116,7 +109,7 @@ const DateField = ({
             disabled={disabled}
             KeyboardButtonProps={{
               'aria-label': 'Tarih Gir',
-              'onKeyDown': "Tamam"
+              onKeyDown: 'Tamam',
             }}
           />
         </>

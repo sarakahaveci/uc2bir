@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
-import { Row, Col, Form } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { subDays } from 'date-fns';
@@ -99,8 +99,8 @@ const Notifications = () => {
   };
 
   const tableContent = notifications?.data?.length ? (
-    notifications.data.map((item) => (
-      <tr>
+    notifications.data.map((item, index) => (
+      <tr key={'noti' + index}>
         <Td>
           <Span color="dark" fontWeight="500" fontSize="0.9rem">
             {item.date}
@@ -129,7 +129,7 @@ const Notifications = () => {
 
       <SwitchRowWrapper>
         {notificationSettingsTypes.map((item, index) => (
-          <Col lg={4}>
+          <Col key={index} lg={4}>
             <SwitchRow
               lastChild={notificationSettingsTypes.length - 1 === index}
             >

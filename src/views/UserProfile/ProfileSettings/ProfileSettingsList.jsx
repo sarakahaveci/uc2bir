@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components/macro';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -19,7 +19,6 @@ import {
   Files,
   Modal,
   CancellationDismissInfo,
-  CancellationReason,
 } from 'components';
 import ProfileCancellation from 'components/ProfileSettings/ProfileCancellation/ProfileCancellation';
 import {
@@ -169,7 +168,7 @@ const ProfileSettingsList = () => {
   }
 
   const settings = tabData?.map((item) => (
-    <Wrapper>
+    <Wrapper key={'wrapper' + index}>
       <Accordion.Item>
         <Accordion.Toggle>
           <SettingsRow>

@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -35,7 +36,7 @@ import {
   faCheckCircle,
   faClock,
   faClosedCaptioning,
-  faCaretLeft
+  faCaretLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
@@ -77,5 +78,5 @@ export default {
   Success: (props) => <FontAwesomeIcon icon={faCheckCircle} {...props} />,
   Clock: (props) => <FontAwesomeIcon icon={faClock} {...props} />,
   Close: (props) => <FontAwesomeIcon icon={faClosedCaptioning} {...props} />,
-  Left: (props) => <FontAwesomeIcon icon={faCaretLeft} {...props} />
+  Left: (props) => <FontAwesomeIcon icon={faCaretLeft} {...props} />,
 };

@@ -31,8 +31,12 @@ const SearchFilters = ({
       </Text>
 
       <Box col>
-        {classificationsArr.map((item) => (
-          <Box row onClick={() => setClassification(item)}>
+        {classificationsArr.map((item, index) => (
+          <Box
+            key={'class' + index}
+            row
+            onClick={() => setClassification(item)}
+          >
             <Material.checkbox checked={classification === item} />
 
             <div>{item}</div>
@@ -57,8 +61,8 @@ const SearchFilters = ({
         DEĞERLENDİRME PUANI
       </Text>
 
-      {[5, 4, 3, 2, 1].map((starCount) => (
-        <StarWrapper row>
+      {[5, 4, 3, 2, 1].map((starCount, index) => (
+        <StarWrapper row key={index}>
           <Material.checkbox
             checked={ratings.includes(starCount)}
             onChange={() => ratingChangeHandler(starCount)}
@@ -66,7 +70,7 @@ const SearchFilters = ({
 
           <Box flex={1}>
             {[...Array(5)].map((_, index) => (
-              <Star active={starCount >= index + 1} />
+              <Star key={index} active={starCount >= index + 1} />
             ))}
           </Box>
         </StarWrapper>

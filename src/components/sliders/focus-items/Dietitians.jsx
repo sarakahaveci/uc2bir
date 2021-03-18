@@ -1,3 +1,4 @@
+/* eslint-disable react/no-children-prop */
 import React from 'react';
 
 import Title from '../../../components/typography/Titles';
@@ -17,29 +18,19 @@ const Dietitians = ({ top = false, bottom = false, val }) => {
             }}
           >
             <ul className="points">
-              <li
-                className={`${val.stars > 0 ? 'active' : ''}`}
-              >
+              <li className={`${val.stars > 0 ? 'active' : ''}`}>
                 <AwesomeIcon.StarSolid />
               </li>
-              <li
-                className={`${val.stars > 1 ? 'active' : ''}`}
-              >
+              <li className={`${val.stars > 1 ? 'active' : ''}`}>
                 <AwesomeIcon.StarSolid />
               </li>
-              <li
-                className={`${val.stars > 2 ? 'active' : ''}`}
-              >
+              <li className={`${val.stars > 2 ? 'active' : ''}`}>
                 <AwesomeIcon.StarSolid />
               </li>
-              <li
-                className={`${val.stars > 3 ? 'active' : ''}`}
-              >
+              <li className={`${val.stars > 3 ? 'active' : ''}`}>
                 <AwesomeIcon.StarSolid />
               </li>
-              <li
-                className={`${val.stars > 4 ? 'active' : ''}`}
-              >
+              <li className={`${val.stars > 4 ? 'active' : ''}`}>
                 <AwesomeIcon.StarSolid />
               </li>
             </ul>
@@ -70,17 +61,10 @@ const Dietitians = ({ top = false, bottom = false, val }) => {
                 {val.price} <AwesomeIcon.Tl />
               </span>
             </Title>
-            <Text
-              fontSize="1.6rem"
-              color="gray2"
-              children={val.content}
-            />
+            <Text fontSize="1.6rem" color="gray2" children={val.content} />
 
             <div style={{ width: '100%', margin: '15px 0' }}>
-              <IconLabel
-                text={val.location}
-                icon={AwesomeIcon.Map}
-              />
+              <IconLabel text={val.location} icon={AwesomeIcon.Map} />
             </div>
           </div>
         </div>

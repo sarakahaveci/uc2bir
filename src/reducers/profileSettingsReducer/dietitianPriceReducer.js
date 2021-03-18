@@ -1,4 +1,3 @@
-/* eslint-disable import/no-anonymous-default-export */
 import {
   GET_DIETITIAN_PRICE_REQUEST,
   GET_DIETITIAN_PRICE_SUCCESS,

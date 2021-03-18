@@ -7,8 +7,6 @@ import { Title, AwesomeIcon, IconLabel } from 'components';
 import { Link } from 'react-router-dom';
 import { colorGenerator } from 'utils';
 
-import defaultImg from '../../../assets/default-profile.jpg';
-
 export const CardInfo = ({
   name,
   category,
@@ -49,8 +47,8 @@ export const CardInfo = ({
       )}
       {categories.length > 0 && (
         <Categories>
-          {categories.map((val) => (
-            <List>
+          {categories.map((val, index) => (
+            <List key={'categories' + index}>
               <A to={val.link}>{val.text}</A>
             </List>
           ))}

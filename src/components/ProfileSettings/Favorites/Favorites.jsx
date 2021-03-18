@@ -48,8 +48,8 @@ const Favorites = () => {
     content = <Spinner />;
   } else {
     content = favoriteUsers?.length ? (
-      favoriteUsers.map((item) => (
-        <Col lg={4} md={6} sm={12}>
+      favoriteUsers.map((item, index) => (
+        <Col lg={4} md={6} sm={12} key={'Favori' + index}>
           <LongUserCard data={item} showHeartBg favoritedUser />
         </Col>
       ))

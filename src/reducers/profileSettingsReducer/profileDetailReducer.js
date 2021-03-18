@@ -1,4 +1,3 @@
-/* eslint-disable import/no-anonymous-default-export */
 import {
   GET_PROFILE_UPDATE_REQUEST,
   GET_PROFILE_UPDATE_SUCCESS,

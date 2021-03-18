@@ -9,7 +9,8 @@ const StyledButton = styled(BaseButton)`
   font-weight: ${(props) => (props.fontWeight && props.fontWeight) || 'normal'};
   border-radius: 4px;
   min-height: 45px;
-  background: ${(props) => !props.transparentDisabled && props.disabled && '#8CDEDA'} !important;
+  background: ${(props) =>
+    !props.transparentDisabled && props.disabled && '#8CDEDA'} !important;
   color: ${(props) => props.transparentDisabled && 'var(--gray2)'} !important;
   width: ${(props) => props.width && props.width};
   cursor: ${(props) => props.disabled && 'not-allowed'} !important;
@@ -119,7 +120,6 @@ const Search = styled(Svg.Search)`
 const Button = ({
   onClick,
   icon,
-  variant,
   className,
   text,
   isLoading,

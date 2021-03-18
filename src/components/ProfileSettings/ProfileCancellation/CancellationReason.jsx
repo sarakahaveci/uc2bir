@@ -93,8 +93,9 @@ const CancellationReason = () => {
 
       <MaterialWrapper>
         <RadioGroup value={reason} onChange={reasonChangeHandler}>
-          {reasons.map((item) => (
+          {reasons.map((item, index) => (
             <FormControlLabel
+              key={index + 'reasons'}
               value={item.reason}
               label={item.reason}
               control={<Material.RadioButton />}

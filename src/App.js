@@ -18,6 +18,7 @@ import ForgotPassword from 'views/ForgotPassword';
 import Profile from 'views/Profile';
 import UserProfile from 'views/UserProfile';
 import Components from 'views/Components';
+import Message from 'components/ProfileSettings/Message';
 import { theme } from 'utils';
 
 const App = () => {
@@ -60,6 +61,7 @@ const App = () => {
               />
 
               <Route exact path="/components" component={Components} />
+              <Route exact path="/messages" component={Message} />
               <Route component={NotFoundPage} />
             </Switch>
           </Layout>

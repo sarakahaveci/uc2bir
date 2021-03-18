@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import React, { useState } from 'react';
 import { Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';

@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import styled from 'styled-components/macro';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
@@ -7,7 +7,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import search from './statics/svg/images/search.svg';
 
-import editIcon from './statics/svg/images/pencil.svg';
 import closeIcon from './statics/svg/images/big-close.svg';
 import tickIcon from './statics/svg/images/tick.svg';
 import {
@@ -24,10 +23,9 @@ import { default as MaterialButton } from '@material-ui/core/Button';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import { getMyProfileFiles, updateFile, getMyGalleries } from 'actions';
+import { getMyGalleries } from 'actions';
 import axios from 'axios';
 import FormData from 'form-data';
 import { Material } from './inputs/material';
@@ -59,7 +57,7 @@ const MasonaryGallery = ({
 }) => {
   const [activePage, setActivePage] = useState('index');
   const [active, setActive] = useState('all');
-  const [type, setType] = useState('');
+  const [type] = useState('');
   const [link, setLink] = useState('');
   const [file, setFile] = useState('');
   const [content, setContent] = useState('');
@@ -69,8 +67,6 @@ const MasonaryGallery = ({
   const [open, setOpen] = useState(false);
   const fullWidth = true;
   const maxWidth = 'md';
-  const handleClose = () => setOpen(false);
-  const handleClickOpen = () => setOpen(true);
 
   const myGalleries = useSelector((state) => state.myGalleries.me);
   const dispatch = useDispatch();
@@ -102,7 +98,7 @@ const MasonaryGallery = ({
     createData.append('link', link);
     createData.append('name', link);
     axios({ ...config, data: createData })
-      .then(function (response) {
+      .then(function () {
         dispatch(getMyGalleries());
         setActivePage('index');
         setFile(false);
@@ -111,7 +107,7 @@ const MasonaryGallery = ({
           autoClose: 2000,
         });
       })
-      .catch(function (err) {
+      .catch(function () {
         toast.error('Dosya gönderilemedi.', {
           position: 'bottom-right',
           autoClose: 2000,
@@ -126,7 +122,7 @@ const MasonaryGallery = ({
     createData.append('link', link);
     createData.append('name', link);
     axios({ ...config, data: createData })
-      .then(function (response) {
+      .then(function () {
         dispatch(getMyGalleries());
         setActivePage('index');
         setFile(false);
@@ -135,7 +131,7 @@ const MasonaryGallery = ({
           autoClose: 2000,
         });
       })
-      .catch(function (err) {
+      .catch(function () {
         toast.error('Dosya gönderilemedi.', {
           position: 'bottom-right',
           autoClose: 2000,
@@ -145,7 +141,7 @@ const MasonaryGallery = ({
 
   const deleted = (gallery_id) => {
     axios({ ...delete_config, data: { gallery_id } })
-      .then(function (response) {
+      .then(function () {
         dispatch(getMyGalleries());
         toast.success('Dosya silindi.', {
           position: 'bottom-right',
@@ -155,7 +151,7 @@ const MasonaryGallery = ({
           },
         });
       })
-      .catch(function (err) {
+      .catch(function () {
         toast.error('Dosya silinemedi.', {
           position: 'bottom-right',
           autoClose: 2000,
@@ -208,9 +204,9 @@ const MasonaryGallery = ({
           width="1280"
           height="720"
           src={`https://www.youtube.com/embed/${video}`}
-          frameborder="0"
+          frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
+          allowFullScreen
         ></iframe>
       );
     }

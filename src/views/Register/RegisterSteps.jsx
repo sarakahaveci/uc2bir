@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 // @ts-nocheck
 import React, { useEffect, useState } from 'react';
 
@@ -61,7 +62,7 @@ const RegisterSteps = () => {
     const finish = {
       num: 4,
       page: () => (
-      <StepFinish setSteps={setSteps} registerData={registerData} />
+        <StepFinish setSteps={setSteps} registerData={registerData} />
       ),
     };
 

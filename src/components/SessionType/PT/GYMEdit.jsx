@@ -1,18 +1,8 @@
 import React, { useEffect } from 'react';
-import {
-  Material,
-  Button,
-  AwesomeIcon,
-  Svg,
-  Pagination,
-  GoogleAppZoom,
-  Box,
-  Title,
-  IconLabel,
-} from 'components';
-import { getCitiesAndDistict, addAddress, getAddressList } from 'actions';
-import { useSelector, useDispatch } from 'react-redux';
-import { Row, Col, Form, FormGroup } from 'react-bootstrap';
+import { Button, AwesomeIcon, Title, IconLabel } from 'components';
+import { getAddressList } from 'actions';
+import { useDispatch } from 'react-redux';
+import { Col } from 'react-bootstrap';
 import styled from 'styled-components/macro';
 
 import image from '../../../assets/session-type.jpg';
@@ -20,10 +10,6 @@ import image from '../../../assets/session-type.jpg';
 const GYMEdit = ({ setSubPage }) => {
   const stars = 5;
   const dispatch = useDispatch();
-
-  const { getAddress } = useSelector(
-    (state) => state.profileSettings2.sessionType
-  );
 
   useEffect(() => {
     dispatch(
@@ -83,10 +69,13 @@ const GYMEdit = ({ setSubPage }) => {
             </div>
           </Card>
         </CardGroup>
-        <div style={{padding: 30}} className="d-flex btn-group justify-content-end p-30 w-100">
+        <div
+          style={{ padding: 30 }}
+          className="d-flex btn-group justify-content-end p-30 w-100"
+        >
           <div className="ln">
-            <Button style={{margin: 5}} className="gray" text="Kaldır" />
-            <Button style={{margin: 5}} className="blue" text="Kaydet" />
+            <Button style={{ margin: 5 }} className="gray" text="Kaldır" />
+            <Button style={{ margin: 5 }} className="blue" text="Kaydet" />
           </div>
         </div>
       </div>
@@ -229,43 +218,6 @@ const Star = styled.li`
     svg {
       color: #ffba00;
     }
-  }
-`;
-
-const List = styled.ul`
-  width: 100%;
-  height: auto;
-`;
-
-const Item = styled.li`
-  border-radius: 15px;
-  box-shadow: 4px 6px 15px -5px rgba(0, 0, 0, 0.35);
-  padding: 30px;
-  margin-bottom: 15px;
-  margin-left: -15px;
-  position: relative;
-
-  button {
-    position: absolute;
-    right: -60px;
-    top: 0;
-
-    span {
-      display: none;
-    }
-  }
-
-  button.cencel {
-    top: 50px;
-  }
-
-  button.edit {
-    top: 0px;
-  }
-
-  .line-left {
-    border-left: 4px solid #9d9d9d;
-    padding-left: 10px;
   }
 `;
 

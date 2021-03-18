@@ -24,7 +24,6 @@ const StyledTitle = styled(Typography)`
 `;
 
 const Titles = ({
-  component,
   textRight,
   textLeft,
   lineDisable = true,

@@ -38,7 +38,7 @@ const ProfRegister = () => {
                 color="trunge"
                 lineDisable
               >
-                HAYDİ ÜÇ2BİR'E
+                HAYDİ ÜÇ2BİR&apos;E
               </Title>
 
               <Text color="black2" fontSize="1rem" fontWeight="500">

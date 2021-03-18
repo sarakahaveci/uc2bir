@@ -57,8 +57,9 @@ const EditFiles = ({
       </Text>
 
       <EditWrapper>
-        {files?.map((file) => (
+        {files?.map((file, index) => (
           <EditWithClearInput
+            key={'file' + index}
             showTickIcon={file.status.id === ACCEPTED}
             showEditButtons={file.status.id !== ACCEPTED}
             width={['100%', '45%']}

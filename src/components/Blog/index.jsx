@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // @ts-nocheck
 import React, { useState, useEffect } from 'react';
 
@@ -63,7 +64,7 @@ const Blog = () => {
     createData.append('title', title);
 
     axios({ ...config, data: createData })
-      .then(function (response) {
+      .then(function () {
         dispatch(getMyBlogs());
         setPage('');
         toast.success('Yeni blog eklendi.', {
@@ -73,8 +74,7 @@ const Blog = () => {
       })
       .catch((err) => {
         toast.error(
-          err.response?.data?.message ||
-            'Blog eklenirken hata oluştu',
+          err.response?.data?.message || 'Blog eklenirken hata oluştu',
           {
             position: 'bottom-right',
             autoClose: 2000,
@@ -252,7 +252,11 @@ const Blog = () => {
                           style={{ marginTop: 15 }}
                           className="d-flex justify-content-end"
                         >
-                          <Button className="blue" text="Güncelle" type="submit" />
+                          <Button
+                            className="blue"
+                            text="Güncelle"
+                            type="submit"
+                          />
                         </div>
                       </form>
                     </FormGroups>
@@ -307,7 +311,7 @@ const Blog = () => {
 
                   {!myBlogs?.isLoading ? (
                     <>
-                      {myBlogs.data?.blogs?.map((val, key) => {
+                      {myBlogs.data?.blogs?.map((val) => {
                         return (
                           <>
                             <BlogContent>

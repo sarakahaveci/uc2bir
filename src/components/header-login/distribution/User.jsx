@@ -5,10 +5,9 @@ import PropTypes from 'prop-types';
 import Svg from 'components/statics/svg';
 import List from '../List';
 import Item from '../Item';
-import ROLE from 'constants/role';
 import TABS from 'constants/tabUri';
 
-const User = ({ user_name, user_id, user_img = null, logOutAction }) => {
+const User = ({ user_name, user_img = null, logOutAction }) => {
   const notification = [
     {
       name: '1. Bildirim',

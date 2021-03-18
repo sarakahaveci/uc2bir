@@ -33,8 +33,9 @@ const MessageSidebar = () => {
         {roomsLoading ? (
           <Spinner />
         ) : (
-          rooms.map((data) => (
+          rooms.map((data, index) => (
             <MessageInfoRow
+              key={index + 'message'}
               messageData={data.last_message}
               userData={data.user_meta}
               unreadMessages={data.unread_messages}

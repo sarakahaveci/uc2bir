@@ -43,8 +43,8 @@ const Proficiency = () => {
           </Text>
 
           <Accordion>
-            {proficiencyData.map((item) => (
-              <ProficiencyRow data={item} />
+            {proficiencyData.map((item, index) => (
+              <ProficiencyRow key={'row' + index} data={item} />
             ))}
           </Accordion>
         </Col>

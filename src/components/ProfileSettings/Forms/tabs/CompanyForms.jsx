@@ -8,7 +8,6 @@ import styled from 'styled-components/macro';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { getProfile, setProfile } from 'actions';
-import { unMaskPhone } from 'utils';
 
 const ProfileForms = ({ type }) => {
   const dispatch = useDispatch();

@@ -6,8 +6,6 @@ import InputMask from 'react-input-mask';
 
 import { symbolsArr } from '../../../constants';
 
-import editIcon from '../../statics/svg/images/pencil.svg';
-import closeIcon from '../../statics/svg/images/big-close.svg';
 import styled from 'styled-components/macro';
 import { Spinner } from 'react-bootstrap';
 import { colorGenerator } from 'utils';
@@ -25,7 +23,6 @@ const TextField = ({
   icon = false,
   iconCallback = () => {},
   onChange = () => {},
-  value = null,
   onKeyUp = () => {},
   onBlur = () => {},
   maxLength = '',

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import ProfileForms from './tabs/ProfileForms';
 
-const SettingsForm = (props) => {
+const SettingsForm = () => {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
 
   const [type, setType] = useState();

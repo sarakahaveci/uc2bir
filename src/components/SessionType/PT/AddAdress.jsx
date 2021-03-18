@@ -1,10 +1,10 @@
+/* eslint-disable no-unused-vars */
 // @ts-nocheck
 /* eslint-disable react/jsx-pascal-case */
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { isEmpty } from 'lodash';
-import { getGeocode } from 'use-places-autocomplete';
 
 import { getCitiesAndDistict, addAddress } from 'actions';
 import GoogleMap from 'components/GoogleMaps/GoogleMap';
@@ -16,20 +16,12 @@ const AddAdress = ({ setSubPage }) => {
 
   const [formData, setFormData] = useState({});
   const [adressFromMap, setAdressFromMap] = useState({});
-  const [location, setLocation] = useState({});
 
   const [city, setCity] = useState(false);
   const [town, setTown] = useState([]);
   const [district, setDistrict] = useState([]);
   const uri = `${process.env.REACT_APP_API_URL}/regions`;
   const uri_map = `${process.env.REACT_APP_API_URL}/regions-map`;
-
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      console.log("Latitude is :", position.coords.latitude);
-      console.log("Longitude is :", position.coords.longitude);
-    });
-  },[]);
 
   useEffect(() => {
     if (!city) {
@@ -62,22 +54,7 @@ const AddAdress = ({ setSubPage }) => {
   }, [city]);
 
   const onPositionChange = (data) => {
-    console.log(data);
     setAdressFromMap(data);
-  };
-
-  const updateAddressSuccess = () => {
-    toast.success('Haritadan adres eklendi', {
-      position: 'bottom-right',
-      autoClose: 3000,
-    });
-  };
-
-  const isFailGetIds = () => {
-    toast.error('Haritadan adres eklenirken bir sorun ile karışlaşıldı', {
-      position: 'bottom-right',
-      autoClose: 3000,
-    });
   };
 
   const useAdressFromMap = () => {
@@ -93,7 +70,6 @@ const AddAdress = ({ setSubPage }) => {
         const city_id = data.city.id;
         const district_id = data.district.id;
         const town = data.town.id;
-        console.log(city_id, district_id, town);
         axios
           .post(uri, { city_id })
           .then((res) => res.data)
@@ -143,7 +119,7 @@ const AddAdress = ({ setSubPage }) => {
       addAddress(
         { ...formData },
         () => {
-					setSubPage("Adds");
+          setSubPage('Adds');
           toast.success('Adres başarıyla eklendi', {
             position: 'bottom-right',
             autoClose: 3000,
@@ -156,24 +132,6 @@ const AddAdress = ({ setSubPage }) => {
           })
       )
     );
-  };
-
-  const handleSelectRelion = (event) => {
-    if (event.target.name === 'city') {
-      setFormData({
-        ...formData,
-        city: event.target.value,
-        district: null,
-        town: null,
-      });
-    } else {
-      setFormData({
-        ...formData,
-        town: null,
-        [event.target.name]: event.target.value,
-      });
-    }
-    dispatch(getCitiesAndDistict({ [event.target.name]: event.target.value }));
   };
 
   return (

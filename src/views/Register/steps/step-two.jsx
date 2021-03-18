@@ -6,7 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import { AwesomeIcon, Button, Otp, Svg } from '../../../components';
+import { Button, Otp } from '../../../components';
 
 import { toast } from 'react-toastify';
 
@@ -17,9 +17,16 @@ import { setStepTwo, verifyCode } from '../../../actions';
 const StepTwo = (props) => {
   const getStepOne = useSelector((state) => state.stepOne);
   const getStepTwo = useSelector((state) => state.stepTwo);
-  const { setSteps, count, modal, setModal, phone, newAction = false, formData = false } = props;
+  const {
+    setSteps,
+    count,
+    modal,
+    setModal,
+    phone,
+    newAction = false,
+    formData = false,
+  } = props;
 
-  const [open, setOpen] = useState(modal);
   const fullWidth = true;
   const maxWidth = 'sm';
 
@@ -29,7 +36,7 @@ const StepTwo = (props) => {
 
   const isResponseSuccess = () => {
     setCode({ ...macro.inputs });
-    setOpen(true);
+
     return setCounter(time);
   };
   const isResponseError = () => {
@@ -42,7 +49,6 @@ const StepTwo = (props) => {
       draggable: true,
       progress: undefined,
     });
-    
   };
 
   const isResultSuccess = () => {
@@ -71,13 +77,7 @@ const StepTwo = (props) => {
 
   const dispatch = useDispatch();
   const vrf_response = () => {
-    dispatch(
-      verifyCode(
-        { phone },
-        isResponseSuccess,
-        isResponseError
-      )
-    );
+    dispatch(verifyCode({ phone }, isResponseSuccess, isResponseError));
   };
 
   const action_result = () => {
@@ -88,26 +88,19 @@ const StepTwo = (props) => {
         isResponseError
       )
     );
-  }
+  };
 
   const vrf_result = () => {
     let new_data = {};
-    if ( formData ) {
+    if (formData) {
       new_data = formData;
     } else {
       new_data = getStepOne.data;
     }
     dispatch(
-      setStepTwo(
-        { ...new_data, code: code },
-        isResultSuccess,
-        isResultError
-      )
+      setStepTwo({ ...new_data, code: code }, isResultSuccess, isResultError)
     );
   };
-
-  const handleClose = () => setOpen(false);
-  const handleClickOpen = () => setOpen(true);
 
   useEffect(() => {
     if (getStepOne.isSuccess) {
@@ -129,7 +122,7 @@ const StepTwo = (props) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    if ( newAction ) {
+    if (newAction) {
       return action_result();
     } else {
       return vrf_result();
@@ -178,7 +171,6 @@ const StepTwo = (props) => {
                 </div>
                 {counter > 0 ? (
                   <Button
-                    onClick={() => console.log('close')}
                     variant="link"
                     text={`Güvenlik kodunu girmek için kalan süreniz ${Math.floor(
                       counter / 60
@@ -202,13 +194,9 @@ const StepTwo = (props) => {
                     disabled={!(typeof code === 'number')}
                   />
                 ) : (
-                  <Button
-                    className="blue"
-                    onClick={() => console.log('Lütfen Bekleyiniz...')}
-                    text={`Lütfen Bekleyiniz...`}
-                  />
+                  <Button className="blue" text={`Lütfen Bekleyiniz...`} />
                 )}
-                <div style={{margin: 30}}></div>
+                <div style={{ margin: 30 }}></div>
               </form>
             </div>
           </DialogContent>

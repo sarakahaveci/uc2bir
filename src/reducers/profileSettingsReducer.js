@@ -1,4 +1,3 @@
-/* eslint-disable import/no-anonymous-default-export */
 import {
   SET_PASSWORD_UPDATE_REQUEST,
   SET_PASSWORD_UPDATE_SUCCESS,

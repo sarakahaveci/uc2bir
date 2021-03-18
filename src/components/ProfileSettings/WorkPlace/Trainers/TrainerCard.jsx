@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Title, AwesomeIcon, Span, Text } from 'components';
+import { Title, AwesomeIcon, Span } from 'components';
 import Item1 from 'assets/dietitians/item-1/01.jpg';
 
 const TrainerCard = ({ fullName, description, location, fee }) => {
