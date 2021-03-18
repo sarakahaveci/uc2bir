@@ -1,4 +1,3 @@
-/* eslint-disable react/no-children-prop */
 import React from 'react';
 import Title from '../typography/Titles';
 import Text from '../typography/Text';

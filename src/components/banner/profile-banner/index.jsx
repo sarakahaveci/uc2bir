@@ -1,6 +1,4 @@
-// @ts-nocheck
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import styled from 'styled-components/macro';
 import { AwesomeIcon, Text, Button, Svg } from 'components';
@@ -17,7 +15,7 @@ const ProfileBanner = ({
   info,
   categories = [],
   about,
-  children
+  children,
 }) => {
   const reservationAction = () => {};
   return (
@@ -146,48 +144,4 @@ const Comment = styled(Link)`
   }
 `;
 
-ProfileBanner.propTypes = {
-  info: PropTypes.object.isRequired,
-  about: PropTypes.string,
-};
-
 export default ProfileBanner;
-
-/*
-  * example
-  * <ProfileBanner
-      className?,
-      info={{
-        team: 'A',
-        img: i1,
-        name: 'Efe Parlak',
-        category: 'Fitnes Eğitmeni',
-        price: '100',
-        stars: '3',
-        location: "İstanbul, Beşiktaş",
-        comment: "/"
-      }}
-      categories={[
-        {
-          text: "Meditasyon",
-          link: "/"
-        },
-        {
-          text: "Plates",
-          link: "/"
-        },
-        {
-          text: "Fitnes",
-          link: "/"
-        },
-      ]}
-      about={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-      eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-      ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-      aliquip ex ea commodo consequat. Duis aute irure dolor in
-      reprehenderit in voluptate velit esse cillum. dolore eu fugiat nulla
-      pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-      culpa qui officia deserunt mollit anim id est laborum.”`}
-      reservationAction={''}
-    />
-*/

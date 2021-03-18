@@ -1,27 +1,44 @@
 import React from 'react';
+import styled from 'styled-components/macro';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Tabs, Tab } from 'react-bootstrap';
 
-export default function ProfileTab({ tabData, defaultActiveKey }) {
+export default function ProfileTab({ tabData, defaultActiveKey, baseUrl }) {
   const history = useHistory();
 
   return (
-    <Tabs
+    <StyledTabs
       activeKey={defaultActiveKey ?? null}
       transition={false}
       id="profile-tab"
       unmountOnExit
-      onSelect={(key) => history.push(`/myprofile/settings/${key}`)}
+      onSelect={(key) => history.push(`${baseUrl}${key}`)}
     >
       {tabData.map((tab) => (
         <Tab eventKey={tab.eventKey} title={tab.title} key={tab.eventKey}>
           {tab.component}
         </Tab>
       ))}
-    </Tabs>
+    </StyledTabs>
   );
 }
+
+const StyledTabs = styled(Tabs)`
+  padding: 5px 20px 0;
+  margin-bottom: 50px;
+
+  .active {
+    color: ${(p) => p.theme.colors.blue} !important;
+  }
+
+  .nav-link {
+    &:not(:last-child) {
+      border-right: 1px solid #e8f0f8 !important;
+      border-radius: unset;
+    }
+  }
+`;
 
 ProfileTab.propTypes = {
   tabData: PropTypes.array.isRequired,

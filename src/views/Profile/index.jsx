@@ -43,7 +43,7 @@ export default function Profile({ match }) {
       ),
     },
     {
-      eventKey: 'galary',
+      eventKey: 'gallery',
       title: 'Galeri',
       component: (
         <Title variant={'h4'} component={'h4'} textLeft lineDisable>
@@ -101,8 +101,12 @@ export default function Profile({ match }) {
           />
         </Row>
       </Container>
-      <div className="col-md-8 col-sm-12 mx-auto">
-        <Tab tabData={trainerData} defaultActiveKey="branch" />
+      <div className="col-md-8 col-sm-12 mx-auto tab-wrapper">
+        <Tab
+          baseUrl="/profile/"
+          tabData={trainerData}
+          defaultActiveKey={match?.params?.activeTabKey}
+        />
       </div>
     </Main>
   );

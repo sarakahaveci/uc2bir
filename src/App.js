@@ -54,8 +54,12 @@ const App = () => {
                 component={ProfRegister}
               />
               <Route exact path="/forgot-password" component={ForgotPassword} />
-              <Route exact path="/profile/:id" component={Profile} />
 
+              <ProtectedRoute
+                exact
+                path="/profile/:activeTabKey"
+                component={Profile}
+              />
               <ProtectedRoute
                 exact
                 path="/myprofile/settings/:activeTabKey"
