@@ -167,7 +167,7 @@ const ProfileSettingsList = () => {
       break;
   }
 
-  const settings = tabData?.map((item) => (
+  const settings = tabData?.map((item, index) => (
     <Wrapper key={'wrapper' + index}>
       <Accordion.Item>
         <Accordion.Toggle>
