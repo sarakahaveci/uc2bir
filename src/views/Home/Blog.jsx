@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { BlogBanners, Button, Title } from '../../components';
+import { useHistory } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { getBlogList } from 'actions';
 
 const Blog = (props) => {
+  const history = useHistory();
   const blogs = useSelector((state) => state?.myBlogs?.blogs);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -32,7 +34,7 @@ const Blog = (props) => {
             style={{ marginBottom: '90px', marginTop: '30px' }}
             className="col d-flex justify-content-center"
           >
-            <Button lineButton text="Tümünü Gör" />
+            <Button lineButton text="Tümünü Gör" onClick={() => history.push("/blog-list")} />
           </div>
         </div>
       </Container>
