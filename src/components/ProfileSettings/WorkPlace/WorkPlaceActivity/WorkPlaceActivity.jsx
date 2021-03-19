@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -27,10 +28,14 @@ export default function WorkPlaceActivity() {
   const [open, setOpen] = useState(false);
   const [selectedActivity, setSelectedActivity] = useState([]);
 
-  const ableActivityList = allList.filter(
-    (activity) =>
-      !data.find((currentActivity) => currentActivity.id === activity.id)
-  );
+  const ableActivityList =
+    data.length === 0
+      ? allList
+      : allList.filter((activity) =>
+          data.find((currentActivity) => currentActivity.id == activity.id)
+        );
+
+  console.log({ ableActivityList, allList, data });
 
   useEffect(() => {
     dispatch(getWorkPlaceActivityList());
@@ -126,7 +131,7 @@ export default function WorkPlaceActivity() {
                   price={activity?.price}
                 />
               ))
-            ) : ableActivityList > 0 ? (
+            ) : (
               <>
                 {ableActivityList?.map((facility) => (
                   <SelectiveButton
@@ -147,8 +152,6 @@ export default function WorkPlaceActivity() {
                   />
                 </div>
               </>
-            ) : (
-              <Text>Eklenebilecek Faaliyet alanı kalmamıştır.</Text>
             )}
           </div>
         </div>
