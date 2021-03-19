@@ -51,6 +51,10 @@ body {
   z-index: 100000 !important;
 }
 
+.MuiFormHelperText-root.Mui-error.MuiFormHelperText-filled {
+  display: none!important
+}
+
 .MuiPickersToolbar-toolbar,
 .MuiPickersDay-daySelected {
   background-color: var(--blue) !important;

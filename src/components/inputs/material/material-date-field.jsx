@@ -14,6 +14,9 @@ import styled from 'styled-components/macro';
 import { Spinner } from 'react-bootstrap';
 import { colorGenerator } from 'utils';
 
+import Moment from 'react-moment';
+import moment from 'moment';
+
 const localeMap = {
   /* set locale */
   en: enLocale,
@@ -37,7 +40,7 @@ const DateField = ({
   action = () => {},
 }) => {
   const [selectedDate, setSelectedDate] = useState(
-    value ? new Date(value) : null
+    value ? new Date(moment(value).toDate()) : null
   );
 
   const handleDateChange = (date, callBack) => {
