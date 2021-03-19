@@ -1,32 +1,36 @@
 import React from 'react';
 import { Container, Row } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 
-import Place from './Place';
+import Place from '../../components/Profile/Place';
 import { Tab, Title, Main, ProfileBanner } from 'components';
-import ProfileCertificate from './ProfileCertificate';
-import Branch from './Branch';
+import ProfileCertificate from '../../components/Profile/ProfileCertificate';
+import Branch from '../../components/Profile/Branch';
 import profileImg from '../../assets/pt-groups/item-1/04.jpg';
+import { WORK_PLACE, PERSONAL_TRAINER } from '../../constants';
 
 export default function Profile({ match }) {
-  const trainerData = [
+  const user = useSelector((state) => state.auth.user);
+
+  const trainerTabs = [
     {
       eventKey: 'branch',
-      title: 'Branşlar',
+      title: 'BRANŞLAR',
       component: <Branch />,
     },
     {
       eventKey: 'certificate',
-      title: 'Sertifika',
+      title: 'SERTİFİKA',
       component: <ProfileCertificate userId={match?.params?.id} />,
     },
     {
       eventKey: 'workplace',
-      title: 'Çalıştığı Yerler',
+      title: 'ÇALIŞTIĞI YERLER',
       component: <Place />,
     },
     {
       eventKey: 'calendar',
-      title: 'Takvim',
+      title: 'TAKVİM',
       component: (
         <Title variant={'h4'} component={'h4'} textLeft lineDisable>
           Takvim
@@ -35,7 +39,7 @@ export default function Profile({ match }) {
     },
     {
       eventKey: 'comments',
-      title: 'Yorumlar',
+      title: 'YORUMLAR',
       component: (
         <Title variant={'h4'} component={'h4'} textLeft lineDisable>
           Yorumlar
@@ -44,7 +48,7 @@ export default function Profile({ match }) {
     },
     {
       eventKey: 'gallery',
-      title: 'Galeri',
+      title: 'GALERİ',
       component: (
         <Title variant={'h4'} component={'h4'} textLeft lineDisable>
           Galeri
@@ -53,7 +57,7 @@ export default function Profile({ match }) {
     },
     {
       eventKey: 'blog',
-      title: 'Blog',
+      title: 'BLOG',
       component: (
         <Title variant={'h4'} component={'h4'} textLeft lineDisable>
           Blog
@@ -61,6 +65,94 @@ export default function Profile({ match }) {
       ),
     },
   ];
+
+  const workPlaceTabs = [
+    {
+      eventKey: 'facility',
+      title: 'OLANAKLAR',
+      component: (
+        <Title variant={'h4'} component={'h4'} textLeft lineDisable>
+          Olanaklar
+        </Title>
+      ),
+    },
+    {
+      eventKey: 'certificate',
+      title: 'SERTİFİKALAR',
+      component: <ProfileCertificate userId={match?.params?.id} />,
+    },
+    {
+      eventKey: 'workplace',
+      title: 'SINIFLAR',
+      component: <Place />,
+    },
+
+    {
+      eventKey: 'trainers',
+      title: 'EĞİTMEN BUL',
+      component: (
+        <Title variant={'h4'} component={'h4'} textLeft lineDisable>
+          Yorumlar
+        </Title>
+      ),
+    },
+    {
+      eventKey: 'calendar',
+      title: 'TAKVİM',
+      component: (
+        <Title variant={'h4'} component={'h4'} textLeft lineDisable>
+          Takvim
+        </Title>
+      ),
+    },
+    {
+      eventKey: 'comments',
+      title: 'YORUMLAR',
+      component: (
+        <Title variant={'h4'} component={'h4'} textLeft lineDisable>
+          Yorumlar
+        </Title>
+      ),
+    },
+    {
+      eventKey: 'gallery',
+      title: 'GALERİ',
+      component: (
+        <Title variant={'h4'} component={'h4'} textLeft lineDisable>
+          Galeri
+        </Title>
+      ),
+    },
+    {
+      eventKey: 'location',
+      title: 'KONUM',
+      component: (
+        <Title variant={'h4'} component={'h4'} textLeft lineDisable>
+          KONUM
+        </Title>
+      ),
+    },
+  ];
+
+  let tabData;
+
+  switch (user?.type_id) {
+    // case USER:
+    //   tabData = regularUserTabs;
+    //   break;
+    case PERSONAL_TRAINER:
+      tabData = trainerTabs;
+      break;
+    case WORK_PLACE:
+      tabData = workPlaceTabs;
+      break;
+      // case DIETITIAN:
+      //   tabData = dietitianTabs;
+      //   break;
+      // default:
+      //   tabData = regularUserTabs;
+      break;
+  }
 
   return (
     <Main>
@@ -104,7 +196,7 @@ export default function Profile({ match }) {
       <div className="col-md-8 col-sm-12 mx-auto tab-wrapper">
         <Tab
           baseUrl="/profile/"
-          tabData={trainerData}
+          tabData={tabData}
           defaultActiveKey={match?.params?.activeTabKey}
         />
       </div>

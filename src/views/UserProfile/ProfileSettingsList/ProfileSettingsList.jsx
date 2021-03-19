@@ -27,7 +27,7 @@ import {
   WORK_PLACE,
   DIETITIAN,
 } from '../../../constants';
-import Notifications from 'views/ProfileSettings/Notifications';
+import Notifications from 'components/ProfileSettings/Notifications';
 
 const trainerAndDietitanData = [
   {

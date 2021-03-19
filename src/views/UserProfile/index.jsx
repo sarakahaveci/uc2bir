@@ -16,7 +16,7 @@ import {
 import { USER, PERSONAL_TRAINER, WORK_PLACE, DIETITIAN } from '../../constants';
 import Trainers from 'components/ProfileSettings/WorkPlace/Trainers/Trainers';
 import profileImg from '../../assets/banner/slider-item-1.png';
-import ProfileSettings from './ProfileSettings';
+import ProfileSettings from './ProfileSettingsList';
 import WorkPlaceFacility from 'components/ProfileSettings/WorkPlace/WorkPlaceFacility/WorkPlaceFacility';
 import WorkPlaceActivity from 'components/ProfileSettings/WorkPlace/WorkPlaceActivity/WorkPlaceActivity';
 import Proficiency from 'components/ProfileSettings/Proficiency/Proficiency';
@@ -25,7 +25,7 @@ import Favorites from 'components/ProfileSettings/Favorites/Favorites';
 import DietitianPrice from 'components/ProfileSettings/Dietitian/DietitianPrice';
 import DietitianProficiency from 'components/ProfileSettings/Dietitian/DietitianProficiency';
 import Message from 'components/ProfileSettings/Message';
-import RegularNotifications from 'views/ProfileSettings/RegularNotifications';
+import RegularNotifications from 'components/ProfileSettings/RegularNotifications';
 
 const regularUserTabs = [
   {
