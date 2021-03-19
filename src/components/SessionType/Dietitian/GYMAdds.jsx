@@ -1,10 +1,8 @@
 // @ts-nocheck
 import React, { useEffect } from 'react';
-import { Button, AwesomeIcon, Svg, Title, IconLabel } from 'components';
+import { AwesomeIcon, Title, IconLabel } from 'components';
 import { Col, Row } from 'react-bootstrap';
 import styled from 'styled-components/macro';
-
-import image from '../../../assets/session-type.jpg';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -12,7 +10,7 @@ import { addGym, getGymList } from 'actions';
 
 import defaultImg from 'assets/default-profile.jpg';
 
-const GYMAdds = ({ setSubPage, setBannerActive }) => {
+const GYMAdds = ({ setSubPage }) => {
   const dispatch = useDispatch();
 
   const { gymList } = useSelector(
@@ -167,14 +165,6 @@ const Card = styled(Col)`
       padding: 0 15px;
     }
   }
-`;
-
-const SearchCol = styled(Col)`
-  &:not(:last-child) {
-    border-right: 1px solid #707070;
-  }
-
-  flex-basis: 20%;
 `;
 
 const Stars = styled.ul`

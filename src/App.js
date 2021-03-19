@@ -17,7 +17,6 @@ import NotFoundPage from './views/NotFoundPage';
 import ForgotPassword from 'views/ForgotPassword';
 import Profile from 'views/Profile';
 import UserProfile from 'views/UserProfile';
-import Components from 'views/Components';
 import Message from 'views/Message';
 import { theme } from 'utils';
 import BlogDetail from 'views/BlogDetail';

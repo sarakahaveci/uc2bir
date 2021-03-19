@@ -14,7 +14,6 @@ import styled from 'styled-components/macro';
 import { Spinner } from 'react-bootstrap';
 import { colorGenerator } from 'utils';
 
-import Moment from 'react-moment';
 import moment from 'moment';
 
 const localeMap = {

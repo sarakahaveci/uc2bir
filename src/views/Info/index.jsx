@@ -10,12 +10,11 @@ import Svg from '../../components/statics/svg';
 
 /* images */
 import img from '../../assets/info/banner/info-img.png';
-import item1 from '../../assets/info/item-1.jpg';
 
 const Info = () => {
   return (
     <Main>
-      <div style={{marginTop: 0}} className="basic-info">
+      <div style={{ marginTop: 0 }} className="basic-info">
         <div className="starter">
           <img src={img} alt="" />
         </div>

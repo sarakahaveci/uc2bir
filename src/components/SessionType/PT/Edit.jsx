@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 const Edit = ({ setSubPage }) => {
   const dispatch = useDispatch();
 
-  const { getAddress, deleteAdress } = useSelector(
+  const { getAddress } = useSelector(
     (state) => state.profileSettings2.sessionType
   );
 
@@ -31,7 +31,12 @@ const Edit = ({ setSubPage }) => {
       deleteAddressList(
         id,
         () => {
-          dispatch(getAddressList(() => {}, () => {}));
+          dispatch(
+            getAddressList(
+              () => {},
+              () => {}
+            )
+          );
           toast.success('Adres başarı ile silindi.', {
             position: 'bottom-right',
             autoClose: 2000,
