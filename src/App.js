@@ -65,11 +65,9 @@ const App = () => {
                 component={UserProfile}
               />
 
-              {/*<Route exact path="/components" component={Components} />*/}
-
               <Route exact path="/blog-detail/:seo" component={BlogDetail} />
               <Route exact path="/blog-list" component={BlogList} />
-              
+
               <Route exact path="/messages" component={Message} />
               <Route component={NotFoundPage} />
             </Switch>

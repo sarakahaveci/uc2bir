@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components/macro';
 
 import { Accordion, Box } from 'components';
-import BranchCardHeader from '../../components/BranchCard/BranchCardHeader';
-import BranchCardBody from '../../components/BranchCard/BranchCardBody';
+import BranchCardHeader from '../BranchCard/BranchCardHeader';
+import BranchCardBody from '../BranchCard/BranchCardBody';
 
 const mockData = [
   {
