@@ -5,7 +5,7 @@ import styled from 'styled-components/macro';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-import search from './statics/svg/images/player.svg';
+import search from './statics/svg/images/plus.svg';
 
 import closeIcon from './statics/svg/images/big-close.svg';
 import tickIcon from './statics/svg/images/tick.svg';
@@ -435,8 +435,8 @@ const ImageShow = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 350px;
-  height: 350px;
+  width: 100%;
+  height: 450px;
   background-image: url('${(props) => props.image}');
   background-repeat: no-repeat;
   position: relative;

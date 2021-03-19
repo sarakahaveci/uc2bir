@@ -454,7 +454,7 @@ const ImageShow = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 190px;
+  width: 100%;
   height: 120px;
   background-image: url('${(props) => props.image}');
   background-repeat: no-repeat;
