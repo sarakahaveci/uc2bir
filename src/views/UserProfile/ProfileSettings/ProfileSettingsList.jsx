@@ -108,7 +108,7 @@ const workPlaceData = [
   },
   {
     settingsName: 'İş Yeri Hakkında',
-    settingsDetails: 'İİş yeri hakkında yazınızı düzenleyin, güncelleyin',
+    settingsDetails: 'İş yeri hakkında yazınızı düzenleyin, güncelleyin',
     body: <About />,
   },
   {

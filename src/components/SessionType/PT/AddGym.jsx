@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Material, Button } from 'components';
+import GYMAdds from './GYMAdds';
 import GYMAdd from './GYMAdd';
 
 const AddGym = ({ setSubPage, setBannerActive }) => {
@@ -24,10 +25,11 @@ const AddGym = ({ setSubPage, setBannerActive }) => {
             <Button text="Spor Salonu Seçiniz." />
           </div>
           <>
-            <form onSubmit={submit} className="d-flex">
+            <GYMAdds setSubPage={setSubPage} setBannerActive={setBannerActive}/>
+            {/*<form onSubmit={submit} className="d-flex">
               <Material.TextField label="Salon arayın!" />
               <Button className="blue" text="Ara" type="submit" />
-            </form>
+            </form>*/}
           </>
         </>
       );

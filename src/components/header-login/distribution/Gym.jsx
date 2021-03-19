@@ -8,20 +8,7 @@ import Item from '../Item';
 import TABS from 'constants/tabUri';
 
 const Gym = ({ user_name, user_img = null, logOutAction }) => {
-  const notification = [
-    {
-      name: '1. Bildirim',
-      link: TABS.notificationPath,
-    },
-    {
-      name: '2. Bildirim',
-      link: TABS.notificationPath,
-    },
-    {
-      name: '3. Bildirim',
-      link: TABS.notificationPath,
-    },
-  ];
+  const notification = [];
 
   const menu = [
     {
@@ -66,6 +53,7 @@ const Gym = ({ user_name, user_img = null, logOutAction }) => {
       name: 'Bildirimler',
       icon: <Svg.Notification />,
       notify: [...notification],
+      linkPath: TABS.notificationPath,
     },
     {
       name: 'Mesajlarım',
@@ -77,6 +65,7 @@ const Gym = ({ user_name, user_img = null, logOutAction }) => {
       name: 'Rezervasyonlarım',
       icon: <Svg.Date />,
       notify: [],
+      linkPath: TABS.reservationsPath,
     },
     {
       name: user_name,

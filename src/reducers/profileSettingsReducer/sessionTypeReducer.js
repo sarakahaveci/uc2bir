@@ -11,9 +11,21 @@ import {
   SESSIONTYPE_ADD_ADDRESS_SUCCESS,
   SESSIONTYPE_ADD_ADDRESS_FAILURE,
 
+  ADD_TYPE_ADDRESS_DELETE_REQUEST,
+  ADD_TYPE_ADDRESS_DELETE_SUCCESS,
+  ADD_TYPE_ADDRESS_DELETE_FAILURE,
+
   SESSIONTYPE_GET_ADDRESS_REQUEST,
   SESSIONTYPE_GET_ADDRESS_SUCCESS,
   SESSIONTYPE_GET_ADDRESS_FAILURE,
+
+  SESSIONTYPE_GET_GYM_LIST_REQUEST,
+  SESSIONTYPE_GET_GYM_LIST_SUCCESS,
+  SESSIONTYPE_GET_GYM_LIST_FAILURE,
+
+  SESSIONTYPE_ADD_GYM_REQUEST,
+  SESSIONTYPE_ADD_GYM_SUCCESS,
+  SESSIONTYPE_ADD_GYM_FAILURE,
 } from '../../constants';
 
 const initialState = {
@@ -38,6 +50,24 @@ const initialState = {
     isSuccsess: false,
     data: [],
     error: null,
+  },
+  deleteAdress: {
+    isLoading: false,
+    isSuccsess: false,
+    data: [],
+    error: null,
+  },
+  gymList: {
+    isLoading: false,
+    isSuccsess: false,
+    data: [],
+    error: null,
+  },
+  addGym: {
+    isLoading: false,
+    isSuccsess: false,
+    data: [],
+    error: null,
   }
 };
 
@@ -49,6 +79,99 @@ const sessionTypeReducer = (state = initialState, action) => {
         create: {
           ...state.create,
           isLoading: true,
+        },
+      };
+
+    case ADD_TYPE_ADDRESS_DELETE_REQUEST:
+      return {
+        ...state,
+        deleteAdress: {
+          ...state.deleteAdress,
+          isLoading: true,
+        },
+      };
+
+    case ADD_TYPE_ADDRESS_DELETE_SUCCESS:
+      return {
+        ...state,
+        deleteAdress: {
+          ...state.deleteAdress,
+          isLoading: false,
+          isSuccsess: true,
+          data: action.payload,
+          error: null,
+        },
+      };
+
+    case ADD_TYPE_ADDRESS_DELETE_FAILURE:
+      return {
+        ...state,
+        deleteAdress: {
+          ...state.deleteAdress,
+          isLoading: false,
+          error: action.payload,
+        },
+      };
+
+    case SESSIONTYPE_GET_GYM_LIST_REQUEST:
+      return {
+        ...state,
+        gymList: {
+          ...state.gymList,
+          isLoading: true,
+        },
+      };
+
+    case SESSIONTYPE_GET_GYM_LIST_SUCCESS:
+      return {
+        ...state,
+        gymList: {
+          ...state.gymList,
+          isLoading: false,
+          isSuccsess: true,
+          data: action.payload,
+          error: null,
+        },
+      };
+
+    case SESSIONTYPE_GET_GYM_LIST_FAILURE:
+      return {
+        ...state,
+        gymList: {
+          ...state.gymList,
+          isLoading: false,
+          error: action.payload,
+        },
+      };
+
+    case SESSIONTYPE_ADD_GYM_REQUEST:
+      return {
+        ...state,
+        addGym: {
+          ...state.addGym,
+          isLoading: true,
+        },
+      };
+
+    case SESSIONTYPE_ADD_GYM_SUCCESS:
+      return {
+        ...state,
+        addGym: {
+          ...state.addGym,
+          isLoading: false,
+          isSuccsess: true,
+          data: action.payload,
+          error: null,
+        },
+      };
+
+    case SESSIONTYPE_ADD_GYM_FAILURE:
+      return {
+        ...state,
+        addGym: {
+          ...state.addGym,
+          isLoading: false,
+          error: action.payload,
         },
       };
 

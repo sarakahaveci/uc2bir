@@ -2,13 +2,15 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
 
 import { Button, AwesomeIcon, Svg, Spinner } from 'components';
-import { getAddressList } from 'actions';
+import { deleteAddressList, getAddressList } from 'actions';
+
 import { useSelector, useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 
 const Edit = ({ setSubPage }) => {
   const dispatch = useDispatch();
 
-  const { getAddress } = useSelector(
+  const { getAddress, deleteAdress } = useSelector(
     (state) => state.profileSettings2.sessionType
   );
 
@@ -20,6 +22,25 @@ const Edit = ({ setSubPage }) => {
       )
     );
   }, []);
+
+  const edit = (id) => {
+    return id;
+  };
+  const deleted = (id) => {
+    dispatch(
+      deleteAddressList(
+        id,
+        () => {
+          dispatch(getAddressList(() => {}, () => {}));
+          toast.success('Adres başarı ile silindi.', {
+            position: 'bottom-right',
+            autoClose: 2000,
+          });
+        },
+        () => {}
+      )
+    );
+  };
 
   return (
     <>
@@ -41,8 +62,16 @@ const Edit = ({ setSubPage }) => {
                           {val?.address_detail}
                         </div>
                       </div>
-                      <Button className="edit" icon={Svg.EditIcon} />
-                      <Button className="cencel" icon={Svg.CencelIcon} />
+                      <Button
+                        className="edit"
+                        icon={Svg.EditIcon}
+                        onClick={() => edit(val?.id)}
+                      />
+                      <Button
+                        className="cencel"
+                        icon={Svg.CencelIcon}
+                        onClick={() => deleted(val?.id)}
+                      />
                     </Item>
                   </>
                 ))}

@@ -29,10 +29,8 @@ const Adds = ({ icons, setBannerActive }) => {
                     {val.create && (
                       <>
                         <Link>
-                          <Edits>
-                            <Svg.WhitePencil
-                              onClick={() => setSubPage(val.create.subPage)}
-                            />
+                          <Edits onClick={() => setSubPage(val.create.subPage)}>
+                            <Svg.WhitePencil />
                           </Edits>
                         </Link>
                         <Create

@@ -57,6 +57,7 @@ const Lists = styled.ul`
 
 const Item = styled.li`
   visibility: visible;
+  cursor: pointer;
 `;
 
 const A = styled(Link)`

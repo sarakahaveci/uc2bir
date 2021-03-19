@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { isEmpty } from 'lodash';
 
-import { addAddress } from 'actions';
+import { getCitiesAndDistict, addAddress } from 'actions';
 import GoogleMap from 'components/GoogleMaps/GoogleMap';
 import { Material, Button, AwesomeIcon } from 'components';
 import axios from 'axios';
