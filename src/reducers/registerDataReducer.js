@@ -149,7 +149,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         distict: action.payload.data,
-        town: [],
         isLoading: false,
       };
     case GET_TOWN_SUCCESS:

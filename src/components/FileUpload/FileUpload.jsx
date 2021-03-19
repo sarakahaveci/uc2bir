@@ -177,7 +177,7 @@ const FileUpload = ({
           </Text>
         )}
 
-        <Text color="dark" fontSize="1rem">
+        <Text color="#f77e0b" fontSize="1.2rem">
           {title}
         </Text>
       </div>
