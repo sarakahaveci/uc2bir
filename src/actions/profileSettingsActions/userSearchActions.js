@@ -1,8 +1,6 @@
 import { HTTP_REQUEST, SEARCH_USER, SET_SEARCH_FILTERS } from '../../constants';
 
-export const searchPt = (formData) => async (dispatch, getState) => {
-  console.log('formData: ', formData);
-
+export const searchPt = (formData = {}) => async (dispatch, getState) => {
   const { pageNumber } = getState().profileSettings2.userSearch;
 
   let url = `/user/address/detail-search-pt?page=${pageNumber}`;
@@ -21,12 +19,12 @@ export const searchPt = (formData) => async (dispatch, getState) => {
       method: 'GET',
       url,
       label: SEARCH_USER,
-      transfomrData: (data) => data.data,
+      transformData: (data) => data.data,
     },
   });
 };
 
-export const setSearchFilters = (name, value) => (dispatch, getState) => {
+export const setSearchFilters = (name, value) => (dispatch) => {
   dispatch({
     type: SET_SEARCH_FILTERS,
     payload: {

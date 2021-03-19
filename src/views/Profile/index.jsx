@@ -20,7 +20,7 @@ export default function Profile({ match }) {
       component: <ProfileCertificate userId={match?.params?.id} />,
     },
     {
-      eventKey: 'workPlace',
+      eventKey: 'workplace',
       title: 'Çalıştığı Yerler',
       component: <Place />,
     },
@@ -34,7 +34,7 @@ export default function Profile({ match }) {
       ),
     },
     {
-      eventKey: 'comment',
+      eventKey: 'comments',
       title: 'Yorumlar',
       component: (
         <Title variant={'h4'} component={'h4'} textLeft lineDisable>

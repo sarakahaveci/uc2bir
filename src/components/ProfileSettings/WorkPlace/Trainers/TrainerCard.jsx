@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 
 import { Title, AwesomeIcon, Span } from 'components';
 import Item1 from 'assets/dietitians/item-1/01.jpg';
+import DefaultProfileImage from 'assets/default-profile.jpg';
 
-const TrainerCard = ({ fullName, description, location, fee }) => {
+const TrainerCard = ({ data }) => {
   const [showProfileNavigator, setShowProfileNavigator] = useState(false);
 
   return (
@@ -14,7 +15,11 @@ const TrainerCard = ({ fullName, description, location, fee }) => {
       onMouseLeave={() => setShowProfileNavigator(false)}
     >
       <div className="trainer-card__img-wrapper">
-        <img className="trainer-card__img" src={Item1} />
+        <img
+          className="trainer-card__img"
+          url={data.photo || DefaultProfileImage}
+          src={Item1}
+        />
 
         {showProfileNavigator && (
           <Link className="trainer-card__profile-navigator" to="/">
@@ -25,18 +30,18 @@ const TrainerCard = ({ fullName, description, location, fee }) => {
 
       <div className="trainer-card__body">
         <Title textAlign="left" component="h5">
-          {fullName}
+          {data.name}
         </Title>
 
-        <Span underline>{description}</Span>
+        <Span underline>{data.title}</Span>
 
         <div className="trainer-card__location-wrapper">
           <div className="trainer-card__location-text">
-            <AwesomeIcon.Map /> {location}
+            <AwesomeIcon.Map /> {data.city}, {data.district}
           </div>
 
           <div className="trainer-card__fee">
-            {fee} <AwesomeIcon.Tl />
+            {data.price} <AwesomeIcon.Tl />
           </div>
         </div>
       </div>
