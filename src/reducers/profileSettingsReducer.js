@@ -69,7 +69,7 @@ const initialState = {
     data: [],
     error: null,
     isSuccsess: false,
-  }
+  },
 };
 
 export default (state = initialState, action) => {
@@ -81,7 +81,7 @@ export default (state = initialState, action) => {
         vki: {
           ...state.vki,
           isLoading: true,
-        }
+        },
       };
     case GET_TEST_REQUEST:
       return {
@@ -89,7 +89,7 @@ export default (state = initialState, action) => {
         test: {
           ...state.test,
           isLoading: true,
-        }
+        },
       };
     case GET_TEST_DETAIL_REQUEST:
       return {
@@ -97,10 +97,18 @@ export default (state = initialState, action) => {
         testDetail: {
           ...state.testDetail,
           isLoading: true,
-        }
+        },
       };
-    case GET_PT_BRANCH_REQUEST:
+
     case GET_PT_ALL_BRANCH_REQUEST:
+      return {
+        ...state,
+        ptBranchList: {
+          ...state.ptBranchList,
+        },
+      };
+
+    case GET_PT_BRANCH_REQUEST:
       return {
         ...state,
         ptBranchList: {
@@ -125,7 +133,7 @@ export default (state = initialState, action) => {
           ...state.test,
           isLoading: false,
           error: action.payload.message,
-        }
+        },
       };
     case GET_TEST_DETAIL_FAILURE:
       return {
@@ -134,7 +142,7 @@ export default (state = initialState, action) => {
           ...state.testDetail,
           isLoading: false,
           error: action.payload.message,
-        }
+        },
       };
     case GET_PT_BRANCH_SUCCESS:
       return {
@@ -153,7 +161,7 @@ export default (state = initialState, action) => {
           isLoading: false,
           data: action.payload,
           isSuccsess: true,
-        }
+        },
       };
     case GET_TEST_DETAIL_SUCCESS:
       return {
@@ -163,14 +171,13 @@ export default (state = initialState, action) => {
           isLoading: false,
           data: action.payload,
           isSuccsess: true,
-        }
+        },
       };
     case GET_PT_ALL_BRANCH_SUCCESS:
       return {
         ...state,
         ptBranchList: {
           ...state.ptBranchList,
-          isLoading: false,
           allList: action.payload,
         },
       };
@@ -193,7 +200,7 @@ export default (state = initialState, action) => {
           isLoading: false,
           data: action.payload,
           isSuccess: true,
-        }
+        },
       };
 
     case GET_ACTIVITY_LIST_SUCCESS:
@@ -225,7 +232,7 @@ export default (state = initialState, action) => {
           isLoading: false,
           data: [],
           error: action.payload.message,
-        }
+        },
       };
 
     case GET_ACTIVITY_LIST_FAILURE:

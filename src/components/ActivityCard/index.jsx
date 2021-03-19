@@ -5,7 +5,6 @@ import { toast } from 'react-toastify';
 import { Material, Button, Title } from 'components';
 import { sportTypeIconGenerator } from 'utils';
 import { updateWorkPlaceActivity, updatePTBranch } from 'actions';
-import { GYM } from '../../constants/userKeys';
 
 export default function ActivityCard({
   isAccepted,
@@ -46,12 +45,6 @@ export default function ActivityCard({
     price: price,
     branch_id: branch_id,
   });
-
-  const branches = registerData?.['spor_branslari']?.filter(
-    (branch) => branch.type === GYM
-  );
-
-  const defaultBranch = branch?.map((val) => val.id);
 
   const handleFormOnChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -131,17 +124,13 @@ export default function ActivityCard({
       <div>
         {isWorkPlace ? (
           <>
-            <Material.SimpleSelect
-              required
+            <Material.TextField
+              label="branch"
+              type="text"
               name="branch"
-              forHtml="branch"
-              label="Aktivite Branşları"
-              onChange={handleFormOnChange}
-              items={branches ?? []}
-              multiple
-              defaultValue={defaultBranch ?? []}
+              changeValue={name}
               inputProps={{
-                readOnly: !isAccepted,
+                readOnly: true,
               }}
             />
             <Material.TextField
