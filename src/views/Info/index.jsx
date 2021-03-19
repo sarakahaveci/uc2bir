@@ -15,7 +15,7 @@ import item1 from '../../assets/info/item-1.jpg';
 const Info = () => {
   return (
     <Main>
-      <div className="basic-info">
+      <div style={{marginTop: 0}} className="basic-info">
         <div className="starter">
           <img src={img} alt="" />
         </div>
@@ -106,7 +106,7 @@ const Info = () => {
                 </li>
               </ul>
 
-              <ul className="animation-img">
+              {/*<ul className="animation-img">
                 <li>
                   <div
                     style={{ backgroundImage: `url(${item1})` }}
@@ -137,7 +137,7 @@ const Info = () => {
                     className="img"
                   ></div>
                 </li>
-              </ul>
+              </ul>*/}
             </div>
 
             <Title variant={'h4'} component={'h4'} textLeft lineDisable>

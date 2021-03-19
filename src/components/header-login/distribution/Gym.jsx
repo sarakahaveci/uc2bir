@@ -22,9 +22,9 @@ const Gym = ({ user_name, user_img = null, logOutAction }) => {
       link: TABS.facilityPath,
     },
     {
-      name: 'Branşlarım & Ücretlerim',
+      name: 'Faaliyet Alanları',
       icon: <Svg.PtHome />,
-      link: TABS.branchPath,
+      link: TABS.facilityPath,
     },
     {
       name: 'Eğitmenler',

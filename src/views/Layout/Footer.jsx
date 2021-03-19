@@ -27,20 +27,7 @@ const Footer = () => {
             >
 							321 Hakkında
 						</Title>
-            <ul>
-              <li>
-                <a href="/">Lorem Ipsum</a>
-              </li>
-              <li>
-                <a href="/">Lorem Ipsum</a>
-              </li>
-              <li>
-                <a href="/">Lorem Ipsum</a>
-              </li>
-              <li>
-                <a href="/">Lorem Ipsum</a>
-              </li>
-            </ul>
+            <ul></ul>
           </div>
           <div className="list">
             <Title
@@ -53,18 +40,6 @@ const Footer = () => {
 							Yardım Merkezi
 						</Title>
             <ul>
-              <li>
-                <a href="/">Lorem Ipsum</a>
-              </li>
-              <li>
-                <a href="/">Lorem Ipsum</a>
-              </li>
-              <li>
-                <a href="/">Lorem Ipsum</a>
-              </li>
-              <li>
-                <a href="/">Lorem Ipsum</a>
-              </li>
             </ul>
           </div>
           <div className="list">
@@ -78,17 +53,17 @@ const Footer = () => {
 							Bilgilendirme
 						</Title>
             <ul>
-              <li>
-                <a href="/">Lorem Ipsum</a>
+            <li>
+                <a href="/">Kullanım Koşulları</a>
               </li>
               <li>
-                <a href="/">Lorem Ipsum</a>
+                <a href="/">Üyelik Sözleşmesi</a>
               </li>
               <li>
-                <a href="/">Lorem Ipsum</a>
+                <a href="/">Kişisel Verilerin Korunması</a>
               </li>
               <li>
-                <a href="/">Lorem Ipsum</a>
+                <a href="/">İade Koşulları</a>
               </li>
             </ul>
           </div>
@@ -103,12 +78,6 @@ const Footer = () => {
 							İletişim
 						</Title>
             <ul>
-              <li>
-                <a href="/">Lorem Ipsum</a>
-              </li>
-              <li>
-                <a href="/">Lorem Ipsum</a>
-              </li>
               <li>
                 <IconLabel
                   href="mailto:info@uc2bir.com"
@@ -155,7 +124,7 @@ const Footer = () => {
                 <a href="/">EĞİTMENLER</a>
               </li>
               <li>
-                <a href="/">BOOKS</a>
+                <a href="/">BOOK</a>
               </li>
               <li>
                 <a href="/">MEDİTASYON</a>
