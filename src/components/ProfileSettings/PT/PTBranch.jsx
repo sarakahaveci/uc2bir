@@ -1,10 +1,11 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Modal } from 'react-bootstrap';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { isEmpty } from 'lodash';
 
 import {
   getAllPTBranchList,
@@ -20,19 +21,34 @@ import BluePlusIcon from 'assets/blue-plus.svg';
 export default function WorkPlaceActivity() {
   const dispatch = useDispatch();
 
-  const { data, allList, isLoading } = useSelector(
+  const { data, allList } = useSelector(
     (state) => state?.profileSettings?.ptBranchList
   );
 
+  const [loading, setloading] = useState(true);
   const [showAddBranch, setShowAddBranch] = useState(false);
   const [open, setOpen] = useState(false);
   const [branchSuggest, setBranchSuggest] = useState(false);
   const [selectedBranch, setSelectedBranch] = useState([]);
+  const [filteredBranchList, setFilteredBranchList] = useState([]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     dispatch(getAllPTBranchList());
     dispatch(getUserPTBranchList());
   }, []);
+
+  useEffect(() => {
+    if (!isEmpty(data) && allList.length > 0) {
+      const newlist = allList?.filter(
+        (branch) =>
+          !Object.entries(data?.branches).find(
+            ([key, obj]) => obj.id === branch.id
+          )
+      );
+      setloading(false);
+      setFilteredBranchList(newlist);
+    }
+  }, [allList, data]);
 
   const selectActivityHandler = (key) => {
     if (selectedBranch.includes(key)) {
@@ -43,10 +59,6 @@ export default function WorkPlaceActivity() {
   };
 
   // Removed seleted branch from branch list for show user only able to add branch list
-  const filteredBranchList = allList?.filter(
-    (branch) =>
-      !Object.entries(data?.branches).find(([key, obj]) => obj.id === branch.id)
-  );
 
   const submitNewActivity = () => {
     dispatch(
@@ -68,7 +80,7 @@ export default function WorkPlaceActivity() {
 
   const newActivityAreaClass = showAddBranch ? 'col-md-8' : 'col-md-12';
 
-  return isLoading ? (
+  return loading ? (
     <></>
   ) : (
     <div className="p-3">
