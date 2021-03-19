@@ -459,7 +459,7 @@ const ImageShow = styled.div`
   background-image: url('${(props) => props.image}');
   background-repeat: no-repeat;
   position: relative;
-  background-size: cover;
+  background-size: contain;
   margin-right: 15px;
 
   &::before {
