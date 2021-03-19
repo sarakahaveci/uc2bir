@@ -16,7 +16,7 @@ import {
 import { USER, PERSONAL_TRAINER, WORK_PLACE, DIETITIAN } from '../../constants';
 import Trainers from 'components/ProfileSettings/WorkPlace/Trainers/Trainers';
 import profileImg from '../../assets/banner/slider-item-1.png';
-import ProfileSettings from './ProfileSettingsList';
+import ProfileSettings from '../../components/ProfileSettings/ProfileSettingsList';
 import WorkPlaceFacility from 'components/ProfileSettings/WorkPlace/WorkPlaceFacility/WorkPlaceFacility';
 import WorkPlaceActivity from 'components/ProfileSettings/WorkPlace/WorkPlaceActivity/WorkPlaceActivity';
 import Proficiency from 'components/ProfileSettings/Proficiency/Proficiency';

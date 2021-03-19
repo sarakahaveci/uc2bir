@@ -16,7 +16,7 @@ import ProfRegister from './views/ProfRegister';
 import NotFoundPage from './views/NotFoundPage';
 import ForgotPassword from 'views/ForgotPassword';
 import Profile from 'views/Profile';
-import UserProfile from 'views/UserProfile';
+import UserProfile from 'views/ProfileSettings';
 import Message from 'views/Message';
 import { theme } from 'utils';
 import BlogDetail from 'views/BlogDetail';
