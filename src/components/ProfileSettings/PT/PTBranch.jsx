@@ -43,7 +43,7 @@ export default function WorkPlaceActivity() {
   };
 
   // Removed seleted branch from branch list for show user only able to add branch list
-  const filteredBranchList = allList.filter(
+  const filteredBranchList = allList?.filter(
     (branch) =>
       !Object.entries(data?.branches).find(([key, obj]) => obj.id === branch.id)
   );
