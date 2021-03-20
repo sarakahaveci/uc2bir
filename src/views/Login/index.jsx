@@ -1,11 +1,9 @@
-/* eslint-disable react/no-children-prop */
-// @ts-nocheck
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { login } from '../../actions';
+import { login } from 'actions';
 import {
   FormPages,
   AwesomeIcon,
@@ -13,7 +11,7 @@ import {
   Text,
   Button,
   Material,
-} from '../../components';
+} from 'components';
 
 const Login = () => {
   const { isLoading } = useSelector((state) => state.auth);
@@ -28,12 +26,7 @@ const Login = () => {
   const loginSuccessHandler = () => {
     toast.success('Giriş Başarılı!', {
       position: 'bottom-right',
-      autoClose: 1500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
+      autoClose: 1000,
       onClose: () => history.push('/'),
     });
   };
@@ -42,19 +35,20 @@ const Login = () => {
     toast.error('Hatalı Giriş', {
       position: 'bottom-right',
       autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
     });
   };
 
   const onSubmit = async (event) => {
     event.preventDefault();
 
+    const trimmedEmail = email.trim();
+
     dispatch(
-      login({ email, password }, loginSuccessHandler, loginErrorHandler)
+      login(
+        { email: trimmedEmail, password },
+        loginSuccessHandler,
+        loginErrorHandler
+      )
     );
   };
 
@@ -71,6 +65,7 @@ const Login = () => {
                 fontSize="1.2rem"
                 color="orange2"
               />
+
               <Text
                 style={{ marginBottom: 10 }}
                 fontFamily="'Bebas Neue', cursive"
@@ -79,6 +74,7 @@ const Login = () => {
                 fontWeight="500"
                 color="dark"
               />
+
               <Text
                 style={{ marginBottom: 40 }}
                 fontFamily="'Montserrat', sans-serif"
@@ -87,6 +83,7 @@ const Login = () => {
                 children="Hedeflerine uygun antrenman planları ile İçindeki atleti özgür bırak"
                 color="dark"
               />
+
               <Title
                 fontWeight="normal"
                 style={{ marginBottom: 15 }}
@@ -109,6 +106,7 @@ const Login = () => {
                   type="text"
                   icon={AwesomeIcon.At}
                 />
+
                 <Material.TextField
                   required
                   onChange={(e) => setPassword(e.target.value)}
@@ -118,6 +116,7 @@ const Login = () => {
                   type="password"
                   icon={AwesomeIcon.Lock}
                 />
+
                 <div
                   style={{
                     paddingTop: '15px',
@@ -133,15 +132,18 @@ const Login = () => {
                       label="Beni Hatırla"
                     />
                   </div>
+
                   <div className="col-auto remember-password">
                     <Link to="/forgot-password">Şifremi Unuttum</Link>
                   </div>
                 </div>
-                {isLoading ? (
-                  <Button text={`Yükleniyor...`} className="blue" />
-                ) : (
-                  <Button type="submit" text={`Giriş Yap`} className="blue" />
-                )}
+
+                <Button
+                  isLoading={isLoading}
+                  type="submit"
+                  text="Giriş Yap"
+                  className="blue"
+                />
               </form>
               <Text
                 style={{ marginTop: 30, marginBottom: 10 }}
