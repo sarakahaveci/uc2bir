@@ -1,20 +1,22 @@
 // @ts-nocheck
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import Title from '../../components/typography/Titles';
-import SliderFocus from '../../components/sliders/SliderFocus';
+import cx from 'classnames';
+
+import Title from 'components/typography/Titles';
+import SliderFocus from 'components/sliders/SliderFocus';
 
 //mocdata
 import * as Data from './MocData';
 
-const PT = (props) => {
+const PT = ({className}) => {
   const query = true;
 
   const data = Data.Pt;
   const groups = 'PT';
   const link = '/instructor';
   return (
-    <section className={`pt ${props.className}`}>
+    <section  className={cx({ [`${className}`]: className })}>
       <Container>
         <Title variant="h3" lineDisable={false} component="h3">
           EĞİTMENLER
