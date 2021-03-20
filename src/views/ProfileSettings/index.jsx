@@ -16,7 +16,7 @@ import {
 import { USER, PERSONAL_TRAINER, WORK_PLACE, DIETITIAN } from '../../constants';
 import Trainers from 'components/ProfileSettings/WorkPlace/Trainers/Trainers';
 import profileImg from '../../assets/banner/slider-item-1.png';
-import ProfileSettings from '../../components/ProfileSettings/ProfileSettingsList';
+import ProfileSettingsList from '../../components/ProfileSettings/ProfileSettingsList';
 import WorkPlaceFacility from 'components/ProfileSettings/WorkPlace/WorkPlaceFacility/WorkPlaceFacility';
 import WorkPlaceActivity from 'components/ProfileSettings/WorkPlace/WorkPlaceActivity/WorkPlaceActivity';
 import Proficiency from 'components/ProfileSettings/Proficiency/Proficiency';
@@ -31,7 +31,7 @@ const regularUserTabs = [
   {
     eventKey: 'profile',
     title: 'Profilim',
-    component: <ProfileSettings />,
+    component: <ProfileSettingsList />,
   },
 
   /* {
@@ -72,13 +72,25 @@ const regularUserTabs = [
     title: 'Mesajlarım',
     component: <Message />,
   },
+  {
+    eventKey: 'cancel',
+    component: <CancellationReason />,
+  },
 ];
 
 const workPlaceTabs = [
   {
     eventKey: 'profile',
     title: 'Profilim',
-    component: <ProfileSettings />,
+    component: <ProfileSettingsList />,
+  },
+  {
+    eventKey: 'notifications',
+    component: <ProfileSettingsList />,
+  },
+  {
+    eventKey: 'cancel',
+    component: <CancellationReason />,
   },
   /* {
     eventKey: 'reservation',
@@ -104,6 +116,7 @@ const workPlaceTabs = [
     title: 'Eğitmenler',
     component: <Trainers />,
   },
+
   /*   {
     eventKey: 'wallet',
     title: 'Cüzdan',
@@ -120,7 +133,15 @@ const dietitianTabs = [
   {
     eventKey: 'profile',
     title: 'Profilim',
-    component: <ProfileSettings />,
+    component: <ProfileSettingsList />,
+  },
+  {
+    eventKey: 'notifications',
+    component: <ProfileSettingsList />,
+  },
+  {
+    eventKey: 'cancel',
+    component: <CancellationReason />,
   },
   /* {
     eventKey: 'reservation',
@@ -186,7 +207,11 @@ const trainerTabs = [
   {
     eventKey: 'profile',
     title: 'Profilim',
-    component: <ProfileSettings />,
+    component: <ProfileSettingsList />,
+  },
+  {
+    eventKey: 'notifications',
+    component: <ProfileSettingsList />,
   },
   /* {
     eventKey: 'reservation',
@@ -211,10 +236,6 @@ const trainerTabs = [
     eventKey: 'location',
     title: 'Oturum Türleri & Çalıştığım yerler',
     component: <SessionType />,
-  },
-  {
-    eventKey: 'notifications',
-    component: <ProfileSettings />,
   },
   {
     eventKey: 'cancel',
