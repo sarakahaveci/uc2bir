@@ -8,7 +8,7 @@ const Categories = (props) => {
     <section className={`categories ${props.className}`}>
       {props.background && (
         <div
-          className="backgorund-element"
+          className="background-element"
           style={{ backgroundImage: `url(${DefBackground.elementBackground})` }}
         ></div>
       )}

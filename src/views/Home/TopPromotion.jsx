@@ -1,14 +1,16 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import { Title, DefBackground } from '../../components';
-import AsNavFor from '../../components/sliders/AsNavFor';
+import cx from 'classnames'
 
-const TopPromotion = (props) => {
+import { Title, DefBackground } from 'components';
+import AsNavFor from 'components/sliders/AsNavFor';
+
+const TopPromotion = ({className,background,children}) => {
   return (
-    <section className={`top-promotion ${props.className}`}>
-      {props.background && (
+    <section className={cx('top-promotion', { [`${className}`]: className } )}>
+      {background && (
         <div
-          className="backgorund-element"
+          className="background-element"
           style={{ backgroundImage: `url(${DefBackground.elementBackground})` }}
         ></div>
       )}
@@ -29,7 +31,7 @@ const TopPromotion = (props) => {
             <AsNavFor />
           </div>
         </div>
-        {props.children}
+        {children}
       </Container>
     </section>
   );
