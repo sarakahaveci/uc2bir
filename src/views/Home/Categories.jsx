@@ -1,12 +1,13 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
+import cx from 'classnames'
 
 import {Title, DefBackground, Svg} from 'components';
 
-const Categories = (props) => {
+const Categories = ({className,background,children}) => {
   return (
-    <section className={`categories ${props.className}`}>
-      {props.background && (
+    <section  className={cx('categories', { [`${className}`]: className } )}>
+      {background && (
         <div
           className="background-element"
           style={{ backgroundImage: `url(${DefBackground.elementBackground})` }}
@@ -28,7 +29,7 @@ const Categories = (props) => {
             ))}
           </ul>
         </div>
-        {props.children}
+        {children}
       </Container>
     </section>
   );
