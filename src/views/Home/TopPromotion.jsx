@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import {Button, Title, Text, DefBackground} from '../../components';
+import { Title, DefBackground } from '../../components';
 import AsNavFor from '../../components/sliders/AsNavFor';
 
 const TopPromotion = (props) => {
@@ -14,30 +14,18 @@ const TopPromotion = (props) => {
       )}
       <Container>
         <div className="row">
-          <div className="col-lg-6">
+          <div className="col-lg-6 mt-5">
             <Title
               variant="h3"
               component="h3"
-              fontSize="2rem"
-              lineDisable
+              lineDisable={false}
               textLeft
-              fontWeight="400"
+              fontWeight="600"
             >
-              Başarmak için başla!
+              başarmak İçİn başla!
             </Title>
-            <Title fontWeight="normal" variant="h4" component="h4" textLeft>
-              {/* "" */}
-            </Title>
-            <Text color="blue" fontWeight="500" fontSize="20px">
-              {/* "" */}
-            </Text>
-            <Text fontWeight="500" fontSize="20px" color="gray1">
-              {/* "" */}
-              <br />
-              <Button className="p-0" variant="link" text="İNCELE" />
-            </Text>
           </div>
-          <div className=".slider-p0 col-lg-6 d-flex">
+          <div className="slider-p0 col-lg-6 d-flex">
             <AsNavFor />
           </div>
         </div>

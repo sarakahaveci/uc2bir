@@ -31,6 +31,7 @@ const Titles = ({
   color = 'dark',
   children,
   icon = null,
+  className,
   ...rest
 }) => (
   <StyledTitle
@@ -40,7 +41,8 @@ const Titles = ({
       'typography title',
       { line: !lineDisable },
       { 'text-left': textLeft },
-      { 'text-right': textRight }
+      { 'text-right': textRight },
+      { [`${className}`]: className }
     )}
     color={color}
     {...rest}
