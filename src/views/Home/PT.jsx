@@ -16,10 +16,10 @@ const PT = (props) => {
   return (
     <section className={`pt ${props.className}`}>
       <Container>
-        <Title variant="h3" component="h3">
+        <Title variant="h3" lineDisable={false} component="h3">
           EĞİTMENLER
         </Title>
-        <Title variant="h5" component="h5" fontWeight="500" lineDisable>
+        <Title variant="h6" component="h6" fontWeight="500" >
           EN İYİ EĞİTMENLER İLE ÇALIŞMA FIRSATI
         </Title>
       </Container>

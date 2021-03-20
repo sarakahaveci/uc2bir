@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import {Title, DefBackground, Svg} from '../../components';
+
+import {Title, DefBackground, Svg} from 'components';
 
 const Categories = (props) => {
   return (
@@ -12,7 +13,7 @@ const Categories = (props) => {
         ></div>
       )}
       <Container>
-        <Title variant="h5" component="h5">
+        <Title variant="h5" component="h5" lineDisable={false}  >
           Tarzını Seç, Hemen Kategorilere Göz At
         </Title>
         <div className="over-flow-y-auto">

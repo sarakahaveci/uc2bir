@@ -2,6 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Typography from '@material-ui/core/Typography';
+import cx from 'classnames';
 
 import { space, color } from 'styled-system';
 
@@ -35,9 +36,12 @@ const Titles = ({
   <StyledTitle
     gutterBottom
     textLeft
-    className={`typography title ${lineDisable ? '' : 'line'} ${
-      textLeft ? 'text-left' : ''
-    } ${textRight ? 'text-right' : ''}`}
+    className={cx(
+      'typography title',
+      { line: !lineDisable },
+      { 'text-left': textLeft },
+      { 'text-right': textRight }
+    )}
     color={color}
     {...rest}
   >
