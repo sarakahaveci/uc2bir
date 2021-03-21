@@ -26,7 +26,7 @@ export default function ProfileTab({ tabData, defaultActiveKey, baseUrl }) {
 
 const StyledTabs = styled(Tabs)`
   padding: 5px 20px 0;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 
   .active {
     color: ${(p) => p.theme.colors.blue} !important;

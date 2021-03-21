@@ -4,18 +4,18 @@ import styled, { css } from 'styled-components/macro';
 import { Svg, AwesomeIcon, Box } from 'components';
 import { sportIconGenerator } from 'utils';
 
-const BranchCardHeader = ({ isActive, sportType, sportName, level, price }) => {
+const BranchRowToggler = ({ isActive, data }) => {
   return (
     <StyledCardHeader isActive={isActive}>
       <StyledRow center className="first">
-        {sportIconGenerator(sportType)}
-        <Title>{sportName}</Title>
+        {sportIconGenerator(data.sportType)}
+        <Title>{data.sportName}</Title>
       </StyledRow>
 
       <Box row>
-        <RightCell>{level} Seviye</RightCell>
+        <RightCell>{data.level} Seviye</RightCell>
         <RightCell className="mid">
-          <span>{price}</span>
+          <span>{data.price}</span>
           <AwesomeIcon.Tl />
         </RightCell>
         <RightCell className="last">
@@ -26,7 +26,7 @@ const BranchCardHeader = ({ isActive, sportType, sportName, level, price }) => {
   );
 };
 
-export default BranchCardHeader;
+export default BranchRowToggler;
 
 const StyledRow = styled(Box)`
   .yoga {

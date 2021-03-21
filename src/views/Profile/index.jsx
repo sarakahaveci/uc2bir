@@ -7,6 +7,7 @@ import { Tab, Title, Main, ProfileBanner } from 'components';
 import ProfileCertificate from '../../components/Profile/ProfileCertificate';
 import Branch from '../../components/Profile/Branch';
 import profileImg from '../../assets/pt-groups/item-1/04.jpg';
+import MyCalendar from 'components/Profile/MyCalendar/MyCalendar';
 import { WORK_PLACE, PERSONAL_TRAINER } from '../../constants';
 
 export default function Profile({ match }) {
@@ -31,11 +32,7 @@ export default function Profile({ match }) {
     {
       eventKey: 'calendar',
       title: 'TAKVİM',
-      component: (
-        <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-          Takvim
-        </Title>
-      ),
+      component: <MyCalendar />,
     },
     {
       eventKey: 'comments',
@@ -99,11 +96,7 @@ export default function Profile({ match }) {
     {
       eventKey: 'calendar',
       title: 'TAKVİM',
-      component: (
-        <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-          Takvim
-        </Title>
-      ),
+      component: <MyCalendar />,
     },
     {
       eventKey: 'comments',

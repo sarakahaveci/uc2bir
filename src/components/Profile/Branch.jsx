@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components/macro';
 
 import { Accordion, Box } from 'components';
-import BranchCardHeader from '../BranchCard/BranchCardHeader';
-import BranchCardBody from '../BranchCard/BranchCardBody';
+import BranchCardHeader from '../BranchRow/BranchRowToggler';
+import BranchCardBody from '../BranchRow/BranchRowCollapser';
 
 const mockData = [
   {
@@ -57,8 +57,6 @@ const UserDetails = () => {
     <div>
       <Accordion>
         {mockData.map((item, index) => {
-          const { sportType, sportName, level, price, speciality } = item;
-
           return (
             <StyledRow key={index}>
               <Order>{index + 1}.</Order>
@@ -66,16 +64,11 @@ const UserDetails = () => {
               <AccordionItem>
                 <Accordion.Item>
                   <Accordion.Toggle>
-                    <BranchCardHeader
-                      sportType={sportType}
-                      sportName={sportName}
-                      level={level}
-                      price={price}
-                    />
+                    <BranchCardHeader data={item} />
                   </Accordion.Toggle>
 
                   <Accordion.Collapse>
-                    <BranchCardBody speciality={speciality} />
+                    <BranchCardBody speciality={item.speciality} />
                   </Accordion.Collapse>
                 </Accordion.Item>
               </AccordionItem>
