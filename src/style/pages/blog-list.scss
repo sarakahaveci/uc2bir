@@ -5,4 +5,15 @@
     height: 314px;
     background: no-repeat url('../../assets/info/banner/info-img.jpg');
   }
+
+  &__title {
+    margin-top: 86px;
+    margin-bottom: 116px;
+    max-width: max-content;
+    margin-left: 300px;
+  }
+
+  &__content {
+    margin-bottom: 270px;
+  }
 }

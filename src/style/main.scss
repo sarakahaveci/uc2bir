@@ -143,9 +143,6 @@ body {
 /* inputs */
 @import './inputs';
 
-/* blog-banner */
-@import './blog-banner';
-
 /* step-bar */
 @import './step-bar';
 
@@ -168,10 +165,7 @@ body {
 @import './user-profile/';
 
 /* components */
-@import './components/search-trainer';
-@import './components/trainer-card';
-@import './components/proficiency-row';
-@import './components/long-user-card';
+@import './components/index.scss';
 
 @import './sub-page';
 

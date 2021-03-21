@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import cx from 'classnames'
 
-import { BlogBanners, Button, Title } from 'components';
+import { BlogCartList, Button, Title } from 'components';
 import { getBlogList } from 'actions';
 
 const Blog = ({className}) => {
@@ -25,9 +25,7 @@ const Blog = ({className}) => {
         </Title>
         <Container fluid>
             <div className="blog__content">
-            {blogs?.slice(0, 3).map((blog, i) => (
-                <BlogBanners key={blog.id}  blogOrder={i} data={blog} />
-            ))}
+              <BlogCartList blogs={blogs} />
             </div>
             <div
               className="col d-flex justify-content-center"

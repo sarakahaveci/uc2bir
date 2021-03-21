@@ -1,4 +1,4 @@
-.blog-banner {
+.blog-cart {
   max-width: 590px;
   display: grid;
   grid-template-rows: 425px 425px;
@@ -47,6 +47,7 @@
   }
 
   .bl-btn {
+    margin-left: 16px;
     margin-top: 20px;
     text-transform: uppercase;
   }

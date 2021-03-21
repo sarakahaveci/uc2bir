@@ -4,7 +4,7 @@ import {
   Title,
   Text,
   Spinner,
-  BlogBanners,
+  BlogCartList,
   AwesomeIcon,
 } from 'components';
 import styled from 'styled-components/macro';
@@ -30,7 +30,7 @@ const BlogDetail = ({ match }) => {
   }, []);
 
   return (
-    <Main>
+    <Main className="blog-detail">
       <Container>
         <>
           {!detail.isLoading ? (
@@ -94,17 +94,7 @@ const BlogDetail = ({ match }) => {
       </Container>
       <Section>
         <Container fluid>
-          <List>
-            <div className="col-xl-4">
-              <BlogBanners left data={blogs?.data?.blogs?.[0]} />
-            </div>
-            <div className="col-xl-4">
-              <BlogBanners right data={blogs?.data?.blogs?.[1]} />
-            </div>
-            <div className="col-xl-4">
-              <BlogBanners top data={blogs?.data?.blogs?.[2]} />
-            </div>
-          </List>
+          <BlogCartList blogs={blogs.data.blogs} />
         </Container>
       </Section>
     </Main>
@@ -134,9 +124,5 @@ const Img = styled.img`
   height: auto;
 `;
 
-const List = styled(Row)`
-  margin-top: 10%;
-  margin-bottom: 50px;
-`;
 
 export default BlogDetail;

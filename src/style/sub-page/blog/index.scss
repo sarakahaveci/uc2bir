@@ -6,11 +6,8 @@
   padding-top: 60px;
 
   &__content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 590px));
-    margin-top: 76px;
+    margin-top: 70px;
     margin-bottom: 76px;
-    justify-content: center;
   }
 
   .typography.title.line:after {

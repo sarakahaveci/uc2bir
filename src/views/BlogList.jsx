@@ -1,20 +1,19 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
-import { Container, Row } from 'react-bootstrap';
-import { BlogBanners, Pagination, Spinner, Title } from 'components';
+import { Container } from 'react-bootstrap';
+import { BlogCartList, Pagination, Spinner, Title } from 'components';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { getBlogList } from 'actions';
 
 const BlogList = () => {
-  // @ts-ignore
   const blogs = useSelector((state) => state?.myBlogs?.blogs);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getBlogList());
   }, []);
 
-  const pageChangeHandler = (event, value) => {
+  const pageChangeHandler = (_, value) => {
     dispatch(getBlogList(10, value));
   };
 
@@ -22,16 +21,14 @@ const BlogList = () => {
     <section className="blog-list">
       <div className="blog-list__top-banner" />
       <Container fluid>
-        <Title variant="h3" className="blog-list__title" component="h3" lineDisable={false}>
-          BLOG
-        </Title>
+        <div className="blog-list__title">
+          <Title variant="h3" component="h3" lineDisable={false}>
+            BLOG
+          </Title>
+        </div>
         {!blogs.isLoading ? (
           <div className="blog-list__content">
-            <List>
-              {blogs?.data?.blogs?.map((blog, i) => (
-                <BlogBanners key={blog.id} blogOrder={i} data={blog} />
-              ))}
-            </List>
+            <BlogCartList blogs={blogs?.data?.blogs} />
           </div>
         ) : (
           <Spinner />
@@ -50,11 +47,6 @@ const BlogList = () => {
 
 const End = styled(Container)`
   margin-bottom: 90px;
-`;
-
-const List = styled(Row)`
-  margin-top: 120px;
-  margin-bottom: 50px;
 `;
 
 export default BlogList;
