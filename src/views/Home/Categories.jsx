@@ -1,18 +1,20 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import {Title, DefBackground, Svg} from '../../components';
+import cx from 'classnames';
 
-const Categories = (props) => {
+import { Title, DefBackground, Svg } from 'components';
+
+const Categories = ({ className, background, children }) => {
   return (
-    <section className={`categories ${props.className}`}>
-      {props.background && (
+    <section className={cx('categories', { [`${className}`]: className })}>
+      {background && (
         <div
-          className="backgorund-element"
+          className="background-element"
           style={{ backgroundImage: `url(${DefBackground.elementBackground})` }}
         ></div>
       )}
       <Container>
-        <Title variant="h5" component="h5">
+        <Title variant="h5" component="h5" lineDisable={false}>
           Tarzını Seç, Hemen Kategorilere Göz At
         </Title>
         <div className="over-flow-y-auto">
@@ -27,7 +29,7 @@ const Categories = (props) => {
             ))}
           </ul>
         </div>
-        {props.children}
+        {children}
       </Container>
     </section>
   );
