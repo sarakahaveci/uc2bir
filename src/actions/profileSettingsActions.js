@@ -19,6 +19,7 @@ import {
   GET_MY_BLOGS,
   GET_BLOGS,
   GET_BLOGS_DETAIL,
+  GET_ALL_ACTIVITY_BRANCH_LIST,
 } from '../constants';
 import { information } from './authActions';
 
@@ -225,6 +226,20 @@ export const getWorkPlaceActivityList = () => async (dispatch) => {
       method: 'GET',
       url,
       label: GET_ACTIVITY_LIST,
+      transformData: (data) => data.data,
+    },
+  });
+};
+
+export const getWorkPlaceActivityBranches = () => async (dispatch) => {
+  const url = `/cms/branch/all?type=bs&parent_id=0&status=active`;
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'GET',
+      url,
+      label: GET_ALL_ACTIVITY_BRANCH_LIST,
       transformData: (data) => data.data,
     },
   });

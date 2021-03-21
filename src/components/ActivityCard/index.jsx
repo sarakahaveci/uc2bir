@@ -1,6 +1,10 @@
+/* eslint-disable no-console */
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import Select from '@material-ui/core/Select';
+import Input from '@material-ui/core/Input';
+import MenuItem from '@material-ui/core/MenuItem';
 
 import { Material, Button, Title } from 'components';
 import { sportTypeIconGenerator } from 'utils';
@@ -21,6 +25,9 @@ export default function ActivityCard({
 }) {
   const dispatch = useDispatch();
   const { data: registerData } = useSelector((state) => state.registerData);
+  const { subBranches } = useSelector(
+    (state) => state?.profileSettings?.activityList
+  );
 
   const cardClass = isAccepted
     ? 'facility-card-wrapper'
@@ -38,13 +45,14 @@ export default function ActivityCard({
     id: id,
     capacity: capacity,
     price: price,
-    branch: branch,
   });
 
   const [branchData, setBranchData] = useState({
     price: price,
     branch_id: branch_id,
   });
+
+  const [selectedBranch, setSelectedBranch] = useState(branch ?? []);
 
   const handleFormOnChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -54,11 +62,20 @@ export default function ActivityCard({
     setBranchData({ ...branchData, [event.target.name]: +event.target.value });
   };
 
+  const handleBranchSet = (event) => {
+    setSelectedBranch(event.target.value);
+  };
+
   const submitChange = () => {
     if (isWorkPlace) {
       dispatch(
         updateWorkPlaceActivity(
-          { ...formData },
+          {
+            capacity: formData.capacity,
+            price: formData.price,
+            id: formData.id,
+            branch: selectedBranch,
+          },
           () => {
             toast.success(
               'Talebiniz gönderildi incelendikten sonra tarafınıza bildirim gönderilecektir.',
@@ -124,15 +141,22 @@ export default function ActivityCard({
       <div>
         {isWorkPlace ? (
           <>
-            <Material.TextField
-              label="Aktivite Branşları"
-              type="text"
-              name="branch"
-              changeValue={name}
-              inputProps={{
-                readOnly: true,
-              }}
-            />
+            <Select
+              placeholder="Aktivite Branşları"
+              multiple
+              value={selectedBranch}
+              input={<Input />}
+              onChange={handleBranchSet}
+              style={{ maxWidth: '100%', width: '100%' }}
+              required
+              readOnly={!isAccepted}
+            >
+              {subBranches.map((branch) => (
+                <MenuItem key={branch.id} value={branch.id}>
+                  {branch.name}
+                </MenuItem>
+              ))}
+            </Select>
             <Material.TextField
               label="Kontenjan"
               type="number"

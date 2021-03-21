@@ -26,6 +26,9 @@ import {
   GET_TEST_DETAIL_REQUEST,
   GET_TEST_DETAIL_SUCCESS,
   GET_TEST_DETAIL_FAILURE,
+  GET_ALL_ACTIVITY_BRANCH_LIST_REQUEST,
+  GET_ALL_ACTIVITY_BRANCH_LIST_SUCCESS,
+  GET_ALL_ACTIVITY_BRANCH_LIST_FAILURE,
 } from '../constants';
 
 const initialState = {
@@ -41,6 +44,7 @@ const initialState = {
     data: [],
     error: null,
     allList: [],
+    subBranches: [],
   },
 
   ptBranchList: {
@@ -183,6 +187,7 @@ export default (state = initialState, action) => {
       };
     case GET_ACTIVITY_LIST_REQUEST:
     case GET_ALL_ACTIVITY_LIST_REQUEST:
+    case GET_ALL_ACTIVITY_BRANCH_LIST_REQUEST:
       return {
         ...state,
         activityList: {
@@ -213,6 +218,16 @@ export default (state = initialState, action) => {
         },
       };
 
+    case GET_ALL_ACTIVITY_BRANCH_LIST_SUCCESS:
+      return {
+        ...state,
+        activityList: {
+          ...state.activityList,
+          isLoading: false,
+          subBranches: action.payload,
+        },
+      };
+
     case GET_ALL_ACTIVITY_LIST_SUCCESS:
       return {
         ...state,
@@ -231,6 +246,16 @@ export default (state = initialState, action) => {
           ...state.vki,
           isLoading: false,
           data: [],
+          error: action.payload.message,
+        },
+      };
+
+    case GET_ALL_ACTIVITY_BRANCH_LIST_FAILURE:
+      return {
+        ...state,
+        activityList: {
+          ...state.activityList,
+          isLoading: false,
           error: action.payload.message,
         },
       };

@@ -10,6 +10,7 @@ import {
   getWorkPlaceActivityList,
   getAllActivityList,
   addWorkPlaceActivity,
+  getWorkPlaceActivityBranches,
 } from 'actions';
 import { Title, Button, ActivityCard, Svg, Text } from 'components';
 import SelectiveButton from 'components/buttons/SelectiveButton';
@@ -39,6 +40,7 @@ export default function WorkPlaceActivity() {
   };
 
   useEffect(() => {
+    dispatch(getWorkPlaceActivityBranches());
     getActivityList();
   }, []);
 
