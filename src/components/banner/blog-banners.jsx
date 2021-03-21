@@ -17,16 +17,16 @@ const BlogBanners = ({
   const isOrderEven = isNumberEven(blogOrder) 
 
   return (
-    <div className="blog-banner row">
-      <div  className={cx("blog-banner__top", {"order-1": !isOrderEven})} >
+    <div className="blog-banner">
+      <div  className={cx("blog-banner__top", {"order-xl-1": !isOrderEven})} >
         <img src={data?.photo} alt={data?.title} />
       </div>
-      <div className={cx("blog-banner__bottom", {"order-0": !isOrderEven})} >
+      <div className={cx("blog-banner__bottom", {"order-xl-0": !isOrderEven})} >
         <div className="blog-banner__title">
           {data?.title}
         </div>
         <div className="blog-banner__detail">{data?.detail}</div>
-        <div className="blog-banner__writer">{data?.writer ? `Yazar : ${data.writer}` : ''}</div>
+         <div className="blog-banner__writer">{data?.writer ? `Yazar : ${data.writer}` : ''}</div> 
         
         <Button
             perspective

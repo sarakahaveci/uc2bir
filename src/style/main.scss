@@ -52,7 +52,7 @@ body {
 }
 
 .MuiFormHelperText-root.Mui-error.MuiFormHelperText-filled {
-  display: none!important
+  display: none !important;
 }
 
 .MuiPickersToolbar-toolbar,
@@ -120,9 +120,7 @@ body {
 @import './layout/grid';
 
 /* pages */
-
-@import './pages/trainers';
-@import './pages/proficiency';
+@import './pages/index.scss';
 
 /* header */
 @import './header';

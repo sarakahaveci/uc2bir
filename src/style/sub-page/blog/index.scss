@@ -2,6 +2,16 @@
   padding-left: 50px;
   padding-right: 50px;
   margin-bottom: 100px;
+  margin-top: 86px;
+  padding-top: 60px;
+
+  &__content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 590px));
+    margin-top: 76px;
+    margin-bottom: 76px;
+    justify-content: center;
+  }
 
   .typography.title.line:after {
     width: 80px;

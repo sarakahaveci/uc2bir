@@ -20,12 +20,11 @@ const Blog = ({className}) => {
   return (
      (
       <section className={cx('blog' , { [`${className}`]: className })}>
-        <Title variant="h3" component="h3" lineDisable={false} fontWeight={500}>
+        <Title  variant="h3" component="h3" lineDisable={false} fontWeight={500}>
           Blog
         </Title>
         <Container fluid>
-          <div className="row d-flex flex-column mt-5">
-            <div className="d-flex justify-content-center">
+            <div className="blog__content">
             {blogs?.slice(0, 3).map((blog, i) => (
                 <BlogBanners key={blog.id}  blogOrder={i} data={blog} />
             ))}
@@ -39,7 +38,6 @@ const Blog = ({className}) => {
                 onClick={() => history.push('/blog-list')}
               />
             </div>
-          </div>
         </Container>
       </section>
     )
