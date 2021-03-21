@@ -71,6 +71,7 @@ const ProfileForms = ({ type }) => {
                   setData({ ...data, [e.target.name]: e.target.value })
                 }
                 settings="current"
+                required
               />
               <Material.TextField
                 label="Vergi Dairesi"
@@ -81,6 +82,7 @@ const ProfileForms = ({ type }) => {
                   setData({ ...data, [e.target.name]: e.target.value })
                 }
                 settings="current"
+                required
               />
               <Material.TextField
                 label="Vergi No"
@@ -91,6 +93,7 @@ const ProfileForms = ({ type }) => {
                   setData({ ...data, [e.target.name]: e.target.value })
                 }
                 settings="current"
+                required
               />
               <Footer>
                 <Button

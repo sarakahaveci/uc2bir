@@ -56,7 +56,7 @@ export default function About() {
       />
       <Box row>
         <hr className="about-hr" />
-        {250 - newAbout?.length ?? 250}
+        {newAbout?.length !== NaN ? 250 - newAbout?.length : 250}
         <span
           onClick={handleChangeAbout}
           className={

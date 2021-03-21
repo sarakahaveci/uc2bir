@@ -283,6 +283,7 @@ export default function Address() {
                 type="number"
                 changeValue={+formData?.apt_no || ''}
                 onChange={handleFormOnChange}
+                inputProps={{ maxLength: 5 }}
               />
             </div>
             <div className="adress-apartment">
@@ -294,6 +295,7 @@ export default function Address() {
                 type="number"
                 changeValue={+formData?.build_no || ''}
                 onChange={handleFormOnChange}
+                inputProps={{ maxLength: 5 }}
               />
             </div>
           </div>
