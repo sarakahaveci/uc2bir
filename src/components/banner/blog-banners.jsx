@@ -1,131 +1,41 @@
 import React from 'react';
-import Title from '../typography/Titles';
-import Text from '../typography/Text';
 import Button from '../buttons/button';
-import LabelText from '../typography/LabelText';
 import { useHistory } from 'react-router-dom';
+import cx from 'classnames'
+
+import isNumberEven from 'utils/isNumberEven'
 
 const BlogBanners = ({
-  left = false,
-  right = false,
-  top = false,
-  bottom = false,
+  blogOrder,
   data = [],
 }) => {
   const history = useHistory();
   const go = () => {
     return history.push('/blog-detail/' + data?.seo_friendly_url);
   };
-  const leftBlog = () => {
-    return (
-      <div className="row">
-        <div
-          className="col-xl-12 blog-items img"
-          style={{ backgroundImage: `url(${data?.photo})` }}
-        ></div>
-        <div className="col-xl-12 blog-items text">
-          <Title variant="h5" component="h5" textLeft lineDisable>
-            {data?.title}
-          </Title>
-          <Text fontSize="10pt">{data?.detail}</Text>
-          <LabelText label="Yazar:" fontSize="0.8rem">
-            {data?.description}
-          </LabelText>
-          <Button
-            perspective
-            className="bl-btn"
-            text="Devamını Oku"
-            onClick={go}
-          />
-        </div>
-      </div>
-    );
-  };
 
-  const rightBlog = () => {
-    return (
-      <div className="row">
-        <div
-          className="col-xl-12 order-xl-2 blog-items img"
-          style={{ backgroundImage: `url(${data?.photo})` }}
-        ></div>
-        <div className="col-xl-12 order-xl-1 blog-items text">
-          <Title variant="h5" component="h5" textLeft lineDisable>
-            {data?.title}
-          </Title>
-          <Text fontSize="10pt">{data?.detail}</Text>
-          <LabelText label="Yazar:" fontSize="0.8rem">
-            {data?.description}
-          </LabelText>
-          <Button
-            perspective
-            className="bl-btn"
-            text="Devamını Oku"
-            onClick={go}
-          />
-        </div>
-      </div>
-    );
-  };
+  const isOrderEven = isNumberEven(blogOrder) 
 
-  const topBlog = () => {
-    return (
-      <div className="row">
-        <div
-          className="col-xl-12 blog-items img"
-          style={{ backgroundImage: `url(${data?.photo})` }}
-        ></div>
-        <div className="col-xl-12 blog-items text">
-          <Title variant="h5" component="h5" textLeft lineDisable>
-            {data?.title}
-          </Title>
-          <Text fontSize="10pt">{data?.detail}</Text>
-          <LabelText label="Yazar:" fontSize="0.8rem">
-            {data?.description}
-          </LabelText>
-          <Button
-            perspective
-            className="bl-btn"
-            text="Devamını Oku"
-            onClick={go}
-          />
-        </div>
-      </div>
-    );
-  };
-
-  const bottomBlog = () => {
-    return (
-      <div className="row">
-        <div className="col-xl-12 blog-items text">
-          <Title variant="h5" component="h5" textLeft lineDisable>
-            {data?.title}
-          </Title>
-          <Text fontSize="10pt">{data?.detail}</Text>
-          <LabelText label="Yazar:" fontSize="0.8rem">
-            {data?.description}
-          </LabelText>
-          <Button
-            perspective
-            className="bl-btn"
-            text="Devamını Oku"
-            onClick={go}
-          />
-        </div>
-        <div
-          className="col-xl-12 blog-items img"
-          style={{ backgroundImage: `url(${data?.photo})` }}
-        ></div>
-      </div>
-    );
-  };
   return (
-    <section className="blog-banner">
-      {data?.id && left && leftBlog()}
-      {data?.id && right && rightBlog()}
-      {data?.id && top && topBlog()}
-      {data?.id && bottom && bottomBlog()}
-    </section>
+    <div className="blog-banner row">
+      <div  className={cx("blog-banner__top", {"order-1": !isOrderEven})} >
+        <img src={data?.photo} alt={data?.title} />
+      </div>
+      <div className={cx("blog-banner__bottom", {"order-0": !isOrderEven})} >
+        <div className="blog-banner__title">
+          {data?.title}
+        </div>
+        <div className="blog-banner__detail">{data?.detail}</div>
+        <div className="blog-banner__writer">{data?.writer ? `Yazar : ${data.writer}` : ''}</div>
+        
+        <Button
+            perspective
+            className="bl-btn"
+            text="Devamını Oku"
+            onClick={go}
+          />
+      </div>
+    </div>
   );
 };
 
