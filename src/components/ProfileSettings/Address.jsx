@@ -118,7 +118,13 @@ export default function Address() {
 
   const handleTownChange = (event) => {
     getLocationOfAddress();
-    setFormData({ ...formData, [event.target.name]: event.target.value });
+    setFormData({
+      ...formData,
+      address_detail: null,
+      apt_no: null,
+      build_no: null,
+      [event.target.name]: event.target.value,
+    });
   };
 
   const onPositionChange = (data) => {
@@ -211,7 +217,10 @@ export default function Address() {
     } else {
       setFormData({
         ...formData,
+        address_detail: null,
         town: null,
+        apt_no: null,
+        build_no: null,
         [event.target.name]: event.target.value,
       });
     }

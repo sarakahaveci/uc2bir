@@ -35,7 +35,7 @@ const Info = () => {
           </span>
           <div
             className="contact-header__footer-button"
-            onClick={() => history.push('/login')}
+            onClick={() => history.push('/register')}
           >
             <span className="contact-header__footer-button-text">ÜYE OL</span>
           </div>
