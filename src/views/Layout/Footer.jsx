@@ -1,20 +1,20 @@
-// @ts-nocheck
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
-// @ts-ignore
 import logo from '../../assets/logo.png';
-import {AwesomeIcon, IconLabel, Title} from '../../components';
-import {default as NativeFooter} from '../../components/Footer';
+import { AwesomeIcon, IconLabel, Title } from '../../components';
+import { default as NativeFooter } from '../../components/Footer';
 
-// @ts-ignore
 import downloadRow from '../../components/statics/background/images/download-row.png';
 
 const Footer = () => {
+  const history = useHistory();
+
   return (
     <NativeFooter>
       <div className="item footer-left">
         <div className="logo">
-          <img src={logo} alt="logo"/>
+          <img src={logo} alt="logo" />
         </div>
         <div className="item-lists">
           <div className="list">
@@ -25,8 +25,8 @@ const Footer = () => {
               variant="h6"
               component="h6"
             >
-							321 Hakkında
-						</Title>
+              321 Hakkında
+            </Title>
             <ul></ul>
           </div>
           <div className="list">
@@ -37,10 +37,9 @@ const Footer = () => {
               variant="h6"
               component="h6"
             >
-							Yardım Merkezi
-						</Title>
-            <ul>
-            </ul>
+              Yardım Merkezi
+            </Title>
+            <ul></ul>
           </div>
           <div className="list">
             <Title
@@ -50,10 +49,10 @@ const Footer = () => {
               variant="h6"
               component="h6"
             >
-							Bilgilendirme
-						</Title>
+              Bilgilendirme
+            </Title>
             <ul>
-            <li>
+              <li>
                 <a href="/">Kullanım Koşulları</a>
               </li>
               <li>
@@ -74,9 +73,10 @@ const Footer = () => {
               lineDisable
               variant="h6"
               component="h6"
+              onClick={() => history.push('/contact')}
             >
-							İletişim
-						</Title>
+              İletişim
+            </Title>
             <ul>
               <li>
                 <IconLabel
@@ -108,8 +108,8 @@ const Footer = () => {
               variant="h4"
               component="h4"
             >
-							Populer Tag
-						</Title>
+              Populer Tag
+            </Title>
             <ul>
               <li>
                 <a href="/">DİYETİSYEN</a>

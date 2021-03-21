@@ -52,7 +52,7 @@ body {
 }
 
 .MuiFormHelperText-root.Mui-error.MuiFormHelperText-filled {
-  display: none!important
+  display: none !important;
 }
 
 .MuiPickersToolbar-toolbar,
@@ -186,6 +186,8 @@ body {
 @import './responsive';
 
 @import './message';
+
+@import './contact';
 
 /* bootstrap */
 @import './bootstrap';

@@ -1,0 +1,97 @@
+.contact-header {
+  &__title-wrapper {
+    border-bottom: 1px solid #80808021;
+  }
+
+  &__title {
+    font-size: 3rem;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+  }
+
+  &__subtitle {
+    font-weight: bold;
+    font-size: 3rem;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    color: white;
+    text-align: center;
+  }
+
+  &__contact-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #1a1a1a;
+    text-align: center;
+  }
+
+  &__social-icons-wrapper {
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 10px;
+    border-bottom: 1px solid #80808021;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  &__contact-subtitle {
+    font-size: 11px;
+    color: black;
+    text-align: left;
+  }
+
+  &__map-wrapper {
+    box-shadow: 15px 15px #00b2a945;
+    border-radius: 15px;
+  }
+
+  &__footer-title {
+    font-weight: bold;
+    font-size: 24px;
+    text-align: center;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+
+  &__footer-button {
+    padding: 10px 45px;
+    transform: skew(-20deg);
+    background: transparent;
+    backdrop-filter: blur(5px);
+    --webkit-backdrop-filter: blur(5px);
+    background-color: rgba(255, 255, 255, 0.15);
+    cursor: pointer;
+  }
+
+  &__footer-button-text {
+    display: inline-block;
+    transform: skew(20deg);
+    font-weight: 500;
+    font-size: 15px;
+    text-align: left;
+    color: #fff;
+  }
+
+  &__save-button {
+    @include sm {
+      width: 100%;
+    }
+
+    @include md {
+      margin-left: auto;
+    }
+  }
+
+  .MuiInputBase-input,
+  .MuiInput-input {
+    background-color: #80808021 !important;
+
+    ::before {
+      display: none;
+    }
+
+    ::after {
+      display: none;
+    }
+  }
+}

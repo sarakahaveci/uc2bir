@@ -21,6 +21,7 @@ import Message from 'views/Message';
 import { theme } from 'utils';
 import BlogDetail from 'views/BlogDetail';
 import BlogList from 'views/BlogList';
+import Contact from 'views/Contact';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -69,6 +70,7 @@ const App = () => {
               <Route exact path="/blog-list" component={BlogList} />
 
               <Route exact path="/messages" component={Message} />
+              <Route exact path="/contact" component={Contact} />
               <Route component={NotFoundPage} />
             </Switch>
           </Layout>
