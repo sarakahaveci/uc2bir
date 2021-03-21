@@ -125,7 +125,7 @@ export default function ActivityCard({
         {isWorkPlace ? (
           <>
             <Material.TextField
-              label="branch"
+              label="Aktivite Branşları"
               type="text"
               name="branch"
               changeValue={name}

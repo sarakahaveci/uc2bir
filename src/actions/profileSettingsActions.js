@@ -22,7 +22,7 @@ import {
 } from '../constants';
 import { information } from './authActions';
 
-export const getMyGalleries = () => async (dispatch, getState) => {
+export const getMyGalleries = () => async (dispatch) => {
   const url = `/user/gallery/index/me`;
 
   await dispatch({
@@ -36,7 +36,7 @@ export const getMyGalleries = () => async (dispatch, getState) => {
   });
 };
 
-export const getMyBlogs = () => async (dispatch, getState) => {
+export const getMyBlogs = () => async (dispatch) => {
   const url = `/cms/blog/mine`;
 
   await dispatch({
@@ -50,7 +50,7 @@ export const getMyBlogs = () => async (dispatch, getState) => {
   });
 };
 
-export const getBlogList = (perPage = 10, page = 1) => async (dispatch, getState) => {
+export const getBlogList = (perPage = 10, page = 1) => async (dispatch) => {
   const url = `/cms/blog/list?perPage=${perPage}&page=${page}`;
 
   await dispatch({
@@ -64,7 +64,7 @@ export const getBlogList = (perPage = 10, page = 1) => async (dispatch, getState
   });
 };
 
-export const getBlogDetail = (detail) => async (dispatch, getState) => {
+export const getBlogDetail = (detail) => async (dispatch) => {
   const url = `/cms/blog/detail/${detail}`;
 
   await dispatch({
@@ -130,8 +130,7 @@ export const setPassword = (
 };
 
 export const getProfile = (successCallback, errorCallback) => async (
-  dispatch,
-  getState
+  dispatch
 ) => {
   const url = `/user/profile/detail`;
 
@@ -148,10 +147,7 @@ export const getProfile = (successCallback, errorCallback) => async (
   });
 };
 
-export const getTest = (successCallback, errorCallback) => async (
-  dispatch,
-  getState
-) => {
+export const getTest = (successCallback, errorCallback) => async (dispatch) => {
   const url = `/user/profile/completed-survey`;
 
   await dispatch({
@@ -168,8 +164,7 @@ export const getTest = (successCallback, errorCallback) => async (
 };
 
 export const getTestDetail = (id, successCallback, errorCallback) => async (
-  dispatch,
-  getState
+  dispatch
 ) => {
   const url = `/user/profile/completed-survey/${id}`;
 
@@ -186,10 +181,7 @@ export const getTestDetail = (id, successCallback, errorCallback) => async (
   });
 };
 
-export const getVKI = (successCallback, errorCallback) => async (
-  dispatch,
-  getState
-) => {
+export const getVKI = (successCallback, errorCallback) => async (dispatch) => {
   const url = `/user/profile/vki`;
 
   await dispatch({
@@ -205,11 +197,9 @@ export const getVKI = (successCallback, errorCallback) => async (
   });
 };
 
-export const setVKI = (
-  { ...data },
-  successCallback,
-  errorCallback
-) => async (dispatch) => {
+export const setVKI = ({ ...data }, successCallback, errorCallback) => async (
+  dispatch
+) => {
   const url = '/user/profile/vki';
 
   await dispatch({
@@ -226,7 +216,7 @@ export const setVKI = (
   });
 };
 
-export const getWorkPlaceActivityList = () => async (dispatch, getState) => {
+export const getWorkPlaceActivityList = () => async (dispatch) => {
   const url = `/user/my-class`;
 
   await dispatch({
@@ -240,7 +230,7 @@ export const getWorkPlaceActivityList = () => async (dispatch, getState) => {
   });
 };
 
-export const getAllActivityList = () => async (dispatch, getState) => {
+export const getAllActivityList = () => async (dispatch) => {
   const url = `/cms/activity-field/all`;
 
   await dispatch({
@@ -255,11 +245,13 @@ export const getAllActivityList = () => async (dispatch, getState) => {
 };
 
 export const updateWorkPlaceActivity = (
-  { capacity, price, id, branch },
+  body,
   successCallback,
   errorCallback
-) => async (dispatch, getState) => {
-  const url = `/user/my-class/${id}`;
+) => async (dispatch) => {
+  const url = `/user/my-class/${body?.id}`;
+
+  const { capacity, price, branch } = body;
 
   await dispatch({
     type: HTTP_REQUEST,
@@ -298,7 +290,7 @@ export const addWorkPlaceActivity = (
   });
 };
 
-export const getAllPTBranchList = () => async (dispatch, getState) => {
+export const getAllPTBranchList = () => async (dispatch) => {
   const url = `/cms/branch/all?type=pt&parent_id=0&status=active`;
 
   await dispatch({
@@ -312,7 +304,7 @@ export const getAllPTBranchList = () => async (dispatch, getState) => {
   });
 };
 
-export const getUserPTBranchList = () => async (dispatch, getState) => {
+export const getUserPTBranchList = () => async (dispatch) => {
   const url = `/user/pt-price`;
 
   await dispatch({

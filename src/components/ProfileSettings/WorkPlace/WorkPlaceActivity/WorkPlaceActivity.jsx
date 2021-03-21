@@ -28,18 +28,18 @@ export default function WorkPlaceActivity() {
   const [open, setOpen] = useState(false);
   const [selectedActivity, setSelectedActivity] = useState([]);
 
-  const ableActivityList =
-    data.length === 0
-      ? allList
-      : allList.filter((activity) =>
-          data.find((currentActivity) => currentActivity.id == activity.id)
-        );
+  const ableActivityList = allList.filter(
+    (activity) =>
+      !data.find((currentActivity) => currentActivity.name == activity.name)
+  );
 
-  console.log({ ableActivityList, allList, data });
-
-  useEffect(() => {
+  const getActivityList = () => {
     dispatch(getWorkPlaceActivityList());
     dispatch(getAllActivityList());
+  };
+
+  useEffect(() => {
+    getActivityList();
   }, []);
 
   const selectActivityHandler = (key) => {
@@ -54,7 +54,11 @@ export default function WorkPlaceActivity() {
     dispatch(
       addWorkPlaceActivity(
         { activityIds: selectedActivity },
-        () => setOpen(true),
+        () => {
+          setOpen(true);
+          setShowAddActivity(false);
+          getActivityList();
+        },
         (error) => {
           toast.error('.', {
             position: error,
