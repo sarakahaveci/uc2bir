@@ -22,7 +22,7 @@ const FileUpload = ({
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const onDrop = async (files) => {
+  const onDropAccepted = async (files) => {
     const formData = new FormData();
 
     files.forEach((file) => {
@@ -121,7 +121,11 @@ const FileUpload = ({
   };
 
   const { getRootProps, getInputProps } = useDropzone({
-    onDrop,
+    onDropAccepted,
+    onDropRejected: () =>
+      toast.error('Desteklenmeyen dosya türü', {
+        position: 'bottom-right',
+      }),
     accept: ['image/*', '.pdf'],
   });
 

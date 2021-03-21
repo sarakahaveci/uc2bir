@@ -48,8 +48,8 @@ EditedModal.defaultProps = {
 const CloseIcon = styled(Svg.CloseIcon)`
   svg {
     z-index: 5;
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     position: absolute;
     right: 15px;
     top: 15px;
