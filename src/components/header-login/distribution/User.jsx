@@ -64,9 +64,6 @@ const User = ({ user_name, user_img = null, logOutAction }) => {
     },
   ];
 
-  // eslint-disable-next-line no-console
-  console.log(list);
-
   return (
     <>
       {list.map((val, key) => {

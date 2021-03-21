@@ -16,7 +16,7 @@ const Blog = (props) => {
 
   return (
     <section className={`blog ${props.className}`}>
-      <Title variant="h3" component="h3">
+      <Title variant="h3" component="h3" lineDisable={false} fontWeight={500}>
         Blog
       </Title>
       <Container fluid>

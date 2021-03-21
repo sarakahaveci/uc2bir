@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components/macro';
 import { useSelector } from 'react-redux';
 
-import { Title, Box, Svg } from 'components';
+import { Title, Box } from 'components';
 import DefaultProfileImg from 'assets/default-profile.jpg';
 
 const ChatBoxHeader = () => {
@@ -28,11 +28,6 @@ const ChatBoxHeader = () => {
             {selectedRoomUser?.name}
           </Title>
         </Box>
-
-        <ServiceButton>
-          <Svg.HeadPhoneIcon />
-          Müşteri Hizmetleri
-        </ServiceButton>
       </InnerWrapper>
     </Wrapper>
   );
@@ -55,24 +50,4 @@ const Avatar = styled.img`
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: red;
-`;
-
-const ServiceButton = styled.button`
-  border-radius: 20px;
-  background: #fff;
-  border: 1px solid ${(p) => p.theme.colors.blue};
-  box-shadow: 0px 3px 6px rgba(0, 177, 168, 0.16);
-  padding: 0 15px;
-  color: ${(p) => p.theme.colors.blue};
-  font-weight: 600;
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  height: 40px;
-
-  svg {
-    margin-right: 5px;
-    margin-bottom: 2px;
-  }
 `;
