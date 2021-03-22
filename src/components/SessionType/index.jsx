@@ -1,18 +1,14 @@
-// @ts-nocheck
 import React, { useState, useEffect } from 'react';
-
-import Pt from './PT';
-import Dietitian from './Dietitian';
-
-import * as KEYS from '../../constants/userKeys';
-
+import { Container, Row, Col } from 'react-bootstrap';
 import styled from 'styled-components/macro';
 import { useSelector, useDispatch } from 'react-redux';
-import { getUserKeys } from 'actions';
 
-import image from '../../assets/session-type.jpg';
-import { Container, Row, Col } from 'react-bootstrap';
 import { Text, Title, Svg } from 'components';
+import { getUserKeys } from 'actions';
+import Pt from './PT';
+import * as KEYS from '../../constants/userKeys';
+import Dietitian from './Dietitian';
+import image from '../../assets/session-type.jpg';
 
 const SessionType = () => {
   const dispatch = useDispatch();
@@ -55,6 +51,12 @@ const SessionType = () => {
           name: 'Klinik',
           active: false,
           icon: <Svg.SessionType.Clinic />,
+          create: {
+            key: 'DIETIAN',
+            action: 'DIETIAN',
+            name: 'Klinik ekle+',
+            subPage: 'gym-edit',
+          },
         },
       ];
       return (
@@ -147,7 +149,7 @@ const SessionType = () => {
                 Oturum Türleri
               </Title>
               <Text fontSize="10pt">
-                {'Ders vereceğiniz oturum türlerini seçin.'}
+                Ders vereceğiniz oturum türlerini seçin.
               </Text>
               <Pt icons={icons} setBannerActive={setBannerActive} />
             </Col>
