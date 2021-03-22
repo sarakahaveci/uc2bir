@@ -45,7 +45,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         detail: {
-          ...state.files,
+          ...state.detail,
           isLoading: false,
           error: action.payload,
           isSuccess: false,

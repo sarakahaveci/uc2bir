@@ -49,6 +49,7 @@ const ProfileForms = ({ type }) => {
             position: 'bottom-right',
             autoClose: 2000,
           });
+          setData({});
         }
       )
     );
@@ -60,7 +61,7 @@ const ProfileForms = ({ type }) => {
 
   return (
     <Section>
-      {detail.isSuccess && (
+      {!detail.isLoading && (
         <form onSubmit={onSubmit}>
           <Material.TextField
             label="Adınız Soyadınız"
