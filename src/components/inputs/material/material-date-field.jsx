@@ -37,6 +37,7 @@ const DateField = ({
   settings = false,
   state = {},
   action = () => {},
+  onError = () => {},
 }) => {
   const [selectedDate, setSelectedDate] = useState(
     value ? new Date(moment(value).toDate()) : null
@@ -105,13 +106,13 @@ const DateField = ({
             defaultValue={defaultValue}
             name={name}
             required={required}
+            onError={onError}
             label={label}
             value={selectedDate}
             onChange={(date) => handleDateChange(date, onChange)}
             disabled={disabled}
             KeyboardButtonProps={{
               'aria-label': 'Tarih Gir',
-              onKeyDown: 'Tamam',
             }}
           />
         </>

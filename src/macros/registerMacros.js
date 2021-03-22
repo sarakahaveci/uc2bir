@@ -1,5 +1,4 @@
-import { AwesomeIcon, Svg } from '../components';
-import { genderData } from '../constants/formData';
+import { Svg } from '../components';
 
 export const stepOne = {
   inputs: {
@@ -54,51 +53,6 @@ export const stepTwo = {
     five: '',
     six: '',
   },
-};
-
-export const stepThree = {
-  inputs: {
-    birthday: '',
-    genre: '',
-    /*about: "",
-		city: "",
-		town: "",
-		district: "",
-		address_detail: "",
-		build_no: "",
-		apt_no: "",
-		lat: "",
-		lng: "",*/
-  },
-  uri: `${process.env.REACT_APP_API_URL}/regions`,
-  macro: [
-    {
-      type: 'materialdate',
-      required: true,
-      name: 'birthday',
-      forHtml: 'birthday',
-      text: 'Doğum Tarihi',
-      minDate: '01.01.1945',
-      maxDate: '01.01.2014',
-    },
-    {
-      type: 'select',
-      required: true,
-      name: 'genre',
-      forHtml: 'genre',
-      text: 'Cinsiyet',
-      icon: AwesomeIcon.Gender,
-      items: [...genderData],
-    },
-    /*{
-			type: "text",
-			required: false,
-			name: "about",
-			forHtml: "about",
-			text: "Hakkında",
-			icon: AwesomeIcon.AddressCard
-		},*/
-  ],
 };
 
 export const stepFour = {
