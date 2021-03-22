@@ -48,9 +48,9 @@ export default function Address() {
     setTownList(town);
   }, [town]);
 
-  const getCityAndDistrict = async (city, district) => {
-    await dispatch(getCitiesAndDistict({ city }));
-    await dispatch(getCitiesAndDistict({ district }));
+  const getCityAndDistrict = (city, district) => {
+    dispatch(getCitiesAndDistict({ city }));
+    dispatch(getCitiesAndDistict({ district }));
   };
 
   useEffect(() => {
@@ -142,7 +142,7 @@ export default function Address() {
   };
 
   const updateAddressSuccess = () => {
-    toast.success('Haritadan adres eklenirken bir sorun ile karışlaşıldı', {
+    toast.success('Haritadan adres başarı ile eklendi', {
       position: 'bottom-right',
       autoClose: 3000,
     });
