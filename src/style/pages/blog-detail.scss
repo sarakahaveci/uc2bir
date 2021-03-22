@@ -16,6 +16,15 @@
     }
   }
 
+  &__share-buttons {
+    display: flex;
+    flex-direction: column;
+
+    button {
+      margin-bottom: 10px;
+    }
+  }
+
   &__wrapper {
     margin-bottom: 270px;
 

@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Main, Title, Spinner, BlogCartList, AwesomeIcon } from 'components';
-import styled from 'styled-components/macro';
 import { Col, Container, Row } from 'react-bootstrap';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -33,7 +32,7 @@ const BlogDetail = ({ match }) => {
             </div>
             <Row>
               <Col xs="auto">
-                <ShareButtons>
+                <div className="blog-detail__share-buttons">
                   <Title fontSize="9pt">Paylaş</Title>
                   <FacebookShareButton
                     url={`${window?.location?.origin}/${match?.url}`}
@@ -70,7 +69,7 @@ const BlogDetail = ({ match }) => {
                   >
                     <AwesomeIcon.Linkedin />
                   </LinkedinShareButton>
-                </ShareButtons>
+                </div>
               </Col>
               <Col className="blog-detail__content">
                 <Title variant="h3" component="h3" lineDisable={false}>
@@ -89,31 +88,11 @@ const BlogDetail = ({ match }) => {
           <Spinner />
         )}
       </Container>
-      <Section>
         <Container fluid>
           <BlogCartList blogs={blogs.data.blogs} />
         </Container>
-      </Section>
     </Main>
   );
 };
-
-const ShareButtons = styled.div`
-  width: auto;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-
-  button {
-    margin-bottom: 5px;
-  }
-`;
-
-const Section = styled.section`
-  width: 100%;
-  height: auto;
-  padding: 30px;
-  margin-bottom:270px;
-`;
 
 export default BlogDetail;
