@@ -37,6 +37,7 @@ import {
   faClock,
   faClosedCaptioning,
   faCaretLeft,
+  faEnvelopeOpen,
 } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
@@ -79,4 +80,5 @@ export default {
   Clock: (props) => <FontAwesomeIcon icon={faClock} {...props} />,
   Close: (props) => <FontAwesomeIcon icon={faClosedCaptioning} {...props} />,
   Left: (props) => <FontAwesomeIcon icon={faCaretLeft} {...props} />,
+  Email: (props) => <FontAwesomeIcon icon={faEnvelopeOpen} {...props} />,
 };

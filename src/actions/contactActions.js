@@ -1,4 +1,4 @@
-import { HTTP_REQUEST, SENDE_CONTACT_MESSAGE } from '../constants';
+import { HTTP_REQUEST, SEND_CONTACT_MESSAGE } from '../constants';
 
 export const sendTicket = (body, successCallback, errorCallback) => async (
   dispatch
@@ -11,7 +11,7 @@ export const sendTicket = (body, successCallback, errorCallback) => async (
       method: 'post',
       url,
       body: { ...body },
-      label: SENDE_CONTACT_MESSAGE,
+      label: SEND_CONTACT_MESSAGE,
       callBack: () => successCallback(),
       errorHandler: (error) => errorCallback(error.message),
       transformData: (data) => data.data,
