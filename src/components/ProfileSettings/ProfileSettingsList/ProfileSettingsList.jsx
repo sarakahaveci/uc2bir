@@ -32,8 +32,7 @@ import Notifications from 'components/ProfileSettings/Notifications';
 const trainerAndDietitanData = [
   {
     settingsName: 'Profil',
-    settingsDetails:
-      'Adınız soyadınız, ünvanınız ve diğer bilgilerinizi güncel tutun',
+    settingsDetails: 'Adınız soyadınız diğer bilgilerinizi güncel tutun',
     body: <SettingsForm />,
   },
   {
@@ -73,8 +72,7 @@ const trainerAndDietitanData = [
 const regularUserTabs = [
   {
     settingsName: 'Profil',
-    settingsDetails:
-      'Adınız soyadınız, ünvanınız ve diğer bilgilerinizi güncel tutun',
+    settingsDetails: 'Adınız soyadınız ve diğer bilgilerinizi güncel tutun',
     body: <SettingsForm />,
   },
   {
