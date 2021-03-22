@@ -10,10 +10,10 @@ export default function About() {
   const dispatch = useDispatch();
   const { userInfo, isLoading } = useSelector((state) => state?.profile);
 
-  const [newAbout, setNewAbout] = useState(userInfo?.about);
+  const [newAbout, setNewAbout] = useState('');
 
   useEffect(() => {
-    setNewAbout(userInfo?.about);
+    if (!newAbout) setNewAbout(userInfo?.about);
   }, [userInfo]);
 
   const isFailUpdate = (message) => {
@@ -56,7 +56,7 @@ export default function About() {
       />
       <Box row>
         <hr className="about-hr" />
-        {newAbout?.length !== NaN ? 250 - newAbout?.length : 250}
+        {newAbout ? 250 - newAbout?.length : 250}
         <span
           onClick={handleChangeAbout}
           className={
