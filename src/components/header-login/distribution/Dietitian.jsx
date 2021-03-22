@@ -69,7 +69,7 @@ const Dietitian = ({ user_name, user_img = null, logOutAction }) => {
       name: 'Mesajlarım',
       icon: <Svg.CommentBlack />,
       notify: [],
-      linkPath: TABS.messageproMessagesPathPath,
+      linkPath: TABS.proMessagesPath,
     },
     {
       name: 'Rezervasyonlarım',

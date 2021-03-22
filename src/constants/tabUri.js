@@ -16,5 +16,5 @@ export default {
   blogPath: '/myprofile/settings/blog',
   galleryPath: '/myprofile/settings/gallery',
   notificationPath: '/myprofile/settings/notifications',
-  proMessagesPath: '/myprofile/settings/message',
+  proMessagesPath: '/messages',
 };

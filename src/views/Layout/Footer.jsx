@@ -127,7 +127,7 @@ const Footer = () => {
                 <a href="/">EĞİTMENLER</a>
               </li>
               <li>
-                <a href="/">BOOK</a>
+                <a href="/">BOKS</a>
               </li>
               <li>
                 <a href="/">MEDİTASYON</a>
