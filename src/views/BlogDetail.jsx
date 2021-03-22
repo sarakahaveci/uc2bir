@@ -1,17 +1,10 @@
 import React, { useEffect } from 'react';
-import {
-  Main,
-  Title,
-  Text,
-  Spinner,
-  BlogCartList,
-  AwesomeIcon,
-} from 'components';
-import styled from 'styled-components/macro';
+import { Main, Title, Spinner, BlogCartList, AwesomeIcon } from 'components';
 import { Col, Container, Row } from 'react-bootstrap';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { getBlogDetail } from 'actions';
+import { decode } from 'html-entities';
 
 import {
   FacebookShareButton,
@@ -21,23 +14,26 @@ import {
 } from 'react-share';
 
 const BlogDetail = ({ match }) => {
-  const detail = useSelector((state) => state?.myBlogs?.detail);
-  const blogs = useSelector((state) => state?.myBlogs?.blogs);
   const dispatch = useDispatch();
+  const blogs = useSelector((state) => state?.myBlogs?.blogs);
+  const detail = useSelector((state) => state?.myBlogs?.detail);
 
   useEffect(() => {
     dispatch(getBlogDetail(match?.params?.seo));
-  }, []);
+  }, [match?.params]);
 
   return (
-    <Main className="blog-detail">
-      <Container>
-        <>
+    <Main>
+      <div className="blog-detail">
+        <Container>
           {!detail.isLoading ? (
-            <>
-              <Row style={{ marginTop: 30 }}>
+            <div className="blog-detail__wrapper">
+              <div className="blog-detail__img">
+                <img src={detail?.data?.blog?.photo} />
+              </div>
+              <Row>
                 <Col xs="auto">
-                  <ShareButtons>
+                  <div className="blog-detail__share-buttons">
                     <Title fontSize="9pt">Paylaş</Title>
                     <FacebookShareButton
                       url={`${window?.location?.origin}/${match?.url}`}
@@ -74,55 +70,31 @@ const BlogDetail = ({ match }) => {
                     >
                       <AwesomeIcon.Linkedin />
                     </LinkedinShareButton>
-                  </ShareButtons>
+                  </div>
                 </Col>
-                <Col>
-                  <Row>
-                    <Img src={detail?.data?.blog?.photo}></Img>
-                    <Title variant="h4" component="h4" textAlign="left">
-                      {detail?.data?.blog?.title}
-                    </Title>
-                    <Text>{detail?.data?.blog?.detail}</Text>
-                  </Row>
+                <Col className="blog-detail__content">
+                  <Title variant="h3" component="h3" lineDisable={false}>
+                    {detail?.data?.blog?.title}
+                  </Title>
+                  <div
+                    className="blog-detail__text"
+                    dangerouslySetInnerHTML={{
+                      __html: decode(detail?.data?.blog?.detail),
+                    }}
+                  />
                 </Col>
               </Row>
-            </>
+            </div>
           ) : (
             <Spinner />
           )}
-        </>
-      </Container>
-      <Section>
+        </Container>
         <Container fluid>
           <BlogCartList blogs={blogs.data.blogs} />
         </Container>
-      </Section>
+      </div>
     </Main>
   );
 };
-
-const ShareButtons = styled.div`
-  width: auto;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  padding: 0 30px;
-
-  button {
-    margin-bottom: 5px;
-  }
-`;
-
-const Section = styled.section`
-  width: 100%;
-  height: auto;
-  padding: 30px;
-`;
-
-const Img = styled.img`
-  width: 100%;
-  height: auto;
-`;
-
 
 export default BlogDetail;
