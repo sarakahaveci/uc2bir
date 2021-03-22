@@ -35,7 +35,7 @@ const ProficiencyCollapser = ({
   const extraUserInputs = addedProficiencyKeys.map((key, index) => (
     <Material.TextField
       key={index}
-      value={addedProficiencies[key]}
+      changeValue={addedProficiencies[key]}
       defaultValue={addedProficiencies[key]}
       onBlur={(e) =>
         setAddedProficiencies({
