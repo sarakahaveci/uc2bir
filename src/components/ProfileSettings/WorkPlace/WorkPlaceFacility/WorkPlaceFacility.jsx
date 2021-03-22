@@ -126,7 +126,8 @@ export default function WorkPlaceFacility() {
                 <FacilityCard
                   key={facility.id}
                   name={facility.name}
-                  isAccepted={facility.status === 'success'}
+                  isAccepted={facility.status === 'active'}
+                  status={facility.status}
                 />
               ))
             ) : (

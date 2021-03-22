@@ -3,14 +3,18 @@ import React from 'react';
 import GreenTickIcon from 'assets/green-tick.svg';
 import { Title } from 'components';
 
-export default function FacilityCard({ isAccepted, name = 'Duş' }) {
+export default function FacilityCard({ isAccepted, name = 'Duş', status }) {
   const cardClass = isAccepted
     ? 'facility-card-wrapper'
     : 'facility-card-wrapper not-accepted-card';
 
   const statusTextClass = isAccepted ? 'accepted-text' : 'waiting-accept-text';
 
-  const statusText = isAccepted ? 'Onaylandı' : 'Onay Bekliyor';
+  const statusText = isAccepted
+    ? 'Onaylandı'
+    : status === 'pending'
+    ? 'Onay Bekliyor'
+    : 'Reddedildi';
 
   return (
     <div className={`d-flex mb-2 mr-2 justify-content-between ${cardClass}`}>
