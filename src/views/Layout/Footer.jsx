@@ -25,20 +25,9 @@ const Footer = () => {
               lineDisable
               variant="h6"
               component="h6"
+              onClick={() => history.push('/info')}
             >
               321 Hakkında
-            </Title>
-            <ul></ul>
-          </div>
-          <div className="list">
-            <Title
-              color="white"
-              textAlign="left"
-              lineDisable
-              variant="h6"
-              component="h6"
-            >
-              Yardım Merkezi
             </Title>
             <ul></ul>
           </div>
@@ -153,7 +142,7 @@ const Footer = () => {
                 <a href="/">FİTNES</a>
               </li>
             </ul>
-            <ul className="social">
+            {/*   <ul className="social">
               <li>
                 <a href="/">
                   <AwesomeIcon.Facebook />
@@ -169,7 +158,7 @@ const Footer = () => {
                   <AwesomeIcon.Instagram />
                 </a>
               </li>
-            </ul>
+            </ul> */}
           </div>
         </div>
       </div>

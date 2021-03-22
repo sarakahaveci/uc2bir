@@ -215,6 +215,7 @@ const AddAdress = ({ setSubPage }) => {
                 label="Açık Adres"
                 name="address_detail"
                 icon={AwesomeIcon.Map}
+                changeValue={adressFromMap.address_detail}
                 onChange={(e) =>
                   setFormData({ ...formData, [e.target.name]: e.target.value })
                 }
