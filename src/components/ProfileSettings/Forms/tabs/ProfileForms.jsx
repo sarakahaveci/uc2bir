@@ -16,6 +16,7 @@ const ProfileForms = ({ type }) => {
     (state) => state.profileSettings2.profileDetail
   );
   const [data, setData] = useState({});
+  const [isBirthdaySafe, setIsBirthdaySafe] = useState(false);
 
   const actionGetData = async () => {
     await dispatch(
@@ -120,6 +121,7 @@ const ProfileForms = ({ type }) => {
                 setData({ ...data, [e.target.name]: e.target.value })
               }
               settings="current"
+              onError={(err) => setIsBirthdaySafe(!!err)}
             />
           ) : (
             <Material.MaterialDateField
@@ -134,6 +136,7 @@ const ProfileForms = ({ type }) => {
               settings="current"
               minDate={'01.01.1945'}
               maxDate={'01.01.2013'}
+              onError={(err) => setIsBirthdaySafe(!!err)}
             />
           )}
           <Footer>
@@ -146,7 +149,7 @@ const ProfileForms = ({ type }) => {
               transparentDisabled={
                 Object.keys(data).length === 0 ? true : false
               }
-              disabled={Object.keys(data).length === 0 ? true : false}
+              disabled={Object.keys(data).length === 0 || isBirthdaySafe}
               isLoading={detail.isLoading}
             />
           </Footer>
