@@ -44,7 +44,7 @@ const MessageInfoRow = ({ messageData, userData, unreadMessages }) => {
     >
       <AvatarWrapper>
         <Avatar
-          src={userData.user_profile_image?.path || DefaultProfileImg}
+          src={userData?.user_profile_image?.path || DefaultProfileImg}
           showBorder
         >
           {messageData.user_active && <ActiveCircle />}
@@ -54,7 +54,7 @@ const MessageInfoRow = ({ messageData, userData, unreadMessages }) => {
       <Box col flex={1}>
         <Box row justifyContent="space-between" mb="8px" alignItems="center">
           <Text p="0" color="blue" fontSize="0.9rem" fontWeight="600">
-            {userData.name}
+            {userData?.name ?? 'Müşteri Temsilcisi'}
           </Text>
 
           <MessageDate fontSize="0.9rem" color="dark">

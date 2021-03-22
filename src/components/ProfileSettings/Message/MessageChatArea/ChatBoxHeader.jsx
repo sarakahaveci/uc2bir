@@ -25,7 +25,7 @@ const ChatBoxHeader = () => {
             textAlign="left"
             color="#2c2c2c"
           >
-            {selectedRoomUser?.name}
+            {selectedRoomUser?.name ?? 'Müşteri temsilcisi'}
           </Title>
         </Box>
       </InnerWrapper>

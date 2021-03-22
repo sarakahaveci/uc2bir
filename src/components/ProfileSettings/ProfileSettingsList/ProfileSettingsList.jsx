@@ -92,12 +92,12 @@ const regularUserTabs = [
     settingsDetails: 'Tamamladığınız testlere göz atın',
     body: <ComputedTest />,
   },
-  {
+  /*   {
     settingsName: 'Adresim',
     settingsDetails:
       'Güncel tuttuğunuz adres bilgileriniz ile sporseverler size daha kolay ulaşır.',
     body: <Address />,
-  },
+  }, */
 ];
 
 const workPlaceData = [

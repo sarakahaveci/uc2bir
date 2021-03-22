@@ -10,7 +10,7 @@ import {
   READ_MESSAGE,
 } from '../../constants';
 
-export const getRooms = () => async (dispatch, getState) => {
+export const getRooms = () => async (dispatch) => {
   const url = `/user/message/rooms`;
 
   await dispatch({
@@ -65,7 +65,7 @@ export const updateUserRead = () => async (dispatch, getState) => {
   });
 };
 
-export const getRoomMessages = (roomName) => async (dispatch, getState) => {
+export const getRoomMessages = (roomName) => async (dispatch) => {
   const url = `/user/message/messages`;
 
   await dispatch({
@@ -98,7 +98,7 @@ export const sendMessageToRoom = (
       method: 'POST',
       url,
       label: SEND_MESSAGE,
-      body: { message: message, receiver_id: selectedRoomUser?.id },
+      body: { message: message, receiver_id: selectedRoomUser?.id || 0 },
       callBack: successCallback,
       errorHandler: (error) => errorCallback(error.message),
     },
