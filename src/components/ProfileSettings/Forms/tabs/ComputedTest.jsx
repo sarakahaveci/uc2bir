@@ -1,6 +1,5 @@
 // @ts-nocheck
 import React, { useEffect, useState } from 'react';
-import Section from '../Section';
 import styled from 'styled-components/macro';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -68,10 +67,7 @@ const ComputedTest = () => {
     if (photo) {
       return (
         <A>
-          <img
-            src={`${photo}`}
-            style={{ width: '100%', display: 'block' }}
-          />
+          <img src={`${photo}`} style={{ width: '100%', display: 'block' }} />
         </A>
       );
     }
@@ -119,7 +115,7 @@ const ComputedTest = () => {
   }, []);
 
   return (
-    <Section>
+    <section>
       {test.isSuccsess && (
         <div className="text-field__Materials-sc-1sjbx6i-0 KPGYc materials">
           <div
@@ -209,7 +205,7 @@ const ComputedTest = () => {
           </DialogContent>
         </Dialog>
       </React.Fragment>
-    </Section>
+    </section>
   );
 };
 

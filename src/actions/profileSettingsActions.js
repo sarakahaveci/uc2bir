@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify';
+
 import {
   HTTP_REQUEST,
   SET_PROFILE_UPDATE,
@@ -130,9 +132,7 @@ export const setPassword = (
   });
 };
 
-export const getProfile = (successCallback, errorCallback) => async (
-  dispatch
-) => {
+export const getProfile = (successCallback) => async (dispatch) => {
   const url = `/user/profile/detail`;
 
   await dispatch({
@@ -143,7 +143,11 @@ export const getProfile = (successCallback, errorCallback) => async (
       label: GET_PROFILE_UPDATE,
       transformData: (data) => data.data,
       callBack: () => successCallback(),
-      errorHandler: () => errorCallback(),
+      errorHandler: () =>
+        toast.error('Profil Bilgileri Getirilemedi.', {
+          position: 'bottom-right',
+          autoClose: 2000,
+        }),
     },
   });
 };

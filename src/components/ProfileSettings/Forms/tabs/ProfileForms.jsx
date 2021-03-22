@@ -1,6 +1,4 @@
-// @ts-nocheck
 import React, { useEffect, useState } from 'react';
-import Section from '../Section';
 
 import { Material, Button } from 'components';
 import { genderData } from 'constants/formData';
@@ -59,7 +57,7 @@ const ProfileForms = ({ type }) => {
   }, []);
 
   return (
-    <Section>
+    <section>
       {detail.isSuccess && (
         <form onSubmit={onSubmit}>
           <Material.TextField
@@ -155,7 +153,7 @@ const ProfileForms = ({ type }) => {
           </Footer>
         </form>
       )}
-    </Section>
+    </section>
   );
 };
 

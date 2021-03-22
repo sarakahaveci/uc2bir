@@ -34,6 +34,7 @@ const ProficiencyCollapser = ({
 
   const extraUserInputs = addedProficiencyKeys.map((key, index) => (
     <Material.TextField
+      id={index}
       key={index}
       changeValue={addedProficiencies[key]}
       defaultValue={addedProficiencies[key]}

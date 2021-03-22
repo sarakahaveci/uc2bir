@@ -1,6 +1,5 @@
 // @ts-nocheck
 import React, { useEffect, useState } from 'react';
-import Section from './Section';
 
 import { Material, Button } from 'components';
 import styled from 'styled-components/macro';
@@ -66,7 +65,7 @@ const VKI = () => {
   }, [vki.isSuccess]);
 
   return (
-    <Section>
+    <section>
       {vki.isSuccess && (
         <form onSubmit={onSubmit}>
           <Material.TextField
@@ -110,7 +109,7 @@ const VKI = () => {
           </Footer>
         </form>
       )}
-    </Section>
+    </section>
   );
 };
 
