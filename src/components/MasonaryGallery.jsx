@@ -6,18 +6,11 @@ import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import search from './statics/svg/images/plus.svg';
+import BluePlusIcon from 'assets/blue-plus.svg';
 
 import closeIcon from './statics/svg/images/big-close.svg';
 import tickIcon from './statics/svg/images/tick.svg';
-import {
-  Text,
-  Span,
-  PlusButton,
-  Title,
-  AwesomeIcon,
-  Button,
-  Svg,
-} from 'components';
+import { Text, Span, PlusButton, Title, AwesomeIcon, Button } from 'components';
 import { Row } from 'react-bootstrap';
 import { default as MaterialButton } from '@material-ui/core/Button';
 
@@ -321,20 +314,18 @@ const MasonaryGallery = ({
       )}
       {activePage === 'create' && (
         <Div padding={15}>
-          <Button
-            text="Video Yükle"
-            style={{ border: '1px solid var(--blue)' }}
-            fontSize="11pt"
-            onClick={() => setActivePage('action-video')}
-            color="blue"
-          />
-          <Button
-            text="Fotoğraf Yükle"
-            style={{ border: '1px solid var(--blue)', marginLeft: '15px' }}
+          <AddButton onClick={() => setActivePage('action-video')}>
+            <img src={BluePlusIcon} alt="" width="25px" height="25px" />
+            <Button text="Video Yükle" fontSize="11pt" color="blue" />
+          </AddButton>
+
+          <AddButton
+            style={{ marginLeft: '10px' }}
             onClick={() => setActivePage('action')}
-            fontSize="11pt"
-            color="blue"
-          />
+          >
+            <img src={BluePlusIcon} alt="" width="25px" height="25px" />
+            <Button text="Fotoğraf Yükle" fontSize="11pt" color="blue" />
+          </AddButton>
         </Div>
       )}
       {activePage === 'action' && (
@@ -343,12 +334,17 @@ const MasonaryGallery = ({
             <>
               <Button text="< Geri" onClick={() => setActivePage('index')} />
               <MaterialButton
+                style={{
+                  border: '1px solid var(--blue)',
+                  backgroundColor: 'transparent',
+                  color: '#00b2a9',
+                  fontSize: '14px',
+                  fontWeight: 'bold',
+                }}
                 variant="contained"
-                color="default"
                 component="label"
-                startIcon={<Svg.Pencil />}
               >
-                Fotoğraf Yükle
+                Bilgisayarımdan Yükle
                 <input
                   type="file"
                   hidden
@@ -455,6 +451,7 @@ const Div = styled.div`
   padding: ${(props) => `${props.padding}px`};
   position: relative;
   cursor: pointer;
+  display: flex;
 
   .img {
     position: relative;
@@ -489,6 +486,16 @@ const Icon = styled.a`
   background-size: cover;
   right: -15px;
   top: ${(props) => props.top};
+`;
+
+const AddButton = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 150px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 10px;
 `;
 
 const StyledCategories = styled.ul`
