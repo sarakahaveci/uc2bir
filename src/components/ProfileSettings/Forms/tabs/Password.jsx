@@ -1,13 +1,10 @@
-// @ts-nocheck
 import React, { useState } from 'react';
-import Section from '../../../profile-form-collections/Section';
-
-import { Material, Svg, Button } from 'components';
-
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-import { setPassword } from 'actions';
 import styled from 'styled-components/macro';
+
+import { setPassword } from 'actions';
+import { Material, Svg, Button } from 'components';
 
 const Password = (props) => {
   const dispatch = useDispatch();
@@ -23,11 +20,6 @@ const Password = (props) => {
           toast.success('Şifreniz güncellendi.', {
             position: 'bottom-right',
             autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
           });
           setData({});
         },
@@ -35,11 +27,6 @@ const Password = (props) => {
           toast.error('Güncelleme işlemi yapılamadı.', {
             position: 'bottom-right',
             autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
           });
         }
       )
@@ -66,7 +53,7 @@ const Password = (props) => {
   };
 
   return (
-    <Section>
+    <section>
       <form onSubmit={onSubmit}>
         <Material.TextField
           required
@@ -115,7 +102,7 @@ const Password = (props) => {
         </Footer>
       </form>
       {props.children}
-    </Section>
+    </section>
   );
 };
 

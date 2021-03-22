@@ -1,52 +1,50 @@
-// @ts-nocheck
 import React, { useEffect, useState } from 'react';
-import Section from '../Section';
+import { useSelector, useDispatch } from 'react-redux';
+import styled from 'styled-components/macro';
+import { toast } from 'react-toastify';
 
 import { Material, Button } from 'components';
-import styled from 'styled-components/macro';
-
-import { useSelector, useDispatch } from 'react-redux';
-import { toast } from 'react-toastify';
 import { getProfile, setProfile, verifyCode } from 'actions';
 import { unMaskPhone } from 'utils';
 import { StepTwo } from 'views/Register/steps';
 
 const ProfileForms = () => {
-  const dispatch = useDispatch();
   const { detail } = useSelector(
     (state) => state?.profileSettings2?.profileDetail
   );
-  const [phone, setPhone] = useState(unMaskPhone(detail?.data?.phone));
+
+  const [phone, setPhone] = useState();
   const [modal, setModal] = useState(false);
 
+  const dispatch = useDispatch();
+
+  const unMaskedPhone = unMaskPhone(phone);
+
   useEffect(() => {
-    setPhone(unMaskPhone(detail?.data?.phone));
-  },[detail]);
+    dispatch(getProfile());
+  }, []);
 
-  const actionGetData = async () => {
-    await dispatch(
-      getProfile(
-        () => {},
-        () => {
-          toast.error('Profil Bilgileri Getirilemedi.', {
-            position: 'bottom-right',
-            autoClose: 2000,
-          });
-        }
-      )
-    );
-  };
+  useEffect(() => {
+    setPhone(unMaskedPhone);
+  }, [detail]);
 
-  const newAction = () => {
+  // If phone is same with current phone or its length is less than it has to be then it is invalid.
+  const invalidPhoneNumber =
+    detail?.data?.phone === unMaskedPhone ||
+    unMaskedPhone.toString().length < 11;
+
+  const editPhoneHandler = () =>
     dispatch(
       setProfile(
-        { phone: unMaskPhone(phone) },
+        { phone: unMaskedPhone },
         () => {
           toast.success('Bilgileriniz güncellendi.', {
             position: 'bottom-right',
             autoClose: 2000,
           });
+
           setPhone();
+
           setModal(false);
         },
         () => {
@@ -57,11 +55,11 @@ const ProfileForms = () => {
         }
       )
     );
-  };
 
   const onSubmit = (event) => {
     event.preventDefault();
-    if (detail?.data?.phone !== unMaskPhone(phone))
+
+    if (detail?.data?.phone !== unMaskedPhone)
       dispatch(
         verifyCode(
           { phone },
@@ -75,12 +73,8 @@ const ProfileForms = () => {
       );
   };
 
-  useEffect(() => {
-    actionGetData();
-  }, []);
-
   return (
-    <Section>
+    <section>
       {detail.isSuccess && (
         <form onSubmit={onSubmit}>
           <Material.TextField
@@ -98,8 +92,8 @@ const ProfileForms = () => {
               text="KAYDET"
               fontSize="15px"
               color="blue"
-              transparentDisabled={detail?.data?.phone !== unMaskPhone(phone) ? false : true}
-              disabled={detail?.data?.phone !== unMaskPhone(phone) ? false : true}
+              transparentDisabled={invalidPhoneNumber}
+              disabled={invalidPhoneNumber}
               isLoading={detail.isLoading}
             />
           </Footer>
@@ -107,14 +101,14 @@ const ProfileForms = () => {
       )}
       {modal && (
         <StepTwo
-          newAction={newAction}
+          newAction={editPhoneHandler}
           phone={phone}
           count={120}
           modal={modal}
           setModal={setModal}
         />
       )}
-    </Section>
+    </section>
   );
 };
 

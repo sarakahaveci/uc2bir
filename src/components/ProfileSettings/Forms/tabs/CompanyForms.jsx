@@ -1,6 +1,5 @@
 // @ts-nocheck
 import React, { useEffect, useState } from 'react';
-import Section from '../Section';
 
 import { Material, Button } from 'components';
 import styled from 'styled-components/macro';
@@ -57,7 +56,7 @@ const ProfileForms = ({ type }) => {
   };
 
   return (
-    <Section>
+    <section>
       {detail.isSuccess && (
         <form onSubmit={onSubmit}>
           {(type === 'PERSONAL_TRAINER' || 'WORK_PLACE') && (
@@ -113,7 +112,7 @@ const ProfileForms = ({ type }) => {
           )}
         </form>
       )}
-    </Section>
+    </section>
   );
 };
 

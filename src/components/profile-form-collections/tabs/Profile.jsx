@@ -1,7 +1,4 @@
-// @ts-nocheck
 import React, { useEffect } from 'react';
-import Section from '../Section';
-
 import { Material } from 'components';
 import { genderData } from '../../../constants/formData';
 
@@ -59,7 +56,7 @@ const Profile = ({ about = false, st = true }) => {
 
   if (about) {
     return (
-      <Section>
+      <section>
         {detail.isSuccess && (
           <>
             <Material.TexAreaField
@@ -73,11 +70,11 @@ const Profile = ({ about = false, st = true }) => {
             />
           </>
         )}
-      </Section>
+      </section>
     );
   } else {
     return (
-      <Section>
+      <section>
         {detail.isSuccess && (
           <>
             <Material.TextField
@@ -141,7 +138,7 @@ const Profile = ({ about = false, st = true }) => {
             />
           </>
         )}
-      </Section>
+      </section>
     );
   }
 };

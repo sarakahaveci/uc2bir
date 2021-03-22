@@ -43,11 +43,6 @@ const StepTwo = (props) => {
     toast.error('Mesaj gönderilirken hata oluştu...', {
       position: 'bottom-right',
       autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
     });
   };
 
@@ -55,11 +50,6 @@ const StepTwo = (props) => {
     toast.success('Kayıt alındı.', {
       position: 'bottom-right',
       autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
       onClose: setSteps('step3'),
     });
   };
@@ -67,11 +57,6 @@ const StepTwo = (props) => {
     toast.error('Kod doğrulanamadı...', {
       position: 'bottom-right',
       autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
     });
   };
 
