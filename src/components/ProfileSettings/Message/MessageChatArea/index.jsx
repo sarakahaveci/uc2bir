@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
-import { splitDateFromIsoDate } from 'utils';
-import { getRoomMessages, sendMessageToRoom } from 'actions';
+import { ISOToTimeConverter } from 'utils';
+import { getRoomMessages, sendMessageToRoom, getRooms } from 'actions';
 import MessageRow from './MessageRow';
 import ChatBoxHeader from './ChatBoxHeader';
 import DefaultProfileImg from 'assets/default-profile.jpg';
@@ -36,6 +36,7 @@ export default function MessageArea() {
           () => {
             setMessage('');
             dispatch(getRoomMessages(selectedRoomName));
+            dispatch(getRooms());
           },
           (message) => toast.error(message)
         )
@@ -49,13 +50,13 @@ export default function MessageArea() {
       <div className="message-page__message__wrapper">
         <div className="message-page__chat__row">
           {allMessages?.map((message, index) => {
-            const { hour, minute } = splitDateFromIsoDate(message.created_at);
+            const time = ISOToTimeConverter(message.created_at);
             const photo = selectedRoomUser?.photo || DefaultProfileImg;
 
             return (
               <MessageRow
                 key={index}
-                time={hour + ':' + minute}
+                time={time}
                 message={message?.message}
                 isMyMessage={message?.sender_id === user?.id}
                 senderProfileAvatar={photo}

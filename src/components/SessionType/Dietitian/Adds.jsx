@@ -4,7 +4,7 @@ import { getGeocode } from 'use-places-autocomplete';
 import { Svg } from 'components';
 import BluePlusIcon from 'assets/blue-plus.svg';
 
-import AddAdress from './AddAdress';
+import AddAdress from '../AddAdress';
 import Edit from './Edit';
 
 const Adds = ({ icons }) => {

@@ -29,11 +29,6 @@ export default function WorkPlaceActivity() {
   const [open, setOpen] = useState(false);
   const [selectedActivity, setSelectedActivity] = useState([]);
 
-  const ableActivityList = allList.filter(
-    (activity) =>
-      !data.find((currentActivity) => currentActivity.name == activity.name)
-  );
-
   const getActivityList = () => {
     dispatch(getWorkPlaceActivityList());
     dispatch(getAllActivityList());
@@ -59,6 +54,7 @@ export default function WorkPlaceActivity() {
         () => {
           setOpen(true);
           setShowAddActivity(false);
+          setSelectedActivity([]);
           getActivityList();
         },
         (error) => {
@@ -129,7 +125,8 @@ export default function WorkPlaceActivity() {
                 <ActivityCard
                   key={activity.id}
                   id={activity.id}
-                  isAccepted={activity?.status !== 'pending'}
+                  isAccepted={activity?.status === 'active'}
+                  status={activity?.status}
                   name={activity?.name}
                   isWorkPlace
                   capacity={activity?.capacity}
@@ -139,7 +136,7 @@ export default function WorkPlaceActivity() {
               ))
             ) : (
               <>
-                {ableActivityList?.map((facility) => (
+                {allList?.map((facility) => (
                   <SelectiveButton
                     key={facility.id}
                     id={facility.id}

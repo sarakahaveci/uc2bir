@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 import { getGeocode } from 'use-places-autocomplete';
 import { Svg } from 'components';
 
-import AddAdress from './AddAdress';
+import AddAdress from '../AddAdress';
 import AddGym from './AddGym';
 import Edit from './Edit';
 import GYMEdit from './GYMEdit';

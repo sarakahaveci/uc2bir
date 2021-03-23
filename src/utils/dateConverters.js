@@ -3,8 +3,8 @@ import format from 'date-fns/format';
 import tr from 'date-fns/locale/tr';
 
 export const ISOToTimeConverter = (value) => {
-  const hours = getHours(new Date(value));
-  const minutes = getMinutes(new Date(value));
+  let hours = `0${getHours(new Date(value))}`.slice(-2);
+  let minutes = `0${getMinutes(new Date(value))}`.slice(-2);
 
   return `${hours}:${minutes}`;
 };

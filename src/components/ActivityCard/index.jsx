@@ -22,6 +22,7 @@ export default function ActivityCard({
   branch_id,
   statusId,
   waitingPrice,
+  status,
 }) {
   const dispatch = useDispatch();
   const { data: registerData } = useSelector((state) => state.registerData);
@@ -35,7 +36,22 @@ export default function ActivityCard({
 
   const statusTextClass = isAccepted ? 'accepted-text' : 'waiting-accept-text';
 
-  const statusText = isAccepted ? 'Onaylandı' : 'Onay Bekliyor';
+  let statusText;
+
+  switch (status) {
+    case 'pending':
+      statusText = 'Onay Bekliyor';
+      break;
+    case active:
+      statusText = 'Onaylandı';
+      break;
+    case passive:
+      statusText = 'Reddedildi';
+      break;
+
+    default:
+      break;
+  }
 
   const PTstatusText = registerData?.['global-status']?.find(
     (globalStatus) => globalStatus.id === statusId

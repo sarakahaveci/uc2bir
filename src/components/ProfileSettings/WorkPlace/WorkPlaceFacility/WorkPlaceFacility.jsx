@@ -35,9 +35,13 @@ export default function WorkPlaceFacility() {
   );
 
   const isSuccessAddNewFacilitiesCallback = () => {
-    dispatch(getMyProfileFacilities());
-    toast.success('Başarı ile eklendi');
+    toast.success('Başarı ile eklendi', {
+      position: 'bottom-right',
+      delay: 2000,
+    });
     setShowAddFacilty(false);
+    setSelectedFacilty([]);
+    dispatch(getMyProfileFacilities());
   };
 
   const submitNewFacilities = () => {

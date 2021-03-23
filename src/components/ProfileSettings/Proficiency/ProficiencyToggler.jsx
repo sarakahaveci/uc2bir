@@ -21,7 +21,7 @@ const ProficiencyToggler = ({
   return (
     <ToggleRow isActive={isActive}>
       <div className="proficiency-row__left-wrapper">
-        <img src={data.icon} alt={data.name} />
+        <img src={data.icon} alt={data.name} className="proficiency-row__img" />
 
         <Text
           letterSpacing="2px"
