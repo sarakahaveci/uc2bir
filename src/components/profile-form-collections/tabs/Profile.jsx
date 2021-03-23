@@ -4,7 +4,7 @@ import { genderData } from '../../../constants/formData';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-import { getProfile, setProfile } from 'actions';
+import { setProfile } from 'actions';
 import { unMaskPhone } from 'utils';
 
 const Profile = ({ about = false, st = true }) => {
@@ -12,10 +12,6 @@ const Profile = ({ about = false, st = true }) => {
   const { detail } = useSelector(
     (state) => state.profileSettings2.profileDetail
   );
-
-  const actionGetData = async () => {
-    dispatch(getProfile());
-  };
 
   const actionSetData = async (name, value) => {
     if (name === 'phone') {

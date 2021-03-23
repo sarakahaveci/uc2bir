@@ -22,8 +22,10 @@ import {
   GET_BLOGS,
   GET_BLOGS_DETAIL,
   GET_ALL_ACTIVITY_BRANCH_LIST,
+  SET_USER_DETAILS,
 } from '../constants';
 import { information } from './authActions';
+import { localStorage } from 'utils';
 
 export const getMyGalleries = () => async (dispatch) => {
   const url = `/user/gallery/index/me`;
@@ -132,8 +134,13 @@ export const setPassword = (
   });
 };
 
-export const getProfile = (successCallback = () => {}) => async (dispatch) => {
+export const getProfileDetails = (successCallback = () => {}) => async (
+  dispatch,
+  getState
+) => {
   const url = `/user/profile/detail`;
+
+  const { accessToken, refreshToken } = getState().auth;
 
   await dispatch({
     type: HTTP_REQUEST,
@@ -142,7 +149,22 @@ export const getProfile = (successCallback = () => {}) => async (dispatch) => {
       url,
       label: GET_PROFILE_UPDATE,
       transformData: (data) => data.data,
-      callBack: () => successCallback(),
+      callBack: (data) => {
+        successCallback();
+
+        const userData = {
+          user: data.data,
+          accessToken,
+          refreshToken,
+        };
+
+        dispatch({
+          type: SET_USER_DETAILS,
+          payload: userData.user,
+        });
+
+        localStorage.set('auth', userData);
+      },
       errorHandler: () =>
         toast.error('Profil Bilgileri Getirilemedi.', {
           position: 'bottom-right',
