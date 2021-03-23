@@ -26,7 +26,7 @@ const TopPromotion = ({ className, background, children }) => {
             >
               Başarmak İçİn sen de hemen başla!
             </Title>
-            <p>
+            <p className="mb-5">
               Spor için tutku, özgürlük, motivasyon, enerji; Forma Girmek için
               heves, istikrar, profesyonel destek; Grup Motivasyonu için ortak
               hedefler, beraberlikten gelen itici güç! Unutma hedeflerini ancak

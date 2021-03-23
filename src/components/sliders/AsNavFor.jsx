@@ -27,6 +27,7 @@ export default function AsNavFor({ className }) {
       <Slider
         className="as-nav-for__main"
         asNavFor={nav2}
+        arrows={false}
         ref={(slider) => (slider1 = slider)}
       >
         {sliderItems.map((item, i) => (
@@ -45,6 +46,7 @@ export default function AsNavFor({ className }) {
         autoplay={true}
         autoplaySpeed={7500}
         speed={2000}
+        arrows={false}
       >
         {sliderItems.map((item, i) => (
           <div key={i} className="as-nav-for__thump__item">

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import cx from 'classnames';
@@ -6,7 +5,6 @@ import cx from 'classnames';
 import Title from 'components/typography/Titles';
 import SliderFocus from 'components/sliders/SliderFocus';
 
-//mocdata
 import * as Data from './MocData';
 
 const PT = ({className}) => {
