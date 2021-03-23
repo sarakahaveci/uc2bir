@@ -24,7 +24,7 @@ const TopPromotion = ({className,background,children}) => {
               textLeft
               fontWeight="600"
             >
-              başarmak İçİn başla!
+              Başarmak İçİn sen de hemen başla!
             </Title>
           </div>
           <div className="slider-p0 col-lg-6 d-flex">
