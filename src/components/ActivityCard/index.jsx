@@ -42,10 +42,10 @@ export default function ActivityCard({
     case 'pending':
       statusText = 'Onay Bekliyor';
       break;
-    case active:
+    case 'active':
       statusText = 'Onaylandı';
       break;
-    case passive:
+    case 'passive':
       statusText = 'Reddedildi';
       break;
 
