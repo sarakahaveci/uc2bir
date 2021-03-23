@@ -6,7 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import { Button, Otp } from '../../../components';
+import { Button, Otp, Box } from '../../../components';
 
 import { toast } from 'react-toastify';
 
@@ -170,18 +170,18 @@ const StepTwo = (props) => {
                     text={`Güvenlik kodunu tekrar gönder.`}
                   />
                 )}
-
-                {!getStepTwo.isLoading ? (
-                  <Button
-                    type="submit"
-                    text={`İleri`}
-                    className="blue"
-                    disabled={!(typeof code === 'number')}
-                  />
-                ) : (
-                  <Button className="blue" text={`Lütfen Bekleyiniz...`} />
-                )}
-                <div style={{ margin: 30 }}></div>
+                <Box center width="100%" my="15px">
+                  {!getStepTwo.isLoading ? (
+                    <Button
+                      type="submit"
+                      text={`İleri`}
+                      className="blue"
+                      disabled={!(typeof code === 'number')}
+                    />
+                  ) : (
+                    <Button className="blue" text={`Lütfen Bekleyiniz...`} />
+                  )}
+                </Box>
               </form>
             </div>
           </DialogContent>
