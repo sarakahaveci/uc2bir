@@ -38,7 +38,7 @@ const Footer = () => {
               className="cp"
               onClick={() => history.push('/info')}
             >
-              321 Hakkında
+              üç2bir Hakkında
             </Title>
             <Title
               color="white"
@@ -121,7 +121,7 @@ const Footer = () => {
         <div className="item">
           <div className="item-lists">
             <Title color="#00b2a9" textAlign="left" lineDisable fontSize="28px">
-              Populer Tag
+              Populer Etiketler
             </Title>
             <ul>
               {data.map((tag) => (
