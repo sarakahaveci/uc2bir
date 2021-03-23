@@ -20,7 +20,7 @@ const mockData = {
       link: '/',
     },
     {
-      text: 'Plates',
+      text: 'Pilates',
       link: '/',
     },
     {

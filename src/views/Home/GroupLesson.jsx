@@ -45,7 +45,7 @@ const GroupLesson = (props) => {
     },
     {
       id: 6,
-      name: 'Palates',
+      name: 'Pilates',
       activeClass: '',
       link: '#all',
     },

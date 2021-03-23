@@ -50,7 +50,7 @@ const GYM = ({ top = false, bottom = false, val }) => {
                 <Button text="Box" />
               </li>
               <li>
-                <Button text="Plates" />
+                <Button text="Pilates" />
               </li>
               <li>
                 <Button text="Fitnes" />
