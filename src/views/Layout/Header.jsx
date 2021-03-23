@@ -10,6 +10,7 @@ import logo from '../../assets/logo.png';
 import { AwesomeIcon, IconLabel, Button, HeaderLogin } from '../../components';
 
 const Header = () => {
+  const { infoData } = useSelector((state) => state.footer);
   const { isAuthenticated, user } = useSelector((state) => state.auth);
   const history = useHistory();
 
@@ -35,20 +36,19 @@ const Header = () => {
                   <IconLabel
                     href="mailto:info@uc2bir.com"
                     className="icon-label"
-                    text="info@uc2bir.com"
+                    text={infoData?.general?.email}
                     icon={AwesomeIcon.Envolope}
                   />
                 </li>
-                {/* 
-                  <li>
+
+                <li>
                   <IconLabel
-                    href="tel:05XXXXXXXXX"
                     className="icon-label"
-                    text="05XX XXX XX XX"
+                    text={infoData?.general?.phone}
                     icon={AwesomeIcon.Phone}
                   />
-                  </li>
-                */}
+                </li>
+
                 <li
                   onClick={() => setToggle(!toggle)}
                   className="d-xl-none dropdown flex-column"

@@ -13,9 +13,13 @@ import TwitterIcon from 'assets/twitter.svg';
 
 export default function Contact() {
   const { isAuthenticated } = useSelector((state) => state.auth);
+  const { infoData } = useSelector((state) => state.footer);
+
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({});
+
+  const Cordinate = infoData?.general?.coordinates?.split(',');
 
   const handleFormOnChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -58,17 +62,22 @@ export default function Contact() {
           <div className="mb-3 w-50 ml-auto">
             <span className="contact-header__contact-title">Adres</span>
             <p className="contact-header__contact-subtitle">
-              3. Levent mah. Şakayıklı sok. No:4 34330 Beşiktaş,İST
+              {infoData?.general?.address}
             </p>
           </div>
           <div className="w-50 ml-auto">
             <span className="contact-header__contact-title">İletişim</span>
-            <p className="contact-header__contact-subtitle">info@uc2bir.com</p>
+            <p className="contact-header__contact-subtitle">
+              {infoData?.general?.email}
+            </p>
           </div>
         </div>
         <div className="col-md-8 col-sm-12 contact-header__map-wrapper">
           <GoogleMap
-            locationFromUser={{ lat: 41.084423, lng: 29.014613 }}
+            locationFromUser={{
+              lat: +Cordinate?.[0],
+              lng: +Cordinate?.[1],
+            }}
             disabled
           />
         </div>

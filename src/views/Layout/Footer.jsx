@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getFooterTags } from 'actions';
+import { getFooterTags, getFooterInfo } from 'actions';
 import logo from 'assets/logo.png';
 import { AwesomeIcon, IconLabel, Title } from 'components';
 import { default as NativeFooter } from 'components/Footer';
@@ -14,10 +14,11 @@ const Footer = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const { data } = useSelector((state) => state.footer);
+  const { data, infoData } = useSelector((state) => state.footer);
 
   useEffect(() => {
     dispatch(getFooterTags());
+    dispatch(getFooterInfo());
   }, []);
 
   return (
@@ -79,24 +80,23 @@ const Footer = () => {
             <ul className="footer-contact__wrapper">
               <li>
                 <IconLabel
-                  href="tel:02120234231"
                   className="icon-label"
-                  text="02120234231"
+                  text={infoData?.general?.phone}
                   icon={AwesomeIcon.Phone}
                 />
               </li>
               <li>
                 <IconLabel
-                  href="mailto:info@321.com"
+                  href={`mailto:${infoData?.general?.email}`}
                   className="icon-label"
-                  text="info@321.com"
+                  text={infoData?.general?.email}
                   icon={AwesomeIcon.Email}
                 />
               </li>
               <li className="w-75">
                 <IconLabel
                   className="icon-label"
-                  text="3. Levent mah. Şakayıklı sok. No:4 34330 Beşiktaş,İSTANBUL"
+                  text={infoData?.general?.address}
                   icon={AwesomeIcon.Map}
                 />
               </li>
@@ -152,7 +152,7 @@ const Footer = () => {
       </div>
       <div className="footer-line"></div>
       <div className="footer-and">
-        <pre>©2020 321. All Rights Reserved</pre>
+        <pre>©2021 uc2bir All Rights Reserved</pre>
         <div className="download-row">
           <ul
             className="download-row"
