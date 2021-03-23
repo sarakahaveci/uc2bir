@@ -20,7 +20,7 @@ const RegisterSteps = ({ userTypeId, setUserTypeId }) => {
   let stepCount;
 
   if (userTypeId === WORK_PLACE) {
-    stepCount = 8;
+    stepCount = 7;
   } else if (userTypeId === PERSONAL_TRAINER) {
     stepCount = 10;
   } else {

@@ -16,6 +16,7 @@ import {
   USER_INFORMATION_REQUEST,
   USER_INFORMATION_SUCCESS,
   USER_INFORMATION_FAILURE,
+  SET_USER_DETAILS,
 } from '../constants';
 
 const initialState = {
@@ -71,6 +72,12 @@ export default (state = initialState, action) => {
         isLoading: false,
         error: null,
         isAuthenticated: false,
+      };
+
+    case SET_USER_DETAILS:
+      return {
+        ...state,
+        user: action.payload,
       };
 
     case LOGIN_FAILURE:

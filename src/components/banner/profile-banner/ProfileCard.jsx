@@ -56,6 +56,8 @@ const ProfileCard = ({
         setLoading(false);
       })
       .catch(function () {
+        setLoading(false);
+
         toast.error('Dosya gönderilemedi.', {
           position: 'bottom-right',
           autoClose: 2000,
@@ -89,7 +91,7 @@ const ProfileCard = ({
             }}
           />
         ) : (
-          <Spinner />
+          <Spinner type="static" />
         )}
       </span>
 

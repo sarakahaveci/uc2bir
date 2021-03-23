@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import {
   Tab,
@@ -13,6 +13,7 @@ import {
   Blog,
   CancellationReason,
 } from 'components';
+import { getProfileDetails } from 'actions';
 import { USER, PERSONAL_TRAINER, WORK_PLACE, DIETITIAN } from '../../constants';
 import Trainers from 'components/ProfileSettings/WorkPlace/Trainers/Trainers';
 import profileImg from '../../assets/banner/slider-item-1.png';
@@ -270,7 +271,13 @@ const trainerTabs = [
 ];
 
 export default function UserProfile({ match }) {
+  const dispatch = useDispatch();
+
   const user = useSelector((state) => state.auth.user);
+
+  useEffect(() => {
+    dispatch(getProfileDetails());
+  }, []);
 
   let tabData;
 

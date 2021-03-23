@@ -60,7 +60,6 @@ const ProfRegister = () => {
                   <List>
                     {userTypeId === WORK_PLACE ? (
                       <>
-                        <li>- Adli Sicil Kaydı</li>
                         <li>- Kira Kontratı / Tapu</li>
                         <li>- İş Yeri Ruhsatı</li>
                         <li>- İş Yeri Kiralama Kararı</li>

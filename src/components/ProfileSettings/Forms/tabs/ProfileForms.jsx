@@ -7,7 +7,7 @@ import styled from 'styled-components/macro';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-import { getProfile, setProfile } from 'actions';
+import { setProfile } from 'actions';
 
 const ProfileForms = ({ type }) => {
   const dispatch = useDispatch();
@@ -16,10 +16,6 @@ const ProfileForms = ({ type }) => {
   );
   const [data, setData] = useState({});
   const [isBirthdaySafe, setIsBirthdaySafe] = useState(false);
-
-  const actionGetData = () => {
-    dispatch(getProfile());
-  };
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -43,10 +39,6 @@ const ProfileForms = ({ type }) => {
       )
     );
   };
-
-  useEffect(() => {
-    actionGetData();
-  }, []);
 
   return (
     <section>

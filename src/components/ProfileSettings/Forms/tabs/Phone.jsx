@@ -4,7 +4,7 @@ import styled from 'styled-components/macro';
 import { toast } from 'react-toastify';
 
 import { Material, Button } from 'components';
-import { getProfile, setProfile, verifyCode } from 'actions';
+import { setProfile, verifyCode } from 'actions';
 import { unMaskPhone } from 'utils';
 import { StepTwo } from 'views/Register/steps';
 
@@ -19,10 +19,6 @@ const ProfileForms = () => {
   const dispatch = useDispatch();
 
   const unMaskedPhone = unMaskPhone(phone);
-
-  useEffect(() => {
-    dispatch(getProfile());
-  }, []);
 
   useEffect(() => {
     setPhone(unMaskedPhone);

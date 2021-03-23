@@ -1,12 +1,11 @@
-// @ts-nocheck
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { Material, Button } from 'components';
 import styled from 'styled-components/macro';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-import { getProfile, setProfile } from 'actions';
+import { setProfile } from 'actions';
 
 const ProfileForms = ({ type }) => {
   const dispatch = useDispatch();
@@ -14,14 +13,6 @@ const ProfileForms = ({ type }) => {
     (state) => state.profileSettings2.profileDetail
   );
   const [data, setData] = useState({});
-
-  const actionGetData = () => {
-    dispatch(getProfile());
-  };
-
-  useEffect(() => {
-    actionGetData();
-  }, []);
 
   const onSubmit = (event) => {
     event.preventDefault();
