@@ -39,7 +39,7 @@ const GroupLesson = (props) => {
     },
     {
       id: 5,
-      name: 'Body Building',
+      name: 'Vücut Geliştirme',
       activeClass: '',
       link: '#all',
     },

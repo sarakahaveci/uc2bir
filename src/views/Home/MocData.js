@@ -192,7 +192,7 @@ export const GroupLesson = [
     date: '05 May. 16:00',
     content: 'Fitness Eğitmeni',
     location: 'İstanbul, Beşiktaş',
-    ctn: 'Body Building',
+    ctn: 'Vücut Geliştirme',
     seater: '1/8',
   },
   {
