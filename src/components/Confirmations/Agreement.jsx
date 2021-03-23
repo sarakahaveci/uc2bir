@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import ReactHtmlParser from 'react-html-parser';
+import { decode } from 'html-entities';
 
 import { Button, Title, Material, Box, Text, Svg } from 'components';
 import {
@@ -8,21 +10,31 @@ import {
   TextAreaWrapper,
   ConfirmationTitle,
 } from './Common.styles.jsx';
+import { WORK_PLACE, DIETITIAN, PERSONAL_TRAINER, USER } from '../../constants';
+
+const fileIdMap = {
+  [USER]: 19,
+  [PERSONAL_TRAINER]: 13,
+  [WORK_PLACE]: 16,
+  [DIETITIAN]: 10,
+};
 
 const Agreement = ({
   acceptMemberAgreement,
   setAcceptMemberAgreement,
   setOpenModal,
-  agreementData,
-  extraAgreementData,
+  confirmationData,
+  userTypeId = 1,
 }) => {
   const [acceptFirst, setAcceptFirst] = useState(false);
-  const [acceptSecond, setAcceptSecond] = useState(false);
+
+  const agreementData = confirmationData.find(
+    (item) => item.id === fileIdMap[userTypeId]
+  );
 
   useEffect(() => {
     if (acceptMemberAgreement) {
       setAcceptFirst(true);
-      setAcceptSecond(true);
     }
   }, []);
 
@@ -54,26 +66,7 @@ const Agreement = ({
         />
 
         <TextAreaWrapper>
-          <TextArea
-            dangerouslySetInnerHTML={{ __html: agreementData?.detail }}
-          />
-        </TextAreaWrapper>
-      </InfoField>
-
-      <ConfirmationTitle
-        dangerouslySetInnerHTML={{ __html: extraAgreementData?.title }}
-      />
-
-      <InfoField>
-        <Material.checkbox
-          checked={acceptSecond}
-          onChange={() => setAcceptSecond(!acceptSecond)}
-        />
-
-        <TextAreaWrapper>
-          <TextArea
-            dangerouslySetInnerHTML={{ __html: extraAgreementData?.detail }}
-          />
+          <TextArea>{ReactHtmlParser(decode(agreementData?.detail))}</TextArea>
         </TextAreaWrapper>
       </InfoField>
 
@@ -92,7 +85,7 @@ const Agreement = ({
           className="blue"
           text="Onaylıyorum"
           width="300px"
-          disabled={!acceptFirst || !acceptSecond}
+          disabled={!acceptFirst}
           fontWeight="500"
           onClick={() => {
             setAcceptMemberAgreement(true);

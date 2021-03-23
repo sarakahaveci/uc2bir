@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import ReactHtmlParser from 'react-html-parser';
+import { decode } from 'html-entities';
 
 import { Button, Title, Material, Box, Text, Svg } from 'components';
 import {
@@ -8,14 +10,27 @@ import {
   TextAreaWrapper,
   ConfirmationTitle,
 } from './Common.styles.jsx';
+import { WORK_PLACE, DIETITIAN, PERSONAL_TRAINER, USER } from '../../constants';
+
+const fileIdMap = {
+  [USER]: 17,
+  [PERSONAL_TRAINER]: 11,
+  [WORK_PLACE]: 17,
+  [DIETITIAN]: 8,
+};
 
 const Permission = ({
   setOpenModal,
   acceptPermissions,
   setAcceptPermissions,
-  permissionData,
+  confirmationData,
+  userTypeId = 1,
 }) => {
   const [acceptFirst, setAcceptFirst] = useState(false);
+
+  const permissionData = confirmationData.find(
+    (item) => item.id === fileIdMap[userTypeId]
+  );
 
   useEffect(() => {
     if (acceptPermissions) {
@@ -51,9 +66,7 @@ const Permission = ({
         />
 
         <TextAreaWrapper>
-          <TextArea
-            dangerouslySetInnerHTML={{ __html: permissionData?.detail }}
-          />
+          <TextArea>{ReactHtmlParser(decode(permissionData?.detail))}</TextArea>
         </TextAreaWrapper>
       </InfoField>
 

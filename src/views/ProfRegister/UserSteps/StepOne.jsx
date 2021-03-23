@@ -8,15 +8,15 @@ import styled from 'styled-components/macro';
 import { TextField } from '@material-ui/core';
 
 import { StepContext } from '../RegisterSteps';
-import { setStepOne } from 'actions';
+import { setStepOne, getAuthFiles } from 'actions';
 import {
   Button,
   Text,
   Material,
   Agreement,
-  Health,
-  Kvkk,
   Permission,
+  Information,
+  Privacy,
   Svg,
 } from 'components';
 import StepTwo from './StepTwo';
@@ -47,10 +47,9 @@ const macro = [
 ];
 
 const StepOne = ({ userTypeId, setUserTypeId }) => {
-  const {
-    confirmation: { data: confirmationData },
-    data: registerData,
-  } = useSelector((state) => state.registerData);
+  const { data: registerData } = useSelector((state) => state.registerData);
+
+  const confirmationData = useSelector((state) => state.registerData.authFiles);
 
   const { isLoading: registerLoading } = useSelector((state) => state.stepOne);
 
@@ -77,6 +76,17 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
       setIsOtpModalActive(true);
     }
   }, [stepNumber]);
+
+  useEffect(() => {
+    if (userTypeId) {
+      dispatch(getAuthFiles(userTypeId));
+    }
+
+    setAcceptMemberAgreement(false);
+    setAcceptHealthAgreement(false);
+    setAcceptKvkk(false);
+    setAcceptPermissions(false);
+  }, [userTypeId]);
 
   const registerSuccessCallback = () => {
     toast.info('Lütfen Bekleyiniz! Yönlendiriliyorsunuz...', {
@@ -153,30 +163,33 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
           setAcceptMemberAgreement={setAcceptMemberAgreement}
           acceptMemberAgreement={acceptMemberAgreement}
           setOpenModal={setOpenModal}
-          agreementData={confirmationData?.['agreement']}
-          extraAgreementData={confirmationData?.['agreementExtra']}
+          confirmationData={confirmationData}
+          extraAgreementData={confirmationData}
+          userTypeId={userTypeId}
         />
       );
       break;
 
-    case 'health':
+    case 'information':
       confirmation = (
-        <Health
+        <Information
           acceptHealthAgreement={acceptHealthAgreement}
           setAcceptHealthAgreement={setAcceptHealthAgreement}
           setOpenModal={setOpenModal}
-          healthData={confirmationData?.['health']}
+          confirmationData={confirmationData}
+          userTypeId={userTypeId}
         />
       );
       break;
 
-    case 'kvkk':
+    case 'privacy':
       confirmation = (
-        <Kvkk
+        <Privacy
           acceptKvkk={acceptKvkk}
           setAcceptKvkk={setAcceptKvkk}
           setOpenModal={setOpenModal}
-          kvkkData={confirmationData?.['kvkk']}
+          confirmationData={confirmationData}
+          userTypeId={userTypeId}
         />
       );
       break;
@@ -187,7 +200,8 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
           acceptPermissions={acceptPermissions}
           setAcceptPermissions={setAcceptPermissions}
           setOpenModal={setOpenModal}
-          permissionData={confirmationData?.['permission']}
+          confirmationData={confirmationData}
+          userTypeId={userTypeId}
         />
       );
       break;
@@ -299,11 +313,11 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
                   className="underline-text"
                   onClick={(e) => {
                     e.preventDefault();
-                    setConfirmationType('health');
+                    setConfirmationType('information');
                     setOpenModal(true);
                   }}
                 >
-                  Sağlık muvafakatnamesi
+                  Aydınlatma Bildirimini
                 </span>
                 okudum, onaylıyorum.
               </div>
@@ -319,11 +333,11 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
                   className="underline-text"
                   onClick={(e) => {
                     e.preventDefault();
-                    setConfirmationType('kvkk');
+                    setConfirmationType('privacy');
                     setOpenModal(true);
                   }}
                 >
-                  KVKK
+                  Gizlilik sözleşmesini
                 </span>
                 , okudum onaylıyorum.
               </div>

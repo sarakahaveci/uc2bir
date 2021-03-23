@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 import { unMaskPhone } from 'utils';
 import {
   HTTP_REQUEST,
@@ -16,12 +14,10 @@ import {
   GET_TOWN,
   GET_ADRESS_IDS,
   OFF_NEW_BRANCH,
-  CONFIRMATION_DATA_REQUEST,
-  CONFIRMATION_DATA_SUCCESS,
-  CONFIRMATION_DATA_FAILURE,
   QUIZ_GET,
   SUBMIT_BENEFIT,
   GET_USER_KEYS,
+  AUTH_FILES,
 } from '../constants';
 
 export const setStepOne = (
@@ -228,7 +224,7 @@ export const submitUserBranch = (
   branch,
 
   errorCallback
-) => async (dispatch, getState) => {
+) => async (dispatch) => {
   const url = '/user/profile/branch';
 
   await dispatch({
@@ -275,8 +271,7 @@ export const deleteFile = (fileId, successCallback) => async (dispatch) => {
 };
 
 export const getAdressIds = (body, successCallback, errorCallback) => async (
-  dispatch,
-  getState
+  dispatch
 ) => {
   const url = '/regions-map';
 
@@ -294,7 +289,7 @@ export const getAdressIds = (body, successCallback, errorCallback) => async (
   });
 };
 
-export const offerBranch = ({ branch }) => async (dispatch, getState) => {
+export const offerBranch = ({ branch }) => async (dispatch) => {
   const url = '/user/profile/offer-branch';
 
   await dispatch({
@@ -312,7 +307,7 @@ export const submitBenefits = (
   { facilities },
   successCallback,
   errorCallback
-) => async (dispatch, getState) => {
+) => async (dispatch) => {
   const url = '/user/profile/facility';
 
   await dispatch({
@@ -328,54 +323,6 @@ export const submitBenefits = (
   });
 };
 
-export const getConfirmationData = () => async (dispatch, getState) => {
-  const registerData = getState().registerData.data;
-
-  try {
-    dispatch({
-      type: CONFIRMATION_DATA_REQUEST,
-    });
-
-    const filteredRegisterData = registerData.pages.filter(
-      (page) => page.title !== 'Açık rıza ve aydınlatma metni english'
-    );
-
-    const response = await axios.all(
-      filteredRegisterData.map((page) => axios.get(page.url))
-    );
-
-    dispatch({
-      type: CONFIRMATION_DATA_SUCCESS,
-      payload: {
-        agreement: {
-          title: response[0].data.data.title,
-          detail: response[0].data.data.detail,
-        },
-        permission: {
-          title: response[1].data.data.title,
-          detail: response[1].data.data.detail,
-        },
-        kvkk: {
-          title: response[2].data.data.title,
-          detail: response[2].data.data.detail,
-        },
-        health: {
-          title: response[3].data.data.title,
-          detail: response[3].data.data.detail,
-        },
-        agreementExtra: {
-          title: response[4].data.data.title,
-          detail: response[4].data.data.detail,
-        },
-      },
-    });
-  } catch (error) {
-    dispatch({
-      type: CONFIRMATION_DATA_FAILURE,
-    });
-  }
-};
-
 export const getUserKeys = () => async (dispatch) => {
   const url = '/user/registration-data';
 
@@ -386,6 +333,23 @@ export const getUserKeys = () => async (dispatch) => {
       url,
       label: GET_USER_KEYS,
       transformData: (data) => data['user-type'],
+    },
+  });
+};
+
+export const getAuthFiles = (userTypeId) => async (dispatch) => {
+  const url = '/information-text';
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'POST',
+      url,
+      label: AUTH_FILES,
+      transformData: (data) => data.data,
+      body: {
+        type_id: userTypeId,
+      },
     },
   });
 };
