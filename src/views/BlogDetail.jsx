@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { Main, Title, Spinner, BlogCartList, AwesomeIcon } from 'components';
 import { Col, Container, Row } from 'react-bootstrap';
+import { decode } from 'html-entities';
+import ReactHtmlParser from 'react-html-parser';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { getBlogDetail } from 'actions';
-import { decode } from 'html-entities';
 
 import {
   FacebookShareButton,
@@ -76,12 +77,9 @@ const BlogDetail = ({ match }) => {
                   <Title variant="h3" component="h3" lineDisable={false}>
                     {detail?.data?.blog?.title}
                   </Title>
-                  <div
-                    className="blog-detail__text"
-                    dangerouslySetInnerHTML={{
-                      __html: decode(detail?.data?.blog?.detail),
-                    }}
-                  />
+                  <div lassName="blog-detail__text">
+                  {ReactHtmlParser(decode(detail?.data?.blog?.detail))}
+                  </div>
                 </Col>
               </Row>
             </div>
