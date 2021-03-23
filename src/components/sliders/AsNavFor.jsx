@@ -1,15 +1,10 @@
 import React, { useLayoutEffect, useState } from 'react';
 import Slider from "react-slick";
 
-//bunları şimdilik ekliyoruz.
-// @ts-ignore
-import womanThumpImg from "../../assets/as-nav-for/thump-woman.png";
-// @ts-ignore
-import womanImg from "../../assets/as-nav-for/woman.png";
-// @ts-ignore
-import womansThumpImg from "../../assets/as-nav-for/thump-womans.png";
-// @ts-ignore
-import womansImg from "../../assets/as-nav-for/womans.png";
+import img1 from "../../assets/as-nav-for/iStock-1176357828.jpg";
+import img2 from "../../assets/as-nav-for/iStock-1215209609.jpg";
+import img3 from "../../assets/as-nav-for/iStock-860080766.jpg";
+import img4 from "../../assets/as-nav-for/iStock-872164142.jpg";
 
 const AsNavFor = ({ className = "" }) => {
     const [nav1, setNav1] = useState(null);
@@ -31,16 +26,16 @@ const AsNavFor = ({ className = "" }) => {
                     ref={slider => (slider1 = slider)}
                 >
                     <div className="slider-item">
-                        <div className="img" style={{ backgroundImage: `url(${womanImg})` }}></div>
+                        <div className="img" style={{ backgroundImage: `url(${img1})` }}></div>
                     </div>
                     <div className="slider-item">
-                        <div className="img" style={{ backgroundImage: `url(${womansImg})` }}></div>
+                        <div className="img" style={{ backgroundImage: `url(${img2})` }}></div>
                     </div>
                     <div className="slider-item">
-                        <div className="img" style={{ backgroundImage: `url(${womanImg})` }}></div>
+                        <div className="img" style={{ backgroundImage: `url(${img3})` }}></div>
                     </div>
                     <div className="slider-item">
-                        <div className="img" style={{ backgroundImage: `url(${womansImg})` }}></div>
+                        <div className="img" style={{ backgroundImage: `url(${img4})` }}></div>
                     </div>
                 </Slider>
             </div>
@@ -56,16 +51,16 @@ const AsNavFor = ({ className = "" }) => {
                     speed={2000}
                 >
                     <div className="slider-item-thump">
-                        <div className="img" style={{ backgroundImage: `url(${womanThumpImg})` }}></div>
+                        <div className="img" style={{ backgroundImage: `url(${img1})` }}></div>
                     </div>
                     <div className="slider-item-thump">
-                        <div className="img" style={{ backgroundImage: `url(${womansThumpImg})` }}></div>
+                        <div className="img" style={{ backgroundImage: `url(${img2})` }}></div>
                     </div>
                     <div className="slider-item-thump">
-                        <div className="img" style={{ backgroundImage: `url(${womanThumpImg})` }}></div>
+                        <div className="img" style={{ backgroundImage: `url(${img3})` }}></div>
                     </div>
                     <div className="slider-item-thump">
-                        <div className="img" style={{ backgroundImage: `url(${womansThumpImg})` }}></div>
+                        <div className="img" style={{ backgroundImage: `url(${img4})` }}></div>
                     </div>
                 </Slider>
             </div>
