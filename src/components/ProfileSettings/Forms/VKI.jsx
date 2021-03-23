@@ -14,8 +14,8 @@ const VKI = () => {
   const [data, setData] = useState({});
   const [result, setResult] = useState('');
 
-  const actionGetData = async () => {
-    await dispatch(
+  const actionGetData = () => {
+    dispatch(
       getVKI(
         () => {},
         () => {
@@ -34,9 +34,9 @@ const VKI = () => {
     }
   }, []);
 
-  const onSubmit = async (event) => {
+  const onSubmit = (event) => {
     event.preventDefault();
-    await dispatch(
+    dispatch(
       setVKI(
         {
           weight: data.weight || vki.data.weight,
@@ -50,12 +50,11 @@ const VKI = () => {
           setData({});
           actionGetData();
         },
-        () => {
+        () =>
           toast.error('Profil Bilgileri Getirilemedi.', {
             position: 'bottom-right',
             autoClose: 2000,
-          });
-        }
+          })
       )
     );
   };

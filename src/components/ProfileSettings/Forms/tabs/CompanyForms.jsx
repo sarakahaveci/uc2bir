@@ -15,18 +15,8 @@ const ProfileForms = ({ type }) => {
   );
   const [data, setData] = useState({});
 
-  const actionGetData = async () => {
-    await dispatch(
-      getProfile(
-        () => {},
-        () => {
-          toast.error('Profil Bilgileri Getirilemedi.', {
-            position: 'bottom-right',
-            autoClose: 2000,
-          });
-        }
-      )
-    );
+  const actionGetData = () => {
+    dispatch(getProfile());
   };
 
   useEffect(() => {

@@ -132,7 +132,7 @@ export const setPassword = (
   });
 };
 
-export const getProfile = (successCallback) => async (dispatch) => {
+export const getProfile = (successCallback = () => {}) => async (dispatch) => {
   const url = `/user/profile/detail`;
 
   await dispatch({

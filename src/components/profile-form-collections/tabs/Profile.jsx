@@ -14,17 +14,7 @@ const Profile = ({ about = false, st = true }) => {
   );
 
   const actionGetData = async () => {
-    await dispatch(
-      getProfile(
-        () => {},
-        () => {
-          toast.error('Profil Bilgileri Getirilemedi.', {
-            position: 'bottom-right',
-            autoClose: 2000,
-          });
-        }
-      )
-    );
+    dispatch(getProfile());
   };
 
   const actionSetData = async (name, value) => {

@@ -83,12 +83,11 @@ const ComputedTest = () => {
     await dispatch(
       getTest(
         () => {},
-        () => {
+        () =>
           toast.error('Profil Bilgileri Getirilemedi.', {
             position: 'bottom-right',
             autoClose: 2000,
-          });
-        }
+          })
       )
     );
   };
