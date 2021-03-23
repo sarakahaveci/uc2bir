@@ -383,6 +383,7 @@ const StepThree = () => {
               label="Bina"
               type="number"
               onChange={handleFormOnChange}
+              inputProps={{ maxLength: 5 }}
             />
           </div>
           <div className="adress-apartment">
@@ -393,6 +394,7 @@ const StepThree = () => {
               label="Daire"
               type="number"
               onChange={handleFormOnChange}
+              inputProps={{ maxLength: 5 }}
             />
           </div>
         </div>

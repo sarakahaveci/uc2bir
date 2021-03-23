@@ -23,9 +23,6 @@ const Edit = ({ setSubPage }) => {
     );
   }, []);
 
-  const edit = (id) => {
-    return id;
-  };
   const deleted = (id) => {
     dispatch(
       deleteAddressList(
@@ -59,7 +56,7 @@ const Edit = ({ setSubPage }) => {
                   <>
                     <Item>
                       <div className="line-left">
-                        <div>{val?.city?.name}</div>
+                        <div>{val?.title || 'Klinik'}</div>
                         <div>
                           <span>
                             <AwesomeIcon.Map />
@@ -67,13 +64,13 @@ const Edit = ({ setSubPage }) => {
                           {val?.address_detail}
                         </div>
                       </div>
-                      <Button
+                      {/*   <Button
                         className="edit"
                         icon={Svg.EditIcon}
                         onClick={() => edit(val?.id)}
-                      />
+                      /> */}
                       <Button
-                        className="cencel"
+                        className="edit"
                         icon={Svg.CencelIcon}
                         onClick={() => deleted(val?.id)}
                       />

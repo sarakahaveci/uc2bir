@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { getGeocode } from 'use-places-autocomplete';
 import { Svg } from 'components';
+import BluePlusIcon from 'assets/blue-plus.svg';
 
 import AddAdress from './AddAdress';
-import AddGym from './AddGym';
 import Edit from './Edit';
-import GYMEdit from './GYMEdit';
 
-const Adds = ({ icons, setBannerActive }) => {
+const Adds = ({ icons }) => {
   const [subPage, setSubPage] = useState('Adds');
 
   useEffect(() => {
@@ -39,6 +38,13 @@ const Adds = ({ icons, setBannerActive }) => {
                           }}
                         >
                           {val.create.name}
+                          <img
+                            src={BluePlusIcon}
+                            alt=""
+                            width="25px"
+                            height="25px"
+                            className="ml-2"
+                          />
                         </Create>
                       </>
                     )}
@@ -53,16 +59,8 @@ const Adds = ({ icons, setBannerActive }) => {
     case 'home_park':
       return <AddAdress setSubPage={setSubPage} />;
 
-    case 'gym':
-      return (
-        <AddGym setSubPage={setSubPage} setBannerActive={setBannerActive} />
-      );
-
     case 'home-park-edit':
       return <Edit setSubPage={setSubPage} />;
-
-    case 'gym-edit':
-      return <GYMEdit setSubPage={setSubPage} />;
 
     default:
       return (

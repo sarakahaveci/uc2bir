@@ -53,9 +53,9 @@ const SessionType = () => {
           icon: <Svg.SessionType.Clinic />,
           create: {
             key: 'DIETIAN',
-            action: 'DIETIAN',
-            name: 'Klinik ekle+',
-            subPage: 'gym-edit',
+            action: 'home_park',
+            name: 'Klinik ekle',
+            subPage: 'home-park-edit',
           },
         },
       ];

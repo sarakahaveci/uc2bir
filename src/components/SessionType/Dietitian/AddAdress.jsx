@@ -1,12 +1,10 @@
-/* eslint-disable no-unused-vars */
-// @ts-nocheck
 /* eslint-disable react/jsx-pascal-case */
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { isEmpty } from 'lodash';
 
-import { getCitiesAndDistict, addAddress } from 'actions';
+import { addAddress } from 'actions';
 import GoogleMap from 'components/GoogleMaps/GoogleMap';
 import { Material, Button, AwesomeIcon } from 'components';
 import axios from 'axios';
@@ -69,7 +67,6 @@ const AddAdress = ({ setSubPage }) => {
       .then((data) => {
         const city_id = data.city.id;
         const district_id = data.district.id;
-        const town = data.town.id;
         axios
           .post(uri, { city_id })
           .then((res) => res.data)
@@ -103,6 +100,7 @@ const AddAdress = ({ setSubPage }) => {
           city: data.city.id,
           district: data.district.id,
           town: data.town.id,
+          address_detail: adressFromMap.address_detail,
         });
       })
       .catch((err) =>
@@ -137,13 +135,21 @@ const AddAdress = ({ setSubPage }) => {
   return (
     <div className="row w-100">
       <Button text="< Geri" onClick={() => setSubPage('Adds')} />
-      <Button text="+ Yeni Adres Ekle" />
       <div className="col-12">
         <form
           style={{ marginBottom: 15 }}
           onSubmit={onSubmit}
           autoComplete="off"
         >
+          <Material.TextField
+            required
+            label="Adres Başlığı giriniz"
+            type="text"
+            name="title"
+            onChange={(e) =>
+              setFormData({ ...formData, [e.target.name]: e.target.value })
+            }
+          />
           {city && (
             <>
               <Material.SimpleSelect
@@ -215,7 +221,7 @@ const AddAdress = ({ setSubPage }) => {
                 label="Açık Adres"
                 name="address_detail"
                 icon={AwesomeIcon.Map}
-                changeValue={adressFromMap.address_detail}
+                changeValue={formData.address_detail}
                 onChange={(e) =>
                   setFormData({ ...formData, [e.target.name]: e.target.value })
                 }
@@ -232,6 +238,7 @@ const AddAdress = ({ setSubPage }) => {
                         [e.target.name]: e.target.value,
                       })
                     }
+                    inputProps={{ maxLength: 5 }}
                   />
                 </div>
                 <div className="col-5 p-0">
@@ -245,6 +252,7 @@ const AddAdress = ({ setSubPage }) => {
                         [e.target.name]: e.target.value,
                       })
                     }
+                    inputProps={{ maxLength: 5 }}
                   />
                 </div>
               </div>

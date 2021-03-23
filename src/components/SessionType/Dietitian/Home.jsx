@@ -1,10 +1,16 @@
-// @ts-nocheck
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { Button } from 'components';
 import SelectiveButton from '../../buttons/SelectiveButton';
 
-const Home = ({ icons = [], select = () => {}, selected, get, create, submit = () => {} }) => {
+const Home = ({
+  icons = [],
+  select = () => {},
+  selected,
+  get,
+  create,
+  submit = () => {},
+}) => {
   return (
     <>
       {icons.map((val) => (
@@ -17,8 +23,6 @@ const Home = ({ icons = [], select = () => {}, selected, get, create, submit = (
             selected.includes(val.id) ||
             get?.data?.data?.filter((f) => f.type === val.id)[0]?.status ===
               'active'
-              ? true
-              : false
           }
         />
       ))}
