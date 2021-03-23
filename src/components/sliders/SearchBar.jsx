@@ -12,7 +12,7 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
 			<div className="search-container">
 				<ul className="top-items">
 					<li className={`${virtual === "pt" ? "active" : ""}`}><a onClick={() => setVirtual("pt")}>EĞİTMEN</a></li>
-					<li className={`${virtual === "living" ? "active" : ""}`}><a onClick={() => setVirtual("living")}>SALON</a></li>
+					<li className={`${virtual === "living" ? "active" : ""}`}><a onClick={() => setVirtual("living")}>SPOR SALONU</a></li>
 					<li className={`${virtual === "nutritionist" ? "active" : ""}`}><a onClick={() => setVirtual("nutritionist")}>DİYETİSYEN</a></li>
 					<li className={`${virtual === "map" ? "active" : ""}`}><a onClick={() => setVirtual("map")}>HARİTA</a></li>
 				</ul>
