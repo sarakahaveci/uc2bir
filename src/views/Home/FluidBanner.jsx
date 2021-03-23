@@ -30,7 +30,7 @@ const FluidBanner = (props) => {
             ilgi, diyetisyen desteği, spor salonu seçenekleri hepsi burada.<br/>
             Başarmak için hemen başla!
           </Text>
-          <Button text="REZERVAZYON YAP" soft />
+          <Button text="ÜYE OL" soft />
         </Text>
       </Container>
     </NativeFluidBanner>

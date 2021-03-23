@@ -26,6 +26,11 @@ const TopPromotion = ({className,background,children}) => {
             >
               Başarmak İçİn sen de hemen başla!
             </Title>
+            <p>
+            Spor için tutku, özgürlük, motivasyon, enerji; Forma Girmek için heves, istikrar, profesyonel destek; Grup Motivasyonu için ortak hedefler, beraberlikten gelen itici güç!
+Unutma hedeflerini ancak başlayanlar başarabilir.
+
+            </p>
           </div>
           <div className="slider-p0 col-lg-6 d-flex">
             <AsNavFor />
