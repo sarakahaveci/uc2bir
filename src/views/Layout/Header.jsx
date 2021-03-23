@@ -34,7 +34,7 @@ const Header = () => {
               <ul>
                 <li>
                   <IconLabel
-                    href="mailto:info@uc2bir.com"
+                    href={`mailto:${infoData?.general?.email}`}
                     className="icon-label"
                     text={infoData?.general?.email}
                     icon={AwesomeIcon.Envolope}
