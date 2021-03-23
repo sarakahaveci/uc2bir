@@ -19,7 +19,7 @@ const Header = () => {
 
   const nav_logo = {
     status: true,
-    className: 'col logo',
+    className: 'col logo justify-content-center',
     element: () => logo,
   };
 
