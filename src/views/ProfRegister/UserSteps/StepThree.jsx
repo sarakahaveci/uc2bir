@@ -381,7 +381,7 @@ const StepThree = () => {
               id="apartmentNo"
               name="apt_no"
               label="Bina"
-              type="number"
+              type="text"
               onChange={handleFormOnChange}
               inputProps={{ maxLength: 5 }}
             />
@@ -392,7 +392,7 @@ const StepThree = () => {
               id="buildNo"
               name="build_no"
               label="Daire"
-              type="number"
+              type="text"
               onChange={handleFormOnChange}
               inputProps={{ maxLength: 5 }}
             />

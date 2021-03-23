@@ -280,7 +280,6 @@ export default function Address() {
                 id="apartmentNo"
                 name="apt_no"
                 label="Bina"
-                type="number"
                 changeValue={+formData?.apt_no || ''}
                 onChange={handleFormOnChange}
                 inputProps={{ maxLength: 5 }}
@@ -292,7 +291,6 @@ export default function Address() {
                 id="buildNo"
                 name="build_no"
                 label="Daire"
-                type="number"
                 changeValue={+formData?.build_no || ''}
                 onChange={handleFormOnChange}
                 inputProps={{ maxLength: 5 }}

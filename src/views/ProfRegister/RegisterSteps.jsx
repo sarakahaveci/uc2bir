@@ -14,7 +14,7 @@ export const StepContext = createContext();
 const RegisterSteps = ({ userTypeId, setUserTypeId }) => {
   const { data: registerData } = useSelector((state) => state.registerData);
 
-  const [stepNumber, setStepNumber] = useState(1);
+  const [stepNumber, setStepNumber] = useState(3);
   const [open, setOpen] = useState(false);
 
   const dispatch = useDispatch();
