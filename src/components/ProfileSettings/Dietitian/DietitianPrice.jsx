@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -22,15 +22,6 @@ export default function DietitianPrice() {
 
   const { price, waiting_approval_price, isLoading } = useSelector(
     (state) => state.profileSettings2.dietitianPrice.price
-  );
-
-  const checkIsSuspended = useMemo(() => !!waiting_approval_price, [
-    waiting_approval_price,
-  ]);
-
-  const currentPrice = useMemo(
-    () => (checkIsSuspended ? waiting_approval_price : price),
-    [checkIsSuspended, price, waiting_approval_price]
   );
 
   useEffect(() => {
@@ -86,8 +77,8 @@ export default function DietitianPrice() {
             Tek bir seans için verdiğiniz hizmetin ücretini belirleyiniz
           </Title>
           <DietitianPriceCard
-            isSuspended={checkIsSuspended}
-            price={currentPrice}
+            price={price}
+            waitingPrice={waiting_approval_price}
             setPrice={setPrice}
           />
         </div>
@@ -96,7 +87,7 @@ export default function DietitianPrice() {
             className="blue dietitan-price__saveButton"
             text="Kaydet"
             fontSize="10pt"
-            disabled={currentPrice === newPrice}
+            disabled={price === newPrice}
             onClick={updatePrice}
           />
         </div>

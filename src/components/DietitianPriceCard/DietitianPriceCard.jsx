@@ -5,8 +5,18 @@ import clinickIcon from 'assets/clinickIcon.svg';
 
 import { Material, Title } from 'components';
 
-export default function DietitianPriceCard({ isSuspended, price, setPrice }) {
-  const cardClass = isSuspended
+export default function DietitianPriceCard({ price, waitingPrice, setPrice }) {
+  let statusText;
+
+  if (!price && !waitingPrice) {
+    statusText = 'Fiyat Talebiniz Bulunmamaktadır';
+  } else if (price) {
+    statusText = 'Onaylandı';
+  } else if (waitingPrice) {
+    statusText = 'Onay Bekliyor';
+  }
+
+  const cardClass = !price
     ? 'dietitan-card_wrapper dietitan-card_wrapper__suspended'
     : 'dietitan-card_wrapper';
 
@@ -17,9 +27,9 @@ export default function DietitianPriceCard({ isSuspended, price, setPrice }) {
         letterSpacing="0.01em"
         fontWeight="600"
         textAlign="right"
-        color={isSuspended ? '#f01c62' : '#00b2a9'}
+        color={!price ? '#f01c62' : '#00b2a9'}
       >
-        {isSuspended ? 'Onay Bekliyor' : 'Onaylandı'}
+        {statusText}
       </Title>
       <div className="d-flex">
         <figure className="ml-2">
@@ -40,10 +50,17 @@ export default function DietitianPriceCard({ isSuspended, price, setPrice }) {
           type="number"
           changeValue={price}
           onChange={(event) => setPrice(event.target.value)}
-          inputProps={{
-            readOnly: isSuspended,
-          }}
         />
+        {waitingPrice && (
+          <Title
+            fontWeight="400"
+            textAlign="left"
+            fontSize="11px"
+            color="#404041"
+          >
+            Onay Bekleyen {waitingPrice} Tl&apos;lik talebiniz bulunmaktadır
+          </Title>
+        )}
       </div>
     </div>
   );
