@@ -8,21 +8,19 @@ import IdentityCardStep from './UserSteps/IdentityCardStep';
 import HealthReportStep from './UserSteps/HealthReportStep';
 import FacePictureStep from './UserSteps/FacePictureStep';
 import DegreeStep from './UserSteps/DegreeStep';
-import WorkPlaceCriminalRecordStep from './WorkPlaceSteps/WorkPlaceCriminalRecordStep';
 import WorkPlaceContractStep from './WorkPlaceSteps/WorkPlaceContractStep';
 import WorkPlaceLicenseStep from './WorkPlaceSteps/WorkPlaceLicenseStep';
 import WorkPlaceHirePlaceStep from './WorkPlaceSteps/WorkPlaceHirePlaceStep';
 import { WORK_PLACE, DIETITIAN } from '../../constants';
 
 const setPageByStepNumber = {
-  // 8 Steps + 1 Finish = 9
+  // 7 Steps + 1 Finish = 8
   workPlace: {
     4: <StepThree />,
-    5: <WorkPlaceCriminalRecordStep />,
-    6: <WorkPlaceContractStep />,
-    7: <WorkPlaceLicenseStep />,
+    5: <WorkPlaceContractStep />,
+    6: <WorkPlaceLicenseStep />,
+    7: <WorkPlaceHirePlaceStep />,
     8: <WorkPlaceHirePlaceStep />,
-    9: <WorkPlaceHirePlaceStep />,
   },
   //  9 Steps + 1 Finish = 10
   dietitian: {
