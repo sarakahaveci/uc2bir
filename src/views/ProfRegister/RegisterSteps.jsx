@@ -2,9 +2,7 @@ import React, { createContext, useState, useEffect, useCallback } from 'react';
 import { Modal } from 'react-bootstrap';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
 
-import { getConfirmationData } from 'actions';
 import { StepBar, Text, Svg } from 'components';
 import RegisterPage from './RegisterPage';
 import { PERSONAL_TRAINER, WORK_PLACE } from '../../constants';
@@ -12,12 +10,8 @@ import { PERSONAL_TRAINER, WORK_PLACE } from '../../constants';
 export const StepContext = createContext();
 
 const RegisterSteps = ({ userTypeId, setUserTypeId }) => {
-  const { data: registerData } = useSelector((state) => state.registerData);
-
   const [stepNumber, setStepNumber] = useState(1);
   const [open, setOpen] = useState(false);
-
-  const dispatch = useDispatch();
 
   const setUserTypeIdHandler = useCallback((value) => setUserTypeId(value), [
     userTypeId,
@@ -39,12 +33,6 @@ const RegisterSteps = ({ userTypeId, setUserTypeId }) => {
       setOpen(true);
     }
   }, [stepNumber]);
-
-  useEffect(() => {
-    if (Object.keys(registerData).length) {
-      dispatch(getConfirmationData());
-    }
-  }, [registerData]);
 
   return (
     <StepContext.Provider

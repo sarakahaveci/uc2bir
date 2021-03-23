@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import ReactHtmlParser from 'react-html-parser';
+import { decode } from 'html-entities';
 
 import { Button, Title, Material, Box, Text, Svg } from 'components';
 import {
@@ -8,17 +10,30 @@ import {
   TextAreaWrapper,
   ConfirmationTitle,
 } from './Common.styles.jsx';
+import { WORK_PLACE, DIETITIAN, PERSONAL_TRAINER, USER } from '../../constants';
 
-const Health = ({
+const fileIdMap = {
+  [USER]: 20,
+  [PERSONAL_TRAINER]: 20,
+  [WORK_PLACE]: 20,
+  [DIETITIAN]: 20,
+};
+
+const Privacy = ({
   setOpenModal,
-  setAcceptHealthAgreement,
-  acceptHealthAgreement,
-  healthData,
+  setAcceptKvkk,
+  acceptKvkk,
+  confirmationData,
+  userTypeId = 1,
 }) => {
   const [acceptFirst, setAcceptFirst] = useState(false);
 
+  const privacyData = confirmationData.find(
+    (item) => item.id === fileIdMap[userTypeId]
+  );
+
   useEffect(() => {
-    if (acceptHealthAgreement) {
+    if (acceptKvkk) {
       setAcceptFirst(true);
     }
   }, []);
@@ -41,7 +56,7 @@ const Health = ({
       </Title>
 
       <ConfirmationTitle
-        dangerouslySetInnerHTML={{ __html: healthData?.title }}
+        dangerouslySetInnerHTML={{ __html: privacyData?.title }}
       />
 
       <InfoField>
@@ -51,7 +66,7 @@ const Health = ({
         />
 
         <TextAreaWrapper>
-          <TextArea dangerouslySetInnerHTML={{ __html: healthData?.detail }} />
+          <TextArea>{ReactHtmlParser(decode(privacyData?.detail))}</TextArea>
         </TextAreaWrapper>
       </InfoField>
 
@@ -73,7 +88,7 @@ const Health = ({
           disabled={!acceptFirst}
           fontWeight="500"
           onClick={() => {
-            setAcceptHealthAgreement(true);
+            setAcceptKvkk(true);
             setOpenModal(false);
           }}
         />
@@ -82,4 +97,4 @@ const Health = ({
   );
 };
 
-export default Health;
+export default Privacy;

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import ReactHtmlParser from 'react-html-parser';
+import { decode } from 'html-entities';
 
 import { Button, Title, Material, Box, Text, Svg } from 'components';
 import {
@@ -8,15 +10,33 @@ import {
   TextAreaWrapper,
   ConfirmationTitle,
 } from './Common.styles.jsx';
+import { WORK_PLACE, DIETITIAN, PERSONAL_TRAINER, USER } from '../../constants';
 
-const Kvkk = ({ setOpenModal, acceptKvkk, setAcceptKvkk, kvkkData }) => {
+const fileIdMap = {
+  [USER]: 18,
+  [PERSONAL_TRAINER]: 12,
+  [WORK_PLACE]: 15,
+  [DIETITIAN]: 9,
+};
+
+const Information = ({
+  setOpenModal,
+  acceptHealthAgreement,
+  setAcceptHealthAgreement,
+  confirmationData,
+  userTypeId = 1,
+}) => {
   const [acceptFirst, setAcceptFirst] = useState(false);
 
   useEffect(() => {
-    if (acceptKvkk) {
+    if (acceptHealthAgreement) {
       setAcceptFirst(true);
     }
   }, []);
+
+  const kvkkData = confirmationData.find(
+    (item) => item.id === fileIdMap[userTypeId]
+  );
 
   return (
     <Container>
@@ -46,7 +66,7 @@ const Kvkk = ({ setOpenModal, acceptKvkk, setAcceptKvkk, kvkkData }) => {
         />
 
         <TextAreaWrapper>
-          <TextArea dangerouslySetInnerHTML={{ __html: kvkkData?.detail }} />
+          <TextArea>{ReactHtmlParser(decode(kvkkData?.detail))}</TextArea>
         </TextAreaWrapper>
       </InfoField>
 
@@ -68,7 +88,7 @@ const Kvkk = ({ setOpenModal, acceptKvkk, setAcceptKvkk, kvkkData }) => {
           disabled={!acceptFirst}
           fontWeight="500"
           onClick={() => {
-            setAcceptKvkk(true);
+            setAcceptHealthAgreement(true);
             setOpenModal(false);
           }}
         />
@@ -77,4 +97,4 @@ const Kvkk = ({ setOpenModal, acceptKvkk, setAcceptKvkk, kvkkData }) => {
   );
 };
 
-export default Kvkk;
+export default Information;

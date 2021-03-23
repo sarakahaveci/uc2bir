@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useEffect, useState } from 'react';
 
 import {
@@ -7,8 +6,9 @@ import {
   MacroCollections,
   Material,
   Agreement,
-  Kvkk,
   Permission,
+  Information,
+  Privacy,
 } from '../../../components';
 
 import { toast } from 'react-toastify';
@@ -17,7 +17,7 @@ import styled from 'styled-components';
 
 import { stepOne as macro } from '../../../macros/registerMacros';
 import { useSelector, useDispatch } from 'react-redux';
-import { setStepOne, getConfirmationData } from '../../../actions';
+import { setStepOne, getAuthFiles } from '../../../actions';
 import StepTwo from './step-two';
 
 import { Modal } from 'react-bootstrap';
@@ -26,9 +26,7 @@ const StepOne = (props) => {
   const { setSteps, registerData } = props;
   const dispatch = useDispatch();
 
-  const {
-    confirmation: { data: confirmationData },
-  } = useSelector((state) => state.registerData);
+  const confirmationData = useSelector((state) => state.registerData.authFiles);
 
   const getStepOne = useSelector((state) => state.stepOne);
   const [data, setData] = useState({ ...macro.inputs });
@@ -37,15 +35,15 @@ const StepOne = (props) => {
   const [confirmationType, setConfirmationType] = useState('');
   const [openModal, setOpenModal] = useState(false);
   const [acceptMemberAgreement, setAcceptMemberAgreement] = useState(false);
-  const [acceptHealthAgreement] = useState(true);
+  const [acceptHealthAgreement, setAcceptHealthAgreement] = useState(false);
   const [acceptKvkk, setAcceptKvkk] = useState(false);
   const [acceptPermissions, setAcceptPermissions] = useState(false);
 
   useEffect(() => {
-    if (Object.keys(registerData).length) {
-      dispatch(getConfirmationData());
-    }
-  }, [registerData]);
+    const userTypeId = 1;
+
+    dispatch(getAuthFiles(userTypeId));
+  }, []);
 
   const isSuccess = () => {
     return setModal(true);
@@ -54,11 +52,6 @@ const StepOne = (props) => {
     toast.error('Hatalı Giriş', {
       position: 'bottom-right',
       autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
     });
   };
 
@@ -70,11 +63,6 @@ const StepOne = (props) => {
             toast.error(`${key}: ${val}`, {
               position: 'bottom-right',
               autoClose: 4500,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
             });
           }
         }
@@ -82,11 +70,6 @@ const StepOne = (props) => {
         toast.error(getStepOne.error, {
           position: 'bottom-right',
           autoClose: 4500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
         });
       }
     }
@@ -132,11 +115,6 @@ const StepOne = (props) => {
       toast.error('Bir sorun oluştu lütfen daha sonra tekrar deneyiniz.', {
         position: 'bottom-right',
         autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
       });
     }
   };
@@ -150,19 +128,30 @@ const StepOne = (props) => {
           setAcceptMemberAgreement={setAcceptMemberAgreement}
           acceptMemberAgreement={acceptMemberAgreement}
           setOpenModal={setOpenModal}
-          agreementData={confirmationData?.['agreement']}
-          extraAgreementData={confirmationData?.['agreementExtra']}
+          confirmationData={confirmationData}
+          extraAgreementData={confirmationData}
         />
       );
       break;
 
-    case 'kvkk':
+    case 'information':
       confirmation = (
-        <Kvkk
+        <Information
+          acceptHealthAgreement={acceptHealthAgreement}
+          setAcceptHealthAgreement={setAcceptHealthAgreement}
+          setOpenModal={setOpenModal}
+          confirmationData={confirmationData}
+        />
+      );
+      break;
+
+    case 'privacy':
+      confirmation = (
+        <Privacy
           acceptKvkk={acceptKvkk}
           setAcceptKvkk={setAcceptKvkk}
           setOpenModal={setOpenModal}
-          kvkkData={confirmationData?.['kvkk']}
+          confirmationData={confirmationData}
         />
       );
       break;
@@ -173,7 +162,7 @@ const StepOne = (props) => {
           acceptPermissions={acceptPermissions}
           setAcceptPermissions={setAcceptPermissions}
           setOpenModal={setOpenModal}
-          permissionData={confirmationData?.['permission']}
+          confirmationData={confirmationData}
         />
       );
       break;
@@ -220,8 +209,27 @@ const StepOne = (props) => {
           />
 
           <Material.CheckBox
+            checked={acceptHealthAgreement}
+            onChange={(e) => setAcceptHealthAgreement(e.target.checked)}
+            label={
+              <div>
+                <span
+                  className="underline-text"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setConfirmationType('information');
+                    setOpenModal(true);
+                  }}
+                >
+                  Aydınlatma Bildirimini
+                </span>
+                okudum, onaylıyorum.
+              </div>
+            }
+          />
+
+          <Material.CheckBox
             onChange={(e) => setAcceptKvkk(e.target.checked)}
-            required={true}
             checked={acceptKvkk}
             label={
               <div>
@@ -229,11 +237,11 @@ const StepOne = (props) => {
                   className="underline-text"
                   onClick={(e) => {
                     e.preventDefault();
-                    setConfirmationType('kvkk');
+                    setConfirmationType('privacy');
                     setOpenModal(true);
                   }}
                 >
-                  KVKK
+                  Gizlilik sözleşmesini
                 </span>
                 , okudum onaylıyorum.
               </div>

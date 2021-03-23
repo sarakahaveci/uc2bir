@@ -25,6 +25,7 @@ const initialState = {
   isLoading: false,
   error: null,
   isAuthenticated: false,
+  authFiles: {},
 };
 
 export default (state = initialState, action) => {
