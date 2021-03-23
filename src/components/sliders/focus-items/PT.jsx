@@ -69,7 +69,7 @@ const PT = ({ top = false, bottom = false, val }) => {
                 <Button text="Meditasyon" />
               </li>
               <li>
-                <Button text="Plates" />
+                <Button text="Pilates" />
               </li>
               <li>
                 <Button text="Fitnes" />

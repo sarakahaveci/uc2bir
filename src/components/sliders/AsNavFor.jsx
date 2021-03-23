@@ -1,71 +1,59 @@
 import React, { useLayoutEffect, useState } from 'react';
-import Slider from "react-slick";
+import Slider from 'react-slick';
+import cx from 'classnames';
 
-import img1 from "../../assets/as-nav-for/iStock-1176357828.jpg";
-import img2 from "../../assets/as-nav-for/iStock-1215209609.jpg";
-import img3 from "../../assets/as-nav-for/iStock-860080766.jpg";
-import img4 from "../../assets/as-nav-for/iStock-872164142.jpg";
+import img0 from 'assets/slider/top-promotion/img-0.jpg';
+import img1 from 'assets/slider/top-promotion/img-1.jpg';
+import img2 from 'assets/slider/top-promotion/img-2.jpg';
+import img3 from 'assets/slider/top-promotion/img-3.jpg';
 
-const AsNavFor = ({ className = "" }) => {
-    const [nav1, setNav1] = useState(null);
-    const [nav2, setNav2] = useState(null);
+//? sliderItems will change with content from "cms"
+const sliderItems = [img0, img1, img2, img3];
 
-    let slider1;
-    let slider2;
+export default function AsNavFor({ className }) {
+  const [nav1, setNav1] = useState(null);
+  const [nav2, setNav2] = useState(null);
 
-    useLayoutEffect(() => {
-        setNav1(slider1);
-        setNav2(slider2);
-    }, []);
+  let slider1;
+  let slider2;
 
-    return (
-        <div className={`as-nav-for ${className}`}>
-            <div className="item img col">
-                <Slider
-                    asNavFor={nav2}
-                    ref={slider => (slider1 = slider)}
-                >
-                    <div className="slider-item">
-                        <div className="img" style={{ backgroundImage: `url(${img1})` }}></div>
-                    </div>
-                    <div className="slider-item">
-                        <div className="img" style={{ backgroundImage: `url(${img2})` }}></div>
-                    </div>
-                    <div className="slider-item">
-                        <div className="img" style={{ backgroundImage: `url(${img3})` }}></div>
-                    </div>
-                    <div className="slider-item">
-                        <div className="img" style={{ backgroundImage: `url(${img4})` }}></div>
-                    </div>
-                </Slider>
-            </div>
-            <div className="item thump col-auto">
-                <Slider
-                    asNavFor={nav1}
-                    ref={slider => (slider2 = slider)}
-                    slidesToShow={3}
-                    swipeToSlide={true}
-                    focusOnSelect={true}
-                    autoplay={true}
-                    autoplaySpeed={7500}
-                    speed={2000}
-                >
-                    <div className="slider-item-thump">
-                        <div className="img" style={{ backgroundImage: `url(${img1})` }}></div>
-                    </div>
-                    <div className="slider-item-thump">
-                        <div className="img" style={{ backgroundImage: `url(${img2})` }}></div>
-                    </div>
-                    <div className="slider-item-thump">
-                        <div className="img" style={{ backgroundImage: `url(${img3})` }}></div>
-                    </div>
-                    <div className="slider-item-thump">
-                        <div className="img" style={{ backgroundImage: `url(${img4})` }}></div>
-                    </div>
-                </Slider>
-            </div>
-        </div>
-    );
-};
+  useLayoutEffect(() => {
+    setNav1(slider1);
+    setNav2(slider2);
+  }, []);
 
-export default AsNavFor;
+  return (
+    <div className={cx('as-nav-for', { [`${className}`]: className })}>
+      <Slider
+        className="as-nav-for__main"
+        asNavFor={nav2}
+        arrows={false}
+        ref={(slider) => (slider1 = slider)}
+      >
+        {sliderItems.map((item, i) => (
+          <div key={i} className="as-nav-for__main__item">
+            <img src={item} alt={`slider-img-${i}`} />
+          </div>
+        ))}
+      </Slider>
+      <Slider
+        className="as-nav-for__thump"
+        asNavFor={nav1}
+        ref={(slider) => (slider2 = slider)}
+        slidesToShow={3}
+        swipeToSlide={true}
+        focusOnSelect={true}
+        autoplay={true}
+        autoplaySpeed={7500}
+        speed={2000}
+        arrows={false}
+      >
+        {sliderItems.map((item, i) => (
+          <div key={i} className="as-nav-for__thump__item">
+            <img src={item} alt={`slider-img-${i}`} />
+          </div>
+        ))}
+      </Slider>
+    </div>
+  );
+}

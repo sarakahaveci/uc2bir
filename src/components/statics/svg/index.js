@@ -37,6 +37,7 @@ import Yoga from './images/yoga.svg';
 import KickBoks from './images/kick-boks.svg';
 import AthleticPerformance from './images/athletic-performance.svg';
 import Tennis from './images/tennis.svg';
+import Athlete from './images/athlete.svg';
 import Swimming from './images/swimming.svg';
 import Pilates from './images/pilates.svg';
 import Notification from './images/notification.svg';
@@ -196,8 +197,11 @@ const Svg = {
       svg: (props) => <ReactSVG {...props} src={AthleticPerformance} />,
     },
     {
-      // Değişecek
       name: 'Cimnastik',
+      svg: (props) => <ReactSVG {...props} src={Athlete} />,
+    },
+    {
+      name: 'Yüzme',
       svg: (props) => <ReactSVG {...props} src={Swimming} />,
     },
   ],

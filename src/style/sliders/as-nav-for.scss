@@ -1,74 +1,37 @@
-.top-promotion {
-    .slider-p0, .col, .col-auto {
-        padding: 0;
-    }
-}
-
 .as-nav-for {
-    width: 100%;
+  width: 100%;
 
-    .item {
-        width: 100%;
-        height: 410px;
-        margin-bottom: 10px;
-
-        @media (max-width: 1200px) {
-            height: 250px;
-        }
-
-        &.thump {
-            height: 100px;
-        }
-
-        .slider-item {
-            width: 100%;
-            height: 410px;
-            padding: 5px;
-
-            @media (max-width: 1200px) {
-                height: 250px;
-            }
-
-            .img {
-                width: 100%;
-                height: 410px;
-                background-size: cover;
-                background-position: center center;
-
-                @media (max-width: 1200px) {
-                    height: 250px;
-                }
-            }
-        }
-
-        .slider-item-thump {
-            width: 100%;
-            height: 100px;
-            padding: 5px;
-
-            @media (max-width: 1200px) {
-                height: 75px;
-            }
-
-            .img {
-                width: 100%;
-                height: 100px;
-                background-size: cover;
-                background-position: center center;
-                border: none;
-
-                @media (max-width: 1200px) {
-                    height: 75px;
-                }
-            }
-        }
-
-        .slick-active.slick-current {
-            .slider-item-thump {
-                .img {
-                    border: 3px solid #00B2A9;
-                }
-            }
-        }
+  &__main,
+  &__thump {
+    img {
+      width: 100%;
+      height: 100%;
+      object-position: center;
+      object-fit: cover;
     }
+  }
+
+  &__main {
+    .slick-slide > div {
+      margin: 0 5px;
+    }
+
+    &__item {
+      height: 410px;
+    }
+  }
+
+  &__thump {
+    margin: 10px 5px;
+
+    .slick-active.slick-current {
+      .as-nav-for__thump__item {
+        border: 3px solid #00b2a9;
+      }
+    }
+
+    &__item {
+      height: 100px;
+    }
+  }
 }

@@ -53,7 +53,7 @@ const Info = () => {
               mutluluk duyarız.
             </Text>
             <Text fontSize="11pt">
-              3-2-1; Spor, diyet, spor alanı, spor etkinlikleri gibi sağlıklı
+              üç2bir; Spor, diyet, spor alanı, spor etkinlikleri gibi sağlıklı
               yaşama dair her şeyi bulabileceğin, kolayca kullanabileceğin,
               ihtiyacın olan kadarını satın alabileceğin, kontrolü kullanıcıya
               veren ve bu konuda büyük bir özgürlük alanı yaratan web ve mobil

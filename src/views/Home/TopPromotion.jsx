@@ -1,13 +1,13 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import cx from 'classnames'
+import cx from 'classnames';
 
 import { Title, DefBackground } from 'components';
 import AsNavFor from 'components/sliders/AsNavFor';
 
-const TopPromotion = ({className,background,children}) => {
+const TopPromotion = ({ className, background, children }) => {
   return (
-    <section className={cx('top-promotion', { [`${className}`]: className } )}>
+    <section className={cx('top-promotion', { [`${className}`]: className })}>
       {background && (
         <div
           className="background-element"
@@ -26,10 +26,11 @@ const TopPromotion = ({className,background,children}) => {
             >
               Başarmak İçİn sen de hemen başla!
             </Title>
-            <p>
-            Spor için tutku, özgürlük, motivasyon, enerji; Forma Girmek için heves, istikrar, profesyonel destek; Grup Motivasyonu için ortak hedefler, beraberlikten gelen itici güç!
-Unutma hedeflerini ancak başlayanlar başarabilir.
-
+            <p className="mb-5">
+              Spor için tutku, özgürlük, motivasyon, enerji; Forma Girmek için
+              heves, istikrar, profesyonel destek; Grup Motivasyonu için ortak
+              hedefler, beraberlikten gelen itici güç! Unutma hedeflerini ancak
+              başlayanlar başarabilir.
             </p>
           </div>
           <div className="slider-p0 col-lg-6 d-flex">

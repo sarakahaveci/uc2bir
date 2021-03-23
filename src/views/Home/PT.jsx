@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import cx from 'classnames';
@@ -6,7 +5,6 @@ import cx from 'classnames';
 import Title from 'components/typography/Titles';
 import SliderFocus from 'components/sliders/SliderFocus';
 
-//mocdata
 import * as Data from './MocData';
 
 const PT = ({className}) => {
@@ -16,7 +14,7 @@ const PT = ({className}) => {
   const groups = 'PT';
   const link = '/instructor';
   return (
-    <section  className={cx({ [`${className}`]: className })}>
+    <section  className={cx('pt', { [`${className}`]: className })}>
       <Container>
         <Title variant="h3" lineDisable={false} component="h3">
           EĞİTMENLER

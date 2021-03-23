@@ -175,7 +175,7 @@ export default function Profile({ match }) {
                 link: '/',
               },
               {
-                text: 'Plates',
+                text: 'Pilates',
                 link: '/',
               },
               {

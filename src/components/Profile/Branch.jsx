@@ -30,7 +30,7 @@ const mockData = [
   },
   {
     sportType: 3,
-    sportName: 'PLATES',
+    sportName: 'PİLATES',
     level: 'A',
     price: 150,
     speciality: [

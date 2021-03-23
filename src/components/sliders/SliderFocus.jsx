@@ -63,7 +63,7 @@ const SliderFocus = (props) => {
                   <AwesomeIcon.Prev />
                 </a>
               </div>
-              <SlickSlider asNavFor={nav2} ref={(slider) => (slider1 = slider)}>
+              <SlickSlider asNavFor={nav2} arrows={false} ref={(slider) => (slider1 = slider)}>
                 {query &&
                   data.map((val, key) =>
                     Groups[props.groups]({ key, val, bottom: true })

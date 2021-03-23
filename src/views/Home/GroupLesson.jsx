@@ -39,13 +39,13 @@ const GroupLesson = (props) => {
     },
     {
       id: 5,
-      name: 'Body Building',
+      name: 'Vücut Geliştirme',
       activeClass: '',
       link: '#all',
     },
     {
       id: 6,
-      name: 'Palates',
+      name: 'Pilates',
       activeClass: '',
       link: '#all',
     },

@@ -19,7 +19,7 @@ const Header = () => {
 
   const nav_logo = {
     status: true,
-    className: 'col logo',
+    className: 'col logo justify-content-center',
     element: () => logo,
   };
 
@@ -102,7 +102,7 @@ const Header = () => {
                     />
                   </li>
                   <li>
-                    <Link to="/info">Üç2Bir HAKKINDA</Link>
+                    <Link to="/info">Üç2Bir hakkında</Link>
                   </li>
                   <li>
                     <Link to="/blog-list">Blog</Link>
