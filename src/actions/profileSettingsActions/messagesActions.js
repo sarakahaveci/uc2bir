@@ -10,7 +10,7 @@ import {
   READ_MESSAGE,
 } from '../../constants';
 
-export const getRooms = () => async (dispatch) => {
+export const getRooms = (isFirstTime) => async (dispatch) => {
   const url = `/user/message/rooms`;
 
   await dispatch({
@@ -21,11 +21,13 @@ export const getRooms = () => async (dispatch) => {
       label: GET_ROOMS,
       transformData: (data) => data.data,
       callBack: (data) => {
-        const allRooms = data.data;
+        if (isFirstTime) {
+          const allRooms = data.data;
 
-        dispatch(
-          setRoomName(allRooms?.[0]?.room_name, data.data?.[0]?.user_meta)
-        );
+          dispatch(
+            setRoomName(allRooms?.[0]?.room_name, data.data?.[0]?.user_meta)
+          );
+        }
       },
     },
   });

@@ -13,7 +13,6 @@ import GroupLesson from './GroupLesson';
 import Dietitians from './Dietitians';
 import VKI from './VKI';
 import Blog from './Blog';
-import Comments from './Comments';
 
 const Home = () => {
 	return (
@@ -29,7 +28,7 @@ const Home = () => {
 			<Dietitians />
 			<VKI />
 			<Blog />
-			<Comments />
+			{/* <Comments /> */}
 			<FluidBannerBottom />
 		</Main>
 	)

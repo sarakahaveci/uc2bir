@@ -21,8 +21,15 @@ const FluidBanner = (props) => {
             component="h5"
             style={{ maxWidth: '50%', marginLeft: 'auto', marginRight: 'auto' }}
             lineDisable
-          ></Title>
-          <Text textAlign="center" color="white" fontSize="1.2rem"></Text>
+          >
+            Sen neredeysen spor ve eğitmen orada!
+          </Title>
+          <Text textAlign="center" color="white" fontSize="1.2rem">
+            Sporseverler, eğitmen seçiyor, yeri ve zamanı belirliyor. Bire bir
+            ilgi, diyetisyen desteği, spor salonu seçenekleri hepsi burada.
+            <br />
+            Başarmak için hemen başla!
+          </Text>
           <br />
           <br />
           <Button
