@@ -73,20 +73,19 @@ const ProfileForms = ({ type }) => {
               settings="current"
             />
           )}
-          {type === 'USER' && (
-            <>
-              <Material.TextField
-                label="Mail Adresiniz"
-                type="email"
-                name="email"
-                defaultValue={detail?.data?.email}
-                onChange={(e) =>
-                  setData({ ...data, [e.target.name]: e.target.value })
-                }
-                settings="current"
-              />
-            </>
-          )}
+          <Material.TextField
+            label="Mail Adresiniz"
+            type="email"
+            name="email"
+            defaultValue={detail?.data?.email}
+            onChange={(e) =>
+              setData({ ...data, [e.target.name]: e.target.value })
+            }
+            settings="current"
+            inputProps={{
+              readOnly: true,
+            }}
+          />
           {type !== 'WORK_PLACE' && (
             <Material.SimpleSelect
               label="Cinsiyetiniz"
