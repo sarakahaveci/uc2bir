@@ -18,12 +18,7 @@ const GYMAdds = ({ setSubPage }) => {
   );
 
   useEffect(() => {
-    dispatch(
-      getGymList(
-        () => {},
-        () => {}
-      )
-    );
+    dispatch(getGymList());
   }, []);
 
   const gymAddHandler = (id) => {

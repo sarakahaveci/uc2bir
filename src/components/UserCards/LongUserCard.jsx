@@ -7,7 +7,16 @@ import MockImage from 'assets/default-profile.jpg';
 import { addFavoriteUser, removeFavoriteUser } from 'actions';
 import { Title, AwesomeIcon, Span, Svg, Stars } from 'components';
 
-const LongUserCard = ({ data, showHeartBg, favoritedUser }) => {
+const LongUserCard = ({
+  data,
+  showHeartBg,
+  favoritedUser,
+  city,
+  district,
+  hoverText = 'Profile Git',
+  isGym,
+  onClickHover,
+}) => {
   const [showProfileNavigator, setShowProfileNavigator] = useState(false);
   const [isFavorited, setIsFavorited] = useState(favoritedUser);
 
@@ -46,11 +55,19 @@ const LongUserCard = ({ data, showHeartBg, favoritedUser }) => {
           src={data.photo ? data.photo : MockImage}
         />
 
-        {showProfileNavigator && (
-          <Link className="long-user-card__profile-navigator" to="/">
-            Profile Git
-          </Link>
-        )}
+        {showProfileNavigator &&
+          (!isGym ? (
+            <Link className="long-user-card__profile-navigator" to="">
+              {hoverText}
+            </Link>
+          ) : (
+            <div
+              className="long-user-card__profile-navigator"
+              onClick={() => onClickHover(data.id)}
+            >
+              {hoverText}
+            </div>
+          ))}
       </div>
 
       <div className="long-user-card__body">
@@ -62,11 +79,12 @@ const LongUserCard = ({ data, showHeartBg, favoritedUser }) => {
 
         <div className="long-user-card__location-wrapper">
           <div className="long-user-card__location-text">
-            <Svg.LocationIcon /> {data.city}, {data.district}
+            <Svg.LocationIcon /> {data.city || city},{' '}
+            {data.district || district}
           </div>
 
           <div className="long-user-card__fee">
-            {data.price} <AwesomeIcon.Tl />
+            {data.price || 0} <AwesomeIcon.Tl />
           </div>
         </div>
       </div>

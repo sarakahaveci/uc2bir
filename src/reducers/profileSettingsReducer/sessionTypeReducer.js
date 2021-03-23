@@ -2,30 +2,27 @@ import {
   ADD_TYPE_CREATE_REQUEST,
   ADD_TYPE_CREATE_SUCCESS,
   ADD_TYPE_CREATE_FAILURE,
-
   GET_TYPES_REQUEST,
   GET_TYPES_SUCCESS,
   GET_TYPES_FAILURE,
-
   SESSIONTYPE_ADD_ADDRESS_REQUEST,
   SESSIONTYPE_ADD_ADDRESS_SUCCESS,
   SESSIONTYPE_ADD_ADDRESS_FAILURE,
-
   ADD_TYPE_ADDRESS_DELETE_REQUEST,
   ADD_TYPE_ADDRESS_DELETE_SUCCESS,
   ADD_TYPE_ADDRESS_DELETE_FAILURE,
-
   SESSIONTYPE_GET_ADDRESS_REQUEST,
   SESSIONTYPE_GET_ADDRESS_SUCCESS,
   SESSIONTYPE_GET_ADDRESS_FAILURE,
-
   SESSIONTYPE_GET_GYM_LIST_REQUEST,
   SESSIONTYPE_GET_GYM_LIST_SUCCESS,
   SESSIONTYPE_GET_GYM_LIST_FAILURE,
-
   SESSIONTYPE_ADD_GYM_REQUEST,
   SESSIONTYPE_ADD_GYM_SUCCESS,
   SESSIONTYPE_ADD_GYM_FAILURE,
+  SEARCH_GYM_FOR_PT_REQUEST,
+  SEARCH_GYM_FOR_PT_SUCCESS,
+  SEARCH_GYM_FOR_PT_FAILURE,
 } from '../../constants';
 
 const initialState = {
@@ -68,11 +65,54 @@ const initialState = {
     isSuccsess: false,
     data: [],
     error: null,
-  }
+  },
+  searchGym: {
+    isLoading: false,
+    currentPage: null,
+    perPage: null,
+    totalData: null,
+    totalPage: null,
+    data: [],
+    error: null,
+  },
 };
 
 const sessionTypeReducer = (state = initialState, action) => {
   switch (action.type) {
+    case SEARCH_GYM_FOR_PT_REQUEST:
+      return {
+        ...state,
+        searchGym: {
+          ...state.searchGym,
+          isLoading: true,
+        },
+      };
+
+    case SEARCH_GYM_FOR_PT_SUCCESS:
+      return {
+        ...state,
+        searchGym: {
+          ...state.searchGym,
+          isLoading: false,
+          data: action.payload.data,
+          currentPage: action.payload.currentPage,
+          perPage: action.payload.perPage,
+          totalData: action.payload.totalData,
+          totalPage: action.payload.totalPage,
+          error: null,
+        },
+      };
+
+    case SEARCH_GYM_FOR_PT_FAILURE:
+      return {
+        ...state,
+        searchGym: {
+          ...state.searchGym,
+          isLoading: false,
+          error: action.payload,
+        },
+      };
+
     case ADD_TYPE_CREATE_REQUEST:
       return {
         ...state,

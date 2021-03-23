@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { getGeocode } from 'use-places-autocomplete';
 import { Svg } from 'components';
+import BluePlusIcon from 'assets/blue-plus.svg';
 
 import AddAdress from '../AddAdress';
 import AddGym from './AddGym';
@@ -88,7 +89,14 @@ const Adds = ({ icons, setBannerActive }) => {
                             setSubPage(val.create.action);
                           }}
                         >
-                          {val.create.name}
+                          {val.create.name}{' '}
+                          <img
+                            src={BluePlusIcon}
+                            alt=""
+                            width="25px"
+                            height="25px"
+                            className="ml-2"
+                          />
                         </Create>
                       </>
                     )}

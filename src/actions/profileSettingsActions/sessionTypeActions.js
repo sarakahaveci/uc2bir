@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import {
   HTTP_REQUEST,
   ADD_TYPE_CREATE,
@@ -7,7 +9,11 @@ import {
   ADD_TYPE_ADDRESS_DELETE,
   SESSIONTYPE_GET_GYM_LIST,
   SESSIONTYPE_ADD_GYM,
+  REMOVE_GTM_FROM_PT,
+  SEARCH_GYM_FOR_PT,
+  ADD_GTM_FROM_PT,
 } from '../../constants';
+import { toast } from 'react-toastify';
 
 export const getTypes = () => async (dispatch, getState) => {
   const url = `user/profile/session-type`;
@@ -65,10 +71,10 @@ export const addAddress = (
   });
 };
 
-export const getAddressList = (
-  successCallback,
-  errorCallback
-) => async (dispatch, getState) => {
+export const getAddressList = (successCallback, errorCallback) => async (
+  dispatch,
+  getState
+) => {
   const url = `/user/address`;
 
   await dispatch({
@@ -84,11 +90,10 @@ export const getAddressList = (
   });
 };
 
-export const deleteAddressList = (
-  id,
-  successCallback,
-  errorCallback
-) => async (dispatch, getState) => {
+export const deleteAddressList = (id, successCallback, errorCallback) => async (
+  dispatch,
+  getState
+) => {
   const url = `/user/address/${id}`;
 
   await dispatch({
@@ -104,11 +109,10 @@ export const deleteAddressList = (
   });
 };
 
-export const getGymList = (
-  successCallback,
-  errorCallback
-) => async (dispatch, getState) => {
-  const url = `/user/working-area/gym/2`;
+export const getGymList = () => async (dispatch, getState) => {
+  const { id } = getState().auth?.user;
+
+  const url = `/user/working-area/gym/${id}`;
 
   await dispatch({
     type: HTTP_REQUEST,
@@ -116,18 +120,16 @@ export const getGymList = (
       method: 'GET',
       url,
       label: SESSIONTYPE_GET_GYM_LIST,
-      callBack: () => successCallback(),
-      errorHandler: (error) => errorCallback(error?.message),
+
       transformData: (data) => data.data,
     },
   });
 };
 
-export const addGym = (
-  { ...data },
-  successCallback,
-  errorCallback
-) => async (dispatch, getState) => {
+export const addGym = ({ ...data }, successCallback, errorCallback) => async (
+  dispatch,
+  getState
+) => {
   const url = `/user/address/add-working-gym`;
 
   await dispatch({
@@ -140,6 +142,71 @@ export const addGym = (
       callBack: () => successCallback(),
       errorHandler: (error) => errorCallback(error?.message),
       transformData: (data) => data.data,
+    },
+  });
+};
+
+export const removeGymFromPt = (data) => async (dispatch, getState) => {
+  const url = `/user/address/remove-working-gym`;
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'POST',
+      url,
+      body: { gym: data },
+      label: REMOVE_GTM_FROM_PT,
+      callBack: () => {
+        toast.success('Spor alanı başarı ile kaldırıldı.', {
+          position: 'bottom-right',
+          delay: 2500,
+        });
+        dispatch(getGymList());
+      },
+      errorHandler: (error) =>
+        toast.error(error.message, { position: 'bottom-right', delay: 2500 }),
+    },
+  });
+};
+
+export const addGymFromPt = (id, successCallback) => async (
+  dispatch,
+  getState
+) => {
+  const url = `/user/address/add-working-gym`;
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'POST',
+      url,
+      body: { gym: [id] },
+      label: ADD_GTM_FROM_PT,
+      callBack: () => {
+        toast.success('Spor alanı başarı ile eklendi', {
+          position: 'bottom-right',
+          delay: 2500,
+        });
+        successCallback();
+      },
+      errorHandler: (error) =>
+        toast.error(error.message, { position: 'bottom-right', delay: 2500 }),
+    },
+  });
+};
+
+export const searchGymForPt = (title) => async (dispatch) => {
+  const url = `/user/address/search-gym?title=${title}`;
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'GET',
+      url,
+      label: SEARCH_GYM_FOR_PT,
+      transformData: (data) => data.data,
+      errorHandler: (error) =>
+        toast.error(error.message, { position: 'bottom-right', delay: 2500 }),
     },
   });
 };

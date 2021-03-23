@@ -1,81 +1,109 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, AwesomeIcon, Title, IconLabel } from 'components';
-import { getAddressList } from 'actions';
-import { useDispatch } from 'react-redux';
+import { getGymList } from 'actions';
+import { useDispatch, useSelector } from 'react-redux';
 import { Col } from 'react-bootstrap';
 import styled from 'styled-components/macro';
+import Checkbox from '@material-ui/core/Checkbox';
+import { withStyles } from '@material-ui/core/styles';
 
 import image from '../../../assets/session-type.jpg';
+import { removeGymFromPt } from 'actions';
 
 const GYMEdit = ({ setSubPage }) => {
   const stars = 5;
   const dispatch = useDispatch();
 
+  const { gym } = useSelector(
+    (state) => state.profileSettings2.sessionType?.gymList?.data
+  );
+
+  const [checked, setChecked] = useState([]);
+
+  const handleChange = (id) => {
+    if (!checked.includes(id)) setChecked((prevArr) => [...prevArr, id]);
+    else setChecked(checked.filter((item) => item !== id));
+  };
+
   useEffect(() => {
-    dispatch(
-      getAddressList(
-        () => {},
-        () => {}
-      )
-    );
+    dispatch(getGymList());
   }, []);
 
   return (
     <>
       <Button text="< Geri" onClick={() => setSubPage('Adds')} />
       <div className="d-flex flex-wrap">
-        <CardGroup>
-          <Card>
-            <Stars>
-              <Star className={`${stars > 0 ? 'active' : ''}`}>
-                <AwesomeIcon.StarSolid />
-              </Star>
-              <Star className={`${stars > 1 ? 'active' : ''}`}>
-                <AwesomeIcon.StarSolid />
-              </Star>
-              <Star className={`${stars > 2 ? 'active' : ''}`}>
-                <AwesomeIcon.StarSolid />
-              </Star>
-              <Star className={`${stars > 3 ? 'active' : ''}`}>
-                <AwesomeIcon.StarSolid />
-              </Star>
-              <Star className={`${stars > 4 ? 'active' : ''}`}>
-                <AwesomeIcon.StarSolid />
-              </Star>
-            </Stars>
-            <div className="left-group">
-              <div
-                style={{ backgroundImage: `url(${image})` }}
-                className="img"
-              ></div>
-            </div>
-            <div className="right-group">
-              <div className="title">
-                <Title textAlign="left" fontSize="14pt">
-                  CrossFit
-                </Title>
-                <Title textAlign="left" fontSize="10pt">
-                  180 m , 100 kişi kapasiteli
-                </Title>
-              </div>
-              <div className="footer-and">
-                <div className="and">
-                  <IconLabel text="İstanbul Beşiktaş" icon={AwesomeIcon.Map} />
-                  <Title textAlign="right" variant="h5" component="h5">
-                    15 <AwesomeIcon.Tl />
-                  </Title>
+        {gym?.map((data) => (
+          <>
+            <CardGroup key={data.id}>
+              <Card>
+                <Stars>
+                  <Star className={`${stars > 0 ? 'active' : ''}`}>
+                    <AwesomeIcon.StarSolid />
+                  </Star>
+                  <Star className={`${stars > 1 ? 'active' : ''}`}>
+                    <AwesomeIcon.StarSolid />
+                  </Star>
+                  <Star className={`${stars > 2 ? 'active' : ''}`}>
+                    <AwesomeIcon.StarSolid />
+                  </Star>
+                  <Star className={`${stars > 3 ? 'active' : ''}`}>
+                    <AwesomeIcon.StarSolid />
+                  </Star>
+                  <Star className={`${stars > 4 ? 'active' : ''}`}>
+                    <AwesomeIcon.StarSolid />
+                  </Star>
+                </Stars>
+                <div className="left-group">
+                  <div
+                    style={{ backgroundImage: `url(${image})` }}
+                    className="img"
+                  ></div>
                 </div>
-              </div>
-            </div>
-          </Card>
-        </CardGroup>
+                <div className="right-group">
+                  <div className="title">
+                    <Title textAlign="left" fontSize="14pt">
+                      {data?.title}
+                    </Title>
+                    <Title textAlign="left" fontSize="10pt" fontWeight="400">
+                      {data?.area_measure} m2 , {data?.capacity} kişi kapasiteli
+                    </Title>
+                  </div>
+                  <div className="footer-and">
+                    <div className="and">
+                      <IconLabel
+                        text="İstanbul Beşiktaş"
+                        icon={AwesomeIcon.Map}
+                      />
+                      <Title textAlign="right" variant="h5" component="h5">
+                        {data?.price || 0} <AwesomeIcon.Tl />
+                      </Title>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+              <GreenCheckbox
+                checked={checked.includes(data?.id)}
+                onChange={() => handleChange(data?.id)}
+              />
+            </CardGroup>
+          </>
+        ))}
+
         <div
           style={{ padding: 30 }}
           className="d-flex btn-group justify-content-end p-30 w-100"
         >
           <div className="ln">
-            <Button style={{ margin: 5 }} className="gray" text="Kaldır" />
-            <Button style={{ margin: 5 }} className="blue" text="Kaydet" />
+            <Button
+              disabled={!checked.length}
+              style={{ margin: 5 }}
+              className="blue"
+              text={`Kaldır ${
+                checked.length ? '(' + checked.length + ')' : ''
+              }`}
+              onClick={() => dispatch(removeGymFromPt(checked))}
+            />
           </div>
         </div>
       </div>
@@ -91,29 +119,6 @@ const CardGroup = styled.div`
   position: relative;
   justify-content: center;
   align-items: center;
-
-  &:before {
-    position: absolute;
-    z-index: 1000;
-    content: '';
-    background: #fff;
-    width: 40px;
-    height: 40px;
-    border-radius: 100%;
-    right: 30px;
-    border: 2px solid var(--blue);
-  }
-
-  &:after {
-    position: absolute;
-    z-index: 1000;
-    content: '';
-    background: var(--blue);
-    width: 20px;
-    height: 20px;
-    border-radius: 100%;
-    right: 40px;
-  }
 `;
 
 const Card = styled(Col)`
@@ -220,5 +225,16 @@ const Star = styled.li`
     }
   }
 `;
+
+const GreenCheckbox = withStyles({
+  root: {
+    color: '#00b3a8',
+    width: 50,
+    '&$checked': {
+      color: '#00b3a8',
+    },
+  },
+  checked: {},
+})((props) => <Checkbox color="default" {...props} />);
 
 export default GYMEdit;
