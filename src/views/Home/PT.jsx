@@ -16,7 +16,7 @@ const PT = ({className}) => {
   const groups = 'PT';
   const link = '/instructor';
   return (
-    <section  className={cx({ [`${className}`]: className })}>
+    <section  className={cx('pt', { [`${className}`]: className })}>
       <Container>
         <Title variant="h3" lineDisable={false} component="h3">
           EĞİTMENLER
