@@ -34,7 +34,6 @@ const ProficiencyCollapser = ({
 
   const extraUserInputs = addedProficiencyKeys.map((key, index) => (
     <Material.TextField
-      id={index}
       key={index}
       changeValue={addedProficiencies[key]}
       defaultValue={addedProficiencies[key]}
@@ -66,7 +65,7 @@ const ProficiencyCollapser = ({
             className="proficiency-row__save"
             onClick={saveProficiencyHandler}
           >
-            {isLoading ? <Spinner /> : 'Kaydet'}
+            {isLoading ? <Spinner type="static" /> : 'Kaydet'}
           </span>
         )}
       </div>

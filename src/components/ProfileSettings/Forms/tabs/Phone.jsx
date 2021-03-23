@@ -10,7 +10,7 @@ import { StepTwo } from 'views/Register/steps';
 
 const ProfileForms = () => {
   const { detail } = useSelector(
-    (state) => state?.profileSettings2?.profileDetail
+    (state) => state.profileSettings2.profileDetail
   );
 
   const [phone, setPhone] = useState();

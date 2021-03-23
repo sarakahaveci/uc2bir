@@ -16,8 +16,14 @@
     margin-top: 15px;
   }
 
+  &__img {
+    width: 30px;
+    height: 30px;
+  }
+
   &__save {
     cursor: pointer;
+    position: relative;
     font-weight: 600;
     font-size: 15px;
     letter-spacing: 0.01em;

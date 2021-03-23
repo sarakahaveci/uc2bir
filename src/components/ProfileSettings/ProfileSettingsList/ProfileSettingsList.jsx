@@ -32,7 +32,7 @@ import Notifications from 'components/ProfileSettings/Notifications';
 const trainerAndDietitanData = [
   {
     settingsName: 'Profil',
-    settingsDetails: 'Adınız soyadınız diğer bilgilerinizi güncel tutun',
+    settingsDetails: 'Adınız soyadınız ve diğer bilgilerinizi güncel tutun',
     body: <SettingsForm />,
   },
   {
