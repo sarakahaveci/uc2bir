@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 
 import { Material, Button } from 'components';
@@ -109,7 +110,7 @@ const ProfileForms = ({ type }) => {
                 setData({ ...data, [e.target.name]: e.target.value })
               }
               settings="current"
-              onError={(err) => setIsBirthdaySafe(!!err)}
+              onError={(err) => setIsBirthdaySafe(err)}
             />
           ) : (
             <Material.MaterialDateField
@@ -124,7 +125,7 @@ const ProfileForms = ({ type }) => {
               settings="current"
               minDate={'01.01.1945'}
               maxDate={'01.01.2013'}
-              onError={(err) => setIsBirthdaySafe(!!err)}
+              onError={(err) => setIsBirthdaySafe(err)}
             />
           )}
           <Footer>
@@ -137,7 +138,7 @@ const ProfileForms = ({ type }) => {
               transparentDisabled={
                 Object.keys(data).length === 0 ? true : false
               }
-              disabled={Object.keys(data).length === 0 || isBirthdaySafe}
+              disabled={Object.keys(data).length === 0}
               isLoading={detail.isLoading}
             />
           </Footer>
