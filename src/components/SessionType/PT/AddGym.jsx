@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SearchBar from 'material-ui-search-bar';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
+import Pagination from '@material-ui/lab/Pagination';
 
 import LongUserCard from 'components/UserCards/LongUserCard';
 import { Button } from 'components';
@@ -10,25 +11,31 @@ import { searchGymForPt, addGymFromPt } from 'actions';
 
 const AddGym = ({ setSubPage, setBannerActive }) => {
   const dispatch = useDispatch();
-  const { currentPage, perPage, totalData, totalPage, data } = useSelector(
+  const { totalPage, data } = useSelector(
     (state) => state.profileSettings2.sessionType.searchGym
   );
+
   const [title, setTitle] = useState('');
-  const [showSearch, setShowSearch] = useState(false);
+  const [showSearch, setShowSearch] = useState(true);
+
+  const [page, setPage] = React.useState(1);
+  const handleChangePage = (event, value) => {
+    setPage(value);
+    dispatch(searchGymForPt(title, value));
+  };
+
+  useEffect(() => {
+    setBannerActive(false);
+    dispatch(searchGymForPt());
+  }, []);
 
   const searchGymHandler = () => {
-    setBannerActive(false);
     dispatch(searchGymForPt(title));
     setShowSearch(true);
   };
 
   const addGymHandler = (id) => {
-    dispatch(
-      addGymFromPt(id, () => {
-        setBannerActive(true);
-        setSubPage('Adds');
-      })
-    );
+    dispatch(addGymFromPt(id, () => {}));
   };
 
   return (
@@ -46,8 +53,7 @@ const AddGym = ({ setSubPage, setBannerActive }) => {
           onChange={setTitle}
           placeholder="Salon arayın!"
           onCancelSearch={() => {
-            setBannerActive(true);
-            setShowSearch(false);
+            dispatch(searchGymForPt());
             setTitle('');
           }}
         />
@@ -68,6 +74,14 @@ const AddGym = ({ setSubPage, setBannerActive }) => {
             />
           ))}
       </GymListWrapper>
+      <div className="d-flex w-100 mt-3">
+        <Pagination
+          className="mx-auto"
+          count={totalPage}
+          page={page}
+          onChange={handleChangePage}
+        />
+      </div>
     </>
   );
 };
@@ -75,7 +89,7 @@ const AddGym = ({ setSubPage, setBannerActive }) => {
 const GymListWrapper = styled.div`
   display: grid;
   grid-column-gap: 10px;
-  grid-template-columns: 240px 240px 240px auto;
+  grid-template-columns: 300px 300px 300px 300px;
   grid-row-gap: 10px;
   padding: 10px;
   margin-top: 15px;

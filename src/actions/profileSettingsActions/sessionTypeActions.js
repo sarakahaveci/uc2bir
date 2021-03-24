@@ -195,14 +195,17 @@ export const addGymFromPt = (id, successCallback) => async (
   });
 };
 
-export const searchGymForPt = (title) => async (dispatch) => {
-  const url = `/user/address/search-gym?title=${title}`;
+export const searchGymForPt = (title = false, page = 0) => async (dispatch) => {
+  const urlForAllGymList = `/user/address/search-gym?page=${page}`;
+  const urlWithTitle = `&title=${title}`;
+
+  const finalUrl = urlForAllGymList + (title && urlWithTitle );
 
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
       method: 'GET',
-      url,
+      url: finalUrl,
       label: SEARCH_GYM_FOR_PT,
       transformData: (data) => data.data,
       errorHandler: (error) =>

@@ -145,9 +145,6 @@ const SessionType = () => {
               </IconGroup>
             </Col>
             <Col lg={bannerActive ? 7 : 12}>
-              <Title fontSize="12pt" textAlign="left">
-                Oturum Türleri
-              </Title>
               <Text fontSize="10pt">
                 Ders vereceğiniz oturum türlerini seçin.
               </Text>
