@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Material, Button } from 'components';
 import styled from 'styled-components/macro';
@@ -6,6 +6,7 @@ import styled from 'styled-components/macro';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { setProfile } from 'actions';
+import { yesNo } from 'constants/formData';
 
 const ProfileForms = ({ type }) => {
   const dispatch = useDispatch();
@@ -13,6 +14,11 @@ const ProfileForms = ({ type }) => {
     (state) => state.profileSettings2.profileDetail
   );
   const [data, setData] = useState({});
+  const [hasTaxNumber, setHasTaxNumber] = useState(false);
+
+  useEffect(() => {
+    setHasTaxNumber(!!detail?.data?.tax_number);
+  }, [detail]);
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -40,6 +46,15 @@ const ProfileForms = ({ type }) => {
     <section>
       {detail.isSuccess && (
         <form onSubmit={onSubmit}>
+          <Material.SimpleSelect
+            required
+            name="tax"
+            forHtml="tax"
+            label="Vergi Mükellefi misiniz?"
+            onChange={(event) => setHasTaxNumber(!!event.target.value)}
+            changeValue={hasTaxNumber ? 1 : 0}
+            items={yesNo}
+          />
           {(type === 'PERSONAL_TRAINER' || 'WORK_PLACE') && (
             <>
               <Material.TextField

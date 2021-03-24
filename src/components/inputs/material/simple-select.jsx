@@ -80,7 +80,7 @@ const SimpleSelect = ({
   }, [material]);
 
   useEffect(() => {
-    if (changeValue) setVal(changeValue);
+    if (changeValue !== undefined) setVal(changeValue);
   }, [changeValue]);
 
   return (
