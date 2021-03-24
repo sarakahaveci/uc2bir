@@ -291,7 +291,7 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
                 ve &nbsp;
                 <a
                   href={
-                    userTypeId === 2
+                    userTypeId === 3
                       ? 'http://file.uc2bir.com/uploads/pt-points/files/spor-alani.pptx'
                       : 'http://file.uc2bir.com/uploads/pt-points/files/egitmen.pptx'
                   }
