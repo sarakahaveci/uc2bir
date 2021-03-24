@@ -74,6 +74,7 @@ import UpDown from './images/up-down.svg';
 import LocationCard from './images/location-card.svg';
 import ActiveHeart from './images/active-heart.svg';
 import HeadPhone from './images/headphone.svg';
+import WaveBackground from './images/wave-bg.svg';
 
 import AthleticSportIcon from 'assets/sports-type-icons/atletic.svg';
 import FitnessSportIcon from 'assets/sports-type-icons/fitness.svg';
@@ -167,6 +168,7 @@ const Svg = {
   WhitePencil: (props) => <ReactSVG {...props} src={WhitePencil} />,
   CencelIcon: (props) => <ReactSVG {...props} src={CencelIcon} />,
   HeadPhoneIcon: (props) => <ReactSVG {...props} src={HeadPhone} />,
+  WaveBackground: (props) => <ReactSVG {...props} src={WaveBackground} />,
 
   SessionType: {
     Gym: (props) => <ReactSVG {...props} src={SessionTypeGym} />,

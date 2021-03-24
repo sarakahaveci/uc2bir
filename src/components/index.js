@@ -7,6 +7,7 @@ export { default as Switch } from './Switch/Switch';
 export { default as Stars } from './Stars/Stars';
 export { default as AwesomeIcon } from './statics/icon';
 export { default as Main } from './Main';
+export { default as CalendarCell } from './CalendarCell/CalendarCell';
 export { default as Header } from './Header';
 export { default as Footer } from './Footer';
 export { default as GoogleMapClusterer } from './GoogleMaps';
