@@ -17,11 +17,11 @@ const User = ({ user_name, user_img = null, logOutAction }) => {
       // It will be updated
       link: TABS.profilePath,
     },
-    {
+    /*   {
       name: 'Rezervasyonlarım',
       icon: <Svg.Date />,
       link: TABS.reservationsPath,
-    },
+    }, */
     /*   {
       name: 'Paketlerim',
       icon: <Svg.Packet />,
