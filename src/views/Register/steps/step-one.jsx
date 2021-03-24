@@ -192,17 +192,6 @@ const StepOne = (props) => {
                 >
                   Üyelik Sözleşmesini
                 </span>
-                ve &nbsp;
-                <span
-                  className="underline-text"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setConfirmationType('agreement');
-                    setOpenModal(true);
-                  }}
-                >
-                  Ekleri&apos;ni
-                </span>
                 kabul ediyorum.
               </div>
             }

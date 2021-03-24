@@ -289,16 +289,17 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
                   Üyelik Sözleşmesini
                 </span>
                 ve &nbsp;
-                <span
+                <a
+                  href={
+                    userTypeId === 3
+                      ? 'http://file.uc2bir.com/uploads/pt-points/files/spor-alani.pptx'
+                      : 'http://file.uc2bir.com/uploads/pt-points/files/egitmen.pptx'
+                  }
+                  target="_blank"
                   className="underline-text"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setConfirmationType('agreement');
-                    setOpenModal(true);
-                  }}
                 >
                   Ekleri&apos;ni
-                </span>
+                </a>
                 kabul ediyorum.
               </div>
             }
