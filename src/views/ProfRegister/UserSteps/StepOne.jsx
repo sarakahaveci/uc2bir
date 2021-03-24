@@ -292,8 +292,8 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
                 <a
                   href={
                     userTypeId === 2
-                      ? 'http://file.uc2bir.com/uploads/pt-points/files/egitmen.pptx'
-                      : 'http://file.uc2bir.com/uploads/pt-points/files/spor-alani.pptx'
+                      ? 'http://file.uc2bir.com/uploads/pt-points/files/spor-alani.pptx'
+                      : 'http://file.uc2bir.com/uploads/pt-points/files/egitmen.pptx'
                   }
                   target="_blank"
                   className="underline-text"
