@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 
 import { Svg } from 'components';
 
-const BranchCardBody = () => {
+const BranchRowCollapser = () => {
   return (
     <CardBody>
       <List>
@@ -24,7 +24,7 @@ const BranchCardBody = () => {
   );
 };
 
-export default BranchCardBody;
+export default BranchRowCollapser;
 
 const CardBody = styled.div`
   background: #fcfcfc;
