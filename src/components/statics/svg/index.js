@@ -193,7 +193,7 @@ const Svg = {
       svg: (props) => <ReactSVG {...props} src={KickBoks} />,
     },
     {
-      name: 'Athletic Performans',
+      name: 'Atletik Performans',
       svg: (props) => <ReactSVG {...props} src={AthleticPerformance} />,
     },
     {

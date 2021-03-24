@@ -102,7 +102,7 @@ const Header = () => {
                     />
                   </li>
                   <li>
-                    <Link to="/info">Üç2Bir hakkında</Link>
+                    <Link to="/info">Üç2Bir Hakkında</Link>
                   </li>
                   <li>
                     <Link to="/blog-list">Blog</Link>

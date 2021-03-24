@@ -7,12 +7,7 @@ import ReactHtmlParser from 'react-html-parser';
 import { useSelector, useDispatch } from 'react-redux';
 import { getBlogDetail } from 'actions';
 
-import {
-  FacebookShareButton,
-  LinkedinShareButton,
-  TwitterShareButton,
-  InstapaperShareButton,
-} from 'react-share';
+import { FacebookShareButton, TwitterShareButton } from 'react-share';
 
 const BlogDetail = ({ match }) => {
   const dispatch = useDispatch();
@@ -53,24 +48,6 @@ const BlogDetail = ({ match }) => {
                     >
                       <AwesomeIcon.Twitter />
                     </TwitterShareButton>
-
-                    <InstapaperShareButton
-                      url={`${window?.location?.origin}/${match?.url}`}
-                      media={detail?.data?.blog?.photo}
-                      windowWidth={1000}
-                      windowHeight={730}
-                    >
-                      <AwesomeIcon.Instagram />
-                    </InstapaperShareButton>
-
-                    <LinkedinShareButton
-                      url={`${window?.location?.origin}/${match?.url}`}
-                      media={detail?.data?.blog?.photo}
-                      windowWidth={1000}
-                      windowHeight={730}
-                    >
-                      <AwesomeIcon.Linkedin />
-                    </LinkedinShareButton>
                   </div>
                 </Col>
                 <Col className="blog-detail__content">
@@ -78,7 +55,7 @@ const BlogDetail = ({ match }) => {
                     {detail?.data?.blog?.title}
                   </Title>
                   <div lassName="blog-detail__text">
-                  {ReactHtmlParser(decode(detail?.data?.blog?.detail))}
+                    {ReactHtmlParser(decode(detail?.data?.blog?.detail))}
                   </div>
                 </Col>
               </Row>

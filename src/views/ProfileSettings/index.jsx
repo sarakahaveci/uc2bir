@@ -173,7 +173,7 @@ const dietitianTabs = [
   }, */
   {
     eventKey: 'location',
-    title: 'Oturum Türleri & Çalıştığım yerler',
+    title: 'Oturum Türleri & Çalıştığım Yerler',
     component: <SessionType />,
   },
   {
@@ -235,7 +235,7 @@ const trainerTabs = [
 
   {
     eventKey: 'location',
-    title: 'Oturum Türleri & Çalıştığım yerler',
+    title: 'Oturum Türleri & Çalıştığım Yerler',
     component: <SessionType />,
   },
   {

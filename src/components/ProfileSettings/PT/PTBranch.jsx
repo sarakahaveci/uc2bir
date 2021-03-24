@@ -141,6 +141,8 @@ export default function WorkPlaceActivity() {
                   name={branch?.name}
                   statusId={branch?.status_id}
                   waitingPrice={branch?.waiting_approval_price}
+                  maxPrice={branch?.max_request_price}
+                  minPrice={branch?.waiting_approval_price}
                 />
               ))
             ) : (

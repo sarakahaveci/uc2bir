@@ -38,7 +38,7 @@ const Footer = () => {
               className="cp"
               onClick={() => history.push('/info')}
             >
-              üç2bir Hakkında
+              Üç2Bir Hakkında
             </Title>
             <Title
               color="white"

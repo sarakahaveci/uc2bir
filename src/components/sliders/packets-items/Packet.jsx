@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import Title from '../../typography/Titles';
@@ -19,9 +18,9 @@ const Packet = ({ val }) => {
               <div className="team">{val.class}</div>
             </div>
             <div className="info d-flex">
-              <Title lineDisable fontWeight="bold">
+              {/*  <Title lineDisable fontWeight="bold">
                 {val?.authorType}
-              </Title>
+              </Title> */}
             </div>
           </div>
           <div className="text-item">

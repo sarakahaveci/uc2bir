@@ -2,11 +2,11 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import Select from '@material-ui/core/Select';
-import Input from '@material-ui/core/Input';
-import MenuItem from '@material-ui/core/MenuItem';
+import { Tooltip, MenuItem, Input, Select } from '@material-ui/core';
+import styled from 'styled-components/macro';
+import { withStyles } from '@material-ui/core/styles';
 
-import { Material, Button, Title } from 'components';
+import { Material, Button, Title, Svg } from 'components';
 import { sportTypeIconGenerator } from 'utils';
 import { updateWorkPlaceActivity, updatePTBranch } from 'actions';
 
@@ -23,11 +23,34 @@ export default function ActivityCard({
   statusId,
   waitingPrice,
   status,
+  maxPrice,
+  minPrice,
 }) {
   const dispatch = useDispatch();
   const { data: registerData } = useSelector((state) => state.registerData);
   const { subBranches } = useSelector(
     (state) => state?.profileSettings?.activityList
+  );
+
+  const tooltipLabel = isAccepted ? (
+    maxPrice || minPrice ? (
+      <ToolTipLabel>
+        {classification} sınıfı {name} branşı için{' '}
+        <div style={{ color: '#00b2a9' }}>
+          minimum {minPrice} TL ,maksimum {maxPrice} TL{' '}
+        </div>
+        aralığında fiyat girebilirisiniz.`
+      </ToolTipLabel>
+    ) : (
+      <ToolTipLabel>
+        {name} branşı için Fiyatlandırma yapılmamıştır.
+      </ToolTipLabel>
+    )
+  ) : (
+    <ToolTipLabel>
+      Seçtiğin branş için sınıfın taramızca belirlendikten sonra sana bilgi
+      vereceğiz.
+    </ToolTipLabel>
   );
 
   const cardClass = isAccepted
@@ -197,7 +220,7 @@ export default function ActivityCard({
         ) : (
           <>
             <Material.TextField
-              label="Klasifikasyon"
+              label="KLASİFİKASYON"
               type="text"
               name="class"
               changeValue={classification}
@@ -205,8 +228,12 @@ export default function ActivityCard({
                 readOnly: true,
               }}
             />
+            <HtmlTooltip title={tooltipLabel}>
+              <PriceLabel>
+                ÜCRET <Svg.InfoIcon className="ml-1" />
+              </PriceLabel>
+            </HtmlTooltip>
             <Material.TextField
-              label="Ücret (TL)"
               type="number"
               name="price"
               changeValue={price}
@@ -215,6 +242,7 @@ export default function ActivityCard({
                 readOnly: !isAccepted || waitingPrice,
               }}
             />
+
             <div style={{ height: 30 }}>
               {waitingPrice && (
                 <Title
@@ -241,3 +269,30 @@ export default function ActivityCard({
     </div>
   );
 }
+
+const PriceLabel = styled.div`
+  display: inline-flex;
+  font-weight: 400 !important;
+  font-size: 11px !important;
+  color: #4040419e;
+
+  svg  {
+    margin-bottom: 2px;
+    fill: green;
+  }
+`;
+
+const ToolTipLabel = styled.div`
+  color: '#181818';
+  padding: '10px';
+  font-weight: 400;
+`;
+
+const HtmlTooltip = withStyles((theme) => ({
+  tooltip: {
+    backgroundColor: '#fff',
+    color: '#181818',
+    fontSize: theme.typography.pxToRem(13),
+    border: '1px solid #dadde9',
+  },
+}))(Tooltip);

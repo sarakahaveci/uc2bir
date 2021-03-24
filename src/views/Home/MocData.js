@@ -89,19 +89,6 @@ export const Packets = [
     package_included: '10',
     class: 'A',
   },
-  {
-    id: 4,
-    image: require('../../assets/packets/item-2/02.jpg'),
-    name: 'Sağlıklı Yaşa',
-    category: 'Fitness',
-    price: '100',
-    time: '10',
-    content: 'Fitness',
-    authorType: 'EĞİTMEN',
-    author: '',
-    package_included: '10',
-    class: 'B',
-  },
 ];
 
 export const Gym = [
