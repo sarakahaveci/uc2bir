@@ -16,11 +16,11 @@ const Packet = ({ val }) => {
                 backgroundImage: `url(${val.image?.default})`,
               }}
             >
-              <div className="team">A</div>
+              <div className="team">{val.class}</div>
             </div>
-            <div className="info">
-              <Title lineDisable fontWeight="ligher">
-                {val.title}
+            <div className="info d-flex">
+              <Title lineDisable fontWeight="bold">
+                {val?.authorType}
               </Title>
             </div>
           </div>
@@ -36,8 +36,7 @@ const Packet = ({ val }) => {
               </div>
               <div className="col-auto">
                 <span>
-                  {val.price} <AwesomeIcon.Tl /> /{' '}
-                  {val.package_included} Gün
+                  {val.price} <AwesomeIcon.Tl /> / {val.package_included} Ders
                 </span>
               </div>
             </div>

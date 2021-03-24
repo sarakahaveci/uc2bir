@@ -107,6 +107,9 @@ const Header = () => {
                   <li>
                     <Link to="/blog-list">Blog</Link>
                   </li>
+                  <li>
+                    <Link to="/contact">İletişim</Link>
+                  </li>
                 </ul>
               </div>
               <div className="bar-item right-bar">

@@ -22,16 +22,16 @@ const User = ({ user_name, user_img = null, logOutAction }) => {
       icon: <Svg.Date />,
       link: TABS.reservationsPath,
     },
-    {
+    /*   {
       name: 'Paketlerim',
       icon: <Svg.Packet />,
       link: TABS.profilePath,
-    },
-    {
+    }, */
+    /*    {
       name: 'Cüzdanım',
       icon: <Svg.Wallet />,
       link: TABS.walletPath,
-    },
+    }, */
     {
       name: 'Çıkış Yap',
       icon: <Svg.Closed />,

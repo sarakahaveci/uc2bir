@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-// @ts-nocheck
 import React, { useState, useEffect } from 'react';
 
 import image from '../../assets/blog.jpg';
@@ -431,6 +430,7 @@ const Blog = () => {
                         name="detail"
                         required
                         onChange={(e) => setDetail(e.target.value)}
+                        inputProps={{ minLength: 1500 }}
                       />
                       <div
                         style={{ marginTop: 15 }}

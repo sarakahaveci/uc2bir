@@ -31,11 +31,11 @@ const Gym = ({ user_name, user_img = null, logOutAction }) => {
       icon: <Svg.PeopleGroups />,
       link: TABS.trainersPath,
     },
-    {
+    /*   {
       name: 'Cüzdanım',
       icon: <Svg.Wallet />,
       link: TABS.walletPath,
-    },
+    }, */
     {
       name: 'Galeri',
       icon: <Svg.Gallery />,

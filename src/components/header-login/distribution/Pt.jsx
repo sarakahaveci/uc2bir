@@ -16,11 +16,11 @@ const Pt = ({ user_name, user_img = null, logOutAction }) => {
       icon: <Svg.UsernameIcon />,
       link: TABS.profilePath,
     },
-    {
+    /*   {
       name: 'Paketlerim',
       icon: <Svg.Packet />,
       link: TABS.packetsPath,
-    },
+    }, */
     {
       name: 'Oturum Türleri & Çalıştığım Yerler',
       icon: <Svg.PtHome />,
@@ -36,11 +36,11 @@ const Pt = ({ user_name, user_img = null, logOutAction }) => {
       icon: <Svg.Expert />,
       link: TABS.specialtiesPath,
     },
-    {
+    /*   {
       name: 'Cüzdanım',
       icon: <Svg.Wallet />,
       link: TABS.walletPath,
-    },
+    }, */
     {
       name: 'Galeri',
       icon: <Svg.Gallery />,
