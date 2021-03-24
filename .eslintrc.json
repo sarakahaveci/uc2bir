@@ -32,6 +32,7 @@
         "react/display-name": "off",
         "import/no-anonymous-default-export": "off",
         "react/no-unescaped-entities": "off",
-        "react/no-children-prop": "off"
+        "react/no-children-prop": "off",
+        "react/jsx-no-target-blank": "off"
     }
 }

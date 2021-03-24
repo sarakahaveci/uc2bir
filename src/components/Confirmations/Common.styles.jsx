@@ -26,7 +26,7 @@ export const InfoField = styled.div`
 `;
 
 export const TextArea = styled.div`
-  max-height: 100px;
+  max-height: 300px;
   font-size: 0.9rem;
   overflow-y: scroll;
   letter-spacing: 0.01em;
