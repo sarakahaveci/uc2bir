@@ -17,9 +17,8 @@ const Packet = (props) => {
       id: 1,
       name: 'Tümü',
       activeClass: 'active',
-      link: '#all',
     },
-    {
+    /*   {
       id: 2,
       name: 'Eğitmen Paketleri',
       activeClass: '',
@@ -30,7 +29,7 @@ const Packet = (props) => {
       name: 'Diyetisyen Paketleri',
       activeClass: '',
       link: '#all',
-    },
+    }, */
   ];
   return (
     <section className={`pt ${props.className}`}>
@@ -38,7 +37,7 @@ const Packet = (props) => {
         <Title variant="h3" component="h3" lineDisable={false}>
           PAKETLER
         </Title>
-        <Title variant="h6" component="h6" fontWeight="500" >
+        <Title variant="h6" component="h6" fontWeight="500">
           SANA UYGUN OLAN PAKETİ SEÇ, HEMEN ÇALIŞMAYA BAŞLA
         </Title>
       </Container>

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import Main from '../../components/Main';
 
@@ -15,23 +16,23 @@ import VKI from './VKI';
 import Blog from './Blog';
 
 const Home = () => {
-	return (
-		<Main>
-			<Banner />
-			<Categories />
-			<TopPromotion background />
-			<PT />
-			<FluidBanner />
-			<Living />
-			<Packet />
-			<GroupLesson />
-			<Dietitians />
-			<VKI />
-			<Blog />
-			{/* <Comments /> */}
-			<FluidBannerBottom />
-		</Main>
-	)
-}
+  return (
+    <Main>
+      <Banner />
+      <Categories />
+      <TopPromotion background />
+      <PT />
+      <FluidBanner />
+      <Living />
+      <Packet />
+      {/*  <GroupLesson /> */}
+      {/* 	<Dietitians /> */}
+      <VKI />
+      <Blog />
+      {/* <Comments /> */}
+      <FluidBannerBottom />
+    </Main>
+  );
+};
 
-export default Home
+export default Home;

@@ -1,4 +1,4 @@
-// @ts-nocheck
+/* eslint-disable no-unused-vars */
 import React, { useLayoutEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 
@@ -63,7 +63,11 @@ const SliderFocus = (props) => {
                   <AwesomeIcon.Prev />
                 </a>
               </div>
-              <SlickSlider asNavFor={nav2} arrows={false} ref={(slider) => (slider1 = slider)}>
+              <SlickSlider
+                asNavFor={nav2}
+                arrows={false}
+                ref={(slider) => (slider1 = slider)}
+              >
                 {query &&
                   data.map((val, key) =>
                     Groups[props.groups]({ key, val, bottom: true })
@@ -79,11 +83,11 @@ const SliderFocus = (props) => {
             style={{ marginTop: '-45px' }}
             className="col d-flex justify-content-center"
           >
-            <Button
+            {/*   <Button
               lineButton
               onClick={() => history.push(props.link)}
               text="Tümünü Gör"
-            />
+            /> */}
           </div>
         </div>
       </Container>
