@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-
 import { Link, useHistory } from 'react-router-dom';
 
 import { default as NativeHeader } from '../../components/Header';
@@ -12,18 +11,17 @@ import { AwesomeIcon, IconLabel, Button, HeaderLogin } from '../../components';
 const Header = () => {
   const { infoData } = useSelector((state) => state.footer);
   const { isAuthenticated, user } = useSelector((state) => state.auth);
-  const history = useHistory();
 
   const [menuActive, setMenuActive] = useState(false);
   const [toggle, setToggle] = useState(false);
 
+  const history = useHistory();
+
   useEffect(() => {
     history.listen(() => {
-      if (menuActive) {
-        setMenuActive(false);
-      }
+      setMenuActive(false);
     });
-  }, [history]);
+  }, [history.location.pathname]);
 
   const nav_logo = {
     status: true,
@@ -148,7 +146,7 @@ const Header = () => {
                         text="Profesyonel"
                         className="dark"
                         fontWeight="500"
-                        onClick={() => history.replace('/profesyonel/register')}
+                        onClick={() => history.push('/profesyonel/register')}
                       />
                     </li>
                   )}
