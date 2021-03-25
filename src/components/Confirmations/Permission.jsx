@@ -24,7 +24,7 @@ const Permission = ({
   acceptPermissions,
   setAcceptPermissions,
   confirmationData,
-  userTypeId = 1,
+  userTypeId,
 }) => {
   const [acceptFirst, setAcceptFirst] = useState(false);
 
@@ -55,30 +55,40 @@ const Permission = ({
         Sözleşmeler ve Formlar
       </Title>
 
-      <ConfirmationTitle
-        dangerouslySetInnerHTML={{ __html: permissionData?.title }}
-      />
+      {userTypeId ? (
+        <>
+          {' '}
+          <ConfirmationTitle
+            dangerouslySetInnerHTML={{ __html: permissionData?.title }}
+          />
+          <InfoField>
+            <Material.checkbox
+              checked={acceptFirst}
+              onChange={() => setAcceptFirst(!acceptFirst)}
+            />
 
-      <InfoField>
-        <Material.checkbox
-          checked={acceptFirst}
-          onChange={() => setAcceptFirst(!acceptFirst)}
-        />
-
-        <TextAreaWrapper>
-          <TextArea>{ReactHtmlParser(decode(permissionData?.detail))}</TextArea>
-        </TextAreaWrapper>
-      </InfoField>
-
-      <Text
-        color="gray1"
-        fontSize="0.9rem"
-        fontWeight="500"
-        textAlign="left"
-        margin="0 0 0 40px"
-      >
-        Ön Bilgilendirme Koşullarını ve Mesafeli Satış Sözleşmesi’ni okudum.
-      </Text>
+            <TextAreaWrapper>
+              <TextArea>
+                {ReactHtmlParser(decode(permissionData?.detail))}
+              </TextArea>
+            </TextAreaWrapper>
+          </InfoField>
+          <Text
+            color="gray1"
+            fontSize="0.9rem"
+            fontWeight="500"
+            textAlign="left"
+            margin="0 0 0 40px"
+          >
+            Ön Bilgilendirme Koşullarını ve Mesafeli Satış Sözleşmesi’ni okudum.
+          </Text>{' '}
+        </>
+      ) : (
+        <Text color="dark" fontWeight="500" my="20px" lineHeight="20px">
+          Üye sözleşmelerini görebilmeniz için kullanıcı tipinden birini
+          seçmeniz gerekmektedir.
+        </Text>
+      )}
 
       <Box center margin="20px 0">
         <Button

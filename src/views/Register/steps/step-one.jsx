@@ -130,6 +130,7 @@ const StepOne = (props) => {
           setOpenModal={setOpenModal}
           confirmationData={confirmationData}
           extraAgreementData={confirmationData}
+          userTypeId={1}
         />
       );
       break;
@@ -141,6 +142,7 @@ const StepOne = (props) => {
           setAcceptHealthAgreement={setAcceptHealthAgreement}
           setOpenModal={setOpenModal}
           confirmationData={confirmationData}
+          userTypeId={1}
         />
       );
       break;
@@ -152,6 +154,7 @@ const StepOne = (props) => {
           setAcceptKvkk={setAcceptKvkk}
           setOpenModal={setOpenModal}
           confirmationData={confirmationData}
+          userTypeId={1}
         />
       );
       break;
@@ -163,6 +166,7 @@ const StepOne = (props) => {
           setAcceptPermissions={setAcceptPermissions}
           setOpenModal={setOpenModal}
           confirmationData={confirmationData}
+          userTypeId={1}
         />
       );
       break;
