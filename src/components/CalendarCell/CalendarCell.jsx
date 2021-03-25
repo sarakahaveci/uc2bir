@@ -1,9 +1,30 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
 
-export default function CalendarCell({ type, isActive, children }) {
+export default function CalendarCell({
+  children,
+  onClick,
+  isActive,
+  halfActive,
+  disabled,
+  ...restProps
+}) {
+  const onClickHandler = () => {
+    if (disabled || isActive || halfActive) {
+      return;
+    }
+
+    onClick();
+  };
+
   return (
-    <Cell type={type} isActive={isActive}>
+    <Cell
+      onClick={onClickHandler}
+      isActive={isActive}
+      halfActive={halfActive}
+      disabled={disabled}
+      {...restProps}
+    >
       {children}
     </Cell>
   );
@@ -47,11 +68,25 @@ const Cell = styled.div`
       color: ${(p) => p.theme.colors.gray1};
 
       ${(p) =>
+        p.halfActive &&
+        css`
+          border: 1px solid ${p.theme.colors.blue};
+        `}
+
+      ${(p) =>
         p.isActive &&
         css`
           background-color: ${p.theme.colors.blue};
           border-color: ${p.theme.colors.blue};
           color: white;
         `}
+    `}
+
+    ${(p) =>
+    p.disabled &&
+    css`
+      background-color: ${p.theme.colors.red};
+      border: 1px solid ${p.theme.colors.red};
+      color: white;
     `}
 `;

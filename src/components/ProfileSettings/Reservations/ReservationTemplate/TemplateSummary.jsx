@@ -1,9 +1,15 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
+import { useSelector } from 'react-redux';
 
 import { Accordion, Text, Svg } from 'components';
+import { HOURS } from '../../../../constants';
 
 export default function TemplateSummary() {
+  const { selectedDay } = useSelector(
+    (state) => state.profileSettings2.reservationTemplate
+  );
+
   return (
     <div>
       <Accordion>
@@ -21,10 +27,11 @@ export default function TemplateSummary() {
 
             <Accordion.Collapse>
               <AccordionCollapseWrapper>
-                <div>örnek </div>
-                <div>örnek </div>
-                <div>örnek </div>
-                <div>örnek </div>
+                {selectedDay.dates.map((item, index) => (
+                  <div key={index}>
+                    {HOURS[item.hours[0]]}-{HOURS[item.hours[1]]}
+                  </div>
+                ))}
               </AccordionCollapseWrapper>
             </Accordion.Collapse>
           </Accordion.Item>

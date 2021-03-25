@@ -1,8 +1,10 @@
 import React, { useState, useRef } from 'react';
 import { Row, Col } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
 import { Link } from 'react-router-dom';
 
+import { addDateToTemplate } from 'actions';
 import {
   Box,
   Switch,
@@ -11,19 +13,23 @@ import {
   Text,
   Svg,
   Title,
-  Material,
   Calendar,
 } from 'components';
 import TemplateSummary from './TemplateSummary';
 import TemplateSelections from './TemplateSelections';
 import TemplateDate from './TemplateDate';
+import TemplateSuccessModal from './TemplateSuccessModal';
+import TemplateNamingModal from './TemplateNamingModal';
 
 export default function ReservationTemplate() {
   const [selectionData, setSelectionData] = useState([]);
+  const [listedDayHours, setListedDayHours] = useState([]);
 
   const templateNamingModalRef = useRef();
   const successTemplateModalRef = useRef();
   const applyTemplateModalRef = useRef();
+
+  const dispatch = useDispatch();
 
   const setSelectionDataHandler = (e) => {
     setSelectionData({
@@ -51,11 +57,30 @@ export default function ReservationTemplate() {
 
       <Row>
         <Col lg={6}>
-          <TemplateDate />
+          <TemplateDate
+            listedDayHours={listedDayHours}
+            setListedDayHours={setListedDayHours}
+          />
 
           <TemplateSelections
             selectionData={selectionData}
             setSelectionData={setSelectionDataHandler}
+          />
+
+          <Button
+            className="blue"
+            text="Kaydet"
+            onClick={() =>
+              dispatch(
+                addDateToTemplate({
+                  id: 1,
+                  hours: listedDayHours,
+                  branches: ['5', '6', '7'],
+                  sessionTypes: ['2', '3', '4'],
+                  placeTypes: [5, 6, 7],
+                })
+              )
+            }
           />
         </Col>
 
@@ -96,61 +121,15 @@ export default function ReservationTemplate() {
           </RightWrapper>
         </Col>
 
-        <TemplateNamingModal activateFooter ref={templateNamingModalRef}>
-          <div className="reservation-template__naming-modal">
-            <Title textAlign="left" color="blue">
-              Şablonunuza İsim Verin
-            </Title>
+        <TemplateNamingModal
+          ref={templateNamingModalRef}
+          openSuccessTemplateModal={openSuccessTemplateModal}
+        />
 
-            <Box my="30px">
-              <Material.TextField label="Yazınız" />
-            </Box>
-          </div>
-
-          <Modal.Footer>
-            <Text
-              color="blue"
-              textAlign="center"
-              cursor="pointer"
-              onClick={openSuccessTemplateModal}
-            >
-              {/* <Spinner type="static" /> */}
-              KAYDET
-            </Text>
-          </Modal.Footer>
-        </TemplateNamingModal>
-
-        <TemplateSuccessModal activateFooter ref={successTemplateModalRef}>
-          <div className="reservation-template__success-modal">
-            <Box center mb="35px">
-              <Svg.SuccessIcon />
-            </Box>
-
-            <Text textAlign="center" fontSize="1.1rem" fontWeight="600">
-              Tebrikler
-            </Text>
-
-            <Text textAlign="center" fontSize="1.1rem" mb="15px">
-              Şablonunuz başarıyla kaydedildi.
-            </Text>
-          </div>
-
-          <Modal.Footer>
-            <Text
-              textAlign="center"
-              p="0 0 20px 0"
-              color="blue"
-              cursor="pointer"
-              onClick={openApplyTemplateModal}
-            >
-              ŞABLONUMU TAKVIMIME UYGULA
-            </Text>
-
-            <Link to="/" className="reservation-template__return-homepage">
-              ANASAYFA
-            </Link>
-          </Modal.Footer>
-        </TemplateSuccessModal>
+        <TemplateSuccessModal
+          ref={successTemplateModalRef}
+          openApplyTemplateModal={openApplyTemplateModal}
+        />
 
         <ApplyTemplateModal ref={applyTemplateModalRef}>
           <Title component="h5">Şablonu Takvimime Uygula</Title>
@@ -176,7 +155,7 @@ const RightWrapper = styled.div`
 const NextButtonWrapper = styled.div`
   background-color: white;
   padding: 30px;
-  margin-top: 50px;
+  margin-top: 10px;
 `;
 
 const InnerWrapper = styled(Col)`
@@ -197,37 +176,6 @@ const BackLink = styled(Link)`
     color: ${(p) => p.theme.colors.softDark};
     font-weight: 600;
     font-size: 1.2rem;
-  }
-`;
-
-const TemplateNamingModal = styled(Modal)`
-  .modal-content {
-    width: 500px;
-  }
-
-  .reservation-template__naming-modal {
-    padding: 40px;
-  }
-`;
-
-const TemplateSuccessModal = styled(Modal)`
-  .modal-content {
-    width: 500px;
-  }
-
-  .reservation-template {
-    &__success-modal {
-      padding: 20px 0;
-    }
-
-    &__return-homepage {
-      border-top: 1px solid rgba(144, 144, 144, 0.2);
-      text-align: center;
-      padding-top: 20px;
-      cursor: pointer;
-      color: ${(p) => p.theme.colors.dark};
-      display: block;
-    }
   }
 `;
 

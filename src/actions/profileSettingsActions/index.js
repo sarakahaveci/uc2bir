@@ -9,3 +9,4 @@ export * from './cancellationActions';
 export * from './userSearchActions';
 export * from './workplaceFacilityActions';
 export * from './notificationActions';
+export * from './reservationTemplateActions';
