@@ -199,7 +199,37 @@ export const searchGymForPt = (title = false, page = 0) => async (dispatch) => {
   const urlForAllGymList = `/user/address/search-gym?page=${page}`;
   const urlWithTitle = `&title=${title}`;
 
-  const finalUrl = urlForAllGymList + (title && urlWithTitle );
+  const finalUrl = urlForAllGymList + (title && urlWithTitle);
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'GET',
+      url: finalUrl,
+      label: SEARCH_GYM_FOR_PT,
+      transformData: (data) => data.data,
+      errorHandler: (error) =>
+        toast.error(error.message, { position: 'bottom-right', delay: 2500 }),
+    },
+  });
+};
+
+export const searchGymWithDetail = (
+  title = false,
+  page = 0,
+  location = false,
+  branch = false
+) => async (dispatch) => {
+  const urlForAllGymList = `/user/address/search-gym?page=${page}`;
+  const urlWithTitle = `&title=${title}`;
+  const urlWithLocation = `&location_key=${location}`;
+  const urlWithBranch = `&branch_id=${branch}`;
+
+  const finalUrl =
+    urlForAllGymList +
+    (title && urlWithTitle) +
+    (location && urlWithLocation) +
+    (branch && urlWithBranch);
 
   await dispatch({
     type: HTTP_REQUEST,

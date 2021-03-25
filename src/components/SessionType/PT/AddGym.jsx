@@ -1,13 +1,18 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
-import SearchBar from 'material-ui-search-bar';
+import { Row, Col, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import Pagination from '@material-ui/lab/Pagination';
 
 import LongUserCard from 'components/UserCards/LongUserCard';
-import { Button } from 'components';
-import { searchGymForPt, addGymFromPt } from 'actions';
+import { Button, GoogleMapClusterer, Svg } from 'components';
+import {
+  searchGymForPt,
+  addGymFromPt,
+  getAllPTBranchList,
+  searchGymWithDetail,
+} from 'actions';
 
 const AddGym = ({ setSubPage, setBannerActive }) => {
   const dispatch = useDispatch();
@@ -15,13 +20,20 @@ const AddGym = ({ setSubPage, setBannerActive }) => {
     (state) => state.profileSettings2.sessionType.searchGym
   );
 
-  const [title, setTitle] = useState('');
-  const [showSearch, setShowSearch] = useState(true);
+  const allBranchList = useSelector(
+    (state) => state.profileSettings.ptBranchList.allList
+  );
 
-  const [page, setPage] = React.useState(1);
+  const [location, setLocation] = useState('');
+  const [trainerName, setTrainerName] = useState('');
+  const [branch, setBranch] = useState('');
+
+  const [showSearch, setShowSearch] = useState(true);
+  const [page, setPage] = useState(1);
+
   const handleChangePage = (event, value) => {
     setPage(value);
-    dispatch(searchGymForPt(title, value));
+    dispatch(searchGymForPt(trainerName, value));
   };
 
   useEffect(() => {
@@ -29,8 +41,12 @@ const AddGym = ({ setSubPage, setBannerActive }) => {
     dispatch(searchGymForPt());
   }, []);
 
+  useEffect(() => {
+    dispatch(getAllPTBranchList());
+  }, []);
+
   const searchGymHandler = () => {
-    dispatch(searchGymForPt(title));
+    dispatch(searchGymWithDetail(trainerName, page, location, branch));
     setShowSearch(true);
   };
 
@@ -44,21 +60,62 @@ const AddGym = ({ setSubPage, setBannerActive }) => {
         <Button text="< Geri" onClick={() => setSubPage('Adds')} />
         <Button text="Spor Salonu Seçiniz." />
       </div>
-      <div className="row">
-        <SearchBar
-          id="search"
-          name="search"
-          className="regular-search-box w-75"
-          value={title}
-          onChange={setTitle}
-          placeholder="Salon arayın!"
-          onCancelSearch={() => {
-            dispatch(searchGymForPt());
-            setTitle('');
-          }}
-        />
-        <Button className="blue ml-2" text="Ara" onClick={searchGymHandler} />
+      <div className="d-flex w-75 mb-3 mx-auto">
+        <Row className="search-trainer__search-area">
+          <SearchCol>
+            <input
+              className="search-trainer__search-input"
+              value={trainerName}
+              onChange={(e) => setTrainerName(e.target.value)}
+              placeholder="Eğitmen adı..."
+            />
+          </SearchCol>
+
+          <SearchCol>
+            <div className="search-trainer__location-row">
+              <Svg.LocationIcon className="mr-1 mb-1" />
+
+              <input
+                className="search-trainer__search-input"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+                placeholder="Lokasyon..."
+              />
+            </div>
+          </SearchCol>
+
+          <SearchCol>
+            <Form.Control
+              as="select"
+              className="search-trainer__select"
+              value={branch}
+              onChange={(e) => setBranch(e.target.value)}
+            >
+              <option hidden>Branşlar</option>
+              {allBranchList.map((item, index) => (
+                <option key={'option' + index} value={item.id}>
+                  {item.name}
+                </option>
+              ))}
+            </Form.Control>
+          </SearchCol>
+
+          <SearchCol className="pr-0">
+            <Button
+              justifyContent="space-around"
+              display="flex"
+              className="blue w-100 ml-auto"
+              alignItems="center"
+              text="Ara"
+              search
+              width="100%"
+              maxWidth="150px"
+              onClick={searchGymHandler}
+            />
+          </SearchCol>
+        </Row>
       </div>
+      <GoogleMapClusterer data={data} />
       <GymListWrapper>
         {showSearch &&
           data?.map((gym) => (
@@ -93,6 +150,14 @@ const GymListWrapper = styled.div`
   grid-row-gap: 10px;
   padding: 10px;
   margin-top: 15px;
+`;
+
+const SearchCol = styled(Col)`
+  &:not(:last-child) {
+    border-right: 1px solid #707070;
+  }
+
+  flex-basis: 20%;
 `;
 
 export default AddGym;

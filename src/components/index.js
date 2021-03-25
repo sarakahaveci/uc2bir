@@ -9,7 +9,7 @@ export { default as AwesomeIcon } from './statics/icon';
 export { default as Main } from './Main';
 export { default as Header } from './Header';
 export { default as Footer } from './Footer';
-export { default as GoogleMaps } from './GoogleMaps/index';
+export { default as GoogleMapClusterer } from './GoogleMaps';
 export { default as Button } from './buttons/button';
 export { default as IconLabel } from './buttons/icon-label';
 export { default as Text } from './typography/Text';

@@ -135,7 +135,6 @@ export default function MyComponent({
   const { isLoaded, loadError } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: GoogleMapsAPI,
-    libraries: ['places'],
   });
 
   if (loadError) return 'Yüklenme Hatası';
