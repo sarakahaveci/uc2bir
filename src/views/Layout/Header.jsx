@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
@@ -16,6 +16,14 @@ const Header = () => {
 
   const [menuActive, setMenuActive] = useState(false);
   const [toggle, setToggle] = useState(false);
+
+  useEffect(() => {
+    history.listen(() => {
+      if (menuActive) {
+        setMenuActive(false);
+      }
+    });
+  }, [history]);
 
   const nav_logo = {
     status: true,
