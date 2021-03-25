@@ -85,8 +85,8 @@ const Permission = ({
         </>
       ) : (
         <Text color="dark" fontWeight="500" my="20px" lineHeight="20px">
-          Üye sözleşmelerini görebilmeniz için kullanıcı tipinden birini
-          seçmeniz gerekmektedir.
+          Üye sözleşmelerini görebilmeniz için üyelik tipinden birini seçmeniz
+          gerekmektedir.
         </Text>
       )}
 
