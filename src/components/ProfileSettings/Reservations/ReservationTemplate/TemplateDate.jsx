@@ -1,85 +1,33 @@
-import React, { useState, useLayoutEffect, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { CalendarCell, Box, Text, Title } from 'components';
+import { CalendarCell, Box, Span, Title } from 'components';
 import { setSelectedDay } from 'actions';
 import { theme } from 'utils';
-import { toast } from 'react-toastify';
 import { HOURS, DAYS } from '../../../../constants';
 
-export default function TemplateDate({ listedDayHours, setListedDayHours }) {
+export default function TemplateDate({
+  selectedDayHours,
+  setSelectedDayHours,
+}) {
   const dispatch = useDispatch();
 
   const { selectedDay } = useSelector(
     (state) => state.profileSettings2.reservationTemplate
   );
-  const [selectedDayHours, setSelectedDayHours] = useState([]);
-  const [hoveredItemIndex, setHoveredItemIndex] = useState();
-
-  // [[3,5], [6,7]]
-  // Seçilen gündeki bütün saat aralığı tek bir array haline getirildi.
-  const allSelectedHours = selectedDay?.dates?.map((item) => item.hours);
 
   useEffect(() => {
     setSelectedDayHours([]);
-    setListedDayHours([]);
-  }, [selectedDay]);
+  }, [selectedDay.day]);
 
-  useLayoutEffect(() => {
-    if (selectedDayHours.length === 2) {
-      setListedDayHours([...listedDayHours, selectedDayHours]);
+  const allSelectedHours = selectedDay?.slice?.map((item) => item.hour).flat();
 
-      setSelectedDayHours([]);
-    }
-  }, [selectedDayHours]);
+  const activeCellHandler = (index) => selectedDayHours.includes(index);
 
-  const isActiveCellHandler = (index) => {
-    if (listedDayHours.some((item) => item.includes(index))) {
-      return true;
-    }
+  const disableCellHandler = (index) => allSelectedHours.includes(index);
 
-    return selectedDayHours.includes(index);
-  };
-
-  const halfActiveCellHandler = (index) => {
-    if (selectedDayHours.length === 1 && index < hoveredItemIndex) {
-      return true;
-    }
-
-    if (listedDayHours.some((item) => item[0] < index && item[1] > index)) {
-      return true;
-    }
-  };
-
-  // Seçilen gündeki dolu olan saatler disabled yapıldı.
-  // [[3,5], [6,7]] her bir arrayde dolaşıldıktan sonra arraylerin
-  // arasındaki ve kendi değerleri disable edildi.
-  const disabledCell = (index) =>
-    allSelectedHours.some(
-      (item) => item.includes(index) || (item[0] < index && item[1] > index)
-    );
-
-  const selectTimeHandler = (index) => {
-    if (
-      selectedDayHours.length === 1 &&
-      (allSelectedHours.some(
-        (item) => item[0] > selectedDayHours[0] && item[1] < index
-      ) ||
-        allSelectedHours.some(
-          (item) => item[1] < selectedDayHours[0] && item[0] > index
-        ))
-    ) {
-      toast.error('Arasında saat olan alanlar girilemez.', {
-        position: 'bottom-right',
-      });
-
-      return;
-    }
-
-    if (selectedDayHours.length < 3) {
-      setSelectedDayHours([...selectedDayHours, index]);
-    }
-  };
+  const setSelectedHour = (index) =>
+    setSelectedDayHours([...selectedDayHours, index]);
 
   return (
     <div>
@@ -101,31 +49,26 @@ export default function TemplateDate({ listedDayHours, setListedDayHours }) {
           Saat Aralığı Seçiniz
         </Title>
 
-        <Text
+        <Span
           color="dark"
           fontWeight="500"
           textAlign="right"
           cursor="pointer"
           p="0"
-          onClick={() => {
-            setSelectedDayHours([]);
-            setListedDayHours([]);
-          }}
+          onClick={() => setSelectedDayHours([])}
         >
           Temizle
-        </Text>
+        </Span>
       </Box>
 
       <Box row flexWrap="wrap" mb="10px">
         {HOURS.map((item, index) => (
           <CalendarCell
-            onClick={() => selectTimeHandler(index)}
-            isActive={isActiveCellHandler(index)}
-            halfActive={halfActiveCellHandler(index)}
-            disabled={disabledCell(index)}
-            onMouseEnter={() => setHoveredItemIndex(index)}
+            disabled={disableCellHandler(index)}
+            isActive={activeCellHandler(index)}
             key={index}
             type="time"
+            onClick={() => setSelectedHour(index)}
           >
             {item}
           </CalendarCell>

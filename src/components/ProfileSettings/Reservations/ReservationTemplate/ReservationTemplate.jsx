@@ -1,10 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
 import { Link } from 'react-router-dom';
 
-import { addDateToTemplate } from 'actions';
+import { addHoursToTemplate, getMyBranches } from 'actions';
 import {
   Box,
   Switch,
@@ -22,14 +22,27 @@ import TemplateSuccessModal from './TemplateSuccessModal';
 import TemplateNamingModal from './TemplateNamingModal';
 
 export default function ReservationTemplate() {
-  const [selectionData, setSelectionData] = useState([]);
-  const [listedDayHours, setListedDayHours] = useState([]);
+  const { selectedDay } = useSelector(
+    (state) => state.profileSettings2.reservationTemplate
+  );
+
+  const [selectionData, setSelectionData] = useState({
+    branch: [],
+    session: [],
+    workPlaces: [],
+    parks: [],
+  });
+  const [selectedDayHours, setSelectedDayHours] = useState([]);
 
   const templateNamingModalRef = useRef();
   const successTemplateModalRef = useRef();
   const applyTemplateModalRef = useRef();
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getMyBranches());
+  }, []);
 
   const setSelectionDataHandler = (e) => {
     setSelectionData({
@@ -47,6 +60,20 @@ export default function ReservationTemplate() {
   const openApplyTemplateModal = () =>
     applyTemplateModalRef.current.openModal();
 
+  const saveDayToTemplateHandler = () => {
+    setSelectedDayHours([]);
+
+    dispatch(
+      addHoursToTemplate(selectedDay.day, {
+        id: selectedDay.slice.length,
+        hour: selectedDayHours,
+        branch: ['5', '6', '7'],
+        session_type: ['2', '3', '4'],
+        place_type: [5, 6, 7],
+      })
+    );
+  };
+
   return (
     <div>
       <BackLink to="/myprofile/settings/profile">
@@ -58,8 +85,8 @@ export default function ReservationTemplate() {
       <Row>
         <Col lg={6}>
           <TemplateDate
-            listedDayHours={listedDayHours}
-            setListedDayHours={setListedDayHours}
+            selectedDayHours={selectedDayHours}
+            setSelectedDayHours={setSelectedDayHours}
           />
 
           <TemplateSelections
@@ -70,17 +97,7 @@ export default function ReservationTemplate() {
           <Button
             className="blue"
             text="Kaydet"
-            onClick={() =>
-              dispatch(
-                addDateToTemplate({
-                  id: 1,
-                  hours: listedDayHours,
-                  branches: ['5', '6', '7'],
-                  sessionTypes: ['2', '3', '4'],
-                  placeTypes: [5, 6, 7],
-                })
-              )
-            }
+            onClick={saveDayToTemplateHandler}
           />
         </Col>
 

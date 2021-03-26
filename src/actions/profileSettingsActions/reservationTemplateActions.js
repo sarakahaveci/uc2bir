@@ -1,11 +1,15 @@
-import { ADD_DATE_TO_TEMPLATE, SET_SELECTED_DAY } from '../../constants';
+import {
+  ADD_DATE_TO_TEMPLATE,
+  DELETE_DATE_FROM_TEMPLATE,
+  SET_SELECTED_DAY,
+} from '../../constants';
 
 export const setSelectedDay = (dayIndex) => async (dispatch, getState) => {
-  const { appliedTemplates } = getState().profileSettings2.reservationTemplate;
+  const { appliedDays } = getState().profileSettings2.reservationTemplate;
 
-  const foundDate = appliedTemplates.find((item) => item.day === dayIndex) || {
+  const foundDate = appliedDays.find((item) => item.day === dayIndex) || {
     day: dayIndex,
-    dates: [],
+    slice: [],
   };
 
   dispatch({
@@ -14,65 +18,58 @@ export const setSelectedDay = (dayIndex) => async (dispatch, getState) => {
   });
 };
 
-export const addDateToTemplate = (addedDate) => async (dispatch, getState) => {
+export const addHoursToTemplate = (dayIndex, addedDate) => async (
+  dispatch,
+  getState
+) => {
   const {
-    appliedTemplates,
+    appliedDays,
     selectedDay,
   } = getState().profileSettings2.reservationTemplate;
 
-  let editedAddedDate;
-
-  if (addedDate.hours.length === 1) {
-    editedAddedDate = [
-      {
-        ...addedDate,
-        hours: addedDate.hours.flat(),
-      },
-    ];
-  } else {
-    editedAddedDate = addedDate.hours.map((item) => ({
-      ...addedDate,
-      hours: item,
-    }));
-  }
-
   const editedSelectedDay = {
     ...selectedDay,
-    dates: [...selectedDay.dates, ...editedAddedDate],
+    slice: [...selectedDay.slice, addedDate],
   };
+
+  const filteredAppliedTemplate = [
+    ...appliedDays.filter((day) => day.day !== dayIndex),
+    editedSelectedDay,
+  ];
 
   dispatch({
     type: ADD_DATE_TO_TEMPLATE,
     payload: {
-      appliedTemplates: [
-        ...appliedTemplates.filter(
-          (template) => template.day !== selectedDay.day
-        ),
-        editedSelectedDay,
-      ],
       selectedDay: editedSelectedDay,
+      appliedDays: filteredAppliedTemplate,
     },
   });
 };
 
-// export const addDateToTemplate = (dateId) => async (dispatch, getState) => {
-//     const {
-//       appliedTemplates,
-//       selectedDay,
-//     } = getState().profileSettings2.reservationTemplate;
+export const deleteTemplateItem = (dayIndex, hourIndex) => async (
+  dispatch,
+  getState
+) => {
+  const {
+    appliedDays,
+    selectedDay,
+  } = getState().profileSettings2.reservationTemplate;
 
-//     const dayId = selectedDay.day
+  const editedSelectedDay = {
+    ...selectedDay,
+    slice: selectedDay.slice.filter((item) => item.id !== hourIndex),
+  };
 
-//     const editedSelectedDay = {
-//         ...selectedDay,
-//         dates: selectedDay.dates.filter(date => date.id !== dateId)
-//     }
+  const filteredAppliedTemplate = [
+    ...appliedDays.filter((day) => day.day !== dayIndex),
+    editedSelectedDay,
+  ];
 
-//     dispatch({
-//         type: DELETE_DATE_FROM_TEMPLATE,
-//         payload: {
-//             appliedTemplates: editedSelectedDay,
-//             selectedDay: editedSelectedDay
-//         }
-//     })
-//   };
+  dispatch({
+    type: DELETE_DATE_FROM_TEMPLATE,
+    payload: {
+      selectedDay: editedSelectedDay,
+      appliedDays: filteredAppliedTemplate,
+    },
+  });
+};

@@ -1,14 +1,54 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { Row, Col } from 'react-bootstrap';
 
-import { Accordion, Text, Svg } from 'components';
+import { deleteTemplateItem } from 'actions';
+import { Accordion, Text, Svg, Box } from 'components';
 import { HOURS } from '../../../../constants';
 
 export default function TemplateSummary() {
   const { selectedDay } = useSelector(
     (state) => state.profileSettings2.reservationTemplate
   );
+
+  const dispatch = useDispatch();
+
+  const templateItems = selectedDay?.slice?.map((item) => (
+    <TemplateInfoRow key={item.id}>
+      <Svg.TrashIcon
+        className="trash-icon"
+        onClick={() => dispatch(deleteTemplateItem(selectedDay.day, item.id))}
+      />
+
+      <div>
+        <Box mb="10px">
+          <Svg.ClockIcon className="clock-icon" />
+
+          <Row>
+            {item.hour.map((hour, index) => (
+              <Col lg={3} md={4} key={index}>
+                {HOURS[hour]}
+              </Col>
+            ))}
+          </Row>
+        </Box>
+
+        <Box>
+          <span>Branşlar: </span>
+          <span></span>
+        </Box>
+
+        <div>
+          <span>Oturum Türleri: </span>
+        </div>
+
+        <div>
+          <span>Seçili Yerler: </span>
+        </div>
+      </div>
+    </TemplateInfoRow>
+  ));
 
   return (
     <div>
@@ -27,11 +67,7 @@ export default function TemplateSummary() {
 
             <Accordion.Collapse>
               <AccordionCollapseWrapper>
-                {selectedDay.dates.map((item, index) => (
-                  <div key={index}>
-                    {HOURS[item.hours[0]]}-{HOURS[item.hours[1]]}
-                  </div>
-                ))}
+                {templateItems}
               </AccordionCollapseWrapper>
             </Accordion.Collapse>
           </Accordion.Item>
@@ -41,13 +77,25 @@ export default function TemplateSummary() {
   );
 }
 
+const TemplateInfoRow = styled.div`
+  border-top: 1px solid rgba(144, 144, 144, 0.2);
+  padding: 15px 15px 0 0;
+  position: relative;
+
+  .trash-icon {
+    position: absolute;
+    top: 15px;
+    right: 0;
+    cursor: pointer;
+  }
+
+  .clock-icon {
+    margin-right: 10px;
+  }
+`;
+
 const AccordionToggleWrapper = styled.div`
-  ${(p) =>
-    p.isActive &&
-    css`
-      border-bottom: 0.5px solid rgba(144, 144, 144, 0.5);
-      padding-bottom: 10px;
-    `}
+  ${(p) => p.isActive && css``}
 
   display: flex;
   align-items: center;

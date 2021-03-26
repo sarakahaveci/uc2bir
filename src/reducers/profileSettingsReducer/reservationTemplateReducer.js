@@ -5,29 +5,53 @@ import {
 } from '../../constants';
 
 const initialState = {
-  appliedTemplates: [
+  appliedDays: [
     {
       day: 0,
-      dates: [
+      slice: [
         {
           id: 1,
-          hours: [5, 10],
-          branches: ['5', '6', '7'],
-          sessionTypes: ['2', '3', '4'],
-          placeTypes: [5, 6, 7],
+          hour: [5],
+          branch: [5, 6],
+          accept_guest: true,
+          session_type: [
+            { session: 'gym', location: [3] },
+            { session: 'online' },
+          ],
+          place_type: [5, 6, 7],
+        },
+      ],
+    },
+    {
+      day: 1,
+      slice: [
+        {
+          id: 1,
+          hour: [5, 6, 7, 8, 9, 10],
+          branch: [5, 6],
+          accept_guest: true,
+          session_type: [
+            { session: 'gym', location: [3] },
+            { session: 'online' },
+          ],
+          place_type: [5, 6, 7],
         },
       ],
     },
   ],
   selectedDay: {
     day: 0,
-    dates: [
+    slice: [
       {
         id: 1,
-        hours: [5, 10],
-        branches: ['5', '6', '7'],
-        sessionTypes: ['2', '3', '4'],
-        placeTypes: [5, 6, 7],
+        hour: [5, 6, 7, 8, 9, 10],
+        branch: [5, 6],
+        accept_guest: true,
+        session_type: [
+          { session: 'gym', location: [3] },
+          { session: 'online' },
+        ],
+        place_type: [5, 6, 7],
       },
     ],
   },
@@ -36,14 +60,9 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case ADD_DATE_TO_TEMPLATE:
-      return {
-        appliedTemplates: action.payload.appliedTemplates,
-        selectedDay: action.payload.selectedDay,
-      };
-
     case DELETE_DATE_FROM_TEMPLATE:
       return {
-        appliedTemplates: action.payload.appliedTemplates,
+        appliedDays: action.payload.appliedDays,
         selectedDay: action.payload.selectedDay,
       };
 

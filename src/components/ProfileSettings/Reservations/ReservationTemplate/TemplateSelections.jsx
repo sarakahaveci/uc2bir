@@ -5,8 +5,16 @@ import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
+import { useSelector } from 'react-redux';
 
-export default function TemplateSelections({ selectionData }) {
+export default function TemplateSelections({
+  selectionData,
+  setSelectionData,
+}) {
+  const { data: myBranches } = useSelector(
+    (state) => state.profileSettings2.profileBranches.myBranches
+  );
+
   return (
     <FormControlWrapper>
       <FormControl>
@@ -14,21 +22,17 @@ export default function TemplateSelections({ selectionData }) {
 
         <Select
           multiple
-          value={selectionData}
+          value={selectionData.branch}
           input={<Input />}
+          onChange={setSelectionData}
           style={{ width: '100%' }}
           name="branch"
         >
-          <MenuItem>deneme</MenuItem>
-          <MenuItem>deneme</MenuItem>
-          <MenuItem>deneme</MenuItem>
-          <MenuItem>deneme</MenuItem>
-          <MenuItem>deneme</MenuItem>
-          {/* {subBranches.map((branch) => (
-          <MenuItem key={branch.id} value={branch.id}>
-            {branch.name}
-          </MenuItem>
-        ))} */}
+          {myBranches.map((branch) => (
+            <MenuItem key={branch.id} value={branch.id}>
+              {branch.name}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
 
@@ -36,9 +40,9 @@ export default function TemplateSelections({ selectionData }) {
         <InputLabel>Oturum Türlerini Seçiniz</InputLabel>
 
         <Select
-          name=""
+          name="session"
           multiple
-          value={selectionData}
+          value={selectionData.session}
           input={<Input />}
           style={{ width: '100%' }}
         >
@@ -59,9 +63,9 @@ export default function TemplateSelections({ selectionData }) {
         <InputLabel>Spor Alanları Ekleyin</InputLabel>
 
         <Select
-          name="workplaces"
+          name="workPlaces"
           multiple
-          value={selectionData}
+          value={selectionData.workPlaces}
           input={<Input />}
           style={{ width: '100%' }}
         >
@@ -84,7 +88,7 @@ export default function TemplateSelections({ selectionData }) {
         <Select
           name="parks"
           multiple
-          value={selectionData}
+          value={selectionData.parks}
           input={<Input />}
           style={{ width: '100%' }}
         >

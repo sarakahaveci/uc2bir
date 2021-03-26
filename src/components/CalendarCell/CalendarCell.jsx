@@ -53,13 +53,14 @@ const Cell = styled.div`
           background-color: ${p.theme.colors.blue};
           color: white;
           height: 91px;
+          cursor: not-allowed;
         `}
     `}
 
   ${(p) =>
     p.type === 'time' &&
     css`
-      width: 61px;
+      width: 130px;
       height: 45px;
       border-radius: 15px;
       background: #fff;
@@ -79,6 +80,7 @@ const Cell = styled.div`
           background-color: ${p.theme.colors.blue};
           border-color: ${p.theme.colors.blue};
           color: white;
+          cursor: not-allowed;
         `}
     `}
 
@@ -88,5 +90,6 @@ const Cell = styled.div`
       background-color: ${p.theme.colors.red};
       border: 1px solid ${p.theme.colors.red};
       color: white;
+      cursor: not-allowed;
     `}
 `;
