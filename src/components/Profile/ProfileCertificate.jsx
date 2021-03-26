@@ -6,13 +6,13 @@ import { getUserCertificate } from 'actions';
 
 export default function ProfileCertificate() {
   const dispatch = useDispatch();
-  const { certificate } = useSelector((state) => state.profile);
+  const { certificate } = useSelector((state) => state.userProfile.certificate);
 
   useEffect(() => {
     dispatch(getUserCertificate());
   }, []);
 
-  return certificate.map((data, index) => (
+  return certificate?.map((data, index) => (
     <Certificate
       key={index}
       fileText={data.name}

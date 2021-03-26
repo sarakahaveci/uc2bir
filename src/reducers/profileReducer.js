@@ -2,9 +2,6 @@ import {
   PROFILE_REQUEST,
   PROFILE_SUCCESS,
   PROFILE_FAILURE,
-  GET_USER_CERTIFICATE_REQUEST,
-  GET_USER_CERTIFICATE_SUCCESS,
-  GET_USER_CERTIFICATE_FAILURE,
   GET_PROFILE_INFO_REQUEST,
   GET_PROFILE_INFO_SUCCESS,
   GET_PROFILE_INFO_FAILURE,
@@ -16,14 +13,12 @@ const initialState = {
   error: null,
   isSuccess: false,
   isSuccessGetDetail: false,
-  certificate: [],
   reviewProfileId: null,
   userInfo: {},
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case GET_USER_CERTIFICATE_REQUEST:
     case GET_PROFILE_INFO_REQUEST:
     case PROFILE_REQUEST:
       return {
@@ -39,7 +34,7 @@ export default (state = initialState, action) => {
         isSuccess: true,
         error: null,
       };
-    case GET_USER_CERTIFICATE_FAILURE:
+
     case PROFILE_FAILURE:
       return {
         ...state,
@@ -47,12 +42,7 @@ export default (state = initialState, action) => {
         isSuccess: true,
         error: action.payload.message,
       };
-    case GET_USER_CERTIFICATE_SUCCESS:
-      return {
-        ...state,
-        isLoading: false,
-        certificate: action.payload,
-      };
+
     case GET_PROFILE_INFO_SUCCESS:
       return {
         ...state,
@@ -61,6 +51,7 @@ export default (state = initialState, action) => {
         error: null,
         isSuccessGetDetail: true,
       };
+
     case GET_PROFILE_INFO_FAILURE:
       return {
         ...state,
