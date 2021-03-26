@@ -13,6 +13,11 @@ export default function ProfileCertificate() {
   }, []);
 
   return certificate.map((data, index) => (
-    <Certificate key={index} fileText={data.name} isOdd={(index + 1) % 2} />
+    <Certificate
+      key={index}
+      fileText={data.name}
+      isOdd={(index + 1) % 2}
+      path={data?.path}
+    />
   ));
 }
