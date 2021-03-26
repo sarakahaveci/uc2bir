@@ -19,7 +19,7 @@ export default function Contact() {
 
   const [formData, setFormData] = useState({});
 
-  const Cordinate = infoData?.general?.coordinates?.split(',');
+  const Cordinate = infoData?.coordinates?.split(',');
 
   const handleFormOnChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -62,13 +62,13 @@ export default function Contact() {
           <div className="mb-3 w-50 ml-auto">
             <span className="contact-header__contact-title">Adres</span>
             <p className="contact-header__contact-subtitle">
-              {infoData?.general?.address}
+              {infoData?.address}
             </p>
           </div>
           <div className="w-50 ml-auto">
             <span className="contact-header__contact-title">İletişim</span>
             <p className="contact-header__contact-subtitle">
-              {infoData?.general?.email}
+              {infoData?.email}
             </p>
           </div>
         </div>

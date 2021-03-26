@@ -4,11 +4,11 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import MessageSearch from './MessageSearch';
 import MessageInfoRow from './MessageInfoRow';
-import { scrollbar, Spinner } from 'components';
+import { scrollbar } from 'components';
 import { getRooms } from 'actions';
 
 const MessageSidebar = () => {
-  const { isLoading: roomsLoading, data: allRooms } = useSelector(
+  const { data: allRooms } = useSelector(
     (state) => state.profileSettings2.messages.rooms
   );
 
@@ -30,18 +30,14 @@ const MessageSidebar = () => {
       <MessageSearch />
 
       <MessagesInfoWrapper>
-        {roomsLoading ? (
-          <Spinner />
-        ) : (
-          rooms.map((data, index) => (
-            <MessageInfoRow
-              key={index + 'message'}
-              messageData={data.last_message}
-              userData={data.user_meta}
-              unreadMessages={data.unread_messages}
-            />
-          ))
-        )}
+        {rooms?.map((data, index) => (
+          <MessageInfoRow
+            key={index + 'message'}
+            messageData={data.last_message}
+            userData={data.user_meta}
+            unreadMessages={data.unread_messages}
+          />
+        ))}
       </MessagesInfoWrapper>
     </Sidebar>
   );

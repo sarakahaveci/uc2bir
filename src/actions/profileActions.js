@@ -38,12 +38,10 @@ export const getProfileInformation = () => async (dispatch) => {
   });
 };
 
-export const getUserCertificate = (
-  profileId,
-  successCallback,
-  errorCallback
-) => async (dispatch, getState) => {
-  const url = `/user/view/certificate/${profileId}`;
+export const getUserCertificate = () => async (dispatch, getState) => {
+  const { id } = getState().auth?.user;
+
+  const url = `/user/view/certificate/${id}`;
 
   await dispatch({
     type: HTTP_REQUEST,
@@ -52,8 +50,6 @@ export const getUserCertificate = (
       url,
       label: GET_USER_CERTIFICATE,
       transformData: (data) => data.data,
-      callBack: () => successCallback(),
-      errorHandler: () => errorCallback(),
     },
   });
 };
@@ -63,7 +59,7 @@ export const updateUserAdress = (
   body,
   successCallback,
   errorCallback
-) => async (dispatch, getState) => {
+) => async (dispatch) => {
   const url = `/user/address/${profileId}`;
 
   await dispatch({

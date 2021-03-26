@@ -67,7 +67,7 @@ const AddGym = ({ setSubPage, setBannerActive }) => {
               className="search-trainer__search-input"
               value={trainerName}
               onChange={(e) => setTrainerName(e.target.value)}
-              placeholder="Eğitmen adı..."
+              placeholder="Spor Salonu adı..."
             />
           </SearchCol>
 

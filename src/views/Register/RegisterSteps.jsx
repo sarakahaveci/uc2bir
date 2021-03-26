@@ -1,36 +1,16 @@
 /* eslint-disable react/display-name */
-// @ts-nocheck
+
 import React, { useEffect, useState } from 'react';
 
 import { StepOne, StepTwo, StepThree, StepFour, StepFinish } from './steps';
 import { StepBar } from '../../components';
 
-import { toast } from 'react-toastify';
-
-import { useSelector, useDispatch } from 'react-redux';
-import { getRegisterData } from '../../actions';
+import { useSelector } from 'react-redux';
 
 const RegisterSteps = () => {
   const { data: registerData, isSuccess } = useSelector(
     (state) => state.registerData
   );
-  const dispatch = useDispatch();
-
-  const err = () => {
-    toast.error('Bir sorun oluştu lütfen daha sonra tekrar deneyiniz.', {
-      position: 'bottom-right',
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  };
-
-  const actionRegisterData = () => {
-    dispatch(getRegisterData(err));
-  };
 
   useEffect(() => {
     if (!isSuccess) {

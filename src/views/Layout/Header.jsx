@@ -40,9 +40,9 @@ const Header = () => {
               <ul>
                 <li>
                   <IconLabel
-                    href={`mailto:${infoData?.general?.email}`}
+                    href={`mailto:${infoData?.email}`}
                     className="icon-label"
-                    text={infoData?.general?.email}
+                    text={infoData?.email}
                     icon={AwesomeIcon.Envolope}
                   />
                 </li>
@@ -50,7 +50,7 @@ const Header = () => {
                 <li>
                   <IconLabel
                     className="icon-label"
-                    text={infoData?.general?.phone}
+                    text={infoData?.phone}
                     icon={AwesomeIcon.Phone}
                   />
                 </li>

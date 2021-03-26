@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getFooterTags, getFooterInfo } from 'actions';
+import { getFooterInfo } from 'actions';
 import logo from 'assets/logo.png';
 import { AwesomeIcon, IconLabel, Title } from 'components';
 import { default as NativeFooter } from 'components/Footer';
@@ -14,10 +14,9 @@ const Footer = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const { data, infoData } = useSelector((state) => state.footer);
+  const { tags, infoData } = useSelector((state) => state.footer);
 
   useEffect(() => {
-    dispatch(getFooterTags());
     dispatch(getFooterInfo());
   }, []);
 
@@ -81,22 +80,22 @@ const Footer = () => {
               <li>
                 <IconLabel
                   className="icon-label"
-                  text={infoData?.general?.phone}
+                  text={infoData?.phone}
                   icon={AwesomeIcon.Phone}
                 />
               </li>
               <li>
                 <IconLabel
-                  href={`mailto:${infoData?.general?.email}`}
+                  href={`mailto:${infoData?.email}`}
                   className="icon-label"
-                  text={infoData?.general?.email}
+                  text={infoData?.email}
                   icon={AwesomeIcon.Email}
                 />
               </li>
               <li className="w-75">
                 <IconLabel
                   className="icon-label"
-                  text={infoData?.general?.address}
+                  text={infoData?.address}
                   icon={AwesomeIcon.Map}
                 />
               </li>
@@ -111,7 +110,7 @@ const Footer = () => {
               Popüler Etiketler
             </Title>
             <ul>
-              {data.map((tag) => (
+              {tags.map((tag) => (
                 <li key={tag?.name}>
                   <a>{tag?.name}</a>
                 </li>

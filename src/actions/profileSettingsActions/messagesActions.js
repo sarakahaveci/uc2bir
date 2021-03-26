@@ -63,6 +63,7 @@ export const updateUserRead = () => async (dispatch, getState) => {
       url,
       label: READ_MESSAGE,
       body: { room_name: selectedRoomName },
+      callBack: () => dispatch(getRooms()),
     },
   });
 };

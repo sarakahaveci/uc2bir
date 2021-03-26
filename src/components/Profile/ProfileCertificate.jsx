@@ -4,15 +4,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Certificate } from 'components';
 import { getUserCertificate } from 'actions';
 
-export default function ProfileCertificate({ userId }) {
+export default function ProfileCertificate() {
   const dispatch = useDispatch();
   const { certificate } = useSelector((state) => state.profile);
 
-  const successHandler = () => {};
-  const failHandler = () => {};
-
   useEffect(() => {
-    dispatch(getUserCertificate(userId, successHandler, failHandler));
+    dispatch(getUserCertificate());
   }, []);
 
   return certificate.map((data, index) => (
