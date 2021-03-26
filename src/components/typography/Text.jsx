@@ -1,23 +1,33 @@
 // @ts-nocheck
 import React from 'react';
-import styled from 'styled-components';
-import { space, typography } from 'styled-system';
-
-import { colorGenerator } from '../../utils';
+import styled, { css } from 'styled-components';
+import { space, typography, color, flexbox, border } from 'styled-system';
 
 const StyledText = styled.div`
-  font-family: ${(props) => props.fontFamily && props.fontFamily};
   padding: 7px 0;
-  color: ${(props) => props.color || colorGenerator(props.color)};
-  font-weight: ${(props) => props.fontWeight || '400'};
-  font-size: ${(props) => props.fontSize || '1rem'};
-  text-align: ${(props) => props.textAlign || 'initial'};
-  margin: ${(props) => props.margin && props.margin};
-  cursor: ${(props) => props.cursor && props.cursor};
+  position: relative;
+  cursor: ${(p) => p.cursor && p.cursor};
   line-height: 120%;
+  text-transform: ${(p) => p.textTransform && p.textTransform};
 
-  ${typography}
-  ${space}
+  ${(p) =>
+    p.underline &&
+    css`
+      &:after {
+        content: '';
+        width: 10%;
+        background: #00b2a9;
+        height: 2px;
+        margin-top: 5px;
+        display: block;
+      }
+    `}
+
+  ${border};
+  ${flexbox};
+  ${color};
+  ${typography};
+  ${space};
 `;
 
 const Text = (props) => (

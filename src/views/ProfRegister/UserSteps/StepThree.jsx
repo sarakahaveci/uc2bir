@@ -61,6 +61,7 @@ const StepThree = () => {
   const [showAddBranchArea, setShowAddBranchArea] = useState(true);
   const [showBranchModal, setShowBranchModal] = useState(false);
   const [offeredBranch, setOfferedBranch] = useState('');
+  const [isBirthdaySafe, setIsBirthdaySafe] = useState(true);
 
   const handleClose = () => setOpen(false);
   const handleClickOpen = () => setOpen(true);
@@ -244,7 +245,11 @@ const StepThree = () => {
           <Text textAlign="center">
             Mahalle, Cadde veya Sokak adı ile arayın yada Pini Sürükleyin
           </Text>
-          <GoogleMap onPositionChange={onPositionChange} />
+          <GoogleMap
+            onPositionChange={onPositionChange}
+            showSearchBox
+            draggable
+          />
           <div className="d-flex w-100 mt-2">
             <Button
               fontWeight="bold"
@@ -262,12 +267,16 @@ const StepThree = () => {
         onSubmit={submitStepThree}
         autoComplete="off"
       >
-        <Material.date
+        <Material.MaterialDateField
           required
           name={isWorkPlace ? 'company_date' : 'birthday'}
-          forHtml="birthday"
           label={isWorkPlace ? 'İş Yeri Kuruluş tarihi' : 'Doğum Tarihi'}
           onChange={handleBirthdayChange}
+          minDate="01.01.1945"
+          maxDate={isWorkPlace ? new Date() : '01.01.2014'}
+          minYears={isWorkPlace ? 0 : 18}
+          forHtml="birthday"
+          onError={(err) => setIsBirthdaySafe(!!err)}
         />
 
         {!isWorkPlace && (
@@ -372,8 +381,9 @@ const StepThree = () => {
               id="apartmentNo"
               name="apt_no"
               label="Bina"
-              type="number"
+              type="text"
               onChange={handleFormOnChange}
+              inputProps={{ maxLength: 5 }}
             />
           </div>
           <div className="adress-apartment">
@@ -382,12 +392,19 @@ const StepThree = () => {
               id="buildNo"
               name="build_no"
               label="Daire"
-              type="number"
+              type="text"
               onChange={handleFormOnChange}
+              inputProps={{ maxLength: 5 }}
             />
           </div>
         </div>
-        <Button type="submit" text="İleri" className="blue" fontWeight="bold" />
+        <Button
+          type="submit"
+          text="İleri"
+          className="blue"
+          fontWeight="bold"
+          disabled={isBirthdaySafe}
+        />
       </form>
       <Modal
         show={showBranchModal}

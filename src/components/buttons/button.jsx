@@ -1,16 +1,39 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { Button as BaseButton, Spinner } from 'react-bootstrap';
+import { color, space, layout, flexbox } from 'styled-system';
+import Svg from 'components/statics/svg';
 
 const StyledButton = styled(BaseButton)`
-  color: black;
-  font-size: 1rem;
+  font-size: ${(props) => (props.fontSize && props.fontSize) || '1rem'};
   font-weight: ${(props) => (props.fontWeight && props.fontWeight) || 'normal'};
   border-radius: 4px;
-  margin: ${(props) => props.margin && props.margin};
   min-height: 45px;
-  background: ${(props) => props.disabled && '#8CDEDA'} !important;
+  background: ${(props) =>
+    !props.transparentDisabled && props.disabled && '#8CDEDA'} !important;
+  color: ${(props) => props.transparentDisabled && 'var(--gray2)'} !important;
   width: ${(props) => props.width && props.width};
+  cursor: ${(props) => props.disabled && 'not-allowed'} !important;
+
+  ${color}
+  ${space}
+  ${layout}
+  ${flexbox}
+
+  &:hover {
+    ${color}
+  }
+
+  ${(props) =>
+    props.light &&
+    css`
+      border: 1px solid rgba(144, 144, 144, 0.3);
+      width: 100%;
+
+      &:focus {
+        border: 1px solid rgba(144, 144, 144, 0.5);
+      }
+    `}
 
   ${(props) =>
     props.soft &&
@@ -34,6 +57,7 @@ const StyledButton = styled(BaseButton)`
         transform: matrix(1, 0, -0.7, 1, 0, 0);
       }
     `}
+
   ${(props) =>
     props.perspective &&
     css`
@@ -57,6 +81,7 @@ const StyledButton = styled(BaseButton)`
         transform: matrix(1, 0, -0.4, 1, 0, 0);
       }
     `}
+
     ${(props) =>
     props.lineButton &&
     css`
@@ -78,6 +103,7 @@ const StyledButton = styled(BaseButton)`
         margin-top: 5px;
       }
     `}
+
     ${(props) =>
     !!props.icon &&
     css`
@@ -87,13 +113,17 @@ const StyledButton = styled(BaseButton)`
     `};
 `;
 
+const Search = styled(Svg.Search)`
+  fill: white;
+`;
+
 const Button = ({
   onClick,
   icon,
-  variant,
   className,
   text,
   isLoading,
+  search,
   ...restProps
 }) => (
   <StyledButton
@@ -107,7 +137,10 @@ const Button = ({
     {isLoading ? (
       <Spinner animation="border" variant="light" size="md" />
     ) : (
-      <span>{text}</span>
+      <>
+        <span>{text}</span>
+        {search && <Search />}
+      </>
     )}
   </StyledButton>
 );

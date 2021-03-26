@@ -5,67 +5,41 @@ import PropTypes from 'prop-types';
 import Svg from 'components/statics/svg';
 import List from '../List';
 import Item from '../Item';
+import TABS from 'constants/tabUri';
 
-import { useDispatch } from 'react-redux';
-import { logOut } from 'actions';
-
-const Gym = ({ user_name, user_id, user_img = null }) => {
-  const dispatch = useDispatch();
-
-  const logOutAction = () => {
-    dispatch(logOut());
-  };
-
-  const notification = [
-    {
-      name: '1. Bildirim',
-      link: `/profile/${user_id}`,
-    },
-    {
-      name: '2. Bildirim',
-      link: `/profile/${user_id}`,
-    },
-    {
-      name: '3. Bildirim',
-      link: `/profile/${user_id}`,
-    },
-  ];
+const Gym = ({ user_name, user_img = null, logOutAction }) => {
+  const notification = [];
 
   const menu = [
     {
       name: 'Profilim',
       icon: <Svg.UsernameIcon />,
-      link: `/profile/${user_id}`,
+      link: TABS.profilePath,
     },
     {
       name: 'Olanaklar',
       icon: <Svg.TickTick />,
-      link: `/profile/${user_id}`,
+      link: TABS.facilityPath,
     },
     {
-      name: 'Branşlarım & Ücretlerim',
+      name: 'Faaliyet Alanları',
       icon: <Svg.PtHome />,
-      link: `/profile/${user_id}`,
-    },
-    {
-      name: 'Sınıf & Kontenjan',
-      icon: <Svg.UsersGym />,
-      link: `/profile/${user_id}`,
+      link: TABS.facilityPath,
     },
     {
       name: 'Eğitmenler',
       icon: <Svg.PeopleGroups />,
-      link: `/profile/${user_id}`,
+      link: TABS.trainersPath,
     },
-    {
+    /*   {
       name: 'Cüzdanım',
       icon: <Svg.Wallet />,
-      link: `/profile/${user_id}`,
-    },
+      link: TABS.walletPath,
+    }, */
     {
       name: 'Galeri',
       icon: <Svg.Gallery />,
-      link: `/profile/${user_id}`,
+      link: TABS.galleryPath,
     },
     {
       name: 'Çıkış Yap',
@@ -79,17 +53,20 @@ const Gym = ({ user_name, user_id, user_img = null }) => {
       name: 'Bildirimler',
       icon: <Svg.Notification />,
       notify: [...notification],
+      linkPath: TABS.notificationPath,
     },
     {
       name: 'Mesajlarım',
       icon: <Svg.CommentBlack />,
       notify: [],
+      linkPath: TABS.proMessagesPath,
     },
-    {
+    /*   {
       name: 'Rezervasyonlarım',
       icon: <Svg.Date />,
       notify: [],
-    },
+      linkPath: TABS.reservationsPath,
+    }, */
     {
       name: user_name,
       icon: user_img || <Svg.UsernameIcon />,
@@ -105,6 +82,7 @@ const Gym = ({ user_name, user_id, user_img = null }) => {
             key={key}
             className="header-login"
             dropDown={val.menu || val.notify}
+            linkPath={val?.linkPath}
           >
             <Item icon={val.icon} span={val.name} notify={val.notify?.length} />
           </List>

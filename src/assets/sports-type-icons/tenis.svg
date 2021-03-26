@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50.141" height="50.141" viewBox="0 0 50.141 50.141">
+  <g id="Group_9004" data-name="Group 9004" transform="translate(0.707 0.352)">
+    <rect id="Rectangle_4068" data-name="Rectangle 4068" width="32.4" height="32.4" transform="translate(2.292 22.91) rotate(-45)" fill="#f05a28" opacity="0.5"/>
+    <g id="Group_9003" data-name="Group 9003" transform="translate(0 0.355)">
+      <g id="Group_9002" data-name="Group 9002" transform="translate(7.493 0)">
+        <ellipse id="Ellipse_480" data-name="Ellipse 480" cx="15.641" cy="13.516" rx="15.641" ry="13.516" transform="matrix(0.707, -0.707, 0.707, 0.707, 0, 22.12)" fill="none" stroke="#181818" stroke-miterlimit="10" stroke-width="1"/>
+        <line id="Line_1152" data-name="Line 1152" x1="18.639" y2="18.639" transform="translate(11.214 11.381)" fill="none" stroke="#181818" stroke-miterlimit="10" stroke-width="1"/>
+        <line id="Line_1153" data-name="Line 1153" x1="15.799" y1="15.799" transform="translate(12.815 12.815)" fill="none" stroke="#181818" stroke-miterlimit="10" stroke-width="1"/>
+        <line id="Line_1154" data-name="Line 1154" x1="13.669" y1="13.669" transform="translate(10.603 17.158)" fill="none" stroke="#181818" stroke-miterlimit="10" stroke-width="1"/>
+        <line id="Line_1155" data-name="Line 1155" x1="9.831" y1="9.831" transform="translate(9.147 22.255)" fill="none" stroke="#181818" stroke-miterlimit="10" stroke-width="1"/>
+        <line id="Line_1156" data-name="Line 1156" x1="9.831" y1="9.831" transform="translate(22.256 9.147)" fill="none" stroke="#181818" stroke-miterlimit="10" stroke-width="1"/>
+        <line id="Line_1157" data-name="Line 1157" x1="13.668" y1="13.669" transform="translate(17.158 10.604)" fill="none" stroke="#181818" stroke-miterlimit="10" stroke-width="1"/>
+        <line id="Line_1158" data-name="Line 1158" x1="17.219" y2="17.219" transform="translate(8.706 8.755)" fill="none" stroke="#181818" stroke-miterlimit="10" stroke-width="1"/>
+        <line id="Line_1159" data-name="Line 1159" x1="17.219" y2="17.219" transform="translate(15.26 15.309)" fill="none" stroke="#181818" stroke-miterlimit="10" stroke-width="1"/>
+      </g>
+      <rect id="Rectangle_4069" data-name="Rectangle 4069" width="4.391" height="14.549" rx="0.867" transform="matrix(0.707, 0.707, -0.707, 0.707, 10.288, 35.334)" fill="none" stroke="#181818" stroke-miterlimit="10" stroke-width="1"/>
+      <path id="Path_56987" data-name="Path 56987" d="M-427.467-536.453c-4.686-.357-9.525,1.029-13.87,2.576" transform="translate(454.086 571.672)" fill="none" stroke="#181818" stroke-miterlimit="10" stroke-width="1"/>
+      <path id="Path_56988" data-name="Path 56988" d="M-447.586-599.923c.357,4.685-1.029,9.525-2.577,13.87" transform="translate(461.095 622.032)" fill="none" stroke="#181818" stroke-miterlimit="10" stroke-width="1"/>
+    </g>
+  </g>
+</svg>

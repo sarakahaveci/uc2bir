@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { colorGenerator } from 'utils';
@@ -9,9 +9,16 @@ const List = ({
   className = null,
   children = null,
   dropClassName = null,
+  linkPath,
 }) => {
+  const history = useHistory();
+
+  const pushToLink = () => {
+    history.push(linkPath);
+  };
+
   return (
-    <Lists className={className}>
+    <Lists className={className} onClick={pushToLink}>
       <Item>
         {children}
         {dropDown.length > 0 && (
@@ -50,6 +57,7 @@ const Lists = styled.ul`
 
 const Item = styled.li`
   visibility: visible;
+  cursor: pointer;
 `;
 
 const A = styled(Link)`

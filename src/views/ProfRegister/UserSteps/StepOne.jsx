@@ -4,23 +4,23 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Modal } from 'react-bootstrap';
 import InputMask from 'react-input-mask';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
+import { TextField } from '@material-ui/core';
 
 import { StepContext } from '../RegisterSteps';
-import { setStepOne } from 'actions';
+import { setStepOne, getAuthFiles } from 'actions';
 import {
   Button,
   Text,
   Material,
   Agreement,
-  Health,
-  Kvkk,
   Permission,
+  Information,
+  Privacy,
+  Svg,
 } from 'components';
 import StepTwo from './StepTwo';
 import { macroConverter } from 'utils';
-import Svg from 'components/statics/svg';
-import { TextField } from '@material-ui/core';
 
 const macro = [
   {
@@ -47,10 +47,9 @@ const macro = [
 ];
 
 const StepOne = ({ userTypeId, setUserTypeId }) => {
-  const {
-    confirmation: { data: confirmationData },
-    data: registerData,
-  } = useSelector((state) => state.registerData);
+  const { data: registerData } = useSelector((state) => state.registerData);
+
+  const confirmationData = useSelector((state) => state.registerData.authFiles);
 
   const { isLoading: registerLoading } = useSelector((state) => state.stepOne);
 
@@ -64,7 +63,6 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
   const [acceptKvkk, setAcceptKvkk] = useState(false);
   const [acceptPermissions, setAcceptPermissions] = useState(false);
   const [isOtpModalActive, setIsOtpModalActive] = useState(false);
-  const [inputType, setInputType] = useState('password');
   const [shrink, setShrink] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [openModal, setOpenModal] = useState(false);
@@ -78,6 +76,17 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
       setIsOtpModalActive(true);
     }
   }, [stepNumber]);
+
+  useEffect(() => {
+    if (userTypeId) {
+      dispatch(getAuthFiles(userTypeId));
+    }
+
+    setAcceptMemberAgreement(false);
+    setAcceptHealthAgreement(false);
+    setAcceptKvkk(false);
+    setAcceptPermissions(false);
+  }, [userTypeId]);
 
   const registerSuccessCallback = () => {
     toast.info('Lütfen Bekleyiniz! Yönlendiriliyorsunuz...', {
@@ -102,6 +111,17 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
   const submitHandler = (e) => {
     e.preventDefault();
 
+    const regex = new RegExp(
+      '^(?=.{6,})(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+*!=.,]).*$'
+    );
+
+    if (!regex.test(password)) {
+      setErrorMessage(
+        'Şifrenizin en az 6 karakter, 1 sayı, 1 büyük ve 1 özel karakter içermesi gerekmektedir.'
+      );
+      return;
+    }
+
     if (
       ![
         acceptHealthAgreement,
@@ -110,7 +130,7 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
         acceptPermissions,
       ].every((value) => value)
     ) {
-      setErrorMessage('Lütfen boş alanları doldurunuz.');
+      setErrorMessage('Lütfen sözleşmeleri kabul ediniz.');
       return;
     }
 
@@ -143,30 +163,33 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
           setAcceptMemberAgreement={setAcceptMemberAgreement}
           acceptMemberAgreement={acceptMemberAgreement}
           setOpenModal={setOpenModal}
-          agreementData={confirmationData?.['agreement']}
-          extraAgreementData={confirmationData?.['agreementExtra']}
+          confirmationData={confirmationData}
+          extraAgreementData={confirmationData}
+          userTypeId={userTypeId}
         />
       );
       break;
 
-    case 'health':
+    case 'information':
       confirmation = (
-        <Health
+        <Information
           acceptHealthAgreement={acceptHealthAgreement}
           setAcceptHealthAgreement={setAcceptHealthAgreement}
           setOpenModal={setOpenModal}
-          healthData={confirmationData?.['health']}
+          confirmationData={confirmationData}
+          userTypeId={userTypeId}
         />
       );
       break;
 
-    case 'kvkk':
+    case 'privacy':
       confirmation = (
-        <Kvkk
+        <Privacy
           acceptKvkk={acceptKvkk}
           setAcceptKvkk={setAcceptKvkk}
           setOpenModal={setOpenModal}
-          kvkkData={confirmationData?.['kvkk']}
+          confirmationData={confirmationData}
+          userTypeId={userTypeId}
         />
       );
       break;
@@ -177,7 +200,8 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
           acceptPermissions={acceptPermissions}
           setAcceptPermissions={setAcceptPermissions}
           setOpenModal={setOpenModal}
-          permissionData={confirmationData?.['permission']}
+          confirmationData={confirmationData}
+          userTypeId={userTypeId}
         />
       );
       break;
@@ -233,23 +257,20 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
             )}
           </InputMask>
         </div>
-        <Material.text
+
+        <Material.TextField
           required
-          type={inputType}
           name="password"
+          type="password"
           forHtml="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           inputProps={{
-            minLength: 6,
             maxLength: 15,
           }}
           label="Şifre"
           icon={Svg.PasswordIcon}
-          icon2={Svg.EyeIcon}
-          icon2Callback={() =>
-            setInputType(inputType === 'password' ? 'text' : 'password')
-          }
+          password={Svg.EyeIcon}
         />
         <div className="step-one-wrapper__checkbox-wrapper">
           <Material.CheckBox
@@ -268,16 +289,17 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
                   Üyelik Sözleşmesini
                 </span>
                 ve &nbsp;
-                <span
+                <a
+                  href={
+                    userTypeId === 3
+                      ? 'https://file.uc2bir.com/uploads/pt-points/files/spor-alani.pptx'
+                      : 'https://file.uc2bir.com/uploads/pt-points/files/egitmen.pptx'
+                  }
+                  target="_blank"
                   className="underline-text"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setConfirmationType('agreement');
-                    setOpenModal(true);
-                  }}
                 >
-                  Ekleri'ni
-                </span>
+                  Ekleri&apos;ni
+                </a>
                 kabul ediyorum.
               </div>
             }
@@ -292,11 +314,11 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
                   className="underline-text"
                   onClick={(e) => {
                     e.preventDefault();
-                    setConfirmationType('health');
+                    setConfirmationType('information');
                     setOpenModal(true);
                   }}
                 >
-                  Sağlık muvafakatnamesi
+                  Aydınlatma Bildirimini
                 </span>
                 okudum, onaylıyorum.
               </div>
@@ -312,11 +334,11 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
                   className="underline-text"
                   onClick={(e) => {
                     e.preventDefault();
-                    setConfirmationType('kvkk');
+                    setConfirmationType('privacy');
                     setOpenModal(true);
                   }}
                 >
-                  KVKK
+                  Gizlilik sözleşmesini
                 </span>
                 , okudum onaylıyorum.
               </div>
@@ -394,20 +416,18 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
         />
       )}
 
-      <StyledModal show={openModal} onHide={() => setOpenModal(false)}>
+      <ConfirmationModal show={openModal} onHide={() => setOpenModal(false)}>
         {confirmation}
-      </StyledModal>
+      </ConfirmationModal>
     </div>
   );
 };
 
 export default StepOne;
 
-const StyledModal = styled(Modal)`
+const ConfirmationModal = styled(Modal)`
   .modal-content {
     width: 600px;
-    background-color: var(--white1);
-    padding: 15px 30px;
   }
 `;
 

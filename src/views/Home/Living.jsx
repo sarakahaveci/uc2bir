@@ -3,19 +3,22 @@ import { Container } from 'react-bootstrap';
 import Title from '../../components/typography/Titles';
 import SliderFocus from '../../components/sliders/SliderFocus';
 
-const Living = (props) => {
-  const query = false;
+//mocdata
+import * as Data from './MocData';
 
-  const data = [];
+const Living = (props) => {
+  const query = true;
+
+  const data = Data.Gym;
   const groups = 'GYM';
   const link = '/gym';
   return (
     <section className={`pt ${props.className}`}>
       <Container>
-        <Title variant="h3" component="h3">
+        <Title variant="h3" lineDisable={false} component="h3">
           SALONLAR
         </Title>
-        <Title variant="h5" component="h5" fontWeight="500" lineDisable>
+        <Title variant="h6" component="h6" fontWeight="500" >
           İSTEDİĞİN SALONDA ÇALIŞMA FIRSATI
         </Title>
       </Container>

@@ -10,6 +10,12 @@ import registerData from '../reducers/registerDataReducer';
 import forgotPassword from '../reducers/forgotPaswword';
 import resetPassword from '../reducers/resetPassword';
 import quizGet from '../reducers/quizGetReducer';
+import profileSettings from '../reducers/profileSettingsReducer';
+// TODO: profileSettings değiştirildiğinde bu da düzeltilebilir.
+import profileSettings2 from '../reducers/profileSettingsReducer/index';
+import myGalleries from '../reducers/profileSettingsReducer/galleriesReducer';
+import myBlogs from '../reducers/profileSettingsReducer/blogsReducer';
+import footer from '../reducers/footerReducer';
 
 const reducers = combineReducers({
   auth,
@@ -22,6 +28,11 @@ const reducers = combineReducers({
   forgotPassword,
   resetPassword,
   quizGet,
+  profileSettings,
+  profileSettings2,
+  myGalleries,
+  myBlogs,
+  footer,
 });
 
 export default reducers;

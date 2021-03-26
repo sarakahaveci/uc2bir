@@ -1,7 +1,7 @@
 import React from 'react';
 // @ts-ignore
 import { default as NativeFluidBanner } from '../../components/banner/fluid-banner';
-import {Title, Text, Button} from '../../components';
+import { Title, Text, Button } from '../../components';
 
 // @ts-ignore
 import backgroundImage from '../../components/statics/background/images/banner-bottom.jpg';
@@ -22,17 +22,13 @@ const FluidBanner = (props) => {
             style={{ maxWidth: '50%', marginLeft: 'auto', marginRight: 'auto' }}
             lineDisable
           >
-            Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing
+            Sen neredeysen spor ve eğitmen orada!
           </Title>
           <Text textAlign="center" color="white" fontSize="1.2rem">
-            Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing Elit, Sed Do
-            Eiusmod Tempor Incididunt Ut Labore Et Dolore Magna Aliqua. Ut Enim
-            Ad Minim Veniam, Quis Nostrud Exercitation
+            Sporseverler, eğitmen seçiyor, yeri ve zamanı belirliyor. Bire bir
+            ilgi, diyetisyen desteği, spor salonu seçenekleri hepsi burada.
             <br />
-            <br />
-            Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing Elit, Sed Do
-            Eiusmod Tempor Incididunt Ut Labore Et Dolore Magna Aliqua. Ut Enim
-            Ad Minim Veniam, Quis Nostrud Exercitation
+            Başarmak için hemen başla!
           </Text>
           <br />
           <br />

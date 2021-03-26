@@ -6,22 +6,27 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import { AwesomeIcon, Button, Otp, Svg } from '../../../components';
+import { Button, Otp, Box } from '../../../components';
 
 import { toast } from 'react-toastify';
 
 import { stepTwo as macro } from '../../../macros/registerMacros';
 import { useSelector, useDispatch } from 'react-redux';
 import { setStepTwo, verifyCode } from '../../../actions';
-import { right } from 'styled-system';
 
 const StepTwo = (props) => {
-
   const getStepOne = useSelector((state) => state.stepOne);
   const getStepTwo = useSelector((state) => state.stepTwo);
-  const { setSteps, count, modal, setModal } = props;
+  const {
+    setSteps,
+    count,
+    modal,
+    setModal,
+    phone,
+    newAction = false,
+    formData = false,
+  } = props;
 
-  const [open, setOpen] = useState(modal);
   const fullWidth = true;
   const maxWidth = 'sm';
 
@@ -30,92 +35,63 @@ const StepTwo = (props) => {
   const time = 120;
 
   const isResponseSuccess = () => {
-    setOpen(true);
+    setCode({ ...macro.inputs });
+
     return setCounter(time);
   };
   const isResponseError = () => {
     toast.error('Mesaj gönderilirken hata oluştu...', {
       position: 'bottom-right',
       autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
     });
-    return setCounter(0);
   };
 
   const isResultSuccess = () => {
     toast.success('Kayıt alındı.', {
       position: 'bottom-right',
       autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
       onClose: setSteps('step3'),
     });
-
-    setTimeout(() => {
-      toast.info('Lütfen Bekleyiniz! Yönlendiriliyorsunuz...', {
-        position: 'bottom-right',
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    }, 1000);
   };
   const isResultError = () => {
     toast.error('Kod doğrulanamadı...', {
       position: 'bottom-right',
       autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
     });
   };
 
   const dispatch = useDispatch();
   const vrf_response = () => {
+    dispatch(verifyCode({ phone }, isResponseSuccess, isResponseError));
+  };
+
+  const action_result = () => {
     dispatch(
       verifyCode(
-        { phone: getStepOne.data.phone, code: '' },
-        isResponseSuccess,
+        { phone, code },
+        () => newAction(formData, code),
         isResponseError
       )
     );
   };
+
   const vrf_result = () => {
+    let new_data = {};
+    if (formData) {
+      new_data = formData;
+    } else {
+      new_data = getStepOne.data;
+    }
     dispatch(
-      setStepTwo(
-        { ...getStepOne.data, code: code },
-        isResultSuccess,
-        isResultError
-      )
+      setStepTwo({ ...new_data, code: code }, isResultSuccess, isResultError)
     );
   };
-
-  const handleClose = () => setOpen(false);
-  const handleClickOpen = () => setOpen(true);
 
   useEffect(() => {
     if (getStepOne.isSuccess) {
       setCounter(time);
     }
   }, [getStepOne.isSuccess]);
-
-  useEffect(() => {
-    if ( counter === 0 ) {
-      setModal(false);
-    }
-  },[counter])
 
   useEffect(() => {
     if (counter > 0) {
@@ -131,7 +107,11 @@ const StepTwo = (props) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    return vrf_result();
+    if (newAction) {
+      return action_result();
+    } else {
+      return vrf_result();
+    }
   };
   return (
     <>
@@ -143,17 +123,18 @@ const StepTwo = (props) => {
           open={modal}
         >
           <DialogTitle className="text-center">
-            Telefon Numaranızı Doğrulayın 
+            Telefon Numaranızı Doğrulayın
             <span
               style={{
-                position: "absolute",
-                right: "5px",
-                top: "5px",
-                cursor: "pointer",
-                fontWeight: "bold",
-                padding: "5px 15px"
-              }} 
-              onClick={() => setModal(false)}>
+                position: 'absolute',
+                right: '5px',
+                top: '5px',
+                cursor: 'pointer',
+                fontWeight: 'bold',
+                padding: '5px 15px',
+              }}
+              onClick={() => setModal(false)}
+            >
               x
             </span>
           </DialogTitle>
@@ -162,8 +143,8 @@ const StepTwo = (props) => {
               style={{ padding: '15px 30px' }}
               className="text-center"
             >
-              <b>{getStepOne?.data?.phone}</b> numaralı telefona gönderdiğimiz 6
-              haneli kodu girin.
+              <b>{phone}</b> numaralı telefona gönderdiğimiz 6 haneli kodu
+              girin.
             </DialogContentText>
             <div className="d-flex flex-wrap dialog-center">
               <form
@@ -173,24 +154,34 @@ const StepTwo = (props) => {
                 <div className="d-flex group-text">
                   <Otp otpCallback={setCode} />
                 </div>
-                <Button
-                  onClick={vrf_response}
-                  variant="link"
-                  text={
-                    counter > 0
-                      ? `Güvenlik kodunu girmek için kalan süreniz ${Math.floor(counter / 60)}:${Math.ceil(counter % 60) < 10 ? 0 : ''}${Math.ceil(counter % 60)} veya tekrar gönder.`
-                      : `Güvenlik kodunu tekrar gönder.`
-                  }
-                />
-                {!getStepTwo.isLoading ? (
-                  <Button type="submit" text={`İleri`} className="blue" />
+                {counter > 0 ? (
+                  <Button
+                    variant="link"
+                    text={`Güvenlik kodunu girmek için kalan süreniz ${Math.floor(
+                      counter / 60
+                    )}:${Math.ceil(counter % 60) < 10 ? 0 : ''}${Math.ceil(
+                      counter % 60
+                    )}`}
+                  />
                 ) : (
                   <Button
-                    className="blue"
-                    onClick={() => console.log('Lütfen Bekleyiniz...')}
-                    text={`Lütfen Bekleyiniz...`}
+                    onClick={vrf_response}
+                    variant="link"
+                    text={`Güvenlik kodunu tekrar gönder.`}
                   />
                 )}
+                <Box center width="100%" my="15px">
+                  {!getStepTwo.isLoading ? (
+                    <Button
+                      type="submit"
+                      text={`İleri`}
+                      className="blue"
+                      disabled={!(typeof code === 'number')}
+                    />
+                  ) : (
+                    <Button className="blue" text={`Lütfen Bekleyiniz...`} />
+                  )}
+                </Box>
               </form>
             </div>
           </DialogContent>

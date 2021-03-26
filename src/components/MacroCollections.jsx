@@ -1,7 +1,13 @@
 import React from 'react';
+import styled, { css } from 'styled-components/macro';
 import { Material } from '../components/inputs/material';
 
-const MacroCollections = ({ macro = [], data = {}, setData }) => {
+const MacroCollections = ({
+  macro = [],
+  data = {},
+  setData,
+  macroSpace = true,
+}) => {
   return (
     <>
       {macro.map((val, key) => {
@@ -26,6 +32,7 @@ const MacroCollections = ({ macro = [], data = {}, setData }) => {
                 setData: setData,
                 data: data,
                 value: data[val.name],
+                password: val.password,
               })}
           </div>
         );
@@ -71,7 +78,7 @@ const MacroCollections = ({ macro = [], data = {}, setData }) => {
           );
         })}
       </div>
-      <div style={{ width: '100%', marginBottom: 25, marginTop: 40 }}>
+      <MacroWrapper macroSpace={macroSpace}>
         {macro.map((val, key) => {
           return (
             <div style={{ width: '100%' }} key={`check-${key}`}>
@@ -92,9 +99,19 @@ const MacroCollections = ({ macro = [], data = {}, setData }) => {
             </div>
           );
         })}
-      </div>
+      </MacroWrapper>
     </>
   );
 };
 
 export default MacroCollections;
+
+const MacroWrapper = styled.div`
+  ${(p) =>
+    p.macroSpace &&
+    css`
+      width: 100%;
+      margin-bottom: 25px;
+      margin-top: 40px;
+    `}
+`;

@@ -1,38 +1,34 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 
-import { Row, Col, Text, Title } from 'components';
+import { Box, Text, AwesomeIcon } from 'components';
 
-const WorkPlaceRow = () => {
+const WorkPlaceRow = ({ title, area, description, price, address }) => {
   return (
     <Container>
       <Image />
 
-      <Col py="15px" height="100%" justifyContent="space-between">
+      <Box col py="15px" height="100%" justifyContent="space-between">
         <Text fontWeight="600" fontSize="1.2rem">
-          B-Fit Studio
+          {title}
         </Text>
 
-        <Title
-          lineDisable={false}
-          color="gray1"
-          fontWeight="400"
-          fontSize="0.9rem"
-        >
-          180 m , 100 kişi kapasiteli
-        </Title>
+        <Text underline color="gray1" fontWeight="400" fontSize="0.9rem">
+          {area}
+        </Text>
+
+        <Text fontWeight="bold" color="dark" fontSize="1.1rem">
+          {price} <AwesomeIcon.Tl />
+        </Text>
 
         <Text color="gray1" fontSize="0.9rem" pb="10px" lineHeight="22px">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
+          {description}
         </Text>
 
-        <Address color="gray1" fontSize="0.9rem" pt="20px">
-           Cevdet Paşa Caddesi No: 52-54 Bebek - İstanbul
+        <Address fontSize="0.9rem" pt="20px" color="gray1">
+          {address}
         </Address>
-      </Col>
+      </Box>
     </Container>
   );
 };
@@ -43,11 +39,13 @@ const Address = styled(Text)`
   border-top: 0.5px solid rgba(112, 112, 112, 0.2);
 `;
 
-const Container = styled(Row)`
+const Container = styled(Box)`
+  display: flex;
   border-radius: 25px;
   background: #fff;
   box-shadow: 2px 3px 18px rgba(0, 0, 0, 0.09);
   padding: 15px 35px 15px 15px;
+  margin: 20px 0;
 `;
 
 const Image = styled.img`

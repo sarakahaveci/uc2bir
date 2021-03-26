@@ -1,11 +1,11 @@
 import React from 'react';
 
-import FileUpload from './FileUpload';
+import RegisterFileUpload from './RegisterFileUpload';
 import { IDENTITY_CARD } from '../../../constants';
 
 const IdentityCardStep = () => {
   return (
-    <FileUpload
+    <RegisterFileUpload
       title="Nüfus cüzdanınızın fotoğrafını ekleyin."
       fileTypeId={IDENTITY_CARD}
     />

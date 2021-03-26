@@ -2,6 +2,18 @@
   width: 100%;
   position: relative;
 
+  .right-node {
+    input {
+      padding-right: 100px !important;
+    }
+  }
+
+  .input-right-node {
+    position: absolute;
+    right: 0;
+    bottom: 10px;
+  }
+
   .material-inputs-icon {
     position: absolute;
     top: 18px;
@@ -43,8 +55,8 @@
   input[type='url'],
   input[type='week'] {
     font-family: 'Poppins', sans-serif !important;
-    font-weight: 400;
-    color: #a3a3a3 !important;
+    font-weight: 500;
+    color: var(--black2) !important;
   }
 
   /* Chrome, Safari, Edge, Opera */
@@ -69,10 +81,20 @@
   select:-webkit-autofill:hover,
   select:-webkit-autofill:focus {
     border: 1px solid #fff;
-    -webkit-text-fill-color: #a3a3a3;
+    -webkit-text-fill-color: var(--black2);
     -webkit-box-shadow: 0 0 0px 1000px #fafafa inset;
     transition: background-color 5000s ease-in-out 0s;
-    color: #a3a3a3 !important;
+    color: var(--black2);
+    font-weight: 500;
+  }
+
+  input:invalid {
+    border-bottom: 2px solid #ffabab !important;
+  }
+
+  input:valid,
+  input[value=''] {
+    border: none !important;
   }
 
   &-container {
@@ -237,7 +259,8 @@
     padding-right: 24px;
     font-size: 10pt;
     font-family: 'Poppins', sans-serif;
-    color: #8f8f8f;
+    color: var(--black2);
+    font-weight: 500;
   }
 
   .MuiInputBase-root,

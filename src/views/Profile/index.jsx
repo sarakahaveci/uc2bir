@@ -1,54 +1,43 @@
 import React from 'react';
-
-import { Tab, Title, Main } from 'components';
-import ProfileCertificate from './ProfileCertificate';
-import Branch from './Branch';
-import WorkPlace from './WorkPlace';
-
-import { WorkPlaceRow, ProfileBanner } from 'components';
-
-//moc img
-import profileImg from '../../assets/pt-groups/item-1/04.jpg';
 import { Container, Row } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+
+import { Tab, Title, Main, ProfileBanner } from 'components';
+import Branch from '../../components/Profile/Branch';
+import ProfileCertificate from '../../components/Profile/ProfileCertificate';
+import WorkPlace from './WorkPlace';
+import Place from 'components/Profile/Place';
+import profileImg from 'assets/pt-groups/item-1/04.jpg';
+import MyCalendar from 'components/Profile/MyCalendar/MyCalendar';
+import { WORK_PLACE, PERSONAL_TRAINER } from '../../constants';
 
 export default function Profile({ match }) {
-  const trainerData = [
+  const user = useSelector((state) => state.auth.user);
+
+  const trainerTabs = [
     {
       eventKey: 'branch',
-      title: 'Branşlar',
+      title: 'BRANŞLAR',
       component: <Branch />,
     },
     {
       eventKey: 'certificate',
-      title: 'Sertifika',
+      title: 'SERTİFİKA',
       component: <ProfileCertificate userId={match?.params?.id} />,
     },
     {
-      eventKey: 'location',
-      title: 'Konum',
-      component: (
-        <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-          Konum
-        </Title>
-      ),
-    },
-    {
-      eventKey: 'workPlace',
-      title: 'Çalıştığı Yerler',
+      eventKey: 'workplace',
+      title: 'ÇALIŞTIĞI YERLER',
       component: <WorkPlace />,
     },
     {
       eventKey: 'calendar',
-      title: 'Takvim',
-      component: (
-        <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-          Takvim
-        </Title>
-      ),
+      title: 'TAKVİM',
+      component: <MyCalendar />,
     },
     {
-      eventKey: 'comment',
-      title: 'Yorumlar',
+      eventKey: 'comments',
+      title: 'YORUMLAR',
       component: (
         <Title variant={'h4'} component={'h4'} textLeft lineDisable>
           Yorumlar
@@ -56,17 +45,8 @@ export default function Profile({ match }) {
       ),
     },
     {
-      eventKey: 'galary',
-      title: 'Galeri',
-      component: (
-        <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-          Galeri
-        </Title>
-      ),
-    },
-    {
       eventKey: 'blog',
-      title: 'Blog',
+      title: 'BLOG',
       component: (
         <Title variant={'h4'} component={'h4'} textLeft lineDisable>
           Blog
@@ -74,6 +54,90 @@ export default function Profile({ match }) {
       ),
     },
   ];
+
+  const workPlaceTabs = [
+    {
+      eventKey: 'facility',
+      title: 'OLANAKLAR',
+      component: (
+        <Title variant={'h4'} component={'h4'} textLeft lineDisable>
+          Olanaklar
+        </Title>
+      ),
+    },
+    {
+      eventKey: 'certificate',
+      title: 'SERTİFİKALAR',
+      component: <ProfileCertificate userId={match?.params?.id} />,
+    },
+    {
+      eventKey: 'workplace',
+      title: 'SINIFLAR',
+      component: <Place />,
+    },
+
+    {
+      eventKey: 'trainers',
+      title: 'EĞİTMEN BUL',
+      component: (
+        <Title variant={'h4'} component={'h4'} textLeft lineDisable>
+          Yorumlar
+        </Title>
+      ),
+    },
+    {
+      eventKey: 'calendar',
+      title: 'TAKVİM',
+      component: <MyCalendar />,
+    },
+    {
+      eventKey: 'comments',
+      title: 'YORUMLAR',
+      component: (
+        <Title variant={'h4'} component={'h4'} textLeft lineDisable>
+          Yorumlar
+        </Title>
+      ),
+    },
+    {
+      eventKey: 'gallery',
+      title: 'GALERİ',
+      component: (
+        <Title variant={'h4'} component={'h4'} textLeft lineDisable>
+          Galeri
+        </Title>
+      ),
+    },
+    {
+      eventKey: 'location',
+      title: 'KONUM',
+      component: (
+        <Title variant={'h4'} component={'h4'} textLeft lineDisable>
+          KONUM
+        </Title>
+      ),
+    },
+  ];
+
+  let tabData;
+
+  switch (user?.type_id) {
+    // case USER:
+    //   tabData = regularUserTabs;
+    //   break;
+    case PERSONAL_TRAINER:
+      tabData = trainerTabs;
+      break;
+    case WORK_PLACE:
+      tabData = workPlaceTabs;
+      break;
+      // case DIETITIAN:
+      //   tabData = dietitianTabs;
+      //   break;
+      // default:
+      //   tabData = regularUserTabs;
+      break;
+  }
 
   return (
     <Main>
@@ -96,7 +160,7 @@ export default function Profile({ match }) {
                 link: '/',
               },
               {
-                text: 'Plates',
+                text: 'Pilates',
                 link: '/',
               },
               {
@@ -111,15 +175,15 @@ export default function Profile({ match }) {
               reprehenderit in voluptate velit esse cillum. dolore eu fugiat nulla
               pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
               culpa qui officia deserunt mollit anim id est laborum.”`}
-            reservationAction={''}
           />
         </Row>
       </Container>
-      <div className="col-md-8 col-sm-12 mx-auto">
-        <div>Efe Tainer </div>
-        <Tab tabData={trainerData} defaultActiveKey="branch" />
-
-        <WorkPlaceRow />
+      <div className="col-md-8 col-sm-12 mx-auto tab-wrapper">
+        <Tab
+          baseUrl="/profile/"
+          tabData={tabData}
+          defaultActiveKey={match?.params?.activeTabKey}
+        />
       </div>
     </Main>
   );

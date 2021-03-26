@@ -1,47 +1,43 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import {Button, Title, Text, DefBackground} from '../../components';
-import AsNavFor from '../../components/sliders/AsNavFor';
+import cx from 'classnames';
 
-const TopPromotion = (props) => {
+import { Title, DefBackground } from 'components';
+import AsNavFor from 'components/sliders/AsNavFor';
+
+const TopPromotion = ({ className, background, children }) => {
   return (
-    <section className={`top-promotion ${props.className}`}>
-      {props.background && (
+    <section className={cx('top-promotion', { [`${className}`]: className })}>
+      {background && (
         <div
-          className="backgorund-element"
+          className="background-element"
           style={{ backgroundImage: `url(${DefBackground.elementBackground})` }}
         ></div>
       )}
       <Container>
         <div className="row">
-          <div className="col-lg-6">
+          <div className="col-lg-6 mt-5">
             <Title
               variant="h3"
               component="h3"
-              fontSize="2rem"
-              lineDisable
+              lineDisable={false}
               textLeft
-              fontWeight="400"
+              fontWeight="600"
             >
-              Başarmak için başla!
+              Başarmak İçİn sen de hemen başla!
             </Title>
-            <Title fontWeight="normal" variant="h4" component="h4" textLeft>
-              {/* "" */}
-            </Title>
-            <Text color="blue" fontWeight="500" fontSize="20px">
-              {/* "" */}
-            </Text>
-            <Text fontWeight="500" fontSize="20px" color="gray1">
-              {/* "" */}
-              <br />
-              <Button className="p-0" variant="link" text="İNCELE" />
-            </Text>
+            <p className="mb-5">
+              Spor için tutku, özgürlük, motivasyon, enerji; Forma Girmek için
+              heves, istikrar, profesyonel destek; Grup Motivasyonu için ortak
+              hedefler, beraberlikten gelen itici güç! Unutma hedeflerini ancak
+              başlayanlar başarabilir.
+            </p>
           </div>
-          <div className=".slider-p0 col-lg-6 d-flex">
+          <div className="slider-p0 col-lg-6 d-flex">
             <AsNavFor />
           </div>
         </div>
-        {props.children}
+        {children}
       </Container>
     </section>
   );

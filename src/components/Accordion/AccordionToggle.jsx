@@ -1,11 +1,10 @@
 import React, { useContext } from 'react';
 
-import { AccordionContext } from './Accordion';
+import { AccordionContext, AccordionItemContext } from './AccordionContext';
 
 const AccordionToggle = ({ children, uid }) => {
   const { activeId, setActiveId } = useContext(AccordionContext);
-
-  const isActive = uid === activeId;
+  const { isActive } = useContext(AccordionItemContext);
 
   const toggleClickHandler = () => {
     if (uid === activeId) {

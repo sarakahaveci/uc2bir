@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useState } from 'react';
+import React from 'react';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -17,41 +17,21 @@ const GreenCheckbox = withStyles({
 })((props) => <Checkbox color="default" {...props} />);
 
 const CheckBoxGroup = ({
-  id,
   name,
   label,
-  type,
-  items = [],
   required = false,
-  defaultValue = '',
-  autoComplete = 'on',
-  className = '',
-  icon = false,
   onChange = () => {},
-  value = '',
-  onKeyUp = () => {},
-  maxLength = '',
 }) => {
-  const [val, setVal] = useState(value);
-
-  const handleChange = () => {
-    setVal(!val);
-  };
-
   return (
-    <FormGroup style={{marginBottom: 7}} className="materials">
+    <FormGroup style={{ marginBottom: 7 }} className="materials">
       <FormControlLabel
         control={
-          <GreenCheckbox
-            required={required}
-            checked={val} 
-            onChange={handleChange} 
-            name={name} 
-          />}
+          <GreenCheckbox required={required} onChange={onChange} name={name} />
+        }
         label={label}
       />
     </FormGroup>
   );
-}
+};
 
 export default CheckBoxGroup;

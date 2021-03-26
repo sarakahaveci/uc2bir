@@ -1,20 +1,36 @@
 import React, { useState, useEffect } from 'react';
+import ReactHtmlParser from 'react-html-parser';
+import { decode } from 'html-entities';
 
-import { Button, Title, Material, Row, Text, Svg } from 'components';
+import { Button, Title, Material, Box, Text, Svg } from 'components';
 import {
   Container,
   InfoField,
   TextArea,
   TextAreaWrapper,
+  ConfirmationTitle,
 } from './Common.styles.jsx';
+import { WORK_PLACE, DIETITIAN, PERSONAL_TRAINER, USER } from '../../constants';
+
+const fileIdMap = {
+  [USER]: 17,
+  [PERSONAL_TRAINER]: 11,
+  [WORK_PLACE]: 17,
+  [DIETITIAN]: 8,
+};
 
 const Permission = ({
   setOpenModal,
   acceptPermissions,
   setAcceptPermissions,
-  permissionData,
+  confirmationData,
+  userTypeId,
 }) => {
   const [acceptFirst, setAcceptFirst] = useState(false);
+
+  const permissionData = confirmationData.find(
+    (item) => item.id === fileIdMap[userTypeId]
+  );
 
   useEffect(() => {
     if (acceptPermissions) {
@@ -39,40 +55,42 @@ const Permission = ({
         Sözleşmeler ve Formlar
       </Title>
 
-      <Title
-        variant="h5"
-        color="softDark"
-        fontWeight="600"
-        letterSpacing={false}
-        textAlign="left"
-        fontSize="1.1rem"
-        dangerouslySetInnerHTML={{ __html: permissionData?.title }}
-      />
-
-      <InfoField>
-        <Material.checkbox
-          checked={acceptFirst}
-          onChange={() => setAcceptFirst(!acceptFirst)}
-        />
-
-        <TextAreaWrapper>
-          <TextArea
-            dangerouslySetInnerHTML={{ __html: permissionData?.detail }}
+      {userTypeId ? (
+        <>
+          {' '}
+          <ConfirmationTitle
+            dangerouslySetInnerHTML={{ __html: permissionData?.title }}
           />
-        </TextAreaWrapper>
-      </InfoField>
+          <InfoField>
+            <Material.checkbox
+              checked={acceptFirst}
+              onChange={() => setAcceptFirst(!acceptFirst)}
+            />
 
-      <Text
-        color="gray1"
-        fontSize="0.9rem"
-        fontWeight="500"
-        textAlign="left"
-        margin="0 0 0 40px"
-      >
-        Ön Bilgilendirme Koşullarını ve Mesafeli Satış Sözleşmesi’ni okudum.
-      </Text>
+            <TextAreaWrapper>
+              <TextArea>
+                {ReactHtmlParser(decode(permissionData?.detail))}
+              </TextArea>
+            </TextAreaWrapper>
+          </InfoField>
+          <Text
+            color="gray1"
+            fontSize="0.9rem"
+            fontWeight="500"
+            textAlign="left"
+            margin="0 0 0 40px"
+          >
+            Ön Bilgilendirme Koşullarını ve Mesafeli Satış Sözleşmesi’ni okudum.
+          </Text>{' '}
+        </>
+      ) : (
+        <Text color="dark" fontWeight="500" my="20px" lineHeight="20px">
+          Üye sözleşmelerini görebilmeniz için üyelik tipinden birini seçmeniz
+          gerekmektedir.
+        </Text>
+      )}
 
-      <Row center margin="20px 0">
+      <Box center margin="20px 0">
         <Button
           className="blue"
           text="Onaylıyorum"
@@ -84,7 +102,7 @@ const Permission = ({
             setOpenModal(false);
           }}
         />
-      </Row>
+      </Box>
     </Container>
   );
 };

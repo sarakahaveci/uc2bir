@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
 
-import { getRegisterData } from 'actions';
 import { Text, FormPages, Main, Title } from 'components';
 import { DIETITIAN, WORK_PLACE } from '../../constants';
 import RegisterSteps from './RegisterSteps';
@@ -18,12 +16,6 @@ const List = styled.ul`
 const ProfRegister = () => {
   const [userTypeId, setUserTypeId] = useState(null);
 
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getRegisterData());
-  }, []);
-
   return (
     <Main>
       <FormPages>
@@ -38,7 +30,7 @@ const ProfRegister = () => {
                 color="trunge"
                 lineDisable
               >
-                HAYDİ ÜÇ2BİR'E
+                HAYDİ ÜÇ2BİR&apos;E
               </Title>
 
               <Text color="black2" fontSize="1rem" fontWeight="500">
@@ -60,7 +52,6 @@ const ProfRegister = () => {
                   <List>
                     {userTypeId === WORK_PLACE ? (
                       <>
-                        <li>- Adli Sicil Kaydı</li>
                         <li>- Kira Kontratı / Tapu</li>
                         <li>- İş Yeri Ruhsatı</li>
                         <li>- İş Yeri Kiralama Kararı</li>

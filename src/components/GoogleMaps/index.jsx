@@ -1,81 +1,84 @@
-// @ts-nocheck
-import React from 'react';
-import { compose, withProps, withHandlers } from "recompose";
+import React, { useState } from 'react';
 import {
-    withScriptjs,
-    withGoogleMap,
-    GoogleMap,
-    Marker,
-} from "react-google-maps";
-import { MarkerClusterer } from "react-google-maps/lib/components/addons/MarkerClusterer";
-import avatar from "../../assets/avatar/avatar.png";
+  GoogleMap,
+  useJsApiLoader,
+  Marker,
+  MarkerClusterer,
+  InfoWindow,
+} from '@react-google-maps/api';
 
-const MapWithAMarkerClusterer = compose(
-    withProps({
-        googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyArKuphrY7IUV6DURrwRRyWU3h7SeC_ngc",
-        loadingElement: <div style={{ height: `100%` }} />,
-        containerElement: <div style={{ height: `660px` }} />,
-        mapElement: <div style={{ height: `100%` }} />,
-    }),
-    withHandlers({
-        onMarkerClustererClick: () => (markerClusterer) => {
-            const clickedMarkers = markerClusterer.getMarkers()
-            console.log(`Current clicked markers length: ${clickedMarkers.length}`)
-            console.log(clickedMarkers)
-        },
-    }),
-    withScriptjs,
-    withGoogleMap
-)(props =>
-    <GoogleMap
-        defaultZoom={3}
-        defaultCenter={{ lat: 25.0391667, lng: 121.525 }}
-    >
-        <MarkerClusterer
-            onClick={props.onMarkerClustererClick}
-            averageCenter
-            enableRetinaIcons
-            gridSize={60}
-        >
-            {props.markers.map(marker => (
+import MarkerSvg from './markerSvg.svg';
+import { GoogleMapsAPI } from 'utils/config';
+
+const center = { lat: 39.925533, lng: 32.866287 };
+
+export default function GoogleMapClusterer({ data }) {
+  const [selectedMarker, setSelectedMarker] = useState(null);
+  const mapContainerStyle = { width: '100%', height: '100%' };
+
+  const options = {};
+
+  const { isLoaded, loadError } = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey: GoogleMapsAPI,
+  });
+
+  const showInfoWindow = (id) => {
+    if (id === selectedMarker) setSelectedMarker(null);
+    else setSelectedMarker(id);
+  };
+
+  if (loadError) return 'Yüklenme Hatası';
+  if (!isLoaded) return 'Yükleniyor';
+
+  const wrapperClass = 'mx-auto map-wrapper';
+
+  return (
+    <div className={wrapperClass}>
+      <GoogleMap
+        id="google-map"
+        mapContainerStyle={mapContainerStyle}
+        zoom={6}
+        center={center}
+      >
+        <MarkerClusterer options={options}>
+          {(clusterer) =>
+            data.map((gym) => (
+              <>
+                {selectedMarker === gym.id && (
+                  <InfoWindow
+                    position={{ lat: +gym.address.lat, lng: +gym.address.lng }}
+                  >
+                    <div>{gym?.address?.address_detail || ''}</div>
+                  </InfoWindow>
+                )}
+
                 <Marker
-                	icon={avatar}
-                    key={marker.photo_id}
-                    position={{ lat: marker.latitude, lng: marker.longitude }}
+                  onClick={() => showInfoWindow(gym?.id)}
+                  key={gym.id}
+                  position={{ lat: +gym.address.lat, lng: +gym.address.lng }}
+                  clusterer={clusterer}
+                  icon={
+                    gym?.photo
+                      ? {
+                          url: gym?.photo,
+                          origin: new window.google.maps.Point(0, 0),
+                          anchor: new window.google.maps.Point(35, 20),
+                          scaledSize: new window.google.maps.Size(70, 60),
+                        }
+                      : {
+                          url: MarkerSvg,
+                          origin: new window.google.maps.Point(0, 0),
+                          anchor: new window.google.maps.Point(35, 20),
+                          scaledSize: new window.google.maps.Size(70, 60),
+                        }
+                  }
                 />
-            ))}
+              </>
+            ))
+          }
         </MarkerClusterer>
-    </GoogleMap>
-);
-
-class GoogleApp extends React.PureComponent {
-    componentWillMount() {
-        this.setState({ markers: [] })
-    }
-
-    //https://gist.githubusercontent.com/farrrr/dfda7dd7fccfec5474d3/raw/758852bbc1979f6c4522ab4e92d1c92cba8fb0dc/data.json
-    componentDidMount() {
-        const url = [
-            // Length issue
-            `https://gist.githubusercontent.com`,
-            `/farrrr/dfda7dd7fccfec5474d3`,
-            `/raw/758852bbc1979f6c4522ab4e92d1c92cba8fb0dc/data.json`
-        ].join("")
-
-        fetch(url)
-            .then(res => res.json())
-            .then(data => {
-                this.setState({ markers: data.photos });
-            });
-    }
-
-    render() {
-        const { frame } = this.props;
-        console.log(frame);
-        return (
-            <MapWithAMarkerClusterer markers={this.state.markers} frame={frame} />
-        )
-    }
+      </GoogleMap>
+    </div>
+  );
 }
-
-export default GoogleApp;

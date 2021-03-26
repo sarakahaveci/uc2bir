@@ -14,10 +14,21 @@ import { GoogleMapsAPI } from '../../utils/config';
 import mapStyles from './mapStyles';
 import MarkerSvg from './markerSvg.svg';
 Geocode.setApiKey(GoogleMapsAPI);
+Geocode.setRegion('tr');
+Geocode.setLanguage('tr');
 
-export default function MyComponent({ onPositionChange }) {
-  const [position, setPosition] = useState({ lat: 41.015137, lng: 28.97953 });
-  const [searchAdress, setSearchAdress] = useState(null);
+export default function MyComponent({
+  onPositionChange = () => {},
+  showSearchBox,
+  draggable,
+  disabled = false,
+  locationFromUser,
+}) {
+  const [position, setPosition] = useState({
+    lat: 41.0428465,
+    lng: 29.0075283,
+  });
+  const [searchAdress, setSearchAdress] = useState('');
   const [selectedAdress, setSelectedAdress] = useState({});
   const [debouncedSearchAdress] = useDebounce(searchAdress, 2000);
 
@@ -28,21 +39,30 @@ export default function MyComponent({ onPositionChange }) {
     mapRef.current = map;
     if (navigator.geolocation) {
       navigator.geolocation.watchPosition(function (position) {
-        setPosition({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        });
+        if (!locationFromUser) {
+          setPosition({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          });
+        }
       });
     }
   }, []);
 
   useEffect(() => {
+    if (locationFromUser) setPosition(locationFromUser);
+  }, [locationFromUser]);
+
+  useEffect(() => {
     if (position) {
-      console.log(position);
       Geocode.fromLatLng(position.lat, position.lng).then(
         (response) => {
-          const address_detail = response.results[0].formatted_address;
+          const address_detail = response.results[0].formatted_address?.split(
+            '/'
+          )?.[0];
+
           let city, district, town;
+
           for (
             let i = 0;
             i < response.results[0].address_components.length;
@@ -95,7 +115,7 @@ export default function MyComponent({ onPositionChange }) {
 
   const panTo = React.useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng });
-    mapRef.current.setZoom(18);
+    mapRef.current.setZoom(16);
     setPosition({ lat, lng });
   }, []);
 
@@ -109,28 +129,34 @@ export default function MyComponent({ onPositionChange }) {
   const options = {
     styles: mapStyles,
     disableDefaultUI: true,
+    draggable: !disabled,
   };
 
   const { isLoaded, loadError } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: GoogleMapsAPI,
-    libraries: ['places'],
   });
 
   if (loadError) return 'Yüklenme Hatası';
   if (!isLoaded) return 'Yükleniyor';
 
+  const wrapperClass = showSearchBox
+    ? 'mx-auto map-wrapper'
+    : 'mx-auto medium-map-wrapper';
+
   return (
-    <div className=" mx-auto map-wrapper">
-      <SearchBar
-        id="search"
-        name="search"
-        className="search-box"
-        value={searchAdress}
-        onChange={(value) => setSearchAdress(value)}
-        placeholder="Mahalle, Cadde veya Sokak adı ile arayın"
-        onCancelSearch={() => setSearchAdress()}
-      />
+    <div className={wrapperClass}>
+      {showSearchBox && (
+        <SearchBar
+          id="search"
+          name="search"
+          className="search-box"
+          value={searchAdress}
+          onChange={(value) => setSearchAdress(value)}
+          placeholder="Mahalle, Cadde veya Sokak adı ile arayın"
+          onCancelSearch={() => setSearchAdress()}
+        />
+      )}
 
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
@@ -143,8 +169,8 @@ export default function MyComponent({ onPositionChange }) {
           <div>{selectedAdress?.address_detail || ''}</div>
         </InfoWindow>
         <Marker
-          draggable
-          position={position}
+          draggable={draggable}
+          position={position ?? { lat: 41.0428465, lng: 29.0075283 }}
           onDragEnd={async (event) => {
             panTo({
               lat: event.latLng.lat(),

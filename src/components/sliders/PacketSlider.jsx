@@ -1,4 +1,5 @@
-// @ts-nocheck
+/* eslint-disable no-unused-vars */
+
 import React from 'react';
 import { Container } from 'react-bootstrap';
 
@@ -19,7 +20,7 @@ function PacketSlider(props) {
   const settings = {
     dots: false,
     infinite: true,
-    slidesToShow: 4,
+    slidesToShow: 3,
     slidesToScroll: 1,
     autoplay: false,
     autoplaySpeed: 7500,
@@ -102,11 +103,11 @@ function PacketSlider(props) {
             style={{ marginTop: '45px' }}
             className="col d-flex justify-content-center"
           >
-            <Button
+            {/*   <Button
               lineButton
               onClick={() => history.push(props.link)}
               text="Tümünü Gör"
-            />
+            /> */}
           </div>
         </div>
       </Container>

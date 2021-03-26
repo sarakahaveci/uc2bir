@@ -10,12 +10,11 @@ import Svg from '../../components/statics/svg';
 
 /* images */
 import img from '../../assets/info/banner/info-img.png';
-import item1 from '../../assets/info/item-1.jpg';
 
 const Info = () => {
   return (
     <Main>
-      <div className="basic-info">
+      <div style={{ marginTop: 0 }} className="basic-info">
         <div className="starter">
           <img src={img} alt="" />
         </div>
@@ -54,7 +53,7 @@ const Info = () => {
               mutluluk duyarız.
             </Text>
             <Text fontSize="11pt">
-              3-2-1; Spor, diyet, spor alanı, spor etkinlikleri gibi sağlıklı
+              üç2bir; Spor, diyet, spor alanı, spor etkinlikleri gibi sağlıklı
               yaşama dair her şeyi bulabileceğin, kolayca kullanabileceğin,
               ihtiyacın olan kadarını satın alabileceğin, kontrolü kullanıcıya
               veren ve bu konuda büyük bir özgürlük alanı yaratan web ve mobil
@@ -106,7 +105,7 @@ const Info = () => {
                 </li>
               </ul>
 
-              <ul className="animation-img">
+              {/*<ul className="animation-img">
                 <li>
                   <div
                     style={{ backgroundImage: `url(${item1})` }}
@@ -137,7 +136,7 @@ const Info = () => {
                     className="img"
                   ></div>
                 </li>
-              </ul>
+              </ul>*/}
             </div>
 
             <Title variant={'h4'} component={'h4'} textLeft lineDisable>

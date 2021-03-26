@@ -1,125 +1,132 @@
 .search-bar {
-    position: absolute;
-    height: 170px;
-    bottom: 15px;
-    width: 70%;
-    z-index: 1000;
+  position: absolute;
+  height: 170px;
+  bottom: 15px;
+  width: 70%;
+  z-index: 1000;
 
-    @media (max-width: 1366px) {
-        width: 80%;
+  @media (max-width: 1366px) {
+    width: 80%;
+  }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+
+  .search-container {
+    height: 120px;
+    width: 100%;
+    position: relative;
+    background: radial-gradient(rgb(255, 255, 255), rgba(255, 255, 255, 0.5));
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+
+    ul.top-items {
+      position: absolute;
+      display: flex;
+      flex-direction: row;
+      top: -70px;
+      width: 100%;
+      justify-content: center;
+
+      li {
+        a {
+          border-radius: 10px;
+          background-color: rgba(0, 0, 0, 0.3);
+          color: #fff;
+          font-size: 1.2em;
+          padding: 15px;
+          font-weight: bold;
+          position: relative;
+          display: flex;
+          justify-content: center;
+          margin-left: 7px;
+          margin-right: 7px;
+          cursor: pointer;
+        }
+
+        &.active,
+        &:hover {
+          a {
+            &:after {
+              content: '';
+              display: block;
+              border-color: transparent;
+              border-bottom-color: rgba(255, 255, 255, 0.7);
+              border-style: dashed dashed solid;
+              border-width: 0 17px 25px;
+              top: 60px;
+              z-index: 1;
+              height: 0;
+              width: 0;
+              position: absolute;
+              font-size: 2em;
+              color: #bdbdbd;
+            }
+          }
+        }
+      }
     }
 
-    @media (max-width: 768px) {
-        display: none;
-    }
+    .search-items {
+      background: rgba(255, 255, 255, 0.7);
+      width: 100%;
+      flex: 1 1 100%;
+      border-radius: 10px;
+      display: flex;
+      padding: 15px 0px;
 
-    .search-container {
-        height: 120px;
-        width: 100%;
-        position: relative;
-        background: radial-gradient(rgb(255,255,255), rgba(255,255,255,.5));
-        border-radius: 10px;
-        padding: 15px;
+      ul.list-items {
         display: flex;
+        flex: 1 1 100%;
 
-        ul.top-items {
-            position: absolute;
-            display: flex;
-            flex-direction: row;
-            top: -70px;
+        li {
+          flex: 1 1 100%;
+          display: flex;
+          border-left: 1px solid #9e9e9e;
+          padding: 0 15px;
+
+          .material-selectbox {
             width: 100%;
-            justify-content: center;
 
-            li {
-                a {
-                    color: #fff;
-                    font-size: 1.2em;
-                    padding: 15px;
-                    font-weight: bold;
-                    position: relative;
-                    display: flex;
-                    justify-content: center;
-                    margin-left: 7px;
-                    margin-right: 7px;
-                    cursor: pointer;
-                }
-
-                &.active,
-                &:hover {
-                    a {
-                        &:after {
-                            content: "";
-                            display: block;
-                            border-color: transparent;
-                            border-bottom-color: rgba(255, 255, 255, 0.7);
-                            border-style: dashed dashed solid;
-                            border-width: 0 17px 25px;
-                            top: 60px;
-                            z-index: 1;
-                            height: 0;
-                            width: 0;
-                            position: absolute;
-                            font-size: 2em;
-                            color: #bdbdbd;
-                        }
-                    }
-                }
+            .MuiInput-formControl {
+              &:before,
+              &:after {
+                display: none;
+              }
             }
-        }
+          }
 
-        .search-items {
-            background: rgba(255, 255, 255, .7);
-            width: 100%;
+          &.buttons {
+            max-width: 200px;
+            padding-left: 30px;
+            padding-right: 30px;
+          }
+
+          &:first-child {
+            border: none;
+          }
+
+          a {
+            color: #000;
+            display: flex;
+            align-items: center;
+            font-size: 1.2em;
             flex: 1 1 100%;
-            border-radius: 10px;
-            display: flex;
-            padding: 15px 0px;
 
-            ul.list-items {
-                display: flex;
-                flex: 1 1 100%;
-
-                li {
-                    flex: 1 1 100%;
-                    display: flex;
-                    border-left: 1px solid #9e9e9e;
-                    padding: 0 15px;
-
-                    .material-selectbox {
-                        width: 100%;
-
-                        .MuiInput-formControl {
-                            &:before, &:after {display: none}
-                        }
-                    }
-
-                    &.buttons {
-                        max-width: 200px;
-                        padding-left: 30px;
-                        padding-right: 30px;
-                    }
-
-                    &:first-child {border: none}
-
-                    a {
-                        color: #000;
-                        display: flex;
-                        align-items: center;
-                        font-size: 1.2em;
-                        flex: 1 1 100%;
-
-                        svg {
-                            font-size: 1.2em;
-                            color: #989898;
-                        }
-
-                        span {
-                            color: #2f2f2f;
-                            font-size: 12pt;
-                        }
-                    }
-                }
+            svg {
+              font-size: 1.2em;
+              color: #989898;
             }
+
+            span {
+              color: #2f2f2f;
+              font-size: 12pt;
+            }
+          }
         }
+      }
     }
+  }
 }

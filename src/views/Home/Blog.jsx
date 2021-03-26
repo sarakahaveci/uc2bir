@@ -1,29 +1,44 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container } from 'react-bootstrap';
-import {BlogBanners, Button, Title} from '../../components';
+import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import cx from 'classnames'
 
-const Blog = (props) => {
+import { BlogCartList, Button, Title } from 'components';
+import { getBlogList } from 'actions';
+
+const Blog = ({className}) => {
+  const history = useHistory();
+  const {
+    data: { blogs },
+  } = useSelector((state) => state?.myBlogs?.blogs);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getBlogList());
+  }, []);
+
   return (
-    <section className={`blog ${props.className}`}>
-      <Title variant="h3" component="h3">Blog</Title>
-      <Container fluid>
-        <div className="row">
-          <div className="col-xl-8">
-            <BlogBanners left />
-            <BlogBanners right />
-          </div>
-          <div className="col-xl-4">
-            <BlogBanners top />
-          </div>
-          <div
-            style={{ marginBottom: '90px', marginTop: '30px' }}
-            className="col d-flex justify-content-center"
-          >
-            <Button lineButton text="Tümünü Gör" />
-          </div>
-        </div>
-      </Container>
-    </section>
+     (
+      <section className={cx('blog' , { [`${className}`]: className })}>
+        <Title  variant="h3" component="h3" lineDisable={false} fontWeight={500}>
+          Blog
+        </Title>
+        <Container fluid>
+            <div className="blog__content">
+              <BlogCartList blogs={blogs} />
+            </div>
+            <div
+              className="col d-flex justify-content-center"
+            >
+              <Button
+                lineButton
+                text="Tümünü Gör"
+                onClick={() => history.push('/blog-list')}
+              />
+            </div>
+        </Container>
+      </section>
+    )
   );
 };
 

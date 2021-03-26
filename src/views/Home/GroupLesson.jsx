@@ -3,10 +3,13 @@ import { Container } from 'react-bootstrap';
 import Title from '../../components/typography/Titles';
 import PacketSlider from '../../components/sliders/PacketSlider';
 
-const GroupLesson = (props) => {
-  const query = false;
+//mocdata
+import * as Data from './MocData';
 
-  const data = [];
+const GroupLesson = (props) => {
+  const query = true;
+
+  const data = Data.GroupLesson;
   const groups = 'GroupLesson';
   const link = '/packets';
   const categories = [
@@ -36,13 +39,13 @@ const GroupLesson = (props) => {
     },
     {
       id: 5,
-      name: 'Body Building',
+      name: 'Vücut Geliştirme',
       activeClass: '',
       link: '#all',
     },
     {
       id: 6,
-      name: 'Palates',
+      name: 'Pilates',
       activeClass: '',
       link: '#all',
     },
@@ -50,10 +53,10 @@ const GroupLesson = (props) => {
   return (
     <section className={`pt ${props.className}`}>
       <Container>
-        <Title variant="h3" component="h3">
+        <Title variant="h3" component="h3" lineDisable={false}>
           GRUP DERSLERİ
         </Title>
-        <Title variant="h5" component="h5" fontWeight="500" lineDisable>
+        <Title variant="h6" component="h6" fontWeight="500" >
           ARKADAŞLARINLA BERABER, İSTEDİĞİN SALONDA, İSTEDİĞİN EĞİTMENDEN DERS
           ALMA FIRSATI
         </Title>

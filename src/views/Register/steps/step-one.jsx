@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useEffect, useState } from 'react';
 
 import {
@@ -7,9 +6,9 @@ import {
   MacroCollections,
   Material,
   Agreement,
-  Health,
-  Kvkk,
   Permission,
+  Information,
+  Privacy,
 } from '../../../components';
 
 import { toast } from 'react-toastify';
@@ -18,7 +17,7 @@ import styled from 'styled-components';
 
 import { stepOne as macro } from '../../../macros/registerMacros';
 import { useSelector, useDispatch } from 'react-redux';
-import { setStepOne, getConfirmationData } from '../../../actions';
+import { setStepOne, getAuthFiles } from '../../../actions';
 import StepTwo from './step-two';
 
 import { Modal } from 'react-bootstrap';
@@ -27,9 +26,7 @@ const StepOne = (props) => {
   const { setSteps, registerData } = props;
   const dispatch = useDispatch();
 
-  const {
-    confirmation: { data: confirmationData }
-  } = useSelector((state) => state.registerData);
+  const confirmationData = useSelector((state) => state.registerData.authFiles);
 
   const getStepOne = useSelector((state) => state.stepOne);
   const [data, setData] = useState({ ...macro.inputs });
@@ -43,10 +40,10 @@ const StepOne = (props) => {
   const [acceptPermissions, setAcceptPermissions] = useState(false);
 
   useEffect(() => {
-    if (Object.keys(registerData).length) {
-      dispatch(getConfirmationData());
-    }
-  }, [registerData]);
+    const userTypeId = 1;
+
+    dispatch(getAuthFiles(userTypeId));
+  }, []);
 
   const isSuccess = () => {
     return setModal(true);
@@ -55,37 +52,24 @@ const StepOne = (props) => {
     toast.error('Hatalı Giriş', {
       position: 'bottom-right',
       autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
     });
   };
 
   useEffect(() => {
     if (getStepOne.error) {
       if (getStepOne.error) {
-        for (const [key, val] of Object.entries(getStepOne.error)) {
-          toast.error(`${key}: ${val}`, {
-            position: 'bottom-right',
-            autoClose: 4500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
+        if (Object.entries(getStepOne.error).length < 6) {
+          for (const [key, val] of Object.entries(getStepOne.error)) {
+            toast.error(`${key}: ${val}`, {
+              position: 'bottom-right',
+              autoClose: 4500,
+            });
+          }
         }
       } else {
         toast.error(getStepOne.error, {
           position: 'bottom-right',
           autoClose: 4500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
         });
       }
     }
@@ -96,6 +80,8 @@ const StepOne = (props) => {
       setStepOne(
         {
           ...data,
+          type_id: registerData?.['user-type'].filter((f) => f.key === 'st')[0]
+            ?.id,
           kvkk: acceptKvkk ? 1 : 0,
           agreement: acceptMemberAgreement ? 1 : 0,
           health_status: acceptHealthAgreement ? 1 : 0,
@@ -109,20 +95,26 @@ const StepOne = (props) => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
+    /*const regex = new RegExp(
+      '^(?=.{6,})(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+*!=.,]).*$'
+    );
+
+    if (!regex.test(data.password)) {
+      toast.error('Şifrenizin en az 6 karakter, 1 sayı, 1 büyük ve 1 özel karakter içermesi gerekmektedir.', {
+        position: 'bottom-right',
+        autoClose: 2500,
+      });
+      return;
+    }*/
     if (registerData) {
       const user_type = registerData['user-type'].filter((f) => f.key === 'st');
-      setData({ ...data, [data.type_id]: user_type.id });
+      setData({ ...data, type_id: user_type[0].id });
       const response = await actionStepOne();
       return response;
     } else {
       toast.error('Bir sorun oluştu lütfen daha sonra tekrar deneyiniz.', {
         position: 'bottom-right',
         autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
       });
     }
   };
@@ -136,30 +128,33 @@ const StepOne = (props) => {
           setAcceptMemberAgreement={setAcceptMemberAgreement}
           acceptMemberAgreement={acceptMemberAgreement}
           setOpenModal={setOpenModal}
-          agreementData={confirmationData?.['agreement']}
-          extraAgreementData={confirmationData?.['agreementExtra']}
+          confirmationData={confirmationData}
+          extraAgreementData={confirmationData}
+          userTypeId={1}
         />
       );
       break;
 
-    case 'health':
+    case 'information':
       confirmation = (
-        <Health
+        <Information
           acceptHealthAgreement={acceptHealthAgreement}
           setAcceptHealthAgreement={setAcceptHealthAgreement}
           setOpenModal={setOpenModal}
-          healthData={confirmationData?.['health']}
+          confirmationData={confirmationData}
+          userTypeId={1}
         />
       );
       break;
 
-    case 'kvkk':
+    case 'privacy':
       confirmation = (
-        <Kvkk
+        <Privacy
           acceptKvkk={acceptKvkk}
           setAcceptKvkk={setAcceptKvkk}
           setOpenModal={setOpenModal}
-          kvkkData={confirmationData?.['kvkk']}
+          confirmationData={confirmationData}
+          userTypeId={1}
         />
       );
       break;
@@ -170,7 +165,8 @@ const StepOne = (props) => {
           acceptPermissions={acceptPermissions}
           setAcceptPermissions={setAcceptPermissions}
           setOpenModal={setOpenModal}
-          permissionData={confirmationData?.['permission']}
+          confirmationData={confirmationData}
+          userTypeId={1}
         />
       );
       break;
@@ -186,6 +182,7 @@ const StepOne = (props) => {
         <div className="step-one-wrapper__checkbox-wrapper">
           <Material.CheckBox
             checked={acceptMemberAgreement}
+            required={true}
             onChange={(e) => setAcceptMemberAgreement(e.target.checked)}
             label={
               <div>
@@ -198,17 +195,6 @@ const StepOne = (props) => {
                   }}
                 >
                   Üyelik Sözleşmesini
-                </span>
-                ve &nbsp;
-                <span
-                  className="underline-text"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setConfirmationType('agreement');
-                    setOpenModal(true);
-                  }}
-                >
-                  Ekleri'ni
                 </span>
                 kabul ediyorum.
               </div>
@@ -224,11 +210,11 @@ const StepOne = (props) => {
                   className="underline-text"
                   onClick={(e) => {
                     e.preventDefault();
-                    setConfirmationType('health');
+                    setConfirmationType('information');
                     setOpenModal(true);
                   }}
                 >
-                  Sağlık muvafakatnamesi
+                  Aydınlatma Bildirimini
                 </span>
                 okudum, onaylıyorum.
               </div>
@@ -244,11 +230,11 @@ const StepOne = (props) => {
                   className="underline-text"
                   onClick={(e) => {
                     e.preventDefault();
-                    setConfirmationType('kvkk');
+                    setConfirmationType('privacy');
                     setOpenModal(true);
                   }}
                 >
-                  KVKK
+                  Gizlilik sözleşmesini
                 </span>
                 , okudum onaylıyorum.
               </div>
@@ -257,6 +243,7 @@ const StepOne = (props) => {
 
           <Material.CheckBox
             onChange={(e) => setAcceptPermissions(e.target.checked)}
+            required={true}
             checked={acceptPermissions}
             label={
               <div>
@@ -275,18 +262,20 @@ const StepOne = (props) => {
           />
         </div>
         {!getStepOne.isLoading ? (
-          <Button onClick={onSubmit} text={`İleri`} className="blue" />
+          <Button type="submit" text={`İleri`} className="blue" />
         ) : (
-          <Button
-            onClick={() => {
-              console.log('Lütfen Bekleyiniz...');
-            }}
-            text={`Yükleniyor...`}
-            className="blue"
-          />
+          <Button text={`Yükleniyor...`} className="blue" />
         )}
       </form>
-      {modal && <StepTwo setSteps={setSteps} count={1} modal={modal} setModal={setModal} />}
+      {modal && (
+        <StepTwo
+          setSteps={setSteps}
+          phone={data.phone}
+          count={1}
+          modal={modal}
+          setModal={setModal}
+        />
+      )}
       <Text
         style={{ marginTop: 30, marginBottom: 10 }}
         fontSize="12pt"

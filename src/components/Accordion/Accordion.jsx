@@ -1,10 +1,9 @@
-import React, { createContext, useState } from 'react';
+import React, { useState } from 'react';
 
 import AccordionItem from './AccordionItem';
 import AccordionToggle from './AccordionToggle';
 import AccordionCollapse from './AccordionCollapse';
-
-export const AccordionContext = createContext();
+import { AccordionContext } from './AccordionContext';
 
 const Accordion = ({ children }) => {
   const [activeId, setActiveId] = useState('');

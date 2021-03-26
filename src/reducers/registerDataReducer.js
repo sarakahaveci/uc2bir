@@ -1,4 +1,3 @@
-/* eslint-disable import/no-anonymous-default-export */
 import {
   REGISTER_DATA_REQUEST,
   REGISTER_DATA_SUCCESS,
@@ -18,9 +17,10 @@ import {
   GET_ADRESS_IDS_REQUEST,
   GET_ADRESS_IDS_SUCCESS,
   GET_ADRESS_IDS_FAILURE,
-  CONFIRMATION_DATA_REQUEST,
-  CONFIRMATION_DATA_SUCCESS,
-  CONFIRMATION_DATA_FAILURE,
+  GET_USER_KEYS_REQUEST,
+  GET_USER_KEYS_SUCCESS,
+  GET_USER_KEYS_FAILURE,
+  AUTH_FILES_SUCCESS,
 } from '../constants';
 
 const initialState = {
@@ -41,11 +41,13 @@ const initialState = {
     error: null,
     data: '',
   },
-  confirmation: {
+  userKeys: {
     data: {},
     isLoading: false,
     error: null,
+    isSuccess: false,
   },
+  authFiles: [],
 };
 
 export default (state = initialState, action) => {
@@ -57,13 +59,19 @@ export default (state = initialState, action) => {
         isLoading: true,
       };
 
-    case CONFIRMATION_DATA_REQUEST:
+    case GET_USER_KEYS_REQUEST:
       return {
         ...state,
-        confirmation: {
-          ...state.confirmation,
+        userKeys: {
+          ...state.userKeys,
           isLoading: true,
         },
+      };
+
+    case AUTH_FILES_SUCCESS:
+      return {
+        ...state,
+        authFiles: action.payload,
       };
 
     case VERIFY_CODE_REQUEST:
@@ -75,12 +83,13 @@ export default (state = initialState, action) => {
         },
       };
 
-    case CONFIRMATION_DATA_SUCCESS:
+    case GET_USER_KEYS_SUCCESS:
       return {
         ...state,
-        confirmation: {
+        userKeys: {
           data: action.payload,
           isLoading: false,
+          isSuccess: true,
           error: null,
         },
       };
@@ -139,11 +148,11 @@ export default (state = initialState, action) => {
         isLoading: false,
       };
 
-    case CONFIRMATION_DATA_FAILURE:
+    case GET_USER_KEYS_FAILURE:
       return {
         ...state,
-        confirmation: {
-          ...state.confirmation,
+        userKeys: {
+          ...state.userKeys,
           isLaoding: false,
           error: action.payload,
         },

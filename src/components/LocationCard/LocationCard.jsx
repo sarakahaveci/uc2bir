@@ -6,21 +6,21 @@ import SimpleGoogleMap from 'components/GoogleMaps/SimpleGoogleMap';
 
 const LocationCard = ({ title, addressDetail, location, hasMapLocation }) => {
   return (
-    <div class="row locationCardWrapper">
-      <div class="col-lg-2 col-md-3 col-xs-12">
-        <Svg.LocationIcon />
+    <div className="row locationCardWrapper">
+      <div className="col-lg-2 col-md-3 col-xs-12">
+        <Svg.LocationCardIcon />
       </div>
-      <div class="infoTextArea col-lg-4  col-md-9 col-xs-12">
+      <div className="infoTextArea col-lg-4  col-md-9 col-xs-12">
         <Text className="titleText">{title}</Text>
         <Text className="subText">{addressDetail}</Text>
       </div>
       {hasMapLocation && (
-        <div class="col-12 col-lg-6 p-0">
+        <div className="col-12 col-lg-6 p-0">
           <SimpleGoogleMap location={location} />
         </div>
       )}
       <div className="knock">
-        <Svg.ArrowUpIcon />
+        <Svg.WhiteArrowUpIcon />
       </div>
     </div>
   );

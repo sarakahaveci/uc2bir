@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { Button, Material } from '../../../components';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { setStepFour, getQuiz } from '../../../actions';
+import { setStepFour } from '../../../actions';
 
 const StepFour = (props) => {
   const { setSteps, registerData } = props;
@@ -17,7 +17,6 @@ const StepFour = (props) => {
   const [answer, _answer] = useState({});
 
   const getStepFour = useSelector((state) => state.stepFour);
-  const quiz = useSelector((state) => state.quizGet);
   const [macro, setMacro] = useState(false);
 
   useEffect(() => {
@@ -35,7 +34,7 @@ const StepFour = (props) => {
             items: val.options.map((item) => {
               return {
                 id: item.id,
-                val: item.name,
+                val: `${item.id}`,
                 name: item.name,
               };
             }),
@@ -89,11 +88,7 @@ const StepFour = (props) => {
       setStepFour(
         {
           survey_id: survey_id,
-          answer: registerData['par_q_testi'].map((val) => {
-            return {
-              [`answer[${[val.id]}]${[]}`]: answer[val.id],
-            };
-          }),
+          answer: answer,
         },
         succsess,
         err
@@ -116,7 +111,7 @@ const StepFour = (props) => {
                   onChange={(e) => {
                     _survey_id(val.survey_id);
                     _question([...question, val.id]);
-                    _answer({ ...answer, [e.target.name]: val.id });
+                    _answer({ ...answer, [e.target.name]: [e.target.value] });
                   }}
                 />
               );
@@ -133,7 +128,7 @@ const StepFour = (props) => {
                     onChange={(e) => {
                       _survey_id(val.survey_id);
                       _question([...question, val.id]);
-                      _answer({ ...answer, [e.target.name]: e.target.value });
+                      _answer({ ...answer, [e.target.name]: [e.target.value] });
                     }}
                   />
                 </div>
@@ -144,12 +139,11 @@ const StepFour = (props) => {
                   <div style={{ fontSize: '11pt' }} className="label">
                     {`${++key}. ${val.text}`}
                   </div>
-                  <div style={{margin: "15px 20px 0"}}>
+                  <div style={{ margin: '15px 20px 0' }}>
                     {val.items.map((item, key) => {
                       return (
                         <>
                           <Material.CheckBoxGroup
-                            required={val.required}
                             key={`checkbox-key-${key}`}
                             name={val.name}
                             label={item.name}
@@ -158,7 +152,7 @@ const StepFour = (props) => {
                               _question([...question, val.id]);
                               _answer({
                                 ...answer,
-                                [e.target.name]: e.target.value,
+                                [e.target.name]: [item.id],
                               });
                             }}
                           />
@@ -171,15 +165,9 @@ const StepFour = (props) => {
             }
           })}
         {!getStepFour.isLoading || !getStepFour.isSuccess ? (
-          <Button type="submit" text={`İleri`} className="blue" />
+          <Button type="submit" text={`Kaydı Tamamla`} className="blue" />
         ) : (
-          <Button
-            onClick={() => {
-              console.log('Lütfen Bekleyiniz...');
-            }}
-            text={`Yükleniyor...`}
-            className="blue"
-          />
+          <Button text={`Yükleniyor...`} className="blue" />
         )}
       </form>
     </>

@@ -1,36 +1,22 @@
 import React from 'react';
-import Radio from '@material-ui/core/Radio';
-import { withStyles } from '@material-ui/core/styles';
+
+import BlueRadio from './RadioButton';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
 const RadioButtonsGroup = ({
-  id,
   name,
   label,
-  type,
+
   items = [],
   required = false,
   defaultValue = '',
-  autoComplete = 'on',
-  className = '',
+
   icon = false,
   onChange = () => {},
-  value = '',
-  onKeyUp = () => {},
-  maxLength = '',
 }) => {
-  const BlueRadio = withStyles({
-    root: {
-      color: '#909090',
-      '&$checked': {
-        color: '#00B2A9',
-      },
-    },
-    checked: {},
-  })((props) => <Radio color="default" {...props} />);
   const [val, setVal] = React.useState(defaultValue);
 
   const handleChange = (event, callBack) => {

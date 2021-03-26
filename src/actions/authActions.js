@@ -6,6 +6,7 @@ import {
   SOCIAL_LOGIN,
   LOGOUT,
   RESET_PASSWORD,
+  USER_INFORMATION,
 } from '../constants';
 import { localStorage } from 'utils';
 
@@ -33,7 +34,7 @@ export const login = (
   });
 };
 
-export const logOut = () => (dispatch, getState) => dispatch({type: LOGOUT});
+export const logOut = () => (dispatch) => dispatch({ type: LOGOUT });
 
 export const forgotPassword = (
   { email },
@@ -84,7 +85,29 @@ export const resetPassword = (
   });
 };
 
-export const setUserDetailsFromStorage = () => (dispatch, getState) => {
+export const information = () => async (dispatch) => {
+  const url = '/user/profile/detail';
+  const { accessToken, refreshToken } = localStorage.get('auth') || {};
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'GET',
+      url,
+      label: USER_INFORMATION,
+      transformData: (data) => {
+        return {
+          user: data.data,
+          token: accessToken,
+          refresh_token: refreshToken,
+          type_id: data.data?.type?.id,
+        };
+      },
+    },
+  });
+};
+
+export const setUserDetailsFromStorage = () => (dispatch) => {
   const { user, accessToken, refreshToken } = localStorage.get('auth') || {};
 
   if (user) {
@@ -99,10 +122,7 @@ export const setUserDetailsFromStorage = () => (dispatch, getState) => {
   }
 };
 
-export const socialLogin = (user, successCallback) => async (
-  dispatch,
-  getState
-) => {
+export const socialLogin = (user, successCallback) => async (dispatch) => {
   const url = '/social-login';
 
   await dispatch({

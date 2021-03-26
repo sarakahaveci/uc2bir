@@ -12,32 +12,40 @@ import * as KEYS from '../../constants/userKeys';
 
 import styled from 'styled-components/macro';
 import { useSelector, useDispatch } from 'react-redux';
-import { getRegisterData } from '../../actions';
+import { getUserKeys, logOut } from 'actions';
+
+import { useHistory } from 'react-router-dom';
 
 const HeaderLogin = ({ type_id, user }) => {
-  const { data: registerData, isSuccess } = useSelector(
-    (state) => state.registerData
-  );
+  const dispatch = useDispatch();
+  const history = useHistory();
 
-  const err = () => {
-    console.log("err");
-  };
+  const {
+    userKeys: { data: userKeys, isSuccess }
+  } = useSelector((state) => state.registerData);
+
+  const [type, setType] = useState([]);
+
+  useEffect(() => {
+    if ( isSuccess ) {
+      setType(userKeys.filter((f) => f.id === type_id ));
+    }
+  },[isSuccess]);
 
   const actionRegisterData = () => {
-    dispatch(getRegisterData(err));
+    dispatch(getUserKeys());
   };
-
-  const dispatch = useDispatch();
+  
   useEffect(() => {
     actionRegisterData();
   },[]);
 
-  const [type, setType] = useState([]);
-  useEffect(() => {
-    if ( isSuccess ) {
-      setType(registerData['user-type'].filter((f) => f.id === type_id ));
+  const logOutAction = async () => {
+    await dispatch(logOut());
+    if ( !localStorage.getItem("user") ) {
+      history.push("/login");
     }
-  },[isSuccess]);
+  };
 
   switch (type[0]?.key) {
     case KEYS.USER:
@@ -47,6 +55,7 @@ const HeaderLogin = ({ type_id, user }) => {
             user_id={user.id}
             user_name={user.name}
             user_img={user.img}
+            logOutAction={logOutAction}
           />
         </Section>
       );
@@ -58,6 +67,7 @@ const HeaderLogin = ({ type_id, user }) => {
             user_id={user.id}
             user_name={user.name}
             user_img={user.img}
+            logOutAction={logOutAction}
           />
         </Section>
       );
@@ -69,6 +79,7 @@ const HeaderLogin = ({ type_id, user }) => {
             user_id={user.id}
             user_name={user.name}
             user_img={user.img}
+            logOutAction={logOutAction}
           />
         </Section>
       );
@@ -80,6 +91,7 @@ const HeaderLogin = ({ type_id, user }) => {
             user_id={user.id}
             user_name={user.name}
             user_img={user.img}
+            logOutAction={logOutAction}
           />
         </Section>
       );
@@ -91,6 +103,7 @@ const HeaderLogin = ({ type_id, user }) => {
             user_id={user.id}
             user_name={user.name}
             user_img={user.img}
+            logOutAction={logOutAction}
           />
         </Section>
       );

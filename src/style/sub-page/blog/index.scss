@@ -1,4 +1,16 @@
 .blog {
-    padding-left: 50px;
-    padding-right: 50px;
+  padding-left: 50px;
+  padding-right: 50px;
+  margin-bottom: 100px;
+  margin-top: 86px;
+  padding-top: 60px;
+
+  &__content {
+    margin-top: 70px;
+    margin-bottom: 76px;
+  }
+
+  .typography.title.line:after {
+    width: 80px;
+  }
 }

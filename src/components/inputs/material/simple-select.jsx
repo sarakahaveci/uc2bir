@@ -1,10 +1,14 @@
 // @ts-nocheck
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+
+import styled from 'styled-components/macro';
+import { Spinner } from 'react-bootstrap';
+import { colorGenerator } from 'utils';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -26,6 +30,10 @@ const SimpleSelect = ({
   onChange = () => {},
   changeValue,
   defaultValue = '',
+  settings = false,
+  disabled = false,
+  state = {},
+  action = () => {},
 }) => {
   const classes = useStyles();
   const [val, setVal] = useState(defaultValue);
@@ -35,15 +43,58 @@ const SimpleSelect = ({
     onChange(event);
   };
 
+  const editRef = useRef(null);
+  const [loading, setLoading] = useState(false);
+  const editShow = () => {
+    if (editRef.current) {
+      editRef.current.style.color = colorGenerator('blue');
+      setLoading(true);
+    }
+  };
+  const editClose = () => {
+    if (editRef.current) {
+      editRef.current.style.color = colorGenerator('gray4');
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
+    }
+  };
+
+  const save = (name, val) => {
+    action(name, val);
+  };
+
+  const spinnerRef = useRef(null);
+  const material = useRef();
+
   useEffect(() => {
-    if (changeValue) setVal(changeValue);
+    if (state.data) {
+      state.isSuccess ? editClose() : editShow();
+    }
+  }, [state]);
+
+  useEffect(() => {
+    document.body.addEventListener('click', (event) => {
+      material.current?.contains(event.target) ? editShow() : editClose();
+    });
+  }, [material]);
+
+  useEffect(() => {
+    if (changeValue !== undefined) setVal(changeValue);
   }, [changeValue]);
 
   return (
-    <div className={`materials select-materials ${icon ? 'has-icon' : ''}`}>
+    <Materials
+      ref={material}
+      settings={settings}
+      className={`materials select-materials ${icon ? 'has-icon' : ''}`}
+    >
       <FormControl className={classes.formControl}>
         {icon && icon({ className: 'material-inputs-icon' })}
-        <InputLabel id={name}>{label}</InputLabel>
+        <InputLabel id={name}>
+          {label}
+          {required && <> *</>}
+        </InputLabel>
         <Select
           labelId={name}
           id={name}
@@ -51,16 +102,90 @@ const SimpleSelect = ({
           value={val}
           onChange={(event) => handleChange(event)}
           required={required}
+          disabled={disabled}
         >
           {items.map((val, key) => (
-            <MenuItem key={`select-${name}-${key}`} value={val.id}>
+            <MenuItem
+              key={`select-${name}-${key}`}
+              value={val.id}
+              selected={val.selected}
+            >
               {val.name}
             </MenuItem>
           ))}
         </Select>
       </FormControl>
-    </div>
+      {settings && (
+        <>
+          <Save
+            type="button"
+            ref={editRef}
+            className={`${name} save`}
+            onClick={() => save(name, val)}
+          >
+            Kaydet
+          </Save>
+          {loading && (
+            <StyledSpinner
+              className={`${name}`}
+              animation="border"
+              size="md"
+              ref={spinnerRef}
+              loading={state.isLoading}
+            />
+          )}
+        </>
+      )}
+    </Materials>
   );
 };
+
+const Materials = styled.div`
+  ${(props) =>
+    props.settings &&
+    `
+      border-bottom: 1px solid #AFAFAF;
+      position: relative;
+      margin-bottom: 30px;
+    `}
+  ${(props) =>
+    props.settings === 'current' &&
+    `
+      border-bottom: 1px solid #AFAFAF;
+      position: relative;
+      margin-bottom: 30px;
+
+      .save, .edit {
+        display: none!important;
+      }
+    `}
+`;
+
+const Save = styled.button`
+  position: absolute;
+  right: 25px;
+  bottom: 15px;
+  width: auto;
+  height: 20px;
+  display: ${(props) => (!props.edit ? 'inline-flex' : 'none')};
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: transparent;
+  color: var(--gray4);
+  font-size: 10pt;
+`;
+
+const StyledSpinner = styled(Spinner)`
+  position: absolute;
+  right: 25px;
+  bottom: 15px;
+  width: 20px;
+  height: 20px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  display: ${(props) => (props.loading ? 'block' : 'none')};
+`;
 
 export default SimpleSelect;

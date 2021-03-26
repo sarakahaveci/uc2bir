@@ -1,3 +1,4 @@
+/* eslint-disable react/no-children-prop */
 import React from 'react';
 
 import Title from '../../../components/typography/Titles';
@@ -14,37 +15,27 @@ const PT = ({ top = false, bottom = false, val }) => {
           <div
             className="img"
             style={{
-              backgroundImage: `url(${val.node.frontmatter.image.childImageSharp.fluid.src})`,
+              backgroundImage: `url(${val.image?.default})`,
             }}
           >
             <ul className="points">
-              <li
-                className={`${val.node.frontmatter.stars > 0 ? 'active' : ''}`}
-              >
+              <li className={`${val.stars > 0 ? 'active' : ''}`}>
                 <AwesomeIcon.StarSolid />
               </li>
-              <li
-                className={`${val.node.frontmatter.stars > 1 ? 'active' : ''}`}
-              >
+              <li className={`${val.stars > 1 ? 'active' : ''}`}>
                 <AwesomeIcon.StarSolid />
               </li>
-              <li
-                className={`${val.node.frontmatter.stars > 2 ? 'active' : ''}`}
-              >
+              <li className={`${val.stars > 2 ? 'active' : ''}`}>
                 <AwesomeIcon.StarSolid />
               </li>
-              <li
-                className={`${val.node.frontmatter.stars > 3 ? 'active' : ''}`}
-              >
+              <li className={`${val.stars > 3 ? 'active' : ''}`}>
                 <AwesomeIcon.StarSolid />
               </li>
-              <li
-                className={`${val.node.frontmatter.stars > 4 ? 'active' : ''}`}
-              >
+              <li className={`${val.stars > 4 ? 'active' : ''}`}>
                 <AwesomeIcon.StarSolid />
               </li>
             </ul>
-            <div className="team">{val.node.frontmatter.team}</div>
+            <div className="team">{val.team}</div>
           </div>
         </div>
       )}
@@ -52,47 +43,40 @@ const PT = ({ top = false, bottom = false, val }) => {
         <div className="slider-item">
           <div className="slider-item-content">
             <Title
-              textLeft
+              textAlign="left"
               lineDisable
               variant="h5"
               component="h5"
-              children={val.node.frontmatter.name}
+              children={val.name}
             />
             <Title
               lineDisable
               color="gray3"
               fontWeight="normal"
-              textLeft
+              textAlign="left"
               variant="h6"
               component="h6"
-              children={val.node.frontmatter.category}
+              children={val.category}
             />
-            <Title textLeft variant="h4" component="h4">
+            <Title textAlign="left" variant="h4" component="h4">
               <span>
-                {val.node.frontmatter.price} <AwesomeIcon.Tl />
+                {val.price} <AwesomeIcon.Tl />
               </span>
             </Title>
-            <Text
-              fontSize="16px"
-              color="gray2"
-              children={val.node.frontmatter.content}
-            />
+            <Text fontSize="16px" color="gray2" children={val.content} />
             <ul className="slick-button-group row">
               <li>
                 <Button text="Meditasyon" />
               </li>
               <li>
-                <Button text="Plates" />
+                <Button text="Pilates" />
               </li>
               <li>
                 <Button text="Fitnes" />
               </li>
             </ul>
             <div style={{ width: '100%', margin: '15px 0' }}>
-              <IconLabel
-                text={val.node.frontmatter.location}
-                icon={AwesomeIcon.Map}
-              />
+              <IconLabel text={val.location} icon={AwesomeIcon.Map} />
             </div>
           </div>
         </div>

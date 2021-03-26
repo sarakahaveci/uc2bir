@@ -1,20 +1,35 @@
 @import './reset/index.css';
 
+// Some of them are same on purpose
 :root {
+  --z-index-dropdown: 2;
   --base-font-size: 16px;
   --blue: #00b2a9;
   --blue2: #8cdeda;
+  --blue3: #d6f7f5;
   --black1: #1a1818;
   --black2: #181818;
   --black3: #383838;
+  --black4: #6e6d6d;
+  --dark: #1a1818;
+  --softDark: #181818;
   --gray1: #909090;
   --gray2: #bbbbbb;
   --gray3: #666666;
   --gray4: #d3d3d3;
+  --gray5: #2c2c2c;
+  --gray6: #7b7b7b;
+  --gray7: #e8f0f8;
+  --gray8: #f2f2f2;
+  --gray9: #c4c4c4;
+  --gray10: #707070;
   --white1: #f8f8f8;
   --trunge: #ffba00;
   --orange2: #f77e0b;
   --red: #f01c62;
+  --white: #ffff;
+  --white2: #c5c4c4;
+  --white3: #f7f8fa;
 }
 
 html {
@@ -34,6 +49,20 @@ body {
 
 .MuiPopover-root {
   z-index: 100000 !important;
+}
+
+.MuiFormHelperText-root.Mui-error.MuiFormHelperText-filled {
+  display: none !important;
+}
+
+.MuiPickersToolbar-toolbar,
+.MuiPickersDay-daySelected {
+  background-color: var(--blue) !important;
+}
+
+.MuiPickersDatePickerRoot-toolbar,
+.MuiPaper-root {
+  border-radius: 30px !important;
 }
 
 #pt-point-page {
@@ -62,6 +91,20 @@ body {
   }
 }
 
+.MuiPopover-paper {
+  margin-top: 40px !important;
+}
+
+.cp {
+  width: 16px;
+  margin-bottom: 3px;
+  cursor: pointer;
+}
+
+#ETBIS {
+  margin-top: 25px;
+}
+
 .main {
   min-height: 100vh;
 
@@ -77,7 +120,11 @@ body {
   overflow: hidden;
 }
 
-/* components */
+/* layout */
+@import './layout/grid';
+
+/* pages */
+@import './pages/index.scss';
 
 /* header */
 @import './header';
@@ -100,9 +147,6 @@ body {
 /* inputs */
 @import './inputs';
 
-/* blog-banner */
-@import './blog-banner';
-
 /* step-bar */
 @import './step-bar';
 
@@ -124,11 +168,25 @@ body {
 /* locationCard */
 @import './locationCard/';
 
+/* user-profile */
+@import './user-profile/';
+
 /* components */
+@import './components/index.scss';
 
 @import './sub-page';
 
+@import './facilityCard';
+
+@import './DietitianPriceCard';
+
+@import './proficiencyCard';
+
 @import './responsive';
+
+@import './message';
+
+@import './contact';
 
 /* bootstrap */
 @import './bootstrap';

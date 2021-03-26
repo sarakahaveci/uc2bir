@@ -1,10 +1,15 @@
 import React from 'react';
 
-import FileUpload from '../UserSteps/FileUpload';
+import RegisterFileUpload from '../UserSteps/RegisterFileUpload';
 import { LICENSE } from '../../../constants';
 
 const WorkPlaceLicenseStep = () => {
-  return <FileUpload title="İş Yeri Ruhsatını yükleyin" fileTypeId={LICENSE} />;
+  return (
+    <RegisterFileUpload
+      title="İş Yeri Ruhsatını yükleyin"
+      fileTypeId={LICENSE}
+    />
+  );
 };
 
 export default WorkPlaceLicenseStep;

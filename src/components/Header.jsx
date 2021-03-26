@@ -7,7 +7,6 @@ const Header = ({ className, navLogo, navMenu, toggle, setToggle }) => {
   const [page, setPage] = useState(false);
   const [menu, setMenu] = useState(false);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useLayoutEffect(() => {
     const page = document.getElementById('pt-point-page');
     const menu = document.getElementById('pt-point-menu');

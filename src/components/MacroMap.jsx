@@ -40,9 +40,8 @@ const MacroMap = ({ macro = [], data = {}, setData }) => {
                   label: val.text,
                   required: val.required,
                   onChange: (e) =>
-                    setData({ ...data, [e.target.name]: e.target.value }),
-                  autoComplete: 'off',
-                  icon: val.icon,
+                    setData({ ...data, [val.name]: e.target.checked ? 1 : 0 }),
+                  checked: data[val.name] ? true : false,
                 })
               : val.type === 'materialdate'
               ? Material[val.type]({
@@ -54,8 +53,8 @@ const MacroMap = ({ macro = [], data = {}, setData }) => {
                   minDate: val.minDate,
                   maxDate: val.maxDate,
                   onChange: (e) =>
-                    setData({ ...data, [val.name]: e.target.checked ? 1 : 0 }),
-                  checked: data[val.name] ? true : false,
+                    setData({ ...data, [e.target.name]: e.target.value }),
+                  autoComplete: 'off',
                 })
               : Material[val.type]({
                   id: val.name,
@@ -64,8 +63,10 @@ const MacroMap = ({ macro = [], data = {}, setData }) => {
                   type: val.type,
                   label: val.text,
                   onChange: (e) =>
-                    setData({ ...data, [val.name]: e.target.checked ? 1 : 0 }),
-                  checked: data[val.name] ? true : false,
+                    setData({ ...data, [e.target.name]: e.target.value }),
+                  autoComplete: 'off',
+                  icon: val.icon,
+                  password: val.password
                 })}
           </div>
         );

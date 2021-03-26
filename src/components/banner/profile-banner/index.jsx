@@ -1,28 +1,29 @@
-// @ts-nocheck
 import React from 'react';
-import PropTypes from 'prop-types';
-
-import { colorGenerator } from 'utils';
 
 import styled from 'styled-components/macro';
-import { AwesomeIcon, Title, Text, IconLabel, Button, Svg } from 'components';
+import { AwesomeIcon, Text, Button, Svg } from 'components';
 
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+
+import Card, { CardFooter, CardInfo } from './Card';
+
+import defaultImg from '../../../assets/default-profile.jpg';
 
 const ProfileBanner = ({
   className = null,
   info,
   categories = [],
   about,
-  reservationAction,
+  children,
 }) => {
+  const reservationAction = () => {};
   return (
     <Containers className={className}>
       <Rows>
-        <Card img={info.img}>
+        <Card img={defaultImg}>
           <span className="team">{info.team}</span>
-          <span className="heart">
+          <span className="span">
             <Svg.Heart />
           </span>
           <Stars>
@@ -47,7 +48,7 @@ const ProfileBanner = ({
               <Svg.Comment />
             </Comment>
             <Button
-              onClick={() => reservationAction}
+              onClick={reservationAction}
               text="Rezervasyon Yap"
               className="blue list"
               style={{ fontSize: '9pt' }}
@@ -55,41 +56,13 @@ const ProfileBanner = ({
           </CardFooter>
         </Card>
         <Cols lg={'auto'} padding="0 30px">
-          <Title
-            variant={'h5'}
-            component={'h5'}
-            textAlign="left"
-            fontWeight="normal"
-            margin="0"
-            lineDisable
-          >
-            {info.name}
-          </Title>
-          <Title
-            variant={'h6'}
-            component={'h6'}
-            textAlign="left"
-            fontWeight="normal"
-            lineDisable
-          >
-            {info.category}
-          </Title>
-          <Title textLeft variant="h5" component="h5">
-            {info.price} <AwesomeIcon.Tl />
-          </Title>
-          {categories.length > 0 && (
-            <Categories>
-              {categories.map((val) => (
-                <List>
-                  <A to={val.link}>{val.text}</A>
-                </List>
-              ))}
-            </Categories>
-          )}
-          <IconLabel
-            text={info.location}
-            icon={AwesomeIcon.Map}
-            style={{ marginTop: 30, display: 'block' }}
+          <CardInfo
+            name={info.name}
+            category={info.category}
+            price={info.price}
+            location={info.location}
+            categories={categories}
+            info={children}
           />
         </Cols>
         <Line />
@@ -112,40 +85,6 @@ const Rows = styled(Row)`
   min-height: 340px;
 `;
 
-const Card = styled(Col)`
-  max-width: 375px;
-  height: 285px;
-  position: relative;
-  background-image: url('${(props) => props.img}');
-  background-repeat: no-repeat;
-  background-size: cover;
-  border-top-left-radius: 30px;
-  border-top-right-radius: 30px;
-
-  span.team {
-    position: absolute;
-    left: 0;
-    top: 0;
-    padding: 7px 15px;
-    color: #00b2a9;
-    font-weight: bold;
-    font-size: 1.2rem;
-    background: rgba(255, 255, 255, 0.5);
-    border-top-left-radius: 30px;
-  }
-
-  span.heart {
-    position: absolute;
-    right: 30px;
-    top: 30px;
-
-    svg {
-      width: 25px;
-      height: 25px;
-    }
-  }
-`;
-
 const Cols = styled(Col)`
   height: auto;
   padding: ${(props) => props.padding && props.padding};
@@ -158,29 +97,6 @@ const Line = styled.div`
   margin-left: 5px;
   margin-right: 5px;
   flex: 1 1 100%;
-`;
-
-const Categories = styled.ul`
-  display: flex;
-  margin-left: -5px;
-  margin-right: -5px;
-`;
-
-const List = styled.li`
-  border: 1px solid #707070;
-  border-radius: 15px;
-  margin: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const A = styled(Link)`
-  padding: 5px 10px;
-  display: flex;
-  flex: 1 1 100%;
-  font-size: 8pt;
-  color: ${colorGenerator('black')};
 `;
 
 const Stars = styled.ul`
@@ -214,20 +130,6 @@ const Star = styled.li`
   }
 `;
 
-const CardFooter = styled.div`
-  display: flex;
-  position: absolute;
-  bottom: -15px;
-  width: 100%;
-  justify-content: flex-end;
-  padding-right: 30px;
-
-  .list {
-    margin-left: 7px;
-    box-shadow: 5px 5px 10px -8px rgba(0, 0, 0, 0.75);
-  }
-`;
-
 const Comment = styled(Link)`
   background: #fff;
   display: flex;
@@ -242,48 +144,4 @@ const Comment = styled(Link)`
   }
 `;
 
-ProfileBanner.propTypes = {
-  info: PropTypes.object.isRequired,
-  about: PropTypes.string,
-};
-
 export default ProfileBanner;
-
-/*
-  * example
-  * <ProfileBanner
-      className?,
-      info={{
-        team: 'A',
-        img: i1,
-        name: 'Efe Parlak',
-        category: 'Fitnes Eğitmeni',
-        price: '100',
-        stars: '3',
-        location: "İstanbul, Beşiktaş",
-        comment: "/"
-      }}
-      categories={[
-        {
-          text: "Meditasyon",
-          link: "/"
-        },
-        {
-          text: "Plates",
-          link: "/"
-        },
-        {
-          text: "Fitnes",
-          link: "/"
-        },
-      ]}
-      about={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-      eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-      ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-      aliquip ex ea commodo consequat. Duis aute irure dolor in
-      reprehenderit in voluptate velit esse cillum. dolore eu fugiat nulla
-      pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-      culpa qui officia deserunt mollit anim id est laborum.”`}
-      reservationAction={''}
-    />
-*/

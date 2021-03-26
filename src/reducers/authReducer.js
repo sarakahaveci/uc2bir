@@ -13,6 +13,10 @@ import {
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAILURE,
   LOGOUT,
+  USER_INFORMATION_REQUEST,
+  USER_INFORMATION_SUCCESS,
+  USER_INFORMATION_FAILURE,
+  SET_USER_DETAILS,
 } from '../constants';
 
 const initialState = {
@@ -22,6 +26,7 @@ const initialState = {
   isLoading: false,
   error: null,
   isAuthenticated: false,
+  authFiles: {},
 };
 
 export default (state = initialState, action) => {
@@ -30,6 +35,7 @@ export default (state = initialState, action) => {
     case RESET_PASSWORD_REQUEST:
     case SOCIAL_LOGIN_REQUEST:
     case REGISTER_STEP_TWO_REQUEST:
+    case USER_INFORMATION_REQUEST:
       return {
         ...state,
         isLoading: true,
@@ -47,6 +53,7 @@ export default (state = initialState, action) => {
     case LOGIN_SUCCESS:
     case REGISTER_STEP_TWO_SUCCESS:
     case RESET_PASSWORD_SUCCESS:
+    case USER_INFORMATION_SUCCESS:
       return {
         ...state,
         user: action.payload.user,
@@ -67,10 +74,17 @@ export default (state = initialState, action) => {
         isAuthenticated: false,
       };
 
+    case SET_USER_DETAILS:
+      return {
+        ...state,
+        user: action.payload,
+      };
+
     case LOGIN_FAILURE:
     case SOCIAL_LOGIN_FAILURE:
     case REGISTER_STEP_TWO_FAILURE:
     case RESET_PASSWORD_FAILURE:
+    case USER_INFORMATION_FAILURE:
       return {
         ...state,
         isLoading: false,

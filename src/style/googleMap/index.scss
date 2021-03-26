@@ -5,7 +5,7 @@
 .search-box {
   position: absolute !important;
   z-index: 10;
-  width: 60vh !important;
+  width: 85%;
   left: 50%;
   top: 20%;
   transform: translate(-50%, -50%);
@@ -24,10 +24,39 @@
   }
 }
 
+.regular-search-box {
+  input {
+    border: none !important;
+    width: 100% !important;
+    background: white !important;
+  }
+}
+
 .map-wrapper {
   height: 50vh;
-  width: 100vh;
+  //width: 100vh;
+  width: 100%;
   @media (max-width: 768px) {
     width: 100% !important;
   }
+
+  .gm-ui-hover-effect {
+    display: none !important;
+  }
+}
+
+.medium-map-wrapper {
+  height: 35vh;
+
+  @media (max-width: 768px) {
+    width: 100% !important;
+  }
+
+  .gm-ui-hover-effect {
+    display: none !important;
+  }
+}
+
+.marginTop {
+  margin-top: 2%;
 }

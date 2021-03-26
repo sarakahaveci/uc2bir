@@ -5,80 +5,33 @@ import PropTypes from 'prop-types';
 import Svg from 'components/statics/svg';
 import List from '../List';
 import Item from '../Item';
+import TABS from 'constants/tabUri';
 
-import { useDispatch } from 'react-redux';
-import { logOut } from 'actions';
-
-const User = ({ user_name, user_id, user_img = null }) => {
-  const dispatch = useDispatch();
-
-  const logOutAction = () => {
-    dispatch(logOut());
-  };
-
-  const notification = [
-    {
-      name: "1. Bildirim",
-      link: `/profile/${user_id}`
-    },
-    {
-      name: "2. Bildirim",
-      link: `/profile/${user_id}`
-    },
-    {
-      name: "3. Bildirim",
-      link: `/profile/${user_id}`
-    },
-  ];
+const User = ({ user_name, user_img = null, logOutAction }) => {
+  const notification = [];
 
   const menu = [
     {
       name: 'Profilim',
       icon: <Svg.UsernameIcon />,
-      link: `/profile/${user_id}`
+      // It will be updated
+      link: TABS.profilePath,
     },
-    {
+    /*   {
       name: 'Rezervasyonlarım',
       icon: <Svg.Date />,
-      tabs: [
-        {
-          name: 'Tab 1',
-        },
-        {
-          name: 'Tab 2',
-          tabs: [
-            {
-              name: 'Tab 2.1',
-            },
-            {
-              name: 'Tab 2.2',
-              tabs: [
-                {
-                  name: 'Tab 2.2.1',
-                },
-                {
-                  name: 'Tab 2.2.2',
-                },
-                {
-                  name: 'Tab 2.2.3',
-                },
-              ],
-            },
-          ],
-        },
-        {
-          name: 'Tab 3',
-        },
-      ],
-    },
-    {
+      link: TABS.reservationsPath,
+    }, */
+    /*   {
       name: 'Paketlerim',
       icon: <Svg.Packet />,
-    },
-    {
+      link: TABS.profilePath,
+    }, */
+    /*    {
       name: 'Cüzdanım',
       icon: <Svg.Wallet />,
-    },
+      link: TABS.walletPath,
+    }, */
     {
       name: 'Çıkış Yap',
       icon: <Svg.Closed />,
@@ -91,11 +44,13 @@ const User = ({ user_name, user_id, user_img = null }) => {
       name: 'Bildirimler',
       icon: <Svg.Notification />,
       notify: [...notification],
+      linkPath: TABS.notificationPath,
     },
     {
       name: 'Mesajlarım',
       icon: <Svg.CommentBlack />,
       notify: [],
+      linkPath: TABS.messagePath,
     },
     {
       name: 'Favorilerim',
@@ -113,7 +68,12 @@ const User = ({ user_name, user_id, user_img = null }) => {
     <>
       {list.map((val, key) => {
         return (
-          <List key={key} className="header-login" dropDown={val.menu || val.notify}>
+          <List
+            key={key}
+            className="header-login"
+            dropDown={val.menu || val.notify}
+            linkPath={val?.linkPath}
+          >
             <Item icon={val.icon} span={val.name} notify={val.notify?.length} />
           </List>
         );

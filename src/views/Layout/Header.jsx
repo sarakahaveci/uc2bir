@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+/* eslint-disable react/display-name */
+import React, { useState, useEffect } from 'react';
 import { Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-
 import { Link, useHistory } from 'react-router-dom';
 
 import { default as NativeHeader } from '../../components/Header';
@@ -9,15 +9,23 @@ import logo from '../../assets/logo.png';
 import { AwesomeIcon, IconLabel, Button, HeaderLogin } from '../../components';
 
 const Header = () => {
+  const { infoData } = useSelector((state) => state.footer);
   const { isAuthenticated, user } = useSelector((state) => state.auth);
-  const history = useHistory();
 
   const [menuActive, setMenuActive] = useState(false);
   const [toggle, setToggle] = useState(false);
 
+  const history = useHistory();
+
+  useEffect(() => {
+    history.listen(() => {
+      setMenuActive(false);
+    });
+  }, [history.location.pathname]);
+
   const nav_logo = {
     status: true,
-    className: 'col logo',
+    className: 'col logo justify-content-center',
     element: () => logo,
   };
 
@@ -32,20 +40,21 @@ const Header = () => {
               <ul>
                 <li>
                   <IconLabel
-                    href="mailto:info@uc2bir.com"
+                    href={`mailto:${infoData?.email}`}
                     className="icon-label"
-                    text="info@uc2bir.com"
+                    text={infoData?.email}
                     icon={AwesomeIcon.Envolope}
                   />
                 </li>
+
                 <li>
                   <IconLabel
-                    href="tel:05XXXXXXXXX"
                     className="icon-label"
-                    text="05XX XXX XX XX"
+                    text={infoData?.phone}
                     icon={AwesomeIcon.Phone}
                   />
                 </li>
+
                 <li
                   onClick={() => setToggle(!toggle)}
                   className="d-xl-none dropdown flex-column"
@@ -99,20 +108,20 @@ const Header = () => {
                     />
                   </li>
                   <li>
-                    <Link to="/info">Üç2Bir HAKKINDA</Link>
+                    <Link to="/info">Üç2Bir Hakkında</Link>
                   </li>
                   <li>
-                    <a href="#">BLOG</a>
+                    <Link to="/blog-list">Blog</Link>
+                  </li>
+                  <li>
+                    <Link to="/contact">İletişim</Link>
                   </li>
                 </ul>
               </div>
               <div className="bar-item right-bar">
                 <ul>
                   {isAuthenticated ? (
-                    <HeaderLogin
-                      type_id={1}
-                      user={user}
-                    />
+                    <HeaderLogin type_id={user.type_id} user={user} />
                   ) : (
                     <>
                       <li>
@@ -137,7 +146,7 @@ const Header = () => {
                         text="Profesyonel"
                         className="dark"
                         fontWeight="500"
-                        onClick={() => history.replace('/profesyonel/register')}
+                        onClick={() => history.push('/profesyonel/register')}
                       />
                     </li>
                   )}

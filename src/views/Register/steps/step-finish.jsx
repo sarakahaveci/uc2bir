@@ -1,9 +1,10 @@
+/* eslint-disable react/no-children-prop */
 import React from 'react';
 
 import { Button, Text, AwesomeIcon } from '../../../components';
 import { useHistory } from 'react-router-dom';
 
-const StepFinish = (props) => {
+const StepFinish = () => {
   const history = useHistory();
   return (
     <>

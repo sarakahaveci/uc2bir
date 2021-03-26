@@ -20,6 +20,8 @@ const colorGenerator = (color) => {
       return '#bbbbbb';
     case 'gray3':
       return '#2C2C2C';
+    case 'gray4':
+      return '#d3d3d3';
     default:
       return 'black';
   }
