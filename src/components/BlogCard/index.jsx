@@ -22,7 +22,7 @@ export default function BlogCard({
           style={{ borderBottom: '0.5px solid #70707063' }}
         >
           <Title
-            fontSize="16px"
+            fontSize="14px"
             textAlign="left"
             color="#707070"
             fontWeight="normal"

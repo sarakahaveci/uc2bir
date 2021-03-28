@@ -1,15 +1,16 @@
 import React from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+import { WORK_PLACE, PERSONAL_TRAINER } from '../../constants';
 
 import { Tab, Title, Main, ProfileBanner } from 'components';
-import Branch from '../../components/Profile/Branch';
-import ProfileCertificate from '../../components/Profile/ProfileCertificate';
+import Branch from 'components/Profile/Branch';
+import ProfileCertificate from 'components/Profile/ProfileCertificate';
+import Comment from 'components/Profile/Comment';
 import Place from 'components/Profile/Place';
 import Blog from 'components/Profile/Blog';
-import profileImg from 'assets/pt-groups/item-1/04.jpg';
 import MyCalendar from 'components/Profile/MyCalendar/MyCalendar';
-import { WORK_PLACE, PERSONAL_TRAINER } from '../../constants';
+import profileImg from 'assets/pt-groups/item-1/04.jpg';
 
 export default function Profile({ match }) {
   const user = useSelector((state) => state.auth.user);
@@ -38,11 +39,7 @@ export default function Profile({ match }) {
     {
       eventKey: 'comments',
       title: 'YORUMLAR',
-      component: (
-        <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-          Yorumlar
-        </Title>
-      ),
+      component: <Comment />,
     },
     {
       eventKey: 'gallery',
@@ -84,11 +81,7 @@ export default function Profile({ match }) {
     {
       eventKey: 'trainers',
       title: 'EĞİTMEN BUL',
-      component: (
-        <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-          Yorumlar
-        </Title>
-      ),
+      component: <Comment />,
     },
     {
       eventKey: 'calendar',
