@@ -17,7 +17,7 @@ export default function WorkPlace() {
 
   return (
     <div>
-      {data.home_park.map((workPlace) => (
+      {data?.home_park?.map((workPlace) => (
         <LocationCard
           key={workPlace.id}
           title={workPlace.city}

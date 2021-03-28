@@ -5,8 +5,8 @@ import { useSelector } from 'react-redux';
 import { Tab, Title, Main, ProfileBanner } from 'components';
 import Branch from '../../components/Profile/Branch';
 import ProfileCertificate from '../../components/Profile/ProfileCertificate';
-import WorkPlace from './WorkPlace';
 import Place from 'components/Profile/Place';
+import Blog from 'components/Profile/Blog';
 import profileImg from 'assets/pt-groups/item-1/04.jpg';
 import MyCalendar from 'components/Profile/MyCalendar/MyCalendar';
 import { WORK_PLACE, PERSONAL_TRAINER } from '../../constants';
@@ -28,7 +28,7 @@ export default function Profile({ match }) {
     {
       eventKey: 'workplace',
       title: 'ÇALIŞTIĞI YERLER',
-      component: <WorkPlace />,
+      component: <Place />,
     },
     {
       eventKey: 'calendar',
@@ -45,13 +45,18 @@ export default function Profile({ match }) {
       ),
     },
     {
-      eventKey: 'blog',
-      title: 'BLOG',
+      eventKey: 'gallery',
+      title: 'GALERİ',
       component: (
         <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-          Blog
+          Galeri
         </Title>
       ),
+    },
+    {
+      eventKey: 'blog',
+      title: 'BLOG',
+      component: <Blog />,
     },
   ];
 
