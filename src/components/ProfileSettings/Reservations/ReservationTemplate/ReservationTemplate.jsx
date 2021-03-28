@@ -5,51 +5,40 @@ import styled from 'styled-components/macro';
 import { Link } from 'react-router-dom';
 
 import { addHoursToTemplate, getMyBranches } from 'actions';
-import {
-  Box,
-  Switch,
-  Button,
-  Modal,
-  Text,
-  Svg,
-  Title,
-  Calendar,
-} from 'components';
+import { HOURS } from '../../../../constants';
+import { Box, Switch, Button, Modal, Text, Svg } from 'components';
 import TemplateSummary from './TemplateSummary';
 import TemplateSelections from './TemplateSelections';
 import TemplateDate from './TemplateDate';
 import TemplateSuccessModal from './TemplateSuccessModal';
 import TemplateNamingModal from './TemplateNamingModal';
+import ApplyTemplateModal from './ApplyTemplateModal';
 
 export default function ReservationTemplate() {
   const { selectedDay } = useSelector(
     (state) => state.profileSettings2.reservationTemplate
   );
 
-  const [selectionData, setSelectionData] = useState({
-    branch: [],
-    session: [],
-    workPlaces: [],
-    parks: [],
-  });
   const [selectedDayHours, setSelectedDayHours] = useState([]);
+
+  const [branchSelection, setBranchSelection] = useState([]);
+  const [sessionSelection, setSessionSelection] = useState([]);
+  const [workPlaceSelection, setWorkPlaceSelection] = useState([]);
+  const [locationSelection, setLocationSelection] = useState([]);
+
+  const [acceptGuest, setAcceptGuest] = useState(false);
+  // const [workStatus, setWorkStatus] = useState(false);
 
   const templateNamingModalRef = useRef();
   const successTemplateModalRef = useRef();
   const applyTemplateModalRef = useRef();
+  const successReservationModalRef = useRef();
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getMyBranches());
   }, []);
-
-  const setSelectionDataHandler = (e) => {
-    setSelectionData({
-      ...selectionData,
-      [e.target.name]: e.target.value,
-    });
-  };
 
   const openTemplateNamingModal = () =>
     templateNamingModalRef.current.openModal();
@@ -60,18 +49,32 @@ export default function ReservationTemplate() {
   const openApplyTemplateModal = () =>
     applyTemplateModalRef.current.openModal();
 
+  const openSuccessReservationModal = () =>
+    successReservationModalRef.current.openModal();
+
   const saveDayToTemplateHandler = () => {
-    setSelectedDayHours([]);
+    let startHourIndex = selectedDayHours[0];
+
+    let endHourIndex = selectedDayHours[1];
+
+    if (startHourIndex > endHourIndex) {
+      const temp = endHourIndex;
+      endHourIndex = startHourIndex;
+      startHourIndex = temp;
+    }
 
     dispatch(
       addHoursToTemplate(selectedDay.day, {
         id: selectedDay.slice.length,
-        hour: selectedDayHours,
-        branch: ['5', '6', '7'],
-        session_type: ['2', '3', '4'],
-        place_type: [5, 6, 7],
+        hour: `${HOURS[startHourIndex]}-${HOURS[endHourIndex]}`,
+        branch: branchSelection,
+        session_type: sessionSelection,
+        place_type: locationSelection,
+        accept_guest: acceptGuest,
       })
     );
+
+    setSelectedDayHours([]);
   };
 
   return (
@@ -90,15 +93,25 @@ export default function ReservationTemplate() {
           />
 
           <TemplateSelections
-            selectionData={selectionData}
-            setSelectionData={setSelectionDataHandler}
+            branchSelection={branchSelection}
+            setBranchSelection={setBranchSelection}
+            sessionSelection={sessionSelection}
+            setSessionSelection={setSessionSelection}
+            workPlaceSelection={workPlaceSelection}
+            setWorkPlaceSelection={setWorkPlaceSelection}
+            locationSelection={locationSelection}
+            setLocationSelection={setLocationSelection}
           />
 
-          <Button
-            className="blue"
-            text="Kaydet"
-            onClick={saveDayToTemplateHandler}
-          />
+          <Box row justifyContent="flex-end">
+            <Button
+              width="200px"
+              mt="10px"
+              className="blue"
+              text="Kaydet"
+              onClick={saveDayToTemplateHandler}
+            />
+          </Box>
         </Col>
 
         <Col lg={6}>
@@ -112,7 +125,14 @@ export default function ReservationTemplate() {
                     Misafir Kabul Ediyorum
                   </Text>
 
-                  <Switch />
+                  <Box row alignItems="center">
+                    <Svg.GuestIcon className="guest-icon" />
+
+                    <Switch
+                      checked={acceptGuest}
+                      onChange={() => setAcceptGuest(!acceptGuest)}
+                    />
+                  </Box>
                 </Box>
 
                 <Box row>
@@ -148,19 +168,69 @@ export default function ReservationTemplate() {
           openApplyTemplateModal={openApplyTemplateModal}
         />
 
-        <ApplyTemplateModal ref={applyTemplateModalRef}>
-          <Title component="h5">Şablonu Takvimime Uygula</Title>
+        <ApplyTemplateModal
+          ref={applyTemplateModalRef}
+          openSuccessReservationModal={openSuccessReservationModal}
+        />
 
-          <Calendar />
+        <SuccessReservationModalRef
+          activateFooter
+          ref={successReservationModalRef}
+        >
+          <div className="reservation__success-modal">
+            <Box center mb="35px">
+              <Svg.SuccessIcon />
+            </Box>
 
-          <Button className="blue" text="Tamamla" mt="15px" />
+            <Text textAlign="center" fontSize="1.1rem" fontWeight="600">
+              Tebrikler
+            </Text>
 
-          <Text color="blue"> Vazgeç</Text>
-        </ApplyTemplateModal>
+            <Text textAlign="center" fontSize="1.1rem" mb="15px">
+              Rezervasyonlarınız oluşturuldu.
+            </Text>
+          </div>
+
+          <Modal.Footer>
+            <Text
+              textAlign="center"
+              p="0 0 20px 0"
+              color="blue"
+              cursor="pointer"
+            >
+              Rezervasyon takvimimi gör
+            </Text>
+
+            <Link to="/" className="reservation__return-homepage">
+              ANASAYFA
+            </Link>
+          </Modal.Footer>
+        </SuccessReservationModalRef>
       </Row>
     </div>
   );
 }
+
+const SuccessReservationModalRef = styled(Modal)`
+  .modal-content {
+    width: 500px;
+  }
+
+  .reservation {
+    &__success-modal {
+      padding: 20px 0;
+    }
+
+    &__return-homepage {
+      border-top: 1px solid rgba(144, 144, 144, 0.2);
+      text-align: center;
+      padding-top: 20px;
+      cursor: pointer;
+      color: ${(p) => p.theme.colors.dark};
+      display: block;
+    }
+  }
+`;
 
 const RightWrapper = styled.div`
   border-radius: 20px;
@@ -177,6 +247,10 @@ const NextButtonWrapper = styled.div`
 
 const InnerWrapper = styled(Col)`
   padding: 20px;
+
+  .guest-icon {
+    margin: 0 5px 2px 0;
+  }
 `;
 
 const BackLink = styled(Link)`
@@ -195,5 +269,3 @@ const BackLink = styled(Link)`
     font-size: 1.2rem;
   }
 `;
-
-const ApplyTemplateModal = styled(Modal)``;

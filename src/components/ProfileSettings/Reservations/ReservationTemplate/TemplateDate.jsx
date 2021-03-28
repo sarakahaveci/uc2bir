@@ -1,33 +1,46 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { CalendarCell, Box, Span, Title } from 'components';
+import { CalendarCell, Box, Title, Text } from 'components';
 import { setSelectedDay } from 'actions';
 import { theme } from 'utils';
-import { HOURS, DAYS } from '../../../../constants';
+import { DAYS, HOURS } from '../../../../constants';
 
 export default function TemplateDate({
   selectedDayHours,
   setSelectedDayHours,
 }) {
-  const dispatch = useDispatch();
+  const [hoveredItemIndex, setHoveredItemIndex] = useState();
 
   const { selectedDay } = useSelector(
     (state) => state.profileSettings2.reservationTemplate
   );
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     setSelectedDayHours([]);
   }, [selectedDay.day]);
 
-  const allSelectedHours = selectedDay?.slice?.map((item) => item.hour).flat();
-
   const activeCellHandler = (index) => selectedDayHours.includes(index);
 
-  const disableCellHandler = (index) => allSelectedHours.includes(index);
+  const halfActiveCellHandler = (index) => {
+    if (selectedDayHours.length === 1) {
+      if (
+        (selectedDayHours[0] > index && hoveredItemIndex <= index) ||
+        (selectedDayHours[0] < index && hoveredItemIndex >= index)
+      ) {
+        return true;
+      }
+    }
 
-  const setSelectedHour = (index) =>
-    setSelectedDayHours([...selectedDayHours, index]);
+    if (
+      (selectedDayHours[0] < index && selectedDayHours[1] > index) ||
+      (selectedDayHours[0] > index && selectedDayHours[1] < index)
+    ) {
+      return true;
+    }
+  };
 
   return (
     <div>
@@ -49,7 +62,7 @@ export default function TemplateDate({
           Saat Aralığı Seçiniz
         </Title>
 
-        <Span
+        <Text
           color="dark"
           fontWeight="500"
           textAlign="right"
@@ -58,17 +71,19 @@ export default function TemplateDate({
           onClick={() => setSelectedDayHours([])}
         >
           Temizle
-        </Span>
+        </Text>
       </Box>
 
       <Box row flexWrap="wrap" mb="10px">
         {HOURS.map((item, index) => (
           <CalendarCell
-            disabled={disableCellHandler(index)}
-            isActive={activeCellHandler(index)}
             key={index}
+            onClick={() => setSelectedDayHours([...selectedDayHours, index])}
+            isActive={activeCellHandler(index)}
+            halfActive={halfActiveCellHandler(index)}
+            disabled={selectedDayHours.length === 2}
+            onMouseEnter={() => setHoveredItemIndex(index)}
             type="time"
-            onClick={() => setSelectedHour(index)}
           >
             {item}
           </CalendarCell>

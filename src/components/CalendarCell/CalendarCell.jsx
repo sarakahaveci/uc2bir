@@ -10,7 +10,7 @@ export default function CalendarCell({
   ...restProps
 }) {
   const onClickHandler = () => {
-    if (disabled || isActive || halfActive) {
+    if (disabled || isActive) {
       return;
     }
 
@@ -34,7 +34,7 @@ const Cell = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
+  cursor: ${(p) => (p.disabled ? 'not-allowed' : 'pointer')};
   margin: 10px 10px 0 0;
 
   ${(p) =>
@@ -60,7 +60,7 @@ const Cell = styled.div`
   ${(p) =>
     p.type === 'time' &&
     css`
-      width: 130px;
+      width: 66px;
       height: 45px;
       border-radius: 15px;
       background: #fff;
@@ -82,14 +82,5 @@ const Cell = styled.div`
           color: white;
           cursor: not-allowed;
         `}
-    `}
-
-    ${(p) =>
-    p.disabled &&
-    css`
-      background-color: ${p.theme.colors.red};
-      border: 1px solid ${p.theme.colors.red};
-      color: white;
-      cursor: not-allowed;
     `}
 `;

@@ -1,15 +1,21 @@
 import React from 'react';
 import styled from 'styled-components/macro';
+import { useSelector } from 'react-redux';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
-import { useSelector } from 'react-redux';
 
 export default function TemplateSelections({
-  selectionData,
-  setSelectionData,
+  branchSelection,
+  setBranchSelection,
+  sessionSelection,
+  setSessionSelection,
+  workPlaceSelection,
+  setWorkPlaceSelection,
+  locationSelection,
+  setLocationSelection,
 }) {
   const { data: myBranches } = useSelector(
     (state) => state.profileSettings2.profileBranches.myBranches
@@ -22,14 +28,13 @@ export default function TemplateSelections({
 
         <Select
           multiple
-          value={selectionData.branch}
+          value={branchSelection}
           input={<Input />}
-          onChange={setSelectionData}
+          onChange={(e) => setBranchSelection(e.target.value)}
           style={{ width: '100%' }}
-          name="branch"
         >
           {myBranches.map((branch) => (
-            <MenuItem key={branch.id} value={branch.id}>
+            <MenuItem key={branch.id} value={branch}>
               {branch.name}
             </MenuItem>
           ))}
@@ -40,22 +45,17 @@ export default function TemplateSelections({
         <InputLabel>Oturum Türlerini Seçiniz</InputLabel>
 
         <Select
-          name="session"
           multiple
-          value={selectionData.session}
+          value={sessionSelection}
           input={<Input />}
           style={{ width: '100%' }}
+          onChange={(e) => setSessionSelection(e.target.value)}
         >
           <MenuItem>deneme</MenuItem>
           <MenuItem>deneme</MenuItem>
           <MenuItem>deneme</MenuItem>
           <MenuItem>deneme</MenuItem>
           <MenuItem>deneme</MenuItem>
-          {/* {subBranches.map((branch) => (
-          <MenuItem key={branch.id} value={branch.id}>
-            {branch.name}
-          </MenuItem>
-        ))} */}
         </Select>
       </FormControl>
 
@@ -63,22 +63,17 @@ export default function TemplateSelections({
         <InputLabel>Spor Alanları Ekleyin</InputLabel>
 
         <Select
-          name="workPlaces"
           multiple
-          value={selectionData.workPlaces}
+          value={workPlaceSelection}
           input={<Input />}
           style={{ width: '100%' }}
+          onChange={(e) => setWorkPlaceSelection(e.target.value)}
         >
           <MenuItem>deneme</MenuItem>
           <MenuItem>deneme</MenuItem>
           <MenuItem>deneme</MenuItem>
           <MenuItem>deneme</MenuItem>
           <MenuItem>deneme</MenuItem>
-          {/* {subBranches.map((branch) => (
-          <MenuItem key={branch.id} value={branch.id}>
-            {branch.name}
-          </MenuItem>
-        ))} */}
         </Select>
       </FormControl>
 
@@ -86,22 +81,17 @@ export default function TemplateSelections({
         <InputLabel>Ev / Park Ekleyin</InputLabel>
 
         <Select
-          name="parks"
           multiple
-          value={selectionData.parks}
+          value={locationSelection}
           input={<Input />}
           style={{ width: '100%' }}
+          onChange={(e) => setLocationSelection(e.target.value)}
         >
           <MenuItem>deneme</MenuItem>
           <MenuItem>deneme</MenuItem>
           <MenuItem>deneme</MenuItem>
           <MenuItem>deneme</MenuItem>
           <MenuItem>deneme</MenuItem>
-          {/* {subBranches.map((branch) => (
-          <MenuItem key={branch.id} value={branch.id}>
-            {branch.name}
-          </MenuItem>
-        ))} */}
         </Select>
       </FormControl>
     </FormControlWrapper>

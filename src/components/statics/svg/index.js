@@ -75,6 +75,7 @@ import LocationCard from './images/location-card.svg';
 import ActiveHeart from './images/active-heart.svg';
 import HeadPhone from './images/headphone.svg';
 import ClockIcon from './images/clock.svg';
+import GuestIcon from './images/guest.svg';
 
 import AthleticSportIcon from 'assets/sports-type-icons/atletic.svg';
 import FitnessSportIcon from 'assets/sports-type-icons/fitness.svg';
@@ -169,6 +170,7 @@ const Svg = {
   CencelIcon: (props) => <ReactSVG {...props} src={CencelIcon} />,
   HeadPhoneIcon: (props) => <ReactSVG {...props} src={HeadPhone} />,
   ClockIcon: (props) => <ReactSVG {...props} src={ClockIcon} />,
+  GuestIcon: (props) => <ReactSVG {...props} src={GuestIcon} />,
 
   SessionType: {
     Gym: (props) => <ReactSVG {...props} src={SessionTypeGym} />,

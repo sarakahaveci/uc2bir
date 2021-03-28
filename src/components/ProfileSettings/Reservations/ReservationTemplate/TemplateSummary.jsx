@@ -1,11 +1,9 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { useSelector, useDispatch } from 'react-redux';
-import { Row, Col } from 'react-bootstrap';
 
 import { deleteTemplateItem } from 'actions';
-import { Accordion, Text, Svg, Box } from 'components';
-import { HOURS } from '../../../../constants';
+import { Accordion, Text, Svg, Box, Span } from 'components';
 
 export default function TemplateSummary() {
   const { selectedDay } = useSelector(
@@ -22,29 +20,31 @@ export default function TemplateSummary() {
       />
 
       <div>
-        <Box mb="10px">
+        <HourWrapper>
           <Svg.ClockIcon className="clock-icon" />
 
-          <Row>
-            {item.hour.map((hour, index) => (
-              <Col lg={3} md={4} key={index}>
-                {HOURS[hour]}
-              </Col>
-            ))}
-          </Row>
-        </Box>
+          <Box row alignItems="center">
+            {item.hour}
+          </Box>
+        </HourWrapper>
 
         <Box>
-          <span>Branşlar: </span>
-          <span></span>
+          <Span fontWeight="600">Branşlar: </Span>
+          {item.branch.map((branch, index) => (
+            <span key={index}>
+              {branch.name}
+
+              {index < item.branch.length - 1 && ', '}
+            </span>
+          ))}
         </Box>
 
         <div>
-          <span>Oturum Türleri: </span>
+          <Span fontWeight="600">Oturum Türleri: </Span>
         </div>
 
         <div>
-          <span>Seçili Yerler: </span>
+          <Span fontWeight="600">Seçili Yerler: </Span>
         </div>
       </div>
     </TemplateInfoRow>
@@ -77,9 +77,19 @@ export default function TemplateSummary() {
   );
 }
 
+const HourWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 7px;
+
+  svg {
+    margin-bottom: 5px;
+  }
+`;
+
 const TemplateInfoRow = styled.div`
   border-top: 1px solid rgba(144, 144, 144, 0.2);
-  padding: 15px 15px 0 0;
+  padding: 15px 15px 15px 0;
   position: relative;
 
   .trash-icon {

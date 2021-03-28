@@ -1,7 +1,9 @@
 import {
+  HTTP_REQUEST,
   ADD_DATE_TO_TEMPLATE,
   DELETE_DATE_FROM_TEMPLATE,
   SET_SELECTED_DAY,
+  GET_TEMPLATES,
 } from '../../constants';
 
 export const setSelectedDay = (dayIndex) => async (dispatch, getState) => {
@@ -70,6 +72,20 @@ export const deleteTemplateItem = (dayIndex, hourIndex) => async (
     payload: {
       selectedDay: editedSelectedDay,
       appliedDays: filteredAppliedTemplate,
+    },
+  });
+};
+
+export const getTemplates = () => async (dispatch) => {
+  const url = `/appointment/template/pt`;
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'GET',
+      transformData: (data) => data.data,
+      url,
+      label: GET_TEMPLATES,
     },
   });
 };

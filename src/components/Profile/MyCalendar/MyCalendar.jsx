@@ -5,7 +5,6 @@ import styled from 'styled-components/macro';
 import { Accordion, Calendar } from 'components';
 import BranchRowToggler from 'components/BranchRow/BranchRowToggler';
 import MyCalendarCollapser from './MyCalendarCollapser';
-import { theme } from 'utils';
 
 const mockData = [
   {
@@ -41,7 +40,6 @@ export default function MyCalendar() {
     <Row>
       <Col lg={6}>
         <Calendar
-          color={theme.colors.blue}
           date={date}
           onChange={(item) => setDate(item)}
           minDate={new Date()}
