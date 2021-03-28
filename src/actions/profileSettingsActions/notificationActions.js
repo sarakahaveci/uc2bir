@@ -6,10 +6,7 @@ import {
   GET_NOTIFICATION_SETTINGS,
 } from '../../constants';
 
-export const getNotifications = (pageNumber, date) => async (
-  dispatch,
-  getState
-) => {
+export const getNotifications = (pageNumber, date) => async (dispatch) => {
   const url = `/user/notification/fetch?page=${pageNumber}&date=${date}`;
 
   await dispatch({
@@ -23,7 +20,7 @@ export const getNotifications = (pageNumber, date) => async (
   });
 };
 
-export const readNotifications = () => async (dispatch, getState) => {
+export const readNotifications = () => async (dispatch) => {
   const url = '/user/notification/update';
 
   await dispatch({
@@ -37,7 +34,7 @@ export const readNotifications = () => async (dispatch, getState) => {
   });
 };
 
-export const getNotificationSettings = () => async (dispatch, getState) => {
+export const getNotificationSettings = () => async (dispatch) => {
   const url = '/user/notification/get-type';
 
   await dispatch({
@@ -52,8 +49,7 @@ export const getNotificationSettings = () => async (dispatch, getState) => {
 };
 
 export const updateNotificationSettings = ({ email, sms, push }) => async (
-  dispatch,
-  getState
+  dispatch
 ) => {
   const url = '/user/notification/update-type';
 

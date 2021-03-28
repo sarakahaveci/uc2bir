@@ -6,10 +6,7 @@ import {
   USER_KEYS,
 } from '../../constants';
 
-export const getFavoriteUsers = (userTypeId, page) => async (
-  dispatch,
-  getState
-) => {
+export const getFavoriteUsers = (userTypeId, page) => async (dispatch) => {
   const url = `/user/favorite/${USER_KEYS[userTypeId]}?page=${page}`;
 
   await dispatch({
@@ -23,7 +20,7 @@ export const getFavoriteUsers = (userTypeId, page) => async (
   });
 };
 
-export const addFavoriteUser = (userId) => async (dispatch, getState) => {
+export const addFavoriteUser = (userId) => async (dispatch) => {
   const url = `/user/favorite/add/${userId}`;
 
   await dispatch({
@@ -36,7 +33,7 @@ export const addFavoriteUser = (userId) => async (dispatch, getState) => {
   });
 };
 
-export const removeFavoriteUser = (userId) => async (dispatch, getState) => {
+export const removeFavoriteUser = (userId) => async (dispatch) => {
   const url = `/user/favorite/remove/${userId}`;
 
   await dispatch({

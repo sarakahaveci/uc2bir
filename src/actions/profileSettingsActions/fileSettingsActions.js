@@ -25,8 +25,7 @@ export const getMyProfileFiles = () => async (dispatch, getState) => {
 };
 
 export const updateFile = (fileId, fileName, successCallback) => async (
-  dispatch,
-  getState
+  dispatch
 ) => {
   const url = `/user/profile/file-update`;
 

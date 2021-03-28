@@ -19,6 +19,7 @@ export { default as FormPages } from './FormPages';
 export { default as StepBar } from './steps/StepBar';
 export { default as Svg } from './statics/svg';
 export { default as MacroMap } from './MacroMap';
+export { default as LocationCard } from './LocationCard/LocationCard';
 export { default as MacroCollections } from './MacroCollections';
 export { default as DefBackground } from './statics/background';
 export { default as Otp } from './Otp';

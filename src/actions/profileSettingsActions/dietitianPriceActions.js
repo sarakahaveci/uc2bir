@@ -4,7 +4,7 @@ import {
   UPDATE_DIETITIAN_PRICE,
 } from '../../constants';
 
-export const getDietitianPrice = () => async (dispatch, getState) => {
+export const getDietitianPrice = () => async (dispatch) => {
   const url = `/user/dt-price`;
 
   await dispatch({
@@ -22,7 +22,7 @@ export const updateDietitianPrice = (
   body,
   successCallback,
   errorCallback
-) => async (dispatch, getState) => {
+) => async (dispatch) => {
   const url = `/user/dt-price`;
 
   await dispatch({

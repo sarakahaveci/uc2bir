@@ -11,7 +11,7 @@ export const getAllProficiency = (
   isSubProficiency,
   successCallback,
   errorCallback
-) => async (dispatch, getState) => {
+) => async (dispatch) => {
   const url = `/cms/branch/all?type=dt&status=active&parent_id=${
     parrenId ?? 0
   }`;
@@ -31,7 +31,7 @@ export const getAllProficiency = (
   });
 };
 
-export const getDietitianProficiency = () => async (dispatch, getState) => {
+export const getDietitianProficiency = () => async (dispatch) => {
   const url = `/user/profile/speciality`;
 
   await dispatch({
@@ -49,7 +49,7 @@ export const addNewDietitianProficiency = (
   body,
   successCallback,
   errorCallback
-) => async (dispatch, getState) => {
+) => async (dispatch) => {
   const url = `/user/profile/speciality`;
 
   await dispatch({

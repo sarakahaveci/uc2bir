@@ -4,7 +4,7 @@ import {
   GET_CANCELLATION_REASONS,
 } from '../../constants';
 
-export const getCancellationReasons = () => async (dispatch, getState) => {
+export const getCancellationReasons = () => async (dispatch) => {
   const url = '/cms/status-reason-type/all';
 
   await dispatch({
@@ -18,10 +18,7 @@ export const getCancellationReasons = () => async (dispatch, getState) => {
   });
 };
 
-export const cancelProfile = (reason, successCallback) => async (
-  dispatch,
-  getState
-) => {
+export const cancelProfile = (reason, successCallback) => async (dispatch) => {
   const url = '/user/profile/cancellation';
 
   await dispatch({

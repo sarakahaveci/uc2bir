@@ -2,11 +2,12 @@ import React from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
-import Place from '../../components/Profile/Place';
 import { Tab, Title, Main, ProfileBanner } from 'components';
-import ProfileCertificate from '../../components/Profile/ProfileCertificate';
 import Branch from '../../components/Profile/Branch';
-import profileImg from '../../assets/pt-groups/item-1/04.jpg';
+import ProfileCertificate from '../../components/Profile/ProfileCertificate';
+import Place from 'components/Profile/Place';
+import Blog from 'components/Profile/Blog';
+import profileImg from 'assets/pt-groups/item-1/04.jpg';
 import MyCalendar from 'components/Profile/MyCalendar/MyCalendar';
 import { WORK_PLACE, PERSONAL_TRAINER } from '../../constants';
 
@@ -55,11 +56,7 @@ export default function Profile({ match }) {
     {
       eventKey: 'blog',
       title: 'BLOG',
-      component: (
-        <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-          Blog
-        </Title>
-      ),
+      component: <Blog />,
     },
   ];
 

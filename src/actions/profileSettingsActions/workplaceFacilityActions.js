@@ -5,7 +5,7 @@ import {
   ADD_FACILITY,
 } from '../../constants';
 
-export const getMyProfileFacilities = () => async (dispatch, getState) => {
+export const getMyProfileFacilities = () => async (dispatch) => {
   const url = `/user/gym/facility`;
 
   await dispatch({
@@ -19,7 +19,7 @@ export const getMyProfileFacilities = () => async (dispatch, getState) => {
   });
 };
 
-export const getAllFacilities = () => async (dispatch, getState) => {
+export const getAllFacilities = () => async (dispatch) => {
   const url = `/user/gym/facility-list`;
 
   await dispatch({
@@ -34,8 +34,7 @@ export const getAllFacilities = () => async (dispatch, getState) => {
 };
 
 export const addNewFacility = (body, successCallback, errorCallback) => async (
-  dispatch,
-  getState
+  dispatch
 ) => {
   const url = `/user/gym/facility`;
 

@@ -40,6 +40,8 @@ import Tennis from './images/tennis.svg';
 import Athlete from './images/athlete.svg';
 import Swimming from './images/swimming.svg';
 import Pilates from './images/pilates.svg';
+import WhiteArrowUp from './images/arraw-up.svg';
+import Location from './images/location.svg';
 import Notification from './images/notification.svg';
 import Date from './images/date.svg';
 import Packet from './images/packet.svg';
@@ -69,7 +71,7 @@ import SmileyFace from './images/smiley-face.svg';
 import Plus from './images/plus.svg';
 import Tl from './images/tl.svg';
 import UpDown from './images/up-down.svg';
-import Location from './images/location.svg';
+import LocationCard from './images/location-card.svg';
 import ActiveHeart from './images/active-heart.svg';
 import HeadPhone from './images/headphone.svg';
 
@@ -118,6 +120,8 @@ const Svg = {
   Comment: (props) => <ReactSVG {...props} src={Comment} />,
   Heart: (props) => <ReactSVG {...props} src={Heart} />,
   Player: (props) => <ReactSVG {...props} src={Player} />,
+  LocationIcon: (props) => <ReactSVG {...props} src={Location} />,
+  ArrowUpIcon: (props) => <ReactSVG {...props} src={ArrowUp} />,
   Notification: (props) => <ReactSVG {...props} src={Notification} />,
   Date: (props) => <ReactSVG {...props} src={Date} />,
   Packet: (props) => <ReactSVG {...props} src={Packet} />,
@@ -134,7 +138,7 @@ const Svg = {
   PeopleGroups: (props) => <ReactSVG {...props} src={PeopleGroups} />,
   Monies: (props) => <ReactSVG {...props} src={Monies} />,
   Hki: (props) => <ReactSVG {...props} src={Hki} />,
-  ArrowUpIcon: (props) => <ReactSVG {...props} src={ArrowUp} />,
+  WhiteArrowUpIcon: (props) => <ReactSVG {...props} src={WhiteArrowUp} />,
   Camera: (props) => <ReactSVG {...props} src={Camera} />,
   EditIcon: (props) => <ReactSVG {...props} src={Edit} />,
   InputClearIcon: (props) => <ReactSVG {...props} src={InputClear} />,
@@ -158,7 +162,7 @@ const Svg = {
   SmileyFaceIcon: (props) => <ReactSVG {...props} src={SmileyFace} />,
   Tl: (props) => <ReactSVG {...props} src={Tl} />,
   UpDownIcon: (props) => <ReactSVG {...props} src={UpDown} />,
-  LocationIcon: (props) => <ReactSVG {...props} src={Location} />,
+  LocationCardIcon: (props) => <ReactSVG {...props} src={LocationCard} />,
   ActiveHeartIcon: (props) => <ReactSVG {...props} src={ActiveHeart} />,
   WhitePencil: (props) => <ReactSVG {...props} src={WhitePencil} />,
   CencelIcon: (props) => <ReactSVG {...props} src={CencelIcon} />,
