@@ -5,7 +5,7 @@ import BlogCard from '../../BlogCard';
 import { Pagination } from 'components';
 import { getUserBlogs } from 'actions';
 
-export default function Blog() {
+export default function Blog({ userId }) {
   const dispatch = useDispatch();
 
   const [page, setPage] = useState(1);
@@ -13,11 +13,11 @@ export default function Blog() {
   const { blogData } = useSelector((state) => state.userProfile.blog);
 
   useEffect(() => {
-    dispatch(getUserBlogs());
+    dispatch(getUserBlogs(userId));
   }, []);
 
   useEffect(() => {
-    dispatch(getUserBlogs(page));
+    dispatch(getUserBlogs(userId, page));
   }, [page]);
 
   const pageChangeHandler = (event, value) => setPage(value);
@@ -33,12 +33,16 @@ export default function Blog() {
           createdTime={blog?.created_at}
         />
       ))}
-      <Pagination
-        mt="50px"
-        count={blogData?.totalPage}
-        page={page}
-        onChange={pageChangeHandler}
-      />
+      {blogData?.blogs?.length > 0 ? (
+        <Pagination
+          mt="50px"
+          count={blogData?.totalPage}
+          page={page}
+          onChange={pageChangeHandler}
+        />
+      ) : (
+        <strong>Kullanıcıya ait blog yazısı bulunmamaktadır</strong>
+      )}
     </div>
   );
 }

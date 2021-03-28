@@ -20,17 +20,17 @@ const subTabData = [
   },
 ];
 
-const Place = () => {
-  const [content, setContent] = useState(<SportFields />);
+const Place = ({ userId }) => {
+  const [content, setContent] = useState(<SportFields userId={userId} />);
 
   const handleContent = (id) => {
     let newContent;
     switch (id) {
       case 1:
-        newContent = <SportFields />;
+        newContent = <SportFields userId={userId} />;
         break;
       case 2:
-        newContent = <WorkPlaceList />;
+        newContent = <WorkPlaceList userId={userId} />;
         break;
 
       default:

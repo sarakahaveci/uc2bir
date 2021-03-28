@@ -1,8 +1,6 @@
 import { HTTP_REQUEST, GET_USER_CERTIFICATE } from '../../constants';
 
-export const getUserCertificate = () => async (dispatch, getState) => {
-  const { id } = getState().auth?.user;
-
+export const getUserCertificate = (id) => async (dispatch) => {
   const url = `/user/view/certificate/${id}`;
 
   await dispatch({

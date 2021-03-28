@@ -19,7 +19,7 @@ export default function Profile({ match }) {
     {
       eventKey: 'branch',
       title: 'BRANŞLAR',
-      component: <Branch />,
+      component: <Branch userId={match?.params?.id} />,
     },
     {
       eventKey: 'certificate',
@@ -29,17 +29,17 @@ export default function Profile({ match }) {
     {
       eventKey: 'workplace',
       title: 'ÇALIŞTIĞI YERLER',
-      component: <Place />,
+      component: <Place userId={match?.params?.id} />,
     },
     {
       eventKey: 'calendar',
       title: 'TAKVİM',
-      component: <MyCalendar />,
+      component: <MyCalendar userId={match?.params?.id} />,
     },
     {
       eventKey: 'comments',
       title: 'YORUMLAR',
-      component: <Comment />,
+      component: <Comment userId={match?.params?.id} />,
     },
     {
       eventKey: 'gallery',
@@ -53,7 +53,7 @@ export default function Profile({ match }) {
     {
       eventKey: 'blog',
       title: 'BLOG',
-      component: <Blog />,
+      component: <Blog userId={match?.params?.id} />,
     },
   ];
 
@@ -75,18 +75,18 @@ export default function Profile({ match }) {
     {
       eventKey: 'workplace',
       title: 'SINIFLAR',
-      component: <Place />,
+      component: <Place userId={match?.params?.id} />,
     },
 
     {
       eventKey: 'trainers',
       title: 'EĞİTMEN BUL',
-      component: <Comment />,
+      component: <Comment userId={match?.params?.id} />,
     },
     {
       eventKey: 'calendar',
       title: 'TAKVİM',
-      component: <MyCalendar />,
+      component: <MyCalendar userId={match?.params?.id} />,
     },
     {
       eventKey: 'comments',
@@ -178,7 +178,7 @@ export default function Profile({ match }) {
       </Container>
       <div className="col-md-8 col-sm-12 mx-auto tab-wrapper">
         <Tab
-          baseUrl="/profile/"
+          baseUrl={`/user/${match?.params?.id}/`}
           tabData={tabData}
           defaultActiveKey={match?.params?.activeTabKey}
         />

@@ -1,8 +1,6 @@
 import { HTTP_REQUEST, GET_PT_USER_WORK_HOME } from '../../constants';
 
-export const getPtWorkingHomePlace = () => async (dispatch, getState) => {
-  const { id } = getState().auth?.user;
-
+export const getPtWorkingHomePlace = (id) => async (dispatch) => {
   const url = `/user/working-area/home-park/${id}`;
 
   await dispatch({

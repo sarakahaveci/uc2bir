@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { LocationCard } from 'components';
 import { getPtWorkingHomePlace } from 'actions';
 
-export default function WorkPlace() {
+export default function WorkPlace({ userId }) {
   const dispatch = useDispatch();
 
   const { data } = useSelector(
@@ -12,7 +12,7 @@ export default function WorkPlace() {
   );
 
   useEffect(() => {
-    dispatch(getPtWorkingHomePlace());
+    dispatch(getPtWorkingHomePlace(userId));
   }, []);
 
   return (
