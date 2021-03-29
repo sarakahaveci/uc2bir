@@ -9,6 +9,7 @@ import ProfileCertificate from 'components/Profile/ProfileCertificate';
 import Comment from 'components/Profile/Comment';
 import Place from 'components/Profile/Place';
 import Blog from 'components/Profile/Blog';
+import FacilityList from 'components/Profile/Gym/FacilityList';
 import MyCalendar from 'components/Profile/MyCalendar/MyCalendar';
 import profileImg from 'assets/pt-groups/item-1/04.jpg';
 
@@ -61,11 +62,7 @@ export default function Profile({ match }) {
     {
       eventKey: 'facility',
       title: 'OLANAKLAR',
-      component: (
-        <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-          Olanaklar
-        </Title>
-      ),
+      component: <FacilityList userId={match?.params?.id} />,
     },
     {
       eventKey: 'certificate',
