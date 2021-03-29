@@ -17,16 +17,24 @@ export default function WorkPlace({ userId }) {
 
   return (
     <div>
-      {data?.home_park?.map((workPlace) => (
-        <LocationCard
-          key={workPlace.id}
-          title={workPlace.city}
-          city={workPlace.city}
-          district={workPlace.district}
-          addressDetail={workPlace.addressDetail}
-          hasMapLocation={false}
-        />
-      ))}
+      {data?.home_park?.length > 0 ? (
+        data?.home_park?.map((workPlace) => (
+          <LocationCard
+            key={workPlace.id}
+            title={workPlace.city}
+            city={workPlace.city}
+            district={workPlace.district}
+            addressDetail={workPlace.addressDetail}
+            hasMapLocation={false}
+          />
+        ))
+      ) : (
+        <div className="d-flex">
+          <strong className="mx-auto">
+            Kullanıcıya ait Ev Park bulunmamaktadır.
+          </strong>
+        </div>
+      )}
     </div>
   );
 }

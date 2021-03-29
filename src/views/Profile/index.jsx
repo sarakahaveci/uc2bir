@@ -176,7 +176,7 @@ export default function Profile({ match }) {
           />
         </Row>
       </Container>
-      <div className="col-md-8 col-sm-12 mx-auto tab-wrapper">
+      <div className="col-md-8 col-sm-12 mx-auto tab-wrapper tab-wrapper__shadow">
         <Tab
           baseUrl={`/user/${match?.params?.id}/`}
           tabData={tabData}

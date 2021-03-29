@@ -23,7 +23,7 @@ export default function Blog({ userId }) {
   const pageChangeHandler = (event, value) => setPage(value);
 
   return (
-    <div>
+    <div className="px-5">
       {blogData?.blogs?.map((blog) => (
         <BlogCard
           key={blog?.id}

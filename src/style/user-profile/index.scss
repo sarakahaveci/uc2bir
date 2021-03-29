@@ -5,6 +5,7 @@
 }
 
 .tab-wrapper {
+  min-height: 50vh;
   position: relative;
   top: -25px;
   background: white;
@@ -35,6 +36,12 @@
       box-shadow: none;
     }
   }
+}
+
+.tab-wrapper__shadow {
+  margin-top: 5vh;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.16);
+  margin-bottom: 10vh;
 }
 
 .about-wrapper {

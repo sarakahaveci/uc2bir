@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import styled from 'styled-components/macro';
 
 import SubTabs from 'components/SubTabs/SubTabs';
+import WorkPlaceIcon from 'assets/work-place.svg';
+import HomeParkIcon from 'assets/home-park.svg';
+import OnlineWorkIcon from 'assets/online-work.svg';
 import SportFields from './SportFields';
 import WorkPlaceList from './WorkPlaceList';
 
@@ -9,14 +12,17 @@ const subTabData = [
   {
     label: 'Spor Alanları',
     value: 1,
+    icon: WorkPlaceIcon,
   },
   {
     label: 'Ev Park',
     value: 2,
+    icon: HomeParkIcon,
   },
   {
     label: 'Online',
     value: 3,
+    icon: OnlineWorkIcon,
   },
 ];
 

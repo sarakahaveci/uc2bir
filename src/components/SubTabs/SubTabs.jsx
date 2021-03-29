@@ -18,7 +18,7 @@ const SubTabs = ({ data, onChange, lineWidth = '50%', className }) => {
           }}
         >
           <Span lineWidth={lineWidth} underline={activeSubIndex === index}>
-            {item.label}
+            {item.icon && <img src={item.icon} alt={item.label} />} {item.label}
           </Span>
         </Tab>
       ))}
@@ -32,6 +32,7 @@ const LineWrapper = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 30px;
+  justify-content: center;
 `;
 
 const Tab = styled.div`
