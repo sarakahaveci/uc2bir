@@ -1,62 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 
 import { Accordion, Box } from 'components';
+import { getUserBranchList } from 'actions';
 import BranchCardHeader from '../BranchRow/BranchRowToggler';
 import BranchCardBody from '../BranchRow/BranchRowCollapser';
 
-const mockData = [
-  {
-    sportType: 1,
-    sportName: 'FITNESS',
-    level: 'A',
-    price: 150,
-    speciality: [
-      'Medikal Egzersiz Uzmanlığı',
-      'Medikal Egzersiz Uzmanlığı',
-      'Medikal Egzersiz Uzmanlığı',
-    ],
-  },
-  {
-    sportType: 2,
-    sportName: 'YOGA',
-    level: 'A',
-    price: 150,
-    speciality: [
-      'Medikal Egzersiz Uzmanlığı',
-      'Medikal Egzersiz Uzmanlığı',
-      'Medikal Egzersiz Uzmanlığı',
-    ],
-  },
-  {
-    sportType: 3,
-    sportName: 'PİLATES',
-    level: 'A',
-    price: 150,
-    speciality: [
-      'Medikal Egzersiz Uzmanlığı',
-      'Medikal Egzersiz Uzmanlığı',
-      'Medikal Egzersiz Uzmanlığı',
-    ],
-  },
-  {
-    sportType: 4,
-    sportName: 'TENIS',
-    level: 'A',
-    price: 150,
-    speciality: [
-      'Medikal Egzersiz Uzmanlığı',
-      'Medikal Egzersiz Uzmanlığı',
-      'Medikal Egzersiz Uzmanlığı',
-    ],
-  },
-];
+const UserDetails = ({ userId }) => {
+  const dispatch = useDispatch();
+  const { branches: branchList } = useSelector(
+    (state) => state.userProfile.branch
+  );
 
-const UserDetails = () => {
+  useEffect(() => {
+    dispatch(getUserBranchList(userId));
+  }, []);
+
   return (
     <div>
       <Accordion>
-        {mockData.map((item, index) => {
+        {branchList.branches.map((item, index) => {
           return (
             <StyledRow key={index}>
               <Order>{index + 1}.</Order>

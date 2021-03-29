@@ -1,25 +1,12 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 
-import { Svg } from 'components';
+// import { Svg } from 'components';
 
 const BranchRowCollapser = () => {
   return (
     <CardBody>
-      <List>
-        <li>
-          <Svg.ListItemIcon />
-          <div>Medikal Egzersiz Uzmanlığı</div>
-        </li>
-        <li>
-          <Svg.ListItemIcon />
-          <div>Medikal Egzersiz Uzmanlığı</div>
-        </li>
-        <li>
-          <Svg.ListItemIcon />
-          <div>Medikal Egzersiz Uzmanlığı</div>
-        </li>
-      </List>
+      <List></List>
     </CardBody>
   );
 };

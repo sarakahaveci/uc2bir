@@ -2,18 +2,17 @@ import React from 'react';
 import styled, { css } from 'styled-components/macro';
 
 import { Svg, AwesomeIcon, Box } from 'components';
-import { sportIconGenerator } from 'utils';
 
 const BranchRowToggler = ({ isActive, data }) => {
   return (
     <StyledCardHeader isActive={isActive}>
       <StyledRow center className="first">
-        {sportIconGenerator(data.sportType)}
-        <Title>{data.sportName}</Title>
+        <Avatar src={data.icon} alt={data.name} />
+        <Title>{data.name}</Title>
       </StyledRow>
 
       <Box row>
-        <RightCell>{data.level} Seviye</RightCell>
+        <RightCell>{data.classification} Seviye</RightCell>
         <RightCell className="mid">
           <span>{data.price}</span>
           <AwesomeIcon.Tl />
@@ -94,4 +93,10 @@ const StyledCardHeader = styled.div`
       border-bottom-right-radius: 0;
       border-bottom-left-radius: 0;
     `}
+`;
+
+const Avatar = styled.img`
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 `;
