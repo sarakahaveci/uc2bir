@@ -12,6 +12,8 @@ import cancellationReducer from './cancellationReducer';
 import userSearchReducer from './userSearchReducer';
 import workplaceFacilityReducer from './workplaceFacilityReducer';
 import notificationsReducer from './notificationsReducer';
+import reservationTemplateReducer from './reservationTemplateReducer';
+import profileBranchesReducer from './profileBranchesReducer';
 
 const reducers = combineReducers({
   favoriteSettings: favoriteSettingsReducer,
@@ -26,6 +28,8 @@ const reducers = combineReducers({
   userSearch: userSearchReducer,
   workplaceFacility: workplaceFacilityReducer,
   notifications: notificationsReducer,
+  reservationTemplate: reservationTemplateReducer,
+  profileBranches: profileBranchesReducer,
 });
 
 export default reducers;

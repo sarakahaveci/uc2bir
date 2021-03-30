@@ -15,7 +15,7 @@ import {
 } from '../../constants';
 import { toast } from 'react-toastify';
 
-export const getTypes = () => async (dispatch, getState) => {
+export const getSessionTypes = () => async (dispatch, getState) => {
   const url = `user/profile/session-type`;
 
   await dispatch({

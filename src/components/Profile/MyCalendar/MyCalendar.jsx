@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 import styled from 'styled-components/macro';
 
-import { Accordion, Calendar } from 'components';
+import { Accordion } from 'components';
 import BranchRowToggler from 'components/BranchRow/BranchRowToggler';
 import MyCalendarCollapser from './MyCalendarCollapser';
-import { theme } from 'utils';
 
 const mockData = [
   {
@@ -35,18 +34,9 @@ const mockData = [
 ];
 
 export default function MyCalendar() {
-  const [date, setDate] = useState(new Date());
-
   return (
     <Row>
-      <Col lg={6}>
-        <Calendar
-          color={theme.colors.blue}
-          date={date}
-          onChange={(item) => setDate(item)}
-          minDate={new Date()}
-        />
-      </Col>
+      <Col lg={6}></Col>
 
       <Col lg={6}>
         <Accordion>

@@ -10,8 +10,8 @@ const StyledTitle = styled(Typography)`
   font-family: ${(props) =>
     (props.fontFamily && props.fontFamily) || 'Poppins, sans-serif'} !important;
   font-weight: ${(props) => props.fontWeight || 'bold'} !important;
-  font-size: ${(props) => props.fontSize && props.fontSize} !important;
-  letter-spacing: ${(props) => !props.letterSpacing && 'initial'} !important;
+  font-size: ${(props) => props.fontSize && `${props.fontSize} !important`};
+  letter-spacing: ${(props) => !props.letterSpacing && 'initial !important'};
   text-align: ${(props) =>
     props.textLeft
       ? props.textAlign

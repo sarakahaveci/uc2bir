@@ -7,6 +7,7 @@ export { default as Switch } from './Switch/Switch';
 export { default as Stars } from './Stars/Stars';
 export { default as AwesomeIcon } from './statics/icon';
 export { default as Main } from './Main';
+export { default as CalendarCell } from './CalendarCell/CalendarCell';
 export { default as Header } from './Header';
 export { default as Footer } from './Footer';
 export { default as GoogleMapClusterer } from './GoogleMaps';
@@ -43,7 +44,7 @@ export { default as CancellationDismissInfo } from './ProfileSettings/ProfileCan
 export { default as PlusButton } from './buttons/PlusButton';
 export { default as Select } from './Select/Select';
 export { default as Pagination } from './Pagination/Pagination';
-export { default as Calendar } from './Calendar/Calendar';
+export { default as DatePicker } from './DatePicker/DatePicker';
 
 /*
 export { default as SocialLogin } from './SocialLogin/SocialLogin';

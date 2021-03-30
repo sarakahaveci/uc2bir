@@ -1,12 +1,19 @@
 /* eslint-disable react/display-name */
 import React, { useState, forwardRef, useImperativeHandle } from 'react';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 
 import { Svg } from 'components';
 import { Modal } from 'react-bootstrap';
 
+export const ModalFooter = ({ children }) => (
+  <StyledFooter>{children}</StyledFooter>
+);
+
 const EditedModal = forwardRef(
-  ({ children, className, closeIcon, onExit, backdrop }, ref) => {
+  (
+    { children, className, closeIcon, onExit, backdrop, activateFooter },
+    ref
+  ) => {
     const [open, setOpen] = useState();
 
     useImperativeHandle(ref, () => {
@@ -17,7 +24,8 @@ const EditedModal = forwardRef(
     });
 
     return (
-      <Modal
+      <StyledModal
+        activateFooter={activateFooter}
         className={className}
         backdrop={backdrop}
         show={open}
@@ -33,10 +41,13 @@ const EditedModal = forwardRef(
         {closeIcon && <CloseIcon onClick={() => setOpen(false)} />}
 
         {children}
-      </Modal>
+      </StyledModal>
     );
   }
 );
+
+EditedModal.displayName = 'Modal';
+EditedModal.Footer = ModalFooter;
 
 export default EditedModal;
 
@@ -45,11 +56,26 @@ EditedModal.defaultProps = {
   onExit: () => {},
 };
 
+const StyledFooter = styled.div`
+  border-top: 1px solid rgba(144, 144, 144, 0.2);
+  padding: 20px 0;
+`;
+
+const StyledModal = styled(Modal)`
+  ${(p) =>
+    p.activateFooter &&
+    css`
+      .modal-content {
+        padding: 0;
+      }
+    `}
+`;
+
 const CloseIcon = styled(Svg.CloseIcon)`
   svg {
     z-index: 5;
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
     position: absolute;
     right: 15px;
     top: 15px;

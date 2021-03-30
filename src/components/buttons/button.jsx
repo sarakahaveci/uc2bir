@@ -10,10 +10,11 @@ const StyledButton = styled(BaseButton)`
   border-radius: 4px;
   min-height: 45px;
   background: ${(props) =>
-    !props.transparentDisabled && props.disabled && '#8CDEDA'} !important;
-  color: ${(props) => props.transparentDisabled && 'var(--gray2)'} !important;
+    !props.transparentDisabled && props.disabled && '#8CDEDA !important'};
+  color: ${(props) =>
+    props.transparentDisabled && `${props.theme.colors.gray2} !important`};
   width: ${(props) => props.width && props.width};
-  cursor: ${(props) => props.disabled && 'not-allowed'} !important;
+  cursor: ${(props) => props.disabled && 'not-allowed !important'};
 
   ${color}
   ${space}
@@ -77,7 +78,7 @@ const StyledButton = styled(BaseButton)`
         width: 100%;
         height: 100%;
         position: absolute;
-        background: var(--blue);
+        background: ${props.theme.colors.blue};
         transform: matrix(1, 0, -0.4, 1, 0, 0);
       }
     `}
@@ -88,7 +89,7 @@ const StyledButton = styled(BaseButton)`
       background: transparent;
       font-weight: bold;
       border-radius: 0;
-      color: var(--blue);
+      color: ${props.theme.colors.blue};
       display: flex;
       justify-content: center;
       flex-direction: column;
@@ -99,7 +100,7 @@ const StyledButton = styled(BaseButton)`
         content: '';
         width: 90px;
         height: 2px;
-        background: var(--blue);
+        background: ${props.theme.colors.blue};
         margin-top: 5px;
       }
     `}
@@ -111,6 +112,13 @@ const StyledButton = styled(BaseButton)`
         font-size: ${props.fontSize && props.fontSize};
       }
     `};
+
+  ${(props) =>
+    props.type === 'text' &&
+    css`
+      background-color: transparent !important;
+      color: ${(p) => p.disabled && p.theme.colors.disabled};
+    `}
 `;
 
 const Search = styled(Svg.Search)`
@@ -118,31 +126,41 @@ const Search = styled(Svg.Search)`
 `;
 
 const Button = ({
-  onClick,
+  onClick = () => {},
   icon,
   className,
   text,
   isLoading,
   search,
   ...restProps
-}) => (
-  <StyledButton
-    {...restProps}
-    onClick={onClick}
-    variant=""
-    className={icon ? `icon-button ${className}` : className}
-  >
-    {icon && icon({ className: 'icon' })}
+}) => {
+  const onClickHandler = () => {
+    if (restProps.disabled) {
+      return;
+    } else {
+      onClick();
+    }
+  };
 
-    {isLoading ? (
-      <Spinner animation="border" variant="light" size="md" />
-    ) : (
-      <>
-        <span>{text}</span>
-        {search && <Search />}
-      </>
-    )}
-  </StyledButton>
-);
+  return (
+    <StyledButton
+      onClick={onClickHandler}
+      variant=""
+      className={icon ? `icon-button ${className}` : className}
+      {...restProps}
+    >
+      {icon && icon({ className: 'icon' })}
+
+      {isLoading ? (
+        <Spinner animation="border" variant="light" size="md" />
+      ) : (
+        <>
+          <span>{text}</span>
+          {search && <Search />}
+        </>
+      )}
+    </StyledButton>
+  );
+};
 
 export default Button;
