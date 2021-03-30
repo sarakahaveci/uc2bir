@@ -57,7 +57,7 @@ const Adds = ({ icons }) => {
       );
 
     case 'home_park':
-      return <AddAdress setSubPage={setSubPage} />;
+      return <AddAdress setSubPage={setSubPage} type="clinic" />;
 
     case 'home-park-edit':
       return <Edit setSubPage={setSubPage} />;

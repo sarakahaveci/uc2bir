@@ -52,7 +52,7 @@ const Adds = ({ icons, setBannerActive }) => {
       );
 
     case 'home_park':
-      return <AddAdress setSubPage={setSubPage} />;
+      return <AddAdress setSubPage={setSubPage} type="home_park" />;
 
     case 'gym':
       return (

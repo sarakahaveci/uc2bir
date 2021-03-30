@@ -9,7 +9,7 @@ import GoogleMap from 'components/GoogleMaps/GoogleMap';
 import { Material, Button, AwesomeIcon } from 'components';
 import axios from 'axios';
 
-const AddAdress = ({ setSubPage }) => {
+const AddAdress = ({ setSubPage, type }) => {
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({});
@@ -115,7 +115,7 @@ const AddAdress = ({ setSubPage }) => {
     e.preventDefault();
     dispatch(
       addAddress(
-        { ...formData },
+        { ...formData, type },
         () => {
           setSubPage('Adds');
           toast.success('Adres başarıyla eklendi', {
