@@ -2,7 +2,6 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
-import { colorGenerator } from 'utils';
 
 const List = ({
   dropDown = [],
@@ -80,7 +79,7 @@ const Span = styled.span`
 const Notify = styled.div`
   position: absolute;
   border-radius: 100%;
-  background: ${colorGenerator('blue')};
+  background: ${(p) => p.theme.colors.blue};
   right: -25px;
   top: -5px;
   font-size: 9pt;

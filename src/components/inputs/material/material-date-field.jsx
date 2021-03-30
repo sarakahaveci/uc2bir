@@ -12,7 +12,7 @@ import enLocale from 'date-fns/locale/en-US';
 
 import styled from 'styled-components/macro';
 import { Spinner } from 'react-bootstrap';
-import { colorGenerator } from 'utils';
+import { theme } from 'utils';
 
 import moment from 'moment';
 
@@ -58,13 +58,13 @@ const DateField = ({
   const [loading, setLoading] = useState(false);
   const editShow = () => {
     if (editRef.current) {
-      editRef.current.style.color = colorGenerator('blue');
+      editRef.current.style.color = theme.colors.blue;
       setLoading(true);
     }
   };
   const editClose = () => {
     if (editRef.current) {
-      editRef.current.style.color = colorGenerator('gray4');
+      editRef.current.style.color = theme.colors.gray11;
       setTimeout(() => {
         setLoading(false);
       }, 2000);

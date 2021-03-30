@@ -1,11 +1,9 @@
-// @ts-nocheck
 import React from 'react';
-
 import styled, { css } from 'styled-components/macro';
 import { Col } from 'react-bootstrap';
-import { Title, AwesomeIcon, IconLabel } from 'components';
 import { Link } from 'react-router-dom';
-import { colorGenerator } from 'utils';
+
+import { Title, AwesomeIcon, IconLabel } from 'components';
 
 export const CardInfo = ({
   name,
@@ -192,7 +190,7 @@ const A = styled(Link)`
   display: flex;
   flex: 1 1 100%;
   font-size: 8pt;
-  color: ${colorGenerator('black')};
+  color: black;
 `;
 
 export default Card;

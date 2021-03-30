@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import { colorGenerator } from 'utils';
 
 const Item = ({ icon, span, notify = null }) => {
   return (
@@ -15,7 +14,7 @@ const Item = ({ icon, span, notify = null }) => {
 const Notify = styled.div`
   position: absolute;
   border-radius: 100%;
-  background: ${colorGenerator('blue')};
+  background: ${(p) => p.theme.colors.blue};
   right: 0px;
   top: 5px;
   font-size: 9pt;
