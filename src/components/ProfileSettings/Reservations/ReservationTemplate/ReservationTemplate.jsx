@@ -196,7 +196,7 @@ export default function ReservationTemplate() {
 
         <WeekDetailsInfoModal ref={weekDetailsInfoModalRef}>
           <Box row justifyContent="center">
-            <Svg.WarningIcon className="warning-icon" />
+            <Svg.WarningIcon />
           </Box>
 
           <Text

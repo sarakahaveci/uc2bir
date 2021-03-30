@@ -1,17 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { CalendarCell, Box, Title, Text } from 'components';
 import { setSelectedDay } from 'actions';
 import { theme } from 'utils';
-import { DAYS, HOURS } from '../../../../constants';
+import { DAYS } from '../../../../constants';
+import SelectHourCells from '../SelectHourCells';
 
 export default function TemplateDate({
   selectedDayHours,
   setSelectedDayHours,
 }) {
-  const [hoveredItemIndex, setHoveredItemIndex] = useState();
-
   const { selectedDay } = useSelector(
     (state) => state.profileSettings2.reservationTemplate
   );
@@ -21,26 +20,6 @@ export default function TemplateDate({
   useEffect(() => {
     setSelectedDayHours([]);
   }, [selectedDay.day]);
-
-  const activeCellHandler = (index) => selectedDayHours.includes(index);
-
-  const halfActiveCellHandler = (index) => {
-    if (selectedDayHours.length === 1) {
-      if (
-        (selectedDayHours[0] > index && hoveredItemIndex <= index) ||
-        (selectedDayHours[0] < index && hoveredItemIndex >= index)
-      ) {
-        return true;
-      }
-    }
-
-    if (
-      (selectedDayHours[0] < index && selectedDayHours[1] > index) ||
-      (selectedDayHours[0] > index && selectedDayHours[1] < index)
-    ) {
-      return true;
-    }
-  };
 
   return (
     <div>
@@ -74,21 +53,10 @@ export default function TemplateDate({
         </Text>
       </Box>
 
-      <Box row flexWrap="wrap" mb="10px">
-        {HOURS.map((item, index) => (
-          <CalendarCell
-            key={index}
-            onClick={() => setSelectedDayHours([...selectedDayHours, index])}
-            isActive={activeCellHandler(index)}
-            halfActive={halfActiveCellHandler(index)}
-            disabled={selectedDayHours.length === 2}
-            onMouseEnter={() => setHoveredItemIndex(index)}
-            type="time"
-          >
-            {item}
-          </CalendarCell>
-        ))}
-      </Box>
+      <SelectHourCells
+        selectedDayHours={selectedDayHours}
+        setSelectedDayHours={setSelectedDayHours}
+      />
     </div>
   );
 }

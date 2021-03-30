@@ -27,7 +27,8 @@ import DietitianPrice from 'components/ProfileSettings/Dietitian/DietitianPrice'
 import DietitianProficiency from 'components/ProfileSettings/Dietitian/DietitianProficiency';
 import Message from 'components/ProfileSettings/Message';
 import RegularNotifications from 'components/ProfileSettings/RegularNotifications';
-import Reservations from 'components/ProfileSettings/Reservations/ReservationTemplate/ReservationTemplate';
+import GroupSlot from 'components/ProfileSettings/Reservations/GroupSlot/GroupSlot';
+// import Reservations from 'components/ProfileSettings/Reservations/ReservationTemplate/ReservationTemplate';
 
 const regularUserTabs = [
   {
@@ -218,7 +219,7 @@ const trainerTabs = [
   {
     eventKey: 'reservation',
     title: 'Rezarvasyonlarım',
-    component: <Reservations />,
+    component: <GroupSlot />,
   },
   /* {
     eventKey: 'packets',
