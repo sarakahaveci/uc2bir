@@ -4,8 +4,8 @@ import React from 'react';
 import Title from '../../../components/typography/Titles';
 import Text from '../../../components/typography/Text';
 import AwesomeIcon from '../../statics/icon';
-import Button from '../../../components/buttons/button';
-import IconLabel from '../../../components/buttons/icon-label';
+import Button from '../../buttons/button';
+import IconLabel from '../../buttons/icon-label';
 
 const PT = ({ top = false, bottom = false, val }) => {
   return (

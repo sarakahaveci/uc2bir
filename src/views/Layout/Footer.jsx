@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getFooterInfo } from 'actions';
 import logo from 'assets/logo.png';
 import { AwesomeIcon, IconLabel, Title } from 'components';
-import { default as NativeFooter } from 'components/Footer';
+import { default as NativeFooter } from 'components/common/Footer';
 
 import downloadRow from 'components/statics/background/images/download-row.png';
 

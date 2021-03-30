@@ -8,10 +8,8 @@ import { default as SlickSlider } from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 
 import AwesomeIcon from '../statics/icon';
-import Button from '../buttons/button';
 
 import Groups from './packets-items';
-import history from '../../utils/history';
 
 function PacketSlider(props) {
   const { data, query, categories } = props;

@@ -10,7 +10,6 @@ import AwesomeIcon from '../statics/icon';
 import Button from '../buttons/button';
 
 import Groups from './focus-items';
-import history from '../../utils/history';
 
 const SliderFocus = (props) => {
   const { data, query } = props;
