@@ -10,6 +10,7 @@ import Comment from 'components/Profile/Comment';
 import Place from 'components/Profile/Place';
 import Blog from 'components/Profile/Blog';
 import FacilityList from 'components/Profile/Gym/FacilityList';
+import FindPt from 'components/Profile/Gym/FindPt';
 import MyCalendar from 'components/Profile/MyCalendar/MyCalendar';
 import profileImg from 'assets/pt-groups/item-1/04.jpg';
 
@@ -78,7 +79,7 @@ export default function Profile({ match }) {
     {
       eventKey: 'trainers',
       title: 'EĞİTMEN BUL',
-      component: <Comment userId={match?.params?.id} />,
+      component: <FindPt userId={match?.params?.id} />,
     },
     {
       eventKey: 'calendar',
@@ -88,11 +89,7 @@ export default function Profile({ match }) {
     {
       eventKey: 'comments',
       title: 'YORUMLAR',
-      component: (
-        <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-          Yorumlar
-        </Title>
-      ),
+      component: <Comment userId={match?.params?.id} />,
     },
     {
       eventKey: 'gallery',

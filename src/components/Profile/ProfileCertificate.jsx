@@ -12,12 +12,20 @@ export default function ProfileCertificate({ userId }) {
     dispatch(getUserCertificate(userId));
   }, []);
 
-  return certificate?.map((data, index) => (
-    <Certificate
-      key={index}
-      fileText={data.name}
-      isOdd={(index + 1) % 2}
-      path={data?.path}
-    />
-  ));
+  return certificate.length > 0 ? (
+    certificate?.map((data, index) => (
+      <Certificate
+        key={index}
+        fileText={data.name}
+        isOdd={(index + 1) % 2}
+        path={data?.path}
+      />
+    ))
+  ) : (
+    <div className="d-flex">
+      <strong className="mx-auto">
+        İş Yerine kayıtlı herhangi bir sertifika bulunmamaktadır.
+      </strong>
+    </div>
+  );
 }

@@ -13,12 +13,18 @@ function FacilityList({ userId }) {
     dispatch(getGymFacility(userId));
   }, []);
 
-  return (
+  return list.length > 0 ? (
     <Wrapper>
       {list?.map((item) => (
         <Facility key={item} name={item} />
       ))}
     </Wrapper>
+  ) : (
+    <div className="d-flex">
+      <strong className="mx-auto">
+        İş Yerine kayıtlı herhangi bir olanak bulunmamaktadır.
+      </strong>
+    </div>
   );
 }
 
