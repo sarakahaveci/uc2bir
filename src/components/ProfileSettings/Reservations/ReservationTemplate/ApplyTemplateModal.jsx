@@ -147,7 +147,7 @@ const ApplyTemplateModal = forwardRef(
   }
 );
 
-export default ApplyTemplateModal;
+export default React.memo(ApplyTemplateModal);
 
 const StyledModal = styled(Modal)`
   .modal-content {

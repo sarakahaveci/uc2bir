@@ -63,8 +63,8 @@ export default function TemplateDate({
         </Title>
 
         <Text
-          color="dark"
-          fontWeight="500"
+          color="gray2"
+          fontWeight="700"
           textAlign="right"
           cursor="pointer"
           p="0"

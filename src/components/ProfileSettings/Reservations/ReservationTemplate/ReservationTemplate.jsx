@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
@@ -43,8 +43,9 @@ export default function ReservationTemplate() {
   const openApplyTemplateModal = () =>
     applyTemplateModalRef.current.openModal();
 
-  const openSuccessReservationModal = () =>
+  const openSuccessReservationModal = useCallback(() => {
     successReservationModalRef.current.openModal();
+  }, []);
 
   const openTemplateNamingModal = () =>
     templateNamingModalRef.current.openModal();
@@ -63,13 +64,20 @@ export default function ReservationTemplate() {
       startHourIndex = temp;
     }
 
+    const sessionTypeArr = sessionSelection.map((session) => ({
+      session,
+      ...(session !== 'online' && {
+        location: session === 'gym' ? workPlaceSelection : locationSelection,
+      }),
+    }));
+
     dispatch(
       addHoursToTemplate(selectedDay.day, {
         id: selectedDay.slice.length,
         hour: `${HOURS[startHourIndex]}-${HOURS[endHourIndex]}`,
         branch: branchSelection,
         accept_guest: acceptGuest,
-        session_type: sessionSelection,
+        session_type: sessionTypeArr,
       })
     );
 
@@ -117,7 +125,7 @@ export default function ReservationTemplate() {
               className="blue"
               text="Kaydet"
               onClick={saveDayToTemplateHandler}
-              disabled={!selectedDayHours.length}
+              disabled={selectedDayHours.length !== 2}
             />
           </Box>
         </Col>

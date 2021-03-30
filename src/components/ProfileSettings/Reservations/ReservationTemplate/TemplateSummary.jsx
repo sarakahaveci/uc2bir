@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { deleteTemplateItem } from 'actions';
 import { Accordion, Text, Svg, Box, Span } from 'components';
 
-export default function TemplateSummary() {
+const TemplateSummary = () => {
   const { selectedDay } = useSelector(
     (state) => state.profileSettings2.reservationTemplate
   );
@@ -75,7 +75,9 @@ export default function TemplateSummary() {
       </Accordion>
     </div>
   );
-}
+};
+
+export default React.memo(TemplateSummary);
 
 const HourWrapper = styled.div`
   display: flex;
