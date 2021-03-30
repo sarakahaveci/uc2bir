@@ -56,10 +56,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "build-test": "NODE_ENV=development react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build-test": "dotenv -e .env.development react-scripts build",
+    "build": "dotenv -e .env.production react-scripts build"
   },
   "lint-staged": {
     "*.{js,jsx}": [
@@ -84,6 +84,7 @@
     ]
   },
   "devDependencies": {
+    "dotenv-cli": "^4.0.0",
     "eslint": "^7.22.0",
     "eslint-plugin-react": "^7.22.0",
     "husky": "^4.3.8",
