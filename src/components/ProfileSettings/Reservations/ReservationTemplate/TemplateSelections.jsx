@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
+
+import { getMyBranches, getGymList, getSessionTypes } from 'actions';
 
 export default function TemplateSelections({
   branchSelection,
@@ -20,6 +22,18 @@ export default function TemplateSelections({
   const { data: myBranches } = useSelector(
     (state) => state.profileSettings2.profileBranches.myBranches
   );
+
+  const { data: sessionTypes } = useSelector(
+    (state) => state.profileSettings2.sessionType.get.data
+  );
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getMyBranches());
+    dispatch(getGymList());
+    dispatch(getSessionTypes());
+  }, []);
 
   return (
     <FormControlWrapper>
@@ -51,16 +65,16 @@ export default function TemplateSelections({
           style={{ width: '100%' }}
           onChange={(e) => setSessionSelection(e.target.value)}
         >
-          <MenuItem>deneme</MenuItem>
-          <MenuItem>deneme</MenuItem>
-          <MenuItem>deneme</MenuItem>
-          <MenuItem>deneme</MenuItem>
-          <MenuItem>deneme</MenuItem>
+          {sessionTypes?.map((sessionType) => (
+            <MenuItem key={sessionType.id} value={sessionType}>
+              {sessionType.title}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
 
       <FormControl>
-        <InputLabel>Spor Alanları Ekleyin</InputLabel>
+        <InputLabel>Spor Alanı Seçiniz</InputLabel>
 
         <Select
           multiple
@@ -78,7 +92,7 @@ export default function TemplateSelections({
       </FormControl>
 
       <FormControl>
-        <InputLabel>Ev / Park Ekleyin</InputLabel>
+        <InputLabel>Ev / Park Seçiniz</InputLabel>
 
         <Select
           multiple

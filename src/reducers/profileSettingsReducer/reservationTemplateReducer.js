@@ -9,38 +9,36 @@ import {
 
 const initialState = {
   appliedDays: [
-    {
-      day: 0,
-      slice: [
-        {
-          id: 1,
-          hour: '10:00-16:00',
-          branch: [5, 6],
-          accept_guest: true,
-          session_type: [
-            { session: 'gym', location: [3] },
-            { session: 'online' },
-          ],
-          place_type: [5, 6, 7],
-        },
-      ],
-    },
-    {
-      day: 1,
-      slice: [
-        {
-          id: 1,
-          hour: '10:00-16:00',
-          branch: [5, 6],
-          accept_guest: true,
-          session_type: [
-            { session: 'gym', location: [3] },
-            { session: 'online' },
-          ],
-          place_type: [5, 6, 7],
-        },
-      ],
-    },
+    // {
+    //   day: 0,
+    //   slice: [
+    //     {
+    //       id: 1,
+    //       hour: '10:00-16:00',
+    //       branch: [5, 6],
+    //       accept_guest: true,
+    //       session_type: [
+    //         { session: 'gym', location: [3] },
+    //         { session: 'online' },
+    //       ],
+    //     },
+    //   ],
+    // },
+    // {
+    //   day: 1,
+    //   slice: [
+    //     {
+    //       id: 1,
+    //       hour: '10:00-16:00',
+    //       branch: [5, 6],
+    //       accept_guest: true,
+    //       session_type: [
+    //         { session: 'gym', location: [3] },
+    //         { session: 'online' },
+    //       ],
+    //     },
+    //   ],
+    // },
   ],
   selectedDay: {
     day: 0,
@@ -70,6 +68,7 @@ export default (state = initialState, action) => {
     case ADD_DATE_TO_TEMPLATE:
     case DELETE_DATE_FROM_TEMPLATE:
       return {
+        ...state,
         appliedDays: action.payload.appliedDays,
         selectedDay: action.payload.selectedDay,
       };

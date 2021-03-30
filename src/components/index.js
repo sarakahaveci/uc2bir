@@ -44,7 +44,6 @@ export { default as CancellationDismissInfo } from './ProfileSettings/ProfileCan
 export { default as PlusButton } from './buttons/PlusButton';
 export { default as Select } from './Select/Select';
 export { default as Pagination } from './Pagination/Pagination';
-export { default as Calendar } from './Calendar/Calendar';
 export { default as DatePicker } from './DatePicker/DatePicker';
 
 /*

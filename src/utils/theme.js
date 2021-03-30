@@ -11,6 +11,7 @@ const theme = {
     white4: '#f9f9f9',
     trunge: '#ffba00',
     orange2: '#F77E0B',
+    disabled: '#8CDEDA',
     red: '#f01c62',
     gray1: '#909090',
     gray2: '#bbbbbb',

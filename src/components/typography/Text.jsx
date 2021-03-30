@@ -9,6 +9,7 @@ const StyledText = styled.div`
   cursor: ${(p) => p.cursor && p.cursor};
   line-height: 120%;
   text-transform: ${(p) => p.textTransform && p.textTransform};
+  line-height: ${(p) => p.lineHeight && p.lineHeight};
 
   ${(p) =>
     p.underline &&

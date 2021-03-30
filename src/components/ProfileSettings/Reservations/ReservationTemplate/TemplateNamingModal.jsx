@@ -1,35 +1,47 @@
 import React, { forwardRef } from 'react';
 import styled from 'styled-components/macro';
 
-import { Box, Modal, Text, Title, Material } from 'components';
+import { Box, Modal, Button, Title, Material } from 'components';
 
-const TemplateNamingModal = forwardRef(({ openSuccessTemplateModal }, ref) => {
-  return (
-    <StyledTemplateNamingModal activateFooter ref={ref}>
-      <div className="reservation-template__naming-modal">
-        <Title textAlign="left" color="blue">
-          Şablonunuza İsim Verin
-        </Title>
+const TemplateNamingModal = forwardRef(
+  ({ openSuccessTemplateModal, templateName, setTemplateName }, ref) => {
+    const saveClickHandler = () => {
+      openSuccessTemplateModal();
 
-        <Box my="30px">
-          <Material.TextField label="Yazınız" />
-        </Box>
-      </div>
+      ref.current.closeModal();
+    };
 
-      <Modal.Footer>
-        <Text
-          color="blue"
-          textAlign="center"
-          cursor="pointer"
-          onClick={openSuccessTemplateModal}
-        >
-          {/* <Spinner type="static" /> */}
-          KAYDET
-        </Text>
-      </Modal.Footer>
-    </StyledTemplateNamingModal>
-  );
-});
+    return (
+      <StyledTemplateNamingModal activateFooter ref={ref}>
+        <div className="reservation-template__naming-modal">
+          <Title textAlign="left" color="blue">
+            Şablonunuza İsim Verin
+          </Title>
+
+          <Box my="30px">
+            <Material.TextField
+              label="Yazınız"
+              onChange={(e) => setTemplateName(e.target.value)}
+            />
+          </Box>
+        </div>
+
+        <Modal.Footer>
+          <Box row justifyContent="center">
+            <Button
+              color="blue"
+              cursor="pointer"
+              type="text"
+              onClick={saveClickHandler}
+              disabled={templateName.trim() === ''}
+              text="KAYDET"
+            />
+          </Box>
+        </Modal.Footer>
+      </StyledTemplateNamingModal>
+    );
+  }
+);
 
 export default TemplateNamingModal;
 

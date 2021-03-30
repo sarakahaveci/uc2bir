@@ -1,10 +1,13 @@
+import { toast } from 'react-toastify';
 import {
   HTTP_REQUEST,
   ADD_DATE_TO_TEMPLATE,
   DELETE_DATE_FROM_TEMPLATE,
   SET_SELECTED_DAY,
   GET_TEMPLATES,
+  APPLY_TEMPLATE_TO_CALENDAR,
 } from '../../constants';
+import { format } from 'date-fns';
 
 export const setSelectedDay = (dayIndex) => async (dispatch, getState) => {
   const { appliedDays } = getState().profileSettings2.reservationTemplate;
@@ -86,6 +89,29 @@ export const getTemplates = () => async (dispatch) => {
       transformData: (data) => data.data,
       url,
       label: GET_TEMPLATES,
+    },
+  });
+};
+
+export const applyTemplateToCalendar = (date, templateId, callBack) => async (
+  dispatch
+) => {
+  const url = '/appointment/pt/apply-template';
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'POST',
+      body: {
+        date: format(date, 'dd.MM.yyyy'),
+        template_id: templateId,
+      },
+      transformData: (data) => data.data,
+      url,
+      label: APPLY_TEMPLATE_TO_CALENDAR,
+      callBack,
+      errorHandler: (errorMsg) =>
+        toast.error(errorMsg, { position: 'bottom-right' }),
     },
   });
 };

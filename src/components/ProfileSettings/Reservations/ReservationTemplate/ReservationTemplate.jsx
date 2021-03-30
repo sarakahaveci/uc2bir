@@ -1,10 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
 import { Link } from 'react-router-dom';
 
-import { addHoursToTemplate, getMyBranches } from 'actions';
+import { addHoursToTemplate } from 'actions';
 import { HOURS } from '../../../../constants';
 import { Box, Switch, Button, Modal, Text, Svg } from 'components';
 import TemplateSummary from './TemplateSummary';
@@ -15,11 +15,12 @@ import TemplateNamingModal from './TemplateNamingModal';
 import ApplyTemplateModal from './ApplyTemplateModal';
 
 export default function ReservationTemplate() {
-  const { selectedDay } = useSelector(
+  const { selectedDay, appliedDays } = useSelector(
     (state) => state.profileSettings2.reservationTemplate
   );
 
   const [selectedDayHours, setSelectedDayHours] = useState([]);
+  const [templateName, setTemplateName] = useState('');
 
   const [branchSelection, setBranchSelection] = useState([]);
   const [sessionSelection, setSessionSelection] = useState([]);
@@ -27,21 +28,14 @@ export default function ReservationTemplate() {
   const [locationSelection, setLocationSelection] = useState([]);
 
   const [acceptGuest, setAcceptGuest] = useState(false);
-  // const [workStatus, setWorkStatus] = useState(false);
 
   const templateNamingModalRef = useRef();
   const successTemplateModalRef = useRef();
   const applyTemplateModalRef = useRef();
   const successReservationModalRef = useRef();
+  const weekDetailsInfoModalRef = useRef();
 
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getMyBranches());
-  }, []);
-
-  const openTemplateNamingModal = () =>
-    templateNamingModalRef.current.openModal();
 
   const openSuccessTemplateModal = () =>
     successTemplateModalRef.current.openModal();
@@ -51,6 +45,12 @@ export default function ReservationTemplate() {
 
   const openSuccessReservationModal = () =>
     successReservationModalRef.current.openModal();
+
+  const openTemplateNamingModal = () =>
+    templateNamingModalRef.current.openModal();
+
+  const openWeekDetailsInfoModal = () =>
+    weekDetailsInfoModalRef.current.openModal();
 
   const saveDayToTemplateHandler = () => {
     let startHourIndex = selectedDayHours[0];
@@ -68,13 +68,20 @@ export default function ReservationTemplate() {
         id: selectedDay.slice.length,
         hour: `${HOURS[startHourIndex]}-${HOURS[endHourIndex]}`,
         branch: branchSelection,
-        session_type: sessionSelection,
-        place_type: locationSelection,
         accept_guest: acceptGuest,
+        session_type: sessionSelection,
       })
     );
 
     setSelectedDayHours([]);
+  };
+
+  const completeEditTemplateHandler = () => {
+    if (appliedDays.length < 7) {
+      openWeekDetailsInfoModal();
+    } else {
+      openTemplateNamingModal();
+    }
   };
 
   return (
@@ -110,6 +117,7 @@ export default function ReservationTemplate() {
               className="blue"
               text="Kaydet"
               onClick={saveDayToTemplateHandler}
+              disabled={!selectedDayHours.length}
             />
           </Box>
         </Col>
@@ -148,19 +156,24 @@ export default function ReservationTemplate() {
             <NextButtonWrapper>
               <Button
                 className="blue"
-                text="Devam Et"
+                text="Tamamla"
                 fontWeight="700"
                 width="100%"
                 height="66px"
-                onClick={openTemplateNamingModal}
+                onClick={completeEditTemplateHandler}
+                disabled={!appliedDays.length}
               />
             </NextButtonWrapper>
           </RightWrapper>
         </Col>
 
+        {/*                       MODAL AREA                           */}
+
         <TemplateNamingModal
           ref={templateNamingModalRef}
           openSuccessTemplateModal={openSuccessTemplateModal}
+          templateName={templateName}
+          setTemplateName={setTemplateName}
         />
 
         <TemplateSuccessModal
@@ -173,7 +186,42 @@ export default function ReservationTemplate() {
           openSuccessReservationModal={openSuccessReservationModal}
         />
 
-        <SuccessReservationModalRef
+        <WeekDetailsInfoModal ref={weekDetailsInfoModalRef}>
+          <Box row justifyContent="center">
+            <Svg.WarningIcon className="warning-icon" />
+          </Box>
+
+          <Text
+            fontWeight="500"
+            color="dark"
+            my="50px"
+            textAlign="center"
+            lineHeight="20px"
+          >
+            Seçilmeyen günler çalışmıyorum olarak değerlendirelecek
+          </Text>
+
+          <Button
+            text="Tamam"
+            className="blue"
+            onClick={() => {
+              openTemplateNamingModal();
+              weekDetailsInfoModalRef.current.closeModal();
+            }}
+          />
+
+          <Text
+            color="blue"
+            textAlign="center"
+            my="20px"
+            cursor="pointer"
+            onClick={() => weekDetailsInfoModalRef.current.closeModal()}
+          >
+            Vazgeç
+          </Text>
+        </WeekDetailsInfoModal>
+
+        <SuccessReservationModal
           activateFooter
           ref={successReservationModalRef}
         >
@@ -205,13 +253,19 @@ export default function ReservationTemplate() {
               ANASAYFA
             </Link>
           </Modal.Footer>
-        </SuccessReservationModalRef>
+        </SuccessReservationModal>
       </Row>
     </div>
   );
 }
 
-const SuccessReservationModalRef = styled(Modal)`
+const WeekDetailsInfoModal = styled(Modal)`
+  .modal-content {
+    width: 500px;
+  }
+`;
+
+const SuccessReservationModal = styled(Modal)`
   .modal-content {
     width: 500px;
   }

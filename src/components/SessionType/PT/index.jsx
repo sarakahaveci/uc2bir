@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { createTypes, getTypes } from 'actions';
+import { createTypes, getSessionTypes } from 'actions';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { getGeocode } from 'use-places-autocomplete';
@@ -21,7 +21,7 @@ const PT = ({ icons, setBannerActive }) => {
   const { get } = useSelector((state) => state.profileSettings2.sessionType);
 
   useEffect(() => {
-    dispatch(getTypes());
+    dispatch(getSessionTypes());
   }, []);
 
   const select = (key) => {
