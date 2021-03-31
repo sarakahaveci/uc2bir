@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { StepOne, StepTwo, StepThree, StepFour, StepFinish } from './steps';
 import { StepBar } from '../../components';
@@ -8,20 +8,10 @@ import { StepBar } from '../../components';
 import { useSelector } from 'react-redux';
 
 const RegisterSteps = () => {
-  const { data: registerData, isSuccess } = useSelector(
-    (state) => state.registerData
-  );
-
-  useEffect(() => {
-    if (!isSuccess) {
-      actionRegisterData();
-    }
-  }, [isSuccess]);
+  const { data: registerData } = useSelector((state) => state.registerData);
 
   const [steps, setSteps] = useState('step1');
-  /**
-   * @param {string} step
-   */
+
   const step = (step) => {
     const step1 = {
       num: 1,
