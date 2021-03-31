@@ -3,43 +3,43 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 
 import { Accordion, Box } from 'components';
-import { getUserBranchList } from 'actions';
-import BranchCardHeader from '../BranchRow/BranchRowToggler';
-import BranchCardBody from '../BranchRow/BranchRowCollapser';
+import { getGymClassList } from 'actions';
+import BranchCardHeader from '../../../BranchRow/BranchRowToggler';
+import BranchCardBody from '../../../BranchRow/BranchRowCollapser';
 
 const GymClass = ({ userId }) => {
   const dispatch = useDispatch();
-  const { branches: branchList } = useSelector(
-    (state) => state.userProfile.branch
-  );
+  const { data } = useSelector((state) => state.userProfile.gymClass);
 
   useEffect(() => {
-    dispatch(getUserBranchList(userId));
+    dispatch(getGymClassList(userId));
   }, []);
 
   return (
     <div>
-      <Accordion>
-        {branchList.branches.map((item, index) => {
-          return (
-            <StyledRow key={index}>
-              <Order>{index + 1}.</Order>
+      {
+        <Accordion>
+          {data?.class?.map((item, index) => {
+            return (
+              <StyledRow key={index}>
+                <Order>{index + 1}.</Order>
 
-              <AccordionItem>
-                <Accordion.Item>
-                  <Accordion.Toggle>
-                    <BranchCardHeader data={item} />
-                  </Accordion.Toggle>
+                <AccordionItem>
+                  <Accordion.Item>
+                    <Accordion.Toggle>
+                      <BranchCardHeader data={item} />
+                    </Accordion.Toggle>
 
-                  <Accordion.Collapse>
-                    <BranchCardBody speciality={item.speciality} />
-                  </Accordion.Collapse>
-                </Accordion.Item>
-              </AccordionItem>
-            </StyledRow>
-          );
-        })}
-      </Accordion>
+                    <Accordion.Collapse>
+                      <BranchCardBody speciality={item?.branches} />
+                    </Accordion.Collapse>
+                  </Accordion.Item>
+                </AccordionItem>
+              </StyledRow>
+            );
+          })}
+        </Accordion>
+      }
     </div>
   );
 };

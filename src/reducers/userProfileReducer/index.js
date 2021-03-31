@@ -11,6 +11,7 @@ import ptGymList from './ptGymListReducer';
 import dietitianClinic from './dietitianClinicReducer';
 import dietitionSpeciality from './dietitionSpecialityReducer';
 import galery from './galeryReducer';
+import gymClass from './gymClassReducer';
 
 const reducers = combineReducers({
   certificate,
@@ -24,6 +25,7 @@ const reducers = combineReducers({
   ptGymList,
   dietitionSpeciality,
   galery,
+  gymClass,
 });
 
 export default reducers;

@@ -15,6 +15,7 @@ import DietitionSpeciality from 'components/Profile/Dietition/DietitionSpecialit
 import Blog from 'components/Profile/Blog';
 import FacilityList from 'components/Profile/Gym/FacilityList';
 import GymLocation from 'components/Profile/Gym/Location';
+import Classes from 'components/Profile/Gym/Classes/index';
 import FindPt from 'components/Profile/Gym/FindPt';
 import Galery from 'components/Profile/Galery';
 // import MyCalendar from 'components/Profile/MyCalendar/MyCalendar';
@@ -91,7 +92,7 @@ export default function Profile({ match }) {
     {
       eventKey: 'workplace',
       title: 'SINIFLAR',
-      component: <Place userId={match?.params?.id} />,
+      component: <Classes userId={match?.params?.id} />,
     },
 
     {
