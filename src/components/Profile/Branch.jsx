@@ -20,7 +20,7 @@ const UserDetails = ({ userId }) => {
   return (
     <div>
       <Accordion>
-        {branchList.branches.map((item, index) => {
+        {branchList?.branches?.map((item, index) => {
           return (
             <StyledRow key={index}>
               <Order>{index + 1}.</Order>

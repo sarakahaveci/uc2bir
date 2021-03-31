@@ -15,9 +15,9 @@ export default function ProfileTab({ tabData, defaultActiveKey, baseUrl }) {
       unmountOnExit
       onSelect={(key) => history.push(`${baseUrl}${key}`)}
     >
-      {tabData.map((tab) => (
-        <Tab eventKey={tab.eventKey} title={tab.title} key={tab.eventKey}>
-          {tab.component}
+      {tabData?.map((tab) => (
+        <Tab eventKey={tab?.eventKey} title={tab?.title} key={tab?.eventKey}>
+          {tab?.component}
         </Tab>
       ))}
     </StyledTabs>

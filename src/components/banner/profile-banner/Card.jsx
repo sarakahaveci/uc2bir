@@ -38,16 +38,22 @@ export const CardInfo = ({
           {category}
         </Title>
       )}
-      {price && (
+      {
         <Title textAlign="left" variant="h5" component="h5">
-          {price} <AwesomeIcon.Tl />
+          {price ? (
+            <>
+              {price} <AwesomeIcon.Tl />
+            </>
+          ) : (
+            'Fiyat bilgisi yok'
+          )}
         </Title>
-      )}
+      }
       {categories.length > 0 && (
         <Categories>
           {categories.map((val, index) => (
             <List key={'categories' + index}>
-              <A to={val.link}>{val.text}</A>
+              <A>{val}</A>
             </List>
           ))}
         </Categories>

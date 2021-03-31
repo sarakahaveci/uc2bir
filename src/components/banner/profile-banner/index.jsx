@@ -55,7 +55,7 @@ const ProfileBanner = ({
             ></Button>
           </CardFooter>
         </Card>
-        <Cols lg={'auto'} padding="0 30px">
+        <Cols padding="0 30px">
           <CardInfo
             name={info.name}
             category={info.category}
@@ -66,7 +66,7 @@ const ProfileBanner = ({
           />
         </Cols>
         <Line />
-        <Cols lg>
+        <Cols>
           <Text>{about}</Text>
         </Cols>
       </Rows>
@@ -87,7 +87,14 @@ const Rows = styled(Row)`
 
 const Cols = styled(Col)`
   height: auto;
+  word-wrap: break-word;
+  width: 50px;
   padding: ${(props) => props.padding && props.padding};
+
+  @media (max-width: 768px) {
+    margin-top: 15px;
+    width: auto;
+  }
 `;
 
 const Line = styled.div`

@@ -56,7 +56,8 @@ const App = () => {
               <Route exact path="/forgot-password" component={ForgotPassword} />
 
               <ProtectedRoute
-                path="/user/:id/:activeTabKey"
+                exact
+                path="/user/:id/:activeTabKey?"
                 component={Profile}
               />
               <ProtectedRoute

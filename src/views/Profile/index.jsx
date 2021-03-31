@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, Row } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
-import { WORK_PLACE, PERSONAL_TRAINER } from '../../constants';
+import { useSelector, useDispatch } from 'react-redux';
+import { WORK_PLACE, PERSONAL_TRAINER, DIETITIAN } from '../../constants';
 
+import { getUserInfo } from 'actions';
+import profileImg from 'assets/pt-groups/item-1/04.jpg';
 import { Tab, Title, Main, ProfileBanner } from 'components';
 import Branch from 'components/Profile/Branch';
 import ProfileCertificate from 'components/Profile/ProfileCertificate';
@@ -12,12 +14,18 @@ import Blog from 'components/Profile/Blog';
 import FacilityList from 'components/Profile/Gym/FacilityList';
 import FindPt from 'components/Profile/Gym/FindPt';
 import MyCalendar from 'components/Profile/MyCalendar/MyCalendar';
-import profileImg from 'assets/pt-groups/item-1/04.jpg';
 
 export default function Profile({ match }) {
-  const user = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
+  const { userInfo, isLoading } = useSelector(
+    (state) => state.userProfile.userInfo
+  );
 
-  const trainerTabs = [
+  useEffect(() => {
+    dispatch(getUserInfo(match?.params?.id));
+  }, [match?.params?.id]);
+
+  const trainerAndDitetionTabs = [
     {
       eventKey: 'branch',
       title: 'BRANŞLAR',
@@ -113,60 +121,39 @@ export default function Profile({ match }) {
 
   let tabData;
 
-  switch (user?.type_id) {
-    // case USER:
-    //   tabData = regularUserTabs;
-    //   break;
+  switch (userInfo?.type_id) {
     case PERSONAL_TRAINER:
-      tabData = trainerTabs;
+      tabData = trainerAndDitetionTabs;
       break;
     case WORK_PLACE:
       tabData = workPlaceTabs;
       break;
-      // case DIETITIAN:
-      //   tabData = dietitianTabs;
-      //   break;
-      // default:
-      //   tabData = regularUserTabs;
+    case DIETITIAN:
+      tabData = trainerAndDitetionTabs;
+      break;
+    default:
       break;
   }
 
-  return (
+  return isLoading ? (
+    <div>Yükleniyor</div>
+  ) : (
     <Main>
       <Container>
         <Row>
           <ProfileBanner
             info={{
-              team: 'A',
-              img: profileImg,
-              name: 'Efe Parlak',
+              team: userInfo?.classification,
+              img: userInfo?.photo || profileImg,
+              name: userInfo?.name,
               category: 'Fitnes Eğitmeni',
-              price: '100',
-              stars: '3',
-              location: 'İstanbul, Beşiktaş',
+              price: userInfo?.price,
+              stars: userInfo?.rating,
+              location: `${userInfo?.district},${userInfo?.city}`,
               comment: '/',
             }}
-            categories={[
-              {
-                text: 'Meditasyon',
-                link: '/',
-              },
-              {
-                text: 'Pilates',
-                link: '/',
-              },
-              {
-                text: 'Fitnes',
-                link: '/',
-              },
-            ]}
-            about={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-              ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-              aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum. dolore eu fugiat nulla
-              pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-              culpa qui officia deserunt mollit anim id est laborum.”`}
+            categories={userInfo?.session || userInfo?.branch}
+            about={userInfo?.about}
           />
         </Row>
       </Container>
@@ -174,7 +161,9 @@ export default function Profile({ match }) {
         <Tab
           baseUrl={`/user/${match?.params?.id}/`}
           tabData={tabData}
-          defaultActiveKey={match?.params?.activeTabKey}
+          defaultActiveKey={
+            match?.params?.activeTabKey || tabData?.[0]?.eventKey
+          }
         />
       </div>
     </Main>
