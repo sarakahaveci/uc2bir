@@ -1,34 +1,40 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components/macro';
 
-import { WorkPlaceRow } from 'components';
+import { getPtGymList } from 'actions';
+import LongUserCard from 'components/UserCards/LongUserCard';
 
-const mockData = [
-  {
-    title: 'B-Fit Studio',
-    price: 150,
-    area: '180 m , 100 kişi kapasiteli',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    address: 'Cevdet Paşa Caddesi No: 52-54 Bebek - İstanbul',
-  },
-  {
-    title: 'B-Fit Studio',
-    price: 150,
-    area: '180 m , 100 kişi kapasiteli',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    address: 'Cevdet Paşa Caddesi No: 52-54 Bebek - İstanbul',
-  },
-];
+const SportFields = ({ userId }) => {
+  const dispatch = useDispatch();
+  const { data } = useSelector((state) => state.userProfile.ptGymList);
 
-const SportFields = () => {
+  useEffect(() => {
+    dispatch(getPtGymList(userId));
+  }, []);
+
   return (
-    <div>
-      {mockData.map((data, index) => (
-        <WorkPlaceRow key={index} {...data} />
+    <GymListWrapper>
+      {data?.map((gym) => (
+        <LongUserCard
+          key={gym.id}
+          data={gym}
+          city={gym.city}
+          district={gym.district}
+          showHeartBg
+        />
       ))}
-    </div>
+    </GymListWrapper>
   );
 };
+
+const GymListWrapper = styled.div`
+  display: grid;
+  grid-column-gap: 10px;
+  grid-template-columns: 300px 300px 300px 300px;
+  grid-row-gap: 10px;
+  padding: 10px;
+  margin-top: 15px;
+`;
 
 export default SportFields;

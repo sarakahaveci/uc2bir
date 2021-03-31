@@ -7,6 +7,7 @@ import branch from './branchReducer';
 import gymFacility from './gymFacilityReducer';
 import gymPtList from './gymPtListReducer';
 import userInfo from './userInfoReducer';
+import ptGymList from './ptGymListReducer';
 
 const reducers = combineReducers({
   certificate,
@@ -16,6 +17,7 @@ const reducers = combineReducers({
   gymFacility,
   gymPtList,
   userInfo,
+  ptGymList,
 });
 
 export default reducers;

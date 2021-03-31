@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components/macro';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import MockImage from 'assets/default-profile.jpg';
 import { addFavoriteUser, removeFavoriteUser } from 'actions';
@@ -21,6 +21,7 @@ const LongUserCard = ({
   const [isFavorited, setIsFavorited] = useState(favoritedUser);
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const favoriteClickHandler = () => {
     if (isFavorited) {
@@ -30,6 +31,11 @@ const LongUserCard = ({
       dispatch(addFavoriteUser(data.favorite_id));
       setIsFavorited(true);
     }
+  };
+
+  const navigateToUser = () => {
+    const userId = data?.id || data?.user_id;
+    history.push('/user/' + userId);
   };
 
   return (
@@ -57,9 +63,12 @@ const LongUserCard = ({
 
         {showProfileNavigator &&
           (!isGym ? (
-            <Link className="long-user-card__profile-navigator" to="">
+            <div
+              className="long-user-card__profile-navigator"
+              onClick={navigateToUser}
+            >
               {hoverText}
-            </Link>
+            </div>
           ) : (
             <div
               className="long-user-card__profile-navigator"

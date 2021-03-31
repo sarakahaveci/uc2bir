@@ -6,7 +6,6 @@ import {
 
 const initialState = {
   ptHomePlace: { data: [], isLoading: false, error: null },
-  ptGym: { data: [], isLoading: false, error: null },
 };
 
 export default (state = initialState, action) => {
