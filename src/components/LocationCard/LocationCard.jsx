@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import { Svg, Text } from 'components';
 import SimpleGoogleMap from 'components/GoogleMaps/SimpleGoogleMap';
@@ -23,11 +22,11 @@ const LocationCard = ({
           {addressDetail} {city} - {district}
         </Text>
       </div>
-      {hasMapLocation && (
+      {hasMapLocation ? (
         <div className="col-12 col-lg-6 p-0">
           <SimpleGoogleMap location={location} />
         </div>
-      )}
+      ) : null}
       <div className="knock">
         <Svg.WhiteArrowUpIcon />
       </div>
@@ -36,17 +35,3 @@ const LocationCard = ({
 };
 
 export default LocationCard;
-
-LocationCard.propTypes = {
-  title: PropTypes.string.isRequired,
-  addressDetail: PropTypes.string.isRequired,
-  location: PropTypes.object,
-  hasMapLocation: PropTypes.bool,
-};
-
-LocationCard.defaultProps = {
-  title: 'Maçka Parkı',
-  addressDetail: 'Cevdet Paşa Caddesi No : 52-54 Bebek - İstanbul',
-  hasMapLocation: true,
-  location: { lat: 41.015137, lng: 28.97953 },
-};

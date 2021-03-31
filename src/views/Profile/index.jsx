@@ -10,6 +10,7 @@ import Branch from 'components/Profile/Branch';
 import ProfileCertificate from 'components/Profile/ProfileCertificate';
 import Comment from 'components/Profile/Comment';
 import Place from 'components/Profile/Place';
+import DietitionPlace from 'components/Profile/DietitionPlace';
 import Blog from 'components/Profile/Blog';
 import FacilityList from 'components/Profile/Gym/FacilityList';
 import FindPt from 'components/Profile/Gym/FindPt';
@@ -39,7 +40,12 @@ export default function Profile({ match }) {
     {
       eventKey: 'workplace',
       title: 'ÇALIŞTIĞI YERLER',
-      component: <Place userId={match?.params?.id} />,
+      component:
+        userInfo?.type_id === DIETITIAN ? (
+          <DietitionPlace userId={match?.params?.id} />
+        ) : (
+          <Place userId={match?.params?.id} />
+        ),
     },
     {
       eventKey: 'calendar',
