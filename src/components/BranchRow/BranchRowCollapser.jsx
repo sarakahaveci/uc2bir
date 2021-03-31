@@ -1,12 +1,19 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 
-// import { Svg } from 'components';
+import { Svg } from 'components';
 
-const BranchRowCollapser = () => {
+const BranchRowCollapser = ({ speciality }) => {
   return (
     <CardBody>
-      <List></List>
+      <List>
+        {speciality?.map((spec) => (
+          <li key={spec}>
+            <Svg.ListItemIcon />
+            <div>{spec}</div>
+          </li>
+        ))}
+      </List>
     </CardBody>
   );
 };

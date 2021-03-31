@@ -9,6 +9,7 @@ import gymPtList from './gymPtListReducer';
 import userInfo from './userInfoReducer';
 import ptGymList from './ptGymListReducer';
 import dietitianClinic from './dietitianClinicReducer';
+import dietitionSpeciality from './dietitionSpecialityReducer';
 
 const reducers = combineReducers({
   certificate,
@@ -20,6 +21,7 @@ const reducers = combineReducers({
   userInfo,
   dietitianClinic,
   ptGymList,
+  dietitionSpeciality,
 });
 
 export default reducers;

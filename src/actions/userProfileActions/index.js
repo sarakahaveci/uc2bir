@@ -7,3 +7,4 @@ export * from './gymPtListActions';
 export * from './userInfoActions';
 export * from './ptGymListActions';
 export * from './dietitionClinicActions';
+export * from './dietitionSpecialitiesActions';

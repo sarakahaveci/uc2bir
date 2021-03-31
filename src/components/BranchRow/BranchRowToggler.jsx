@@ -7,7 +7,7 @@ const BranchRowToggler = ({ isActive, data }) => {
   return (
     <StyledCardHeader isActive={isActive}>
       <StyledRow center className="first">
-        <Avatar src={data.icon} alt={data.name} />
+        {data.icon && <Avatar src={data.icon} alt={data.name} />}
         <Title>{data.name}</Title>
       </StyledRow>
 

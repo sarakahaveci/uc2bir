@@ -10,7 +10,8 @@ import Branch from 'components/Profile/Branch';
 import ProfileCertificate from 'components/Profile/ProfileCertificate';
 import Comment from 'components/Profile/Comment';
 import Place from 'components/Profile/Place';
-import DietitionPlace from 'components/Profile/DietitionPlace';
+import DietitionPlace from 'components/Profile/Dietition/DietitionPlace';
+import DietitionSpeciality from 'components/Profile/Dietition/DietitionSpeciality';
 import Blog from 'components/Profile/Blog';
 import FacilityList from 'components/Profile/Gym/FacilityList';
 import FindPt from 'components/Profile/Gym/FindPt';
@@ -30,7 +31,12 @@ export default function Profile({ match }) {
     {
       eventKey: 'branch',
       title: 'BRANŞLAR',
-      component: <Branch userId={match?.params?.id} />,
+      component:
+        userInfo?.type_id === DIETITIAN ? (
+          <DietitionSpeciality userId={match?.params?.id} />
+        ) : (
+          <Branch userId={match?.params?.id} />
+        ),
     },
     {
       eventKey: 'certificate',
