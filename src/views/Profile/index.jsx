@@ -8,14 +8,15 @@ import profileImg from 'assets/pt-groups/item-1/04.jpg';
 import { Tab, Title, Main, ProfileBanner } from 'components';
 import Branch from 'components/Profile/Branch';
 import ProfileCertificate from 'components/Profile/ProfileCertificate';
-import Comment from 'components/Profile/Comment';
+// import Comment from 'components/Profile/Comment';
 import Place from 'components/Profile/Place';
 import DietitionPlace from 'components/Profile/Dietition/DietitionPlace';
 import DietitionSpeciality from 'components/Profile/Dietition/DietitionSpeciality';
 import Blog from 'components/Profile/Blog';
 import FacilityList from 'components/Profile/Gym/FacilityList';
+import GymLocation from 'components/Profile/Gym/Location';
 import FindPt from 'components/Profile/Gym/FindPt';
-import MyCalendar from 'components/Profile/MyCalendar/MyCalendar';
+// import MyCalendar from 'components/Profile/MyCalendar/MyCalendar';
 
 export default function Profile({ match }) {
   const dispatch = useDispatch();
@@ -53,16 +54,16 @@ export default function Profile({ match }) {
           <Place userId={match?.params?.id} />
         ),
     },
-    {
+    /*   {
       eventKey: 'calendar',
       title: 'TAKVİM',
       component: <MyCalendar userId={match?.params?.id} />,
-    },
-    {
+    }, */
+    /*  {
       eventKey: 'comments',
       title: 'YORUMLAR',
       component: <Comment userId={match?.params?.id} />,
-    },
+    }, */
     {
       eventKey: 'gallery',
       title: 'GALERİ',
@@ -101,16 +102,16 @@ export default function Profile({ match }) {
       title: 'EĞİTMEN BUL',
       component: <FindPt userId={match?.params?.id} />,
     },
-    {
+    /*  {
       eventKey: 'calendar',
       title: 'TAKVİM',
       component: <MyCalendar userId={match?.params?.id} />,
-    },
-    {
+    }, */
+    /*   {
       eventKey: 'comments',
       title: 'YORUMLAR',
       component: <Comment userId={match?.params?.id} />,
-    },
+    }, */
     {
       eventKey: 'gallery',
       title: 'GALERİ',
@@ -123,11 +124,7 @@ export default function Profile({ match }) {
     {
       eventKey: 'location',
       title: 'KONUM',
-      component: (
-        <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-          KONUM
-        </Title>
-      ),
+      component: <GymLocation />,
     },
   ];
 

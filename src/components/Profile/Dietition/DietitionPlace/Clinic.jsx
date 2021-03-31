@@ -17,13 +17,13 @@ export default function Clinic({ userId }) {
     <div>
       {clinic?.map((clinics) => (
         <LocationCard
-          key={clinics.id}
-          title={clinics.title}
-          city={clinics.city}
-          district={clinics.district}
-          addressDetail={clinics.address_detail}
-          hasMapLocation={clinics?.lat && clinics.lng}
-          location={{ lat: clinics?.lat, lng: clinics.lng }}
+          key={clinics?.id}
+          title={clinics?.title}
+          city={clinics?.city}
+          district={clinics?.district}
+          addressDetail={clinics?.address_detail}
+          hasMapLocation={clinics?.lat && clinics?.lng}
+          location={{ lat: clinics?.lat, lng: clinics?.lng }}
         />
       ))}
     </div>
