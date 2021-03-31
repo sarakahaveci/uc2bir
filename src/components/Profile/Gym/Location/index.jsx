@@ -13,7 +13,7 @@ function GymLocation() {
         title={userInfo?.title}
         city={userInfo?.city}
         district={userInfo?.district}
-        // addressDetail={userInfo?.address_detail}
+        addressDetail={userInfo?.address_detail}
         hasMapLocation={userInfo?.lat && userInfo?.lng}
         location={{ lat: userInfo?.lat, lng: userInfo?.lng }}
       />

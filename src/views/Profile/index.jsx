@@ -5,7 +5,7 @@ import { WORK_PLACE, PERSONAL_TRAINER, DIETITIAN } from '../../constants';
 
 import { getUserInfo } from 'actions';
 import profileImg from 'assets/pt-groups/item-1/04.jpg';
-import { Tab, Title, Main, ProfileBanner } from 'components';
+import { Tab, Main, ProfileBanner } from 'components';
 import Branch from 'components/Profile/Branch';
 import ProfileCertificate from 'components/Profile/ProfileCertificate';
 // import Comment from 'components/Profile/Comment';
@@ -16,6 +16,7 @@ import Blog from 'components/Profile/Blog';
 import FacilityList from 'components/Profile/Gym/FacilityList';
 import GymLocation from 'components/Profile/Gym/Location';
 import FindPt from 'components/Profile/Gym/FindPt';
+import Galery from 'components/Profile/Galery';
 // import MyCalendar from 'components/Profile/MyCalendar/MyCalendar';
 
 export default function Profile({ match }) {
@@ -67,11 +68,7 @@ export default function Profile({ match }) {
     {
       eventKey: 'gallery',
       title: 'GALERİ',
-      component: (
-        <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-          Galeri
-        </Title>
-      ),
+      component: <Galery userId={match?.params?.id} />,
     },
     {
       eventKey: 'blog',
@@ -115,11 +112,7 @@ export default function Profile({ match }) {
     {
       eventKey: 'gallery',
       title: 'GALERİ',
-      component: (
-        <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-          Galeri
-        </Title>
-      ),
+      component: <Galery userId={match?.params?.id} />,
     },
     {
       eventKey: 'location',
@@ -155,7 +148,7 @@ export default function Profile({ match }) {
               team: userInfo?.classification,
               img: userInfo?.photo || profileImg,
               name: userInfo?.name,
-              category: 'Fitnes Eğitmeni',
+              category: userInfo?.title,
               price: userInfo?.price,
               stars: userInfo?.rating,
               location: `${userInfo?.district},${userInfo?.city}`,

@@ -8,3 +8,4 @@ export * from './userInfoActions';
 export * from './ptGymListActions';
 export * from './dietitionClinicActions';
 export * from './dietitionSpecialitiesActions';
+export * from './galeryActiions';
