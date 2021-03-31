@@ -202,12 +202,12 @@ const Container = styled.div`
 
 const StyledLink = styled(Link)`
   font-size: 1.2rem;
-  color: var(--blue);
+  color: ${(p) => p.theme.colors.blue};
   text-align: center;
   display: block;
   width: 100%;
 
   &:hover {
-    color: var(--blue);
+    color: ${(p) => p.theme.colors.blue};
   }
 `;

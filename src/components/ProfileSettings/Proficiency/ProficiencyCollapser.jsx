@@ -22,7 +22,6 @@ const ProficiencyCollapser = ({
   const inputsFromData = data?.speciality?.map((item, index) => (
     <Material.TextField
       key={index}
-      value={item.name}
       defaultValue={item.name}
       rightTextNode={
         <StatusInfo isPending={item.status === 'pending'}>
@@ -47,7 +46,7 @@ const ProficiencyCollapser = ({
   ));
 
   return (
-    <div className="proficiency-row__collapse">
+    <div className="proficiency-row__collapse" id={data.id}>
       <Body className="proficiency-row__items-wrapper">
         {inputsFromData}
         {extraUserInputs}

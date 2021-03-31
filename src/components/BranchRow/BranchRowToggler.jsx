@@ -53,7 +53,7 @@ const RightCell = styled.div`
   }
 
   &.mid {
-    color: var(--blue);
+    color: ${(p) => p.theme.colors.blue};
 
     svg {
       margin-left: 5px;
@@ -64,7 +64,7 @@ const RightCell = styled.div`
 const Title = styled.h4`
   font-size: 1.1rem;
   letter-spacing: 0.21em;
-  color: var(--black1);
+  color: ${(p) => p.theme.colors.blue};
   font-weight: 600;
 `;
 

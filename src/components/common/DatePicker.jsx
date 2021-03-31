@@ -15,6 +15,23 @@ export default function CustomDatePicker(props) {
 const StyledDatePicker = styled.div`
   .react-datepicker {
     width: 100%;
+    border: 1px solid transparent;
+
+    &__navigation--previous {
+      right: 46px;
+      border-right-color: ${(p) => p.theme.colors.blue};
+    }
+
+    &__navigation--next {
+      right: 13px;
+      border-left-color: ${(p) => p.theme.colors.blue};
+    }
+
+    &__current-month {
+      display: flex;
+      padding-left: 1.2rem;
+      margin: 5px 0;
+    }
 
     &__month {
       width: 100%;
@@ -47,7 +64,7 @@ const StyledDatePicker = styled.div`
       &--selected,
       &--keyboard-selected,
       &--in-range {
-        border-radius: 0.3rem;
+        border-radius: 50%;
         color: white;
         background-color: ${(p) => p.theme.colors.blue};
       }

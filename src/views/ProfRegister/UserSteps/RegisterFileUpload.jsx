@@ -4,13 +4,7 @@ import PropTypes from 'prop-types';
 import { StepContext } from '../RegisterSteps';
 import { Button, FileUpload } from 'components';
 
-const RegisterFileUpload = ({
-  title,
-  children,
-  buttonText,
-  fileTypeId,
-  showPassButton,
-}) => {
+const RegisterFileUpload = ({ title, children, buttonText, fileTypeId }) => {
   const { setStepNumber } = useContext(StepContext) || {};
 
   const [uploadedFiles, setUploadedFiles] = useState({});
@@ -38,13 +32,11 @@ const RegisterFileUpload = ({
           disabled={!isValidProgress}
         />
 
-        {showPassButton && (
-          <div className="file-upload__next-link">
-            <button onClick={() => setStepNumber((value) => value + 1)}>
-              Geç
-            </button>
-          </div>
-        )}
+        <div className="file-upload__next-link">
+          <button onClick={() => setStepNumber((value) => value + 1)}>
+            Geç
+          </button>
+        </div>
       </div>
     </>
   );
@@ -52,13 +44,11 @@ const RegisterFileUpload = ({
 
 RegisterFileUpload.propTypes = {
   buttonText: PropTypes.string,
-  showPassButton: PropTypes.bool,
   title: PropTypes.string,
 };
 
 RegisterFileUpload.defaultProps = {
   buttonText: 'Devam Et',
-  showPassButton: false,
   title: '',
 };
 

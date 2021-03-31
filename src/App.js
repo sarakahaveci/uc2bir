@@ -1,5 +1,5 @@
 import React, { useState, useLayoutEffect } from 'react';
-import { HashRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Layout from './views/Layout';
 import { useDispatch } from 'react-redux';
 import { setUserDetailsFromStorage, getRegisterData } from 'actions';

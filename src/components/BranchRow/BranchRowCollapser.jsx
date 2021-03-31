@@ -28,7 +28,7 @@ const List = styled.ul`
 
   li {
     font-size: 1rem;
-    color: var(--black1);
+    color: ${(p) => p.theme.colors.dark};
     display: flex;
     align-items: center;
     height: 18px;
