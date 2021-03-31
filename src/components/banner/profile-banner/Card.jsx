@@ -40,12 +40,10 @@ export const CardInfo = ({
       )}
       {
         <Title textAlign="left" variant="h5" component="h5">
-          {price ? (
+          {price && (
             <>
               {price} <AwesomeIcon.Tl />
             </>
-          ) : (
-            'Fiyat bilgisi yok'
           )}
         </Title>
       }
