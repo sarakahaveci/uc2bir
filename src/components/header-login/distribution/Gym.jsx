@@ -24,7 +24,7 @@ const Gym = ({ user_name, user_img = null, logOutAction }) => {
     {
       name: 'Faaliyet Alanları',
       icon: <Svg.PtHome />,
-      link: TABS.facilityPath,
+      link: TABS.activityPath,
     },
     {
       name: 'Eğitmenler',
