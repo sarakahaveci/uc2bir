@@ -10,7 +10,9 @@ const ProficiencyToggler = ({
   isActive,
 }) => {
   const addProficiencyHandler = (e) => {
-    e.stopPropagation();
+    if (isActive) {
+      e.stopPropagation();
+    }
 
     setAddedProficiencies({
       ...addedProficiencies,
