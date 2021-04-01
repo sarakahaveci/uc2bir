@@ -11,6 +11,7 @@ import {
   Button,
   scrollbar,
   PlusButton,
+  BackLink,
 } from 'components';
 import { deleteFile, getMyProfileFiles, updateFile } from 'actions';
 import { ACCEPTED } from '../../../constants';
@@ -45,12 +46,15 @@ const EditFiles = ({
 
   return (
     <>
+      <Text onClick={() => setIsEditClicked(false)}>
+        <BackLink text="Geri" to="/myprofile/settings/profile" />
+      </Text>
+
       <Text
         color="blue"
         fontWeight="500"
         fontSize="0.9rem"
         cursor="pointer"
-        onClick={() => setIsEditClicked(false)}
         mb="5px"
       >
         {fileGroup.name}

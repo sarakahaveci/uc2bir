@@ -107,6 +107,7 @@ const StyledCard = styled(Col)`
 
             &.camera {
               cursor: pointer;
+              z-index: 2;
             }
 
             &.background {

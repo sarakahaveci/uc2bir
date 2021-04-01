@@ -20,6 +20,7 @@ import {
   Svg,
 } from 'components';
 import StepTwo from './StepTwo';
+import { WORK_PLACE, DIETITIAN } from '../../../constants';
 import { macroConverter } from 'utils';
 
 const macro = [
@@ -111,9 +112,7 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    const regex = new RegExp(
-      '^(?=.{6,})(?=.*[a-z])(?=.*[A-Z]).*$'
-    );
+    const regex = new RegExp('^(?=.{6,})(?=.*[a-z])(?=.*[A-Z]).*$');
 
     if (!regex.test(password)) {
       setErrorMessage(
@@ -288,18 +287,22 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
                 >
                   Üyelik Sözleşmesini
                 </span>
-                ve &nbsp;
-                <a
-                  href={
-                    userTypeId === 3
-                      ? 'https://file.uc2bir.com/uploads/pt-points/files/spor-alani.pptx'
-                      : 'https://file.uc2bir.com/uploads/pt-points/files/egitmen.pptx'
-                  }
-                  target="_blank"
-                  className="underline-text"
-                >
-                  Ekleri&apos;ni
-                </a>
+                {userTypeId !== DIETITIAN && (
+                  <>
+                    ve &nbsp;
+                    <a
+                      href={
+                        userTypeId === WORK_PLACE
+                          ? 'https://file.uc2bir.com/uploads/pt-points/files/spor-alani.pptx'
+                          : 'https://file.uc2bir.com/uploads/pt-points/files/egitmen.pptx'
+                      }
+                      target="_blank"
+                      className="underline-text"
+                    >
+                      Ekleri&apos;ni
+                    </a>
+                  </>
+                )}
                 kabul ediyorum.
               </div>
             }
