@@ -121,7 +121,8 @@ export default function WorkPlaceActivity() {
           )}
           <div className={`w-100 ${!showAddActivity ? 'card-wrapper' : ''}`}>
             {!showAddActivity ? (
-              data.map((activity) => (
+              data.length > 0 &&
+              data?.map((activity) => (
                 <ActivityCard
                   key={activity.id}
                   id={activity.id}
