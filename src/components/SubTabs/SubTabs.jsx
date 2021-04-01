@@ -42,4 +42,7 @@ const Tab = styled.div`
   padding-bottom: 4px;
   color: ${(p) => (p.isActive ? p.theme.colors.blue : p.theme.colors.gray1)};
   font-weight: 500;
+  @media (max-width: 720px) {
+    padding-right: 15px;
+  }
 `;

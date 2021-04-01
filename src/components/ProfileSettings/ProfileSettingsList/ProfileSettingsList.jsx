@@ -32,39 +32,30 @@ import Notifications from 'components/ProfileSettings/Notifications';
 const trainerAndDietitanData = [
   {
     settingsName: 'Profil',
-    settingsDetails: 'Adınız soyadınız ve diğer bilgilerinizi güncel tutun',
     body: <SettingsForm />,
   },
   {
     settingsName: 'Hakkımda',
-    settingsDetails: 'Hakkımda yazınızı düzenleyin, güncelleyin',
     body: <About />,
   },
   {
     settingsName: 'İletişim',
-    settingsDetails: 'Telefon numaranızı güncelleyin.',
     body: <Phone />,
   },
   {
     settingsName: 'Şifre İşlemleri',
-    settingsDetails: 'Şifrenizi buradan güncelleyebilirsiniz',
     body: <Password />,
   },
   {
     settingsName: 'Belgeler',
-    settingsDetails:
-      'Sistemimize yüklediğiniz belgelerinize göz atın; eksik belgelerinizi yükleyin, güncelleyin',
     body: <Files />,
   },
   {
     settingsName: 'Adresim',
-    settingsDetails:
-      'Güncel tuttuğunuz adres bilgileriniz ile sporseverler size daha kolay ulaşır.',
     body: <Address />,
   },
   {
     settingsName: 'Şirket Bilgileri',
-    settingsDetails: 'Şirket bilgilerinizi düzenleyin, güncelleyin',
     body: <CompanyInf />,
   },
 ];
@@ -72,68 +63,49 @@ const trainerAndDietitanData = [
 const regularUserTabs = [
   {
     settingsName: 'Profil',
-    settingsDetails: 'Adınız soyadınız ve diğer bilgilerinizi güncel tutun',
     body: <SettingsForm />,
   },
   {
     settingsName: 'İletişim',
-    settingsDetails: 'Telefon numaranızı güncelleyin.',
     body: <Phone />,
   },
   {
     settingsName: 'Boy & Ağırlık & VKI Bilgineriniz',
-    settingsDetails: 'Bilgilerinizi güncel tutun',
     body: <VKI />,
   },
   {
     settingsName: 'Tamamlanmış Testler ',
-    settingsDetails: 'Tamamladığınız testlere göz atın',
     body: <ComputedTest />,
   },
-  /*   {
-    settingsName: 'Adresim',
-    settingsDetails:
-      'Güncel tuttuğunuz adres bilgileriniz ile sporseverler size daha kolay ulaşır.',
-    body: <Address />,
-  }, */
 ];
 
 const workPlaceData = [
   {
     settingsName: 'İş Yeri Profil',
-    settingsDetails: 'İş yerine ait bilgilenirinizi güncel tutun, düzenleyin',
     body: <SettingsForm />,
   },
   {
     settingsName: 'İş Yeri Hakkında',
-    settingsDetails: 'İş yeri hakkında yazınızı düzenleyin, güncelleyin',
     body: <About />,
   },
   {
     settingsName: 'İletişim',
-    settingsDetails: 'Telefon numaranızı güncelleyin.',
     body: <Phone />,
   },
   {
     settingsName: 'İş Yeri Bilgileri',
-    settingsDetails: 'Şirket Bilgilerinizi düzenleyin, güncelleyin',
     body: <CompanyInf />,
   },
   {
     settingsName: 'Şifre İşlemleri',
-    settingsDetails: 'Şifrenizi buradan güncelleyebilirsiniz',
     body: <Password />,
   },
   {
     settingsName: 'İş Yeri Belgeler',
-    settingsDetails:
-      'Sistemimize yüklediğiniz belgelerinize göz atın; eksik belgelerinizi yükleyin, güncelleyin',
     body: <Files />,
   },
   {
     settingsName: 'İş Yeri Adres',
-    settingsDetails:
-      'Güncel tuttuğunuz adres bilgileriniz ile sporseverler size daha kolay ulaşır.',
     body: <Address />,
   },
 ];
@@ -173,10 +145,6 @@ const ProfileSettingsList = () => {
             <Box col>
               <Text color="dark" textAlign="left" fontWeight="500" p="2px">
                 {item.settingsName}
-              </Text>
-
-              <Text color="gray4" fontSize="0.8rem" fontWeight="300">
-                {item.settingsDetails}
               </Text>
             </Box>
 

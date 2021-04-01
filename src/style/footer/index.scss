@@ -9,6 +9,11 @@
   pre {
     font-family: 'Poppins', sans-serif;
     font-weight: 300;
+    margin-left: auto;
+    margin-right: 50%;
+    @include sm {
+      margin-right: auto;
+    }
   }
 
   .footer-line {
@@ -21,10 +26,11 @@
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     padding-top: 15px;
     background: #dedee0;
     flex-wrap: wrap;
+    padding-left: 15%;
   }
 
   .download {
@@ -151,7 +157,7 @@
 
       @media (max-width: 1200px) {
         width: 100%;
-        padding: 5% 15%;
+        padding: 5% 10%;
       }
 
       ul {

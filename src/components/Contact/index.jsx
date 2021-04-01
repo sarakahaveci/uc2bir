@@ -65,10 +65,18 @@ export default function Contact() {
               {infoData?.address}
             </p>
           </div>
-          <div className="w-50 ml-auto">
+          <div className="w-50 mb-3 ml-auto">
             <span className="contact-header__contact-title">İletişim</span>
             <p className="contact-header__contact-subtitle">
               {infoData?.email}
+            </p>
+          </div>
+          <div className="w-50 ml-auto">
+            <span className="contact-header__contact-title">
+              Telefon Numarası
+            </span>
+            <p className="contact-header__contact-subtitle">
+              {infoData?.phone}
             </p>
           </div>
         </div>
