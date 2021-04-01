@@ -5,6 +5,7 @@ import styled from 'styled-components/macro';
 
 const List = ({
   dropDown = [],
+
   className = null,
   children = null,
   dropClassName = null,
@@ -16,11 +17,38 @@ const List = ({
     history.push(linkPath);
   };
 
+  const isMobile = window.innerWidth < 767;
+
+  if (isMobile) {
+    return (
+      <Lists className={className} onClick={pushToLink}>
+        {children}
+
+        {dropDown.map((val, key) => (
+          <li className="col" key={key}>
+            <A onClick={val.onClick} to={val.link}>
+              {val.icon && <Icon className="item-icon">{val.icon}</Icon>}
+              <Span>
+                {val.name}
+                {val.tabs?.length > 0 && <Notify>{val.tabs?.length}</Notify>}
+              </Span>
+            </A>
+
+            {val.tabs?.length > 0 && (
+              <List dropClassName="ul-drop-down" dropDown={[...val.tabs]} />
+            )}
+          </li>
+        ))}
+      </Lists>
+    );
+  }
+
   return (
     <Lists className={className} onClick={pushToLink}>
       <Item>
         {children}
-        {dropDown.length > 0 && (
+
+        {!isMobile && dropDown.length > 0 && (
           <Lists className={`drop-down ${dropClassName}`}>
             {dropDown.map((val, key) => (
               <Item
@@ -61,6 +89,11 @@ const Item = styled.li`
 
 const A = styled(Link)`
   text-decoration: none;
+
+  .item-icon {
+    margin-right: 15px;
+    min-width: 25px;
+  }
 
   &:hover {
     text-decoration: none;

@@ -133,13 +133,12 @@ const Header = () => {
                     </>
                   )}
 
-                  {isAuthenticated ? (
-                    ''
-                  ) : (
+                  {!isAuthenticated && (
                     <li>
                       <Link to="/register">Üye Ol</Link>
                     </li>
                   )}
+
                   {!isAuthenticated && (
                     <li>
                       <Button

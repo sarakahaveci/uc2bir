@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { tr } from 'react-date-range/dist/locale';
+import tr from 'date-fns/locale/tr';
 
 export default function CustomDatePicker(props) {
   return (

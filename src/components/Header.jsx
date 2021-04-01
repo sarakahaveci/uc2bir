@@ -35,15 +35,14 @@ const Header = ({ className, navLogo, navMenu, toggle, setToggle }) => {
   return (
     <nav className={className}>
       <div className="col-auto hamburgers left-menu">
-        <a
-          href
+        <div
           className={`svg-hamburder-menu ${toggle ? 'h-open' : 'h-close'}`}
           onClick={() => toggleEl(toggle)}
         >
           <div className="line line-1"></div>
           <div className="line line-2"></div>
           <div className="line line-3"></div>
-        </a>
+        </div>
       </div>
       <Link to="/" className={navLogo.className}>
         <img src={navLogo.element()} alt="logo" />
