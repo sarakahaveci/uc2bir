@@ -7,7 +7,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import { useDispatch, useSelector } from 'react-redux';
 import { addDays, startOfWeek, format } from 'date-fns';
-import { tr } from 'react-date-range/dist/locale';
+import tr from 'date-fns/locale/tr';
 
 import { Text, Title, Button, Modal, DatePicker, Span } from 'components';
 import { getTemplates, applyTemplateToCalendar } from 'actions';
