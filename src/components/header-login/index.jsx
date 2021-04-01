@@ -1,112 +1,84 @@
-// @ts-nocheck
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
+import styled from 'styled-components/macro';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
+import { getUserKeys, logout } from 'actions';
 import User from './distribution/User';
 import Pt from './distribution/Pt';
 import Gym from './distribution/Gym';
 import Dietitian from './distribution/Dietitian';
-import NoUser from './distribution/NoUser';
-
-import * as KEYS from '../../constants/userKeys';
-
-import styled from 'styled-components/macro';
-import { useSelector, useDispatch } from 'react-redux';
-import { getUserKeys, logOut } from 'actions';
-
-import { useHistory } from 'react-router-dom';
+import { DIETITIAN, WORK_PLACE, USER, PERSONAL_TRAINER } from '../../constants';
 
 const HeaderLogin = ({ type_id, user }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const {
-    userKeys: { data: userKeys, isSuccess }
-  } = useSelector((state) => state.registerData);
-
-  const [type, setType] = useState([]);
-
-  useEffect(() => {
-    if ( isSuccess ) {
-      setType(userKeys.filter((f) => f.id === type_id ));
-    }
-  },[isSuccess]);
-
   const actionRegisterData = () => {
     dispatch(getUserKeys());
   };
-  
+
   useEffect(() => {
     actionRegisterData();
-  },[]);
+  }, []);
 
-  const logOutAction = async () => {
-    await dispatch(logOut());
-    if ( !localStorage.getItem("user") ) {
-      history.push("/login");
-    }
+  const logoutHandler = () => {
+    dispatch(logout());
+
+    history.push('/login');
   };
 
-  switch (type[0]?.key) {
-    case KEYS.USER:
+  switch (type_id) {
+    case USER:
       return (
         <Section>
           <User
             user_id={user.id}
             user_name={user.name}
             user_img={user.img}
-            logOutAction={logOutAction}
+            logOutAction={logoutHandler}
           />
         </Section>
       );
 
-    case KEYS.PT:
+    case PERSONAL_TRAINER:
       return (
         <Section>
           <Pt
             user_id={user.id}
             user_name={user.name}
             user_img={user.img}
-            logOutAction={logOutAction}
+            logOutAction={logoutHandler}
           />
         </Section>
       );
 
-    case KEYS.GYM:
+    case WORK_PLACE:
       return (
         <Section>
           <Gym
             user_id={user.id}
             user_name={user.name}
             user_img={user.img}
-            logOutAction={logOutAction}
+            logOutAction={logoutHandler}
           />
         </Section>
       );
 
-    case KEYS.DIETIAN:
+    case DIETITIAN:
       return (
         <Section>
           <Dietitian
             user_id={user.id}
             user_name={user.name}
             user_img={user.img}
-            logOutAction={logOutAction}
+            logOutAction={logoutHandler}
           />
         </Section>
       );
 
     default:
-      return (
-        <Section>
-          <NoUser
-            user_id={user.id}
-            user_name={user.name}
-            user_img={user.img}
-            logOutAction={logOutAction}
-          />
-        </Section>
-      );
+      return <> </>;
   }
 };
 
@@ -117,10 +89,5 @@ const Section = styled.section`
   flex-wrap: wrap;
   transition: all 0.5s cubic-bezier(1, 0, 0, 0.99);
 `;
-
-HeaderLogin.propTypes = {
-  info: PropTypes.object.isRequired,
-  type_id: PropTypes.number,
-};
 
 export default HeaderLogin;

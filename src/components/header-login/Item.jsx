@@ -1,15 +1,46 @@
 import React from 'react';
 import styled from 'styled-components/macro';
+import { device } from 'utils';
 
-const Item = ({ icon, span, notify = null }) => {
+const Item = ({ icon, text, notify = null }) => {
   return (
-    <>
-      <Icon className="icon">{icon}</Icon>
-      <Span className="title">{span}</Span>
+    <ItemWrapper>
+      <span className="icon">{icon}</span>
+
+      <Span className="title">{text}</Span>
+
       {notify > 0 && <Notify>{notify}</Notify>}
-    </>
+    </ItemWrapper>
   );
 };
+
+const ItemWrapper = styled.div`
+  display: flex;
+  width: 100%;
+
+  @media ${device.lg} {
+    flex-direction: column;
+  }
+
+  @media ${device.sm} {
+    margin-top: 5px;
+    border: none;
+    padding: 10px;
+    background: #e5e5e5;
+    font-size: 0.9rem;
+    margin: 5px 15px 0;
+
+    svg {
+      width: 25px;
+      height: 25px;
+      margin-right: 15px;
+    }
+  }
+
+  @media ${device.lg} {
+    align-items: center;
+  }
+`;
 
 const Notify = styled.div`
   position: absolute;
@@ -29,10 +60,6 @@ const Notify = styled.div`
 
 const Span = styled.span`
   position: relative;
-  width: 100%;
-`;
-
-const Icon = styled.span`
   width: 100%;
 `;
 

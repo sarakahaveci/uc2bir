@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 import { useDispatch } from 'react-redux';
 
 import { Svg, Title, Text, svgBackground, Button } from 'components';
-import { logOut } from 'actions';
+import { logout } from 'actions';
 
 const CancellationFinalize = () => {
   const dispatch = useDispatch();
@@ -30,7 +30,7 @@ const CancellationFinalize = () => {
 
       <Footer>
         <Button
-          onClick={() => dispatch(logOut())}
+          onClick={() => dispatch(logout())}
           text="Çıkış Yap"
           fontWeight="500"
         />

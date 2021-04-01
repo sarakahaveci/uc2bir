@@ -94,7 +94,7 @@ const Dietitian = ({ user_name, user_img = null, logOutAction }) => {
             dropDown={val.menu || val.notify}
             linkPath={val?.linkPath}
           >
-            <Item icon={val.icon} span={val.name} notify={val.notify?.length} />
+            <Item icon={val.icon} text={val.name} notify={val.notify?.length} />
           </List>
         );
       })}
