@@ -149,6 +149,7 @@ const NotificationLink = styled(NavLink)`
   background: #fff;
   padding: 5px;
   border-radius: 5px;
+  z-index: 2;
 
   &.active-bell {
     svg {
