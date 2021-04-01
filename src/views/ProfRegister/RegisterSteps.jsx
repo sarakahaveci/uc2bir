@@ -10,7 +10,7 @@ import { PERSONAL_TRAINER, WORK_PLACE } from '../../constants';
 export const StepContext = createContext();
 
 const RegisterSteps = ({ userTypeId, setUserTypeId }) => {
-  const [stepNumber, setStepNumber] = useState(6);
+  const [stepNumber, setStepNumber] = useState(1);
   const [open, setOpen] = useState(false);
 
   const setUserTypeIdHandler = useCallback((value) => setUserTypeId(value), [
