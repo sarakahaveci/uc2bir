@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Tooltip, MenuItem, Input, Select } from '@material-ui/core';
@@ -17,7 +17,6 @@ export default function ActivityCard({
   capacity,
   price,
   id,
-  branch,
   classification,
   branch_id,
   statusId,
@@ -25,10 +24,11 @@ export default function ActivityCard({
   status,
   maxPrice,
   minPrice,
+  userBranchList,
 }) {
   const dispatch = useDispatch();
   const { data: registerData } = useSelector((state) => state.registerData);
-  const { subBranches } = useSelector(
+  const { isloading, subBranches } = useSelector(
     (state) => state?.profileSettings?.activityList
   );
 
@@ -91,7 +91,14 @@ export default function ActivityCard({
     branch_id: branch_id,
   });
 
-  const [selectedBranch, setSelectedBranch] = useState(branch ?? []);
+  const [selectedBranch, setSelectedBranch] = useState([]);
+
+  useEffect(() => {
+    const currentList = subBranches
+      ?.filter((branch) => userBranchList.includes(branch.name))
+      .map((elem) => elem.id);
+    setSelectedBranch(currentList);
+  }, [subBranches]);
 
   const handleFormOnChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -156,7 +163,9 @@ export default function ActivityCard({
     }
   };
 
-  return (
+  return isloading ? (
+    <></>
+  ) : (
     <div className={`d-flex mb-3 mr-2 p-4 flex-column  ${cardClass}`}>
       <div className="mb-2">
         <div className="d-flex justify-content-between">

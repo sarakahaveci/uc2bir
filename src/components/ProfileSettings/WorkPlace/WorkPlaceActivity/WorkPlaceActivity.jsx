@@ -183,7 +183,7 @@ export default function WorkPlaceActivity() {
                   name={activity?.name}
                   isWorkPlace
                   capacity={activity?.capacity}
-                  branch={activity?.branches}
+                  userBranchList={activity?.branches}
                   price={activity?.price}
                 />
               ))
