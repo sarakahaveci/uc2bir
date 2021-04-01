@@ -112,12 +112,12 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
     e.preventDefault();
 
     const regex = new RegExp(
-      '^(?=.{6,})(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+*!=.,]).*$'
+      '^(?=.{6,})(?=.*[a-z])(?=.*[A-Z]).*$'
     );
 
     if (!regex.test(password)) {
       setErrorMessage(
-        'Şifrenizin en az 6 karakter, 1 sayı, 1 büyük ve 1 özel karakter içermesi gerekmektedir.'
+        'Şifrenizin en az 6 karakter olmalı, büyük harf, küçük harf ve rakam içermelidir.'
       );
       return;
     }

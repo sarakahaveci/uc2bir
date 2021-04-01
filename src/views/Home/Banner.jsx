@@ -4,7 +4,7 @@ import React, { useLayoutEffect, useState } from 'react';
 import { default as NativeBanner } from '../../components/sliders/Banner';
 import SearchBar from '../../components/sliders/SearchBar';
 
-import GoogleApp from '../../components/GoogleMaps';
+import GoogleApp from 'components/GoogleMaps';
 
 //bunları şimdilik ekliyoruz
 import s2 from '../../assets/banner/download.jpg';
@@ -80,7 +80,7 @@ const Banner = () => {
       component: () => {
         return (
           <div className="img">
-            <GoogleApp frame={{ width: '100%', height: '660px' }} />
+            <GoogleApp data={[]} />
           </div>
         );
       },

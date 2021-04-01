@@ -43,7 +43,7 @@ export default function GoogleMapClusterer({ data }) {
       >
         <MarkerClusterer options={options}>
           {(clusterer) =>
-            data.map((gym) => (
+            data?.map((gym) => (
               <>
                 {selectedMarker === gym.id && (
                   <InfoWindow
