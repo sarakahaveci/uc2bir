@@ -163,26 +163,6 @@ const Info = () => {
               yaratacağına inandığımız projelere yatırım yaparak %100 türk
               sermaye ile hayata geçirmek.
             </Text>
-            <Text fontSize="11pt">
-              <b>Grup Şirketlerimiz:</b> <br /> Garanti Barter, dünyada yaygın
-              olarak kullanılan barter sisteminin, Türkiye’nin ticari
-              faaliyetlerine yeni bir soluk getirmesi amacıyla, 2004 yılında
-              kurulmuştur. Güçlü sermaye ve kurumsal yapısının yanı sıra, işini
-              sahiplenen, sorunları çözme konusunda yaratıcılığını kullanan,
-              akılcı çözümler üreten deneyimli kadrosu ile Garanti Barter;
-              gelişmekte olan sektörün en güçlü temsilcilerindendir.
-            </Text>
-            <Text fontSize="11pt">
-              Her yıl başarısını katlayarak arttıran Garanti Barter, ülkenin
-              önde gelen büyük holdingleri ile birçok ortak projede yer almış;
-              hizmet politikası ile yer almış olduğu işlerden olumlu referanslar
-              almıştır. Kazandığı olumlu referansların gücü ile portföyünü
-              zenginleştiren Garanti Barter, 2015 yılında 5000 üye sayısına
-              ulaşmıştır. Gün geçtikçe artmaya devam eden üye sayısının ve
-              stratejik ortaklarının desteğiyle elde ettiği başarıları,
-              Türkiye’de gelişmekte olan barter sektörünün, yenilikçi bir
-              ticaret sistemi olarak tanınmasına katkıda bulunmaktadır.
-            </Text>
           </Row>
         </Container>
       </div>

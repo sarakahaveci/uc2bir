@@ -214,7 +214,7 @@ export default (state = initialState, action) => {
         activityList: {
           ...state.activityList,
           isLoading: false,
-          data: action.payload?.class,
+          data: action.payload,
         },
       };
 

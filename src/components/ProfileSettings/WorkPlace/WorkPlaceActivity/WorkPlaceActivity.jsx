@@ -11,8 +11,9 @@ import {
   getAllActivityList,
   addWorkPlaceActivity,
   getWorkPlaceActivityBranches,
+  updateGymSpecialPrice,
 } from 'actions';
-import { Title, Button, ActivityCard, Svg, Text } from 'components';
+import { Title, Button, ActivityCard, Svg, Text, Material } from 'components';
 import SelectiveButton from 'components/buttons/SelectiveButton';
 import ArrowLeftIcon from 'components/statics/svg/images/arrow-left.svg';
 import ActivityImage from 'assets/activityPicture.png';
@@ -27,7 +28,12 @@ export default function WorkPlaceActivity() {
 
   const [showAddActivity, setShowAddActivity] = useState(false);
   const [open, setOpen] = useState(false);
+  const [specialPrice, setSpecialPrice] = useState(false);
   const [selectedActivity, setSelectedActivity] = useState([]);
+
+  const handleFormOnChange = (event) => {
+    setSpecialPrice(event.target.value);
+  };
 
   const getActivityList = () => {
     dispatch(getWorkPlaceActivityList());
@@ -45,6 +51,10 @@ export default function WorkPlaceActivity() {
     } else {
       setSelectedActivity((selecteds) => [...selecteds, key]);
     }
+  };
+
+  const submitSpicialPrice = () => {
+    dispatch(updateGymSpecialPrice({ price: specialPrice }));
   };
 
   const submitNewActivity = () => {
@@ -73,6 +83,48 @@ export default function WorkPlaceActivity() {
     <></>
   ) : (
     <div className="p-3">
+      <div
+        className={`d-flex mb-3 mr-2 p-4 flex-column  facility-card-wrapper`}
+      >
+        <div className="mb-2">
+          <Title
+            fontWeight="600"
+            textAlign="left"
+            letterSpacing="0.2em"
+            fontSize="13px"
+            color="#404041"
+          >
+            Özel Ders Seans Ücreti
+          </Title>
+        </div>
+        <div>
+          <Material.TextField
+            label="Tüm branşlar için özel ders seans (TL)"
+            type="number"
+            name="price"
+            onChange={handleFormOnChange}
+            changeValue={data?.session_price}
+          />
+
+          {data?.waiting_approval_session_price && (
+            <Title
+              fontWeight="400"
+              textAlign="left"
+              fontSize="11px"
+              color="#404041"
+            >
+              Onay Bekleyen {data?.waiting_approval_session_price} Tl&apos;lik
+              talebiniz bulunmaktadır
+            </Title>
+          )}
+        </div>
+        <Button
+          className="blue mt-3"
+          text="Kaydet"
+          fontWeight="500"
+          onClick={submitSpicialPrice}
+        />
+      </div>
       <Title fontSize="24px" fontWeight="600" textAlign="left">
         {showAddActivity && (
           <img
@@ -121,8 +173,8 @@ export default function WorkPlaceActivity() {
           )}
           <div className={`w-100 ${!showAddActivity ? 'card-wrapper' : ''}`}>
             {!showAddActivity ? (
-              data.length > 0 &&
-              data?.map((activity) => (
+              data?.class?.length > 0 &&
+              data?.class?.map((activity) => (
                 <ActivityCard
                   key={activity.id}
                   id={activity.id}
