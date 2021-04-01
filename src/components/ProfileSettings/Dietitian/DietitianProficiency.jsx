@@ -204,6 +204,7 @@ export default function DietitianProficiency() {
                   className="cp"
                   src={BluePlusIcon}
                   alt=""
+                  width="100%"
                   onClick={() => setShowAddProficiency(true)}
                 />
               </Title>

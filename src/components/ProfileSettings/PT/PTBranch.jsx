@@ -199,7 +199,7 @@ export default function WorkPlaceActivity() {
                 Talepte bulunduğun diğer branşlar aktif olduğunda tarafına bilgi
                 vereceğiz
               </Title>
-              <div className="w-25">
+              <ResponsiveDiv>
                 <Material.TextField
                   id="branch"
                   name="branch"
@@ -210,7 +210,7 @@ export default function WorkPlaceActivity() {
                     readOnly: true,
                   }}
                 />
-              </div>
+              </ResponsiveDiv>
             </>
           )}
         </div>
@@ -273,5 +273,12 @@ const StyledLink = styled(Link)`
 
   &:hover {
     color: var(--blue);
+  }
+`;
+
+const ResponsiveDiv = styled.div`
+  width: 25%;
+  @media (max-width: 768px) {
+    width: 100%;
   }
 `;

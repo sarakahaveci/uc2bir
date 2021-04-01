@@ -56,7 +56,7 @@ export default function DietitianPrice() {
       </Title>
       <div className="d-flex row">
         <div className="col-md-4 col-sm-12">
-          <img src={BannerPhoto} alt="" />
+          <img src={BannerPhoto} alt="" width="100%" />
         </div>
         <div className="col-md-8 col-sm-12">
           <Title
@@ -82,7 +82,7 @@ export default function DietitianPrice() {
             setPrice={setPrice}
           />
         </div>
-        <div className="d-flex w-75 mt-3">
+        <div className="d-flex w-75 mt-5">
           <Button
             className="blue dietitan-price__saveButton"
             text="Kaydet"
