@@ -156,11 +156,11 @@ const dietitianTabs = [
       </Title>
     ),
   }, */
-  {
+  /* {
     eventKey: 'packets',
     title: 'Paketlerim',
     component: <Packets />,
-  },
+  }, */
   /*  {
     eventKey: 'service',
     title: 'Hizmetlerim',
@@ -218,11 +218,11 @@ const trainerTabs = [
   //   title: 'Rezarvasyonlarım',
   //   component: <GroupSlot />,
   // },
-  {
+  /* {
     eventKey: 'packets',
     title: 'Paketlerim',
     component: <Packets />,
-  },
+  }, */
 
   {
     eventKey: 'location',
