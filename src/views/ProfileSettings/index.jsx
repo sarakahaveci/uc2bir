@@ -10,6 +10,7 @@ import {
   MasonaryGallery,
   Wallet,
   SessionType,
+  Packets,
   Blog,
   CancellationReason,
 } from 'components';
@@ -155,15 +156,11 @@ const dietitianTabs = [
       </Title>
     ),
   }, */
-  /* {
+  {
     eventKey: 'packets',
     title: 'Paketlerim',
-    component: (
-      <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-        Paketlerim
-      </Title>
-    ),
-  }, */
+    component: <Packets />,
+  },
   /*  {
     eventKey: 'service',
     title: 'Hizmetlerim',
@@ -221,15 +218,11 @@ const trainerTabs = [
   //   title: 'Rezarvasyonlarım',
   //   component: <GroupSlot />,
   // },
-  /* {
+  {
     eventKey: 'packets',
     title: 'Paketlerim',
-    component: (
-      <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-        Paketlerim
-      </Title>
-    ),
-  }, */
+    component: <Packets />,
+  },
 
   {
     eventKey: 'location',
