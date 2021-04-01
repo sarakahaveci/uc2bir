@@ -51,7 +51,7 @@ const Edit = ({ setSubPage }) => {
         <>
           <div className="d-flex flex-wrap">
             <List>
-              {getAddress?.data.length > 0 &&
+              {getAddress?.data.length > 0 ? (
                 getAddress.data.map((val) => (
                   <>
                     <Item>
@@ -76,7 +76,10 @@ const Edit = ({ setSubPage }) => {
                       />
                     </Item>
                   </>
-                ))}
+                ))
+              ) : (
+                <strong>Girilmiş herhangi bir adresiniz bulunmamaktadır.</strong>
+              )}
             </List>
           </div>
         </>
