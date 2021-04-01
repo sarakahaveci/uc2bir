@@ -146,16 +146,14 @@ const StepThree = () => {
     } else dispatch(setStepThree({ ...formData }, isSuccess, isError));
   };
 
-  const submitBranch = (e) => {
-    e.preventDefault();
+  const submitBranch = () => {
     if (!!offeredBranch) dispatch(offerBranch({ branch: offeredBranch }));
     if (selectedButtons.length > 0)
       dispatch(submitUserBranch(selectedButtons, isError));
     isSuccess();
   };
 
-  const submitBenefitsHandler = (e) => {
-    e.preventDefault();
+  const submitBenefitsHandler = () => {
     dispatch(
       submitBenefits({ facilities: selectedBenefits }, isSuccess, isError)
     );
