@@ -38,6 +38,9 @@ const Container = styled.div`
   width: 100%;
   height: 30px;
   align-items: center;
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 const Circle = styled.div`
   width: 20px;

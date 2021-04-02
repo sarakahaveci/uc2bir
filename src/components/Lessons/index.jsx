@@ -27,7 +27,7 @@ const Lessons = () => {
     return temp.map((elm, index) => (
       <Col key={index} style={{ padding: 0 }} lg="4">
         <CustomProgress
-          location={locationSelector(index)}
+          location={temp.length - 1 == index ? 'end' : locationSelector(index)}
           active="true"
         ></CustomProgress>
         <LessonCardContainer>
@@ -71,9 +71,15 @@ const Wrapper = styled(Container)`
   border-radius: 10px;
   -webkit-box-shadow: 0px 0px 4px 3px rgba(197, 196, 196, 0.28);
   box-shadow: 0px 0px 4px 3px rgba(197, 196, 196, 0.28);
+  @media (max-width: 768px) {
+    padding: 0;
+  }
 `;
 const StyledRow = styled(Row)`
   margin: ${(props) => (props.header ? '20px' : '50px')};
+  @media (max-width: 768px) {
+    margin: ${(props) => (props.header ? '20px' : '5px')};
+  }
 `;
 
 const HeaderText = styled.text`
@@ -90,6 +96,10 @@ const LessonCardContainer = styled.div`
   border-style: solid;
   border-width: 1px;
   border-radius: 10px;
+  @media (max-width: 768px) {
+    margin-top: 10px;
+    width: 95%;
+  }
 `;
 const HeaderArea = styled.div`
   display: flex;
