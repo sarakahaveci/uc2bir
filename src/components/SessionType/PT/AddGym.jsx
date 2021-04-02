@@ -150,6 +150,13 @@ const GymListWrapper = styled.div`
   grid-row-gap: 10px;
   padding: 10px;
   margin-top: 15px;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: auto auto;
+  }
+  @media (max-width: 768px) {
+    grid-template-columns: auto;
+  }
 `;
 
 const SearchCol = styled(Col)`
