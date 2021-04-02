@@ -52,6 +52,7 @@ export { default as SessionType } from './SessionType';
 export { default as Packets } from './Packets';
 export { default as Lessons } from './Lessons';
 export { default as Exercises } from './Exercises';
+export { default as AddExercise } from './AddExercise';
 
 export { default as CustomProgress } from './CustomProgress';
 

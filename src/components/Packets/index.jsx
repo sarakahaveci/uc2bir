@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import PacketCard from './PacketCard';
-import { Lessons, Exercises } from 'components';
+import { Lessons, Exercises, AddExercise } from 'components';
 
 const Packets = () => {
   useEffect(() => {}, []);
@@ -13,6 +13,7 @@ const Packets = () => {
         <PacketCard />
         <Lessons />
         <Exercises />
+        <AddExercise />
       </Row>
     </Container>
   );

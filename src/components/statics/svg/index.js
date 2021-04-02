@@ -80,6 +80,7 @@ import ClockIcon from './images/clock.svg';
 import GuestIcon from './images/guest.svg';
 import MockImage from './images/mock-image.svg';
 import Delete from './images/delete.svg';
+import Minus from './images/minus.svg';
 
 import AthleticSportIcon from 'assets/sports-type-icons/atletic.svg';
 import FitnessSportIcon from 'assets/sports-type-icons/fitness.svg';
@@ -178,6 +179,7 @@ const Svg = {
   GuestIcon: (props) => <ReactSVG {...props} src={GuestIcon} />,
   MockImageIcon: (props) => <ReactSVG {...props} src={MockImage} />,
   Delete: (props) => <ReactSVG {...props} src={Delete} />,
+  Minus: (props) => <ReactSVG {...props} src={Minus} />,
 
   SessionType: {
     Gym: (props) => <ReactSVG {...props} src={SessionTypeGym} />,
