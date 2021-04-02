@@ -113,6 +113,10 @@ const Item = styled.li`
     right: -60px;
     top: 0;
 
+    @media (max-width: 720px) {
+      right: -45px;
+    }
+
     span {
       display: none;
     }

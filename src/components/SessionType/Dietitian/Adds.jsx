@@ -18,11 +18,11 @@ const Adds = ({ icons }) => {
     case 'Adds':
       return (
         <>
-          <CreateList>
+          <CreateList className="row">
             {icons.map((val) => {
               return (
                 <>
-                  <List key={val.id} className="col-md-3">
+                  <List key={val.id} className="col-md-3 col-sm-12">
                     {val.icon}
                     <Span>{val.name}</Span>
                     {val.create && (
@@ -65,11 +65,11 @@ const Adds = ({ icons }) => {
     default:
       return (
         <>
-          <CreateList>
+          <CreateList className="row">
             {icons.map((val) => {
               return (
                 <>
-                  <List key={val.id} className="col-md-3">
+                  <List key={val.id} className="col-md-3 col-sm-12">
                     {val.icon}
                     <Span>{val.name}</Span>
                     {val.create && (
@@ -140,6 +140,11 @@ const List = styled.li`
   flex-wrap: wrap;
   align-content: center;
   margin: 15px;
+
+  @media (max-width: 720px) {
+    margin: 0;
+    margin-bottom: 70px;
+  }
 `;
 
 const Span = styled.span`
