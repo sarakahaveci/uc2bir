@@ -71,10 +71,10 @@ export const addAddress = (
   });
 };
 
-export const getAddressList = (successCallback, errorCallback) => async (
-  dispatch,
-  getState
-) => {
+export const getAddressList = (
+  successCallback = () => {},
+  errorCallback = () => {}
+) => async (dispatch, getState) => {
   const url = `/user/address`;
 
   await dispatch({

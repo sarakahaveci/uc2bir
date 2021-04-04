@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { getGeocode } from 'use-places-autocomplete';
-import { Svg } from 'components';
 import BluePlusIcon from 'assets/blue-plus.svg';
 
+import { Svg, BackLink } from 'components';
 import AddAdress from '../AddAdress';
 import Edit from './Edit';
 
@@ -18,6 +18,8 @@ const Adds = ({ icons }) => {
     case 'Adds':
       return (
         <>
+          <BackLink text="Geri" onClick={() => setPage('Home')} />
+
           <CreateList className="row">
             {icons.map((val) => {
               return (

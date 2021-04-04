@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { getGeocode } from 'use-places-autocomplete';
-import { Svg } from 'components';
 import BluePlusIcon from 'assets/blue-plus.svg';
 
+import { Svg, BackLink } from 'components';
 import AddAdress from '../AddAdress';
 import AddGym from './AddGym';
 import Edit from './Edit';
 import GYMEdit from './GYMEdit';
 
-const Adds = ({ icons, setBannerActive }) => {
+const Adds = ({ icons, setBannerActive, setPage }) => {
   const [subPage, setSubPage] = useState('Adds');
 
   useEffect(() => {
@@ -20,6 +20,8 @@ const Adds = ({ icons, setBannerActive }) => {
     case 'Adds':
       return (
         <>
+          <BackLink text="Geri" onClick={() => setPage('Home')} />
+
           <CreateList className="row">
             {icons.map((val) => {
               return (

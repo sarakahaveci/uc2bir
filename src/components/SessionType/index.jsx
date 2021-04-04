@@ -75,7 +75,7 @@ const SessionType = () => {
             </IconGroup>
           </Col>
           <Col lg={bannerActive ? 7 : 12}>
-            <Title fontSize="12pt" textAlign="left">
+            <Title fontSize="12pt" textAlign="left" mb="10px">
               Oturum Türleri
             </Title>
             <Text fontSize="10pt">
@@ -134,7 +134,7 @@ const SessionType = () => {
             </IconGroup>
           </Col>
           <Col lg={bannerActive ? 7 : 12}>
-            <Text fontSize="10pt">
+            <Text fontSize="10pt" mb="10px">
               Ders vereceğiniz oturum türlerini seçin.
             </Text>
             <Pt icons={icons} setBannerActive={setBannerActive} />

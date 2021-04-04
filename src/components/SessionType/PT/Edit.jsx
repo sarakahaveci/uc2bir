@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
 
-import { Button, AwesomeIcon, Svg, Spinner } from 'components';
+import { Button, Box, Svg, Spinner, Span } from 'components';
 import { deleteAddressList, getAddressList } from 'actions';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
+import BackLink from 'components/common/BackLink';
 
 const Edit = ({ setSubPage }) => {
   const dispatch = useDispatch();
@@ -15,28 +16,15 @@ const Edit = ({ setSubPage }) => {
   );
 
   useEffect(() => {
-    dispatch(
-      getAddressList(
-        () => {},
-        () => {}
-      )
-    );
+    dispatch(getAddressList());
   }, []);
 
-  const edit = (id) => {
-    return id;
-  };
   const deleted = (id) => {
     dispatch(
       deleteAddressList(
         id,
         () => {
-          dispatch(
-            getAddressList(
-              () => {},
-              () => {}
-            )
-          );
+          dispatch(getAddressList());
           toast.success('Adres başarı ile silindi.', {
             position: 'bottom-right',
             autoClose: 2000,
@@ -49,7 +37,8 @@ const Edit = ({ setSubPage }) => {
 
   return (
     <>
-      <Button text="< Geri" onClick={() => setSubPage('Adds')} />
+      <BackLink text="Geri" onClick={() => setSubPage('Adds')} />
+
       {!getAddress?.isLoading ? (
         <>
           <div className="d-flex flex-wrap">
@@ -60,18 +49,13 @@ const Edit = ({ setSubPage }) => {
                     <Item>
                       <div className="line-left">
                         <div>{val?.city?.name}</div>
-                        <div>
-                          <span>
-                            <AwesomeIcon.Map />
-                          </span>{' '}
-                          {val?.address_detail}
-                        </div>
+                        <Box row>
+                          <Svg.LocationIcon />
+
+                          <Span ml="5px">{val?.address_detail}</Span>
+                        </Box>
                       </div>
-                      <Button
-                        className="edit"
-                        icon={Svg.EditIcon}
-                        onClick={() => edit(val?.id)}
-                      />
+
                       <Button
                         className="cencel"
                         icon={Svg.CencelIcon}
