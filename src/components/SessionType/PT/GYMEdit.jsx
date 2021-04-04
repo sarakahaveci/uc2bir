@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, AwesomeIcon, Title, IconLabel } from 'components';
+import { Button, AwesomeIcon, Title, IconLabel, BackLink } from 'components';
 import { getGymList } from 'actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { Col } from 'react-bootstrap';
@@ -31,7 +31,8 @@ const GYMEdit = ({ setSubPage }) => {
 
   return (
     <>
-      <Button text="< Geri" onClick={() => setSubPage('Adds')} />
+      <BackLink text="Geri" onClick={() => setSubPage('Adds')} />
+
       <div className="d-flex flex-wrap">
         {gym?.map((data) => (
           <>

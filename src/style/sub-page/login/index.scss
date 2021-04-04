@@ -113,7 +113,6 @@
       }
 
       .contain {
-        width: 100%;
         padding-left: 15%;
         padding-right: 15%;
         padding-top: 37px;
@@ -136,8 +135,17 @@
           min-height: inherit;
         }
 
-        @media (max-width: 768px) {
+        @include sm {
           height: auto;
+          display: flex;
+          flex-direction: column;
+          padding: 15px;
+          width: 100%;
+        }
+
+        @include md {
+          width: 100%;
+          justify-content: center;
         }
 
         .row,
@@ -217,6 +225,10 @@
       @extend .page-content;
 
       padding-top: 140px;
+
+      @include sm {
+        padding-top: 90px;
+      }
     }
 
     .page-content-register {
@@ -225,20 +237,6 @@
       .file {
         @include sm {
           padding: 35px;
-        }
-      }
-
-      .contain {
-        width: auto;
-
-        @include md {
-          width: 100%;
-          justify-content: center;
-        }
-
-        @include sm {
-          width: 100%;
-          padding: 0;
         }
       }
     }

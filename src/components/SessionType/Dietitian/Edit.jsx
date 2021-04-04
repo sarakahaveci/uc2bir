@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
 
-import { Button, AwesomeIcon, Svg, Spinner } from 'components';
+import { Button, Svg, Spinner } from 'components';
 import { deleteAddressList, getAddressList } from 'actions';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -15,12 +15,7 @@ const Edit = ({ setSubPage }) => {
   );
 
   useEffect(() => {
-    dispatch(
-      getAddressList(
-        () => {},
-        () => {}
-      )
-    );
+    dispatch(getAddressList());
   }, []);
 
   const deleted = (id) => {
@@ -28,12 +23,7 @@ const Edit = ({ setSubPage }) => {
       deleteAddressList(
         id,
         () => {
-          dispatch(
-            getAddressList(
-              () => {},
-              () => {}
-            )
-          );
+          dispatch(getAddressList());
           toast.success('Adres başarı ile silindi.', {
             position: 'bottom-right',
             autoClose: 2000,
@@ -59,16 +49,12 @@ const Edit = ({ setSubPage }) => {
                         <div>{val?.title || 'Klinik'}</div>
                         <div>
                           <span>
-                            <AwesomeIcon.Map />
-                          </span>{' '}
+                            <Svg.LocationIcon />
+                          </span>
                           {val?.address_detail}
                         </div>
                       </div>
-                      {/*   <Button
-                        className="edit"
-                        icon={Svg.EditIcon}
-                        onClick={() => edit(val?.id)}
-                      /> */}
+
                       <Button
                         className="edit"
                         icon={Svg.CencelIcon}
@@ -78,7 +64,9 @@ const Edit = ({ setSubPage }) => {
                   </>
                 ))
               ) : (
-                <strong>Girilmiş herhangi bir adresiniz bulunmamaktadır.</strong>
+                <strong>
+                  Girilmiş herhangi bir adresiniz bulunmamaktadır.
+                </strong>
               )}
             </List>
           </div>
@@ -114,7 +102,7 @@ const Item = styled.li`
   }
 
   button.cencel {
-    top: 50px;
+    top: 30px;
   }
 
   button.edit {

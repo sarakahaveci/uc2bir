@@ -7,6 +7,7 @@ import {
   GoogleAppZoom,
   Title,
   IconLabel,
+  BackLink,
 } from 'components';
 import { Row, Col, Form, FormGroup } from 'react-bootstrap';
 import styled from 'styled-components/macro';
@@ -17,13 +18,14 @@ const GYMAdd = ({ setSubPage, setBannerActive }) => {
   const stars = 4;
   return (
     <div>
-      <Button
-        text="< Geri"
+      <BackLink
+        text="Geri"
         onClick={() => {
           setBannerActive(true);
           setSubPage('Adds');
         }}
       />
+
       <Row className="search-trainer">
         <Col className="search-trainer__search-area-wrapper" lg={9}>
           <Row className="search-trainer__search-area">

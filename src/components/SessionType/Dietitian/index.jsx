@@ -64,7 +64,16 @@ const PT = ({ icons, setBannerActive }) => {
       );
 
     case 'Adds':
-      return <Adds icons={icons} setBannerActive={setBannerActive} />;
+      return (
+        <div>
+          <Adds
+            icons={icons}
+            setBannerActive={setBannerActive}
+            setPage={setPage}
+          />
+          ;
+        </div>
+      );
 
     default:
       return <></>;
