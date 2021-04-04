@@ -7,3 +7,4 @@ export * from './profileSettingsActions/index';
 export * from './contactActions';
 export * from './footerActions';
 export * from './userProfileActions';
+export * from './searchProfessionalAction';

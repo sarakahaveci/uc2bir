@@ -1,10 +1,11 @@
 /* eslint-disable react/display-name */
-// @ts-nocheck
 import React, { useLayoutEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+
 import { default as NativeBanner } from '../../components/sliders/Banner';
 import SearchBar from '../../components/sliders/SearchBar';
-
 import GoogleApp from 'components/GoogleMaps';
+import { SET_SEARCH_PROFESSIONAL_TYPE } from 'constants/actionTypes';
 
 //bunları şimdilik ekliyoruz
 import s2 from '../../assets/banner/download.jpg';
@@ -12,7 +13,15 @@ import s3 from '../../assets/banner/dw2.jpg';
 import vid from '../../assets/girisvideo1920x660.mp4';
 
 const Banner = () => {
+  const dispatch = useDispatch();
+
   const [virtual, setVirtual] = useState('pt');
+
+  const handleChangeVirtual = (value) => {
+    dispatch({ type: SET_SEARCH_PROFESSIONAL_TYPE, payload: value });
+    setVirtual(value);
+  };
+
   useLayoutEffect(() => {
     const player = document.getElementById('vd-io');
     if (player) {
@@ -46,7 +55,7 @@ const Banner = () => {
         );
       },
     },
-    living: {
+    gym: {
       className: '',
       text: 'Salon veya Salonlar Ara',
       component: () => {
@@ -60,7 +69,7 @@ const Banner = () => {
         );
       },
     },
-    nutritionist: {
+    dt: {
       className: '',
       text: 'Diyetisyen Ara',
       component: () => {
@@ -103,7 +112,7 @@ const Banner = () => {
       <SearchBar
         className={search_bar.className}
         virtual={virtual}
-        setVirtual={setVirtual}
+        setVirtual={handleChangeVirtual}
         virtuals={virtuals}
       />
     ),
@@ -115,7 +124,6 @@ const Banner = () => {
       searchBar={search_bar}
       virtuals={virtuals}
       virtual={virtual}
-      setVirtual={setVirtual}
     />
   );
 };

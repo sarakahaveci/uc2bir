@@ -2,7 +2,11 @@ import React, { useState, useLayoutEffect } from 'react';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import Layout from './views/Layout';
 import { useDispatch } from 'react-redux';
-import { setUserDetailsFromStorage, getRegisterData } from 'actions';
+import {
+  setUserDetailsFromStorage,
+  getRegisterData,
+  getAllPTBranchList,
+} from 'actions';
 import { ThemeProvider } from 'styled-components';
 
 import { ScrollToTop, Spinner } from 'components';
@@ -22,6 +26,7 @@ import { theme } from 'utils';
 import BlogDetail from 'views/BlogDetail';
 import BlogList from 'views/BlogList';
 import Contact from 'views/Contact';
+import SearchProfessional from 'views/SearchProfessional';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -32,6 +37,7 @@ const App = () => {
     setLoading(false);
     dispatch(setUserDetailsFromStorage());
     dispatch(getRegisterData());
+    dispatch(getAllPTBranchList());
   }, []);
 
   if (loading) {
@@ -71,6 +77,7 @@ const App = () => {
 
               <Route exact path="/messages" component={Message} />
               <Route exact path="/contact" component={Contact} />
+              <Route exact path="/find" component={SearchProfessional} />
               <Route component={NotFoundPage} />
             </Switch>
           </Layout>

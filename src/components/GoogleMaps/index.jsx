@@ -43,39 +43,54 @@ export default function GoogleMapClusterer({ data }) {
       >
         <MarkerClusterer options={options}>
           {(clusterer) =>
-            data?.map((gym) => (
-              <>
-                {selectedMarker === gym.id && (
-                  <InfoWindow
-                    position={{ lat: +gym.address.lat, lng: +gym.address.lng }}
-                  >
-                    <div>{gym?.address?.address_detail || ''}</div>
-                  </InfoWindow>
-                )}
+            data?.map((professional) => {
+              const lat = +professional?.address?.lat || professional?.lat;
+              const lng = +professional?.address?.lng || professional?.lng;
+              const addressDetail =
+                professional?.address?.address_detail ||
+                professional?.address_detail;
+              const id = professional?.id || professional?.user_id;
 
-                <Marker
-                  onClick={() => showInfoWindow(gym?.id)}
-                  key={gym.id}
-                  position={{ lat: +gym.address.lat, lng: +gym.address.lng }}
-                  clusterer={clusterer}
-                  icon={
-                    gym?.photo
-                      ? {
-                          url: gym?.photo,
-                          origin: new window.google.maps.Point(0, 0),
-                          anchor: new window.google.maps.Point(35, 20),
-                          scaledSize: new window.google.maps.Size(70, 60),
-                        }
-                      : {
-                          url: MarkerSvg,
-                          origin: new window.google.maps.Point(0, 0),
-                          anchor: new window.google.maps.Point(35, 20),
-                          scaledSize: new window.google.maps.Size(70, 60),
-                        }
-                  }
-                />
-              </>
-            ))
+              return (
+                <>
+                  {selectedMarker === id && (
+                    <InfoWindow
+                      position={{
+                        lat: +lat,
+                        lng: +lng,
+                      }}
+                    >
+                      <div>{addressDetail || ''}</div>
+                    </InfoWindow>
+                  )}
+
+                  <Marker
+                    onClick={() => showInfoWindow(id)}
+                    key={professional.id}
+                    position={{
+                      lat: +lat,
+                      lng: +lng,
+                    }}
+                    clusterer={clusterer}
+                    icon={
+                      professional?.photo
+                        ? {
+                            url: professional?.photo,
+                            origin: new window.google.maps.Point(0, 0),
+                            anchor: new window.google.maps.Point(35, 20),
+                            scaledSize: new window.google.maps.Size(70, 60),
+                          }
+                        : {
+                            url: MarkerSvg,
+                            origin: new window.google.maps.Point(0, 0),
+                            anchor: new window.google.maps.Point(35, 20),
+                            scaledSize: new window.google.maps.Size(70, 60),
+                          }
+                    }
+                  />
+                </>
+              );
+            })
           }
         </MarkerClusterer>
       </GoogleMap>

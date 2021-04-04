@@ -1,12 +1,42 @@
-// @ts-nocheck
-import React from 'react';
-import { Button, IconLabel, AwesomeIcon } from '../../components';
-
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import styled from 'styled-components/macro';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
+import InputBase from '@material-ui/core/InputBase';
+
+import { Button, IconLabel, AwesomeIcon } from 'components';
+import { searchPtOrDietition } from 'actions';
 
 const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const allBranchList = useSelector(
+    (state) => state.profileSettings.ptBranchList.allList
+  );
+
+  const [location, setLocation] = useState('');
+  const [title, setTitle] = useState('');
+  const [branch, setBranch] = useState('');
+
+  const searchProfessionalHandler = () => {
+    dispatch(
+      searchPtOrDietition(
+        {
+          type: virtual,
+          title,
+          page: 1,
+          location,
+          branch,
+        },
+        () => history.push('/find')
+      )
+    );
+  };
+
   return (
     <div className={className}>
       <div className="search-container">
@@ -14,11 +44,11 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
           <li className={`${virtual === 'pt' ? 'active' : ''}`}>
             <a onClick={() => setVirtual('pt')}>EĞİTMEN</a>
           </li>
-          <li className={`${virtual === 'living' ? 'active' : ''}`}>
-            <a onClick={() => setVirtual('living')}>SPOR ALANI</a>
+          <li className={`${virtual === 'gym' ? 'active' : ''}`}>
+            <a onClick={() => setVirtual('gym')}>SPOR ALANI</a>
           </li>
-          <li className={`${virtual === 'nutritionist' ? 'active' : ''}`}>
-            <a onClick={() => setVirtual('nutritionist')}>DİYETİSYEN</a>
+          <li className={`${virtual === 'dt' ? 'active' : ''}`}>
+            <a onClick={() => setVirtual('dt')}>DİYETİSYEN</a>
           </li>
           <li className={`${virtual === 'map' ? 'active' : ''}`}>
             <a onClick={() => setVirtual('map')}>HARİTA</a>
@@ -27,30 +57,34 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
         <div className="search-items">
           <ul className="list-items">
             <li>
-              <IconLabel
-                className="item"
-                text={virtuals[virtual].text}
-                icon={AwesomeIcon.Search}
+              <IconLabel icon={AwesomeIcon.Search} />
+              <NakedInput
+                placeholder={virtuals[virtual].text}
+                inputProps={{ 'aria-label': 'naked' }}
+                onChange={(event) => setTitle(event.target.value)}
               />
             </li>
             <li>
-              <IconLabel
-                className="item"
-                text="Lokasyon"
-                icon={AwesomeIcon.Map}
+              <IconLabel icon={AwesomeIcon.Map} />
+              <NakedInput
+                placeholder="Lokasyon"
+                inputProps={{ 'aria-label': 'naked' }}
+                onChange={(event) => setLocation(event.target.value)}
               />
             </li>
             <li>
-              <FormControl className={'material-selectbox'}>
-                <InputLabel htmlFor="age-native-helper">
-                  Tüm Kategoriler
-                </InputLabel>
+              <FormControl
+                className={'material-selectbox'}
+                onChange={(event) => setBranch(event.target.value)}
+              >
+                <InputLabel htmlFor="age-native-helper">Branşlar</InputLabel>
                 <NativeSelect>
                   <option aria-label="None" value="" />
-                  <option value={10}>EĞİTMEN</option>
-                  <option value={10}>SALON</option>
-                  <option value={20}>DİYETİSYEN</option>
-                  <option value={30}>HARİTA</option>
+                  {allBranchList.map((item, index) => (
+                    <option key={'option' + index} value={item.id}>
+                      {item.name}
+                    </option>
+                  ))}
                 </NativeSelect>
               </FormControl>
             </li>
@@ -59,6 +93,7 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
                 className="col blue"
                 text="Ara"
                 icon={AwesomeIcon.Search}
+                onClick={searchProfessionalHandler}
               />
             </li>
           </ul>
@@ -67,5 +102,13 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
     </div>
   );
 };
+
+const NakedInput = styled(InputBase)`
+  input {
+    border: none;
+    background: transparent;
+    font-size: 20px;
+  }
+`;
 
 export default SearchBar;
