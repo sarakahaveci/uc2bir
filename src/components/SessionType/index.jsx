@@ -37,6 +37,8 @@ const SessionType = () => {
 
   let icons = [];
 
+  let content;
+
   switch (type[0]?.key) {
     case KEYS.DIETIAN:
       icons = [
@@ -59,39 +61,31 @@ const SessionType = () => {
           },
         },
       ];
-      return (
-        <Container>
-          <Row>
-            <Col lg="12">
-              <Title fontSize="14pt" style={{ padding: 15 }} textAlign="left">
-                Oturum Türleri & Çalıştığım Yerler
-              </Title>
-            </Col>
-            <Col lg="4" style={{ display: bannerActive ? '' : 'none' }}>
-              <ImageBanner src={image} />
-              <IconGroup>
-                {icons.map((val, index) => (
-                  <Icons key={'icon' + index} active={val.active}>
-                    {val.icon}
-                  </Icons>
-                ))}
-              </IconGroup>
-            </Col>
-            <Col lg={bannerActive ? 7 : 12}>
-              <Title fontSize="12pt" textAlign="left">
-                Oturum Türleri
-              </Title>
-              <Text fontSize="10pt">
-                {'Hizmet vereceğiniz oturum türlerini seçin.'}
-              </Text>
-              <Dietitian icons={icons} setBannerActive={setBannerActive} />
-            </Col>
-          </Row>
-        </Container>
-      );
 
-    case KEYS.GYM:
-      return <></>;
+      content = (
+        <>
+          <Col lg="4" style={{ display: bannerActive ? '' : 'none' }}>
+            <ImageBanner src={image} />
+            <IconGroup>
+              {icons.map((val, index) => (
+                <Icons key={'icon' + index} active={val.active}>
+                  {val.icon}
+                </Icons>
+              ))}
+            </IconGroup>
+          </Col>
+          <Col lg={bannerActive ? 7 : 12}>
+            <Title fontSize="12pt" textAlign="left">
+              Oturum Türleri
+            </Title>
+            <Text fontSize="10pt">
+              {'Hizmet vereceğiniz oturum türlerini seçin.'}
+            </Text>
+            <Dietitian icons={icons} setBannerActive={setBannerActive} />
+          </Col>
+        </>
+      );
+      break;
 
     case KEYS.PT:
       icons = [
@@ -126,37 +120,48 @@ const SessionType = () => {
           },
         },
       ];
-      return (
-        <Container>
-          <Row>
-            <Col lg="12">
-              <Title fontSize="14pt" style={{ padding: 15 }} textAlign="left">
-                Oturum Türleri & Çalıştığım Yerler
-              </Title>
-            </Col>
-            <Col lg="4" style={{ display: bannerActive ? '' : 'none' }}>
-              <ImageBanner src={image} />
-              <IconGroup>
-                {icons.map((val, index) => (
-                  <Icons key={index} active={val.active}>
-                    {val.icon}
-                  </Icons>
-                ))}
-              </IconGroup>
-            </Col>
-            <Col lg={bannerActive ? 7 : 12}>
-              <Text fontSize="10pt">
-                Ders vereceğiniz oturum türlerini seçin.
-              </Text>
-              <Pt icons={icons} setBannerActive={setBannerActive} />
-            </Col>
-          </Row>
-        </Container>
+
+      content = (
+        <>
+          <Col lg="4" style={{ display: bannerActive ? '' : 'none' }}>
+            <ImageBanner src={image} />
+            <IconGroup>
+              {icons.map((val, index) => (
+                <Icons key={index} active={val.active}>
+                  {val.icon}
+                </Icons>
+              ))}
+            </IconGroup>
+          </Col>
+          <Col lg={bannerActive ? 7 : 12}>
+            <Text fontSize="10pt">
+              Ders vereceğiniz oturum türlerini seçin.
+            </Text>
+            <Pt icons={icons} setBannerActive={setBannerActive} />
+          </Col>
+        </>
       );
+      break;
 
     default:
-      return <></>;
+      content = <></>;
+      break;
   }
+
+  return (
+    <div>
+      <Container>
+        <Row>
+          <Col lg="12">
+            <Title fontSize="14pt" style={{ padding: 15 }} textAlign="left">
+              Oturum Türleri & Çalıştığım Yerler
+            </Title>
+          </Col>
+          {content}
+        </Row>
+      </Container>
+    </div>
+  );
 };
 
 const ImageBanner = styled.section`
@@ -185,7 +190,7 @@ const Icons = styled.li`
   align-items: center;
   padding-bottom: 5px;
   border-bottom: ${(props) =>
-    props.active ? '1px solid var(--blue)' : 'none'};
+    props.active ? `1px solid ${props.theme.colors.blue}` : 'none'};
 `;
 
 export default SessionType;

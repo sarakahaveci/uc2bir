@@ -6,6 +6,7 @@ import { getGeocode } from 'use-places-autocomplete';
 
 import Home from './Home';
 import Adds from './Adds';
+import BackLink from 'components/common/BackLink';
 
 const PT = ({ icons, setBannerActive }) => {
   const dispatch = useDispatch();
@@ -64,7 +65,12 @@ const PT = ({ icons, setBannerActive }) => {
       );
 
     case 'Adds':
-      return <Adds icons={icons} setBannerActive={setBannerActive} />;
+      return (
+        <div>
+          <BackLink text="Geri" mt="5px" onClick={() => setPage('Home')} />
+          <Adds icons={icons} setBannerActive={setBannerActive} />;
+        </div>
+      );
 
     default:
       return <></>;
