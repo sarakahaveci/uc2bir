@@ -52,7 +52,7 @@ export const searchPtOrDietition = (
   const urlWithTitle = type === 'pt' ? `&name=${title}` : `&title=${title}`;
   const urlWithLocation = `&location_key=${location}`;
   const urlWithBranch = `&branch_id=${branch}`;
-  const urlWithRating = `&rating=${rating}`;
+  const urlWithRating = `&rating=${rating?.[0]}`;
   const urlWithMinPrice = `&min_price=${minPrice}`;
   const urlWithMaxPrice = `&max_price=${maxPrice}`;
   const urlWithSortBy = `&sortBy=${sortBy}`;
