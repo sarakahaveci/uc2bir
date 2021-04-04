@@ -160,6 +160,8 @@ const FileUpload = ({
   const FilesInfoList = Object.keys(uploadedFiles).map((key) => {
     const { progressPercentage, fileId } = uploadedFiles[key];
 
+    const splitedFileKey = key.split('.');
+
     return (
       <>
         <div className="file-upload__info-row">
@@ -169,7 +171,9 @@ const FileUpload = ({
             progressPercentage === 100 && <Svg.TickWithBgIcon />
           )}
 
-          <span>{key}</span>
+          <span className="file-upload__file-name">{splitedFileKey[0]}</span>
+
+          <span>.{splitedFileKey[1]}</span>
 
           {progressPercentage === 100 && (
             <span

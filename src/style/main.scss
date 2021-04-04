@@ -123,6 +123,10 @@ body {
   width: 100%;
   height: auto;
   overflow: hidden;
+
+  @media (max-width: 1200px) {
+    padding-top: 90px;
+  }
 }
 
 /* layout */

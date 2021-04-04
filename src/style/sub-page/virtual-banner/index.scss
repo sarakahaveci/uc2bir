@@ -6,11 +6,6 @@
   display: flex;
   justify-content: center;
 
-  @media (max-width: 1200px) {
-    margin-top: 110px;
-    margin-bottom: 15px;
-  }
-
   video {
     width: 100%;
     height: auto;

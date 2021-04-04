@@ -44,7 +44,7 @@ const Proficiency = () => {
 
           <Accordion>
             {proficiencyData.map((item, index) => (
-              <ProficiencyRow key={'row' + index} data={item} />
+              <ProficiencyRow key={index} data={item} />
             ))}
           </Accordion>
         </Col>

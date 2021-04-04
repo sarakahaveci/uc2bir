@@ -10,8 +10,15 @@ import BluePlusIcon from 'assets/blue-plus.svg';
 
 import closeIcon from './statics/svg/images/big-close.svg';
 import tickIcon from './statics/svg/images/tick.svg';
-import { Text, Span, PlusButton, Title, AwesomeIcon, Button } from 'components';
-import { Row } from 'react-bootstrap';
+import {
+  Text,
+  Span,
+  PlusButton,
+  Title,
+  AwesomeIcon,
+  Button,
+  Box,
+} from 'components';
 import { default as MaterialButton } from '@material-ui/core/Button';
 
 import Dialog from '@material-ui/core/Dialog';
@@ -241,12 +248,18 @@ const MasonaryGallery = ({
       )}
       {activePage === 'index' && (
         <>
-          <Row style={{ margin: 15 }} className="justify-content-start">
+          <Box
+            row
+            alignItems="center"
+            m="15px"
+            className="justify-content-start"
+          >
             <Span color="dark" fontWeight="500" fontSize="0.8rem" mr="7px">
               Dosya yükle
             </Span>
+
             <PlusButton onClick={() => setActivePage('create')}>+</PlusButton>
-          </Row>
+          </Box>
           <StyledCategories>
             {categories.map((category, i) => (
               <Item
@@ -358,12 +371,11 @@ const MasonaryGallery = ({
               <ImageShow image={URL.createObjectURL(file)} />
               <section className="d-flex">
                 <PlusButton onClick={upload} />
-                <div style={{ marginLeft: 15 }}>
-                  {' '}
-                  <PlusButton onClick={() => setFile(false)}>
-                    <AwesomeIcon.FaClose />
-                  </PlusButton>{' '}
-                </div>
+
+                <AwesomeIcon.FaClose
+                  className="close-icon"
+                  onClick={() => setFile(false)}
+                />
               </section>
             </>
           )}
@@ -452,6 +464,12 @@ const Div = styled.div`
   position: relative;
   cursor: pointer;
   display: flex;
+
+  .close-icon {
+    margin-left: 15px;
+    width: 25px;
+    height: 25px;
+  }
 
   .img {
     position: relative;

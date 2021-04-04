@@ -24,7 +24,7 @@ const Adds = ({ icons, setBannerActive }) => {
             {icons.map((val) => {
               return (
                 <>
-                  <List key={val.id} className="col-md-3 col-sm-12">
+                  <List key={val.id} className=" col-md-4 col-sm-12">
                     {val.icon}
                     <Span>{val.name}</Span>
                     {val.create && (
