@@ -16,7 +16,7 @@ export default function GoogleMapClusterer({ data }) {
   const [selectedMarker, setSelectedMarker] = useState(null);
   const mapContainerStyle = { width: '100%', height: '100%' };
 
-  const options = {};
+  const options = { maxZoom: 15 };
 
   const { isLoaded, loadError } = useJsApiLoader({
     id: 'google-map-script',
@@ -40,7 +40,7 @@ export default function GoogleMapClusterer({ data }) {
         zoom={6}
         center={center}
       >
-        <MarkerClusterer maxZoom={8} options={options}>
+        <MarkerClusterer options={options}>
           {(clusterer) =>
             data?.map((professional) => {
               const lat = +professional?.address?.lat || professional?.lat;

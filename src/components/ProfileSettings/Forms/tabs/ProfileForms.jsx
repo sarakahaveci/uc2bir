@@ -95,9 +95,9 @@ const ProfileForms = ({ type }) => {
             <Material.MaterialDateField
               label="Şirket Kuruluş Tarihi"
               type="text"
-              name="birthday"
-              value={detail?.data?.birthday}
-              defaultValue={detail?.data?.birthday}
+              name="company_date"
+              value={detail?.data?.company_date}
+              defaultValue={detail?.data?.company_date}
               onChange={(e) =>
                 setData({ ...data, [e.target.name]: e.target.value })
               }
