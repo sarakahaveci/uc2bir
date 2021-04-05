@@ -32,7 +32,6 @@ export default function GoogleMapClusterer({ data }) {
   if (!isLoaded) return 'Yükleniyor';
 
   const wrapperClass = 'mx-auto map-wrapper';
-
   return (
     <div className={wrapperClass}>
       <GoogleMap
@@ -41,7 +40,7 @@ export default function GoogleMapClusterer({ data }) {
         zoom={6}
         center={center}
       >
-        <MarkerClusterer options={options}>
+        <MarkerClusterer maxZoom={8} options={options}>
           {(clusterer) =>
             data?.map((professional) => {
               const lat = +professional?.address?.lat || professional?.lat;

@@ -48,11 +48,14 @@ const Edit = ({ setSubPage }) => {
                   <>
                     <Item>
                       <div className="line-left">
-                        <div>{val?.city?.name}</div>
+                        <BoldText>{val?.title}</BoldText>
+                        <Line></Line>
                         <Box row>
                           <Svg.LocationIcon />
 
-                          <Span ml="5px">{val?.address_detail}</Span>
+                          <Span ml="5px">
+                            {val?.address_detail + '/' + val?.city?.name}
+                          </Span>
                         </Box>
                       </div>
 
@@ -119,5 +122,19 @@ const Item = styled.li`
     padding-left: 10px;
   }
 `;
-
+const Line = styled.div`
+  width: 63px;
+  height: 3px;
+  background: #00b2a9;
+  margin: 1px 0 1px 0;
+`;
+const BoldText = styled.text`
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif;
+  color: ${(props) => props.color || 'black'};
+  @media (max-width: 768px) {
+    font-size: 0.7rem;
+  }
+`;
 export default Edit;
