@@ -79,7 +79,6 @@ import HeadPhone from './images/headphone.svg';
 import ClockIcon from './images/clock.svg';
 import GuestIcon from './images/guest.svg';
 import MockImage from './images/mock-image.svg';
-import Delete from './images/delete.svg';
 import Minus from './images/minus.svg';
 
 import AthleticSportIcon from 'assets/sports-type-icons/atletic.svg';

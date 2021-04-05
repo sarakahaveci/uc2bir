@@ -1,16 +1,21 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-
-import Carousel from 'react-elastic-carousel';
-import './carousel.css';
 import Svg from 'components/statics/svg';
+import Slider from 'react-slick';
 
 const ExerciseCard = () => {
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
   return (
     <Container>
       <ExerciseCardContainer>
         <ImagesContainer>
-          <Carousel enableMouseSwipe={false} showArrows={false} itemsToShow={1}>
+          <Carousel {...settings}>
             <img
               style={{ width: '80px', height: '80px' }}
               key={1}
@@ -43,7 +48,7 @@ const ExerciseCard = () => {
         <Svg.ArrowRightIcon style={{ marginRight: '13px' }} />
       </ExerciseCardContainer>
       <DeleteIcon>
-        <Svg.Delete></Svg.Delete>
+        <Svg.TrashIcon></Svg.TrashIcon>
       </DeleteIcon>
     </Container>
   );
@@ -120,4 +125,8 @@ const DeleteIcon = styled.button`
   box-shadow: 0px 2px 3px 0px rgba(68, 68, 68, 0.39);
 `;
 
+const Carousel = styled(Slider)`
+  width: 80%;
+  background: red;
+`;
 export default ExerciseCard;

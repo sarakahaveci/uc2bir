@@ -16,13 +16,13 @@ const LongUserCard = ({
   hoverText = 'Profile Git',
   isGym,
   onClickHover,
+  selected = false,
 }) => {
   const [showProfileNavigator, setShowProfileNavigator] = useState(false);
   const [isFavorited, setIsFavorited] = useState(favoritedUser);
 
   const dispatch = useDispatch();
   const history = useHistory();
-
   const favoriteClickHandler = () => {
     if (isFavorited) {
       dispatch(removeFavoriteUser(data.favorite_id));
@@ -40,11 +40,11 @@ const LongUserCard = ({
 
   return (
     <div
-      className="long-user-card"
+      className={selected ? 'long-user-card scale-t' : 'long-user-card'}
       onMouseEnter={() => setShowProfileNavigator(true)}
       onMouseLeave={() => setShowProfileNavigator(false)}
     >
-      <Stars rating={data.rating} position="top" />
+      <Stars rating={data?.rating} position="top" />
 
       <div className="long-user-card__img-wrapper">
         {isFavorited ? (
@@ -58,7 +58,7 @@ const LongUserCard = ({
 
         <img
           className="long-user-card__img"
-          src={data.photo ? data.photo : MockImage}
+          src={data?.photo ? data?.photo : MockImage}
         />
 
         {showProfileNavigator &&
@@ -81,26 +81,26 @@ const LongUserCard = ({
 
       <div className="long-user-card__body">
         <Title textAlign="left" component="h5">
-          {data.name}
+          {data?.name}
         </Title>
 
-        <Span underline>{data.title}</Span>
+        <Span underline>{data?.title}</Span>
 
         <div className="long-user-card__location-wrapper">
           <div className="long-user-card__location-text">
-            <Svg.LocationIcon /> {data.city || city},{' '}
-            {data.district || district}
+            <Svg.LocationIcon /> {data?.city || city},{' '}
+            {data?.district || district}
           </div>
 
           <div className="long-user-card__fee">
-            {data.price || 0} <AwesomeIcon.Tl />
+            {data?.price || 0} <AwesomeIcon.Tl />
           </div>
         </div>
       </div>
 
-      {data.classification && (
+      {data?.classification && (
         <div className="long-user-card__classification">
-          {data.classification}
+          {data?.classification}
         </div>
       )}
     </div>
@@ -117,7 +117,6 @@ const heart = css`
       background-color: white;
       border-radius: 50%;
     `}
-
   cursor: pointer;
   position: absolute;
   right: 17px;

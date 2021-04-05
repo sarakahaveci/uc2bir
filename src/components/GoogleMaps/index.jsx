@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   GoogleMap,
   useJsApiLoader,
@@ -6,18 +6,21 @@ import {
   MarkerClusterer,
   InfoWindow,
 } from '@react-google-maps/api';
+import styled from 'styled-components/macro';
 
 import MarkerSvg from './markerSvg.svg';
 import { GoogleMapsAPI } from 'utils/config';
 
 const center = { lat: 39.925533, lng: 32.866287 };
 
-export default function GoogleMapClusterer({ data }) {
+export default function GoogleMapClusterer({ data, onSelected }) {
   const [selectedMarker, setSelectedMarker] = useState(null);
   const mapContainerStyle = { width: '100%', height: '100%' };
 
   const options = { maxZoom: 15 };
-
+  useEffect(() => {
+    onSelected && onSelected(selectedMarker);
+  }, [selectedMarker]); //for selected item callback
   const { isLoaded, loadError } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: GoogleMapsAPI,
@@ -59,13 +62,16 @@ export default function GoogleMapClusterer({ data }) {
                         lng: +lng,
                       }}
                     >
-                      <div>{addressDetail || ''}</div>
+                      <InfoContainer>
+                        <BoldText>{professional?.title}</BoldText>
+                        <DetailText>{addressDetail}</DetailText>
+                      </InfoContainer>
                     </InfoWindow>
                   )}
 
                   <Marker
                     onClick={() => showInfoWindow(id)}
-                    key={professional.id}
+                    key={professional?.id}
                     position={{
                       lat: +lat,
                       lng: +lng,
@@ -96,3 +102,25 @@ export default function GoogleMapClusterer({ data }) {
     </div>
   );
 }
+
+const InfoContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const DetailText = styled.text`
+  font-size: 0.9rem;
+  font-family: 'Poppins', sans-serif;
+  color: ${(props) => props.color || 'black'};
+  @media (max-width: 768px) {
+    font-size: 0.7rem;
+  }
+`;
+const BoldText = styled.text`
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif;
+  color: ${(props) => props.color || 'black'};
+  @media (max-width: 768px) {
+    font-size: 0.7rem;
+  }
+`;

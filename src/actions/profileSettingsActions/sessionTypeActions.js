@@ -12,6 +12,7 @@ import {
   REMOVE_GTM_FROM_PT,
   SEARCH_GYM_FOR_PT,
   ADD_GTM_FROM_PT,
+  SEARCH_PROFESSIONAL,
 } from '../../constants';
 import { toast } from 'react-toastify';
 
@@ -196,10 +197,11 @@ export const addGymFromPt = (id, successCallback) => async (
 };
 
 export const searchGymForPt = (title = false, page = 0) => async (dispatch) => {
-  const urlForAllGymList = `/user/address/search-gym?page=${page}`;
+  const urlForAllGymList = `/user/address/search-gym`;
   const urlWithTitle = `&title=${title}`;
 
-  const finalUrl = urlForAllGymList + (title && urlWithTitle);
+  //const finalUrl = urlForAllGymList + (title && urlWithTitle); sonra düzelt
+  const finalUrl = urlForAllGymList;
 
   await dispatch({
     type: HTTP_REQUEST,
@@ -220,23 +222,22 @@ export const searchGymWithDetail = (
   location = false,
   branch = false
 ) => async (dispatch) => {
-  const urlForAllGymList = `/user/address/search-gym?page=${page}`;
+  //const urlForAllGymList = `/user/address/search-gym?page=${page}`;
+  const urlForAllGymList = `/user/address/search-gym?`;
+
   const urlWithTitle = `&title=${title}`;
   const urlWithLocation = `&location_key=${location}`;
   const urlWithBranch = `&branch_id=${branch}`;
 
   const finalUrl =
-    urlForAllGymList +
-    (title && urlWithTitle) +
-    (location && urlWithLocation) +
-    (branch && urlWithBranch);
+    urlForAllGymList + urlWithTitle + urlWithLocation + urlWithBranch;
 
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
       method: 'GET',
       url: finalUrl,
-      label: SEARCH_GYM_FOR_PT,
+      label: SEARCH_PROFESSIONAL,
       transformData: (data) => data.data,
       errorHandler: (error) =>
         toast.error(error.message, { position: 'bottom-right', delay: 2500 }),

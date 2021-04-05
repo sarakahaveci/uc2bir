@@ -27,6 +27,7 @@ const AddGym = ({ setSubPage, setBannerActive }) => {
   const [location, setLocation] = useState('');
   const [trainerName, setTrainerName] = useState('');
   const [branch, setBranch] = useState('');
+  const [selectedItem, setSelectedItem] = useState(null);
 
   const [showSearch, setShowSearch] = useState(true);
   const [page, setPage] = useState(1);
@@ -39,12 +40,8 @@ const AddGym = ({ setSubPage, setBannerActive }) => {
   useEffect(() => {
     setBannerActive(false);
     dispatch(searchGymForPt());
-  }, []);
-
-  useEffect(() => {
     dispatch(getAllPTBranchList());
   }, []);
-
   const searchGymHandler = () => {
     dispatch(searchGymWithDetail(trainerName, page, location, branch));
     setShowSearch(true);
@@ -115,30 +112,45 @@ const AddGym = ({ setSubPage, setBannerActive }) => {
           </SearchCol>
         </Row>
       </div>
-      <GoogleMapClusterer data={data} />
+      <GoogleMapClusterer
+        onSelected={(selected) => {
+          setSelectedItem(data.find((item) => item.id == selected));
+        }}
+        data={data}
+      />
       <GymListWrapper>
-        {showSearch &&
-          data?.map((gym) => (
-            <LongUserCard
-              key={gym.id}
-              data={gym}
-              city={gym.address.city}
-              district={gym.address.district}
-              hoverText="+ Salonu Ekle"
-              showHeartBg
-              isGym
-              onClickHover={(id) => addGymHandler(id)}
-            />
-          ))}
+        {selectedItem && (
+          <LongUserCard
+            key={selectedItem?.id}
+            selected={true}
+            data={selectedItem}
+            city={selectedItem?.address?.city}
+            district={selectedItem?.address?.district}
+            hoverText="+ Salonu Ekle"
+            showHeartBg
+            isGym
+            onClickHover={(id) => addGymHandler(id)}
+          />
+        )}
+
+        {selectedItem &&
+          data
+            .filter((item) => item.id !== selectedItem.id)
+            .slice(0, 3)
+            .map((item) => (
+              <LongUserCard
+                key={item?.id}
+                selected={false}
+                data={item}
+                city={item?.address?.city}
+                district={item?.address?.district}
+                hoverText="+ Salonu Ekle"
+                showHeartBg
+                isGym
+                onClickHover={(id) => addGymHandler(id)}
+              />
+            ))}
       </GymListWrapper>
-      <div className="d-flex w-100 mt-3">
-        <Pagination
-          className="mx-auto"
-          count={totalPage}
-          page={page}
-          onChange={handleChangePage}
-        />
-      </div>
     </>
   );
 };

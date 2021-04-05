@@ -5,7 +5,6 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { CustomProgress } from 'components';
 import { Container, Row, Col } from 'react-bootstrap';
 import ExerciseCard from './ExerciseCard';
-import './carousel.css';
 const useStyles = makeStyles({
   barColorPrimary: {
     backgroundColor: '#00B2A9',

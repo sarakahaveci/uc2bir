@@ -6,21 +6,20 @@ import { default as NativeBanner } from '../../components/sliders/Banner';
 import SearchBar from '../../components/sliders/SearchBar';
 import GoogleApp from 'components/GoogleMaps';
 import { SET_SEARCH_PROFESSIONAL_TYPE } from 'constants/actionTypes';
-
 //bunları şimdilik ekliyoruz
 import s2 from '../../assets/banner/download.jpg';
 import s3 from '../../assets/banner/dw2.jpg';
 import vid from '../../assets/girisvideo1920x660.mp4';
-
+import { searchGymWithDetail } from 'actions';
 const Banner = () => {
   const dispatch = useDispatch();
-
   const [virtual, setVirtual] = useState('pt');
-
   const handleChangeVirtual = (value) => {
     dispatch({ type: SET_SEARCH_PROFESSIONAL_TYPE, payload: value });
     setVirtual(value);
+    dispatch(searchGymWithDetail());
   };
+  //useSelector((state) => console.log(state));
 
   useLayoutEffect(() => {
     const player = document.getElementById('vd-io');
