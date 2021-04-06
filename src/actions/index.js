@@ -8,3 +8,4 @@ export * from './contactActions';
 export * from './footerActions';
 export * from './userProfileActions';
 export * from './searchProfessionalAction';
+export * from './homeActions';

@@ -1,18 +1,13 @@
 /* eslint-disable no-unused-vars */
 import React, { useLayoutEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
-
 import { default as SlickSlider } from 'react-slick';
-
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+
 import AwesomeIcon from '../statics/icon';
-import Button from '../buttons/button';
 
-import Groups from './focus-items';
-
-const SliderFocus = (props) => {
-  const { data, query } = props;
+const SliderFocus = ({ className, data = [], userType }) => {
   const [nav1, setNav1] = useState(null);
   const [nav2, setNav2] = useState(null);
 
@@ -26,7 +21,7 @@ const SliderFocus = (props) => {
 
   return (
     <>
-      <div className={`slider-focus ${props.className}`}>
+      <div className={`slider-focus ${className}`}>
         <div className="slick-slider-buttons">
           <a className="slick-button next" onClick={() => slider1.slickNext()}>
             <AwesomeIcon.Next />
@@ -46,10 +41,9 @@ const SliderFocus = (props) => {
                   autoplaySpeed={7500}
                   speed={2000}
                 >
-                  {query &&
-                    data.map((val, key) =>
-                      Groups[props.groups]({ key, val, top: true })
-                    )}
+                  {data.map((val, key) =>
+                    Groups[userType]({ key, val, top: true })
+                  )}
                 </SlickSlider>
               </div>
             </div>
@@ -67,10 +61,9 @@ const SliderFocus = (props) => {
                 arrows={false}
                 ref={(slider) => (slider1 = slider)}
               >
-                {query &&
-                  data.map((val, key) =>
-                    Groups[props.groups]({ key, val, bottom: true })
-                  )}
+                {data.map((val, key) =>
+                  Groups[groups]({ key, val, bottom: true })
+                )}
               </SlickSlider>
             </div>
           </div>

@@ -18,6 +18,7 @@ import myBlogs from '../reducers/profileSettingsReducer/blogsReducer';
 import footer from '../reducers/footerReducer';
 import userProfileReducer from '../reducers/userProfileReducer/index';
 import searchProfessional from '../reducers/searchProfessionalReducer';
+import home from '../reducers/homeReducer';
 
 const reducers = combineReducers({
   auth,
@@ -37,6 +38,7 @@ const reducers = combineReducers({
   footer,
   userProfile: userProfileReducer,
   searchProfessional,
+  home,
 });
 
 export default reducers;

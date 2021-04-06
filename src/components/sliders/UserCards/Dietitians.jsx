@@ -1,8 +1,8 @@
 /* eslint-disable react/no-children-prop */
 import React from 'react';
 
-import Title from '../../../components/typography/Titles';
-import Text from '../../../components/typography/Text';
+import Title from '../../typography/Titles';
+import Text from '../../typography/Text';
 import AwesomeIcon from '../../statics/icon';
 import IconLabel from '../../buttons/icon-label';
 
