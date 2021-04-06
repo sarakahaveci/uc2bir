@@ -6,7 +6,9 @@ import {
   GET_NOTIFICATION_SETTINGS,
 } from '../../constants';
 
-export const getNotifications = (pageNumber, date) => async (dispatch) => {
+export const getNotifications = (pageNumber, date, successCallback) => async (
+  dispatch
+) => {
   const url = `/user/notification/fetch?page=${pageNumber}&date=${date}`;
 
   await dispatch({
@@ -16,6 +18,8 @@ export const getNotifications = (pageNumber, date) => async (dispatch) => {
       transformData: (data) => data.data.notifications,
       url,
       label: GET_NOTIFICATIONS,
+      callBack: (data) =>
+        successCallback(data.data?.notifications?.current_page),
     },
   });
 };

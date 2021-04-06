@@ -71,7 +71,11 @@ const Notifications = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(getNotifications(pageNumber, substractDateHandler()));
+    dispatch(
+      getNotifications(pageNumber, substractDateHandler(), (pageNumber) =>
+        setPageNumber(pageNumber)
+      )
+    );
   }, [pageNumber]);
 
   useEffect(() => {
@@ -99,15 +103,20 @@ const Notifications = () => {
   };
 
   const tableContent = notifications?.data?.length ? (
-    notifications.data.map((item, index) => (
+    notifications?.data?.map((item, index) => (
       <tr key={'noti' + index}>
         <Td>
-          <Span color="dark" fontWeight="500" fontSize="0.9rem">
-            {item.date}
+          <Span
+            color="dark"
+            fontWeight="500"
+            fontSize="0.9rem"
+            minWidth="165px"
+          >
+            {item.created_at}
           </Span>
 
-          <Span color="dark" fontWeight="500" ml="20px" fontSize="0.9rem">
-            {item.note}
+          <Span color="dark" fontWeight="500" ml="5px" fontSize="0.9rem">
+            {JSON.parse(item.payload)?.payload}
           </Span>
         </Td>
       </tr>
@@ -226,7 +235,7 @@ const SwitchRow = styled.div`
 `;
 
 const Table = styled.table`
-  min-height: 200px;
+  min-height: 100px;
 
   tbody {
     position: relative;
@@ -254,4 +263,6 @@ const Th = styled.th`
 
 const Td = styled.td`
   padding: 15px;
+  display: flex;
+  align-items: center;
 `;
