@@ -1,37 +1,39 @@
-// @ts-nocheck
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import Svg from 'components/statics/svg';
-import List from '../List';
-import Item from '../Item';
+import List from '../HeaderList';
+import Item from '../HeaderItem';
 import TABS from 'constants/tabUri';
 
-const Gym = ({ user_name, user_img = null, logOutAction }) => {
-  const notification = [];
-
-  const menu = [
+const Dietitian = ({ user_name, user_img = null, logoutHandler }) => {
+  const userDependentMenu = [
     {
       name: 'Profilim',
       icon: <Svg.UsernameIcon />,
       link: TABS.profilePath,
+      pulse: true,
     },
+    /*    {
+      name: 'Paketlerim',
+      icon: <Svg.Packet />,
+      link: TABS.packetsPath,
+    }, */
     {
-      name: 'Olanaklar',
-      icon: <Svg.TickTick />,
-      link: TABS.facilityPath,
-    },
-    {
-      name: 'Faaliyet Alanları',
+      name: 'Oturum Türleri & Çalıştığım Yerler',
       icon: <Svg.PtHome />,
-      link: TABS.activityPath,
+      link: TABS.sessiontypePath,
     },
     {
-      name: 'Eğitmenler',
-      icon: <Svg.PeopleGroups />,
-      link: TABS.trainersPath,
+      name: 'Ücretlerim',
+      icon: <Svg.Monies />,
+      link: TABS.pricePath,
     },
-    /*   {
+    {
+      name: 'Uzmanlıklarım',
+      icon: <Svg.Expert />,
+      link: TABS.specialtiesPath,
+    },
+    /*    {
       name: 'Cüzdanım',
       icon: <Svg.Wallet />,
       link: TABS.walletPath,
@@ -42,9 +44,14 @@ const Gym = ({ user_name, user_img = null, logOutAction }) => {
       link: TABS.galleryPath,
     },
     {
+      name: 'Blog',
+      icon: <Svg.Blog />,
+      link: TABS.blogPath,
+    },
+    {
       name: 'Çıkış Yap',
       icon: <Svg.Closed />,
-      onClick: logOutAction,
+      onClick: logoutHandler,
     },
   ];
 
@@ -52,16 +59,17 @@ const Gym = ({ user_name, user_img = null, logOutAction }) => {
     {
       name: 'Bildirimler',
       icon: <Svg.Notification />,
-      notify: [...notification],
+      notify: [],
       linkPath: TABS.notificationPath,
     },
     {
       name: 'Mesajlarım',
       icon: <Svg.CommentBlack />,
+      pulse: true,
       notify: [],
       linkPath: TABS.proMessagesPath,
     },
-    /*   {
+    /*    {
       name: 'Rezervasyonlarım',
       icon: <Svg.Date />,
       notify: [],
@@ -70,7 +78,7 @@ const Gym = ({ user_name, user_img = null, logOutAction }) => {
     {
       name: user_name,
       icon: user_img || <Svg.UsernameIcon />,
-      menu: [...menu],
+      menu: userDependentMenu,
     },
   ];
 
@@ -84,7 +92,12 @@ const Gym = ({ user_name, user_img = null, logOutAction }) => {
             dropDown={val.menu || val.notify}
             linkPath={val?.linkPath}
           >
-            <Item icon={val.icon} text={val.name} notify={val.notify?.length} />
+            <Item
+              icon={val.icon}
+              text={val.name}
+              notify={val.notify?.length}
+              pulse={val.pulse}
+            />
           </List>
         );
       })}
@@ -92,9 +105,4 @@ const Gym = ({ user_name, user_img = null, logOutAction }) => {
   );
 };
 
-Gym.propTypes = {
-  user_name: PropTypes.string,
-  user_id: PropTypes.number,
-};
-
-export default Gym;
+export default Dietitian;

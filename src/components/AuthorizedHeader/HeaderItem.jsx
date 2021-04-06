@@ -1,11 +1,15 @@
 import React from 'react';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
+
+import { pulse } from 'components';
 import { device } from 'utils';
 
-const Item = ({ icon, text, notify = null }) => {
+const Item = ({ icon, text, pulse, notify = null }) => {
   return (
     <ItemWrapper>
-      <span className="icon">{icon}</span>
+      <IconWrapper pulse={pulse} className="icon">
+        {icon}
+      </IconWrapper>
 
       <Span className="title">{text}</Span>
 
@@ -13,6 +17,16 @@ const Item = ({ icon, text, notify = null }) => {
     </ItemWrapper>
   );
 };
+
+const IconWrapper = styled.span`
+  ${(p) =>
+    p.pulse &&
+    css`
+      animation: pulse 1s infinite;
+
+      ${pulse}
+    `}
+`;
 
 const ItemWrapper = styled.div`
   display: flex;

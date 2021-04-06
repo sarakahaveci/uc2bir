@@ -4,10 +4,10 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import { getUserKeys, logout } from 'actions';
-import User from './distribution/User';
-import Pt from './distribution/Pt';
-import Gym from './distribution/Gym';
-import Dietitian from './distribution/Dietitian';
+import User from './Users/User';
+import Pt from './Users/Pt';
+import Gym from './Users/Gym';
+import Dietitian from './Users/Dietitian';
 import { DIETITIAN, WORK_PLACE, USER, PERSONAL_TRAINER } from '../../constants';
 
 const HeaderLogin = ({ type_id, user }) => {
@@ -36,7 +36,7 @@ const HeaderLogin = ({ type_id, user }) => {
             user_id={user.id}
             user_name={user.name}
             user_img={user.img}
-            logOutAction={logoutHandler}
+            logoutHandler={logoutHandler}
           />
         </Section>
       );
@@ -48,7 +48,7 @@ const HeaderLogin = ({ type_id, user }) => {
             user_id={user.id}
             user_name={user.name}
             user_img={user.img}
-            logOutAction={logoutHandler}
+            logoutHandler={logoutHandler}
           />
         </Section>
       );
@@ -60,7 +60,7 @@ const HeaderLogin = ({ type_id, user }) => {
             user_id={user.id}
             user_name={user.name}
             user_img={user.img}
-            logOutAction={logoutHandler}
+            logoutHandler={logoutHandler}
           />
         </Section>
       );
@@ -72,7 +72,7 @@ const HeaderLogin = ({ type_id, user }) => {
             user_id={user.id}
             user_name={user.name}
             user_img={user.img}
-            logOutAction={logoutHandler}
+            logoutHandler={logoutHandler}
           />
         </Section>
       );

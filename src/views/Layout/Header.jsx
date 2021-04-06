@@ -6,7 +6,7 @@ import { Link, useHistory } from 'react-router-dom';
 
 import { default as NativeHeader } from '../../components/Header';
 import logo from '../../assets/logo.png';
-import { AwesomeIcon, IconLabel, Button, HeaderLogin } from '../../components';
+import { AwesomeIcon, IconLabel, Button, HeaderLogin } from 'components';
 
 const Header = () => {
   const { infoData } = useSelector((state) => state.footer);
@@ -63,26 +63,21 @@ const Header = () => {
                   <ul className={`dropdown ${toggle ? 'open' : 'close'}`}>
                     <li>
                       {/* TODO: Add function */}
-                      <a onClick={() => {}}>EĞİTMEN</a>
+                      <a>EĞİTMEN</a>
                     </li>
                     <li>
-                      <a onClick={() => {}}>SALON</a>
+                      <a>SALON</a>
                     </li>
                     <li>
-                      <a onClick={() => {}}>DİYETİSYEN</a>
+                      <a>DİYETİSYEN</a>
                     </li>
                     <li>
-                      <a onClick={() => {}}>HARİTA</a>
+                      <a>HARİTA</a>
                     </li>
                   </ul>
                 </li>
               </ul>
             </div>
-            {/*<div className="bar-item right-bar">
-              <div className="lang">
-                <a href="#">TR</a> / <a href="#">EN</a>
-              </div>
-            </div>*/}
           </Row>
         </div>
       );
