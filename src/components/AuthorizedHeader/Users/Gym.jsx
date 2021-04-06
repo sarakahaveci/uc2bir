@@ -69,6 +69,7 @@ const Gym = ({ user_name, user_img = null, logoutHandler }) => {
       name: user_name,
       icon: user_img || <Svg.UsernameIcon />,
       menu: userDependentMenu,
+      pulse: true,
     },
   ];
 

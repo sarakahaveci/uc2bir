@@ -76,6 +76,7 @@ const Dietitian = ({ user_name, user_img = null, logoutHandler }) => {
       linkPath: TABS.reservationsPath,
     }, */
     {
+      pulse: true,
       name: user_name,
       icon: user_img || <Svg.UsernameIcon />,
       menu: userDependentMenu,
