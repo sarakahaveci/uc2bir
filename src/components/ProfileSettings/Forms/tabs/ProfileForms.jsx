@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
-
+import React, { useState } from 'react';
 import { Material, Button } from 'components';
 import { genderData } from 'constants/formData';
 import styled from 'styled-components/macro';
@@ -15,8 +13,20 @@ const ProfileForms = ({ type }) => {
     (state) => state.profileSettings2.profileDetail
   );
   const [data, setData] = useState({});
-  const [isBirthdaySafe, setIsBirthdaySafe] = useState(false);
+  const [diffData] = useState({});
+  const [saveEnable, setSaveEnable] = useState(false);
+  const [setIsBirthdaySafe] = useState(false);
 
+  const diffHandler = (e) => {
+    if (detail?.data[e.target.name] !== e.target.value) {
+      diffData[e.target.name] = true;
+    } else {
+      diffData[e.target.name] = false;
+    }
+    Object.values(diffData).every((el) => el === false)
+      ? setSaveEnable(true)
+      : setSaveEnable(false);
+  };
   const onSubmit = (event) => {
     event.preventDefault();
     dispatch(
@@ -49,9 +59,10 @@ const ProfileForms = ({ type }) => {
             type="text"
             name="name"
             defaultValue={detail?.data?.name}
-            onChange={(e) =>
-              setData({ ...data, [e.target.name]: e.target.value })
-            }
+            onChange={(e) => {
+              setData({ ...data, [e.target.name]: e.target.value });
+              diffHandler(e);
+            }}
             settings="current"
           />
           {type !== 'USER' && (
@@ -60,9 +71,10 @@ const ProfileForms = ({ type }) => {
               type="text"
               name="title"
               defaultValue={detail?.data?.title}
-              onChange={(e) =>
-                setData({ ...data, [e.target.name]: e.target.value })
-              }
+              onChange={(e) => {
+                setData({ ...data, [e.target.name]: e.target.value });
+                diffHandler(e);
+              }}
               settings="current"
             />
           )}
@@ -71,9 +83,10 @@ const ProfileForms = ({ type }) => {
             type="email"
             name="email"
             defaultValue={detail?.data?.email}
-            onChange={(e) =>
-              setData({ ...data, [e.target.name]: e.target.value })
-            }
+            onChange={(e) => {
+              setData({ ...data, [e.target.name]: e.target.value });
+              diffHandler(e);
+            }}
             settings="current"
             inputProps={{
               readOnly: true,
@@ -85,9 +98,10 @@ const ProfileForms = ({ type }) => {
               items={genderData}
               name="genre"
               defaultValue={detail?.data?.genre}
-              onChange={(e) =>
-                setData({ ...data, [e.target.name]: e.target.value })
-              }
+              onChange={(e) => {
+                setData({ ...data, [e.target.name]: e.target.value });
+                diffHandler(e);
+              }}
               settings="current"
             />
           )}
@@ -98,9 +112,10 @@ const ProfileForms = ({ type }) => {
               name="company_date"
               value={detail?.data?.company_date}
               defaultValue={detail?.data?.company_date}
-              onChange={(e) =>
-                setData({ ...data, [e.target.name]: e.target.value })
-              }
+              onChange={(e) => {
+                setData({ ...data, [e.target.name]: e.target.value });
+                diffHandler(e);
+              }}
               settings="current"
               onError={(err) => setIsBirthdaySafe(err)}
             />
@@ -111,12 +126,12 @@ const ProfileForms = ({ type }) => {
               name="birthday"
               value={detail?.data?.birthday}
               defaultValue={detail?.data?.birthday}
-              onChange={(e) =>
-                setData({ ...data, [e.target.name]: e.target.value })
-              }
+              onChange={(e) => {
+                setData({ ...data, [e.target.name]: e.target.value });
+              }}
               settings="current"
               minDate={'01.01.1945'}
-              maxDate={'01.01.2013'}
+              maxDate={'01.01.2020'}
               onError={(err) => setIsBirthdaySafe(err)}
             />
           )}
@@ -127,10 +142,8 @@ const ProfileForms = ({ type }) => {
               text="KAYDET"
               fontSize="15px"
               color="blue"
-              transparentDisabled={
-                Object.keys(data).length === 0 ? true : false
-              }
-              disabled={Object.keys(data).length === 0}
+              transparentDisabled={saveEnable}
+              disabled={saveEnable}
               isLoading={detail.isLoading}
             />
           </Footer>
