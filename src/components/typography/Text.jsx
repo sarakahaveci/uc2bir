@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { space, typography, color, flexbox, border } from 'styled-system';
@@ -10,6 +9,8 @@ const StyledText = styled.div`
   line-height: 120%;
   text-transform: ${(p) => p.textTransform && p.textTransform};
   line-height: ${(p) => p.lineHeight && p.lineHeight};
+  min-width: ${(p) => p.minWidth && p.minWidth};
+  width: ${(p) => p.width && p.width};
 
   ${(p) =>
     p.underline &&

@@ -112,14 +112,15 @@ const Notifications = () => {
     notifications?.data?.map((item, index) => (
       <tr key={'noti' + index}>
         <Td>
-          <Span
+          <Text
             color="dark"
             fontWeight="500"
             fontSize="0.9rem"
             minWidth="165px"
+            width="auto"
           >
             {item.created_at}
-          </Span>
+          </Text>
 
           <Span color="dark" fontWeight="500" ml="5px" fontSize="0.9rem">
             {JSON.parse(item.payload)?.payload}
