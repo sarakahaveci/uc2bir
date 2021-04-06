@@ -1,11 +1,12 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
+
+import { pulse } from 'components';
 
 const List = ({
   dropDown = [],
-
   className = null,
   children = null,
   dropClassName = null,
@@ -52,11 +53,16 @@ const List = ({
           <Lists className={`drop-down ${dropClassName}`}>
             {dropDown.map((val, key) => (
               <Item
+                pulse={val.pulse}
                 className={`col ${val.tabs?.length > 0 && 'drop-li'}`}
                 key={key}
               >
                 <A onClick={val.onClick} to={val.link}>
-                  {val.icon && <Icon className="item-icon">{val.icon}</Icon>}
+                  {val.icon && (
+                    <Icon pulse={val.pulse} className="item-icon">
+                      {val.icon}
+                    </Icon>
+                  )}
                   <Span>
                     {val.name}
                     {val.tabs?.length > 0 && (
@@ -85,6 +91,16 @@ const Lists = styled.ul`
 const Item = styled.li`
   visibility: visible;
   cursor: pointer;
+
+  ${(p) =>
+    p.pulse &&
+    css`
+      padding-left: 5px;
+      padding-bottom: 2px;
+      animation: pulse 1s infinite;
+
+      ${pulse}
+    `}
 `;
 
 const A = styled(Link)`

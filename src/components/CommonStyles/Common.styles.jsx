@@ -20,3 +20,19 @@ export const svgBackground = css`
   justify-content: center;
   border-radius: 50%;
 `;
+
+export const pulse = css`
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+    }
+
+    70% {
+      box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+    }
+
+    100% {
+      box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    }
+  }
+`;

@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
@@ -19,6 +19,7 @@ import {
   Files,
   Modal,
   CancellationDismissInfo,
+  pulse,
 } from 'components';
 import ProfileCancellation from 'components/ProfileSettings/ProfileCancellation/ProfileCancellation';
 import {
@@ -49,6 +50,7 @@ const trainerAndDietitanData = [
   {
     settingsName: 'Belgeler',
     body: <Files />,
+    pulse: true,
   },
   {
     settingsName: 'Adresim',
@@ -103,6 +105,7 @@ const workPlaceData = [
   {
     settingsName: 'İş Yeri Belgeler',
     body: <Files />,
+    pulse: true,
   },
   {
     settingsName: 'İş Yeri Adres',
@@ -141,7 +144,7 @@ const ProfileSettingsList = () => {
     <Wrapper key={'wrapper' + index}>
       <Accordion.Item>
         <Accordion.Toggle>
-          <SettingsRow>
+          <SettingsRow pulse={item.pulse}>
             <Box col>
               <Text color="dark" textAlign="left" fontWeight="500" p="2px">
                 {item.settingsName}
@@ -196,6 +199,15 @@ const SettingsRow = styled.div`
   border-bottom: 1px solid transparent;
   border-bottom: ${(p) => p.isActive && `1px solid ${p.theme.colors.gray5}`};
   padding: 10px 15px;
+
+  ${(p) =>
+    p.pulse &&
+    css`
+      animation: pulse 1s infinite;
+      border-radius: 20px;
+
+      ${pulse}
+    `}
 
   svg {
     transition: all 0.5s;
