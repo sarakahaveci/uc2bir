@@ -43,6 +43,7 @@ import Athlete from './images/athlete.svg';
 import Swimming from './images/swimming.svg';
 import Pilates from './images/pilates.svg';
 import WhiteArrowUp from './images/arraw-up.svg';
+import HamburgerMenu from './images/hamburger-menu.svg';
 import Location from './images/location.svg';
 import Notification from './images/notification.svg';
 import Date from './images/date.svg';
@@ -150,6 +151,7 @@ const Svg = {
   EditIcon: (props) => <ReactSVG {...props} src={Edit} />,
   InputClearIcon: (props) => <ReactSVG {...props} src={InputClear} />,
   WarningIcon: (props) => <ReactSVG {...props} src={Warning} />,
+  HamburgerMenu: (props) => <ReactSVG {...props} src={HamburgerMenu} />,
   Pencil: (props) => <ReactSVG {...props} src={Pencil} />,
   TickIcon: (props) => <ReactSVG {...props} src={Tick} />,
   BigClose: (props) => <ReactSVG {...props} src={BigClose} />,

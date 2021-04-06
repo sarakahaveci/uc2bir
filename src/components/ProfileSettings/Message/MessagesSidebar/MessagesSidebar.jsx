@@ -15,7 +15,9 @@ const MessageSidebar = () => {
   const { searched, foundRooms } = useSelector(
     (state) => state.profileSettings2.messages.messageSearch
   );
-
+  const { messageSideBarOpen } = useSelector(
+    (state) => state.profileSettings2.messages
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -26,7 +28,7 @@ const MessageSidebar = () => {
   const rooms = searched ? foundRooms : allRooms;
 
   return (
-    <Sidebar>
+    <Sidebar open={messageSideBarOpen}>
       <MessageSearch />
 
       <MessagesInfoWrapper>
@@ -54,4 +56,9 @@ const MessagesInfoWrapper = styled.div`
 const Sidebar = styled.div`
   max-width: 350px;
   position: relative;
+
+  @media (max-width: 768px) {
+    ${(props) => (props.open ? '' : 'height:0;width:0;overflow:hidden;')}
+    transition: all 0.3s ease-out;
+  }
 `;

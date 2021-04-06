@@ -1,13 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-
 import { getRooms, resetSelectedRoom } from 'actions';
 import MessagesSidebar from './MessagesSidebar/MessagesSidebar';
 import MessageChatArea from './MessageChatArea';
 
 export default function Message() {
   const dispatch = useDispatch();
-
+  const [open, setOpen] = useState(false);
   useEffect(() => {
     const isFirstTime = true;
 
@@ -15,11 +14,14 @@ export default function Message() {
 
     return () => dispatch(resetSelectedRoom());
   }, []);
-
+  //
+  function onClickHandle() {
+    setOpen(!open);
+  }
   return (
     <div className="w-100  d-flex message-page__wrapper">
-      <MessagesSidebar />
-      <MessageChatArea />
+      <MessagesSidebar onClickHandle={onClickHandle} />
+      <MessageChatArea open={open} />
     </div>
   );
 }

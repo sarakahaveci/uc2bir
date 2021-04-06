@@ -12,6 +12,7 @@ import {
   SEND_MESSAGE_SUCCESS,
   SEND_MESSAGE_FAILURE,
   RESET_MESSAGES,
+  MESSAGE_SİDEBAR_OPEN,
 } from '../../constants';
 
 const initialState = {
@@ -35,6 +36,7 @@ const initialState = {
     selectedRoomUser: null,
   },
   isSuccessSendMessage: false,
+  messageSideBarOpen: true,
 };
 
 const messagesReducer = (state = initialState, action) => {
@@ -100,6 +102,12 @@ const messagesReducer = (state = initialState, action) => {
           searched: false,
           foundRooms: [],
         },
+      };
+    }
+    case MESSAGE_SİDEBAR_OPEN: {
+      return {
+        ...state,
+        ...action.payload,
       };
     }
 

@@ -8,7 +8,7 @@ import Message from 'components/ProfileSettings/Message';
 const Info = () => {
   return (
     <Main>
-      <div className="basic-info">
+      <div style={{ marginTop: '20px' }} className="basic-info">
         <Container className="content">
           <Message />
         </Container>

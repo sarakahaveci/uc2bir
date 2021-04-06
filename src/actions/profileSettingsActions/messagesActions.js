@@ -8,6 +8,7 @@ import {
   SET_ROOM_NAME,
   RESET_MESSAGES,
   READ_MESSAGE,
+  MESSAGE_SİDEBAR_OPEN,
 } from '../../constants';
 
 export const getRooms = (isFirstTime) => async (dispatch) => {
@@ -32,7 +33,14 @@ export const getRooms = (isFirstTime) => async (dispatch) => {
     },
   });
 };
-
+export const setMessageSideBarOpen = (open) => async (dispatch) => {
+  dispatch({
+    type: MESSAGE_SİDEBAR_OPEN,
+    payload: {
+      messageSideBarOpen: open,
+    },
+  });
+};
 export const searchMessage = (searchValue) => async (dispatch, getState) => {
   const rooms = getState().profileSettings2.messages.rooms.data;
 
