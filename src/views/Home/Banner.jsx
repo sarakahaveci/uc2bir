@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import React, { useLayoutEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { default as NativeBanner } from '../../components/sliders/Banner';
 import SearchBar from '../../components/sliders/SearchBar';
@@ -10,16 +10,18 @@ import { SET_SEARCH_PROFESSIONAL_TYPE } from 'constants/actionTypes';
 import s2 from '../../assets/banner/download.jpg';
 import s3 from '../../assets/banner/dw2.jpg';
 import vid from '../../assets/girisvideo1920x660.mp4';
-import { searchGymWithDetail } from 'actions';
+import { searchGymForPt } from 'actions';
 const Banner = () => {
   const dispatch = useDispatch();
   const [virtual, setVirtual] = useState('pt');
   const handleChangeVirtual = (value) => {
     dispatch({ type: SET_SEARCH_PROFESSIONAL_TYPE, payload: value });
     setVirtual(value);
-    dispatch(searchGymWithDetail());
+    dispatch(searchGymForPt()); //DEĞİŞECEK
   };
-  //useSelector((state) => console.log(state));
+  const { data } = useSelector(
+    (state) => state.profileSettings2.sessionType.searchGym
+  );
 
   useLayoutEffect(() => {
     const player = document.getElementById('vd-io');
@@ -88,7 +90,7 @@ const Banner = () => {
       component: () => {
         return (
           <div className="img">
-            <GoogleApp data={[]} />
+            <GoogleApp data={data} />
           </div>
         );
       },
