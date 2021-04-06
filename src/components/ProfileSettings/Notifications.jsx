@@ -64,6 +64,8 @@ const Notifications = () => {
     }
   };
 
+  const notificationsSuccessHandler = (pageNumber) => setPageNumber(pageNumber);
+
   useEffect(() => {
     dispatch(readNotifications());
 
@@ -72,8 +74,10 @@ const Notifications = () => {
 
   useEffect(() => {
     dispatch(
-      getNotifications(pageNumber, substractDateHandler(), (pageNumber) =>
-        setPageNumber(pageNumber)
+      getNotifications(
+        pageNumber,
+        substractDateHandler(),
+        notificationsSuccessHandler
       )
     );
   }, [pageNumber]);
@@ -99,7 +103,9 @@ const Notifications = () => {
   const listHandler = () => {
     setPageNumber(1);
 
-    dispatch(getNotifications(1, substractDateHandler()));
+    dispatch(
+      getNotifications(1, substractDateHandler(), notificationsSuccessHandler)
+    );
   };
 
   const tableContent = notifications?.data?.length ? (
