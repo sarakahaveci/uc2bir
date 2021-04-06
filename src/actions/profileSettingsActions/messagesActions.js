@@ -8,7 +8,7 @@ import {
   SET_ROOM_NAME,
   RESET_MESSAGES,
   READ_MESSAGE,
-  MESSAGE_SİDEBAR_OPEN,
+  MESSAGE_SIDEBAR_OPEN,
 } from '../../constants';
 
 export const getRooms = (isFirstTime) => async (dispatch) => {
@@ -35,7 +35,7 @@ export const getRooms = (isFirstTime) => async (dispatch) => {
 };
 export const setMessageSideBarOpen = (open) => async (dispatch) => {
   dispatch({
-    type: MESSAGE_SİDEBAR_OPEN,
+    type: MESSAGE_SIDEBAR_OPEN,
     payload: {
       messageSideBarOpen: open,
     },

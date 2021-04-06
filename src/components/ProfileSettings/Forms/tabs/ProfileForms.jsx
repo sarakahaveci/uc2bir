@@ -12,20 +12,17 @@ const ProfileForms = ({ type }) => {
   const { detail } = useSelector(
     (state) => state.profileSettings2.profileDetail
   );
-  const [data, setData] = useState({});
-  const [diffData] = useState({});
+  let data = {};
   const [saveEnable, setSaveEnable] = useState(false);
-  const [setIsBirthdaySafe] = useState(false);
 
-  const diffHandler = (e) => {
-    if (detail?.data[e.target.name] !== e.target.value) {
-      diffData[e.target.name] = true;
+  const diffHandler = () => {
+    var fields = Object.keys(data);
+    var isDiff = fields.every((field) => data[field] == detail?.data[field]);
+    if (isDiff) {
+      setSaveEnable(false);
     } else {
-      diffData[e.target.name] = false;
+      setSaveEnable(true);
     }
-    Object.values(diffData).every((el) => el === false)
-      ? setSaveEnable(true)
-      : setSaveEnable(false);
   };
   const onSubmit = (event) => {
     event.preventDefault();
@@ -37,14 +34,14 @@ const ProfileForms = ({ type }) => {
             position: 'bottom-right',
             autoClose: 2000,
           });
-          setData({});
+          data = {};
         },
         () => {
           toast.error('Güncelleme işlemi yapılamadı.', {
             position: 'bottom-right',
             autoClose: 2000,
           });
-          setData({});
+          data = {};
         }
       )
     );
@@ -60,7 +57,7 @@ const ProfileForms = ({ type }) => {
             name="name"
             defaultValue={detail?.data?.name}
             onChange={(e) => {
-              setData({ ...data, [e.target.name]: e.target.value });
+              data = { ...data, [e.target.name]: e.target.value };
               diffHandler(e);
             }}
             settings="current"
@@ -72,8 +69,8 @@ const ProfileForms = ({ type }) => {
               name="title"
               defaultValue={detail?.data?.title}
               onChange={(e) => {
-                setData({ ...data, [e.target.name]: e.target.value });
-                diffHandler(e);
+                data = { ...data, [e.target.name]: e.target.value };
+                diffHandler();
               }}
               settings="current"
             />
@@ -84,7 +81,7 @@ const ProfileForms = ({ type }) => {
             name="email"
             defaultValue={detail?.data?.email}
             onChange={(e) => {
-              setData({ ...data, [e.target.name]: e.target.value });
+              data = { ...data, [e.target.name]: e.target.value };
               diffHandler(e);
             }}
             settings="current"
@@ -99,7 +96,7 @@ const ProfileForms = ({ type }) => {
               name="genre"
               defaultValue={detail?.data?.genre}
               onChange={(e) => {
-                setData({ ...data, [e.target.name]: e.target.value });
+                data = { ...data, [e.target.name]: e.target.value };
                 diffHandler(e);
               }}
               settings="current"
@@ -113,11 +110,10 @@ const ProfileForms = ({ type }) => {
               value={detail?.data?.company_date}
               defaultValue={detail?.data?.company_date}
               onChange={(e) => {
-                setData({ ...data, [e.target.name]: e.target.value });
+                data = { ...data, [e.target.name]: e.target.value };
                 diffHandler(e);
               }}
               settings="current"
-              onError={(err) => setIsBirthdaySafe(err)}
             />
           ) : (
             <Material.MaterialDateField
@@ -127,12 +123,11 @@ const ProfileForms = ({ type }) => {
               value={detail?.data?.birthday}
               defaultValue={detail?.data?.birthday}
               onChange={(e) => {
-                setData({ ...data, [e.target.name]: e.target.value });
+                data = { ...data, [e.target.name]: e.target.value };
               }}
               settings="current"
               minDate={'01.01.1945'}
               maxDate={'01.01.2020'}
-              onError={(err) => setIsBirthdaySafe(err)}
             />
           )}
           <Footer>
@@ -142,8 +137,8 @@ const ProfileForms = ({ type }) => {
               text="KAYDET"
               fontSize="15px"
               color="blue"
-              transparentDisabled={saveEnable}
-              disabled={saveEnable}
+              transparentDisabled={!saveEnable}
+              disabled={!saveEnable}
               isLoading={detail.isLoading}
             />
           </Footer>

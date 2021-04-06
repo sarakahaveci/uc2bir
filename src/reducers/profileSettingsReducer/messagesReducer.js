@@ -12,7 +12,7 @@ import {
   SEND_MESSAGE_SUCCESS,
   SEND_MESSAGE_FAILURE,
   RESET_MESSAGES,
-  MESSAGE_SİDEBAR_OPEN,
+  MESSAGE_SIDEBAR_OPEN,
 } from '../../constants';
 
 const initialState = {
@@ -104,7 +104,7 @@ const messagesReducer = (state = initialState, action) => {
         },
       };
     }
-    case MESSAGE_SİDEBAR_OPEN: {
+    case MESSAGE_SIDEBAR_OPEN: {
       return {
         ...state,
         ...action.payload,
