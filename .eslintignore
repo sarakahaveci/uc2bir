@@ -3,3 +3,4 @@
 /public/
 /src/actions/
 /src/reducers/
+/src/utils/localStorage.js

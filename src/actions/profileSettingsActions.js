@@ -163,7 +163,7 @@ export const getProfileDetails = (successCallback = () => {}) => async (
           payload: userData.user,
         });
 
-        localStorage.set('auth', userData);
+        localStorage.set('auth', userData, 60 * 8);
       },
       errorHandler: () =>
         toast.error('Profil Bilgileri Getirilemedi.', {

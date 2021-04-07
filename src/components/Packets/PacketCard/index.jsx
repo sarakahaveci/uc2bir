@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 import Svg from '../../statics/svg';
 import { device } from 'utils';
 
-const PacketCard = () => {
+const PacketCard = ({ onClickEdit }) => {
   useEffect(() => {}, []);
 
   return (
@@ -46,7 +46,7 @@ const PacketCard = () => {
         <Seperator></Seperator>
 
         <Row>
-          <Button>Dersleri Düzenle</Button>
+          <Button onClick={onClickEdit}>Dersleri Düzenle</Button>
         </Row>
       </Column>
     </Container>
