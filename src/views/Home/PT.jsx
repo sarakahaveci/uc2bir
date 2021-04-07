@@ -2,12 +2,12 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import cx from 'classnames';
 import { useSelector } from 'react-redux';
-
-import Title from 'components/typography/Titles';
-import SliderFocus from 'components/sliders/SliderFocus';
+import { HomeUserSlider, Title } from 'components';
 
 const PT = ({ className }) => {
-  const { content } = useSelector((state) => state.home);
+  const {
+    content: { data: content },
+  } = useSelector((state) => state.home);
 
   const link = '/instructor';
   return (
@@ -20,7 +20,7 @@ const PT = ({ className }) => {
           EN İYİ EĞİTMENLER İLE ÇALIŞMA FIRSATI
         </Title>
       </Container>
-      <SliderFocus data={content?.list_pt} link={link} userType="PT" />
+      <HomeUserSlider data={content?.list_pt} link={link} />
     </section>
   );
 };

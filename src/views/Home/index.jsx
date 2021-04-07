@@ -34,7 +34,7 @@ const Home = () => {
       <Living />
       <Packet />
       {/*  <GroupLesson /> */}
-      {/* 	<Dietitians /> */}
+      <Dietitians />
       <VKI />
       <Blog />
       {/* <Comments /> */}

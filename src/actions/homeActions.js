@@ -9,7 +9,6 @@ export const getHomeContent = () => async (dispatch) => {
       method: 'GET',
       url,
       label: GET_HOME_CONTENT,
-      transformData: (data) => data.data,
     },
   });
 };
