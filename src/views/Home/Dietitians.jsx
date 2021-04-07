@@ -1,28 +1,27 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import Title from '../../components/typography/Titles';
-import SliderFocus from '../../components/sliders/SliderFocus';
+import { useSelector } from 'react-redux';
 
-//mocdata
-import * as Data from './MocData';
+import { HomeUserSlider, Title } from 'components';
 
 const Dietitians = (props) => {
-  const query = true;
+  const {
+    content: { data: content },
+  } = useSelector((state) => state.home);
 
-  const data = Data.Dietitians;
-  const groups = 'Dietitians';
   const link = '/dietitians';
+
   return (
     <section className={`pt ${props.className}`}>
       <Container>
         <Title variant="h3" component="h3" lineDisable={false}>
           DİYETİSYENLER
         </Title>
-        <Title variant="h6" component="h6" fontWeight="500" >
+        <Title variant="h6" component="h6" fontWeight="500">
           SANA UYGUN DİYET PROGRAMINI, SANA ÖZEL DİYETİSYENLERLE BELİRLE
         </Title>
       </Container>
-      <SliderFocus query={query} data={data} groups={groups} link={link} />
+      <HomeUserSlider data={content.list_dt} link={link} />
     </section>
   );
 };

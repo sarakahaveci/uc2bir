@@ -36,6 +36,7 @@ export { default as CancellationReason } from './ProfileSettings/ProfileCancella
 export { default as CancellationDismissInfo } from './ProfileSettings/ProfileCancellation/CancellationDismissInfo';
 export { default as PlusButton } from './buttons/PlusButton';
 export { default as Select } from './Select/Select';
+export { default as HomeUserSlider } from './sliders/HomeUserSlider';
 
 /*
 export { default as SocialLogin } from './SocialLogin/SocialLogin';

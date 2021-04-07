@@ -1,16 +1,14 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import Title from '../../components/typography/Titles';
-import SliderFocus from '../../components/sliders/SliderFocus';
+import { useSelector } from 'react-redux';
 
-//mocdata
-import * as Data from './MocData';
+import { HomeUserSlider, Title } from 'components';
 
 const Living = (props) => {
-  const query = true;
+  const {
+    content: { data: content },
+  } = useSelector((state) => state.home);
 
-  const data = Data.Gym;
-  const groups = 'GYM';
   const link = '/gym';
   return (
     <section className={`pt ${props.className}`}>
@@ -18,11 +16,11 @@ const Living = (props) => {
         <Title variant="h3" lineDisable={false} component="h3">
           SALONLAR
         </Title>
-        <Title variant="h6" component="h6" fontWeight="500" >
+        <Title variant="h6" component="h6" fontWeight="500">
           İSTEDİĞİN SALONDA ÇALIŞMA FIRSATI
         </Title>
       </Container>
-      <SliderFocus query={query} data={data} groups={groups} link={link} />
+      <HomeUserSlider data={content?.list_bs} link={link} />
     </section>
   );
 };
