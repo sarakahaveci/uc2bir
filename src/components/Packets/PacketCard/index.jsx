@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
 import Svg from '../../statics/svg';
+import { device } from 'utils';
 
 const PacketCard = () => {
   useEffect(() => {}, []);
@@ -60,7 +61,7 @@ const Container = styled.section`
   background-color: #fcfcfc;
   -webkit-box-shadow: 0px 0px 4px 3px rgba(197, 196, 196, 0.28);
   box-shadow: 0px 0px 4px 3px rgba(197, 196, 196, 0.28);
-  @media (max-width: 768px) {
+  @media ${device.sm} {
     width: 98vw;
   }
 `;
@@ -73,7 +74,7 @@ const Column = styled.div`
   border-bottom-style: ${(props) => (props.borderDisable ? 'none' : 'solid')};
   border-bottom-width: 1px;
   border-bottom-color: rgba(197, 196, 196, 0.5);
-  @media (max-width: 768px) {
+  @media ${device.sm} {
     height: 6vw;
     padding-left: 1vw;
   }
@@ -83,7 +84,7 @@ const Row = styled.div`
   justify-content: center;
   align-items: center;
   padding: 20px;
-  @media (max-width: 768px) {
+  @media ${device.sm} {
     padding: 3vw;
   }
 `;
@@ -99,7 +100,7 @@ const BoldText = styled.text`
   font-weight: bold;
   font-family: 'Poppins', sans-serif;
   color: ${(props) => props.color || 'black'};
-  @media (max-width: 768px) {
+  @media ${device.sm} {
     font-size: 0.7rem;
   }
 `;
@@ -107,7 +108,7 @@ const AdressText = styled.text`
   color: #909090;
   font-family: 'Poppins', sans-serif;
   margin-left: 8px;
-  @media (max-width: 768px) {
+  @media ${device.sm} {
     margin-left: 3px;
     font-size: 0.6rem;
   }
@@ -121,7 +122,7 @@ const FlexSpace = styled.div`
     props.position == 'END' ? 'flex-end' : 'flex-start'};
   padding: 0 20px 0 20px;
   flex-grow: 2;
-  @media (max-width: 768px) {
+  @media ${device.sm} {
   }
 `;
 const Dot = styled.div`
@@ -130,7 +131,7 @@ const Dot = styled.div`
   border-radius: 6px;
   background-color: #ef805a;
   margin-right: 8px;
-  @media (max-width: 768px) {
+  @media ${device.sm} {
     margin-right: 3px;
   }
 `;
@@ -141,7 +142,7 @@ const Button = styled.button`
   background: #f77e0b;
   color: white;
   border-radius: 5px;
-  @media (max-width: 768px) {
+  @media ${device.sm} {
     width: 90px;
     height: 17px;
     font-size: 10px;

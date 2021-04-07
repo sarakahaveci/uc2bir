@@ -6,6 +6,7 @@ import MessageSearch from './MessageSearch';
 import MessageInfoRow from './MessageInfoRow';
 import { scrollbar } from 'components';
 import { getRooms } from 'actions';
+import { device } from 'utils';
 
 const MessageSidebar = () => {
   const { data: allRooms } = useSelector(
@@ -57,8 +58,10 @@ const Sidebar = styled.div`
   max-width: 350px;
   position: relative;
 
-  @media (max-width: 768px) {
+  @media ${device.sm} {
     ${(props) => (props.open ? '' : 'height:0;width:0;overflow:hidden;')}
+    max-width: 80vw;
+
     transition: all 0.3s ease-out;
   }
 `;

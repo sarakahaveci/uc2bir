@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { Row, Col, Form, Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
+import { device } from 'utils';
 
 import LongUserCard from 'components/UserCards/LongUserCard';
 import { Button, GoogleMapClusterer, Svg, Pagination } from 'components';
@@ -199,7 +200,7 @@ const GymListWrapper = styled.div`
   @media (max-width: 1200px) {
     grid-template-columns: auto auto;
   }
-  @media (max-width: 768px) {
+  @media ${device.sm} {
     grid-template-columns: auto;
   }
 `;

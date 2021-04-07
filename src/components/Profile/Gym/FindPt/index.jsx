@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
 import { useSelector, useDispatch } from 'react-redux';
+import { device } from 'utils';
 
 import { getGymPtList } from 'actions';
 import { Pagination } from 'components';
@@ -62,7 +63,7 @@ const GymListWrapper = styled.div`
   @media (max-width: 1200px) {
     grid-template-columns: auto auto;
   }
-  @media (max-width: 768px) {
+  @media ${device.sm} {
     grid-template-columns: auto;
   }
 `;

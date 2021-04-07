@@ -7,6 +7,7 @@ import {
   InfoWindow,
 } from '@react-google-maps/api';
 import styled from 'styled-components/macro';
+import { device } from 'utils';
 
 import MarkerSvg from './markerSvg.svg';
 import { GoogleMapsAPI } from 'utils/config';
@@ -111,7 +112,7 @@ const DetailText = styled.text`
   font-size: 0.9rem;
   font-family: 'Poppins', sans-serif;
   color: ${(props) => props.color || 'black'};
-  @media (max-width: 768px) {
+  @media ${device.sm} {
     font-size: 0.7rem;
   }
 `;
@@ -120,7 +121,7 @@ const BoldText = styled.text`
   font-weight: bold;
   font-family: 'Poppins', sans-serif;
   color: ${(props) => props.color || 'black'};
-  @media (max-width: 768px) {
+  @media ${device.sm} {
     font-size: 0.7rem;
   }
 `;

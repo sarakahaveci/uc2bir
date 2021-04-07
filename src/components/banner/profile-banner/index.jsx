@@ -5,6 +5,7 @@ import { AwesomeIcon, Text, Button, Svg } from 'components';
 
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { device } from 'utils';
 
 import Card, { CardFooter, CardInfo } from './Card';
 
@@ -91,7 +92,7 @@ const Cols = styled(Col)`
   width: 50px;
   padding: ${(props) => props.padding && props.padding};
 
-  @media (max-width: 768px) {
+  @media ${device.sm} {
     margin-top: 15px;
     width: auto;
   }

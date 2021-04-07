@@ -6,6 +6,7 @@ import { Modal } from 'react-bootstrap';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { isEmpty } from 'lodash';
+import { device } from 'utils';
 
 import {
   getAllPTBranchList,
@@ -278,7 +279,7 @@ const StyledLink = styled(Link)`
 
 const ResponsiveDiv = styled.div`
   width: 25%;
-  @media (max-width: 768px) {
+  @media ${device.sm} {
     width: 100%;
   }
 `;

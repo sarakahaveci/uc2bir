@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components/macro';
 import Svg from 'components/statics/svg';
 import Slider from 'react-slick';
+import { device } from 'utils';
 
 const ExerciseCard = () => {
   const settings = {
@@ -60,7 +61,7 @@ const Container = styled.div`
   align-items: center;
   width: 385px;
   height: 175px;
-  @media (max-width: 768px) {
+  @media ${device.sm} {
     width: 98%;
   }
 `;
@@ -74,7 +75,7 @@ const ExerciseCardContainer = styled.div`
   border-style: solid;
   border-width: 1px;
   align-items: center;
-  @media (max-width: 768px) {
+  @media ${device.sm} {
     width: 80vw;
   }
 `;
@@ -84,7 +85,7 @@ const ImagesContainer = styled.div`
   align-items: center;
   width: 155px;
   height: 155px;
-  @media (max-width: 768px) {
+  @media ${device.sm} {
     width: 30vw;
     height: 30vw;
   }
@@ -95,7 +96,7 @@ const InfoContainer = styled.div`
   flex-grow: 1;
   padding: 10px;
   height: 100%;
-  @media (max-width: 768px) {
+  @media ${device.sm} {
     padding: 8px;
   }
 `;
@@ -106,7 +107,7 @@ const BoldText = styled.text`
   font-weight: bold;
   font-family: 'Poppins', sans-serif;
   color: ${(props) => props.color || 'black'};
-  @media (max-width: 768px) {
+  @media ${device.sm} {
     font-size: 0.9rem;
   }
 `;

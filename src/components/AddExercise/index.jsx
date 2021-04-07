@@ -1,6 +1,7 @@
 import Svg from 'components/statics/svg';
 import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
+import { device } from 'utils';
 
 const AddExercise = () => {
   useEffect(() => {}, []);
@@ -71,7 +72,7 @@ const Container = styled.div`
   border-radius: 10px;
   -webkit-box-shadow: 0px 0px 4px 3px rgba(197, 196, 196, 0.28);
   box-shadow: 0px 0px 4px 3px rgba(197, 196, 196, 0.28);
-  @media (max-width: 768px) {
+  @media ${device.sm} {
     width: 100%;
   }
 `;
@@ -119,7 +120,7 @@ const BoldText = styled.text`
   font-weight: bold;
   font-family: 'Poppins', sans-serif;
   color: ${(props) => props.color || 'black'};
-  @media (max-width: 768px) {
+  @media ${device.sm} {
     font-size: 0.7rem;
   }
 `;

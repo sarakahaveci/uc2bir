@@ -4,6 +4,7 @@ import styled from 'styled-components/macro';
 
 import { getPtGymList } from 'actions';
 import LongUserCard from 'components/UserCards/LongUserCard';
+import { device } from 'utils';
 
 const SportFields = ({ userId }) => {
   const dispatch = useDispatch();
@@ -39,7 +40,7 @@ const GymListWrapper = styled.div`
   @media (max-width: 1200px) {
     grid-template-columns: auto auto;
   }
-  @media (max-width: 768px) {
+  @media ${device.sm} {
     grid-template-columns: auto;
   }
 `;

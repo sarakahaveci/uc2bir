@@ -123,7 +123,10 @@ const ProfileForms = ({ type }) => {
               value={detail?.data?.birthday}
               defaultValue={detail?.data?.birthday}
               onChange={(e) => {
-                data = { ...data, [e.target.name]: e.target.value };
+                if (e.target.value !== 'Invalid date') {
+                  data = { ...data, [e.target.name]: e.target.value };
+                  diffHandler(e);
+                }
               }}
               settings="current"
               minDate={'01.01.1945'}

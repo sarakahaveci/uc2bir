@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 
 import { Button, Box, Svg, Spinner, Span } from 'components';
 import { deleteAddressList, getAddressList } from 'actions';
-
+import { device } from 'utils';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import BackLink from 'components/common/BackLink';
@@ -133,7 +133,7 @@ const BoldText = styled.text`
   font-weight: bold;
   font-family: 'Poppins', sans-serif;
   color: ${(props) => props.color || 'black'};
-  @media (max-width: 768px) {
+  @media ${device.sm} {
     font-size: 0.7rem;
   }
 `;

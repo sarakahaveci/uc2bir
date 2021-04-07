@@ -6,6 +6,7 @@ import { Title, Box } from 'components';
 import DefaultProfileImg from 'assets/default-profile.jpg';
 import { setMessageSideBarOpen } from 'actions';
 import Svg from 'components/statics/svg';
+import { device } from 'utils';
 
 const ChatBoxHeader = () => {
   const dispatch = useDispatch();
@@ -82,7 +83,7 @@ const IconWrapper = styled.div`
   height: 50px;
   border-radius: 50%;
   margin 0 10px 0 10px;
-  @media (max-width: 768px) {
+  @media ${device.sm} {
     display: flex;
   }
 `;

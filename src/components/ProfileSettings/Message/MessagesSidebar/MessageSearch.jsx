@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { useSelector, useDispatch } from 'react-redux';
-
+import { device } from 'utils';
 import { searchMessage, resetProductSearch } from 'actions';
 import { useDebounce } from 'utils';
 import { Box, Svg } from 'components';
@@ -74,6 +74,9 @@ const SearchInput = styled.input`
     font-size: 0.9rem;
     color: rgb(0, 0, 0, 0.2);
     padding-left: 5px;
+  }
+  @media ${device.sm} {
+    width: 40vw;
   }
 `;
 

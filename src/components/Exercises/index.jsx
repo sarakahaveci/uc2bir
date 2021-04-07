@@ -5,6 +5,8 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { CustomProgress } from 'components';
 import { Container, Row, Col } from 'react-bootstrap';
 import ExerciseCard from './ExerciseCard';
+import { device } from 'utils';
+
 const useStyles = makeStyles({
   barColorPrimary: {
     backgroundColor: '#00B2A9',
@@ -56,13 +58,13 @@ const Wrapper = styled(Container)`
   border-radius: 10px;
   -webkit-box-shadow: 0px 0px 4px 3px rgba(197, 196, 196, 0.28);
   box-shadow: 0px 0px 4px 3px rgba(197, 196, 196, 0.28);
-  @media (max-width: 768px) {
+  @media ${device.sm} {
     padding: 0;
   }
 `;
 const StyledRow = styled(Row)`
   margin: ${(props) => (props.header ? '20px' : '50px')};
-  @media (max-width: 768px) {
+  @media ${device.sm} {
     margin: ${(props) => (props.header ? '20px' : '5px')};
   }
 `;
