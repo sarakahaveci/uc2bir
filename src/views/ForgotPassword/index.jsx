@@ -20,29 +20,19 @@ const ForgotPassword = () => {
   const history = useHistory();
 
   useEffect(() => {
-    if ( getForgotPassword.error ) {
-      toast.error("Kod Gönderilirken Hata Oluştu", {
+    if (getForgotPassword.error) {
+      toast.error('Kod Gönderilirken Hata Oluştu', {
         position: 'bottom-right',
         autoClose: 4500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
       });
     }
   }, [getForgotPassword]);
 
   useEffect(() => {
-    if ( getResetPassword.error ) {
+    if (getResetPassword.error) {
       toast.error(getResetPassword.message, {
         position: 'bottom-right',
         autoClose: 4500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
       });
     }
   }, [getResetPassword]);
@@ -63,22 +53,12 @@ const ForgotPassword = () => {
     toast.success('Parolanız güncellendi...', {
       position: 'bottom-right',
       autoClose: 2500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
     });
 
     setTimeout(() => {
       toast.info('Lütfen Bekleyiniz! Yönlendiriliyorsunuz...', {
         position: 'bottom-right',
         autoClose: 2500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
         onClose: () => history.push('/'),
       });
     }, 1000);
@@ -88,34 +68,19 @@ const ForgotPassword = () => {
     toast.error(getResetPassword.error, {
       position: 'bottom-right',
       autoClose: 4500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
     });
 
   const succsess = () =>
     toast.success('Mesaj gönderildi', {
       position: 'bottom-right',
       autoClose: 4500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      onClose: setOpen(true)
+      onClose: setOpen(true),
     });
 
   const err = () =>
     toast.error(getForgotPassword.error, {
       position: 'bottom-right',
       autoClose: 4500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
     });
 
   const actionForgotPasword = () => {
@@ -150,7 +115,7 @@ const ForgotPassword = () => {
                       onChange={(e) => setEmail(e.target.value)}
                       id="email"
                       name="email"
-                      label="E mail veya Telefon (05XXXXXXXXX)"
+                      label="E-mail'inizi giriniz."
                       type="text"
                       icon={AwesomeIcon.At}
                     />
@@ -169,7 +134,7 @@ const ForgotPassword = () => {
                   <React.Fragment>
                     <Button
                       className="blue"
-                      style={{ marginBottom: 15 }}
+                      mb="15px"
                       onClick={handleClickOpen}
                       fontSize="11pt"
                       text="Kodu Gir!"
@@ -234,14 +199,14 @@ const ForgotPassword = () => {
                                 <Button
                                   text={`Yükleniyor...`}
                                   className="blue w-100"
-                                  style={{marginTop: 30}}
+                                  mt="30px"
                                 />
                               ) : (
                                 <Button
                                   type="submit"
                                   text={`Şifremi Güncelle`}
                                   className="blue w-100"
-                                  style={{marginTop: 30}}
+                                  mt="30px"
                                 />
                               )}
                             </form>

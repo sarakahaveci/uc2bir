@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
+import styled from 'styled-components/macro';
 
 import { login } from 'actions';
 import {
@@ -11,6 +12,7 @@ import {
   Text,
   Button,
   Material,
+  Box,
 } from 'components';
 
 const Login = () => {
@@ -59,42 +61,48 @@ const Login = () => {
           <div className="page-content-login">
             <div className="contain">
               <Text
-                style={{ letterSpacing: 5, marginBottom: 25 }}
+                mb="25px"
+                letterSpacing="5px"
                 fontFamily="'Montserrat', sans-serif"
-                children="BAŞARMAK İÇİN BAŞLA!"
                 fontSize="1.2rem"
                 color="orange2"
-              />
+              >
+                BAŞARMAK İÇİN BAŞLA
+              </Text>
 
               <Text
-                style={{ marginBottom: 10 }}
+                mb="10px"
                 fontFamily="'Bebas Neue', cursive"
                 fontSize="2rem"
-                children="HER AN HER YERDE İSTEDİĞİN GİBİ ANTRENMAN YAP"
                 fontWeight="500"
                 color="dark"
-              />
+              >
+                HER AN HER YERDE İSTEDİĞİN GİBİ ANTRENMAN YAP
+              </Text>
 
               <Text
-                style={{ marginBottom: 40 }}
+                mb="40px"
                 fontFamily="'Montserrat', sans-serif"
                 fontSize="0.8rem"
                 fontWeight="500"
-                children="Hedeflerine uygun antrenman planları ile İçindeki atleti özgür bırak"
                 color="dark"
-              />
+              >
+                Hedeflerine uygun antrenman planları ile İçindeki atleti özgür
+                bırak
+              </Text>
 
               <Title
                 fontWeight="normal"
-                style={{ marginBottom: 15 }}
+                mb="15px"
                 className="material-title"
                 variant="h6"
                 component="h6"
-                children="Giriş Yap"
-                dark
+                color="dark"
                 lineDisable
                 textLeft
-              />
+              >
+                Giriş Yap
+              </Title>
 
               <form onSubmit={onSubmit}>
                 <Material.TextField
@@ -102,7 +110,7 @@ const Login = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   id="login-email"
                   name="login-email"
-                  label="E mail veya Telefon (05XXXXXXXXX)"
+                  label="E-mail"
                   type="text"
                   icon={AwesomeIcon.At}
                 />
@@ -117,13 +125,11 @@ const Login = () => {
                   icon={AwesomeIcon.Lock}
                 />
 
-                <div
-                  style={{
-                    paddingTop: '15px',
-                    paddingBottom: '15px',
-                    flexWrap: 'nowrap',
-                  }}
-                  className="row justify-content-between"
+                <Box
+                  row
+                  justifyContent="space-between"
+                  flexWrap="nowrap"
+                  py="15px"
                 >
                   <div className="col-auto">
                     <Material.CheckBox
@@ -136,7 +142,7 @@ const Login = () => {
                   <div className="col-auto remember-password">
                     <Link to="/forgot-password">Şifremi Unuttum</Link>
                   </div>
-                </div>
+                </Box>
 
                 <Button
                   isLoading={isLoading}
@@ -145,20 +151,18 @@ const Login = () => {
                   className="blue"
                 />
               </form>
-              <Text
-                style={{ marginTop: 30, marginBottom: 10 }}
-                fontSize="12pt"
-                gray
-                textAlign="center"
-              >
+
+              <NoAccountText>
                 Hesabınız yok mu? <Link to="/register">Üye ol</Link>
-              </Text>
+              </NoAccountText>
+
               <div className="identfy">
                 <span>Veya</span>
               </div>
-              <a className="login-footer" href="/profesyonel/register">
+
+              <Link className="login-footer" to="/profesyonel/register">
                 Sistemimizde hizmet vermek için tıklayın
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -168,3 +172,15 @@ const Login = () => {
 };
 
 export default Login;
+
+const NoAccountText = styled.div`
+  margin: 30px 0 10px 0;
+  font-size: 1.1rem;
+  color: ${(p) => p.theme.colors.gray1};
+  text-align: center;
+  width: 100%;
+
+  a {
+    color: ${(p) => p.theme.colors.blue};
+  }
+`;

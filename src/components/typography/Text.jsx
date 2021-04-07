@@ -18,7 +18,7 @@ const StyledText = styled.div`
       &:after {
         content: '';
         width: 10%;
-        background: #00b2a9;
+        background: ${p.theme.colors.blue};
         height: 2px;
         margin-top: 5px;
         display: block;
