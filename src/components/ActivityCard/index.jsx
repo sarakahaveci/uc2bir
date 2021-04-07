@@ -182,7 +182,7 @@ export default function ActivityCard({
           textAlign="left"
           letterSpacing="0.2em"
           fontSize="13px"
-          color="#404041"
+          color="black3"
         >
           {name}
         </Title>
@@ -259,7 +259,7 @@ export default function ActivityCard({
                   fontWeight="400"
                   textAlign="left"
                   fontSize="11px"
-                  color="#404041"
+                  color="black3"
                 >
                   Onay Bekleyen {waitingPrice} Tl&apos;lik talebiniz
                   bulunmaktadır

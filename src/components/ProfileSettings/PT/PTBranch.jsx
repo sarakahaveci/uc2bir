@@ -195,7 +195,7 @@ export default function WorkPlaceActivity() {
                 fontWeight="600"
                 textAlign="left"
                 fontSize="11px"
-                color="#404041"
+                color="black3"
               >
                 Talepte bulunduğun diğer branşlar aktif olduğunda tarafına bilgi
                 vereceğiz

@@ -56,7 +56,7 @@ export default function DietitianPriceCard({ price, waitingPrice, setPrice }) {
             fontWeight="400"
             textAlign="left"
             fontSize="11px"
-            color="#404041"
+            color="black3"
           >
             Onay Bekleyen {waitingPrice} Tl&apos;lik talebiniz bulunmaktadır
           </Title>

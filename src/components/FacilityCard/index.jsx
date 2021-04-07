@@ -26,7 +26,7 @@ export default function FacilityCard({ isAccepted, name = 'Duş', status }) {
           letterSpacing="0.2em"
           fontSize="12px"
           className="mt-3 ml-1"
-          color="#404041"
+          color="black3"
         >
           {name}
         </Title>

@@ -25,7 +25,7 @@ export default function MessageRow({
           <Title
             fontSize="11px"
             fontWeight="400"
-            color="#909090"
+            color="gray1"
             textAlign={timeAlignClass}
           >
             {time}

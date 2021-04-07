@@ -106,7 +106,7 @@ const Footer = () => {
       <div className="item footer-right">
         <div className="item d-flex align-items-center">
           <div className="item-lists">
-            <Title color="#00b2a9" textAlign="left" lineDisable fontSize="28px">
+            <Title color="blue" textAlign="left" lineDisable fontSize="28px">
               Popüler Etiketler
             </Title>
             <ul>

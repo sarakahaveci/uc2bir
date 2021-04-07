@@ -47,7 +47,7 @@ const ChatBoxHeader = () => {
             fontSize="15px"
             fontWeight="400"
             textAlign="left"
-            color="#2c2c2c"
+            color="gray3"
           >
             {selectedRoomUser?.name ?? 'Müşteri temsilcisi'}
           </Title>

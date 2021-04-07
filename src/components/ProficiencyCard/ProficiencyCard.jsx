@@ -10,7 +10,7 @@ export default function ProficiencyCard({ title, data }) {
         letterSpacing="0.01em"
         fontWeight="500"
         textAlign="left"
-        color="#909090"
+        color="gray1"
       >
         {title}
       </Title>

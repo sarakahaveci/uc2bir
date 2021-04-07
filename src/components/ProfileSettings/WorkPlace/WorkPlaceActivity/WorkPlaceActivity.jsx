@@ -91,7 +91,7 @@ export default function WorkPlaceActivity() {
             textAlign="left"
             letterSpacing="0.2em"
             fontSize="13px"
-            color="#404041"
+            color="black3"
           >
             Özel Ders Seans Ücreti
           </Title>
@@ -110,7 +110,7 @@ export default function WorkPlaceActivity() {
               fontWeight="400"
               textAlign="left"
               fontSize="11px"
-              color="#404041"
+              color="black3"
             >
               Onay Bekleyen {data?.waiting_approval_session_price} Tl&apos;lik
               talebiniz bulunmaktadır

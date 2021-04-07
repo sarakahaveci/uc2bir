@@ -24,7 +24,7 @@ export default function BlogCard({
           <Title
             fontSize="14px"
             textAlign="left"
-            color="#707070"
+            color="gray8"
             fontWeight="normal"
           >
             {description}
@@ -48,7 +48,7 @@ export default function BlogCard({
         <Title
           fontSize="11px"
           textAlign="left"
-          color="#707070"
+          color="gray8"
           fontWeight="normal"
         >
           Yazar: Efe Parlak
@@ -56,7 +56,7 @@ export default function BlogCard({
         <Title
           fontSize="11px"
           textAlign="left"
-          color="#707070"
+          color="gray8"
           fontWeight="normal"
         >
           {createdTime}

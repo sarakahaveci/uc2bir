@@ -42,7 +42,7 @@ export default function Comment({ name, date, comment, rating, photo, index }) {
         </Row>
       </Row>
       <Row className="comment-text">
-        <Text color="#22242A" fontSize="15px">
+        <Text color="black4" fontSize="15px">
           {comment}
         </Text>
       </Row>
