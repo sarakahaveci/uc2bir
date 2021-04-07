@@ -1,5 +1,5 @@
 import React, { useState, useImperativeHandle, forwardRef } from 'react';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 
 import UserCard from './UserCard';
 
@@ -37,23 +37,25 @@ const CardSlider = forwardRef(({ data }, ref) => {
       <SliderWrapper>
         {data.map((item, i) => {
           let leftPos;
+          let cardType;
 
           if (current === i + 1) {
-            leftPos = 0;
+            leftPos = 30;
+            cardType = 'first';
           } else if (current === i) {
             leftPos = 450;
+            cardType = 'second';
           } else if (current + 2 === i + 1) {
             leftPos = 775;
+            cardType = 'third';
           } else {
             leftPos = -500;
           }
 
           return (
             <SliderItem
+              cardType={cardType}
               key={item.id}
-              className={`${current === i + 1 ? 'first-card' : ''} ${
-                current === i ? 'second-card' : ''
-              } ${current + 2 === i + 1 ? 'third-card' : ''} `}
               leftPos={`${leftPos}px`}
             >
               <UserCard data={item} top />
@@ -83,11 +85,8 @@ const SliderWrapper = styled.div`
   }
 
   .img {
-    height: 500px;
-    border-radius: 40px;
-    overflow: hidden;
-    width: 440px;
-    height: 565px;
+    width: 100%;
+    height: 100%;
   }
 `;
 
@@ -97,20 +96,31 @@ const SliderItem = styled.div`
   z-index: -2;
   transform: scale(1);
   transition: all 0.5s;
+  box-shadow: 0px 5px 10px -8px rgb(0 0 0 / 40%);
+  border-radius: 40px;
+  overflow: hidden;
+  height: 500px;
+  width: 440px;
 
-  &.first-card {
-    z-index: 2;
-  }
+  ${(p) =>
+    p.cardType === 'first' &&
+    css`
+      z-index: 2;
+    `}
 
-  &.second-card {
-    opacity: 0.7;
-    transform: scale(0.7);
-    z-index: 2;
-  }
+  ${(p) =>
+    p.cardType === 'second' &&
+    css`
+      opacity: 0.7;
+      transform: scale(0.7);
+      z-index: 2;
+    `}
 
-  &.third-card {
-    opacity: 0.5;
-    transform: scale(0.5);
-    z-index: 2;
-  }
+  ${(p) =>
+    p.cardType === 'third' &&
+    css`
+      opacity: 0.5;
+      transform: scale(0.5);
+      z-index: 2;
+    `}
 `;
