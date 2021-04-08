@@ -1,79 +1,117 @@
 import React from 'react';
-import styled, { css } from 'styled-components/macro';
+import styled from 'styled-components/macro';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { deleteTemplateItem } from 'actions';
-import { Accordion, Text, Svg, Box, Span } from 'components';
+import { Svg, Box, Span, Text } from 'components';
+import ReservationAccordion from '../ReservationAccordion';
+import { PERSONAL_TRAINER, WORK_PLACE } from '../../../../constants';
 
 const TemplateSummary = () => {
   const { selectedDay } = useSelector(
     (state) => state.profileSettings2.reservationTemplate
   );
 
+  const { type_id: userTypeId } = useSelector((state) => state.auth.user);
+
   const dispatch = useDispatch();
 
-  const templateItems = selectedDay?.slice?.map((item) => (
-    <TemplateInfoRow key={item.id}>
-      <Svg.TrashIcon
-        className="trash-icon"
-        onClick={() => dispatch(deleteTemplateItem(selectedDay.day, item.id))}
-      />
+  const selectedLocations = (sessionTypes) => {
+    const locationsArr = sessionTypes.flatMap((session) => session.location);
 
-      <div>
-        <HourWrapper>
-          <Svg.ClockIcon className="clock-icon" />
+    return locationsArr.map((item, index) => {
+      if (item)
+        return (
+          <Span fontWeight="400" key={index}>
+            {item?.title}
 
-          <Box row alignItems="center">
-            {item.hour}
-          </Box>
-        </HourWrapper>
+            {index < locationsArr.length - 1 && ', '}
+          </Span>
+        );
+    });
+  };
 
-        <Box>
-          <Span fontWeight="600">Branşlar: </Span>
-          {item.branch.map((branch, index) => (
-            <span key={index}>
-              {branch.name}
-
-              {index < item.branch.length - 1 && ', '}
-            </span>
-          ))}
-        </Box>
+  const templateItems =
+    selectedDay?.slice?.map((item) => (
+      <TemplateInfoRow key={item.id}>
+        <Svg.TrashIcon
+          className="trash-icon"
+          onClick={() => dispatch(deleteTemplateItem(selectedDay.day, item.id))}
+        />
 
         <div>
-          <Span fontWeight="600">Oturum Türleri: </Span>
-        </div>
+          <HourWrapper>
+            <Svg.ClockIcon className="clock-icon" />
 
-        <div>
-          <Span fontWeight="600">Seçili Yerler: </Span>
+            <Box row alignItems="center">
+              {item.hour}
+            </Box>
+          </HourWrapper>
+
+          {userTypeId === PERSONAL_TRAINER && (
+            <Box>
+              <Span fontWeight="600" mr="5px">
+                Branşlar:
+              </Span>
+              {item.branch.map((branch, index) => (
+                <span key={index}>
+                  {branch.name}
+
+                  {index < item.branch.length - 1 && ', '}
+                </span>
+              ))}
+            </Box>
+          )}
+
+          {userTypeId !== WORK_PLACE && (
+            <>
+              <div>
+                <Text fontWeight="600">
+                  <Span mr="5px">Oturum Türleri:</Span>
+
+                  {item.session_type.map((sessionType, index) => (
+                    <Span key={index} fontWeight="400">
+                      {sessionType.session.title}
+
+                      {index < item.session_type.length - 1 && ', '}
+                    </Span>
+                  ))}
+                </Text>
+              </div>
+
+              <Text fontWeight="600">
+                <Span mr="5px">Seçili Yerler:</Span>
+
+                {selectedLocations(item.session_type)}
+              </Text>
+            </>
+          )}
+
+          {userTypeId === WORK_PLACE && (
+            <Text fontWeight="600">
+              <Span mr="5px">Sınıflar:</Span>
+
+              {item.location.map((location, index) => (
+                <Span key={index} fontWeight="400">
+                  {location.title}
+
+                  {index < item.location.length - 1 && ', '}
+                </Span>
+              ))}
+            </Text>
+          )}
         </div>
-      </div>
-    </TemplateInfoRow>
-  ));
+      </TemplateInfoRow>
+    )) || [];
 
   return (
-    <div>
-      <Accordion>
-        <AccordionItemWrapper>
-          <Accordion.Item>
-            <Accordion.Toggle>
-              <AccordionToggleWrapper>
-                <Text fontWeight="600" color="dark" fontSize="1.1rem">
-                  Rezervasyonlarınız
-                </Text>
-
-                <Svg.ArrowDownIcon />
-              </AccordionToggleWrapper>
-            </Accordion.Toggle>
-
-            <Accordion.Collapse>
-              <AccordionCollapseWrapper>
-                {templateItems}
-              </AccordionCollapseWrapper>
-            </Accordion.Collapse>
-          </Accordion.Item>
-        </AccordionItemWrapper>
-      </Accordion>
-    </div>
+    <ReservationAccordion title="Rezervasyonlarınız">
+      {templateItems.length ? (
+        <AccordionCollapseWrapper>{templateItems}</AccordionCollapseWrapper>
+      ) : (
+        <div></div>
+      )}
+    </ReservationAccordion>
   );
 };
 
@@ -104,21 +142,6 @@ const TemplateInfoRow = styled.div`
   .clock-icon {
     margin-right: 10px;
   }
-`;
-
-const AccordionToggleWrapper = styled.div`
-  ${(p) => p.isActive && css``}
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const AccordionItemWrapper = styled.div`
-  border-radius: 20px;
-  background: #fff;
-  border: 1px solid ${(p) => p.theme.colors.gray9};
-  padding: 20px 30px;
 `;
 
 const AccordionCollapseWrapper = styled.div`

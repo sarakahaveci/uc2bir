@@ -10,18 +10,25 @@ import { addDays, startOfWeek, format } from 'date-fns';
 import tr from 'date-fns/locale/tr';
 
 import { Text, Title, Button, Modal, DatePicker, Span } from 'components';
-import { getTemplates, applyTemplateToCalendar } from 'actions';
+import {
+  getTemplates,
+  applyTemplateToCalendar,
+  getTemplateDetails,
+} from 'actions';
 import { toast } from 'react-toastify';
 
 const ApplyTemplateModal = forwardRef(
   ({ openSuccessReservationModal }, ref) => {
-    const { data: myTemplates } = useSelector(
-      (state) => state.profileSettings2.reservationTemplate.myTemplates
-    );
+    const {
+      myTemplates: { data: myTemplates },
+      templateDetails: { data: templateDetails },
+    } = useSelector((state) => state.profileSettings2.reservationTemplate);
 
     const [selectedTemplateId, setSelectedTemplateId] = useState();
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
+
+    const templateDays = templateDetails?.slot?.map((slot) => slot.day) || [];
 
     const dispatch = useDispatch();
 
@@ -39,7 +46,7 @@ const ApplyTemplateModal = forwardRef(
       }
     };
 
-    const startOfWeeksArr = [...Array(10)].map((_, index) =>
+    const startOfWeeksArr = [...Array(20)].map((_, index) =>
       startOfWeek(addDays(new Date(), index * 7), {
         weekStartsOn: tr.options.weekStartsOn,
       })
@@ -68,6 +75,14 @@ const ApplyTemplateModal = forwardRef(
       setEndDate(addDays(date, 6));
     };
 
+    const templateChangeHandler = (e) => {
+      const templateId = e.target.value;
+
+      setSelectedTemplateId(templateId);
+
+      dispatch(getTemplateDetails(templateId));
+    };
+
     const sameStartAndEndDate =
       new Date().getDay() === startDate.getDay() &&
       new Date().getDay() === endDate.getDay();
@@ -81,6 +96,9 @@ const ApplyTemplateModal = forwardRef(
         <DatePicker
           selected={startDate}
           startDate={startDate}
+          dayClassName={(date) =>
+            templateDays.includes(date.getDay()) ? undefined : 'disabled-date'
+          }
           endDate={endDate}
           onSelect={handleSelect}
           selectsRange
@@ -93,7 +111,26 @@ const ApplyTemplateModal = forwardRef(
           minDate={new Date()}
           hideToday
         />
-        <Text color="dark">Tarih Seçiminiz</Text>
+
+        <FormControl>
+          <InputLabel>Şablon Seçiniz</InputLabel>
+
+          <Select
+            onChange={templateChangeHandler}
+            input={<Input />}
+            style={{ width: '100%' }}
+          >
+            {myTemplates.map((item) => (
+              <MenuItem key={item.id} value={item.id}>
+                {item.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
+        <Text color="dark" mt="10px">
+          Tarih Seçiminiz
+        </Text>
 
         <div>
           {sameStartAndEndDate ? (
@@ -108,22 +145,6 @@ const ApplyTemplateModal = forwardRef(
             </>
           )}
         </div>
-
-        <FormControl>
-          <InputLabel>Şablon Seçiniz</InputLabel>
-
-          <Select
-            onChange={(e) => setSelectedTemplateId(e.target.value)}
-            input={<Input />}
-            style={{ width: '100%' }}
-          >
-            {myTemplates.map((item) => (
-              <MenuItem key={item.id} value={item.id}>
-                {item.name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
 
         <Button
           className="blue"

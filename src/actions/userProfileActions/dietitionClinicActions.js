@@ -1,6 +1,6 @@
 import { HTTP_REQUEST, GET_DIETITIAN_CLINIC_LIST } from '../../constants';
 
-export const getDietitianClinics = (id) => async (dispatch) => {
+export const getDietitianClinics = (id = '') => async (dispatch) => {
   const url = `/user/working-area/clinic/${id}`;
 
   await dispatch({

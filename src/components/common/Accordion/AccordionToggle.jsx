@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 
 import { AccordionContext, AccordionItemContext } from './AccordionContext';
 
-const AccordionToggle = ({ children, uid }) => {
+const AccordionToggle = ({ children, uid, className }) => {
   const { activeId, setActiveId } = useContext(AccordionContext);
   const { isActive } = useContext(AccordionItemContext);
 
@@ -15,7 +15,11 @@ const AccordionToggle = ({ children, uid }) => {
   };
 
   return (
-    <div style={{ cursor: 'pointer' }} onClick={toggleClickHandler}>
+    <div
+      className={className}
+      style={{ cursor: 'pointer' }}
+      onClick={toggleClickHandler}
+    >
       {React.Children.map(children, (child) =>
         React.cloneElement(child, {
           isActive,

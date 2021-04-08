@@ -1,6 +1,7 @@
 export { default as Svg } from './statics/svg';
 export * from './CommonStyles/Common.styles';
 export * from './common';
+export { default as ProtectedRoute } from './ProtectedRoute/ProtectedRoute';
 export { default as Slider } from './MaterialSlider/MaterialSlider';
 export { default as InputText } from './inputs/InputText';
 export { default as Stars } from './Stars/Stars';
@@ -35,8 +36,10 @@ export { default as CancellationFinalize } from './ProfileSettings/ProfileCancel
 export { default as CancellationReason } from './ProfileSettings/ProfileCancellation/CancellationReason';
 export { default as CancellationDismissInfo } from './ProfileSettings/ProfileCancellation/CancellationDismissInfo';
 export { default as PlusButton } from './buttons/PlusButton';
+export { default as MinusButton } from './buttons/MinusButton';
 export { default as Select } from './Select/Select';
 export { default as HomeUserSlider } from './sliders/HomeUserSlider';
+export { default as SearchInput } from './inputs/SearchInput';
 
 /*
 export { default as SocialLogin } from './SocialLogin/SocialLogin';
@@ -52,6 +55,7 @@ export { default as Wallet } from './Wallet';
 export { default as SessionType } from './SessionType';
 export { default as Packets } from './Packets';
 export { default as Lessons } from './Lessons';
+export { default as Exercises } from './Exercises';
 export { default as AddExercise } from './AddExercise';
 
 export { default as CustomProgress } from './CustomProgress';

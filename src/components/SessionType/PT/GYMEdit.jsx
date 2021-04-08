@@ -6,9 +6,11 @@ import { Col } from 'react-bootstrap';
 import styled from 'styled-components/macro';
 import Checkbox from '@material-ui/core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
+
+import image from '../../../assets/session-type.jpg';
 import { removeGymFromPt } from 'actions';
 
-const GYMEdit = ({ setSubPage, setBannerActive }) => {
+const GYMEdit = ({ setSubPage }) => {
   const stars = 5;
   const dispatch = useDispatch();
 
@@ -24,7 +26,6 @@ const GYMEdit = ({ setSubPage, setBannerActive }) => {
   };
 
   useEffect(() => {
-    setBannerActive(true);
     dispatch(getGymList());
   }, []);
 
@@ -54,10 +55,13 @@ const GYMEdit = ({ setSubPage, setBannerActive }) => {
                     <AwesomeIcon.StarSolid />
                   </Star>
                 </Stars>
-                <div className="_group">
-                  <IMG src="/static/media/session-type.50fd045c.jpg"></IMG>
+                <div className="left-group">
+                  <div
+                    style={{ backgroundImage: `url(${image})` }}
+                    className="img"
+                  ></div>
                 </div>
-                <div className="_group">
+                <div className="right-group">
                   <div className="title">
                     <Title textAlign="left" fontSize="14pt">
                       {data?.title}
@@ -69,7 +73,7 @@ const GYMEdit = ({ setSubPage, setBannerActive }) => {
                   <div className="footer-and">
                     <div className="and">
                       <IconLabel
-                        text={data?.city + ' ' + data?.district}
+                        text="İstanbul Beşiktaş"
                         icon={AwesomeIcon.Map}
                       />
                       <Title textAlign="right" variant="h5" component="h5">
@@ -94,17 +98,9 @@ const GYMEdit = ({ setSubPage, setBannerActive }) => {
           <div className="ln">
             <Button
               disabled={!checked.length}
-              style={{ margin: 5, borderStyle: 'solid', borderWidth: '1px' }}
-              text={`Kaldır ${
-                checked.length ? '(' + checked.length + ')' : ''
-              }`}
-              onClick={() => dispatch(removeGymFromPt(checked))}
-            />
-            <Button
-              disabled={!checked.length}
               style={{ margin: 5 }}
               className="blue"
-              text={`Kaydet ${
+              text={`Kaldır ${
                 checked.length ? '(' + checked.length + ')' : ''
               }`}
               onClick={() => dispatch(removeGymFromPt(checked))}
@@ -128,8 +124,9 @@ const CardGroup = styled.div`
 
 const Card = styled(Col)`
   width: 100%;
-  height: 200px;
+  height: auto;
   box-shadow: 0px 0px 7px -2px rgb(0 0 0 / 75%);
+  border-radius: 40px;
   padding: 0;
   overflow: hidden;
   position: relative;
@@ -137,14 +134,17 @@ const Card = styled(Col)`
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 30px;
-  ._group {
+
+  .left-group {
     width: 50%;
+    padding: 15px 0;
   }
 
   .img {
     width: 100%;
     height: 200px;
+    background-size: cover;
+    background-repeat: no-repeat;
     position: relative;
     border-radius: 30px;
 
@@ -225,9 +225,6 @@ const Star = styled.li`
       color: #ffba00;
     }
   }
-`;
-const IMG = styled.img`
-  width: 100%;
 `;
 
 const GreenCheckbox = withStyles({
