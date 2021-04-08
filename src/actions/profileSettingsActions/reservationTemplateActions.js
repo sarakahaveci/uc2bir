@@ -1,6 +1,4 @@
 import { toast } from 'react-toastify';
-import { format } from 'date-fns';
-
 import {
   HTTP_REQUEST,
   ADD_DATE_TO_TEMPLATE,
@@ -8,12 +6,8 @@ import {
   SET_SELECTED_DAY,
   GET_TEMPLATES,
   APPLY_TEMPLATE_TO_CALENDAR,
-  SAVE_TEMPLATE,
-  GET_TEMPLATE_DETAILS,
-  PERSONAL_TRAINER,
-  WORK_PLACE,
-  USER_KEYS,
 } from '../../constants';
+import { format } from 'date-fns';
 
 export const setSelectedDay = (dayIndex) => async (dispatch, getState) => {
   const { appliedDays } = getState().profileSettings2.reservationTemplate;
@@ -99,20 +93,6 @@ export const getTemplates = () => async (dispatch) => {
   });
 };
 
-export const getTemplateDetails = (id) => async (dispatch) => {
-  const url = `/appointment/template/pt/${id}`;
-
-  await dispatch({
-    type: HTTP_REQUEST,
-    payload: {
-      method: 'GET',
-      transformData: (data) => data.data,
-      url,
-      label: GET_TEMPLATE_DETAILS,
-    },
-  });
-};
-
 export const applyTemplateToCalendar = (date, templateId, callBack) => async (
   dispatch
 ) => {
@@ -132,56 +112,6 @@ export const applyTemplateToCalendar = (date, templateId, callBack) => async (
       callBack,
       errorHandler: (errorMsg) =>
         toast.error(errorMsg, { position: 'bottom-right' }),
-    },
-  });
-};
-
-export const saveTemplate = (templateName, callBack) => async (
-  dispatch,
-  getState
-) => {
-  const { type_id: userTypeId } = getState().auth.user;
-
-  const url = `/appointment/template/${USER_KEYS[userTypeId]}`;
-
-  const { appliedDays } = getState().profileSettings2.reservationTemplate;
-
-  const formatedAppliedDays = appliedDays.map((day) => ({
-    day: day.day + 1,
-    accept_guest: day.slice?.[day.slice.length - 1]?.accept_guest,
-    slice: day.slice.map((slice) => ({
-      hour: slice.hour,
-      ...(userTypeId === PERSONAL_TRAINER && {
-        branch: slice.branch.map((branch) => branch.id),
-      }),
-      ...(userTypeId !== WORK_PLACE && {
-        session_type: slice.session_type.map((sessionType) => ({
-          session: sessionType.session.type,
-          ...(sessionType.location && {
-            location: sessionType?.location?.map((location) => location.id),
-          }),
-        })),
-      }),
-      ...(userTypeId === WORK_PLACE && {
-        location: slice.location.map((location) => location.id),
-      }),
-    })),
-  }));
-
-  await dispatch({
-    type: HTTP_REQUEST,
-    payload: {
-      method: 'POST',
-      transformData: (data) => data.data,
-      label: SAVE_TEMPLATE,
-      url,
-      body: {
-        name: templateName,
-        slot: formatedAppliedDays,
-      },
-      callBack,
-      errorHandler: ({ message }) =>
-        toast.error(message, { position: 'bottom-right', autoClose: 2000 }),
     },
   });
 };

@@ -24,10 +24,8 @@ const ProficiencyCollapser = ({
       key={index}
       defaultValue={item.name}
       rightTextNode={
-        <StatusInfo status={item.status}>
-          {item.status === 'active' && 'Onaylandı'}
-          {item.status === 'pending' && 'Onay Bekliyor'}
-          {item.status === 'passive' && 'Reddedildi'}
+        <StatusInfo isPending={item.status === 'pending'}>
+          {item.status === 'pending' ? 'Onay Bekliyor' : 'Onaylandı'}
         </StatusInfo>
       }
     />
@@ -84,6 +82,6 @@ const Body = styled.div`
 const StatusInfo = styled.span`
   font-weight: 600;
   font-size: 0.8rem;
-  color: ${(p) =>
-    p.status === 'active' ? p.theme.colors.blue : p.theme.colors.red};
+
+  color: ${(p) => (p.isPending ? p.theme.colors.red : p.theme.colors.blue)};
 `;

@@ -26,12 +26,11 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const loginSuccessHandler = () => {
-    toast.success('Giriş Başarılı. Hoş geldiniz!', {
+    toast.success('Giriş Başarılı!', {
       position: 'bottom-right',
-      autoClose: 1500,
+      autoClose: 1000,
+      onClose: () => history.push('/'),
     });
-
-    history.push('/');
   };
 
   const loginErrorHandler = () => {

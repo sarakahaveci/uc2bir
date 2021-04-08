@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { CalendarCell, Box } from 'components';
-import { HOURS } from '../../../../constants';
+import { HOURS } from '../../../constants';
 
 export default function SelectHourCells({
   selectedDayHours,

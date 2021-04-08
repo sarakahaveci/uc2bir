@@ -5,20 +5,58 @@ import {
   GET_TEMPLATES_REQUEST,
   GET_TEMPLATES_SUCCESS,
   GET_TEMPLATES_FAILURE,
-  GET_TEMPLATE_DETAILS_REQUEST,
-  GET_TEMPLATE_DETAILS_SUCCESS,
-  GET_TEMPLATE_DETAILS_FAILURE,
 } from '../../constants';
 
 const initialState = {
-  appliedDays: [],
-  selectedDay: {},
-  myTemplates: {
-    data: [],
-    isLoading: false,
-    error: null,
+  appliedDays: [
+    // {
+    //   day: 0,
+    //   slice: [
+    //     {
+    //       id: 1,
+    //       hour: '10:00-16:00',
+    //       branch: [5, 6],
+    //       accept_guest: true,
+    //       session_type: [
+    //         { session: 'gym', location: [3] },
+    //         { session: 'online' },
+    //       ],
+    //     },
+    //   ],
+    // },
+    // {
+    //   day: 1,
+    //   slice: [
+    //     {
+    //       id: 1,
+    //       hour: '10:00-16:00',
+    //       branch: [5, 6],
+    //       accept_guest: true,
+    //       session_type: [
+    //         { session: 'gym', location: [3] },
+    //         { session: 'online' },
+    //       ],
+    //     },
+    //   ],
+    // },
+  ],
+  selectedDay: {
+    day: 0,
+    slice: [
+      {
+        id: 1,
+        hour: '10:00-16:00',
+        branch: [5, 6],
+        accept_guest: true,
+        session_type: [
+          { session: 'gym', location: [3] },
+          { session: 'online' },
+        ],
+        place_type: [5, 6, 7],
+      },
+    ],
   },
-  templateDetails: {
+  myTemplates: {
     data: [],
     isLoading: false,
     error: null,
@@ -33,25 +71,6 @@ export default (state = initialState, action) => {
         ...state,
         appliedDays: action.payload.appliedDays,
         selectedDay: action.payload.selectedDay,
-      };
-
-    case GET_TEMPLATE_DETAILS_REQUEST:
-      return {
-        ...state,
-        templateDetails: {
-          ...state.templateDetails,
-          isLoading: true,
-        },
-      };
-
-    case GET_TEMPLATE_DETAILS_SUCCESS:
-      return {
-        ...state,
-        templateDetails: {
-          isLoading: false,
-          data: action.payload,
-          error: null,
-        },
       };
 
     case GET_TEMPLATES_REQUEST:
@@ -70,16 +89,6 @@ export default (state = initialState, action) => {
           isLoading: false,
           data: action.payload,
           error: null,
-        },
-      };
-
-    case GET_TEMPLATE_DETAILS_FAILURE:
-      return {
-        ...state,
-        templateDetails: {
-          ...state.templateDetails,
-          isLoading: false,
-          error: action.payload,
         },
       };
 

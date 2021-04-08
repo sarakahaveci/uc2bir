@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { CustomProgress } from 'components';
 import { Container, Row, Col } from 'react-bootstrap';
-import ExerciseCard from './ExerciseCard';
+import ExerciseCard from '../ExerciseCard/ExerciseCard';
 import { device } from 'utils';
 
 const useStyles = makeStyles({
@@ -12,7 +12,7 @@ const useStyles = makeStyles({
     backgroundColor: '#00B2A9',
   },
 });
-const Exercises = () => {
+const Exercises = ({ setPage = () => {} }) => {
   useEffect(() => {}, []);
   const classes = useStyles();
   var temp = ['55', '55s5d', '626', 'd', 'sdsd', 'sdasd', 'sdad'];
@@ -25,6 +25,9 @@ const Exercises = () => {
       return 'mid';
     }
   }
+  function onClickExercise() {
+    setPage('ExerciseDetail');
+  }
   function _renderExercises() {
     return temp.map((elm, index) => (
       <Col key={index} style={{ padding: 0 }} lg="4">
@@ -32,7 +35,7 @@ const Exercises = () => {
           location={temp.length - 1 == index ? 'end' : locationSelector(index)}
           active="false"
         ></CustomProgress>
-        <ExerciseCard />
+        <ExerciseCard onClickExercise={onClickExercise} />
       </Col>
     ));
   }

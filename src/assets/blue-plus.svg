@@ -1,9 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 35 35">
-  <g id="Group_9016" data-name="Group 9016" transform="translate(-1181.303 -689.5)">
-    <rect id="Rectangle_3442" data-name="Rectangle 3442" width="35" height="35" rx="15" transform="translate(1216.303 689.5) rotate(90)" fill="#d6f7f5"/>
-    <g id="Group_7966" data-name="Group 7966" transform="translate(824.803 39)">
-      <line id="Line_9" data-name="Line 9" x2="14" transform="translate(367.5 668.5)" fill="none" stroke="#000" stroke-linecap="round" stroke-width="1"/>
-      <line id="Line_10" data-name="Line 10" x2="14" transform="translate(374.5 661.5) rotate(90)" fill="none" stroke="#000" stroke-linecap="round" stroke-width="1"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="27" height="23" viewBox="0 0 27 23">
+  <g id="Group_7944" data-name="Group 7944" transform="translate(-0.001 0.001)">
+    <rect id="Rectangle_3386" data-name="Rectangle 3386" width="23" height="27" rx="11.5" transform="translate(27.001 -0.001) rotate(90)" fill="#d6f7f5"/>
+    <g id="Group_7836" data-name="Group 7836" transform="translate(8 6.257)">
+      <g id="Group_7895" data-name="Group 7895" transform="translate(0 0)">
+        <line id="Line_9" data-name="Line 9" x2="11" transform="translate(0.001 5.743)" fill="none" stroke="#000" stroke-linecap="round" stroke-width="1"/>
+        <line id="Line_10" data-name="Line 10" x2="10.644" transform="translate(5.5) rotate(90)" fill="none" stroke="#000" stroke-linecap="round" stroke-width="1"/>
+      </g>
     </g>
   </g>
 </svg>

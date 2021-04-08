@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components/macro';
 
 export default function CalendarCell({
   children,
-  onClick = () => {},
+  onClick,
   isActive,
   halfActive,
   disabled,
@@ -67,11 +67,6 @@ const Cell = styled.div`
       border: 1px solid ${p.theme.colors.gray9};
       padding: 5px;
       color: ${(p) => p.theme.colors.gray1};
-
-      ${p.size === 'large' &&
-      css`
-        width: 120px;
-      `}
 
       ${(p) =>
         p.halfActive &&

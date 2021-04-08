@@ -1,82 +1,20 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import styled from 'styled-components/macro';
 import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
-import MenuItem from '@material-ui/core/MenuItem';
-import { useSelector, useDispatch } from 'react-redux';
 
-import SelectPictureModal from './SelectPictureModal';
-import { Svg, Text, Box, CalendarCell, PlusButton } from 'components';
-import { PAIR_HOURS, PERSONAL_TRAINER } from 'constants/index';
-import {
-  getMyBranches,
-  getGymList,
-  getSessionTypes,
-  getWorkPlaceCapacity,
-} from 'actions';
+import { Svg, Text, Box } from 'components';
+import SelectHoursCell from '../SelectHourCells';
 
 export default function GroupLeftSelections({
-  classSelection,
-  setClassSelection,
+  selectedDayHours,
+  setSelectedDayHours,
 }) {
-  const { type_id: userTypeId } = useSelector((state) => state.auth.user);
-
-  const { data: myBranches } = useSelector(
-    (state) => state.profileSettings2.profileBranches.myBranches
-  );
-
-  const {
-    workPlaceCapacity: { data: workPlaceCapacity },
-  } = useSelector((state) => state.profileSettings2.reservationGroupSlot);
-
-  const {
-    get: sessionTypes,
-    gymList: { data: gymList },
-  } = useSelector((state) => state.profileSettings2.sessionType);
-
-  const {
-    ptHomePlace: { data: ptHomePlace },
-  } = useSelector((state) => state.userProfile.workPlace);
-
-  const [selectedHour, setSelectedHour] = useState('');
-  const [branchSelection, setBranchSelection] = useState({});
-  const [sessionSelection, setSessionSelection] = useState({});
-  const [locationSelection, setLocationSelection] = useState({});
-  const [selectedImageIds, setSelectedImageIds] = useState([]);
-
-  const selectPicModalRef = useRef();
-
-  const dispatch = useDispatch();
-
-  const openSelectPicModal = () => selectPicModalRef.current.openModal();
-
-  useEffect(() => {
-    if (userTypeId === PERSONAL_TRAINER) {
-      dispatch(getSessionTypes());
-
-      dispatch(getMyBranches());
-
-      dispatch(getGymList());
-    }
-  }, []);
-
-  useEffect(() => {
-    if (branchSelection && locationSelection) {
-      dispatch(getWorkPlaceCapacity(branchSelection.id, locationSelection.id));
-    }
-  }, [branchSelection, locationSelection]);
-
   return (
     <div>
-      <Box
-        row
-        justifyContent="center"
-        position="relative"
-        onClick={openSelectPicModal}
-        cursor="pointer"
-      >
+      <Box row justifyContent="center">
         <UploadPic>
           <Svg.MockImageIcon />
 
@@ -84,145 +22,43 @@ export default function GroupLeftSelections({
             FOTOĞRAF SEÇİNİZ
           </Text>
         </UploadPic>
-
-        <Plus type="dark" />
       </Box>
 
       <Text color="gray10" fontWeight="600" fontSize="1.1rem" mt="20px">
         Saat Seçiniz
       </Text>
 
-      <Box row flexWrap="wrap">
-        {PAIR_HOURS.map((item) => (
-          <CalendarCell
-            key={item}
-            onClick={() => setSelectedHour(item)}
-            type="time"
-            size="large"
-            isActive={selectedHour === item}
-          >
-            {item}
-          </CalendarCell>
-        ))}
-      </Box>
+      <SelectHoursCell
+        selectedDayHours={selectedDayHours}
+        setSelectedDayHours={setSelectedDayHours}
+      />
 
-      <FormControl className="w-100 mt-2">
+      <FormControl>
         <InputLabel>Branş Seçiniz</InputLabel>
 
-        <Select
-          value={branchSelection}
-          input={<Input />}
-          onChange={(e) => setBranchSelection(e.target.value)}
-        >
-          {myBranches.map((branch) => (
-            <MenuItem key={branch.id} value={branch}>
-              {branch.name}
-            </MenuItem>
-          ))}
-        </Select>
+        <Select multiple input={<Input />} style={{ width: '100%' }}></Select>
       </FormControl>
 
       <Text color="gray10" fontWeight="600" fontSize="1.1rem" mt="20px">
         Ders İçeriği Giriniz
       </Text>
 
-      <TextArea rows={6} />
+      <textarea rows={6} />
 
-      <FormControl className="w-100 mt-2">
-        <InputLabel>Oturum Türlerini Seçiniz</InputLabel>
+      <FormControl>
+        <InputLabel>Oturum Türü Seçiniz</InputLabel>
 
-        <Select
-          value={sessionSelection}
-          input={<Input />}
-          onChange={(e) => setSessionSelection(e.target.value)}
-        >
-          {sessionTypes?.data?.data?.map((sessionType) => (
-            <MenuItem key={sessionType.id} value={sessionType}>
-              {sessionType.title}
-            </MenuItem>
-          ))}
-        </Select>
+        <Select multiple input={<Input />} style={{ width: '100%' }}></Select>
       </FormControl>
 
-      {sessionSelection.type === 'gym' && (
-        <FormControl className="w-100 mt-2">
-          <InputLabel>Spor Alanı Seçiniz</InputLabel>
+      <FormControl>
+        <InputLabel>Spor Alanı Seçiniz</InputLabel>
 
-          <Select
-            value={locationSelection}
-            input={<Input />}
-            onChange={(e) => setLocationSelection(e.target.value)}
-          >
-            {gymList?.gym?.map((item) => (
-              <MenuItem key={item.id} value={item}>
-                {item.title}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      )}
-
-      {sessionSelection.type === 'home_park' && (
-        <FormControl className="w-100 mt-2">
-          <InputLabel>Ev / Park Seçiniz</InputLabel>
-
-          <Select
-            value={locationSelection}
-            input={<Input />}
-            onChange={(e) => setLocationSelection(e.target.value)}
-          >
-            {ptHomePlace?.home_park?.map((item) => (
-              <MenuItem key={item.id} value={item}>
-                {item.title}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      )}
-
-      <FormControl className="w-100 mt-2">
-        <InputLabel>Sınıf Seçiniz</InputLabel>
-
-        <Select
-          value={classSelection}
-          input={<Input />}
-          onChange={(e) => setClassSelection(e.target.value)}
-        >
-          {workPlaceCapacity?.map((item) => (
-            <MenuItem key={item.id} value={item}>
-              {item.name} {item.capacity} Kişilik
-            </MenuItem>
-          ))}
-        </Select>
+        <Select multiple input={<Input />} style={{ width: '100%' }}></Select>
       </FormControl>
-
-      <SelectPictureModal
-        ref={selectPicModalRef}
-        selectedImageIds={selectedImageIds}
-        setSelectedImageIds={setSelectedImageIds}
-      />
     </div>
   );
 }
-
-const Plus = styled(PlusButton)`
-  position: absolute;
-  bottom: -27px;
-  left: 50%;
-  transform: translate(-50%);
-`;
-
-const TextArea = styled.textarea`
-  padding: 15px;
-  border-radius: 15px;
-  width: 100%
-  font-size: 0.9rem;
-  margin-top: 10px;
-
-  &::placeholder {
-    font-size: 0.9rem;
-  }
-`;
 
 const UploadPic = styled.div`
   width: 250px;

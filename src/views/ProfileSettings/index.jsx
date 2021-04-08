@@ -29,7 +29,7 @@ import DietitianProficiency from 'components/ProfileSettings/Dietitian/Dietitian
 import Message from 'components/ProfileSettings/Message';
 import RegularNotifications from 'components/ProfileSettings/RegularNotifications';
 import GroupSlot from 'components/ProfileSettings/Reservations/GroupSlot/GroupSlot';
-import Reservations from 'components/ProfileSettings/Reservations/ReservationTemplate/ReservationTemplate';
+// import Reservations from 'components/ProfileSettings/Reservations/ReservationTemplate/ReservationTemplate';
 
 const regularUserTabs = [
   {
@@ -96,7 +96,15 @@ const workPlaceTabs = [
     eventKey: 'cancel',
     component: <CancellationReason />,
   },
-
+  /* {
+    eventKey: 'reservation',
+    title: 'Rezarvasyonlarım',
+    component: (
+      <Title variant={'h4'} component={'h4'} textLeft lineDisable>
+        Rezarvasyonlarım
+      </Title>
+    ),
+  }, */
   {
     eventKey: 'facility',
     title: 'Olanaklar',
@@ -112,11 +120,7 @@ const workPlaceTabs = [
     title: 'Eğitmenler',
     component: <Trainers />,
   },
-  //   {
-  //     eventKey: 'reservation',
-  //     title: 'Rezarvasyonlarım',
-  //     component: <Reservations />,
-  //   },
+
   /*   {
     eventKey: 'wallet',
     title: 'Cüzdan',
@@ -143,11 +147,15 @@ const dietitianTabs = [
     eventKey: 'cancel',
     component: <CancellationReason />,
   },
-  //   {
-  //     eventKey: 'reservation',
-  //     title: 'Rezarvasyonlarım',
-  //     component: <GroupSlot />,
-  //   },
+  /* {
+    eventKey: 'reservation',
+    title: 'Rezarvasyonlarım',
+    component: (
+      <Title variant={'h4'} component={'h4'} textLeft lineDisable>
+        Rezarvasyonlarım
+      </Title>
+    ),
+  }, */
   /* {
     eventKey: 'packets',
     title: 'Paketlerim',
@@ -205,12 +213,12 @@ const trainerTabs = [
     eventKey: 'notifications',
     component: <ProfileSettingsList />,
   },
-  //   {
-  //     eventKey: 'reservation',
-  //     title: 'Rezarvasyonlarım',
-  //     component: <GroupSlot />,
-  //   },
-  /* {
+  // {
+  //   eventKey: 'reservation',
+  //   title: 'Rezarvasyonlarım',
+  //   component: <GroupSlot />,
+  // },
+  /*{
     eventKey: 'packets',
     title: 'Paketlerim',
     component: <Packets />,

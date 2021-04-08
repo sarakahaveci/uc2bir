@@ -14,7 +14,7 @@ const EditedModal = forwardRef(
     { children, className, closeIcon, onExit, backdrop, activateFooter },
     ref
   ) => {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState();
 
     useImperativeHandle(ref, () => {
       return {

@@ -3,49 +3,6 @@ import styled, { css } from 'styled-components';
 import { Button as BaseButton, Spinner } from 'react-bootstrap';
 import { color, space, layout, flexbox } from 'styled-system';
 import Svg from 'components/statics/svg';
-import debounce from 'lodash/debounce';
-
-const Button = ({
-  onClick = () => {},
-  icon,
-  className,
-  text,
-  isLoading,
-  search,
-  ...restProps
-}) => {
-  const debouncedClick = debounce(onClick, 200);
-
-  const onClickHandler = () => {
-    if (restProps.disabled && isLoading) {
-      return;
-    } else {
-      debouncedClick();
-    }
-  };
-
-  return (
-    <StyledButton
-      onClick={onClickHandler}
-      variant=""
-      className={icon ? `icon-button ${className}` : className}
-      {...restProps}
-    >
-      {icon && icon({ className: 'icon' })}
-
-      {isLoading ? (
-        <Spinner animation="border" variant="light" size="md" />
-      ) : (
-        <>
-          <span>{text}</span>
-          {search && <Search />}
-        </>
-      )}
-    </StyledButton>
-  );
-};
-
-export default Button;
 
 const StyledButton = styled(BaseButton)`
   font-size: ${(props) => (props.fontSize && props.fontSize) || '1rem'};
@@ -87,10 +44,6 @@ const StyledButton = styled(BaseButton)`
       border-radius: 0;
       padding: 15px 40px;
       position: relative;
-
-      &:hover {
-        color: ${(p) => p.theme.colors.blue};
-      }
 
       &:after {
         position: absolute;
@@ -171,3 +124,43 @@ const StyledButton = styled(BaseButton)`
 const Search = styled(Svg.Search)`
   fill: white;
 `;
+
+const Button = ({
+  onClick = () => {},
+  icon,
+  className,
+  text,
+  isLoading,
+  search,
+  ...restProps
+}) => {
+  const onClickHandler = () => {
+    if (restProps.disabled) {
+      return;
+    } else {
+      onClick();
+    }
+  };
+
+  return (
+    <StyledButton
+      onClick={onClickHandler}
+      variant=""
+      className={icon ? `icon-button ${className}` : className}
+      {...restProps}
+    >
+      {icon && icon({ className: 'icon' })}
+
+      {isLoading ? (
+        <Spinner animation="border" variant="light" size="md" />
+      ) : (
+        <>
+          <span>{text}</span>
+          {search && <Search />}
+        </>
+      )}
+    </StyledButton>
+  );
+};
+
+export default Button;

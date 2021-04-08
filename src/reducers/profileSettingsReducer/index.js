@@ -14,7 +14,6 @@ import workplaceFacilityReducer from './workplaceFacilityReducer';
 import notificationsReducer from './notificationsReducer';
 import reservationTemplateReducer from './reservationTemplateReducer';
 import profileBranchesReducer from './profileBranchesReducer';
-import reservationGroupSlotReducer from './reservationGroupSlotReducer';
 
 const reducers = combineReducers({
   favoriteSettings: favoriteSettingsReducer,
@@ -31,7 +30,6 @@ const reducers = combineReducers({
   notifications: notificationsReducer,
   reservationTemplate: reservationTemplateReducer,
   profileBranches: profileBranchesReducer,
-  reservationGroupSlot: reservationGroupSlotReducer,
 });
 
 export default reducers;

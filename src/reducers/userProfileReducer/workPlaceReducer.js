@@ -2,18 +2,10 @@ import {
   GET_PT_USER_WORK_HOME_REQUEST,
   GET_PT_USER_WORK_HOME_SUCCESS,
   GET_PT_USER_WORK_HOME_FAILURE,
-  GET_CLASSIFICATIONS_REQUEST,
-  GET_CLASSIFICATIONS_SUCCESS,
-  GET_CLASSIFICATIONS_FAILURE,
 } from '../../constants';
 
 const initialState = {
   ptHomePlace: { data: [], isLoading: false, error: null },
-  classifications: {
-    data: [],
-    isLoading: false,
-    error: null,
-  },
 };
 
 export default (state = initialState, action) => {
@@ -27,12 +19,13 @@ export default (state = initialState, action) => {
         },
       };
 
-    case GET_CLASSIFICATIONS_REQUEST:
+    case GET_PT_USER_WORK_HOME_FAILURE:
       return {
         ...state,
-        classifications: {
-          ...state.classifications,
-          isLoading: true,
+        ptHomePlace: {
+          ...state.ptHomePlace,
+          isLoading: false,
+          error: action.payload,
         },
       };
 
@@ -43,36 +36,6 @@ export default (state = initialState, action) => {
           ...state.ptHomePlace,
           data: action.payload,
           isLoading: false,
-        },
-      };
-
-    case GET_CLASSIFICATIONS_SUCCESS:
-      return {
-        ...state,
-        classifications: {
-          data: action.payload,
-          isLoading: false,
-          error: null,
-        },
-      };
-
-    case GET_CLASSIFICATIONS_FAILURE:
-      return {
-        ...state,
-        classifications: {
-          ...state.classifications,
-          isLoading: false,
-          error: action.payload,
-        },
-      };
-
-    case GET_PT_USER_WORK_HOME_FAILURE:
-      return {
-        ...state,
-        ptHomePlace: {
-          ...state.ptHomePlace,
-          isLoading: false,
-          error: action.payload,
         },
       };
 

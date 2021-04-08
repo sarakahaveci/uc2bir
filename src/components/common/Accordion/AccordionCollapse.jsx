@@ -3,17 +3,13 @@ import styled, { css } from 'styled-components/macro';
 
 import { AccordionItemContext, CollapseContext } from './AccordionContext';
 
-const Collapse = ({ children, uid, className }) => {
+const Collapse = ({ children, uid }) => {
   const { isActive } = useContext(AccordionItemContext);
 
   return (
     <CollapseContext.Provider value={{ isActive }}>
       <Wrapper>
-        <CollapseWrapper
-          className={className}
-          id={`item-${uid}`}
-          isActive={isActive}
-        >
+        <CollapseWrapper id={`item-${uid}`} isActive={isActive}>
           {React.Children.map(children, (child) =>
             React.cloneElement(child, {
               isActive,

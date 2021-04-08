@@ -7,15 +7,7 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 
-import {
-  getMyBranches,
-  getGymList,
-  getSessionTypes,
-  getPtWorkingHomePlace,
-  getDietitianClinics,
-  getMyClassifications,
-} from 'actions';
-import { DIETITIAN, PERSONAL_TRAINER, WORK_PLACE } from '../../../../constants';
+import { getMyBranches, getGymList, getSessionTypes } from 'actions';
 
 export default function TemplateSelections({
   branchSelection,
@@ -26,172 +18,96 @@ export default function TemplateSelections({
   setWorkPlaceSelection,
   locationSelection,
   setLocationSelection,
-  classSelection,
-  setClassSelection,
 }) {
   const { data: myBranches } = useSelector(
     (state) => state.profileSettings2.profileBranches.myBranches
   );
 
-  const { clinics } = useSelector((state) => state.userProfile.dietitianClinic);
-
-  const {
-    get: sessionTypes,
-    gymList: { data: gymList },
-  } = useSelector((state) => state.profileSettings2.sessionType);
-
-  const {
-    ptHomePlace: { data: ptHomePlace },
-    classifications: { data: classifications },
-  } = useSelector((state) => state.userProfile.workPlace);
-
-  const { type_id: userTypeId } = useSelector((state) => state.auth.user);
+  const { data: sessionTypes } = useSelector(
+    (state) => state.profileSettings2.sessionType.get.data
+  );
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (userTypeId !== WORK_PLACE) {
-      dispatch(getSessionTypes());
-    }
-
-    if (userTypeId === DIETITIAN) {
-      dispatch(getDietitianClinics());
-    }
-
-    if (userTypeId === PERSONAL_TRAINER) {
-      dispatch(getMyBranches());
-
-      dispatch(getGymList());
-
-      dispatch(getPtWorkingHomePlace());
-    }
-
-    if (userTypeId === WORK_PLACE) {
-      dispatch(getMyClassifications());
-    }
+    dispatch(getMyBranches());
+    dispatch(getGymList());
+    dispatch(getSessionTypes());
   }, []);
-
-  const showSessionDependentInputs = (sessionType) =>
-    sessionSelection.findIndex((session) => session.type === sessionType) !==
-    -1;
 
   return (
     <FormControlWrapper>
-      {userTypeId === WORK_PLACE && (
-        <FormControlWrapper>
-          <FormControl>
-            <InputLabel>Sınıfları Seçiniz</InputLabel>
+      <FormControl>
+        <InputLabel>Branşları Seçiniz</InputLabel>
 
-            <Select
-              multiple
-              value={classSelection}
-              input={<Input />}
-              onChange={(e) => setClassSelection(e.target.value)}
-            >
-              {classifications?.map((classification) => (
-                <MenuItem key={classification.id} value={classification}>
-                  {classification.title}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </FormControlWrapper>
-      )}
+        <Select
+          multiple
+          value={branchSelection}
+          input={<Input />}
+          onChange={(e) => setBranchSelection(e.target.value)}
+          style={{ width: '100%' }}
+        >
+          {myBranches.map((branch) => (
+            <MenuItem key={branch.id} value={branch}>
+              {branch.name}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
 
-      {userTypeId === PERSONAL_TRAINER && (
-        <FormControl>
-          <InputLabel>Branşları Seçiniz</InputLabel>
+      <FormControl>
+        <InputLabel>Oturum Türlerini Seçiniz</InputLabel>
 
-          <Select
-            multiple
-            value={branchSelection}
-            input={<Input />}
-            onChange={(e) => setBranchSelection(e.target.value)}
-          >
-            {myBranches.map((branch) => (
-              <MenuItem key={branch.id} value={branch}>
-                {branch.name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      )}
+        <Select
+          multiple
+          value={sessionSelection}
+          input={<Input />}
+          style={{ width: '100%' }}
+          onChange={(e) => setSessionSelection(e.target.value)}
+        >
+          {sessionTypes?.map((sessionType) => (
+            <MenuItem key={sessionType.id} value={sessionType}>
+              {sessionType.title}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
 
-      {userTypeId !== WORK_PLACE && (
-        <FormControl>
-          <InputLabel>Oturum Türlerini Seçiniz</InputLabel>
+      <FormControl>
+        <InputLabel>Spor Alanı Seçiniz</InputLabel>
 
-          <Select
-            multiple
-            value={sessionSelection}
-            input={<Input />}
-            onChange={(e) => setSessionSelection(e.target.value)}
-          >
-            {sessionTypes?.data?.data?.map((sessionType) => (
-              <MenuItem key={sessionType.id} value={sessionType}>
-                {sessionType.title}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      )}
+        <Select
+          multiple
+          value={workPlaceSelection}
+          input={<Input />}
+          style={{ width: '100%' }}
+          onChange={(e) => setWorkPlaceSelection(e.target.value)}
+        >
+          <MenuItem>deneme</MenuItem>
+          <MenuItem>deneme</MenuItem>
+          <MenuItem>deneme</MenuItem>
+          <MenuItem>deneme</MenuItem>
+          <MenuItem>deneme</MenuItem>
+        </Select>
+      </FormControl>
 
-      {showSessionDependentInputs('clinic') && (
-        <FormControl>
-          <InputLabel>Klinik Seçiniz</InputLabel>
+      <FormControl>
+        <InputLabel>Ev / Park Seçiniz</InputLabel>
 
-          <Select
-            multiple
-            value={workPlaceSelection}
-            input={<Input />}
-            onChange={(e) => setWorkPlaceSelection(e.target.value)}
-          >
-            {clinics?.session_type?.map((item) => (
-              <MenuItem key={item.id} value={item}>
-                {item.title}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      )}
-
-      {showSessionDependentInputs('gym') && (
-        <FormControl>
-          <InputLabel>Spor Alanı Seçiniz</InputLabel>
-
-          <Select
-            multiple
-            value={workPlaceSelection}
-            input={<Input />}
-            onChange={(e) => setWorkPlaceSelection(e.target.value)}
-          >
-            {gymList?.gym?.map((item) => (
-              <MenuItem key={item.id} value={item}>
-                {item.title}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      )}
-
-      {showSessionDependentInputs('home_park') && (
-        <FormControl>
-          <InputLabel>Ev / Park Seçiniz</InputLabel>
-
-          <Select
-            multiple
-            value={locationSelection}
-            input={<Input />}
-            onChange={(e) => setLocationSelection(e.target.value)}
-          >
-            {ptHomePlace?.home_park?.map((item) => (
-              <MenuItem key={item.id} value={item}>
-                {item.title}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      )}
+        <Select
+          multiple
+          value={locationSelection}
+          input={<Input />}
+          style={{ width: '100%' }}
+          onChange={(e) => setLocationSelection(e.target.value)}
+        >
+          <MenuItem>deneme</MenuItem>
+          <MenuItem>deneme</MenuItem>
+          <MenuItem>deneme</MenuItem>
+          <MenuItem>deneme</MenuItem>
+          <MenuItem>deneme</MenuItem>
+        </Select>
+      </FormControl>
     </FormControlWrapper>
   );
 }

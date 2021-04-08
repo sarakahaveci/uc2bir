@@ -19,7 +19,6 @@ const StyledDatePicker = styled.div`
 
     &__navigation--previous {
       right: 46px;
-      left: unset;
       border-right-color: ${(p) => p.theme.colors.blue};
     }
 
@@ -68,20 +67,12 @@ const StyledDatePicker = styled.div`
         border-radius: 50%;
         color: white;
         background-color: ${(p) => p.theme.colors.blue};
-        width: 29px;
-        height: 29px;
-        padding-top: 1px;
       }
 
       &--disabled {
         cursor: default;
         color: #ccc;
         border: none;
-      }
-
-      &.disabled-date {
-        pointer-events: none;
-        color: #ccc;
       }
 
       ${(p) =>
