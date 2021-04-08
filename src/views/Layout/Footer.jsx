@@ -1,14 +1,15 @@
 /* eslint-disable react/jsx-no-target-blank */
 import React, { useEffect } from 'react';
+import styled from 'styled-components/macro';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getFooterInfo } from 'actions';
 import logo from 'assets/logo.png';
-import { AwesomeIcon, IconLabel, Title } from 'components';
-import { default as NativeFooter } from 'components/common/Footer';
-
-import downloadRow from 'components/statics/background/images/download-row.png';
+import { AwesomeIcon, IconLabel, Title, Box } from 'components';
+import AppStore from 'assets/app-store.png';
+import GooglePlay from 'assets/google-play.png';
+import { device } from 'utils';
 
 const Footer = () => {
   const history = useHistory();
@@ -21,7 +22,7 @@ const Footer = () => {
   }, []);
 
   return (
-    <NativeFooter>
+    <footer className="footer">
       <div className="item footer-left">
         <div className="logo">
           <img src={logo} alt="logo" />
@@ -137,7 +138,16 @@ const Footer = () => {
         </div>
       </div>
       <div className="footer-line"></div>
-      <div className="footer-and">
+
+      <Box
+        row
+        alignItems="center"
+        justifyContent="space-between"
+        p="15px 0 150px 15%"
+        background="gray12"
+        width="100%"
+        flexWrap="wrap"
+      >
         <div id="ETBIS">
           <div id="3625302186051115">
             <a
@@ -153,22 +163,63 @@ const Footer = () => {
         </div>
 
         <pre>©2021 uc2bir All Rights Reserved</pre>
-        <div className="download-row">
-          <ul
-            className="download-row"
-            style={{ backgroundImage: `url(${downloadRow})` }}
-          >
+
+        <DownloadButtonRowWrapper>
+          <DownloadButtonRow>
             <li>
-              <a href="/"></a>
+              <a href="/" target="_blank">
+                <img src={GooglePlay} className="google-play" />
+              </a>
             </li>
+
             <li>
-              <a href="/"></a>
+              <a href="/" target="_blank">
+                <img src={AppStore} className="app-store" />
+              </a>
             </li>
-          </ul>
-        </div>
-      </div>
-    </NativeFooter>
+          </DownloadButtonRow>
+        </DownloadButtonRowWrapper>
+      </Box>
+    </footer>
   );
 };
 
 export default Footer;
+
+const DownloadButtonRowWrapper = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 70px;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+`;
+
+const DownloadButtonRow = styled.ul`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .app-store {
+    width: 181px;
+    height: 53px;
+  }
+
+  .google-play {
+    margin-right: 15px;
+    width: 180px;
+  }
+
+  @media ${device.sm} {
+    flex-direction: column;
+
+    .google-play {
+      margin-bottom: 15px;
+      margin-right: unset;
+    }
+  }
+`;

@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components/macro';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import MessageSearch from './MessageSearch';
 import MessageInfoRow from './MessageInfoRow';
 import { scrollbar } from 'components';
-import { getRooms } from 'actions';
 import { device } from 'utils';
 
 const MessageSidebar = () => {
@@ -19,12 +18,6 @@ const MessageSidebar = () => {
   const { messageSideBarOpen } = useSelector(
     (state) => state.profileSettings2.messages
   );
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    // Settings first room in the success callback
-    dispatch(getRooms());
-  }, []);
 
   const rooms = searched ? foundRooms : allRooms;
 

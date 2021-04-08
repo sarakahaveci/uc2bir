@@ -8,5 +8,4 @@ export { default as Pagination } from './Pagination';
 export { default as Otp } from './Otp';
 export { default as Spinner } from './Spinner';
 export { default as ScrollToTop } from './ScrollToTop';
-export { default as Footer } from './Footer';
 export { default as BackLink } from './BackLink';
