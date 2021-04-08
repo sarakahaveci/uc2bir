@@ -64,8 +64,11 @@ export default ({ getState }) => (next) => async ({ payload = {}, type }) => {
     }
   } catch (error) {
     if (error?.response?.status === 401) {
-      localStorage.remove('auth');
-      window.location.reload();
+      const auth = localStorage.get('auth');
+      if (auth) {
+        localStorage.remove('auth');
+        window.location.reload();
+      }
 
       // TODO: Set Authorization Process
       console.error('error', error?.message);
