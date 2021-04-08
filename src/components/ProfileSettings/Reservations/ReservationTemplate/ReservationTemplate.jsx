@@ -1,11 +1,16 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
 import { Link } from 'react-router-dom';
 
-import { addHoursToTemplate } from 'actions';
-import { HOURS } from '../../../../constants';
+import { addHoursToTemplate, setSelectedDay } from 'actions';
+import {
+  DIETITIAN,
+  HOURS,
+  PERSONAL_TRAINER,
+  WORK_PLACE,
+} from '../../../../constants';
 import { Box, Switch, Button, Modal, Text, Svg } from 'components';
 import TemplateSummary from './TemplateSummary';
 import TemplateSelections from './TemplateSelections';
@@ -19,6 +24,8 @@ export default function ReservationTemplate() {
     (state) => state.profileSettings2.reservationTemplate
   );
 
+  const { type_id: userTypeId } = useSelector((state) => state.auth.user);
+
   const [selectedDayHours, setSelectedDayHours] = useState([]);
   const [templateName, setTemplateName] = useState('');
 
@@ -26,6 +33,7 @@ export default function ReservationTemplate() {
   const [sessionSelection, setSessionSelection] = useState([]);
   const [workPlaceSelection, setWorkPlaceSelection] = useState([]);
   const [locationSelection, setLocationSelection] = useState([]);
+  const [classSelection, setClassSelection] = useState([]);
 
   const [acceptGuest, setAcceptGuest] = useState(false);
 
@@ -36,6 +44,10 @@ export default function ReservationTemplate() {
   const weekDetailsInfoModalRef = useRef();
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setSelectedDay(0));
+  }, []);
 
   const openSuccessTemplateModal = () =>
     successTemplateModalRef.current.openModal();
@@ -60,14 +72,19 @@ export default function ReservationTemplate() {
 
     if (startHourIndex > endHourIndex) {
       const temp = endHourIndex;
+
       endHourIndex = startHourIndex;
+
       startHourIndex = temp;
     }
 
     const sessionTypeArr = sessionSelection.map((session) => ({
       session,
-      ...(session !== 'online' && {
-        location: session === 'gym' ? workPlaceSelection : locationSelection,
+      ...(session.type !== 'online' && {
+        location:
+          session.type === 'gym' || session.type === 'clinic'
+            ? workPlaceSelection
+            : locationSelection,
       }),
     }));
 
@@ -78,17 +95,57 @@ export default function ReservationTemplate() {
         branch: branchSelection,
         accept_guest: acceptGuest,
         session_type: sessionTypeArr,
+        ...(userTypeId === WORK_PLACE && { location: classSelection }),
       })
     );
 
     setSelectedDayHours([]);
+
+    setBranchSelection([]);
+
+    setSessionSelection([]);
+
+    setWorkPlaceSelection([]);
+
+    setLocationSelection([]);
+
+    setClassSelection([]);
+
+    setAcceptGuest(false);
   };
 
-  const completeEditTemplateHandler = () => {
+  const complateTemplateHandler = () => {
     if (appliedDays.length < 7) {
       openWeekDetailsInfoModal();
     } else {
       openTemplateNamingModal();
+    }
+  };
+
+  const checkSessionSelection = (sessionType) =>
+    sessionSelection.findIndex((session) => session.type === sessionType) !==
+    -1;
+
+  const disableSaveButtonHandler = () => {
+    if (selectedDayHours.length !== 2) {
+      return true;
+    }
+
+    if (userTypeId === WORK_PLACE) {
+      return !classSelection.length;
+    }
+
+    if (userTypeId === PERSONAL_TRAINER) {
+      return (
+        !sessionSelection.length ||
+        // If gym or home_park selected, check their selections are fulfilled.
+        (checkSessionSelection('gym') && !workPlaceSelection.length) ||
+        (checkSessionSelection('home_park') && !locationSelection.length)
+      );
+    }
+
+    if (userTypeId === DIETITIAN) {
+      return !sessionSelection.length || !workPlaceSelection;
     }
   };
 
@@ -116,16 +173,18 @@ export default function ReservationTemplate() {
             setWorkPlaceSelection={setWorkPlaceSelection}
             locationSelection={locationSelection}
             setLocationSelection={setLocationSelection}
+            classSelection={classSelection}
+            setClassSelection={setClassSelection}
           />
 
           <Box row justifyContent="flex-end">
             <Button
               width="200px"
-              mt="10px"
+              m="10px 0 30px 0"
               className="blue"
               text="Kaydet"
               onClick={saveDayToTemplateHandler}
-              disabled={selectedDayHours.length !== 2}
+              disabled={disableSaveButtonHandler()}
             />
           </Box>
         </Col>
@@ -150,14 +209,6 @@ export default function ReservationTemplate() {
                     />
                   </Box>
                 </Box>
-
-                <Box row>
-                  <Text color="dark" fontWeight="500">
-                    Bugün çalışmayacağım
-                  </Text>
-
-                  <Switch />
-                </Box>
               </Box>
             </InnerWrapper>
 
@@ -168,7 +219,7 @@ export default function ReservationTemplate() {
                 fontWeight="700"
                 width="100%"
                 height="66px"
-                onClick={completeEditTemplateHandler}
+                onClick={complateTemplateHandler}
                 disabled={!appliedDays.length}
               />
             </NextButtonWrapper>
@@ -206,7 +257,7 @@ export default function ReservationTemplate() {
             textAlign="center"
             lineHeight="20px"
           >
-            Seçilmeyen günler çalışmıyorum olarak değerlendirelecek
+            Seçilmeyen günler çalışmıyorum olarak değerlendirelecek.
           </Text>
 
           <Button

@@ -111,9 +111,7 @@ export const deleteAddressList = (id, successCallback, errorCallback) => async (
 };
 
 export const getGymList = () => async (dispatch, getState) => {
-  const { id } = getState().auth?.user;
-
-  const url = `/user/working-area/gym/${id}`;
+  const url = `/user/working-area/gym`;
 
   await dispatch({
     type: HTTP_REQUEST,

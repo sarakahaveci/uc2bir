@@ -5,7 +5,7 @@ import { CalendarCell, Box, Title, Text } from 'components';
 import { setSelectedDay } from 'actions';
 import { theme } from 'utils';
 import { DAYS } from '../../../../constants';
-import SelectHourCells from '../SelectHourCells';
+import SelectHourCells from './SelectHourCells';
 
 export default function TemplateDate({
   selectedDayHours,
