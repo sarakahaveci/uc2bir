@@ -24,6 +24,7 @@ const theme = {
     gray9: '#c6c6c6',
     gray10: '#9b9b9b',
     gray11: '#d3d3d3',
+    gray12: '#dedee0',
     black: 'black',
     black2: '#6e6d6d',
     black3: '#404041',
