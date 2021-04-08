@@ -1,17 +1,17 @@
 import React, { useState, useLayoutEffect } from 'react';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
-import Layout from './views/Layout';
 import { useDispatch } from 'react-redux';
+import styled, { ThemeProvider } from 'styled-components';
+
+import { ScrollToTop, ProtectedRoute } from 'components';
+import LoadingImage from 'assets/321-loading.gif';
 import {
   setUserDetailsFromStorage,
   getRegisterData,
   getAllPTBranchList,
 } from 'actions';
-import { ThemeProvider } from 'styled-components';
-
-import { ScrollToTop, Spinner } from 'components';
-import ProtectedRoute from 'components/ProtectedRoute/ProtectedRoute';
 //views
+import Layout from './views/Layout';
 import Home from './views/Home';
 import Login from './views/Login';
 import Info from './views/Info';
@@ -34,19 +34,27 @@ const App = () => {
   const dispatch = useDispatch();
 
   useLayoutEffect(() => {
-    setLoading(false);
+    setTimeout(() => {
+      setLoading(false);
+    }, 4000);
+
     dispatch(setUserDetailsFromStorage());
+
     dispatch(getRegisterData());
     dispatch(getAllPTBranchList());
   }, []);
 
   if (loading) {
-    return <Spinner />;
+    return (
+      <LoadingWrapper>
+        <img width="20%" src={LoadingImage} alt="Üç2Bir" />
+      </LoadingWrapper>
+    );
   }
 
   return (
-    <ScrollToTop>
-      <Router>
+    <Router>
+      <ScrollToTop>
         <ThemeProvider theme={theme}>
           <Layout>
             <Switch>
@@ -82,9 +90,22 @@ const App = () => {
             </Switch>
           </Layout>
         </ThemeProvider>
-      </Router>
-    </ScrollToTop>
+      </ScrollToTop>
+    </Router>
   );
 };
 
 export default App;
+
+const LoadingWrapper = styled.div`
+  width: 100%;
+  height: 100vh;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 1000000;
+  top: 0;
+  left: 0;
+`;

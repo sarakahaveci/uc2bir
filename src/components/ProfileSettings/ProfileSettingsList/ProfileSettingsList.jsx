@@ -203,9 +203,9 @@ const SettingsRow = styled.div`
   ${(p) =>
     p.pulse &&
     css`
-      animation: pulse 1s infinite;
+      animation: pulse 1s;
+      animation-iteration-count: 2;
       border-radius: 20px;
-
       ${pulse}
     `}
 

@@ -4,6 +4,7 @@ import { flexbox, space, typography, color, border } from 'styled-system';
 const Span = styled.span`
   text-decoration: ${(p) => p.textDecoration && p.textDecoration};
   text-transform: ${(p) => p.textTransform && p.textTransform};
+  min-width: ${(p) => p.minWidth && p.minWidth};
   cursor: ${(p) => p.cursor && p.cursor};
   position: relative;
 

@@ -132,7 +132,7 @@ export const sendFileToRoom = (file, successCallback) => async (
 
   formData.append('files[]', file);
 
-  formData.append('receiver_id', selectedRoomUser?.id);
+  formData.append('receiver_id', selectedRoomUser?.id || 0);
 
   await dispatch({
     type: HTTP_REQUEST,

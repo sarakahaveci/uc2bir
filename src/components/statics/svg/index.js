@@ -81,6 +81,9 @@ import ClockIcon from './images/clock.svg';
 import GuestIcon from './images/guest.svg';
 import MockImage from './images/mock-image.svg';
 import Minus from './images/minus.svg';
+import CalenderIcon from './images/calendar.svg';
+import PlusIcon from 'assets/blue-plus.svg';
+import MinusIcon from 'assets/blue-minus.svg';
 import Weight from './images/weight.svg';
 import Set from './images/set.svg';
 import Repetition from './images/repetition.svg';
@@ -186,6 +189,10 @@ const Svg = {
   MockImageIcon: (props) => <ReactSVG {...props} src={MockImage} />,
   Delete: (props) => <ReactSVG {...props} src={Delete} />,
   Minus: (props) => <ReactSVG {...props} src={Minus} />,
+  CalendarIcon: (props) => <ReactSVG {...props} src={CalenderIcon} />,
+  MinusIcon: (props) => <ReactSVG {...props} src={MinusIcon} />,
+  PlusIcon: (props) => <ReactSVG {...props} src={PlusIcon} />,
+
   Weight: (props) => <ReactSVG {...props} src={Weight} />,
   Set: (props) => <ReactSVG {...props} src={Set} />,
   Repetition: (props) => <ReactSVG {...props} src={Repetition} />,

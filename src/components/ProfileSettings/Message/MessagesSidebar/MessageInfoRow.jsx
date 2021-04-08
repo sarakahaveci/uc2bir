@@ -69,9 +69,13 @@ const MessageInfoRow = ({ messageData, userData, unreadMessages }) => {
             )}
 
             <Box height="14px" flex={1} overflow="hidden" position="relative">
-              <Message isLastSenderMe={isLastSenderMe}>
-                {messageData.message}
-              </Message>
+              {messageData.file === 1 ? (
+                <div></div>
+              ) : (
+                <Message isLastSenderMe={isLastSenderMe}>
+                  {messageData.message}
+                </Message>
+              )}
             </Box>
           </Box>
 
