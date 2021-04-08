@@ -9,6 +9,7 @@ export default function MessageRow({
   isMyMessage = false,
   message,
   senderProfileAvatar,
+  file,
 }) {
   const wrapperClass = isMyMessage
     ? 'message-row__wrapper__home'
@@ -20,12 +21,12 @@ export default function MessageRow({
     <div className={wrapperClass}>
       {!isMyMessage && <Avatar src={senderProfileAvatar} alt="" />}
       <div>
-        <ChatBox isMyMessage={isMyMessage} message={message} />
+        <ChatBox isMyMessage={isMyMessage} message={message} file={file} />
         <div>
           <Title
-            fontSize="11px"
+            fontSize="0.8rem"
             fontWeight="400"
-            color="#909090"
+            color="gray1"
             textAlign={timeAlignClass}
           >
             {time}
