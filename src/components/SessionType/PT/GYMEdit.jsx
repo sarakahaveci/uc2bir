@@ -6,11 +6,9 @@ import { Col } from 'react-bootstrap';
 import styled from 'styled-components/macro';
 import Checkbox from '@material-ui/core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
-
-import image from '../../../assets/session-type.jpg';
 import { removeGymFromPt } from 'actions';
 
-const GYMEdit = ({ setSubPage }) => {
+const GYMEdit = ({ setSubPage, setBannerActive }) => {
   const stars = 5;
   const dispatch = useDispatch();
 
@@ -26,6 +24,7 @@ const GYMEdit = ({ setSubPage }) => {
   };
 
   useEffect(() => {
+    setBannerActive(true);
     dispatch(getGymList());
   }, []);
 
@@ -55,13 +54,10 @@ const GYMEdit = ({ setSubPage }) => {
                     <AwesomeIcon.StarSolid />
                   </Star>
                 </Stars>
-                <div className="left-group">
-                  <div
-                    style={{ backgroundImage: `url(${image})` }}
-                    className="img"
-                  ></div>
+                <div className="_group">
+                  <IMG src="/static/media/session-type.50fd045c.jpg"></IMG>
                 </div>
-                <div className="right-group">
+                <div className="_group">
                   <div className="title">
                     <Title textAlign="left" fontSize="14pt">
                       {data?.title}
@@ -73,7 +69,7 @@ const GYMEdit = ({ setSubPage }) => {
                   <div className="footer-and">
                     <div className="and">
                       <IconLabel
-                        text="İstanbul Beşiktaş"
+                        text={data?.city + ' ' + data?.district}
                         icon={AwesomeIcon.Map}
                       />
                       <Title textAlign="right" variant="h5" component="h5">
@@ -124,9 +120,8 @@ const CardGroup = styled.div`
 
 const Card = styled(Col)`
   width: 100%;
-  height: auto;
+  height: 200px;
   box-shadow: 0px 0px 7px -2px rgb(0 0 0 / 75%);
-  border-radius: 40px;
   padding: 0;
   overflow: hidden;
   position: relative;
@@ -134,17 +129,14 @@ const Card = styled(Col)`
   display: flex;
   align-items: center;
   justify-content: center;
-
-  .left-group {
+  border-radius: 30px;
+  ._group {
     width: 50%;
-    padding: 15px 0;
   }
 
   .img {
     width: 100%;
     height: 200px;
-    background-size: cover;
-    background-repeat: no-repeat;
     position: relative;
     border-radius: 30px;
 
@@ -225,6 +217,9 @@ const Star = styled.li`
       color: #ffba00;
     }
   }
+`;
+const IMG = styled.img`
+  width: 100%;
 `;
 
 const GreenCheckbox = withStyles({
