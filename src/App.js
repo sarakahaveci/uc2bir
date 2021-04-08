@@ -27,6 +27,7 @@ import BlogDetail from 'views/BlogDetail';
 import BlogList from 'views/BlogList';
 import Contact from 'views/Contact';
 import SearchProfessional from 'views/SearchProfessional';
+import Interceptor from './Interceptor';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -54,43 +55,49 @@ const App = () => {
 
   return (
     <Router>
-      <ScrollToTop>
-        <ThemeProvider theme={theme}>
-          <Layout>
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/info" component={Info} />
-              <Route exact path="/register" component={Register} />
-              <Route
-                exact
-                path="/profesyonel/register"
-                component={ProfRegister}
-              />
-              <Route exact path="/forgot-password" component={ForgotPassword} />
+      <Interceptor>
+        <ScrollToTop>
+          <ThemeProvider theme={theme}>
+            <Layout>
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/info" component={Info} />
+                <Route exact path="/register" component={Register} />
+                <Route
+                  exact
+                  path="/profesyonel/register"
+                  component={ProfRegister}
+                />
+                <Route
+                  exact
+                  path="/forgot-password"
+                  component={ForgotPassword}
+                />
 
-              <ProtectedRoute
-                exact
-                path="/user/:id/:activeTabKey?"
-                component={Profile}
-              />
-              <ProtectedRoute
-                exact
-                path="/myprofile/settings/:activeTabKey"
-                component={UserProfile}
-              />
+                <ProtectedRoute
+                  exact
+                  path="/user/:id/:activeTabKey?"
+                  component={Profile}
+                />
+                <ProtectedRoute
+                  exact
+                  path="/myprofile/settings/:activeTabKey"
+                  component={UserProfile}
+                />
 
-              <Route exact path="/blog-detail/:seo" component={BlogDetail} />
-              <Route exact path="/blog-list" component={BlogList} />
+                <Route exact path="/blog-detail/:seo" component={BlogDetail} />
+                <Route exact path="/blog-list" component={BlogList} />
 
-              <Route exact path="/messages" component={Message} />
-              <Route exact path="/contact" component={Contact} />
-              <Route exact path="/find" component={SearchProfessional} />
-              <Route component={NotFoundPage} />
-            </Switch>
-          </Layout>
-        </ThemeProvider>
-      </ScrollToTop>
+                <Route exact path="/messages" component={Message} />
+                <Route exact path="/contact" component={Contact} />
+                <Route exact path="/find" component={SearchProfessional} />
+                <Route component={NotFoundPage} />
+              </Switch>
+            </Layout>
+          </ThemeProvider>
+        </ScrollToTop>
+      </Interceptor>
     </Router>
   );
 };

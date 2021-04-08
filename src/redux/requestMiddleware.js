@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { HTTP_REQUEST } from '../constants';
-import { localStorage } from 'utils';
+
 const baseUrl = process.env.REACT_APP_API_URL;
 
 export default ({ getState }) => (next) => async ({ payload = {}, type }) => {
@@ -63,17 +63,6 @@ export default ({ getState }) => (next) => async ({ payload = {}, type }) => {
       callBack(data);
     }
   } catch (error) {
-    if (error?.response?.status === 401) {
-      const auth = localStorage.get('auth');
-      if (auth) {
-        localStorage.remove('auth');
-        window.location.reload();
-      }
-
-      // TODO: Set Authorization Process
-      console.error('error', error?.message);
-    }
-
     const enhancedError = {
       ...error?.response?.data,
       message: error?.response?.data?.message,

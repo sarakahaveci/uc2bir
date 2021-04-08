@@ -7,8 +7,10 @@ import {
   LOGOUT,
   RESET_PASSWORD,
   USER_INFORMATION,
+  REFRESH_LOGIN,
 } from '../constants';
 import { localStorage } from 'utils';
+import axios from 'axios';
 
 export const login = (
   { email, password },
@@ -136,4 +138,25 @@ export const socialLogin = (user, successCallback) => async (dispatch) => {
       body: user,
     },
   });
+};
+
+export const refreshLogin = (redirectToLogin = () => {}) => async (
+  dispatch,
+  getState
+) => {
+  const { refreshToken } = getState().auth;
+
+  try {
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_API_URL}/refresh-login`,
+      {
+        refresh_token: refreshToken,
+      }
+    );
+
+    dispatch({ type: REFRESH_LOGIN, payload: data.data });
+  } catch (error) {
+    dispatch(logout());
+    redirectToLogin();
+  }
 };

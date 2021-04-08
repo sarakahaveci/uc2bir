@@ -17,6 +17,7 @@ import {
   USER_INFORMATION_SUCCESS,
   USER_INFORMATION_FAILURE,
   SET_USER_DETAILS,
+  REFRESH_LOGIN,
 } from '../constants';
 
 const initialState = {
@@ -54,6 +55,7 @@ export default (state = initialState, action) => {
     case REGISTER_STEP_TWO_SUCCESS:
     case RESET_PASSWORD_SUCCESS:
     case USER_INFORMATION_SUCCESS:
+    case REFRESH_LOGIN:
       return {
         ...state,
         user: action.payload.user,
