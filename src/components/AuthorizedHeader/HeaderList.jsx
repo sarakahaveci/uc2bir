@@ -97,7 +97,8 @@ const Item = styled.li`
     css`
       padding-left: 5px;
       padding-bottom: 2px;
-      animation: pulse 1s infinite;
+      animation: pulse 1s;
+      animation-iteration-count: 2;
 
       ${pulse}
     `}
