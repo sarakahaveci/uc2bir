@@ -94,9 +94,17 @@ const GYMEdit = ({ setSubPage, setBannerActive }) => {
           <div className="ln">
             <Button
               disabled={!checked.length}
+              style={{ margin: 5, borderStyle: 'solid', borderWidth: '1px' }}
+              text={`Kaldır ${
+                checked.length ? '(' + checked.length + ')' : ''
+              }`}
+              onClick={() => dispatch(removeGymFromPt(checked))}
+            />
+            <Button
+              disabled={!checked.length}
               style={{ margin: 5 }}
               className="blue"
-              text={`Kaldır ${
+              text={`Kaydet ${
                 checked.length ? '(' + checked.length + ')' : ''
               }`}
               onClick={() => dispatch(removeGymFromPt(checked))}

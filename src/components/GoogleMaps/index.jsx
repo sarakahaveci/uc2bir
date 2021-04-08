@@ -10,11 +10,13 @@ import styled from 'styled-components/macro';
 import { device } from 'utils';
 
 import MarkerSvg from './markerSvg.svg';
+import SaloonSvg from './fitness.svg';
+
 import { GoogleMapsAPI } from 'utils/config';
 
 const center = { lat: 39.925533, lng: 32.866287 };
 
-export default function GoogleMapClusterer({ data, onSelected }) {
+export default function GoogleMapClusterer({ data, onSelected, isSaloonMap }) {
   const [selectedMarker, setSelectedMarker] = useState(null);
   const mapContainerStyle = { width: '100%', height: '100%' };
 
@@ -79,7 +81,14 @@ export default function GoogleMapClusterer({ data, onSelected }) {
                     }}
                     clusterer={clusterer}
                     icon={
-                      professional?.photo
+                      isSaloonMap
+                        ? {
+                            url: SaloonSvg,
+                            origin: new window.google.maps.Point(0, 0),
+                            anchor: new window.google.maps.Point(35, 20),
+                            scaledSize: new window.google.maps.Size(70, 60),
+                          }
+                        : professional?.photo
                         ? {
                             url: professional?.photo,
                             origin: new window.google.maps.Point(0, 0),
