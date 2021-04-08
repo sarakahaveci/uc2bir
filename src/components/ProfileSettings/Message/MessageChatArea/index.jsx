@@ -56,7 +56,7 @@ export default function MessageArea() {
 
     setFile(targetFile);
 
-    dispatch(sendFileToRoom(targetFile, successMessageCallback));
+    dispatch(sendFileToRoom(targetFile), successMessageCallback);
   };
 
   return (
@@ -99,7 +99,6 @@ export default function MessageArea() {
           type="file"
           ref={fileInputRef}
           onChange={fileChangeHandler}
-          accept="image/*"
         />
       </div>
     </div>

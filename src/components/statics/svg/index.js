@@ -81,11 +81,9 @@ import ClockIcon from './images/clock.svg';
 import GuestIcon from './images/guest.svg';
 import MockImage from './images/mock-image.svg';
 import Minus from './images/minus.svg';
-import Weight from './images/weight.svg';
-import Set from './images/set.svg';
-import Repetition from './images/repetition.svg';
-import Difficulty from './images/difficulty.svg';
-import Break from './images/break.svg';
+import CalenderIcon from './images/calendar.svg';
+import PlusIcon from 'assets/blue-plus.svg';
+import MinusIcon from 'assets/blue-minus.svg';
 
 import AthleticSportIcon from 'assets/sports-type-icons/atletic.svg';
 import FitnessSportIcon from 'assets/sports-type-icons/fitness.svg';
@@ -186,11 +184,10 @@ const Svg = {
   MockImageIcon: (props) => <ReactSVG {...props} src={MockImage} />,
   Delete: (props) => <ReactSVG {...props} src={Delete} />,
   Minus: (props) => <ReactSVG {...props} src={Minus} />,
-  Weight: (props) => <ReactSVG {...props} src={Weight} />,
-  Set: (props) => <ReactSVG {...props} src={Set} />,
-  Repetition: (props) => <ReactSVG {...props} src={Repetition} />,
-  Difficulty: (props) => <ReactSVG {...props} src={Difficulty} />,
-  Break: (props) => <ReactSVG {...props} src={Break} />,
+  CalendarIcon: (props) => <ReactSVG {...props} src={CalenderIcon} />,
+  MinusIcon: (props) => <ReactSVG {...props} src={MinusIcon} />,
+  PlusIcon: (props) => <ReactSVG {...props} src={PlusIcon} />,
+
   SessionType: {
     Gym: (props) => <ReactSVG {...props} src={SessionTypeGym} />,
     Online: (props) => <ReactSVG {...props} src={SessionTypeOnline} />,

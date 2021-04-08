@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
+import Pagination from '@material-ui/lab/Pagination';
 import { device } from 'utils';
 
 import LongUserCard from 'components/UserCards/LongUserCard';
@@ -48,11 +49,7 @@ const AddGym = ({ setSubPage, setBannerActive }) => {
   };
 
   const addGymHandler = (id) => {
-    dispatch(
-      addGymFromPt(id, () => {
-        setSubPage('gym-edit');
-      })
-    );
+    dispatch(addGymFromPt(id, () => {}));
   };
 
   return (
@@ -117,8 +114,6 @@ const AddGym = ({ setSubPage, setBannerActive }) => {
         </Row>
       </div>
       <GoogleMapClusterer
-        isSaloonMap
-        defaultMarkerIcon={<Svg.FitnessIcon></Svg.FitnessIcon>}
         onSelected={(selected) => {
           setSelectedItem(data.find((item) => item.id == selected));
         }}
@@ -142,20 +137,19 @@ const AddGym = ({ setSubPage, setBannerActive }) => {
         {selectedItem &&
           data
             .filter((item) => item.id !== selectedItem.id)
-            .slice(0, 2)
-            .map((item, i) => (
-              <LongUserWrapper key={item?.id}>
-                <LongUserCard
-                  selected={false}
-                  data={item}
-                  city={item?.address?.city}
-                  district={item?.address?.district}
-                  hoverText="+ Salonu Ekle"
-                  showHeartBg
-                  isGym
-                  onClickHover={(id) => addGymHandler(id)}
-                />
-              </LongUserWrapper>
+            .slice(0, 3)
+            .map((item) => (
+              <LongUserCard
+                key={item?.id}
+                selected={false}
+                data={item}
+                city={item?.address?.city}
+                district={item?.address?.district}
+                hoverText="+ Salonu Ekle"
+                showHeartBg
+                isGym
+                onClickHover={(id) => addGymHandler(id)}
+              />
             ))}
       </GymListWrapper>
     </>
@@ -184,10 +178,6 @@ const SearchCol = styled(Col)`
   }
 
   flex-basis: 20%;
-`;
-
-const LongUserWrapper = styled.div`
-  margin: 20px;
 `;
 
 export default AddGym;

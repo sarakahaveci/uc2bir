@@ -12,3 +12,4 @@ export * from './notificationActions';
 export * from './reservationTemplateActions';
 export * from './profileBranchActions';
 export * from './gymSpecialActions';
+export * from './reservationGroupActions';

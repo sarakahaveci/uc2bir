@@ -1,15 +1,22 @@
 import React, { forwardRef } from 'react';
 import styled from 'styled-components/macro';
+import { useDispatch } from 'react-redux';
 
+import { saveTemplate } from 'actions';
 import { Box, Modal, Button, Title, Material } from 'components';
 
 const TemplateNamingModal = forwardRef(
   ({ openSuccessTemplateModal, templateName, setTemplateName }, ref) => {
-    const saveClickHandler = () => {
+    const dispatch = useDispatch();
+
+    const saveSuccessCallback = () => {
       openSuccessTemplateModal();
 
       ref.current.closeModal();
     };
+
+    const saveClickHandler = () =>
+      dispatch(saveTemplate(templateName, saveSuccessCallback));
 
     return (
       <StyledTemplateNamingModal activateFooter ref={ref}>

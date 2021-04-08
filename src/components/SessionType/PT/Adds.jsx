@@ -65,9 +65,7 @@ const Adds = ({ icons, setBannerActive, setPage }) => {
       return <Edit setSubPage={setSubPage} />;
 
     case 'gym-edit':
-      return (
-        <GYMEdit setBannerActive={setBannerActive} setSubPage={setSubPage} />
-      );
+      return <GYMEdit setSubPage={setSubPage} />;
 
     default:
       return (
