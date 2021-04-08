@@ -47,7 +47,7 @@ const HomeUserSlider = ({ className, data = [] }) => {
               </div>
 
               <SlickSlider arrows={false} ref={slider1}>
-                {data.map((cardData) => (
+                {data?.map((cardData) => (
                   <UserCard key={cardData.id} data={cardData} bottom />
                 ))}
               </SlickSlider>

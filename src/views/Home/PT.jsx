@@ -9,6 +9,11 @@ const PT = ({ className }) => {
     content: { data: content },
   } = useSelector((state) => state.home);
 
+  // You can delete it later
+  if ((content?.list_pt || []).length === 0) {
+    return <> </>;
+  }
+
   const link = '/instructor';
   return (
     <section className={cx('pt', { [`${className}`]: className })}>
@@ -20,7 +25,7 @@ const PT = ({ className }) => {
           EN İYİ EĞİTMENLER İLE ÇALIŞMA FIRSATI
         </Title>
       </Container>
-      <HomeUserSlider data={content?.list_pt} link={link} />
+      <HomeUserSlider data={content?.list_pt || []} link={link} />
     </section>
   );
 };

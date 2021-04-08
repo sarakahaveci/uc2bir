@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components/macro';
 
 import UserCard from './UserCard';
 
-const CardSlider = forwardRef(({ data }, ref) => {
+const CardSlider = forwardRef(({ data = [] }, ref) => {
   const [current, setCurrent] = useState(1);
 
   const next = () => {
@@ -35,7 +35,7 @@ const CardSlider = forwardRef(({ data }, ref) => {
   return (
     <div>
       <SliderWrapper>
-        {data.map((item, i) => {
+        {data?.map((item, i) => {
           let leftPos;
           let cardType;
 

@@ -9,6 +9,11 @@ const Living = (props) => {
     content: { data: content },
   } = useSelector((state) => state.home);
 
+  // You can delete it later
+  if ((content?.list_bs || []).length === 0) {
+    return <> </>;
+  }
+
   const link = '/gym';
   return (
     <section className={`pt ${props.className}`}>
@@ -20,7 +25,7 @@ const Living = (props) => {
           İSTEDİĞİN SALONDA ÇALIŞMA FIRSATI
         </Title>
       </Container>
-      <HomeUserSlider data={content?.list_bs} link={link} />
+      <HomeUserSlider data={content?.list_bs || []} link={link} />
     </section>
   );
 };
