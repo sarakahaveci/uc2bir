@@ -4,7 +4,7 @@ import Svg from 'components/statics/svg';
 import Slider from 'react-slick';
 import { device } from 'utils';
 
-const ExerciseCard = () => {
+const ExerciseCard = ({ onClickExercise }) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -14,7 +14,7 @@ const ExerciseCard = () => {
   };
   return (
     <Container>
-      <ExerciseCardContainer>
+      <ExerciseCardContainer onClick={onClickExercise}>
         <ImagesContainer>
           <Carousel {...settings}>
             <img
@@ -61,6 +61,7 @@ const Container = styled.div`
   align-items: center;
   width: 385px;
   height: 175px;
+  cursor: pointer;
   @media ${device.sm} {
     width: 98%;
   }

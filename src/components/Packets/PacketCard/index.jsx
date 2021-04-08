@@ -62,7 +62,7 @@ const Container = styled.section`
   -webkit-box-shadow: 0px 0px 4px 3px rgba(197, 196, 196, 0.28);
   box-shadow: 0px 0px 4px 3px rgba(197, 196, 196, 0.28);
   @media ${device.sm} {
-    width: 98vw;
+    width: 100%;
   }
 `;
 const Column = styled.div`

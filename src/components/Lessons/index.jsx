@@ -12,7 +12,7 @@ const useStyles = makeStyles({
     backgroundColor: '#00B2A9',
   },
 });
-const Lessons = () => {
+const Lessons = ({ onClickLesson }) => {
   useEffect(() => {}, []);
   const classes = useStyles();
   var temp = ['55', '55s5d', '626', 'd', 'sdsd', 'sdasd', 'sdad'];
@@ -32,21 +32,26 @@ const Lessons = () => {
           location={temp.length - 1 == index ? 'end' : locationSelector(index)}
           active="true"
         ></CustomProgress>
-        <LessonCardContainer>
-          <HeaderArea>
-            {false ? (
-              <Svg.TickLesson />
-            ) : (
-              <Number>
-                <BoldText color={'#C5C4C4'}>1.</BoldText>
-              </Number>
-            )}
-            <BoldText style={{ marginLeft: '9px' }}>Gelişim Testi</BoldText>
-          </HeaderArea>
-          <DescArea>
-            <IconArea></IconArea>
-            <DescText>Denememasdoa ösasd oasöodoöasasdsad </DescText>
-          </DescArea>
+        <LessonCardContainer onClick={onClickLesson}>
+          <MainField>
+            <HeaderArea>
+              {false ? (
+                <Svg.TickLesson />
+              ) : (
+                <Number>
+                  <BoldText color={'#C5C4C4'}>1.</BoldText>
+                </Number>
+              )}
+              <BoldText style={{ marginLeft: '9px' }}>Gelişim Testi</BoldText>
+            </HeaderArea>
+            <DescArea>
+              <IconArea></IconArea>
+              <DescText>Denememasdoa ösasd oasöodoöasasdsad </DescText>
+            </DescArea>
+          </MainField>
+          <RightSideField>
+            <Svg.ArrowRightIcon></Svg.ArrowRightIcon>
+          </RightSideField>
         </LessonCardContainer>
       </Col>
     ));
@@ -91,17 +96,29 @@ const HeaderText = styled.text`
 
 const LessonCardContainer = styled.div`
   display: flex;
-  flex-direction: column;
   width: 365px;
   height: 102px;
   border: #c5c4c4;
   border-style: solid;
   border-width: 1px;
   border-radius: 10px;
+  cursor: pointer;
   @media ${device.sm} {
     margin-top: 10px;
     width: 95%;
   }
+`;
+const MainField = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+`;
+const RightSideField = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25px;
+  height: 100%;
 `;
 const HeaderArea = styled.div`
   display: flex;
@@ -109,9 +126,6 @@ const HeaderArea = styled.div`
   padding: 17px 12px 17px 12px;
   width: 100%;
   height: 50%;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  border-bottom-color: rgba(197, 196, 196, 0.5);
 `;
 const Number = styled.div`
   width: 26px;
@@ -121,7 +135,6 @@ const DescArea = styled.div`
   display: flex;
   align-items: center;
   padding: 17px 12px 17px 12px;
-  width: 100%;
   height: 50%;
 `;
 const BoldText = styled.text`
@@ -136,8 +149,6 @@ const IconArea = styled.div`
 `;
 const DescText = styled.text`
   margin-left: 9px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
   overflow: hidden;
 `;
 

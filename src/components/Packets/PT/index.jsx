@@ -6,6 +6,8 @@ import { getGeocode } from 'use-places-autocomplete';
 
 import Home from './Home';
 import EditLesson from './EditLesson';
+import Exercises from './Exercises';
+import ExerciseDetail from './ExerciseDetail';
 
 const PT = ({ icons, setBannerActive }) => {
   const dispatch = useDispatch();
@@ -68,6 +70,26 @@ const PT = ({ icons, setBannerActive }) => {
       return (
         <div>
           <EditLesson
+            setPage={setPage}
+            icons={icons}
+            setBannerActive={setBannerActive}
+          />
+        </div>
+      );
+    case 'Exercises':
+      return (
+        <div>
+          <Exercises
+            setPage={setPage}
+            icons={icons}
+            setBannerActive={setBannerActive}
+          />
+        </div>
+      );
+    case 'ExerciseDetail':
+      return (
+        <div>
+          <ExerciseDetail
             setPage={setPage}
             icons={icons}
             setBannerActive={setBannerActive}
