@@ -10,6 +10,7 @@ import {
   READ_MESSAGE,
   MESSAGE_SIDEBAR_OPEN,
 } from '../../constants';
+import { toast } from 'react-toastify';
 
 export const getRooms = (isFirstTime) => async (dispatch) => {
   const url = `/user/message/rooms`;
@@ -33,6 +34,7 @@ export const getRooms = (isFirstTime) => async (dispatch) => {
     },
   });
 };
+
 export const setMessageSideBarOpen = (open) => async (dispatch) => {
   dispatch({
     type: MESSAGE_SIDEBAR_OPEN,
@@ -41,6 +43,7 @@ export const setMessageSideBarOpen = (open) => async (dispatch) => {
     },
   });
 };
+
 export const searchMessage = (searchValue) => async (dispatch, getState) => {
   const rooms = getState().profileSettings2.messages.rooms.data;
 
@@ -92,11 +95,10 @@ export const getRoomMessages = (roomName) => async (dispatch) => {
   });
 };
 
-export const sendMessageToRoom = (
-  message,
-  successCallback,
-  errorCallback
-) => async (dispatch, getState) => {
+export const sendMessageToRoom = (message, successCallback) => async (
+  dispatch,
+  getState
+) => {
   const url = `/user/message/send`;
 
   const {
@@ -109,9 +111,38 @@ export const sendMessageToRoom = (
       method: 'POST',
       url,
       label: SEND_MESSAGE,
-      body: { message: message, receiver_id: selectedRoomUser?.id || 0 },
+      body: { message, receiver_id: selectedRoomUser?.id || 0 },
       callBack: successCallback,
-      errorHandler: (error) => errorCallback(error.message),
+      errorHandler: (message) => toast.error(message),
+    },
+  });
+};
+
+export const sendFileToRoom = (file, successCallback) => async (
+  dispatch,
+  getState
+) => {
+  const url = `/user/message/send`;
+
+  const {
+    selectedRoomUser,
+  } = getState().profileSettings2.messages.selectedRoom;
+
+  const formData = new FormData();
+
+  formData.append('files[]', file);
+
+  formData.append('receiver_id', selectedRoomUser?.id);
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'POST',
+      url,
+      label: SEND_MESSAGE,
+      body: formData,
+      callBack: successCallback,
+      errorHandler: (message) => toast.error(message),
     },
   });
 };

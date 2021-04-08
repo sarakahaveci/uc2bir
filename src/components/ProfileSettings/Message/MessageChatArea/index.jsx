@@ -1,15 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
+import styled from 'styled-components/macro';
 
 import { ISOToTimeConverter } from 'utils';
-import { getRoomMessages, sendMessageToRoom, getRooms } from 'actions';
+import {
+  getRoomMessages,
+  sendMessageToRoom,
+  getRooms,
+  sendFileToRoom,
+} from 'actions';
 import MessageRow from './MessageRow';
 import ChatBoxHeader from './ChatBoxHeader';
 import DefaultProfileImg from 'assets/default-profile.jpg';
+import { PlusButton } from 'components';
 
 export default function MessageArea() {
-  const dispatch = useDispatch();
+  // eslint-disable-next-line
+  const [file, setFile] = useState();
+  const [message, setMessage] = useState(null);
+
+  const fileInputRef = useRef();
 
   const { data: allMessages } = useSelector(
     (state) => state.profileSettings2.messages.messages
@@ -20,7 +30,7 @@ export default function MessageArea() {
     (state) => state.profileSettings2.messages.selectedRoom
   );
 
-  const [message, setMessage] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (selectedRoomName) {
@@ -28,20 +38,25 @@ export default function MessageArea() {
     }
   }, [selectedRoomName]);
 
+  const successMessageCallback = () => {
+    setMessage('');
+    dispatch(getRoomMessages(selectedRoomName));
+    dispatch(getRooms());
+    setFile();
+  };
+
   const handleSubmitMessage = (event) => {
     if (event.key === 'Enter' && !!message) {
-      dispatch(
-        sendMessageToRoom(
-          message,
-          () => {
-            setMessage('');
-            dispatch(getRoomMessages(selectedRoomName));
-            dispatch(getRooms());
-          },
-          (message) => toast.error(message)
-        )
-      );
+      dispatch(sendMessageToRoom(message, successMessageCallback));
     }
+  };
+
+  const fileChangeHandler = (e) => {
+    const targetFile = e.target.files[0];
+
+    setFile(targetFile);
+
+    dispatch(sendFileToRoom(targetFile), successMessageCallback);
   };
 
   return (
@@ -60,18 +75,48 @@ export default function MessageArea() {
                 message={message?.message}
                 isMyMessage={message?.sender_id === user?.id}
                 senderProfileAvatar={photo}
+                file={message?.file}
               />
             );
           })}
         </div>
-        <input
-          placeholder="Mesaj yaz"
-          className="message-input w-100 mt-2"
-          value={message}
-          onChange={(event) => setMessage(event.target.value)}
-          onKeyPress={handleSubmitMessage}
+        <InputWrapper>
+          <input
+            placeholder="Mesaj yaz"
+            className="message-input w-100 mt-2"
+            value={message}
+            onChange={(event) => setMessage(event.target.value)}
+            onKeyPress={handleSubmitMessage}
+          />
+
+          <PlusButton
+            className="plus-button"
+            onClick={() => fileInputRef.current.click()}
+          />
+        </InputWrapper>
+
+        <FileInput
+          type="file"
+          ref={fileInputRef}
+          onChange={fileChangeHandler}
         />
       </div>
     </div>
   );
 }
+
+const InputWrapper = styled.div`
+  position: relative;
+
+  .plus-button {
+    position: absolute;
+    right: 7px;
+    bottom: 2px;
+    width: 24px;
+    height: 24px;
+  }
+`;
+
+const FileInput = styled.input`
+  display: none;
+`;
