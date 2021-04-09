@@ -21,15 +21,11 @@ const syncLocalStorage = ({ getState }) => {
     ) {
       const { user, accessToken, refreshToken } = getState().auth;
 
-      localStorage.set(
-        'auth',
-        {
-          user,
-          accessToken,
-          refreshToken,
-        },
-        60 * 8
-      );
+      localStorage.set('auth', {
+        user,
+        accessToken,
+        refreshToken,
+      });
     } else if (action.type === LOGOUT) {
       localStorage.remove('auth');
     }
