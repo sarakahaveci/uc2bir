@@ -6,10 +6,10 @@ import { ProgressBar } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
-import Resizer from 'react-image-file-resizer';
 
 import { deleteFile } from 'actions';
 import { Text, Button, Svg } from 'components';
+import { resizeFile } from 'utils';
 
 const FileUpload = ({
   fileTypeId,
@@ -22,26 +22,7 @@ const FileUpload = ({
 
   const dispatch = useDispatch();
   const history = useHistory();
-  const resizeFile = (file) =>
-    new Promise((resolve) => {
-      if (file.type.includes('image')) {
-        //Only İmage Formats
-        Resizer.imageFileResizer(
-          file,
-          800,
-          800,
-          'JPEG',
-          70,
-          0,
-          (uri) => {
-            resolve(uri);
-          },
-          'file'
-        );
-      } else {
-        resolve(file);
-      }
-    });
+
   const onDropAccepted = async (files) => {
     const formData = new FormData();
 

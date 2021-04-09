@@ -2,6 +2,7 @@ import React, { useState, useLayoutEffect } from 'react';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import styled, { ThemeProvider } from 'styled-components';
+import { ToastContainer } from 'react-toastify';
 
 import { ScrollToTop, ProtectedRoute } from 'components';
 import LoadingImage from 'assets/321-loading.gif';
@@ -55,6 +56,11 @@ const App = () => {
 
   return (
     <Router>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={2000}
+        hideProgressBar
+      />
       <Interceptor>
         <ScrollToTop>
           <ThemeProvider theme={theme}>

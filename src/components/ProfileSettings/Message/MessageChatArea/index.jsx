@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
+import { toast } from 'react-toastify';
 
 import { ISOToTimeConverter } from 'utils';
 import {
@@ -13,6 +14,7 @@ import MessageRow from './MessageRow';
 import ChatBoxHeader from './ChatBoxHeader';
 import DefaultProfileImg from 'assets/default-profile.jpg';
 import { PlusButton } from 'components';
+import { resizeFile } from 'utils';
 
 export default function MessageArea() {
   // eslint-disable-next-line
@@ -53,12 +55,17 @@ export default function MessageArea() {
     }
   };
 
-  const fileChangeHandler = (e) => {
-    const targetFile = e.target.files[0];
+  const fileChangeHandler = async (e) => {
+    const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+    if (allowedExtensions.exec(e.target.value)) {
+      const resizedFile = await resizeFile(e.target.files[0]);
 
-    setFile(targetFile);
+      setFile(resizedFile);
 
-    dispatch(sendFileToRoom(targetFile, successMessageCallback));
+      dispatch(sendFileToRoom(resizedFile, successMessageCallback));
+    } else {
+      toast.error('Yalnızca fotoğraf gönderebilirsiniz.');
+    }
   };
 
   return (
