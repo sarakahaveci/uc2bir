@@ -11,7 +11,7 @@ import RadioButton from './RadioButton';
 import { default as MCheckBox } from './m-check-box';
 import PhoneField from './phone-field';
 import CheckBoxGroup from './check-box-group';
-
+import IOSSwitch from './m-switch';
 export const Material = {
   TextField,
   CheckBox,
@@ -23,7 +23,7 @@ export const Material = {
   CheckBoxGroup,
   TexAreaField,
   RadioButton,
-
+  IOSSwitch,
   email: (props) => <TextField {...props} />,
   number: (props) => <TextField {...props} />,
   date: (props) => <DateField {...props} />,
@@ -35,7 +35,6 @@ export const Material = {
   phone: (props) => <PhoneField {...props} />,
   radio: (props) => <RadioButtonsGroup {...props} />,
   textarea: (props) => <TexAreaField {...props} />,
-
   checkbox: (props) => <CheckBox {...props} />,
   mcheckbox: (props) => <MCheckBox {...props} />,
 };

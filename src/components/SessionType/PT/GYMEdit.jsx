@@ -100,15 +100,6 @@ const GYMEdit = ({ setSubPage, setBannerActive }) => {
               }`}
               onClick={() => dispatch(removeGymFromPt(checked))}
             />
-            <Button
-              disabled={!checked.length}
-              style={{ margin: 5 }}
-              className="blue"
-              text={`Kaydet ${
-                checked.length ? '(' + checked.length + ')' : ''
-              }`}
-              onClick={() => dispatch(removeGymFromPt(checked))}
-            />
           </div>
         </div>
       </div>
@@ -120,6 +111,7 @@ const CardGroup = styled.div`
   display: flex;
   width: 100%;
   height: auto;
+  margin-top: 10px;
   padding-right: 95px;
   position: relative;
   justify-content: center;

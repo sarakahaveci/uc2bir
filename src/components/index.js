@@ -62,3 +62,5 @@ export { default as CustomProgress } from './CustomProgress';
 export { default as GoogleAppZoom } from './GoogleMaps/index';
 export { default as Blog } from './Blog';
 export { default as BlogCartList } from './Blog/BlogCartList';
+export { default as CashTransfer } from './CashTransfer';
+export { default as CashTransferConfirm } from './CashTransferConfirm';
