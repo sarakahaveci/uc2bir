@@ -5,7 +5,6 @@
     border: 1px solid #dfe4ea;
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.13);
     border-radius: 8px;
-
     @include sm {
       overflow-x: scroll;
     }

@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { differenceInDays } from 'date-fns';
 
 import { Text, Box } from 'components';
-import { setRoomName } from 'actions';
+import { setRoomName, setMessageSideBarOpen } from 'actions';
 import { ISOToTimeConverter, ISOToDateConverter } from 'utils';
 import DefaultProfileImg from 'assets/default-profile.jpg';
 
@@ -23,8 +23,10 @@ const MessageInfoRow = ({ messageData, userData, unreadMessages }) => {
 
   const isCardActive = selectedRoomName === messageData.room_name;
 
-  const setRoomNameHandler = () =>
+  const setRoomNameHandler = () => {
     dispatch(setRoomName(messageData.room_name, userData));
+    dispatch(setMessageSideBarOpen(false));
+  };
 
   const messageDate = useMemo(() => {
     if (differenceInDays(new Date(), new Date(messageData.created_at)) === 0) {

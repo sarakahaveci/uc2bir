@@ -54,7 +54,16 @@
       }
     }
   }
+  .message-content {
+    padding-top: 15px;
+    padding-bottom: 120px;
+    position: relative;
 
+    @media (max-width: 1200px) {
+      margin: 0;
+      padding: 0;
+    }
+  }
   .base-icon {
     width: 100%;
     height: auto;

@@ -52,9 +52,9 @@ const Sidebar = styled.div`
   position: relative;
 
   @media ${device.sm} {
-    ${(props) => (props.open ? '' : 'height:0;width:0;overflow:hidden;')}
-    max-width: 80vw;
-
+    display: ${(props) => (props.open ? 'initial' : 'none')};
+    max-width: 100vw;
+    width: 100vw;
     transition: all 0.3s ease-out;
   }
 `;

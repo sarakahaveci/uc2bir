@@ -36,7 +36,7 @@ const initialState = {
     selectedRoomUser: null,
   },
   isSuccessSendMessage: false,
-  messageSideBarOpen: true,
+  messageSideBarOpen: false,
 };
 
 const messagesReducer = (state = initialState, action) => {

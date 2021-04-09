@@ -29,7 +29,9 @@ export default function MessageArea() {
   const { selectedRoomName, selectedRoomUser } = useSelector(
     (state) => state.profileSettings2.messages.selectedRoom
   );
-
+  const { messageSideBarOpen } = useSelector(
+    (state) => state.profileSettings2.messages
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -60,7 +62,12 @@ export default function MessageArea() {
   };
 
   return (
-    <div className="message-page__right">
+    <div
+      style={{
+        display: messageSideBarOpen ? 'none' : 'initial',
+      }}
+      className="message-page__right"
+    >
       <ChatBoxHeader />
       <div className="message-page__message__wrapper">
         <div className="message-page__chat__row">

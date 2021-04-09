@@ -9,7 +9,7 @@ const Info = () => {
   return (
     <Main>
       <div style={{ marginTop: '20px' }} className="basic-info">
-        <Container className="content">
+        <Container className="message-content">
           <Message />
         </Container>
       </div>
