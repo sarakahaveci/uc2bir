@@ -302,9 +302,7 @@ const Blog = () => {
                       >
                         Yeni Yazı Ekle
                       </Span>
-                      <PlusButton onClick={() => setPage('create')}>
-                        +
-                      </PlusButton>
+                      <PlusButton onClick={() => setPage('create')} />
                     </div>
                   </Col>
 

@@ -258,7 +258,7 @@ const MasonaryGallery = ({
               Dosya yükle
             </Span>
 
-            <PlusButton onClick={() => setActivePage('create')}>+</PlusButton>
+            <PlusButton onClick={() => setActivePage('create')} />
           </Box>
           <StyledCategories>
             {categories.map((category, i) => (
