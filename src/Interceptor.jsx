@@ -23,16 +23,20 @@ export default function Interceptor({ children }) {
       return res;
     },
     async (error) => {
-      if (error.response && error.response.status === 401) {
-        if (!history.location.pathname.startsWith('/login')) {
-          if (!refreshToken) {
-            redirectToLogin();
+      if (
+        error.response &&
+        error.response.status === 401 &&
+        !history.location.pathname.startsWith('/login')
+      ) {
+        if (!refreshToken) {
+          redirectToLogin();
 
-            return;
-          }
-
-          dispatch(refreshLogin(redirectToLogin));
+          return;
         }
+
+        dispatch(refreshLogin(redirectToLogin));
+      } else {
+        return error.response;
       }
     }
   );

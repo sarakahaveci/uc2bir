@@ -65,7 +65,7 @@ export default ({ getState }) => (next) => async ({ payload = {}, type }) => {
   } catch (error) {
     const enhancedError = {
       ...error?.response?.data,
-      message: error?.response?.data?.message,
+      message: error?.message,
     };
 
     if (typeof errorHandler === 'function') {

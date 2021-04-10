@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { toast } from 'react-toastify';
-import { Modal, Spinner } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { Otp, Text, Svg, Button } from 'components';
@@ -67,10 +67,11 @@ const StepTwo = ({
       setStepTwo(
         { ...formData, code },
         () => {
+          setStepNumber((val) => val + 1);
+
           toast.success('Kayıt Alındı.', {
             position: 'bottom-right',
             autoClose: 1500,
-            onClose: () => setStepNumber((val) => val + 1),
           });
         },
         verifyErrorCallback
@@ -153,14 +154,13 @@ const StepTwo = ({
           margin="15px 0 0 0"
           className="blue"
           disabled={isVerifyButtonDisabled}
+          isLoading={registerLoading}
           onClick={() => {
             const code = otpInputRef.current.getCode();
 
             registerHandler(code);
           }}
         />
-
-        {registerLoading && <Spinner animation="border" />}
       </div>
     </Modal>
   );

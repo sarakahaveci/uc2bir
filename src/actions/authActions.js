@@ -1,3 +1,6 @@
+import { toast } from 'react-toastify';
+import axios from 'axios';
+
 import {
   HTTP_REQUEST,
   LOGIN,
@@ -10,13 +13,10 @@ import {
   REFRESH_LOGIN,
 } from '../constants';
 import { localStorage } from 'utils';
-import axios from 'axios';
 
-export const login = (
-  { email, password },
-  successCallback,
-  errorCallback
-) => async (dispatch) => {
+export const login = ({ email, password }, successCallback) => async (
+  dispatch
+) => {
   const url = '/login';
 
   await dispatch({
@@ -30,8 +30,19 @@ export const login = (
         password,
       },
       transformData: (data) => data.data,
-      callBack: () => successCallback(),
-      errorHandler: () => errorCallback(),
+      callBack: () => {
+        toast.success('Giriş Başarılı. Hoş geldiniz!', {
+          position: 'bottom-right',
+          autoClose: 1500,
+        });
+
+        successCallback();
+      },
+      errorHandler: (error) =>
+        toast.error(error.message, {
+          position: 'bottom-right',
+          autoClose: 2000,
+        }),
     },
   });
 };

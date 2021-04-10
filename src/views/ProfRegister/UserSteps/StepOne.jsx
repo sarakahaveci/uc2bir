@@ -21,7 +21,7 @@ import {
 } from 'components';
 import StepTwo from './StepTwo';
 import { WORK_PLACE, DIETITIAN } from '../../../constants';
-import { macroConverter } from 'utils';
+import { macroConverter, unMaskPhone } from 'utils';
 
 const macro = [
   {
@@ -118,6 +118,11 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
       setErrorMessage(
         'Şifrenizin en az 6 karakter olmalı, büyük harf, küçük harf ve rakam içermelidir.'
       );
+      return;
+    }
+
+    if (!unMaskPhone(phone)) {
+      setErrorMessage('Telefon Numarası Giriniz.');
       return;
     }
 

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
 
@@ -25,34 +24,14 @@ const Login = () => {
 
   const dispatch = useDispatch();
 
-  const loginSuccessHandler = () => {
-    toast.success('Giriş Başarılı. Hoş geldiniz!', {
-      position: 'bottom-right',
-      autoClose: 1500,
-    });
-
-    history.push('/');
-  };
-
-  const loginErrorHandler = () => {
-    toast.error('Hatalı Giriş', {
-      position: 'bottom-right',
-      autoClose: 2000,
-    });
-  };
+  const loginSuccessHandler = () => history.push('/');
 
   const onSubmit = async (event) => {
     event.preventDefault();
 
     const trimmedEmail = email.trim();
 
-    dispatch(
-      login(
-        { email: trimmedEmail, password },
-        loginSuccessHandler,
-        loginErrorHandler
-      )
-    );
+    dispatch(login({ email: trimmedEmail, password }, loginSuccessHandler));
   };
 
   return (
