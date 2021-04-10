@@ -36,6 +36,8 @@ const Header = ({ className, navLogo, navMenu, toggle, setToggle }) => {
     return setToggle(!toggle);
   };
 
+  const isMobile = window.innerWidth < 768;
+
   return (
     <nav className={className}>
       <div className="col-auto hamburgers left-menu">
@@ -52,7 +54,7 @@ const Header = ({ className, navLogo, navMenu, toggle, setToggle }) => {
         <img src={navLogo.element()} alt="logo" />
       </Link>
 
-      {isAuthenticated ? (
+      {isMobile && isAuthenticated ? (
         <UsernameWrapper to="/myprofile/settings/profile">
           <Svg.UsernameIcon />
 
