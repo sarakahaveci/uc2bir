@@ -205,11 +205,11 @@ const trainerTabs = [
     eventKey: 'notifications',
     component: <ProfileSettingsList />,
   },
-  //   {
-  //     eventKey: 'reservation',
-  //     title: 'Rezarvasyonlarım',
-  //     component: <GroupSlot />,
-  //   },
+  {
+    eventKey: 'reservation',
+    title: 'Rezarvasyonlarım',
+    component: <GroupSlot />,
+  },
   /* {
     eventKey: 'packets',
     title: 'Paketlerim',

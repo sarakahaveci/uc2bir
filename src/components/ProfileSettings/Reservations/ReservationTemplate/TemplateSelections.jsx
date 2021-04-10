@@ -78,24 +78,22 @@ export default function TemplateSelections({
   return (
     <FormControlWrapper>
       {userTypeId === WORK_PLACE && (
-        <FormControlWrapper>
-          <FormControl>
-            <InputLabel>Sınıfları Seçiniz</InputLabel>
+        <FormControl>
+          <InputLabel>Sınıfları Seçiniz</InputLabel>
 
-            <Select
-              multiple
-              value={classSelection}
-              input={<Input />}
-              onChange={(e) => setClassSelection(e.target.value)}
-            >
-              {classifications?.map((classification) => (
-                <MenuItem key={classification.id} value={classification}>
-                  {classification.title}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </FormControlWrapper>
+          <Select
+            multiple
+            value={classSelection}
+            input={<Input />}
+            onChange={(e) => setClassSelection(e.target.value)}
+          >
+            {classifications?.map((classification) => (
+              <MenuItem key={classification.id} value={classification}>
+                {classification.title}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       )}
 
       {userTypeId === PERSONAL_TRAINER && (

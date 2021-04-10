@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components/macro';
 import { Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
 import {
   Text,
@@ -13,23 +14,73 @@ import {
   Box,
   Button,
   Modal,
+  DatePicker,
 } from 'components';
 import ReservationAccordion from '../ReservationAccordion';
+import { createGroupSlot } from 'actions';
+import { format } from 'date-fns';
+import tr from 'date-fns/locale/tr';
 
-export default function GroupRightSelections({ classSelection }) {
-  const [minimumCount, setMinimumCount] = useState(0);
-  const [maximumCount, setMaximumCount] = useState(0);
+export default function GroupRightSelections() {
+  const {
+    classSelection,
+    selectedHour,
+    branchSelection,
+    sessionSelection,
+    locationSelection,
+    courseDetails,
+  } = useSelector((state) => state.profileSettings2.reservationGroupSlot);
+
+  const dispatch = useDispatch();
+
+  const [minCapacityCount, setMinCapacityCount] = useState(0);
+  const [maxCapacityCount, setMaxCapacityCount] = useState(0);
+  const [price, setPrice] = useState(0);
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
   const reservationSuccessModalRef = useRef();
 
   useEffect(() => {
-    setMaximumCount(classSelection.capacity);
+    setMaxCapacityCount(classSelection.capacity || 0);
   }, [classSelection]);
+
+  const createGroupSlotHandler = () => {
+    if (
+      +price > 50 ||
+      [
+        branchSelection,
+        sessionSelection,
+        locationSelection,
+        courseDetails,
+      ].some((item) => !item)
+    ) {
+      return;
+    }
+
+    dispatch(
+      createGroupSlot(
+        {
+          price,
+          date: selectedDate,
+          min_capacity: minCapacityCount,
+          max_capacity: maxCapacityCount,
+        },
+        () => reservationSuccessModalRef.current.openModal()
+      )
+    );
+  };
 
   return (
     <RightWrapper>
       <RightBody>
-        <ReservationAccordion title="Rezervasyon Tarihi & Saati">
+        <DatePicker
+          minDate={new Date()}
+          inline
+          selected={selectedDate}
+          onChange={(date) => setSelectedDate(date)}
+        />
+
+        <ReservationAccordion title="Rezervasyon Tarihi & Saati" mt="10px">
           <CollapseItem>
             <Span pr="10px" mr="10px" fontWeight="500" color="dark">
               Ders
@@ -39,37 +90,43 @@ export default function GroupRightSelections({ classSelection }) {
               <Svg.CalendarIcon />
 
               <Span ml="10px" fontWeight="500" color="gray10">
-                23 Kasım Çarşamba
+                {format(selectedDate, 'd MMMM iiii', { locale: tr })}
               </Span>
 
               <Span color="blue" ml="5px" fontWeight="500">
-                Saat: 08:00 - 09:00
+                Saat: {selectedHour}
               </Span>
             </Box>
           </CollapseItem>
         </ReservationAccordion>
 
         <ReservationAccordion title="Seçili Spor Alanı Grup Ders Kontenjanları">
-          <CollapseItem>
-            <WorkPlaceInfoRow>
-              <Svg.GuestIcon className="guest-icon" />
+          {classSelection ? (
+            <>
+              <CollapseItem>
+                <WorkPlaceInfoRow>
+                  <Svg.GuestIcon className="guest-icon" />
 
-              <Span fontWeight="500" color="gray10">
-                {classSelection.name}
-              </Span>
+                  <Span fontWeight="500" color="gray10">
+                    {classSelection.name}
+                  </Span>
 
-              <Span color="blue" fontWeight="500" ml="8px">
-                {classSelection.capacity} Kişilik
-              </Span>
-            </WorkPlaceInfoRow>
-            <Span ml="auto" color="blue" fontWeight="500">
-              {classSelection.price} TL
-            </Span>
-          </CollapseItem>
+                  <Span color="blue" fontWeight="500" ml="8px">
+                    {classSelection.capacity} Kişilik
+                  </Span>
+                </WorkPlaceInfoRow>
+                <Span ml="auto" color="blue" fontWeight="500">
+                  {classSelection.price} TL
+                </Span>
+              </CollapseItem>
 
-          <Box row justifyContent="flex-end" color="red" fontWeight="500">
-            *Salon kiralama bedeli
-          </Box>
+              <Box row justifyContent="flex-end" color="red" fontWeight="500">
+                *Salon kiralama bedeli
+              </Box>
+            </>
+          ) : (
+            <div></div>
+          )}
         </ReservationAccordion>
 
         <DarkTitle className="mt-4">Kontenjan Belirleyiniz</DarkTitle>
@@ -87,22 +144,29 @@ export default function GroupRightSelections({ classSelection }) {
                 mr="20px"
                 style={{ cursor: 'not-allowed' }}
                 onClick={() => {
-                  if (minimumCount === 0) {
+                  if (minCapacityCount === 0) {
                     return;
-                  } else setMinimumCount(minimumCount - 1);
+                  }
+
+                  setMinCapacityCount(minCapacityCount - 1);
                 }}
               />
 
               <Span minWidth="15px" color="red">
-                {' '}
-                {minimumCount}
+                {minCapacityCount}
               </Span>
 
               <PlusButton
                 width="35px"
                 height="35px"
                 ml="20px"
-                onClick={() => setMinimumCount(minimumCount + 1)}
+                onClick={() => {
+                  if (minCapacityCount === classSelection.capacity) {
+                    return;
+                  }
+
+                  setMinCapacityCount(minCapacityCount + 1);
+                }}
               />
             </ButtonWrapper>
           </Col>
@@ -117,21 +181,27 @@ export default function GroupRightSelections({ classSelection }) {
                 height="35px"
                 mr="20px"
                 onClick={() => {
-                  if (maximumCount === 0) {
+                  if (maxCapacityCount === 0) {
                     return;
-                  } else setMaximumCount(maximumCount - 1);
+                  } else setMaxCapacityCount(maxCapacityCount - 1);
                 }}
               />
 
               <Span minWidth="15px" color="blue">
-                {maximumCount}
+                {maxCapacityCount}
               </Span>
 
               <PlusButton
                 width="35px"
                 height="35px"
                 ml="20px"
-                onClick={() => setMaximumCount(maximumCount + 1)}
+                onClick={() => {
+                  if (maxCapacityCount === classSelection.capacity) {
+                    return;
+                  }
+
+                  setMaxCapacityCount(maxCapacityCount + 1);
+                }}
               />
             </ButtonWrapper>
           </Col>
@@ -146,14 +216,19 @@ export default function GroupRightSelections({ classSelection }) {
           </Span>
         </DarkTitle>
 
-        <Material.TextField label="Giriniz" />
+        <Material.TextField
+          onChange={(e) => setPrice(e.target.value)}
+          error={price > 50}
+          label="Giriniz"
+          type="number"
+        />
 
         <Text color="red" fontSize="0.9rem">
           *Max 50 TL fiyat giriniz
         </Text>
 
         <Button
-          onClick={() => reservationSuccessModalRef.current.openModal()}
+          onClick={createGroupSlotHandler}
           text="Tamamla"
           className="blue"
           width="100%"

@@ -9,27 +9,16 @@ import MockImage4 from 'assets/my-wallet.jpg';
 import { Svg, Box, Modal, Button, SearchInput, Title } from 'components';
 
 const TemplateNamingModal = forwardRef(
-  ({ selectedImageIds, setSelectedImageIds }, ref) => {
+  ({ selectedImageId, setSelectedImageId }, ref) => {
     const [searchValue, setSearchValue] = useState('');
-
-    const selectImageHandler = (id) => {
-      if (selectedImageIds.includes(id)) {
-        setSelectedImageIds(
-          selectedImageIds.filter((imageId) => imageId !== id)
-        );
-        return;
-      }
-
-      setSelectedImageIds([...selectedImageIds, id]);
-    };
 
     return (
       <SelectPictureModal ref={ref}>
         <Title variant="h5"> FOTOĞRAF SEÇİNİZ</Title>
 
-        {!!selectedImageIds.length && (
+        {!!selectedImageId && (
           <Box fontWeight="500" my="10px" fontSize="1.1rem">
-            {`${selectedImageIds.length} Fotoğraf seçildi`}
+            {`${selectedImageId} Fotoğraf seçildi`}
           </Box>
         )}
 
@@ -44,12 +33,12 @@ const TemplateNamingModal = forwardRef(
         <Masonry gutter="35px" columnsCount={2}>
           {[MockImage, MockImage2, MockImage3, MockImage4].map(
             (image, index) => {
-              const active = selectedImageIds.includes(index);
+              const active = selectedImageId === image.id;
 
               return (
                 <Box position="relative" key={index}>
                   <Image
-                    onClick={() => selectImageHandler(index)}
+                    onClick={() => setSelectedImageId(image.id)}
                     active={active}
                     src={image}
                     style={{ width: '100%', display: 'block' }}

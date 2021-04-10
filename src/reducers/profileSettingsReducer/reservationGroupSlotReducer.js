@@ -2,6 +2,7 @@ import {
   GET_WORK_PLACE_CAPACITY_REQUEST,
   GET_WORK_PLACE_CAPACITY_SUCCESS,
   GET_WORK_PLACE_CAPACITY_FAILURE,
+  SET_SELECTION_DATA,
 } from 'constants/index';
 
 const initialState = {
@@ -10,6 +11,12 @@ const initialState = {
     isLoading: false,
     error: null,
   },
+  branchSelection: '',
+  sessionSelection: '',
+  locationSelection: '',
+  selectedHour: '',
+  classSelection: '',
+  courseDetails: '',
 };
 
 export default (state = initialState, action) => {
@@ -41,6 +48,12 @@ export default (state = initialState, action) => {
           isLoading: false,
           error: action.payload,
         },
+      };
+
+    case SET_SELECTION_DATA:
+      return {
+        ...state,
+        [action.payload.name]: action.payload.value,
       };
 
     default:

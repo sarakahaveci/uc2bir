@@ -2,11 +2,16 @@ import React from 'react';
 import styled from 'styled-components/macro';
 
 import { Accordion, Svg } from 'components';
+import { space } from 'styled-system';
 
-export default function ReservationAccordion({ title, children }) {
+export default function ReservationAccordion({
+  title,
+  children,
+  ...restProps
+}) {
   return (
     <Accordion>
-      <AccordionItemWrapper>
+      <AccordionItemWrapper {...restProps}>
         <Accordion.Item defaultOpen>
           <Accordion.Toggle className="accordion-toggler">
             <DarkTitle>{title}</DarkTitle>
@@ -34,6 +39,8 @@ const AccordionItemWrapper = styled.div`
   border: 1px solid #c6c6c6;
   padding: 20px;
   margin-bottom: 20px;
+
+  ${space}
 
   .accordion-toggler {
     display: flex;

@@ -6,13 +6,15 @@ import tr from 'date-fns/locale/tr';
 
 export default function CustomDatePicker(props) {
   return (
-    <StyledDatePicker hideToday={props.hideToday}>
-      <DatePicker {...props} locale={tr} />
+    <StyledDatePicker m={props.m} hideToday={props.hideToday}>
+      <DatePicker {...props} locale={tr} disabledKeyboardNavigation />
     </StyledDatePicker>
   );
 }
 
 const StyledDatePicker = styled.div`
+  margin: ${(p) => p.m && p.m};
+
   .react-datepicker {
     width: 100%;
     border: 1px solid transparent;
@@ -66,7 +68,7 @@ const StyledDatePicker = styled.div`
       &--keyboard-selected,
       &--in-range {
         border-radius: 50%;
-        color: white;
+        color: white !important;
         background-color: ${(p) => p.theme.colors.blue};
         width: 29px;
         height: 29px;

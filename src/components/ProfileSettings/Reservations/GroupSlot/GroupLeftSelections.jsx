@@ -15,12 +15,10 @@ import {
   getGymList,
   getSessionTypes,
   getWorkPlaceCapacity,
+  setGroupSelectionData,
 } from 'actions';
 
-export default function GroupLeftSelections({
-  classSelection,
-  setClassSelection,
-}) {
+export default function GroupLeftSelections() {
   const { type_id: userTypeId } = useSelector((state) => state.auth.user);
 
   const { data: myBranches } = useSelector(
@@ -29,6 +27,11 @@ export default function GroupLeftSelections({
 
   const {
     workPlaceCapacity: { data: workPlaceCapacity },
+    branchSelection,
+    sessionSelection,
+    locationSelection,
+    classSelection,
+    selectedHour,
   } = useSelector((state) => state.profileSettings2.reservationGroupSlot);
 
   const {
@@ -40,11 +43,7 @@ export default function GroupLeftSelections({
     ptHomePlace: { data: ptHomePlace },
   } = useSelector((state) => state.userProfile.workPlace);
 
-  const [selectedHour, setSelectedHour] = useState('');
-  const [branchSelection, setBranchSelection] = useState({});
-  const [sessionSelection, setSessionSelection] = useState({});
-  const [locationSelection, setLocationSelection] = useState({});
-  const [selectedImageIds, setSelectedImageIds] = useState([]);
+  const [selectedImageId, setSelectedImageId] = useState([]);
 
   const selectPicModalRef = useRef();
 
@@ -68,16 +67,13 @@ export default function GroupLeftSelections({
     }
   }, [branchSelection, locationSelection]);
 
+  const selectDataHandler = (name, value) =>
+    dispatch(setGroupSelectionData(name, value));
+
   return (
     <div>
-      <Box
-        row
-        justifyContent="center"
-        position="relative"
-        onClick={openSelectPicModal}
-        cursor="pointer"
-      >
-        <UploadPic>
+      <Box row justifyContent="center" position="relative">
+        <UploadPic onClick={openSelectPicModal}>
           <Svg.MockImageIcon />
 
           <Text textAlign="center" color="gray8" fontWeight="300" mt="15px">
@@ -96,7 +92,7 @@ export default function GroupLeftSelections({
         {PAIR_HOURS.map((item) => (
           <CalendarCell
             key={item}
-            onClick={() => setSelectedHour(item)}
+            onClick={() => selectDataHandler('selectedHour', item)}
             type="time"
             size="large"
             isActive={selectedHour === item}
@@ -112,7 +108,7 @@ export default function GroupLeftSelections({
         <Select
           value={branchSelection}
           input={<Input />}
-          onChange={(e) => setBranchSelection(e.target.value)}
+          onChange={(e) => selectDataHandler('branchSelection', e.target.value)}
         >
           {myBranches.map((branch) => (
             <MenuItem key={branch.id} value={branch}>
@@ -126,7 +122,10 @@ export default function GroupLeftSelections({
         Ders İçeriği Giriniz
       </Text>
 
-      <TextArea rows={6} />
+      <TextArea
+        rows={6}
+        onBlur={(e) => selectDataHandler('courseDetails', e.target.value)}
+      />
 
       <FormControl className="w-100 mt-2">
         <InputLabel>Oturum Türlerini Seçiniz</InputLabel>
@@ -134,7 +133,9 @@ export default function GroupLeftSelections({
         <Select
           value={sessionSelection}
           input={<Input />}
-          onChange={(e) => setSessionSelection(e.target.value)}
+          onChange={(e) =>
+            selectDataHandler('sessionSelection', e.target.value)
+          }
         >
           {sessionTypes?.data?.data?.map((sessionType) => (
             <MenuItem key={sessionType.id} value={sessionType}>
@@ -151,7 +152,9 @@ export default function GroupLeftSelections({
           <Select
             value={locationSelection}
             input={<Input />}
-            onChange={(e) => setLocationSelection(e.target.value)}
+            onChange={(e) =>
+              selectDataHandler('locationSelection', e.target.value)
+            }
           >
             {gymList?.gym?.map((item) => (
               <MenuItem key={item.id} value={item}>
@@ -169,7 +172,9 @@ export default function GroupLeftSelections({
           <Select
             value={locationSelection}
             input={<Input />}
-            onChange={(e) => setLocationSelection(e.target.value)}
+            onChange={(e) =>
+              selectDataHandler('locationSelection', e.target.value)
+            }
           >
             {ptHomePlace?.home_park?.map((item) => (
               <MenuItem key={item.id} value={item}>
@@ -186,7 +191,7 @@ export default function GroupLeftSelections({
         <Select
           value={classSelection}
           input={<Input />}
-          onChange={(e) => setClassSelection(e.target.value)}
+          onChange={(e) => selectDataHandler('classSelection', e.target.value)}
         >
           {workPlaceCapacity?.map((item) => (
             <MenuItem key={item.id} value={item}>
@@ -198,8 +203,8 @@ export default function GroupLeftSelections({
 
       <SelectPictureModal
         ref={selectPicModalRef}
-        selectedImageIds={selectedImageIds}
-        setSelectedImageIds={setSelectedImageIds}
+        selectedImageId={selectedImageId}
+        setSelectedImageId={setSelectedImageId}
       />
     </div>
   );
@@ -233,4 +238,5 @@ const UploadPic = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  cursor: pointer;
 `;

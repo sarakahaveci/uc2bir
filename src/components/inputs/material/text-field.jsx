@@ -33,6 +33,8 @@ const TextField = ({
   action = () => {},
   mask = null,
   rightTextNode = null,
+  error = false,
+  helperText,
   ...restProps
 }) => {
   const [val, setVal] = useState(defaultValue);
@@ -111,6 +113,8 @@ const TextField = ({
             autoComplete={autoComplete}
             maxLength={maxLength}
             onKeyUp={onKeyUp}
+            error={error}
+            helperText={!!error ? helperText : ''}
             variant="standard"
             required={required}
             inputProps={inputProps}

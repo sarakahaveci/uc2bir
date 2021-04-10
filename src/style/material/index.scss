@@ -323,5 +323,13 @@
 }
 
 .MuiInput-underline:after {
-  border-bottom: 2px solid var(--blue) !important;
+  &:after {
+    border-bottom: 2px solid var(--blue) !important;
+  }
+
+  &.Mui-error {
+    &:after {
+      border-bottom-color: #f44336 !important;
+    }
+  }
 }
