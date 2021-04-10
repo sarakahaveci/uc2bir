@@ -1,9 +1,13 @@
-// @ts-nocheck
 import React, { useLayoutEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Svg from './statics/svg';
+import styled from 'styled-components/macro';
+
+import { Svg } from 'components';
 
 const Header = ({ className, navLogo, navMenu, toggle, setToggle }) => {
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
+
   const [page, setPage] = useState(false);
   const [menu, setMenu] = useState(false);
 
@@ -47,14 +51,46 @@ const Header = ({ className, navLogo, navMenu, toggle, setToggle }) => {
       <Link to="/" className={navLogo.className}>
         <img src={navLogo.element()} alt="logo" />
       </Link>
-      <div className="col-auto hamburgers right-menu">
-        <Svg.Search />
-      </div>
+
+      {isAuthenticated ? (
+        <UsernameWrapper to="/myprofile/settings/profile">
+          <Svg.UsernameIcon />
+
+          <span>{user.name}</span>
+        </UsernameWrapper>
+      ) : (
+        <div className="col-auto hamburgers right-menu">
+          <Svg.Search />
+        </div>
+      )}
+
       <div id="pt-point-menu" className={navMenu.className}>
         {navMenu.element()}
       </div>
     </nav>
   );
 };
+
+const UsernameWrapper = styled(Link)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 65px;
+
+  span {
+    color: black;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+    margin-bottom: 5px;
+  }
+`;
 
 export default Header;
