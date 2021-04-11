@@ -9,6 +9,7 @@ import {
   TextArea,
   TextAreaWrapper,
   ConfirmationTitle,
+  ConfirmContainer,
 } from './Common.styles.jsx';
 import { WORK_PLACE, DIETITIAN, PERSONAL_TRAINER, USER } from '../../constants';
 
@@ -61,26 +62,29 @@ const Agreement = ({
             dangerouslySetInnerHTML={{ __html: agreementData?.title }}
           />
           <InfoField>
-            <Material.checkbox
-              checked={acceptFirst}
-              onChange={() => setAcceptFirst(!acceptFirst)}
-            />
-
             <TextAreaWrapper>
               <TextArea>
                 {ReactHtmlParser(decode(agreementData?.detail))}
               </TextArea>
             </TextAreaWrapper>
           </InfoField>
-          <Text
-            color="gray1"
-            fontSize="0.9rem"
-            fontWeight="500"
-            textAlign="left"
-            margin="0 0 0 40px"
-          >
-            Ön Bilgilendirme Koşullarını ve Mesafeli Satış Sözleşmesi’ni okudum.
-          </Text>
+          <ConfirmContainer>
+            <Material.checkbox
+              checked={acceptFirst}
+              onChange={() => setAcceptFirst(!acceptFirst)}
+            />
+
+            <Text
+              color="gray1"
+              fontSize="0.9rem"
+              fontWeight="500"
+              textAlign="left"
+              margin="0 0 0 10px"
+            >
+              Ön Bilgilendirme Koşullarını ve Mesafeli Satış Sözleşmesi’ni
+              okudum.
+            </Text>
+          </ConfirmContainer>
         </>
       ) : (
         <Text color="dark" fontWeight="500" my="20px" lineHeight="20px">

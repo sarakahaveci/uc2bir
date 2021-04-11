@@ -1,8 +1,11 @@
 import styled from 'styled-components/macro';
-
+import { device } from 'utils';
 export const Container = styled.div`
   h5 {
     margin: 0 0 15px 35px;
+    @media ${device.sm} {
+      margin: 0 0 15px 0;
+    }
   }
 
   fieldset {
@@ -53,4 +56,8 @@ export const TextAreaWrapper = styled.div`
   letter-spacing: 0.01em;
   color: var(--black3);
   margin-bottom: 15px;
+  width: 100%;
+`;
+export const ConfirmContainer = styled.div`
+  display: flex;
 `;

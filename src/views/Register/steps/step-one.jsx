@@ -14,7 +14,7 @@ import {
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-
+import { device } from 'utils';
 import { stepOne as macro } from '../../../macros/registerMacros';
 import { useSelector, useDispatch } from 'react-redux';
 import { setStepOne, getAuthFiles } from '../../../actions';
@@ -299,6 +299,11 @@ const StyledModal = styled(Modal)`
     width: 600px;
     background-color: var(--white1);
     padding: 15px 30px;
+    @media ${device.sm} {
+      height: 70vh;
+      width: 90vw;
+      overflow: scroll;
+    }
   }
 `;
 
