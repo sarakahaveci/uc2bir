@@ -2,7 +2,7 @@ import React, { createContext, useState, useEffect, useCallback } from 'react';
 import { Modal } from 'react-bootstrap';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-
+import { device } from 'utils';
 import { StepBar, Text, Svg } from 'components';
 import RegisterPage from './RegisterPage';
 import { PERSONAL_TRAINER, WORK_PLACE } from '../../constants';
@@ -70,7 +70,7 @@ const RegisterSteps = ({ userTypeId, setUserTypeId }) => {
         </Container>
 
         <div className="modal-footer" closeIcon={false}>
-          <StyledLink to="/">ANASAYFA</StyledLink>
+          <StyledLink to="/myprofile/settings/profile">PROFİL</StyledLink>
         </div>
       </Modal>
     </StepContext.Provider>
@@ -97,8 +97,10 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   padding: 60px 110px 30px;
-
   svg {
     margin-bottom: 15px;
+  }
+  @media ${device.sm} {
+    padding: 20px 0;
   }
 `;
