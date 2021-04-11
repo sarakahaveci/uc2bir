@@ -70,7 +70,7 @@ const ProfileCard = ({
   }, [files]);
 
   return (
-    <Card img={auth?.user?.profile_image?.path || defaultImg} user={user}>
+    <Card img={auth?.user?.photo || defaultImg} user={user}>
       <span className="span background camera">
         {!loading ? (
           <Svg.Camera
