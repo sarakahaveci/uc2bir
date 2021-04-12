@@ -5,7 +5,8 @@ import { toast } from 'react-toastify';
 import { Modal } from 'react-bootstrap';
 import { isEmpty } from 'lodash';
 import { getGeocode } from 'use-places-autocomplete';
-
+import styled from 'styled-components/macro';
+import { device } from 'utils';
 import {
   getCitiesAndDistict,
   setStepThree,
@@ -404,7 +405,7 @@ const StepThree = () => {
           disabled={isBirthdaySafe}
         />
       </form>
-      <Modal
+      <StyledModal
         show={showBranchModal}
         onHide={onCloseBranchModal}
         className="material-dialog"
@@ -471,7 +472,7 @@ const StepThree = () => {
             </div>
           </div>
         </Modal.Body>
-      </Modal>
+      </StyledModal>
 
       <Modal
         show={showBenefitModal}
@@ -518,5 +519,17 @@ const StepThree = () => {
     </>
   );
 };
-
+const StyledModal = styled(Modal)`
+  .modal-content {
+    display: flex;
+    width: 600px;
+    @media ${device.sm} {
+      padding: 0;
+      margin: 0;
+      height: 70vh;
+      width: 90vw;
+      overflow: scroll;
+    }
+  }
+`;
 export default StepThree;
