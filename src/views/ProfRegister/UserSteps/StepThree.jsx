@@ -236,7 +236,7 @@ const StepThree = () => {
     <div>Yükleniyor</div>
   ) : (
     <>
-      <Modal show={open} onHide={handleClose}>
+      <StyledModal show={open} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title textAlign="center">Haritadan Seçin!</Modal.Title>
         </Modal.Header>
@@ -259,7 +259,7 @@ const StepThree = () => {
             />
           </div>
         </Modal.Body>
-      </Modal>
+      </StyledModal>
 
       <form
         className="step-four-wrapper"
@@ -524,12 +524,16 @@ const StyledModal = styled(Modal)`
     display: flex;
     width: 600px;
     @media ${device.sm} {
-      padding: 0;
       margin: 0;
-      height: 70vh;
+      padding: 0;
+      height: 80vh;
       width: 90vw;
       overflow: scroll;
     }
+  }
+  .modal-dialog {
+    margin-top: 50px !important;
+    margin: auto;
   }
 `;
 export default StepThree;
