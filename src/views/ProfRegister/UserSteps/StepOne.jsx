@@ -58,6 +58,8 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
 
   const [form, setForm] = useState({});
   const [password, setPassword] = useState('');
+  const [repassword, setRePassword] = useState('');
+
   const [phone, setPhone] = useState('');
   const [acceptMemberAgreement, setAcceptMemberAgreement] = useState(false);
   const [acceptHealthAgreement, setAcceptHealthAgreement] = useState(false);
@@ -111,8 +113,11 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-
     const regex = new RegExp('^(?=.{6,})(?=.*[a-z])(?=.*[A-Z]).*$');
+    if (!(password === repassword)) {
+      setErrorMessage('2 şifre uyuşmamaktadır.');
+      return;
+    }
 
     if (!regex.test(password)) {
       setErrorMessage(
@@ -273,6 +278,20 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
             maxLength: 15,
           }}
           label="Şifre"
+          icon={Svg.PasswordIcon}
+          password={Svg.EyeIcon}
+        />
+        <Material.TextField
+          required
+          name="repassword"
+          type="password"
+          forHtml="repassword"
+          value={repassword}
+          onChange={(e) => setRePassword(e.target.value)}
+          inputProps={{
+            maxLength: 15,
+          }}
+          label="Şifreyi tekrar giriniz."
           icon={Svg.PasswordIcon}
           password={Svg.EyeIcon}
         />

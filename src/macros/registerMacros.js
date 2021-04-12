@@ -41,6 +41,15 @@ export const stepOne = {
       icon: Svg.PasswordIcon,
       password: Svg.EyeIcon,
     },
+    {
+      type: 'password',
+      required: true,
+      name: 'repassword',
+      forHtml: 'repassword',
+      text: 'Şifreyi Tekrar Giriniz.',
+      icon: Svg.PasswordIcon,
+      password: Svg.EyeIcon,
+    },
   ],
 };
 
