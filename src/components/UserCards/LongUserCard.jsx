@@ -18,11 +18,12 @@ const LongUserCard = ({
   onClickHover,
   selected = false,
 }) => {
-  const [showProfileNavigator, setShowProfileNavigator] = useState(false);
   const [isFavorited, setIsFavorited] = useState(favoritedUser);
 
   const dispatch = useDispatch();
+
   const history = useHistory();
+
   const favoriteClickHandler = () => {
     if (isFavorited) {
       dispatch(removeFavoriteUser(data.favorite_id));
@@ -39,11 +40,7 @@ const LongUserCard = ({
   };
 
   return (
-    <div
-      className={selected ? 'long-user-card scale-t' : 'long-user-card'}
-      onMouseEnter={() => setShowProfileNavigator(true)}
-      onMouseLeave={() => setShowProfileNavigator(false)}
-    >
+    <div className={selected ? 'long-user-card scale-t' : 'long-user-card'}>
       <Stars rating={data?.rating} position="top" />
 
       <div className="long-user-card__img-wrapper">
@@ -61,8 +58,8 @@ const LongUserCard = ({
           src={data?.photo ? data?.photo : MockImage}
         />
 
-        {showProfileNavigator &&
-          (!isGym ? (
+        <div className="long-user-card__navigator-wrapper">
+          {!isGym ? (
             <div
               className="long-user-card__profile-navigator"
               onClick={navigateToUser}
@@ -76,7 +73,8 @@ const LongUserCard = ({
             >
               {hoverText}
             </div>
-          ))}
+          )}
+        </div>
       </div>
 
       <div className="long-user-card__body">

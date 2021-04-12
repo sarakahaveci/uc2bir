@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 
-import { Accordion, Box } from 'components';
+import { Accordion, Box, Text } from 'components';
 import { getDietitionSpecialties } from 'actions';
 import BranchCardHeader from '../../../BranchRow/BranchRowToggler';
 import BranchCardBody from '../../../BranchRow/BranchRowCollapser';
@@ -20,25 +20,31 @@ function DietitionFacilityList({ userId }) {
     <div>
       {
         <Accordion>
-          {data?.map((item, index) => {
-            return (
-              <StyledRow key={index}>
-                <Order>{index + 1}.</Order>
+          {data.length ? (
+            data?.map((item, index) => {
+              return (
+                <StyledRow key={index}>
+                  <Order>{index + 1}.</Order>
 
-                <AccordionItem>
-                  <Accordion.Item>
-                    <Accordion.Toggle>
-                      <BranchCardHeader data={item} />
-                    </Accordion.Toggle>
+                  <AccordionItem>
+                    <Accordion.Item>
+                      <Accordion.Toggle>
+                        <BranchCardHeader data={item} />
+                      </Accordion.Toggle>
 
-                    <Accordion.Collapse>
-                      <BranchCardBody speciality={item?.speciality} />
-                    </Accordion.Collapse>
-                  </Accordion.Item>
-                </AccordionItem>
-              </StyledRow>
-            );
-          })}
+                      <Accordion.Collapse>
+                        <BranchCardBody speciality={item?.speciality} />
+                      </Accordion.Collapse>
+                    </Accordion.Item>
+                  </AccordionItem>
+                </StyledRow>
+              );
+            })
+          ) : (
+            <Text fontWeight="bolder" textAlign="center">
+              Branş bulunmamaktadır.
+            </Text>
+          )}
         </Accordion>
       }
     </div>

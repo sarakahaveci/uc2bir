@@ -11,7 +11,6 @@ export const CardInfo = ({
   price,
   categories = [],
   location,
-  info,
 }) => {
   return (
     <>
@@ -51,12 +50,11 @@ export const CardInfo = ({
         <Categories>
           {categories.map((val, index) => (
             <List key={'categories' + index}>
-              <A>{val}</A>
+              <A>{val.title}</A>
             </List>
           ))}
         </Categories>
       )}
-      {info}
       {location && <IconLabel text={location} icon={AwesomeIcon.Map} />}
     </>
   );

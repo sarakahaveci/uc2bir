@@ -1,5 +1,6 @@
 /* eslint-disable react/no-children-prop */
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import {
   Svg,
@@ -34,13 +35,15 @@ const UserCard = ({ top = false, bottom = false, data = {}, className }) => {
       {bottom && (
         <div className="slider-item">
           <div className="slider-item-content">
-            <Title
-              textAlign="left"
-              lineDisable
-              variant="h5"
-              component="h5"
-              children={data.name}
-            />
+            <Link to={`/user/${data.id}`}>
+              <Title
+                textAlign="left"
+                lineDisable
+                variant="h5"
+                component="h5"
+                children={data.name}
+              />
+            </Link>
 
             <Title
               lineDisable

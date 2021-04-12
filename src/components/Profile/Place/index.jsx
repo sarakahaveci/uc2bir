@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/macro';
+import { useSelector } from 'react-redux';
 
 import SubTabs from 'components/SubTabs/SubTabs';
 import WorkPlaceIcon from 'assets/work-place.svg';
@@ -8,34 +9,24 @@ import OnlineWorkIcon from 'assets/online-work.svg';
 import SportFields from './SportFields';
 import WorkPlaceList from './WorkPlaceList';
 
-const subTabData = [
-  {
-    label: 'Spor Alanları',
-    value: 1,
-    icon: WorkPlaceIcon,
-  },
-  {
-    label: 'Ev Park',
-    value: 2,
-    icon: HomeParkIcon,
-  },
-  {
-    label: 'Online',
-    value: 3,
-    icon: OnlineWorkIcon,
-  },
-];
+const iconMap = {
+  gym: WorkPlaceIcon,
+  online: OnlineWorkIcon,
+  home_park: HomeParkIcon,
+};
 
 const Place = ({ userId }) => {
+  const { userInfo } = useSelector((state) => state.userProfile.userInfo);
+
   const [content, setContent] = useState(<SportFields userId={userId} />);
 
-  const handleContent = (id) => {
+  const handleContent = (type) => {
     let newContent;
-    switch (id) {
-      case 1:
+    switch (type) {
+      case 'gym':
         newContent = <SportFields userId={userId} />;
         break;
-      case 2:
+      case 'home_park':
         newContent = <WorkPlaceList userId={userId} />;
         break;
 
@@ -54,9 +45,14 @@ const Place = ({ userId }) => {
       </Description>
       <SubTabs
         className="mt-3"
-        data={subTabData}
-        lineWidth="100%"
-        onChange={(value) => handleContent(value)}
+        data={userInfo?.session}
+        lineWidth="50%"
+        onChange={(item) => handleContent(item.type)}
+        customNode={(item) => (
+          <>
+            <img src={iconMap[item.type]} /> {item.title}
+          </>
+        )}
       />
       {content}
     </div>
