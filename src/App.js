@@ -28,6 +28,7 @@ import BlogList from 'views/BlogList';
 import Contact from 'views/Contact';
 import SearchProfessional from 'views/SearchProfessional';
 import Interceptor from './Interceptor';
+import CookieConsent from './components/CookieConsent';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -55,6 +56,7 @@ const App = () => {
 
   return (
     <Router>
+      <CookieConsent />
       <Interceptor>
         <ScrollToTop>
           <ThemeProvider theme={theme}>
