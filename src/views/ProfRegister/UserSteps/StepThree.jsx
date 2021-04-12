@@ -272,7 +272,7 @@ const StepThree = () => {
           label={isWorkPlace ? 'İş Yeri Kuruluş tarihi' : 'Doğum Tarihi'}
           onChange={handleBirthdayChange}
           minDate="01.01.1945"
-          maxDate={isWorkPlace ? new Date() : '01.01.2014'}
+          maxDate={isWorkPlace ? new Date() : '01.15.2014'}
           minYears={isWorkPlace ? 0 : 18}
           forHtml="birthday"
           onError={(err) => setIsBirthdaySafe(!!err)}

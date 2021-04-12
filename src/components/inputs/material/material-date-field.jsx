@@ -40,7 +40,7 @@ const DateField = ({
   onError = () => {},
 }) => {
   const [selectedDate, setSelectedDate] = useState(
-    value ? new Date(moment('03.03.2005', 'DD.MM.YYYY').toDate()) : null
+    value ? new Date(moment(value, 'DD.MM.YYYY').toDate()) : null
   );
 
   const handleDateChange = (date, callBack) => {

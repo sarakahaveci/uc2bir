@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components/macro';
-
+import { device } from 'utils';
 import { pulse } from 'components';
 
 const List = ({
@@ -86,6 +86,10 @@ const List = ({
 const Lists = styled.ul`
   list-style-type: none;
   margin: 0px !important;
+
+  @media ${device.lg} {
+    background: sm;
+  }
 `;
 
 const Item = styled.li`

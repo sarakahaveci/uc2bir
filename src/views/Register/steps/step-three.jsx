@@ -76,7 +76,7 @@ const StepThree = (props) => {
             forHtml="birthday"
             label="Doğum Tarihi"
             minDate="01.01.1945"
-            maxDate="01.01.2014"
+            maxDate="01.15.2014"
             onError={(err) => setIsBirthdaySafe(!!err)}
             onChange={handleFormOnChange}
           />

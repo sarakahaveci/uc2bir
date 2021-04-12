@@ -32,7 +32,12 @@
       }
     }
   }
-
+  .nav-container {
+    @media (max-width: 1200px) {
+      display: flex;
+      flex-direction: column-reverse;
+    }
+  }
   .nav-menu {
     margin: 0 15px 0 0px;
     padding: 0 15px;
@@ -70,6 +75,7 @@
           padding-top: 15px;
           padding-bottom: 15px;
           align-content: flex-start;
+          flex-direction: column-reverse;
         }
 
         .bar-item {
@@ -90,6 +96,7 @@
             @media (max-width: 1200px) {
               width: 100%;
               flex-direction: column;
+              flex-direction: column-reverse;
             }
 
             @import '../header-login';

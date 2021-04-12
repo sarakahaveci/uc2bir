@@ -66,7 +66,7 @@ const MacroMap = ({ macro = [], data = {}, setData }) => {
                     setData({ ...data, [e.target.name]: e.target.value }),
                   autoComplete: 'off',
                   icon: val.icon,
-                  password: val.password
+                  password: val.password,
                 })}
           </div>
         );

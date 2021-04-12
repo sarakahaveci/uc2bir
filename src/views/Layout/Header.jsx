@@ -89,7 +89,7 @@ const Header = () => {
     className: 'container nav-menu center d-flex flex-column',
     element: () => {
       return (
-        <>
+        <div className="nav-container">
           {nav_widget.element()}
           <div className="menu-bar bar col d-flex">
             <Row className="nav-element">
@@ -148,7 +148,7 @@ const Header = () => {
               </div>
             </Row>
           </div>
-        </>
+        </div>
       );
     },
   };
