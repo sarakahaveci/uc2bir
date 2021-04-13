@@ -56,8 +56,10 @@ export { default as SessionType } from './SessionType';
 export { default as Packets } from './Packets';
 export { default as Lessons } from './Lessons';
 export { default as AddExercise } from './AddExercise';
+export { default as ApproveCard } from './ApproveCard';
 
 export { default as CustomProgress } from './CustomProgress';
+export { default as Tabbar } from './Tabbar';
 
 export { default as GoogleAppZoom } from './GoogleMaps/index';
 export { default as Blog } from './Blog';

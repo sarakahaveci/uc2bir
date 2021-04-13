@@ -1,24 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components/macro';
 
 import { Accordion, Svg } from 'components';
 import { space } from 'styled-system';
-
 export default function ReservationAccordion({
   title,
   children,
+  parent = false,
+  defaultOpen = false,
   ...restProps
 }) {
+  const [toggleState, setToggleState] = useState(defaultOpen);
   return (
     <Accordion>
-      <AccordionItemWrapper {...restProps}>
-        <Accordion.Item defaultOpen>
-          <Accordion.Toggle className="accordion-toggler">
+      <AccordionItemWrapper parent={parent} {...restProps}>
+        <Accordion.Item defaultOpen={defaultOpen}>
+          <Accordion.Toggle
+            onToggle={(state) => setToggleState(state)}
+            className="accordion-toggler"
+          >
             <DarkTitle>{title}</DarkTitle>
-
-            <Svg.ArrowDownIcon />
+            {toggleState ? <Svg.ArrowDownIcon /> : <Svg.ArrowUpIcon />}
           </Accordion.Toggle>
-
           <Accordion.Collapse>{children}</Accordion.Collapse>
         </Accordion.Item>
       </AccordionItemWrapper>
@@ -36,14 +39,16 @@ const DarkTitle = styled.h4`
 const AccordionItemWrapper = styled.div`
   border-radius: 20px;
   background: #fff;
-  border: 1px solid #c6c6c6;
-  padding: 20px;
   margin-bottom: 20px;
-
+  width: 100%;
   ${space}
 
   .accordion-toggler {
     display: flex;
+    background: ${(p) => (p.parent ? '#EFEFEF' : '#F8F8F8')};
     justify-content: space-between;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 10px;
   }
 `;

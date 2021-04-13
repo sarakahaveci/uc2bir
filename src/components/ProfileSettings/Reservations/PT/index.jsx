@@ -1,66 +1,72 @@
 import React, { useEffect, useState } from 'react';
-import { createTypes, getSessionTypes } from 'actions';
-import { useSelector, useDispatch } from 'react-redux';
-import { toast } from 'react-toastify';
-import { getGeocode } from 'use-places-autocomplete';
+import { getSessionTypes } from 'actions';
+import { useDispatch } from 'react-redux';
 
-const PT = ({ icons, setBannerActive }) => {
+import { getGeocode } from 'use-places-autocomplete';
+import Awaitings from './Awaitings';
+import Approved from './Approved';
+import Calendar from './Calendar';
+import SessionHistory from './SessionHistory';
+import Rejecteds from './Rejecteds';
+import styled from 'styled-components/macro';
+import { Tabbar } from 'components';
+
+const PT = () => {
   const dispatch = useDispatch();
-  const [selected, setSelected] = useState([]);
-  const [types, setTypes] = useState([]);
-  const [page, setPage] = useState('Home');
+  const [page, setPage] = useState('Awaitings');
 
   useEffect(() => {
     getGeocode();
   }, []);
 
-  const { create } = useSelector((state) => state.profileSettings2.sessionType);
-  const { get } = useSelector((state) => state.profileSettings2.sessionType);
-
   useEffect(() => {
     dispatch(getSessionTypes());
   }, []);
 
-  const select = (key) => {
-    if (selected.includes(key)) {
-      setSelected(selected.filter((item) => item !== key));
-    } else {
-      setSelected((selecteds) => [...selecteds, key]);
-      setTypes([...types, key]);
-    }
-  };
-
-  const submit = async () => {
-    const new_types = [...types];
-    if (get?.data?.data?.length > 0) {
-      get.data.data.map((val) => new_types.push(val.type));
-    }
-    await dispatch(
-      createTypes(
-        { types: new_types },
-        () => setPage('Adds'),
-        () =>
-          toast.error('Bir sorun oluştu lütfen daha sonra tekrar deneyiniz.', {
-            position: 'bottom-right',
-            autoClose: 2000,
-          })
-      )
-    );
-  };
+  let content;
   switch (page) {
-    case 'Home':
-      return <>Hello</>;
+    case 'Awaitings':
+      content = <Awaitings />;
+      break;
 
-    case 'EditLesson':
-      return <></>;
-    case 'Exercises':
-      return <></>;
-    case 'ExerciseDetail':
-      return <></>;
-
+    case 'Calendar':
+      content = <Calendar />;
+      break;
+    case 'Approved':
+      content = <Approved />;
+      break;
+    case 'Rejecteds':
+      content = <Rejecteds />;
+      break;
+    case 'SessionHistory':
+      content = <SessionHistory />;
+      break;
     default:
-      return <>hesllo</>;
+      return <></>;
   }
-};
 
+  return (
+    <Container>
+      <Tabbar
+        defaultSelected="Awaitings"
+        onSelect={(value) => {
+          setPage(value);
+        }}
+        tabs={[
+          { text: 'ONAYDAKİLER', value: 'Awaitings' },
+          { text: 'TAKVİMİM', value: 'Calendar' },
+          { text: 'ONAYLANANLAR', value: 'Approved' },
+          { text: 'REDDEDİLENLER', value: 'Rejecteds' },
+          { text: 'DERS GEÇMİŞİ', value: 'SessionHistory' },
+        ]}
+      ></Tabbar>
+      {content}
+    </Container>
+  );
+};
+const Container = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+`;
 export default PT;

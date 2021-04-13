@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import styled from 'styled-components/macro';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { Title } from 'components';
