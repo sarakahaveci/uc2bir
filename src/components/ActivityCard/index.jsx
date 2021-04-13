@@ -87,10 +87,19 @@ export default function ActivityCard({
     price: price,
   });
 
+  const initialFormData = {
+    id: id,
+    capacity: capacity,
+    price: price,
+  };
+
   const [branchData, setBranchData] = useState({
     price: price,
     branch_id: branch_id,
   });
+
+
+  const isInitialForm= initialFormData.price === formData.price && initialFormData.capacity === formData.capacity;
 
   const [selectedBranch, setSelectedBranch] = useState([]);
 
@@ -274,7 +283,7 @@ export default function ActivityCard({
         text="Kaydet"
         fontWeight="500"
         onClick={submitChange}
-        disabled={!isAccepted || waitingPrice}
+        disabled={!isAccepted || waitingPrice  || isInitialForm}
       />
     </div>
   );
