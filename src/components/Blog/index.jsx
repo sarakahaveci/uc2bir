@@ -206,14 +206,10 @@ const Blog = () => {
                           </div>
                         </ExtendButton>*/}
                           {file ? (
-                            <ImageShow image={URL.createObjectURL(file)} />
+                            <ImageShow image={file} />
                           ) : (
                             <MaterialButton
-                              style={{
-                                marginRight: 15,
-                                width: 192,
-                                height: 120,
-                              }}
+                              style={{ marginRight: 15, width: 192, height: 120 }}
                               variant="contained"
                               color="default"
                               component="label"
@@ -224,11 +220,12 @@ const Blog = () => {
                                 type="file"
                                 hidden
                                 onChange={(event) =>
-                                  setFile(event.target.files[0])
+                                  setFile(URL.createObjectURL(event.target.files[0]))
                                 }
                               />
                             </MaterialButton>
                           )}
+
 
                           <Material.TextField
                             label="Başlık giriniz"
