@@ -37,6 +37,7 @@ export { default as CancellationReason } from './ProfileSettings/ProfileCancella
 export { default as CancellationDismissInfo } from './ProfileSettings/ProfileCancellation/CancellationDismissInfo';
 export { default as PlusButton } from './buttons/PlusButton';
 export { default as MinusButton } from './buttons/MinusButton';
+export { default as ReservationHourButton } from './buttons/ReservationHourButton';
 export { default as Select } from './Select/Select';
 export { default as SearchInput } from './inputs/SearchInput';
 export { default as HomeUserSlider } from './sliders/HomeUserSlider';
