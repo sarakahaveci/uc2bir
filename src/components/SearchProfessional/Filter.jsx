@@ -13,6 +13,7 @@ const SearchFilters = ({
   price,
   setPrice,
   searchHandler,
+  setShowFilters,
   type,
 }) => {
   const ratingChangeHandler = (starCount) => {
@@ -85,7 +86,10 @@ const SearchFilters = ({
         mt="10px"
         text="Uygula"
         className="blue"
-        onClick={searchHandler}
+        onClick={() => {
+          setShowFilters();
+          searchHandler();
+        }}
       />
     </FiltersWrapper>
   );
