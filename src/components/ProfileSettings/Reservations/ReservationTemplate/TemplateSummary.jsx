@@ -91,7 +91,7 @@ const TemplateSummary = () => {
             <Text fontWeight="600">
               <Span mr="5px">Sınıflar:</Span>
 
-              {item.location.map((location, index) => (
+              {item?.location?.map((location, index) => (
                 <Span key={index} fontWeight="400">
                   {location.title}
 

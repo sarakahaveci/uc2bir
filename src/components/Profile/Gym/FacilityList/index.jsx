@@ -33,7 +33,6 @@ const Wrapper = styled.div`
   flex-wrap: wrap;
   background: #8e8d8b0f;
   padding: 10px;
-  border: 1px solid #00000047;
   box-shadow: 2px 3px 18px rgba(0, 0, 0, 0.09);
 `;
 

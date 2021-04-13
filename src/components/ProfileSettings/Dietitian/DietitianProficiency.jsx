@@ -212,7 +212,7 @@ export default function DietitianProficiency() {
                 className="mt-3"
                 data={subTabData}
                 lineWidth="100%"
-                onChange={(value) => filterProficiencyListHandler(value)}
+                onChange={(item) => filterProficiencyListHandler(item.value)}
               />
               <div className="dietitianProficiency__wrapper">
                 {modifiedUserProficiencyList?.length > 0 ? (

@@ -46,7 +46,6 @@ export { default as SocialLogin } from './SocialLogin/SocialLogin';
 */
 export { default as Tab } from './Tabs/Tabs';
 export { default as Certificate } from './Certificate/Certificate';
-export { default as ProfileBanner } from './banner/profile-banner';
 export { default as ProfileCard } from './banner/profile-banner/ProfileCard';
 export { default as MasonaryGallery } from './MasonaryGallery';
 export { default as WorkPlaceRow } from './WorkPlaceRow/WorkPlaceRow';

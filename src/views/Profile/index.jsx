@@ -5,7 +5,8 @@ import { WORK_PLACE, PERSONAL_TRAINER, DIETITIAN } from '../../constants';
 
 import { getUserInfo } from 'actions';
 import profileImg from 'assets/pt-groups/item-1/04.jpg';
-import { Tab, Main, ProfileBanner } from 'components';
+import { Tab, Main } from 'components';
+import ProfileBanner from 'components/banner/profile-banner';
 import Branch from 'components/Profile/Branch';
 import ProfileCertificate from 'components/Profile/ProfileCertificate';
 // import Comment from 'components/Profile/Comment';
@@ -43,7 +44,7 @@ export default function Profile({ match }) {
     },
     {
       eventKey: 'certificate',
-      title: 'SERTİFİKA',
+      title: 'SERTİFİKALAR',
       component: <ProfileCertificate userId={match?.params?.id} />,
     },
     {

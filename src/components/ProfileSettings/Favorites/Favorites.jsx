@@ -72,8 +72,8 @@ const Favorites = () => {
 
         <SubTabs
           data={subTabsData}
-          onChange={(value) => {
-            setUserType(value);
+          onChange={(item) => {
+            setUserType(item.value);
             setCurrentPage(1);
           }}
           lineWidth="50%"

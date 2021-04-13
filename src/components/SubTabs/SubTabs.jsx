@@ -3,7 +3,13 @@ import styled from 'styled-components/macro';
 
 import { Span } from 'components';
 
-const SubTabs = ({ data, onChange, lineWidth = '50%', className }) => {
+const SubTabs = ({
+  data,
+  onChange,
+  lineWidth = '50%',
+  className,
+  customNode = null,
+}) => {
   const [activeSubIndex, setActiveSubIndex] = useState(0);
 
   return (
@@ -14,11 +20,18 @@ const SubTabs = ({ data, onChange, lineWidth = '50%', className }) => {
           isActive={activeSubIndex === index}
           onClick={() => {
             setActiveSubIndex(index);
-            onChange(item.value);
+            onChange(item);
           }}
         >
           <Span lineWidth={lineWidth} underline={activeSubIndex === index}>
-            {item.icon && <img src={item.icon} alt={item.label} />} {item.label}
+            {customNode ? (
+              customNode(item)
+            ) : (
+              <>
+                {item.icon && <img src={item.icon} alt={item.label} />}
+                {item.label}
+              </>
+            )}
           </Span>
         </Tab>
       ))}

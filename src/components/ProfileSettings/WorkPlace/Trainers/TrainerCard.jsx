@@ -22,7 +22,10 @@ const TrainerCard = ({ data }) => {
         />
 
         {showProfileNavigator && (
-          <Link className="trainer-card__profile-navigator" to="/">
+          <Link
+            className="trainer-card__profile-navigator"
+            to={`/user/${data.user_id}`}
+          >
             Profile Git
           </Link>
         )}

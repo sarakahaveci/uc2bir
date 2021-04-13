@@ -15,7 +15,7 @@ import {
   getDietitianClinics,
   getMyClassifications,
 } from 'actions';
-import { DIETITIAN, PERSONAL_TRAINER, WORK_PLACE } from '../../../../constants';
+import { DIETITIAN, PERSONAL_TRAINER, WORK_PLACE } from 'constants/index';
 
 export default function TemplateSelections({
   branchSelection,
