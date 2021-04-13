@@ -24,7 +24,7 @@ import { default as MaterialButton } from '@material-ui/core/Button';
 const Blog = () => {
   const [page, setPage] = useState('');
 
-  const [file, setFile] = useState(false);
+  const [file, setFile] = useState('');
   const [title, setTitle] = useState('');
   const [detail, setDetail] = useState('');
   const [category_id, setCategory_id] = useState(1);
@@ -396,7 +396,7 @@ const Blog = () => {
                           </div>
                         </ExtendButton>*/}
                         {file ? (
-                          <ImageShow image={URL.createObjectURL(file)} />
+                          <ImageShow image={file} />
                         ) : (
                           <MaterialButton
                             style={{ marginRight: 15, width: 192, height: 120 }}
@@ -410,7 +410,7 @@ const Blog = () => {
                               type="file"
                               hidden
                               onChange={(event) =>
-                                setFile(event.target.files[0])
+                                setFile(URL.createObjectURL(event.target.files[0]))
                               }
                             />
                           </MaterialButton>
