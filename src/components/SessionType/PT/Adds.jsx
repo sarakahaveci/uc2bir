@@ -9,7 +9,7 @@ import AddGym from './AddGym';
 import Edit from './Edit';
 import GYMEdit from './GYMEdit';
 
-const Adds = ({ icons, setBannerActive, setPage }) => {
+const Adds = ({ icons, setBannerActive, setPage, get, selected }) => {
   const [subPage, setSubPage] = useState('Adds');
 
   useEffect(() => {
@@ -23,32 +23,40 @@ const Adds = ({ icons, setBannerActive, setPage }) => {
           <BackLink text="Geri" onClick={() => setPage('Home')} />
 
           <CreateList className="row">
-            {icons.map((val) => {
-              return (
-                <>
-                  <List key={val.id} className=" col-md-4 col-sm-12">
-                    {val.icon}
-                    <Span>{val.name}</Span>
-                    {val.create && (
-                      <>
-                        <Link>
-                          <Edits onClick={() => setSubPage(val.create.subPage)}>
-                            <Svg.WhitePencil />
-                          </Edits>
-                        </Link>
-                        <Create
-                          onClick={() => {
-                            setSubPage(val.create.action);
-                          }}
-                        >
-                          {val.create.name}
-                        </Create>
-                      </>
-                    )}
-                  </List>
-                </>
-              );
-            })}
+            {icons
+              .filter(
+                (item) =>
+                  get.data.data.filter((e) => e.type === item.id).length > 0 ||
+                  selected.filter((e) => e === item.id).length > 0 //Bu fonksiyon sadece get den gelen iconları renderlamayı saglar (içerdeki filter sadece sorgu amaçlıdır)
+              )
+              .map((val) => {
+                return (
+                  <>
+                    <List key={val.id} className=" col-md-4 col-sm-12">
+                      {val.icon}
+                      <Span>{val.name}</Span>
+                      {val.create && (
+                        <>
+                          <Link>
+                            <Edits
+                              onClick={() => setSubPage(val.create.subPage)}
+                            >
+                              <Svg.WhitePencil />
+                            </Edits>
+                          </Link>
+                          <Create
+                            onClick={() => {
+                              setSubPage(val.create.action);
+                            }}
+                          >
+                            {val.create.name}
+                          </Create>
+                        </>
+                      )}
+                    </List>
+                  </>
+                );
+              })}
           </CreateList>
         </>
       );

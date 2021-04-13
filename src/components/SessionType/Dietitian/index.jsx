@@ -70,6 +70,8 @@ const PT = ({ icons, setBannerActive }) => {
             icons={icons}
             setBannerActive={setBannerActive}
             setPage={setPage}
+            get={get}
+            selected={selected}
           />
           ;
         </div>

@@ -28,7 +28,6 @@ const PT = () => {
     case 'Awaitings':
       content = <Awaitings />;
       break;
-
     case 'Calendar':
       content = <Calendar />;
       break;
