@@ -82,48 +82,6 @@ export default function WorkPlaceActivity() {
     <></>
   ) : (
     <div className="p-3">
-      <div
-        className={`d-flex mb-3 mr-2 p-4 flex-column  facility-card-wrapper`}
-      >
-        <div className="mb-2">
-          <Title
-            fontWeight="600"
-            textAlign="left"
-            letterSpacing="0.2em"
-            fontSize="13px"
-            color="black3"
-          >
-            Özel Ders Seans Ücreti
-          </Title>
-        </div>
-        <div>
-          <Material.TextField
-            label="Tüm branşlar için özel ders seans (TL)"
-            type="number"
-            name="price"
-            onChange={handleFormOnChange}
-            changeValue={data?.session_price}
-          />
-
-          {data?.waiting_approval_session_price && (
-            <Title
-              fontWeight="400"
-              textAlign="left"
-              fontSize="11px"
-              color="black3"
-            >
-              Onay Bekleyen {data?.waiting_approval_session_price} Tl&apos;lik
-              talebiniz bulunmaktadır
-            </Title>
-          )}
-        </div>
-        <Button
-          className="blue mt-3"
-          text="Kaydet"
-          fontWeight="500"
-          onClick={submitSpicialPrice}
-        />
-      </div>
       <Title fontSize="24px" fontWeight="600" textAlign="left">
         {showAddActivity && (
           <img
@@ -135,6 +93,7 @@ export default function WorkPlaceActivity() {
         )}{' '}
         İş Yeri Faaliyet Alanları
       </Title>
+
       <div className="row d-flex w-100">
         {showAddActivity && (
           <div className="col-lg-4 col-md-12 col-sm-12">
@@ -170,6 +129,48 @@ export default function WorkPlaceActivity() {
               />
             </Title>
           )}
+          <div
+            className={`d-flex mb-3 mr-2 p-4 flex-column  facility-card-wrapper`}
+          >
+            <div className="mb-2">
+              <Title
+                fontWeight="600"
+                textAlign="left"
+                letterSpacing="0.2em"
+                fontSize="13px"
+                color="black3"
+              >
+                Özel Ders Seans Ücreti
+              </Title>
+            </div>
+            <div>
+              <Material.TextField
+                label="Tüm branşlar için özel ders seans (TL)"
+                type="number"
+                name="price"
+                onChange={handleFormOnChange}
+                changeValue={data?.session_price}
+              />
+
+              {data?.waiting_approval_session_price && (
+                <Title
+                  fontWeight="400"
+                  textAlign="left"
+                  fontSize="11px"
+                  color="black3"
+                >
+                  Onay Bekleyen {data?.waiting_approval_session_price}{' '}
+                  Tl&apos;lik talebiniz bulunmaktadır
+                </Title>
+              )}
+            </div>
+            <Button
+              className="blue mt-3"
+              text="Kaydet"
+              fontWeight="500"
+              onClick={submitSpicialPrice}
+            />
+          </div>
           <div className={`w-100 ${!showAddActivity ? 'card-wrapper' : ''}`}>
             {!showAddActivity ? (
               data?.class?.length > 0 &&

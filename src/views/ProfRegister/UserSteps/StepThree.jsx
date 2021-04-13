@@ -220,8 +220,8 @@ const StepThree = () => {
   };
 
   const selectBenefitHandler = (key) => {
-    if (selectedButtons.includes(key)) {
-      setSelectedBenefits(selectedButtons.filter((item) => item !== key));
+    if (selectedBenefits.filter((item) => item === key) > 0) {
+      setSelectedBenefits(selectedBenefits.filter((item) => item !== key));
     } else {
       setSelectedBenefits((selecteds) => [...selecteds, key]);
     }
