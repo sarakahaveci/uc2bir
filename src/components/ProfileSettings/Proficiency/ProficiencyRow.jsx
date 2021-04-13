@@ -6,7 +6,7 @@ import { Accordion, Svg, Modal, Title } from 'components';
 import ProficiencyToggler from './ProficiencyToggler';
 import ProficiencyCollapser from './ProficiencyCollapser';
 import { addProficiency } from 'actions';
-
+import { toast } from 'react-toastify';
 const ProficiencyRow = ({ data }) => {
   const [addedProficiencies, setAddedProficiencies] = useState({});
   const [showInputError, setShowInputError] = useState(false);
@@ -23,6 +23,22 @@ const ProficiencyRow = ({ data }) => {
 
   const addProficiencySuccessHandler = () => openProficiencyResponseModal();
 
+  function duplicateElements(json) {
+    let duplicates = [];
+    var keys = Object.keys(json);
+    var values = [];
+    keys.forEach((el) => values.push(json[el]));
+    values.forEach((elm) => {
+      var counter = 0;
+      values.forEach((item) => {
+        if (item === elm) counter++;
+      });
+      if (counter > 1) {
+        duplicates.push(elm);
+      }
+    });
+    return duplicates;
+  }
   const saveProficiencyHandler = () => {
     if (
       Object.keys(addedProficiencies).some(
@@ -30,10 +46,33 @@ const ProficiencyRow = ({ data }) => {
       )
     ) {
       setShowInputError(true);
-
       return;
     }
+    var duplicates = duplicateElements(addedProficiencies);
+    if (duplicates.length > 0) {
+      duplicates.forEach((el) => {
+        setAddedProficiencies(temp);
+        toast.error(el + ' zaten var oldugundan eklenemedi.', {
+          position: 'bottom-right',
+          autoClose: 4000,
+        });
+      });
+    }
+    Object.keys(addedProficiencies).map((d) => {
+      const filter = data?.speciality?.filter(
+        (item) => item.name === addedProficiencies[d]
+      );
 
+      if (filter.length > 0) {
+        const tempValue = addedProficiencies[d];
+        var deleted = delete addedProficiencies[d];
+        setAddedProficiencies(deleted);
+        toast.error(tempValue + ' zaten var oldugundan eklenemedi.', {
+          position: 'bottom-right',
+          autoClose: 4000,
+        });
+      }
+    });
     dispatch(
       addProficiency(
         data.id,

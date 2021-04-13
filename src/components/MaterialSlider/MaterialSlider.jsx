@@ -16,6 +16,10 @@ const StyledSlider = styled(Slider)`
     transform: scale(1) translateY(6px);
   }
 
+  .PrivateValueLabel-circle-4 {
+    background: ${(p) => p.theme.colors.blue};
+  }
+
   .PrivateValueLabel-circle-6 {
     background: transparent;
   }

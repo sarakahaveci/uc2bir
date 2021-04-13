@@ -17,6 +17,8 @@ const StyledPagination = styled(Pagination)`
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
+
   ${space}
 
   .MuiPagination-ul {

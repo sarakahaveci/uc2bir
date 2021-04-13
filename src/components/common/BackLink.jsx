@@ -24,7 +24,7 @@ export default function BackLink({
 }
 
 const EditedLink = styled((props) =>
-  props.path ? <Link {...props} /> : <div {...props} />
+  props.to ? <Link {...props} /> : <div {...props} />
 )`
   display: inline-flex;
   cursor: pointer;
