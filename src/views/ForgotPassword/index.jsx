@@ -1,7 +1,7 @@
-// @ts-nocheck
 import React, { useEffect, useState } from 'react';
 
-import { FormPages, AwesomeIcon, Button, Material } from '../../components';
+import { FormPages, AwesomeIcon, Button, Material } from 'components';
+import { RESET_FORGOT_PASSWORD_STORE } from 'constants/actionTypes';
 import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -19,24 +19,6 @@ const ForgotPassword = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  useEffect(() => {
-    if (getForgotPassword.error) {
-      toast.error('Kod Gönderilirken Hata Oluştu', {
-        position: 'bottom-right',
-        autoClose: 4500,
-      });
-    }
-  }, [getForgotPassword]);
-
-  useEffect(() => {
-    if (getResetPassword.error) {
-      toast.error(getResetPassword.message, {
-        position: 'bottom-right',
-        autoClose: 4500,
-      });
-    }
-  }, [getResetPassword]);
-
   const [code, setCode] = useState({
     code: '',
     password: '',
@@ -48,6 +30,12 @@ const ForgotPassword = () => {
   const [open, setOpen] = useState(false);
   const fullWidth = true;
   const maxWidth = 'sm';
+
+  useEffect(() => {
+    return () => {
+      dispatch({ type: RESET_FORGOT_PASSWORD_STORE });
+    };
+  }, []);
 
   const rSuccsess = () => {
     toast.success('Parolanız güncellendi...', {
