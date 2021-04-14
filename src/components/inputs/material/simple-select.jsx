@@ -30,13 +30,16 @@ const SimpleSelect = ({
   onChange = () => {},
   changeValue,
   defaultValue = '',
+  defaultValueMultiple = [],
   settings = false,
   disabled = false,
   state = {},
+  multiple = false,
+  labelFontSize = '',
   action = () => {},
 }) => {
   const classes = useStyles();
-  const [val, setVal] = useState(defaultValue);
+  const [val, setVal] = useState(multiple? defaultValueMultiple:defaultValue);
 
   const handleChange = (event) => {
     setVal(event.target.value);
@@ -91,7 +94,7 @@ const SimpleSelect = ({
     >
       <FormControl className={classes.formControl}>
         {icon && icon({ className: 'material-inputs-icon' })}
-        <InputLabel id={name}>
+        <InputLabel id={name} style={{ fontSize: labelFontSize && labelFontSize }}>
           {label}
           {required && <> *</>}
         </InputLabel>
@@ -99,6 +102,7 @@ const SimpleSelect = ({
           labelId={name}
           id={name}
           name={name}
+          multiple={multiple}
           value={val}
           onChange={(event) => handleChange(event)}
           required={required}
