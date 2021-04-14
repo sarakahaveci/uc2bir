@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import ReservationAccordion from '../ReservationAccordion';
-import { Box, DatePicker, ReservationHourButton, Span } from '../../../index';
+import {Box, DatePicker, Material, ReservationHourButton, Span, Title } from '../../../index';
 import styled from 'styled-components/macro';
-import { AVAILABLE_HOURS } from '../../../../constants';
+import { AVAILABLE_HOURS, branchData, sessionData, salonData} from '../../../../constants';
 import { device } from '../../../../utils';
+
 
 const Calendar = () => {
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
@@ -19,37 +20,115 @@ const Calendar = () => {
   let data = ['dsd', 'ds'];
   return(
     <Container>
-      <Row>
-        {activePage==='index' && (
-          <Col xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
-            {data.map((elm, index) => (
-              <AccordionContainer key={index}>
-                <ReservationAccordion
-                  defaultOpen={index === 0}
-                  parent
-                  title={24+index+' OCAK ÇARŞAMBA'}>
-                  <Box row flexWrap="wrap" center>
-                    {AVAILABLE_HOURS.map((item,index) => (
-                      <ReservationHourButton
-                        text={item}
-                        className="blue"
-                        width="342px"
-                        height="52px"
-                        mt="15px"
-                        key={index}
-                      />
-                    ))}
+      {activePage ==='create' ?(
+        <Row>
+            <Col xs={{ order: IsSmallScreen ? 2 : 1 }} lg={6}>
+              <Title
+                style={{ display: 'flex', flexWrap: 'nowrap' }}
+                textAlign="left">
+                <Span
+                  cursor="pointer"
+                  fontSize="1.5rem"
+                  onClick={() => setActivePage('showAvailableHour')}
+                  marginRight="10px"
+                  marginBottom="-15px">
+                  {`<`}
+                </Span>
+                <Span>Rezervasyon Oluştur</Span>
+              </Title>
 
-                    <Button onClick={()=>setActivePage('showAvailableHour')}>Boş Saatlerimi Gör</Button>
+              <AppointmentContainer>
+                <Material.TextField
+                  name="appointmentDate"
+                  forHtml="appointmentDate"
+                  label="Tarih & Saat Seçiniz"
+                  defaultValue="21 Kasım Çarşamba, 10:00 - 11:00"
+                  disabled={true}
+                />
+                <Material.select
+                  style={{marginTop:'14px'}}
+                  multiple={true}
+                  required
+                  name="branch"
+                  forHtml="branch"
+                  label="Branşları Seçiniz"
+                  defaultValueMultiple={sessionData}
+                  items={branchData}
+                />
 
-                  </Box>
-                </ReservationAccordion>
-              </AccordionContainer>
-            ))}
-          </Col>)}
+                <Material.select
+                  style={{marginTop:'14px'}}
+                  multiple={true}
+                  required
+                  name="sessionType"
+                  forHtml="sessionType"
+                  label="Oturum Türlerini Seçiniz"
+                  items={sessionData}
+                />
 
-        {activePage==='showAvailableHour' && (
-          <Col xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
+                <Material.select
+                  style={{marginTop:'14px'}}
+                  multiple={true}
+                  required
+                  name="sessionType"
+                  forHtml="sessionType"
+                  label="Salon Ekleyin"
+                  items={salonData}
+                />
+
+                <Material.select
+                  style={{marginTop:'14px'}}
+                  multiple={true}
+                  required
+                  name="sessionType"
+                  forHtml="sessionType"
+                  label="Ev/Park Ekleyin"
+                  items={sessionData}
+                />
+
+              </AppointmentContainer>
+
+            </Col>
+
+          <Col style={{ display: 'flex', justifyContent: 'center'}}
+               xs={{ order: IsSmallScreen ? 1 : 2 }}
+               lg={6}>
+            <DateContainer>
+            </DateContainer>
+          </Col>
+        </Row>
+      ):(
+        <Row>
+          {activePage==='index' && (
+            <Col xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
+              {data.map((elm, index) => (
+                <AccordionContainer key={index}>
+                  <ReservationAccordion
+                    defaultOpen={index === 0}
+                    parent
+                    title={24+index+' OCAK ÇARŞAMBA'}>
+                    <Box row flexWrap="wrap" center>
+                      {AVAILABLE_HOURS.map((item,index) => (
+                        <ReservationHourButton
+                          text={item}
+                          className="blue"
+                          width="342px"
+                          height="52px"
+                          mt="15px"
+                          key={index}
+                        />
+                      ))}
+
+                      <Button onClick={()=>setActivePage('showAvailableHour')}>Boş Saatlerimi Gör</Button>
+
+                    </Box>
+                  </ReservationAccordion>
+                </AccordionContainer>
+              ))}
+            </Col>)}
+
+          {activePage==='showAvailableHour' && (
+            <Col xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
               <AccordionContainer >
                 <Span
                   cursor="pointer"
@@ -72,6 +151,7 @@ const Calendar = () => {
                         height="52px"
                         mt="15px"
                         key={index}
+                        onClick={() => setActivePage('create')}
                         isAvailableHour={true}
                       />
                     ))}
@@ -79,19 +159,20 @@ const Calendar = () => {
                   </Box>
                 </ReservationAccordion>
               </AccordionContainer>
+            </Col>)}
 
-          </Col>)}
+          <Col style={{ display: 'flex', justifyContent: 'center'}}
+               xs={{ order: IsSmallScreen ? 1 : 2 }}
+               lg={4}>
+            <DateContainer>
+              <DatePicker minDate={new Date()} inline selected={null} />
+            </DateContainer>
+          </Col>
+        </Row>
+      )}
 
-        <Col style={{ display: 'flex', justifyContent: 'center'}}
-          xs={{ order: IsSmallScreen ? 1 : 2 }}
-          lg={4}>
-          <DateContainer>
-            <DatePicker minDate={new Date()} inline selected={null} />
-          </DateContainer>
-        </Col>
-      </Row>
     </Container>
-  );;
+  );
 };
 
 const DateContainer = styled.div`
@@ -99,6 +180,22 @@ const DateContainer = styled.div`
 `;
 const AccordionContainer = styled.div`
   display: flex;
+`;
+
+const AppointmentContainer = styled.div`
+  width: 100%;
+  padding-top: 35px;
+  padding-left: 25px;
+  .materials {
+    margin-bottom: 15px;
+    
+    label{
+      font-size: 15px !important;
+    }
+  }
+  .material-title {
+    letter-spacing: 0;
+  }
 `;
 
 const Button = styled.button`
