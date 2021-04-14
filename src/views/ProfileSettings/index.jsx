@@ -29,7 +29,7 @@ import DietitianProficiency from 'components/ProfileSettings/Dietitian/Dietitian
 import Message from 'components/ProfileSettings/Message';
 import RegularNotifications from 'components/ProfileSettings/RegularNotifications';
 import GroupSlot from 'components/ProfileSettings/Reservations/GroupSlot/GroupSlot';
-import Reservations from 'components/ProfileSettings/Reservations/ReservationTemplate/ReservationTemplate';
+import Reservations from 'components/ProfileSettings/Reservations';
 
 const regularUserTabs = [
   {
@@ -205,11 +205,11 @@ const trainerTabs = [
     eventKey: 'notifications',
     component: <ProfileSettingsList />,
   },
-  //   {
-  //     eventKey: 'reservation',
-  //     title: 'Rezarvasyonlarım',
-  //     component: <GroupSlot />,
-  //   },
+  {
+    eventKey: 'reservation',
+    title: 'Rezarvasyonlarım',
+    component: <Reservations />,
+  },
   /* {
     eventKey: 'packets',
     title: 'Paketlerim',

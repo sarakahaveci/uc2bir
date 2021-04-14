@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="126.751" height="67.5" viewBox="0 0 126.751 67.5">
+  <defs>
+    <filter id="Path_4551" x="0" y="0" width="67.5" height="67.5" filterUnits="userSpaceOnUse">
+      <feOffset dy="2" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feFlood flood-color="#00b2a9" flood-opacity="0.455"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Group_8809" data-name="Group 8809" transform="translate(-740.249 -729.25)">
+    <rect id="Rectangle_4023" data-name="Rectangle 4023" width="108" height="32" rx="16" transform="translate(759 745)" fill="#00b2a9"/>
+    <g id="Group_8780" data-name="Group 8780" transform="translate(-466 487)">
+      <g id="Group_7986" data-name="Group 7986" transform="translate(900.173 197)">
+        <g transform="matrix(1, 0, 0, 1, 306.08, 45.25)" filter="url(#Path_4551)">
+          <path id="Path_4551-2" data-name="Path 4551" d="M30,15A15,15,0,1,1,15,0,15,15,0,0,1,30,15Z" transform="translate(18.75 16.75)" fill="#00b2a9" stroke="#00b2a9" stroke-width="1.5"/>
+        </g>
+        <g id="Group_6916" data-name="Group 6916" transform="translate(330.135 66.145)">
+          <line id="Line_224" data-name="Line 224" y2="21.71" transform="translate(9.303)" fill="none" stroke="#fff" stroke-width="1.5"/>
+          <line id="Line_225" data-name="Line 225" x1="19.384" transform="translate(0 10.855)" fill="none" stroke="#fff" stroke-width="1.5"/>
+        </g>
+      </g>
+      <text id="BOOKMARKS_Copy" data-name="BOOKMARKS Copy" transform="translate(1324 279)" fill="#fff" font-size="15" font-family="Poppins-Medium, Poppins" font-weight="500" letter-spacing="0.03em"><tspan x="-70.545" y="0">Ders Ekle</tspan></text>
+    </g>
+  </g>
+</svg>
