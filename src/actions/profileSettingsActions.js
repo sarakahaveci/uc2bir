@@ -25,7 +25,6 @@ import {
   SET_USER_DETAILS,
 } from '../constants';
 import { information } from './authActions';
-import { localStorage } from 'utils';
 
 export const getMyGalleries = () => async (dispatch) => {
   const url = `/user/gallery/index/me`;
@@ -82,7 +81,19 @@ export const getBlogDetail = (detail) => async (dispatch) => {
     },
   });
 };
+export const getMineBlogDetail = (id) => async (dispatch) => {
+  const url = `/cms/blog/mine/${id}`;
 
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'GET',
+      url,
+      label: GET_BLOGS_DETAIL,
+      transfomrData: (data) => data.data,
+    },
+  });
+};
 export const setProfile = (
   { ...data },
   successCallback,

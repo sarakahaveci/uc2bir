@@ -24,6 +24,8 @@ import UserProfile from 'views/ProfileSettings';
 import Message from 'views/Message';
 import { theme } from 'utils';
 import BlogDetail from 'views/BlogDetail';
+import MineBlogDetail from 'views/MineBlogDetail';
+
 import BlogList from 'views/BlogList';
 import Contact from 'views/Contact';
 import SearchProfessional from 'views/SearchProfessional';
@@ -87,7 +89,11 @@ const App = () => {
                   path="/myprofile/settings/:activeTabKey"
                   component={UserProfile}
                 />
-
+                <ProtectedRoute
+                  exact
+                  path="/mine-blog/:id"
+                  component={MineBlogDetail}
+                />
                 <Route exact path="/blog-detail/:seo" component={BlogDetail} />
                 <Route exact path="/blog-list" component={BlogList} />
 

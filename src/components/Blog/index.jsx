@@ -20,10 +20,11 @@ import FormData from 'form-data';
 import { getMyBlogs } from 'actions';
 import { toast } from 'react-toastify';
 import { default as MaterialButton } from '@material-ui/core/Button';
+import { useHistory } from 'react-router-dom';
 
 const Blog = () => {
+  const history = useHistory();
   const [page, setPage] = useState('');
-
   const [file, setFile] = useState('');
   const [fileUrl, setFileUrl] = useState('');
   const [title, setTitle] = useState('');
@@ -82,7 +83,9 @@ const Blog = () => {
         );
       });
   };
-
+  const go = (id) => {
+    return history.push('/mine-blog/' + id);
+  };
   const updated = () => {
     createData.append('files[]', file || data.blog.photo);
     createData.append('category_id', category_id);
@@ -210,7 +213,11 @@ const Blog = () => {
                             <ImageShow image={fileUrl} />
                           ) : (
                             <MaterialButton
-                              style={{ marginRight: 15, width: 192, height: 120 }}
+                              style={{
+                                marginRight: 15,
+                                width: 192,
+                                height: 120,
+                              }}
                               variant="contained"
                               color="default"
                               component="label"
@@ -222,13 +229,13 @@ const Blog = () => {
                                 hidden
                                 onChange={(event) => {
                                   setFile(event.target.files[0]);
-                                  setFileUrl(URL.createObjectURL(event.target.files[0]));
-                                }
-                                }
+                                  setFileUrl(
+                                    URL.createObjectURL(event.target.files[0])
+                                  );
+                                }}
                               />
                             </MaterialButton>
                           )}
-
 
                           <Material.TextField
                             label="Başlık giriniz"
@@ -314,7 +321,16 @@ const Blog = () => {
                             <BlogContent>
                               <div className="text-group">
                                 <div className="title">{val.title}</div>
-                                <div className="content">{val.detail}</div>
+                                <div className="content">
+                                  {val.detail}{' '}
+                                  <LinkText
+                                    onClick={() => {
+                                      go(val?.id);
+                                    }}
+                                  >
+                                    Tümünü Gör
+                                  </LinkText>
+                                </div>
                               </div>
                               <div
                                 style={{ backgroundImage: `url(${val.photo})` }}
@@ -411,9 +427,10 @@ const Blog = () => {
                               hidden
                               onChange={(event) => {
                                 setFile(event.target.files[0]);
-                                setFileUrl(URL.createObjectURL(event.target.files[0]));
-                              }
-                              }
+                                setFileUrl(
+                                  URL.createObjectURL(event.target.files[0])
+                                );
+                              }}
                             />
                           </MaterialButton>
                         )}
@@ -484,7 +501,13 @@ const ExtendButton = styled.div`
   justify-content: center;
   align-content: center;
 `;
-
+const LinkText = styled.text`
+  cursor: pointer;
+  font-weight: bold;
+  &:hover {
+    color: var(--blue);
+  }
+`;
 const FormGroups = styled.div`
   width: 100%;
   height: auto;
