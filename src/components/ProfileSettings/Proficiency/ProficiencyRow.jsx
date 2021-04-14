@@ -28,13 +28,13 @@ const ProficiencyRow = ({ data }) => {
     var keys = Object.keys(json);
     var values = [];
     keys.forEach((el) => values.push(json[el]));
-    values.forEach((elm) => {
+    values.forEach((elm, index) => {
       var counter = 0;
       values.forEach((item) => {
         if (item === elm) counter++;
       });
       if (counter > 1) {
-        duplicates.push(elm);
+        duplicates.push(index);
       }
     });
     return duplicates;
@@ -50,12 +50,17 @@ const ProficiencyRow = ({ data }) => {
     }
     var duplicates = duplicateElements(addedProficiencies);
     if (duplicates.length > 0) {
-      duplicates.forEach((el) => {
+      duplicates.forEach((res) => {
+        toast.error(
+          addedProficiencies[res] +
+            ' iki kez eklenemez. Lütfen kontrol ediniz..',
+          {
+            position: 'bottom-right',
+            autoClose: 4000,
+          }
+        );
+        var temp = delete addedProficiencies[res];
         setAddedProficiencies(temp);
-        toast.error(el + ' zaten var oldugundan eklenemedi.', {
-          position: 'bottom-right',
-          autoClose: 4000,
-        });
       });
     }
     Object.keys(addedProficiencies).map((d) => {
