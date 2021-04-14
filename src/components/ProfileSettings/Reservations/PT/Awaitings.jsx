@@ -2,7 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import ReservationAccordion from '../ReservationAccordion';
 import styled from 'styled-components/macro';
-import { ApproveCard, DatePicker, RejectModal, ApproveModal } from 'components';
+import {
+  ApproveCard,
+  DatePicker,
+  RejectModal,
+  ApproveModal,
+  Svg,
+} from 'components';
 import { device } from 'utils';
 const Awaitings = () => {
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
@@ -29,7 +35,11 @@ const Awaitings = () => {
                 parent
                 title="24 OCAK ÇARŞAMBA"
               >
-                <ReservationAccordion title="SPOR ALANI">
+                <ReservationAccordion
+                  miniIcon={<Svg.SessionType.Gym />}
+                  title="SPOR ALANI"
+                  defaultOpen
+                >
                   <ApproveCardContainer>
                     <ApproveCard
                       onApprove={() => {
@@ -42,8 +52,14 @@ const Awaitings = () => {
                   </ApproveCardContainer>
                   <ApproveCard />
                 </ReservationAccordion>
-                <ReservationAccordion title="EV / PARK"></ReservationAccordion>
-                <ReservationAccordion title="ONLİNE"></ReservationAccordion>
+                <ReservationAccordion
+                  miniIcon={<Svg.SessionType.Park />}
+                  title="EV / PARK"
+                ></ReservationAccordion>
+                <ReservationAccordion
+                  miniIcon={<Svg.SessionType.Online />}
+                  title="ONLİNE"
+                ></ReservationAccordion>
               </ReservationAccordion>
             </AccordionContainer>
           ))}

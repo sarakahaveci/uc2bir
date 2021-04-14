@@ -8,6 +8,7 @@ export default function ReservationAccordion({
   children,
   parent = false,
   defaultOpen = false,
+  miniIcon = <></>,
   ...restProps
 }) {
   const [toggleState, setToggleState] = useState(defaultOpen);
@@ -19,7 +20,10 @@ export default function ReservationAccordion({
             onToggle={(state) => setToggleState(state)}
             className="accordion-toggler"
           >
-            <DarkTitle>{title}</DarkTitle>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              {miniIcon}
+              <DarkTitle>{title}</DarkTitle>
+            </div>
             {toggleState ? <Svg.ArrowDownIcon /> : <Svg.ArrowUpIcon />}
           </Accordion.Toggle>
           <Accordion.Collapse>{children}</Accordion.Collapse>
@@ -33,6 +37,7 @@ const DarkTitle = styled.h4`
   font-weight: 600;
   font-size: 1.1rem;
   letter-spacing: 0.02em;
+  margin-left: 5px;
   color: ${(p) => p.theme.colors.dark};
 `;
 

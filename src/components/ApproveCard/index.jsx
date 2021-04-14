@@ -3,9 +3,38 @@ import styled from 'styled-components/macro';
 import Svg from '../statics/svg';
 import { device } from 'utils';
 
-const ApproveCard = ({ onApprove = () => {}, onReject = () => {} }) => {
+const ApproveCard = ({
+  onApprove = () => {},
+  onReject = () => {},
+  type = 'await',
+}) => {
   useEffect(() => {}, []);
-
+  let buttonGroup;
+  switch (type) {
+    case 'await':
+      buttonGroup = (
+        <>
+          <AwaitButton onClick={onApprove}>Onayla</AwaitButton>
+          <AwaitButton onClick={onReject}>Reddet</AwaitButton>
+        </>
+      );
+      break;
+    case 'approve':
+      buttonGroup = (
+        <>
+          <ApproveButton reject onClick={onApprove}>
+            İptal Et
+          </ApproveButton>
+          <ApproveButton onClick={onReject}>Randevu Detayı</ApproveButton>
+        </>
+      );
+      break;
+    case 'rejecteds':
+      buttonGroup = <>Reddedildi</>;
+      break;
+    default:
+      break;
+  }
   return (
     <Container>
       <Row>
@@ -38,10 +67,7 @@ const ApproveCard = ({ onApprove = () => {}, onReject = () => {} }) => {
         </FlexSpace>
         <Seperator></Seperator>
 
-        <Column>
-          <Button onClick={onApprove}>Onayla</Button>
-          <Button onClick={onReject}>Reddet</Button>
-        </Column>
+        <Column>{buttonGroup}</Column>
       </Row>
     </Container>
   );
@@ -130,13 +156,29 @@ const Dot = styled.div`
   }
 `;
 
-const Button = styled.button`
+const AwaitButton = styled.button`
   width: 120px;
   height: 34px;
   background: #f77e0b;
   color: white;
   border-radius: 5px;
   margin-right: 10px;
+  @media ${device.sm} {
+    width: 90px;
+    height: 17px;
+    font-size: 10px;
+    border-radius: 4px;
+  }
+`;
+const ApproveButton = styled.button`
+  width: 120px;
+  height: 34px;
+  color: ${(p) => (p.reject ? '#F01C62' : 'var(--blue)')};
+  border-radius: 5px;
+  margin-right: 10px;
+  background: transparent;
+  text-decoration: underline;
+  white-space: nowrap;
   @media ${device.sm} {
     width: 90px;
     height: 17px;
