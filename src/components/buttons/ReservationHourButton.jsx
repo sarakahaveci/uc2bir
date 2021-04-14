@@ -11,7 +11,6 @@ const ReservationHourButton = ({
     className,
     text,
     isLoading,
-    isAvailableHour,
     ...restProps
   }) => {
   const debouncedClick = debounce(onClick, 200);
@@ -33,7 +32,7 @@ const ReservationHourButton = ({
     >
       <Clock />
       <span>{text}</span>
-      {isAvailableHour ? <AddClass /> : <ArrowRight />}
+      <ArrowRight />
 
     </StyledButton>
   );
@@ -48,11 +47,8 @@ const StyledButton = styled(BaseButton)`
   background: #F8F8F8 !important;
   color: #1A1818 !important;
   width: ${(props) => props.width && props.width};
-  height:${(props) => props.height && props.height} ;
   display: flex;
   flex-direction: row;
-  align-items: center;
-  margin: 30px 30px 0 0;
   ${color}
   ${space}
 
@@ -68,12 +64,6 @@ const Clock = styled(Svg.ClockIcon)`
 
 const ArrowRight = styled(Svg.ArrowRightIcon)`
   fill: black;
-  display: flex;
-  justify-content: flex-end;
-  flex: 1;
-`;
-
-const AddClass = styled(Svg.AddClassIcon)`
   display: flex;
   justify-content: flex-end;
   flex: 1;

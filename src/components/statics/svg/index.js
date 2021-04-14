@@ -89,7 +89,6 @@ import Set from './images/set.svg';
 import Repetition from './images/repetition.svg';
 import Difficulty from './images/difficulty.svg';
 import Break from './images/break.svg';
-import AddClass from './images/add-class.svg';
 
 import AthleticSportIcon from 'assets/sports-type-icons/atletic.svg';
 import FitnessSportIcon from 'assets/sports-type-icons/fitness.svg';
@@ -138,7 +137,6 @@ const Svg = {
   Player: (props) => <ReactSVG {...props} src={Player} />,
   LocationIcon: (props) => <ReactSVG {...props} src={Location} />,
   ArrowUpIcon: (props) => <ReactSVG {...props} src={ArrowUp} />,
-  AddClassIcon: (props) => <ReactSVG {...props} src={AddClass} />,
   Notification: (props) => <ReactSVG {...props} src={Notification} />,
   Date: (props) => <ReactSVG {...props} src={Date} />,
   Packet: (props) => <ReactSVG {...props} src={Packet} />,
