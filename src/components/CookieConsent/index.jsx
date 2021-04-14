@@ -33,7 +33,7 @@ const CookieConsent = () => {
 const Container = styled.div`
   display: flex;
   width: 100vw;
-  height: 20vh;
+  padding: 5px;
   background: red;
   position: fixed;
   z-index: 99999999999999999999999;
@@ -42,7 +42,7 @@ const Container = styled.div`
   align-items: center;
   background: #00b2a9;
   @media ${device.sm} {
-    height: 40vh;
+    padding: 2px;
   }
 `;
 const Wrapper = styled.div`
