@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 import Svg from '../statics/svg';
 import { device } from 'utils';
 
-const ApproveCard = ({ onApprove = () => {}, onReject = () => {} }) => {
+const ApproveCard = () => {
   useEffect(() => {}, []);
 
   return (
@@ -39,8 +39,8 @@ const ApproveCard = ({ onApprove = () => {}, onReject = () => {} }) => {
         <Seperator></Seperator>
 
         <Column>
-          <Button onClick={onApprove}>Onayla</Button>
-          <Button onClick={onReject}>Reddet</Button>
+          <Button>Onayla</Button>
+          <Button>Reddet</Button>
         </Column>
       </Row>
     </Container>
