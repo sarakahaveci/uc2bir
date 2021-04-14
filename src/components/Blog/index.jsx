@@ -25,6 +25,7 @@ const Blog = () => {
   const [page, setPage] = useState('');
 
   const [file, setFile] = useState('');
+  const [fileUrl, setFileUrl] = useState('');
   const [title, setTitle] = useState('');
   const [detail, setDetail] = useState('');
   const [category_id, setCategory_id] = useState(1);
@@ -206,7 +207,7 @@ const Blog = () => {
                           </div>
                         </ExtendButton>*/}
                           {file ? (
-                            <ImageShow image={file} />
+                            <ImageShow image={fileUrl} />
                           ) : (
                             <MaterialButton
                               style={{ marginRight: 15, width: 192, height: 120 }}
@@ -219,8 +220,10 @@ const Blog = () => {
                               <input
                                 type="file"
                                 hidden
-                                onChange={(event) =>
-                                  setFile(URL.createObjectURL(event.target.files[0]))
+                                onChange={(event) => {
+                                  setFile(event.target.files[0]);
+                                  setFileUrl(URL.createObjectURL(event.target.files[0]));
+                                }
                                 }
                               />
                             </MaterialButton>
@@ -393,7 +396,7 @@ const Blog = () => {
                           </div>
                         </ExtendButton>*/}
                         {file ? (
-                          <ImageShow image={file} />
+                          <ImageShow image={fileUrl} />
                         ) : (
                           <MaterialButton
                             style={{ marginRight: 15, width: 192, height: 120 }}
@@ -406,8 +409,10 @@ const Blog = () => {
                             <input
                               type="file"
                               hidden
-                              onChange={(event) =>
-                                setFile(URL.createObjectURL(event.target.files[0]))
+                              onChange={(event) => {
+                                setFile(event.target.files[0]);
+                                setFileUrl(URL.createObjectURL(event.target.files[0]));
+                              }
                               }
                             />
                           </MaterialButton>

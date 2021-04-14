@@ -124,52 +124,73 @@ export default function ActivityCard({
 
   const submitChange = () => {
     if (isWorkPlace) {
-      dispatch(
-        updateWorkPlaceActivity(
-          {
-            capacity: formData.capacity,
-            price: formData.price,
-            id: formData.id,
-            branch: selectedBranch,
-          },
-          () => {
-            toast.success(
-              'Talebiniz gönderildi incelendikten sonra tarafınıza bildirim gönderilecektir.',
-              {
+      if(formData.capacity>0 && selectedBranch.length>0){
+        dispatch(
+          updateWorkPlaceActivity(
+            {
+              capacity: formData.capacity,
+              price: formData.price,
+              id: formData.id,
+              branch: selectedBranch,
+            },
+            () => {
+              toast.success(
+                'Talebiniz gönderildi incelendikten sonra tarafınıza bildirim gönderilecektir.',
+                {
+                  position: 'bottom-right',
+                  autoClose: 7000,
+                }
+              );
+            },
+            (error) => {
+              toast.error(error, {
                 position: 'bottom-right',
                 autoClose: 7000,
-              }
-            );
-          },
-          (error) => {
-            toast.error(error, {
-              position: 'bottom-right',
-              autoClose: 7000,
-            });
-          }
-        )
+              });
+            }
+          )
+        );
+    }else {
+      toast.error(
+        'Lütfen Tüm Alanları Eksiksiz Doldurunuz',
+        {
+          position: 'bottom-right',
+          autoClose: 7000,
+        }
       );
+    }
     } else {
-      dispatch(
-        updatePTBranch(
-          branchData,
-          () => {
-            toast.success(
-              'Talebiniz gönderildi incelendikten sonra tarafınıza bildirim gönderilecektir.',
-              {
+      if(formData.capacity>0 && selectedBranch.length>0){
+        dispatch(
+          updatePTBranch(
+            branchData,
+            () => {
+              toast.success(
+                'Talebiniz gönderildi incelendikten sonra tarafınıza bildirim gönderilecektir.',
+                {
+                  position: 'bottom-right',
+                  autoClose: 7000,
+                }
+              );
+            },
+            (error) => {
+              toast.error(error, {
                 position: 'bottom-right',
                 autoClose: 7000,
-              }
-            );
-          },
-          (error) => {
-            toast.error(error, {
-              position: 'bottom-right',
-              autoClose: 7000,
-            });
+              });
+            }
+          )
+        );
+      }else {
+        toast.error(
+          'Lütfen Tüm Alanları Eksiksiz Doldurunuz',
+          {
+            position: 'bottom-right',
+            autoClose: 7000,
           }
-        )
-      );
+        );
+      }
+
     }
   };
 

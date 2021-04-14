@@ -1,43 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Row, Col, Form, Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import { device } from 'utils';
 
 import LongUserCard from 'components/UserCards/LongUserCard';
-import { Button, GoogleMapClusterer, Svg, Pagination } from 'components';
+import {
+  Button,
+  GoogleMapClusterer,
+  Svg,
+  Pagination,
+  BackLink,
+  Text,
+} from 'components';
 import { searchPtOrDietition } from 'actions';
 import Filter from './Filter';
 
-const AddGym = () => {
-  const history = useHistory();
-
+const SearchProfessional = () => {
   const allBranchList = useSelector(
     (state) => state.profileSettings.ptBranchList.allList
   );
 
   const { type } = useSelector((state) => state.searchProfessional);
 
-  const { totalPage, data } = useSelector(
+  const { totalPage, data, totalData } = useSelector(
     (state) => state.searchProfessional.listInfo
   );
 
   const dispatch = useDispatch();
 
-  const titleText =
-    type === 'gym'
-      ? 'Salon Adı..'
-      : type === 'pt'
-      ? 'Eğitmen Adı..'
-      : 'Diyetisyen adı..';
-
-  const HeaderText =
-    type === 'gym'
-      ? 'Spor Salonu Arayın'
-      : type === 'pt'
-      ? 'Eğitmen Arayın'
-      : 'Diyetisyen Arayın';
+  const userTypeText =
+    type === 'gym' ? 'Salon' : type === 'pt' ? 'Eğitmen' : 'Diyetisyen';
 
   const [location, setLocation] = useState('');
   const [title, setTitle] = useState('');
@@ -77,10 +70,12 @@ const AddGym = () => {
   return (
     <div className="mb-5 p-3">
       <Container className="mb-5 d-flex flex-column">
-        <div className="row">
-          <Button text="<" onClick={() => history.push('/')} />
-          <Button text={HeaderText} />
-        </div>
+        <BackLink path="/" text={`${userTypeText} Arayın`} />
+
+        <Text mb="15px">
+          {userTypeText} için {totalData} sonuç listeleniyor.
+        </Text>
+
         <div className="d-flex w-75 mb-3 mx-auto">
           <Row className="search-trainer__search-area">
             <SearchCol>
@@ -88,7 +83,7 @@ const AddGym = () => {
                 className="search-trainer__search-input"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder={titleText}
+                placeholder={`${userTypeText} Adı...`}
               />
             </SearchCol>
 
@@ -138,6 +133,7 @@ const AddGym = () => {
                   setRatings={setRatings}
                   price={price}
                   setPrice={setPrice}
+                  setShowFilters={setShowFilters}
                 />
               )}
             </SearchCol>
@@ -157,13 +153,15 @@ const AddGym = () => {
             </SearchCol>
           </Row>
         </div>
+
         <GoogleMapClusterer data={data} />
+
         {data.length > 0 ? (
           <>
-            {' '}
             <GymListWrapper>
               {data?.map((professional) => (
                 <LongUserCard
+                  showHeartBg
                   key={professional?.id || professional?.user_id}
                   data={professional}
                   city={professional?.city}
@@ -171,6 +169,7 @@ const AddGym = () => {
                 />
               ))}
             </GymListWrapper>
+
             <div className="d-flex w-100 mt-3">
               <Pagination
                 className="mx-auto"
@@ -220,4 +219,4 @@ const FilterButton = styled.button`
   z-index: 2;
 `;
 
-export default AddGym;
+export default SearchProfessional;

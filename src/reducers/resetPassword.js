@@ -2,6 +2,7 @@ import {
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAILURE,
+  RESET_FORGOT_PASSWORD_STORE
 } from '../constants';
 
 const initialState = {
@@ -37,6 +38,11 @@ export default (state = initialState, action) => {
         isLoading: false,
         isSuccsess: false,
         error: action.payload.message,
+      };
+
+    case RESET_FORGOT_PASSWORD_STORE:
+      return {
+        ...initialState,
       };
 
     default:
