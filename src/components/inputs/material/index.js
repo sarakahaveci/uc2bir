@@ -12,6 +12,7 @@ import { default as MCheckBox } from './m-check-box';
 import PhoneField from './phone-field';
 import CheckBoxGroup from './check-box-group';
 import IOSSwitch from './m-switch';
+
 export const Material = {
   TextField,
   CheckBox,

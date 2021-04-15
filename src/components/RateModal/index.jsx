@@ -4,6 +4,10 @@ import { Text, Svg } from 'components';
 import { Link } from 'react-router-dom';
 import { device } from 'utils';
 import { Material } from 'components';
+
+import Rating from '@material-ui/lab/Rating';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
+
 const RateModal = ({
   open,
   rate,
@@ -69,7 +73,19 @@ const RateModal = ({
             <TextContainer>
               <StyledText>Puan & Yorum</StyledText>
             </TextContainer>
-            <StarContainer>Yıldız Veriniz :</StarContainer>
+            <StarContainer>
+              Yıldız Veriniz :{' '}
+              <Rating
+                name="customized-empty"
+                defaultValue={0}
+                precision={0.5}
+                /*onChange={(event, newValue) => {
+                  
+                }}*/
+                emptyIcon={<StarBorderIcon fontSize="inherit" />}
+              />
+            </StarContainer>
+
             <Material.TextField
               style={{ margin: '20px 0' }}
               label="Yorumnuzu giriniz..."
