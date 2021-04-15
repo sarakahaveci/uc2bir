@@ -3,14 +3,15 @@ import styled from 'styled-components/macro';
 import { Text, Svg } from 'components';
 import { Link } from 'react-router-dom';
 import { device } from 'utils';
-const RejectModal = ({
+import { Material } from 'components';
+const RateModal = ({
   open,
-  reject,
+  rate,
   cancel,
   headerText = '',
   descText = '',
   cancelLabel = '',
-  rejectLabel = '',
+  rateLabel = '',
 }) => {
   const [selectedPage, setSelectedPage] = useState('start');
   let content;
@@ -21,7 +22,7 @@ const RejectModal = ({
         <MainContainer>
           <ContextContainer>
             <IconContainer>
-              <Svg.Reject />
+              <Svg.Approve />
             </IconContainer>
 
             <Text
@@ -41,12 +42,12 @@ const RejectModal = ({
 
           <div className="modal-footer" closeIcon={false}>
             <StyledButton
-              reject
+              rate
               onClick={() => {
                 setSelectedPage('second');
               }}
             >
-              {rejectLabel}
+              {rateLabel}
             </StyledButton>
           </div>
           <div className="modal-footer" closeIcon={false}>
@@ -66,33 +67,34 @@ const RejectModal = ({
         <MainContainer>
           <ReasonContextContainer>
             <TextContainer>
-              <StyledText>Lütfen Red Sebebinizi Seçiniz</StyledText>
+              <StyledText>Puan & Yorum</StyledText>
             </TextContainer>
-            <ReasonContainer>
-              <Reason>Lokasyon Uzak Lokasyon UzakLokasyon Uzak</Reason>
-              <Reason>Lokasyon Uzak</Reason>
-
-              <Reason>Lokasyon Uzak</Reason>
-
-              <Reason>Lokasyon Uzak</Reason>
-
-              <Reason>Lokasyon Uzak</Reason>
-
-              <Reason>Lokasyon Uzak</Reason>
-
-              <Reason>Lokasyon Uzak</Reason>
-            </ReasonContainer>
+            <StarContainer>Yıldız Veriniz :</StarContainer>
+            <Material.TextField
+              style={{ margin: '20px 0' }}
+              label="Yorumnuzu giriniz..."
+              type="text"
+              name="comment"
+            />
           </ReasonContextContainer>
 
-          <div className="modal-footer" closeIcon={false}>
-            <StyledButton
+          <ModalFooter>
+            <FooterButton
               onClick={() => {
-                reject();
+                cancel();
+              }}
+            >
+              VAZGEÇ
+            </FooterButton>
+            <FooterButton
+              rate
+              onClick={() => {
+                rate();
               }}
             >
               GÖNDER
-            </StyledButton>
-          </div>
+            </FooterButton>
+          </ModalFooter>
         </MainContainer>
       );
       break;
@@ -135,11 +137,11 @@ const IconContainer = styled.div`
   width: 120px;
   height: 120px;
   border-radius: 200px;
-  background: #f01c62;
+  background: var(--blue);
 `;
 const StyledButton = styled(Link)`
   font-size: 1.2rem;
-  color: ${(p) => (p.reject ? '#F01C62' : 'black')};
+  color: ${(p) => (p.rate ? 'var(--blue)' : 'black')};
   text-align: center;
   display: block;
   width: 100%;
@@ -166,33 +168,35 @@ const ReasonContextContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 50vw;
-
+  padding: 30px;
   @media ${device.sm} {
-    padding: 20px 0;
     width: 90vw;
-    overflow: scroll;
   }
 `;
-const ReasonContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-  margin-bottom: 20px;
-`;
-const Reason = styled.text`
-  border-style: solid;
-  border-width: 1px;
-  border-color: var(--blue);
-  border-radius: 15px;
-  padding: 10px;
-  margin: 5px;
-`;
+
 const TextContainer = styled.div`
   width: 100%;
   margin-bottom: 20px;
 `;
 const StyledText = styled.text`
   font-family: 'Poppins', sans-serif;
-  font-size: 18px;
+  font-size: 20px;
+  color: var(--blue);
 `;
-export default RejectModal;
+const ModalFooter = styled.div`
+  display: flex;
+  width: 100%;
+`;
+const FooterButton = styled.button`
+  font-size: 1.2rem;
+  color: ${(p) => (p.rate ? 'white' : 'black')};
+  text-align: center;
+  display: block;
+  width: 50%;
+  background: ${(p) => (p.rate ? 'var(--blue)' : 'white')};
+  padding: 10px;
+`;
+const StarContainer = styled.div`
+  display: flex;
+`;
+export default RateModal;

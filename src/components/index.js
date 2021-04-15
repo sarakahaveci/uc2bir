@@ -59,6 +59,7 @@ export { default as AddExercise } from './AddExercise';
 export { default as ApproveCard } from './ApproveCard';
 export { default as ApproveModal } from './ApproveModal';
 export { default as RejectModal } from './RejectModal';
+export { default as RateModal } from './RateModal';
 
 export { default as CustomProgress } from './CustomProgress';
 export { default as Tabbar } from './Tabbar';

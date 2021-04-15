@@ -78,6 +78,10 @@ const Awaitings = () => {
         </StyledCol>
       </StyledRow>
       <RejectModal
+        headerText="Rezervasyonu reddetmek istediğinize emin misiniz?"
+        descText="24 Kasım Çarşamba, saat 16:00 - 17:00 için gelen rezervasyon talebiniz reddedilecektir."
+        cancelLabel="VAZGEÇ"
+        rejectLabel="REDDET"
         open={openReject}
         reject={() => {
           setOpenReject(false);

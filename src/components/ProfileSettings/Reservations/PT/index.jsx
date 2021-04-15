@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { getSessionTypes } from 'actions';
-import { useDispatch } from 'react-redux';
 
 import { getGeocode } from 'use-places-autocomplete';
 import Awaitings from './Awaitings';
@@ -10,18 +8,16 @@ import SessionHistory from './SessionHistory';
 import Rejecteds from './Rejecteds';
 import styled from 'styled-components/macro';
 import { Tabbar, Svg } from 'components';
-
+import ReservationTemplate from '../ReservationTemplate/ReservationTemplate';
 const PT = () => {
-  const dispatch = useDispatch();
   const [tab, setTab] = useState('Awaitings');
+  const [subPage, setSubPage] = useState();
 
   useEffect(() => {
     getGeocode();
   }, []);
 
-  useEffect(() => {
-    dispatch(getSessionTypes());
-  }, []);
+  useEffect(() => {}, []);
 
   let content;
   switch (tab) {
@@ -46,26 +42,37 @@ const PT = () => {
 
   return (
     <Container>
-      <Tabbar
-        defaultSelected="Awaitings"
-        onSelect={(value) => {
-          setTab(value);
-        }}
-        tabs={[
-          { text: 'ONAYDAKİLER', value: 'Awaitings' },
-          { text: 'TAKVİMİM', value: 'Calendar' },
-          { text: 'ONAYLANANLAR', value: 'Approved' },
-          { text: 'REDDEDİLENLER', value: 'Rejecteds' },
-          { text: 'DERS GEÇMİŞİ', value: 'SessionHistory' },
-        ]}
-        rightButton={
-          <DateCreateButton>
-            <Svg.PlusIcon />
-            <ButtonText>Takvim Oluştur</ButtonText>
-          </DateCreateButton>
-        }
-      ></Tabbar>
-      {content}
+      {subPage ? ( //Alt Pageler burada route edilecektir
+        subPage
+      ) : (
+        //Aşagıdaki routing tablerde gezinmek içindir.
+        <>
+          <Tabbar
+            defaultSelected="Awaitings"
+            onSelect={(value) => {
+              setTab(value);
+            }}
+            tabs={[
+              { text: 'ONAYDAKİLER', value: 'Awaitings' },
+              { text: 'TAKVİMİM', value: 'Calendar' },
+              { text: 'ONAYLANANLAR', value: 'Approved' },
+              { text: 'REDDEDİLENLER', value: 'Rejecteds' },
+              { text: 'DERS GEÇMİŞİ', value: 'SessionHistory' },
+            ]}
+            rightButton={
+              <DateCreateButton
+                onClick={() => {
+                  setSubPage(<ReservationTemplate />);
+                }}
+              >
+                <Svg.PlusIcon />
+                <ButtonText>Takvim Oluştur</ButtonText>
+              </DateCreateButton>
+            }
+          ></Tabbar>
+          {content}
+        </>
+      )}
     </Container>
   );
 };

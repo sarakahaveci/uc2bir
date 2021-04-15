@@ -105,6 +105,7 @@ import SessionTypeOnline from './images/session_type/online.svg';
 import SessionTypePark from './images/session_type/park.svg';
 import SessionTypeClinic from './images/session_type/clinic.svg';
 import Reject from './images/reject.svg';
+import Approve from './images/approve.svg';
 
 import WhitePencil from './images/white-pencil.svg';
 
@@ -202,6 +203,7 @@ const Svg = {
   Difficulty: (props) => <ReactSVG {...props} src={Difficulty} />,
   Break: (props) => <ReactSVG {...props} src={Break} />,
   Reject: (props) => <ReactSVG {...props} src={Reject} />,
+  Approve: (props) => <ReactSVG {...props} src={Approve} />,
 
   SessionType: {
     Gym: (props) => <ReactSVG {...props} src={SessionTypeGym} />,

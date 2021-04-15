@@ -32,6 +32,11 @@ const ApproveCard = ({
     case 'rejecteds':
       buttonGroup = <>Reddedildi</>;
       break;
+    case 'history':
+      buttonGroup = (
+        <HistoryButton onClick={onApprove}>Öğrenciyi Puanla</HistoryButton>
+      );
+      break;
     default:
       break;
   }
@@ -179,6 +184,26 @@ const ApproveButton = styled.button`
   background: transparent;
   text-decoration: underline;
   white-space: nowrap;
+  @media ${device.sm} {
+    width: 90px;
+    height: 17px;
+    font-size: 10px;
+    border-radius: 4px;
+  }
+`;
+const HistoryButton = styled.button`
+  height: 34px;
+  background: white;
+  padding: 5px;
+  background-color: white;
+  color: var(--blue);
+  border-radius: 5px;
+  font-weight: bold;
+  margin-right: 10px;
+  white-space: nowrap;
+  border-style: solid;
+  border-width: 1px;
+  border-color: var(--blue);
   @media ${device.sm} {
     width: 90px;
     height: 17px;

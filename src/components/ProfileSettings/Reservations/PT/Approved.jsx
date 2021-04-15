@@ -70,6 +70,10 @@ const Approved = () => {
         </StyledCol>
       </StyledRow>
       <RejectModal
+        headerText="Rezervasyon saatinize 3 saatten az kaldı."
+        descText="Rezervasyon saatinize 3 saatten az kaldı. İptal etmeniz durumunda 100 TL ceza olarak nakit bakiyenize yansıtılacaktır."
+        rejectLabel="RANDEVUMU İPTAL ET"
+        cancelLabel="VAZGEÇ"
         open={openReject}
         reject={() => {
           setOpenReject(false);
