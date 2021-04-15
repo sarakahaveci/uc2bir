@@ -2,18 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import ReservationAccordion from '../ReservationAccordion';
 import styled from 'styled-components/macro';
-import {
-  ApproveCard,
-  DatePicker,
-  RejectModal,
-  ApproveModal,
-  Svg,
-} from 'components';
+import { ApproveCard, DatePicker, RateModal, Svg } from 'components';
 import { device } from 'utils';
-const Awaitings = () => {
+const SessionHistory = () => {
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
-  const [openApprove, setOpenApprove] = useState(false);
-  const [openReject, setOpenReject] = useState(false);
+  const [openRateModal, setOpenRateModal] = useState(false);
 
   useEffect(() => {
     if (window.innerWidth <= 760) {
@@ -42,21 +35,11 @@ const Awaitings = () => {
                 >
                   <ApproveCardContainer>
                     <ApproveCard
-                      date="16:00 - 18:00"
-                      customerName="Ali Veli"
-                      optionalField_1="FİTNESS"
-                      optionalField_2={{
-                        label: 'SALON',
-                        value: 'ŞAVKAR ARENA',
-                      }}
-                      optionalField_3={{
-                        value: '1020 sokak no 56 Mardin Midyat',
-                      }}
+                      type="history"
+                      date="18:00 - 19:00"
+                      customerName="Ahmet Mehmet"
                       onApprove={() => {
-                        setOpenApprove(true);
-                      }}
-                      onReject={() => {
-                        setOpenReject(true);
+                        setOpenRateModal(true);
                       }}
                     />
                   </ApproveCardContainer>
@@ -86,26 +69,16 @@ const Awaitings = () => {
           </DateContainer>
         </StyledCol>
       </StyledRow>
-      <RejectModal
-        headerText="Rezervasyonu reddetmek istediğinize emin misiniz?"
-        descText="24 Kasım Çarşamba, saat 16:00 - 17:00 için gelen rezervasyon talebiniz reddedilecektir."
+      <RateModal
+        descText="Faruk Kale isimli öğrencinizi puanlamak ister misiniz?"
+        rateLabel="PUANLA"
         cancelLabel="VAZGEÇ"
-        rejectLabel="REDDET"
-        open={openReject}
-        reject={() => {
-          setOpenReject(false);
+        open={openRateModal}
+        rate={() => {
+          setOpenRateModal(false);
         }}
         cancel={() => {
-          setOpenReject(false);
-        }}
-      />
-      <ApproveModal
-        open={openApprove}
-        approve={() => {
-          setOpenApprove(false);
-        }}
-        cancel={() => {
-          setOpenApprove(false);
+          setOpenRateModal(false);
         }}
       />
     </StyledContainer>
@@ -149,4 +122,4 @@ const StyledContainer = styled(Container)`
     padding: 0;
   }
 `;
-export default Awaitings;
+export default SessionHistory;

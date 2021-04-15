@@ -5,7 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Title } from 'components';
 import { getUserKeys } from 'actions';
 import Pt from './PT';
-import DIETIAN from './DIETIAN';
+import DIETITIAN from './DIETITIAN';
+import GYM from './GYM';
 
 import * as KEYS from '../../../constants/userKeys';
 
@@ -37,11 +38,14 @@ const Reservations = () => {
 
   switch (type[0]?.key) {
     case KEYS.DIETIAN:
-      content = <DIETIAN />;
+      content = <DIETITIAN />;
       break;
 
     case KEYS.PT:
       content = <Pt />;
+      break;
+    case KEYS.GYM:
+      content = <GYM />;
       break;
 
     default:

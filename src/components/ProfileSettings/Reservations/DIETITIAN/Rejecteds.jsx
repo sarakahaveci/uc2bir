@@ -10,7 +10,7 @@ import {
   Svg,
 } from 'components';
 import { device } from 'utils';
-const Awaitings = () => {
+const Rejecteds = () => {
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
   const [openApprove, setOpenApprove] = useState(false);
   const [openReject, setOpenReject] = useState(false);
@@ -42,16 +42,9 @@ const Awaitings = () => {
                 >
                   <ApproveCardContainer>
                     <ApproveCard
-                      date="16:00 - 18:00"
-                      customerName="Ali Veli"
-                      optionalField_1="FİTNESS"
-                      optionalField_2={{
-                        label: 'SALON',
-                        value: 'ŞAVKAR ARENA',
-                      }}
-                      optionalField_3={{
-                        value: '1020 sokak no 56 Mardin Midyat',
-                      }}
+                      type="rejecteds"
+                      date="18:00 - 19:00"
+                      customerName="Ahmet Mehmet"
                       onApprove={() => {
                         setOpenApprove(true);
                       }}
@@ -60,6 +53,7 @@ const Awaitings = () => {
                       }}
                     />
                   </ApproveCardContainer>
+                  <ApproveCard type="rejecteds" />
                 </ReservationAccordion>
                 <ReservationAccordion
                   miniIcon={<Svg.SessionType.Park />}
@@ -87,10 +81,6 @@ const Awaitings = () => {
         </StyledCol>
       </StyledRow>
       <RejectModal
-        headerText="Rezervasyonu reddetmek istediğinize emin misiniz?"
-        descText="24 Kasım Çarşamba, saat 16:00 - 17:00 için gelen rezervasyon talebiniz reddedilecektir."
-        cancelLabel="VAZGEÇ"
-        rejectLabel="REDDET"
         open={openReject}
         reject={() => {
           setOpenReject(false);
@@ -149,4 +139,4 @@ const StyledContainer = styled(Container)`
     padding: 0;
   }
 `;
-export default Awaitings;
+export default Rejecteds;

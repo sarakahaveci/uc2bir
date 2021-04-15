@@ -42,16 +42,8 @@ const Awaitings = () => {
                 >
                   <ApproveCardContainer>
                     <ApproveCard
-                      date="16:00 - 18:00"
-                      customerName="Ali Veli"
-                      optionalField_1="FİTNESS"
-                      optionalField_2={{
-                        label: 'SALON',
-                        value: 'ŞAVKAR ARENA',
-                      }}
-                      optionalField_3={{
-                        value: '1020 sokak no 56 Mardin Midyat',
-                      }}
+                      date="18:00 - 19:00"
+                      customerName="Ahmet Mehmet"
                       onApprove={() => {
                         setOpenApprove(true);
                       }}

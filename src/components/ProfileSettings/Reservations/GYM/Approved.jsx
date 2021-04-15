@@ -2,17 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import ReservationAccordion from '../ReservationAccordion';
 import styled from 'styled-components/macro';
-import {
-  ApproveCard,
-  DatePicker,
-  RejectModal,
-  ApproveModal,
-  Svg,
-} from 'components';
+import { ApproveCard, DatePicker, RejectModal, Svg } from 'components';
 import { device } from 'utils';
-const Awaitings = () => {
+const Approved = () => {
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
-  const [openApprove, setOpenApprove] = useState(false);
   const [openReject, setOpenReject] = useState(false);
 
   useEffect(() => {
@@ -42,24 +35,26 @@ const Awaitings = () => {
                 >
                   <ApproveCardContainer>
                     <ApproveCard
-                      date="16:00 - 18:00"
-                      customerName="Ali Veli"
-                      optionalField_1="FİTNESS"
+                      type="approve"
+                      date={'18:00 - 19:00'}
+                      customerName="Ahmet Mehmet"
+                      optionalField_1="FITNESS" //Sport Type || NULL
                       optionalField_2={{
-                        label: 'SALON',
-                        value: 'ŞAVKAR ARENA',
+                        label: 'EĞİTMEN',
+                        value: 'NAZLI GÜMÜŞ',
                       }}
                       optionalField_3={{
-                        value: '1020 sokak no 56 Mardin Midyat',
+                        label: 'SINIF',
+                        value: 'B SINIFI',
+                        value2: '3/7 KONTENJAN',
                       }}
-                      onApprove={() => {
-                        setOpenApprove(true);
-                      }}
+                      onApprove={() => {}}
                       onReject={() => {
                         setOpenReject(true);
                       }}
                     />
                   </ApproveCardContainer>
+                  <ApproveCard />
                 </ReservationAccordion>
                 <ReservationAccordion
                   miniIcon={<Svg.SessionType.Park />}
@@ -87,25 +82,16 @@ const Awaitings = () => {
         </StyledCol>
       </StyledRow>
       <RejectModal
-        headerText="Rezervasyonu reddetmek istediğinize emin misiniz?"
-        descText="24 Kasım Çarşamba, saat 16:00 - 17:00 için gelen rezervasyon talebiniz reddedilecektir."
+        headerText="Rezervasyon saatinize 3 saatten az kaldı."
+        descText="Rezervasyon saatinize 3 saatten az kaldı. İptal etmeniz durumunda 100 TL ceza olarak nakit bakiyenize yansıtılacaktır."
+        rejectLabel="RANDEVUMU İPTAL ET"
         cancelLabel="VAZGEÇ"
-        rejectLabel="REDDET"
         open={openReject}
         reject={() => {
           setOpenReject(false);
         }}
         cancel={() => {
           setOpenReject(false);
-        }}
-      />
-      <ApproveModal
-        open={openApprove}
-        approve={() => {
-          setOpenApprove(false);
-        }}
-        cancel={() => {
-          setOpenApprove(false);
         }}
       />
     </StyledContainer>
@@ -149,4 +135,4 @@ const StyledContainer = styled(Container)`
     padding: 0;
   }
 `;
-export default Awaitings;
+export default Approved;

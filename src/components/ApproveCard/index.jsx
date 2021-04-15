@@ -4,6 +4,12 @@ import Svg from '../statics/svg';
 import { device } from 'utils';
 
 const ApproveCard = ({
+  customerName = '',
+  date = '',
+
+  optionalField_1 = null,
+  optionalField_2 = null,
+  optionalField_3 = null,
   onApprove = () => {},
   onReject = () => {},
   type = 'await',
@@ -40,6 +46,28 @@ const ApproveCard = ({
     default:
       break;
   }
+
+  function _renderField_3() {
+    if (optionalField_3?.value2) {
+      return (
+        <>
+          <AdressText>
+            {optionalField_3.label}: {optionalField_3.value}{' '}
+            {optionalField_3.value2}
+          </AdressText>
+        </>
+      );
+    } else if (optionalField_3?.value) {
+      return (
+        <>
+          <Svg.LocationIcon></Svg.LocationIcon>
+          <AdressText>{optionalField_3?.value}</AdressText>
+        </>
+      );
+    } else {
+      return null;
+    }
+  }
   return (
     <Container>
       <Row>
@@ -47,29 +75,34 @@ const ApproveCard = ({
           <Svg.ClockIcon
             style={{ marginRight: '9px', marginBottom: '2px' }}
           ></Svg.ClockIcon>
-          <BoldText>08:00 - 09:00</BoldText>
+          <BoldText>{date}</BoldText>
         </Column>
-        <Seperator></Seperator>
-        <Column>
-          <BoldText>FITNESS</BoldText>
-        </Column>
-        <Seperator></Seperator>
+        {optionalField_1 && (
+          <>
+            <Seperator></Seperator>
+            <Column>
+              <BoldText>{optionalField_1}</BoldText>
+            </Column>
+            <Seperator></Seperator>
+          </>
+        )}
         <FlexSpace position={'END'}>
           <Dot />
-          <BoldText>Faruk Kale</BoldText>
+          <BoldText>{customerName}</BoldText>
         </FlexSpace>
       </Row>
 
-      <Row>
-        <Column>
-          <BoldText>SALON: FIGHTNING FIT CLUB</BoldText>
-        </Column>
-      </Row>
+      {optionalField_2 && (
+        <Row>
+          <Column>
+            <BoldText>
+              {optionalField_2.label}: {optionalField_2.value}
+            </BoldText>
+          </Column>
+        </Row>
+      )}
       <Row borderDisable>
-        <FlexSpace>
-          <Svg.LocationIcon></Svg.LocationIcon>
-          <AdressText>Denemememmejsad saokdk asokdo</AdressText>
-        </FlexSpace>
+        <FlexSpace>{_renderField_3()}</FlexSpace>
         <Seperator></Seperator>
 
         <Column>{buttonGroup}</Column>
