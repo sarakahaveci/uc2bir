@@ -7,6 +7,8 @@ export default function ReservationAccordion({
   title,
   children,
   parent = false,
+  accordionBackground ='',
+  accordionRadius='10px',
   defaultOpen = false,
   miniIcon = <></>,
   ...restProps
@@ -14,11 +16,13 @@ export default function ReservationAccordion({
   const [toggleState, setToggleState] = useState(defaultOpen);
   return (
     <Accordion>
-      <AccordionItemWrapper parent={parent} {...restProps}>
+      <AccordionItemWrapper parent={parent} {...restProps}  accordionRadius={accordionRadius} accordionBackground={accordionBackground}>
         <Accordion.Item defaultOpen={defaultOpen}>
           <Accordion.Toggle
             onToggle={(state) => setToggleState(state)}
             className="accordion-toggler"
+
+
           >
             <div style={{ display: 'flex', alignItems: 'center' }}>
               {miniIcon}
@@ -50,9 +54,9 @@ const AccordionItemWrapper = styled.div`
 
   .accordion-toggler {
     display: flex;
-    background: ${(p) => (p.parent ? '#EFEFEF' : '#F8F8F8')};
+    background: ${(p) => (p.parent ? '#EFEFEF' : p.accordionBackground? p.accordionBackground :'#F8F8F8')};
     justify-content: space-between;
-    border-radius: 10px;
+    border-radius:  ${(p) => (p.accordionRadius ? p.accordionRadius : '10px')};
     padding: 15px;
     margin-bottom: 10px;
   }

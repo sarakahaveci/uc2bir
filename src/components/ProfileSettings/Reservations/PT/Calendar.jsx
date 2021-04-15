@@ -117,41 +117,37 @@ const Calendar = () => {
             <DateContainer>
               <AppointmentDate>
                 <Row>
-                  <Col lg={11}>
-                    <Title textAlign={'left'} >Rezervasyon Tarihi</Title>
-                  </Col>
+                  <ReservationAccordion title="Rezervasyon Tarihi" accordionBackground={'#FFFFFF'} accordionRadius={'20px'}>
+                    <hr style={{marginTop:'0px'}}/>
+                    <Row style={{padding:'10px'}}>
+                      <Col lg={2}>
+                        <Text color="dark" fontWeight="500" fontSize="0.9rem">
+                          1 Ders
+                        </Text>
 
-                  <Col lg={1}>
-                    <ArrowDown/>
-                  </Col>
+                      </Col>
+                      <Col lg={1}>
+                        <Seperator/>
+                      </Col>
+                      <Col lg={8}>
+                        <ReservationText>
+                          <Calender/>
+                          <Text color="#707070" fontWeight="200" >
+                            21 Kasım Çarşamba Saat 10:00 - 11:00
+                          </Text>
+                        </ReservationText>
+                      </Col>
+                      <Col lg={1}>
+                        <Trash/>
+                      </Col>
 
-                </Row>
-                  <hr/>
-                <Row >
-                  <Col lg={2}>
-                      <Text color="dark" fontWeight="500" fontSize="0.9rem">
-                       1 Ders
-                      </Text>
+                    </Row>
 
-                  </Col>
-                  <Col lg={1}>
-                    <Text color="#707070" fontWeight="200" >
-                      |
-                    </Text>
-                  </Col>
-                  <Col lg={8}>
-                    <ReservationText>
-                      <Calender/>
-                      <Text color="#707070" fontWeight="200" >
-                        21 Kasım Çarşamba Saat 10:00 - 11:00
-                      </Text>
-                    </ReservationText>
-                  </Col>
-                  <Col lg={1}>
-                    <Trash/>
-                  </Col>
+                  </ReservationAccordion>
+
 
                 </Row>
+
 
               </AppointmentDate>
 
@@ -264,22 +260,18 @@ const DateContainer = styled.div`
 `;
 
 const AppointmentDate = styled.div`
-  width: 552px;
-  height: 138px;
+  
   background: #FFFFFF;
   border: 2px solid #C6C6C6;
   border-radius: 20px;
   margin: 17px;
-  padding: 25px;
+  padding-left: 15px;
+  padding-right: 15px;
   flex-direction: column;
   @media ${device.sm}  {
     height: 95px;
     width: 290px;
   }
-`;
-
-const ArrowDown = styled(Svg.ArrowDownIcon)`
-  fill: #00B2A9;
 `;
 
 const ReservationText = styled.div`
@@ -302,6 +294,13 @@ const AcceptButton = styled.div`
   }
 `;
 
+const Seperator = styled.div`
+  display: flex;
+  width: 1px;
+  height: 60%;
+  margin-top: 6px;
+  background-color: rgba(197, 196, 196, 0.5);
+`;
 
 const AccordionContainer = styled.div`
   display: flex;
