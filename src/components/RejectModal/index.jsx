@@ -12,7 +12,9 @@ const RejectModal = ({ open, reject, cancel }) => {
       content = (
         <MainContainer>
           <ContextContainer>
-            <Svg.SuccessIcon />
+            <IconContainer>
+              <Svg.Reject />
+            </IconContainer>
 
             <Text
               variant="h2"
@@ -119,6 +121,15 @@ const MainContainer = styled.div`
     overflow: scroll;
   }
 `;
+const IconContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+  border-radius: 200px;
+  background: #f01c62;
+`;
 const StyledButton = styled(Link)`
   font-size: 1.2rem;
   color: ${(p) => (p.reject ? '#F01C62' : 'black')};
@@ -138,9 +149,7 @@ const ContextContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding: 60px 110px 30px;
-  svg {
-    margin-bottom: 15px;
-  }
+
   @media ${device.sm} {
     padding: 20px 0;
     width: 80vw;

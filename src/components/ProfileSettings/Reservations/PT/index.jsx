@@ -9,11 +9,11 @@ import Calendar from './Calendar';
 import SessionHistory from './SessionHistory';
 import Rejecteds from './Rejecteds';
 import styled from 'styled-components/macro';
-import { Tabbar } from 'components';
+import { Tabbar, Svg } from 'components';
 
 const PT = () => {
   const dispatch = useDispatch();
-  const [page, setPage] = useState('Awaitings');
+  const [tab, setTab] = useState('Awaitings');
 
   useEffect(() => {
     getGeocode();
@@ -24,7 +24,7 @@ const PT = () => {
   }, []);
 
   let content;
-  switch (page) {
+  switch (tab) {
     case 'Awaitings':
       content = <Awaitings />;
       break;
@@ -49,7 +49,7 @@ const PT = () => {
       <Tabbar
         defaultSelected="Awaitings"
         onSelect={(value) => {
-          setPage(value);
+          setTab(value);
         }}
         tabs={[
           { text: 'ONAYDAKİLER', value: 'Awaitings' },
@@ -58,6 +58,12 @@ const PT = () => {
           { text: 'REDDEDİLENLER', value: 'Rejecteds' },
           { text: 'DERS GEÇMİŞİ', value: 'SessionHistory' },
         ]}
+        rightButton={
+          <DateCreateButton>
+            <Svg.PlusIcon />
+            <ButtonText>Takvim Oluştur</ButtonText>
+          </DateCreateButton>
+        }
       ></Tabbar>
       {content}
     </Container>
@@ -68,4 +74,20 @@ const Container = styled.div`
   width: 100%;
   flex-direction: column;
 `;
+
+const DateCreateButton = styled.button`
+  display: flex;
+  align-items: center;
+  width: 219px;
+  height: 32px;
+  background: red;
+  margin-top: 7px;
+  border-radius: 20px;
+  background: var(--blue);
+`;
+const ButtonText = styled.text`
+  color: white;
+  margin-left: 10px;
+`;
+
 export default PT;

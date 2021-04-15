@@ -22,10 +22,10 @@ const ApproveCard = ({
     case 'approve':
       buttonGroup = (
         <>
-          <ApproveButton reject onClick={onApprove}>
+          <ApproveButton reject onClick={onReject}>
             İptal Et
           </ApproveButton>
-          <ApproveButton onClick={onReject}>Randevu Detayı</ApproveButton>
+          <ApproveButton onClick={onApprove}>Randevu Detayı</ApproveButton>
         </>
       );
       break;

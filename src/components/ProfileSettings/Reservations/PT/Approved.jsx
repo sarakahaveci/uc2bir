@@ -2,17 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import ReservationAccordion from '../ReservationAccordion';
 import styled from 'styled-components/macro';
-import {
-  ApproveCard,
-  DatePicker,
-  RejectModal,
-  ApproveModal,
-  Svg,
-} from 'components';
+import { ApproveCard, DatePicker, RejectModal, Svg } from 'components';
 import { device } from 'utils';
 const Approved = () => {
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
-  const [openApprove, setOpenApprove] = useState(false);
   const [openReject, setOpenReject] = useState(false);
 
   useEffect(() => {
@@ -43,9 +36,7 @@ const Approved = () => {
                   <ApproveCardContainer>
                     <ApproveCard
                       type="approve"
-                      onApprove={() => {
-                        setOpenApprove(true);
-                      }}
+                      onApprove={() => {}}
                       onReject={() => {
                         setOpenReject(true);
                       }}
@@ -85,15 +76,6 @@ const Approved = () => {
         }}
         cancel={() => {
           setOpenReject(false);
-        }}
-      />
-      <ApproveModal
-        open={openApprove}
-        approve={() => {
-          setOpenApprove(false);
-        }}
-        cancel={() => {
-          setOpenApprove(false);
         }}
       />
     </StyledContainer>

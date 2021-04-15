@@ -1,23 +1,33 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/macro';
 import { device } from 'utils';
-const Tabbar = ({ onSelect = () => {}, defaultSelected = null, tabs = [] }) => {
+const Tabbar = ({
+  onSelect = () => {},
+  defaultSelected = null,
+  tabs = [],
+  rightButton = <></>,
+}) => {
   const [selectedValue, setSelectedValue] = useState(defaultSelected);
 
   return (
-    <Container>
-      {tabs.map((elm, index) => (
-        <Tab
-          onClick={() => {
-            setSelectedValue(elm.value);
-            onSelect(elm.value);
-          }}
-          key={index}
-        >
-          <BoldText selected={selectedValue == elm.value}>{elm.text}</BoldText>
-        </Tab>
-      ))}
-    </Container>
+    <>
+      <Container>
+        {tabs.map((elm, index) => (
+          <Tab
+            onClick={() => {
+              setSelectedValue(elm.value);
+              onSelect(elm.value);
+            }}
+            key={index}
+          >
+            <BoldText selected={selectedValue == elm.value}>
+              {elm.text}
+            </BoldText>
+          </Tab>
+        ))}
+        {rightButton}
+      </Container>
+    </>
   );
 };
 const Container = styled.div`
