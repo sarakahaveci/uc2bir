@@ -1,15 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import ReservationAccordion from '../ReservationAccordion';
-import {Box, DatePicker, Material, ReservationHourButton, Span, Title } from '../../../index';
+import {
+  Box,
+  DatePicker,
+  Material,
+  ReservationHourButton,
+  Span,
+  Title,
+  Button,
+  Text,
+  ApproveModal,
+} from '../../../index';
 import styled from 'styled-components/macro';
 import { AVAILABLE_HOURS, branchData, sessionData, salonData} from '../../../../constants';
 import { device } from '../../../../utils';
-
+import image from '../../../../assets/wave-background.png';
+import Svg from '../../../statics/svg';
 
 const Calendar = () => {
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
   const [activePage, setActivePage] = useState('index');
+  const [openApprove, setOpenApprove] = useState(false);
   useEffect(() => {
     if (window.innerWidth <= 760) {
       setIsSmallScreen(true);
@@ -20,6 +32,15 @@ const Calendar = () => {
   let data = ['dsd', 'ds'];
   return(
     <Container>
+      <ApproveModal
+        open={openApprove}
+        approve={() => {
+          setOpenApprove(false);
+        }}
+        cancel={() => {
+          setOpenApprove(false);
+        }}
+      />
       {activePage ==='create' ?(
         <Row>
             <Col xs={{ order: IsSmallScreen ? 2 : 1 }} lg={6}>
@@ -94,6 +115,57 @@ const Calendar = () => {
                xs={{ order: IsSmallScreen ? 1 : 2 }}
                lg={6}>
             <DateContainer>
+              <AppointmentDate>
+                <Row>
+                  <Col lg={11}>
+                    <Title textAlign={'left'} >Rezervasyon Tarihi</Title>
+                  </Col>
+
+                  <Col lg={1}>
+                    <ArrowDown/>
+                  </Col>
+
+                </Row>
+                  <hr/>
+                <Row >
+                  <Col lg={2}>
+                      <Text color="dark" fontWeight="500" fontSize="0.9rem">
+                       1 Ders
+                      </Text>
+
+                  </Col>
+                  <Col lg={1}>
+                    <Text color="#707070" fontWeight="200" >
+                      |
+                    </Text>
+                  </Col>
+                  <Col lg={8}>
+                    <ReservationText>
+                      <Calender/>
+                      <Text color="#707070" fontWeight="200" >
+                        21 Kasım Çarşamba Saat 10:00 - 11:00
+                      </Text>
+                    </ReservationText>
+                  </Col>
+                  <Col lg={1}>
+                    <Trash/>
+                  </Col>
+
+                </Row>
+
+              </AppointmentDate>
+
+              <AcceptButton src={image}>
+                <Button
+                  onClick={()=>setOpenApprove(true)}
+                  text="Tamamla"
+                  className="blue"
+                  width={'496px'}
+                  height={'66px'}
+                />
+
+              </AcceptButton>
+
             </DateContainer>
           </Col>
         </Row>
@@ -119,7 +191,7 @@ const Calendar = () => {
                         />
                       ))}
 
-                      <Button onClick={()=>setActivePage('showAvailableHour')}>Boş Saatlerimi Gör</Button>
+                      <AvailableButton onClick={()=>setActivePage('showAvailableHour')}>Boş Saatlerimi Gör</AvailableButton>
 
                     </Box>
                   </ReservationAccordion>
@@ -176,8 +248,61 @@ const Calendar = () => {
 };
 
 const DateContainer = styled.div`
-  width: 100%;
+  width: 586px;
+  height: 326px;
+  background: #F8F8F8;
+  border-radius: 20px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
+  @media ${device.sm}  {
+    height: 190px;
+    width: 310px;
+  }
 `;
+
+const AppointmentDate = styled.div`
+  width: 552px;
+  height: 138px;
+  background: #FFFFFF;
+  border: 2px solid #C6C6C6;
+  border-radius: 20px;
+  margin: 17px;
+  padding: 25px;
+  flex-direction: column;
+  @media ${device.sm}  {
+    height: 95px;
+    width: 290px;
+  }
+`;
+
+const ArrowDown = styled(Svg.ArrowDownIcon)`
+  fill: #00B2A9;
+`;
+
+const ReservationText = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const AcceptButton = styled.div`
+  width: 586px;
+  height: 135px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  background-color: #FFFFFF;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  @media ${device.sm}  {
+    height: 95px;
+    width: 310px;
+  }
+`;
+
+
 const AccordionContainer = styled.div`
   display: flex;
 `;
@@ -186,9 +311,12 @@ const AppointmentContainer = styled.div`
   width: 100%;
   padding-top: 35px;
   padding-left: 25px;
+  min-height: 400px;
+
+
   .materials {
     margin-bottom: 15px;
-    
+
     label{
       font-size: 15px !important;
     }
@@ -198,7 +326,7 @@ const AppointmentContainer = styled.div`
   }
 `;
 
-const Button = styled.button`
+const AvailableButton = styled.button`
   width: 210px;
   height: 32px;
   background: #f77e0b;
@@ -214,5 +342,15 @@ const Button = styled.button`
     border-radius: 4px;
   }
 `;
+
+const Calender = styled(Svg.CalendarIcon)`
+  margin-top: 3px;
+  margin-right: 5px;
+`;
+
+const Trash = styled(Svg.TrashIcon)`
+  margin-top: 3px;
+`;
+
 
 export default Calendar;
