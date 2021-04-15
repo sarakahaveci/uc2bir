@@ -32,6 +32,7 @@ const Blog = () => {
   const [category_id, setCategory_id] = useState(1);
   const [data, setData] = useState({});
   const [seo, setSeo] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   const { accessToken, user } = useSelector((state) => state.auth);
   const myBlogs = useSelector((state) => state.myBlogs.me);
@@ -63,17 +64,21 @@ const Blog = () => {
     createData.append('category_id', category_id);
     createData.append('detail', detail);
     createData.append('title', title);
+    setLoading(true)
 
     axios({ ...config, data: createData })
       .then(function () {
         dispatch(getMyBlogs());
         setPage('');
+        setFile('')
+        setLoading(false);
         toast.success('Yeni blog eklendi.', {
           position: 'bottom-right',
           autoClose: 2000,
         });
       })
       .catch((err) => {
+        setLoading(false);
         toast.error(
           err.response?.data?.message || 'Blog eklenirken hata oluştu',
           {
@@ -453,7 +458,7 @@ const Blog = () => {
                         style={{ marginTop: 15 }}
                         className="d-flex justify-content-end"
                       >
-                        <Button className="blue" text="Ekle" type="submit" />
+                        <Button className="blue" text="Ekle" type="submit" isLoading={loading} disabled={loading} />
                       </div>
                     </form>
                   </FormGroups>
