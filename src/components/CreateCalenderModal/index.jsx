@@ -8,7 +8,7 @@ const CreateCalenderModal = ({ open, approve = () => {}, cancel = () => {} }) =>
     <Root style={{ display: open ? 'flex' : 'none' }}>
       <MainContainer>
         <ContextContainer>
-          <Svg.SuccessIcon />
+          <Svg.SmileyFaceIcon />
           <Text
             variant="h2"
             fontSize="1.2rem"
