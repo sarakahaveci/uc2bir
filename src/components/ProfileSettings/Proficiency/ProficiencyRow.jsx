@@ -68,7 +68,7 @@ const ProficiencyRow = ({ data }) => {
         (item) => item.name === addedProficiencies[d]
       );
 
-      if (filter.length > 0) {
+      if (filter?.length > 0) {
         const tempValue = addedProficiencies[d];
         var deleted = delete addedProficiencies[d];
         setAddedProficiencies(deleted);
