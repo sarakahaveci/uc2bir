@@ -90,6 +90,7 @@ import Repetition from './images/repetition.svg';
 import Difficulty from './images/difficulty.svg';
 import Break from './images/break.svg';
 import AddClass from './images/add-class.svg';
+import WaveBackground from './images/wave-background.svg';
 
 import AthleticSportIcon from 'assets/sports-type-icons/atletic.svg';
 import FitnessSportIcon from 'assets/sports-type-icons/fitness.svg';
@@ -129,6 +130,7 @@ const Svg = {
   ListItemIcon: (props) => <ReactSVG {...props} src={ListItem} />,
   ArrowDownIcon: (props) => <ReactSVG {...props} src={ArrowDown} />,
   ArrowRightIcon: (props) => <ReactSVG {...props} src={ArrowRight} />,
+  WaveBackgroundIcon: (props) => <ReactSVG {...props} src={WaveBackground} />,
   YogaIcon: (props) => <ReactSVG {...props} src={Yoga} />,
   FitnessIcon: (props) => <ReactSVG {...props} src={Fitness} />,
   PilatesIcon: (props) => <ReactSVG {...props} src={Pilates} />,
