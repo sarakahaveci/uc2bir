@@ -58,6 +58,7 @@ export { default as Lessons } from './Lessons';
 export { default as AddExercise } from './AddExercise';
 export { default as ApproveCard } from './ApproveCard';
 export { default as ApproveModal } from './ApproveModal';
+export { default as CreateCalenderModal } from './CreateCalenderModal';
 export { default as RejectModal } from './RejectModal';
 export { default as RateModal } from './RateModal';
 

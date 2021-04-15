@@ -7,11 +7,12 @@ import Calendar from './Calendar';
 import SessionHistory from './SessionHistory';
 import Rejecteds from './Rejecteds';
 import styled from 'styled-components/macro';
-import { Tabbar, Svg } from 'components';
+import { Tabbar, Svg, CreateCalenderModal } from 'components';
 import ReservationTemplate from '../ReservationTemplate/ReservationTemplate';
 const PT = () => {
   const [tab, setTab] = useState('Awaitings');
   const [subPage, setSubPage] = useState();
+  const [openCreateCalender, setOpenCreateCalender] = useState(false);
 
   useEffect(() => {
     getGeocode();
@@ -62,17 +63,30 @@ const PT = () => {
             rightButton={
               <DateCreateButton
                 onClick={() => {
-                  setSubPage(<ReservationTemplate />);
+                  setOpenCreateCalender(true);
+
                 }}
               >
                 <Svg.PlusIcon />
                 <ButtonText>Takvim Oluştur</ButtonText>
               </DateCreateButton>
             }
-          ></Tabbar>
+          />
           {content}
         </>
       )}
+
+      <CreateCalenderModal
+        open={openCreateCalender}
+        approve={() => {
+          setOpenCreateCalender(false);
+          setSubPage(<ReservationTemplate />);
+        }}
+        cancel={() => {
+          setOpenCreateCalender(false);
+        }}
+      />
+
     </Container>
   );
 };
