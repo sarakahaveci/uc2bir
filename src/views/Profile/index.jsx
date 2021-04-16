@@ -12,7 +12,7 @@ import { Tab, Main } from 'components';
 import ProfileBanner from 'components/banner/profile-banner';
 import Branch from 'components/Profile/Branch';
 import ProfileCertificate from 'components/Profile/ProfileCertificate';
-// import Comment from 'components/Profile/Comment';
+import Comment from 'components/Profile/Comment';
 import Place from 'components/Profile/Place';
 import DietitionPlace from 'components/Profile/Dietition/DietitionPlace';
 import DietitionSpeciality from 'components/Profile/Dietition/DietitionSpeciality';
@@ -63,16 +63,16 @@ export default function Profile({ match }) {
           <Place userId={match?.params?.id} />
         ),
     },
-    /*   {
-      eventKey: 'calendar',
-      title: 'TAKVİM',
-      component: <MyCalendar userId={match?.params?.id} />,
-    }, */
-    /*  {
+    //    {
+    //   eventKey: 'calendar',
+    //   title: 'TAKVİM',
+    //   component: <MyCalendar userId={match?.params?.id} />,
+    // },
+      {
       eventKey: 'comments',
       title: 'YORUMLAR',
       component: <Comment userId={match?.params?.id} />,
-    }, */
+    },
     {
       eventKey: 'gallery',
       title: 'GALERİ',
