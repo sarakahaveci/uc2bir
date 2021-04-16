@@ -5,7 +5,6 @@ import { Text, Button, Svg, Stars } from 'components';
 
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { device } from 'utils';
 
 import Card, { CardFooter, CardInfo } from './Card';
 
@@ -13,40 +12,52 @@ import defaultImg from '../../../assets/default-profile.jpg';
 
 const ProfileBanner = ({ className = null, info, categories = [], about }) => {
   const reservationAction = () => {};
+  let jobType;
+  if (info?.type_id) {
+    if (info?.type_id == 1) {
+      jobType == 'Diyetisten';
+    } else if (info?.type_id == 2) {
+      jobType == 'Spor Eğitmeni';
+    } else if (info?.type_id == 2) {
+      jobType == 'Spor Alanı';
+    }
+  }
   return (
     <Containers className={className}>
       <Rows>
-        <Card img={defaultImg}>
-          <span className="team">{info.team}</span>
-          <span className="span">
-            <Svg.Heart />
-          </span>
+        <Cols lg={4}>
+          <Card img={defaultImg}>
+            <span className="team">{info.team}</span>
+            <span className="span">
+              <Svg.Heart />
+            </span>
 
-          <Stars rating={info.stars} position="bottom" />
+            <Stars rating={info.stars} position="bottom" />
 
-          <CardFooter>
-            <Comment to={info.comment} className="list">
-              <Svg.Comment />
-            </Comment>
-            <Button
-              onClick={reservationAction}
-              text="Rezervasyon Yap"
-              className="blue list"
-              style={{ fontSize: '9pt' }}
-            ></Button>
-          </CardFooter>
-        </Card>
-        <Cols padding="0 30px">
+            <CardFooter>
+              <Comment to={info.comment} className="list">
+                <Svg.Comment />
+              </Comment>
+              <Button
+                onClick={reservationAction}
+                text="Rezervasyon Yap"
+                className="blue list"
+                style={{ fontSize: '9pt' }}
+              ></Button>
+            </CardFooter>
+          </Card>
+        </Cols>
+        <Cols lg={4} padding="0 30px">
           <CardInfo
             name={info.name}
             category={info.category}
-            price={info.price}
-            location={info.location}
+            price={info.price || '300'}
             categories={categories}
+            jobType="Fitness Eğitmeni"
+            location="İstanbul / Beşiktaş"
           />
         </Cols>
-        <Line />
-        <Cols>
+        <Cols lg={4}>
           <Text>{about}</Text>
         </Cols>
       </Rows>
@@ -67,24 +78,16 @@ const Rows = styled(Row)`
 
 const Cols = styled(Col)`
   height: auto;
-  word-wrap: break-word;
-  width: 50px;
-  padding: ${(props) => props.padding && props.padding};
-
-  @media ${device.sm} {
-    margin-top: 15px;
-    width: auto;
-  }
 `;
 
-const Line = styled.div`
+/*const Line = styled.div`
   max-width: 1px;
   height: 285px;
   background: #e5e5e5;
   margin-left: 5px;
   margin-right: 5px;
   flex: 1 1 100%;
-`;
+`;*/
 
 const Comment = styled(Link)`
   background: #fff;

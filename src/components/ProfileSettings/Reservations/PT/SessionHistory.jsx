@@ -35,13 +35,14 @@ const SessionHistory = () => {
                 >
                   <ApproveCardContainer>
                     <ApproveCard
+                      date="18:00 - 19:00"
+                      customerName="Ali Veli"
                       type="history"
                       onApprove={() => {
                         setOpenRateModal(true);
                       }}
                     />
                   </ApproveCardContainer>
-                  <ApproveCard type="rejecteds" />
                 </ReservationAccordion>
                 <ReservationAccordion
                   miniIcon={<Svg.SessionType.Park />}

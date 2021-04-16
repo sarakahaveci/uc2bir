@@ -35,6 +35,8 @@ const Approved = () => {
                 >
                   <ApproveCardContainer>
                     <ApproveCard
+                      date="18:00 - 19:00"
+                      customerName="Ali Veli"
                       type="approve"
                       onApprove={() => {}}
                       onReject={() => {
@@ -42,7 +44,6 @@ const Approved = () => {
                       }}
                     />
                   </ApproveCardContainer>
-                  <ApproveCard />
                 </ReservationAccordion>
                 <ReservationAccordion
                   miniIcon={<Svg.SessionType.Park />}

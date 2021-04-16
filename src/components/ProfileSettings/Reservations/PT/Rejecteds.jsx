@@ -42,6 +42,8 @@ const Rejecteds = () => {
                 >
                   <ApproveCardContainer>
                     <ApproveCard
+                      date="18:00 - 19:00"
+                      customerName="Ali Veli"
                       type="rejecteds"
                       onApprove={() => {
                         setOpenApprove(true);
@@ -51,7 +53,6 @@ const Rejecteds = () => {
                       }}
                     />
                   </ApproveCardContainer>
-                  <ApproveCard type="rejecteds" />
                 </ReservationAccordion>
                 <ReservationAccordion
                   miniIcon={<Svg.SessionType.Park />}

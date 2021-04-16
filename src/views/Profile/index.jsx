@@ -5,6 +5,9 @@ import { WORK_PLACE, PERSONAL_TRAINER, DIETITIAN } from '../../constants';
 
 import { getUserInfo } from 'actions';
 import profileImg from 'assets/pt-groups/item-1/04.jpg';
+import profileBannerImg from 'assets/banner/slider-item-1.png';
+import styled from 'styled-components/macro';
+
 import { Tab, Main } from 'components';
 import ProfileBanner from 'components/banner/profile-banner';
 import Branch from 'components/Profile/Branch';
@@ -143,6 +146,8 @@ export default function Profile({ match }) {
     <div>Yükleniyor</div>
   ) : (
     <Main>
+      <img src={profileBannerImg} alt="" className="banner-image" />
+
       <Container>
         <Row>
           <ProfileBanner
@@ -155,13 +160,17 @@ export default function Profile({ match }) {
               stars: userInfo?.rating,
               location: `${userInfo?.district},${userInfo?.city}`,
               comment: '/',
+              type_id: userInfo?.type_id,
             }}
             categories={userInfo?.session || userInfo?.branch}
-            about={userInfo?.about}
+            about={
+              userInfo?.about ||
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum. dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.”'
+            }
           />
         </Row>
       </Container>
-      <div className="col-md-8 col-sm-12 mx-auto tab-wrapper tab-wrapper__shadow">
+      <TabContainers>
         <Tab
           baseUrl={`/user/${match?.params?.id}/`}
           tabData={tabData}
@@ -169,7 +178,12 @@ export default function Profile({ match }) {
             match?.params?.activeTabKey || tabData?.[0]?.eventKey
           }
         />
-      </div>
+      </TabContainers>
     </Main>
   );
 }
+
+const TabContainers = styled.div`
+  min-height: 350px;
+  padding: 30px;
+`;

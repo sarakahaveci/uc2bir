@@ -11,10 +11,23 @@ export const CardInfo = ({
   price,
   categories = [],
   location,
+  jobType,
 }) => {
   return (
     <>
       {name && (
+        <Title
+          variant={'h4'}
+          component={'h4'}
+          textAlign="left"
+          fontWeight="bold"
+          margin="0"
+          lineDisable
+        >
+          {name}
+        </Title>
+      )}
+      {jobType && (
         <Title
           variant={'h5'}
           component={'h5'}
@@ -23,7 +36,7 @@ export const CardInfo = ({
           margin="0"
           lineDisable
         >
-          {name}
+          {jobType}
         </Title>
       )}
       {category && (
