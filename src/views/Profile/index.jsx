@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { WORK_PLACE, PERSONAL_TRAINER, DIETITIAN } from '../../constants';
@@ -26,6 +26,7 @@ import Galery from 'components/Profile/Galery';
 
 export default function Profile({ match }) {
   const dispatch = useDispatch();
+  const [page, setPage] = useState('Start');
   const { userInfo, isLoading } = useSelector(
     (state) => state.userProfile.userInfo
   );
@@ -141,44 +142,58 @@ export default function Profile({ match }) {
     default:
       break;
   }
-
+  let content;
+  switch (page) {
+    case 'Start':
+      content = (
+        <>
+          {' '}
+          <Container>
+            <Row>
+              <ProfileBanner
+                setPage={setPage}
+                info={{
+                  team: userInfo?.classification,
+                  img: userInfo?.photo || profileImg,
+                  name: userInfo?.name,
+                  category: userInfo?.title,
+                  price: userInfo?.price,
+                  stars: userInfo?.rating,
+                  location: `${userInfo?.district},${userInfo?.city}`,
+                  comment: '/',
+                  type_id: userInfo?.type_id,
+                }}
+                categories={userInfo?.session || userInfo?.branch}
+                about={
+                  userInfo?.about ||
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum. dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.”'
+                }
+              />
+            </Row>
+          </Container>
+          <TabContainers>
+            <Tab
+              baseUrl={`/user/${match?.params?.id}/`}
+              tabData={tabData}
+              defaultActiveKey={
+                match?.params?.activeTabKey || tabData?.[0]?.eventKey
+              }
+            />
+          </TabContainers>
+        </>
+      );
+      break;
+    case 'Home':
+      content = <></>;
+      break;
+  }
   return isLoading ? (
     <div>Yükleniyor</div>
   ) : (
     <Main>
       <img src={profileBannerImg} alt="" className="banner-image" />
 
-      <Container>
-        <Row>
-          <ProfileBanner
-            info={{
-              team: userInfo?.classification,
-              img: userInfo?.photo || profileImg,
-              name: userInfo?.name,
-              category: userInfo?.title,
-              price: userInfo?.price,
-              stars: userInfo?.rating,
-              location: `${userInfo?.district},${userInfo?.city}`,
-              comment: '/',
-              type_id: userInfo?.type_id,
-            }}
-            categories={userInfo?.session || userInfo?.branch}
-            about={
-              userInfo?.about ||
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum. dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.”'
-            }
-          />
-        </Row>
-      </Container>
-      <TabContainers>
-        <Tab
-          baseUrl={`/user/${match?.params?.id}/`}
-          tabData={tabData}
-          defaultActiveKey={
-            match?.params?.activeTabKey || tabData?.[0]?.eventKey
-          }
-        />
-      </TabContainers>
+      {content}
     </Main>
   );
 }

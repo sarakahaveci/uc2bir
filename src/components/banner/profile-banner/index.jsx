@@ -8,8 +8,13 @@ import { Link } from 'react-router-dom';
 
 import Card, { CardFooter, CardInfo } from './Card';
 
-const ProfileBanner = ({ className = null, info, categories = [], about }) => {
-  const reservationAction = () => {};
+const ProfileBanner = ({
+  className = null,
+  info,
+  categories = [],
+  about,
+  setPage = () => {},
+}) => {
   let jobType;
   if (info?.type_id) {
     if (info?.type_id == 1) {
@@ -37,7 +42,9 @@ const ProfileBanner = ({ className = null, info, categories = [], about }) => {
                 <Svg.Comment />
               </Comment>
               <Button
-                onClick={reservationAction}
+                onClick={() => {
+                  setPage('Reservation');
+                }}
                 text="Rezervasyon Yap"
                 className="blue list"
                 style={{ fontSize: '9pt' }}
