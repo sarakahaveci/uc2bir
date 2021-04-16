@@ -1,46 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import styled from 'styled-components/macro';
 
-import { Accordion } from 'components';
+import { Accordion, DatePicker } from 'components';
 import BranchRowToggler from 'components/BranchRow/BranchRowToggler';
 import MyCalendarCollapser from './MyCalendarCollapser';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserBranchList } from '../../../actions';
 
-const mockData = [
-  {
-    sportType: 1,
-    sportName: 'FITNESS',
-    level: 'A',
-    price: 150,
-  },
-  {
-    sportType: 2,
-    sportName: 'YOGA',
-    level: 'A',
-    price: 150,
-  },
-  {
-    sportType: 3,
-    sportName: 'PLATES',
-    level: 'A',
-    price: 150,
-  },
-  {
-    sportType: 4,
-    sportName: 'TENIS',
-    level: 'A',
-    price: 150,
-  },
-];
+export default function MyCalendar({ userId }) {
+  const dispatch = useDispatch();
+  const { branches: branchList } = useSelector(
+    (state) => state.userProfile.branch
+  );
 
-export default function MyCalendar() {
+  useEffect(() => {
+    dispatch(getUserBranchList(userId));
+  }, []);
   return (
     <Row>
-      <Col lg={6}></Col>
+      <Col lg={7}>
+        <DatePicker minDate={new Date()} inline selected={null} />
+      </Col>
 
-      <Col lg={6}>
+      <Col lg={5}>
         <Accordion>
-          {mockData.map((item, index) => (
+          {branchList?.branches?.map((item, index) => (
             <AccordionItemWrapper key={index}>
               <Accordion.Item>
                 <Accordion.Toggle>

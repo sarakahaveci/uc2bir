@@ -12,7 +12,7 @@ import { Tab, Main } from 'components';
 import ProfileBanner from 'components/banner/profile-banner';
 import Branch from 'components/Profile/Branch';
 import ProfileCertificate from 'components/Profile/ProfileCertificate';
-// import Comment from 'components/Profile/Comment';
+import Comment from 'components/Profile/Comment';
 import Place from 'components/Profile/Place';
 import DietitionPlace from 'components/Profile/Dietition/DietitionPlace';
 import DietitionSpeciality from 'components/Profile/Dietition/DietitionSpeciality';
@@ -24,7 +24,7 @@ import FindPt from 'components/Profile/Gym/FindPt';
 import Galery from 'components/Profile/Galery';
 import ProfileReservation from 'components/ProfileReservation';
 
-// import MyCalendar from 'components/Profile/MyCalendar/MyCalendar';
+import MyCalendar from 'components/Profile/MyCalendar/MyCalendar';
 
 export default function Profile({ match }) {
   const dispatch = useDispatch();
@@ -63,16 +63,16 @@ export default function Profile({ match }) {
           <Place userId={match?.params?.id} />
         ),
     },
-    /*   {
+       {
       eventKey: 'calendar',
       title: 'TAKVİM',
       component: <MyCalendar userId={match?.params?.id} />,
-    }, */
-    /*  {
+    },
+      {
       eventKey: 'comments',
       title: 'YORUMLAR',
       component: <Comment userId={match?.params?.id} />,
-    }, */
+    },
     {
       eventKey: 'gallery',
       title: 'GALERİ',
@@ -81,7 +81,7 @@ export default function Profile({ match }) {
     {
       eventKey: 'blog',
       title: 'BLOG',
-      component: <Blog userId={match?.params?.id} />,
+      component: <Blog userId={match?.params?.id} userName={userInfo?.name}/>,
     },
   ];
 
@@ -201,6 +201,6 @@ export default function Profile({ match }) {
 }
 
 const TabContainers = styled.div`
-  min-height: 350px;
+  min-height: 550px;
   padding: 30px;
 `;
