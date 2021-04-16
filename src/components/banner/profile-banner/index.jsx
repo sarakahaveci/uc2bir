@@ -8,8 +8,6 @@ import { Link } from 'react-router-dom';
 
 import Card, { CardFooter, CardInfo } from './Card';
 
-import defaultImg from '../../../assets/default-profile.jpg';
-
 const ProfileBanner = ({ className = null, info, categories = [], about }) => {
   const reservationAction = () => {};
   let jobType;
