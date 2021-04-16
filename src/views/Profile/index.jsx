@@ -24,7 +24,7 @@ import FindPt from 'components/Profile/Gym/FindPt';
 import Galery from 'components/Profile/Galery';
 import ProfileReservation from 'components/ProfileReservation';
 
-// import MyCalendar from 'components/Profile/MyCalendar/MyCalendar';
+import MyCalendar from 'components/Profile/MyCalendar/MyCalendar';
 
 export default function Profile({ match }) {
   const dispatch = useDispatch();
@@ -63,11 +63,11 @@ export default function Profile({ match }) {
           <Place userId={match?.params?.id} />
         ),
     },
-    //    {
-    //   eventKey: 'calendar',
-    //   title: 'TAKVİM',
-    //   component: <MyCalendar userId={match?.params?.id} />,
-    // },
+       {
+      eventKey: 'calendar',
+      title: 'TAKVİM',
+      component: <MyCalendar userId={match?.params?.id} />,
+    },
       {
       eventKey: 'comments',
       title: 'YORUMLAR',
