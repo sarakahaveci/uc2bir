@@ -17,12 +17,12 @@ const ProfileBanner = ({
 }) => {
   let jobType;
   if (info?.type_id) {
-    if (info?.type_id == 1) {
-      jobType == 'Diyetisten';
-    } else if (info?.type_id == 2) {
-      jobType == 'Spor Eğitmeni';
-    } else if (info?.type_id == 2) {
-      jobType == 'Spor Alanı';
+    if (info?.type_id === 1) {
+      jobType === 'Diyetisten';
+    } else if (info?.type_id === 2) {
+      jobType === 'Spor Eğitmeni';
+    } else if (info?.type_id === 2) {
+      jobType === 'Spor Alanı';
     }
   }
   return (
@@ -45,24 +45,28 @@ const ProfileBanner = ({
                 onClick={() => {
                   setPage('Reservation');
                 }}
-                text="Rezervasyon Yap"
-                className="blue list"
+                text='Rezervasyon Yap'
+                className='blue list'
                 style={{ fontSize: '9pt' }}
-              ></Button>
+                />
             </CardFooter>
           </Card>
         </Cols>
+
         <Cols lg={4} padding="0 30px">
           <CardInfo
             name={info.name}
-            category={info.category}
             price={info.price || '300'}
             categories={categories}
-            jobType="Fitness Eğitmeni"
-            location="İstanbul / Beşiktaş"
+            jobType={info.category}
+            location={info.location}
           />
         </Cols>
-        <Cols lg={4}>
+
+        <Cols lg={1}>
+          <Line/>
+        </Cols>
+        <Cols lg={3}>
           <Text>{about}</Text>
         </Cols>
       </Rows>
@@ -85,14 +89,14 @@ const Cols = styled(Col)`
   height: auto;
 `;
 
-/*const Line = styled.div`
+const Line = styled.div`
   max-width: 1px;
   height: 285px;
   background: #e5e5e5;
   margin-left: 5px;
   margin-right: 5px;
   flex: 1 1 100%;
-`;*/
+`;
 
 const Comment = styled(Link)`
   background: #fff;

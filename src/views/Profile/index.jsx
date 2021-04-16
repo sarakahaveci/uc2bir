@@ -201,6 +201,6 @@ export default function Profile({ match }) {
 }
 
 const TabContainers = styled.div`
-  min-height: 350px;
+  min-height: 550px;
   padding: 30px;
 `;

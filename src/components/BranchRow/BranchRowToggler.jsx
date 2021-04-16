@@ -66,6 +66,7 @@ const Title = styled.h4`
   letter-spacing: 0.21em;
   color: ${(p) => p.theme.colors.blue};
   font-weight: 600;
+  margin-left: 5px;
 `;
 
 const StyledCardHeader = styled.div`
