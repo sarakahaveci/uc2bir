@@ -9,14 +9,12 @@ import { device } from 'utils';
 
 import Card, { CardFooter, CardInfo } from './Card';
 
-import defaultImg from '../../../assets/default-profile.jpg';
-
 const ProfileBanner = ({ className = null, info, categories = [], about }) => {
   const reservationAction = () => {};
   return (
     <Containers className={className}>
       <Rows>
-        <Card img={defaultImg}>
+        <Card img={info.img}>
           <span className="team">{info.team}</span>
           <span className="span">
             <Svg.Heart />
@@ -33,7 +31,7 @@ const ProfileBanner = ({ className = null, info, categories = [], about }) => {
               text="Rezervasyon Yap"
               className="blue list"
               style={{ fontSize: '9pt' }}
-            ></Button>
+            />
           </CardFooter>
         </Card>
         <Cols padding="0 30px">
