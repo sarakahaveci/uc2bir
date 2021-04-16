@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
-import styled from 'styled-components/macro';
+import { Container, Row } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { Text, Title, Svg } from 'components';
+import { Title } from 'components';
 import { getUserKeys } from 'actions';
 import Pt from './PT';
 import * as KEYS from '../../constants/userKeys';
 import Dietitian from './Dietitian';
-import image from '../../assets/session-type.jpg';
 
 const SessionType = () => {
   const dispatch = useDispatch();
@@ -34,17 +32,15 @@ const SessionType = () => {
     actionRegisterData();
   }, []);
 
-  let icons = [];
-
   let content;
 
   switch (type[0]?.key) {
     case KEYS.DIETIAN:
-      content = <></>;
+      content = <Dietitian />;
       break;
 
     case KEYS.PT:
-      content = <></>;
+      content = <Pt />;
       break;
 
     default:
@@ -56,13 +52,11 @@ const SessionType = () => {
     <div>
       <Container>
         <Row>
-          <Col lg="12">
-            <Title fontSize="14pt" style={{ padding: 15 }} textAlign="left">
-              Oturum Türleri & Çalıştığım Yerler
-            </Title>
-          </Col>
-          {content}
+          <Title fontSize="14pt" style={{ margin: '15px' }} textAlign="left">
+            {'< Rezervasyon Oluştur'}
+          </Title>
         </Row>
+        <Row style={{ padding: '30px' }}>{content}</Row>
       </Container>
     </div>
   );
