@@ -63,7 +63,7 @@ const ProficiencyRow = ({ data }) => {
         setAddedProficiencies(temp);
       });
     }
-    Object.keys(addedProficiencies).map((d) => {
+    Object.keys(addedProficiencies)?.map((d) => {
       const filter = data?.speciality?.filter(
         (item) => item.name === addedProficiencies[d]
       );
@@ -81,7 +81,7 @@ const ProficiencyRow = ({ data }) => {
     dispatch(
       addProficiency(
         data.id,
-        Object.keys(addedProficiencies).map((key) => addedProficiencies[key]),
+        Object.keys(addedProficiencies)?.map((key) => addedProficiencies[key]),
         addProficiencySuccessHandler
       )
     );
