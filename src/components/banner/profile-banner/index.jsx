@@ -24,7 +24,7 @@ const ProfileBanner = ({ className = null, info, categories = [], about }) => {
     <Containers className={className}>
       <Rows>
         <Cols lg={4}>
-          <Card img={defaultImg}>
+          <Card img={info.img}>
             <span className="team">{info.team}</span>
             <span className="span">
               <Svg.Heart />
