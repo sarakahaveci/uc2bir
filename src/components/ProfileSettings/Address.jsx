@@ -32,16 +32,17 @@ export default function Address() {
     (state) => state.profile
   );
 
-  const addressId = userInfo?.addresses?.[0]?.id;
 
   const [formData, setFormData] = useState({});
   const [adressFromMap, setAdressFromMap] = useState({});
   const [location, setLocation] = useState({});
   const [townList, setTownList] = useState(town);
+  const [addressId, setAddressId] = useState(userInfo?.id);
 
   useEffect(() => {
     dispatch(getCitiesAndDistict({}));
     dispatch(getProfileInformation());
+
   }, []);
 
   useEffect(() => {
@@ -55,6 +56,7 @@ export default function Address() {
 
   useEffect(() => {
     if (isSuccessGetDetail) {
+      setAddressId(userInfo?.id);
       setFormData({
         ...formData,
         city: userInfo?.addresses?.[0]?.city,
