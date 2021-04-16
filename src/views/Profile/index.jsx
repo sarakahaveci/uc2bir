@@ -22,6 +22,8 @@ import GymLocation from 'components/Profile/Gym/Location';
 import Classes from 'components/Profile/Gym/Classes/index';
 import FindPt from 'components/Profile/Gym/FindPt';
 import Galery from 'components/Profile/Galery';
+import ProfileReservation from 'components/ProfileReservation';
+
 // import MyCalendar from 'components/Profile/MyCalendar/MyCalendar';
 
 export default function Profile({ match }) {
@@ -183,8 +185,8 @@ export default function Profile({ match }) {
         </>
       );
       break;
-    case 'Home':
-      content = <></>;
+    case 'Reservation':
+      content = <ProfileReservation />;
       break;
   }
   return isLoading ? (
