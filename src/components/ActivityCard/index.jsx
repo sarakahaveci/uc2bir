@@ -99,7 +99,7 @@ export default function ActivityCard({
   });
 
 
-  const isInitialForm= initialFormData.price === formData.price && initialFormData.capacity === formData.capacity;
+  const isInitialForm = isWorkPlace && initialFormData.price === formData.price && initialFormData.capacity === formData.capacity;
 
   const [selectedBranch, setSelectedBranch] = useState([]);
 
