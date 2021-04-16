@@ -8,6 +8,7 @@ export default function BlogCard({
   description = 'Lorem morem Lorem morem Lorem morem Lorem morem Lorem morem Lorem morem Lorem morem Lorem morem Lorem morem Lorem morem Lorem morem Lorem morem Lorem morem Lorem morem Lorem morem Lorem morem Lorem morem Lorem morem ',
   photo,
   createdTime,
+  userName
 }) {
   return (
     <div className="row">
@@ -51,7 +52,7 @@ export default function BlogCard({
           color="gray8"
           fontWeight="normal"
         >
-          Yazar: Efe Parlak
+          Yazar: {userName}
         </Title>
         <Title
           fontSize="11px"

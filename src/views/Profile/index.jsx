@@ -81,7 +81,7 @@ export default function Profile({ match }) {
     {
       eventKey: 'blog',
       title: 'BLOG',
-      component: <Blog userId={match?.params?.id} />,
+      component: <Blog userId={match?.params?.id} userName={userInfo?.name}/>,
     },
   ];
 

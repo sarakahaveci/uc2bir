@@ -5,7 +5,7 @@ import BlogCard from '../../BlogCard';
 import { Pagination } from 'components';
 import { getUserBlogs } from 'actions';
 
-export default function Blog({ userId }) {
+export default function Blog({ userId, userName }) {
   const dispatch = useDispatch();
 
   const [page, setPage] = useState(1);
@@ -31,6 +31,7 @@ export default function Blog({ userId }) {
           description={blog?.detail}
           photo={blog?.photo}
           createdTime={blog?.created_at}
+          userName={userName}
         />
       ))}
       {blogData?.blogs?.length > 0 ? (

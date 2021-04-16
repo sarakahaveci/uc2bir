@@ -30,6 +30,10 @@ const Place = ({ userId }) => {
         newContent = <WorkPlaceList userId={userId} />;
         break;
 
+      case 'online':
+        newContent = <WorkPlaceList userId={userId} />;
+        break;
+
       default:
         break;
     }
