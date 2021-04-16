@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { WORK_PLACE, PERSONAL_TRAINER, DIETITIAN } from '../../constants';
 
 import { getUserInfo } from 'actions';
-import profileImg from 'assets/pt-groups/item-1/04.jpg';
+import profileImg from 'assets/default-profile.jpg';
 import profileBannerImg from 'assets/banner/slider-item-1.png';
 import styled from 'styled-components/macro';
 
