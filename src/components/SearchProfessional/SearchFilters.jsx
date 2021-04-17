@@ -1,21 +1,27 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components/macro';
 
 import { Material, AwesomeIcon, Text, Button, Slider, Box } from 'components';
+import { useCheckOutsideClick } from 'utils';
 
 const classificationsArr = ['A', 'B', 'C'];
 
 const SearchFilters = ({
+  type,
+  setShowFilters,
+  page,
   classification,
   setClassification,
   ratings,
   setRatings,
   price,
   setPrice,
-  searchHandler,
-  setShowFilters,
-  type,
+  linkChangeHandler,
 }) => {
+  const filterWrapperRef = useRef();
+
+  useCheckOutsideClick(filterWrapperRef, () => setShowFilters(false));
+
   const ratingChangeHandler = (starCount) => {
     if (ratings.includes(starCount)) {
       setRatings(ratings.filter((rating) => rating !== starCount));
@@ -27,7 +33,7 @@ const SearchFilters = ({
   const priceChangeHandler = (event, newValue) => setPrice(newValue);
 
   return (
-    <FiltersWrapper>
+    <FiltersWrapper ref={filterWrapperRef}>
       {type === 'pt' && (
         <>
           <Text color="dark" fontSize="0.9rem" mb="15px">
@@ -87,8 +93,9 @@ const SearchFilters = ({
         text="Uygula"
         className="blue"
         onClick={() => {
-          setShowFilters();
-          searchHandler();
+          setShowFilters(false);
+
+          linkChangeHandler(page);
         }}
       />
     </FiltersWrapper>

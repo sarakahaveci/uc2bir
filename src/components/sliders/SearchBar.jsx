@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -8,10 +8,9 @@ import NativeSelect from '@material-ui/core/NativeSelect';
 import InputBase from '@material-ui/core/InputBase';
 
 import { Button, IconLabel, AwesomeIcon } from 'components';
-import { searchPtOrDietition } from 'actions';
+import { objectToParamCoverter } from 'utils';
 
 const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
-  const dispatch = useDispatch();
   const history = useHistory();
 
   const allBranchList = useSelector(
@@ -23,18 +22,17 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
   const [branch, setBranch] = useState('');
 
   const searchProfessionalHandler = () => {
-    dispatch(
-      searchPtOrDietition(
-        {
-          type: virtual,
-          title,
-          page: 1,
-          location,
-          branch,
-        },
-        () => history.push('/find')
-      )
-    );
+    const formData = {
+      title,
+      location,
+      branch,
+    };
+
+    let baseUrl = `/find?type=${virtual}`;
+
+    const url = objectToParamCoverter(formData, baseUrl);
+
+    history.push(url);
   };
 
   return (

@@ -14,10 +14,10 @@ export const searchTrainers = () => async (dispatch) => {
   });
 };
 
-export const searchPtOrDietition = (
+export const searchProffesional = (
   {
     title,
-    rating,
+    ratings,
     minPrice,
     maxPrice,
     sortBy,
@@ -52,7 +52,7 @@ export const searchPtOrDietition = (
   const urlWithTitle = type === 'pt' ? `&name=${title}` : `&title=${title}`;
   const urlWithLocation = `&location_key=${location}`;
   const urlWithBranch = `&branch_id=${branch}`;
-  const urlWithRating = `&rating=${rating?.[0]}`;
+  const urlWithRating = `&rating=${ratings?.[0]}`;
   const urlWithMinPrice = `&min_price=${minPrice}`;
   const urlWithMaxPrice = `&max_price=${maxPrice}`;
   const urlWithSortBy = `&sortBy=${sortBy}`;
@@ -61,9 +61,9 @@ export const searchPtOrDietition = (
 
   const finalUrls = `${url}${location ? urlWithLocation : ''}${
     title ? urlWithTitle : ''
-  }${rating?.length > 0 ? urlWithRating : ''}${
-    minPrice ? urlWithMinPrice : ''
-  }${maxPrice ? urlWithMaxPrice : ''}${sortBy ? urlWithSortBy : ''}${
+  }${ratings?.length > 0 ? urlWithRating : ''}${urlWithMinPrice}${
+    maxPrice ? urlWithMaxPrice : ''
+  }${sortBy ? urlWithSortBy : ''}${
     classification ? urlWithClassification : ''
   }${page ? urlWithPage : ''}${branch ? urlWithBranch : ''}`.trim();
 

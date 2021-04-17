@@ -10,7 +10,7 @@ const size = {
 
 const device = {
   sm: `(max-width: ${size.sm})`,
-  md: `(min-width: ${size.md}) and (max-width: ${size.lg})`,
+  md: `(min-width: ${size.sm}) and (max-width: ${size.lg})`,
   lg: `(min-width: ${size.lg})`,
 };
 

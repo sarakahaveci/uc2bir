@@ -3,6 +3,8 @@ import { Row, Col, Form, Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import { device } from 'utils';
+import { useLocation, useHistory } from 'react-router-dom';
+import queryString from 'query-string';
 
 import LongUserCard from 'components/UserCards/LongUserCard';
 import {
@@ -13,58 +15,114 @@ import {
   BackLink,
   Text,
 } from 'components';
-import { searchPtOrDietition } from 'actions';
-import Filter from './Filter';
+import { searchProffesional } from 'actions';
+import Filter from './SearchFilters';
 
 const SearchProfessional = () => {
   const allBranchList = useSelector(
     (state) => state.profileSettings.ptBranchList.allList
   );
 
-  const { type } = useSelector((state) => state.searchProfessional);
-
   const { totalPage, data, totalData } = useSelector(
     (state) => state.searchProfessional.listInfo
   );
 
+  const [title, setTitle] = useState('');
+  const [location, setLocation] = useState('');
+  const [branch, setBranch] = useState('');
+  const [page, setPage] = useState(1);
+  const [price, setPrice] = useState([0, 1000]);
+
+  const [ratings, setRatings] = useState([]);
+  const [classification, setClassification] = useState('');
+  const [showFilters, setShowFilters] = useState(false);
+
   const dispatch = useDispatch();
+  const history = useHistory();
+
+  const searchParams = queryString.parse(useLocation().search);
+
+  const { type } = searchParams || 'pt';
 
   const userTypeText =
     type === 'gym' ? 'Salon' : type === 'pt' ? 'Eğitmen' : 'Diyetisyen';
 
-  const [location, setLocation] = useState('');
-  const [title, setTitle] = useState('');
-  const [branch, setBranch] = useState('');
-  const [page, setPage] = useState(1);
-  const [showFilters, setShowFilters] = useState(false);
-  const [classification, setClassification] = useState('');
-  const [ratings, setRatings] = useState([]);
-  const [price, setPrice] = useState([0, 1000]);
-
-  const handleChangePage = (event, value) => {
-    setPage(value);
-    dispatch(
-      searchPtOrDietition({ type, title, page: value, location, branch })
-    );
-  };
-
   useEffect(() => {
-    dispatch(searchPtOrDietition({ type }));
-  }, []);
+    const {
+      title,
+      location,
+      branch,
+      page = 1,
+      price = '[0, 1000]',
+      ratings = '[]',
+      classification,
+    } = searchParams;
 
-  const searchProfessionalHandler = () => {
+    // Parsing this because it is coming string from url such as '[0, 1000]'
+    const parsedPrice = JSON.parse(price);
+    const parsedRatings = JSON.parse(ratings);
+
+    setTitle(title);
+    setLocation(location);
+    setBranch(branch);
+    setPage(page);
+    setPrice(parsedPrice);
+    setRatings(parsedRatings);
+    setClassification(classification);
+
     dispatch(
-      searchPtOrDietition({
-        type,
+      searchProffesional({
         title,
-        page: 1,
-        location,
+        ratings: parsedRatings,
+        minPrice: parsedPrice?.[0],
+        maxPrice: parsedPrice?.[1],
+        // TODO: take it from sorting state
+        sortBy: 'asc',
         branch,
-        rating: ratings,
-        minPrice: price?.[0],
-        maxPrice: price?.[1],
+        location,
+        type,
+        page,
+        classification,
       })
     );
+  }, [window.location.href]);
+
+  const linkChangeHandler = (pageNumber) => {
+    let url = `/find?type=${type}`;
+
+    const formData = {
+      title,
+      location,
+      branch,
+      page: pageNumber,
+      price,
+      ratings,
+      classification,
+    };
+
+    url = Object.keys(formData).reduce((acc, curr) => {
+      if (formData[curr]) {
+        if (Array.isArray(formData[curr])) {
+          if (formData[curr].length) {
+            return acc + `&${curr}=${JSON.stringify(formData[curr])}`;
+          } else {
+            return acc;
+          }
+        } else {
+          return acc + `&${curr}=${formData[curr]}`;
+        }
+      }
+
+      return acc;
+    }, url);
+
+    history.push(url);
+  };
+
+  const handleChangePage = (event, pageNumber) => {
+    setPage(pageNumber);
+
+    linkChangeHandler(pageNumber);
   };
 
   return (
@@ -76,7 +134,7 @@ const SearchProfessional = () => {
           {userTypeText} için {totalData} sonuç listeleniyor.
         </Text>
 
-        <div className="d-flex w-75 mb-3 mx-auto">
+        <SearchWrapper className="d-flex mb-3 mx-auto">
           <Row className="search-trainer__search-area">
             <SearchCol>
               <input
@@ -125,15 +183,16 @@ const SearchProfessional = () => {
 
               {showFilters && (
                 <Filter
-                  searchHandler={searchProfessionalHandler}
                   type={type}
+                  setShowFilters={setShowFilters}
+                  page={page}
                   classification={classification}
                   setClassification={setClassification}
                   ratings={ratings}
                   setRatings={setRatings}
                   price={price}
                   setPrice={setPrice}
-                  setShowFilters={setShowFilters}
+                  linkChangeHandler={linkChangeHandler}
                 />
               )}
             </SearchCol>
@@ -142,17 +201,17 @@ const SearchProfessional = () => {
               <Button
                 justifyContent="space-around"
                 display="flex"
-                className="blue w-100 ml-auto"
+                className="blue w-100 ml-md-auto"
                 alignItems="center"
                 text="Ara"
                 search
                 width="100%"
                 maxWidth="150px"
-                onClick={searchProfessionalHandler}
+                onClick={() => linkChangeHandler(page)}
               />
             </SearchCol>
           </Row>
-        </div>
+        </SearchWrapper>
 
         <GoogleMapClusterer data={data} />
 
@@ -188,11 +247,37 @@ const SearchProfessional = () => {
   );
 };
 
+const SearchCol = styled(Col)`
+  &:not(:last-child) {
+    border-right: 1px solid #707070;
+  }
+
+  flex-basis: 20%;
+`;
+
+const SearchWrapper = styled.div`
+  width: 75%;
+
+  @media ${device.sm} {
+    width: 100%;
+
+    ${SearchCol} {
+      flex-basis: 100%;
+      border-right: unset;
+      margin-bottom: 20px;
+    }
+  }
+
+  @media ${device.md} {
+    width: 100%;
+  }
+`;
+
 const GymListWrapper = styled.div`
   display: grid;
   grid-column-gap: 10px;
   grid-template-columns: 300px 300px 300px 300px;
-  grid-row-gap: 10px;
+  grid-row-gap: 20px;
   padding: 10px;
   margin-top: 15px;
 
@@ -202,14 +287,6 @@ const GymListWrapper = styled.div`
   @media ${device.sm} {
     grid-template-columns: auto;
   }
-`;
-
-const SearchCol = styled(Col)`
-  &:not(:last-child) {
-    border-right: 1px solid #707070;
-  }
-
-  flex-basis: 20%;
 `;
 
 const FilterButton = styled.button`
