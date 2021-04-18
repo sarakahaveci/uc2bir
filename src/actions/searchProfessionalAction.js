@@ -27,7 +27,7 @@ export const searchProffesional = (
     page,
     classification,
   },
-  successCallback = () => {}
+  successCallback = () => { }
 ) => async (dispatch) => {
   const gymUrl = '/user/search/detail-search-gym?';
   const dietitionUrl = '/user/search/detail-search-dt?';
@@ -59,13 +59,10 @@ export const searchProffesional = (
   const urlWithPage = `&page=${page}`;
   const urlWithClassification = `&classification=${classification}`;
 
-  const finalUrls = `${url}${location ? urlWithLocation : ''}${
-    title ? urlWithTitle : ''
-  }${ratings?.length > 0 ? urlWithRating : ''}${urlWithMinPrice}${
-    maxPrice ? urlWithMaxPrice : ''
-  }${sortBy ? urlWithSortBy : ''}${
-    classification ? urlWithClassification : ''
-  }${page ? urlWithPage : ''}${branch ? urlWithBranch : ''}`.trim();
+  const finalUrls = `${url}${location ? urlWithLocation : ''}${title ? urlWithTitle : ''
+    }${ratings?.length > 0 ? urlWithRating : ''}${urlWithMinPrice}${maxPrice ? urlWithMaxPrice : ''
+    }${sortBy ? urlWithSortBy : ''}${classification ? urlWithClassification : ''
+    }${page ? urlWithPage : ''}${branch ? urlWithBranch : ''}`.trim();
 
   await dispatch({
     type: HTTP_REQUEST,

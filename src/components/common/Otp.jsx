@@ -32,17 +32,17 @@ const Otp = forwardRef(({ otpCallback }, ref) => {
 
     if (!isNaN(value)) {
       if (name === 'otp1') {
-        setOtp1(value);
+        if (otp1.length < 2) setOtp1(value);
       } else if (name === 'otp2') {
-        setOtp2(value);
+        if (otp2.length < 2) setOtp2(value);
       } else if (name === 'otp3') {
-        setOtp3(value);
+        if (otp3.length < 2) setOtp3(value);
       } else if (name === 'otp4') {
-        setOtp4(value);
+        if (otp4.length < 2) setOtp4(value);
       } else if (name === 'otp5') {
-        setOtp5(value);
+        if (otp5.length < 2) setOtp5(value);
       } else if (name === 'otp6') {
-        setOtp6(value);
+        if (otp6.length < 2) setOtp6(value);
       }
     }
   };

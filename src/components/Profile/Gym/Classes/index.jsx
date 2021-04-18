@@ -17,7 +17,7 @@ const GymClass = ({ userId }) => {
 
   return (
     <div>
-      {
+      {data ? (
         <Accordion>
           {data?.class?.map((item, index) => {
             return (
@@ -39,7 +39,13 @@ const GymClass = ({ userId }) => {
             );
           })}
         </Accordion>
-      }
+      ) : (
+        <div className="d-flex">
+          <strong className="mx-auto">
+            İş Yerine kayıtlı herhangi bir olanak bulunmamaktadır.
+          </strong>
+        </div>
+      )}
     </div>
   );
 };

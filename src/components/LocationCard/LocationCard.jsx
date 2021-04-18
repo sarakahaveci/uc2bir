@@ -27,9 +27,9 @@ const LocationCard = ({
           <SimpleGoogleMap location={location} />
         </div>
       ) : null}
-      <div className="knock">
+      {/*  <div className="knock">
         <Svg.WhiteArrowUpIcon />
-      </div>
+      </div> */}
     </div>
   );
 };

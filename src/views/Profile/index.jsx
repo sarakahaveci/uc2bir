@@ -12,7 +12,7 @@ import { Tab, Main } from 'components';
 import ProfileBanner from 'components/banner/profile-banner';
 import Branch from 'components/Profile/Branch';
 import ProfileCertificate from 'components/Profile/ProfileCertificate';
-import Comment from 'components/Profile/Comment';
+// import Comment from 'components/Profile/Comment';
 import Place from 'components/Profile/Place';
 import DietitionPlace from 'components/Profile/Dietition/DietitionPlace';
 import DietitionSpeciality from 'components/Profile/Dietition/DietitionSpeciality';
@@ -63,16 +63,16 @@ export default function Profile({ match }) {
           <Place userId={match?.params?.id} />
         ),
     },
-       {
+    {
       eventKey: 'calendar',
       title: 'TAKVİM',
       component: <MyCalendar userId={match?.params?.id} />,
     },
-      {
+    /*       {
       eventKey: 'comments',
       title: 'YORUMLAR',
       component: <Comment userId={match?.params?.id} />,
-    },
+    }, */
     {
       eventKey: 'gallery',
       title: 'GALERİ',
@@ -81,7 +81,7 @@ export default function Profile({ match }) {
     {
       eventKey: 'blog',
       title: 'BLOG',
-      component: <Blog userId={match?.params?.id} userName={userInfo?.name}/>,
+      component: <Blog userId={match?.params?.id} userName={userInfo?.name} />,
     },
   ];
 
@@ -104,7 +104,7 @@ export default function Profile({ match }) {
 
     {
       eventKey: 'trainers',
-      title: 'EĞİTMEN BUL',
+      title: 'EĞİTMENLER',
       component: <FindPt userId={match?.params?.id} />,
     },
     /*  {
@@ -172,16 +172,16 @@ export default function Profile({ match }) {
                 }
               />
             </Row>
+            <TabContainers>
+              <Tab
+                baseUrl={`/user/${match?.params?.id}/`}
+                tabData={tabData}
+                defaultActiveKey={
+                  match?.params?.activeTabKey || tabData?.[0]?.eventKey
+                }
+              />
+            </TabContainers>
           </Container>
-          <TabContainers>
-            <Tab
-              baseUrl={`/user/${match?.params?.id}/`}
-              tabData={tabData}
-              defaultActiveKey={
-                match?.params?.activeTabKey || tabData?.[0]?.eventKey
-              }
-            />
-          </TabContainers>
         </>
       );
       break;
