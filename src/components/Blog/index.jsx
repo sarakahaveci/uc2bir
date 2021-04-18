@@ -64,18 +64,25 @@ const Blog = () => {
     createData.append('category_id', category_id);
     createData.append('detail', detail);
     createData.append('title', title);
-    setLoading(true)
+    setLoading(true);
 
     axios({ ...config, data: createData })
-      .then(function () {
-        dispatch(getMyBlogs());
-        setPage('');
-        setFile('')
+      .then(function (response) {
         setLoading(false);
-        toast.success('Yeni blog eklendi.', {
-          position: 'bottom-right',
-          autoClose: 2000,
-        });
+        if (response.status === 200) {
+          setPage('');
+          setFile('');
+          dispatch(getMyBlogs());
+          toast.success('Yeni blog eklendi.', {
+            position: 'bottom-right',
+            autoClose: 2000,
+          });
+        } else if (response.status === 400) {
+          toast.error(response.data.message, {
+            position: 'bottom-right',
+            autoClose: 2000,
+          });
+        }
       })
       .catch((err) => {
         setLoading(false);
@@ -458,7 +465,13 @@ const Blog = () => {
                         style={{ marginTop: 15 }}
                         className="d-flex justify-content-end"
                       >
-                        <Button className="blue" text="Ekle" type="submit" isLoading={loading} disabled={loading} />
+                        <Button
+                          className="blue"
+                          text="Ekle"
+                          type="submit"
+                          isLoading={loading}
+                          disabled={loading}
+                        />
                       </div>
                     </form>
                   </FormGroups>
