@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import Comment from '../../Comment';
 import BluePlusIcon from 'assets/blue-plus.svg';
+import { useDispatch } from 'react-redux';
+import { getUserComment } from 'actions';
 
 const mockData = [
   {
@@ -28,8 +30,15 @@ const mockData = [
     photo: BluePlusIcon,
   },
 ];
+ const ProfileComment = ({ userId }) => {
+   const dispatch = useDispatch();
+   // const { branches: branchList } = useSelector(
+   //   (state) => state.userProfile.branch
+   // );
 
-export default function ProfileComment() {
+   useEffect(() => {
+     dispatch(getUserComment(userId));
+   }, []);
   return (
     <div>
       {mockData.map((comment, index) => (
@@ -46,3 +55,5 @@ export default function ProfileComment() {
     </div>
   );
 }
+
+export default ProfileComment;
