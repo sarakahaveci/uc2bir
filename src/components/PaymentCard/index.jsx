@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components/macro';
 import { device } from 'utils';
-import { Button } from 'components';
+import { Button, Accordion } from 'components';
 import Svg from 'components/statics/svg';
+import { space } from 'styled-system';
+
 export default function PaymentCard({}) {
+  const [toggleState, setToggleState] = useState(false);
+
   return (
     <Container>
       <InfoContainer>
@@ -20,64 +24,81 @@ export default function PaymentCard({}) {
       </InfoContainer>
       <InfoContainer>
         <DataContainer>
-          <Info>
-            <Text style={{ fontWeight: 900 }}>Rezervasyonlarınız</Text>
+          <Info borderDisable>
+            <Accordion>
+              <AccordionItemWrapper>
+                <Accordion.Item defaultOpen={false}>
+                  <Accordion.Toggle
+                    onToggle={(state) => setToggleState(state)}
+                    className="accordion-toggler"
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      {/*miniIcon*/}
+                      <DarkTitle>{'Rezervasyonlarınız'}</DarkTitle>
+                    </div>
+                    {toggleState ? <Svg.ArrowDownIcon /> : <Svg.ArrowUpIcon />}
+                  </Accordion.Toggle>
+                  <Accordion.Collapse>
+                    {['22', '22'].map((elm, key) => (
+                      <Info key={key}>
+                        <div style={{ display: 'flex' }}>
+                          <Text
+                            style={{
+                              fontWeight: 800,
+                              padding: '0 7px',
+                              borderRightStyle: 'solid',
+                              borderWidth: '1px',
+                              borderColor: 'gray',
+                            }}
+                          >
+                            1.Ders
+                          </Text>
+                          <Svg.Date style={{ marginLeft: '5px' }} />
+                          <Text
+                            color="#00B2A9"
+                            style={{
+                              fontWeight: 800,
+                              padding: '0 7px',
+                            }}
+                          >
+                            Tarih:
+                          </Text>
+                          <Text
+                            color="gray"
+                            style={{
+                              fontWeight: 800,
+                              padding: '0 7px',
+                            }}
+                          >
+                            26 Kasım
+                          </Text>
+                          <Text
+                            color="#00B2A9"
+                            style={{
+                              fontWeight: 800,
+                              padding: '0 7px',
+                            }}
+                          >
+                            Saat:
+                          </Text>
+                          <Text
+                            color="gray"
+                            style={{
+                              fontWeight: 800,
+                              padding: '0 7px',
+                            }}
+                          >
+                            11:00
+                          </Text>
+                        </div>
+                        <Svg.TrashIcon />
+                      </Info>
+                    ))}
+                  </Accordion.Collapse>
+                </Accordion.Item>
+              </AccordionItemWrapper>
+            </Accordion>
           </Info>
-          {['22', '22'].map((elm, key) => (
-            <Info key={key}>
-              <div style={{ display: 'flex' }}>
-                <Text
-                  style={{
-                    fontWeight: 800,
-                    padding: '0 7px',
-                    borderRightStyle: 'solid',
-                    borderWidth: '1px',
-                    borderColor: 'gray',
-                  }}
-                >
-                  1.Ders
-                </Text>
-                <Svg.Date style={{ marginLeft: '5px' }} />
-                <Text
-                  color="#00B2A9"
-                  style={{
-                    fontWeight: 800,
-                    padding: '0 7px',
-                  }}
-                >
-                  Tarih:
-                </Text>
-                <Text
-                  color="gray"
-                  style={{
-                    fontWeight: 800,
-                    padding: '0 7px',
-                  }}
-                >
-                  26 Kasım
-                </Text>
-                <Text
-                  color="#00B2A9"
-                  style={{
-                    fontWeight: 800,
-                    padding: '0 7px',
-                  }}
-                >
-                  Saat:
-                </Text>
-                <Text
-                  color="gray"
-                  style={{
-                    fontWeight: 800,
-                    padding: '0 7px',
-                  }}
-                >
-                  11:00
-                </Text>
-              </div>
-              <Svg.TrashIcon />
-            </Info>
-          ))}
         </DataContainer>
       </InfoContainer>
       <ConfirmContainer>
@@ -138,7 +159,7 @@ const Text = styled.text`
 const Info = styled.div`
   display: flex;
   justify-content: space-between;
-  border-style: solid;
+  border-style: ${(p) => (p.borderDisable ? 'none' : 'solid')};
   border-color: rgba(144, 144, 144, 0.5);
   border-width: 0 0 1px 0;
   padding: 10px 5px;
@@ -155,4 +176,32 @@ const BottomContainer = styled.div`
   width: 100%;
   justify-content: space-between;
   align-items: center;
+`;
+const AccordionItemWrapper = styled.div`
+  border-radius: 20px;
+  background: #fff;
+  margin-bottom: 20px;
+  width: 100%;
+  ${space}
+
+  .accordion-toggler {
+    display: flex;
+    background: ${(p) =>
+      p.parent
+        ? '#EFEFEF'
+        : p.accordionBackground
+        ? p.accordionBackground
+        : '#F8F8F8'};
+    justify-content: space-between;
+    border-radius: ${(p) => (p.accordionRadius ? p.accordionRadius : '10px')};
+    padding: 15px;
+    margin-bottom: 10px;
+  }
+`;
+const DarkTitle = styled.h4`
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 0.02em;
+  margin-left: 5px;
+  color: ${(p) => p.theme.colors.dark};
 `;
