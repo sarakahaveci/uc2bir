@@ -10,7 +10,7 @@ import Dietitian from './Dietitian';
 
 const SessionType = () => {
   const dispatch = useDispatch();
-  const type_id = useSelector((state) => state.auth)?.user?.type_id;
+  const { userInfo } = useSelector((state) => state.userProfile.userInfo);
 
   const {
     userKeys: { data: userKeys, isSuccess },
@@ -20,7 +20,7 @@ const SessionType = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      setType(userKeys.filter((f) => f.id === type_id));
+      setType(userKeys.filter((f) => f.id === userInfo.type_id));
     }
   }, [isSuccess]);
 
