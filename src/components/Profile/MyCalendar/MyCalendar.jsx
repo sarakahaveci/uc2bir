@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import styled from 'styled-components/macro';
 
@@ -10,6 +10,7 @@ import { getUserBranchList } from '../../../actions';
 
 export default function MyCalendar({ userId }) {
   const dispatch = useDispatch();
+  const [startDate, setStartDate] = useState(new Date());
   const { branches: branchList } = useSelector(
     (state) => state.userProfile.branch
   );
@@ -20,7 +21,7 @@ export default function MyCalendar({ userId }) {
   return (
     <Row>
       <Col lg={7}>
-        <DatePicker minDate={new Date()} inline selected={null} />
+        <DatePicker minDate={new Date()} inline  selected={startDate} onChange={date => setStartDate(date)}/>
       </Col>
 
       <Col lg={5}>

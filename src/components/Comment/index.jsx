@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Container } from 'react-bootstrap';
 
 import { Text, Title, AwesomeIcon } from 'components';
 
@@ -10,7 +10,7 @@ export default function Comment({ name, date, comment, rating, photo, index }) {
       : 'comment-container ood-comment-container';
 
   return (
-    <div className={wrapperClass}>
+    <Container className={wrapperClass}>
       <Row className="comment-user-info">
         <Row className="comment-stars">
           <div className={rating > 1 ? 'active-star' : ''}>
@@ -46,6 +46,6 @@ export default function Comment({ name, date, comment, rating, photo, index }) {
           {comment}
         </Text>
       </Row>
-    </div>
+    </Container>
   );
 }
