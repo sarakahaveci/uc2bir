@@ -80,12 +80,15 @@ const StyledButton = styled(BaseButton)`
     `}
 
   ${(props) =>
-          props.blueBorder &&
-          css`
-            border: 1px solid var(--blue);
-            color:var(--blue);
-            font-weight: 500;
-            
+    props.blueborder &&
+    css`
+      border: 1px solid var(--blue);
+      color:var(--blue);
+      font-weight: 500;
+
+      &:focus {
+        border: 1px solid var(--blue);
+      }
     `}
 
   ${(props) =>

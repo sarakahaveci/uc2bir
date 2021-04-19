@@ -54,7 +54,7 @@ const PT = () => {
   }
 
   return (
-    <Container>
+    <Container >
       {subPage ? ( //Alt Pageler burada route edilecektir
         subPage
       ) : (
@@ -92,7 +92,7 @@ const PT = () => {
         open={openCreateCalender}
         approve={() => {
           setOpenCreateCalender(false);
-          setSubPage(myTemplates.length >0 ? <ReservationCreatedTemplate/>:<ReservationTemplate />);
+          setSubPage(myTemplates.length >0 ? <ReservationCreatedTemplate />:<ReservationTemplate />);
         }}
         cancel={() => {
           setOpenCreateCalender(false);

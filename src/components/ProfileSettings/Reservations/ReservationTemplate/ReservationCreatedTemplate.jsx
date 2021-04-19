@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
@@ -9,34 +9,40 @@ import { Box, Button, Span, Svg, Text, Title } from 'components';
 import image from '../../../../assets/wave-background.png';
 import { device } from '../../../../utils';
 
-export default function ReservationCreatedTemplate() {
+import ReservationTemplate from './ReservationTemplate';
 
+export default function ReservationCreatedTemplate() {
+  const [subPage, setSubPage] = useState();
   const {
     myTemplates: { data: myTemplates },
   } = useSelector((state) => state.profileSettings2.reservationTemplate);
 
 
   return (
-    <div>
-      <BackLink to="/myprofile/settings/profile">
-        <Svg.ArrowLeftIcon />
 
-        <span>Şablonlar</span>
-      </BackLink>
 
-      <Row>
-        <Col lg={6}>
-          {myTemplates?.map((item, index) => (
-            <div key={index}>
-              <BoxContainer >
-                <Box row >
-                  <Text color="dark" fontWeight="500">
-                    {item.name}
-                  </Text>
-                  <Svg.ArrowRightIcon />
-                </Box>
-              </BoxContainer>
-              {!item.is_default&&
+      subPage === 'create'?
+        ( <ReservationTemplate/>)
+      :
+        ( <div>
+        <BackLink to="/myprofile/settings/profile">
+          <Svg.ArrowLeftIcon />
+
+          <span>Şablonlar</span>
+        </BackLink>
+        <Row>
+          <Col lg={6}>
+            {myTemplates?.map((item, index) => (
+              <div key={index}>
+                <BoxContainer >
+                  <Box row >
+                    <Text color="dark" fontWeight="500">
+                      {item.name}
+                    </Text>
+                    <Svg.ArrowRightIcon />
+                  </Box>
+                </BoxContainer>
+                {!item.is_default&&
                 <Text
                   style={{ marginLeft:'15px', display:'flex'}}
                   textAlign="left"
@@ -51,57 +57,59 @@ export default function ReservationCreatedTemplate() {
                     marginLeft="10px">
                     {`>`}
                   </Span>
-              </Text> }
+                </Text> }
 
-            </div>
-          ))}
+              </div>
+            ))}
 
-        </Col>
+          </Col>
 
-        <Col lg={6}>
+          <Col lg={6}>
 
-          <DateContainer>
-            <AppointmentDate>
-              <Row>
-                <Title
-                  style={{ marginLeft:'15px', display:'flex'}}
-                  textAlign="left"
-                  fontWeight="500">
-                  <Span underline lineWidth={'100%'} > Şablon Hakkında </Span>
-                </Title>
+            <DateContainer>
+              <AppointmentDate>
+                <Row>
+                  <Title
+                    style={{ marginLeft:'15px', display:'flex'}}
+                    textAlign="left"
+                    fontWeight="500">
+                    <Span underline lineWidth={'100%'} > Şablon Hakkında </Span>
+                  </Title>
 
-                <Text  style={{ margin:'15px', display:'flex'}} fontWeight="300" color={'grey'}>
-                  Merhaba Zeynep, rezervasyon takvimini tamamlamak için oluşturduğun şablonalardan birini kullanabilirsin
-                </Text>
+                  <Text  style={{ margin:'15px', display:'flex'}} fontWeight="300" color={'grey'}>
+                    Merhaba Zeynep, rezervasyon takvimini tamamlamak için oluşturduğun şablonalardan birini kullanabilirsin
+                  </Text>
 
-              </Row>
+                </Row>
 
 
-            </AppointmentDate>
+              </AppointmentDate>
 
-            <AcceptButton src={image}>
-              <Button
-                onClick={()=>setOpenApprove(true)}
-                text="Haftalık Rezervasyon Takvimimi Oluştur"
-                className="blue"
-                width={'496px'}
-                height={'66px'}
-              />
+              <AcceptButton src={image}>
+                <Button
+                  onClick={()=>setOpenApprove(true)}
+                  text="Haftalık Rezervasyon Takvimimi Oluştur"
+                  className="blue"
+                  width={'496px'}
+                  height={'66px'}
+                />
 
-              <Button
-                blueBorder
-                onClick={()=>setOpenApprove(true)}
-                text="Yeni Şablon Oluşturmak İstiyorum"
-                width={'496px'}
-                height={'66px'}
-                style={{marginTop:'15px'}}
-              />
-            </AcceptButton>
+                <Button
+                  blueborder = {true}
+                  onClick={() => {
+                    setSubPage('create');
+                  }}
+                  text="Yeni Şablon Oluşturmak İstiyorum"
+                  width={'496px'}
+                  height={'66px'}
+                  style={{marginTop:'15px'}}
+                />
+              </AcceptButton>
 
-          </DateContainer>
-        </Col>
-      </Row>
-    </div>
+            </DateContainer>
+          </Col>
+        </Row>
+      </div>)
   );
 }
 
