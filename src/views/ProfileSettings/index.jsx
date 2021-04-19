@@ -38,7 +38,7 @@ const regularUserTabs = [
     component: <ProfileSettingsList />,
   },
 
-  /* {
+   {
     eventKey: 'reservation',
     title: 'Rezarvasyonlarım',
     component: (
@@ -46,8 +46,8 @@ const regularUserTabs = [
         Rezarvasyonlarım
       </Title>
     ),
-  }, */
-  /* {
+  },
+  {
     eventKey: 'packets',
     title: 'Paketlerim',
     component: (
@@ -55,7 +55,7 @@ const regularUserTabs = [
         Paketlerim
       </Title>
     ),
-  }, */
+  },
   /*  {
     eventKey: 'wallet',
     title: 'Cüzdanım',
@@ -205,11 +205,11 @@ const trainerTabs = [
     eventKey: 'notifications',
     component: <ProfileSettingsList />,
   },
-  // {
-  //   eventKey: 'reservation',
-  //   title: 'Rezarvasyonlarım',
-  //   component: <Reservations />,
-  // },
+  {
+    eventKey: 'reservation',
+    title: 'Rezarvasyonlarım',
+    component: <Reservations />,
+  },
   /* {
     eventKey: 'packets',
     title: 'Paketlerim',
