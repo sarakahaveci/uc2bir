@@ -1,15 +1,57 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/macro';
 import { device } from 'utils';
-import { Button, Accordion } from 'components';
+import { Button, Accordion, Material } from 'components';
 import Svg from 'components/statics/svg';
 import { space } from 'styled-system';
+import { useDispatch, useSelector } from 'react-redux';
+import { setReservation } from 'actions';
 
-export default function PaymentCard({}) {
+export default function PaymentCard({ dateOption }) {
+  const dispatch = useDispatch();
+  const { reservation } = useSelector((state) => state.reservation);
+
   const [toggleState, setToggleState] = useState(false);
-
+  const hours = [
+    '07:00-08:00',
+    '08:00-09:00',
+    '09:00-10:00',
+    '11:00-12:00',
+    '13:00-14:00',
+    '14:00-15:00',
+    '15:00-16:00',
+    '17:00-18:00',
+  ];
   return (
     <Container>
+      {dateOption && (
+        <ReservationContainer>
+          <AddHeader>Tarih Seçiniz</AddHeader>
+          <Material.MaterialDateField
+            label="Rezervasyon Tarihi"
+            type="text"
+            name="date"
+            defaultValue={'21.01.1995'}
+            settings
+          />
+          <AddHeader>Saat Seçiniz</AddHeader>
+          <Hours>
+            {hours.map((item, indx) => (
+              <Hour key={indx}>{item}</Hour>
+            ))}
+          </Hours>
+        </ReservationContainer>
+      )}
+      <AddTextContainer>
+        {!reservation?.paymentType && (
+          <>
+            <AddHeader>Misafir Ekle</AddHeader>
+            <AddDesc>
+              Dilersen istediğin bir arkadaşınla beraber derse gelebilirsin.
+            </AddDesc>
+          </>
+        )}
+      </AddTextContainer>
       <InfoContainer>
         <DataContainer>
           <Info>
@@ -100,6 +142,10 @@ export default function PaymentCard({}) {
             </Accordion>
           </Info>
         </DataContainer>
+        <AddTextContainer>
+          <AddHeader>Ders Ekle</AddHeader>
+          <AddDesc>Aynı eğitmen ve salondan daha fazla ders alın</AddDesc>
+        </AddTextContainer>
       </InfoContainer>
       <ConfirmContainer>
         <BottomContainer>
@@ -108,24 +154,52 @@ export default function PaymentCard({}) {
             900
           </Text>
         </BottomContainer>
-        <BottomContainer>
-          <Button
-            style={{ width: '100%', padding: '20px' }}
-            className="blue"
-            text="Cüzdanımdan Öde"
-          />
-        </BottomContainer>
-        <BottomContainer style={{ margin: '5px' }}>
-          <Button
-            style={{ width: '100%', padding: '20px' }}
-            className="blue"
-            text="Kredi Kartından Öde"
-          />
-        </BottomContainer>
+        {reservation?.paymentType ? (
+          <BottomContainer>
+            <Button
+              style={{ width: '100%', padding: '20px' }}
+              className="blue"
+              text="Ödeme Yap"
+            />
+          </BottomContainer>
+        ) : (
+          <>
+            <BottomContainer>
+              <Button
+                style={{ width: '100%', padding: '20px' }}
+                className="blue"
+                text="Cüzdanımdan Öde"
+                onClick={() => {
+                  dispatch(setReservation({ paymentType: 'wallet' }));
+                }}
+              />
+            </BottomContainer>
+            <BottomContainer style={{ margin: '5px' }}>
+              <Button
+                style={{ width: '100%', padding: '20px' }}
+                className="blue"
+                text="Kredi Kartından Öde"
+                onClick={() => {
+                  dispatch(setReservation({ paymentType: 'creditCard' }));
+                }}
+              />
+            </BottomContainer>
+          </>
+        )}
       </ConfirmContainer>
     </Container>
   );
 }
+const AddTextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  padding: 20px;
+`;
+const AddHeader = styled.text`
+  font-weight: 600;
+`;
+const AddDesc = styled.text``;
 const Container = styled.div``;
 const InfoContainer = styled.div`
   width: 586px;
@@ -204,4 +278,26 @@ const DarkTitle = styled.h4`
   letter-spacing: 0.02em;
   margin-left: 5px;
   color: ${(p) => p.theme.colors.dark};
+`;
+const ReservationContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+`;
+const Hours = styled.div`
+  display: flex;
+  width: 586px;
+  flex-wrap: wrap;
+`;
+const Hour = styled.div`
+  display: flex;
+  flex-shrink: 0;
+  width: auto;
+  border-radius: 10px;
+  margin: 5px;
+  padding: 5px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #c6c6c6;
+  cursor: pointer;
 `;

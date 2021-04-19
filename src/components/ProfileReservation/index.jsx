@@ -8,7 +8,7 @@ import Pt from './PT';
 import * as KEYS from '../../constants/userKeys';
 import Dietitian from './Dietitian';
 
-const SessionType = () => {
+const ProfileReservation = () => {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userProfile.userInfo);
 
@@ -62,4 +62,4 @@ const SessionType = () => {
   );
 };
 
-export default SessionType;
+export default ProfileReservation;

@@ -3,14 +3,11 @@ import styled from 'styled-components/macro';
 import { Title, AwesomeIcon } from 'components';
 import Rating from '@material-ui/lab/Rating';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
-
-const MiniProfileCard = () => {
+const MiniProfileCard = ({ photo, name, rating, type_id, price }) => {
   return (
     <Container>
       <ImageContainer>
-        <Image
-          src={'https://isacanakhan.com/wp-content/uploads/2016/07/8-hafta.jpg'}
-        />
+        <Image src={photo} />
       </ImageContainer>
       <InfoContainer>
         <Title
@@ -20,7 +17,7 @@ const MiniProfileCard = () => {
           fontWeight="bold"
           lineDisable
         >
-          {'Efe Parlak'}
+          {name}
         </Title>
         <Title
           variant={'h7'}
@@ -29,20 +26,23 @@ const MiniProfileCard = () => {
           fontWeight="normal"
           lineDisable
         >
-          {'Fitness Eğitmeni'}
+          {type_id === 1 ? 'Kullanıcı' : null}
+          {type_id === 2 ? 'Spor Eğitmeni' : null}
+          {type_id === 3 ? 'Spor Alanı' : null}
+          {type_id === 4 ? 'Diyetisyen' : null}
         </Title>
         <Rating
           style={{
             marginLeft: '-6px',
           }}
           name="customized-empty"
-          defaultValue={4}
+          defaultValue={rating}
           precision={0.5}
           emptyIcon={<StarBorderIcon fontSize="inherit" />}
           readOnly
         />
         <Title textAlign="left" variant="h5" component="h5">
-          {'300'} <AwesomeIcon.Tl />
+          {price} <AwesomeIcon.Tl />
         </Title>
       </InfoContainer>
     </Container>

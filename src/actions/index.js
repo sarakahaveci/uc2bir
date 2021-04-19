@@ -9,3 +9,4 @@ export * from './footerActions';
 export * from './userProfileActions';
 export * from './searchProfessionalAction';
 export * from './homeActions';
+export * from './reservationActions';
