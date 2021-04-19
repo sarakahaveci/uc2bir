@@ -80,6 +80,15 @@ const StyledButton = styled(BaseButton)`
     `}
 
   ${(props) =>
+          props.blueBorder &&
+          css`
+            border: 1px solid var(--blue);
+            color:var(--blue);
+            font-weight: 500;
+            
+    `}
+
+  ${(props) =>
     props.soft &&
     css`
       background: transparent;
