@@ -38,24 +38,24 @@ const regularUserTabs = [
     component: <ProfileSettingsList />,
   },
 
-   {
-    eventKey: 'reservation',
-    title: 'Rezarvasyonlarım',
-    component: (
-      <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-        Rezarvasyonlarım
-      </Title>
-    ),
-  },
-  {
-    eventKey: 'packets',
-    title: 'Paketlerim',
-    component: (
-      <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-        Paketlerim
-      </Title>
-    ),
-  },
+  //  {
+  //   eventKey: 'reservation',
+  //   title: 'Rezarvasyonlarım',
+  //   component: (
+  //     <Title variant={'h4'} component={'h4'} textLeft lineDisable>
+  //       Rezarvasyonlarım
+  //     </Title>
+  //   ),
+  // },
+  // {
+  //   eventKey: 'packets',
+  //   title: 'Paketlerim',
+  //   component: (
+  //     <Title variant={'h4'} component={'h4'} textLeft lineDisable>
+  //       Paketlerim
+  //     </Title>
+  //   ),
+  // },
   /*  {
     eventKey: 'wallet',
     title: 'Cüzdanım',
@@ -205,11 +205,11 @@ const trainerTabs = [
     eventKey: 'notifications',
     component: <ProfileSettingsList />,
   },
-  {
-    eventKey: 'reservation',
-    title: 'Rezarvasyonlarım',
-    component: <Reservations />,
-  },
+  // {
+  //   eventKey: 'reservation',
+  //   title: 'Rezarvasyonlarım',
+  //   component: <Reservations />,
+  // },
   /* {
     eventKey: 'packets',
     title: 'Paketlerim',
