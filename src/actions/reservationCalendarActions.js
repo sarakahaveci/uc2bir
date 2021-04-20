@@ -12,6 +12,7 @@ export const getPtReservationCalendar = (
   hour && url + `hour=${hour}&`;
   branch_id && url + `branch_id=${branch_id}&`;
   session && url + `session=${session}&`;
+
   await dispatch({
     type: HTTP_REQUEST,
     payload: {

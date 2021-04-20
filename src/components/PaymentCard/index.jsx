@@ -9,7 +9,7 @@ import { setReservation } from 'actions';
 
 export default function PaymentCard({ dateOption }) {
   const dispatch = useDispatch();
-  const { reservation } = useSelector((state) => state.reservation);
+  const reservation = useSelector((state) => state.reservation);
 
   const [toggleState, setToggleState] = useState(false);
   const hours = [
@@ -43,7 +43,7 @@ export default function PaymentCard({ dateOption }) {
         </ReservationContainer>
       )}
       <AddTextContainer>
-        {!reservation?.paymentType && (
+        {!reservation?.data?.payment_type && (
           <>
             <AddHeader>Misafir Ekle</AddHeader>
             <AddDesc>
@@ -154,7 +154,7 @@ export default function PaymentCard({ dateOption }) {
             900
           </Text>
         </BottomContainer>
-        {reservation?.paymentType ? (
+        {reservation?.data?.payment_type ? (
           <BottomContainer>
             <Button
               style={{ width: '100%', padding: '20px' }}
@@ -170,7 +170,7 @@ export default function PaymentCard({ dateOption }) {
                 className="blue"
                 text="Cüzdanımdan Öde"
                 onClick={() => {
-                  dispatch(setReservation({ paymentType: 'wallet' }));
+                  dispatch(setReservation({ payment_type: 'wallet' }));
                 }}
               />
             </BottomContainer>
@@ -180,7 +180,7 @@ export default function PaymentCard({ dateOption }) {
                 className="blue"
                 text="Kredi Kartından Öde"
                 onClick={() => {
-                  dispatch(setReservation({ paymentType: 'creditCard' }));
+                  dispatch(setReservation({ payment_type: 'creditCard' }));
                 }}
               />
             </BottomContainer>

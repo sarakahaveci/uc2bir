@@ -15,7 +15,7 @@ export default (state = initialState, action) => {
     case SET_RESERVATION:
       return {
         ...state,
-        reservation: action.payload,
+        data: { ...state.data, ...action.payload },
         isLoading: true,
       };
     default:

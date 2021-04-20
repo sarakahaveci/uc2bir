@@ -15,7 +15,7 @@ import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import { device } from 'utils';
 import {
-  //setReservation,
+  setReservation,
   // getCitiesAndDistict,
   getPtGymList,
   getUserBranchList,
@@ -37,19 +37,19 @@ const dateOption = true;
 const Home = () => {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userProfile.userInfo);
-  const { reservation } = useSelector((state) => state.reservation);
+  const reservation = useSelector((state) => state.reservation);
   const [toggleState, setToggleState] = useState(false);
   const [formData, setFormData] = useState({});
   const [city, setCity] = useState(false);
   const [town, setTown] = useState([]);
   const [district, setDistrict] = useState([]);
-  const [sessionType, setSessionType] = useState(undefined);
   const [sessionTypes, setSessionTypes] = useState(undefined);
 
   const { branches: branchList } = useSelector(
     (state) => state.userProfile.branch
   );
   const gymList = useSelector((state) => state.userProfile.ptGymList);
+
   const homePlaces = useSelector(
     (state) => state.userProfile.workPlace.ptHomePlace
   );
@@ -65,8 +65,21 @@ const Home = () => {
     dispatch(getPtWorkingHomePlace(userInfo.id));
     dispatch(getWallet());
     dispatch(getTemplates());
-    dispatch(getPtReservationCalendar(userInfo.id, '27.04.2021'));
+    dispatch(setReservation({ pt_id: userInfo.id }));
   }, [userInfo]);
+  useEffect(() => {
+    if (reservation?.data) {
+      dispatch(
+        getPtReservationCalendar(
+          userInfo.id,
+          null,
+          null,
+          reservation?.data?.branch_id,
+          reservation.data?.session
+        )
+      );
+    }
+  }, [reservation]);
   useEffect(() => {
     if (!city) {
       axios
@@ -98,65 +111,73 @@ const Home = () => {
   }, [city]);
 
   function WorkAreaSelect() {
-    switch (sessionType) {
+    switch (reservation?.data?.session) {
       case 'gym':
-        return gymList?.data?.map((item) => (
-          <>
-            <Text>{'Spor Alanı Seçiniz:'}</Text>
-            <CardGroup>
-              <WorkAreaCard
-                stars={item.rating}
-                capacity={item.capacity}
-                title={item.title}
-                area_measure={item.area_measure}
-                city={item.city}
-                district={item.district}
-                price={item.price}
-              />
-              <GreenCheckbox
-                icon={<RadioButtonUncheckedIcon />}
-                checkedIcon={<RadioButtonCheckedIcon />}
-                //checked={checked.includes(data?.id)}
-                // onChange={() => handleChange(data?.id)}
-              />
-            </CardGroup>
-          </>
-        ));
+        return (
+          gymList?.data?.map((item) => (
+            <>
+              <Text>{'Spor Alanı Seçiniz:'}</Text>
+              <CardGroup>
+                <WorkAreaCard
+                  stars={item.rating}
+                  capacity={item.capacity}
+                  title={item.title}
+                  area_measure={item.area_measure}
+                  city={item.city}
+                  district={item.district}
+                  price={item.price}
+                />
+                <GreenCheckbox
+                  icon={<RadioButtonUncheckedIcon />}
+                  checkedIcon={<RadioButtonCheckedIcon />}
+                  //checked={checked.includes(data?.id)}
+                  // onChange={() => handleChange(data?.id)}
+                />
+              </CardGroup>
+            </>
+          )) || null
+        );
       case 'home_park':
-        return homePlaces.data?.home_park?.map((item) => (
-          <>
-            <Accordion>
-              <AccordionItemWrapper>
-                <Accordion.Item defaultOpen={false}>
-                  <Accordion.Toggle
-                    onToggle={(state) => setToggleState(state)}
-                    className="accordion-toggler"
-                  >
-                    <Svg.SessionType.Park />
-                    <ParkInfo>
-                      <ParkHeader>{item.title}</ParkHeader>
-                      <ParkAdress>
-                        {item.town + ' ' + item.district + ' ' + item.city}
-                      </ParkAdress>
-                    </ParkInfo>
-                    {toggleState ? <Svg.ArrowDownIcon /> : <Svg.ArrowUpIcon />}
-                  </Accordion.Toggle>
-                  <Accordion.Collapse>
-                    <MapWrapper>
-                      <GoogleMap
-                        locationFromUser={{
-                          lat: item.lat,
-                          lng: item.lng,
-                        }}
-                        disabled
-                      />
-                    </MapWrapper>
-                  </Accordion.Collapse>
-                </Accordion.Item>
-              </AccordionItemWrapper>
-            </Accordion>
-          </>
-        ));
+        return (
+          homePlaces.data?.home_park?.map((item) => (
+            <>
+              <Accordion>
+                <AccordionItemWrapper>
+                  <Accordion.Item defaultOpen={false}>
+                    <Accordion.Toggle
+                      onToggle={(state) => setToggleState(state)}
+                      className="accordion-toggler"
+                    >
+                      <Svg.SessionType.Park />
+                      <ParkInfo>
+                        <ParkHeader>{item.title}</ParkHeader>
+                        <ParkAdress>
+                          {item.town + ' ' + item.district + ' ' + item.city}
+                        </ParkAdress>
+                      </ParkInfo>
+                      {toggleState ? (
+                        <Svg.ArrowDownIcon />
+                      ) : (
+                        <Svg.ArrowUpIcon />
+                      )}
+                    </Accordion.Toggle>
+                    <Accordion.Collapse>
+                      <MapWrapper>
+                        <GoogleMap
+                          locationFromUser={{
+                            lat: item.lat,
+                            lng: item.lng,
+                          }}
+                          disabled
+                        />
+                      </MapWrapper>
+                    </Accordion.Collapse>
+                  </Accordion.Item>
+                </AccordionItemWrapper>
+              </Accordion>
+            </>
+          )) || null
+        );
       case 'online':
         return <></>;
       case 'b':
@@ -290,7 +311,7 @@ const Home = () => {
     );
   }
   function _renderLeftArea() {
-    switch (reservation?.paymentType) {
+    switch (reservation?.data?.payment_type) {
       case 'wallet':
         return (
           <>
@@ -347,15 +368,18 @@ const Home = () => {
               <Material.SimpleSelect
                 items={branchList.branches}
                 name="branch"
-                // action={actionSetData}
+                onChange={(e) =>
+                  dispatch(setReservation({ branch_id: e.target.value }))
+                }
                 //state={detail}
               />
               <Text>{'Oturum Türü Seçiniz:'}</Text>
               <Material.SimpleSelect
                 items={sessionTypes}
                 name="sessionType"
-                onChange={(e) => setSessionType(e.target.value)}
-                state={sessionType}
+                onChange={(e) =>
+                  dispatch(setReservation({ session: e.target.value }))
+                }
               />
 
               <WorkAreaSelect />
