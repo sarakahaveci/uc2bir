@@ -37,6 +37,7 @@ const DateField = ({
   settings = false,
   state = {},
   action = () => {},
+  shouldDisableDate = () => {},
   onError = () => {},
 }) => {
   const [selectedDate, setSelectedDate] = useState(
@@ -104,6 +105,7 @@ const DateField = ({
             cancelLabel="Çıkış"
             format="dd.MM.yyyy"
             defaultValue={defaultValue}
+            shouldDisableDate={shouldDisableDate}
             name={name}
             required={required}
             onError={onError}

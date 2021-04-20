@@ -7,12 +7,14 @@ export const getPtReservationCalendar = (
   branch_id,
   session
 ) => async (dispatch) => {
-  const url = `https://gateway.321.4alabs.com/appointment/pt-calendar/step-1/${id}?`;
-  date && url + `date=${date}&`;
-  hour && url + `hour=${hour}&`;
-  branch_id && url + `branch_id=${branch_id}&`;
-  session && url + `session=${session}&`;
+  let url = `https://gateway.321.4alabs.com/appointment/pt-calendar/step-1/${id}`;
+  let extras = '?';
 
+  if (date) extras += `date=${date}&`;
+  if (hour) extras += `hour=${hour}&`;
+  if (branch_id) extras += `branch_id=${branch_id}&`;
+  if (session) extras += `session=${session}&`;
+  url += extras;
   await dispatch({
     type: HTTP_REQUEST,
     payload: {

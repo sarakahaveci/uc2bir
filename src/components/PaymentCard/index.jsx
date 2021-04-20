@@ -6,22 +6,13 @@ import Svg from 'components/statics/svg';
 import { space } from 'styled-system';
 import { useDispatch, useSelector } from 'react-redux';
 import { setReservation } from 'actions';
-
 export default function PaymentCard({ dateOption }) {
   const dispatch = useDispatch();
   const reservation = useSelector((state) => state.reservation);
+  const reservationCalendar = useSelector((state) => state.reservationCalendar);
 
   const [toggleState, setToggleState] = useState(false);
-  const hours = [
-    '07:00-08:00',
-    '08:00-09:00',
-    '09:00-10:00',
-    '11:00-12:00',
-    '13:00-14:00',
-    '14:00-15:00',
-    '15:00-16:00',
-    '17:00-18:00',
-  ];
+
   return (
     <Container>
       {dateOption && (
@@ -31,14 +22,31 @@ export default function PaymentCard({ dateOption }) {
             label="Rezervasyon Tarihi"
             type="text"
             name="date"
-            defaultValue={'21.01.1995'}
+            onChange={(e) => {
+              dispatch(setReservation({ date: e.target.value }));
+            }}
             settings
           />
           <AddHeader>Saat Seçiniz</AddHeader>
           <Hours>
-            {hours.map((item, indx) => (
-              <Hour key={indx}>{item}</Hour>
-            ))}
+            {reservation?.data?.date &&
+              reservationCalendar?.data?.slice?.map((item, indx) => (
+                <Hour
+                  onClick={() => {
+                    dispatch(
+                      setReservation({
+                        slot: [
+                          ...reservation?.date?.slot,
+                          { date: item.date, hour: item.time },
+                        ],
+                      })
+                    );
+                  }}
+                  key={indx}
+                >
+                  {item.time}
+                </Hour>
+              ))}
           </Hours>
         </ReservationContainer>
       )}
@@ -298,6 +306,6 @@ const Hour = styled.div`
   padding: 5px;
   border-style: solid;
   border-width: 1px;
-  border-color: #c6c6c6;
+  border-color: ${(p) => (p.selected ? 'var(--blue)' : '#c6c6c6')};
   cursor: pointer;
 `;

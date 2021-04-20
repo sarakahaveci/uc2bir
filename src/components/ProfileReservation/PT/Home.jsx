@@ -69,15 +69,17 @@ const Home = () => {
   }, [userInfo]);
   useEffect(() => {
     if (reservation?.data) {
-      dispatch(
-        getPtReservationCalendar(
-          userInfo.id,
-          null,
-          null,
-          reservation?.data?.branch_id,
-          reservation.data?.session
-        )
-      );
+      if (reservation?.data.branch_id && reservation?.data.session) {
+        dispatch(
+          getPtReservationCalendar(
+            userInfo.id,
+            reservation.data?.date,
+            null,
+            reservation?.data?.branch_id,
+            reservation.data?.session
+          )
+        );
+      }
     }
   }, [reservation]);
   useEffect(() => {
