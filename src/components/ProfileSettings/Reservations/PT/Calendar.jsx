@@ -13,33 +13,37 @@ import {
   ApproveModal,
 } from '../../../index';
 import styled from 'styled-components/macro';
-import { AVAILABLE_HOURS, branchData, sessionData, salonData} from '../../../../constants';
+import { branchData, sessionData, salonData} from '../../../../constants';
 import { device } from '../../../../utils';
 import image from '../../../../assets/wave-background.png';
 import Svg from '../../../statics/svg';
-import { toast } from 'react-toastify';
-import { addDays, startOfWeek } from 'date-fns';
-import tr from 'date-fns/locale/tr';
-import { useDispatch } from 'react-redux';
-import { getTemplateDetails } from '../../../../actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { getTemplateFromCalender, getDayOfCalender } from '../../../../actions';
+import moment from 'moment';
+import 'moment/locale/tr';
+
+moment.locale('tr')
 
 const Calendar = () => {
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
   const [activePage, setActivePage] = useState('index');
   const [openApprove, setOpenApprove] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
   const dispatch = useDispatch();
-  // const {
-  //   // myTemplates: { data: myTemplates },
-  //   // templateDetails: { data: templateDetails },
-  // } = useSelector((state) => state.profileSettings2.reservationTemplate);
-
-  // const templateDays = templateDetails?.slot?.map((slot) => slot.day) || [];
+  const {
+    availableDates: { data: availableDates },
+    availableHours: { data: availableHours },
+  } = useSelector((state) => state.profileSettings2.reservationTemplate);
 
   useEffect(() => {
-    dispatch(getTemplateDetails(22));
+    dispatch(getTemplateFromCalender());
+    setStartDate(new Date());
   }, []);
+
+  useEffect(() => {
+    dispatch(getDayOfCalender(moment(startDate).format('DD.MM.YYYY')));
+  }, [startDate]);
+
 
   useEffect(() => {
     if (window.innerWidth <= 760) {
@@ -50,28 +54,13 @@ const Calendar = () => {
   }, []);
 
   const handleSelect = (date) => {
-    if (date.getDay() === 1) {
-      handleDateChange(date);
-    } else {
-      toast.error('Şablon seçiminiz pazartesiden başlamalıdır.', {
-        position: 'bottom-right',
-      });
-    }
-  };
-
-  const handleDateChange = (date) => {
     setStartDate(date);
-
-    setEndDate(addDays(date, 6));
   };
 
-  const startOfWeeksArr = [...Array(20)].map((_, index) =>
-    startOfWeek(addDays(new Date(), index * 7), {
-      weekStartsOn: tr.options.weekStartsOn,
-    })
+  const startOfWeeksArr = availableDates?.map((date) =>
+    new Date(moment(date, 'DD.MM.YYYY').toDate())
   );
 
-  let data = ['dsd', 'ds'];
   return(
     <Container>
       <ApproveModal
@@ -211,16 +200,15 @@ const Calendar = () => {
         <Row>
           {activePage==='index' && (
             <Col xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
-              {data.map((elm, index) => (
-                <AccordionContainer key={index}>
+                <AccordionContainer>
                   <ReservationAccordion
-                    defaultOpen={index === 0}
+                    defaultOpen={true}
                     parent
-                    title={24+index+' OCAK ÇARŞAMBA'}>
+                    title={moment(startDate).format('DD MMMM YYYY')}>
                     <Box row flexWrap="wrap" center>
-                      {AVAILABLE_HOURS.map((item,index) => (
+                      {availableHours?.map((item,index) => ( item.id &&
                         <ReservationHourButton
-                          text={item}
+                          text={item.hour}
                           className="blue"
                           width="342px"
                           height="52px"
@@ -228,13 +216,11 @@ const Calendar = () => {
                           key={index}
                         />
                       ))}
-
                       <AvailableButton onClick={()=>setActivePage('showAvailableHour')}>Boş Saatlerimi Gör</AvailableButton>
 
                     </Box>
                   </ReservationAccordion>
                 </AccordionContainer>
-              ))}
             </Col>)}
 
           {activePage==='showAvailableHour' && (
@@ -251,11 +237,11 @@ const Calendar = () => {
                 <ReservationAccordion
                   defaultOpen={true}
                   parent
-                  title={'24 OCAK ÇARŞAMBA'}>
+                  title={moment(startDate).format('DD MMMM YYYY')}>
                   <Box row flexWrap="wrap" center>
-                    {AVAILABLE_HOURS.map((item,index) => (
+                    {availableHours?.map((item,index) => ( !item.id &&
                       <ReservationHourButton
-                        text={item}
+                        text={item.hour}
                         className="blue"
                         width="342px"
                         height="52px"
@@ -272,24 +258,22 @@ const Calendar = () => {
             </Col>)}
 
           <Col style={{ display: 'flex', justifyContent: 'center'}}
-               xs={{ order: IsSmallScreen ? 1 : 2 }}
-               lg={4}>
-            <DateContainer>
-              <DatePicker
-                 selected={startDate}
-                 startDate={startDate}
-                 endDate={endDate}
-                 onSelect={handleSelect}
-                 selectsRange
-                 inline
-                 highlightDates={[
-                   {
-                     'react-datepicker__day--highlighted': startOfWeeksArr,
-                   },
-                 ]}
-                 hideToday />
-            </DateContainer>
-          </Col>
+                 xs={{ order: IsSmallScreen ? 1 : 2 }}
+                 lg={4}>
+              <DateContainer>
+                <DatePicker
+                   selected={startDate}
+                   onSelect={handleSelect}
+                   selectsRange
+                   inline
+                   highlightDates={[
+                     {
+                       'react-datepicker__day--highlighted': startOfWeeksArr,
+                     },
+                   ]}
+                   minDate={new Date()} />
+              </DateContainer>
+            </Col>
         </Row>
       )}
 
@@ -387,6 +371,7 @@ const AvailableButton = styled.button`
   border-radius: 20px;
   margin-right: 80px;
   margin-left: 80px;
+  margin-top: 5px;
   font-size: 14px;
   @media ${device.sm} {
     width: 90px;
