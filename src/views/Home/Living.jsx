@@ -1,9 +1,10 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+import * as Data from './MocData';
 
 import { HomeUserSlider, Title } from 'components';
-
+const data = Data.Gym;
 const Living = (props) => {
   const {
     content: { data: content },
@@ -25,7 +26,11 @@ const Living = (props) => {
           İSTEDİĞİN SALONDA ÇALIŞMA FIRSATI
         </Title>
       </Container>
-      <HomeUserSlider data={content?.list_bs || []} link={link} />
+      <HomeUserSlider
+        //data={content?.list_bs || []}
+        data={data}
+        link={link}
+      />
     </section>
   );
 };
