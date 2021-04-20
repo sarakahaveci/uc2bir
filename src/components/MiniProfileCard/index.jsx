@@ -7,7 +7,7 @@ const MiniProfileCard = ({ photo, name, rating, type_id, price }) => {
   return (
     <Container>
       <ImageContainer>
-        <Image src={photo} />
+        <img className="banner-image" src={photo} />
       </ImageContainer>
       <InfoContainer>
         <Title
@@ -56,10 +56,11 @@ const ImageContainer = styled.div`
   width: 150px;
   height: 150px;
 `;
-const Image = styled.img`
-  width: 100%;
+/*const Image = styled.img`
+  width: 150px;
+  height: 150px;
   border-radius: 150px;
-`;
+`;*/
 const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;

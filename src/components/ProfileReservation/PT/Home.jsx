@@ -7,15 +7,22 @@ import {
   Svg,
 } from 'components';
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
 import Checkbox from '@material-ui/core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import { device } from 'utils';
-import { branchData } from 'constants/formData';
-//import { setReservation, getCitiesAndDistict } from 'actions';
+import {
+  //setReservation,
+  // getCitiesAndDistict,
+  getPtGymList,
+  getUserBranchList,
+  getPtWorkingHomePlace,
+  getTemplates,
+  getPtReservationCalendar,
+} from 'actions';
 import { space } from 'styled-system';
 import GoogleMap from 'components/GoogleMaps/GoogleMap';
 //
@@ -23,11 +30,12 @@ const uri = `${process.env.REACT_APP_API_URL}/regions`;
 
 import { AwesomeIcon } from 'components';
 import axios from 'axios';
+import { getWallet } from 'actions/userProfileActions/walletActions';
 
 const dateOption = true;
 
 const Home = () => {
-  //const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userProfile.userInfo);
   const { reservation } = useSelector((state) => state.reservation);
   const [toggleState, setToggleState] = useState(false);
@@ -38,13 +46,27 @@ const Home = () => {
   const [sessionType, setSessionType] = useState(undefined);
   const [sessionTypes, setSessionTypes] = useState(undefined);
 
+  const { branches: branchList } = useSelector(
+    (state) => state.userProfile.branch
+  );
+  const gymList = useSelector((state) => state.userProfile.ptGymList);
+  const homePlaces = useSelector(
+    (state) => state.userProfile.workPlace.ptHomePlace
+  );
+  //const wallet = useSelector((state) => state.userProfile.wallet);
   useEffect(() => {
     var items = userInfo.session.map((item) => ({
       name: item.title,
       id: item.type,
     }));
     setSessionTypes([...items, { id: 'b', name: 'Belirttiğim Adres' }]);
-  }, [userInfo?.session]);
+    dispatch(getUserBranchList(userInfo.id));
+    dispatch(getPtGymList(userInfo.id));
+    dispatch(getPtWorkingHomePlace(userInfo.id));
+    dispatch(getWallet());
+    dispatch(getTemplates());
+    dispatch(getPtReservationCalendar(userInfo.id, '27.04.2021'));
+  }, [userInfo]);
   useEffect(() => {
     if (!city) {
       axios
@@ -78,35 +100,18 @@ const Home = () => {
   function WorkAreaSelect() {
     switch (sessionType) {
       case 'gym':
-        return (
+        return gymList?.data?.map((item) => (
           <>
             <Text>{'Spor Alanı Seçiniz:'}</Text>
             <CardGroup>
               <WorkAreaCard
-                stars={5}
-                capacity={200}
-                title={'salam'}
-                area_measure={'sd'}
-                city={'izmir'}
-                district={'bornova'}
-                price={'300'}
-              />
-              <GreenCheckbox
-                icon={<RadioButtonUncheckedIcon />}
-                checkedIcon={<RadioButtonCheckedIcon />}
-                //checked={checked.includes(data?.id)}
-                // onChange={() => handleChange(data?.id)}
-              />
-            </CardGroup>
-            <CardGroup>
-              <WorkAreaCard
-                stars={5}
-                capacity={200}
-                title={'salam'}
-                area_measure={'sd'}
-                city={'izmir'}
-                district={'bornova'}
-                price={'300'}
+                stars={item.rating}
+                capacity={item.capacity}
+                title={item.title}
+                area_measure={item.area_measure}
+                city={item.city}
+                district={item.district}
+                price={item.price}
               />
               <GreenCheckbox
                 icon={<RadioButtonUncheckedIcon />}
@@ -116,9 +121,9 @@ const Home = () => {
               />
             </CardGroup>
           </>
-        );
+        ));
       case 'home_park':
-        return (
+        return homePlaces.data?.home_park?.map((item) => (
           <>
             <Accordion>
               <AccordionItemWrapper>
@@ -129,9 +134,9 @@ const Home = () => {
                   >
                     <Svg.SessionType.Park />
                     <ParkInfo>
-                      <ParkHeader>Moda Park</ParkHeader>
+                      <ParkHeader>{item.title}</ParkHeader>
                       <ParkAdress>
-                         Cevdet Paşa Caddesi No: 52-54 Bebek - İstanbul
+                        {item.town + ' ' + item.district + ' ' + item.city}
                       </ParkAdress>
                     </ParkInfo>
                     {toggleState ? <Svg.ArrowDownIcon /> : <Svg.ArrowUpIcon />}
@@ -140,8 +145,8 @@ const Home = () => {
                     <MapWrapper>
                       <GoogleMap
                         locationFromUser={{
-                          lat: 34.525,
-                          lng: 41.525,
+                          lat: item.lat,
+                          lng: item.lng,
                         }}
                         disabled
                       />
@@ -151,7 +156,7 @@ const Home = () => {
               </AccordionItemWrapper>
             </Accordion>
           </>
-        );
+        ));
       case 'online':
         return <></>;
       case 'b':
@@ -340,9 +345,8 @@ const Home = () => {
               )}
               <Text>{'Branş Seçiniz:'}</Text>
               <Material.SimpleSelect
-                items={userInfo?.branches}
+                items={branchList.branches}
                 name="branch"
-                defaultValue={branchData[0]}
                 // action={actionSetData}
                 //state={detail}
               />

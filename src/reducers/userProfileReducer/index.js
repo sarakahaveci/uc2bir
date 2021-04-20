@@ -13,6 +13,7 @@ import dietitionSpeciality from './dietitionSpecialityReducer';
 import galery from './galeryReducer';
 import gymClass from './gymClassReducer';
 import comment from './commentReducer';
+import wallet from './walletReducer';
 
 const reducers = combineReducers({
   certificate,
@@ -27,7 +28,8 @@ const reducers = combineReducers({
   dietitionSpeciality,
   galery,
   gymClass,
-  comment
+  comment,
+  wallet,
 });
 
 export default reducers;

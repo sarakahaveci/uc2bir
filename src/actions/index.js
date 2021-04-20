@@ -10,3 +10,4 @@ export * from './userProfileActions';
 export * from './searchProfessionalAction';
 export * from './homeActions';
 export * from './reservationActions';
+export * from './reservationCalendarActions';

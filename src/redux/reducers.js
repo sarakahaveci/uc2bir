@@ -20,6 +20,7 @@ import userProfileReducer from '../reducers/userProfileReducer/index';
 import searchProfessional from '../reducers/searchProfessionalReducer';
 import home from '../reducers/homeReducer';
 import reservation from '../reducers/reservationReducer';
+import reservationCalendar from '../reducers/reservationCalendarReducer';
 
 const reducers = combineReducers({
   auth,
@@ -41,6 +42,7 @@ const reducers = combineReducers({
   searchProfessional,
   home,
   reservation,
+  reservationCalendar,
 });
 
 export default reducers;
