@@ -12,7 +12,28 @@ export default function PaymentCard({ dateOption }) {
   const reservationCalendar = useSelector((state) => state.reservationCalendar);
 
   const [toggleState, setToggleState] = useState(false);
+  function handleHourClick(item) {
+    var slot = reservation?.data?.slot;
+    var newItem = { date: item.date, hour: item.time };
+    var newSlot = [];
+    if (slot) {
+      var duplicate = slot.filter(
+        (e) => e.hour === item.time && e.date === item.date
+      ).length;
+      if (duplicate > 0) {
+      } else {
+        newSlot = [...slot, newItem];
+      }
+    } else {
+      newSlot = [newItem];
+    }
 
+    dispatch(
+      setReservation({
+        slot: newSlot,
+      })
+    );
+  }
   return (
     <Container>
       {dateOption && (
@@ -33,16 +54,14 @@ export default function PaymentCard({ dateOption }) {
               reservationCalendar?.data?.slice?.map((item, indx) => (
                 <Hour
                   onClick={() => {
-                    dispatch(
-                      setReservation({
-                        slot: [
-                          ...reservation?.date?.slot,
-                          { date: item.date, hour: item.time },
-                        ],
-                      })
-                    );
+                    handleHourClick(item);
                   }}
                   key={indx}
+                  selected={
+                    reservation?.data?.slot?.filter(
+                      (e) => e.hour === item.time && e.date === item.date
+                    ).length > 0
+                  }
                 >
                   {item.time}
                 </Hour>
@@ -89,7 +108,7 @@ export default function PaymentCard({ dateOption }) {
                     {toggleState ? <Svg.ArrowDownIcon /> : <Svg.ArrowUpIcon />}
                   </Accordion.Toggle>
                   <Accordion.Collapse>
-                    {['22', '22'].map((elm, key) => (
+                    {reservation?.data?.slot?.map((elm, key) => (
                       <Info key={key}>
                         <div style={{ display: 'flex' }}>
                           <Text
@@ -120,7 +139,7 @@ export default function PaymentCard({ dateOption }) {
                               padding: '0 7px',
                             }}
                           >
-                            26 Kasım
+                            {elm.date}
                           </Text>
                           <Text
                             color="#00B2A9"
@@ -138,7 +157,7 @@ export default function PaymentCard({ dateOption }) {
                               padding: '0 7px',
                             }}
                           >
-                            11:00
+                            {elm.hour}
                           </Text>
                         </div>
                         <Svg.TrashIcon />
