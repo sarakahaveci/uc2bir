@@ -13,7 +13,7 @@ import {
   ApproveModal,
 } from '../../../index';
 import styled from 'styled-components/macro';
-import { AVAILABLE_HOURS, branchData, sessionData, salonData} from '../../../../constants';
+import { branchData, sessionData, salonData} from '../../../../constants';
 import { device } from '../../../../utils';
 import image from '../../../../assets/wave-background.png';
 import Svg from '../../../statics/svg';
@@ -35,10 +35,6 @@ const Calendar = () => {
     availableHours: { data: availableHours },
   } = useSelector((state) => state.profileSettings2.reservationTemplate);
 
-  // const templateDays = templateDetails?.slot?.map((slot) => slot.day) || [];
-
-  // const startOfThisWeek= startOfWeek(new Date(), { weekStartsOn: tr.options.weekStartsOn, })
-
   useEffect(() => {
     dispatch(getTemplateFromCalender());
     setStartDate(new Date());
@@ -47,6 +43,7 @@ const Calendar = () => {
   useEffect(() => {
     dispatch(getDayOfCalender(moment(startDate).format('DD.MM.YYYY')));
   }, [startDate]);
+
 
   useEffect(() => {
     if (window.innerWidth <= 760) {
@@ -240,11 +237,11 @@ const Calendar = () => {
                 <ReservationAccordion
                   defaultOpen={true}
                   parent
-                  title={'24 OCAK ÇARŞAMBA'}>
+                  title={moment(startDate).format('DD MMMM YYYY')}>
                   <Box row flexWrap="wrap" center>
-                    {AVAILABLE_HOURS.map((item,index) => (
+                    {availableHours?.map((item,index) => ( !item.id &&
                       <ReservationHourButton
-                        text={item}
+                        text={item.hour}
                         className="blue"
                         width="342px"
                         height="52px"
@@ -260,7 +257,7 @@ const Calendar = () => {
               </AccordionContainer>
             </Col>)}
 
-            <Col style={{ display: 'flex', justifyContent: 'center'}}
+          <Col style={{ display: 'flex', justifyContent: 'center'}}
                  xs={{ order: IsSmallScreen ? 1 : 2 }}
                  lg={4}>
               <DateContainer>
