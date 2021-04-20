@@ -17,11 +17,30 @@ import { AVAILABLE_HOURS, branchData, sessionData, salonData} from '../../../../
 import { device } from '../../../../utils';
 import image from '../../../../assets/wave-background.png';
 import Svg from '../../../statics/svg';
+import { toast } from 'react-toastify';
+import { addDays, startOfWeek } from 'date-fns';
+import tr from 'date-fns/locale/tr';
+import { useDispatch } from 'react-redux';
+import { getTemplateDetails } from '../../../../actions';
 
 const Calendar = () => {
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
   const [activePage, setActivePage] = useState('index');
   const [openApprove, setOpenApprove] = useState(false);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const dispatch = useDispatch();
+  // const {
+  //   // myTemplates: { data: myTemplates },
+  //   // templateDetails: { data: templateDetails },
+  // } = useSelector((state) => state.profileSettings2.reservationTemplate);
+
+  // const templateDays = templateDetails?.slot?.map((slot) => slot.day) || [];
+
+  useEffect(() => {
+    dispatch(getTemplateDetails(22));
+  }, []);
+
   useEffect(() => {
     if (window.innerWidth <= 760) {
       setIsSmallScreen(true);
@@ -29,6 +48,29 @@ const Calendar = () => {
       setIsSmallScreen(false);
     }
   }, []);
+
+  const handleSelect = (date) => {
+    if (date.getDay() === 1) {
+      handleDateChange(date);
+    } else {
+      toast.error('Şablon seçiminiz pazartesiden başlamalıdır.', {
+        position: 'bottom-right',
+      });
+    }
+  };
+
+  const handleDateChange = (date) => {
+    setStartDate(date);
+
+    setEndDate(addDays(date, 6));
+  };
+
+  const startOfWeeksArr = [...Array(20)].map((_, index) =>
+    startOfWeek(addDays(new Date(), index * 7), {
+      weekStartsOn: tr.options.weekStartsOn,
+    })
+  );
+
   let data = ['dsd', 'ds'];
   return(
     <Container>
@@ -233,7 +275,19 @@ const Calendar = () => {
                xs={{ order: IsSmallScreen ? 1 : 2 }}
                lg={4}>
             <DateContainer>
-              <DatePicker minDate={new Date()} inline selected={null} />
+              <DatePicker
+                 selected={startDate}
+                 startDate={startDate}
+                 endDate={endDate}
+                 onSelect={handleSelect}
+                 selectsRange
+                 inline
+                 highlightDates={[
+                   {
+                     'react-datepicker__day--highlighted': startOfWeeksArr,
+                   },
+                 ]}
+                 hideToday />
             </DateContainer>
           </Col>
         </Row>
