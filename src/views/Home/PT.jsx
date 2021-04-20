@@ -3,12 +3,12 @@ import { Container } from 'react-bootstrap';
 import cx from 'classnames';
 import { useSelector } from 'react-redux';
 import { HomeUserSlider, Title } from 'components';
-
+import * as Data from './MocData';
 const PT = ({ className }) => {
   const {
     content: { data: content },
   } = useSelector((state) => state.home);
-
+  const data = Data.Pt;
   // You can delete it later
   if ((content?.list_pt || []).length === 0) {
     return <> </>;
@@ -25,7 +25,11 @@ const PT = ({ className }) => {
           EN İYİ EĞİTMENLER İLE ÇALIŞMA FIRSATI
         </Title>
       </Container>
-      <HomeUserSlider data={content?.list_pt || []} link={link} />
+      <HomeUserSlider
+        //data={content?.list_pt || []}
+        data={data || []}
+        link={link}
+      />
     </section>
   );
 };

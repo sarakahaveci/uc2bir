@@ -20,7 +20,7 @@ const UserCard = ({ top = false, bottom = false, data = {}, className }) => {
         <div
           className={`img ${className}`}
           style={{
-            backgroundImage: `url(${data.photo})`,
+            backgroundImage: `url(${data?.photo?.default || data?.photo})`,
           }}
         >
           <ul className="points">
