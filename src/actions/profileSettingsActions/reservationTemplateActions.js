@@ -13,7 +13,8 @@ import {
   PERSONAL_TRAINER,
   WORK_PLACE,
   USER_KEYS,
-  GET_TEMPLATE_FROM_CALENDAR
+  GET_TEMPLATE_FROM_CALENDAR,
+  GET_DAY_OF_CALENDER
 } from '../../constants';
 
 export const setSelectedDay = (dayIndex) => async (dispatch, getState) => {
@@ -197,6 +198,20 @@ export const getTemplateFromCalender = () => async (dispatch) => {
       transformData: (data) => data.data,
       url,
       label: GET_TEMPLATE_FROM_CALENDAR,
+    },
+  });
+};
+
+export const getDayOfCalender = (date) => async (dispatch) => {
+  const url = `/appointment/pt?date=${date}`;
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'GET',
+      transformData: (data) => data.data,
+      url,
+      label: GET_DAY_OF_CALENDER,
     },
   });
 };

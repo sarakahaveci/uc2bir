@@ -8,6 +8,12 @@ import {
   GET_TEMPLATE_DETAILS_REQUEST,
   GET_TEMPLATE_DETAILS_SUCCESS,
   GET_TEMPLATE_DETAILS_FAILURE,
+  GET_TEMPLATE_FROM_CALENDAR_REQUEST,
+  GET_TEMPLATE_FROM_CALENDAR_SUCCESS,
+  GET_TEMPLATE_FROM_CALENDAR_FAILURE,
+  GET_DAY_OF_CALENDER_REQUEST,
+  GET_DAY_OF_CALENDER_SUCCESS,
+  GET_DAY_OF_CALENDER_FAILURE
 } from '../../constants';
 
 const initialState = {
@@ -19,6 +25,18 @@ const initialState = {
     error: null,
   },
   templateDetails: {
+    data: [],
+    isLoading: false,
+    error: null,
+  },
+
+  availableDates: {
+    data: [],
+    isLoading: false,
+    error: null,
+  },
+
+  availableHours: {
     data: [],
     isLoading: false,
     error: null,
@@ -92,6 +110,65 @@ export default (state = initialState, action) => {
           error: action.payload,
         },
       };
+
+    case GET_TEMPLATE_FROM_CALENDAR_REQUEST:
+      return {
+        ...state,
+        availableDates: {
+          ...state.availableDates,
+          isLoading: true,
+        },
+      };
+
+    case GET_TEMPLATE_FROM_CALENDAR_SUCCESS:
+      return {
+        ...state,
+        availableDates: {
+          isLoading: false,
+          data: action.payload,
+          error: null,
+        },
+      };
+
+    case GET_TEMPLATE_FROM_CALENDAR_FAILURE:
+      return {
+        ...state,
+        availableDates: {
+          ...state.availableDates,
+          isLoading: false,
+          error: action.payload,
+        },
+      };
+
+    case GET_DAY_OF_CALENDER_REQUEST:
+      return {
+        ...state,
+        availableHours: {
+          ...state.availableHours,
+          isLoading: true,
+        },
+      };
+
+    case GET_DAY_OF_CALENDER_SUCCESS:
+      return {
+        ...state,
+        availableHours: {
+          isLoading: false,
+          data: action.payload,
+          error: null,
+        },
+      };
+
+    case GET_DAY_OF_CALENDER_FAILURE:
+      return {
+        ...state,
+        availableHours: {
+          ...state.availableHours,
+          isLoading: false,
+          error: action.payload,
+        },
+      };
+
 
     case SET_SELECTED_DAY:
       return {
