@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-
 import { getGeocode } from 'use-places-autocomplete';
 import Awaitings from './Awaitings';
 import Approved from './Approved';
@@ -76,9 +75,7 @@ const PT = () => {
               <DateCreateButton
                 onClick={() => {
                   setOpenCreateCalender(true);
-
-                }}
-              >
+                }}>
                 <Svg.PlusIcon />
                 <ButtonText>Takvim Oluştur</ButtonText>
               </DateCreateButton>
@@ -92,7 +89,7 @@ const PT = () => {
         open={openCreateCalender}
         approve={() => {
           setOpenCreateCalender(false);
-          setSubPage(myTemplates.length >0 ? <ReservationCreatedTemplate />:<ReservationTemplate />);
+          setSubPage(myTemplates.length >0 ? <ReservationCreatedTemplate setTab={setTab} setTabPage={setSubPage}/>:<ReservationTemplate />);
         }}
         cancel={() => {
           setOpenCreateCalender(false);

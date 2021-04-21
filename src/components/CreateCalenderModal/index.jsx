@@ -3,7 +3,10 @@ import styled from 'styled-components/macro';
 import { Text, Svg } from 'components';
 import { Link } from 'react-router-dom';
 import { device } from 'utils';
+import { useSelector } from 'react-redux';
+
 const CreateCalenderModal = ({ open, approve = () => {}, cancel = () => {} }) => {
+  const { name: name } = useSelector((state) => state.auth.user);
   return (
     <Root style={{ display: open ? 'flex' : 'none' }}>
       <MainContainer>
@@ -16,7 +19,7 @@ const CreateCalenderModal = ({ open, approve = () => {}, cancel = () => {} }) =>
             fontWeight="500"
             textAlign="center"
           >
-            Merhaba Zeynep
+            Merhaba {name}
           </Text>
 
           <Text textAlign="center" fontSize="1rem" color="dark">

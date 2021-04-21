@@ -1,31 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import { Link } from 'react-router-dom';
 
 
-import { Box, Button, Span, Svg, Text, Title } from 'components';
+import { Box, Button, Modal, Span, Svg, Text, Title } from 'components';
 import image from '../../../../assets/wave-background.png';
 import { device } from '../../../../utils';
 
 import ReservationTemplate from './ReservationTemplate';
+import ApplyTemplateModal from './ApplyTemplateModal';
 
-export default function ReservationCreatedTemplate() {
+export default function ReservationCreatedTemplate({ setTab = () => {}, setTabPage = () => {} }) {
   const [subPage, setSubPage] = useState();
+  const applyTemplateModalRef = useRef();
+  const successReservationModalRef = useRef();
+  const { name: name } = useSelector((state) => state.auth.user);
+  const openApplyTemplateModal = () =>
+    applyTemplateModalRef.current.openModal();
   const {
     myTemplates: { data: myTemplates },
   } = useSelector((state) => state.profileSettings2.reservationTemplate);
 
+  const openSuccessReservationModal = useCallback(() => {
+    successReservationModalRef.current.openModal();
+  }, []);
+
+  const closeSuccessReservationModal = useCallback(() => {
+    setTabPage('')
+    setTab('Calendar')
+  }, []);
+
 
   return (
-
-
       subPage === 'create'?
         ( <ReservationTemplate/>)
       :
         ( <div>
-        <BackLink to="/myprofile/settings/profile">
+        <BackLink onClick={()=>setTabPage('')}>
           <Svg.ArrowLeftIcon />
 
           <span>Şablonlar</span>
@@ -47,13 +60,13 @@ export default function ReservationCreatedTemplate() {
                   style={{ marginLeft:'15px', display:'flex'}}
                   textAlign="left"
                   fontWeight="500"
-                  fontSize='13px'
+                  fontSize='11px'
                   color={'blue'}>
                   <Span underline lineWidth={'100%'} > Varsayılan Şablon Olarak Seç </Span>
                   <Span
                     style={{marginBottom:'-10px'}}
                     cursor="pointer"
-                    fontSize="1.5rem"
+                    fontSize="1rem"
                     marginLeft="10px">
                     {`>`}
                   </Span>
@@ -63,9 +76,7 @@ export default function ReservationCreatedTemplate() {
             ))}
 
           </Col>
-
           <Col lg={6}>
-
             <DateContainer>
               <AppointmentDate>
                 <Row>
@@ -77,17 +88,14 @@ export default function ReservationCreatedTemplate() {
                   </Title>
 
                   <Text  style={{ margin:'15px', display:'flex'}} fontWeight="300" color={'grey'}>
-                    Merhaba Zeynep, rezervasyon takvimini tamamlamak için oluşturduğun şablonalardan birini kullanabilirsin
+                    Merhaba {name}, rezervasyon takvimini tamamlamak için oluşturduğun şablonalardan birini kullanabilirsin
                   </Text>
-
                 </Row>
-
-
               </AppointmentDate>
 
               <AcceptButton src={image}>
                 <Button
-                  onClick={()=>setOpenApprove(true)}
+                  onClick={openApplyTemplateModal}
                   text="Haftalık Rezervasyon Takvimimi Oluştur"
                   className="blue"
                   width={'496px'}
@@ -108,6 +116,45 @@ export default function ReservationCreatedTemplate() {
 
             </DateContainer>
           </Col>
+
+          <ApplyTemplateModal
+            ref={applyTemplateModalRef}
+            openSuccessReservationModal={openSuccessReservationModal}
+          />
+
+          <SuccessReservationModal
+            activateFooter
+            ref={successReservationModalRef}>
+            <div className="reservation__success-modal">
+              <Box center mb="35px">
+                <Svg.SuccessIcon />
+              </Box>
+
+              <Text textAlign="center" fontSize="1.1rem" fontWeight="600">
+                Tebrikler
+              </Text>
+
+              <Text textAlign="center" fontSize="1.1rem" mb="15px">
+                Rezervasyonlarınız oluşturuldu.
+              </Text>
+            </div>
+
+            <Modal.Footer>
+              <Text
+                onClick={closeSuccessReservationModal}
+                textAlign="center"
+                p="0 0 20px 0"
+                color="blue"
+                cursor="pointer"
+              >
+                Rezervasyon takvimimi gör
+              </Text>
+
+              <Link to="/" className="reservation__return-homepage">
+                ANASAYFA
+              </Link>
+            </Modal.Footer>
+          </SuccessReservationModal>
         </Row>
       </div>)
   );
@@ -119,6 +166,27 @@ const BoxContainer = styled(Container)`
   border-radius: 5px;
   padding: 15px;
   margin-top: 30px;
+`;
+
+const SuccessReservationModal = styled(Modal)`
+  .modal-content {
+    width: 500px;
+  }
+
+  .reservation {
+    &__success-modal {
+      padding: 20px 0;
+    }
+
+    &__return-homepage {
+      border-top: 1px solid rgba(144, 144, 144, 0.2);
+      text-align: center;
+      padding-top: 20px;
+      cursor: pointer;
+      color: ${(p) => p.theme.colors.dark};
+      display: block;
+    }
+  }
 `;
 
 const DateContainer = styled.div`
@@ -163,7 +231,7 @@ const AcceptButton = styled.div`
   }
 `;
 
-const BackLink = styled(Link)`
+const BackLink = styled(Text)`
   display: flex;
   cursor: pointer;
   margin-bottom: 15px;
