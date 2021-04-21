@@ -1,38 +1,89 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
 import { device } from 'utils';
 import { Button, Accordion, Material } from 'components';
 import Svg from 'components/statics/svg';
 import { space } from 'styled-system';
 import { useDispatch, useSelector } from 'react-redux';
-import { setReservation } from 'actions';
+import { setReservation, deleteSlot, addSlot, sendReservation } from 'actions';
 export default function PaymentCard({ dateOption }) {
   const dispatch = useDispatch();
   const reservation = useSelector((state) => state.reservation);
   const reservationCalendar = useSelector((state) => state.reservationCalendar);
+  const { userInfo } = useSelector((state) => state.userProfile.userInfo);
 
   const [toggleState, setToggleState] = useState(false);
+  useEffect(() => {
+    if (reservation?.data?.slot?.length > 0) {
+      dispatch(
+        setReservation({
+          pt_price: reservation?.data?.slot?.length * userInfo.price,
+        })
+      );
+    } else {
+      dispatch(
+        setReservation({
+          pt_price: 0,
+        })
+      );
+    }
+  }, [reservation?.data?.slot]);
+  useEffect(() => {
+    dispatch(
+      setReservation({
+        deposit_amount:
+          reservation?.data?.pt_price + reservation?.data?.gym_price,
+      })
+    );
+  }, [reservation?.data?.pt_price, reservation?.data?.gym_price]);
+
+  function sendPayment() {
+    var json = {
+      pt_id: reservation?.data?.pt_id,
+      payment_type: reservation?.data?.payment_type,
+      is_contracts_accepted: true,
+      session: reservation?.data?.session,
+      location_id: reservation?.data?.location_id,
+      branch_id: reservation?.data?.branch_id,
+      guest: false,
+      holder_name: 'test user',
+      card_number: '5313891061443183',
+      expiration_month: '01',
+      expiration_year: '2028',
+      cvc: '123',
+      deposit_amount: reservation?.data?.deposit_amount / 2,
+      slot: reservation?.data?.slot,
+    };
+
+    dispatch(
+      sendReservation(
+        json,
+        (s) => {
+          alert('success', s);
+        },
+        (e) => {
+          alert('err', e);
+        }
+      )
+    );
+  }
+
   function handleHourClick(item) {
     var slot = reservation?.data?.slot;
     var newItem = { date: item.date, hour: item.time };
-    var newSlot = [];
+
     if (slot) {
-      var duplicate = slot.filter(
+      var findItem = slot?.filter(
         (e) => e.hour === item.time && e.date === item.date
       ).length;
-      if (duplicate > 0) {
+      if (findItem > 0) {
+        dispatch(deleteSlot(newItem));
       } else {
-        newSlot = [...slot, newItem];
+        dispatch(addSlot(newItem));
       }
     } else {
-      newSlot = [newItem];
+      dispatch(addSlot(newItem));
     }
-
-    dispatch(
-      setReservation({
-        slot: newSlot,
-      })
-    );
   }
   return (
     <Container>
@@ -83,11 +134,15 @@ export default function PaymentCard({ dateOption }) {
         <DataContainer>
           <Info>
             <Text style={{ fontWeight: 800 }}>Eğitmen Ücreti</Text>
-            <Text style={{ fontWeight: 800 }}>300</Text>
+            <Text style={{ fontWeight: 800 }}>
+              {reservation?.data?.pt_price}
+            </Text>
           </Info>
           <Info>
             <Text style={{ fontWeight: 800 }}>Salon Ücreti</Text>
-            <Text style={{ fontWeight: 800 }}>50</Text>
+            <Text style={{ fontWeight: 800 }}>
+              {reservation?.data?.gym_price}
+            </Text>
           </Info>
         </DataContainer>
       </InfoContainer>
@@ -160,7 +215,11 @@ export default function PaymentCard({ dateOption }) {
                             {elm.hour}
                           </Text>
                         </div>
-                        <Svg.TrashIcon />
+                        <Svg.TrashIcon
+                          onClick={() => {
+                            dispatch(deleteSlot(elm));
+                          }}
+                        />
                       </Info>
                     ))}
                   </Accordion.Collapse>
@@ -178,7 +237,7 @@ export default function PaymentCard({ dateOption }) {
         <BottomContainer>
           <Text style={{ fontWeight: 800 }}>Toplam Ücret</Text>
           <Text color="#00B2A9" style={{ fontWeight: 800, fontSize: 30 }}>
-            900
+            {reservation?.data?.deposit_amount}
           </Text>
         </BottomContainer>
         {reservation?.data?.payment_type ? (
@@ -187,6 +246,9 @@ export default function PaymentCard({ dateOption }) {
               style={{ width: '100%', padding: '20px' }}
               className="blue"
               text="Ödeme Yap"
+              onClick={() => {
+                sendPayment();
+              }}
             />
           </BottomContainer>
         ) : (
@@ -207,7 +269,7 @@ export default function PaymentCard({ dateOption }) {
                 className="blue"
                 text="Kredi Kartından Öde"
                 onClick={() => {
-                  dispatch(setReservation({ payment_type: 'creditCard' }));
+                  dispatch(setReservation({ payment_type: 'credit_card' }));
                 }}
               />
             </BottomContainer>

@@ -1,4 +1,8 @@
-import { HTTP_REQUEST, GET_PT_RESERVATION_CALENDAR } from '../constants';
+import {
+  HTTP_REQUEST,
+  GET_PT_RESERVATION_CALENDAR,
+  SEND_RESERVATİON,
+} from '../constants';
 
 export const getPtReservationCalendar = (
   id,
@@ -21,6 +25,24 @@ export const getPtReservationCalendar = (
       method: 'GET',
       url,
       label: GET_PT_RESERVATION_CALENDAR,
+      transformData: (data) => data.data,
+    },
+  });
+};
+export const sendReservation = (body, successCallback, errorCallback) => async (
+  dispatch
+) => {
+  const url = `/appointment/pt-calendar`;
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'POST',
+      url,
+      body: { ...body },
+      label: SEND_RESERVATİON,
+      callBack: () => successCallback(),
+      errorHandler: (error) => errorCallback(error?.message),
       transformData: (data) => data.data,
     },
   });

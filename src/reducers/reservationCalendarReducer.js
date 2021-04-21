@@ -2,6 +2,7 @@ import {
   GET_PT_RESERVATION_CALENDAR_FAILURE,
   GET_PT_RESERVATION_CALENDAR_SUCCESS,
   GET_PT_RESERVATION_CALENDAR_REQUEST,
+  SEND_RESERVATİON,
 } from '../constants';
 
 const initialState = {
@@ -24,7 +25,7 @@ export default (state = initialState, action) => {
         isLoading: false,
         error: action.payload.message,
       };
-
+    case SEND_RESERVATİON:
     case GET_PT_RESERVATION_CALENDAR_SUCCESS:
       return {
         ...state,

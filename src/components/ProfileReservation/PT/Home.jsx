@@ -9,8 +9,6 @@ import {
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
-import Checkbox from '@material-ui/core/Checkbox';
-import { withStyles } from '@material-ui/core/styles';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import { device } from 'utils';
@@ -25,6 +23,10 @@ import {
 } from 'actions';
 import { space } from 'styled-system';
 import GoogleMap from 'components/GoogleMaps/GoogleMap';
+//
+
+import RadioGroup from '@material-ui/core/RadioGroup';
+
 //
 const uri = `${process.env.REACT_APP_API_URL}/regions`;
 
@@ -116,28 +118,49 @@ const Home = () => {
     switch (reservation?.data?.session) {
       case 'gym':
         return (
-          gymList?.data?.map((item) => (
-            <>
-              <Text>{'Spor Alanı Seçiniz:'}</Text>
-              <CardGroup>
-                <WorkAreaCard
-                  stars={item.rating}
-                  capacity={item.capacity}
-                  title={item.title}
-                  area_measure={item.area_measure}
-                  city={item.city}
-                  district={item.district}
-                  price={item.price}
-                />
-                <GreenCheckbox
-                  icon={<RadioButtonUncheckedIcon />}
-                  checkedIcon={<RadioButtonCheckedIcon />}
-                  //checked={checked.includes(data?.id)}
-                  // onChange={() => handleChange(data?.id)}
-                />
-              </CardGroup>
-            </>
-          )) || null
+          <>
+            <Text>{'Spor Alanı Seçiniz:'}</Text>
+            <RadioGroup
+              row
+              aria-label="workArea"
+              name="workArea"
+              defaultValue="0l"
+            >
+              {gymList?.data?.map((item) => (
+                <>
+                  <CardGroup>
+                    <WorkAreaCard
+                      stars={item.rating}
+                      capacity={item.capacity}
+                      title={item.title}
+                      area_measure={item.area_measure}
+                      city={item.city}
+                      district={item.district}
+                      price={item.price}
+                    />
+
+                    {reservation?.data?.location_id === item.id ? (
+                      <RadioButtonCheckedIcon
+                        style={{ marginLeft: '5px', cursor: 'pointer' }}
+                      />
+                    ) : (
+                      <RadioButtonUncheckedIcon
+                        onClick={() => {
+                          dispatch(
+                            setReservation({
+                              location_id: item.id,
+                              gym_price: item.price,
+                            })
+                          );
+                        }}
+                        style={{ marginLeft: '5px', cursor: 'pointer' }}
+                      />
+                    )}
+                  </CardGroup>
+                </>
+              )) || null}
+            </RadioGroup>
+          </>
         );
       case 'home_park':
         return (
@@ -285,16 +308,36 @@ const Home = () => {
               label="Kart Üzerindeki İsim"
               type="text"
               name="name"
+              onChange={(e) => {
+                dispatch(setReservation({ holder_name: e.target.value }));
+              }}
             />
 
             <Material.TextField
               label="Kart Numarası"
               type="text"
               name="cardNo"
+              onChange={(e) => {
+                dispatch(setReservation({ card_number: e.target.value }));
+              }}
             />
             <Info borderDisable>
-              <Material.TextField label="SKT" type="text" name="skt" />
-              <Material.TextField label="CVV" type="text" name="cvv" />
+              <Material.TextField
+                label="SKT"
+                type="text"
+                name="skt"
+                onChange={(e) => {
+                  dispatch(setReservation({ card_number: e.target.value }));
+                }}
+              />
+              <Material.TextField
+                label="CVV"
+                type="text"
+                name="cvv"
+                onChange={(e) => {
+                  dispatch(setReservation({ cvc: e.target.value }));
+                }}
+              />
             </Info>
             <Material.TextField
               label="Yükelenecek Tutarı Giriniz"
@@ -342,7 +385,7 @@ const Home = () => {
             {true && <CreditCard />}
           </>
         );
-      case 'creditCard':
+      case 'credit_card':
         return <CreditCard />;
       default:
         return (
@@ -373,14 +416,19 @@ const Home = () => {
                 onChange={(e) =>
                   dispatch(setReservation({ branch_id: e.target.value }))
                 }
-                //state={detail}
               />
               <Text>{'Oturum Türü Seçiniz:'}</Text>
               <Material.SimpleSelect
                 items={sessionTypes}
                 name="sessionType"
                 onChange={(e) =>
-                  dispatch(setReservation({ session: e.target.value }))
+                  dispatch(
+                    setReservation({
+                      session: e.target.value,
+                      location_id: undefined,
+                      gym_price: 0,
+                    })
+                  )
                 }
               />
 
@@ -400,16 +448,7 @@ const Home = () => {
     </Container>
   );
 };
-const GreenCheckbox = withStyles({
-  root: {
-    color: '#00b3a8',
-    width: 50,
-    '&$checked': {
-      color: '#00b3a8',
-    },
-  },
-  checked: {},
-})((props) => <Checkbox color="default" {...props} />);
+
 const Container = styled.div`
   display: flex;
   width: 100%;
