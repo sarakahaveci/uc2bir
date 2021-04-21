@@ -374,7 +374,6 @@ export const addNewPTBranch = (body, successCallback, errorCallback) => async (
   dispatch
 ) => {
   const url = '/user/pt-price/branch';
-
   let data = {};
   if (body.branch) {
     data.branch = body.branch;

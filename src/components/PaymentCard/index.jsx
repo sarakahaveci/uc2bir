@@ -4,6 +4,7 @@ import { device } from 'utils';
 import { Button, Accordion, Material } from 'components';
 import Svg from 'components/statics/svg';
 import { space } from 'styled-system';
+import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { setReservation, deleteSlot, addSlot, sendReservation } from 'actions';
 export default function PaymentCard({ dateOption }) {
@@ -36,6 +37,22 @@ export default function PaymentCard({ dateOption }) {
       })
     );
   }, [reservation?.data?.pt_price, reservation?.data?.gym_price]);
+  function selectPaymentType(type) {
+    if (reservation?.data?.deposit_amount > 0) {
+      dispatch(setReservation({ payment_type: type }));
+    } else {
+      toast.error('Sepetiniz Boş', {
+        position: 'bottom-right',
+        autoClose: 4000,
+      });
+    }
+  }
+
+  const removeEmpty = (obj) =>
+    Object.entries(obj)
+      // eslint-disable-next-line no-unused-vars
+      .filter(([_, value]) => !!value)
+      .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {});
 
   function sendPayment() {
     var json = {
@@ -46,26 +63,16 @@ export default function PaymentCard({ dateOption }) {
       location_id: reservation?.data?.location_id,
       branch_id: reservation?.data?.branch_id,
       guest: false,
-      holder_name: 'test user',
-      card_number: '5313891061443183',
-      expiration_month: '01',
-      expiration_year: '2028',
-      cvc: '123',
-      deposit_amount: reservation?.data?.deposit_amount / 2,
+      holder_name: reservation?.data?.holder_name,
+      card_number: reservation?.data?.card_number,
+      expiration_month: reservation?.data?.expiration_month,
+      expiration_year: reservation?.data?.expiration_year,
+      cvc: reservation?.data?.cvc,
+      deposit_amount: reservation?.data?.deposit_amount,
       slot: reservation?.data?.slot,
     };
 
-    dispatch(
-      sendReservation(
-        json,
-        (s) => {
-          alert('success', s);
-        },
-        (e) => {
-          alert('err', e);
-        }
-      )
-    );
+    dispatch(sendReservation(removeEmpty(json), () => {}));
   }
 
   function handleHourClick(item) {
@@ -97,6 +104,7 @@ export default function PaymentCard({ dateOption }) {
             onChange={(e) => {
               dispatch(setReservation({ date: e.target.value }));
             }}
+            defaultValue={reservation?.data?.date}
             settings
           />
           <AddHeader>Saat Seçiniz</AddHeader>
@@ -259,7 +267,7 @@ export default function PaymentCard({ dateOption }) {
                 className="blue"
                 text="Cüzdanımdan Öde"
                 onClick={() => {
-                  dispatch(setReservation({ payment_type: 'wallet' }));
+                  selectPaymentType('wallet');
                 }}
               />
             </BottomContainer>
@@ -269,7 +277,7 @@ export default function PaymentCard({ dateOption }) {
                 className="blue"
                 text="Kredi Kartından Öde"
                 onClick={() => {
-                  dispatch(setReservation({ payment_type: 'credit_card' }));
+                  selectPaymentType('credit_card');
                 }}
               />
             </BottomContainer>

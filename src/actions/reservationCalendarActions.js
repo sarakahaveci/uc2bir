@@ -3,7 +3,7 @@ import {
   GET_PT_RESERVATION_CALENDAR,
   SEND_RESERVATİON,
 } from '../constants';
-
+import { toast } from 'react-toastify';
 export const getPtReservationCalendar = (
   id,
   date,
@@ -29,9 +29,7 @@ export const getPtReservationCalendar = (
     },
   });
 };
-export const sendReservation = (body, successCallback, errorCallback) => async (
-  dispatch
-) => {
+export const sendReservation = (body, successCallback) => async (dispatch) => {
   const url = `/appointment/pt-calendar`;
 
   await dispatch({
@@ -42,7 +40,13 @@ export const sendReservation = (body, successCallback, errorCallback) => async (
       body: { ...body },
       label: SEND_RESERVATİON,
       callBack: () => successCallback(),
-      errorHandler: (error) => errorCallback(error?.message),
+      errorHandler: () => {
+        toast.error('Bilgilerinizi gözden geçiriniz.', {
+          position: 'bottom-right',
+          autoClose: 4000,
+        });
+      },
+
       transformData: (data) => data.data,
     },
   });

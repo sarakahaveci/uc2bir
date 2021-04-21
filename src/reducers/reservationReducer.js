@@ -1,4 +1,9 @@
-import { SET_RESERVATION, DELETE_SLOT, ADD_SLOT } from '../constants';
+import {
+  SET_RESERVATION,
+  DELETE_SLOT,
+  ADD_SLOT,
+  CLEAR_RESERVATION,
+} from '../constants';
 
 const initialState = {
   data: null,
@@ -18,7 +23,12 @@ export default (state = initialState, action) => {
         data: { ...state.data, ...action.payload },
         isLoading: true,
       };
-
+    case CLEAR_RESERVATION:
+      return {
+        ...state,
+        data: {},
+        isLoading: true,
+      };
     case DELETE_SLOT:
       var slot = state?.data?.slot;
       if (slot) {
@@ -28,7 +38,6 @@ export default (state = initialState, action) => {
             item.hour !== action.payload.hour
         );
         state.data.slot = newSlot;
-      } else {
       }
       return {
         ...state,

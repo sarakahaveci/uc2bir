@@ -3,14 +3,15 @@ import { Container, Row } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { Title } from 'components';
-import { getUserKeys } from 'actions';
+import { getUserKeys, setReservation, clearReservation } from 'actions';
 import Pt from './PT';
 import * as KEYS from '../../constants/userKeys';
 import Dietitian from './Dietitian';
 
-const ProfileReservation = () => {
+const ProfileReservation = ({ setPage = () => {} }) => {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userProfile.userInfo);
+  const reservation = useSelector((state) => state.reservation);
 
   const {
     userKeys: { data: userKeys, isSuccess },
@@ -27,9 +28,22 @@ const ProfileReservation = () => {
   const actionRegisterData = () => {
     dispatch(getUserKeys());
   };
-
+  function clearPaymentInfo() {
+    dispatch(
+      setReservation({
+        payment_type: undefined,
+        is_contracts_accepted: undefined,
+        holder_name: undefined,
+        card_number: undefined,
+        expiration_month: undefined,
+        expiration_year: undefined,
+        cvc: undefined,
+      })
+    );
+  }
   useEffect(() => {
     actionRegisterData();
+    dispatch(clearReservation());
   }, []);
 
   let content;
@@ -52,9 +66,29 @@ const ProfileReservation = () => {
     <div>
       <Container>
         <Row>
-          <Title fontSize="14pt" style={{ margin: '15px' }} textAlign="left">
-            {'< Rezervasyon Oluştur'}
-          </Title>
+          {reservation?.data?.payment_type ? (
+            <Title
+              fontSize="14pt"
+              style={{ margin: '20px 40px', cursor: 'pointer' }}
+              textAlign="left"
+              onClick={() => {
+                clearPaymentInfo();
+              }}
+            >
+              {'< Ödeme İşlemleri'}
+            </Title>
+          ) : (
+            <Title
+              fontSize="14pt"
+              style={{ margin: '20px 40px', cursor: 'pointer' }}
+              textAlign="left"
+              onClick={() => {
+                setPage('Start');
+              }}
+            >
+              {'< Rezervasyon Oluştur'}
+            </Title>
+          )}
         </Row>
         <Row style={{ padding: '30px' }}>{content}</Row>
       </Container>

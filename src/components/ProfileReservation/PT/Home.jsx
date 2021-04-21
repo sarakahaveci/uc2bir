@@ -39,6 +39,8 @@ const dateOption = true;
 const Home = () => {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userProfile.userInfo);
+  const wallet = useSelector((state) => state.userProfile.wallet);
+
   const reservation = useSelector((state) => state.reservation);
   const [toggleState, setToggleState] = useState(false);
   const [formData, setFormData] = useState({});
@@ -69,6 +71,7 @@ const Home = () => {
     dispatch(getTemplates());
     dispatch(setReservation({ pt_id: userInfo.id }));
   }, [userInfo]);
+
   useEffect(() => {
     if (reservation?.data) {
       if (reservation?.data.branch_id && reservation?.data.session) {
@@ -304,20 +307,24 @@ const Home = () => {
             <Info borderDisable>
               <Text style={{ fontWeight: 800 }}>Kart Bilgileri</Text>
             </Info>
+
             <Material.TextField
               label="Kart Üzerindeki İsim"
               type="text"
-              name="name"
-              onChange={(e) => {
+              name="holder_name"
+              defaultValue={reservation?.data?.holder_name}
+              onBlur={(e) => {
                 dispatch(setReservation({ holder_name: e.target.value }));
               }}
             />
 
             <Material.TextField
-              label="Kart Numarası"
+              mask="9999 9999 9999 9999"
+              label="Kart No Giriniz"
               type="text"
-              name="cardNo"
-              onChange={(e) => {
+              name="card_number"
+              defaultValue={reservation?.data?.card_number}
+              onBlur={(e) => {
                 dispatch(setReservation({ card_number: e.target.value }));
               }}
             />
@@ -326,24 +333,38 @@ const Home = () => {
                 label="SKT"
                 type="text"
                 name="skt"
-                onChange={(e) => {
-                  dispatch(setReservation({ card_number: e.target.value }));
+                mask="99/9999"
+                defaultValue={
+                  reservation?.data?.expiration_month +
+                  '/' +
+                  reservation?.data?.expiration_year
+                }
+                onBlur={(e) => {
+                  var sktArr = e.target.value.split('/');
+                  dispatch(
+                    setReservation({
+                      expiration_month: sktArr[0],
+                      expiration_year: sktArr[1],
+                    })
+                  );
                 }}
               />
               <Material.TextField
+                mask="999"
                 label="CVV"
                 type="text"
                 name="cvv"
-                onChange={(e) => {
+                defaultValue={reservation?.data?.cvc}
+                onBlur={(e) => {
                   dispatch(setReservation({ cvc: e.target.value }));
                 }}
               />
             </Info>
-            <Material.TextField
+            {/**<Material.TextField
               label="Yükelenecek Tutarı Giriniz"
               type="text"
               name="cvv"
-            />
+            /> */}
           </DataContainer>
           <div style={{ padding: '10px' }}>
             <text>
@@ -358,21 +379,33 @@ const Home = () => {
   function _renderLeftArea() {
     switch (reservation?.data?.payment_type) {
       case 'wallet':
+        var diff = wallet?.data?.balance - reservation?.data.deposit_amount;
         return (
           <>
             <InfoContainer>
               <DataContainer>
                 <Info>
                   <Text style={{ fontWeight: 800 }}>Cüzdanım</Text>
-                  <Text style={{ fontWeight: 800 }}>900</Text>
+                  <Text style={{ fontWeight: 800 }}>
+                    {wallet?.data?.balance}
+                  </Text>
                 </Info>
                 <Info>
                   <Text style={{ fontWeight: 800 }}>İşlem Tutarı</Text>
-                  <Text style={{ fontWeight: 800 }}>700</Text>
+                  <Text style={{ fontWeight: 800 }}>
+                    {reservation?.data.deposit_amount}
+                  </Text>
                 </Info>
                 <Info>
                   <Text style={{ fontWeight: 800 }}>Kalan Tutar</Text>
-                  <Text style={{ fontWeight: 800 }}>200</Text>
+                  <Text
+                    style={{
+                      fontWeight: 800,
+                      color: diff < 0 ? 'red' : 'black',
+                    }}
+                  >
+                    {diff}
+                  </Text>
                 </Info>
               </DataContainer>
               <div style={{ padding: '10px' }}>
@@ -382,7 +415,7 @@ const Home = () => {
                 </text>
               </div>
             </InfoContainer>
-            {true && <CreditCard />}
+            {diff < 0 && <CreditCard />}
           </>
         );
       case 'credit_card':

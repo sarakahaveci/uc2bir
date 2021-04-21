@@ -186,7 +186,7 @@ export default function Profile({ match }) {
       );
       break;
     case 'Reservation':
-      content = <ProfileReservation />;
+      content = <ProfileReservation setPage={setPage} />;
       break;
   }
   return isLoading ? (
