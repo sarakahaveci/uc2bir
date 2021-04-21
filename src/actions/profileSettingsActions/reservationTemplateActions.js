@@ -14,7 +14,7 @@ import {
   WORK_PLACE,
   USER_KEYS,
   GET_TEMPLATE_FROM_CALENDAR,
-  GET_DAY_OF_CALENDER
+  GET_DAY_OF_CALENDER, UPDATE_TEMPLATE_DEFAULT,
 } from '../../constants';
 
 export const setSelectedDay = (dayIndex) => async (dispatch, getState) => {
@@ -184,6 +184,26 @@ export const saveTemplate = (templateName, callBack) => async (
       callBack,
       errorHandler: ({ message }) =>
         toast.error(message, { position: 'bottom-right', autoClose: 2000 }),
+    },
+  });
+};
+
+export const updateDefaultTemplate = (
+  templateId,
+  successCallback,
+  errorCallback
+) => async (dispatch) => {
+  const url = `/appointment/template/pt/${templateId}`;
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'PUT',
+      url,
+      label: UPDATE_TEMPLATE_DEFAULT,
+      callBack: () => successCallback(),
+      errorHandler: () => errorCallback(),
+      transformData: (data) => data.data,
     },
   });
 };

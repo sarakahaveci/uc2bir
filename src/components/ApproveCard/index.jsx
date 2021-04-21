@@ -228,7 +228,6 @@ const HistoryButton = styled.button`
   height: 34px;
   background: white;
   padding: 5px;
-  background-color: white;
   color: var(--blue);
   border-radius: 5px;
   font-weight: bold;

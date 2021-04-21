@@ -1,14 +1,19 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 
-import { BackLink } from 'components';
+import { Svg, Text } from 'components';
 import GroupLeftSelections from './GroupLeftSelections';
 import GroupRightSelections from './GroupRightSelections';
+import styled from 'styled-components/macro';
 
-export default function GroupSlot() {
+export default function GroupSlot({setTabPage = () => {} }) {
   return (
     <>
-      <BackLink text="Grup Ders Oluştur" mb="20px" path="/" />
+      <BackLink onClick={()=>setTabPage('')}>
+        <Svg.ArrowLeftIcon />
+
+        <span>Grup Ders Oluştur</span>
+      </BackLink>
 
       <Row>
         <Col lg={6}>
@@ -22,3 +27,20 @@ export default function GroupSlot() {
     </>
   );
 }
+
+const BackLink = styled(Text)`
+  display: flex;
+  cursor: pointer;
+  margin-bottom: 15px;
+
+  svg {
+    margin-top: 2px;
+  }
+
+  > span {
+    margin-left: 10px;
+    color: ${(p) => p.theme.colors.softDark};
+    font-weight: 600;
+    font-size: 1.2rem;
+  }
+`;

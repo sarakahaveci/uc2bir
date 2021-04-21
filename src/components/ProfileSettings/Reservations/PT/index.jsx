@@ -11,6 +11,7 @@ import ReservationTemplate from '../ReservationTemplate/ReservationTemplate';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTemplates } from '../../../../actions';
 import ReservationCreatedTemplate from '../ReservationTemplate/ReservationCreatedTemplate';
+import GroupSlot from '../GroupSlot/GroupSlot';
 const PT = () => {
   const [tab, setTab] = useState('Awaitings');
   const [subPage, setSubPage] = useState();
@@ -93,6 +94,7 @@ const PT = () => {
         }}
         cancel={() => {
           setOpenCreateCalender(false);
+          setSubPage(<GroupSlot setTabPage={setSubPage}/>);
         }}
       />
 

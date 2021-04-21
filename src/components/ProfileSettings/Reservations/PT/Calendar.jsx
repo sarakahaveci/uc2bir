@@ -29,6 +29,7 @@ const Calendar = () => {
   const [activePage, setActivePage] = useState('index');
   const [openApprove, setOpenApprove] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
+  const [selectedHour, setSelectedHour] = useState();
   const dispatch = useDispatch();
   const {
     availableDates: { data: availableDates },
@@ -173,13 +174,8 @@ const Calendar = () => {
                       </Col>
 
                     </Row>
-
                   </ReservationAccordion>
-
-
                 </Row>
-
-
               </AppointmentDate>
 
               <AcceptButton src={image}>
@@ -204,10 +200,14 @@ const Calendar = () => {
                   <ReservationAccordion
                     defaultOpen={true}
                     parent
-                    title={moment(startDate).format('DD MMMM YYYY')}>
+                    title={moment(startDate).format('DD MMMM dddd')}>
                     <Box row flexWrap="wrap" center>
                       {availableHours?.map((item,index) => ( item.id &&
                         <ReservationHourButton
+                          onClick={()=> {
+                            setActivePage('showHourDetail');
+                            setSelectedHour(item)
+                          }}
                           text={item.hour}
                           className="blue"
                           width="342px"
@@ -237,7 +237,7 @@ const Calendar = () => {
                 <ReservationAccordion
                   defaultOpen={true}
                   parent
-                  title={moment(startDate).format('DD MMMM YYYY')}>
+                  title={moment(startDate).format('DD MMMM dddd')+' / BOŞ SAATLERİM'}>
                   <Box row flexWrap="wrap" center>
                     {availableHours?.map((item,index) => ( !item.id &&
                       <ReservationHourButton
@@ -253,6 +253,61 @@ const Calendar = () => {
                     ))}
 
                   </Box>
+                </ReservationAccordion>
+              </AccordionContainer>
+            </Col>)}
+
+          {activePage==='showHourDetail' && (
+            <Col xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
+              <AccordionContainer >
+                <Span
+                  cursor="pointer"
+                  fontSize="1.5rem"
+                  onClick={() => setActivePage('index')}
+                  marginRight="10px"
+                  marginTop="10px">
+                  {`<`}
+                </Span>
+                <ReservationAccordion
+                  defaultOpen={true}
+                  parent
+                  title={moment(startDate).format('DD MMMM dddd') +' / ' + selectedHour?.hour}>
+                 <HourDetailContainer>
+                   <Box>
+                     <Span fontWeight="600" mr="15px" fontSize={'20px'}>
+                       Branşlar:
+                     </Span>
+                     <Span fontSize={'18px'}>
+                        {selectedHour?.branch.toUpperCase()}
+                      </Span>
+                   </Box>
+
+                   <Box>
+                     <Span fontWeight="600" mr="15px" fontSize={'20px'}>
+                       Oturum Türleri:
+                     </Span>
+                     <Span fontSize={'18px'}>
+                          {selectedHour?.session.toUpperCase()}
+                     </Span>
+                     <Seperator/>
+                   </Box>
+
+                   <Box>
+                     <Span fontWeight="600" mr="15px" fontSize={'20px'}>
+                       Seçilmiş Yerler:
+                     </Span>
+                     <Span fontSize={'18px'}>
+                          Fitness
+                       </Span>
+                     <Seperator/>
+                   </Box>
+
+                   <hr/>
+                   <Row  style={{display:'flex', justifyContent:'flex-end'}}>
+                     <Button className={'blue'} text={'Düzenle'} width={'120px'} height={'35px'} style={{marginRight:'10px'}}/>
+                     <Button disableborder text={'Sil'} width={'120px'} height={'35px'}/>
+                   </Row>
+                 </HourDetailContainer>
                 </ReservationAccordion>
               </AccordionContainer>
             </Col>)}
@@ -297,8 +352,14 @@ const DateContainer = styled.div`
   }
 `;
 
+
+const HourDetailContainer = styled.div`
+  background-color: #F8F8F8;
+  border-radius: 10px;
+  padding: 20px;
+`;
+
 const AppointmentDate = styled.div`
-  
   background: #FFFFFF;
   border: 2px solid #C6C6C6;
   border-radius: 20px;

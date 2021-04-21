@@ -51,7 +51,7 @@ const StyledButton = styled(BaseButton)`
   font-size: ${(props) => (props.fontSize && props.fontSize) || '1rem'};
   font-weight: ${(props) => (props.fontWeight && props.fontWeight) || 'normal'};
   border-radius: 4px;
-  min-height: 45px;
+  min-height: ${(props) => (props.height && props.height) || '45px'};
   background: ${(props) =>
     !props.transparentDisabled && props.disabled && '#8CDEDA !important'};
   color: ${(props) =>
@@ -88,6 +88,18 @@ const StyledButton = styled(BaseButton)`
 
       &:focus {
         border: 1px solid var(--blue);
+      }
+    `}
+
+  ${(props) =>
+    props.disableborder &&
+    css`
+      border: 1px solid #9D9D9D;
+      color:#9D9D9D;
+      font-weight: 500;
+
+      &:focus {
+        border: 1px solid #9D9D9D;
       }
     `}
 

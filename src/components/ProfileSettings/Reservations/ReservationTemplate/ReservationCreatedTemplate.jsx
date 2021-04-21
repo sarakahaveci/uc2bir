@@ -1,6 +1,6 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import { Link } from 'react-router-dom';
 
@@ -11,12 +11,15 @@ import { device } from '../../../../utils';
 
 import ReservationTemplate from './ReservationTemplate';
 import ApplyTemplateModal from './ApplyTemplateModal';
+import { getTemplates, updateDefaultTemplate } from '../../../../actions';
+import { toast } from 'react-toastify';
 
 export default function ReservationCreatedTemplate({ setTab = () => {}, setTabPage = () => {} }) {
   const [subPage, setSubPage] = useState();
   const applyTemplateModalRef = useRef();
   const successReservationModalRef = useRef();
   const { name: name } = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
   const openApplyTemplateModal = () =>
     applyTemplateModalRef.current.openModal();
   const {
@@ -31,6 +34,24 @@ export default function ReservationCreatedTemplate({ setTab = () => {}, setTabPa
     setTabPage('')
     setTab('Calendar')
   }, []);
+
+  const updateTemplateDefaultFail = () => {
+    toast.error(
+      'Varsayılan Şablon Oluştururken Hata Oluştu',
+      {
+        position: 'bottom-right',
+        autoClose: 3000,
+      }
+    );
+  };
+
+  const updateTemplateDefaultSuccess = () => {
+    dispatch(getTemplates());
+    toast.success('Varsayılan Şablonunuz Oluşuturuldu', {
+      position: 'bottom-right',
+      autoClose: 3000,
+    });
+  };
 
 
   return (
@@ -61,6 +82,14 @@ export default function ReservationCreatedTemplate({ setTab = () => {}, setTabPa
                   textAlign="left"
                   fontWeight="500"
                   fontSize='11px'
+                  cursor={'pointer'}
+                  onClick={()=> dispatch(
+                    updateDefaultTemplate(
+                      item.id,
+                      updateTemplateDefaultSuccess,
+                      updateTemplateDefaultFail
+                    )
+                  )}
                   color={'blue'}>
                   <Span underline lineWidth={'100%'} > Varsayılan Şablon Olarak Seç </Span>
                   <Span
