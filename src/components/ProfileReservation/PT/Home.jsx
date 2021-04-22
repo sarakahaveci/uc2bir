@@ -405,22 +405,21 @@ const Home = () => {
   function _renderLeftArea() {
     switch (reservation?.data?.payment_type) {
       case 'wallet':
-        var diff = wallet?.data?.balance - reservation?.data.deposit_amount;
+      case 'both':
+        var wallet_balance = wallet?.data?.balance || 0;
+        var amount = reservation?.data?.deposit_amount || 0;
+        var diff = wallet_balance - amount;
         return (
           <>
             <InfoContainer>
               <DataContainer>
                 <Info>
                   <Text style={{ fontWeight: 800 }}>Cüzdanım</Text>
-                  <Text style={{ fontWeight: 800 }}>
-                    {wallet?.data?.balance}
-                  </Text>
+                  <Text style={{ fontWeight: 800 }}>{wallet_balance}</Text>
                 </Info>
                 <Info>
                   <Text style={{ fontWeight: 800 }}>İşlem Tutarı</Text>
-                  <Text style={{ fontWeight: 800 }}>
-                    {reservation?.data.deposit_amount}
-                  </Text>
+                  <Text style={{ fontWeight: 800 }}>{amount}</Text>
                 </Info>
                 <Info>
                   <Text style={{ fontWeight: 800 }}>Kalan Tutar</Text>
