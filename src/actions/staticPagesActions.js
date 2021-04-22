@@ -1,4 +1,4 @@
-import { GET_STATIC_PAGE } from 'constants/actionTypes';
+import { GET_STATIC_PAGE, HTTP_REQUEST } from 'constants/actionTypes';
 
 export const getStaticPage = (slug) => async (dispatch) => {
   const url = `/cms/static-page/detail/${slug}`;

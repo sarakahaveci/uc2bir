@@ -5,6 +5,7 @@ import {
   PaymentCard,
   Accordion,
   Svg,
+  MultiContract,
 } from 'components';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -12,6 +13,8 @@ import styled from 'styled-components/macro';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import { device } from 'utils';
+import { Modal } from 'react-bootstrap';
+
 import {
   setReservation,
   // getCitiesAndDistict,
@@ -20,11 +23,11 @@ import {
   getPtWorkingHomePlace,
   getTemplates,
   getPtReservationCalendar,
+  getStaticPage,
 } from 'actions';
 import { space } from 'styled-system';
 import GoogleMap from 'components/GoogleMaps/GoogleMap';
 //
-
 import RadioGroup from '@material-ui/core/RadioGroup';
 
 //
@@ -40,6 +43,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userProfile.userInfo);
   const wallet = useSelector((state) => state.userProfile.wallet);
+  const staticPages = useSelector((state) => state.staticPages);
 
   const reservation = useSelector((state) => state.reservation);
   const [toggleState, setToggleState] = useState(false);
@@ -48,6 +52,7 @@ const Home = () => {
   const [town, setTown] = useState([]);
   const [district, setDistrict] = useState([]);
   const [sessionTypes, setSessionTypes] = useState(undefined);
+  const [openModal, setOpenModal] = useState(false);
 
   const { branches: branchList } = useSelector(
     (state) => state.userProfile.branch
@@ -70,6 +75,8 @@ const Home = () => {
     dispatch(getWallet());
     dispatch(getTemplates());
     dispatch(setReservation({ pt_id: userInfo.id }));
+    dispatch(getStaticPage('uye-mesafeli-hizmet-sozlesmesi'));
+    dispatch(getStaticPage('uye-on-bilgilendirme-formu'));
   }, [userInfo]);
 
   useEffect(() => {
@@ -372,6 +379,26 @@ const Home = () => {
               gerçekleştirilecektir.
             </text>
           </div>
+          <div style={{ padding: '10px' }}>
+            <Material.CheckBox
+              checked={reservation?.data?.is_contracts_accepted}
+              onChange={() => {
+                if (reservation?.data.is_contracts_accepted) {
+                  dispatch(setReservation({ is_contracts_accepted: false }));
+                } else {
+                  setOpenModal(true);
+                }
+              }}
+              label={
+                <div>
+                  <span className="underline-text" onClick={() => {}}>
+                    Ön Bilgilendirme Koşulları’nı ve Mesafeli Satış Sözleşmesini
+                    okudum, onaylıyorum.
+                  </span>
+                </div>
+              }
+            />
+          </div>
         </InfoContainer>
       </>
     );
@@ -411,7 +438,7 @@ const Home = () => {
               <div style={{ padding: '10px' }}>
                 <text>
                   Yapacağınız işlem sonrası cüdanınızda kalacak olan toplam
-                  tutar 200 TL’dir
+                  tutar {reservation?.data?.deposit_amount} TL’dir
                 </text>
               </div>
             </InfoContainer>
@@ -436,6 +463,7 @@ const Home = () => {
                   <Text>{'Tarih ve Saat Seçiniz:'}</Text>
                   <Material.SimpleSelect
                     required
+                    defaultValue={reservation?.data?.date}
                     name="city"
                     forHtml="city"
                     label="Tarih ve Saat Seçiniz"
@@ -446,6 +474,7 @@ const Home = () => {
               <Material.SimpleSelect
                 items={branchList.branches}
                 name="branch"
+                defaultValue={reservation?.data?.branch_id}
                 onChange={(e) =>
                   dispatch(setReservation({ branch_id: e.target.value }))
                 }
@@ -454,6 +483,7 @@ const Home = () => {
               <Material.SimpleSelect
                 items={sessionTypes}
                 name="sessionType"
+                defaultValue={reservation?.data?.session}
                 onChange={(e) =>
                   dispatch(
                     setReservation({
@@ -478,10 +508,32 @@ const Home = () => {
       <RightWrapper>
         <PaymentCard dateOption={dateOption} />
       </RightWrapper>
+      <StyledModal show={openModal} onHide={() => setOpenModal(false)}>
+        <MultiContract
+          acceptKvkk={true}
+          setAccept={() => {
+            dispatch(setReservation({ is_contracts_accepted: true }));
+          }}
+          setOpenModal={setOpenModal}
+          confirmationData={staticPages.data}
+          userTypeId={1}
+        />
+      </StyledModal>
     </Container>
   );
 };
-
+const StyledModal = styled(Modal)`
+  .modal-content {
+    width: 600px;
+    background-color: var(--white1);
+    padding: 15px 30px;
+    @media ${device.sm} {
+      height: 70vh;
+      width: 90vw;
+      overflow: scroll;
+    }
+  }
+`;
 const Container = styled.div`
   display: flex;
   width: 100%;

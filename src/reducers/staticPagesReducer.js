@@ -25,7 +25,10 @@ export default (state = initialState, action) => {
     case GET_STATIC_PAGE_SUCCESS:
       return {
         ...state,
-        data: action.payload.data,
+        data: {
+          ...state.data,
+          [action.payload.seo_friendly_url]: action.payload,
+        },
         isSuccsess: true,
         isLoading: false,
         error: null,

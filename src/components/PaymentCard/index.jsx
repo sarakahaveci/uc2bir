@@ -30,10 +30,11 @@ export default function PaymentCard({ dateOption }) {
     }
   }, [reservation?.data?.slot]);
   useEffect(() => {
+    var ptPrice = reservation?.data?.pt_price || 0;
+    var gymPrice = reservation?.data?.gym_price || 0;
     dispatch(
       setReservation({
-        deposit_amount:
-          reservation?.data?.pt_price + reservation?.data?.gym_price,
+        deposit_amount: ptPrice + gymPrice,
       })
     );
   }, [reservation?.data?.pt_price, reservation?.data?.gym_price]);

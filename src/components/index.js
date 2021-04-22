@@ -23,6 +23,8 @@ export { default as MacroCollections } from './MacroCollections';
 export { default as DefBackground } from './statics/background';
 export { default as Agreement } from './Confirmations/Agreement';
 export { default as Privacy } from './Confirmations/Privacy';
+export { default as MultiContract } from './Confirmations/MultiContract';
+
 export { default as Permission } from './Confirmations/Permission';
 export { default as Information } from './Confirmations/Information';
 export { Material } from './inputs/material';
