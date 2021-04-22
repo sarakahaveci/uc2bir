@@ -17,7 +17,7 @@ const CardSlider = forwardRef(({ data = [] }, ref) => {
 
   const previous = () => {
     if (current === 1) {
-      setCurrent(data.length > 3 ? data.length - 3 : data.length);
+      setCurrent(data.length);
 
       return;
     }
