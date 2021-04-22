@@ -20,7 +20,7 @@ const HomeUserSlider = ({ className, data = [] }) => {
             className="slick-button next"
             onClick={() => {
               slider1.current.slickNext();
-              slider2.current.previous();
+              slider2.current.next();
             }}
           >
             <AwesomeIcon.Next />
@@ -39,7 +39,7 @@ const HomeUserSlider = ({ className, data = [] }) => {
                   className="slick-button prev"
                   onClick={() => {
                     slider1.current.slickPrev();
-                    slider2.current.next();
+                    slider2.current.previous();
                   }}
                 >
                   <AwesomeIcon.Prev />
