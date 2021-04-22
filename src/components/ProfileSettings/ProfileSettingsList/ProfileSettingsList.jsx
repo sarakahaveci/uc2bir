@@ -72,6 +72,10 @@ const regularUserTabs = [
     body: <Phone />,
   },
   {
+    settingsName: 'Şifre İşlemleri',
+    body: <Password />,
+  },
+  {
     settingsName: 'Boy & Ağırlık & VKI Bilgineriniz',
     body: <VKI />,
   },
