@@ -74,10 +74,9 @@ const Home = () => {
 
   useEffect(() => {
     if (
-      (reservation?.data?.branch_id &&
-        reservation?.data?.session &&
-        reservation?.data?.session,
-      reservation?.data?.date)
+      reservation?.data?.branch_id &&
+      reservation?.data?.session &&
+      reservation?.data?.date
     ) {
       dispatch(
         getPtReservationCalendar(
@@ -129,7 +128,7 @@ const Home = () => {
       case 'gym':
         return (
           <>
-            <Text>{'Spor Alanı Seçiniz:'}</Text>
+            <Text color="#9B9B9B">{'Spor Alanı Seçiniz:'}</Text>
             <RadioGroup
               row
               aria-label="workArea"
@@ -138,7 +137,7 @@ const Home = () => {
             >
               {gymList?.data?.map((item) => (
                 <>
-                  <CardGroup>
+                  <CardGroup style={{ padding: 0 }}>
                     <WorkAreaCard
                       stars={item.rating}
                       capacity={item.capacity}
@@ -447,6 +446,7 @@ const Home = () => {
         );
       case 'credit_card':
         return <CreditCard />;
+
       default:
         return (
           <>
@@ -459,41 +459,45 @@ const Home = () => {
             />
             <SelectionContainer>
               {!dateOption && (
-                <>
-                  <Text>{'Tarih ve Saat Seçiniz:'}</Text>
-                  <Material.SimpleSelect
-                    required
-                    defaultValue={reservation?.data?.date}
-                    name="city"
-                    forHtml="city"
-                    label="Tarih ve Saat Seçiniz"
+                <InputContainer>
+                  <Text color="#9B9B9B">{'Tarih ve Saat Seçiminiz'}</Text>
+                  <Material.TextField
+                    type="text"
+                    defaultValue="04.08.2021 - 10:00"
+                    inputProps={{
+                      readOnly: true,
+                    }}
                   />
-                </>
+                </InputContainer>
               )}
-              <Text>{'Branş Seçiniz:'}</Text>
-              <Material.SimpleSelect
-                items={branchList.branches}
-                name="branch"
-                defaultValue={reservation?.data?.branch_id}
-                onChange={(e) =>
-                  dispatch(setReservation({ branch_id: e.target.value }))
-                }
-              />
-              <Text>{'Oturum Türü Seçiniz:'}</Text>
-              <Material.SimpleSelect
-                items={sessionTypes}
-                name="sessionType"
-                defaultValue={reservation?.data?.session}
-                onChange={(e) =>
-                  dispatch(
-                    setReservation({
-                      session: e.target.value,
-                      location_id: undefined,
-                      gym_price: 0,
-                    })
-                  )
-                }
-              />
+              <InputContainer>
+                <Text color="#9B9B9B">{'Branş Seçiniz:'}</Text>
+                <Material.SimpleSelect
+                  items={branchList.branches}
+                  name="branch"
+                  defaultValue={reservation?.data?.branch_id}
+                  onChange={(e) =>
+                    dispatch(setReservation({ branch_id: e.target.value }))
+                  }
+                />
+              </InputContainer>
+              <InputContainer>
+                <Text color="#9B9B9B">{'Oturum Türü Seçiniz:'}</Text>
+                <Material.SimpleSelect
+                  items={sessionTypes}
+                  name="sessionType"
+                  defaultValue={reservation?.data?.session}
+                  onChange={(e) =>
+                    dispatch(
+                      setReservation({
+                        session: e.target.value,
+                        location_id: undefined,
+                        gym_price: 0,
+                      })
+                    )
+                  }
+                />
+              </InputContainer>
 
               <WorkAreaSelect />
             </SelectionContainer>
@@ -560,16 +564,21 @@ const SelectionContainer = styled.div`
   flex-direction: column;
   margin-top: 30px;
   border-top-style: solid;
-  border-weight: 1px;
-  border-color: gray;
+  border-width: 1px;
+  border-color: rgba(144, 144, 144, 0.1);
   padding: 30px;
   @media ${device.sm} {
     padding: 0;
   }
 `;
 const Text = styled.text`
+  font-size: 1rem;
   font-weight: bold;
-  margin-top: 20px;
+  font-family: 'Poppins', sans-serif;
+  color: ${(props) => props.color || 'black'};
+  @media ${device.sm} {
+    font-size: 0.7rem;
+  }
 `;
 const CardGroup = styled.div`
   display: flex;
@@ -652,5 +661,9 @@ const MapWrapper = styled.div`
   width: 80%;
   border-radius: 30px;
   overflow: hidden;
+`;
+
+const InputContainer = styled.div`
+  margin-bottom: 20px;
 `;
 export default Home;

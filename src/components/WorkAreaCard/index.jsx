@@ -74,34 +74,6 @@ const Card = styled(Col)`
     width: 50%;
   }
 
-  .img {
-    width: 100%;
-    height: 200px;
-    position: relative;
-    border-radius: 30px;
-
-    .adss {
-      width: 100%;
-      height: auto;
-      padding: 15px;
-      background: rgba(255, 255, 255, 0.8);
-      z-index: 1000;
-      bottom: 15px;
-      right: 15px;
-      border-radius: 30px;
-      position: absolute;
-      display: none;
-    }
-  }
-
-  &:hover {
-    .img {
-      .adss {
-        display: block;
-      }
-    }
-  }
-
   .title {
     width: 100%;
     padding: 15px;
@@ -160,6 +132,9 @@ const Star = styled.li`
 `;
 const IMG = styled.img`
   width: 100%;
+  height: 200px;
+
+  object-fit: cover;
 `;
 
 export default WorkAreaCard;

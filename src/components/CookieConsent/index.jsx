@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
 import { device } from 'utils';
 import { localStorage } from 'utils';
-
+import { CookiePolicyModal } from 'components';
 const CookieConsent = () => {
   const [visibity, setVisibity] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+
   function setPerm() {
     localStorage.set('cookiePerm', true);
     setVisibity(false);
@@ -24,8 +26,25 @@ const CookieConsent = () => {
           Sizlere daha iyi bir hizmet vermek adına sitemizde çerez
           kullanılmaktadır.
         </Text>
+        <Text
+          style={{ textDecoration: 'underline', cursor: 'pointer' }}
+          onClick={() => {
+            setOpenModal(true);
+          }}
+        >
+          Çerez politikasını okumak için tıklayabilirsin.
+        </Text>
         <Button onClick={setPerm}>Kabul Et</Button>
       </Wrapper>
+      <CookiePolicyModal
+        open={openModal}
+        approve={() => {
+          setOpenModal(false);
+        }}
+        cancel={() => {
+          setOpenModal(false);
+        }}
+      />
     </Container>
   );
 };
@@ -33,7 +52,6 @@ const CookieConsent = () => {
 const Container = styled.div`
   display: flex;
   width: 100vw;
-  padding: 5px;
   background: red;
   position: fixed;
   z-index: 99999999999999999999999;
@@ -59,9 +77,9 @@ const Text = styled.text`
   }
 `;
 const Button = styled.div`
-  margin-top: 10px;
+  margin-top: 5px;
   width: 100px;
-  padding: 10px;
+  padding: 5px 15px;
   font-family: 'Poppins', sans-serif;
   background: white;
   cursor: pointer;

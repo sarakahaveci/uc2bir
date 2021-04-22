@@ -58,9 +58,9 @@ export default (state = initialState, action) => {
     case REFRESH_LOGIN:
       return {
         ...state,
-        user: action.payload.user,
-        accessToken: action.payload.token,
-        refreshToken: action.payload.refresh_token,
+        user: action.payload?.user,
+        accessToken: action?.payload?.token,
+        refreshToken: action?.payload?.refresh_token,
         isAuthenticated: true,
         isLoading: false,
         error: null,

@@ -58,7 +58,7 @@ const Header = ({ className, navLogo, navMenu, toggle, setToggle }) => {
         <UsernameWrapper to="/myprofile/settings/profile">
           <Svg.UsernameIcon />
 
-          <span>{user.name}</span>
+          <span>{user?.name}</span>
         </UsernameWrapper>
       ) : (
         <div className="col-auto hamburgers right-menu">

@@ -7,7 +7,7 @@ const MiniProfileCard = ({ photo, name, rating, type_id, price }) => {
   return (
     <Container>
       <ImageContainer>
-        <img className="banner-image" src={photo} />
+        <Image src={photo} />
       </ImageContainer>
       <InfoContainer>
         <Title
@@ -32,9 +32,6 @@ const MiniProfileCard = ({ photo, name, rating, type_id, price }) => {
           {type_id === 4 ? 'Diyetisyen' : null}
         </Title>
         <Rating
-          style={{
-            marginLeft: '-6px',
-          }}
           name="customized-empty"
           defaultValue={rating}
           precision={0.5}
@@ -56,16 +53,18 @@ const ImageContainer = styled.div`
   width: 150px;
   height: 150px;
 `;
-/*const Image = styled.img`
+
+const Image = styled.img`
   width: 150px;
   height: 150px;
   border-radius: 150px;
-`;*/
+  object-fit: cover;
+`;
 const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   margin-left: 10px;
 `;
+
 export default MiniProfileCard;

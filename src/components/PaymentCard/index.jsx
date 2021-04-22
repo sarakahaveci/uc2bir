@@ -106,7 +106,6 @@ export default function PaymentCard({ dateOption }) {
         <ReservationContainer disable={reservation?.data?.payment_type}>
           <AddHeader>Tarih Seçiniz</AddHeader>
           <Material.MaterialDateField
-            label="Rezervasyon Tarihi"
             type="text"
             name="date"
             onChange={(e) => {
@@ -115,21 +114,27 @@ export default function PaymentCard({ dateOption }) {
             defaultValue={reservation?.data?.date}
             settings
           />
-          <AddHeader>Saat Seçiniz</AddHeader>
-          <Hours>
-            {reservation?.data?.date &&
-              reservationCalendar?.data?.slice?.map((item, indx) => (
-                <Hour
-                  onClick={() => {
-                    handleHourClick(item);
-                  }}
-                  key={indx}
-                  selected={selectedSlotControl(item)}
-                >
-                  {item.time}
-                </Hour>
-              ))}
-          </Hours>
+          {reservation?.data?.date && (
+            <>
+              <AddHeader>Saat Seçiniz</AddHeader>
+              <Hours>
+                {(reservationCalendar?.data?.slice?.length > 0 &&
+                  reservationCalendar?.data?.slice?.map((item, indx) => (
+                    <Hour
+                      onClick={() => {
+                        handleHourClick(item);
+                      }}
+                      key={indx}
+                      selected={selectedSlotControl(item)}
+                    >
+                      {item.time}
+                    </Hour>
+                  ))) || (
+                  <text>Seçtiğiniz koşullara uygun boş zaman bulunamadı..</text>
+                )}
+              </Hours>
+            </>
+          )}
         </ReservationContainer>
       )}
       <AddTextContainer>
@@ -150,7 +155,7 @@ export default function PaymentCard({ dateOption }) {
               {reservation?.data?.pt_price}
             </Text>
           </Info>
-          <Info>
+          <Info borderDisable>
             <Text style={{ fontWeight: 800 }}>Salon Ücreti</Text>
             <Text style={{ fontWeight: 800 }}>
               {reservation?.data?.gym_price}
@@ -187,7 +192,7 @@ export default function PaymentCard({ dateOption }) {
                               borderColor: 'gray',
                             }}
                           >
-                            1.Ders
+                            {key + 1}.Ders
                           </Text>
                           <Svg.Date style={{ marginLeft: '5px' }} />
                           <Text
