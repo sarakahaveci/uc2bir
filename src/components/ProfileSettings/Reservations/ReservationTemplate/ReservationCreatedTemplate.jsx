@@ -88,8 +88,7 @@ export default function ReservationCreatedTemplate({ setTab = () => {}, setTabPa
                       item.id,
                       updateTemplateDefaultSuccess,
                       updateTemplateDefaultFail
-                    )
-                  )}
+                    ))}
                   color={'blue'}>
                   <Span underline lineWidth={'100%'} > Varsayılan Şablon Olarak Seç </Span>
                   <Span

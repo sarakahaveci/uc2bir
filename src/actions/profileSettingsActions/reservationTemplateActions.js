@@ -14,6 +14,7 @@ import {
   WORK_PLACE,
   USER_KEYS,
   GET_TEMPLATE_FROM_CALENDAR,
+  DELETE_HOUR_OF_CALENDER,
   GET_DAY_OF_CALENDER, UPDATE_TEMPLATE_DEFAULT,
 } from '../../constants';
 
@@ -222,7 +223,7 @@ export const getTemplateFromCalender = () => async (dispatch) => {
   });
 };
 
-export const getDayOfCalender = (date) => async (dispatch) => {
+export const getDayOfCalendar = (date) => async (dispatch) => {
   const url = `/appointment/pt?date=${date}`;
 
   await dispatch({
@@ -235,3 +236,22 @@ export const getDayOfCalender = (date) => async (dispatch) => {
     },
   });
 };
+
+export const deleteHourOfCalendar = (id, successCallback, errorCallback) => async (
+  dispatch,
+) => {
+  const url = `/appointment/pt/${id}`;
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'DELETE',
+      url,
+      label: DELETE_HOUR_OF_CALENDER,
+      callBack: () => successCallback(),
+      errorHandler: (error) => errorCallback(error?.message),
+      transformData: (data) => data.data,
+    },
+  });
+};
+

@@ -18,9 +18,14 @@ import { device } from '../../../../utils';
 import image from '../../../../assets/wave-background.png';
 import Svg from '../../../statics/svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { getTemplateFromCalender, getDayOfCalender } from '../../../../actions';
+import {
+  getTemplateFromCalender,
+  getDayOfCalendar,
+  deleteHourOfCalendar,
+} from '../../../../actions';
 import moment from 'moment';
 import 'moment/locale/tr';
+import { toast } from 'react-toastify';
 
 moment.locale('tr')
 
@@ -42,7 +47,7 @@ const Calendar = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(getDayOfCalender(moment(startDate).format('DD.MM.YYYY')));
+    dispatch(getDayOfCalendar(moment(startDate).format('DD.MM.YYYY')));
   }, [startDate]);
 
 
@@ -61,6 +66,26 @@ const Calendar = () => {
   const startOfWeeksArr = availableDates?.map((date) =>
     new Date(moment(date, 'DD.MM.YYYY').toDate())
   );
+
+  const deleteHourSuccess = () =>{
+    dispatch(getDayOfCalendar(moment(startDate).format('DD.MM.YYYY')));
+    setActivePage('index')
+    toast.success('Saat Silme İşlemi Başarılı Bir Şekilde Tamamlanmıştır', {
+      position: 'bottom-right',
+      autoClose: 3000,
+    });
+
+  }
+
+  const deleteHourFail = () =>{
+    toast.error(
+      'Seçilen Saat Silinirken Hata Oluştu Hata Oluştu',
+      {
+        position: 'bottom-right',
+        autoClose: 3000,
+      }
+    );
+  }
 
   return(
     <Container>
@@ -304,8 +329,12 @@ const Calendar = () => {
 
                    <hr/>
                    <Row  style={{display:'flex', justifyContent:'flex-end'}}>
-                     <Button className={'blue'} text={'Düzenle'} width={'120px'} height={'35px'} style={{marginRight:'10px'}}/>
-                     <Button disableborder text={'Sil'} width={'120px'} height={'35px'}/>
+                     <Button disableborder text={'Sil'} width={'120px'} height={'35px'} onClick={()=>dispatch(
+                       deleteHourOfCalendar(
+                         selectedHour?.id,
+                         deleteHourSuccess,
+                         deleteHourFail
+                       ))}/>
                    </Row>
                  </HourDetailContainer>
                 </ReservationAccordion>
