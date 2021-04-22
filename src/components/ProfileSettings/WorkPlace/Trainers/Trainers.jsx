@@ -44,11 +44,32 @@ const Trainers = () => {
         branch,
         location,
         type: 'pt',
-        page,
+        lat: 0,
+        lng:0,
         classification,
       })
     );
   }, []);
+
+  const linkChangeHandler = () => {
+    const parsedPrice = JSON.parse(price);
+    const parsedRatings = JSON.parse(ratings);
+    dispatch(
+      searchProffesional({
+        title,
+        ratings: parsedRatings,
+        minPrice: parsedPrice?.[0],
+        maxPrice: parsedPrice?.[1],
+        // TODO: take it from sorting state
+        sortBy: 'asc',
+        branch,
+        location,
+        type: 'pt',
+        classification,
+      })
+    );
+  };
+
 
   const handleChangePage = (event, pageNumber) => {
     setPage(pageNumber);
