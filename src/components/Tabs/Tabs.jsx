@@ -25,7 +25,7 @@ export default function ProfileTab({ tabData, defaultActiveKey, baseUrl }) {
 }
 
 const StyledTabs = styled(Tabs)`
-  padding: 5px 20px 0;
+  padding: 5px 10px 0;
   margin-bottom: 20px;
 
   .active {
@@ -79,5 +79,5 @@ ProfileTab.propTypes = {
 
      <Tab tabData={tabData} defaultActiveKey="branş" />
     Just pass your array with include your title,eventKey,component and defaultactivekey value,
-    
+
   */
