@@ -12,8 +12,8 @@ export default function PaymentCard({ dateOption }) {
   const reservation = useSelector((state) => state.reservation);
   const reservationCalendar = useSelector((state) => state.reservationCalendar);
   const { userInfo } = useSelector((state) => state.userProfile.userInfo);
-
   const [toggleState, setToggleState] = useState(false);
+
   useEffect(() => {
     if (reservation?.data?.slot?.length > 0) {
       dispatch(
@@ -29,6 +29,7 @@ export default function PaymentCard({ dateOption }) {
       );
     }
   }, [reservation?.data?.slot]);
+
   useEffect(() => {
     var ptPrice = reservation?.data?.pt_price || 0;
     var gymPrice = reservation?.data?.gym_price || 0;
@@ -38,6 +39,7 @@ export default function PaymentCard({ dateOption }) {
       })
     );
   }, [reservation?.data?.pt_price, reservation?.data?.gym_price]);
+
   function selectPaymentType(type) {
     if (reservation?.data?.deposit_amount > 0) {
       dispatch(setReservation({ payment_type: type }));
@@ -54,6 +56,14 @@ export default function PaymentCard({ dateOption }) {
       // eslint-disable-next-line no-unused-vars
       .filter(([_, value]) => !!value)
       .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {});
+
+  function selectedSlotControl(item) {
+    return (
+      reservation?.data?.slot?.filter(
+        (e) => e.hour === item.time && e.date === item.date
+      ).length > 0
+    );
+  }
 
   function sendPayment() {
     var json = {
@@ -81,10 +91,7 @@ export default function PaymentCard({ dateOption }) {
     var newItem = { date: item.date, hour: item.time };
 
     if (slot) {
-      var findItem = slot?.filter(
-        (e) => e.hour === item.time && e.date === item.date
-      ).length;
-      if (findItem > 0) {
+      if (selectedSlotControl(item)) {
         dispatch(deleteSlot(newItem));
       } else {
         dispatch(addSlot(newItem));
@@ -96,7 +103,7 @@ export default function PaymentCard({ dateOption }) {
   return (
     <Container>
       {dateOption && (
-        <ReservationContainer>
+        <ReservationContainer disable={reservation?.data?.payment_type}>
           <AddHeader>Tarih Seçiniz</AddHeader>
           <Material.MaterialDateField
             label="Rezervasyon Tarihi"
@@ -117,11 +124,7 @@ export default function PaymentCard({ dateOption }) {
                     handleHourClick(item);
                   }}
                   key={indx}
-                  selected={
-                    reservation?.data?.slot?.filter(
-                      (e) => e.hour === item.time && e.date === item.date
-                    ).length > 0
-                  }
+                  selected={selectedSlotControl(item)}
                 >
                   {item.time}
                 </Hour>
@@ -381,6 +384,8 @@ const ReservationContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px;
+  pointer-events: ${(p) => (p.disable ? 'none' : 'initial')};
+  opacity: ${(p) => (p.disable ? '0.7' : '1')};
 `;
 const Hours = styled.div`
   display: flex;

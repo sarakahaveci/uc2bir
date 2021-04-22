@@ -14,38 +14,29 @@ import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import { device } from 'utils';
 import { Modal } from 'react-bootstrap';
-
 import {
   setReservation,
-  // getCitiesAndDistict,
   getPtGymList,
   getUserBranchList,
   getPtWorkingHomePlace,
-  getTemplates,
+  //getTemplates,
   getPtReservationCalendar,
   getStaticPage,
 } from 'actions';
 import { space } from 'styled-system';
 import GoogleMap from 'components/GoogleMaps/GoogleMap';
-//
 import RadioGroup from '@material-ui/core/RadioGroup';
-
-//
-const uri = `${process.env.REACT_APP_API_URL}/regions`;
-
 import { AwesomeIcon } from 'components';
 import axios from 'axios';
 import { getWallet } from 'actions/userProfileActions/walletActions';
+
+const uri = `${process.env.REACT_APP_API_URL}/regions`;
 
 const dateOption = true;
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { userInfo } = useSelector((state) => state.userProfile.userInfo);
-  const wallet = useSelector((state) => state.userProfile.wallet);
-  const staticPages = useSelector((state) => state.staticPages);
-
-  const reservation = useSelector((state) => state.reservation);
+  //Local States
   const [toggleState, setToggleState] = useState(false);
   const [formData, setFormData] = useState({});
   const [city, setCity] = useState(false);
@@ -53,16 +44,18 @@ const Home = () => {
   const [district, setDistrict] = useState([]);
   const [sessionTypes, setSessionTypes] = useState(undefined);
   const [openModal, setOpenModal] = useState(false);
-
+  //Redux States
+  const { userInfo } = useSelector((state) => state.userProfile.userInfo);
+  const wallet = useSelector((state) => state.userProfile.wallet);
+  const staticPages = useSelector((state) => state.staticPages);
+  const reservation = useSelector((state) => state.reservation);
   const { branches: branchList } = useSelector(
     (state) => state.userProfile.branch
   );
   const gymList = useSelector((state) => state.userProfile.ptGymList);
-
   const homePlaces = useSelector(
     (state) => state.userProfile.workPlace.ptHomePlace
   );
-  //const wallet = useSelector((state) => state.userProfile.wallet);
   useEffect(() => {
     var items = userInfo.session.map((item) => ({
       name: item.title,
@@ -73,27 +66,34 @@ const Home = () => {
     dispatch(getPtGymList(userInfo.id));
     dispatch(getPtWorkingHomePlace(userInfo.id));
     dispatch(getWallet());
-    dispatch(getTemplates());
+    //dispatch(getTemplates()); HATA VARSA BURAYA Bİ BAK
     dispatch(setReservation({ pt_id: userInfo.id }));
     dispatch(getStaticPage('uye-mesafeli-hizmet-sozlesmesi'));
     dispatch(getStaticPage('uye-on-bilgilendirme-formu'));
   }, [userInfo]);
 
   useEffect(() => {
-    if (reservation?.data) {
-      if (reservation?.data.branch_id && reservation?.data.session) {
-        dispatch(
-          getPtReservationCalendar(
-            userInfo.id,
-            reservation.data?.date,
-            null,
-            reservation?.data?.branch_id,
-            reservation.data?.session
-          )
-        );
-      }
+    if (
+      (reservation?.data?.branch_id &&
+        reservation?.data?.session &&
+        reservation?.data?.session,
+      reservation?.data?.date)
+    ) {
+      dispatch(
+        getPtReservationCalendar(
+          userInfo.id,
+          reservation.data?.date,
+          null,
+          reservation?.data?.branch_id,
+          reservation.data?.session
+        )
+      );
     }
-  }, [reservation]);
+  }, [
+    reservation?.data?.branch_id,
+    reservation?.data?.session,
+    reservation?.data?.date,
+  ]);
   useEffect(() => {
     if (!city) {
       axios
