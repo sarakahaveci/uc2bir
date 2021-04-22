@@ -13,6 +13,7 @@ export default function PaymentCard({ dateOption }) {
   const reservationCalendar = useSelector((state) => state.reservationCalendar);
   const { userInfo } = useSelector((state) => state.userProfile.userInfo);
   const [toggleState, setToggleState] = useState(false);
+  const wallet = useSelector((state) => state.userProfile.wallet);
 
   useEffect(() => {
     if (reservation?.data?.slot?.length > 0) {
@@ -232,11 +233,13 @@ export default function PaymentCard({ dateOption }) {
                             {elm.hour}
                           </Text>
                         </div>
-                        <Svg.TrashIcon
-                          onClick={() => {
-                            dispatch(deleteSlot(elm));
-                          }}
-                        />
+                        {!reservation?.data?.payment_type && (
+                          <Svg.TrashIcon
+                            onClick={() => {
+                              dispatch(deleteSlot(elm));
+                            }}
+                          />
+                        )}
                       </Info>
                     ))}
                   </Accordion.Collapse>
@@ -276,7 +279,15 @@ export default function PaymentCard({ dateOption }) {
                 className="blue"
                 text="Cüzdanımdan Öde"
                 onClick={() => {
-                  selectPaymentType('wallet');
+                  var wallet_balance = wallet?.data?.balance || 0;
+                  var amount = reservation?.data?.deposit_amount || 0;
+                  var diff = wallet_balance - amount;
+                  if (diff < 0) {
+                    selectPaymentType('both');
+                  } else {
+                    alert('bura');
+                    selectPaymentType('wallet');
+                  }
                 }}
               />
             </BottomContainer>
@@ -306,12 +317,16 @@ const AddHeader = styled.text`
   font-weight: 600;
 `;
 const AddDesc = styled.text``;
-const Container = styled.div``;
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 const InfoContainer = styled.div`
-  width: 586px;
+  width: 100%;
   background: #f8f8f8;
   padding: 20px;
   border-radius: 10px;
+  margin-bottom: 10px;
   @media ${device.sm} {
     width: 100%;
   }
@@ -380,10 +395,13 @@ const AccordionItemWrapper = styled.div`
 `;
 const DarkTitle = styled.h4`
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1rem;
   letter-spacing: 0.02em;
   margin-left: 5px;
   color: ${(p) => p.theme.colors.dark};
+  @media ${device.sm} {
+    font-size: 0.7rem;
+  }
 `;
 const ReservationContainer = styled.div`
   display: flex;
