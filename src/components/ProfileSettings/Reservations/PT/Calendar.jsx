@@ -120,7 +120,7 @@ const Calendar = () => {
                   name="appointmentDate"
                   forHtml="appointmentDate"
                   label="Tarih & Saat Seçiniz"
-                  defaultValue="21 Kasım Çarşamba, 10:00 - 11:00"
+                  defaultValue={moment(startDate).format('DD MMMM dddd')+","+selectedHour?.hour}
                   disabled={true}
                 />
                 <Material.select
@@ -230,8 +230,8 @@ const Calendar = () => {
                       {availableHours?.map((item,index) => ( item.id &&
                         <ReservationHourButton
                           onClick={()=> {
+                            setSelectedHour(item);
                             setActivePage('showHourDetail');
-                            setSelectedHour(item)
                           }}
                           text={item.hour}
                           className="blue"
@@ -272,7 +272,10 @@ const Calendar = () => {
                         height="52px"
                         mt="15px"
                         key={index}
-                        onClick={() => setActivePage('create')}
+                        onClick={() => {
+                          setSelectedHour(item);
+                          setActivePage('create');
+                        }}
                         isAvailableHour={true}
                       />
                     ))}
@@ -303,7 +306,7 @@ const Calendar = () => {
                        Branşlar:
                      </Span>
                      <Span fontSize={'18px'}>
-                        {selectedHour?.branch.toUpperCase()}
+                        {selectedHour?.branch?.toUpperCase()}
                       </Span>
                    </Box>
 
@@ -312,7 +315,7 @@ const Calendar = () => {
                        Oturum Türleri:
                      </Span>
                      <Span fontSize={'18px'}>
-                          {selectedHour?.session.toUpperCase()}
+                          {selectedHour?.session?.toUpperCase()}
                      </Span>
                      <Seperator/>
                    </Box>
