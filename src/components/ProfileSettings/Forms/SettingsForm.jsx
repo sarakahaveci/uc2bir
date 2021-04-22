@@ -8,7 +8,7 @@ const SettingsForm = () => {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
 
   const [type, setType] = useState();
-  const type_id = user.type_id;
+  const type_id = user?.type_id;
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -27,9 +27,7 @@ const SettingsForm = () => {
       }
     }
   }, [isAuthenticated]);
-  return (
-    <ProfileForms type={type}/>
-  )
-}
+  return <ProfileForms type={type} />;
+};
 
 export default SettingsForm;

@@ -116,7 +116,7 @@ const Header = () => {
               <div className="bar-item right-bar">
                 <ul>
                   {isAuthenticated ? (
-                    <HeaderLogin type_id={user.type_id} user={user} />
+                    <HeaderLogin type_id={user?.type_id} user={user} />
                   ) : (
                     <>
                       <li>
