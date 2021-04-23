@@ -5,8 +5,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Title } from 'components';
 import { getUserKeys, setReservation, clearReservation } from 'actions';
 import Pt from './PT';
-import * as KEYS from '../../constants/userKeys';
+import Gym from './Gym';
 import Dietitian from './Dietitian';
+
+import * as KEYS from '../../constants/userKeys';
 
 const ProfileReservation = ({ setPage = () => {} }) => {
   const dispatch = useDispatch();
@@ -56,7 +58,9 @@ const ProfileReservation = ({ setPage = () => {} }) => {
     case KEYS.PT:
       content = <Pt />;
       break;
-
+    case KEYS.GYM:
+      content = <Gym />;
+      break;
     default:
       content = <></>;
       break;

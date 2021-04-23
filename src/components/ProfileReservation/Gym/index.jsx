@@ -34,7 +34,7 @@ const uri = `${process.env.REACT_APP_API_URL}/regions`;
 
 const dateOption = true;
 
-const Home = () => {
+const Dietitian = () => {
   const dispatch = useDispatch();
   //Local States
   const [toggleState, setToggleState] = useState(false);
@@ -367,10 +367,10 @@ const Home = () => {
               />
             </Info>
             {/**<Material.TextField
-              label="Yükelenecek Tutarı Giriniz"
-              type="text"
-              name="cvv"
-            /> */}
+                label="Yükelenecek Tutarı Giriniz"
+                type="text"
+                name="cvv"
+              /> */}
           </DataContainer>
           <div style={{ padding: '10px' }}>
             <text>
@@ -665,4 +665,4 @@ const MapWrapper = styled.div`
 const InputContainer = styled.div`
   margin-bottom: 20px;
 `;
-export default Home;
+export default Dietitian;
