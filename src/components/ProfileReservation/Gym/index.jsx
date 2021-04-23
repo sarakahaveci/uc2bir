@@ -509,7 +509,7 @@ const Dietitian = () => {
     <Container>
       <LeftWrapper>{_renderLeftArea()}</LeftWrapper>
       <RightWrapper>
-        <PaymentCard dateOption={dateOption} />
+        <PaymentCard type="gym" dateOption={dateOption} />
       </RightWrapper>
       <StyledModal show={openModal} onHide={() => setOpenModal(false)}>
         <MultiContract
@@ -651,6 +651,7 @@ const ParkHeader = styled.text`
   font-weight: 600;
   font-size: 1.1rem;
 `;
+0;
 const ParkAdress = styled.text`
   font-weight: 300;
   font-size: 1rem;

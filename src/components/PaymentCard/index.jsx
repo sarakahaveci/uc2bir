@@ -7,7 +7,7 @@ import { space } from 'styled-system';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { setReservation, deleteSlot, addSlot, sendReservation } from 'actions';
-export default function PaymentCard({ dateOption }) {
+export default function PaymentCard({ type, dateOption }) {
   const dispatch = useDispatch();
   const reservation = useSelector((state) => state.reservation);
   const reservationCalendar = useSelector((state) => state.reservationCalendar);
@@ -32,6 +32,18 @@ export default function PaymentCard({ dateOption }) {
   }, [reservation?.data?.slot]);
 
   useEffect(() => {
+    switch (type) {
+      case 'pt':
+        setTotalAmountPT();
+        break;
+      case 'dt':
+        setTotalAmountDT();
+        break;
+      default:
+        break;
+    }
+  }, [reservation?.data?.pt_price, reservation?.data?.gym_price]);
+  function setTotalAmountPT() {
     var ptPrice = reservation?.data?.pt_price || 0;
     var gymPrice = reservation?.data?.gym_price || 0;
     dispatch(
@@ -39,8 +51,15 @@ export default function PaymentCard({ dateOption }) {
         deposit_amount: ptPrice + gymPrice,
       })
     );
-  }, [reservation?.data?.pt_price, reservation?.data?.gym_price]);
-
+  }
+  function setTotalAmountDT() {
+    var dtPrice = reservation?.data?.pt_price || 0;
+    dispatch(
+      setReservation({
+        deposit_amount: dtPrice,
+      })
+    );
+  }
   function selectPaymentType(type) {
     if (reservation?.data?.deposit_amount > 0) {
       dispatch(setReservation({ payment_type: type }));
@@ -66,7 +85,7 @@ export default function PaymentCard({ dateOption }) {
     );
   }
 
-  function sendPayment() {
+  function sendPaymentPT() {
     var json = {
       pt_id: reservation?.data?.pt_id,
       payment_type: reservation?.data?.payment_type,
@@ -86,7 +105,25 @@ export default function PaymentCard({ dateOption }) {
 
     dispatch(sendReservation(removeEmpty(json), () => {}));
   }
+  function sendPaymentDT() {
+    var json = {
+      pt_id: reservation?.data?.dt_id,
+      payment_type: reservation?.data?.payment_type,
+      is_contracts_accepted: true,
+      session: reservation?.data?.session,
+      location_id: reservation?.data?.location_id,
+      guest: false,
+      holder_name: reservation?.data?.holder_name,
+      card_number: reservation?.data?.card_number,
+      expiration_month: reservation?.data?.expiration_month,
+      expiration_year: reservation?.data?.expiration_year,
+      cvc: reservation?.data?.cvc,
+      deposit_amount: reservation?.data?.deposit_amount,
+      slot: reservation?.data?.slot,
+    };
 
+    dispatch(sendReservation(removeEmpty(json), () => {}));
+  }
   function handleHourClick(item) {
     var slot = reservation?.data?.slot;
     var newItem = { date: item.date, hour: item.time };
@@ -139,7 +176,7 @@ export default function PaymentCard({ dateOption }) {
         </ReservationContainer>
       )}
       <AddTextContainer>
-        {!reservation?.data?.payment_type && (
+        {type === 'pt' && !reservation?.data?.payment_type && (
           <>
             <AddHeader>Misafir Ekle</AddHeader>
             <AddDesc>
@@ -150,18 +187,30 @@ export default function PaymentCard({ dateOption }) {
       </AddTextContainer>
       <InfoContainer>
         <DataContainer>
-          <Info>
-            <Text style={{ fontWeight: 800 }}>Eğitmen Ücreti</Text>
-            <Text style={{ fontWeight: 800 }}>
-              {reservation?.data?.pt_price}
-            </Text>
-          </Info>
-          <Info borderDisable>
-            <Text style={{ fontWeight: 800 }}>Salon Ücreti</Text>
-            <Text style={{ fontWeight: 800 }}>
-              {reservation?.data?.gym_price}
-            </Text>
-          </Info>
+          {type === 'pt' && (
+            <Info>
+              <Text style={{ fontWeight: 800 }}>Eğitmen Ücreti</Text>
+              <Text style={{ fontWeight: 800 }}>
+                {reservation?.data?.pt_price}
+              </Text>
+            </Info>
+          )}
+          {type === 'dt' && (
+            <Info>
+              <Text style={{ fontWeight: 800 }}>Dietisyen Ücreti</Text>
+              <Text style={{ fontWeight: 800 }}>
+                {reservation?.data?.dt_price}
+              </Text>
+            </Info>
+          )}
+          {type === 'pt' && (
+            <Info borderDisable>
+              <Text style={{ fontWeight: 800 }}>Salon Ücreti</Text>
+              <Text style={{ fontWeight: 800 }}>
+                {reservation?.data?.gym_price}
+              </Text>
+            </Info>
+          )}
         </DataContainer>
       </InfoContainer>
       <InfoContainer>
@@ -193,7 +242,9 @@ export default function PaymentCard({ dateOption }) {
                               borderColor: 'gray',
                             }}
                           >
-                            {key + 1}.Ders
+                            {key + 1}.
+                            {(type === 'pt' && 'Ders') ||
+                              (type === 'dt' && 'Seans')}
                           </Text>
                           <Svg.Date style={{ marginLeft: '5px' }} />
                           <Text
@@ -248,10 +299,20 @@ export default function PaymentCard({ dateOption }) {
             </Accordion>
           </Info>
         </DataContainer>
-        <AddTextContainer>
-          <AddHeader>Ders Ekle</AddHeader>
-          <AddDesc>Aynı eğitmen ve salondan daha fazla ders alın</AddDesc>
-        </AddTextContainer>
+        {(type === 'pt' && (
+          <AddTextContainer>
+            <AddHeader>Ders Ekle</AddHeader>
+            <AddDesc>Aynı eğitmen ve salondan daha fazla ders alın</AddDesc>
+          </AddTextContainer>
+        )) ||
+          (type === 'dt' && (
+            <AddTextContainer>
+              <AddHeader>Seans Ekle</AddHeader>
+              <AddDesc>
+                Aynı diyetisyen ve klinikten daha fazla randevu alın
+              </AddDesc>
+            </AddTextContainer>
+          ))}
       </InfoContainer>
       <ConfirmContainer>
         <BottomContainer>
@@ -267,7 +328,16 @@ export default function PaymentCard({ dateOption }) {
               className="blue"
               text="Ödeme Yap"
               onClick={() => {
-                sendPayment();
+                switch (type) {
+                  case 'pt':
+                    sendPaymentPT();
+                    break;
+                  case 'dt':
+                    sendPaymentDT();
+                    break;
+                  default:
+                    break;
+                }
               }}
             />
           </BottomContainer>

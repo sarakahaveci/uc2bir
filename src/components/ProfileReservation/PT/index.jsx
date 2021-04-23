@@ -509,7 +509,7 @@ const PT = () => {
     <Container>
       <LeftWrapper>{_renderLeftArea()}</LeftWrapper>
       <RightWrapper>
-        <PaymentCard dateOption={dateOption} />
+        <PaymentCard type="pt" dateOption={dateOption} />
       </RightWrapper>
       <StyledModal show={openModal} onHide={() => setOpenModal(false)}>
         <MultiContract
