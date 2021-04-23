@@ -143,11 +143,11 @@ const dietitianTabs = [
     eventKey: 'cancel',
     component: <CancellationReason />,
   },
-  //   {
-  //     eventKey: 'reservation',
-  //     title: 'Rezarvasyonlarım',
-  //     component: <GroupSlot />,
-  //   },
+  {
+    eventKey: 'reservation',
+    title: 'Rezarvasyonlarım',
+    component: <Reservations />,
+  },
   /* {
     eventKey: 'packets',
     title: 'Paketlerim',

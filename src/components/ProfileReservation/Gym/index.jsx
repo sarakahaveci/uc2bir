@@ -34,7 +34,7 @@ const uri = `${process.env.REACT_APP_API_URL}/regions`;
 
 const dateOption = true;
 
-const Home = () => {
+const Dietitian = () => {
   const dispatch = useDispatch();
   //Local States
   const [toggleState, setToggleState] = useState(false);
@@ -367,10 +367,10 @@ const Home = () => {
               />
             </Info>
             {/**<Material.TextField
-              label="Yükelenecek Tutarı Giriniz"
-              type="text"
-              name="cvv"
-            /> */}
+                label="Yükelenecek Tutarı Giriniz"
+                type="text"
+                name="cvv"
+              /> */}
           </DataContainer>
           <div style={{ padding: '10px' }}>
             <text>
@@ -509,7 +509,7 @@ const Home = () => {
     <Container>
       <LeftWrapper>{_renderLeftArea()}</LeftWrapper>
       <RightWrapper>
-        <PaymentCard dateOption={dateOption} />
+        <PaymentCard type="gym" dateOption={dateOption} />
       </RightWrapper>
       <StyledModal show={openModal} onHide={() => setOpenModal(false)}>
         <MultiContract
@@ -651,6 +651,7 @@ const ParkHeader = styled.text`
   font-weight: 600;
   font-size: 1.1rem;
 `;
+0;
 const ParkAdress = styled.text`
   font-weight: 300;
   font-size: 1rem;
@@ -665,4 +666,4 @@ const MapWrapper = styled.div`
 const InputContainer = styled.div`
   margin-bottom: 20px;
 `;
-export default Home;
+export default Dietitian;
