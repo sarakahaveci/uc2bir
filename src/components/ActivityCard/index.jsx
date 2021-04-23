@@ -160,7 +160,6 @@ export default function ActivityCard({
       );
     }
     } else {
-      if(formData.capacity>0 && selectedBranch.length>0){
         dispatch(
           updatePTBranch(
             branchData,
@@ -181,16 +180,6 @@ export default function ActivityCard({
             }
           )
         );
-      }else {
-        toast.error(
-          'Lütfen Tüm Alanları Eksiksiz Doldurunuz',
-          {
-            position: 'bottom-right',
-            autoClose: 7000,
-          }
-        );
-      }
-
     }
   };
 
