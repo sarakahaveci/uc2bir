@@ -510,7 +510,7 @@ const StepThree = () => {
                   text="İleri"
                   size="lg"
                   onClick={submitBenefitsHandler}
-                  disabled={selectedBenefits.length===0}
+                  disabled={selectedBenefits.length === 0}
                 />
               </div>
             </div>

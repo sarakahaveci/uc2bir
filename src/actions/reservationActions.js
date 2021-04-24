@@ -3,6 +3,7 @@ import {
   DELETE_SLOT,
   ADD_SLOT,
   CLEAR_RESERVATION,
+  DELETE_ALL_SLOT,
 } from 'constants/actionTypes';
 
 export const setReservation = (data) => async (dispatch) => {
@@ -20,6 +21,11 @@ export const deleteSlot = (slot) => async (dispatch) => {
   dispatch({
     type: DELETE_SLOT,
     payload: { ...slot },
+  });
+};
+export const deleteAllSlot = () => async (dispatch) => {
+  dispatch({
+    type: DELETE_ALL_SLOT,
   });
 };
 export const addSlot = (slot) => async (dispatch) => {

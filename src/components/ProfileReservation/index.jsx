@@ -23,7 +23,7 @@ const ProfileReservation = ({ setPage = () => {} }) => {
 
   useEffect(() => {
     if (isSuccess) {
-      setType(userKeys.filter((f) => f.id === userInfo.type_id));
+      setType(userKeys.filter((f) => f.id === userInfo?.type_id));
     }
   }, [isSuccess]);
 

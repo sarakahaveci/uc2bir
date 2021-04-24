@@ -19,13 +19,13 @@ export default function PaymentCard({ type, dateOption }) {
     if (reservation?.data?.slot?.length > 0) {
       dispatch(
         setReservation({
-          pt_price: reservation?.data?.slot?.length * userInfo.price,
+          [`${type}_price`]: reservation?.data?.slot?.length * userInfo.price,
         })
       );
     } else {
       dispatch(
         setReservation({
-          pt_price: 0,
+          [[`${type}_price`]]: 0,
         })
       );
     }
@@ -42,26 +42,26 @@ export default function PaymentCard({ type, dateOption }) {
       default:
         break;
     }
-  }, [reservation?.data?.pt_price, reservation?.data?.gym_price]);
+  }, [reservation?.data?.[`${type}_price`], reservation?.data?.gym_price]);
   function setTotalAmountPT() {
     var ptPrice = reservation?.data?.pt_price || 0;
     var gymPrice = reservation?.data?.gym_price || 0;
     dispatch(
       setReservation({
-        deposit_amount: ptPrice + gymPrice,
+        totals_amount: ptPrice + gymPrice,
       })
     );
   }
   function setTotalAmountDT() {
-    var dtPrice = reservation?.data?.pt_price || 0;
+    var dtPrice = reservation?.data?.dt_price || 0;
     dispatch(
       setReservation({
-        deposit_amount: dtPrice,
+        totals_amount: dtPrice,
       })
     );
   }
   function selectPaymentType(type) {
-    if (reservation?.data?.deposit_amount > 0) {
+    if (reservation?.data?.totals_amount > 0) {
       dispatch(setReservation({ payment_type: type }));
     } else {
       toast.error('Sepetiniz Boş', {
@@ -318,7 +318,7 @@ export default function PaymentCard({ type, dateOption }) {
         <BottomContainer>
           <Text style={{ fontWeight: 800 }}>Toplam Ücret</Text>
           <Text color="#00B2A9" style={{ fontWeight: 800, fontSize: 30 }}>
-            {reservation?.data?.deposit_amount}
+            {reservation?.data?.totals_amount}
           </Text>
         </BottomContainer>
         {reservation?.data?.payment_type ? (
@@ -350,7 +350,7 @@ export default function PaymentCard({ type, dateOption }) {
                 text="Cüzdanımdan Öde"
                 onClick={() => {
                   var wallet_balance = wallet?.data?.balance || 0;
-                  var amount = reservation?.data?.deposit_amount || 0;
+                  var amount = reservation?.data?.totals_amount || 0;
                   var diff = wallet_balance - amount;
                   if (diff < 0) {
                     selectPaymentType('both');

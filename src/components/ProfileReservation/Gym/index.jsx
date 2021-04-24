@@ -1,10 +1,8 @@
 import {
   MiniProfileCard,
   Material,
-  WorkAreaCard,
+  TrainerCard,
   PaymentCard,
-  Accordion,
-  Svg,
   MultiContract,
 } from 'components';
 import React, { useEffect, useState } from 'react';
@@ -16,17 +14,10 @@ import { device } from 'utils';
 import { Modal } from 'react-bootstrap';
 import {
   setReservation,
-  getPtGymList,
-  getUserBranchList,
-  getPtWorkingHomePlace,
-  //getTemplates,
-  getPtReservationCalendar,
   getStaticPage,
+  getGymReservationCalendar,
 } from 'actions';
-import { space } from 'styled-system';
-import GoogleMap from 'components/GoogleMaps/GoogleMap';
 import RadioGroup from '@material-ui/core/RadioGroup';
-import { AwesomeIcon } from 'components';
 import axios from 'axios';
 import { getWallet } from 'actions/userProfileActions/walletActions';
 
@@ -34,65 +25,45 @@ const uri = `${process.env.REACT_APP_API_URL}/regions`;
 
 const dateOption = true;
 
-const Dietitian = () => {
+const Gym = () => {
   const dispatch = useDispatch();
   //Local States
-  const [toggleState, setToggleState] = useState(false);
-  const [formData, setFormData] = useState({});
   const [city, setCity] = useState(false);
-  const [town, setTown] = useState([]);
-  const [district, setDistrict] = useState([]);
-  const [sessionTypes, setSessionTypes] = useState(undefined);
+  const [wantPt, setWantPt] = useState(false);
+
   const [openModal, setOpenModal] = useState(false);
   //Redux States
   const { userInfo } = useSelector((state) => state.userProfile.userInfo);
   const wallet = useSelector((state) => state.userProfile.wallet);
   const staticPages = useSelector((state) => state.staticPages);
   const reservation = useSelector((state) => state.reservation);
-  const { branches: branchList } = useSelector(
-    (state) => state.userProfile.branch
-  );
-  const gymList = useSelector((state) => state.userProfile.ptGymList);
-  const homePlaces = useSelector(
-    (state) => state.userProfile.workPlace.ptHomePlace
+
+  //const gymList = useSelector((state) => state.userProfile.ptGymList);
+
+  const allBranchList = useSelector(
+    (state) => state.profileSettings.ptBranchList.allList
   );
   useEffect(() => {
-    var items = userInfo.session.map((item) => ({
-      name: item.title,
-      id: item.type,
-    }));
-    setSessionTypes([...items, { id: 'b', name: 'Belirttiğim Adres' }]);
-    dispatch(getUserBranchList(userInfo.id));
-    dispatch(getPtGymList(userInfo.id));
-    dispatch(getPtWorkingHomePlace(userInfo.id));
     dispatch(getWallet());
     //dispatch(getTemplates()); HATA VARSA BURAYA Bİ BAK
-    dispatch(setReservation({ pt_id: userInfo.id }));
+    dispatch(setReservation({ bs_id: userInfo.id }));
     dispatch(getStaticPage('uye-mesafeli-hizmet-sozlesmesi'));
     dispatch(getStaticPage('uye-on-bilgilendirme-formu'));
+    console.log(wantPt);
   }, [userInfo]);
 
   useEffect(() => {
-    if (
-      reservation?.data?.branch_id &&
-      reservation?.data?.session &&
-      reservation?.data?.date
-    ) {
+    if (reservation?.data?.branch_id && reservation?.data?.date) {
       dispatch(
-        getPtReservationCalendar(
+        getGymReservationCalendar(
           userInfo.id,
           reservation.data?.date,
           null,
-          reservation?.data?.branch_id,
-          reservation.data?.session
+          reservation?.data?.branch_id
         )
       );
     }
-  }, [
-    reservation?.data?.branch_id,
-    reservation?.data?.session,
-    reservation?.data?.date,
-  ]);
+  }, [reservation?.data?.branch_id, reservation?.data?.date]);
   useEffect(() => {
     if (!city) {
       axios
@@ -123,188 +94,6 @@ const Dietitian = () => {
     }
   }, [city]);
 
-  function WorkAreaSelect() {
-    switch (reservation?.data?.session) {
-      case 'gym':
-        return (
-          <>
-            <Text color="#9B9B9B">{'Spor Alanı Seçiniz:'}</Text>
-            <RadioGroup
-              row
-              aria-label="workArea"
-              name="workArea"
-              defaultValue="0l"
-            >
-              {gymList?.data?.map((item) => (
-                <>
-                  <CardGroup style={{ padding: 0 }}>
-                    <WorkAreaCard
-                      stars={item.rating}
-                      capacity={item.capacity}
-                      title={item.title}
-                      area_measure={item.area_measure}
-                      city={item.city}
-                      district={item.district}
-                      price={item.price}
-                    />
-
-                    {reservation?.data?.location_id === item.id ? (
-                      <RadioButtonCheckedIcon
-                        style={{ marginLeft: '5px', cursor: 'pointer' }}
-                      />
-                    ) : (
-                      <RadioButtonUncheckedIcon
-                        onClick={() => {
-                          dispatch(
-                            setReservation({
-                              location_id: item.id,
-                              gym_price: item.price,
-                            })
-                          );
-                        }}
-                        style={{ marginLeft: '5px', cursor: 'pointer' }}
-                      />
-                    )}
-                  </CardGroup>
-                </>
-              )) || null}
-            </RadioGroup>
-          </>
-        );
-      case 'home_park':
-        return (
-          homePlaces.data?.home_park?.map((item) => (
-            <>
-              <Accordion>
-                <AccordionItemWrapper>
-                  <Accordion.Item defaultOpen={false}>
-                    <Accordion.Toggle
-                      onToggle={(state) => setToggleState(state)}
-                      className="accordion-toggler"
-                    >
-                      <Svg.SessionType.Park />
-                      <ParkInfo>
-                        <ParkHeader>{item.title}</ParkHeader>
-                        <ParkAdress>
-                          {item.town + ' ' + item.district + ' ' + item.city}
-                        </ParkAdress>
-                      </ParkInfo>
-                      {toggleState ? (
-                        <Svg.ArrowDownIcon />
-                      ) : (
-                        <Svg.ArrowUpIcon />
-                      )}
-                    </Accordion.Toggle>
-                    <Accordion.Collapse>
-                      <MapWrapper>
-                        <GoogleMap
-                          locationFromUser={{
-                            lat: item.lat,
-                            lng: item.lng,
-                          }}
-                          disabled
-                        />
-                      </MapWrapper>
-                    </Accordion.Collapse>
-                  </Accordion.Item>
-                </AccordionItemWrapper>
-              </Accordion>
-            </>
-          )) || null
-        );
-      case 'online':
-        return <></>;
-      case 'b':
-        return (
-          <>
-            <>
-              <Material.SimpleSelect
-                required
-                label="İl Seçiniz"
-                items={city}
-                name="city"
-                changeValue={formData?.city || ''}
-                onChange={(e) => {
-                  axios
-                    .post(uri, { city_id: e.target.value })
-                    .then((res) => res.data)
-                    .then((data) => data.data)
-                    .then((data) => {
-                      const new_data = data.map((val) => {
-                        return {
-                          id: val.id,
-                          val: val.id,
-                          name: val.name,
-                        };
-                      });
-                      return setTown(new_data);
-                    });
-                  return setFormData({
-                    ...formData,
-                    [e.target.name]: e.target.value,
-                  });
-                }}
-              />
-              <Material.SimpleSelect
-                required
-                label={town ? 'Önce İl Seçiniz' : 'İlçe Seçiniz'}
-                items={town ? town : []}
-                name="district"
-                changeValue={formData?.district || ''}
-                onChange={(e) => {
-                  axios
-                    .post(uri, { district_id: e.target.value })
-                    .then((res) => res.data)
-                    .then((data) => data.data)
-                    .then((data) => {
-                      const new_data = data.map((val) => {
-                        return {
-                          id: val.id,
-                          val: val.id,
-                          name: val.name,
-                        };
-                      });
-                      return setDistrict(new_data);
-                    });
-                  return setFormData({
-                    ...formData,
-                    [e.target.name]: e.target.value,
-                  });
-                }}
-              />
-              <Material.SimpleSelect
-                required
-                label={district ? 'Önce İlçe Seçiniz' : 'Mahalle Seçiniz'}
-                items={district ? district : []}
-                name="town"
-                changeValue={formData?.town || ''}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    [e.target.name]: e.target.value,
-                  })
-                }
-              />
-              <Material.TextField
-                required
-                label="Açık Adres"
-                name="address_detail"
-                icon={AwesomeIcon.Map}
-                changeValue={formData.address_detail}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    [e.target.name]: e.target.value,
-                  })
-                }
-              />
-            </>
-          </>
-        );
-      default:
-        return <></>;
-    }
-  }
   function CreditCard() {
     return (
       <>
@@ -366,11 +155,21 @@ const Dietitian = () => {
                 }}
               />
             </Info>
+            <Material.TextField
+              mask="99999999"
+              label="Yüklenecek Tutarı Giriniz"
+              type="text"
+              name="deposit_amount"
+              defaultValue={reservation?.data?.deposit_amount}
+              onBlur={(e) => {
+                dispatch(setReservation({ deposit_amount: e.target.value }));
+              }}
+            />
             {/**<Material.TextField
-                label="Yükelenecek Tutarı Giriniz"
-                type="text"
-                name="cvv"
-              /> */}
+              label="Yükelenecek Tutarı Giriniz"
+              type="text"
+              name="cvv"
+            /> */}
           </DataContainer>
           <div style={{ padding: '10px' }}>
             <text>
@@ -407,7 +206,7 @@ const Dietitian = () => {
       case 'wallet':
       case 'both':
         var wallet_balance = wallet?.data?.balance || 0;
-        var amount = reservation?.data?.deposit_amount || 0;
+        var amount = reservation?.data?.totals_amount || 0;
         var diff = wallet_balance - amount;
         return (
           <>
@@ -436,7 +235,7 @@ const Dietitian = () => {
               <div style={{ padding: '10px' }}>
                 <text>
                   Yapacağınız işlem sonrası cüdanınızda kalacak olan toplam
-                  tutar {reservation?.data?.deposit_amount} TL’dir
+                  tutar {reservation?.data?.totals_amount} TL’dir
                 </text>
               </div>
             </InfoContainer>
@@ -472,7 +271,7 @@ const Dietitian = () => {
               <InputContainer>
                 <Text color="#9B9B9B">{'Branş Seçiniz:'}</Text>
                 <Material.SimpleSelect
-                  items={branchList.branches}
+                  items={allBranchList}
                   name="branch"
                   defaultValue={reservation?.data?.branch_id}
                   onChange={(e) =>
@@ -481,35 +280,74 @@ const Dietitian = () => {
                 />
               </InputContainer>
               <InputContainer>
-                <Text color="#9B9B9B">{'Oturum Türü Seçiniz:'}</Text>
+                <Text color="#9B9B9B">{'Eğitmen İstiyor musunuz ?'}</Text>
                 <Material.SimpleSelect
-                  items={sessionTypes}
-                  name="sessionType"
-                  defaultValue={reservation?.data?.session}
-                  onChange={(e) =>
-                    dispatch(
-                      setReservation({
-                        session: e.target.value,
-                        location_id: undefined,
-                        gym_price: 0,
-                      })
-                    )
-                  }
+                  items={[
+                    { id: 1, name: 'Hayır' },
+                    { id: 2, name: 'Evet' },
+                  ]}
+                  name="branch"
+                  defaultValue={reservation?.data?.branch_id}
+                  onChange={(e) => {
+                    if (e.target?.value === 2) {
+                      setWantPt(true);
+                    } else {
+                      setWantPt(false);
+                    }
+                  }}
                 />
               </InputContainer>
-
-              <WorkAreaSelect />
+              {_renderTrainerSelections()}
             </SelectionContainer>
           </>
         );
     }
   }
+  function _renderTrainerSelections() {
+    return (
+      <>
+        <Text color="#9B9B9B">{'Egitmen Seçiniz:'}</Text>
+        <RadioGroup row aria-label="workArea" name="workArea" defaultValue="0l">
+          {['sdsd', 'sd', 'sd'].map((item) => (
+            <>
+              <CardGroup style={{ padding: 0 }}>
+                <TrainerCard
+                  name={'Efe Parlak'}
+                  stars={3}
+                  category={'Fitness Eğitmeni'}
+                  price={item.price}
+                  classification="A"
+                />
 
+                {reservation?.data?.location_id === item.id ? (
+                  <RadioButtonCheckedIcon
+                    style={{ marginLeft: '5px', cursor: 'pointer' }}
+                  />
+                ) : (
+                  <RadioButtonUncheckedIcon
+                    onClick={() => {
+                      dispatch(
+                        setReservation({
+                          location_id: item.id,
+                          gym_price: item.price,
+                        })
+                      );
+                    }}
+                    style={{ marginLeft: '5px', cursor: 'pointer' }}
+                  />
+                )}
+              </CardGroup>
+            </>
+          )) || null}
+        </RadioGroup>
+      </>
+    );
+  }
   return (
     <Container>
       <LeftWrapper>{_renderLeftArea()}</LeftWrapper>
       <RightWrapper>
-        <PaymentCard type="gym" dateOption={dateOption} />
+        <PaymentCard type="pt" dateOption={dateOption} />
       </RightWrapper>
       <StyledModal show={openModal} onHide={() => setOpenModal(false)}>
         <MultiContract
@@ -620,50 +458,8 @@ const Info = styled.div`
   border-width: 0 0 1px 0;
   padding: 10px 5px;
 `;
-const AccordionItemWrapper = styled.div`
-  border-radius: 20px;
-  background: #fff;
-  margin-bottom: 20px;
-  width: 100%;
-  ${space}
-
-  .accordion-toggler {
-    display: flex;
-    background: ${(p) =>
-      p.parent
-        ? '#EFEFEF'
-        : p.accordionBackground
-        ? p.accordionBackground
-        : '#F8F8F8'};
-    justify-content: space-between;
-    border-radius: ${(p) => (p.accordionRadius ? p.accordionRadius : '10px')};
-    padding: 15px;
-    margin-bottom: 10px;
-  }
-`;
-
-const ParkInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 50%;
-`;
-const ParkHeader = styled.text`
-  font-weight: 600;
-  font-size: 1.1rem;
-`;
-0;
-const ParkAdress = styled.text`
-  font-weight: 300;
-  font-size: 1rem;
-`;
-
-const MapWrapper = styled.div`
-  width: 80%;
-  border-radius: 30px;
-  overflow: hidden;
-`;
 
 const InputContainer = styled.div`
   margin-bottom: 20px;
 `;
-export default Dietitian;
+export default Gym;

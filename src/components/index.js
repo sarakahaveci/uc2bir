@@ -78,3 +78,5 @@ export { default as CashTransfer } from './CashTransfer';
 export { default as CashTransferConfirm } from './CashTransferConfirm';
 export { default as WorkAreaCard } from './WorkAreaCard';
 export { default as PaymentCard } from './PaymentCard';
+export { default as TrainerCard } from './TrainerCard';
+export { default as ClinicAccordion } from './ClinicAccordion';
