@@ -19,7 +19,7 @@ export const getNotifications = (pageNumber, date, successCallback) => async (
       url,
       label: GET_NOTIFICATIONS,
       callBack: (data) =>
-        successCallback(data.data?.notifications?.current_page),
+        successCallback(data.data?.notifications?.currentPage),
     },
   });
 };
