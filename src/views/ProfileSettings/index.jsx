@@ -89,6 +89,11 @@ const workPlaceTabs = [
     component: <ProfileSettingsList />,
   },
   {
+    eventKey: 'reservation',
+    title: 'Rezarvasyonlarım',
+    component: <Reservations />,
+  },
+  {
     eventKey: 'notifications',
     component: <ProfileSettingsList />,
   },
@@ -112,11 +117,7 @@ const workPlaceTabs = [
     title: 'Eğitmen Bul',
     component: <Trainers />,
   },
-  //   {
-  //     eventKey: 'reservation',
-  //     title: 'Rezarvasyonlarım',
-  //     component: <Reservations />,
-  //   },
+
   /*   {
     eventKey: 'wallet',
     title: 'Cüzdan',
@@ -236,11 +237,11 @@ const trainerTabs = [
     title: 'Uzmanlıklarım',
     component: <Proficiency />,
   },
-  /*  {
+    {
     eventKey: 'wallet',
     title: 'Cüzdanım',
     component: <Wallet />,
-  }, */
+  },
   {
     eventKey: 'gallery',
     title: 'Galeri',
