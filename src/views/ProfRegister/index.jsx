@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { Text, FormPages, Main, Title } from 'components';
 import { DIETITIAN, WORK_PLACE } from '../../constants';
 import RegisterSteps from './RegisterSteps';
+import { useDispatch } from 'react-redux';
+import { getRegisterData } from '../../actions';
 
 const List = styled.ul`
   li {
@@ -15,6 +17,10 @@ const List = styled.ul`
 
 const ProfRegister = () => {
   const [userTypeId, setUserTypeId] = useState(null);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getRegisterData());
+  }, []);
 
   return (
     <Main>

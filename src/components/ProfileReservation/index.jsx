@@ -3,7 +3,7 @@ import { Container, Row } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { Title } from 'components';
-import { getUserKeys, setReservation, clearReservation } from 'actions';
+import { setReservation, clearReservation } from 'actions';
 import Pt from './PT';
 import Gym from './Gym';
 import Dietitian from './Dietitian';
@@ -27,9 +27,7 @@ const ProfileReservation = ({ setPage = () => {} }) => {
     }
   }, [isSuccess]);
 
-  const actionRegisterData = () => {
-    dispatch(getUserKeys());
-  };
+
   function clearPaymentInfo() {
     dispatch(
       setReservation({
@@ -44,7 +42,6 @@ const ProfileReservation = ({ setPage = () => {} }) => {
     );
   }
   useEffect(() => {
-    actionRegisterData();
     dispatch(clearReservation());
   }, []);
 

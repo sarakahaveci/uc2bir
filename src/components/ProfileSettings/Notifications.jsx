@@ -45,7 +45,7 @@ const Notifications = () => {
     notificationSettings: { data: notificationSettings },
   } = useSelector((state) => state.profileSettings2.notifications);
 
-  const [pageNumber, setPageNumber] = useState(0);
+  const [pageNumber, setPageNumber] = useState(1);
   const [date, setDate] = useState(7);
 
   const dispatch = useDispatch();
@@ -84,9 +84,9 @@ const Notifications = () => {
 
   useEffect(() => {
     setSettings({
-      sms: notificationSettings.sms === '1' ? true : false,
-      email: notificationSettings.email === '1' ? true : false,
-      push: notificationSettings.push === '1' ? true : false,
+      sms: notificationSettings.sms === '1',
+      email: notificationSettings.email === '1',
+      push: notificationSettings.push === '1',
     });
   }, [notificationSettings]);
 

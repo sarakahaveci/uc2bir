@@ -13,15 +13,69 @@ import {
   ApproveModal,
 } from '../../../index';
 import styled from 'styled-components/macro';
-import { AVAILABLE_HOURS, branchData, sessionData, salonData} from '../../../../constants';
 import { device } from '../../../../utils';
 import image from '../../../../assets/wave-background.png';
 import Svg from '../../../statics/svg';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  getTemplateFromCalender,
+  getDayOfCalendar,
+  deleteHourOfCalendar,
+  getMyBranches,
+  getGymList,
+  getPtWorkingHomePlace, getSessionTypes,
+} from '../../../../actions';
+import moment from 'moment';
+import 'moment/locale/tr';
+import { toast } from 'react-toastify';
+import Select from '@material-ui/core/Select';
+import Input from '@material-ui/core/Input';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+
+moment.locale('tr')
 
 const Calendar = () => {
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
   const [activePage, setActivePage] = useState('index');
   const [openApprove, setOpenApprove] = useState(false);
+  const [startDate, setStartDate] = useState(new Date());
+  const [selectedHour, setSelectedHour] = useState();
+  const [branchSelection, setBranchSelection] = useState([]);
+  const [sessionSelection, setSessionSelection] = useState([]);
+  const [workPlaceSelection, setWorkPlaceSelection] = useState([]);
+  const [locationSelection, setLocationSelection] = useState([]);
+
+  const dispatch = useDispatch();
+  const {
+    availableDates: { data: availableDates },
+    availableHours: { data: availableHours },
+  } = useSelector((state) => state.profileSettings2.reservationTemplate);
+
+  const { data: myBranches } = useSelector(
+    (state) => state.profileSettings2.profileBranches.myBranches
+  );
+
+  const {
+    ptHomePlace: { data: ptHomePlace },
+  } = useSelector((state) => state.userProfile.workPlace);
+
+  const {
+    get: sessionTypes,
+    gymList: { data: gymList },
+  } = useSelector((state) => state.profileSettings2.sessionType);
+
+  useEffect(() => {
+    dispatch(getTemplateFromCalender());
+    setStartDate(new Date());
+  }, []);
+
+  useEffect(() => {
+    dispatch(getDayOfCalendar(moment(startDate).format('DD.MM.YYYY')));
+  }, [startDate]);
+
+
   useEffect(() => {
     if (window.innerWidth <= 760) {
       setIsSmallScreen(true);
@@ -29,7 +83,47 @@ const Calendar = () => {
       setIsSmallScreen(false);
     }
   }, []);
-  let data = ['dsd', 'ds'];
+
+  useEffect(() => {
+    dispatch(getMyBranches());
+    dispatch(getGymList());
+    dispatch(getSessionTypes());
+    dispatch(getPtWorkingHomePlace());
+
+  }, []);
+
+  const handleSelect = (date) => {
+    setStartDate(date);
+  };
+
+  const startOfWeeksArr = availableDates?.map((date) =>
+    new Date(moment(date, 'DD.MM.YYYY').toDate())
+  );
+
+  const deleteHourSuccess = () =>{
+    dispatch(getDayOfCalendar(moment(startDate).format('DD.MM.YYYY')));
+    setActivePage('index')
+    toast.success('Saat Silme İşlemi Başarılı Bir Şekilde Tamamlanmıştır', {
+      position: 'bottom-right',
+      autoClose: 3000,
+    });
+
+  }
+
+  const deleteHourFail = () =>{
+    toast.error(
+      'Seçilen Saat Silinirken Hata Oluştu Hata Oluştu',
+      {
+        position: 'bottom-right',
+        autoClose: 3000,
+      }
+    );
+  }
+
+  const showSessionDependentInputs = (sessionType) =>
+    sessionSelection.findIndex((session) => session.type === sessionType) !==
+    -1;
+
   return(
     <Container>
       <ApproveModal
@@ -43,73 +137,105 @@ const Calendar = () => {
       />
       {activePage ==='create' ?(
         <Row>
-            <Col xs={{ order: IsSmallScreen ? 2 : 1 }} lg={6}>
-              <Title
-                style={{ display: 'flex', flexWrap: 'nowrap' }}
-                textAlign="left">
-                <Span
-                  cursor="pointer"
-                  fontSize="1.5rem"
-                  onClick={() => setActivePage('showAvailableHour')}
-                  marginRight="10px"
-                  marginBottom="-15px">
-                  {`<`}
-                </Span>
-                <Span>Rezervasyon Oluştur</Span>
-              </Title>
+          <Col xs={{ order: IsSmallScreen ? 2 : 1 }} lg={6}>
+            <Title
+              style={{ display: 'flex', flexWrap: 'nowrap' }}
+              textAlign="left">
+              <Span
+                cursor="pointer"
+                fontSize="1.5rem"
+                onClick={() => setActivePage('showAvailableHour')}
+                marginRight="10px"
+                marginBottom="-15px">
+                {`<`}
+              </Span>
+              <Span>Rezervasyon Oluştur</Span>
+            </Title>
 
-              <AppointmentContainer>
-                <Material.TextField
-                  name="appointmentDate"
-                  forHtml="appointmentDate"
-                  label="Tarih & Saat Seçiniz"
-                  defaultValue="21 Kasım Çarşamba, 10:00 - 11:00"
-                  disabled={true}
-                />
-                <Material.select
-                  style={{marginTop:'14px'}}
-                  multiple={true}
-                  required
-                  name="branch"
-                  forHtml="branch"
-                  label="Branşları Seçiniz"
-                  defaultValueMultiple={sessionData}
-                  items={branchData}
-                />
+            <AppointmentContainer>
+              <Material.TextField
+                name="appointmentDate"
+                forHtml="appointmentDate"
+                label="Tarih & Saat"
+                defaultValue={moment(startDate).format('DD MMMM dddd')+","+selectedHour?.hour}
+                disabled={true}
+              />
 
-                <Material.select
-                  style={{marginTop:'14px'}}
-                  multiple={true}
-                  required
-                  name="sessionType"
-                  forHtml="sessionType"
-                  label="Oturum Türlerini Seçiniz"
-                  items={sessionData}
-                />
+              <FormControl>
+                <InputLabel>Branşları Seçiniz</InputLabel>
 
-                <Material.select
-                  style={{marginTop:'14px'}}
-                  multiple={true}
-                  required
-                  name="sessionType"
-                  forHtml="sessionType"
-                  label="Salon Ekleyin"
-                  items={salonData}
-                />
+                <Select
+                  multiple
+                  value={branchSelection}
+                  input={<Input />}
+                  onChange={(e) => setBranchSelection(e.target.value)}
+                >
+                  {myBranches.map((branch) => (
+                    <MenuItem key={branch.id} value={branch}>
+                      {branch.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
 
-                <Material.select
-                  style={{marginTop:'14px'}}
-                  multiple={true}
-                  required
-                  name="sessionType"
-                  forHtml="sessionType"
-                  label="Ev/Park Ekleyin"
-                  items={sessionData}
-                />
+              <FormControl>
+                <InputLabel>Oturum Türlerini Seçiniz</InputLabel>
 
-              </AppointmentContainer>
+                <Select
+                  multiple
+                  value={sessionSelection}
+                  input={<Input />}
+                  onChange={(e) => setSessionSelection(e.target.value)}
+                >
+                  {sessionTypes?.data?.data?.map((sessionType) => (
+                    <MenuItem key={sessionType.id} value={sessionType}>
+                      {sessionType.title}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
 
-            </Col>
+              {showSessionDependentInputs('gym') && (
+                <FormControl>
+                  <InputLabel>Spor Alanı Seçiniz</InputLabel>
+
+                  <Select
+                    multiple
+                    value={workPlaceSelection}
+                    input={<Input />}
+                    onChange={(e) => setWorkPlaceSelection(e.target.value)}
+                  >
+                    {gymList?.gym?.map((item) => (
+                      <MenuItem key={item.id} value={item}>
+                        {item.title}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              )}
+
+              {showSessionDependentInputs('home_park') && (
+                <FormControl>
+                  <InputLabel>Ev / Park Seçiniz</InputLabel>
+
+                  <Select
+                    multiple
+                    value={locationSelection}
+                    input={<Input />}
+                    onChange={(e) => setLocationSelection(e.target.value)}
+                  >
+                    {ptHomePlace?.home_park?.map((item) => (
+                      <MenuItem key={item.id} value={item}>
+                        {item.title}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              )}
+
+            </AppointmentContainer>
+
+          </Col>
 
           <Col style={{ display: 'flex', justifyContent: 'center'}}
                xs={{ order: IsSmallScreen ? 1 : 2 }}
@@ -117,7 +243,11 @@ const Calendar = () => {
             <DateContainer>
               <AppointmentDate>
                 <Row>
-                  <ReservationAccordion title="Rezervasyon Tarihi" accordionBackground={'#FFFFFF'} accordionRadius={'20px'}>
+                  <ReservationAccordion
+                    defaultOpen={true}
+                    title="Rezervasyon Tarihi"
+                    accordionBackground={'#ffffff'}
+                    accordionRadius={'20px'}>
                     <hr style={{marginTop:'0px'}}/>
                     <Row style={{padding:'10px'}}>
                       <Col lg={2}>
@@ -133,22 +263,17 @@ const Calendar = () => {
                         <ReservationText>
                           <Calender/>
                           <Text color="#707070" fontWeight="200" >
-                            21 Kasım Çarşamba Saat 10:00 - 11:00
+                            {moment(startDate).format('DD MMMM dddd') + ' Saat '+ selectedHour?.hour}
                           </Text>
                         </ReservationText>
                       </Col>
                       <Col lg={1}>
-                        <Trash/>
+                        {/*<Trash/>*/}
                       </Col>
 
                     </Row>
-
                   </ReservationAccordion>
-
-
                 </Row>
-
-
               </AppointmentDate>
 
               <AcceptButton src={image}>
@@ -169,30 +294,31 @@ const Calendar = () => {
         <Row>
           {activePage==='index' && (
             <Col xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
-              {data.map((elm, index) => (
-                <AccordionContainer key={index}>
-                  <ReservationAccordion
-                    defaultOpen={index === 0}
-                    parent
-                    title={24+index+' OCAK ÇARŞAMBA'}>
-                    <Box row flexWrap="wrap" center>
-                      {AVAILABLE_HOURS.map((item,index) => (
-                        <ReservationHourButton
-                          text={item}
-                          className="blue"
-                          width="342px"
-                          height="52px"
-                          mt="15px"
-                          key={index}
-                        />
-                      ))}
+              <AccordionContainer>
+                <ReservationAccordion
+                  defaultOpen={true}
+                  parent
+                  title={moment(startDate).format('DD MMMM dddd')}>
+                  <Box row flexWrap="wrap" center>
+                    {availableHours?.map((item,index) => ( item.id &&
+                      <ReservationHourButton
+                        onClick={()=> {
+                          setSelectedHour(item);
+                          setActivePage('showHourDetail');
+                        }}
+                        text={item.hour}
+                        className="blue"
+                        width="342px"
+                        height="52px"
+                        mt="15px"
+                        key={index}
+                      />
+                    ))}
+                    <AvailableButton onClick={()=>setActivePage('showAvailableHour')}>Boş Saatlerimi Gör</AvailableButton>
 
-                      <AvailableButton onClick={()=>setActivePage('showAvailableHour')}>Boş Saatlerimi Gör</AvailableButton>
-
-                    </Box>
-                  </ReservationAccordion>
-                </AccordionContainer>
-              ))}
+                  </Box>
+                </ReservationAccordion>
+              </AccordionContainer>
             </Col>)}
 
           {activePage==='showAvailableHour' && (
@@ -209,17 +335,20 @@ const Calendar = () => {
                 <ReservationAccordion
                   defaultOpen={true}
                   parent
-                  title={'24 OCAK ÇARŞAMBA'}>
+                  title={moment(startDate).format('DD MMMM dddd')+' / BOŞ SAATLERİM'}>
                   <Box row flexWrap="wrap" center>
-                    {AVAILABLE_HOURS.map((item,index) => (
+                    {availableHours?.map((item,index) => ( !item.id &&
                       <ReservationHourButton
-                        text={item}
+                        text={item.hour}
                         className="blue"
                         width="342px"
                         height="52px"
                         mt="15px"
                         key={index}
-                        onClick={() => setActivePage('create')}
+                        onClick={() => {
+                          setSelectedHour(item);
+                          setActivePage('create');
+                        }}
                         isAvailableHour={true}
                       />
                     ))}
@@ -229,11 +358,80 @@ const Calendar = () => {
               </AccordionContainer>
             </Col>)}
 
+          {activePage==='showHourDetail' && (
+            <Col xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
+              <AccordionContainer >
+                <Span
+                  cursor="pointer"
+                  fontSize="1.5rem"
+                  onClick={() => setActivePage('index')}
+                  marginRight="10px"
+                  marginTop="10px">
+                  {`<`}
+                </Span>
+                <ReservationAccordion
+                  defaultOpen={true}
+                  parent
+                  title={moment(startDate).format('DD MMMM dddd') +' / ' + selectedHour?.hour}>
+                  <HourDetailContainer>
+                    <Box>
+                      <Span fontWeight="600" mr="15px" fontSize={'20px'}>
+                        Branşlar:
+                      </Span>
+                      <Span fontSize={'18px'}>
+                        {selectedHour?.branch?.toUpperCase()}
+                      </Span>
+                    </Box>
+
+                    <Box>
+                      <Span fontWeight="600" mr="15px" fontSize={'20px'}>
+                        Oturum Türleri:
+                      </Span>
+                      <Span fontSize={'18px'}>
+                        {selectedHour?.session?.toUpperCase()}
+                      </Span>
+                      <Seperator/>
+                    </Box>
+
+                    <Box>
+                      <Span fontWeight="600" mr="15px" fontSize={'20px'}>
+                        Seçilmiş Yerler:
+                      </Span>
+                      <Span fontSize={'18px'}>
+                        Fitness
+                      </Span>
+                      <Seperator/>
+                    </Box>
+
+                    <hr/>
+                    <Row  style={{display:'flex', justifyContent:'flex-end'}}>
+                      <Button disableborder text={'Sil'} width={'120px'} height={'35px'} onClick={()=>dispatch(
+                        deleteHourOfCalendar(
+                          selectedHour?.id,
+                          deleteHourSuccess,
+                          deleteHourFail
+                        ))}/>
+                    </Row>
+                  </HourDetailContainer>
+                </ReservationAccordion>
+              </AccordionContainer>
+            </Col>)}
+
           <Col style={{ display: 'flex', justifyContent: 'center'}}
                xs={{ order: IsSmallScreen ? 1 : 2 }}
                lg={4}>
             <DateContainer>
-              <DatePicker minDate={new Date()} inline selected={null} />
+              <DatePicker
+                selected={startDate}
+                onSelect={handleSelect}
+                selectsRange
+                inline
+                highlightDates={[
+                  {
+                    'react-datepicker__day--highlighted': startOfWeeksArr,
+                  },
+                ]}
+                minDate={new Date()} />
             </DateContainer>
           </Col>
         </Row>
@@ -259,8 +457,14 @@ const DateContainer = styled.div`
   }
 `;
 
+
+const HourDetailContainer = styled.div`
+  background-color: #F8F8F8;
+  border-radius: 10px;
+  padding: 20px;
+`;
+
 const AppointmentDate = styled.div`
-  
   background: #FFFFFF;
   border: 2px solid #C6C6C6;
   border-radius: 20px;
@@ -307,11 +511,12 @@ const AccordionContainer = styled.div`
 `;
 
 const AppointmentContainer = styled.div`
-  width: 100%;
-  padding-top: 35px;
-  padding-left: 25px;
-  min-height: 400px;
+  display: flex;
+  flex-direction: column;
 
+  .MuiFormControl-root {
+    margin-bottom: 20px;
+  }
 
   .materials {
     margin-bottom: 15px;
@@ -333,6 +538,7 @@ const AvailableButton = styled.button`
   border-radius: 20px;
   margin-right: 80px;
   margin-left: 80px;
+  margin-top: 5px;
   font-size: 14px;
   @media ${device.sm} {
     width: 90px;
@@ -347,9 +553,9 @@ const Calender = styled(Svg.CalendarIcon)`
   margin-right: 5px;
 `;
 
-const Trash = styled(Svg.TrashIcon)`
-  margin-top: 3px;
-`;
+// const Trash = styled(Svg.TrashIcon)`
+//   margin-top: 3px;
+// `;
 
 
 export default Calendar;

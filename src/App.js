@@ -7,7 +7,6 @@ import { ScrollToTop, ProtectedRoute } from 'components';
 import LoadingImage from 'assets/321-loading.gif';
 import {
   setUserDetailsFromStorage,
-  getRegisterData,
   getAllPTBranchList,
 } from 'actions';
 //views
@@ -44,7 +43,7 @@ const App = () => {
 
     dispatch(setUserDetailsFromStorage());
 
-    dispatch(getRegisterData());
+    // dispatch(getRegisterData());
     dispatch(getAllPTBranchList());
   }, []);
 
