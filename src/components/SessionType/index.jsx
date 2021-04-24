@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import styled from 'styled-components/macro';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { Text, Title, Svg } from 'components';
-import { getUserKeys } from 'actions';
 import Pt from './PT';
 import * as KEYS from '../../constants/userKeys';
 import Dietitian from './Dietitian';
 import image from '../../assets/session-type.jpg';
 
 const SessionType = () => {
-  const dispatch = useDispatch();
   const type_id = useSelector((state) => state.auth)?.user?.type_id;
   const [bannerActive, setBannerActive] = useState(true);
 
@@ -27,13 +25,6 @@ const SessionType = () => {
     }
   }, [isSuccess]);
 
-  const actionRegisterData = () => {
-    dispatch(getUserKeys());
-  };
-
-  useEffect(() => {
-    actionRegisterData();
-  }, []);
 
   let icons = [];
 
