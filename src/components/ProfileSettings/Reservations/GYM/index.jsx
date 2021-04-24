@@ -18,7 +18,9 @@ const GYM = () => {
     getGeocode();
   }, []);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    console.log('sjdjdj');
+  }, []);
 
   let content;
   switch (tab) {

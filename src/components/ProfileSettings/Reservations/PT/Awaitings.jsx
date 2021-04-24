@@ -10,10 +10,17 @@ import {
   Svg,
 } from 'components';
 import { device } from 'utils';
+import { getPtAwaitings } from 'actions';
+import { useDispatch, useSelector } from 'react-redux';
 const Awaitings = () => {
+  const dispatch = useDispatch();
+  const items = useSelector(
+    (state) => state.professionalReservation?.ptReservation
+  );
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
   const [openApprove, setOpenApprove] = useState(false);
   const [openReject, setOpenReject] = useState(false);
+  const [selectedDate, setSelectedDate] = useState('26.04.2021');
 
   useEffect(() => {
     if (window.innerWidth <= 760) {
@@ -21,7 +28,9 @@ const Awaitings = () => {
     } else {
       setIsSmallScreen(false);
     }
+    dispatch(getPtAwaitings(selectedDate));
   }, []);
+
   let data = ['dsd', 'ds'];
   return (
     <StyledContainer>
@@ -40,35 +49,87 @@ const Awaitings = () => {
                   title="SPOR ALANI"
                   defaultOpen
                 >
-                  <ApproveCardContainer>
-                    <ApproveCard
-                      date="16:00 - 18:00"
-                      customerName="Ali Veli"
-                      optionalField_1="FİTNESS"
-                      optionalField_2={{
-                        label: 'SALON',
-                        value: 'ŞAVKAR ARENA',
-                      }}
-                      optionalField_3={{
-                        value: '1020 sokak no 56 Mardin Midyat',
-                      }}
-                      onApprove={() => {
-                        setOpenApprove(true);
-                      }}
-                      onReject={() => {
-                        setOpenReject(true);
-                      }}
-                    />
-                  </ApproveCardContainer>
+                  <>
+                    {items?.appointment?.[selectedDate]?.gym?.map((elm, i) => (
+                      <ApproveCardContainer key={i}>
+                        <ApproveCard
+                          date="16:00 - 18:00"
+                          customerName="Ali Veli"
+                          optionalField_1="FİTNESS"
+                          optionalField_2={{
+                            label: 'SALON',
+                            value: 'ŞAVKAR ARENA',
+                          }}
+                          optionalField_3={{
+                            value: '1020 sokak no 56 Mardin Midyat',
+                          }}
+                          onApprove={() => {
+                            setOpenApprove(true);
+                          }}
+                          onReject={() => {
+                            setOpenReject(true);
+                          }}
+                        />
+                      </ApproveCardContainer>
+                    ))}
+                  </>
                 </ReservationAccordion>
                 <ReservationAccordion
                   miniIcon={<Svg.SessionType.Park />}
                   title="EV / PARK"
-                ></ReservationAccordion>
+                >
+                  {items?.appointment?.[selectedDate]?.home_place?.map(
+                    (elm, i) => (
+                      <ApproveCardContainer key={i}>
+                        <ApproveCard
+                          date="16:00 - 18:00"
+                          customerName="Ali Veli"
+                          optionalField_1="FİTNESS"
+                          optionalField_2={{
+                            label: 'SALON',
+                            value: 'ŞAVKAR ARENA',
+                          }}
+                          optionalField_3={{
+                            value: '1020 sokak no 56 Mardin Midyat',
+                          }}
+                          onApprove={() => {
+                            setOpenApprove(true);
+                          }}
+                          onReject={() => {
+                            setOpenReject(true);
+                          }}
+                        />
+                      </ApproveCardContainer>
+                    )
+                  )}
+                </ReservationAccordion>
                 <ReservationAccordion
                   miniIcon={<Svg.SessionType.Online />}
                   title="ONLİNE"
-                ></ReservationAccordion>
+                >
+                  {items?.appointment?.[selectedDate]?.online?.map((elm, i) => (
+                    <ApproveCardContainer key={i}>
+                      <ApproveCard
+                        date="16:00 - 18:00"
+                        customerName="Ali Veli"
+                        optionalField_1="FİTNESS"
+                        optionalField_2={{
+                          label: 'SALON',
+                          value: 'ŞAVKAR ARENA',
+                        }}
+                        optionalField_3={{
+                          value: '1020 sokak no 56 Mardin Midyat',
+                        }}
+                        onApprove={() => {
+                          setOpenApprove(true);
+                        }}
+                        onReject={() => {
+                          setOpenReject(true);
+                        }}
+                      />
+                    </ApproveCardContainer>
+                  ))}
+                </ReservationAccordion>
               </ReservationAccordion>
             </AccordionContainer>
           ))}
