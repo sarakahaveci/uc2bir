@@ -18,10 +18,6 @@ const GYM = () => {
     getGeocode();
   }, []);
 
-  useEffect(() => {
-    console.log('sjdjdj');
-  }, []);
-
   let content;
   switch (tab) {
     case 'Awaitings':

@@ -23,7 +23,8 @@ import {
   deleteHourOfCalendar,
   getMyBranches,
   getGymList,
-  getPtWorkingHomePlace, getSessionTypes,
+  getPtWorkingHomePlace,
+  getSessionTypes,
 } from '../../../../actions';
 import moment from 'moment';
 import 'moment/locale/tr';
@@ -34,7 +35,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 
-moment.locale('tr')
+moment.locale('tr');
 
 const Calendar = () => {
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
@@ -75,7 +76,6 @@ const Calendar = () => {
     dispatch(getDayOfCalendar(moment(startDate).format('DD.MM.YYYY')));
   }, [startDate]);
 
-
   useEffect(() => {
     if (window.innerWidth <= 760) {
       setIsSmallScreen(true);
@@ -89,42 +89,37 @@ const Calendar = () => {
     dispatch(getGymList());
     dispatch(getSessionTypes());
     dispatch(getPtWorkingHomePlace());
-
   }, []);
 
   const handleSelect = (date) => {
     setStartDate(date);
   };
 
-  const startOfWeeksArr = availableDates?.map((date) =>
-    new Date(moment(date, 'DD.MM.YYYY').toDate())
+  const startOfWeeksArr = availableDates?.map(
+    (date) => new Date(moment(date, 'DD.MM.YYYY').toDate())
   );
 
-  const deleteHourSuccess = () =>{
+  const deleteHourSuccess = () => {
     dispatch(getDayOfCalendar(moment(startDate).format('DD.MM.YYYY')));
-    setActivePage('index')
+    setActivePage('index');
     toast.success('Saat Silme İşlemi Başarılı Bir Şekilde Tamamlanmıştır', {
       position: 'bottom-right',
       autoClose: 3000,
     });
+  };
 
-  }
-
-  const deleteHourFail = () =>{
-    toast.error(
-      'Seçilen Saat Silinirken Hata Oluştu Hata Oluştu',
-      {
-        position: 'bottom-right',
-        autoClose: 3000,
-      }
-    );
-  }
+  const deleteHourFail = () => {
+    toast.error('Seçilen Saat Silinirken Hata Oluştu Hata Oluştu', {
+      position: 'bottom-right',
+      autoClose: 3000,
+    });
+  };
 
   const showSessionDependentInputs = (sessionType) =>
     sessionSelection.findIndex((session) => session.type === sessionType) !==
     -1;
 
-  return(
+  return (
     <Container>
       <ApproveModal
         open={openApprove}
@@ -135,18 +130,20 @@ const Calendar = () => {
           setOpenApprove(false);
         }}
       />
-      {activePage ==='create' ?(
+      {activePage === 'create' ? (
         <Row>
           <Col xs={{ order: IsSmallScreen ? 2 : 1 }} lg={6}>
             <Title
               style={{ display: 'flex', flexWrap: 'nowrap' }}
-              textAlign="left">
+              textAlign="left"
+            >
               <Span
                 cursor="pointer"
                 fontSize="1.5rem"
                 onClick={() => setActivePage('showAvailableHour')}
                 marginRight="10px"
-                marginBottom="-15px">
+                marginBottom="-15px"
+              >
                 {`<`}
               </Span>
               <Span>Rezervasyon Oluştur</Span>
@@ -157,7 +154,11 @@ const Calendar = () => {
                 name="appointmentDate"
                 forHtml="appointmentDate"
                 label="Tarih & Saat"
-                defaultValue={moment(startDate).format('DD MMMM dddd')+","+selectedHour?.hour}
+                defaultValue={
+                  moment(startDate).format('DD MMMM dddd') +
+                  ',' +
+                  selectedHour?.hour
+                }
                 disabled={true}
               />
 
@@ -232,14 +233,14 @@ const Calendar = () => {
                   </Select>
                 </FormControl>
               )}
-
             </AppointmentContainer>
-
           </Col>
 
-          <Col style={{ display: 'flex', justifyContent: 'center'}}
-               xs={{ order: IsSmallScreen ? 1 : 2 }}
-               lg={6}>
+          <Col
+            style={{ display: 'flex', justifyContent: 'center' }}
+            xs={{ order: IsSmallScreen ? 1 : 2 }}
+            lg={6}
+          >
             <DateContainer>
               <AppointmentDate>
                 <Row>
@@ -247,30 +248,29 @@ const Calendar = () => {
                     defaultOpen={true}
                     title="Rezervasyon Tarihi"
                     accordionBackground={'#ffffff'}
-                    accordionRadius={'20px'}>
-                    <hr style={{marginTop:'0px'}}/>
-                    <Row style={{padding:'10px'}}>
+                    accordionRadius={'20px'}
+                  >
+                    <hr style={{ marginTop: '0px' }} />
+                    <Row style={{ padding: '10px' }}>
                       <Col lg={2}>
                         <Text color="dark" fontWeight="500" fontSize="0.9rem">
                           1 Ders
                         </Text>
-
                       </Col>
                       <Col lg={1}>
-                        <Seperator/>
+                        <Seperator />
                       </Col>
                       <Col lg={8}>
                         <ReservationText>
-                          <Calender/>
-                          <Text color="#707070" fontWeight="200" >
-                            {moment(startDate).format('DD MMMM dddd') + ' Saat '+ selectedHour?.hour}
+                          <Calender />
+                          <Text color="#707070" fontWeight="200">
+                            {moment(startDate).format('DD MMMM dddd') +
+                              ' Saat ' +
+                              selectedHour?.hour}
                           </Text>
                         </ReservationText>
                       </Col>
-                      <Col lg={1}>
-                        {/*<Trash/>*/}
-                      </Col>
-
+                      <Col lg={1}>{/*<Trash/>*/}</Col>
                     </Row>
                   </ReservationAccordion>
                 </Row>
@@ -278,101 +278,121 @@ const Calendar = () => {
 
               <AcceptButton src={image}>
                 <Button
-                  onClick={()=>setOpenApprove(true)}
+                  onClick={() => setOpenApprove(true)}
                   text="Tamamla"
                   className="blue"
                   width={'496px'}
                   height={'66px'}
                 />
-
               </AcceptButton>
-
             </DateContainer>
           </Col>
         </Row>
-      ):(
+      ) : (
         <Row>
-          {activePage==='index' && (
+          {activePage === 'index' && (
             <Col xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
               <AccordionContainer>
                 <ReservationAccordion
                   defaultOpen={true}
                   parent
-                  title={moment(startDate).format('DD MMMM dddd')}>
+                  title={moment(startDate).format('DD MMMM dddd')}
+                >
                   <Box row flexWrap="wrap" center>
-                    {availableHours?.map((item,index) => ( item.id &&
-                      <ReservationHourButton
-                        onClick={()=> {
-                          setSelectedHour(item);
-                          setActivePage('showHourDetail');
-                        }}
-                        text={item.hour}
-                        className="blue"
-                        width="342px"
-                        height="52px"
-                        mt="15px"
-                        key={index}
-                      />
-                    ))}
-                    <AvailableButton onClick={()=>setActivePage('showAvailableHour')}>Boş Saatlerimi Gör</AvailableButton>
-
+                    {availableHours?.map(
+                      (item, index) =>
+                        item.id && (
+                          <ReservationHourButton
+                            onClick={() => {
+                              setSelectedHour(item);
+                              setActivePage('showHourDetail');
+                            }}
+                            text={item.hour}
+                            className="blue"
+                            width="342px"
+                            height="52px"
+                            mt="15px"
+                            key={index}
+                          />
+                        )
+                    )}
+                    <AvailableButton
+                      onClick={() => setActivePage('showAvailableHour')}
+                    >
+                      Boş Saatlerimi Gör
+                    </AvailableButton>
                   </Box>
                 </ReservationAccordion>
               </AccordionContainer>
-            </Col>)}
+            </Col>
+          )}
 
-          {activePage==='showAvailableHour' && (
+          {activePage === 'showAvailableHour' && (
             <Col xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
-              <AccordionContainer >
+              <AccordionContainer>
                 <Span
                   cursor="pointer"
                   fontSize="1.5rem"
                   onClick={() => setActivePage('index')}
                   marginRight="10px"
-                  marginTop="10px">
+                  marginTop="10px"
+                >
                   {`<`}
                 </Span>
                 <ReservationAccordion
                   defaultOpen={true}
                   parent
-                  title={moment(startDate).format('DD MMMM dddd')+' / BOŞ SAATLERİM'}>
+                  title={
+                    moment(startDate).format('DD MMMM dddd') +
+                    ' / BOŞ SAATLERİM'
+                  }
+                >
                   <Box row flexWrap="wrap" center>
-                    {availableHours?.map((item,index) => ( !item.id &&
-                      <ReservationHourButton
-                        text={item.hour}
-                        className="blue"
-                        width="342px"
-                        height="52px"
-                        mt="15px"
-                        key={index}
-                        onClick={() => {
-                          setSelectedHour(item);
-                          setActivePage('create');
-                        }}
-                        isAvailableHour={true}
-                      />
-                    ))}
-
+                    {availableHours?.map(
+                      (item, index) =>
+                        !item.id && (
+                          <ReservationHourButton
+                            text={item.hour}
+                            className="blue"
+                            width="342px"
+                            height="52px"
+                            mt="15px"
+                            key={index}
+                            onClick={() => {
+                              setSelectedHour(item);
+                              setActivePage('create');
+                            }}
+                            isAvailableHour={true}
+                          />
+                        )
+                    )}
                   </Box>
                 </ReservationAccordion>
               </AccordionContainer>
-            </Col>)}
+            </Col>
+          )}
 
-          {activePage==='showHourDetail' && (
+          {activePage === 'showHourDetail' && (
             <Col xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
-              <AccordionContainer >
+              <AccordionContainer>
                 <Span
                   cursor="pointer"
                   fontSize="1.5rem"
                   onClick={() => setActivePage('index')}
                   marginRight="10px"
-                  marginTop="10px">
+                  marginTop="10px"
+                >
                   {`<`}
                 </Span>
                 <ReservationAccordion
                   defaultOpen={true}
                   parent
-                  title={moment(startDate).format('DD MMMM dddd') +' / ' + selectedHour?.hour}>
+                  title={
+                    moment(startDate).format('DD MMMM dddd') +
+                    ' / ' +
+                    selectedHour?.hour
+                  }
+                >
                   <HourDetailContainer>
                     <Box>
                       <Span fontWeight="600" mr="15px" fontSize={'20px'}>
@@ -390,36 +410,48 @@ const Calendar = () => {
                       <Span fontSize={'18px'}>
                         {selectedHour?.session?.toUpperCase()}
                       </Span>
-                      <Seperator/>
+                      <Seperator />
                     </Box>
 
                     <Box>
                       <Span fontWeight="600" mr="15px" fontSize={'20px'}>
                         Seçilmiş Yerler:
                       </Span>
-                      <Span fontSize={'18px'}>
-                        Fitness
-                      </Span>
-                      <Seperator/>
+                      <Span fontSize={'18px'}>Fitness</Span>
+                      <Seperator />
                     </Box>
 
-                    <hr/>
-                    <Row  style={{display:'flex', justifyContent:'flex-end'}}>
-                      <Button disableborder text={'Sil'} width={'120px'} height={'35px'} onClick={()=>dispatch(
-                        deleteHourOfCalendar(
-                          selectedHour?.id,
-                          deleteHourSuccess,
-                          deleteHourFail
-                        ))}/>
+                    <hr />
+                    <Row
+                      style={{ display: 'flex', justifyContent: 'flex-end' }}
+                    >
+                      <Button
+                        disableborder
+                        text={'Sil'}
+                        width={'120px'}
+                        height={'35px'}
+                        onClick={() =>
+                          dispatch(
+                            deleteHourOfCalendar(
+                              selectedHour?.id,
+                              deleteHourSuccess,
+                              deleteHourFail
+                            )
+                          )
+                        }
+                      />
                     </Row>
                   </HourDetailContainer>
                 </ReservationAccordion>
               </AccordionContainer>
-            </Col>)}
+            </Col>
+          )}
 
-          <Col style={{ display: 'flex', justifyContent: 'center'}}
-               xs={{ order: IsSmallScreen ? 1 : 2 }}
-               lg={4}>
+          <Col
+            style={{ display: 'flex', justifyContent: 'center' }}
+            xs={{ order: IsSmallScreen ? 1 : 2 }}
+            lg={4}
+          >
             <DateContainer>
               <DatePicker
                 selected={startDate}
@@ -431,12 +463,12 @@ const Calendar = () => {
                     'react-datepicker__day--highlighted': startOfWeeksArr,
                   },
                 ]}
-                minDate={new Date()} />
+                minDate={new Date()}
+              />
             </DateContainer>
           </Col>
         </Row>
       )}
-
     </Container>
   );
 };
@@ -444,35 +476,34 @@ const Calendar = () => {
 const DateContainer = styled.div`
   width: 586px;
   height: 326px;
-  background: #F8F8F8;
+  background: #f8f8f8;
   border-radius: 20px;
   margin-top: 10px;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
-  @media ${device.sm}  {
+  @media ${device.sm} {
     height: 190px;
     width: 310px;
   }
 `;
 
-
 const HourDetailContainer = styled.div`
-  background-color: #F8F8F8;
+  background-color: #f8f8f8;
   border-radius: 10px;
   padding: 20px;
 `;
 
 const AppointmentDate = styled.div`
-  background: #FFFFFF;
-  border: 2px solid #C6C6C6;
+  background: #ffffff;
+  border: 2px solid #c6c6c6;
   border-radius: 20px;
   margin: 17px;
   padding-left: 15px;
   padding-right: 15px;
   flex-direction: column;
-  @media ${device.sm}  {
+  @media ${device.sm} {
     height: 95px;
     width: 290px;
   }
@@ -489,10 +520,10 @@ const AcceptButton = styled.div`
   justify-content: center;
   align-items: center;
   display: flex;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-bottom-right-radius: 20px;
   border-bottom-left-radius: 20px;
-  @media ${device.sm}  {
+  @media ${device.sm} {
     height: 95px;
     width: 310px;
   }
@@ -521,7 +552,7 @@ const AppointmentContainer = styled.div`
   .materials {
     margin-bottom: 15px;
 
-    label{
+    label {
       font-size: 15px !important;
     }
   }
@@ -556,6 +587,5 @@ const Calender = styled(Svg.CalendarIcon)`
 // const Trash = styled(Svg.TrashIcon)`
 //   margin-top: 3px;
 // `;
-
 
 export default Calendar;

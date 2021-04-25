@@ -9,8 +9,10 @@ import {
   ApproveModal,
   Svg,
 } from 'components';
+import moment from 'moment';
+
 import { device } from 'utils';
-import { getPtAwaitings } from 'actions';
+import { getPtAwaitings, PtAwaitingApprove } from 'actions';
 import { useDispatch, useSelector } from 'react-redux';
 const Awaitings = () => {
   const dispatch = useDispatch();
@@ -18,31 +20,44 @@ const Awaitings = () => {
     (state) => state.professionalReservation?.ptReservation
   );
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
-  const [openApprove, setOpenApprove] = useState(false);
+  const [openApprove, setOpenApprove] = useState(undefined);
   const [openReject, setOpenReject] = useState(false);
-  const [selectedDate, setSelectedDate] = useState('26.04.2021');
-
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const startOfWeeksArr = () => {
+    if (items?.date) {
+      return Object.keys(items?.date).map(
+        (date) => new Date(moment(date, 'DD.MM.YYYY').toDate())
+      );
+    } else {
+      return [];
+    }
+  };
   useEffect(() => {
     if (window.innerWidth <= 760) {
       setIsSmallScreen(true);
     } else {
       setIsSmallScreen(false);
     }
-    dispatch(getPtAwaitings(selectedDate));
+    setSelectedDate(new Date());
+    dispatch(getPtAwaitings());
   }, []);
+  useEffect(() => {
+    if (selectedDate) {
+      dispatch(getPtAwaitings(moment(selectedDate).format('DD.MM.YYYY')));
+    }
+  }, [selectedDate]);
 
-  let data = ['dsd', 'ds'];
   return (
     <StyledContainer>
       <StyledRow>
         <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
-          {data.map((elm, index) => (
+          {startOfWeeksArr().map((elm, index) => (
             <AccordionContainer key={index}>
               <Number>{index + 1}.</Number>
               <ReservationAccordion
                 defaultOpen={index == 0 ? true : false}
                 parent
-                title="24 OCAK ÇARŞAMBA"
+                title={moment(elm).format('DD.MM.YYYY')}
               >
                 <ReservationAccordion
                   miniIcon={<Svg.SessionType.Gym />}
@@ -50,12 +65,14 @@ const Awaitings = () => {
                   defaultOpen
                 >
                   <>
-                    {items?.appointment?.[selectedDate]?.gym?.map((elm, i) => (
+                    {items?.appointment?.[
+                      moment(selectedDate).format('DD.MM.YYYY')
+                    ]?.gym?.map((elm, i) => (
                       <ApproveCardContainer key={i}>
                         <ApproveCard
-                          date="16:00 - 18:00"
-                          customerName="Ali Veli"
-                          optionalField_1="FİTNESS"
+                          date={elm?.hour}
+                          customerName={elm?.student}
+                          optionalField_1={elm?.branch}
                           optionalField_2={{
                             label: 'SALON',
                             value: 'ŞAVKAR ARENA',
@@ -64,10 +81,10 @@ const Awaitings = () => {
                             value: '1020 sokak no 56 Mardin Midyat',
                           }}
                           onApprove={() => {
-                            setOpenApprove(true);
+                            setOpenApprove(elm?.id);
                           }}
                           onReject={() => {
-                            setOpenReject(true);
+                            setOpenReject(elm?.id);
                           }}
                         />
                       </ApproveCardContainer>
@@ -78,41 +95,14 @@ const Awaitings = () => {
                   miniIcon={<Svg.SessionType.Park />}
                   title="EV / PARK"
                 >
-                  {items?.appointment?.[selectedDate]?.home_place?.map(
-                    (elm, i) => (
-                      <ApproveCardContainer key={i}>
-                        <ApproveCard
-                          date="16:00 - 18:00"
-                          customerName="Ali Veli"
-                          optionalField_1="FİTNESS"
-                          optionalField_2={{
-                            label: 'SALON',
-                            value: 'ŞAVKAR ARENA',
-                          }}
-                          optionalField_3={{
-                            value: '1020 sokak no 56 Mardin Midyat',
-                          }}
-                          onApprove={() => {
-                            setOpenApprove(true);
-                          }}
-                          onReject={() => {
-                            setOpenReject(true);
-                          }}
-                        />
-                      </ApproveCardContainer>
-                    )
-                  )}
-                </ReservationAccordion>
-                <ReservationAccordion
-                  miniIcon={<Svg.SessionType.Online />}
-                  title="ONLİNE"
-                >
-                  {items?.appointment?.[selectedDate]?.online?.map((elm, i) => (
+                  {items?.appointment?.[
+                    moment(selectedDate).format('DD.MM.YYYY')
+                  ]?.home_place?.map((elm, i) => (
                     <ApproveCardContainer key={i}>
                       <ApproveCard
-                        date="16:00 - 18:00"
-                        customerName="Ali Veli"
-                        optionalField_1="FİTNESS"
+                        date={elm?.hour}
+                        customerName={elm?.student}
+                        optionalField_1={elm?.branch}
                         optionalField_2={{
                           label: 'SALON',
                           value: 'ŞAVKAR ARENA',
@@ -121,10 +111,32 @@ const Awaitings = () => {
                           value: '1020 sokak no 56 Mardin Midyat',
                         }}
                         onApprove={() => {
-                          setOpenApprove(true);
+                          setOpenApprove(elm.id);
                         }}
                         onReject={() => {
-                          setOpenReject(true);
+                          setOpenReject(elm.id);
+                        }}
+                      />
+                    </ApproveCardContainer>
+                  ))}
+                </ReservationAccordion>
+                <ReservationAccordion
+                  miniIcon={<Svg.SessionType.Online />}
+                  title="ONLİNE"
+                >
+                  {items?.appointment?.[
+                    moment(selectedDate).format('DD.MM.YYYY')
+                  ]?.online?.map((elm, i) => (
+                    <ApproveCardContainer key={i}>
+                      <ApproveCard
+                        date={elm?.hour}
+                        customerName={elm?.student}
+                        optionalField_1={elm?.branch}
+                        onApprove={() => {
+                          setOpenApprove(elm?.id);
+                        }}
+                        onReject={() => {
+                          setOpenReject(elm?.id);
                         }}
                       />
                     </ApproveCardContainer>
@@ -143,7 +155,20 @@ const Awaitings = () => {
           lg={4}
         >
           <DateContainer>
-            <DatePicker minDate={new Date()} inline selected={null} />
+            <DatePicker
+              selected={selectedDate}
+              onSelect={(date) => {
+                setSelectedDate(date);
+              }}
+              selectsRange
+              inline
+              highlightDates={[
+                {
+                  'react-datepicker__day--highlighted': startOfWeeksArr(),
+                },
+              ]}
+              minDate={new Date()}
+            />
           </DateContainer>
         </StyledCol>
       </StyledRow>
@@ -162,11 +187,12 @@ const Awaitings = () => {
       />
       <ApproveModal
         open={openApprove}
-        approve={() => {
-          setOpenApprove(false);
+        approve={(id) => {
+          setOpenApprove(undefined);
+          dispatch(PtAwaitingApprove(id));
         }}
         cancel={() => {
-          setOpenApprove(false);
+          setOpenApprove(undefined);
         }}
       />
     </StyledContainer>

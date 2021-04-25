@@ -15,6 +15,20 @@ export const getPtAwaitings = (date) => async (dispatch) => {
     },
   });
 };
+export const PtAwaitingApprove = (id) => async (dispatch) => {
+  let url = `/appointment/pt-calendar/update/${id}`;
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'PATCH',
+      body: { type: 'approve' },
+
+      url,
+      label: GET_PT_RESERVATION_STATE_DATA,
+      transformData: (data) => data.data,
+    },
+  });
+};
 
 export const getPtRejects = (date) => async (dispatch) => {
   let url = '/appointment/pt-calendar/rejected';

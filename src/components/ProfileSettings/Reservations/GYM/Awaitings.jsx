@@ -10,23 +10,19 @@ import {
   Svg,
 } from 'components';
 import { device } from 'utils';
-import { getPtAwaitings } from 'actions';
-import { useDispatch } from 'react-redux';
+
 const Awaitings = () => {
-  const dispatch = useDispatch();
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
   const [openApprove, setOpenApprove] = useState(false);
   const [openReject, setOpenReject] = useState(false);
 
+  const startOfWeeksArr = [];
   useEffect(() => {
     if (window.innerWidth <= 760) {
       setIsSmallScreen(true);
     } else {
       setIsSmallScreen(false);
     }
-    setTimeout(() => {
-      console.log('shsdsddd');
-    }, 3000);
   }, []);
   let data = ['dsd', 'ds'];
   return (
@@ -90,7 +86,18 @@ const Awaitings = () => {
           lg={4}
         >
           <DateContainer>
-            <DatePicker minDate={new Date()} inline selected={null} />
+            <DatePicker
+              selected={startDate}
+              onSelect={handleSelect}
+              selectsRange
+              inline
+              highlightDates={[
+                {
+                  'react-datepicker__day--highlighted': startOfWeeksArr,
+                },
+              ]}
+              minDate={new Date()}
+            />{' '}
           </DateContainer>
         </StyledCol>
       </StyledRow>

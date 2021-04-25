@@ -3,18 +3,42 @@ import { Row, Col, Container } from 'react-bootstrap';
 import ReservationAccordion from '../ReservationAccordion';
 import styled from 'styled-components/macro';
 import { ApproveCard, DatePicker, RejectModal, Svg } from 'components';
+import { useSelector, useDispatch } from 'react-redux';
 import { device } from 'utils';
+import { getPtApproved } from 'actions';
+import moment from 'moment';
+
 const Approved = () => {
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
   const [openReject, setOpenReject] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const dispatch = useDispatch();
 
+  const items = useSelector(
+    (state) => state.professionalReservation?.ptReservation
+  );
+  const startOfWeeksArr = () => {
+    if (items?.date) {
+      return Object.keys(items?.date).map(
+        (date) => new Date(moment(date, 'DD.MM.YYYY').toDate())
+      );
+    } else {
+      return [];
+    }
+  };
   useEffect(() => {
     if (window.innerWidth <= 760) {
       setIsSmallScreen(true);
     } else {
       setIsSmallScreen(false);
     }
+    dispatch(getPtApproved());
   }, []);
+  useEffect(() => {
+    if (selectedDate) {
+      dispatch(getPtApproved(moment(selectedDate).format('DD.MM.YYYY')));
+    }
+  }, [selectedDate]);
   let data = ['dsd', 'ds'];
   return (
     <StyledContainer>
@@ -66,7 +90,20 @@ const Approved = () => {
           lg={4}
         >
           <DateContainer>
-            <DatePicker minDate={new Date()} inline selected={null} />
+            <DatePicker
+              selected={selectedDate}
+              onSelect={(date) => {
+                setSelectedDate(date);
+              }}
+              selectsRange
+              inline
+              highlightDates={[
+                {
+                  'react-datepicker__day--highlighted': startOfWeeksArr(),
+                },
+              ]}
+              minDate={new Date()}
+            />
           </DateContainer>
         </StyledCol>
       </StyledRow>
