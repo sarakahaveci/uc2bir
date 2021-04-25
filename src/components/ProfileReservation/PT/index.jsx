@@ -418,9 +418,8 @@ const PT = () => {
               />
             </Info>
             <Material.TextField
-              mask="99999999"
               label="Yüklenecek Tutarı Giriniz"
-              type="text"
+              type="number"
               name="deposit_amount"
               defaultValue={reservation?.data?.deposit_amount}
               onBlur={(e) => {

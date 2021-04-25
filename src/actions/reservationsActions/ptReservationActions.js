@@ -11,7 +11,7 @@ export const getPtAwaitings = (date) => async (dispatch) => {
       method: 'GET',
       url,
       label: GET_PT_RESERVATION_STATE_DATA,
-      transformData: (data) => data.data,
+      transformData: (data) => ((data.data.status = 'awaitings'), data.data),
     },
   });
 };
@@ -22,7 +22,6 @@ export const PtAwaitingApprove = (id) => async (dispatch) => {
     payload: {
       method: 'PATCH',
       body: { type: 'approve' },
-
       url,
       label: GET_PT_RESERVATION_STATE_DATA,
       transformData: (data) => data.data,
@@ -36,11 +35,12 @@ export const getPtRejects = (date) => async (dispatch) => {
   if (date) extras += `date=${date}&`;
   await dispatch({
     type: HTTP_REQUEST,
+    status: 'rejects',
     payload: {
       method: 'GET',
       url,
       label: GET_PT_RESERVATION_STATE_DATA,
-      transformData: (data) => data.data,
+      transformData: (data) => ((data.data.status = 'rejecteds'), data.data),
     },
   });
 };
@@ -50,11 +50,12 @@ export const getPtApproved = (date) => async (dispatch) => {
   if (date) extras += `date=${date}&`;
   await dispatch({
     type: HTTP_REQUEST,
+    status: 'approved',
     payload: {
       method: 'GET',
       url,
       label: GET_PT_RESERVATION_STATE_DATA,
-      transformData: (data) => data.data,
+      transformData: (data) => ((data.data.status = 'approved'), data.data),
     },
   });
 };

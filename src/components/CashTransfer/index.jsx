@@ -15,8 +15,7 @@ export default function CashTransfer({}) {
         />
         <Material.TextField
           label="Yüklenecek Tutarı giriniz"
-          mask="999999TL"
-          type="text"
+          type="number"
           name="value"
           style={{ marginTop: '10px' }}
         />

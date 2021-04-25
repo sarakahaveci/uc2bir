@@ -15,7 +15,7 @@ const Approved = () => {
   const dispatch = useDispatch();
 
   const items = useSelector(
-    (state) => state.professionalReservation?.ptReservation
+    (state) => state.professionalReservation?.ptReservation?.approved
   );
   const startOfWeeksArr = () => {
     if (items?.date) {
@@ -39,12 +39,11 @@ const Approved = () => {
       dispatch(getPtApproved(moment(selectedDate).format('DD.MM.YYYY')));
     }
   }, [selectedDate]);
-  let data = ['dsd', 'ds'];
   return (
     <StyledContainer>
       <StyledRow>
         <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
-          {data.map((elm, index) => (
+          {startOfWeeksArr().map((elm, index) => (
             <AccordionContainer key={index}>
               <Number>{index + 1}.</Number>
               <ReservationAccordion
@@ -57,26 +56,68 @@ const Approved = () => {
                   title="SPOR ALANI"
                   defaultOpen
                 >
-                  <ApproveCardContainer>
-                    <ApproveCard
-                      date="18:00 - 19:00"
-                      customerName="Ali Veli"
-                      type="approve"
-                      onApprove={() => {}}
-                      onReject={() => {
-                        setOpenReject(true);
-                      }}
-                    />
-                  </ApproveCardContainer>
+                  <>
+                    {items?.appointment?.[
+                      moment(selectedDate).format('DD.MM.YYYY')
+                    ]?.gym?.map((elm, i) => (
+                      <ApproveCardContainer key={i}>
+                        <ApproveCard
+                          date="18:00 - 19:00"
+                          customerName="Ali Veli"
+                          type="approve"
+                          onApprove={() => {}}
+                          onReject={() => {
+                            setOpenReject(true);
+                          }}
+                        />
+                      </ApproveCardContainer>
+                    ))}
+                  </>
                 </ReservationAccordion>
                 <ReservationAccordion
                   miniIcon={<Svg.SessionType.Park />}
                   title="EV / PARK"
-                ></ReservationAccordion>
+                >
+                  <>
+                    {items?.appointment?.[
+                      moment(selectedDate).format('DD.MM.YYYY')
+                    ]?.home_park?.map((elm, i) => (
+                      <ApproveCardContainer key={i}>
+                        <ApproveCard
+                          date="18:00 - 19:00"
+                          customerName="Ali Veli"
+                          type="approve"
+                          onApprove={() => {}}
+                          onReject={() => {
+                            setOpenReject(true);
+                          }}
+                        />
+                      </ApproveCardContainer>
+                    ))}
+                  </>
+                </ReservationAccordion>
                 <ReservationAccordion
                   miniIcon={<Svg.SessionType.Online />}
                   title="ONLİNE"
-                ></ReservationAccordion>
+                >
+                  <>
+                    {items?.appointment?.[
+                      moment(selectedDate).format('DD.MM.YYYY')
+                    ]?.online?.map((elm, i) => (
+                      <ApproveCardContainer key={i}>
+                        <ApproveCard
+                          date="18:00 - 19:00"
+                          customerName="Ali Veli"
+                          type="approve"
+                          onApprove={() => {}}
+                          onReject={() => {
+                            setOpenReject(true);
+                          }}
+                        />
+                      </ApproveCardContainer>
+                    ))}
+                  </>
+                </ReservationAccordion>
               </ReservationAccordion>
             </AccordionContainer>
           ))}

@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 const Awaitings = () => {
   const dispatch = useDispatch();
   const items = useSelector(
-    (state) => state.professionalReservation?.ptReservation
+    (state) => state.professionalReservation?.ptReservation?.awaitings
   );
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
   const [openApprove, setOpenApprove] = useState(undefined);
