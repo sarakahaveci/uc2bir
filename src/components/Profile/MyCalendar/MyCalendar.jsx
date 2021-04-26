@@ -1,52 +1,58 @@
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import styled from 'styled-components/macro';
+import { format } from 'date-fns';
 
 import { Accordion, Button, DatePicker } from 'components';
 import BranchRowToggler from 'components/BranchRow/BranchRowToggler';
 import MyCalendarCollapser from './MyCalendarCollapser';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProfessionalCalendar } from '../../../actions';
+import {
+  clearReservation,
+  getProfessionalCalendar,
+  setReservation,
+} from '../../../actions';
 import moment from 'moment';
 
-export default function MyCalendar({ userId, typeId, setPage = () => {}, }) {
+export default function MyCalendar({ userId, typeId, setPage = () => {} }) {
   const dispatch = useDispatch();
   const [startDate, setStartDate] = useState(new Date());
   const [selectedHour, setSelectedHour] = useState();
 
-  const {
-    working_days: working_days,
-    branches: branchList,
-  } = useSelector((state) => state.userProfile.calendar);
+  const { working_days: working_days, branches: branchList } = useSelector(
+    (state) => state.userProfile.calendar
+  );
 
   useEffect(() => {
-    dispatch(getProfessionalCalendar(userId,typeId,startDate));
+    dispatch(getProfessionalCalendar(userId, typeId, startDate));
   }, [startDate]);
 
   const handleSelect = (date) => {
     setStartDate(date);
   };
 
-  const startOfWeeksArr = working_days?.map((date) =>
-    new Date(moment(date, 'DD.MM.YYYY').toDate())
+  const startOfWeeksArr = working_days?.map(
+    (date) => new Date(moment(date, 'DD.MM.YYYY').toDate())
   );
 
   return (
     <Row>
       <Col lg={7}>
-        <DatePicker minDate={new Date()}
-            inline
-            selected={startDate}
-            onSelect={handleSelect}
-            highlightDates={[
-              {
-                'react-datepicker__day--highlighted': startOfWeeksArr,
-              },
-            ]}
-            selectsRange/>
+        <DatePicker
+          minDate={new Date()}
+          inline
+          selected={startDate}
+          onSelect={handleSelect}
+          highlightDates={[
+            {
+              'react-datepicker__day--highlighted': startOfWeeksArr,
+            },
+          ]}
+          selectsRange
+        />
       </Col>
 
-      <Col lg={5} >
+      <Col lg={5}>
         <Accordion>
           {branchList?.map((item, index) => (
             <AccordionItemWrapper key={index}>
@@ -56,23 +62,35 @@ export default function MyCalendar({ userId, typeId, setPage = () => {}, }) {
                 </Accordion.Toggle>
 
                 <Accordion.Collapse>
-                  <MyCalendarCollapser data={item} setSelectedHour={setSelectedHour}/>
+                  <MyCalendarCollapser
+                    data={item}
+                    setSelectedHour={setSelectedHour}
+                  />
                 </Accordion.Collapse>
               </Accordion.Item>
             </AccordionItemWrapper>
           ))}
         </Accordion>
         <BranchWrapper>
-          {selectedHour&&
-          <Button
-            onClick={() => {
-              setPage('Reservation');
-            }}
-            text="Devam Et"
-            className="blue"
-            width={'476px'}
-            height={'66px'}
-          />}
+          {selectedHour && (
+            <Button
+              onClick={() => {
+                dispatch(clearReservation());
+                dispatch(
+                  setReservation({
+                    isSelected: true,
+                    date: format(startDate, 'dd.MM.yyyy'),
+                    slot: [selectedHour],
+                  })
+                );
+                setPage('Reservation');
+              }}
+              text="Devam Et"
+              className="blue"
+              width={'476px'}
+              height={'66px'}
+            />
+          )}
         </BranchWrapper>
       </Col>
     </Row>
@@ -89,5 +107,4 @@ const BranchWrapper = styled(Col)`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  
 `;

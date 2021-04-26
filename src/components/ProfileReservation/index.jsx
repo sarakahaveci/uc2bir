@@ -27,7 +27,6 @@ const ProfileReservation = ({ setPage = () => {} }) => {
     }
   }, [isSuccess]);
 
-
   function clearPaymentInfo() {
     dispatch(
       setReservation({
@@ -42,7 +41,9 @@ const ProfileReservation = ({ setPage = () => {} }) => {
     );
   }
   useEffect(() => {
-    dispatch(clearReservation());
+    if (!reservation?.data?.isSelected) {
+      dispatch(clearReservation());
+    }
   }, []);
 
   let content;

@@ -7,7 +7,11 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import Card, { CardFooter, CardInfo } from './Card';
-import { addFavoriteUser, removeFavoriteUser } from '../../../actions';
+import {
+  addFavoriteUser,
+  removeFavoriteUser,
+  setReservation,
+} from '../../../actions';
 import { useDispatch } from 'react-redux';
 
 const ProfileBanner = ({
@@ -27,7 +31,7 @@ const ProfileBanner = ({
       jobType === 'Spor Alanı';
     }
   }
-  const [isFavorited, setIsFavorited] = useState(info.has_favorite===1);
+  const [isFavorited, setIsFavorited] = useState(info.has_favorite === 1);
   const dispatch = useDispatch();
 
   const favoriteClickHandler = () => {
@@ -39,7 +43,6 @@ const ProfileBanner = ({
       setIsFavorited(true);
     }
   };
-
 
   return (
     <Containers className={className}>
@@ -66,12 +69,13 @@ const ProfileBanner = ({
               </Comment>
               <Button
                 onClick={() => {
+                  dispatch(setReservation({ isSelected: false }));
                   setPage('Reservation');
                 }}
-                text='Rezervasyon Yap'
-                className='blue list'
+                text="Rezervasyon Yap"
+                className="blue list"
                 style={{ fontSize: '9pt' }}
-                />
+              />
             </CardFooter>
           </Card>
         </Cols>
@@ -87,7 +91,7 @@ const ProfileBanner = ({
         </Cols>
 
         <Cols lg={1}>
-          <Line/>
+          <Line />
         </Cols>
         <Cols lg={3}>
           <Text>{about}</Text>
@@ -136,7 +140,6 @@ const Comment = styled(Link)`
 `;
 
 const heart = css`
- 
   padding: 8px;
   background-color: white;
   border-radius: 50%;

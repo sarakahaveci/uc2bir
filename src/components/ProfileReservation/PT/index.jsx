@@ -73,7 +73,9 @@ const PT = () => {
   }, [userInfo]);
   useEffect(() => {
     // iF DATE OPTİON TRUE
-    if (reservation?.data?.isSelected) {
+    if (!reservation?.data?.isSelected) {
+      dispatch(deleteAllSlot());
+    } else {
       dispatch(
         getAreaForPT(
           userInfo.id,
@@ -85,11 +87,10 @@ const PT = () => {
         )
       );
     }
-    dispatch(deleteAllSlot());
   }, [reservation?.data?.session]);
 
   useEffect(() => {
-    if (reservation?.data?.isSelected) {
+    if (!reservation?.data?.isSelected) {
       if (
         reservation?.data?.branch_id &&
         reservation?.data?.session &&
@@ -515,7 +516,7 @@ const PT = () => {
               price={userInfo.price}
             />
             <SelectionContainer>
-              {!reservation?.data?.isSelected && (
+              {reservation?.data?.isSelected && (
                 <InputContainer>
                   <Text color="#9B9B9B">{'Tarih ve Saat Seçiminiz'}</Text>
                   <Material.TextField
@@ -527,7 +528,7 @@ const PT = () => {
                   />
                 </InputContainer>
               )}
-              <InputContainer>
+              <InputContainer disable={reservation?.data?.isSelected}>
                 <Text color="#9B9B9B">{'Branş Seçiniz:'}</Text>
                 <Material.SimpleSelect
                   items={branchList.branches}
@@ -567,7 +568,7 @@ const PT = () => {
     <Container>
       <LeftWrapper>{_renderLeftArea()}</LeftWrapper>
       <RightWrapper>
-        <PaymentCard type="pt" dateOption={reservation?.data?.isSelected} />
+        <PaymentCard type="pt" dateOption={!reservation?.data?.isSelected} />
       </RightWrapper>
       <StyledModal show={openModal} onHide={() => setOpenModal(false)}>
         <MultiContract
@@ -721,6 +722,8 @@ const MapWrapper = styled.div`
 `;
 
 const InputContainer = styled.div`
+  pointer-events: ${(p) => (p.disable ? 'none' : 'initial')};
+  opacity: ${(p) => (p.disable ? '0.7' : '1')};
   margin-bottom: 20px;
 `;
 const GymWrapper = styled.div`
