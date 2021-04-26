@@ -6,8 +6,9 @@ import { Accordion, Button, DatePicker } from 'components';
 import BranchRowToggler from 'components/BranchRow/BranchRowToggler';
 import MyCalendarCollapser from './MyCalendarCollapser';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProfessionalCalendar } from '../../../actions';
+import { getProfessionalCalendar, setReservation } from '../../../actions';
 import moment from 'moment';
+import { format } from 'date-fns';
 
 export default function MyCalendar({ userId, typeId, setPage = () => {}, }) {
   const dispatch = useDispatch();
@@ -25,11 +26,17 @@ export default function MyCalendar({ userId, typeId, setPage = () => {}, }) {
 
   const handleSelect = (date) => {
     setStartDate(date);
+    setSelectedHour('')
   };
 
   const startOfWeeksArr = working_days?.map((date) =>
     new Date(moment(date, 'DD.MM.YYYY').toDate())
   );
+
+  const setReservationData=()=>{
+    dispatch(setReservation({ isSelected: true, date: format(startDate, 'dd.MM.yyyy'), slot:selectedHour }));
+    setPage('Reservation');
+  }
 
   return (
     <Row>
@@ -65,9 +72,7 @@ export default function MyCalendar({ userId, typeId, setPage = () => {}, }) {
         <BranchWrapper>
           {selectedHour&&
           <Button
-            onClick={() => {
-              setPage('Reservation');
-            }}
+            onClick={() => setReservationData()}
             text="Devam Et"
             className="blue"
             width={'476px'}
