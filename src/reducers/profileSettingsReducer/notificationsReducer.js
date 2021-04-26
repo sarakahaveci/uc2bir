@@ -12,6 +12,7 @@ const initialState = {
     isLoading: true,
     data: [],
     error: null,
+    types:[]
   },
   notificationSettings: {
     isLoading: true,
@@ -44,7 +45,8 @@ export default (state = initialState, action) => {
       return {
         ...state,
         notifications: {
-          data: action.payload,
+          data: action.payload.notifications,
+          types: action.payload.types,
           isLoading: false,
           error: null,
         },
