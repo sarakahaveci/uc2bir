@@ -270,7 +270,12 @@ export const applyHourOfCalendar = (date,sessionType,branch, hour, callBack) => 
         hour: hour,
         branch: branch.map((branch) => branch.id),
         accept_guest:false,
-        session_type:sessionType
+        session_type:sessionType.map((sessionType) => ({
+          session: sessionType.session.type,
+          ...(sessionType.location && {
+            location: sessionType?.location?.map((location) => location.id),
+          }),
+        })),
       },
       transformData: (data) => data.data,
       url,
