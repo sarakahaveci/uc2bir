@@ -355,7 +355,6 @@ export default function PaymentCard({ type, dateOption }) {
                   if (diff < 0) {
                     selectPaymentType('both');
                   } else {
-                    alert('bura');
                     selectPaymentType('wallet');
                   }
                 }}

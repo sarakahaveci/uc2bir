@@ -56,11 +56,11 @@ const regularUserTabs = [
   //     </Title>
   //   ),
   // },
-  /*  {
+  {
     eventKey: 'wallet',
     title: 'Cüzdanım',
     component: <Wallet />,
-  }, */
+  },
   {
     eventKey: 'favorite',
     title: 'Favorilerim',

@@ -1,28 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
 import { Text, Svg } from 'components';
 import { Link } from 'react-router-dom';
 import { device } from 'utils';
-const RejectModal = ({
+const CancalletionModal = ({
   open,
-  reject,
-  cancel,
+  cancelStepOne,
+  stepTwoData,
+  cancelStepTwo,
+  cancelProcess,
   headerText = '',
   descText = '',
+  cancelProcessLabel = '',
   cancelLabel = '',
-  rejectLabel = '',
 }) => {
   const [selectedPage, setSelectedPage] = useState('start');
-  const [rejectStatus, setRejectStatus] = useState(undefined);
-  const situations = [
-    { id: 1, text: 'Lokasyon Bana Uygun Değil' },
-    { id: 2, text: 'Sistemden Memnun Değilim' },
-    { id: 3, text: 'Toplumsal Kurallara Aykırı Bir Durumla Karşılaştım' },
-    { id: 4, text: 'Saatler Bana Uygun Değil' },
-    { id: 5, text: 'Sebep Belirtmek İstemiyorum' },
-  ];
-  let content;
 
+  let content;
+  useEffect(() => {
+    setSelectedPage('start');
+  }, [open]);
   switch (selectedPage) {
     case 'start':
       content = (
@@ -49,21 +46,22 @@ const RejectModal = ({
 
           <div className="modal-footer" closeIcon={false}>
             <StyledButton
-              reject
+              cancel
               onClick={() => {
+                cancelStepOne(open);
                 setSelectedPage('second');
               }}
             >
-              {rejectLabel}
+              {cancelLabel}
             </StyledButton>
           </div>
           <div className="modal-footer" closeIcon={false}>
             <StyledButton
               onClick={() => {
-                cancel();
+                cancelProcess();
               }}
             >
-              {cancelLabel}
+              {cancelProcessLabel}
             </StyledButton>
           </div>
         </MainContainer>
@@ -72,32 +70,33 @@ const RejectModal = ({
     case 'second':
       content = (
         <MainContainer>
-          <ReasonContextContainer>
-            <TextContainer>
-              <StyledText>Lütfen Red Sebebinizi Seçiniz</StyledText>
-            </TextContainer>
-            <ReasonContainer>
-              {situations.map((item, indx) => (
-                <Reason
-                  selected={item?.id === rejectStatus}
-                  onClick={() => setRejectStatus(item.id)}
-                  key={indx}
-                >
-                  {item.text}
-                </Reason>
-              ))}
-            </ReasonContainer>
-          </ReasonContextContainer>
+          <ContextContainer>
+            <IconContainer>
+              <Svg.Reject />
+            </IconContainer>
 
-          <div className="modal-footer" closeIcon={false}>
-            <StyledButton
-              onClick={() => {
-                reject(open, rejectStatus);
-              }}
+            <Text
+              variant="h2"
+              fontSize="1.2rem"
+              color="dark"
+              fontWeight="500"
+              textAlign="center"
             >
-              GÖNDER
-            </StyledButton>
-          </div>
+              {headerText}
+            </Text>
+
+            <Text textAlign="center" fontSize="1rem" color="dark">
+              {stepTwoData?.remaining_hour}
+            </Text>
+          </ContextContainer>
+
+          <StyledButton
+            onClick={() => {
+              cancelStepTwo(open);
+            }}
+          >
+            GÖNDER
+          </StyledButton>
         </MainContainer>
       );
       break;
@@ -144,7 +143,7 @@ const IconContainer = styled.div`
 `;
 const StyledButton = styled(Link)`
   font-size: 1.2rem;
-  color: ${(p) => (p.reject ? '#F01C62' : 'black')};
+  color: ${(p) => (p.cancel ? '#F01C62' : 'black')};
   text-align: center;
   display: block;
   width: 100%;
@@ -202,4 +201,4 @@ const StyledText = styled.text`
   font-family: 'Poppins', sans-serif;
   font-size: 18px;
 `;
-export default RejectModal;
+export default CancalletionModal;

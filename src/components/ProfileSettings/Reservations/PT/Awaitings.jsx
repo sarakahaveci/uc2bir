@@ -12,7 +12,7 @@ import {
 import moment from 'moment';
 
 import { device } from 'utils';
-import { getPtAwaitings, PtAwaitingApprove } from 'actions';
+import { getPtAwaitings, PtAwaitingApprove, PtAwaitingReject } from 'actions';
 import { useDispatch, useSelector } from 'react-redux';
 const Awaitings = () => {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const Awaitings = () => {
   );
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
   const [openApprove, setOpenApprove] = useState(undefined);
-  const [openReject, setOpenReject] = useState(false);
+  const [openReject, setOpenReject] = useState(undefined);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const startOfWeeksArr = () => {
     if (items?.date) {
@@ -46,7 +46,9 @@ const Awaitings = () => {
       dispatch(getPtAwaitings(moment(selectedDate).format('DD.MM.YYYY')));
     }
   }, [selectedDate]);
-
+  function getSelectedDate() {
+    dispatch(getPtAwaitings(moment(selectedDate).format('DD.MM.YYYY')));
+  }
   return (
     <StyledContainer>
       <StyledRow>
@@ -178,18 +180,19 @@ const Awaitings = () => {
         cancelLabel="VAZGEÇ"
         rejectLabel="REDDET"
         open={openReject}
-        reject={() => {
-          setOpenReject(false);
+        reject={(id, status) => {
+          dispatch(PtAwaitingReject(id, status, getSelectedDate));
+          setOpenReject(undefined);
         }}
         cancel={() => {
-          setOpenReject(false);
+          setOpenReject(undefined);
         }}
       />
       <ApproveModal
         open={openApprove}
         approve={(id) => {
           setOpenApprove(undefined);
-          dispatch(PtAwaitingApprove(id));
+          dispatch(PtAwaitingApprove(id, getSelectedDate));
         }}
         cancel={() => {
           setOpenApprove(undefined);

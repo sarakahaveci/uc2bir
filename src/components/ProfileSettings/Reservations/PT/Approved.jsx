@@ -2,20 +2,30 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import ReservationAccordion from '../ReservationAccordion';
 import styled from 'styled-components/macro';
-import { ApproveCard, DatePicker, RejectModal, Svg } from 'components';
+import {
+  ApproveCard,
+  DatePicker,
+  CancellationModal,
+  Svg,
+  ReservationDetail,
+} from 'components';
 import { useSelector, useDispatch } from 'react-redux';
 import { device } from 'utils';
 import { getPtApproved } from 'actions';
 import moment from 'moment';
 
-const Approved = () => {
+import { PtApproveCancelStepOne, PtApproveCancelStepTwo } from 'actions';
+const Approved = ({ setSubPage = () => {} }) => {
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
-  const [openReject, setOpenReject] = useState(false);
+  const [openCancellation, setOpenCancellation] = useState(undefined);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const dispatch = useDispatch();
 
   const items = useSelector(
     (state) => state.professionalReservation?.ptReservation?.approved
+  );
+  const funcStatus = useSelector(
+    (state) => state.professionalReservation?.ptReservation?.funcStatus
   );
   const startOfWeeksArr = () => {
     if (items?.date) {
@@ -39,17 +49,20 @@ const Approved = () => {
       dispatch(getPtApproved(moment(selectedDate).format('DD.MM.YYYY')));
     }
   }, [selectedDate]);
+  function getSelectedDate() {
+    dispatch(getPtApproved(moment(selectedDate).format('DD.MM.YYYY')));
+  }
   return (
     <StyledContainer>
       <StyledRow>
         <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
-          {startOfWeeksArr().map((elm, index) => (
+          {startOfWeeksArr().map((it, index) => (
             <AccordionContainer key={index}>
               <Number>{index + 1}.</Number>
               <ReservationAccordion
                 defaultOpen={index == 0 ? true : false}
                 parent
-                title="24 OCAK ÇARŞAMBA"
+                title={moment(it).format('DD.MM.YYYY')}
               >
                 <ReservationAccordion
                   miniIcon={<Svg.SessionType.Gym />}
@@ -62,12 +75,16 @@ const Approved = () => {
                     ]?.gym?.map((elm, i) => (
                       <ApproveCardContainer key={i}>
                         <ApproveCard
-                          date="18:00 - 19:00"
-                          customerName="Ali Veli"
+                          date={elm.hour}
+                          customerName={elm?.student}
                           type="approve"
-                          onApprove={() => {}}
-                          onReject={() => {
-                            setOpenReject(true);
+                          onApprove={() => {
+                            setSubPage(<ReservationDetail />);
+                          }}
+                          onReject={(id) => {
+                            console.log('carrdan', id);
+
+                            setOpenCancellation(id);
                           }}
                         />
                       </ApproveCardContainer>
@@ -84,12 +101,14 @@ const Approved = () => {
                     ]?.home_park?.map((elm, i) => (
                       <ApproveCardContainer key={i}>
                         <ApproveCard
-                          date="18:00 - 19:00"
-                          customerName="Ali Veli"
+                          date={elm.hour}
+                          customerName={elm?.student}
                           type="approve"
-                          onApprove={() => {}}
+                          onApprove={() => {
+                            setSubPage(<ReservationDetail />);
+                          }}
                           onReject={() => {
-                            setOpenReject(true);
+                            setOpenCancellation(elm?.id);
                           }}
                         />
                       </ApproveCardContainer>
@@ -106,12 +125,20 @@ const Approved = () => {
                     ]?.online?.map((elm, i) => (
                       <ApproveCardContainer key={i}>
                         <ApproveCard
-                          date="18:00 - 19:00"
-                          customerName="Ali Veli"
+                          date={elm.hour}
+                          customerName={elm?.student}
                           type="approve"
-                          onApprove={() => {}}
+                          onApprove={() => {
+                            setSubPage(
+                              <ReservationDetail
+                                goBack={() => {
+                                  setSubPage();
+                                }}
+                              />
+                            );
+                          }}
                           onReject={() => {
-                            setOpenReject(true);
+                            setOpenCancellation(elm?.id);
                           }}
                         />
                       </ApproveCardContainer>
@@ -148,17 +175,27 @@ const Approved = () => {
           </DateContainer>
         </StyledCol>
       </StyledRow>
-      <RejectModal
-        headerText="Rezervasyon saatinize 3 saatten az kaldı."
-        descText="Rezervasyon saatinize 3 saatten az kaldı. İptal etmeniz durumunda 100 TL ceza olarak nakit bakiyenize yansıtılacaktır."
-        rejectLabel="RANDEVUMU İPTAL ET"
-        cancelLabel="VAZGEÇ"
-        open={openReject}
-        reject={() => {
-          setOpenReject(false);
+      <CancellationModal
+        headerText="Randevunuzu iptal etmek istediğinize
+        emin misiniz?"
+        descText={`Seçili oluşturulan rezervasyonunuz iptal edilecektir. Lütfen iptal koşulları’nı okuduğunuzdan emin olun.`}
+        cancelLabel="RANDEVUMU İPTAL ET"
+        cancelProcessLabel="Vazgeç"
+        open={openCancellation}
+        cancelStepOne={(id) => {
+          dispatch(PtApproveCancelStepOne(id));
         }}
-        cancel={() => {
-          setOpenReject(false);
+        stepTwoData={funcStatus}
+        cancelStepTwo={(id) => {
+          dispatch(
+            PtApproveCancelStepTwo(id, () => {
+              getSelectedDate();
+            })
+          );
+          setOpenCancellation(undefined);
+        }}
+        cancelProcess={() => {
+          setOpenCancellation(undefined);
         }}
       />
     </StyledContainer>

@@ -1,4 +1,8 @@
-import { HTTP_REQUEST, GET_PT_RESERVATION_STATE_DATA } from '../../constants';
+import {
+  HTTP_REQUEST,
+  GET_PT_RESERVATION_STATE_DATA,
+  PT_RESERVATION_FUNC,
+} from '../../constants';
 
 export const getPtAwaitings = (date) => async (dispatch) => {
   let url = '/appointment/pt-calendar/pending';
@@ -15,7 +19,9 @@ export const getPtAwaitings = (date) => async (dispatch) => {
     },
   });
 };
-export const PtAwaitingApprove = (id) => async (dispatch) => {
+export const PtAwaitingApprove = (id, successCallback = () => {}) => async (
+  dispatch
+) => {
   let url = `/appointment/pt-calendar/update/${id}`;
   await dispatch({
     type: HTTP_REQUEST,
@@ -23,12 +29,73 @@ export const PtAwaitingApprove = (id) => async (dispatch) => {
       method: 'PATCH',
       body: { type: 'approve' },
       url,
-      label: GET_PT_RESERVATION_STATE_DATA,
+      label: PT_RESERVATION_FUNC,
+      callBack: () => {
+        successCallback();
+      },
       transformData: (data) => data.data,
     },
   });
 };
-
+export const PtAwaitingReject = (
+  id,
+  status,
+  successCallback = () => {}
+) => async (dispatch) => {
+  let url = `/appointment/pt-calendar/update/${id}`;
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'PATCH',
+      body: { type: 'reject', reject_status_id: status },
+      url,
+      label: PT_RESERVATION_FUNC,
+      callBack: () => {
+        successCallback();
+      },
+      transformData: (data) => data.data,
+    },
+  });
+};
+export const PtApproveCancelStepOne = (
+  id,
+  status,
+  successCallback = () => {}
+) => async (dispatch) => {
+  let url = `/appointment/pt-calendar/update/${id}`;
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'PATCH',
+      body: { type: 'cancel' },
+      url,
+      label: PT_RESERVATION_FUNC,
+      callBack: () => {
+        successCallback();
+      },
+      transformData: (data) => data.data,
+    },
+  });
+};
+export const PtApproveCancelStepTwo = (
+  id,
+  successCallback = () => {}
+) => async (dispatch) => {
+  let url = `/appointment/pt-calendar/update/${id}`;
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'PATCH',
+      body: { type: 'cancel', accept_cancellation: true },
+      url,
+      label: PT_RESERVATION_FUNC,
+      callBack: () => {
+        successCallback();
+      },
+      transformData: (data) => data.data,
+    },
+  });
+};
 export const getPtRejects = (date) => async (dispatch) => {
   let url = '/appointment/pt-calendar/rejected';
   let extras = '?';

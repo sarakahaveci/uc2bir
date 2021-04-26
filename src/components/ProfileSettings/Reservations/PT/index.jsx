@@ -41,7 +41,7 @@ const PT = () => {
       content = <Calendar />;
       break;
     case 'Approved':
-      content = <Approved />;
+      content = <Approved setSubPage={setSubPage} />;
       break;
     case 'Rejecteds':
       content = <Rejecteds />;
@@ -52,11 +52,22 @@ const PT = () => {
     default:
       return <></>;
   }
-
+  let subPageContent;
+  switch (setSubPage) {
+    case 'reservationTemplate':
+      subPageContent = <ReservationTemplate />;
+      break;
+    case 'reservationDetail':
+      subPageContent = <ReservationTemplate />;
+      break;
+    default:
+      subPageContent = undefined;
+      break;
+  }
   return (
-    <Container >
+    <Container>
       {subPage ? ( //Alt Pageler burada route edilecektir
-        subPage
+        subPageContent
       ) : (
         //Aşagıdaki routing tablerde gezinmek içindir.
         <>
@@ -76,7 +87,8 @@ const PT = () => {
               <DateCreateButton
                 onClick={() => {
                   setOpenCreateCalender(true);
-                }}>
+                }}
+              >
                 <Svg.PlusIcon />
                 <ButtonText>Takvim Oluştur</ButtonText>
               </DateCreateButton>
@@ -90,14 +102,22 @@ const PT = () => {
         open={openCreateCalender}
         approve={() => {
           setOpenCreateCalender(false);
-          setSubPage(myTemplates.length >0 ? <ReservationCreatedTemplate setTab={setTab} setTabPage={setSubPage}/>:<ReservationTemplate />);
+          setSubPage(
+            myTemplates.length > 0 ? (
+              <ReservationCreatedTemplate
+                setTab={setTab}
+                setTabPage={setSubPage}
+              />
+            ) : (
+              <ReservationTemplate />
+            )
+          );
         }}
         cancel={() => {
           setOpenCreateCalender(false);
-          setSubPage(<GroupSlot setTabPage={setSubPage}/>);
+          setSubPage(<GroupSlot setTabPage={setSubPage} />);
         }}
       />
-
     </Container>
   );
 };

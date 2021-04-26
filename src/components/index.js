@@ -60,6 +60,7 @@ export { default as Lessons } from './Lessons';
 export { default as AddExercise } from './AddExercise';
 export { default as ApproveCard } from './ApproveCard';
 export { default as ApproveModal } from './ApproveModal';
+export { default as CancellationModal } from './CancellationModal';
 
 export { default as CookiePolicyModal } from './CookiePolicyModal';
 
@@ -80,3 +81,4 @@ export { default as WorkAreaCard } from './WorkAreaCard';
 export { default as PaymentCard } from './PaymentCard';
 export { default as TrainerCard } from './TrainerCard';
 export { default as ClinicAccordion } from './ClinicAccordion';
+export { default as ReservationDetail } from './ReservationDetail';
