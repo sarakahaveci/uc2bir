@@ -30,7 +30,7 @@ const ApproveModal = ({ open, approve = () => {}, cancel = () => {} }) => {
           <StyledButton
             approve
             onClick={() => {
-              approve();
+              approve(open);
             }}
           >
             ONAYLA

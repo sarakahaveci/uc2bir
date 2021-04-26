@@ -12,3 +12,4 @@ export * from './homeActions';
 export * from './reservationActions';
 export * from './reservationCalendarActions';
 export * from './staticPagesActions';
+export * from './reservationsActions';

@@ -3,6 +3,7 @@ import {
   DELETE_SLOT,
   ADD_SLOT,
   CLEAR_RESERVATION,
+  DELETE_ALL_SLOT,
 } from '../constants';
 
 const initialState = {
@@ -44,7 +45,13 @@ export default (state = initialState, action) => {
         data: { ...state.data },
         isLoading: true,
       };
-
+    case DELETE_ALL_SLOT:
+      state.data.slot = [];
+      return {
+        ...state,
+        data: { ...state.data },
+        isLoading: true,
+      };
     case ADD_SLOT:
       var slot = state?.data?.slot;
       if (slot) {

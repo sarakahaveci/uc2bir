@@ -10,11 +10,13 @@ import {
   Svg,
 } from 'components';
 import { device } from 'utils';
+
 const Awaitings = () => {
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
   const [openApprove, setOpenApprove] = useState(false);
   const [openReject, setOpenReject] = useState(false);
 
+  const startOfWeeksArr = [];
   useEffect(() => {
     if (window.innerWidth <= 760) {
       setIsSmallScreen(true);
@@ -84,7 +86,18 @@ const Awaitings = () => {
           lg={4}
         >
           <DateContainer>
-            <DatePicker minDate={new Date()} inline selected={null} />
+            <DatePicker
+              selected={startDate}
+              onSelect={handleSelect}
+              selectsRange
+              inline
+              highlightDates={[
+                {
+                  'react-datepicker__day--highlighted': startOfWeeksArr,
+                },
+              ]}
+              minDate={new Date()}
+            />{' '}
           </DateContainer>
         </StyledCol>
       </StyledRow>

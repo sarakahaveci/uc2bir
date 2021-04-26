@@ -22,6 +22,8 @@ import {
   //getTemplates,
   getPtReservationCalendar,
   getStaticPage,
+  getAreaForPT,
+  deleteAllSlot,
 } from 'actions';
 import { space } from 'styled-system';
 import GoogleMap from 'components/GoogleMaps/GoogleMap';
@@ -52,7 +54,7 @@ const PT = () => {
   const { branches: branchList } = useSelector(
     (state) => state.userProfile.branch
   );
-  const gymList = useSelector((state) => state.userProfile.ptGymList);
+  const gymList = useSelector((state) => state?.userProfile?.ptGymList);
   const homePlaces = useSelector(
     (state) => state.userProfile.workPlace.ptHomePlace
   );
@@ -71,22 +73,40 @@ const PT = () => {
     dispatch(getStaticPage('uye-mesafeli-hizmet-sozlesmesi'));
     dispatch(getStaticPage('uye-on-bilgilendirme-formu'));
   }, [userInfo]);
-
   useEffect(() => {
-    if (
-      reservation?.data?.branch_id &&
-      reservation?.data?.session &&
-      reservation?.data?.date
-    ) {
+    // iF DATE OPTİON TRUE
+    if (dateOption) {
       dispatch(
-        getPtReservationCalendar(
+        getAreaForPT(
           userInfo.id,
           reservation.data?.date,
           null,
           reservation?.data?.branch_id,
-          reservation.data?.session
+          reservation.data?.session,
+          1
         )
       );
+    }
+    dispatch(deleteAllSlot());
+  }, [reservation?.data?.session]);
+
+  useEffect(() => {
+    if (dateOption) {
+      if (
+        reservation?.data?.branch_id &&
+        reservation?.data?.session &&
+        reservation?.data?.date
+      ) {
+        dispatch(
+          getPtReservationCalendar(
+            userInfo.id,
+            reservation.data?.date,
+            null,
+            reservation?.data?.branch_id,
+            reservation.data?.session
+          )
+        );
+      }
     }
   }, [
     reservation?.data?.branch_id,
@@ -127,7 +147,7 @@ const PT = () => {
     switch (reservation?.data?.session) {
       case 'gym':
         return (
-          <>
+          <GymWrapper disable={reservation?.data?.slot?.length > 0}>
             <Text color="#9B9B9B">{'Spor Alanı Seçiniz:'}</Text>
             <RadioGroup
               row
@@ -169,48 +189,79 @@ const PT = () => {
                 </>
               )) || null}
             </RadioGroup>
-          </>
+          </GymWrapper>
         );
       case 'home_park':
         return (
-          homePlaces.data?.home_park?.map((item) => (
-            <>
-              <Accordion>
-                <AccordionItemWrapper>
-                  <Accordion.Item defaultOpen={false}>
-                    <Accordion.Toggle
-                      onToggle={(state) => setToggleState(state)}
-                      className="accordion-toggler"
-                    >
-                      <Svg.SessionType.Park />
-                      <ParkInfo>
-                        <ParkHeader>{item.title}</ParkHeader>
-                        <ParkAdress>
-                          {item.town + ' ' + item.district + ' ' + item.city}
-                        </ParkAdress>
-                      </ParkInfo>
-                      {toggleState ? (
-                        <Svg.ArrowDownIcon />
-                      ) : (
-                        <Svg.ArrowUpIcon />
-                      )}
-                    </Accordion.Toggle>
-                    <Accordion.Collapse>
-                      <MapWrapper>
-                        <GoogleMap
-                          locationFromUser={{
-                            lat: item.lat,
-                            lng: item.lng,
-                          }}
-                          disabled
-                        />
-                      </MapWrapper>
-                    </Accordion.Collapse>
-                  </Accordion.Item>
-                </AccordionItemWrapper>
-              </Accordion>
-            </>
-          )) || null
+          <GymWrapper disable={reservation?.data?.slot?.length > 0}>
+            <Text color="#9B9B9B">{'Spor Alanı Seçiniz:'}</Text>
+            <RadioGroup
+              row
+              aria-label="workArea"
+              name="workArea"
+              defaultValue="0l"
+            >
+              {homePlaces.data?.home_park?.map((item, i) => (
+                <div key={i} style={{ display: 'flex' }}>
+                  <Accordion>
+                    <AccordionItemWrapper>
+                      <Accordion.Item defaultOpen={false}>
+                        <Accordion.Toggle
+                          onToggle={(state) => setToggleState(state)}
+                          className="accordion-toggler"
+                        >
+                          <Svg.SessionType.Park />
+                          <ParkInfo>
+                            <ParkHeader>{item.title}</ParkHeader>
+                            <ParkAdress>
+                              {item.town +
+                                ' ' +
+                                item.district +
+                                ' ' +
+                                item.city}
+                            </ParkAdress>
+                          </ParkInfo>
+                          {toggleState ? (
+                            <Svg.ArrowDownIcon />
+                          ) : (
+                            <Svg.ArrowUpIcon />
+                          )}
+                        </Accordion.Toggle>
+                        <Accordion.Collapse>
+                          <MapWrapper>
+                            <GoogleMap
+                              locationFromUser={{
+                                lat: item.lat,
+                                lng: item.lng,
+                              }}
+                              disabled
+                            />
+                          </MapWrapper>
+                        </Accordion.Collapse>
+                      </Accordion.Item>
+                    </AccordionItemWrapper>
+                  </Accordion>
+                  {reservation?.data?.location_id === item.id ? (
+                    <RadioButtonCheckedIcon
+                      style={{ marginLeft: '5px', cursor: 'pointer' }}
+                    />
+                  ) : (
+                    <RadioButtonUncheckedIcon
+                      onClick={() => {
+                        dispatch(
+                          setReservation({
+                            location_id: item.id,
+                            gym_price: item.price,
+                          })
+                        );
+                      }}
+                      style={{ marginLeft: '5px', cursor: 'pointer' }}
+                    />
+                  )}
+                </div>
+              )) || null}
+            </RadioGroup>
+          </GymWrapper>
         );
       case 'online':
         return <></>;
@@ -366,6 +417,15 @@ const PT = () => {
                 }}
               />
             </Info>
+            <Material.TextField
+              label="Yüklenecek Tutarı Giriniz"
+              type="number"
+              name="deposit_amount"
+              defaultValue={reservation?.data?.deposit_amount}
+              onBlur={(e) => {
+                dispatch(setReservation({ deposit_amount: e.target.value }));
+              }}
+            />
             {/**<Material.TextField
               label="Yükelenecek Tutarı Giriniz"
               type="text"
@@ -407,7 +467,7 @@ const PT = () => {
       case 'wallet':
       case 'both':
         var wallet_balance = wallet?.data?.balance || 0;
-        var amount = reservation?.data?.deposit_amount || 0;
+        var amount = reservation?.data?.totals_amount || 0;
         var diff = wallet_balance - amount;
         return (
           <>
@@ -436,7 +496,7 @@ const PT = () => {
               <div style={{ padding: '10px' }}>
                 <text>
                   Yapacağınız işlem sonrası cüdanınızda kalacak olan toplam
-                  tutar {reservation?.data?.deposit_amount} TL’dir
+                  tutar {reservation?.data?.totals_amount} TL’dir
                 </text>
               </div>
             </InfoContainer>
@@ -664,5 +724,9 @@ const MapWrapper = styled.div`
 
 const InputContainer = styled.div`
   margin-bottom: 20px;
+`;
+const GymWrapper = styled.div`
+  pointer-events: ${(p) => (p.disable ? 'none' : 'initial')};
+  opacity: ${(p) => (p.disable ? '0.7' : '1')};
 `;
 export default PT;

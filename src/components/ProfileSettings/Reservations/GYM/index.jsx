@@ -32,8 +32,6 @@ const GYM = () => {
     getGeocode();
   }, []);
 
-  useEffect(() => {}, []);
-
   let content;
   switch (tab) {
     case 'Awaitings':

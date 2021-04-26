@@ -3,6 +3,7 @@ import {
   Material,
   PaymentCard,
   MultiContract,
+  ClinicAccordion,
 } from 'components';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -12,12 +13,13 @@ import { device } from 'utils';
 import { Modal } from 'react-bootstrap';
 import {
   setReservation,
-  getPtGymList,
-  getPtWorkingHomePlace,
-  //getTemplates,
+  getDietitianClinics,
   getPtReservationCalendar,
   getStaticPage,
 } from 'actions';
+import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
+import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
+import RadioGroup from '@material-ui/core/RadioGroup';
 
 import { getWallet } from 'actions/userProfileActions/walletActions';
 
@@ -33,18 +35,19 @@ const Dietitian = () => {
   const wallet = useSelector((state) => state.userProfile.wallet);
   const staticPages = useSelector((state) => state.staticPages);
   const reservation = useSelector((state) => state.reservation);
+  const clinics = useSelector(
+    (state) => state?.userProfile?.dietitianClinic?.clinics?.clinic
+  );
 
   useEffect(() => {
     var items = userInfo.session.map((item) => ({
       name: item.title,
       id: item.type,
     }));
-    setSessionTypes([...items, { id: 'b', name: 'Belirttiğim Adres' }]);
-    dispatch(getPtGymList(userInfo.id));
-    dispatch(getPtWorkingHomePlace(userInfo.id));
+    setSessionTypes([...items]);
+    dispatch(getDietitianClinics(userInfo.id));
     dispatch(getWallet());
-    //dispatch(getTemplates()); HATA VARSA BURAYA Bİ BAK
-    dispatch(setReservation({ pt_id: userInfo.id }));
+    dispatch(setReservation({ dt_id: userInfo.id }));
     dispatch(getStaticPage('uye-mesafeli-hizmet-sozlesmesi'));
     dispatch(getStaticPage('uye-on-bilgilendirme-formu'));
   }, [userInfo]);
@@ -61,7 +64,59 @@ const Dietitian = () => {
       );
     }
   }, [reservation?.data?.session, reservation?.data?.date]);
-
+  function WorkAreaSelect() {
+    if (reservation?.data.session == 'clinic') {
+      return (
+        <GymWrapper disable={reservation?.data?.slot?.length > 0}>
+          <Text color="#9B9B9B">{'Spor Alanı Seçiniz:'}</Text>
+          <RadioGroup
+            row
+            aria-label="workArea"
+            name="workArea"
+            defaultValue="0l"
+          >
+            {clinics?.map((item, i) => (
+              <div
+                key={i}
+                style={{
+                  display: 'flex',
+                  width: '100%',
+                }}
+              >
+                <ClinicAccordion
+                  title={item.title}
+                  lat={item?.lat}
+                  lng={item?.lng}
+                  address={item.town + ' ' + item.district + ' ' + item.city}
+                />
+                <RadioWrapper>
+                  {reservation?.data?.location_id === item.id ? (
+                    <RadioButtonCheckedIcon
+                      style={{ marginLeft: '5px', cursor: 'pointer' }}
+                    />
+                  ) : (
+                    <RadioButtonUncheckedIcon
+                      onClick={() => {
+                        dispatch(
+                          setReservation({
+                            location_id: item.id,
+                            gym_price: item.price,
+                          })
+                        );
+                      }}
+                      style={{ marginLeft: '5px', cursor: 'pointer' }}
+                    />
+                  )}
+                </RadioWrapper>
+              </div>
+            )) || null}
+          </RadioGroup>
+        </GymWrapper>
+      );
+    } else {
+      return <></>;
+    }
+  }
   function CreditCard() {
     return (
       <>
@@ -128,6 +183,15 @@ const Dietitian = () => {
               type="text"
               name="cvv"
             /> */}
+            <Material.TextField
+              label="Yüklenecek Tutarı Giriniz"
+              type="number"
+              name="deposit_amount"
+              defaultValue={reservation?.data?.deposit_amount}
+              onBlur={(e) => {
+                dispatch(setReservation({ deposit_amount: e.target.value }));
+              }}
+            />
           </DataContainer>
           <div style={{ padding: '10px' }}>
             <text>
@@ -164,7 +228,7 @@ const Dietitian = () => {
       case 'wallet':
       case 'both':
         var wallet_balance = wallet?.data?.balance || 0;
-        var amount = reservation?.data?.deposit_amount || 0;
+        var amount = reservation?.data?.totals_amount || 0;
         var diff = wallet_balance - amount;
         return (
           <>
@@ -193,7 +257,7 @@ const Dietitian = () => {
               <div style={{ padding: '10px' }}>
                 <text>
                   Yapacağınız işlem sonrası cüdanınızda kalacak olan toplam
-                  tutar {reservation?.data?.deposit_amount} TL’dir
+                  tutar {reservation?.data?.totals_amount} TL’dir
                 </text>
               </div>
             </InfoContainer>
@@ -244,6 +308,7 @@ const Dietitian = () => {
                   }
                 />
               </InputContainer>
+              <WorkAreaSelect />
             </SelectionContainer>
           </>
         );
@@ -356,5 +421,12 @@ const Info = styled.div`
 
 const InputContainer = styled.div`
   margin-bottom: 20px;
+`;
+const GymWrapper = styled.div`
+  pointer-events: ${(p) => (p.disable ? 'none' : 'initial')};
+  opacity: ${(p) => (p.disable ? '0.7' : '1')};
+`;
+const RadioWrapper = styled.div`
+  margin-top: 20px;
 `;
 export default Dietitian;

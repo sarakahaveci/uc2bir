@@ -38,15 +38,15 @@ const regularUserTabs = [
     component: <ProfileSettingsList />,
   },
 
-  //  {
-  //   eventKey: 'reservation',
-  //   title: 'Rezarvasyonlarım',
-  //   component: (
-  //     <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-  //       Rezarvasyonlarım
-  //     </Title>
-  //   ),
-  // },
+  {
+    eventKey: 'reservation',
+    title: 'Rezarvasyonlarım',
+    component: (
+      <Title variant={'h4'} component={'h4'} textLeft lineDisable>
+        Rezarvasyonlarım
+      </Title>
+    ),
+  },
   // {
   //   eventKey: 'packets',
   //   title: 'Paketlerim',
@@ -237,7 +237,7 @@ const trainerTabs = [
     title: 'Uzmanlıklarım',
     component: <Proficiency />,
   },
-    {
+  {
     eventKey: 'wallet',
     title: 'Cüzdanım',
     component: <Wallet />,
