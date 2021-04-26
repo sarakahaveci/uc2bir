@@ -87,8 +87,6 @@ const Awaitings = () => {
         >
           <DateContainer>
             <DatePicker
-              selected={startDate}
-              onSelect={handleSelect}
               selectsRange
               inline
               highlightDates={[

@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import { Text, Button, Svg, Stars } from 'components';
 
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import Card, { CardFooter, CardInfo } from './Card';
+import { addFavoriteUser, removeFavoriteUser } from '../../../actions';
+import { useDispatch } from 'react-redux';
 
 const ProfileBanner = ({
   className = null,
@@ -25,6 +27,20 @@ const ProfileBanner = ({
       jobType === 'Spor Alanı';
     }
   }
+  const [isFavorited, setIsFavorited] = useState(info.has_favorite===1);
+  const dispatch = useDispatch();
+
+  const favoriteClickHandler = () => {
+    if (isFavorited) {
+      dispatch(removeFavoriteUser(info.id));
+      setIsFavorited(false);
+    } else {
+      dispatch(addFavoriteUser(info.id));
+      setIsFavorited(true);
+    }
+  };
+
+
   return (
     <Containers className={className}>
       <Rows>
@@ -32,7 +48,14 @@ const ProfileBanner = ({
           <Card img={info.img}>
             <span className="team">{info.team}</span>
             <span className="span">
-              <Svg.Heart />
+              {isFavorited ? (
+                <ActiveHeart
+                  onClick={favoriteClickHandler}
+                  showHeartBg={false}
+                />
+              ) : (
+                <Heart onClick={favoriteClickHandler} showHeartBg={true} />
+              )}
             </span>
 
             <Stars rating={info.stars} position="bottom" />
@@ -112,4 +135,22 @@ const Comment = styled(Link)`
   }
 `;
 
+const heart = css`
+ 
+  padding: 8px;
+  background-color: white;
+  border-radius: 50%;
+  cursor: pointer;
+  position: absolute;
+  right: 17px;
+  top: 15px;
+`;
+
+const ActiveHeart = styled(Svg.ActiveHeartIcon)`
+  ${heart}
+`;
+
+const Heart = styled(Svg.Heart)`
+  ${heart}
+`;
 export default ProfileBanner;
