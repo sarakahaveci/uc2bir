@@ -164,6 +164,8 @@ export default function Profile({ match }) {
                   location: `${userInfo?.district},${userInfo?.city}`,
                   comment: '/',
                   type_id: userInfo?.type_id,
+                  id:userInfo?.id,
+                  has_favorite:userInfo?.has_favorite
                 }}
                 categories={userInfo?.session || userInfo?.branch}
                 about={

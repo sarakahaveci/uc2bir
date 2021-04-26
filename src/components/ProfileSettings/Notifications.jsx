@@ -9,7 +9,6 @@ import {
   getNotifications,
   readNotifications,
   updateNotificationSettings,
-  getNotificationSettings,
 } from 'actions';
 import {
   Title,
@@ -41,8 +40,7 @@ const notificationSettingsTypes = [
 
 const Notifications = () => {
   const {
-    notifications: { data: notifications, isLoading: notificationsLoading },
-    notificationSettings: { data: notificationSettings },
+    notifications: { data: notifications, isLoading: notificationsLoading, types:notificationSettings },
   } = useSelector((state) => state.profileSettings2.notifications);
 
   const [pageNumber, setPageNumber] = useState(1);
@@ -68,8 +66,6 @@ const Notifications = () => {
 
   useEffect(() => {
     dispatch(readNotifications());
-
-    dispatch(getNotificationSettings());
   }, []);
 
   useEffect(() => {

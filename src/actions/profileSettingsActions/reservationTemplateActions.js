@@ -15,7 +15,7 @@ import {
   USER_KEYS,
   GET_TEMPLATE_FROM_CALENDAR,
   DELETE_HOUR_OF_CALENDER,
-  GET_DAY_OF_CALENDER, UPDATE_TEMPLATE_DEFAULT,
+  GET_DAY_OF_CALENDER, UPDATE_TEMPLATE_DEFAULT,ADD_HOUR_TO_CALENDER
 } from '../../constants';
 
 export const setSelectedDay = (dayIndex) => async (dispatch, getState) => {
@@ -251,6 +251,38 @@ export const deleteHourOfCalendar = (id, successCallback, errorCallback) => asyn
       callBack: () => successCallback(),
       errorHandler: (error) => errorCallback(error?.message),
       transformData: (data) => data.data,
+    },
+  });
+};
+
+
+export const applyHourOfCalendar = (date,sessionType,branch, hour, callBack) => async (
+  dispatch
+) => {
+  const url = '/appointment/pt';
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'POST',
+      body: {
+        date: format(date, 'dd.MM.yyyy'),
+        hour: hour,
+        branch: branch.map((branch) => branch.id),
+        accept_guest:false,
+        session_type:sessionType.map((sessionType) => ({
+          session: sessionType.session.type,
+          ...(sessionType.location && {
+            location: sessionType?.location?.map((location) => location.id),
+          }),
+        })),
+      },
+      transformData: (data) => data.data,
+      url,
+      label: ADD_HOUR_TO_CALENDER,
+      callBack,
+      errorHandler: (errorMsg) =>
+        toast.error(errorMsg, { position: 'bottom-right' }),
     },
   });
 };

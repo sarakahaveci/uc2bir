@@ -15,7 +15,7 @@ export const getNotifications = (pageNumber, date, successCallback) => async (
     type: HTTP_REQUEST,
     payload: {
       method: 'GET',
-      transformData: (data) => data.data.notifications,
+      transformData: (data) => data.data,
       url,
       label: GET_NOTIFICATIONS,
       callBack: (data) =>

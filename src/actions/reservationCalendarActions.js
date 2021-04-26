@@ -13,7 +13,6 @@ export const getAreaForPT = (
   hour,
   branch_id,
   session,
-  page = 1
 ) => async (dispatch) => {
   let url = `https://gateway.321.4alabs.com/appointment/pt-calendar/step-2/${id}`;
   let extras = '?';

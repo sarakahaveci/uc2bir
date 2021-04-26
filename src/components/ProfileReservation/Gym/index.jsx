@@ -29,7 +29,7 @@ const Gym = () => {
   const dispatch = useDispatch();
   //Local States
   const [city, setCity] = useState(false);
-  const [wantPt, setWantPt] = useState(false);
+  const [setWantPt] = useState(false);
 
   const [openModal, setOpenModal] = useState(false);
   //Redux States
@@ -49,7 +49,6 @@ const Gym = () => {
     dispatch(setReservation({ bs_id: userInfo.id }));
     dispatch(getStaticPage('uye-mesafeli-hizmet-sozlesmesi'));
     dispatch(getStaticPage('uye-on-bilgilendirme-formu'));
-    console.log(wantPt);
   }, [userInfo]);
 
   useEffect(() => {

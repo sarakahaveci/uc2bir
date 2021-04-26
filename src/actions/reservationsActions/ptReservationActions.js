@@ -96,10 +96,15 @@ export const PtApproveCancelStepTwo = (
     },
   });
 };
+<<<<<<< HEAD
 export const getPtRejects = (date) => async (dispatch) => {
+=======
+
+export const getPtRejects = () => async (dispatch) => {
+>>>>>>> 5885909a0510770c85ade2842a8a9371f1101d96
   let url = '/appointment/pt-calendar/rejected';
-  let extras = '?';
-  if (date) extras += `date=${date}&`;
+  // let extras = '?';
+  // if (date) extras += `date=${date}&`;
   await dispatch({
     type: HTTP_REQUEST,
     status: 'rejects',
@@ -111,10 +116,8 @@ export const getPtRejects = (date) => async (dispatch) => {
     },
   });
 };
-export const getPtApproved = (date) => async (dispatch) => {
+export const getPtApproved = () => async (dispatch) => {
   let url = '/appointment/pt-calendar/approved';
-  let extras = '?';
-  if (date) extras += `date=${date}&`;
   await dispatch({
     type: HTTP_REQUEST,
     status: 'approved',
