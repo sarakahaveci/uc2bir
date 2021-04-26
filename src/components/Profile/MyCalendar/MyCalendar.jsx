@@ -29,11 +29,23 @@ export default function MyCalendar({ userId, typeId, setPage = () => {} }) {
 
   const handleSelect = (date) => {
     setStartDate(date);
+    setSelectedHour('');
   };
 
   const startOfWeeksArr = working_days?.map(
     (date) => new Date(moment(date, 'DD.MM.YYYY').toDate())
   );
+
+  const setReservationData = () => {
+    dispatch(
+      setReservation({
+        isSelected: true,
+        date: format(startDate, 'dd.MM.yyyy'),
+        slot: selectedHour,
+      })
+    );
+    setPage('Reservation');
+  };
 
   return (
     <Row>
