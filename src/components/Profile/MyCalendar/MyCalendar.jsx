@@ -18,6 +18,7 @@ export default function MyCalendar({ userId, typeId, setPage = () => {} }) {
   const dispatch = useDispatch();
   const [startDate, setStartDate] = useState(new Date());
   const [selectedHour, setSelectedHour] = useState();
+  const [selectedBranch, setSelectedBranch] = useState();
 
   const { working_days: working_days, branches: branchList } = useSelector(
     (state) => state.userProfile.calendar
@@ -35,17 +36,6 @@ export default function MyCalendar({ userId, typeId, setPage = () => {} }) {
   const startOfWeeksArr = working_days?.map(
     (date) => new Date(moment(date, 'DD.MM.YYYY').toDate())
   );
-
-  const setReservationData = () => {
-    dispatch(
-      setReservation({
-        isSelected: true,
-        date: format(startDate, 'dd.MM.yyyy'),
-        slot: selectedHour,
-      })
-    );
-    setPage('Reservation');
-  };
 
   return (
     <Row>
@@ -77,6 +67,7 @@ export default function MyCalendar({ userId, typeId, setPage = () => {} }) {
                   <MyCalendarCollapser
                     data={item}
                     setSelectedHour={setSelectedHour}
+                    setSelectedBranch={setSelectedBranch}
                   />
                 </Accordion.Collapse>
               </Accordion.Item>
@@ -93,6 +84,7 @@ export default function MyCalendar({ userId, typeId, setPage = () => {} }) {
                     isSelected: true,
                     date: format(startDate, 'dd.MM.yyyy'),
                     slot: [selectedHour],
+                    branch_id:selectedBranch
                   })
                 );
                 setPage('Reservation');

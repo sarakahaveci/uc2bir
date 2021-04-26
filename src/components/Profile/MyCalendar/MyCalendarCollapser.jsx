@@ -3,12 +3,13 @@ import { Box, CalendarCell } from '../../index';
 import { setGroupSelectionData } from '../../../actions';
 import { useDispatch, useSelector } from 'react-redux';
 
-export default function MyCalendarCollapser({data, setSelectedHour = () => {}}) {
+export default function MyCalendarCollapser({data, setSelectedHour = () => {}, setSelectedBranch = () => {}}) {
   const {
     selectedHour,
   } = useSelector((state) => state.profileSettings2.reservationGroupSlot);
   const dispatch = useDispatch();
   const selectDataHandler = (name, value) => {
+    setSelectedBranch(data.id)
     setSelectedHour(value)
     dispatch(setGroupSelectionData(name, value));
   }
@@ -19,7 +20,7 @@ export default function MyCalendarCollapser({data, setSelectedHour = () => {}}) 
         type="time"
         size="large"
         isActive={selectedHour === item}
-        onClick={() => selectDataHandler('selectedHour', item)}
+        onClick={() => selectDataHandler('selectedHour', item, data)}
       >
         {item}
       </CalendarCell>
