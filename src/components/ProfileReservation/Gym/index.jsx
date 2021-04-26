@@ -23,7 +23,7 @@ import { getWallet } from 'actions/userProfileActions/walletActions';
 
 const uri = `${process.env.REACT_APP_API_URL}/regions`;
 
-const Gym = ({ date, hour }) => {
+const Gym = ({ dateOption = true }) => {
   const dispatch = useDispatch();
   //Local States
   const [city, setCity] = useState(false);
@@ -252,7 +252,7 @@ const Gym = ({ date, hour }) => {
               price={userInfo.price}
             />
             <SelectionContainer>
-              {!date && hour && (
+              {!dateOption && (
                 <InputContainer>
                   <Text color="#9B9B9B">{'Tarih ve Saat Seçiminiz'}</Text>
                   <Material.TextField
@@ -343,7 +343,7 @@ const Gym = ({ date, hour }) => {
     <Container>
       <LeftWrapper>{_renderLeftArea()}</LeftWrapper>
       <RightWrapper>
-        <PaymentCard type="pt" dateOption={date && hour} />
+        <PaymentCard type="pt" dateOption={dateOption} />
       </RightWrapper>
       <StyledModal show={openModal} onHide={() => setOpenModal(false)}>
         <MultiContract
