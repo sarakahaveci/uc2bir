@@ -11,7 +11,7 @@ import {
 } from 'components';
 import { useSelector, useDispatch } from 'react-redux';
 import { device } from 'utils';
-import { getPtApproved } from 'actions';
+import { getPtApproved, getReservationDetail } from 'actions';
 import moment from 'moment';
 
 import { PtApproveCancelStepOne, PtApproveCancelStepTwo } from 'actions';
@@ -52,6 +52,16 @@ const Approved = ({ setSubPage = () => {} }) => {
   function getSelectedDate() {
     dispatch(getPtApproved(moment(selectedDate).format('DD.MM.YYYY')));
   }
+  function openReservationDetail(id) {
+    dispatch(getReservationDetail(id));
+    setSubPage(
+      <ReservationDetail
+        goBack={() => {
+          setSubPage();
+        }}
+      />
+    );
+  }
   return (
     <StyledContainer>
       <StyledRow>
@@ -78,12 +88,10 @@ const Approved = ({ setSubPage = () => {} }) => {
                           date={elm.hour}
                           customerName={elm?.student}
                           type="approve"
-                          onApprove={() => {
-                            setSubPage(<ReservationDetail />);
+                          onApprove={(id) => {
+                            openReservationDetail(elm?.id);
                           }}
                           onReject={(id) => {
-                            console.log('carrdan', id);
-
                             setOpenCancellation(id);
                           }}
                         />
@@ -105,7 +113,7 @@ const Approved = ({ setSubPage = () => {} }) => {
                           customerName={elm?.student}
                           type="approve"
                           onApprove={() => {
-                            setSubPage(<ReservationDetail />);
+                            openReservationDetail(elm?.id);
                           }}
                           onReject={() => {
                             setOpenCancellation(elm?.id);
@@ -129,13 +137,7 @@ const Approved = ({ setSubPage = () => {} }) => {
                           customerName={elm?.student}
                           type="approve"
                           onApprove={() => {
-                            setSubPage(
-                              <ReservationDetail
-                                goBack={() => {
-                                  setSubPage();
-                                }}
-                              />
-                            );
+                            openReservationDetail(elm?.id);
                           }}
                           onReject={() => {
                             setOpenCancellation(elm?.id);

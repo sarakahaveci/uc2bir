@@ -52,22 +52,11 @@ const PT = () => {
     default:
       return <></>;
   }
-  let subPageContent;
-  switch (setSubPage) {
-    case 'reservationTemplate':
-      subPageContent = <ReservationTemplate />;
-      break;
-    case 'reservationDetail':
-      subPageContent = <ReservationTemplate />;
-      break;
-    default:
-      subPageContent = undefined;
-      break;
-  }
+
   return (
     <Container>
       {subPage ? ( //Alt Pageler burada route edilecektir
-        subPageContent
+        subPage
       ) : (
         //Aşagıdaki routing tablerde gezinmek içindir.
         <>

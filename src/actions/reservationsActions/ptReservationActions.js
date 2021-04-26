@@ -98,8 +98,10 @@ export const PtApproveCancelStepTwo = (
 };
 export const getPtRejects = (date) => async (dispatch) => {
   let url = '/appointment/pt-calendar/rejected';
-  // let extras = '?';
-  // if (date) extras += `date=${date}&`;
+  let extras = '?';
+  if (date) extras += `date=${date}&`;
+  url += extras;
+
   await dispatch({
     type: HTTP_REQUEST,
     status: 'rejects',
@@ -121,6 +123,37 @@ export const getPtApproved = () => async (dispatch) => {
       url,
       label: GET_PT_RESERVATION_STATE_DATA,
       transformData: (data) => ((data.data.status = 'approved'), data.data),
+    },
+  });
+};
+
+export const getReservationDetail = (id) => async (dispatch) => {
+  let url = `/appointment/calendar/detail/${id}`;
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'GET',
+      url,
+      label: GET_PT_RESERVATION_STATE_DATA,
+      transformData: (data) => ((data.data.status = 'res_detail'), data.data),
+    },
+  });
+};
+
+export const getSessionHistorys = (date) => async (dispatch) => {
+  let url = '/appointment/calendar/completed';
+  let extras = '?';
+  if (date) extras += `date=${date}&`;
+  url += extras;
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'GET',
+      url,
+      label: GET_PT_RESERVATION_STATE_DATA,
+      transformData: (data) => (
+        (data.data.status = 'session_historys'), data.data
+      ),
     },
   });
 };

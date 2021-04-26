@@ -1,52 +1,185 @@
+import Svg from 'components/statics/svg';
 import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { device } from 'utils';
+import GoogleMap from 'components/GoogleMaps/GoogleMap';
 
 const ReservationDetail = ({ goBack = () => {} }) => {
-  return <Container></Container>;
+  return (
+    <Container>
+      <Header>
+        <BoldText
+          onClick={() => {
+            goBack();
+          }}
+          style={{ cursor: 'pointer' }}
+        >
+          {'<  Randevu Detaylarınız'}
+        </BoldText>
+      </Header>
+      <Sections>
+        <Left>
+          <InfoItem>
+            <InfoMain>
+              <CustomerImage></CustomerImage>
+              <BoldText>Faruk Güncü,Öğrenci</BoldText>
+            </InfoMain>
+            <text style={{ fontSize: '30px' }}> {'>'} </text>
+          </InfoItem>
+          <InfoItem>
+            <InfoMain>
+              <Icon>
+                <Svg.SessionType.Gym />
+              </Icon>
+              <BoldText>Crossfit</BoldText>
+            </InfoMain>
+            <text style={{ fontSize: '30px' }}> {'>'} </text>
+          </InfoItem>
+          <InfoItem>
+            <InfoMain>
+              <Icon>
+                <Svg.Date />
+              </Icon>
+              <AdressText>25 Kasım Çarşamba Saat 12:20</AdressText>
+            </InfoMain>
+          </InfoItem>
+          <InfoItem>
+            <InfoMain>
+              <Icon>
+                <Svg.LocationIcon />
+              </Icon>
+              <AdressText>1520 sokak no 50 çarşamba ordu</AdressText>
+            </InfoMain>
+          </InfoItem>
+          <MapWrapper>
+            <GoogleMap
+              locationFromUser={{
+                lat: 34.0525,
+                lng: 41.0525,
+              }}
+              disabled
+            />
+          </MapWrapper>
+        </Left>
+        <Right>
+          <RightAreaWrapper>
+            <DescTextWrapper>
+              <DescHeader>Ders Hakkında</DescHeader>
+              <DescText>
+                Burada oturum türüne göre, ders hakkında yazılar hazır bir
+                şeklde gelecek. Lie back on a flat bench. Using a medium width
+                grip, lift the bar from the rack and hold it straight. over you
+                with your arms locked. This will be your starting
+                position.Burada oturum türüne göre, ders hakkında yazılar hazır
+                bir şeklde gelecek. Lie back on a flat bench. Using a medium
+                width grip, lift the bar from the rack and hold it straight.
+                over you with your arms locked. This will be your starting
+                position.
+              </DescText>
+            </DescTextWrapper>
+            <MessageButtonContainer>
+              <MessageButton>Mesaj Gönder</MessageButton>
+            </MessageButtonContainer>
+          </RightAreaWrapper>
+        </Right>
+      </Sections>
+    </Container>
+  );
 };
 
 const Container = styled.section`
   display: flex;
   flex-direction: column;
-  width: 731px;
+  width: 100%;
   border-radius: 10px;
-  background-color: #fcfcfc;
-  -webkit-box-shadow: 0px 0px 4px 3px rgba(197, 196, 196, 0.28);
-  box-shadow: 0px 0px 4px 3px rgba(197, 196, 196, 0.28);
+
   @media ${device.sm} {
     width: 100%;
   }
 `;
-const Row = styled.div`
-  display: flex;
+const Sections = styled.div`
   width: 100%;
-  height: 50px;
-  align-items: center;
-  padding-left: 10px;
-  border-bottom-style: ${(props) => (props.borderDisable ? 'none' : 'solid')};
-  border-bottom-width: 1px;
-  border-bottom-color: rgba(197, 196, 196, 0.5);
+  height: 100%;
+  display: flex;
   @media ${device.sm} {
-    height: 6vw;
-    padding-left: 1vw;
+    flex-direction: column;
   }
 `;
-const Column = styled.div`
+const Left = styled.div`
+  width: 50%;
+  height: 100%;
+  padding: 20px;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  @media ${device.sm} {
+    width: 100%;
+  }
+`;
+const Right = styled.div`
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   padding: 20px;
   @media ${device.sm} {
-    padding: 3vw;
+    width: 100%;
   }
 `;
-const Seperator = styled.div`
-  display: flex;
-  width: 1px;
-  height: 60%;
-  background-color: rgba(197, 196, 196, 0.5);
+const RightAreaWrapper = styled.div`
+  border-radius: 20px;
+  -webkit-box-shadow: 0px 0px 4px 3px rgba(197, 196, 196, 0.28);
+  box-shadow: 0px 0px 4px 3px rgba(197, 196, 196, 0.28);
 `;
+const MessageButtonContainer = styled.div`
+  width: 100%;
+  padding: 30px;
+`;
+const MessageButton = styled.button`
+  width:100%;
+  height:50px;
+  background var(--blue);
+  color:white;
+`;
+
+const Header = styled.div`
+  width: 100%;
+`;
+const InfoItem = styled.div`
+  width: 100%;
+  background: white;
+  -webkit-box-shadow: 0px 0px 4px 3px rgba(197, 196, 196, 0.28);
+  box-shadow: 0px 0px 4px 3px rgba(197, 196, 196, 0.28);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 10px;
+`;
+const InfoMain = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const CustomerImage = styled.img`
+  width: 41px;
+  height: 41px;
+  backround: white;
+  -webkit-box-shadow: 0px 0px 4px 3px rgba(197, 196, 196, 0.28);
+  box-shadow: 0px 0px 4px 3px rgba(197, 196, 196, 0.28);
+  display: flex;
+  border-radius: 41px;
+  margin-right: 20px;
+`;
+const Icon = styled.div``;
+const MapWrapper = styled.div`
+  width: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  margin-top: 20px;
+`;
+
 //text
 const BoldText = styled.text`
   font-size: 1rem;
@@ -66,76 +199,21 @@ const AdressText = styled.text`
     font-size: 0.6rem;
   }
 `;
-
-//<=
-const FlexSpace = styled.div`
+const DescTextWrapper = styled.div`
+  width: 100%;
+  background: #f8f8f8;
   display: flex;
-  align-items: center;
-  justify-content: ${(props) =>
-    props.position == 'END' ? 'flex-end' : 'flex-start'};
-  padding: 0 20px 0 20px;
-  flex-grow: 2;
-  @media ${device.sm} {
-  }
+  flex-direction: column;
+  padding: 25px;
 `;
-const Dot = styled.div`
-  width: 6px;
-  height: 6px;
-  border-radius: 6px;
-  background-color: #ef805a;
-  margin-right: 8px;
-  @media ${device.sm} {
-    margin-right: 3px;
-  }
-`;
-
-const AwaitButton = styled.button`
-  width: 120px;
-  height: 34px;
-  background: #f77e0b;
-  color: white;
-  border-radius: 5px;
-  margin-right: 10px;
-  @media ${device.sm} {
-    width: 90px;
-    height: 17px;
-    font-size: 10px;
-    border-radius: 4px;
-  }
-`;
-const ApproveButton = styled.button`
-  width: 120px;
-  height: 34px;
-  color: ${(p) => (p.reject ? '#F01C62' : 'var(--blue)')};
-  border-radius: 5px;
-  margin-right: 10px;
-  background: transparent;
-  text-decoration: underline;
-  white-space: nowrap;
-  @media ${device.sm} {
-    width: 90px;
-    height: 17px;
-    font-size: 10px;
-    border-radius: 4px;
-  }
-`;
-const HistoryButton = styled.button`
-  height: 34px;
-  background: white;
-  padding: 5px;
-  color: var(--blue);
-  border-radius: 5px;
+const DescHeader = styled.text`
+  font-family: 'Poppins', sans-serif;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-color: #00b2a9;
+  font-size: 1rem;
   font-weight: bold;
-  margin-right: 10px;
-  white-space: nowrap;
-  border-style: solid;
-  border-width: 1px;
-  border-color: var(--blue);
-  @media ${device.sm} {
-    width: 90px;
-    height: 17px;
-    font-size: 10px;
-    border-radius: 4px;
-  }
 `;
+const DescText = styled.text``;
+
 export default ReservationDetail;
