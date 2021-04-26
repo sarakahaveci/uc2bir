@@ -34,9 +34,7 @@ import { getWallet } from 'actions/userProfileActions/walletActions';
 
 const uri = `${process.env.REACT_APP_API_URL}/regions`;
 
-const dateOption = true;
-
-const PT = ({ dateOption: {} }) => {
+const PT = () => {
   const dispatch = useDispatch();
   //Local States
   const [toggleState, setToggleState] = useState(false);
@@ -75,7 +73,7 @@ const PT = ({ dateOption: {} }) => {
   }, [userInfo]);
   useEffect(() => {
     // iF DATE OPTİON TRUE
-    if (dateOption) {
+    if (reservation?.data?.isSelected) {
       dispatch(
         getAreaForPT(
           userInfo.id,
@@ -91,7 +89,7 @@ const PT = ({ dateOption: {} }) => {
   }, [reservation?.data?.session]);
 
   useEffect(() => {
-    if (dateOption) {
+    if (reservation?.data?.isSelected) {
       if (
         reservation?.data?.branch_id &&
         reservation?.data?.session &&
@@ -517,7 +515,7 @@ const PT = ({ dateOption: {} }) => {
               price={userInfo.price}
             />
             <SelectionContainer>
-              {!dateOption && (
+              {!reservation?.data?.isSelected && (
                 <InputContainer>
                   <Text color="#9B9B9B">{'Tarih ve Saat Seçiminiz'}</Text>
                   <Material.TextField
@@ -569,7 +567,7 @@ const PT = ({ dateOption: {} }) => {
     <Container>
       <LeftWrapper>{_renderLeftArea()}</LeftWrapper>
       <RightWrapper>
-        <PaymentCard type="pt" dateOption={dateOption} />
+        <PaymentCard type="pt" dateOption={reservation?.data?.isSelected} />
       </RightWrapper>
       <StyledModal show={openModal} onHide={() => setOpenModal(false)}>
         <MultiContract

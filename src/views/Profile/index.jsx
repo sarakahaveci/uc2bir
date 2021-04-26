@@ -66,7 +66,7 @@ export default function Profile({ match }) {
     {
       eventKey: 'calendar',
       title: 'TAKVİM',
-      component: <MyCalendar userId={match?.params?.id} />,
+      component: <MyCalendar userId={match?.params?.id} typeId={userInfo?.type_id} setPage={setPage}/>,
     },
     {
       eventKey: 'comments',

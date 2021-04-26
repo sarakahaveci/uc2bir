@@ -11,3 +11,4 @@ export * from './dietitionSpecialitiesActions';
 export * from './galeryActiions';
 export * from './gymClassActions';
 export * from './commentActions';
+export * from './calendarActions';

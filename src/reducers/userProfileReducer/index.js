@@ -14,6 +14,7 @@ import galery from './galeryReducer';
 import gymClass from './gymClassReducer';
 import comment from './commentReducer';
 import wallet from './walletReducer';
+import calendar from './calendarReducer';
 
 const reducers = combineReducers({
   certificate,
@@ -30,6 +31,7 @@ const reducers = combineReducers({
   gymClass,
   comment,
   wallet,
+  calendar
 });
 
 export default reducers;
