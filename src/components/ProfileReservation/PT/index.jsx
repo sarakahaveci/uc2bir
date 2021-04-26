@@ -36,7 +36,7 @@ const uri = `${process.env.REACT_APP_API_URL}/regions`;
 
 const dateOption = true;
 
-const PT = () => {
+const PT = ({ dateOption: {} }) => {
   const dispatch = useDispatch();
   //Local States
   const [toggleState, setToggleState] = useState(false);
