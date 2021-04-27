@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 import styled from 'styled-components/macro';
 import { useDispatch } from 'react-redux';
 
-import { saveTemplate } from 'actions';
+import { getTemplates, saveTemplate } from 'actions';
 import { Box, Modal, Button, Title, Material } from 'components';
 
 const TemplateNamingModal = forwardRef(
@@ -10,13 +10,15 @@ const TemplateNamingModal = forwardRef(
     const dispatch = useDispatch();
 
     const saveSuccessCallback = () => {
+      dispatch(getTemplates());
       openSuccessTemplateModal();
-
       ref.current.closeModal();
     };
 
-    const saveClickHandler = () =>
+    const saveClickHandler = () =>{
       dispatch(saveTemplate(templateName, saveSuccessCallback));
+    }
+
 
     return (
       <StyledTemplateNamingModal activateFooter ref={ref}>
