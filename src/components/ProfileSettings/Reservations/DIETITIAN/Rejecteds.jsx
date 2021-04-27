@@ -107,6 +107,9 @@ const Rejecteds = () => {
                       />
                     </ApproveCardContainer>
                   ))}
+                  {!(startOfWeeksArr().length > 0) && (
+                    <text>Bu tarihe ilişkin veri bulunamadı</text>
+                  )}
                 </ReservationAccordion>
               </ReservationAccordion>
             </AccordionContainer>
