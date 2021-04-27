@@ -5,12 +5,12 @@ import { device } from 'utils';
 import Main from 'components/Main';
 import Message from 'components/ProfileSettings/Message';
 
-const Info = () => {
+const Info = ({ match }) => {
   return (
     <Main>
       <div style={{ marginTop: '20px' }} className="basic-info">
         <Container>
-          <Message />
+          <Message id={match?.params?.id} />
         </Container>
       </div>
     </Main>

@@ -2,13 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import ReservationAccordion from '../ReservationAccordion';
 import styled from 'styled-components/macro';
-import {
-  ApproveCard,
-  DatePicker,
-  RejectModal,
-  CancellationModal,
-  Svg,
-} from 'components';
+import { ApproveCard, DatePicker, CancellationModal, Svg } from 'components';
 import { device } from 'utils';
 import { useSelector, useDispatch } from 'react-redux';
 import {

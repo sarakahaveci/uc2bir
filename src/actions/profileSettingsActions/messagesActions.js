@@ -48,7 +48,7 @@ export const searchMessage = (searchValue) => async (dispatch, getState) => {
   const rooms = getState().profileSettings2.messages.rooms.data;
 
   const filteredRooms = rooms.filter((room) =>
-    room.user_meta.name.toLowerCase().includes(searchValue.toLowerCase())
+    room.user_meta?.name?.toLowerCase().includes(searchValue.toLowerCase())
   );
 
   dispatch({
