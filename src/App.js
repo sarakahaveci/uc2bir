@@ -5,10 +5,7 @@ import styled, { ThemeProvider } from 'styled-components';
 
 import { ScrollToTop, ProtectedRoute } from 'components';
 import LoadingImage from 'assets/321-loading.gif';
-import {
-  setUserDetailsFromStorage,
-  getAllPTBranchList,
-} from 'actions';
+import { setUserDetailsFromStorage, getAllPTBranchList } from 'actions';
 //views
 import Layout from './views/Layout';
 import Home from './views/Home';
@@ -96,7 +93,7 @@ const App = () => {
                 <Route exact path="/blog-detail/:seo" component={BlogDetail} />
                 <Route exact path="/blog-list" component={BlogList} />
 
-                <Route exact path="/messages" component={Message} />
+                <Route exact path="/messages/:id?" component={Message} />
                 <Route exact path="/contact" component={Contact} />
                 <Route exact path="/find" component={SearchProfessional} />
                 <Route component={NotFoundPage} />

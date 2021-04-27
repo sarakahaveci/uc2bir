@@ -49,7 +49,6 @@ const Awaitings = () => {
   function getSelectedDate() {
     dispatch(getDtAwaitings(moment(selectedDate).format('DD.MM.YYYY')));
   }
-  let data = ['dsd', 'ds'];
   return (
     <StyledContainer>
       <StyledRow>

@@ -4,7 +4,7 @@ import { getRooms, resetSelectedRoom } from 'actions';
 import MessagesSidebar from './MessagesSidebar/MessagesSidebar';
 import MessageChatArea from './MessageChatArea';
 
-export default function Message() {
+export default function Message({ id }) {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   useEffect(() => {

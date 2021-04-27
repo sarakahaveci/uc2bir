@@ -166,39 +166,5 @@ const ContextContainer = styled.div`
     width: 80vw;
   }
 `;
-const ReasonContextContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 50vw;
 
-  @media ${device.sm} {
-    padding: 20px 0;
-    width: 90vw;
-    overflow: scroll;
-  }
-`;
-const ReasonContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-  margin-bottom: 20px;
-`;
-const Reason = styled.text`
-  border-style: solid;
-  border-width: 1px;
-  border-color: var(--blue);
-  border-radius: 15px;
-  padding: 10px;
-  margin: 5px;
-  background: ${(p) => (p.selected ? 'var(--blue)' : 'white')};
-  color: ${(p) => (p.selected ? 'white' : 'black')};
-`;
-const TextContainer = styled.div`
-  width: 100%;
-  margin-bottom: 20px;
-`;
-const StyledText = styled.text`
-  font-family: 'Poppins', sans-serif;
-  font-size: 18px;
-`;
 export default CancalletionModal;
