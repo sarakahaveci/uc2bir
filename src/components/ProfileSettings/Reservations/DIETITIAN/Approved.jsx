@@ -7,7 +7,6 @@ import { device } from 'utils';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   getDtApproved,
-  getDtReservationDetail,
   DtApproveCancelStepOne,
   DtApproveCancelStepTwo,
 } from 'actions';
