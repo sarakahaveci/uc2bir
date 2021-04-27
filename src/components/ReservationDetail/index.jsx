@@ -1,5 +1,5 @@
 import Svg from 'components/statics/svg';
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components/macro';
 import { device } from 'utils';
 import GoogleMap from 'components/GoogleMaps/GoogleMap';

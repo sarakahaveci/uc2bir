@@ -35,7 +35,7 @@ const SessionHistory = () => {
   }, []);
   useEffect(() => {
     if (selectedDate) {
-      dispatch(getSessionHistorys(moment(selectedDate).format('DD.MM.YYYY')));
+      getSelectedDate();
     }
   }, [selectedDate]);
   function getSelectedDate() {
