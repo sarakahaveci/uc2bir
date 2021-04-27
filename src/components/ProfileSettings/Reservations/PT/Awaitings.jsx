@@ -147,6 +147,9 @@ const Awaitings = () => {
               </ReservationAccordion>
             </AccordionContainer>
           ))}
+          {!(startOfWeeksArr().length > 0) && (
+            <text>Bu tarihe ilişkin veri bulunamadı</text>
+          )}
         </StyledCol>
         <StyledCol
           style={{

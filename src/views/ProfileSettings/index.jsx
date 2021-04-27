@@ -41,11 +41,7 @@ const regularUserTabs = [
   {
     eventKey: 'reservation',
     title: 'Rezarvasyonlarım',
-    component: (
-      <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-        Rezarvasyonlarım
-      </Title>
-    ),
+    component: <Reservations />,
   },
   // {
   //   eventKey: 'packets',

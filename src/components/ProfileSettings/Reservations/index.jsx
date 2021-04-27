@@ -6,6 +6,7 @@ import { Title } from 'components';
 import Pt from './PT';
 import DIETITIAN from './DIETITIAN';
 import GYM from './GYM';
+import ST from './ST';
 
 import * as KEYS from '../../../constants/userKeys';
 
@@ -24,7 +25,6 @@ const Reservations = () => {
     }
   }, [isSuccess]);
 
-
   let content;
 
   switch (type[0]?.key) {
@@ -38,7 +38,9 @@ const Reservations = () => {
     case KEYS.GYM:
       content = <GYM />;
       break;
-
+    case KEYS.USER:
+      content = <ST />;
+      break;
     default:
       content = <></>;
       break;
