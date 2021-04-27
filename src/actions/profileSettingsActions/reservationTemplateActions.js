@@ -15,7 +15,7 @@ import {
   USER_KEYS,
   GET_TEMPLATE_FROM_CALENDAR,
   DELETE_HOUR_OF_CALENDER,
-  GET_DAY_OF_CALENDER, UPDATE_TEMPLATE_DEFAULT,ADD_HOUR_TO_CALENDER
+  GET_DAY_OF_CALENDER, UPDATE_TEMPLATE_DEFAULT,ADD_HOUR_TO_CALENDER,GET_DAY_DETAIL_OF_CALENDER
 } from '../../constants';
 
 export const setSelectedDay = (dayIndex) => async (dispatch, getState) => {
@@ -233,6 +233,20 @@ export const getDayOfCalendar = (date) => async (dispatch) => {
       transformData: (data) => data.data,
       url,
       label: GET_DAY_OF_CALENDER,
+    },
+  });
+};
+
+export const getDayDetailOfCalendar = (id) => async (dispatch) => {
+  const url = `/appointment/pt/${id}`;
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'GET',
+      transformData: (data) => data.data,
+      url,
+      label: GET_DAY_DETAIL_OF_CALENDER,
     },
   });
 };

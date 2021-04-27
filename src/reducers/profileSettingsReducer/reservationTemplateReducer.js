@@ -13,7 +13,10 @@ import {
   GET_TEMPLATE_FROM_CALENDAR_FAILURE,
   GET_DAY_OF_CALENDER_REQUEST,
   GET_DAY_OF_CALENDER_SUCCESS,
-  GET_DAY_OF_CALENDER_FAILURE
+  GET_DAY_OF_CALENDER_FAILURE,
+  GET_DAY_DETAIL_OF_CALENDER_FAILURE,
+  GET_DAY_DETAIL_OF_CALENDER_REQUEST,
+  GET_DAY_DETAIL_OF_CALENDER_SUCCESS
 } from '../../constants';
 
 const initialState = {
@@ -37,6 +40,12 @@ const initialState = {
   },
 
   availableHours: {
+    data: [],
+    isLoading: false,
+    error: null,
+  },
+
+  detailHour: {
     data: [],
     isLoading: false,
     error: null,
@@ -159,11 +168,40 @@ export default (state = initialState, action) => {
         },
       };
 
-    case GET_DAY_OF_CALENDER_FAILURE:
+    case GET_DAY_DETAIL_OF_CALENDER_FAILURE:
       return {
         ...state,
         availableHours: {
           ...state.availableHours,
+          isLoading: false,
+          error: action.payload,
+        },
+      };
+
+    case GET_DAY_DETAIL_OF_CALENDER_REQUEST:
+      return {
+        ...state,
+        detailHour: {
+          ...state.detailHour,
+          isLoading: true,
+        },
+      };
+
+    case GET_DAY_DETAIL_OF_CALENDER_SUCCESS:
+      return {
+        ...state,
+        detailHour: {
+          isLoading: false,
+          data: action.payload,
+          error: null,
+        },
+      };
+
+    case GET_DAY_OF_CALENDER_FAILURE:
+      return {
+        ...state,
+        detailHour: {
+          ...state.detailHour,
           isLoading: false,
           error: action.payload,
         },

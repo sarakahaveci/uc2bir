@@ -23,7 +23,7 @@ import {
   deleteHourOfCalendar,
   getMyBranches,
   getGymList,
-  getPtWorkingHomePlace, getSessionTypes, applyHourOfCalendar
+  getPtWorkingHomePlace, getSessionTypes, applyHourOfCalendar, getDayDetailOfCalendar
 } from '../../../../actions';
 import moment from 'moment';
 import 'moment/locale/tr';
@@ -33,6 +33,7 @@ import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
+import { SESSION_KEYS } from '../../../../constants/sessionType';
 
 moment.locale('tr')
 
@@ -51,6 +52,7 @@ const Calendar = () => {
   const {
     availableDates: { data: availableDates },
     availableHours: { data: availableHours },
+    detailHour: { data: detailHour },
   } = useSelector((state) => state.profileSettings2.reservationTemplate);
 
   const { data: myBranches } = useSelector(
@@ -325,6 +327,7 @@ const Calendar = () => {
                           onClick={()=> {
                             setSelectedHour(item);
                             setActivePage('showHourDetail');
+                            dispatch(getDayDetailOfCalendar(item.id))
                           }}
                           text={item.hour}
                           className="blue"
@@ -399,7 +402,7 @@ const Calendar = () => {
                        Branşlar:
                      </Span>
                      <Span fontSize={'18px'}>
-                        {selectedHour?.branch?.toUpperCase()}
+                        {selectedHour?.branch}
                       </Span>
                    </Box>
 
@@ -407,9 +410,11 @@ const Calendar = () => {
                      <Span fontWeight="600" mr="15px" fontSize={'20px'}>
                        Oturum Türleri:
                      </Span>
-                     <Span fontSize={'18px'}>
-                          {selectedHour?.session?.toUpperCase()}
-                     </Span>
+                     {detailHour?.slice[0].session?.split(',').map((item, index)=>(
+                     <Span fontSize={'18px'} key={index}>
+                       {SESSION_KEYS[item.replace(/\s+/g, '')] }
+                       {(selectedHour?.session?.split(',').length !== index+1) ? ', ' : ''}
+                     </Span>))}
                      <Seperator/>
                    </Box>
 
@@ -418,7 +423,14 @@ const Calendar = () => {
                        Seçilmiş Yerler:
                      </Span>
                      <Span fontSize={'18px'}>
-                          Fitness
+                       {detailHour?.slice[0].location?.gym?.map((item, index)=>(
+                         <Span fontSize={'18px'} key={index}>
+                           {item + ' '}
+                         </Span>))}
+                       {detailHour?.slice[0].location?.home_park?.map((item, index)=>(
+                         <Span fontSize={'18px'} key={index}>
+                           {item}
+                         </Span>))}
                        </Span>
                      <Seperator/>
                    </Box>

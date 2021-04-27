@@ -12,7 +12,8 @@ import {
   removeFavoriteUser,
   setReservation,
 } from '../../../actions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { USER } from '../../../constants';
 
 const ProfileBanner = ({
   className = null,
@@ -21,18 +22,10 @@ const ProfileBanner = ({
   about,
   setPage = () => {},
 }) => {
-  let jobType;
-  if (info?.type_id) {
-    if (info?.type_id === 1) {
-      jobType === 'Diyetisten';
-    } else if (info?.type_id === 2) {
-      jobType === 'Spor Eğitmeni';
-    } else if (info?.type_id === 2) {
-      jobType === 'Spor Alanı';
-    }
-  }
+
   const [isFavorited, setIsFavorited] = useState(info.has_favorite === 1);
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
 
   const favoriteClickHandler = () => {
     if (isFavorited) {
@@ -51,14 +44,16 @@ const ProfileBanner = ({
           <Card img={info.img}>
             <span className="team">{info.team}</span>
             <span className="span">
-              {isFavorited ? (
-                <ActiveHeart
-                  onClick={favoriteClickHandler}
-                  showHeartBg={false}
-                />
-              ) : (
-                <Heart onClick={favoriteClickHandler} showHeartBg={true} />
-              )}
+              {user?.type_id === USER &&
+               (isFavorited ? (
+                  <ActiveHeart
+                    onClick={favoriteClickHandler}
+                    showHeartBg={false}
+                  />
+                ) : (
+                  <Heart onClick={favoriteClickHandler} showHeartBg={true} />
+                ))}
+
             </span>
 
             <Stars rating={info.stars} position="bottom" />
