@@ -5,7 +5,7 @@ import styled, { ThemeProvider } from 'styled-components';
 
 import { ScrollToTop, ProtectedRoute } from 'components';
 import LoadingImage from 'assets/321-loading.gif';
-import { setUserDetailsFromStorage, getAllPTBranchList } from 'actions';
+import { setUserDetailsFromStorage, getAllPTBranchList, getRegisterData, } from 'actions';
 //views
 import Layout from './views/Layout';
 import Home from './views/Home';
@@ -39,8 +39,8 @@ const App = () => {
     }, 4000);
 
     dispatch(setUserDetailsFromStorage());
+    dispatch(getRegisterData());
 
-    // dispatch(getRegisterData());
     dispatch(getAllPTBranchList());
   }, []);
 

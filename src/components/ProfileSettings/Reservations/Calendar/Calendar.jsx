@@ -23,7 +23,12 @@ import {
   deleteHourOfCalendar,
   getMyBranches,
   getGymList,
-  getPtWorkingHomePlace, getSessionTypes, applyHourOfCalendar, getDayDetailOfCalendar
+  getPtWorkingHomePlace,
+  getSessionTypes,
+  applyHourOfCalendar,
+  getDayDetailOfCalendar,
+  getMyClassifications,
+  getDietitianClinics,
 } from '../../../../actions';
 import moment from 'moment';
 import 'moment/locale/tr';
@@ -33,7 +38,7 @@ import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
-import { PERSONAL_TRAINER, SESSION_KEYS} from 'constants/index';
+import { DIETITIAN, PERSONAL_TRAINER, SESSION_KEYS, WORK_PLACE } from 'constants/index';
 
 moment.locale('tr')
 
@@ -44,6 +49,7 @@ const Calendar = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [selectedHour, setSelectedHour] = useState();
   const [branchSelection, setBranchSelection] = useState([]);
+  const [classSelection, setClassSelection] = useState([]);
   const [sessionSelection, setSessionSelection] = useState([]);
   const [workPlaceSelection, setWorkPlaceSelection] = useState([]);
   const [locationSelection, setLocationSelection] = useState([]);
@@ -62,12 +68,15 @@ const Calendar = () => {
 
   const {
     ptHomePlace: { data: ptHomePlace },
+    classifications: { data: classifications },
   } = useSelector((state) => state.userProfile.workPlace);
 
   const {
     get: sessionTypes,
     gymList: { data: gymList },
   } = useSelector((state) => state.profileSettings2.sessionType);
+
+
 
   useEffect(() => {
     dispatch(getTemplateFromCalender());
@@ -88,10 +97,20 @@ const Calendar = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(getMyBranches());
-    dispatch(getGymList());
-    dispatch(getSessionTypes());
-    dispatch(getPtWorkingHomePlace());
+    if (userTypeId !== WORK_PLACE) {
+      dispatch(getSessionTypes());
+    }
+    if (userTypeId === DIETITIAN) {
+      dispatch(getDietitianClinics());
+    }
+    if (userTypeId === PERSONAL_TRAINER) {
+      dispatch(getMyBranches());
+      dispatch(getGymList());
+      dispatch(getPtWorkingHomePlace());
+    }
+    if (userTypeId === WORK_PLACE) {
+      dispatch(getMyClassifications());
+    }
 
   }, []);
 
@@ -137,11 +156,10 @@ const Calendar = () => {
     sessionSelection.findIndex((session) => session.type === sessionType) !==
     -1;
 
-  const sessionTypeArr = sessionSelection.map((session) => ({
-    session,
+  const sessionTypeArr = userTypeId ===WORK_PLACE ?({location:classSelection}) : sessionSelection.map((session) => ({ session,
     ...(session.type !== 'online' && {
       location:
-        session.type === 'gym' || session.type === 'clinic'
+        session.type === 'gym' ? classSelection : session.type === 'clinic'
           ? workPlaceSelection
           : locationSelection,
     }),
@@ -188,6 +206,7 @@ const Calendar = () => {
                   disabled={true}
                 />
 
+                {userTypeId === PERSONAL_TRAINER && (
                 <FormControl>
                   <InputLabel>Branşları Seçiniz</InputLabel>
 
@@ -204,23 +223,41 @@ const Calendar = () => {
                     ))}
                   </Select>
                 </FormControl>
+                )}
+                {userTypeId === WORK_PLACE && (
+                  <FormControl>
+                    <InputLabel>Sınıfları Seçiniz</InputLabel>
+                    <Select
+                      multiple
+                      value={classSelection}
+                      input={<Input />}
+                      onChange={(e) => setClassSelection(e.target.value)}>
+                      {classifications?.map((classification) => (
+                        <MenuItem key={classification.id} value={classification}>
+                          {classification.title}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                )}
 
-                <FormControl>
-                  <InputLabel>Oturum Türlerini Seçiniz</InputLabel>
+                {userTypeId !== WORK_PLACE && (
+                  <FormControl>
+                    <InputLabel>Oturum Türlerini Seçiniz</InputLabel>
 
-                  <Select
-                    multiple
-                    value={sessionSelection}
-                    input={<Input />}
-                    onChange={(e) => setSessionSelection(e.target.value)}
-                  >
-                    {sessionTypes?.data?.data?.map((sessionType) => (
-                      <MenuItem key={sessionType.id} value={sessionType}>
-                        {sessionType.title}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
+                    <Select
+                      multiple
+                      value={sessionSelection}
+                      input={<Input />}
+                      onChange={(e) => setSessionSelection(e.target.value)}>
+                      {sessionTypes?.data?.data?.map((sessionType) => (
+                        <MenuItem key={sessionType.id} value={sessionType}>
+                          {sessionType.title}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                )}
 
                 {showSessionDependentInputs('gym') && (
                   <FormControl>
@@ -233,6 +270,25 @@ const Calendar = () => {
                       onChange={(e) => setWorkPlaceSelection(e.target.value)}
                     >
                       {gymList?.gym?.map((item) => (
+                        <MenuItem key={item.id} value={item}>
+                          {item.title}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                )}
+
+                {showSessionDependentInputs('clinic') && (
+                  <FormControl>
+                    <InputLabel>Klinik Seçiniz</InputLabel>
+
+                    <Select
+                      multiple
+                      value={workPlaceSelection}
+                      input={<Input />}
+                      onChange={(e) => setWorkPlaceSelection(e.target.value)}
+                    >
+                      {clinics?.clinic?.map((item) => (
                         <MenuItem key={item.id} value={item}>
                           {item.title}
                         </MenuItem>

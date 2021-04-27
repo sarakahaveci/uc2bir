@@ -286,29 +286,52 @@ export const applyHourOfCalendar = (date,sessionType,branch, hour, callBack) => 
   const { type_id: userTypeId } = getState().auth.user;
   const url = `/appointment/${USER_KEYS[userTypeId]}`;
 
-  await dispatch({
-    type: HTTP_REQUEST,
-    payload: {
-      method: 'POST',
-      body: {
-        date: format(date, 'dd.MM.yyyy'),
-        hour: hour,
-        branch: branch.map((branch) => branch.id),
-        accept_guest:false,
-        session_type:sessionType.map((sessionType) => ({
-          session: sessionType.session.type,
-          ...(sessionType.location && {
-            location: sessionType?.location?.map((location) => location.id),
-          }),
-        })),
+  if(userTypeId===WORK_PLACE) {
+    await dispatch({
+      type: HTTP_REQUEST,
+      payload: {
+        method: 'POST',
+        body: {
+          date: format(date, 'dd.MM.yyyy'),
+          hour: hour,
+          accept_guest:false,
+          location: sessionType.location.map((item)=> item.id),
+        },
+        transformData: (data) => data.data,
+        url,
+        label: ADD_HOUR_TO_CALENDER,
+        callBack,
+        errorHandler: (errorMsg) =>
+          toast.error(errorMsg, { position: 'bottom-right' }),
       },
-      transformData: (data) => data.data,
-      url,
-      label: ADD_HOUR_TO_CALENDER,
-      callBack,
-      errorHandler: (errorMsg) =>
-        toast.error(errorMsg, { position: 'bottom-right' }),
-    },
-  });
+    });
+
+  }else {
+    await dispatch({
+      type: HTTP_REQUEST,
+      payload: {
+        method: 'POST',
+        body: {
+          date: format(date, 'dd.MM.yyyy'),
+          hour: hour,
+          branch: branch.map((branch) => branch.id),
+          accept_guest:false,
+          session_type:sessionType.map((sessionType) => ({
+            session: sessionType.session.type,
+            ...(sessionType.location && {
+              location: sessionType?.location?.map((location) => location.id),
+            }),
+          })),
+        },
+        transformData: (data) => data.data,
+        url,
+        label: ADD_HOUR_TO_CALENDER,
+        callBack,
+        errorHandler: (errorMsg) =>
+          toast.error(errorMsg, { position: 'bottom-right' }),
+      },
+    });
+  }
+
 };
 
