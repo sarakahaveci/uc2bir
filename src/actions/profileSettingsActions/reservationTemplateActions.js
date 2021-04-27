@@ -103,8 +103,9 @@ export const getTemplates = () => async (dispatch, getState) => {
   });
 };
 
-export const getTemplateDetails = (id) => async (dispatch) => {
-  const url = `/appointment/template/pt/${id}`;
+export const getTemplateDetails = (id) => async (dispatch, getState) => {
+  const userType = getState().auth.user.type_id;
+  const url = `/appointment/template/${USER_KEYS[userType]}/${id}`;
 
   await dispatch({
     type: HTTP_REQUEST,
@@ -117,10 +118,11 @@ export const getTemplateDetails = (id) => async (dispatch) => {
   });
 };
 
-export const applyTemplateToCalendar = (date, templateId, callBack) => async (
+export const applyTemplateToCalendar = (date, templateId, callBack, getState) => async (
   dispatch
 ) => {
-  const url = '/appointment/pt/apply-template';
+  const userType = getState().auth.user.type_id;
+  const url =  `/appointment/${USER_KEYS[userType]}/apply-template`;
 
   await dispatch({
     type: HTTP_REQUEST,
@@ -194,8 +196,11 @@ export const updateDefaultTemplate = (
   templateId,
   successCallback,
   errorCallback
-) => async (dispatch) => {
-  const url = `/appointment/template/pt/${templateId}`;
+
+) => async (dispatch,getState) => {
+  const { type_id: userTypeId } = getState().auth.user;
+
+  const url = `/appointment/template/${USER_KEYS[userTypeId]}/${templateId}`;
 
   await dispatch({
     type: HTTP_REQUEST,
@@ -210,8 +215,9 @@ export const updateDefaultTemplate = (
   });
 };
 
-export const getTemplateFromCalender = () => async (dispatch) => {
-  const url = `/appointment/pt/full-date`;
+export const getTemplateFromCalender = () => async (dispatch,getState) => {
+  const { type_id: userTypeId } = getState().auth.user;
+  const url = `/appointment/${USER_KEYS[userTypeId]}/full-date`;
 
   await dispatch({
     type: HTTP_REQUEST,
@@ -224,8 +230,9 @@ export const getTemplateFromCalender = () => async (dispatch) => {
   });
 };
 
-export const getDayOfCalendar = (date) => async (dispatch) => {
-  const url = `/appointment/pt?date=${date}`;
+export const getDayOfCalendar = (date) => async (dispatch,getState) => {
+  const { type_id: userTypeId } = getState().auth.user;
+  const url = `/appointment/${USER_KEYS[userTypeId]}?date=${date}`;
 
   await dispatch({
     type: HTTP_REQUEST,
@@ -238,8 +245,9 @@ export const getDayOfCalendar = (date) => async (dispatch) => {
   });
 };
 
-export const getDayDetailOfCalendar = (id) => async (dispatch) => {
-  const url = `/appointment/pt/${id}`;
+export const getDayDetailOfCalendar = (id) => async (dispatch,getState) => {
+  const { type_id: userTypeId } = getState().auth.user;
+  const url = `/appointment/${USER_KEYS[userTypeId]}/${id}`;
 
   await dispatch({
     type: HTTP_REQUEST,
@@ -253,9 +261,10 @@ export const getDayDetailOfCalendar = (id) => async (dispatch) => {
 };
 
 export const deleteHourOfCalendar = (id, successCallback, errorCallback) => async (
-  dispatch,
+  dispatch, getState
 ) => {
-  const url = `/appointment/pt/${id}`;
+  const { type_id: userTypeId } = getState().auth.user;
+  const url = `/appointment/${USER_KEYS[userTypeId]}/${id}`;
 
   await dispatch({
     type: HTTP_REQUEST,
@@ -272,9 +281,10 @@ export const deleteHourOfCalendar = (id, successCallback, errorCallback) => asyn
 
 
 export const applyHourOfCalendar = (date,sessionType,branch, hour, callBack) => async (
-  dispatch
+  dispatch, getState
 ) => {
-  const url = '/appointment/pt';
+  const { type_id: userTypeId } = getState().auth.user;
+  const url = `/appointment/${USER_KEYS[userTypeId]}`;
 
   await dispatch({
     type: HTTP_REQUEST,

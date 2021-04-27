@@ -435,6 +435,11 @@ const Calendar = () => {
                          <Span fontSize={'18px'} key={index}>
                            {item}
                          </Span>))}
+                       {detailHour?.slice?.[0]?.location?.clinic?.map((item, index)=>(
+                         <Span fontSize={'18px'} key={index}>
+                           {item }
+                           {detailHour?.slice?.[0]?.location?.clinic?.length !== index+1 ? ', ': ''}
+                         </Span>))}
                        </Span>
                      <Seperator/>
                    </Box>
