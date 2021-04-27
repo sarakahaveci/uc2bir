@@ -88,8 +88,9 @@ export const deleteTemplateItem = (dayIndex, hourIndex) => async (
   });
 };
 
-export const getTemplates = () => async (dispatch) => {
-  const url = `/appointment/template/pt`;
+export const getTemplates = () => async (dispatch, getState) => {
+  const userType = getState().auth.user.type_id;
+  const url = `/appointment/template/${USER_KEYS[userType]}`;
 
   await dispatch({
     type: HTTP_REQUEST,
