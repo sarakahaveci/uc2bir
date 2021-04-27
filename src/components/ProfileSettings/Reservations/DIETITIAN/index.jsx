@@ -9,10 +9,22 @@ import Rejecteds from './Rejecteds';
 import styled from 'styled-components/macro';
 import { Tabbar, Svg, CreateCalenderModal } from 'components';
 import ReservationTemplate from '../ReservationTemplate/ReservationTemplate';
+import ReservationCreatedTemplate from '../ReservationTemplate/ReservationCreatedTemplate';
+import { useDispatch, useSelector } from 'react-redux';
+import { getTemplates } from '../../../../actions';
 const DIETITIAN = () => {
   const [tab, setTab] = useState('Awaitings');
   const [subPage, setSubPage] = useState();
   const [openCreateCalender, setOpenCreateCalender] = useState(false);
+  const {
+    myTemplates: { data: myTemplates },
+  } = useSelector((state) => state.profileSettings2.reservationTemplate);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getTemplates());
+  }, []);
 
   useEffect(() => {
     getGeocode();
@@ -79,7 +91,15 @@ const DIETITIAN = () => {
         open={openCreateCalender}
         approve={() => {
           setOpenCreateCalender(false);
-          setSubPage(<ReservationTemplate />);
+          setSubPage(
+            myTemplates.length > 0 ? (
+              <ReservationCreatedTemplate
+                setTab={setTab}
+                setTabPage={setSubPage}
+              />
+            ) : (
+              <ReservationTemplate />
+            ))
         }}
         cancel={() => {
           setOpenCreateCalender(false);

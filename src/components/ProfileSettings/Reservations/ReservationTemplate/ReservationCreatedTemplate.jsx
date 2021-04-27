@@ -56,7 +56,7 @@ export default function ReservationCreatedTemplate({ setTab = () => {}, setTabPa
 
   return (
       subPage === 'create'?
-        ( <ReservationTemplate/>)
+        ( <ReservationTemplate setTab={setTab} setTabPage={setSubPage}/>)
       :
         ( <div>
         <BackLink onClick={()=>setTabPage('')}>

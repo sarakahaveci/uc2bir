@@ -109,7 +109,6 @@ const ApplyTemplateModal = forwardRef(
             },
           ]}
           minDate={new Date()}
-          hideToday
         />
 
         <FormControl>

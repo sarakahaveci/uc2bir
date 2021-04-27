@@ -19,7 +19,7 @@ import TemplateSuccessModal from './TemplateSuccessModal';
 import TemplateNamingModal from './TemplateNamingModal';
 import ApplyTemplateModal from './ApplyTemplateModal';
 
-export default function ReservationTemplate() {
+export default function ReservationTemplate({ setTab = () => {}, setTabPage = () => {} }) {
   const { selectedDay, appliedDays } = useSelector(
     (state) => state.profileSettings2.reservationTemplate
   );
@@ -125,6 +125,11 @@ export default function ReservationTemplate() {
   const checkSessionSelection = (sessionType) =>
     sessionSelection.findIndex((session) => session.type === sessionType) !==
     -1;
+
+  const closeSuccessReservationModal = useCallback(() => {
+    setTabPage('')
+    setTab('Calendar')
+  }, []);
 
   const disableSaveButtonHandler = () => {
     if (selectedDayHours.length !== 2) {
@@ -304,6 +309,7 @@ export default function ReservationTemplate() {
               p="0 0 20px 0"
               color="blue"
               cursor="pointer"
+              onClick={closeSuccessReservationModal}
             >
               Rezervasyon takvimimi gör
             </Text>

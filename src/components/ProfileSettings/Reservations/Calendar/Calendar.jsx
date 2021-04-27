@@ -33,7 +33,7 @@ import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
-import { SESSION_KEYS } from '../../../../constants/sessionType';
+import { PERSONAL_TRAINER, SESSION_KEYS} from 'constants/index';
 
 moment.locale('tr')
 
@@ -54,6 +54,7 @@ const Calendar = () => {
     availableHours: { data: availableHours },
     detailHour: { data: detailHour },
   } = useSelector((state) => state.profileSettings2.reservationTemplate);
+  const { type_id: userTypeId } = useSelector((state) => state.auth.user);
 
   const { data: myBranches } = useSelector(
     (state) => state.profileSettings2.profileBranches.myBranches
@@ -397,6 +398,7 @@ const Calendar = () => {
                   parent
                   title={moment(startDate).format('DD MMMM dddd') +' / ' + selectedHour?.hour}>
                  <HourDetailContainer>
+                   {userTypeId=== PERSONAL_TRAINER &&
                    <Box>
                      <Span fontWeight="600" mr="15px" fontSize={'20px'}>
                        Branşlar:
@@ -404,30 +406,32 @@ const Calendar = () => {
                      <Span fontSize={'18px'}>
                         {selectedHour?.branch}
                       </Span>
-                   </Box>
+                   </Box>}
+
 
                    <Box>
                      <Span fontWeight="600" mr="15px" fontSize={'20px'}>
                        Oturum Türleri:
                      </Span>
-                     {detailHour?.slice[0].session?.split(',').map((item, index)=>(
-                     <Span fontSize={'18px'} key={index}>
-                       {SESSION_KEYS[item.replace(/\s+/g, '')] }
-                       {(selectedHour?.session?.split(',').length !== index+1) ? ', ' : ''}
-                     </Span>))}
+                     {detailHour?.slice?.[0]?.session?.split(',').map((item, index)=>(
+                       <Span fontSize={'18px'} key={index}>
+                         {SESSION_KEYS[item.replace(/\s+/g, '')] }
+                         {(selectedHour?.session?.split(',').length !== index+1) ? ', ' : ''}
+                       </Span>))}
                      <Seperator/>
                    </Box>
+
 
                    <Box>
                      <Span fontWeight="600" mr="15px" fontSize={'20px'}>
                        Seçilmiş Yerler:
                      </Span>
                      <Span fontSize={'18px'}>
-                       {detailHour?.slice[0].location?.gym?.map((item, index)=>(
+                       {detailHour?.slice?.[0]?.location?.gym?.map((item, index)=>(
                          <Span fontSize={'18px'} key={index}>
                            {item + ' '}
                          </Span>))}
-                       {detailHour?.slice[0].location?.home_park?.map((item, index)=>(
+                       {detailHour?.slice?.[0]?.location?.home_park?.map((item, index)=>(
                          <Span fontSize={'18px'} key={index}>
                            {item}
                          </Span>))}
