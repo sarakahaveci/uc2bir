@@ -88,7 +88,7 @@ const Approved = ({ setSubPage = () => {} }) => {
                           date={elm.hour}
                           customerName={elm?.student}
                           type="approve"
-                          onApprove={(id) => {
+                          onApprove={() => {
                             openReservationDetail(elm?.id);
                           }}
                           onReject={(id) => {

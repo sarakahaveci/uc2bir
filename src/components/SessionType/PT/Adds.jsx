@@ -3,12 +3,12 @@ import styled from 'styled-components/macro';
 import { getGeocode } from 'use-places-autocomplete';
 import BluePlusIcon from 'assets/blue-plus.svg';
 
-import { Svg, BackLink } from 'components';
+import { Svg } from 'components';
 import AddAdress from '../AddAdress';
 import AddGym from './AddGym';
 import Edit from './Edit';
 import GYMEdit from './GYMEdit';
-
+import { device } from 'utils';
 const Adds = ({ icons, setBannerActive, setPage, get, selected }) => {
   const [subPage, setSubPage] = useState('Adds');
 
@@ -20,7 +20,15 @@ const Adds = ({ icons, setBannerActive, setPage, get, selected }) => {
     case 'Adds':
       return (
         <>
-          <BackLink text="Geri" onClick={() => setPage('Home')} />
+          <div style={{ display: 'flex', cursor: 'pointer' }}>
+            <Svg.EditIcon></Svg.EditIcon>
+            <BoldText
+              style={{ marginLeft: '5px' }}
+              onClick={() => setPage('Home')}
+            >
+              Oturum Türü Ekle
+            </BoldText>
+          </div>
 
           <CreateList className="row">
             {icons
@@ -42,6 +50,11 @@ const Adds = ({ icons, setBannerActive, setPage, get, selected }) => {
                               onClick={() => setSubPage(val.create.subPage)}
                             >
                               <Svg.WhitePencil />
+                              <text
+                                style={{ marginLeft: '5px', color: 'white' }}
+                              >
+                                Adreslerimi düzenle
+                              </text>
                             </Edits>
                           </Link>
                           <Create
@@ -188,6 +201,15 @@ const Link = styled.a`
   bottom: -50px;
   cursor: pointer;
   color: var(--gray);
+`;
+const BoldText = styled.text`
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif;
+  color: ${(props) => props.color || 'black'};
+  @media ${device.sm} {
+    font-size: 0.7rem;
+  }
 `;
 
 export default Adds;

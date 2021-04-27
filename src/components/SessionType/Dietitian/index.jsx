@@ -23,7 +23,11 @@ const PT = ({ icons, setBannerActive }) => {
   useEffect(() => {
     dispatch(getSessionTypes());
   }, []);
-
+  useEffect(() => {
+    if (get?.data?.data?.length > 0) {
+      setPage('Adds');
+    }
+  }, [get]);
   const select = (key) => {
     if (selected.includes(key)) {
       setSelected(selected.filter((item) => item !== key));
