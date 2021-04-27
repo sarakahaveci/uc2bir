@@ -4,23 +4,49 @@ import ReservationAccordion from '../ReservationAccordion';
 import styled from 'styled-components/macro';
 import { ApproveCard, DatePicker, RateModal, Svg } from 'components';
 import { device } from 'utils';
+import { useSelector, useDispatch } from 'react-redux';
+import { getDtSessionHistorys } from 'actions';
+import moment from 'moment';
+
 const SessionHistory = () => {
+  const dispatch = useDispatch();
+  const items = useSelector(
+    (state) => state.professionalReservation?.dtReservation?.session_historys
+  );
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
   const [openRateModal, setOpenRateModal] = useState(false);
-
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const startOfWeeksArr = () => {
+    if (items?.date) {
+      return Object.keys(items?.date).map(
+        (date) => new Date(moment(date, 'DD.MM.YYYY').toDate())
+      );
+    } else {
+      return [];
+    }
+  };
   useEffect(() => {
     if (window.innerWidth <= 760) {
       setIsSmallScreen(true);
     } else {
       setIsSmallScreen(false);
     }
+    setSelectedDate(new Date());
+    dispatch(getDtSessionHistorys());
   }, []);
-  let data = ['dsd', 'ds'];
+  useEffect(() => {
+    if (selectedDate) {
+      getSelectedDate();
+    }
+  }, [selectedDate]);
+  function getSelectedDate() {
+    dispatch(getDtSessionHistorys(moment(selectedDate).format('DD.MM.YYYY')));
+  }
   return (
     <StyledContainer>
       <StyledRow>
         <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
-          {data.map((elm, index) => (
+          {startOfWeeksArr().map((elm, index) => (
             <AccordionContainer key={index}>
               <Number>{index + 1}.</Number>
               <ReservationAccordion
@@ -33,16 +59,20 @@ const SessionHistory = () => {
                   title="SPOR ALANI"
                   defaultOpen
                 >
-                  <ApproveCardContainer>
-                    <ApproveCard
-                      type="history"
-                      date="18:00 - 19:00"
-                      customerName="Ahmet Mehmet"
-                      onApprove={() => {
-                        setOpenRateModal(true);
-                      }}
-                    />
-                  </ApproveCardContainer>
+                  {items?.appointment?.[
+                    moment(selectedDate).format('DD.MM.YYYY')
+                  ]?.gym?.map((elm, i) => (
+                    <ApproveCardContainer key={i}>
+                      <ApproveCard
+                        type="history"
+                        date="18:00 - 19:00"
+                        customerName="Ahmet Mehmet"
+                        onApprove={() => {
+                          setOpenRateModal(true);
+                        }}
+                      />
+                    </ApproveCardContainer>
+                  ))}
                 </ReservationAccordion>
                 <ReservationAccordion
                   miniIcon={<Svg.SessionType.Park />}
@@ -65,7 +95,20 @@ const SessionHistory = () => {
           lg={4}
         >
           <DateContainer>
-            <DatePicker minDate={new Date()} inline selected={null} />
+            <DatePicker
+              selected={selectedDate}
+              onSelect={(date) => {
+                setSelectedDate(date);
+              }}
+              selectsRange
+              inline
+              highlightDates={[
+                {
+                  'react-datepicker__day--highlighted': startOfWeeksArr(),
+                },
+              ]}
+              minDate={new Date()}
+            />{' '}
           </DateContainer>
         </StyledCol>
       </StyledRow>

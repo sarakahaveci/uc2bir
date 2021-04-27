@@ -103,11 +103,11 @@ export default function PaymentCard({ type, dateOption }) {
       slot: reservation?.data?.slot,
     };
 
-    dispatch(sendReservation(removeEmpty(json), () => {}));
+    dispatch(sendReservation('pt', removeEmpty(json), () => {}));
   }
   function sendPaymentDT() {
     var json = {
-      pt_id: reservation?.data?.dt_id,
+      dt_id: reservation?.data?.dt_id,
       payment_type: reservation?.data?.payment_type,
       is_contracts_accepted: true,
       session: reservation?.data?.session,
@@ -122,7 +122,7 @@ export default function PaymentCard({ type, dateOption }) {
       slot: reservation?.data?.slot,
     };
 
-    dispatch(sendReservation(removeEmpty(json), () => {}));
+    dispatch(sendReservation('dt', removeEmpty(json), () => {}));
   }
   function handleHourClick(item) {
     var slot = reservation?.data?.slot;

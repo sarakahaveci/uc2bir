@@ -35,7 +35,7 @@ export default (state = initialState, action) => {
         [action.payload.status]: { ...action.payload },
       };
     /////
-    case PT_RESERVATION_FUNC:
+    case PT_RESERVATION_FUNC_REQUEST:
       return {
         ...state,
         isLoading: true,

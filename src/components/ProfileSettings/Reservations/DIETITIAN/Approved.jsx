@@ -2,25 +2,66 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import ReservationAccordion from '../ReservationAccordion';
 import styled from 'styled-components/macro';
-import { ApproveCard, DatePicker, RejectModal, Svg } from 'components';
+import {
+  ApproveCard,
+  DatePicker,
+  RejectModal,
+  CancellationModal,
+  Svg,
+} from 'components';
 import { device } from 'utils';
-const Approved = () => {
-  const [IsSmallScreen, setIsSmallScreen] = useState(false);
-  const [openReject, setOpenReject] = useState(false);
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  getDtApproved,
+  getDtReservationDetail,
+  DtApproveCancelStepOne,
+  DtApproveCancelStepTwo,
+} from 'actions';
+import moment from 'moment';
 
+const Approved = () => {
+  const dispatch = useDispatch();
+  const items = useSelector(
+    (state) => state.professionalReservation?.dtReservation?.approved
+  );
+  const funcStatus = useSelector(
+    (state) => state.professionalReservation?.dtReservation?.funcStatus
+  );
+  const [IsSmallScreen, setIsSmallScreen] = useState(false);
+  const [openCancellation, setOpenCancellation] = useState(undefined);
+
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const startOfWeeksArr = () => {
+    if (items?.date) {
+      return Object.keys(items?.date).map(
+        (date) => new Date(moment(date, 'DD.MM.YYYY').toDate())
+      );
+    } else {
+      return [];
+    }
+  };
   useEffect(() => {
     if (window.innerWidth <= 760) {
       setIsSmallScreen(true);
     } else {
       setIsSmallScreen(false);
     }
+    setSelectedDate(new Date());
+    dispatch(getDtApproved());
   }, []);
-  let data = ['dsd', 'ds'];
+  useEffect(() => {
+    if (selectedDate) {
+      dispatch(getDtApproved(moment(selectedDate).format('DD.MM.YYYY')));
+    }
+  }, [selectedDate]);
+  function getSelectedDate() {
+    dispatch(getDtApproved(moment(selectedDate).format('DD.MM.YYYY')));
+  }
   return (
     <StyledContainer>
       <StyledRow>
         <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
-          {data.map((elm, index) => (
+          {startOfWeeksArr().map((elm, index) => (
             <AccordionContainer key={index}>
               <Number>{index + 1}.</Number>
               <ReservationAccordion
@@ -30,29 +71,46 @@ const Approved = () => {
               >
                 <ReservationAccordion
                   miniIcon={<Svg.SessionType.Gym />}
-                  title="SPOR ALANI"
+                  title="Klinik"
                   defaultOpen
                 >
-                  <ApproveCardContainer>
-                    <ApproveCard
-                      date={'18:00 - 19:00'}
-                      type="approve"
-                      customerName="Ahmet Mehmet"
-                      onApprove={() => {}}
-                      onReject={() => {
-                        setOpenReject(true);
-                      }}
-                    />
-                  </ApproveCardContainer>
+                  {items?.appointment?.[
+                    moment(selectedDate).format('DD.MM.YYYY')
+                  ]?.clinic?.map((elm, i) => (
+                    <ApproveCardContainer key={i}>
+                      <ApproveCard
+                        date={'18:00 - 19:00'}
+                        type="approve"
+                        customerName="Ahmet Mehmet"
+                        onApprove={() => {}}
+                        onReject={() => {
+                          setOpenCancellation(elm?.id);
+                        }}
+                      />
+                    </ApproveCardContainer>
+                  ))}
                 </ReservationAccordion>
-                <ReservationAccordion
-                  miniIcon={<Svg.SessionType.Park />}
-                  title="EV / PARK"
-                ></ReservationAccordion>
+
                 <ReservationAccordion
                   miniIcon={<Svg.SessionType.Online />}
                   title="ONLİNE"
-                ></ReservationAccordion>
+                >
+                  {items?.appointment?.[
+                    moment(selectedDate).format('DD.MM.YYYY')
+                  ]?.online?.map((elm, i) => (
+                    <ApproveCardContainer key={i}>
+                      <ApproveCard
+                        date={'18:00 - 19:00'}
+                        type="approve"
+                        customerName="Ahmet Mehmet"
+                        onApprove={() => {}}
+                        onReject={() => {
+                          setOpenCancellation(elm?.id);
+                        }}
+                      />
+                    </ApproveCardContainer>
+                  ))}
+                </ReservationAccordion>
               </ReservationAccordion>
             </AccordionContainer>
           ))}
@@ -66,21 +124,44 @@ const Approved = () => {
           lg={4}
         >
           <DateContainer>
-            <DatePicker minDate={new Date()} inline selected={null} />
+            <DatePicker
+              selected={selectedDate}
+              onSelect={(date) => {
+                setSelectedDate(date);
+              }}
+              selectsRange
+              inline
+              highlightDates={[
+                {
+                  'react-datepicker__day--highlighted': startOfWeeksArr(),
+                },
+              ]}
+              minDate={new Date()}
+            />{' '}
           </DateContainer>
         </StyledCol>
       </StyledRow>
-      <RejectModal
-        headerText="Rezervasyon saatinize 3 saatten az kaldı."
-        descText="Rezervasyon saatinize 3 saatten az kaldı. İptal etmeniz durumunda 100 TL ceza olarak nakit bakiyenize yansıtılacaktır."
-        rejectLabel="RANDEVUMU İPTAL ET"
-        cancelLabel="VAZGEÇ"
-        open={openReject}
-        reject={() => {
-          setOpenReject(false);
+      <CancellationModal
+        headerText="Randevunuzu iptal etmek istediğinize
+        emin misiniz?"
+        descText={`Seçili oluşturulan rezervasyonunuz iptal edilecektir. Lütfen iptal koşulları’nı okuduğunuzdan emin olun.`}
+        cancelLabel="RANDEVUMU İPTAL ET"
+        cancelProcessLabel="Vazgeç"
+        open={openCancellation}
+        cancelStepOne={(id) => {
+          dispatch(DtApproveCancelStepOne(id));
         }}
-        cancel={() => {
-          setOpenReject(false);
+        stepTwoData={funcStatus}
+        cancelStepTwo={(id) => {
+          dispatch(
+            DtApproveCancelStepTwo(id, () => {
+              getSelectedDate();
+            })
+          );
+          setOpenCancellation(undefined);
+        }}
+        cancelProcess={() => {
+          setOpenCancellation(undefined);
         }}
       />
     </StyledContainer>

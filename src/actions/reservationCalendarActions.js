@@ -7,13 +7,9 @@ import {
   GET_AREA_FOR_PT,
 } from '../constants';
 import { toast } from 'react-toastify';
-export const getAreaForPT = (
-  id,
-  date,
-  hour,
-  branch_id,
-  session,
-) => async (dispatch) => {
+export const getAreaForPT = (id, date, hour, branch_id, session) => async (
+  dispatch
+) => {
   let url = `https://gateway.321.4alabs.com/appointment/pt-calendar/step-2/${id}`;
   let extras = '?';
 
@@ -59,8 +55,30 @@ export const getPtReservationCalendar = (
     },
   });
 };
-export const sendReservation = (body, successCallback) => async (dispatch) => {
-  const url = `/appointment/pt-calendar`;
+export const getDtReservationCalendar = (id, date, hour, session) => async (
+  dispatch
+) => {
+  let url = `https://gateway.321.4alabs.com/appointment/dt-calendar/step-1/${id}`;
+  let extras = '?';
+
+  if (date) extras += `date=${date}&`;
+  if (hour) extras += `hour=${hour}&`;
+  if (session) extras += `session=${session}&`;
+  url += extras;
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'GET',
+      url,
+      label: GET_PT_RESERVATION_CALENDAR,
+      transformData: (data) => data.data,
+    },
+  });
+};
+export const sendReservation = (type, body, successCallback) => async (
+  dispatch
+) => {
+  const url = `/appointment/${type}-calendar`;
 
   await dispatch({
     type: HTTP_REQUEST,

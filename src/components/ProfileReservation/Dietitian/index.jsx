@@ -14,7 +14,7 @@ import { Modal } from 'react-bootstrap';
 import {
   setReservation,
   getDietitianClinics,
-  getPtReservationCalendar,
+  getDtReservationCalendar,
   getStaticPage,
 } from 'actions';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
@@ -55,7 +55,7 @@ const Dietitian = () => {
   useEffect(() => {
     if (reservation?.data?.session && reservation?.data?.date) {
       dispatch(
-        getPtReservationCalendar(
+        getDtReservationCalendar(
           userInfo.id,
           reservation.data?.date,
           null,
@@ -68,7 +68,7 @@ const Dietitian = () => {
     if (reservation?.data.session == 'clinic') {
       return (
         <GymWrapper disable={reservation?.data?.slot?.length > 0}>
-          <Text color="#9B9B9B">{'Spor Alanı Seçiniz:'}</Text>
+          <Text color="#9B9B9B">{'Klinik Seçiniz:'}</Text>
           <RadioGroup
             row
             aria-label="workArea"

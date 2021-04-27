@@ -10,24 +10,50 @@ import {
   Svg,
 } from 'components';
 import { device } from 'utils';
+import { useSelector, useDispatch } from 'react-redux';
+import { getDtRejects } from 'actions';
+import moment from 'moment';
+
 const Rejecteds = () => {
+  const dispatch = useDispatch();
+  const items = useSelector(
+    (state) => state.professionalReservation?.dtReservation?.rejecteds
+  );
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
   const [openApprove, setOpenApprove] = useState(false);
   const [openReject, setOpenReject] = useState(false);
-
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const startOfWeeksArr = () => {
+    if (items?.date) {
+      return Object.keys(items?.date).map(
+        (date) => new Date(moment(date, 'DD.MM.YYYY').toDate())
+      );
+    } else {
+      return [];
+    }
+  };
   useEffect(() => {
     if (window.innerWidth <= 760) {
       setIsSmallScreen(true);
     } else {
       setIsSmallScreen(false);
     }
+    setSelectedDate(new Date());
+    dispatch(getDtRejects());
   }, []);
-  let data = ['dsd', 'ds'];
+  useEffect(() => {
+    if (selectedDate) {
+      getSelectedDate();
+    }
+  }, [selectedDate]);
+  function getSelectedDate() {
+    dispatch(getDtRejects(moment(selectedDate).format('DD.MM.YYYY')));
+  }
   return (
     <StyledContainer>
       <StyledRow>
         <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
-          {data.map((elm, index) => (
+          {startOfWeeksArr().map((elm, index) => (
             <AccordionContainer key={index}>
               <Number>{index + 1}.</Number>
               <ReservationAccordion
@@ -37,32 +63,51 @@ const Rejecteds = () => {
               >
                 <ReservationAccordion
                   miniIcon={<Svg.SessionType.Gym />}
-                  title="SPOR ALANI"
+                  title="Klinik"
                   defaultOpen
                 >
-                  <ApproveCardContainer>
-                    <ApproveCard
-                      type="rejecteds"
-                      date="18:00 - 19:00"
-                      customerName="Ahmet Mehmet"
-                      onApprove={() => {
-                        setOpenApprove(true);
-                      }}
-                      onReject={() => {
-                        setOpenReject(true);
-                      }}
-                    />
-                  </ApproveCardContainer>
+                  {items?.appointment?.[
+                    moment(selectedDate).format('DD.MM.YYYY')
+                  ]?.clinic?.map((elm, i) => (
+                    <ApproveCardContainer key={i}>
+                      <ApproveCard
+                        type="rejecteds"
+                        date={elm?.hour}
+                        customerName={elm?.student}
+                        onApprove={() => {
+                          setOpenApprove(true);
+                        }}
+                        onReject={() => {
+                          setOpenReject(true);
+                        }}
+                      />
+                    </ApproveCardContainer>
+                  ))}
                   <ApproveCard type="rejecteds" />
                 </ReservationAccordion>
-                <ReservationAccordion
-                  miniIcon={<Svg.SessionType.Park />}
-                  title="EV / PARK"
-                ></ReservationAccordion>
+
                 <ReservationAccordion
                   miniIcon={<Svg.SessionType.Online />}
                   title="ONLİNE"
-                ></ReservationAccordion>
+                >
+                  {items?.appointment?.[
+                    moment(selectedDate).format('DD.MM.YYYY')
+                  ]?.online?.map((elm, i) => (
+                    <ApproveCardContainer key={i}>
+                      <ApproveCard
+                        type="rejecteds"
+                        date={elm?.hour}
+                        customerName={elm?.student}
+                        onApprove={() => {
+                          setOpenApprove(true);
+                        }}
+                        onReject={() => {
+                          setOpenReject(true);
+                        }}
+                      />
+                    </ApproveCardContainer>
+                  ))}
+                </ReservationAccordion>
               </ReservationAccordion>
             </AccordionContainer>
           ))}
@@ -76,7 +121,20 @@ const Rejecteds = () => {
           lg={4}
         >
           <DateContainer>
-            <DatePicker minDate={new Date()} inline selected={null} />
+            <DatePicker
+              selected={selectedDate}
+              onSelect={(date) => {
+                setSelectedDate(date);
+              }}
+              selectsRange
+              inline
+              highlightDates={[
+                {
+                  'react-datepicker__day--highlighted': startOfWeeksArr(),
+                },
+              ]}
+              minDate={new Date()}
+            />{' '}
           </DateContainer>
         </StyledCol>
       </StyledRow>
