@@ -7,6 +7,7 @@ import {
 const initialState = {
   working_days: [],
   branches: [],
+  slots:[],
   isLoading: false,
   error: null,
 };
@@ -32,6 +33,7 @@ export default (state = initialState, action) => {
         isLoading: false,
         working_days: action.payload.working_days,
         branches: action.payload.branches,
+        slots: action.payload.slots,
       };
 
     default:

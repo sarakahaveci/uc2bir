@@ -125,7 +125,7 @@ const SessionType = () => {
             </IconGroup>
           </Col>
           <Col lg={bannerActive ? 7 : 12}>
-            <Text fontSize="10pt" mb="10px"></Text>
+            <Text fontSize='10pt' mb='10px'/>
             <Pt icons={icons} setBannerActive={setBannerActive} />
           </Col>
         </>
