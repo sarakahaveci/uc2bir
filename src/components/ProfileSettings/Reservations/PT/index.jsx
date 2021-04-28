@@ -78,7 +78,7 @@ const PT = () => {
                   setOpenCreateCalender(true);
                 }}
               >
-                <Svg.PlusIcon />
+                <Svg.BluePlusIcon />
                 <ButtonText>Takvim Oluştur</ButtonText>
               </DateCreateButton>
             }

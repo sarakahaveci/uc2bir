@@ -21,6 +21,7 @@ const ProfileBanner = ({
   categories = [],
   about,
   setPage = () => {},
+  isUserDetail=false
 }) => {
 
   const [isFavorited, setIsFavorited] = useState(info.has_favorite === 1);
@@ -53,25 +54,30 @@ const ProfileBanner = ({
                 ) : (
                   <Heart onClick={favoriteClickHandler} showHeartBg={true} />
                 ))}
+              {isUserDetail && <Link to="/myprofile/settings/profile"> <Setting onClick={favoriteClickHandler} showHeartBg={true} /> </Link>}
 
             </span>
 
-            <Stars rating={info.stars} position="bottom" />
+            {!isUserDetail&&<Stars rating={info.stars} position="bottom" />}
 
-            <CardFooter>
-              <Comment to={info.comment} className="list">
-                <Svg.Comment />
-              </Comment>
-              <Button
-                onClick={() => {
-                  dispatch(setReservation({ isSelected: false }));
-                  setPage('Reservation');
-                }}
-                text="Rezervasyon Yap"
-                className="blue list"
-                style={{ fontSize: '9pt' }}
-              />
-            </CardFooter>
+            {!isUserDetail&&
+              <CardFooter>
+                <Comment to={info.comment} className="list">
+                  <Svg.Comment />
+                </Comment>
+                <Button
+                  onClick={() => {
+                    dispatch(setReservation({ isSelected: false }));
+                    setPage('Reservation');
+                  }}
+                  text="Rezervasyon Yap"
+                  className="blue list"
+                  style={{ fontSize: '9pt' }}
+                />
+              </CardFooter>}
+
+
+
           </Card>
         </Cols>
 
@@ -145,6 +151,10 @@ const heart = css`
 `;
 
 const ActiveHeart = styled(Svg.ActiveHeartIcon)`
+  ${heart}
+`;
+
+const Setting = styled(Svg.Setting)`
   ${heart}
 `;
 

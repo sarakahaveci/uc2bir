@@ -30,6 +30,7 @@ import Message from 'components/ProfileSettings/Message';
 import RegularNotifications from 'components/ProfileSettings/RegularNotifications';
 import GroupSlot from 'components/ProfileSettings/Reservations/GroupSlot/GroupSlot';
 import Reservations from 'components/ProfileSettings/Reservations';
+import ProfileDetail from 'components/ProfileSettings/ProfileDetail/ProfileDetail';
 
 const regularUserTabs = [
   {
@@ -194,8 +195,12 @@ const dietitianTabs = [
 
 const trainerTabs = [
   {
-    eventKey: 'profile',
+    eventKey: 'profileDetail',
     title: 'Profilim',
+    component: <ProfileDetail />,
+  },
+  {
+    eventKey: 'profile',
     component: <ProfileSettingsList />,
   },
   {
@@ -287,7 +292,7 @@ export default function UserProfile({ match }) {
         <div className="tab-wrapper">
           <Tab
             tabData={tabData}
-            defaultActiveKey={match?.params?.activeTabKey || 'profile'}
+            defaultActiveKey={match?.params?.activeTabKey || 'profileDetail'}
             baseUrl="/myprofile/settings/"
           />
         </div>
