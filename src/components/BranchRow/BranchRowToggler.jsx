@@ -2,25 +2,44 @@ import React from 'react';
 import styled, { css } from 'styled-components/macro';
 
 import { Svg, AwesomeIcon, Box } from 'components';
+import { DIETITIAN } from '../../constants';
+import moment from 'moment';
 
-const BranchRowToggler = ({ isActive, data }) => {
+const BranchRowToggler = ({ isActive, data, typeId }) => {
   return (
     <StyledCardHeader isActive={isActive}>
-      <StyledRow center className="first">
-        {data.icon && <Avatar src={data.icon} alt={data.name} />}
-        <Title>{data.name}</Title>
-      </StyledRow>
+      {typeId===DIETITIAN?(
+        <StyledRow center className="first">
+          <Title>{moment(data).format('DD MMMM dddd')}</Title>
+        </StyledRow>):(
+        <StyledRow center className="first">
+          {data.icon && <Avatar src={data.icon} alt={data.name} />}
+          <Title>{data.name}</Title>
+        </StyledRow>
+      )}
 
-      <Box row>
-        <RightCell>{data.classification} Seviye</RightCell>
-        <RightCell className="mid">
-          <span>{data.price}</span>
-          <AwesomeIcon.Tl />
-        </RightCell>
-        <RightCell className="last">
-          <Svg.ArrowRightIcon />
-        </RightCell>
-      </Box>
+
+      {typeId!==DIETITIAN?(
+        <Box row>
+          <RightCell>{data.classification} Seviye</RightCell>
+          <RightCell className="mid">
+            <span>{data.price}</span>
+            <AwesomeIcon.Tl />
+          </RightCell>
+          <RightCell className="last">
+            <Svg.ArrowRightIcon />
+          </RightCell>
+        </Box>
+      ):(
+        <Box row>
+          <RightCell className="last">
+            <Svg.ArrowRightIcon />
+          </RightCell>
+        </Box>
+      )
+
+      }
+
     </StyledCardHeader>
   );
 };

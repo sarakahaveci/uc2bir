@@ -13,6 +13,7 @@ import {
   setReservation,
 } from '../../../actions';
 import moment from 'moment';
+import { DIETITIAN } from '../../../constants';
 
 export default function MyCalendar({ userId, typeId, setPage = () => {} }) {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ export default function MyCalendar({ userId, typeId, setPage = () => {} }) {
   const [selectedHour, setSelectedHour] = useState();
   const [selectedBranch, setSelectedBranch] = useState();
 
-  const { working_days: working_days, branches: branchList } = useSelector(
+  const { working_days: working_days, branches: branchList, slots:slots } = useSelector(
     (state) => state.userProfile.calendar
   );
 
@@ -56,11 +57,29 @@ export default function MyCalendar({ userId, typeId, setPage = () => {} }) {
 
       <Col lg={5}>
         <Accordion>
-          {branchList?.map((item, index) => (
+          {typeId===DIETITIAN ?(
+            <AccordionItemWrapper >
+              <Accordion.Item defaultOpen={true}>
+                <Accordion.Toggle>
+                  <BranchRowToggler data={startDate} typeId={typeId} />
+                </Accordion.Toggle>
+
+                <Accordion.Collapse>
+                  <MyCalendarCollapser
+                    data={slots}
+                    setSelectedHour={setSelectedHour}
+                    setSelectedBranch={setSelectedBranch}
+                    typeId={typeId}
+                  />
+                </Accordion.Collapse>
+              </Accordion.Item>
+            </AccordionItemWrapper>
+          ):
+          (branchList?.map((item, index) => (
             <AccordionItemWrapper key={index}>
               <Accordion.Item>
                 <Accordion.Toggle>
-                  <BranchRowToggler data={item} />
+                  <BranchRowToggler data={item} typeId={typeId}/>
                 </Accordion.Toggle>
 
                 <Accordion.Collapse>
@@ -68,11 +87,13 @@ export default function MyCalendar({ userId, typeId, setPage = () => {} }) {
                     data={item}
                     setSelectedHour={setSelectedHour}
                     setSelectedBranch={setSelectedBranch}
+                    typeId={typeId}
                   />
                 </Accordion.Collapse>
               </Accordion.Item>
             </AccordionItemWrapper>
-          ))}
+          )))}
+
         </Accordion>
         <BranchWrapper>
           {selectedHour && (
