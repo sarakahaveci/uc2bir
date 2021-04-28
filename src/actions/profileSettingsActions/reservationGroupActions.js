@@ -65,6 +65,39 @@ export const createGroupSlot = (slotObj, successCallback) => async (
     },
   });
 };
+export const dtCreateSeance = (successCallback) => async (
+  dispatch,
+  getState
+) => {
+  const url = '/user/package-seance';
+
+  const {
+    courseDetails,
+    seancePrice,
+    title,
+    seanceCount,
+    dtSessionSelection,
+  } = getState().profileSettings2.reservationGroupSlot;
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'POST',
+      transformData: (data) => data.data,
+      url,
+      body: {
+        price: +seancePrice,
+        quantity: seanceCount,
+        description: courseDetails,
+        title: title,
+        session_types: dtSessionSelection.map((item) => item.id),
+        image_id: 1,
+      },
+      callBack: successCallback,
+      label: CREATE_GROUP_SLOT,
+    },
+  });
+};
 
 export const setGroupSelectionData = (name, value) => ({
   type: SET_SELECTION_DATA,
