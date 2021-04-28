@@ -2,17 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import ReservationAccordion from '../ReservationAccordion';
 import styled from 'styled-components/macro';
-import { ApproveCard, DatePicker, CancellationModal, Svg } from 'components';
+import {
+  ApproveCard,
+  DatePicker,
+  CancellationModal,
+  Svg,
+  ReservationDetail,
+} from 'components';
 import { device } from 'utils';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   getDtApproved,
   DtApproveCancelStepOne,
   DtApproveCancelStepTwo,
+  getDtReservationDetail,
 } from 'actions';
 import moment from 'moment';
 
-const Approved = () => {
+const Approved = ({ setSubPage = () => {} }) => {
   const dispatch = useDispatch();
   const items = useSelector(
     (state) => state.professionalReservation?.dtReservation?.approved
@@ -50,6 +57,17 @@ const Approved = () => {
   function getSelectedDate() {
     dispatch(getDtApproved(moment(selectedDate).format('DD.MM.YYYY')));
   }
+  function openReservationDetail(id) {
+    dispatch(getDtReservationDetail(id));
+    setSubPage(
+      <ReservationDetail
+        type="dt"
+        goBack={() => {
+          setSubPage();
+        }}
+      />
+    );
+  }
   return (
     <StyledContainer>
       <StyledRow>
@@ -75,7 +93,9 @@ const Approved = () => {
                         date={'18:00 - 19:00'}
                         type="approve"
                         customerName="Ahmet Mehmet"
-                        onApprove={() => {}}
+                        onApprove={() => {
+                          openReservationDetail(elm?.id);
+                        }}
                         onReject={() => {
                           setOpenCancellation(elm?.id);
                         }}
@@ -96,7 +116,9 @@ const Approved = () => {
                         date={'18:00 - 19:00'}
                         type="approve"
                         customerName="Ahmet Mehmet"
-                        onApprove={() => {}}
+                        onApprove={() => {
+                          openReservationDetail(elm?.id);
+                        }}
                         onReject={() => {
                           setOpenCancellation(elm?.id);
                         }}
