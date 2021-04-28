@@ -97,11 +97,6 @@ export default function Profile({ match }) {
       component: <ProfileCertificate userId={match?.params?.id} />,
     },
     {
-      eventKey: 'calendar',
-      title: 'TAKVİM',
-      component: <MyCalendar userId={match?.params?.id} typeId={userInfo?.type_id} setPage={setPage}/>,
-    },
-    {
       eventKey: 'workplace',
       title: 'SINIFLAR',
       component: <Classes userId={match?.params?.id} />,

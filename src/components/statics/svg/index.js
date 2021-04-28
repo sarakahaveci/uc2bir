@@ -91,6 +91,7 @@ import Difficulty from './images/difficulty.svg';
 import Break from './images/break.svg';
 import AddClass from './images/add-class.svg';
 import WaveBackground from './images/wave-background.svg';
+import Setting from './images/settings.svg';
 
 import AthleticSportIcon from 'assets/sports-type-icons/atletic.svg';
 import FitnessSportIcon from 'assets/sports-type-icons/fitness.svg';
@@ -149,6 +150,7 @@ const Svg = {
   Wallet: (props) => <ReactSVG {...props} src={Wallet} />,
   CommentBlack: (props) => <ReactSVG {...props} src={CommentBlack} />,
   Closed: (props) => <ReactSVG {...props} src={Closed} />,
+  Setting: (props) => <ReactSVG {...props} src={Setting} />,
   PtHome: (props) => <ReactSVG {...props} src={PtHome} />,
   PtBranch: (props) => <ReactSVG {...props} src={PtBranch} />,
   Expert: (props) => <ReactSVG {...props} src={Expert} />,
@@ -197,7 +199,7 @@ const Svg = {
   Minus: (props) => <ReactSVG {...props} src={Minus} />,
   CalendarIcon: (props) => <ReactSVG {...props} src={CalenderIcon} />,
   MinusIcon: (props) => <ReactSVG {...props} src={MinusIcon} />,
-  PlusIcon: (props) => <ReactSVG {...props} src={PlusIcon} />,
+  BluePlusIcon: (props) => <ReactSVG {...props} src={PlusIcon} />,
 
   Weight: (props) => <ReactSVG {...props} src={Weight} />,
   Set: (props) => <ReactSVG {...props} src={Set} />,
