@@ -66,6 +66,8 @@ const Calendar = () => {
     (state) => state.profileSettings2.profileBranches.myBranches
   );
 
+  const { clinics } = useSelector((state) => state.userProfile.dietitianClinic);
+
   const {
     ptHomePlace: { data: ptHomePlace },
     classifications: { data: classifications },
