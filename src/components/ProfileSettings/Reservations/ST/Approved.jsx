@@ -11,7 +11,7 @@ import {
 } from 'components';
 import { useSelector, useDispatch } from 'react-redux';
 import { device } from 'utils';
-import { getPtApproved, getPtReservationDetail } from 'actions';
+import { getUserApproved, getUserReservationDetail } from 'actions';
 import moment from 'moment';
 
 import { PtApproveCancelStepOne, PtApproveCancelStepTwo } from 'actions';
@@ -22,10 +22,10 @@ const Approved = ({ setSubPage = () => {} }) => {
   const dispatch = useDispatch();
 
   const items = useSelector(
-    (state) => state.professionalReservation?.ptReservation?.approved
+    (state) => state.professionalReservation?.userReservation?.approved
   );
   const funcStatus = useSelector(
-    (state) => state.professionalReservation?.ptReservation?.funcStatus
+    (state) => state.professionalReservation?.userReservation?.funcStatus
   );
   const startOfWeeksArr = () => {
     if (items?.date) {
@@ -42,18 +42,18 @@ const Approved = ({ setSubPage = () => {} }) => {
     } else {
       setIsSmallScreen(false);
     }
-    dispatch(getPtApproved());
+    dispatch(getUserApproved());
   }, []);
   useEffect(() => {
     if (selectedDate) {
-      dispatch(getPtApproved(moment(selectedDate).format('DD.MM.YYYY')));
+      dispatch(getUserApproved(moment(selectedDate).format('DD.MM.YYYY')));
     }
   }, [selectedDate]);
   function getSelectedDate() {
-    dispatch(getPtApproved(moment(selectedDate).format('DD.MM.YYYY')));
+    dispatch(getUserApproved(moment(selectedDate).format('DD.MM.YYYY')));
   }
   function openReservationDetail(id) {
-    dispatch(getPtReservationDetail(id));
+    dispatch(getUserReservationDetail(id));
     setSubPage(
       <ReservationDetail
         type="st"

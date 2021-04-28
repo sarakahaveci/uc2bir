@@ -10,72 +10,95 @@ import {
   Svg,
 } from 'components';
 import { device } from 'utils';
+import { getPtAwaitings, PtAwaitingApprove, PtAwaitingReject } from 'actions';
+import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
 
 const Awaitings = () => {
+  const dispatch = useDispatch();
+  const items = useSelector(
+    (state) => state.professionalReservation?.ptReservation?.awaitings
+  );
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
-  const [openApprove, setOpenApprove] = useState(false);
-  const [openReject, setOpenReject] = useState(false);
-
-  const startOfWeeksArr = [];
+  const [openApprove, setOpenApprove] = useState(undefined);
+  const [openReject, setOpenReject] = useState(undefined);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const startOfWeeksArr = () => {
+    if (items?.date) {
+      return Object.keys(items?.date).map(
+        (date) => new Date(moment(date, 'DD.MM.YYYY').toDate())
+      );
+    } else {
+      return [];
+    }
+  };
   useEffect(() => {
     if (window.innerWidth <= 760) {
       setIsSmallScreen(true);
     } else {
       setIsSmallScreen(false);
     }
+    setSelectedDate(new Date());
+    dispatch(getPtAwaitings());
   }, []);
-  let data = ['dsd', 'ds'];
+  useEffect(() => {
+    if (selectedDate) {
+      dispatch(getPtAwaitings(moment(selectedDate).format('DD.MM.YYYY')));
+    }
+  }, [selectedDate]);
+  function getSelectedDate() {
+    dispatch(getPtAwaitings(moment(selectedDate).format('DD.MM.YYYY')));
+  }
   return (
     <StyledContainer>
       <StyledRow>
         <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
-          {data.map((elm, index) => (
+          {startOfWeeksArr().map((elm, index) => (
             <AccordionContainer key={index}>
               <Number>{index + 1}.</Number>
               <ReservationAccordion
                 defaultOpen={index == 0 ? true : false}
                 parent
-                title="24 OCAK ÇARŞAMBA"
+                title={moment(elm).format('DD.MM.YYYY')}
               >
                 <ReservationAccordion
                   miniIcon={<Svg.SessionType.Gym />}
                   title="SPOR ALANI"
                   defaultOpen
                 >
-                  <ApproveCardContainer>
-                    <ApproveCard
-                      date="18:00 - 19:00"
-                      customerName="Ahmet Mehmet"
-                      optionalField_1="FITNESS" //Sport Type || NULL
-                      optionalField_2={{
-                        label: 'EĞİTMEN',
-                        value: 'NAZLI GÜMÜŞ',
-                      }}
-                      optionalField_3={{
-                        label: 'SINIF',
-                        value: 'B SINIFI',
-                        value2: '3/7 KONTENJAN',
-                      }}
-                      onApprove={() => {
-                        setOpenApprove(true);
-                      }}
-                      onReject={() => {
-                        setOpenReject(true);
-                      }}
-                    />
-                  </ApproveCardContainer>
+                  {items?.appointment?.[
+                    moment(selectedDate).format('DD.MM.YYYY')
+                  ]?.gym?.map((elm, i) => (
+                    <ApproveCardContainer key={i}>
+                      <ApproveCard
+                        date="18:00 - 19:00"
+                        customerName="Ahmet Mehmet"
+                        optionalField_1="FITNESS" //Sport Type || NULL
+                        optionalField_2={{
+                          label: 'EĞİTMEN',
+                          value: 'NAZLI GÜMÜŞ',
+                        }}
+                        optionalField_3={{
+                          label: 'SINIF',
+                          value: 'B SINIFI',
+                          value2: '3/7 KONTENJAN',
+                        }}
+                        onApprove={() => {
+                          setOpenApprove(true);
+                        }}
+                        onReject={() => {
+                          setOpenReject(true);
+                        }}
+                      />
+                    </ApproveCardContainer>
+                  ))}
                 </ReservationAccordion>
-                <ReservationAccordion
-                  miniIcon={<Svg.SessionType.Park />}
-                  title="EV / PARK"
-                ></ReservationAccordion>
-                <ReservationAccordion
-                  miniIcon={<Svg.SessionType.Online />}
-                  title="ONLİNE"
-                ></ReservationAccordion>
               </ReservationAccordion>
             </AccordionContainer>
           ))}
+          {!(startOfWeeksArr().length > 0) && (
+            <text>Bu tarihe ilişkin veri bulunamadı</text>
+          )}
         </StyledCol>
         <StyledCol
           style={{
@@ -87,11 +110,15 @@ const Awaitings = () => {
         >
           <DateContainer>
             <DatePicker
+              selected={selectedDate}
+              onSelect={(date) => {
+                setSelectedDate(date);
+              }}
               selectsRange
               inline
               highlightDates={[
                 {
-                  'react-datepicker__day--highlighted': startOfWeeksArr,
+                  'react-datepicker__day--highlighted': startOfWeeksArr(),
                 },
               ]}
               minDate={new Date()}
@@ -105,20 +132,22 @@ const Awaitings = () => {
         cancelLabel="VAZGEÇ"
         rejectLabel="REDDET"
         open={openReject}
-        reject={() => {
-          setOpenReject(false);
+        reject={(id, status) => {
+          dispatch(PtAwaitingReject(id, status, getSelectedDate));
+          setOpenReject(undefined);
         }}
         cancel={() => {
-          setOpenReject(false);
+          setOpenReject(undefined);
         }}
       />
       <ApproveModal
         open={openApprove}
-        approve={() => {
-          setOpenApprove(false);
+        approve={(id) => {
+          setOpenApprove(undefined);
+          dispatch(PtAwaitingApprove(id, getSelectedDate));
         }}
         cancel={() => {
-          setOpenApprove(false);
+          setOpenApprove(undefined);
         }}
       />
     </StyledContainer>

@@ -92,8 +92,8 @@ const Approved = ({ setSubPage = () => {} }) => {
                           onApprove={() => {
                             openReservationDetail(elm?.id);
                           }}
-                          onReject={(id) => {
-                            setOpenCancellation(id);
+                          onReject={() => {
+                            setOpenCancellation(elm?.id);
                           }}
                         />
                       </ApproveCardContainer>

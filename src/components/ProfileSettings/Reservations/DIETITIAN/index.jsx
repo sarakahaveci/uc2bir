@@ -12,6 +12,7 @@ import ReservationTemplate from '../ReservationTemplate/ReservationTemplate';
 import ReservationCreatedTemplate from '../ReservationTemplate/ReservationCreatedTemplate';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTemplates } from '../../../../actions';
+import GroupSlot from '../GroupSlot/GroupSlot';
 const DIETITIAN = () => {
   const [tab, setTab] = useState('Awaitings');
   const [subPage, setSubPage] = useState();
@@ -41,7 +42,7 @@ const DIETITIAN = () => {
       content = <Calendar />;
       break;
     case 'Approved':
-      content = <Approved setSubPage={setSubPage} />;
+      content = <Approved />;
       break;
     case 'Rejecteds':
       content = <Rejecteds />;
@@ -103,6 +104,8 @@ const DIETITIAN = () => {
           );
         }}
         cancel={() => {
+          setSubPage(<GroupSlot setTabPage={setSubPage} />);
+
           setOpenCreateCalender(false);
         }}
       />

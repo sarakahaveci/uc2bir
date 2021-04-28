@@ -10,9 +10,9 @@ import styled from 'styled-components/macro';
 import { Tabbar, Svg, CreateCalenderModal } from 'components';
 import ReservationTemplate from '../ReservationTemplate/ReservationTemplate';
 import ReservationCreatedTemplate from '../ReservationTemplate/ReservationCreatedTemplate';
-import GroupSlot from '../GroupSlot/GroupSlot';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTemplates } from '../../../../actions';
+import GroupSlot from '../GroupSlot/GroupSlot';
 const GYM = () => {
   const [tab, setTab] = useState('Awaitings');
   const [subPage, setSubPage] = useState();
@@ -26,7 +26,6 @@ const GYM = () => {
   useEffect(() => {
     dispatch(getTemplates());
   }, []);
-
 
   useEffect(() => {
     getGeocode();
@@ -91,11 +90,20 @@ const GYM = () => {
         open={openCreateCalender}
         approve={() => {
           setOpenCreateCalender(false);
-          setSubPage(myTemplates.length >0 ? <ReservationCreatedTemplate setTab={setTab} setTabPage={setSubPage}/>:<ReservationTemplate />);
+          setSubPage(
+            myTemplates.length > 0 ? (
+              <ReservationCreatedTemplate
+                setTab={setTab}
+                setTabPage={setSubPage}
+              />
+            ) : (
+              <ReservationTemplate />
+            )
+          );
         }}
         cancel={() => {
           setOpenCreateCalender(false);
-          setSubPage(<GroupSlot setTabPage={setSubPage}/>);
+          setSubPage(<GroupSlot setTabPage={setSubPage} />);
         }}
       />
     </Container>

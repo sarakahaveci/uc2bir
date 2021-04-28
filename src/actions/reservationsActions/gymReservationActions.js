@@ -1,11 +1,11 @@
 import {
   HTTP_REQUEST,
-  GET_USER_RESERVATION_STATE_DATA,
-  USER_RESERVATION_FUNC,
+  GET_GYM_RESERVATION_STATE_DATA,
+  GYM_RESERVATION_FUNC,
 } from '../../constants';
 
-export const getUserAwaitings = (date) => async (dispatch) => {
-  let url = '/appointment/calendar/pending';
+export const getGymAwaitings = (date) => async (dispatch) => {
+  let url = '/appointment/bs-calendar/pending';
   let extras = '?';
   if (date) extras += `date=${date}&`;
   url += extras;
@@ -14,22 +14,22 @@ export const getUserAwaitings = (date) => async (dispatch) => {
     payload: {
       method: 'GET',
       url,
-      label: GET_USER_RESERVATION_STATE_DATA,
+      label: GET_GYM_RESERVATION_STATE_DATA,
       transformData: (data) => ((data.data.status = 'awaitings'), data.data),
     },
   });
 };
-export const UserAwaitingApprove = (id, successCallback = () => {}) => async (
+export const GymAwaitingApprove = (id, successCallback = () => {}) => async (
   dispatch
 ) => {
-  let url = `/appointment/calendar/update/${id}`;
+  let url = `/appointment/bs-calendar/update/${id}`;
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
       method: 'PATCH',
       body: { type: 'approve' },
       url,
-      label: USER_RESERVATION_FUNC,
+      label: GYM_RESERVATION_FUNC,
       callBack: () => {
         successCallback();
       },
@@ -37,19 +37,19 @@ export const UserAwaitingApprove = (id, successCallback = () => {}) => async (
     },
   });
 };
-export const UserAwaitingReject = (
+export const GymAwaitingReject = (
   id,
   status,
   successCallback = () => {}
 ) => async (dispatch) => {
-  let url = `/appointment/calendar/update/${id}`;
+  let url = `/appointment/bs-calendar/update/${id}`;
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
       method: 'PATCH',
       body: { type: 'reject', reject_status_id: status },
       url,
-      label: USER_RESERVATION_FUNC,
+      label: GYM_RESERVATION_FUNC,
       callBack: () => {
         successCallback();
       },
@@ -57,19 +57,19 @@ export const UserAwaitingReject = (
     },
   });
 };
-export const UserApproveCancelStepOne = (
+export const GymApproveCancelStepOne = (
   id,
   status,
   successCallback = () => {}
 ) => async (dispatch) => {
-  let url = `/appointment/calendar/update/${id}`;
+  let url = `/appointment/bs-calendar/update/${id}`;
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
       method: 'PATCH',
       body: { type: 'cancel' },
       url,
-      label: USER_RESERVATION_FUNC,
+      label: GYM_RESERVATION_FUNC,
       callBack: () => {
         successCallback();
       },
@@ -77,18 +77,18 @@ export const UserApproveCancelStepOne = (
     },
   });
 };
-export const UserApproveCancelStepTwo = (
+export const GymApproveCancelStepTwo = (
   id,
   successCallback = () => {}
 ) => async (dispatch) => {
-  let url = `/appointment/calendar/update/${id}`;
+  let url = `/appointment/bs-calendar/update/${id}`;
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
       method: 'PATCH',
       body: { type: 'cancel', accept_cancellation: true },
       url,
-      label: USER_RESERVATION_FUNC,
+      label: GYM_RESERVATION_FUNC,
       callBack: () => {
         successCallback();
       },
@@ -96,8 +96,8 @@ export const UserApproveCancelStepTwo = (
     },
   });
 };
-export const getUserRejects = (date) => async (dispatch) => {
-  let url = '/appointment/calendar/rejected';
+export const getGymRejects = (date) => async (dispatch) => {
+  let url = '/appointment/bs-calendar/rejected';
   let extras = '?';
   if (date) extras += `date=${date}&`;
   url += extras;
@@ -108,40 +108,43 @@ export const getUserRejects = (date) => async (dispatch) => {
     payload: {
       method: 'GET',
       url,
-      label: GET_USER_RESERVATION_STATE_DATA,
+      label: GET_GYM_RESERVATION_STATE_DATA,
       transformData: (data) => ((data.data.status = 'rejecteds'), data.data),
     },
   });
 };
-export const getUserApproved = () => async (dispatch) => {
-  let url = '/appointment/calendar/approved';
+export const getGymApproved = (date) => async (dispatch) => {
+  let url = '/appointment/bs-calendar/approved';
+  let extras = '?';
+  if (date) extras += `date=${date}&`;
+  url += extras;
   await dispatch({
     type: HTTP_REQUEST,
     status: 'approved',
     payload: {
       method: 'GET',
       url,
-      label: GET_USER_RESERVATION_STATE_DATA,
+      label: GET_GYM_RESERVATION_STATE_DATA,
       transformData: (data) => ((data.data.status = 'approved'), data.data),
     },
   });
 };
 
-export const getUserReservationDetail = (id) => async (dispatch) => {
-  let url = `/appointment/calendar/detail/${id}`;
+export const getGymReservationDetail = (id) => async (dispatch) => {
+  let url = `/appointment/bs-calendar/detail/${id}`;
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
       method: 'GET',
       url,
-      label: GET_USER_RESERVATION_STATE_DATA,
+      label: GET_GYM_RESERVATION_STATE_DATA,
       transformData: (data) => ((data.data.status = 'res_detail'), data.data),
     },
   });
 };
 
-export const getSessionHistorys = (date) => async (dispatch) => {
-  let url = '/appointment/calendar/completed';
+export const getGymSessionHistorys = (date) => async (dispatch) => {
+  let url = '/appointment/bs-calendar/completed';
   let extras = '?';
   if (date) extras += `date=${date}&`;
   url += extras;
@@ -150,7 +153,7 @@ export const getSessionHistorys = (date) => async (dispatch) => {
     payload: {
       method: 'GET',
       url,
-      label: GET_USER_RESERVATION_STATE_DATA,
+      label: GET_GYM_RESERVATION_STATE_DATA,
       transformData: (data) => (
         (data.data.status = 'session_historys'), data.data
       ),

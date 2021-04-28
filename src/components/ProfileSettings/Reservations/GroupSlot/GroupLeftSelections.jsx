@@ -8,8 +8,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { useSelector, useDispatch } from 'react-redux';
 
 import SelectPictureModal from './SelectPictureModal';
-import { Svg, Text, Box, CalendarCell, PlusButton } from 'components';
-import { PAIR_HOURS, PERSONAL_TRAINER } from 'constants/index';
+import { Svg, Text, Box, CalendarCell, PlusButton, Material } from 'components';
+import { PAIR_HOURS, PERSONAL_TRAINER, DIETITIAN } from 'constants/index';
 import {
   getMyBranches,
   getGymList,
@@ -32,6 +32,7 @@ export default function GroupLeftSelections() {
     locationSelection,
     classSelection,
     selectedHour,
+    dtSessionSelection,
   } = useSelector((state) => state.profileSettings2.reservationGroupSlot);
 
   const {
@@ -59,6 +60,9 @@ export default function GroupLeftSelections() {
 
       dispatch(getGymList());
     }
+    if (userTypeId === DIETITIAN) {
+      dispatch(getSessionTypes());
+    }
   }, []);
 
   useEffect(() => {
@@ -84,42 +88,66 @@ export default function GroupLeftSelections() {
         <Plus type="dark" />
       </Box>
 
+      {userTypeId !== DIETITIAN && (
+        <>
+          <Text color="gray10" fontWeight="600" fontSize="1.1rem" mt="20px">
+            Saat Seçiniz
+          </Text>
+
+          <Box row flexWrap="wrap">
+            {PAIR_HOURS.map((item) => (
+              <CalendarCell
+                key={item}
+                onClick={() => selectDataHandler('selectedHour', item)}
+                type="time"
+                size="large"
+                isActive={selectedHour === item}
+              >
+                {item}
+              </CalendarCell>
+            ))}
+          </Box>
+        </>
+      )}
+
+      {userTypeId !== DIETITIAN && (
+        <>
+          <FormControl className="w-100 mt-2">
+            <InputLabel>Branş Seçiniz</InputLabel>
+
+            <Select
+              value={branchSelection}
+              input={<Input />}
+              onChange={(e) =>
+                selectDataHandler('branchSelection', e.target.value)
+              }
+            >
+              {myBranches.map((branch) => (
+                <MenuItem key={branch.id} value={branch}>
+                  {branch.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </>
+      )}
+      {userTypeId === DIETITIAN && (
+        <>
+          <FormControl className="w-100 mt-2">
+            <Material.TextField
+              label="Başlık giriniz"
+              name="title"
+              required
+              //value={data.blog.title}
+              onChange={(e) => selectDataHandler('title', e.target.value)}
+            />
+          </FormControl>
+        </>
+      )}
       <Text color="gray10" fontWeight="600" fontSize="1.1rem" mt="20px">
-        Saat Seçiniz
-      </Text>
-
-      <Box row flexWrap="wrap">
-        {PAIR_HOURS.map((item) => (
-          <CalendarCell
-            key={item}
-            onClick={() => selectDataHandler('selectedHour', item)}
-            type="time"
-            size="large"
-            isActive={selectedHour === item}
-          >
-            {item}
-          </CalendarCell>
-        ))}
-      </Box>
-
-      <FormControl className="w-100 mt-2">
-        <InputLabel>Branş Seçiniz</InputLabel>
-
-        <Select
-          value={branchSelection}
-          input={<Input />}
-          onChange={(e) => selectDataHandler('branchSelection', e.target.value)}
-        >
-          {myBranches.map((branch) => (
-            <MenuItem key={branch.id} value={branch}>
-              {branch.name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-
-      <Text color="gray10" fontWeight="600" fontSize="1.1rem" mt="20px">
-        Ders İçeriği Giriniz
+        {userTypeId == DIETITIAN
+          ? 'Paket İçeriği Giriniz'
+          : 'Ders İçeriği Giriniz'}
       </Text>
 
       <TextArea
@@ -127,24 +155,45 @@ export default function GroupLeftSelections() {
         onBlur={(e) => selectDataHandler('courseDetails', e.target.value)}
       />
 
-      <FormControl className="w-100 mt-2">
-        <InputLabel>Oturum Türlerini Seçiniz</InputLabel>
+      {userTypeId !== DIETITIAN && (
+        <FormControl className="w-100 mt-2">
+          <InputLabel>Oturum Türlerini Seçiniz</InputLabel>
 
-        <Select
-          value={sessionSelection}
-          input={<Input />}
-          onChange={(e) =>
-            selectDataHandler('sessionSelection', e.target.value)
-          }
-        >
-          {sessionTypes?.data?.data?.map((sessionType) => (
-            <MenuItem key={sessionType.id} value={sessionType}>
-              {sessionType.title}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+          <Select
+            value={sessionSelection}
+            input={<Input />}
+            onChange={(e) =>
+              selectDataHandler('sessionSelection', e.target.value)
+            }
+          >
+            {sessionTypes?.data?.data?.map((sessionType) => (
+              <MenuItem key={sessionType.id} value={sessionType}>
+                {sessionType.title}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      )}
+      {userTypeId === DIETITIAN && (
+        <FormControl className="w-100 mt-2">
+          <InputLabel>Oturum Türlerini Seçiniz</InputLabel>
 
+          <Select
+            multiple
+            value={dtSessionSelection}
+            input={<Input />}
+            onChange={(e) =>
+              selectDataHandler('dtSessionSelection', e.target.value)
+            }
+          >
+            {sessionTypes?.data?.data?.map((sessionType) => (
+              <MenuItem key={sessionType.id} value={sessionType}>
+                {sessionType.title}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      )}
       {sessionSelection.type === 'gym' && (
         <FormControl className="w-100 mt-2">
           <InputLabel>Spor Alanı Seçiniz</InputLabel>
@@ -185,21 +234,27 @@ export default function GroupLeftSelections() {
         </FormControl>
       )}
 
-      <FormControl className="w-100 mt-2">
-        <InputLabel>Sınıf Seçiniz</InputLabel>
+      {userTypeId !== DIETITIAN && (
+        <>
+          <FormControl className="w-100 mt-2">
+            <InputLabel>Sınıf Seçiniz</InputLabel>
 
-        <Select
-          value={classSelection}
-          input={<Input />}
-          onChange={(e) => selectDataHandler('classSelection', e.target.value)}
-        >
-          {workPlaceCapacity?.map((item) => (
-            <MenuItem key={item.id} value={item}>
-              {item.name} {item.capacity} Kişilik
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+            <Select
+              value={classSelection}
+              input={<Input />}
+              onChange={(e) =>
+                selectDataHandler('classSelection', e.target.value)
+              }
+            >
+              {workPlaceCapacity?.map((item) => (
+                <MenuItem key={item.id} value={item}>
+                  {item.name} {item.capacity} Kişilik
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </>
+      )}
 
       <SelectPictureModal
         ref={selectPicModalRef}

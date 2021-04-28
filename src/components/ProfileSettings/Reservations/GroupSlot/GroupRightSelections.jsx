@@ -17,9 +17,14 @@ import {
   DatePicker,
 } from 'components';
 import ReservationAccordion from '../ReservationAccordion';
-import { createGroupSlot } from 'actions';
+import {
+  createGroupSlot,
+  setGroupSelectionData,
+  dtCreateSeance,
+} from 'actions';
 import { format } from 'date-fns';
 import tr from 'date-fns/locale/tr';
+import { DIETITIAN } from 'constants/index';
 
 export default function GroupRightSelections() {
   const {
@@ -32,6 +37,7 @@ export default function GroupRightSelections() {
   } = useSelector((state) => state.profileSettings2.reservationGroupSlot);
 
   const dispatch = useDispatch();
+  const { type_id: userTypeId } = useSelector((state) => state.auth.user);
 
   const [minCapacityCount, setMinCapacityCount] = useState(0);
   const [maxCapacityCount, setMaxCapacityCount] = useState(0);
@@ -39,185 +45,207 @@ export default function GroupRightSelections() {
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const reservationSuccessModalRef = useRef();
-
+  const selectDataHandler = (name, value) =>
+    dispatch(setGroupSelectionData(name, value));
   useEffect(() => {
     setMaxCapacityCount(classSelection.capacity || 0);
   }, [classSelection]);
 
   const createGroupSlotHandler = () => {
-    if (
-      +price > 50 ||
-      [
-        branchSelection,
-        sessionSelection,
-        locationSelection,
-        courseDetails,
-      ].some((item) => !item)
-    ) {
-      return;
-    }
+    switch (userTypeId) {
+      case DIETITIAN:
+        dispatch(
+          dtCreateSeance(
+            {
+              price,
+              date: selectedDate,
+              min_capacity: minCapacityCount,
+              max_capacity: maxCapacityCount,
+            },
+            () => reservationSuccessModalRef.current.openModal()
+          )
+        );
+        break;
 
-    dispatch(
-      createGroupSlot(
-        {
-          price,
-          date: selectedDate,
-          min_capacity: minCapacityCount,
-          max_capacity: maxCapacityCount,
-        },
-        () => reservationSuccessModalRef.current.openModal()
-      )
-    );
+      default:
+        if (
+          +price > 50 ||
+          [
+            branchSelection,
+            sessionSelection,
+            locationSelection,
+            courseDetails,
+          ].some((item) => !item)
+        ) {
+          return;
+        }
+
+        dispatch(
+          createGroupSlot(
+            {
+              price,
+              date: selectedDate,
+              min_capacity: minCapacityCount,
+              max_capacity: maxCapacityCount,
+            },
+            () => reservationSuccessModalRef.current.openModal()
+          )
+        );
+        break;
+    }
   };
 
   return (
     <RightWrapper>
       <RightBody>
-        <DatePicker
-          minDate={new Date()}
-          inline
-          selected={selectedDate}
-          onChange={(date) => setSelectedDate(date)}
-        />
-
-        <ReservationAccordion title="Rezervasyon Tarihi & Saati" mt="10px">
-          <CollapseItem>
-            <Span pr="10px" mr="10px" fontWeight="500" color="dark">
-              Ders
-            </Span>
-
-            <Box row alignItems="center">
-              <Svg.CalendarIcon />
-
-              <Span ml="10px" fontWeight="500" color="gray10">
-                {format(selectedDate, 'd MMMM iiii', { locale: tr })}
+        {userTypeId !== DIETITIAN && (
+          <DatePicker
+            minDate={new Date()}
+            inline
+            selected={selectedDate}
+            onChange={(date) => setSelectedDate(date)}
+          />
+        )}
+        {userTypeId !== DIETITIAN && (
+          <ReservationAccordion title="Rezervasyon Tarihi & Saati" mt="10px">
+            <CollapseItem>
+              <Span pr="10px" mr="10px" fontWeight="500" color="dark">
+                Ders
               </Span>
 
-              <Span color="blue" ml="5px" fontWeight="500">
-                Saat: {selectedHour}
-              </Span>
-            </Box>
-          </CollapseItem>
-        </ReservationAccordion>
+              <Box row alignItems="center">
+                <Svg.CalendarIcon />
 
-        <ReservationAccordion title="Seçili Spor Alanı Grup Ders Kontenjanları">
-          {classSelection ? (
-            <>
-              <CollapseItem>
-                <WorkPlaceInfoRow>
-                  <Svg.GuestIcon className="guest-icon" />
-
-                  <Span fontWeight="500" color="gray10">
-                    {classSelection.name}
-                  </Span>
-
-                  <Span color="blue" fontWeight="500" ml="8px">
-                    {classSelection.capacity} Kişilik
-                  </Span>
-                </WorkPlaceInfoRow>
-                <Span ml="auto" color="blue" fontWeight="500">
-                  {classSelection.price} TL
+                <Span ml="10px" fontWeight="500" color="gray10">
+                  {format(selectedDate, 'd MMMM iiii', { locale: tr })}
                 </Span>
-              </CollapseItem>
 
-              <Box row justifyContent="flex-end" color="red" fontWeight="500">
-                *Salon kiralama bedeli
+                <Span color="blue" ml="5px" fontWeight="500">
+                  Saat: {selectedHour}
+                </Span>
               </Box>
-            </>
-          ) : (
-            <div></div>
-          )}
-        </ReservationAccordion>
+            </CollapseItem>
+          </ReservationAccordion>
+        )}
 
-        <DarkTitle className="mt-4">Kontenjan Belirleyiniz</DarkTitle>
+        {userTypeId !== DIETITIAN && (
+          <ReservationAccordion title="Seçili Spor Alanı Grup Ders Kontenjanları">
+            {classSelection ? (
+              <>
+                <CollapseItem>
+                  <WorkPlaceInfoRow>
+                    <Svg.GuestIcon className="guest-icon" />
 
-        <Row>
-          <Col lg={6}>
-            <Text fontWeight="300" color="black3" my="5px">
-              Minumum
-            </Text>
+                    <Span fontWeight="500" color="gray10">
+                      {classSelection.name}
+                    </Span>
 
-            <ButtonWrapper>
-              <MinusButton
-                width="35px"
-                height="35px"
-                mr="20px"
-                style={{ cursor: 'not-allowed' }}
-                onClick={() => {
-                  if (minCapacityCount === 0) {
-                    return;
-                  }
+                    <Span color="blue" fontWeight="500" ml="8px">
+                      {classSelection.capacity} Kişilik
+                    </Span>
+                  </WorkPlaceInfoRow>
+                  <Span ml="auto" color="blue" fontWeight="500">
+                    {classSelection.price} TL
+                  </Span>
+                </CollapseItem>
 
-                  setMinCapacityCount(minCapacityCount - 1);
-                }}
-              />
+                <Box row justifyContent="flex-end" color="red" fontWeight="500">
+                  *Salon kiralama bedeli
+                </Box>
+              </>
+            ) : (
+              <div></div>
+            )}
+          </ReservationAccordion>
+        )}
+        {userTypeId !== DIETITIAN && (
+          <>
+            <DarkTitle className="mt-4">Kontenjan Belirleyiniz</DarkTitle>
 
-              <Span minWidth="15px" color="red">
-                {minCapacityCount}
-              </Span>
+            <Row>
+              <Col lg={6}>
+                <Text fontWeight="300" color="black3" my="5px">
+                  Minumum
+                </Text>
 
-              <PlusButton
-                width="35px"
-                height="35px"
-                ml="20px"
-                onClick={() => {
-                  if (minCapacityCount === classSelection.capacity) {
-                    return;
-                  }
+                <ButtonWrapper>
+                  <MinusButton
+                    width="35px"
+                    height="35px"
+                    mr="20px"
+                    style={{ cursor: 'not-allowed' }}
+                    onClick={() => {
+                      if (minCapacityCount === 0) {
+                        return;
+                      }
 
-                  setMinCapacityCount(minCapacityCount + 1);
-                }}
-              />
-            </ButtonWrapper>
-          </Col>
-          <Col lg={6}>
-            <Text fontWeight="300" color="black3" my="5px">
-              Maksimum
-            </Text>
+                      setMinCapacityCount(minCapacityCount - 1);
+                    }}
+                  />
 
-            <ButtonWrapper>
-              <MinusButton
-                width="35px"
-                height="35px"
-                mr="20px"
-                onClick={() => {
-                  if (maxCapacityCount === 0) {
-                    return;
-                  } else setMaxCapacityCount(maxCapacityCount - 1);
-                }}
-              />
+                  <Span minWidth="15px" color="red">
+                    {minCapacityCount}
+                  </Span>
 
-              <Span minWidth="15px" color="blue">
-                {maxCapacityCount}
-              </Span>
+                  <PlusButton
+                    width="35px"
+                    height="35px"
+                    ml="20px"
+                    onClick={() => {
+                      if (minCapacityCount === classSelection.capacity) {
+                        return;
+                      }
 
-              <PlusButton
-                width="35px"
-                height="35px"
-                ml="20px"
-                onClick={() => {
-                  if (maxCapacityCount === classSelection.capacity) {
-                    return;
-                  }
+                      setMinCapacityCount(minCapacityCount + 1);
+                    }}
+                  />
+                </ButtonWrapper>
+              </Col>
+              <Col lg={6}>
+                <Text fontWeight="300" color="black3" my="5px">
+                  Maksimum
+                </Text>
 
-                  setMaxCapacityCount(maxCapacityCount + 1);
-                }}
-              />
-            </ButtonWrapper>
-          </Col>
-        </Row>
+                <ButtonWrapper>
+                  <MinusButton
+                    width="35px"
+                    height="35px"
+                    mr="20px"
+                    onClick={() => {
+                      if (maxCapacityCount === 0) {
+                        return;
+                      } else setMaxCapacityCount(maxCapacityCount - 1);
+                    }}
+                  />
+
+                  <Span minWidth="15px" color="blue">
+                    {maxCapacityCount}
+                  </Span>
+
+                  <PlusButton
+                    width="35px"
+                    height="35px"
+                    ml="20px"
+                    onClick={() => {
+                      if (maxCapacityCount === classSelection.capacity) {
+                        return;
+                      }
+
+                      setMaxCapacityCount(maxCapacityCount + 1);
+                    }}
+                  />
+                </ButtonWrapper>
+              </Col>
+            </Row>
+          </>
+        )}
       </RightBody>
 
       <RightFooter>
-        <DarkTitle>
-          Fiyat Belirleyiniz
-          <Span color="red" fontSize="0.9rem" fontWeight="400" ml="5px">
-            *Kişi başı
-          </Span>
-        </DarkTitle>
+        <DarkTitle>Seans Sayısını Belirletiniz</DarkTitle>
 
         <Material.TextField
-          onChange={(e) => setPrice(e.target.value)}
+          onChange={(e) => selectDataHandler('seanceCount', e.target.value)}
           error={price > 50}
           label="Giriniz"
           type="number"
@@ -226,7 +254,35 @@ export default function GroupRightSelections() {
         <Text color="red" fontSize="0.9rem">
           *Max 50 TL fiyat giriniz
         </Text>
+        <DarkTitle>Fiyat Belirleyiniz</DarkTitle>
+        {userTypeId == DIETITIAN && (
+          <>
+            <Material.TextField
+              onChange={(e) => selectDataHandler('seancePrice', e.target.value)}
+              error={price > 50}
+              label="Giriniz"
+              type="number"
+            />
 
+            <Text color="red" fontSize="0.9rem">
+              *Max 50 TL fiyat giriniz
+            </Text>
+          </>
+        )}
+        {userTypeId !== DIETITIAN && (
+          <>
+            <Material.TextField
+              onChange={(e) => setPrice(e.target.value)}
+              error={price > 50}
+              label="Giriniz"
+              type="number"
+            />
+
+            <Text color="red" fontSize="0.9rem">
+              *Max 50 TL fiyat giriniz
+            </Text>
+          </>
+        )}
         <Button
           onClick={createGroupSlotHandler}
           text="Tamamla"

@@ -17,6 +17,7 @@ const initialState = {
   selectedHour: '',
   classSelection: '',
   courseDetails: '',
+  dtSessionSelection: [],
 };
 
 export default (state = initialState, action) => {

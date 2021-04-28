@@ -28,14 +28,20 @@ const Awaitings = () => {
   const [openReject, setOpenReject] = useState(undefined);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const startOfWeeksArr = () => {
-    if (items?.date) {
-      return Object.keys(items?.date).map(
-        (date) => new Date(moment(date, 'DD.MM.YYYY').toDate())
-      );
+    if (items) {
+      const dateArr = Object.keys(items).map((date) => {
+        if (date !== 'status') {
+          var newDateObject = new Date(moment(date, 'DD.MM.YYYY').toDate());
+          if (newDateObject) return newDateObject;
+        }
+      });
+
+      return dateArr.filter((item) => item !== undefined);
     } else {
       return [];
     }
   };
+
   useEffect(() => {
     if (window.innerWidth <= 760) {
       setIsSmallScreen(true);
