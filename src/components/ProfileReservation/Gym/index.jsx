@@ -27,7 +27,7 @@ const Gym = ({ dateOption = true }) => {
   const dispatch = useDispatch();
   //Local States
   const [city, setCity] = useState(false);
-  const [wantPt, setWantPt] = useState(false);
+  // const [wantPt, setWantPt] = useState(false);
 
   const [openModal, setOpenModal] = useState(false);
   //Redux States
@@ -286,9 +286,9 @@ const Gym = ({ dateOption = true }) => {
                   defaultValue={reservation?.data?.branch_id}
                   onChange={(e) => {
                     if (e.target?.value === 2) {
-                      setWantPt(true);
+                      //setWantPt(true);
                     } else {
-                      setWantPt(false);
+                      //setWantPt(false);
                     }
                   }}
                 />
