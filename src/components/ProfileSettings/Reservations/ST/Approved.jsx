@@ -11,7 +11,7 @@ import {
 } from 'components';
 import { useSelector, useDispatch } from 'react-redux';
 import { device } from 'utils';
-import { getPtApproved, getReservationDetail } from 'actions';
+import { getPtApproved, getPtReservationDetail } from 'actions';
 import moment from 'moment';
 
 import { PtApproveCancelStepOne, PtApproveCancelStepTwo } from 'actions';
@@ -53,9 +53,10 @@ const Approved = ({ setSubPage = () => {} }) => {
     dispatch(getPtApproved(moment(selectedDate).format('DD.MM.YYYY')));
   }
   function openReservationDetail(id) {
-    dispatch(getReservationDetail(id));
+    dispatch(getPtReservationDetail(id));
     setSubPage(
       <ReservationDetail
+        type="st"
         goBack={() => {
           setSubPage();
         }}

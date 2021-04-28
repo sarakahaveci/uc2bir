@@ -137,7 +137,7 @@ export const getDtReservationDetail = (id) => async (dispatch) => {
     payload: {
       method: 'GET',
       url,
-      label: GET_RESERVATION_STATE_DATA,
+      label: GET_DT_RESERVATION_STATE_DATA,
       transformData: (data) => ((data.data.status = 'res_detail'), data.data),
     },
   });

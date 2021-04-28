@@ -1,10 +1,26 @@
 import Svg from 'components/statics/svg';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
 import { device } from 'utils';
 import GoogleMap from 'components/GoogleMaps/GoogleMap';
-
-const ReservationDetail = ({ goBack = () => {} }) => {
+import { useSelector } from 'react-redux';
+const ReservationDetail = ({ type, goBack = () => {} }) => {
+  const [detailData, setDetailData] = useState({});
+  var professionalReservation = useSelector(
+    (state) => state.professionalReservation
+  );
+  useEffect(() => {
+    switch (type) {
+      case 'pt':
+        setDetailData(professionalReservation?.ptReservation?.res_detail);
+        break;
+      case 'dt':
+        setDetailData(professionalReservation?.dtReservation?.res_detail);
+        break;
+      default:
+        break;
+    }
+  }, [professionalReservation]);
   return (
     <Container>
       <Header>
@@ -22,7 +38,7 @@ const ReservationDetail = ({ goBack = () => {} }) => {
           <InfoItem>
             <InfoMain>
               <CustomerImage></CustomerImage>
-              <BoldText>Faruk Güncü,Öğrenci</BoldText>
+              <BoldText>{detailData?.student?.name}</BoldText>
             </InfoMain>
             <text style={{ fontSize: '30px' }}> {'>'} </text>
           </InfoItem>
@@ -31,7 +47,7 @@ const ReservationDetail = ({ goBack = () => {} }) => {
               <Icon>
                 <Svg.SessionType.Gym />
               </Icon>
-              <BoldText>Crossfit</BoldText>
+              <BoldText>{detailData?.branch}</BoldText>
             </InfoMain>
             <text style={{ fontSize: '30px' }}> {'>'} </text>
           </InfoItem>
@@ -40,7 +56,9 @@ const ReservationDetail = ({ goBack = () => {} }) => {
               <Icon>
                 <Svg.Date />
               </Icon>
-              <AdressText>25 Kasım Çarşamba Saat 12:20</AdressText>
+              <AdressText>
+                {detailData?.hour + '  ' + detailData?.date}
+              </AdressText>
             </InfoMain>
           </InfoItem>
           <InfoItem>

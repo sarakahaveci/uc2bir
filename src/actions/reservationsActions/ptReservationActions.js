@@ -113,8 +113,11 @@ export const getPtRejects = (date) => async (dispatch) => {
     },
   });
 };
-export const getPtApproved = () => async (dispatch) => {
+export const getPtApproved = (date) => async (dispatch) => {
   let url = '/appointment/pt-calendar/approved';
+  let extras = '?';
+  if (date) extras += `date=${date}&`;
+  url += extras;
   await dispatch({
     type: HTTP_REQUEST,
     status: 'approved',
@@ -127,8 +130,8 @@ export const getPtApproved = () => async (dispatch) => {
   });
 };
 
-export const getReservationDetail = (id) => async (dispatch) => {
-  let url = `/appointment/calendar/detail/${id}`;
+export const getPtReservationDetail = (id) => async (dispatch) => {
+  let url = `/appointment/pt-calendar/detail/${id}`;
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
