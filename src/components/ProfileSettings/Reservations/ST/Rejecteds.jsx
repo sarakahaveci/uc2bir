@@ -10,14 +10,14 @@ import {
   Svg,
 } from 'components';
 import { device } from 'utils';
-import { getPtRejects } from 'actions';
+import { getUserRejects } from 'actions';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 
 const Rejecteds = () => {
   const dispatch = useDispatch();
   const items = useSelector(
-    (state) => state.professionalReservation?.ptReservation?.rejecteds
+    (state) => state.professionalReservation?.dtReservation?.rejecteds
   );
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
   const [openApprove, setOpenApprove] = useState(false);
@@ -39,11 +39,11 @@ const Rejecteds = () => {
       setIsSmallScreen(false);
     }
     setSelectedDate(new Date());
-    dispatch(getPtRejects());
+    dispatch(getUserRejects());
   }, []);
   useEffect(() => {
     if (selectedDate) {
-      dispatch(getPtRejects(moment(selectedDate).format('DD.MM.YYYY')));
+      dispatch(getUserRejects(moment(selectedDate).format('DD.MM.YYYY')));
     }
   }, [selectedDate]);
   return (

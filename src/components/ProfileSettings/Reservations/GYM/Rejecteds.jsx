@@ -10,59 +10,85 @@ import {
   Svg,
 } from 'components';
 import { device } from 'utils';
+import { getPtRejects } from 'actions';
+import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
 const Rejecteds = () => {
+  const dispatch = useDispatch();
+  const items = useSelector(
+    (state) => state.professionalReservation?.ptReservation?.rejecteds
+  );
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
   const [openApprove, setOpenApprove] = useState(false);
   const [openReject, setOpenReject] = useState(false);
-
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const startOfWeeksArr = () => {
+    if (items?.date) {
+      return Object.keys(items?.date).map(
+        (date) => new Date(moment(date, 'DD.MM.YYYY').toDate())
+      );
+    } else {
+      return [];
+    }
+  };
   useEffect(() => {
     if (window.innerWidth <= 760) {
       setIsSmallScreen(true);
     } else {
       setIsSmallScreen(false);
     }
+    setSelectedDate(new Date());
+    dispatch(getPtRejects());
   }, []);
-  let data = ['dsd', 'ds'];
+  useEffect(() => {
+    if (selectedDate) {
+      dispatch(getPtRejects(moment(selectedDate).format('DD.MM.YYYY')));
+    }
+  }, [selectedDate]);
   return (
     <StyledContainer>
       <StyledRow>
         <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
-          {data.map((elm, index) => (
+          {startOfWeeksArr().map((elm, index) => (
             <AccordionContainer key={index}>
               <Number>{index + 1}.</Number>
               <ReservationAccordion
                 defaultOpen={index == 0 ? true : false}
                 parent
-                title="24 OCAK ÇARŞAMBA"
+                title={moment(elm).format('DD.MM.YYYY')}
               >
                 <ReservationAccordion
                   miniIcon={<Svg.SessionType.Gym />}
                   title="SPOR ALANI"
                   defaultOpen
                 >
-                  <ApproveCardContainer>
-                    <ApproveCard
-                      type="rejecteds"
-                      date="18:00 - 19:00"
-                      customerName="Ahmet Mehmet"
-                      optionalField_1="FITNESS" //Sport Type || NULL
-                      optionalField_2={{
-                        label: 'EĞİTMEN',
-                        value: 'NAZLI GÜMÜŞ',
-                      }}
-                      optionalField_3={{
-                        label: 'SINIF',
-                        value: 'B SINIFI',
-                        value2: '3/7 KONTENJAN',
-                      }}
-                      onApprove={() => {
-                        setOpenApprove(true);
-                      }}
-                      onReject={() => {
-                        setOpenReject(true);
-                      }}
-                    />
-                  </ApproveCardContainer>
+                  {items?.appointment?.[
+                    moment(selectedDate).format('DD.MM.YYYY')
+                  ]?.gym?.map((elm, i) => (
+                    <ApproveCardContainer key={i}>
+                      <ApproveCard
+                        type="rejecteds"
+                        date="18:00 - 19:00"
+                        customerName="Ahmet Mehmet"
+                        optionalField_1="FITNESS" //Sport Type || NULL
+                        optionalField_2={{
+                          label: 'EĞİTMEN',
+                          value: 'NAZLI GÜMÜŞ',
+                        }}
+                        optionalField_3={{
+                          label: 'SINIF',
+                          value: 'B SINIFI',
+                          value2: '3/7 KONTENJAN',
+                        }}
+                        onApprove={() => {
+                          setOpenApprove(true);
+                        }}
+                        onReject={() => {
+                          setOpenReject(true);
+                        }}
+                      />
+                    </ApproveCardContainer>
+                  ))}
                   <ApproveCard type="rejecteds" />
                 </ReservationAccordion>
                 <ReservationAccordion
