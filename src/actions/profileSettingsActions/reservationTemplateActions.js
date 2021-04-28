@@ -118,8 +118,8 @@ export const getTemplateDetails = (id) => async (dispatch, getState) => {
   });
 };
 
-export const applyTemplateToCalendar = (date, templateId, callBack, getState) => async (
-  dispatch
+export const applyTemplateToCalendar = (date, templateId, callBack) => async (
+  dispatch, getState
 ) => {
   const userType = getState().auth.user.type_id;
   const url =  `/appointment/${USER_KEYS[userType]}/apply-template`;
