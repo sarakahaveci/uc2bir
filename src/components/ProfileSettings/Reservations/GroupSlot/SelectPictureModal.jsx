@@ -2,25 +2,21 @@ import React, { useState, forwardRef } from 'react';
 import styled, { css } from 'styled-components/macro';
 
 import Masonry from 'react-responsive-masonry';
-import MockImage from 'assets/facility.png';
-import MockImage2 from 'assets/blog.jpg';
-import MockImage3 from 'assets/join-us.png';
-import MockImage4 from 'assets/my-wallet.jpg';
 import { Svg, Box, Modal, Button, SearchInput, Title } from 'components';
 
 const TemplateNamingModal = forwardRef(
-  ({ selectedImageId, setSelectedImageId }, ref) => {
+  ({ selectedImageId, setSelectedImageId, images }, ref) => {
     const [searchValue, setSearchValue] = useState('');
 
     return (
       <SelectPictureModal ref={ref}>
         <Title variant="h5"> FOTOĞRAF SEÇİNİZ</Title>
 
-        {!!selectedImageId && (
-          <Box fontWeight="500" my="10px" fontSize="1.1rem">
-            {`${selectedImageId} Fotoğraf seçildi`}
-          </Box>
-        )}
+        {/*{!!selectedImageId && (*/}
+        {/*  <Box fontWeight="500" my="10px" fontSize="1.1rem">*/}
+        {/*    {`${selectedImageId} Fotoğraf seçildi`}*/}
+        {/*  </Box>*/}
+        {/*)}*/}
 
         <SearchInput
           m="20px 0 30px 0"
@@ -31,19 +27,17 @@ const TemplateNamingModal = forwardRef(
         />
 
         <Masonry gutter="35px" columnsCount={2}>
-          {[MockImage, MockImage2, MockImage3, MockImage4].map(
+          {images?.map(
             (image, index) => {
               const active = selectedImageId === image.id;
-
               return (
                 <Box position="relative" key={index}>
                   <Image
-                    onClick={() => setSelectedImageId(image.id)}
+                    onClick={() => setSelectedImageId(image)}
                     active={active}
-                    src={image}
-                    style={{ width: '100%', display: 'block' }}
+                    src={image.image_url}
+                    style={{ width:'55%'}}
                   />
-
                   {active && <TickIcon />}
                 </Box>
               );
@@ -52,7 +46,7 @@ const TemplateNamingModal = forwardRef(
         </Masonry>
 
         <Box center mt="40px">
-          <Button text="İleri" className="blue" width="280px" />
+          <Button text="İleri" className="blue" width="280px"  onClick={()=>ref.current.closeModal()}/>
         </Box>
       </SelectPictureModal>
     );

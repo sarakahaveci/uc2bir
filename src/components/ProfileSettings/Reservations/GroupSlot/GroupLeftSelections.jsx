@@ -16,10 +16,12 @@ import {
   getSessionTypes,
   getWorkPlaceCapacity,
   setGroupSelectionData,
+  getGroupImages
 } from 'actions';
 
 export default function GroupLeftSelections() {
   const { type_id: userTypeId } = useSelector((state) => state.auth.user);
+
 
   const { data: myBranches } = useSelector(
     (state) => state.profileSettings2.profileBranches.myBranches
@@ -27,6 +29,7 @@ export default function GroupLeftSelections() {
 
   const {
     workPlaceCapacity: { data: workPlaceCapacity },
+    groupImages: { data: groupImages },
     branchSelection,
     sessionSelection,
     locationSelection,
@@ -44,7 +47,7 @@ export default function GroupLeftSelections() {
     ptHomePlace: { data: ptHomePlace },
   } = useSelector((state) => state.userProfile.workPlace);
 
-  const [selectedImageId, setSelectedImageId] = useState([]);
+  const [selectedImageId, setSelectedImageId] = useState();
 
   const selectPicModalRef = useRef();
 
@@ -58,15 +61,25 @@ export default function GroupLeftSelections() {
 
       dispatch(getMyBranches());
 
+      dispatch(getGroupImages());
+
       dispatch(getGymList());
     }
     if (userTypeId === DIETITIAN) {
       dispatch(getSessionTypes());
+
+      dispatch(getGroupImages());
     }
   }, []);
 
+  useEffect(()=>{
+    selectDataHandler('group_slot_image_id', selectedImageId?.id)
+  },[selectedImageId])
+
+
   useEffect(() => {
     if (branchSelection && locationSelection) {
+
       dispatch(getWorkPlaceCapacity(branchSelection.id, locationSelection.id));
     }
   }, [branchSelection, locationSelection]);
@@ -77,15 +90,20 @@ export default function GroupLeftSelections() {
   return (
     <div>
       <Box row justifyContent="center" position="relative">
-        <UploadPic onClick={openSelectPicModal}>
-          <Svg.MockImageIcon />
+        <UploadPic onClick={openSelectPicModal} img={selectedImageId && selectedImageId?.image_url}>
+          {/*{selectedImageId?*/}
+          {/*  <img src={selectedImageId.image_url} style={{ width:'140px'}} />:*/}
+          {/*  <Svg.MockImageIcon /> }*/}
 
+          {!selectedImageId && <Svg.MockImageIcon />}
+          {!selectedImageId &&
           <Text textAlign="center" color="gray8" fontWeight="300" mt="15px">
             FOTOĞRAF SEÇİNİZ
-          </Text>
+          </Text> }
+
         </UploadPic>
 
-        <Plus type="dark" />
+        <Plus type="dark" onClick={openSelectPicModal}/>
       </Box>
 
       {userTypeId !== DIETITIAN && (
@@ -167,6 +185,7 @@ export default function GroupLeftSelections() {
             }
           >
             {sessionTypes?.data?.data?.map((sessionType) => (
+              sessionType.type !== 'online' &&
               <MenuItem key={sessionType.id} value={sessionType}>
                 {sessionType.title}
               </MenuItem>
@@ -187,6 +206,7 @@ export default function GroupLeftSelections() {
             }
           >
             {sessionTypes?.data?.data?.map((sessionType) => (
+              sessionType.type !== 'online' &&
               <MenuItem key={sessionType.id} value={sessionType}>
                 {sessionType.title}
               </MenuItem>
@@ -260,6 +280,7 @@ export default function GroupLeftSelections() {
         ref={selectPicModalRef}
         selectedImageId={selectedImageId}
         setSelectedImageId={setSelectedImageId}
+        images={groupImages}
       />
     </div>
   );
@@ -286,12 +307,17 @@ const TextArea = styled.textarea`
 
 const UploadPic = styled.div`
   width: 250px;
+  height: 200px;
   border-radius: 8px;
-  background: #fff;
+  background: '${(props) => !props.img && '#fff' }' ;
   border: 1px solid #363636;
   padding: 45px;
   display: flex;
   flex-direction: column;
+  position: relative;
   align-items: center;
   cursor: pointer;
+  background-image: url('${(props) => props.img}');
+  background-repeat: '${(props) => props.img && 'no-repeat' }';
+  background-size: cover;
 `;

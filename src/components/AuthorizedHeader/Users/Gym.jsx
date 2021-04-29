@@ -59,12 +59,12 @@ const Gym = ({ user_name, user_img = null, logoutHandler }) => {
       notify: [],
       linkPath: TABS.proMessagesPath,
     },
-    /*   {
+       {
       name: 'Rezervasyonlarım',
       icon: <Svg.Date />,
       notify: [],
       linkPath: TABS.reservationsPath,
-    }, */
+    },
     {
       name: user_name,
       icon: user_img || <Svg.UsernameIcon />,

@@ -13,11 +13,12 @@ const Pt = ({ user_name, user_img = null, logoutHandler }) => {
       link: TABS.profileDetailPath,
       pulse: true,
     },
-    /*   {
+
+       {
       name: 'Paketlerim',
       icon: <Svg.Packet />,
       link: TABS.packetsPath,
-    }, */
+    },
     {
       name: 'Oturum Türleri & Çalıştığım Yerler',
       icon: <Svg.PtHome />,
@@ -33,11 +34,11 @@ const Pt = ({ user_name, user_img = null, logoutHandler }) => {
       icon: <Svg.Expert />,
       link: TABS.specialtiesPath,
     },
-    /*   {
+   {
       name: 'Cüzdanım',
       icon: <Svg.Wallet />,
       link: TABS.walletPath,
-    }, */
+    },
     {
       name: 'Galeri',
       icon: <Svg.Gallery />,
@@ -69,12 +70,12 @@ const Pt = ({ user_name, user_img = null, logoutHandler }) => {
       notify: [],
       linkPath: TABS.proMessagesPath,
     },
-    /*    {
+    {
       name: 'Rezervasyonlarım',
       icon: <Svg.Date />,
       notify: [],
       linkPath: TABS.reservationsPath,
-    }, */
+    },
     {
       name: user_name,
       icon: user_img || <Svg.UsernameIcon />,

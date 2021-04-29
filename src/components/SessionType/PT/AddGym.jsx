@@ -6,7 +6,7 @@ import styled from 'styled-components/macro';
 import { device } from 'utils';
 
 import LongUserCard from 'components/UserCards/LongUserCard';
-import { Button, GoogleMapClusterer, Svg } from 'components';
+import { Button, GoogleMapClusterer, Pagination, Svg } from 'components';
 import {
   searchGymForPt,
   addGymFromPt,
@@ -28,18 +28,20 @@ const AddGym = ({ setSubPage, setBannerActive }) => {
   const [trainerName, setTrainerName] = useState('');
   const [branch, setBranch] = useState('');
   const [selectedItem, setSelectedItem] = useState(null);
+  const [pageNumber, setPageNumber] = useState(1);
 
   const [showSearch, setShowSearch] = useState(true);
   const [page, setPage] = useState(1);
 
-  const handleChangePage = (event, value) => {
-    setPage(value);
-    dispatch(searchGymForPt(trainerName, value));
-  };
+  const pageChangeHandler = (event, value) =>
+  {
+    dispatch(searchGymForPt( event, value));
+    setPageNumber(value);
+  }
 
   useEffect(() => {
     setBannerActive(false);
-    dispatch(searchGymForPt());
+    dispatch(searchGymForPt(pageNumber));
     dispatch(getAllPTBranchList());
   }, []);
   const searchGymHandler = () => {
@@ -158,6 +160,13 @@ const AddGym = ({ setSubPage, setBannerActive }) => {
               </LongUserWrapper>
             ))}
       </GymListWrapper>
+
+      <Pagination
+        mt="100px"
+        page={pageNumber}
+        onChange={pageChangeHandler}
+        count={totalPage}
+      />
     </>
   );
 };

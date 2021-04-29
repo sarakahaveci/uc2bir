@@ -20,11 +20,12 @@ import ReservationAccordion from '../ReservationAccordion';
 import {
   createGroupSlot,
   setGroupSelectionData,
-  dtCreateSeance,
+  dtCreateSeance, getProfessionalCalendar,
 } from 'actions';
 import { format } from 'date-fns';
 import tr from 'date-fns/locale/tr';
 import { DIETITIAN } from 'constants/index';
+import moment from 'moment';
 
 export default function GroupRightSelections() {
   const {
@@ -50,6 +51,18 @@ export default function GroupRightSelections() {
   useEffect(() => {
     setMaxCapacityCount(classSelection.capacity || 0);
   }, [classSelection]);
+
+  useEffect(() => {
+    dispatch(getProfessionalCalendar(locationSelection.id, 2, selectedDate));
+  }, [locationSelection]);
+
+  const { working_days: working_days } = useSelector(
+    (state) => state.userProfile.calendar
+  );
+
+  const startOfWeeksArr = working_days?.map(
+    (date) => new Date(moment(date, 'DD.MM.YYYY').toDate())
+  );
 
   const createGroupSlotHandler = () => {
     switch (userTypeId) {
@@ -104,6 +117,11 @@ export default function GroupRightSelections() {
             inline
             selected={selectedDate}
             onChange={(date) => setSelectedDate(date)}
+            highlightDates={[
+              {
+                'react-datepicker__day--highlighted': startOfWeeksArr,
+              },
+            ]}
           />
         )}
         {userTypeId !== DIETITIAN && (
