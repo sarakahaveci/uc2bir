@@ -45,15 +45,11 @@ const regularUserTabs = [
     title: 'Rezarvasyonlarım',
     component: <Reservations />,
   },
-  // {
-  //   eventKey: 'packets',
-  //   title: 'Paketlerim',
-  //   component: (
-  //     <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-  //       Paketlerim
-  //     </Title>
-  //   ),
-  // },
+  {
+    eventKey: 'packets',
+    title: 'Paketlerim',
+    component: <Packets />,
+  },
   {
     eventKey: 'wallet',
     title: 'Cüzdanım',

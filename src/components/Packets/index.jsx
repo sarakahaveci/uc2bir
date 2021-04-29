@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux';
 
 import { Title } from 'components';
 import Pt from './PT';
+import User from './USER';
+
 import * as KEYS from '../../constants/userKeys';
 import image from '../../assets/session-type.jpg';
 
@@ -24,7 +26,6 @@ const Packets = () => {
     }
   }, [isSuccess]);
 
-
   let icons = [];
 
   let content;
@@ -35,7 +36,18 @@ const Packets = () => {
 
       content = <></>;
       break;
-
+    case KEYS.USER:
+      content = (
+        <>
+          <Col lg="4" style={{ display: bannerActive ? '' : 'none' }}>
+            <ImageBanner src={image} />
+          </Col>
+          <Col lg={bannerActive ? 7 : 12}>
+            <User icons={icons} setBannerActive={setBannerActive} />
+          </Col>
+        </>
+      );
+      break;
     case KEYS.PT:
       content = (
         <>

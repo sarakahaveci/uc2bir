@@ -16,6 +16,7 @@ import Upload from './images/upload.svg';
 import Error from './images/error.svg';
 import TickWithBg from './images/tick-with-bg.svg';
 import TickLesson from './images/tick-lesson.svg';
+import TickLessonDisable from './images/tick-lesson-disable.svg';
 
 import Trash from './images/trash.svg';
 import Close from './images/close.svg';
@@ -158,6 +159,8 @@ const Svg = {
   Blog: (props) => <ReactSVG {...props} src={Blog} />,
   TickTick: (props) => <ReactSVG {...props} src={TickTick} />,
   TickLesson: (props) => <ReactSVG {...props} src={TickLesson} />,
+  TickLessonDisable: (props) => <ReactSVG {...props} src={TickLessonDisable} />,
+
   UsersGym: (props) => <ReactSVG {...props} src={UsersGym} />,
   PeopleGroups: (props) => <ReactSVG {...props} src={PeopleGroups} />,
   Monies: (props) => <ReactSVG {...props} src={Monies} />,

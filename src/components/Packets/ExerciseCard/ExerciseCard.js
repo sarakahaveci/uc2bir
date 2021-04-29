@@ -4,7 +4,7 @@ import Svg from 'components/statics/svg';
 import Slider from 'react-slick';
 import { device } from 'utils';
 
-const ExerciseCard = ({ onClickExercise }) => {
+const ExerciseCard = ({ onClickExercise, type }) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -48,9 +48,11 @@ const ExerciseCard = ({ onClickExercise }) => {
         </InfoContainer>
         <Svg.ArrowRightIcon style={{ marginRight: '13px' }} />
       </ExerciseCardContainer>
-      <DeleteIcon>
-        <Svg.TrashIcon></Svg.TrashIcon>
-      </DeleteIcon>
+      {type !== 'user' && (
+        <DeleteIcon>
+          <Svg.TrashIcon></Svg.TrashIcon>
+        </DeleteIcon>
+      )}
     </Container>
   );
 };
