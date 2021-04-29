@@ -116,11 +116,11 @@ const workPlaceTabs = [
     component: <Trainers />,
   },
 
-  /*   {
+  {
     eventKey: 'wallet',
     title: 'Cüzdan',
     component: <Wallet />,
-  }, */
+  },
   {
     eventKey: 'gallery',
     title: 'Galeri',
@@ -176,12 +176,12 @@ const dietitianTabs = [
     title: 'Uzmanlıklarım',
     component: <DietitianProficiency />,
   },
-  /* TODO: Tab will active after BE ready
-    {
+  // TODO: Tab will active after BE ready
+  {
     eventKey: 'wallet',
     title: 'Cüzdanım',
     component: <Wallet />,
-  }, */
+  },
   {
     eventKey: 'gallery',
     title: 'Galeri',

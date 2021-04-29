@@ -5,68 +5,87 @@ import styled from 'styled-components/macro';
 
 const Wrapper = () => {
   return (
-    <StyledWrapper>
-      <Accordion.Item>
-        <Accordion.Toggle>
-          <SettingsRow>
-            <Box col>
-              <Text color="dark" textAlign="left" fontWeight="500" p="2px">
-                Ödeme Seçiniz
-              </Text>
-            </Box>
-
-            <Svg.ArrowUpIcon />
-          </SettingsRow>
-        </Accordion.Toggle>
-        <Accordion.Collapse>
-          <BodyWrapper>
-            <Text>
-              <b>Son Hareket</b> | 15 Kasım, Pazar
-            </Text>
-            <Capsule>
-              <CapsuleItem>
-                <Title textAlign="left">Aylin Gümüş</Title>
-                <Title textAlign="left" fontWeight="normal">
-                  Zayıflama Paketi
-                </Title>
-              </CapsuleItem>
-              <CapsuleItem>
-                <table>
-                  <tbody>
-                    <tr>
-                      <td>Ders Bedeli</td>
-                      <td className="text-right">500 ₺</td>
-                    </tr>
-                    <tr>
-                      <td>Komisyon %10</td>
-                      <td className="text-right">500 ₺</td>
-                    </tr>
-                    <tr>
-                      <td>Kdv %8</td>
-                      <td className="text-right">500 ₺</td>
-                    </tr>
-                    <tr>
-                      <td>Stopaj %20</td>
-                      <td className="text-right">500 ₺</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </CapsuleItem>
-              <CapsuleItem>
-                <table>
-                  <tbody>
-                    <tr>
-                      <td>Toplam</td>
-                      <td className="text-right font-weight-bold">500 ₺</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </CapsuleItem>
-            </Capsule>
-          </BodyWrapper>
-        </Accordion.Collapse>
-      </Accordion.Item>
-    </StyledWrapper>
+    <div>
+      {item.title && (
+        <StyledWrapper>
+          <Accordion.Item>
+            <Accordion.Toggle>
+              <SettingsRow>
+                <Box col>
+                  <Text color="dark" textAlign="left" fontWeight="500" p="2px">
+                    {item.title}
+                  </Text>
+                </Box>
+                <Svg.ArrowUpIcon />
+              </SettingsRow>
+            </Accordion.Toggle>
+            <Accordion.Collapse>
+              <BodyWrapper>
+                <Text>
+                  <b>Son Hareket</b> | {item.sonHareket}
+                </Text>
+                <Capsule>
+                  <CapsuleItem>
+                    <Title textAlign="left">{item.name}</Title>
+                    <Title textAlign="left" fontWeight="normal">
+                      {item.packageName}
+                    </Title>
+                  </CapsuleItem>
+                  <CapsuleItem>
+                    <table>
+                      <tbody>
+                        {item.dersBedeli && (
+                          <tr>
+                            <td>Ders Bedeli</td>
+                            <td className="text-right">{item.dersBedeli} ₺</td>
+                          </tr>
+                        )}
+                        {item.komisyon && (
+                          <tr style={{ color: 'red' }}>
+                            <td>Komisyon %10</td>
+                            <td className="text-right">-{item.komisyon} ₺</td>
+                          </tr>
+                        )}
+                        {item.kdv && (
+                          <tr style={{ color: 'red' }}>
+                            <td>Kdv %8</td>
+                            <td className="text-right">-{item.kdv} ₺</td>
+                          </tr>
+                        )}
+                        {item.stopaj && (
+                          <tr style={{ color: 'red' }}>
+                            <td>Stopaj %20</td>
+                            <td className="text-right">-{item.stopaj} ₺</td>
+                          </tr>
+                        )}
+                        {item.transferToBank && (
+                          <tr style={{ color: 'red' }}>
+                            <td>Banka Hesabına </td>
+                            <td className="text-right">
+                              -{item.transferToBank} ₺
+                            </td>
+                          </tr>
+                        )}
+                      </tbody>
+                    </table>
+                  </CapsuleItem>
+                  <CapsuleItem>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>Toplam</td>
+                          <td className="text-right font-weight-bold">500 ₺</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </CapsuleItem>
+                </Capsule>
+              </BodyWrapper>
+            </Accordion.Collapse>
+          </Accordion.Item>
+        </StyledWrapper>
+      )}
+    </div>
   );
 };
 

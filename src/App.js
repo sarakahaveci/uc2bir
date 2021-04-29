@@ -5,7 +5,11 @@ import styled, { ThemeProvider } from 'styled-components';
 
 import { ScrollToTop, ProtectedRoute } from 'components';
 import LoadingImage from 'assets/321-loading.gif';
-import { setUserDetailsFromStorage, getAllPTBranchList, getRegisterData, } from 'actions';
+import {
+  setUserDetailsFromStorage,
+  getAllPTBranchList,
+  getRegisterData,
+} from 'actions';
 //views
 import Layout from './views/Layout';
 import Home from './views/Home';
@@ -27,6 +31,11 @@ import Contact from 'views/Contact';
 import SearchProfessional from 'views/SearchProfessional';
 import Interceptor from './Interceptor';
 import CookieConsent from './components/CookieConsent';
+
+import TermsOfUse from './views/Footer/TermsOfUse';
+import MembershipAgreement from './views/Footer/MembershipAgreement';
+import Kvkk from './views/Footer/Kvkk';
+import RefundConditions from './views/Footer/RefundConditions';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -96,6 +105,18 @@ const App = () => {
                 <Route exact path="/messages/:id?" component={Message} />
                 <Route exact path="/contact" component={Contact} />
                 <Route exact path="/find" component={SearchProfessional} />
+                <Route exact path="/terms-of-use" component={TermsOfUse} />
+                <Route
+                  exact
+                  path="/membership-agreement"
+                  component={MembershipAgreement}
+                />
+                <Route exact path="/kvkk" component={Kvkk} />
+                <Route
+                  exact
+                  path="/refund-conditions"
+                  component={RefundConditions}
+                />
                 <Route component={NotFoundPage} />
               </Switch>
             </Layout>

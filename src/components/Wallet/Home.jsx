@@ -1,13 +1,61 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Text, Title, Accordion, Button } from 'components';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styled from 'styled-components/macro';
 import image from '../../assets/my-wallet.jpg';
 import Svg from 'components/statics/svg';
 import Wrapper from './Wrapper';
+import { getWallet } from 'actions/userProfileActions/walletActions';
 
 const Home = ({ setPage }) => {
+  const payment = [
+    {
+      id: 1,
+      title: 'Paket Ödemeleri',
+      name: 'Aylin',
+      packageName: 'Diet',
+      dersBedeli: 100,
+      komisyon: 20,
+      kdv: 5,
+      stopaj: 1,
+      sonHareket: ' 15 - 04 - 2021',
+    },
+    {
+      id: 2,
+      title: 'Grup Ders Ödemeleri',
+      name: 'Batu',
+      packageName: 'Diet',
+      dersBedeli: 100,
+      komisyon: 20,
+      stopaj: 1,
+      sonHareket: ' 1 - 04 - 2021',
+    },
+    {
+      id: 3,
+      name: 'Sedat',
+      packageName: 'Full-Body',
+      dersBedeli: 400,
+      komisyon: 20,
+      stopaj: 1,
+      sonHareket: ' 5 - 03 - 2021',
+    },
+    {
+      id: 4,
+      title: 'Banka Hesabına Transfer',
+      sonHareket: ' 5 - 03 - 2021',
+      transferToBank: 500,
+    },
+  ];
+
+  const wallet = useSelector((state) => state?.userProfile?.wallet);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getWallet());
+  }, []);
+
   return (
     <>
       <Container>
@@ -35,13 +83,19 @@ const Home = ({ setPage }) => {
                   <Title textAlign="left">Cüzdanımdaki Toplam Tutar:</Title>
                 </Col>
                 <Col>
-                  <Title textAlign="right" style={{ display: 'flex' }}>
-                    900,00 <Svg.Tl style={{ display: 'inline-flex' }} />
-                  </Title>
+                  <TitleWrapper>
+                    <Title textAlign="right" style={{ display: 'flex' }}>
+                      {wallet?.data?.balance}
+                    </Title>
+                    <Svg.Tl />
+                  </TitleWrapper>
                 </Col>
               </Explanation>
               <Accordion>
-                <Wrapper />
+                {payment &&
+                  payment.map((item, index) => (
+                    <Wrapper item={item} key={index} />
+                  ))}
               </Accordion>
               <Button
                 style={{ textDecoration: 'underline' }}
@@ -106,4 +160,13 @@ const Explanation = styled.section`
   }
 `;
 
+const TitleWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  svg {
+    width: 12px;
+    height: 12px;
+    margin-bottom: 8px;
+  }
+`;
 export default Home;

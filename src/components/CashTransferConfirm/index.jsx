@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { device } from 'utils';
 import { Button } from 'components';
+import { getWallet } from 'actions/userProfileActions/walletActions';
+import { useDispatch, useSelector } from 'react-redux';
+
 export default function CashTransferConfirm({}) {
+  const wallet = useSelector((state) => state?.userProfile?.wallet);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getWallet());
+  }, []);
   return (
     <Container>
       <InfoContainer>
@@ -108,7 +117,7 @@ export default function CashTransferConfirm({}) {
         <BottomContainer>
           <Text style={{ fontWeight: 800 }}>Tutar</Text>
           <Text color="#00B2A9" style={{ fontWeight: 800, fontSize: 30 }}>
-            900
+            {wallet?.data?.balance}
           </Text>
         </BottomContainer>
         <BottomContainer>
