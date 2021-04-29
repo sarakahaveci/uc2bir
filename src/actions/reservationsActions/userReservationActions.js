@@ -113,8 +113,11 @@ export const getUserRejects = (date) => async (dispatch) => {
     },
   });
 };
-export const getUserApproved = () => async (dispatch) => {
+export const getUserApproved = (date) => async (dispatch) => {
   let url = '/appointment/calendar/approved';
+  let extras = '?';
+  if (date) extras += `date=${date}&`;
+  url += extras;
   await dispatch({
     type: HTTP_REQUEST,
     status: 'approved',
