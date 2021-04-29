@@ -10,10 +10,15 @@ import {
   ReservationDetail,
 } from 'components';
 import { device } from 'utils';
-import { getGymApproved, getGymReservationDetail } from 'actions';
+import {
+  getGymApproved,
+  getGymReservationDetail,
+  GymApproveCancelStepOne,
+  GymApproveCancelStepTwo,
+} from 'actions';
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
-const Approved = () => {
+const Approved = ({ setSubPage }) => {
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
   const [openCancellation, setOpenCancellation] = useState(undefined);
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -65,54 +70,81 @@ const Approved = () => {
     <StyledContainer>
       <StyledRow>
         <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
-          {startOfWeeksArr().map((it, index) => (
-            <AccordionContainer key={index}>
-              <Number>{index + 1}.</Number>
+          <AccordionContainer>
+            <ReservationAccordion
+              defaultOpen={true}
+              parent
+              title={moment(selectedDate).format('DD.MM.YYYY')}
+            >
               <ReservationAccordion
-                defaultOpen={index == 0 ? true : false}
-                parent
-                title={moment(it).format('DD.MM.YYYY')}
+                miniIcon={<Svg.SessionType.Gym />}
+                title="EĞİTMEN İLE"
+                defaultOpen
               >
-                <ReservationAccordion
-                  miniIcon={<Svg.SessionType.Gym />}
-                  title="SPOR ALANI"
-                  defaultOpen
-                >
-                  {items?.appointment?.[
-                    moment(selectedDate).format('DD.MM.YYYY')
-                  ]?.gym?.map((elm, i) => (
-                    <ApproveCardContainer key={i}>
-                      <ApproveCard
-                        type="approve"
-                        date={'18:00 - 19:00'}
-                        customerName="Ahmet Mehmet"
-                        optionalField_1="FITNESS" //Sport Type || NULL
-                        optionalField_2={{
-                          label: 'EĞİTMEN',
-                          value: 'NAZLI GÜMÜŞ',
-                        }}
-                        optionalField_3={{
-                          label: 'SINIF',
-                          value: 'B SINIFI',
-                          value2: '3/7 KONTENJAN',
-                        }}
-                        onApprove={() => {
-                          openReservationDetail(elm?.id);
-                        }}
-                        onReject={() => {
-                          setOpenCancellation(elm?.id);
-                        }}
-                      />
-                    </ApproveCardContainer>
-                  ))}
-                  <ApproveCard />
-                </ReservationAccordion>
+                {items?.appointment?.[
+                  moment(selectedDate).format('DD.MM.YYYY')
+                ]?.with_pt?.map((elm, i) => (
+                  <ApproveCardContainer key={i}>
+                    <ApproveCard
+                      type="approve"
+                      date={'18:00 - 19:00'}
+                      customerName="Ahmet Mehmet"
+                      optionalField_1="FITNESS" //Sport Type || NULL
+                      optionalField_2={{
+                        label: 'EĞİTMEN',
+                        value: 'NAZLI GÜMÜŞ',
+                      }}
+                      optionalField_3={{
+                        label: 'SINIF',
+                        value: 'B SINIFI',
+                        value2: '3/7 KONTENJAN',
+                      }}
+                      onApprove={() => {
+                        openReservationDetail(elm?.id);
+                      }}
+                      onReject={() => {
+                        setOpenCancellation(elm?.id);
+                      }}
+                    />
+                  </ApproveCardContainer>
+                ))}
               </ReservationAccordion>
-            </AccordionContainer>
-          ))}
-          {!(startOfWeeksArr().length > 0) && (
-            <text>Bu tarihe ilişkin veri bulunamadı</text>
-          )}
+
+              <ReservationAccordion
+                miniIcon={<Svg.SessionType.Gym />}
+                title="EĞİTMENSİZ"
+                defaultOpen
+              >
+                {items?.appointment?.[
+                  moment(selectedDate).format('DD.MM.YYYY')
+                ]?.no_pt?.map((elm, i) => (
+                  <ApproveCardContainer key={i}>
+                    <ApproveCard
+                      type="approve"
+                      date={'18:00 - 19:00'}
+                      customerName="Ahmet Mehmet"
+                      optionalField_1="FITNESS" //Sport Type || NULL
+                      optionalField_2={{
+                        label: 'EĞİTMEN',
+                        value: 'NAZLI GÜMÜŞ',
+                      }}
+                      optionalField_3={{
+                        label: 'SINIF',
+                        value: 'B SINIFI',
+                        value2: '3/7 KONTENJAN',
+                      }}
+                      onApprove={() => {
+                        openReservationDetail(elm?.id);
+                      }}
+                      onReject={() => {
+                        setOpenCancellation(elm?.id);
+                      }}
+                    />
+                  </ApproveCardContainer>
+                ))}
+              </ReservationAccordion>
+            </ReservationAccordion>
+          </AccordionContainer>
         </StyledCol>
         <StyledCol
           style={{
@@ -177,13 +209,6 @@ const ApproveCardContainer = styled.div`
   margin: 20px 0;
   @media ${device.sm} {
     margin: 0;
-  }
-`;
-const Number = styled.text`
-  font-size: 16px;
-  margin: 15px;
-  @media ${device.sm} {
-    display: none;
   }
 `;
 
