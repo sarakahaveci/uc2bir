@@ -12,3 +12,4 @@ export * from './galeryActiions';
 export * from './gymClassActions';
 export * from './commentActions';
 export * from './calendarActions';
+export * from './servicesActions';

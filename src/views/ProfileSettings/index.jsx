@@ -31,6 +31,7 @@ import RegularNotifications from 'components/ProfileSettings/RegularNotification
 import GroupSlot from 'components/ProfileSettings/Reservations/GroupSlot/GroupSlot';
 import Reservations from 'components/ProfileSettings/Reservations';
 import ProfileDetail from 'components/ProfileSettings/ProfileDetail/ProfileDetail';
+import Services from 'components/ProfileSettings/Services';
 
 const regularUserTabs = [
   {
@@ -151,15 +152,11 @@ const dietitianTabs = [
     title: 'Paketlerim',
     component: <Packets />,
   }, */
-  /*  {
+  {
     eventKey: 'service',
-    title: 'Hizmetlerim',
-    component: (
-      <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-        Hizmetlerim
-      </Title>
-    ),
-  }, */
+    title: 'Danışanlar',
+    component: <Services />,
+  },
   {
     eventKey: 'location',
     title: 'Oturum Türleri & Çalıştığım Yerler',
