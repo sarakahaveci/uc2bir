@@ -3,10 +3,18 @@ import {
   GET_WORK_PLACE_CAPACITY_SUCCESS,
   GET_WORK_PLACE_CAPACITY_FAILURE,
   SET_SELECTION_DATA,
+  GET_GROUP_IMAGES_REQUEST,
+  GET_GROUP_IMAGES_SUCCESS,
+  GET_GROUP_IMAGES_FAILURE
 } from 'constants/index';
 
 const initialState = {
   workPlaceCapacity: {
+    data: [],
+    isLoading: false,
+    error: null,
+  },
+  groupImages:{
     data: [],
     isLoading: false,
     error: null,
@@ -17,6 +25,7 @@ const initialState = {
   selectedHour: '',
   classSelection: '',
   courseDetails: '',
+
   dtSessionSelection: [],
 };
 
@@ -46,6 +55,35 @@ export default (state = initialState, action) => {
         ...state,
         workPlaceCapacity: {
           ...state.workPlaceCapacity,
+          isLoading: false,
+          error: action.payload,
+        },
+      };
+
+      case GET_GROUP_IMAGES_REQUEST:
+      return {
+        ...state,
+        groupImages: {
+          ...state.groupImages,
+          isLoading: true,
+        },
+      };
+
+    case GET_GROUP_IMAGES_SUCCESS:
+      return {
+        ...state,
+        groupImages: {
+          isLoading: false,
+          data: action.payload,
+          error: null,
+        },
+      };
+
+    case GET_GROUP_IMAGES_FAILURE:
+      return {
+        ...state,
+        groupImages: {
+          ...state.groupImages,
           isLoading: false,
           error: action.payload,
         },

@@ -76,8 +76,6 @@ const ProfileBanner = ({
                 />
               </CardFooter>}
 
-
-
           </Card>
         </Cols>
 

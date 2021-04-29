@@ -15,7 +15,7 @@ import {
   USER_KEYS,
   GET_TEMPLATE_FROM_CALENDAR,
   DELETE_HOUR_OF_CALENDER,
-  GET_DAY_OF_CALENDER, UPDATE_TEMPLATE_DEFAULT,ADD_HOUR_TO_CALENDER,GET_DAY_DETAIL_OF_CALENDER
+  GET_DAY_OF_CALENDER, UPDATE_TEMPLATE_DEFAULT,ADD_HOUR_TO_CALENDER,GET_DAY_DETAIL_OF_CALENDER,DELETE_TEMPLATE
 } from '../../constants';
 
 export const setSelectedDay = (dayIndex) => async (dispatch, getState) => {
@@ -272,6 +272,26 @@ export const deleteHourOfCalendar = (id, successCallback, errorCallback) => asyn
       method: 'DELETE',
       url,
       label: DELETE_HOUR_OF_CALENDER,
+      callBack: () => successCallback(),
+      errorHandler: (error) => errorCallback(error?.message),
+      transformData: (data) => data.data,
+    },
+  });
+};
+
+
+export const deleteTemplate = (id, successCallback, errorCallback) => async (
+  dispatch, getState
+) => {
+  const { type_id: userTypeId } = getState().auth.user;
+  const url = `/appointment/template/${USER_KEYS[userTypeId]}/${id}`;
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'DELETE',
+      url,
+      label: DELETE_TEMPLATE,
       callBack: () => successCallback(),
       errorHandler: (error) => errorCallback(error?.message),
       transformData: (data) => data.data,

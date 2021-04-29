@@ -194,8 +194,8 @@ export const addGymFromPt = (id, successCallback) => async (
   });
 };
 
-export const searchGymForPt = (title = false, page = 0) => async (dispatch) => {
-  const urlForAllGymList = `/user/address/search-gym`;
+export const searchGymForPt = (title = false, page ) => async (dispatch) => {
+  const urlForAllGymList = `/user/address/search-gym?page=`+page;
   const urlWithTitle = `&title=${title}`;
 
   //const finalUrl = urlForAllGymList + (title && urlWithTitle); sonra düzelt
@@ -221,7 +221,7 @@ export const searchGymWithDetail = (
   branch = false
 ) => async (dispatch) => {
   //const urlForAllGymList = `/user/address/search-gym?page=${page}`;
-  const urlForAllGymList = `/user/address/search-gym?`;
+  const urlForAllGymList = `/user/address/detail-search-gym`;
 
   const urlWithTitle = `&title=${title}`;
   const urlWithLocation = `&location_key=${location}`;

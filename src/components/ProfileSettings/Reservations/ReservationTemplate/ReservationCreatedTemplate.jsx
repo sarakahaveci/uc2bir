@@ -11,7 +11,7 @@ import { device } from '../../../../utils';
 
 import ReservationTemplate from './ReservationTemplate';
 import ApplyTemplateModal from './ApplyTemplateModal';
-import { getTemplates, updateDefaultTemplate } from '../../../../actions';
+import { deleteTemplate, getTemplates, updateDefaultTemplate } from '../../../../actions';
 import { toast } from 'react-toastify';
 
 export default function ReservationCreatedTemplate({ setTab = () => {}, setTabPage = () => {} }) {
@@ -53,6 +53,24 @@ export default function ReservationCreatedTemplate({ setTab = () => {}, setTabPa
     });
   };
 
+  const deleteTemplateFail = () => {
+    toast.error(
+      'Şablonunuz Silinirken Hata Oluştu',
+      {
+        position: 'bottom-right',
+        autoClose: 3000,
+      }
+    );
+  };
+
+  const deleteTemplateSuccess = () => {
+    dispatch(getTemplates());
+    toast.success('Şablon Silme İşleminiz Başarılı', {
+      position: 'bottom-right',
+      autoClose: 3000,
+    });
+  };
+
 
   return (
       subPage === 'create'?
@@ -73,7 +91,12 @@ export default function ReservationCreatedTemplate({ setTab = () => {}, setTabPa
                     <Text color="dark" fontWeight="500">
                       {item.name}
                     </Text>
-                    <Svg.ArrowRightIcon />
+                    <Button redborder text={'Sil'} width={'120px'} height={'35px'} onClick={()=>dispatch(
+                      deleteTemplate(
+                        item.id,
+                        deleteTemplateSuccess,
+                        deleteTemplateFail
+                      ))}/>
                   </Box>
                 </BoxContainer>
                 {!item.is_default&&
