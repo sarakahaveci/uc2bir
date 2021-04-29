@@ -107,16 +107,16 @@ export default function Profile({ match }) {
       title: 'EĞİTMENLER',
       component: <FindPt userId={match?.params?.id} />,
     },
-    /*  {
+      {
       eventKey: 'calendar',
       title: 'TAKVİM',
-      component: <MyCalendar userId={match?.params?.id} />,
-    }, */
-    /*   {
+      component: <MyCalendar userId={match?.params?.id} typeId={userInfo?.type_id} setPage={setPage}/>,
+    },
+       {
       eventKey: 'comments',
       title: 'YORUMLAR',
       component: <Comment userId={match?.params?.id} />,
-    }, */
+    },
     {
       eventKey: 'gallery',
       title: 'GALERİ',

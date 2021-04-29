@@ -93,7 +93,7 @@ export default function Profile( ) {
         content =  <FindPt userId={id} />;
         break;
       case 'Calendar':
-        content = <MyCalendar userId={id} isUserDetail={true}/>;
+        content = <MyCalendar userId={id} typeId={userInfo?.type_id} isUserDetail={true}/>;
         break;
       case 'Comments':
         content = <Comment userId={id} />;
