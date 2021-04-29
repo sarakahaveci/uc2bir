@@ -26,6 +26,7 @@ import { format } from 'date-fns';
 import tr from 'date-fns/locale/tr';
 import { DIETITIAN } from 'constants/index';
 import moment from 'moment';
+import { toast } from 'react-toastify';
 
 export default function GroupRightSelections() {
   const {
@@ -48,9 +49,9 @@ export default function GroupRightSelections() {
   const reservationSuccessModalRef = useRef();
   const selectDataHandler = (name, value) =>
     dispatch(setGroupSelectionData(name, value));
-  useEffect(() => {
-    setMaxCapacityCount(classSelection.capacity || 0);
-  }, [classSelection]);
+  // useEffect(() => {
+  //   setMaxCapacityCount(classSelection.capacity || 0);
+  // }, [classSelection]);
 
   useEffect(() => {
     locationSelection?.id && dispatch(getProfessionalCalendar(locationSelection.id, 2, selectedDate));
@@ -63,6 +64,16 @@ export default function GroupRightSelections() {
   const startOfWeeksArr = working_days?.map(
     (date) => new Date(moment(date, 'DD.MM.YYYY').toDate())
   );
+
+  const addGroupSlotFail = () => {
+    toast.error(
+      'Lütfen Bilgilerinizi Kontrol Ederek Tekrar Deneyiniz',
+      {
+        position: 'bottom-right',
+        autoClose: 3000,
+      }
+    );
+  };
 
   const createGroupSlotHandler = () => {
     switch (userTypeId) {
@@ -101,7 +112,8 @@ export default function GroupRightSelections() {
               min_capacity: minCapacityCount,
               max_capacity: maxCapacityCount,
             },
-            () => reservationSuccessModalRef.current.openModal()
+            () => reservationSuccessModalRef.current.openModal(),
+            addGroupSlotFail
           )
         );
         break;

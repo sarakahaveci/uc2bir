@@ -104,6 +104,18 @@ const StyledButton = styled(BaseButton)`
     `}
 
   ${(props) =>
+          props.redborder &&
+          css`
+      border: 1px solid var(--red);
+      color:var(--red);
+      font-weight: 500;
+
+      &:focus {
+        border: 1px solid var(--red);
+      }
+    `}
+
+  ${(props) =>
     props.soft &&
     css`
       background: transparent;

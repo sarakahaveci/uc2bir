@@ -26,7 +26,7 @@ export const getWorkPlaceCapacity = (branchId, locationId) => async (
   });
 };
 
-export const createGroupSlot = (slotObj, successCallback) => async (
+export const createGroupSlot = (slotObj, successCallback, errorCallback) => async (
   dispatch,
   getState
 ) => {
@@ -61,6 +61,7 @@ export const createGroupSlot = (slotObj, successCallback) => async (
         group_slot_image_id,
       },
       callBack: successCallback,
+      errorHandler: () => errorCallback(),
       label: CREATE_GROUP_SLOT,
     },
   });
