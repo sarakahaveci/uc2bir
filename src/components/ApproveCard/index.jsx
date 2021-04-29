@@ -6,7 +6,7 @@ import { device } from 'utils';
 const ApproveCard = ({
   customerName = '',
   date = '',
-
+  cardType,
   optionalField_1 = null,
   optionalField_2 = null,
   optionalField_3 = null,
@@ -18,12 +18,25 @@ const ApproveCard = ({
   let buttonGroup;
   switch (type) {
     case 'await':
-      buttonGroup = (
-        <>
-          <AwaitButton onClick={onApprove}>Onayla</AwaitButton>
-          <AwaitButton onClick={onReject}>Reddet</AwaitButton>
-        </>
-      );
+      if (cardType == 'userCard') {
+        buttonGroup = (
+          <>
+            <ApproveButton disabled onClick={onApprove}>
+              Onay Bekleniyor
+            </ApproveButton>
+            <ApproveButton reject onClick={onReject}>
+              İptal Et
+            </ApproveButton>
+          </>
+        );
+      } else {
+        buttonGroup = (
+          <>
+            <AwaitButton onClick={onApprove}>Onayla</AwaitButton>
+            <AwaitButton onClick={onReject}>Reddet</AwaitButton>
+          </>
+        );
+      }
       break;
     case 'approve':
       buttonGroup = (
