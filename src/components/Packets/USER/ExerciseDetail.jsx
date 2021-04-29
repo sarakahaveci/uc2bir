@@ -3,7 +3,6 @@ import React from 'react';
 import styled from 'styled-components/macro';
 import { makeStyles } from '@material-ui/core/styles';
 import { device } from 'utils';
-import { AddExercise } from 'components';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Svg from 'components/statics/svg';
 const useStyles = makeStyles({
@@ -137,11 +136,6 @@ const PropertyContainer = styled.div`
   align-items: center;
   margin: 10px;
 `;
-const TextWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-left: 10px;
-`;
 const Text = styled.text`
   font-size: 1rem;
   font-weight: ${(props) => (props.bold ? 'bold' : 'initial')};
@@ -151,9 +145,10 @@ const Text = styled.text`
     font-size: 0.7rem;
   }
 `;
-const Video = styled.video`
-  width: 100%;
-  background: red;
+const TextWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
 `;
 
 const BackLink = styled(Text)`
@@ -171,6 +166,10 @@ const BackLink = styled(Text)`
     font-weight: 600;
     font-size: 1.2rem;
   }
+`;
+const Video = styled.video`
+  width: 100%;
+  background: red;
 `;
 
 export default ExerciseDetail;

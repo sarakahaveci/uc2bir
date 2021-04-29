@@ -69,22 +69,22 @@ const Exercises = ({ setPage = () => {} }) => {
 };
 const Main = styled.div``;
 
-const Wrapper = styled(Container)`
-  width: 100%;
-  border-radius: 10px;
-  -webkit-box-shadow: 0px 0px 4px 3px rgba(197, 196, 196, 0.28);
-  box-shadow: 0px 0px 4px 3px rgba(197, 196, 196, 0.28);
-  @media ${device.sm} {
-    padding: 0;
-  }
-`;
 const StyledRow = styled(Row)`
   margin: ${(props) => (props.header ? '20px' : '50px')};
   @media ${device.sm} {
     margin: ${(props) => (props.header ? '20px' : '5px')};
   }
 `;
-
+const Wrapper = styled(Container)`
+  width: 100%;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 0px 4px 3px rgba(197, 196, 196, 0.28);
+  box-shadow: 0px 0px 4px 3px rgba(197, 196, 196, 0.28);
+  padding: 5px;
+  @media ${device.sm} {
+    padding: 0;
+  }
+`;
 const HeaderText = styled.text`
   color: #00b2a9;
   font-size: 16px;

@@ -1,10 +1,8 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
-import Svg from '../../statics/svg';
 import { device } from 'utils';
-import { stubTrue } from 'lodash';
 
-const PacketCard = ({ onClickDetail, type }) => {
+const PacketCard = ({ onClickDetail }) => {
   useEffect(() => {}, []);
 
   return (
@@ -36,7 +34,7 @@ const PacketCard = ({ onClickDetail, type }) => {
         </FlexSpace>
 
         <Row>
-          {stubTrue ? (
+          {true ? (
             <>
               <Button onClick={onClickDetail}>Rezervasyon Yap</Button>
               <ApproveButton onClick={onClickDetail}>
@@ -87,12 +85,7 @@ const Row = styled.div`
     padding: 3vw;
   }
 `;
-const Seperator = styled.div`
-  display: flex;
-  width: 1px;
-  height: 60%;
-  background-color: rgba(197, 196, 196, 0.5);
-`;
+
 //text
 const BoldText = styled.text`
   font-size: 1rem;
@@ -101,15 +94,6 @@ const BoldText = styled.text`
   color: ${(props) => props.color || 'black'};
   @media ${device.sm} {
     font-size: 0.7rem;
-  }
-`;
-const AdressText = styled.text`
-  color: #909090;
-  font-family: 'Poppins', sans-serif;
-  margin-left: 8px;
-  @media ${device.sm} {
-    margin-left: 3px;
-    font-size: 0.6rem;
   }
 `;
 
@@ -122,16 +106,6 @@ const FlexSpace = styled.div`
   padding: 0 20px 0 20px;
   flex-grow: 2;
   @media ${device.sm} {
-  }
-`;
-const Dot = styled.div`
-  width: 6px;
-  height: 6px;
-  border-radius: 6px;
-  background-color: #ef805a;
-  margin-right: 8px;
-  @media ${device.sm} {
-    margin-right: 3px;
   }
 `;
 
