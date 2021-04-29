@@ -46,13 +46,13 @@ const SessionHistory = () => {
     <StyledContainer>
       <StyledRow>
         <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
-          {startOfWeeksArr().map((elm, index) => (
+          {startOfWeeksArr().map((it, index) => (
             <AccordionContainer key={index}>
               <Number>{index + 1}.</Number>
               <ReservationAccordion
                 defaultOpen={index == 0 ? true : false}
                 parent
-                title="24 OCAK ÇARŞAMBA"
+                title={moment(it).format('DD.MM.YYYY')}
               >
                 <ReservationAccordion
                   miniIcon={<Svg.SessionType.Gym />}

@@ -72,63 +72,60 @@ const Approved = ({ setSubPage = () => {} }) => {
     <StyledContainer>
       <StyledRow>
         <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
-          {startOfWeeksArr().map((elm, index) => (
-            <AccordionContainer key={index}>
-              <Number>{index + 1}.</Number>
+          <AccordionContainer>
+            <ReservationAccordion
+              defaultOpen={true}
+              parent
+              title={moment(selectedDate).format('DD.MM.YYYY')}
+            >
               <ReservationAccordion
-                defaultOpen={index == 0 ? true : false}
-                parent
-                title="24 OCAK ÇARŞAMBA"
+                miniIcon={<Svg.SessionType.Gym />}
+                title="Klinik"
+                defaultOpen
               >
-                <ReservationAccordion
-                  miniIcon={<Svg.SessionType.Gym />}
-                  title="Klinik"
-                  defaultOpen
-                >
-                  {items?.appointment?.[
-                    moment(selectedDate).format('DD.MM.YYYY')
-                  ]?.clinic?.map((elm, i) => (
-                    <ApproveCardContainer key={i}>
-                      <ApproveCard
-                        date={'18:00 - 19:00'}
-                        type="approve"
-                        customerName="Ahmet Mehmet"
-                        onApprove={() => {
-                          openReservationDetail(elm?.id);
-                        }}
-                        onReject={() => {
-                          setOpenCancellation(elm?.id);
-                        }}
-                      />
-                    </ApproveCardContainer>
-                  ))}
-                </ReservationAccordion>
-
-                <ReservationAccordion
-                  miniIcon={<Svg.SessionType.Online />}
-                  title="ONLİNE"
-                >
-                  {items?.appointment?.[
-                    moment(selectedDate).format('DD.MM.YYYY')
-                  ]?.online?.map((elm, i) => (
-                    <ApproveCardContainer key={i}>
-                      <ApproveCard
-                        date={'18:00 - 19:00'}
-                        type="approve"
-                        customerName="Ahmet Mehmet"
-                        onApprove={() => {
-                          openReservationDetail(elm?.id);
-                        }}
-                        onReject={() => {
-                          setOpenCancellation(elm?.id);
-                        }}
-                      />
-                    </ApproveCardContainer>
-                  ))}
-                </ReservationAccordion>
+                {items?.appointment?.[
+                  moment(selectedDate).format('DD.MM.YYYY')
+                ]?.clinic?.map((elm, i) => (
+                  <ApproveCardContainer key={i}>
+                    <ApproveCard
+                      date={'18:00 - 19:00'}
+                      type="approve"
+                      customerName="Ahmet Mehmet"
+                      onApprove={() => {
+                        openReservationDetail(elm?.id);
+                      }}
+                      onReject={() => {
+                        setOpenCancellation(elm?.id);
+                      }}
+                    />
+                  </ApproveCardContainer>
+                ))}
               </ReservationAccordion>
-            </AccordionContainer>
-          ))}
+
+              <ReservationAccordion
+                miniIcon={<Svg.SessionType.Online />}
+                title="ONLİNE"
+              >
+                {items?.appointment?.[
+                  moment(selectedDate).format('DD.MM.YYYY')
+                ]?.online?.map((elm, i) => (
+                  <ApproveCardContainer key={i}>
+                    <ApproveCard
+                      date={'18:00 - 19:00'}
+                      type="approve"
+                      customerName="Ahmet Mehmet"
+                      onApprove={() => {
+                        openReservationDetail(elm?.id);
+                      }}
+                      onReject={() => {
+                        setOpenCancellation(elm?.id);
+                      }}
+                    />
+                  </ApproveCardContainer>
+                ))}
+              </ReservationAccordion>
+            </ReservationAccordion>
+          </AccordionContainer>
           {!(startOfWeeksArr().length > 0) && (
             <text>Bu tarihe ilişkin veri bulunamadı</text>
           )}
@@ -196,13 +193,6 @@ const ApproveCardContainer = styled.div`
   margin: 20px 0;
   @media ${device.sm} {
     margin: 0;
-  }
-`;
-const Number = styled.text`
-  font-size: 16px;
-  margin: 15px;
-  @media ${device.sm} {
-    display: none;
   }
 `;
 
