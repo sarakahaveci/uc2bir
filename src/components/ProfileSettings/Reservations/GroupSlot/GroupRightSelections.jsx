@@ -53,7 +53,7 @@ export default function GroupRightSelections() {
   }, [classSelection]);
 
   useEffect(() => {
-    dispatch(getProfessionalCalendar(locationSelection.id, 2, selectedDate));
+    locationSelection?.id && dispatch(getProfessionalCalendar(locationSelection.id, 2, selectedDate));
   }, [locationSelection]);
 
   const { working_days: working_days } = useSelector(
