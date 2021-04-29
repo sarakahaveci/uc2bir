@@ -3,7 +3,7 @@ import React from 'react';
 import { Text, Title, Accordion, Box, Svg } from 'components';
 import styled from 'styled-components/macro';
 
-const Wrapper = () => {
+const Wrapper = ({ item }) => {
   return (
     <div>
       {item.title && (
