@@ -10,7 +10,7 @@ const Gym = ({ user_name, user_img = null, logoutHandler }) => {
     {
       name: 'Profilim',
       icon: <Svg.UsernameIcon />,
-      link: TABS.profilePath,
+      link: TABS.profileDetailPath,
       pulse: true,
     },
     {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
-import { DIETITIAN } from '../../../constants';
+import { DIETITIAN, WORK_PLACE } from '../../../constants';
 
 import { getUserInfo } from 'actions';
 import profileImg from 'assets/default-profile.jpg';
@@ -18,164 +18,98 @@ import DietitionSpeciality from 'components/Profile/Dietition/DietitionSpecialit
 import Blog from 'components/Profile/Blog';
 import Galery from 'components/Profile/Galery';
 import ProfileReservation from 'components/ProfileReservation';
-
+import FacilityList from 'components/Profile/Gym/FacilityList';
+import Classes from 'components/Profile/Gym/Classes/index';
+import FindPt from 'components/Profile/Gym/FindPt';
+import GymLocation from 'components/Profile/Gym/Location';
 import MyCalendar from 'components/Profile/MyCalendar/MyCalendar';
 
 
 export default function Profile( ) {
   const dispatch = useDispatch();
   const [page, setPage] = useState('Start');
-  const [tab, setTab] = useState('Awaitings');
+
   const { userInfo, isLoading } = useSelector(
     (state) => state.userProfile.userInfo
   );
+  const [tab, setTab] = useState();
   const { id:id} = useSelector((state) => state.auth.user);
 
   useEffect(() => {
     dispatch(getUserInfo(id));
   }, [id]);
 
-  // const trainerAndDitetionTabs = [
-  //   {
-  //     eventKey: 'branch',
-  //     title: 'BRANŞLAR',
-  //     component:
-  //       userInfo?.type_id === DIETITIAN ? (
-  //         <DietitionSpeciality userId={id} />
-  //       ) : (
-  //         <Branch userId={id} />
-  //       ),
-  //   },
-  //   {
-  //     eventKey: 'certificate',
-  //     title: 'SERTİFİKALAR',
-  //     component: <ProfileCertificate userId={id} />,
-  //   },
-  //   {
-  //     eventKey: 'workplace',
-  //     title: 'ÇALIŞTIĞI YERLER',
-  //     component:
-  //       userInfo?.type_id === DIETITIAN ? (
-  //         <DietitionPlace userId={id} />
-  //       ) : (
-  //         <Place userId={id} />
-  //       ),
-  //   },
-  //   {
-  //     eventKey: 'calendar',
-  //     title: 'TAKVİM',
-  //     component: <MyCalendar userId={id} typeId={userInfo?.type_id} setPage={setPage}/>,
-  //   },
-  //   {
-  //     eventKey: 'comments',
-  //     title: 'YORUMLAR',
-  //     component: <Comment userId={id} />,
-  //   },
-  //   {
-  //     eventKey: 'gallery',
-  //     title: 'GALERİ',
-  //     component: <Galery userId={id} />,
-  //   },
-  //   {
-  //     eventKey: 'blog',
-  //     title: 'BLOG',
-  //     component: <Blog userId={id} userName={userInfo?.name} />,
-  //   },
-  // ];
+  useEffect(()=>{
+    setTab(userInfo.type_id !==WORK_PLACE ? 'Branches': 'Facility')
+  },[userInfo])
 
-  // const workPlaceTabs = [
-  //   {
-  //     eventKey: 'facility',
-  //     title: 'OLANAKLAR',
-  //     component: <FacilityList userId={id} />,
-  //   },
-  //   {
-  //     eventKey: 'certificate',
-  //     title: 'SERTİFİKALAR',
-  //     component: <ProfileCertificate userId={id} />,
-  //   },
-  //   {
-  //     eventKey: 'workplace',
-  //     title: 'SINIFLAR',
-  //     component: <Classes userId={id} />,
-  //   },
-  //
-  //   {
-  //     eventKey: 'trainers',
-  //     title: 'EĞİTMENLER',
-  //     component: <FindPt userId={id} />,
-  //   },
-  //   /*  {
-  //     eventKey: 'calendar',
-  //     title: 'TAKVİM',
-  //     component: <MyCalendar userId={id} />,
-  //   }, */
-  //   /*   {
-  //     eventKey: 'comments',
-  //     title: 'YORUMLAR',
-  //     component: <Comment userId={id} />,
-  //   }, */
-  //   {
-  //     eventKey: 'gallery',
-  //     title: 'GALERİ',
-  //     component: <Galery userId={id} />,
-  //   },
-  //   {
-  //     eventKey: 'location',
-  //     title: 'KONUM',
-  //     component: <GymLocation />,
-  //   },
-  // ];
-
-  // let tabData;
-  //
-  // switch (userInfo?.type_id) {
-  //   case PERSONAL_TRAINER:
-  //     tabData = trainerAndDitetionTabs;
-  //     break;
-  //   case WORK_PLACE:
-  //     tabData = workPlaceTabs;
-  //     break;
-  //   case DIETITIAN:
-  //     tabData = trainerAndDitetionTabs;
-  //     break;
-  //   default:
-  //     break;
-  // }
   let content;
-  switch (tab) {
-    case 'Awaitings':
-      content =   userInfo?.type_id === DIETITIAN ? (
-        <DietitionSpeciality userId={id} />
-      ) : (
-        <Branch userId={id} />
-      );
-      break;
-    case 'Certificates':
-      content = <ProfileCertificate userId={id} />;
-      break;
-    case 'WorkPlace':
-      content =  userInfo?.type_id === DIETITIAN ? (
-        <DietitionPlace userId={id} />
-      ) : (
-        <Place userId={id} />
-      );
-      break;
-    case 'Calendar':
-      content =  <MyCalendar userId={id} typeId={userInfo?.type_id} setPage={setPage}/>;
-      break;
-    case 'Comments':
-      content = <Comment userId={id} />;
-      break;
-    case 'Gallery':
-      content = <Galery userId={id} />;
-      break;
-    case 'Blog':
-      content = <Blog userId={id} userName={userInfo?.name} />;
-      break;
-    default:
-      return <></>;
+  if (userInfo?.type_id !== WORK_PLACE) {
+    switch (tab) {
+      case 'Branches':
+        content =   userInfo?.type_id === DIETITIAN ? (
+          <DietitionSpeciality userId={id} />
+        ) : (
+          <Branch userId={id} />
+        );
+        break;
+      case 'Certificates':
+        content = <ProfileCertificate userId={id} />;
+        break;
+      case 'WorkPlace':
+        content =  userInfo?.type_id === DIETITIAN ? (
+          <DietitionPlace userId={id} />
+        ) : (
+          <Place userId={id} />
+        );
+        break;
+      case 'Calendar':
+        content =  <MyCalendar userId={id} typeId={userInfo?.type_id} setPage={setPage} isUserDetail={true}/>;
+        break;
+      case 'Comments':
+        content = <Comment userId={id} />;
+        break;
+      case 'Gallery':
+        content = <Galery userId={id} />;
+        break;
+      case 'Blog':
+        content = <Blog userId={id} userName={userInfo?.name} />;
+        break;
+      default:
+        return <></>;
+    }
+  }else {
+    switch (tab) {
+      case 'Facility':
+        content =  <FacilityList userId={id} />;
+        break;
+      case 'Certificates':
+        content = <ProfileCertificate userId={id} />;
+        break;
+      case 'WorkPlace':
+        content = <Classes userId={id} />;
+        break;
+      case 'Trainers':
+        content =  <FindPt userId={id} />;
+        break;
+      case 'Calendar':
+        content = <MyCalendar userId={id} typeId={userInfo?.type_id} isUserDetail={true}/>;
+        break;
+      case 'Comments':
+        content = <Comment userId={id} />;
+        break;
+      case 'Gallery':
+        content = <Galery userId={id} />;
+        break;
+      case 'Location':
+        content = <GymLocation />;
+        break;
+      default:
+        return <></>;
+    }
   }
+
+
   switch (page) {
     case 'Start':
       content = (
@@ -208,13 +142,14 @@ export default function Profile( ) {
             </Row>
             <TabContainers>
               <>
+                {userInfo.type_id !== WORK_PLACE ? (
                 <Tabbar
-                  defaultSelected="Awaitings"
+                  defaultSelected="Branches"
                   onSelect={(value) => {
                     setTab(value);
                   }}
                   tabs={[
-                    { text: 'BRANŞLAR', value: 'Awaitings' },
+                    { text: 'BRANŞLAR', value: 'Branches' },
                     { text: 'SERTİFİKALAR', value: 'Certificates' },
                     { text: 'ÇALIŞTIĞI YERLER', value: 'WorkPlace' },
                     { text: 'TAKVİM', value: 'Calendar' },
@@ -222,7 +157,25 @@ export default function Profile( ) {
                     { text: 'GALERİ', value: 'Gallery' },
                     { text: 'BLOG', value: 'Blog' },
                   ]}
-                />
+                />):(
+                  <Tabbar
+                    defaultSelected="Facility"
+                    onSelect={(value) => {
+                      setTab(value);
+                    }}
+                    tabs={[
+                      { text: 'OLANAKLAR', value: 'Facility' },
+                      { text: 'SERTİFİKALAR', value: 'Certificates' },
+                      { text: 'ÇALIŞTIĞI YERLER', value: 'WorkPlace' },
+                      { text: 'EĞİTMENLER', value: 'Trainers' },
+                      { text: 'TAKVİM', value: 'Calendar' },
+                      { text: 'YORUMLAR', value: 'Comments' },
+                      { text: 'GALERİ', value: 'Gallery' },
+                      { text: 'KONUM', value: 'Location' },
+                    ]}
+                  />
+                )}
+
                 {content}
               </>
               {/*<Tab*/}

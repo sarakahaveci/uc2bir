@@ -1,5 +1,6 @@
 export default {
   profilePath: '/myprofile/settings/profile',
+  profileDetailPath: '/myprofile/settings/profileDetail',
   reservationsPath: '/myprofile/settings/reservation',
   packetsPath: '/myprofile/settings/packets',
   walletPath: '/myprofile/settings/wallet',

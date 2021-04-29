@@ -58,7 +58,7 @@ const ProfileBanner = ({
 
             </span>
 
-            {!isUserDetail&&<Stars rating={info.stars} position="bottom" />}
+           <Stars rating={info.stars} position="bottom" />
 
             {!isUserDetail&&
               <CardFooter>
