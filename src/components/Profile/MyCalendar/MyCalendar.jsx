@@ -15,7 +15,7 @@ import {
 import moment from 'moment';
 import { DIETITIAN } from '../../../constants';
 
-export default function MyCalendar({ userId, typeId, setPage = () => {} }) {
+export default function MyCalendar({ userId, typeId, setPage = () => {} , isUserDetail=false}) {
   const dispatch = useDispatch();
   const [startDate, setStartDate] = useState(new Date());
   const [selectedHour, setSelectedHour] = useState();
@@ -76,8 +76,8 @@ export default function MyCalendar({ userId, typeId, setPage = () => {} }) {
             </AccordionItemWrapper>
           ):
           (branchList?.map((item, index) => (
-            <AccordionItemWrapper key={index}>
-              <Accordion.Item>
+            <AccordionItemWrapper key={index} >
+              <Accordion.Item   defaultOpen={ true}>
                 <Accordion.Toggle>
                   <BranchRowToggler data={item} typeId={typeId}/>
                 </Accordion.Toggle>
@@ -96,7 +96,7 @@ export default function MyCalendar({ userId, typeId, setPage = () => {} }) {
 
         </Accordion>
         <BranchWrapper>
-          {selectedHour && (
+          {selectedHour && isUserDetail === false &&(
             <Button
               onClick={() => {
                 dispatch(clearReservation());

@@ -81,8 +81,12 @@ const regularUserTabs = [
 
 const workPlaceTabs = [
   {
-    eventKey: 'profile',
+    eventKey: 'profileDetail',
     title: 'Profilim',
+    component: <ProfileDetail />,
+  },
+  {
+    eventKey: 'profile',
     component: <ProfileSettingsList />,
   },
   {
@@ -129,8 +133,12 @@ const workPlaceTabs = [
 
 const dietitianTabs = [
   {
-    eventKey: 'profile',
+    eventKey: 'profileDetail',
     title: 'Profilim',
+    component: <ProfileDetail />,
+  },
+  {
+    eventKey: 'profile',
     component: <ProfileSettingsList />,
   },
   {
