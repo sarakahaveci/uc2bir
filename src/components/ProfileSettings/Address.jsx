@@ -32,7 +32,6 @@ export default function Address() {
     (state) => state.profile
   );
 
-
   const [formData, setFormData] = useState({});
   const [adressFromMap, setAdressFromMap] = useState({});
   const [location, setLocation] = useState({});
@@ -42,7 +41,6 @@ export default function Address() {
   useEffect(() => {
     dispatch(getCitiesAndDistict({}));
     dispatch(getProfileInformation());
-
   }, []);
 
   useEffect(() => {
@@ -100,18 +98,19 @@ export default function Address() {
     }
   }, [isSuccessGetId]);
 
-  const getLocationOfAddress = async () => {
-    const cityName = cities?.find((city) => city.id === formData.city);
-    const districtName = distict?.find((dist) => dist.id === formData.distict);
-    const townName = town?.find((towns) => towns.id === formData.town);
-
+  const getLocationOfAddress = async (reqTown) => {
+    const cityName = await cities?.find((city) => city.id === formData.city);
+    const districtName = await distict?.find(
+      (dist) => dist.id === formData.distict
+    );
+    const townName = await town?.find((towns) => towns.id === reqTown);
     const results = await getGeocode({
       address:
         townName?.name + ', ' + districtName?.name + ', ' + cityName?.name,
     });
     const lat = results?.[0]?.geometry?.location?.lat();
     const lng = results?.[0]?.geometry?.location?.lng();
-    setLocation({ lat, lng });
+    await setLocation({ lat, lng });
   };
 
   const handleFormOnChange = (event) => {
@@ -119,7 +118,7 @@ export default function Address() {
   };
 
   const handleTownChange = (event) => {
-    getLocationOfAddress();
+    getLocationOfAddress(event.target.value);
     setFormData({
       ...formData,
       address_detail: null,

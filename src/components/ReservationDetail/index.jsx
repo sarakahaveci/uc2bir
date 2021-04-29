@@ -75,7 +75,6 @@ const ReservationDetail = ({ type, goBack = () => {} }) => {
                 lat: 34.0525,
                 lng: 41.0525,
               }}
-              disabled
             />
           </MapWrapper>
         </Left>
