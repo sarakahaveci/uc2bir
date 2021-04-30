@@ -22,6 +22,8 @@ import ForgotPassword from 'views/ForgotPassword';
 import Profile from 'views/Profile';
 import UserProfile from 'views/ProfileSettings';
 import Message from 'views/Message';
+import BuyPacket from 'views/BuyPacket/index';
+
 import { theme } from 'utils';
 import BlogDetail from 'views/BlogDetail';
 import MineBlogDetail from 'views/MineBlogDetail';
@@ -108,6 +110,8 @@ const App = () => {
                 <Route exact path="/blog-list" component={BlogList} />
 
                 <Route exact path="/messages/:id?" component={Message} />
+                <Route exact path="/packets/detail/:id" component={BuyPacket} />
+
                 <Route exact path="/contact" component={Contact} />
                 <Route exact path="/find" component={SearchProfessional} />
                 <Route exact path="/terms-of-use" component={TermsOfUse} />

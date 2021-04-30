@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { AwesomeIcon } from 'components';
 import { Col } from 'react-bootstrap';
 import styled from 'styled-components/macro';
