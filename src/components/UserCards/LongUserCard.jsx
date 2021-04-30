@@ -15,8 +15,9 @@ const LongUserCard = ({
   district,
   hoverText = 'Profile Git',
   isGym,
-  onClickHover,
+  onClickHover = () => {},
   selected = false,
+  type,
 }) => {
   const [isFavorited, setIsFavorited] = useState(favoritedUser);
 
@@ -59,7 +60,7 @@ const LongUserCard = ({
         />
 
         <div className="long-user-card__navigator-wrapper">
-          {!isGym ? (
+          {!isGym && !(type == 'selection') ? (
             <div
               className="long-user-card__profile-navigator"
               onClick={navigateToUser}
@@ -69,7 +70,7 @@ const LongUserCard = ({
           ) : (
             <div
               className="long-user-card__profile-navigator"
-              onClick={() => onClickHover(data.id)}
+              onClick={() => onClickHover(data)}
             >
               {hoverText}
             </div>

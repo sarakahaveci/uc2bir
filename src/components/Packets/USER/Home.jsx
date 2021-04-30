@@ -14,6 +14,9 @@ const Home = ({ setPage = () => {} }) => {
             onClickDetail={() => {
               setPage('DetailLesson');
             }}
+            onClickReservation={() => {
+              setPage('PacketReservation');
+            }}
           />
         </CardContainer>
         <CardContainer>
@@ -21,6 +24,9 @@ const Home = ({ setPage = () => {} }) => {
             type="dt"
             onClickDetail={() => {
               setPage('DetailLesson');
+            }}
+            onClickReservation={() => {
+              alert('PacketReservation');
             }}
           />
         </CardContainer>

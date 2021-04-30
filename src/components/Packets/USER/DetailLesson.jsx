@@ -33,6 +33,9 @@ const DetailLesson = ({ setBannerActive = () => {}, setPage = () => {} }) => {
       return 'mid';
     }
   }
+  function handleReservationButton() {
+    alert('sd');
+  }
   function _renderLessons() {
     return temp.map((elm, index) => (
       <Col key={index} style={{ padding: 0 }} lg="4">
@@ -70,7 +73,7 @@ const DetailLesson = ({ setBannerActive = () => {}, setPage = () => {} }) => {
         <Right>
           <ImageContainer>
             <ImageBanner src={image}></ImageBanner>
-            <Button>Rezervasyon Yap</Button>
+            <Button onClick={handleReservationButton}>Rezervasyon Yap</Button>
           </ImageContainer>
           <TextContainer>
             <Title>Gelin Paketi</Title>

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { device } from 'utils';
 
-const PacketCard = ({ onClickDetail }) => {
+const PacketCard = ({ onClickDetail, onClickReservation }) => {
   useEffect(() => {}, []);
 
   return (
@@ -36,7 +36,7 @@ const PacketCard = ({ onClickDetail }) => {
         <Row>
           {true ? (
             <>
-              <Button onClick={onClickDetail}>Rezervasyon Yap</Button>
+              <Button onClick={onClickReservation}>Rezervasyon Yap</Button>
               <ApproveButton onClick={onClickDetail}>
                 Paket Detayı
               </ApproveButton>
