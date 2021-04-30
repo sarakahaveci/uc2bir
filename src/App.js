@@ -36,6 +36,7 @@ import TermsOfUse from './views/Footer/TermsOfUse';
 import MembershipAgreement from './views/Footer/MembershipAgreement';
 import Kvkk from './views/Footer/Kvkk';
 import RefundConditions from './views/Footer/RefundConditions';
+import Online from 'views/Online';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -83,7 +84,6 @@ const App = () => {
                   path="/forgot-password"
                   component={ForgotPassword}
                 />
-
                 <ProtectedRoute
                   exact
                   path="/user/:id/:activeTabKey?"
@@ -98,6 +98,11 @@ const App = () => {
                   exact
                   path="/mine-blog/:id"
                   component={MineBlogDetail}
+                />
+                <ProtectedRoute
+                  exact
+                  path="/myprofile/online"
+                  component={Online}
                 />
                 <Route exact path="/blog-detail/:seo" component={BlogDetail} />
                 <Route exact path="/blog-list" component={BlogList} />

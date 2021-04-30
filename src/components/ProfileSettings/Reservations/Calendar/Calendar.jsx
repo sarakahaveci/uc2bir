@@ -385,7 +385,7 @@ const Calendar = () => {
                         <ReservationHourButton
                           onClick={()=> {
                             setSelectedHour(item);
-                            setActivePage('showHourDetail');
+                            setActivePage(item.type!=='group' ? 'showHourDetail':'showHourGroup');
                             dispatch(getDayDetailOfCalendar(item.id))
                           }}
                           text={item.hour}
@@ -512,6 +512,80 @@ const Calendar = () => {
                        ))}/>
                    </Row>
                  </HourDetailContainer>
+                </ReservationAccordion>
+              </AccordionContainer>
+            </Col>)}
+
+          {activePage==='showHourGroup' && (
+            <Col xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
+              <AccordionContainer >
+                <Span
+                  cursor="pointer"
+                  fontSize="1.5rem"
+                  onClick={() => setActivePage('index')}
+                  marginRight="10px"
+                  marginTop="10px">
+                  {`<`}
+                </Span>
+                <ReservationAccordion
+                  defaultOpen={true}
+                  parent
+                  title={moment(startDate).format('DD MMMM dddd') +' / ' + selectedHour?.hour}>
+                  <HourDetailContainer>
+                    {userTypeId=== PERSONAL_TRAINER &&
+                    <Box>
+                      <Span fontWeight="600" mr="15px" fontSize={'20px'}>
+                        Branş:
+                      </Span>
+                      <Span fontSize={'18px'}>
+                        {selectedHour?.branch}
+                      </Span>
+                    </Box>}
+
+
+
+                    <Box row style={{justifyContent:'space-between'}}>
+                      <Span>
+                        <Span fontWeight="600" mr="15px" fontSize={'20px'}>
+                          Salon:
+                        </Span>
+                        <Span fontSize={'18px'}>
+                          {detailHour?.slice?.[0]?.location?.gym?.map((item, index)=>(
+                            <Span fontSize={'18px'} key={index} color={'blue'} underline lineWidth={'100%'}>
+                              {item + ' '}
+                            </Span>))}
+                          {detailHour?.slice?.[0]?.location?.home_park?.map((item, index)=>(
+                            <Span fontSize={'18px'} key={index}>
+                              {item}
+                            </Span>))}
+                          {detailHour?.slice?.[0]?.location?.clinic?.map((item, index)=>(
+                            <Span fontSize={'18px'} key={index}>
+                              {item }
+                              {detailHour?.slice?.[0]?.location?.clinic?.length !== index+1 ? ', ': ''}
+                            </Span>))}
+                        </Span>
+                      </Span>
+
+                      <Span>
+                        <Span fontWeight="600" mr="15px" fontSize={'20px'} color={'blue'}>
+                          Grup Ders:
+                        </Span>
+                        <Span fontSize={'18px'} color={'blue'}>
+                          {detailHour?.min_capacity} / {detailHour?.max_capacity} Kontenjan
+                        </Span>
+                      </Span>
+                    </Box>
+
+                    <hr/>
+                    <Row  style={{display:'flex', justifyContent:'flex-end'}}>
+                      <Button disableborder text={'Sil'} width={'120px'} height={'35px'} onClick={()=>dispatch(
+                        deleteHourOfCalendar(
+                          selectedHour?.id,
+                          deleteHourSuccess,
+                          deleteHourFail
+                        ))}/>
+                    </Row>
+                  </HourDetailContainer>
                 </ReservationAccordion>
               </AccordionContainer>
             </Col>)}
