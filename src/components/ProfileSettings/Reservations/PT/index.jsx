@@ -98,13 +98,15 @@ const PT = () => {
                 setTabPage={setSubPage}
               />
             ) : (
-              <ReservationTemplate />
+              <ReservationTemplate
+                setTab={setTab}
+                setTabPage={setSubPage}/>
             )
           );
         }}
         cancel={() => {
           setOpenCreateCalender(false);
-          setSubPage(<GroupSlot setTabPage={setSubPage} />);
+          setSubPage(<GroupSlot setTabPage={setSubPage} setTab={setTab}/>);
         }}
       />
     </Container>

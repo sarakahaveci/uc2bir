@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import styled from 'styled-components/macro';
 import { Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -28,7 +28,7 @@ import { DIETITIAN } from 'constants/index';
 import moment from 'moment';
 import { toast } from 'react-toastify';
 
-export default function GroupRightSelections() {
+export default function GroupRightSelections({ setTab = () => {}, setTabPage = () => {} }) {
   const {
     classSelection,
     selectedHour,
@@ -47,8 +47,10 @@ export default function GroupRightSelections() {
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const reservationSuccessModalRef = useRef();
+
   const selectDataHandler = (name, value) =>
     dispatch(setGroupSelectionData(name, value));
+
   // useEffect(() => {
   //   setMaxCapacityCount(classSelection.capacity || 0);
   // }, [classSelection]);
@@ -56,6 +58,15 @@ export default function GroupRightSelections() {
   useEffect(() => {
     locationSelection?.id && dispatch(getProfessionalCalendar(locationSelection.id, 2, selectedDate));
   }, [locationSelection]);
+
+  useEffect(() => {
+    selectDataHandler('selectedDate', selectedDate)
+  }, [selectedDate]);
+
+  const closeSuccessReservationModal = useCallback(() => {
+    setTabPage('')
+    setTab('Calendar')
+  }, []);
 
   const { working_days: working_days } = useSelector(
     (state) => state.userProfile.calendar
@@ -76,6 +87,7 @@ export default function GroupRightSelections() {
   };
 
   const createGroupSlotHandler = () => {
+    reservationSuccessModalRef.current.openModal();
     switch (userTypeId) {
       case DIETITIAN:
         dispatch(
@@ -281,9 +293,9 @@ export default function GroupRightSelections() {
           type="number"
         />
 
-        <Text color="red" fontSize="0.9rem">
-          *Max 50 TL fiyat giriniz
-        </Text>
+        {/*<Text color="red" fontSize="0.9rem">*/}
+        {/*  *Max 50 TL fiyat giriniz*/}
+        {/*</Text>*/}
         <DarkTitle>Fiyat Belirleyiniz</DarkTitle>
         {userTypeId == DIETITIAN && (
           <>
@@ -337,7 +349,7 @@ export default function GroupRightSelections() {
         </Text>
 
         <Modal.Footer>
-          <Text textAlign="center" color="blue" p="0">
+          <Text textAlign="center" color="blue" p="0" cursor="pointer" onClick={closeSuccessReservationModal}>
             REZERVASYON TAKVİMİMİ GÖR
           </Text>
 

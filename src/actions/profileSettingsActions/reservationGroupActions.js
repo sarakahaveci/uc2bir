@@ -6,7 +6,7 @@ import {
 } from 'constants/index';
 import { format } from 'date-fns';
 
-export const getWorkPlaceCapacity = (branchId, locationId) => async (
+export const getWorkPlaceCapacity = (branchId, locationId, selectedHour, date) => async (
   dispatch
 ) => {
   const url = '/appointment/pt/gym-capacity';
@@ -20,6 +20,8 @@ export const getWorkPlaceCapacity = (branchId, locationId) => async (
       body: {
         branch_id: branchId,
         location_id: locationId,
+        date: format(date, 'dd.MM.uuuu'),
+        hour: selectedHour,
       },
       label: GET_WORK_PLACE_CAPACITY,
     },
@@ -41,6 +43,7 @@ export const createGroupSlot = (slotObj, successCallback, errorCallback) => asyn
     locationSelection,
     courseDetails,
     group_slot_image_id,
+    classSelection,
   } = getState().profileSettings2.reservationGroupSlot;
 
   await dispatch({
@@ -59,6 +62,7 @@ export const createGroupSlot = (slotObj, successCallback, errorCallback) => asyn
         location_id: locationSelection.id,
         detail: courseDetails,
         group_slot_image_id,
+        class_id:classSelection.id,
       },
       callBack: successCallback,
       errorHandler: () => errorCallback(),
