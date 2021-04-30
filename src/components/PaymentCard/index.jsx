@@ -206,6 +206,20 @@ export default function PaymentCard({ type, dateOption }) {
           </DataContainer>
         </InfoContainer>
       )}
+      {type === 'packet' && (
+        <InfoContainer>
+          <DataContainer>
+            <>
+              <Info borderDisable>
+                <Text style={{ fontWeight: 800 }}>Salon Ücreti</Text>
+                <Text style={{ fontWeight: 800 }}>
+                  {reservation?.data?.gym_price}
+                </Text>
+              </Info>
+            </>
+          </DataContainer>
+        </InfoContainer>
+      )}
       {type === 'dt' && (
         <InfoContainer>
           <DataContainer>

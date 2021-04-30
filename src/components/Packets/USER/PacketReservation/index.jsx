@@ -28,6 +28,7 @@ import {
   deleteAllSlot,
   getPtGymList,
   getPtWorkingHomePlace,
+  clearReservation,
 } from 'actions';
 
 import axios from 'axios';
@@ -56,6 +57,9 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
 
   useEffect(() => {
     setBannerActive(false);
+    return () => {
+      dispatch(clearReservation());
+    };
   }, []);
   useEffect(() => {}, [userInfo]); //USER İNFO KOMPLE EKSİK
   useEffect(() => {
@@ -595,7 +599,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
           <Container>
             <LeftWrapper>{_renderLeftArea()}</LeftWrapper>
             <RightWrapper>
-              <PaymentCard type="packet" dateOption={false} />
+              <PaymentCard type="packet" dateOption={true} />
             </RightWrapper>
             <StyledModal show={openModal} onHide={() => setOpenModal(false)}>
               <MultiContract
