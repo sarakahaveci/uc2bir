@@ -4,6 +4,7 @@ import styled from 'styled-components/macro';
 import { device } from 'utils';
 import GoogleMap from 'components/GoogleMaps/GoogleMap';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 const ReservationDetail = ({ type, goBack = () => {} }) => {
   const [detailData, setDetailData] = useState({});
   var professionalReservation = useSelector(
@@ -96,6 +97,9 @@ const ReservationDetail = ({ type, goBack = () => {} }) => {
             </DescTextWrapper>
             <MessageButtonContainer>
               <MessageButton>Mesaj Gönder</MessageButton>
+              <Link to={'/myprofile/online'}>
+                <OnlineClassButton color={'blue2'} >Derse Gir </OnlineClassButton>
+              </Link>
             </MessageButtonContainer>
           </RightAreaWrapper>
         </Right>
@@ -154,9 +158,18 @@ const MessageButtonContainer = styled.div`
 const MessageButton = styled.button`
   width:100%;
   height:50px;
-  background var(--blue);
+  background: var(--blue);
   color:white;
 `;
+
+const OnlineClassButton = styled.button`
+  width:100%;
+  height:50px;
+  margin-top: 15px;
+  background: var(--blue2);
+  color:white;
+`;
+
 
 const Header = styled.div`
   width: 100%;
