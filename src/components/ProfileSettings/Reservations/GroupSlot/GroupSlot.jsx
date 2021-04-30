@@ -6,7 +6,7 @@ import GroupLeftSelections from './GroupLeftSelections';
 import GroupRightSelections from './GroupRightSelections';
 import styled from 'styled-components/macro';
 
-export default function GroupSlot({setTabPage = () => {} }) {
+export default function GroupSlot({setTabPage = () => {}, setTab = () => {}, }) {
   return (
     <>
       <BackLink onClick={()=>setTabPage('')}>
@@ -21,7 +21,7 @@ export default function GroupSlot({setTabPage = () => {} }) {
         </Col>
 
         <Col lg={6}>
-          <GroupRightSelections />
+          <GroupRightSelections setTabPage={setTabPage} setTab={setTab}/>
         </Col>
       </Row>
     </>

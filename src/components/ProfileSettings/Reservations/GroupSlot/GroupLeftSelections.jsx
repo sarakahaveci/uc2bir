@@ -36,6 +36,7 @@ export default function GroupLeftSelections() {
     classSelection,
     selectedHour,
     dtSessionSelection,
+    selectedDate
   } = useSelector((state) => state.profileSettings2.reservationGroupSlot);
 
   const {
@@ -80,7 +81,7 @@ export default function GroupLeftSelections() {
   useEffect(() => {
     if (branchSelection && locationSelection) {
 
-      dispatch(getWorkPlaceCapacity(branchSelection.id, locationSelection.id));
+      dispatch(getWorkPlaceCapacity(branchSelection.id, locationSelection.id, selectedHour, selectedDate));
     }
   }, [branchSelection, locationSelection]);
 
