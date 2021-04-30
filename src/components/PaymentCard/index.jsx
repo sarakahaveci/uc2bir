@@ -185,34 +185,40 @@ export default function PaymentCard({ type, dateOption }) {
           </>
         )}
       </AddTextContainer>
-      <InfoContainer>
-        <DataContainer>
-          {type === 'pt' && (
-            <Info>
-              <Text style={{ fontWeight: 800 }}>Eğitmen Ücreti</Text>
-              <Text style={{ fontWeight: 800 }}>
-                {reservation?.data?.pt_price}
-              </Text>
-            </Info>
-          )}
-          {type === 'dt' && (
+
+      {type === 'pt' && (
+        <InfoContainer>
+          <DataContainer>
+            <>
+              <Info>
+                <Text style={{ fontWeight: 800 }}>Eğitmen Ücreti</Text>
+                <Text style={{ fontWeight: 800 }}>
+                  {reservation?.data?.pt_price}
+                </Text>
+              </Info>
+              <Info borderDisable>
+                <Text style={{ fontWeight: 800 }}>Salon Ücreti</Text>
+                <Text style={{ fontWeight: 800 }}>
+                  {reservation?.data?.gym_price}
+                </Text>
+              </Info>
+            </>
+          </DataContainer>
+        </InfoContainer>
+      )}
+      {type === 'dt' && (
+        <InfoContainer>
+          <DataContainer>
             <Info>
               <Text style={{ fontWeight: 800 }}>Dietisyen Ücreti</Text>
               <Text style={{ fontWeight: 800 }}>
                 {reservation?.data?.dt_price}
               </Text>
             </Info>
-          )}
-          {type === 'pt' && (
-            <Info borderDisable>
-              <Text style={{ fontWeight: 800 }}>Salon Ücreti</Text>
-              <Text style={{ fontWeight: 800 }}>
-                {reservation?.data?.gym_price}
-              </Text>
-            </Info>
-          )}
-        </DataContainer>
-      </InfoContainer>
+          </DataContainer>
+        </InfoContainer>
+      )}
+
       <InfoContainer>
         <DataContainer>
           <Info borderDisable>

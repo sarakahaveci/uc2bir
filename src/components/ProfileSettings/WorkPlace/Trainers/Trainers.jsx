@@ -9,7 +9,7 @@ import { Button, Pagination, Svg } from 'components';
 import LongUserCard from 'components/UserCards/LongUserCard';
 import SearchFilters from 'components/SearchProfessional/SearchFilters';
 
-const Trainers = () => {
+const Trainers = ({ type, onClickHover = () => {} }) => {
   const dispatch = useDispatch();
   const allBranchList = useSelector(
     (state) => state.profileSettings.ptBranchList.allList
@@ -45,7 +45,7 @@ const Trainers = () => {
         location,
         type: 'pt',
         lat: 0,
-        lng:0,
+        lng: 0,
         classification,
       })
     );
@@ -69,7 +69,6 @@ const Trainers = () => {
       })
     );
   };
-
 
   const handleChangePage = (event, pageNumber) => {
     setPage(pageNumber);
@@ -162,11 +161,14 @@ const Trainers = () => {
             <GymListWrapper>
               {data?.map((professional) => (
                 <LongUserCard
+                  type={type}
                   showHeartBg
+                  hoverText={type == 'selection' ? '+ Eğitmeni Seç' : undefined}
                   key={professional?.id || professional?.user_id}
                   data={professional}
                   city={professional?.city}
                   district={professional?.district}
+                  onClickHover={onClickHover}
                 />
               ))}
             </GymListWrapper>

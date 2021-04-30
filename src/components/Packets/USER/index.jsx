@@ -8,6 +8,7 @@ import Home from './Home';
 import DetailLesson from './DetailLesson';
 import Exercises from './Exercises';
 import ExerciseDetail from './ExerciseDetail';
+import PacketReservation from './PacketReservation';
 
 const User = ({ icons, setBannerActive }) => {
   const dispatch = useDispatch();
@@ -96,7 +97,15 @@ const User = ({ icons, setBannerActive }) => {
           />
         </div>
       );
-
+    case 'PacketReservation':
+      return (
+        <div>
+          <PacketReservation
+            setPage={setPage}
+            setBannerActive={setBannerActive}
+          />
+        </div>
+      );
     default:
       return <></>;
   }
