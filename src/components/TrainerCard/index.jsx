@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AwesomeIcon } from 'components';
 import { Col } from 'react-bootstrap';
 import styled from 'styled-components/macro';
 import { device } from 'utils';
-const TrainerCard = ({ name, image, stars = 0, category, price, address }) => {
+const TrainerCard = ({
+  name,
+  image,
+  stars = 0,
+  category,
+  price,
+  address,
+  classification,
+}) => {
   return (
     <>
       <Card>
@@ -26,6 +34,13 @@ const TrainerCard = ({ name, image, stars = 0, category, price, address }) => {
         </Stars>
         <ImageContainer>
           <IMG src={image}></IMG>
+          <Class>
+            {classification && (
+              <div className="long-user-card__classification">
+                {classification}
+              </div>
+            )}
+          </Class>
         </ImageContainer>
         <InfoContainer>
           <HeaderText>{name}</HeaderText>
@@ -85,6 +100,7 @@ const Star = styled.li`
   }
 `;
 const ImageContainer = styled.div`
+  position: relative;
   display: flex;
   width: 45%;
   align-items: center;
@@ -135,6 +151,10 @@ const IMG = styled.img`
   height: 170px;
   border-radius: 25px;
   object-fit: cover;
+`;
+const Class = styled.div`
+  position: absolute;
+  bottom: 0;
 `;
 
 export default TrainerCard;
