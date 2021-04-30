@@ -4,6 +4,7 @@ import {
   PaymentCard,
   Svg,
   MultiContract,
+  TrainerCard,
 } from 'components';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -300,12 +301,29 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
                   <div style={{ pointerEvents: 'none' }}>
                     <Material.SimpleSelect
                       name="pt"
-                      label={'Seçiniz'}
+                      label={reservation?.data?.selectedPt?.name || 'Seçiniz'}
                       onClick={() => {}}
                     />
                   </div>
                 </div>
               </InputContainer>
+              {reservation?.data?.selectedPt && (
+                <InputContainer>
+                  <TrainerCard
+                    image={reservation?.data?.selectedPt?.photo}
+                    name={reservation?.data?.selectedPt?.name}
+                    stars={reservation?.data?.rating}
+                    category={reservation?.data?.selectedPt?.title}
+                    address={
+                      reservation?.data?.selectedPt?.district +
+                      ' / ' +
+                      reservation?.data?.selectedPt?.city
+                    }
+                    price={reservation?.data?.price}
+                    classification={reservation?.data?.classification}
+                  />
+                </InputContainer>
+              )}
               <InputContainer>
                 <Text color="#9B9B9B">{'Oturum Türü Seçiniz:'}</Text>
                 <Material.SimpleSelect

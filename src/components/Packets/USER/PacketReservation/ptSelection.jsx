@@ -9,8 +9,8 @@ import { setReservation } from 'actions';
 const PtSelection = ({ setField = () => {} }) => {
   //Local States
   const dispatch = useDispatch();
-  function setTrainer(e) {
-    dispatch(setReservation({ selectedPt: e.user_id }));
+  function setTrainer(data) {
+    dispatch(setReservation({ selectedPt: data }));
     setField('main');
   }
   return (
