@@ -1,9 +1,17 @@
 import React from 'react';
-import { AwesomeIcon, Title } from 'components';
+import { AwesomeIcon } from 'components';
 import { Col } from 'react-bootstrap';
 import styled from 'styled-components/macro';
-
-const TrainerCard = ({ name, stars = 0, category, price }) => {
+import { device } from 'utils';
+const TrainerCard = ({
+  name,
+  image,
+  stars = 0,
+  category,
+  price,
+  address,
+  classification,
+}) => {
   return (
     <>
       <Card>
@@ -24,26 +32,23 @@ const TrainerCard = ({ name, stars = 0, category, price }) => {
             <AwesomeIcon.StarSolid />
           </Star>
         </Stars>
-        <div className="_group">
-          <IMG src="/static/media/session-type.50fd045c.jpg"></IMG>
-        </div>
-        <div className="_group">
-          <div className="title">
-            <Title textAlign="left" fontSize="16pt">
-              {name}
-            </Title>
-            <Title textAlign="left" fontSize="14pt" fontWeight="400">
-              {category}
-            </Title>
-          </div>
-          <div className="footer-and">
-            <div className="and">
-              <Title textAlign="right" variant="h5" component="h5">
-                {price || 0} <AwesomeIcon.Tl />
-              </Title>
-            </div>
-          </div>
-        </div>
+        <ImageContainer>
+          <IMG src={image}></IMG>
+          <Class>
+            {classification && (
+              <div className="long-user-card__classification">
+                {classification}
+              </div>
+            )}
+          </Class>
+        </ImageContainer>
+        <InfoContainer>
+          <HeaderText>{name}</HeaderText>
+          <DescText>{category}</DescText>
+          <Seperator />
+          <AddressText>{address}</AddressText>
+          <AddressText>{price}</AddressText>
+        </InfoContainer>
       </Card>
     </>
   );
@@ -61,33 +66,6 @@ const Card = styled(Col)`
   align-items: center;
   justify-content: center;
   border-radius: 30px;
-  ._group {
-    width: 50%;
-  }
-
-  .title {
-    width: 100%;
-    padding: 15px;
-
-    p {
-      padding: 0;
-    }
-  }
-
-  .footer-and {
-    width: 100%;
-    min-height: 30px;
-
-    .and {
-      border-top: 1px solid #ddd;
-      width: 100%;
-      min-height: 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 15px;
-    }
-  }
 `;
 
 const Stars = styled.ul`
@@ -97,9 +75,9 @@ const Stars = styled.ul`
   left: 0px;
   padding: 5px 15px;
   z-index: 1000;
-  opacity: 0.7;
-  border-top-right-radius: 30x;
-  background: rgba(255, 255, 255, 0.7);
+  opacity: 1;
+  border-bottom-right-radius: 25px;
+  background: rgba(255, 255, 255, 0.9);
 `;
 
 const Star = styled.li`
@@ -121,11 +99,62 @@ const Star = styled.li`
     }
   }
 `;
-const IMG = styled.img`
-  width: 100%;
-  height: 200px;
+const ImageContainer = styled.div`
+  position: relative;
+  display: flex;
+  width: 45%;
+  align-items: center;
+  justify-content: center;
+`;
+const InfoContainer = styled.div`
+  display: flex;
+  width: 55%;
+  height: 100%;
+  flex-direction: column;
+  padding: 30px 10px;
+`;
+const HeaderText = styled.text`
+  font-size: 1.3rem;
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif;
+  color: ${(props) => props.color || 'black'};
+  @media ${device.sm} {
+    font-size: 1rem;
+  }
+`;
+const AddressText = styled.text`
+  font-size: 1.05rem;
+  font-family: 'Poppins', sans-serif;
+  color: gray;
+  @media ${device.sm} {
+    font-size: 0.85rem;
+  }
+`;
+const DescText = styled.text`
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+  color: gray;
 
+  @media ${device.sm} {
+    font-size: 0.8rem;
+  }
+`;
+const Seperator = styled.div`
+  width: 60px;
+  border-bottom-style: solid;
+  border-color: var(--blue);
+  border-width: 3px;
+  margin-bottom: 15px;
+`;
+const IMG = styled.img`
+  width: 80%;
+  height: 170px;
+  border-radius: 25px;
   object-fit: cover;
+`;
+const Class = styled.div`
+  position: absolute;
+  bottom: 0;
 `;
 
 export default TrainerCard;

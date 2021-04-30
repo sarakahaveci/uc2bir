@@ -36,6 +36,8 @@ import Comment from './images/comment.svg';
 import Heart from './images/heart.svg';
 import Player from './images/player.svg';
 import Fitness from './images/fitness.svg';
+import FitnessMedium from './images/fitnessMedium.svg';
+
 import Yoga from './images/yoga.svg';
 import KickBoks from './images/kick-boks.svg';
 import AthleticPerformance from './images/athletic-performance.svg';
@@ -79,6 +81,8 @@ import LocationCard from './images/location-card.svg';
 import ActiveHeart from './images/active-heart.svg';
 import HeadPhone from './images/headphone.svg';
 import ClockIcon from './images/clock.svg';
+import ClockMediumIcon from './images/clockMedium.svg';
+
 import GuestIcon from './images/guest.svg';
 import MockImage from './images/mock-image.svg';
 import Minus from './images/minus.svg';
@@ -136,6 +140,8 @@ const Svg = {
   WaveBackgroundIcon: (props) => <ReactSVG {...props} src={WaveBackground} />,
   YogaIcon: (props) => <ReactSVG {...props} src={Yoga} />,
   FitnessIcon: (props) => <ReactSVG {...props} src={Fitness} />,
+  FitnessMediumIcon: (props) => <ReactSVG {...props} src={FitnessMedium} />,
+
   PilatesIcon: (props) => <ReactSVG {...props} src={Pilates} />,
   TennisIcon: (props) => <ReactSVG {...props} src={Tennis} />,
   CertificateIcon: (props) => <ReactSVG {...props} src={Certificate} />,
@@ -196,6 +202,8 @@ const Svg = {
   CencelIcon: (props) => <ReactSVG {...props} src={CencelIcon} />,
   HeadPhoneIcon: (props) => <ReactSVG {...props} src={HeadPhone} />,
   ClockIcon: (props) => <ReactSVG {...props} src={ClockIcon} />,
+  ClockMediumIcon: (props) => <ReactSVG {...props} src={ClockMediumIcon} />,
+
   GuestIcon: (props) => <ReactSVG {...props} src={GuestIcon} />,
   MockImageIcon: (props) => <ReactSVG {...props} src={MockImage} />,
   Delete: (props) => <ReactSVG {...props} src={Delete} />,

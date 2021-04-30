@@ -52,6 +52,7 @@
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.2.0",
     "styled-system": "^5.1.5",
+    "twilio-video": "^2.13.1",
     "use-debounce": "^5.2.0",
     "use-file-upload": "^1.0.9",
     "use-places-autocomplete": "^1.9.1",

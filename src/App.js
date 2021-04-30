@@ -22,6 +22,8 @@ import ForgotPassword from 'views/ForgotPassword';
 import Profile from 'views/Profile';
 import UserProfile from 'views/ProfileSettings';
 import Message from 'views/Message';
+import BuyPacket from 'views/BuyPacket/index';
+
 import { theme } from 'utils';
 import BlogDetail from 'views/BlogDetail';
 import MineBlogDetail from 'views/MineBlogDetail';
@@ -36,6 +38,7 @@ import TermsOfUse from './views/Footer/TermsOfUse';
 import MembershipAgreement from './views/Footer/MembershipAgreement';
 import Kvkk from './views/Footer/Kvkk';
 import RefundConditions from './views/Footer/RefundConditions';
+import Online from 'views/Online';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -83,7 +86,6 @@ const App = () => {
                   path="/forgot-password"
                   component={ForgotPassword}
                 />
-
                 <ProtectedRoute
                   exact
                   path="/user/:id/:activeTabKey?"
@@ -99,10 +101,17 @@ const App = () => {
                   path="/mine-blog/:id"
                   component={MineBlogDetail}
                 />
+                <ProtectedRoute
+                  exact
+                  path="/myprofile/online"
+                  component={Online}
+                />
                 <Route exact path="/blog-detail/:seo" component={BlogDetail} />
                 <Route exact path="/blog-list" component={BlogList} />
 
                 <Route exact path="/messages/:id?" component={Message} />
+                <Route exact path="/packets/detail/:id" component={BuyPacket} />
+
                 <Route exact path="/contact" component={Contact} />
                 <Route exact path="/find" component={SearchProfessional} />
                 <Route exact path="/terms-of-use" component={TermsOfUse} />

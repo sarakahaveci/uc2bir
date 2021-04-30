@@ -4,10 +4,18 @@ import {
   PaymentCard,
   Svg,
   MultiContract,
+  TrainerCard,
+  WorkAreaCard,
+  Accordion,
 } from 'components';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
+import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
+import GoogleMap from 'components/GoogleMaps/GoogleMap';
+import { space } from 'styled-system';
 
 import { device } from 'utils';
 import { Modal } from 'react-bootstrap';
@@ -18,6 +26,9 @@ import {
   getPtReservationCalendar,
   getAreaForPT,
   deleteAllSlot,
+  getPtGymList,
+  getPtWorkingHomePlace,
+  clearReservation,
 } from 'actions';
 
 import axios from 'axios';
@@ -28,10 +39,13 @@ const uri = `${process.env.REACT_APP_API_URL}/regions`;
 const PacketReservation = ({ setPage, setBannerActive }) => {
   const dispatch = useDispatch();
   //Local States
+  const [toggleState, setToggleState] = useState(false);
 
   const [city, setCity] = useState(false);
-
-  const [sessionTypes, setSessionTypes] = useState(undefined);
+  const gymList = useSelector((state) => state?.userProfile?.ptGymList);
+  const homePlaces = useSelector(
+    (state) => state.userProfile.workPlace.ptHomePlace
+  );
   const [openModal, setOpenModal] = useState(false);
   const [field, setField] = useState('main');
 
@@ -43,8 +57,15 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
 
   useEffect(() => {
     setBannerActive(false);
+    return () => {
+      dispatch(clearReservation());
+    };
   }, []);
   useEffect(() => {}, [userInfo]); //USER İNFO KOMPLE EKSİK
+  useEffect(() => {
+    dispatch(getPtGymList(reservation?.data?.selectedPt?.user_id));
+    dispatch(getPtWorkingHomePlace(reservation?.data?.selectedPt?.user_id));
+  }, [reservation?.data?.selectedPt]);
   useEffect(() => {
     // iF DATE OPTİON TRUE
     if (!reservation?.data?.isSelected) {
@@ -222,6 +243,219 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
       </>
     );
   }
+  function WorkAreaSelect() {
+    switch (reservation?.data?.session) {
+      case 'gym':
+        return (
+          <GymWrapper disable={reservation?.data?.slot?.length > 0}>
+            <Text color="#9B9B9B">{'Spor Alanı Seçiniz:'}</Text>
+            <RadioGroup
+              row
+              aria-label="workArea"
+              name="workArea"
+              defaultValue="0l"
+            >
+              {gymList?.data?.map((item) => (
+                <>
+                  <CardGroup style={{ padding: 0 }}>
+                    <WorkAreaCard
+                      stars={item.rating}
+                      capacity={item.capacity}
+                      title={item.title}
+                      area_measure={item.area_measure}
+                      city={item.city}
+                      district={item.district}
+                      price={item.price}
+                    />
+
+                    {reservation?.data?.location_id === item.id ? (
+                      <RadioButtonCheckedIcon
+                        style={{ marginLeft: '5px', cursor: 'pointer' }}
+                      />
+                    ) : (
+                      <RadioButtonUncheckedIcon
+                        onClick={() => {
+                          dispatch(
+                            setReservation({
+                              location_id: item.id,
+                              gym_price: item.price,
+                            })
+                          );
+                        }}
+                        style={{ marginLeft: '5px', cursor: 'pointer' }}
+                      />
+                    )}
+                  </CardGroup>
+                </>
+              )) || null}
+            </RadioGroup>
+          </GymWrapper>
+        );
+      case 'home_park':
+        return (
+          <GymWrapper disable={reservation?.data?.slot?.length > 0}>
+            <Text color="#9B9B9B">{'Spor Alanı Seçiniz:'}</Text>
+            <RadioGroup
+              row
+              aria-label="workArea"
+              name="workArea"
+              defaultValue="0l"
+            >
+              {homePlaces.data?.home_park?.map((item, i) => (
+                <div key={i} style={{ display: 'flex' }}>
+                  <Accordion>
+                    <AccordionItemWrapper>
+                      <Accordion.Item defaultOpen={false}>
+                        <Accordion.Toggle
+                          onToggle={(state) => setToggleState(state)}
+                          className="accordion-toggler"
+                        >
+                          <Svg.SessionType.Park />
+                          <ParkInfo>
+                            <ParkHeader>{item.title}</ParkHeader>
+                            <ParkAdress>
+                              {item.town +
+                                ' ' +
+                                item.district +
+                                ' ' +
+                                item.city}
+                            </ParkAdress>
+                          </ParkInfo>
+                          {toggleState ? (
+                            <Svg.ArrowDownIcon />
+                          ) : (
+                            <Svg.ArrowUpIcon />
+                          )}
+                        </Accordion.Toggle>
+                        <Accordion.Collapse>
+                          <MapWrapper>
+                            <GoogleMap
+                              locationFromUser={{
+                                lat: item.lat,
+                                lng: item.lng,
+                              }}
+                              disabled
+                            />
+                          </MapWrapper>
+                        </Accordion.Collapse>
+                      </Accordion.Item>
+                    </AccordionItemWrapper>
+                  </Accordion>
+                  {reservation?.data?.location_id === item.id ? (
+                    <RadioButtonCheckedIcon
+                      style={{ marginLeft: '5px', cursor: 'pointer' }}
+                    />
+                  ) : (
+                    <RadioButtonUncheckedIcon
+                      onClick={() => {
+                        dispatch(
+                          setReservation({
+                            location_id: item.id,
+                            gym_price: item.price,
+                          })
+                        );
+                      }}
+                      style={{ marginLeft: '5px', cursor: 'pointer' }}
+                    />
+                  )}
+                </div>
+              )) || null}
+            </RadioGroup>
+          </GymWrapper>
+        );
+      case 'online':
+        return <></>;
+      case 'b':
+        return (
+          <>
+            <>
+              <Material.SimpleSelect
+                required
+                label="İl Seçiniz"
+                items={city}
+                name="city"
+                changeValue={formData?.city || ''}
+                onChange={(e) => {
+                  axios
+                    .post(uri, { city_id: e.target.value })
+                    .then((res) => res.data)
+                    .then((data) => data.data)
+                    .then((data) => {
+                      const new_data = data.map((val) => {
+                        return {
+                          id: val.id,
+                          val: val.id,
+                          name: val.name,
+                        };
+                      });
+                      return setTown(new_data);
+                    });
+                  return setFormData({
+                    ...formData,
+                    [e.target.name]: e.target.value,
+                  });
+                }}
+              />
+              <Material.SimpleSelect
+                required
+                label={town ? 'Önce İl Seçiniz' : 'İlçe Seçiniz'}
+                items={town ? town : []}
+                name="district"
+                changeValue={formData?.district || ''}
+                onChange={(e) => {
+                  axios
+                    .post(uri, { district_id: e.target.value })
+                    .then((res) => res.data)
+                    .then((data) => data.data)
+                    .then((data) => {
+                      const new_data = data.map((val) => {
+                        return {
+                          id: val.id,
+                          val: val.id,
+                          name: val.name,
+                        };
+                      });
+                      return setDistrict(new_data);
+                    });
+                  return setFormData({
+                    ...formData,
+                    [e.target.name]: e.target.value,
+                  });
+                }}
+              />
+              <Material.SimpleSelect
+                required
+                label={district ? 'Önce İlçe Seçiniz' : 'Mahalle Seçiniz'}
+                items={district ? district : []}
+                name="town"
+                changeValue={formData?.town || ''}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    [e.target.name]: e.target.value,
+                  })
+                }
+              />
+              <Material.TextField
+                required
+                label="Açık Adres"
+                name="address_detail"
+                icon={AwesomeIcon.Map}
+                changeValue={formData.address_detail}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    [e.target.name]: e.target.value,
+                  })
+                }
+              />
+            </>
+          </>
+        );
+      default:
+        return <></>;
+    }
+  }
   function _renderLeftArea() {
     switch (reservation?.data?.payment_type) {
       case 'wallet':
@@ -300,16 +534,39 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
                   <div style={{ pointerEvents: 'none' }}>
                     <Material.SimpleSelect
                       name="pt"
-                      label={'Seçiniz'}
+                      label={reservation?.data?.selectedPt?.name || 'Seçiniz'}
                       onClick={() => {}}
                     />
                   </div>
                 </div>
               </InputContainer>
+              {reservation?.data?.selectedPt && (
+                <InputContainer>
+                  <TrainerCard
+                    image={reservation?.data?.selectedPt?.photo}
+                    name={reservation?.data?.selectedPt?.name}
+                    stars={reservation?.data?.rating}
+                    category={reservation?.data?.selectedPt?.title}
+                    address={
+                      reservation?.data?.selectedPt?.district +
+                      ' / ' +
+                      reservation?.data?.selectedPt?.city
+                    }
+                    price={reservation?.data?.price}
+                    classification={
+                      reservation?.data?.selectedPt?.classification
+                    }
+                  />
+                </InputContainer>
+              )}
               <InputContainer>
                 <Text color="#9B9B9B">{'Oturum Türü Seçiniz:'}</Text>
                 <Material.SimpleSelect
-                  items={sessionTypes}
+                  items={[
+                    { id: 'home_park', name: 'Ev / Park' },
+                    { id: 'gym', name: 'Spor Salonu' },
+                    { id: 'online', name: 'Online' },
+                  ]}
                   name="sessionType"
                   defaultValue={reservation?.data?.session}
                   onChange={(e) =>
@@ -323,6 +580,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
                   }
                 />
               </InputContainer>
+              <WorkAreaSelect />
             </SelectionContainer>
           </>
         );
@@ -341,7 +599,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
           <Container>
             <LeftWrapper>{_renderLeftArea()}</LeftWrapper>
             <RightWrapper>
-              <PaymentCard type="packet" dateOption={false} />
+              <PaymentCard type="packet" dateOption={true} />
             </RightWrapper>
             <StyledModal show={openModal} onHide={() => setOpenModal(false)}>
               <MultiContract
@@ -475,5 +733,58 @@ const BackLink = styled(Text)`
     font-size: 1.2rem;
   }
 `;
+const GymWrapper = styled.div`
+  pointer-events: ${(p) => (p.disable ? 'none' : 'initial')};
+  opacity: ${(p) => (p.disable ? '0.7' : '1')};
+`;
+const MapWrapper = styled.div`
+  width: 80%;
+  border-radius: 30px;
+  overflow: hidden;
+`;
 
+const CardGroup = styled.div`
+  display: flex;
+  width: 100%;
+  height: auto;
+  margin-top: 10px;
+  padding-right: 95px;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+`;
+const AccordionItemWrapper = styled.div`
+  border-radius: 20px;
+  background: #fff;
+  margin-bottom: 20px;
+  width: 100%;
+  ${space}
+
+  .accordion-toggler {
+    display: flex;
+    background: ${(p) =>
+      p.parent
+        ? '#EFEFEF'
+        : p.accordionBackground
+        ? p.accordionBackground
+        : '#F8F8F8'};
+    justify-content: space-between;
+    border-radius: ${(p) => (p.accordionRadius ? p.accordionRadius : '10px')};
+    padding: 15px;
+    margin-bottom: 10px;
+  }
+`;
+const ParkInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+`;
+const ParkHeader = styled.text`
+  font-weight: 600;
+  font-size: 1.1rem;
+`;
+const ParkAdress = styled.text`
+  font-weight: 300;
+  font-size: 1rem;
+`;
 export default PacketReservation;

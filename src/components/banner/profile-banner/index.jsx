@@ -66,20 +66,36 @@ const ProfileBanner = ({
 
             <Stars rating={info.stars} position="bottom" />
 
-            {!isUserDetail && (
+            {!isUserDetail ? (
+              user?.type_id === USER && (
+                <CardFooter>
+                  <Comment to={info.comment} className="list">
+                    <Svg.Comment />
+                  </Comment>
+                  <Button
+                    onClick={() => {
+                      dispatch(setReservation({ isSelected: false }));
+                      setPage('Reservation');
+                    }}
+                    text="Rezervasyon Yap"
+                    className="blue list"
+                    style={{ fontSize: '9pt' }}
+                  />
+                </CardFooter>
+              )
+            ) : (
               <CardFooter>
-                <Comment to={info.comment} className="list">
-                  <Svg.Comment />
-                </Comment>
-                <Button
-                  onClick={() => {
-                    dispatch(setReservation({ isSelected: false }));
-                    setPage('Reservation');
-                  }}
-                  text="Rezervasyon Yap"
-                  className="blue list"
-                  style={{ fontSize: '9pt' }}
-                />
+                <Link to={'/myprofile/settings/reservation'}>
+                  <Button
+                    onClick={() => {
+                      dispatch(setReservation({ isSelected: false }));
+                      setPage('Reservation');
+                    }}
+                    text="Takvim Oluştur"
+                    className="blue list"
+                    style={{ fontSize: '9pt' }}
+                  />
+                </Link>
               </CardFooter>
             )}
           </Card>
