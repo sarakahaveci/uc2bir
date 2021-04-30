@@ -6,13 +6,16 @@ import GroupLeftSelections from './GroupLeftSelections';
 import GroupRightSelections from './GroupRightSelections';
 import styled from 'styled-components/macro';
 
-export default function GroupSlot({setTabPage = () => {}, setTab = () => {}, }) {
+export default function GroupSlot({
+  setTabPage = () => {},
+  setTab = () => {},
+}) {
   return (
     <>
-      <BackLink onClick={()=>setTabPage('')}>
+      <BackLink onClick={() => setTabPage('')}>
         <Svg.ArrowLeftIcon />
 
-        <span>Grup Ders Oluştur</span>
+        <span>Geri</span>
       </BackLink>
 
       <Row>
@@ -21,7 +24,7 @@ export default function GroupSlot({setTabPage = () => {}, setTab = () => {}, }) 
         </Col>
 
         <Col lg={6}>
-          <GroupRightSelections setTabPage={setTabPage} setTab={setTab}/>
+          <GroupRightSelections setTabPage={setTabPage} setTab={setTab} />
         </Col>
       </Row>
     </>

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { makeStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import { CustomProgress } from 'components';
+import { CustomProgress, Title } from 'components';
 import { Container, Row, Col } from 'react-bootstrap';
 import ExerciseCard from '../ExerciseCard/ExerciseCard';
 import { device } from 'utils';
@@ -42,8 +42,26 @@ const Exercises = ({ setPage = () => {} }) => {
   return (
     <Wrapper>
       <StyledRow header style={{}}>
-        <Col lg="12" style={{ padding: 0 }}>
-          <HeaderText>EGZERSİZLER</HeaderText>
+        <Title
+          style={{ cursor: 'pointer', padding: 5 }}
+          fontSize="14pt"
+          textAlign="left"
+          onClick={() => setPage('Home')}
+        >
+          {`< Ana Sayfa`}
+        </Title>
+        <Title
+          style={{ cursor: 'pointer', padding: 5 }}
+          fontSize="14pt"
+          textAlign="left"
+          onClick={() => setPage('EditLesson')}
+        >
+          {`< Geri`}
+        </Title>
+
+        <Col lg="12" style={{ padding: 10 }}>
+          <HeaderText>Egzersizler</HeaderText>
+
           <LinearProgress
             classes={{ barColorPrimary: classes.barColorPrimary }}
             variant="determinate"

@@ -42,7 +42,7 @@ const regularUserTabs = [
 
   {
     eventKey: 'reservation',
-    title: 'Rezarvasyonlarım',
+    title: 'Rezervasyonlarım',
     component: <Reservations />,
   },
   {
@@ -88,7 +88,7 @@ const workPlaceTabs = [
   },
   {
     eventKey: 'reservation',
-    title: 'Rezarvasyonlarım',
+    title: 'Rezervasyonlarım',
     component: <Reservations />,
   },
   {
@@ -148,7 +148,7 @@ const dietitianTabs = [
   },
   {
     eventKey: 'reservation',
-    title: 'Rezarvasyonlarım',
+    title: 'Rezervasyonlarım',
     component: <Reservations />,
   },
   /* {
@@ -210,7 +210,7 @@ const trainerTabs = [
   },
   {
     eventKey: 'reservation',
-    title: 'Rezarvasyonlarım',
+    title: 'Rezervasyonlarım',
     component: <Reservations />,
   },
   {

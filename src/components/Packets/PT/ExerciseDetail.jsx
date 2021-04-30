@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components/macro';
 import { makeStyles } from '@material-ui/core/styles';
 import { device } from 'utils';
-import { AddExercise } from 'components';
+import { AddExercise, Title } from 'components';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Svg from 'components/statics/svg';
 const useStyles = makeStyles({
@@ -11,11 +11,27 @@ const useStyles = makeStyles({
     backgroundColor: '#00B2A9',
   },
 });
-const ExerciseDetail = () => {
+const ExerciseDetail = ({ setPage = () => {} }) => {
   const classes = useStyles();
 
   return (
     <Container>
+      <Title
+        style={{ cursor: 'pointer', padding: 5, display: '' }}
+        fontSize="14pt"
+        textAlign="left"
+        onClick={() => setPage('Home')}
+      >
+        {`< Ana Sayfa`}
+      </Title>
+      <Title
+        style={{ cursor: 'pointer', padding: 15 }}
+        fontSize="14pt"
+        textAlign="left"
+        onClick={() => setPage('Exercises')}
+      >
+        {`<Geri`}
+      </Title>
       <Side>
         <AddExercise />
         <AddExercise />

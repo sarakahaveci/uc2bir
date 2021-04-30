@@ -21,9 +21,8 @@ const ProfileBanner = ({
   categories = [],
   about,
   setPage = () => {},
-  isUserDetail=false
+  isUserDetail = false,
 }) => {
-
   const [isFavorited, setIsFavorited] = useState(info.has_favorite === 1);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
@@ -46,7 +45,7 @@ const ProfileBanner = ({
             <span className="team">{info.team}</span>
             <span className="span">
               {user?.type_id === USER &&
-               (isFavorited ? (
+                (isFavorited ? (
                   <ActiveHeart
                     onClick={favoriteClickHandler}
                     showHeartBg={false}
@@ -54,13 +53,20 @@ const ProfileBanner = ({
                 ) : (
                   <Heart onClick={favoriteClickHandler} showHeartBg={true} />
                 ))}
-              {isUserDetail && <Link to="/myprofile/settings/profile"> <Setting onClick={favoriteClickHandler} showHeartBg={true} /> </Link>}
-
+              {isUserDetail && (
+                <Link to="/myprofile/settings/profile">
+                  {' '}
+                  <Setting
+                    onClick={favoriteClickHandler}
+                    showHeartBg={true}
+                  />{' '}
+                </Link>
+              )}
             </span>
 
-           <Stars rating={info.stars} position="bottom" />
+            <Stars rating={info.stars} position="bottom" />
 
-            {!isUserDetail&&
+            {!isUserDetail && (
               <CardFooter>
                 <Comment to={info.comment} className="list">
                   <Svg.Comment />
@@ -74,8 +80,8 @@ const ProfileBanner = ({
                   className="blue list"
                   style={{ fontSize: '9pt' }}
                 />
-              </CardFooter>}
-
+              </CardFooter>
+            )}
           </Card>
         </Cols>
 

@@ -79,7 +79,7 @@ const VKI = () => {
             }
           />
           <Material.TextField
-            label="Ağarlık (kg)"
+            label="Ağırlık (kg)"
             type="text"
             mask="999"
             name="weight"

@@ -5,7 +5,7 @@ import styled from 'styled-components/macro';
 import Svg from '../../statics/svg';
 import { makeStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import { CustomProgress } from 'components';
+import { CustomProgress, Title } from 'components';
 import { Container, Row, Col } from 'react-bootstrap';
 import { device } from 'utils';
 
@@ -65,6 +65,14 @@ const EditLesson = ({ setBannerActive = () => {}, setPage = () => {} }) => {
   }
   return (
     <Wrapper>
+      <Title
+        style={{ cursor: 'pointer', padding: 15 }}
+        fontSize="14pt"
+        textAlign="left"
+        onClick={() => setPage('Home')}
+      >
+        {`< Geri`}
+      </Title>
       <StyledRow header style={{}}>
         <Col lg="12" style={{ padding: 0 }}>
           <HeaderText>Dersler</HeaderText>

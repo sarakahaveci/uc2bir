@@ -220,19 +220,19 @@ export const GroupLesson = [
     ctn: 'Vücut Geliştirme',
     seater: '1/8',
   },
-  {
-    id: 4,
-    image: require('../../assets/group-lesson/item-4/04.jpg'),
-    name: 'Selvi Özdemir',
-    category: 'Salon B Fit Studio',
-    price: '2000',
-    star: '5',
-    date: '07 Eyl. 18:00',
-    content: 'Yoga Eğitmeni',
-    location: 'İstanbul, Beşiktaş',
-    ctn: 'Meditasyon',
-    seater: '3/6',
-  },
+  // {
+  //   id: 4,
+  //   image: require('../../assets/group-lesson/item-4/04.jpg'),
+  //   name: 'Selvi Özdemir',
+  //   category: 'Salon B Fit Studio',
+  //   price: '2000',
+  //   star: '5',
+  //   date: '07 Eyl. 18:00',
+  //   content: 'Yoga Eğitmeni',
+  //   location: 'İstanbul, Beşiktaş',
+  //   ctn: 'Meditasyon',
+  //   seater: '3/6',
+  // },
 ];
 
 export const Dietitians = [

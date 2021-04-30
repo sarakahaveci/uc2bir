@@ -385,8 +385,9 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
                     setOpenModal(true);
                   }}
                 >
-                  Açık rıza ve aydınlatma metinleri
+                  Açık rıza ve aydınlatma metinlerini
                 </span>
+                , okudum onaylıyorum.
               </div>
             }
           />
