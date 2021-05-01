@@ -253,8 +253,9 @@ const StepOne = (props) => {
                     setOpenModal(true);
                   }}
                 >
-                  Açık rıza ve aydınlatma metinleri
+                  Açık rıza ve aydınlatma metinlerini
                 </span>
+                , okudum onaylıyorum.
               </div>
             }
           />

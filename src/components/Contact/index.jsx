@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import InputMask from 'react-input-mask';
+import { TextField } from '@material-ui/core';
 
 import { Material, Button } from 'components';
 import GoogleMap from 'components/GoogleMaps/GoogleMap';
@@ -12,6 +14,9 @@ import LinkedinIcon from 'assets/linkedin.svg';
 import TwitterIcon from 'assets/twitter.svg';
 
 export default function Contact() {
+  const [phone, setPhone] = useState('');
+  const [shrink, setShrink] = useState(false);
+
   const { isAuthenticated } = useSelector((state) => state.auth);
   const { infoData } = useSelector((state) => state.footer);
 
@@ -100,7 +105,7 @@ export default function Contact() {
               <div className="col-md-6 col-sm-12">
                 <Material.TextField
                   required
-                  label="Adi Soyadi"
+                  label="Adı Soyadı"
                   type="text"
                   name="name_surname"
                   onChange={handleFormOnChange}
@@ -112,13 +117,31 @@ export default function Contact() {
                   name="email"
                   onChange={handleFormOnChange}
                 />
-                <Material.TextField
-                  required
-                  label="Telefon"
-                  type="number"
-                  name="phone"
-                  onChange={handleFormOnChange}
-                />
+                <div className="materials" style={{ padding_left: '0px' }}>
+                  <InputMask
+                    mask="\0(999) 999 99 99"
+                    value={phone}
+                    disabled={false}
+                    onChange={(e) => setPhone(e.target.value)}
+                    alwaysShowMask={false}
+                    maskChar=" "
+                    onFocus={() => setShrink(true)}
+                    onBlur={() =>
+                      // Had to do that for fixing shrink
+                      phone !== '0(   )          '
+                        ? setShrink(true)
+                        : setShrink(false)
+                    }
+                  >
+                    {() => (
+                      <TextField
+                        InputLabelProps={{ shrink }}
+                        label="Telefon *"
+                        className="material-inputs"
+                      />
+                    )}
+                  </InputMask>
+                </div>
                 <Material.TextField
                   required
                   label="Konu Başlığı"
@@ -130,7 +153,7 @@ export default function Contact() {
               <div className="d-flex  flex-column col-md-6 col-sm-12 mt-2">
                 <Material.TexAreaField
                   name="message"
-                  label="Mesajiniz"
+                  label="Mesajınız"
                   rows={8}
                   onChange={handleFormOnChange}
                   required

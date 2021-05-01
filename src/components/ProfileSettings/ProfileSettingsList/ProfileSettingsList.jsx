@@ -76,7 +76,7 @@ const regularUserTabs = [
     body: <Password />,
   },
   {
-    settingsName: 'Boy & Ağırlık & VKI Bilgineriniz',
+    settingsName: 'Boy & Ağırlık & VKI Bilgileriniz',
     body: <VKI />,
   },
   {

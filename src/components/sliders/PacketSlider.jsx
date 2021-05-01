@@ -22,7 +22,7 @@ function PacketSlider(props) {
     slidesToScroll: 1,
     autoplay: false,
     autoplaySpeed: 7500,
-    speed: 2000,
+    speed: 100,
     pauseOnHover: false,
 
     responsive: [

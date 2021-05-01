@@ -76,7 +76,7 @@ const Home = ({ setPage }) => {
             <>
               <Text fontSize="10pt">
                 Hesabınızda bulunan tutarı ve hesap hareketlerinizi
-                görüntüleyebilir, bankanıza tl aktarabilirsiniz.
+                görüntüleyebilir, bankanıza TL aktarabilirsiniz.
               </Text>
               <Explanation>
                 <Col>

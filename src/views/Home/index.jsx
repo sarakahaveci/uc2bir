@@ -16,6 +16,7 @@ import Dietitians from './Dietitians';
 import VKI from './VKI';
 import Blog from './Blog';
 import { getHomeContent } from 'actions';
+import Comments from './Comments';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -33,11 +34,11 @@ const Home = () => {
       <FluidBanner />
       <Living />
       <Packet />
-      {/*  <GroupLesson /> */}
+      <GroupLesson />
       <Dietitians />
       <VKI />
       <Blog />
-      {/* <Comments /> */}
+      <Comments />
       <FluidBannerBottom />
     </Main>
   );

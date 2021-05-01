@@ -19,7 +19,10 @@ import TemplateSuccessModal from './TemplateSuccessModal';
 import TemplateNamingModal from './TemplateNamingModal';
 import ApplyTemplateModal from './ApplyTemplateModal';
 
-export default function ReservationTemplate({ setTab = () => {}, setTabPage = () => {} }) {
+export default function ReservationTemplate({
+  setTab = () => {},
+  setTabPage = () => {},
+}) {
   const { selectedDay, appliedDays } = useSelector(
     (state) => state.profileSettings2.reservationTemplate
   );
@@ -127,8 +130,8 @@ export default function ReservationTemplate({ setTab = () => {}, setTabPage = ()
     -1;
 
   const closeSuccessReservationModal = useCallback(() => {
-    setTabPage('')
-    setTab('Calendar')
+    setTabPage('');
+    setTab('Calendar');
   }, []);
 
   const disableSaveButtonHandler = () => {
@@ -156,10 +159,10 @@ export default function ReservationTemplate({ setTab = () => {}, setTabPage = ()
 
   return (
     <div>
-      <BackLink to="/myprofile/settings/profile">
+      <BackLink onClick={() => setTabPage('')}>
         <Svg.ArrowLeftIcon />
 
-        <span>Haftalık Şablon Oluştur</span>
+        <span>Geri</span>
       </BackLink>
 
       <Row>

@@ -119,17 +119,17 @@ const Footer = () => {
             </ul>
             <ul className="social">
               <li>
-                <a href="/">
+                <a href="/" target="_blank">
                   <AwesomeIcon.Facebook />
                 </a>
               </li>
               <li>
-                <a href="/">
+                <a href="/" target="_blank">
                   <AwesomeIcon.Twitter />
                 </a>
               </li>
               <li>
-                <a href="/">
+                <a href="/" target="_blank">
                   <AwesomeIcon.Instagram />
                 </a>
               </li>
