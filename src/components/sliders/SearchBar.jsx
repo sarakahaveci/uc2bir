@@ -22,17 +22,31 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
   const [branch, setBranch] = useState('');
 
   const searchProfessionalHandler = () => {
-    const formData = {
-      title,
-      location,
-      branch,
-    };
+    if (virtual == 'packets') {
+      const formData = {
+        title,
+        location,
+        branch,
+      };
 
-    let baseUrl = `/find?type=${virtual}`;
+      let baseUrl = `/packets?type=${virtual}`;
 
-    const url = objectToParamCoverter(formData, baseUrl);
+      const url = objectToParamCoverter(formData, baseUrl);
 
-    history.push(url);
+      history.push(url);
+    } else {
+      const formData = {
+        title,
+        location,
+        branch,
+      };
+
+      let baseUrl = `/find?type=${virtual}`;
+
+      const url = objectToParamCoverter(formData, baseUrl);
+
+      history.push(url);
+    }
   };
 
   return (
@@ -51,6 +65,9 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
           <li className={`${virtual === 'map' ? 'active' : ''}`}>
             <a onClick={() => setVirtual('map')}>HARİTA</a>
           </li>
+          <li className={`${virtual === 'map' ? 'active' : ''}`}>
+            <a onClick={() => setVirtual('packets')}>PAKET</a>
+          </li>
         </ul>
         <div className="search-items">
           <ul className="list-items">
@@ -62,14 +79,16 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
                 onChange={(event) => setTitle(event.target.value)}
               />
             </li>
-            <li>
-              <IconLabel icon={AwesomeIcon.Map} />
-              <NakedInput
-                placeholder="Lokasyon"
-                inputProps={{ 'aria-label': 'naked' }}
-                onChange={(event) => setLocation(event.target.value)}
-              />
-            </li>
+            {virtual !== 'packets' && (
+              <li>
+                <IconLabel icon={AwesomeIcon.Map} />
+                <NakedInput
+                  placeholder="Lokasyon"
+                  inputProps={{ 'aria-label': 'naked' }}
+                  onChange={(event) => setLocation(event.target.value)}
+                />
+              </li>
+            )}
             <li>
               <FormControl
                 className={'material-selectbox'}

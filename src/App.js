@@ -22,7 +22,9 @@ import ForgotPassword from 'views/ForgotPassword';
 import Profile from 'views/Profile';
 import UserProfile from 'views/ProfileSettings';
 import Message from 'views/Message';
-import BuyPacket from 'views/BuyPacket/index';
+import BuyPacket from 'views/BuyPacket';
+
+import SearchPackets from 'views/SearchPackets';
 
 import { theme } from 'utils';
 import BlogDetail from 'views/BlogDetail';
@@ -110,6 +112,7 @@ const App = () => {
                 <Route exact path="/blog-list" component={BlogList} />
 
                 <Route exact path="/messages/:id?" component={Message} />
+                <Route exact path="/packets" component={SearchPackets} />
                 <Route exact path="/packets/detail/:id" component={BuyPacket} />
 
                 <Route exact path="/contact" component={Contact} />

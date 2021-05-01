@@ -83,6 +83,10 @@ const regularUserTabs = [
     settingsName: 'Tamamlanmış Testler ',
     body: <ComputedTest />,
   },
+  {
+    settingsName: 'Adresim',
+    body: <Address locationDisable />,
+  },
 ];
 
 const workPlaceData = [

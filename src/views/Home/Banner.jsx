@@ -95,6 +95,15 @@ const Banner = () => {
         );
       },
     },
+    packets: {
+      className: '',
+      text: 'Paket Ara',
+      component: () => {
+        return (
+          <div className="img" style={{ backgroundImage: `url(${s2})` }}></div>
+        );
+      },
+    },
   };
 
   const slider_settings = {

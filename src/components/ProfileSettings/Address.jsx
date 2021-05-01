@@ -15,7 +15,7 @@ import {
 import GoogleMap from 'components/GoogleMaps/GoogleMap';
 import { Material, Button } from 'components';
 
-export default function Address() {
+export default function Address({ locationDisable = false }) {
   const dispatch = useDispatch();
 
   const {
@@ -308,22 +308,24 @@ export default function Address() {
           </div>
         </form>
       </div>
-      <div className="w-100">
-        <GoogleMap
-          onPositionChange={onPositionChange}
-          draggable
-          locationFromUser={!isEmpty(location) ? location : false}
-        />
-        <div className="d-flex w-100">
-          <Button
-            fontWeight="bold"
-            className="blue mx-auto mt-2 w-50"
-            text="Haritadaki adresi listeye aktar"
-            disabled={isEmpty(adressFromMap)}
-            onClick={useAdressFromMap}
+      {!locationDisable && (
+        <div className="w-100">
+          <GoogleMap
+            onPositionChange={onPositionChange}
+            draggable
+            locationFromUser={!isEmpty(location) ? location : false}
           />
+          <div className="d-flex w-100">
+            <Button
+              fontWeight="bold"
+              className="blue mx-auto mt-2 w-50"
+              text="Haritadaki adresi listeye aktar"
+              disabled={isEmpty(adressFromMap)}
+              onClick={useAdressFromMap}
+            />
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
