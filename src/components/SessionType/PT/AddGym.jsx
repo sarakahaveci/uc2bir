@@ -6,7 +6,7 @@ import styled from 'styled-components/macro';
 import { device } from 'utils';
 
 import LongUserCard from 'components/UserCards/LongUserCard';
-import { Button, GoogleMapClusterer, Pagination, Svg } from 'components';
+import { Button, GoogleMapClusterer, Pagination, Svg, Title } from 'components';
 import {
   searchGymForPt,
   addGymFromPt,
@@ -33,11 +33,10 @@ const AddGym = ({ setSubPage, setBannerActive }) => {
   const [showSearch, setShowSearch] = useState(true);
   const [page, setPage] = useState(1);
 
-  const pageChangeHandler = (event, value) =>
-  {
-    dispatch(searchGymForPt( event, value));
+  const pageChangeHandler = (event, value) => {
+    dispatch(searchGymForPt(event, value));
     setPageNumber(value);
-  }
+  };
 
   useEffect(() => {
     setBannerActive(false);
@@ -60,8 +59,16 @@ const AddGym = ({ setSubPage, setBannerActive }) => {
   return (
     <>
       <div className="row">
-        <Button text="< Geri" onClick={() => setSubPage('Adds')} />
-        <Button text="Spor Salonu Seçiniz." />
+        <Button
+          text="< Geri"
+          onClick={() => setSubPage('Adds')}
+          fontSize="14pt"
+          fontWeight="bold"
+        />
+        <Title fontSize="14pt" fontWeight="bold" color="#00b2a9">
+          {' '}
+          Spor Salonu Seçiniz.
+        </Title>
       </div>
       <div className="d-flex w-75 mb-3 mx-auto">
         <Row className="search-trainer__search-area">

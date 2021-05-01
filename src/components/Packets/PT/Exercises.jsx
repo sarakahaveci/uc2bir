@@ -42,14 +42,14 @@ const Exercises = ({ setPage = () => {} }) => {
   return (
     <Wrapper>
       <StyledRow header style={{}}>
-        <Title
+        {/* <Title
           style={{ cursor: 'pointer', padding: 5 }}
           fontSize="14pt"
           textAlign="left"
           onClick={() => setPage('Home')}
         >
           {`< Ana Sayfa`}
-        </Title>
+        </Title> */}
         <Title
           style={{ cursor: 'pointer', padding: 5 }}
           fontSize="14pt"

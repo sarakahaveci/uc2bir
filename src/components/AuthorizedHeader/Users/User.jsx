@@ -54,6 +54,7 @@ const User = ({ user_name, user_img = null, logoutHandler }) => {
       name: 'Favorilerim',
       icon: <Svg.Heart />,
       notify: [],
+      linkPath: TABS.favoritesPath,
     },
     {
       name: user_name,

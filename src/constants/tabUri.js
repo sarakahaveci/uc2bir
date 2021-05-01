@@ -4,7 +4,7 @@ export default {
   reservationsPath: '/myprofile/settings/reservation',
   packetsPath: '/myprofile/settings/packets',
   walletPath: '/myprofile/settings/wallet',
-  favoritePath: '/myprofile/settings/favorite',
+  favoritesPath: '/myprofile/settings/favorites',
   messagePath: '/myprofile/settings/message',
   facilityPath: '/myprofile/settings/facility',
   activityPath: '/myprofile/settings/activity',

@@ -16,12 +16,11 @@ import {
   getSessionTypes,
   getWorkPlaceCapacity,
   setGroupSelectionData,
-  getGroupImages
+  getGroupImages,
 } from 'actions';
 
 export default function GroupLeftSelections() {
   const { type_id: userTypeId } = useSelector((state) => state.auth.user);
-
 
   const { data: myBranches } = useSelector(
     (state) => state.profileSettings2.profileBranches.myBranches
@@ -36,7 +35,7 @@ export default function GroupLeftSelections() {
     classSelection,
     selectedHour,
     dtSessionSelection,
-    selectedDate
+    selectedDate,
   } = useSelector((state) => state.profileSettings2.reservationGroupSlot);
 
   const {
@@ -73,15 +72,20 @@ export default function GroupLeftSelections() {
     }
   }, []);
 
-  useEffect(()=>{
-    selectDataHandler('group_slot_image_id', selectedImageId?.id)
-  },[selectedImageId])
-
+  useEffect(() => {
+    selectDataHandler('group_slot_image_id', selectedImageId?.id);
+  }, [selectedImageId]);
 
   useEffect(() => {
     if (branchSelection && locationSelection) {
-
-      dispatch(getWorkPlaceCapacity(branchSelection.id, locationSelection.id, selectedHour, selectedDate));
+      dispatch(
+        getWorkPlaceCapacity(
+          branchSelection.id,
+          locationSelection.id,
+          selectedHour,
+          selectedDate
+        )
+      );
     }
   }, [branchSelection, locationSelection]);
 
@@ -91,20 +95,23 @@ export default function GroupLeftSelections() {
   return (
     <div>
       <Box row justifyContent="center" position="relative">
-        <UploadPic onClick={openSelectPicModal} img={selectedImageId && selectedImageId?.image_url}>
+        <UploadPic
+          onClick={openSelectPicModal}
+          img={selectedImageId && selectedImageId?.image_url}
+        >
           {/*{selectedImageId?*/}
           {/*  <img src={selectedImageId.image_url} style={{ width:'140px'}} />:*/}
           {/*  <Svg.MockImageIcon /> }*/}
 
           {!selectedImageId && <Svg.MockImageIcon />}
-          {!selectedImageId &&
-          <Text textAlign="center" color="gray8" fontWeight="300" mt="15px">
-            FOTOĞRAF SEÇİNİZ
-          </Text> }
-
+          {!selectedImageId && (
+            <Text textAlign="center" color="gray8" fontWeight="300" mt="15px">
+              FOTOĞRAF SEÇİNİZ
+            </Text>
+          )}
         </UploadPic>
 
-        <Plus type="dark" onClick={openSelectPicModal}/>
+        <Plus type="dark" onClick={openSelectPicModal} />
       </Box>
 
       {userTypeId !== DIETITIAN && (
@@ -185,12 +192,14 @@ export default function GroupLeftSelections() {
               selectDataHandler('sessionSelection', e.target.value)
             }
           >
-            {sessionTypes?.data?.data?.map((sessionType) => (
-              sessionType.type !== 'online' &&
-              <MenuItem key={sessionType.id} value={sessionType}>
-                {sessionType.title}
-              </MenuItem>
-            ))}
+            {sessionTypes?.data?.data?.map(
+              (sessionType) =>
+                sessionType.type !== 'online' && (
+                  <MenuItem key={sessionType.id} value={sessionType}>
+                    {sessionType.title}
+                  </MenuItem>
+                )
+            )}
           </Select>
         </FormControl>
       )}
@@ -206,12 +215,14 @@ export default function GroupLeftSelections() {
               selectDataHandler('dtSessionSelection', e.target.value)
             }
           >
-            {sessionTypes?.data?.data?.map((sessionType) => (
-              sessionType.type !== 'online' &&
-              <MenuItem key={sessionType.id} value={sessionType}>
-                {sessionType.title}
-              </MenuItem>
-            ))}
+            {sessionTypes?.data?.data?.map(
+              (sessionType) =>
+                sessionType.type !== 'online' && (
+                  <MenuItem key={sessionType.id} value={sessionType}>
+                    {sessionType.title}
+                  </MenuItem>
+                )
+            )}
           </Select>
         </FormControl>
       )}
@@ -297,7 +308,7 @@ const Plus = styled(PlusButton)`
 const TextArea = styled.textarea`
   padding: 15px;
   border-radius: 15px;
-  width: 100%
+  width: 100%;
   font-size: 0.9rem;
   margin-top: 10px;
 
@@ -310,7 +321,7 @@ const UploadPic = styled.div`
   width: 250px;
   height: 200px;
   border-radius: 8px;
-  background: '${(props) => !props.img && '#fff' }' ;
+  background: '${(props) => !props.img && '#fff'}';
   border: 1px solid #363636;
   padding: 45px;
   display: flex;
@@ -319,6 +330,6 @@ const UploadPic = styled.div`
   align-items: center;
   cursor: pointer;
   background-image: url('${(props) => props.img}');
-  background-repeat: '${(props) => props.img && 'no-repeat' }';
+  background-repeat: '${(props) => props.img && 'no-repeat'}';
   background-size: cover;
 `;
