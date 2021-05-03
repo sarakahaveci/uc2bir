@@ -13,7 +13,7 @@ import {
   setReservation,
 } from '../../../actions';
 import moment from 'moment';
-import { DIETITIAN } from '../../../constants';
+import { DIETITIAN, USER } from '../../../constants';
 
 export default function MyCalendar({ userId, typeId, setPage = () => {} , isUserDetail=false}) {
   const dispatch = useDispatch();
@@ -24,6 +24,7 @@ export default function MyCalendar({ userId, typeId, setPage = () => {} , isUser
   const { working_days: working_days, branches: branchList, slots:slots } = useSelector(
     (state) => state.userProfile.calendar
   );
+  const user = useSelector((state) => state.auth.user);
 
   useEffect(() => {
     dispatch(getProfessionalCalendar(userId, typeId, startDate));
@@ -96,7 +97,7 @@ export default function MyCalendar({ userId, typeId, setPage = () => {} , isUser
 
         </Accordion>
         <BranchWrapper>
-          {selectedHour && isUserDetail === false &&(
+          {selectedHour && isUserDetail === false && user?.type_id === USER && (
             <Button
               onClick={() => {
                 dispatch(clearReservation());
