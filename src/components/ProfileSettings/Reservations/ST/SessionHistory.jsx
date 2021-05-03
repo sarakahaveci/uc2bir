@@ -12,7 +12,7 @@ import { rateAndComment } from 'actions';
 const SessionHistory = () => {
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
   const [openRateModal, setOpenRateModal] = useState(false);
-  const [appointmentId, setAppointmentId] = useState(undefined);
+  const [appointment, setAppointment] = useState(undefined);
 
   const dispatch = useDispatch();
   const items = useSelector(
@@ -70,7 +70,10 @@ const SessionHistory = () => {
                       type="history"
                       rateText="Eğitmeni Puanla"
                       onApprove={() => {
-                        setAppointmentId(elm?.id);
+                        setAppointment({
+                          id: elm?.id,
+                          userId: elm?.pt?.id,
+                        });
                         setOpenRateModal(true);
                       }}
                     />
@@ -91,7 +94,10 @@ const SessionHistory = () => {
                       type="history"
                       rateText="Eğitmeni Puanla"
                       onApprove={() => {
-                        setAppointmentId(elm?.id);
+                        setAppointment({
+                          id: elm?.id,
+                          userId: elm?.pt?.id,
+                        });
                         setOpenRateModal(true);
                       }}
                     />
@@ -112,7 +118,10 @@ const SessionHistory = () => {
                       type="history"
                       rateText="Eğitmeni / Diyetisyeni Puanla"
                       onApprove={() => {
-                        setAppointmentId(elm?.id);
+                        setAppointment({
+                          id: elm?.id,
+                          userId: elm?.dt?.id || elm?.pt?.id,
+                        });
                         setOpenRateModal(true);
                       }}
                     />
@@ -133,7 +142,7 @@ const SessionHistory = () => {
                       type="history"
                       rateText="Diyetisyeni Puanla"
                       onApprove={() => {
-                        setAppointmentId(elm?.id);
+                        setAppointment({ id: elm?.id, userId: elm?.dt?.id });
                         setOpenRateModal(true);
                       }}
                     />
@@ -173,7 +182,7 @@ const SessionHistory = () => {
         </StyledCol>
       </StyledRow>
       <RateModal
-        appointment_id={appointmentId}
+        appointment_id={appointment?.id}
         descText="Seçili profesyonel puanlamak ister misiniz?"
         rateLabel="PUANLA"
         cancelLabel="VAZGEÇ"
@@ -182,20 +191,20 @@ const SessionHistory = () => {
           dispatch(
             rateAndComment(
               {
-                appointment_id: appointmentId,
+                appointment_id: appointment?.id,
                 rating: rate,
                 comment: comment,
-                commented_id: 1,
+                commented_id: appointment?.userId,
               },
               () => {
-                setAppointmentId(undefined);
+                setAppointment(undefined);
                 setOpenRateModal(false);
               }
             )
           );
         }}
         cancel={() => {
-          setAppointmentId(undefined);
+          setAppointment(undefined);
           setOpenRateModal(false);
         }}
       />
