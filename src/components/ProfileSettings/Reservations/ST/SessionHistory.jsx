@@ -4,15 +4,19 @@ import ReservationAccordion from '../ReservationAccordion';
 import styled from 'styled-components/macro';
 import { ApproveCard, DatePicker, RateModal, Svg } from 'components';
 import { device } from 'utils';
-import { getSessionHistorys } from 'actions';
+import { getUserSessionHistorys } from 'actions';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
+import { rateAndComment } from 'actions';
+
 const SessionHistory = () => {
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
   const [openRateModal, setOpenRateModal] = useState(false);
+  const [appointmentId, setAppointmentId] = useState(undefined);
+
   const dispatch = useDispatch();
   const items = useSelector(
-    (state) => state.professionalReservation?.ptReservation?.session_historys
+    (state) => state.professionalReservation?.userReservation?.session_historys
   );
   const [selectedDate, setSelectedDate] = useState(new Date());
   const startOfWeeksArr = () => {
@@ -31,7 +35,7 @@ const SessionHistory = () => {
       setIsSmallScreen(false);
     }
     setSelectedDate(new Date());
-    dispatch(getSessionHistorys());
+    dispatch(getUserSessionHistorys());
   }, []);
   useEffect(() => {
     if (selectedDate) {
@@ -39,81 +43,105 @@ const SessionHistory = () => {
     }
   }, [selectedDate]);
   function getSelectedDate() {
-    dispatch(getSessionHistorys(moment(selectedDate).format('DD.MM.YYYY')));
+    dispatch(getUserSessionHistorys(moment(selectedDate).format('DD.MM.YYYY')));
   }
   return (
     <StyledContainer>
       <StyledRow>
         <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
-          {startOfWeeksArr().map((elm, index) => (
-            <AccordionContainer key={index}>
-              <Number>{index + 1}.</Number>
+          <AccordionContainer>
+            <ReservationAccordion
+              defaultOpen={true}
+              parent
+              title={moment(selectedDate).format('DD.MM.YYYY')}
+            >
               <ReservationAccordion
-                defaultOpen={index == 0 ? true : false}
-                parent
-                title="24 OCAK ÇARŞAMBA"
+                miniIcon={<Svg.SessionType.Gym />}
+                title="SPOR ALANI"
+                defaultOpen
               >
-                <ReservationAccordion
-                  miniIcon={<Svg.SessionType.Gym />}
-                  title="SPOR ALANI"
-                  defaultOpen
-                >
-                  {items?.appointment?.[
-                    moment(selectedDate).format('DD.MM.YYYY')
-                  ]?.gym?.map((elm, i) => (
-                    <ApproveCardContainer key={i}>
-                      <ApproveCard
-                        date="18:00 - 19:00"
-                        customerName="Ali Veli"
-                        type="history"
-                        onApprove={() => {
-                          setOpenRateModal(true);
-                        }}
-                      />
-                    </ApproveCardContainer>
-                  ))}
-                </ReservationAccordion>
-                <ReservationAccordion
-                  miniIcon={<Svg.SessionType.Park />}
-                  title="EV / PARK"
-                >
-                  {items?.appointment?.[
-                    moment(selectedDate).format('DD.MM.YYYY')
-                  ]?.gym?.map((elm, i) => (
-                    <ApproveCardContainer key={i}>
-                      <ApproveCard
-                        date="18:00 - 19:00"
-                        customerName="Ali Veli"
-                        type="history"
-                        onApprove={() => {
-                          setOpenRateModal(true);
-                        }}
-                      />
-                    </ApproveCardContainer>
-                  ))}
-                </ReservationAccordion>
-                <ReservationAccordion
-                  miniIcon={<Svg.SessionType.Online />}
-                  title="ONLİNE"
-                >
-                  {items?.appointment?.[
-                    moment(selectedDate).format('DD.MM.YYYY')
-                  ]?.gym?.map((elm, i) => (
-                    <ApproveCardContainer key={i}>
-                      <ApproveCard
-                        date="18:00 - 19:00"
-                        customerName="Ali Veli"
-                        type="history"
-                        onApprove={() => {
-                          setOpenRateModal(true);
-                        }}
-                      />
-                    </ApproveCardContainer>
-                  ))}
-                </ReservationAccordion>
+                {items?.appointment?.[
+                  moment(selectedDate).format('DD.MM.YYYY')
+                ]?.gym?.map((elm, i) => (
+                  <ApproveCardContainer key={i}>
+                    <ApproveCard
+                      date={elm?.hour}
+                      customerName={elm?.address_title}
+                      type="history"
+                      rateText="Eğitmeni Puanla"
+                      onApprove={() => {
+                        setAppointmentId(elm?.id);
+                        setOpenRateModal(true);
+                      }}
+                    />
+                  </ApproveCardContainer>
+                ))}
               </ReservationAccordion>
-            </AccordionContainer>
-          ))}
+              <ReservationAccordion
+                miniIcon={<Svg.SessionType.Park />}
+                title="EV / PARK"
+              >
+                {items?.appointment?.[
+                  moment(selectedDate).format('DD.MM.YYYY')
+                ]?.gym?.map((elm, i) => (
+                  <ApproveCardContainer key={i}>
+                    <ApproveCard
+                      date={elm?.hour}
+                      customerName="MOCKDATA"
+                      type="history"
+                      rateText="Eğitmeni Puanla"
+                      onApprove={() => {
+                        setAppointmentId(elm?.id);
+                        setOpenRateModal(true);
+                      }}
+                    />
+                  </ApproveCardContainer>
+                ))}
+              </ReservationAccordion>
+              <ReservationAccordion
+                miniIcon={<Svg.SessionType.Online />}
+                title="ONLİNE"
+              >
+                {items?.appointment?.[
+                  moment(selectedDate).format('DD.MM.YYYY')
+                ]?.gym?.map((elm, i) => (
+                  <ApproveCardContainer key={i}>
+                    <ApproveCard
+                      date={elm?.hour}
+                      customerName="MOCKDATA"
+                      type="history"
+                      rateText="Eğitmeni / Diyetisyeni Puanla"
+                      onApprove={() => {
+                        setAppointmentId(elm?.id);
+                        setOpenRateModal(true);
+                      }}
+                    />
+                  </ApproveCardContainer>
+                ))}
+              </ReservationAccordion>
+              <ReservationAccordion
+                miniIcon={<Svg.SessionType.Online />}
+                title="KLİNİK"
+              >
+                {items?.appointment?.[
+                  moment(selectedDate).format('DD.MM.YYYY')
+                ]?.clinic?.map((elm, i) => (
+                  <ApproveCardContainer key={i}>
+                    <ApproveCard
+                      date={elm?.hour}
+                      customerName="MOCKDATA"
+                      type="history"
+                      rateText="Diyetisyeni Puanla"
+                      onApprove={() => {
+                        setAppointmentId(elm?.id);
+                        setOpenRateModal(true);
+                      }}
+                    />
+                  </ApproveCardContainer>
+                ))}
+              </ReservationAccordion>
+            </ReservationAccordion>
+          </AccordionContainer>
           {!(startOfWeeksArr().length > 0) && (
             <text>Bu tarihe ilişkin veri bulunamadı</text>
           )}
@@ -145,14 +173,29 @@ const SessionHistory = () => {
         </StyledCol>
       </StyledRow>
       <RateModal
-        descText="Faruk Kale isimli öğrencinizi puanlamak ister misiniz?"
+        appointment_id={appointmentId}
+        descText="Seçili profesyonel puanlamak ister misiniz?"
         rateLabel="PUANLA"
         cancelLabel="VAZGEÇ"
         open={openRateModal}
-        rate={() => {
-          setOpenRateModal(false);
+        rate={({ rate, comment }) => {
+          dispatch(
+            rateAndComment(
+              {
+                appointment_id: appointmentId,
+                rating: rate,
+                comment: comment,
+                commented_id: 1,
+              },
+              () => {
+                setAppointmentId(undefined);
+                setOpenRateModal(false);
+              }
+            )
+          );
         }}
         cancel={() => {
+          setAppointmentId(undefined);
           setOpenRateModal(false);
         }}
       />
@@ -170,13 +213,6 @@ const ApproveCardContainer = styled.div`
   margin: 20px 0;
   @media ${device.sm} {
     margin: 0;
-  }
-`;
-const Number = styled.text`
-  font-size: 16px;
-  margin: 15px;
-  @media ${device.sm} {
-    display: none;
   }
 `;
 

@@ -13,6 +13,7 @@ const ApproveCard = ({
   onApprove = () => {},
   onReject = () => {},
   type = 'await',
+  rateText = '',
 }) => {
   useEffect(() => {}, []);
   let buttonGroup;
@@ -53,7 +54,7 @@ const ApproveCard = ({
       break;
     case 'history':
       buttonGroup = (
-        <HistoryButton onClick={onApprove}>Öğrenciyi Puanla</HistoryButton>
+        <HistoryButton onClick={onApprove}>{rateText}</HistoryButton>
       );
       break;
     default:
