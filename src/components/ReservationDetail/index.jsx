@@ -18,10 +18,14 @@ const ReservationDetail = ({ type, goBack = () => {} }) => {
       case 'dt':
         setDetailData(professionalReservation?.dtReservation?.res_detail);
         break;
+      case 'st':
+        setDetailData(professionalReservation?.userReservation?.res_detail);
+        break;
       default:
         break;
     }
   }, [professionalReservation]);
+
   return (
     <Container>
       <Header>
@@ -39,7 +43,9 @@ const ReservationDetail = ({ type, goBack = () => {} }) => {
           <InfoItem>
             <InfoMain>
               <CustomerImage></CustomerImage>
-              <BoldText>{detailData?.student?.name}</BoldText>
+              <BoldText>
+                {detailData?.student?.name || detailData?.bs?.title}
+              </BoldText>
             </InfoMain>
             <text style={{ fontSize: '30px' }}> {'>'} </text>
           </InfoItem>
@@ -67,7 +73,7 @@ const ReservationDetail = ({ type, goBack = () => {} }) => {
               <Icon>
                 <Svg.LocationIcon />
               </Icon>
-              <AdressText>1520 sokak no 50 çarşamba ordu</AdressText>
+              <AdressText>{detailData?.address_detail}</AdressText>
             </InfoMain>
           </InfoItem>
           <MapWrapper>
@@ -98,7 +104,9 @@ const ReservationDetail = ({ type, goBack = () => {} }) => {
             <MessageButtonContainer>
               <MessageButton>Mesaj Gönder</MessageButton>
               <Link to={'/myprofile/online'}>
-                <OnlineClassButton color={'blue2'} >Derse Gir </OnlineClassButton>
+                <OnlineClassButton color={'blue2'}>
+                  Derse Gir{' '}
+                </OnlineClassButton>
               </Link>
             </MessageButtonContainer>
           </RightAreaWrapper>
@@ -156,20 +164,19 @@ const MessageButtonContainer = styled.div`
   padding: 30px;
 `;
 const MessageButton = styled.button`
-  width:100%;
-  height:50px;
+  width: 100%;
+  height: 50px;
   background: var(--blue);
-  color:white;
+  color: white;
 `;
 
 const OnlineClassButton = styled.button`
-  width:100%;
-  height:50px;
+  width: 100%;
+  height: 50px;
   margin-top: 15px;
   background: var(--blue2);
-  color:white;
+  color: white;
 `;
-
 
 const Header = styled.div`
   width: 100%;
