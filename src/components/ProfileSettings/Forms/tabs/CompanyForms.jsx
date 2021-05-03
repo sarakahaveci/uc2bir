@@ -67,6 +67,7 @@ const ProfileForms = ({ type }) => {
                 }
                 settings="current"
                 required
+                inputProps={{ maxLength: 100 }}
               />
               <Material.TextField
                 label="Vergi Dairesi"
@@ -78,6 +79,7 @@ const ProfileForms = ({ type }) => {
                 }
                 settings="current"
                 required
+                inputProps={{ maxLength: 100 }}
               />
               <Material.TextField
                 label="Vergi No"
@@ -89,6 +91,7 @@ const ProfileForms = ({ type }) => {
                 }
                 settings="current"
                 required
+                inputProps={{ maxLength: 11 }}
               />
               <Footer>
                 <Button

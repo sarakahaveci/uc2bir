@@ -16,23 +16,24 @@ const ExerciseDetail = ({ setPage = () => {} }) => {
 
   return (
     <Container>
-      <Title
+      {/* <Title
         style={{ cursor: 'pointer', padding: 5, display: '' }}
         fontSize="14pt"
         textAlign="left"
         onClick={() => setPage('Home')}
       >
         {`< Ana Sayfa`}
-      </Title>
-      <Title
-        style={{ cursor: 'pointer', padding: 15 }}
-        fontSize="14pt"
-        textAlign="left"
-        onClick={() => setPage('Exercises')}
-      >
-        {`<Geri`}
-      </Title>
+      </Title> */}
+
       <Side>
+        <Title
+          style={{ cursor: 'pointer', padding: 15 }}
+          fontSize="14pt"
+          textAlign="left"
+          onClick={() => setPage('Exercises')}
+        >
+          {`<Geri`}
+        </Title>
         <AddExercise />
         <AddExercise />
       </Side>

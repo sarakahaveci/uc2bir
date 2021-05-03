@@ -357,9 +357,9 @@ const StepThree = () => {
               id="taxNumber"
               name="tax_number"
               label="Vergi No"
-              type="number"
+              type="tel"
               onChange={handleFormOnChange}
-              inputProps={inputProps}
+              inputProps={{ maxLength: 11 }}
             />
           </>
         )}

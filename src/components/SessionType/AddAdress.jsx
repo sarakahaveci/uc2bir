@@ -134,7 +134,12 @@ const AddAdress = ({ setSubPage, type }) => {
 
   return (
     <div className="row w-100">
-      <Button text="< Geri" onClick={() => setSubPage('Adds')} />
+      <Button
+        text="< Geri"
+        onClick={() => setSubPage('Adds')}
+        fontSize="14pt"
+        fontWeight="bold"
+      />
       <div className="col-12">
         <form
           style={{ marginBottom: 15 }}

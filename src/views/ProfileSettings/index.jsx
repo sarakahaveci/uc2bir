@@ -56,7 +56,7 @@ const regularUserTabs = [
     component: <Wallet />,
   },
   {
-    eventKey: 'favorite',
+    eventKey: 'favorites',
     title: 'Favorilerim',
     component: <Favorites />,
   },
