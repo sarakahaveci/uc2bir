@@ -50,7 +50,7 @@ const AddGym = ({ setSubPage, setBannerActive }) => {
 
   const addGymHandler = (id) => {
     dispatch(
-      addGymFromPt(id, () => {
+      addGymFromPt(id.id, () => {
         setSubPage('gym-edit');
       })
     );

@@ -32,7 +32,7 @@ const Online = () => {
     //     'Content-Type': 'application/json'
     //   }
     // }).then(res => res.json());
-    setToken('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImN0eSI6InR3aWxpby1mcGE7dj0xIn0.eyJqdGkiOiJTS2M5OTYwZDJkZmNjMWNiZWU3ODFiNjBlZWFiMjcwNWQ1LTE2MTk3ODAxODIiLCJpc3MiOiJTS2M5OTYwZDJkZmNjMWNiZWU3ODFiNjBlZWFiMjcwNWQ1Iiwic3ViIjoiQUNiNWQxZjIwMjBjMjU2N2E5NDgxZmMyNDIzNzdiMzdiNSIsImV4cCI6MTYxOTc4Mzc4MiwiZ3JhbnRzIjp7ImlkZW50aXR5IjoibXVzdGFmYSIsInZpZGVvIjp7InJvb20iOiIxIn19fQ.bPdH2LjZfG3nouzcq-9zfo27ruwrkRwBKMK28iyxW-E');
+    setToken('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiIsImN0eSI6InR3aWxpby1mcGE7dj0xIn0.eyJqdGkiOiJTS2M5OTYwZDJkZmNjMWNiZWU3ODFiNjBlZWFiMjcwNWQ1LTE2MTk3ODI1OTEiLCJpc3MiOiJTS2M5OTYwZDJkZmNjMWNiZWU3ODFiNjBlZWFiMjcwNWQ1Iiwic3ViIjoiQUNiNWQxZjIwMjBjMjU2N2E5NDgxZmMyNDIzNzdiMzdiNSIsImV4cCI6MTYxOTc4NjE5MSwiZ3JhbnRzIjp7ImlkZW50aXR5IjoiY2loYW4iLCJ2aWRlbyI6eyJyb29tIjoiMSJ9fX0.aEHO7MK_BNynWquWXeTodqFChpdoDFI344IwjUTJb8o');
   }, [username, roomName]);
 
   const handleLogout = useCallback(event => {
@@ -50,7 +50,7 @@ const Online = () => {
     );
   } else {
     render = (
-      <Main >
+      <Main>
         <Lobby
           username={username}
           roomName={roomName}
@@ -63,16 +63,6 @@ const Online = () => {
   }
   return render;
 
-  // return (
-  //   <Main>
-  //
-  //     <ConfirmationTitle
-  //       dangerouslySetInnerHTML={{
-  //         __html: staticPages?.data?.['kvkk-sozlesmesi']?.title,
-  //       }}
-  //     />
-  //   </Main>
-  // );
 };
 
 export default Online;
