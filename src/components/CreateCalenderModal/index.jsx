@@ -1,12 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { Text, Svg } from 'components';
 import { Link } from 'react-router-dom';
 import { device } from 'utils';
 import { useSelector } from 'react-redux';
+import * as KEYS from '../../constants/userKeys';
 
-const CreateCalenderModal = ({ open, approve = () => {}, cancel = () => {} }) => {
-  const { name: name } = useSelector((state) => state.auth.user);
+const CreateCalenderModal = ({
+  open,
+  approve = () => {},
+  cancel = () => {},
+}) => {
+  const { name: name, type_id: type_id } = useSelector(
+    (state) => state.auth.user
+  );
+  const {
+    userKeys: { data: userKeys, isSuccess },
+  } = useSelector((state) => state.registerData);
+
+  const [type, setType] = useState([]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      setType(userKeys.filter((f) => f.id === type_id));
+    }
+  }, [isSuccess]);
   return (
     <Root style={{ display: open ? 'flex' : 'none' }}>
       <MainContainer>
@@ -23,7 +41,7 @@ const CreateCalenderModal = ({ open, approve = () => {}, cancel = () => {} }) =>
           </Text>
 
           <Text textAlign="center" fontSize="1rem" color="dark">
-           Lütfen Vermek İstediğiniz Ders Tipini Seçiniz
+            Lütfen Vermek İstediğiniz Ders Tipini Seçiniz
           </Text>
         </ContextContainer>
 
@@ -34,7 +52,9 @@ const CreateCalenderModal = ({ open, approve = () => {}, cancel = () => {} }) =>
               approve();
             }}
           >
-            ÖZEL DERS OLUŞTUR
+            {type[0]?.key == KEYS.DIETIAN
+              ? 'SEANS OLUŞTUR'
+              : 'ÖZEL DERS OLUŞTUR'}
           </StyledButton>
         </div>
         <div className="modal-footer" closeIcon={false}>
@@ -44,7 +64,9 @@ const CreateCalenderModal = ({ open, approve = () => {}, cancel = () => {} }) =>
               cancel();
             }}
           >
-            GRUP DERSİ OLUŞTUR
+            {type[0]?.key == KEYS.DIETIAN
+              ? 'PAKET SEANS OLUŞTUR'
+              : 'GRUP DERSİ OLUŞTUR'}
           </StyledButton>
         </div>
       </MainContainer>
