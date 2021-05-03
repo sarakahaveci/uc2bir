@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
 
 import { Button, Box, Svg, Spinner, Span } from 'components';
-import { deleteAddressList, getAddressList } from 'actions';
+import { deleteAddressList, getPtWorkingHomePlace } from 'actions';
 import { device } from 'utils';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -11,12 +11,17 @@ import BackLink from 'components/common/BackLink';
 const Edit = ({ setSubPage }) => {
   const dispatch = useDispatch();
 
-  const { getAddress } = useSelector(
-    (state) => state.profileSettings2.sessionType
+  // const { getAddress } = useSelector(
+  //   (state) => state.profileSettings2.sessionType
+  // );
+
+  const { data } = useSelector(
+    (state) => state.userProfile.workPlace.ptHomePlace
   );
 
+
   useEffect(() => {
-    dispatch(getAddressList());
+    dispatch(getPtWorkingHomePlace());
   }, []);
 
   const deleted = (id) => {
@@ -24,7 +29,7 @@ const Edit = ({ setSubPage }) => {
       deleteAddressList(
         id,
         () => {
-          dispatch(getAddressList());
+          dispatch(getPtWorkingHomePlace());
           toast.success('Adres başarı ile silindi.', {
             position: 'bottom-right',
             autoClose: 2000,
@@ -39,12 +44,12 @@ const Edit = ({ setSubPage }) => {
     <>
       <BackLink text="Geri" onClick={() => setSubPage('Adds')} />
 
-      {!getAddress?.isLoading ? (
+      {!data?.isLoading ? (
         <>
           <div className="d-flex flex-wrap">
             <List>
-              {getAddress?.data.length > 0 ? (
-                getAddress.data.map((val) => (
+              {data?.home_park?.length > 0 ? (
+                data?.home_park?.map((val) => (
                   <>
                     <Item>
                       <div className="line-left">
@@ -54,13 +59,13 @@ const Edit = ({ setSubPage }) => {
                           <Svg.LocationIcon />
 
                           <Span ml="5px">
-                            {val?.address_detail + '/' + val?.city?.name}
+                            {val?.address_detail + '/' + val?.city}
                           </Span>
                         </Box>
                       </div>
 
                       <Button
-                        className="cencel"
+                        className="cancel"
                         icon={Svg.CencelIcon}
                         onClick={() => deleted(val?.id)}
                       />

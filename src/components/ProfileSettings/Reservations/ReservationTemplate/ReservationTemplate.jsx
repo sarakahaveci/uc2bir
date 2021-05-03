@@ -115,6 +115,8 @@ export default function ReservationTemplate({
     setClassSelection([]);
 
     setAcceptGuest(false);
+
+    dispatch(setSelectedDay(selectedDay.day+1))
   };
 
   const complateTemplateHandler = () => {
@@ -288,10 +290,7 @@ export default function ReservationTemplate({
           </Text>
         </WeekDetailsInfoModal>
 
-        <SuccessReservationModal
-          activateFooter
-          ref={successReservationModalRef}
-        >
+        <SuccessReservationModal activateFooter ref={successReservationModalRef}>
           <div className="reservation__success-modal">
             <Box center mb="35px">
               <Svg.SuccessIcon />
