@@ -18,6 +18,7 @@ const LongUserCard = ({
   onClickHover = () => {},
   selected = false,
   type,
+  favoriteId
 }) => {
   const [isFavorited, setIsFavorited] = useState(favoritedUser);
 
@@ -27,10 +28,10 @@ const LongUserCard = ({
 
   const favoriteClickHandler = () => {
     if (isFavorited) {
-      dispatch(removeFavoriteUser(data.favorite_id));
+      dispatch(removeFavoriteUser(favoriteId));
       setIsFavorited(false);
     } else {
-      dispatch(addFavoriteUser(data.favorite_id));
+      dispatch(addFavoriteUser(favoriteId));
       setIsFavorited(true);
     }
   };

@@ -50,7 +50,7 @@ const Favorites = () => {
     content = favoriteUsers?.length ? (
       favoriteUsers.map((item, index) => (
         <Col lg={4} md={6} sm={12} key={'Favori' + index}>
-          <LongUserCard data={item} showHeartBg favoritedUser />
+          <LongUserCard data={item} favoriteId={item.favorite_id}showHeartBg favoritedUser />
         </Col>
       ))
     ) : (
