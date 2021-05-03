@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
 import { Text, Svg } from 'components';
 import { Link } from 'react-router-dom';
@@ -18,6 +18,15 @@ const RateModal = ({
   rateLabel = '',
 }) => {
   const [selectedPage, setSelectedPage] = useState('start');
+  const [star, setStar] = useState(undefined);
+  const [comment, setComment] = useState(undefined);
+  useEffect(() => {
+    if (open == false) {
+      setStar(undefined);
+      setComment(undefined);
+      setSelectedPage('start');
+    }
+  }, [open]);
   let content;
 
   switch (selectedPage) {
@@ -77,11 +86,10 @@ const RateModal = ({
               Yıldız Veriniz :{' '}
               <Rating
                 name="customized-empty"
-                defaultValue={0}
                 precision={0.5}
-                /*onChange={(event, newValue) => {
-                  
-                }}*/
+                onChange={(event, newValue) => {
+                  setStar(newValue);
+                }}
                 emptyIcon={<StarBorderIcon fontSize="inherit" />}
               />
             </StarContainer>
@@ -91,6 +99,9 @@ const RateModal = ({
               label="Yorumnuzu giriniz..."
               type="text"
               name="comment"
+              onChange={(e) => {
+                setComment(e.target.value);
+              }}
             />
           </ReasonContextContainer>
 
@@ -105,7 +116,7 @@ const RateModal = ({
             <FooterButton
               rate
               onClick={() => {
-                rate();
+                rate({ rate: star, comment: comment });
               }}
             >
               GÖNDER

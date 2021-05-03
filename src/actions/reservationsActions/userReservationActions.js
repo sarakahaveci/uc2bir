@@ -3,6 +3,7 @@ import {
   GET_USER_RESERVATION_STATE_DATA,
   USER_RESERVATION_FUNC,
 } from '../../constants';
+import { toast } from 'react-toastify';
 
 export const getUserAwaitings = (date) => async (dispatch) => {
   let url = '/appointment/calendar/pending';
@@ -143,7 +144,7 @@ export const getUserReservationDetail = (id) => async (dispatch) => {
   });
 };
 
-export const getSessionHistorys = (date) => async (dispatch) => {
+export const getUserSessionHistorys = (date) => async (dispatch) => {
   let url = '/appointment/calendar/completed';
   let extras = '?';
   if (date) extras += `date=${date}&`;
@@ -157,6 +158,45 @@ export const getSessionHistorys = (date) => async (dispatch) => {
       transformData: (data) => (
         (data.data.status = 'session_historys'), data.data
       ),
+    },
+  });
+};
+
+export const rateAndComment = (
+  { appointment_id, commented_id, comment, rating },
+  successCallback = () => {}
+) => async (dispatch) => {
+  let url = `/appointment/calendar/comment`;
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'POST',
+      body: {
+        appointment_id: appointment_id,
+        commented_id: commented_id,
+        comment: comment,
+        rating: rating,
+      },
+      url,
+      label: USER_RESERVATION_FUNC,
+      callBack: () => {
+        successCallback();
+        toast.success('Puanınız ve yorumunuz başarıyla gönderildi', {
+          position: 'bottom-right',
+          autoClose: 7000,
+        });
+      },
+      errorHandler: (res) => {
+        toast.error(
+          res?.message || 'Yorum ve Puanlama Yaparken Hata ile karşılaşıldı',
+          {
+            position: 'bottom-right',
+            autoClose: 4000,
+          }
+        );
+      },
+
+      transformData: (data) => data.data,
     },
   });
 };
