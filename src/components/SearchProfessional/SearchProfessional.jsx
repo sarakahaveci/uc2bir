@@ -220,6 +220,7 @@ const SearchProfessional = () => {
             <GymListWrapper>
               {data?.map((professional) => (
                 <LongUserCard
+                  favoriteId={professional?.user_id}
                   showHeartBg
                   key={professional?.id || professional?.user_id}
                   data={professional}

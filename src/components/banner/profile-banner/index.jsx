@@ -69,7 +69,7 @@ const ProfileBanner = ({
             {!isUserDetail ? (
               user?.type_id === USER && (
                 <CardFooter>
-                  <Comment to={info.comment} className="list">
+                  <Comment to={'/myprofile/settings/message'} className="list">
                     <Svg.Comment />
                   </Comment>
                   <Button
