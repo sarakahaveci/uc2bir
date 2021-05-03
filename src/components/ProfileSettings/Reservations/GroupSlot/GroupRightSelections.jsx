@@ -35,8 +35,7 @@ export default function GroupRightSelections({ setTab = () => {}, setTabPage = (
     branchSelection,
     sessionSelection,
     locationSelection,
-    courseDetails,
-    seanceCount
+    courseDetails
   } = useSelector((state) => state.profileSettings2.reservationGroupSlot);
 
   const dispatch = useDispatch();
@@ -51,12 +50,6 @@ export default function GroupRightSelections({ setTab = () => {}, setTabPage = (
 
   const selectDataHandler = (name, value) =>
     dispatch(setGroupSelectionData(name, value));
-
-
-  const  setPriceWithSeance= (name, value)=>{
-    setPrice(value*branchSelection.price)
-    selectDataHandler(name,value)
-  }
 
   // useEffect(() => {
   //   setMaxCapacityCount(classSelection.capacity || 0);
@@ -111,7 +104,7 @@ export default function GroupRightSelections({ setTab = () => {}, setTabPage = (
 
       default:
         if (
-          +price > branchSelection.price*seanceCount ||
+          +price > branchSelection.price ||
           [
             branchSelection,
             sessionSelection,
@@ -293,7 +286,7 @@ export default function GroupRightSelections({ setTab = () => {}, setTabPage = (
         <DarkTitle>Seans Sayısını Belirletiniz</DarkTitle>
 
         <Material.TextField
-          onChange={(e) => setPriceWithSeance('seanceCount', e.target.value)}
+          onChange={(e) => selectDataHandler('seanceCount', e.target.value)}
           label="Giriniz"
           type="number"
         />
@@ -321,13 +314,13 @@ export default function GroupRightSelections({ setTab = () => {}, setTabPage = (
             <Material.TextField
               changeValue={price}
               onChange={(e) => setPrice(e.target.value)}
-              error={price > branchSelection.price*seanceCount}
+              error={price > branchSelection.price}
               label="Giriniz"
               type="number"
             />
 
             <Text color="red" fontSize="0.9rem">
-              *Max {branchSelection.price*seanceCount} TL fiyat giriniz
+              *Max {branchSelection.price} TL fiyat giriniz
             </Text>
           </>
         )}
