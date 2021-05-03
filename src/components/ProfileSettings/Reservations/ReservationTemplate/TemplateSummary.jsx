@@ -105,7 +105,7 @@ const TemplateSummary = () => {
     )) || [];
 
   return (
-    <ReservationAccordion title="Rezervasyonlarınız">
+    <ReservationAccordion title="Rezervasyonlarınız" defaultOpen={true}>
       {templateItems.length ? (
         <AccordionCollapseWrapper>{templateItems}</AccordionCollapseWrapper>
       ) : (
@@ -146,4 +146,5 @@ const TemplateInfoRow = styled.div`
 
 const AccordionCollapseWrapper = styled.div`
   padding-top: 10px;
+  padding: 20px;
 `;
