@@ -158,7 +158,6 @@ export default function TemplateSelections({
           <InputLabel>Spor Alanı Seçiniz</InputLabel>
 
           <Select
-            multiple
             value={workPlaceSelection}
             input={<Input />}
             onChange={(e) => setWorkPlaceSelection(e.target.value)}
