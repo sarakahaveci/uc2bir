@@ -61,17 +61,15 @@ export { default as AddExercise } from './AddExercise';
 export { default as ApproveCard } from './ApproveCard';
 export { default as ApproveModal } from './ApproveModal';
 export { default as CancellationModal } from './CancellationModal';
-
+export { default as ReturnMoneyModal } from './ReturnMoneyModal';
 export { default as CookiePolicyModal } from './CookiePolicyModal';
-
 export { default as CreateCalenderModal } from './CreateCalenderModal';
 export { default as RejectModal } from './RejectModal';
 export { default as RateModal } from './RateModal';
+export { default as CongratsModal } from './CongratsModal';
 export { default as MiniProfileCard } from './MiniProfileCard';
-
 export { default as CustomProgress } from './CustomProgress';
 export { default as Tabbar } from './Tabbar';
-
 export { default as GoogleAppZoom } from './GoogleMaps/index';
 export { default as Blog } from './Blog';
 export { default as BlogCartList } from './Blog/BlogCartList';

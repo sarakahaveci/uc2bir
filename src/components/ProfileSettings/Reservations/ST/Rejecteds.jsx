@@ -8,6 +8,8 @@ import {
   RejectModal,
   ApproveModal,
   Svg,
+  ReturnMoneyModal,
+  CongratsModal,
 } from 'components';
 import { device } from 'utils';
 import { getUserRejects } from 'actions';
@@ -23,6 +25,8 @@ const Rejecteds = () => {
   const [openApprove, setOpenApprove] = useState(false);
   const [openReject, setOpenReject] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [openTransfer, setOpenTransfer] = useState(false);
+  const [openCongrats, setOpenCongrats] = useState(false);
   const startOfWeeksArr = () => {
     if (items?.date) {
       return Object.keys(items?.date).map(
@@ -71,6 +75,10 @@ const Rejecteds = () => {
                         date="18:00 - 19:00"
                         customerName="Ali Veli"
                         type="rejecteds"
+                        userType="user"
+                        onTransfer={() => {
+                          setOpenTransfer(true);
+                        }}
                         onApprove={() => {
                           setOpenApprove(true);
                         }}
@@ -93,6 +101,9 @@ const Rejecteds = () => {
                         date="18:00 - 19:00"
                         customerName="Ali Veli"
                         type="rejecteds"
+                        onTransfer={() => {
+                          setOpenTransfer(true);
+                        }}
                         onApprove={() => {
                           setOpenApprove(true);
                         }}
@@ -115,6 +126,9 @@ const Rejecteds = () => {
                         date="18:00 - 19:00"
                         customerName="Ali Veli"
                         type="rejecteds"
+                        onTransfer={() => {
+                          setOpenTransfer(true);
+                        }}
                         onApprove={() => {
                           setOpenApprove(true);
                         }}
@@ -174,6 +188,23 @@ const Rejecteds = () => {
         }}
         cancel={() => {
           setOpenApprove(false);
+        }}
+      />
+      <ReturnMoneyModal
+        open={openTransfer}
+        wallet={() => {
+          setOpenTransfer(false);
+          setOpenCongrats(true);
+        }}
+        card={() => {
+          setOpenTransfer(false);
+          setOpenCongrats(true);
+        }}
+      />
+      <CongratsModal
+        open={openCongrats}
+        cancel={() => {
+          setOpenCongrats(false);
         }}
       />
     </StyledContainer>

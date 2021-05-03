@@ -10,8 +10,10 @@ const ApproveCard = ({
   optionalField_1 = null,
   optionalField_2 = null,
   optionalField_3 = null,
+  userType,
   onApprove = () => {},
   onReject = () => {},
+  onTransfer = () => {},
   type = 'await',
   rateText = '',
 }) => {
@@ -50,7 +52,14 @@ const ApproveCard = ({
       );
       break;
     case 'rejecteds':
-      buttonGroup = <>Reddedildi</>;
+      buttonGroup =
+        userType == 'user' ? (
+          <>
+            <ButtonText onClick={onTransfer}>Para Iadesi</ButtonText> Reddedildi
+          </>
+        ) : (
+          'Reddedildi'
+        );
       break;
     case 'history':
       buttonGroup = (
@@ -256,5 +265,10 @@ const HistoryButton = styled.button`
     font-size: 10px;
     border-radius: 4px;
   }
+`;
+const ButtonText = styled.text`
+  cursor: pointer;
+  color: var(--blue);
+  margin-right: 10px;
 `;
 export default ApproveCard;

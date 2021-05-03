@@ -22,6 +22,7 @@ const Rejecteds = () => {
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
   const [openApprove, setOpenApprove] = useState(false);
   const [openReject, setOpenReject] = useState(false);
+
   const [selectedDate, setSelectedDate] = useState(new Date());
   const startOfWeeksArr = () => {
     if (items?.date) {
@@ -66,8 +67,8 @@ const Rejecteds = () => {
                 ]?.gym?.map((elm, i) => (
                   <ApproveCardContainer key={i}>
                     <ApproveCard
-                      date="18:00 - 19:00"
-                      customerName="Ali Veli"
+                      date={elm?.hour}
+                      customerName={elm?.student}
                       type="rejecteds"
                       onApprove={() => {
                         setOpenApprove(true);
@@ -88,8 +89,8 @@ const Rejecteds = () => {
                 ]?.home_park?.map((elm, i) => (
                   <ApproveCardContainer key={i}>
                     <ApproveCard
-                      date="18:00 - 19:00"
-                      customerName="Ali Veli"
+                      date={elm?.hour}
+                      customerName={elm?.student}
                       type="rejecteds"
                       onApprove={() => {
                         setOpenApprove(true);
@@ -110,8 +111,8 @@ const Rejecteds = () => {
                 ]?.online?.map((elm, i) => (
                   <ApproveCardContainer key={i}>
                     <ApproveCard
-                      date="18:00 - 19:00"
-                      customerName="Ali Veli"
+                      date={elm?.hour}
+                      customerName={elm?.student}
                       type="rejecteds"
                       onApprove={() => {
                         setOpenApprove(true);
