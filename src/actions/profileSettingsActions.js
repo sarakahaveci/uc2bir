@@ -9,9 +9,7 @@ import {
   UPDATE_ACTIVITY,
   GET_ALL_ACTIVITY_LIST,
   ADD_NEW_ACTIVITY,
-  GET_PT_BRANCH,
   GET_PT_ALL_BRANCH,
-  ADD_NEW_PT_BRANCH,
   UPDATE_PT_BRANCH,
   GET_MY_GALLERIES,
   GET_VKI,
@@ -352,47 +350,6 @@ export const getAllPTBranchList = () => async (dispatch) => {
       url,
       label: GET_PT_ALL_BRANCH,
       transformData: (data) => data.data,
-    },
-  });
-};
-
-export const getUserPTBranchList = () => async (dispatch) => {
-  const url = `/user/pt-price`;
-
-  await dispatch({
-    type: HTTP_REQUEST,
-    payload: {
-      method: 'GET',
-      url,
-      label: GET_PT_BRANCH,
-      transformData: (data) => data.data,
-    },
-  });
-};
-
-export const addNewPTBranch = (body, successCallback, errorCallback) => async (
-  dispatch
-) => {
-  const url = '/user/pt-price/branch';
-  let data = {};
-  if (body.branch) {
-    data.branch = body.branch;
-  }
-  if (body.branch_suggest) {
-    data.branch_suggest = body.branch_suggest;
-  }
-  await dispatch({
-    type: HTTP_REQUEST,
-    payload: {
-      method: 'POST',
-      url,
-      label: ADD_NEW_PT_BRANCH,
-      body: data,
-      callBack: () => {
-        successCallback();
-        getUserPTBranchList();
-      },
-      errorHandler: (error) => errorCallback(error.message),
     },
   });
 };

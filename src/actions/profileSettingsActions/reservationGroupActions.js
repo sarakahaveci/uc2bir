@@ -65,7 +65,7 @@ export const createGroupSlot = (slotObj, successCallback, errorCallback) => asyn
         class_id:classSelection.id,
       },
       callBack: successCallback,
-      errorHandler: () => errorCallback(),
+      errorHandler:  (error) => errorCallback(error.message),
       label: CREATE_GROUP_SLOT,
     },
   });

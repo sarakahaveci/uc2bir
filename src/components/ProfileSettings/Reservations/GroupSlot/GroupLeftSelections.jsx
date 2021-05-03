@@ -11,20 +11,16 @@ import SelectPictureModal from './SelectPictureModal';
 import { Svg, Text, Box, CalendarCell, PlusButton, Material } from 'components';
 import { PAIR_HOURS, PERSONAL_TRAINER, DIETITIAN } from 'constants/index';
 import {
-  getMyBranches,
   getGymList,
   getSessionTypes,
   getWorkPlaceCapacity,
   setGroupSelectionData,
   getGroupImages,
+  getUserPTBranchList
 } from 'actions';
 
 export default function GroupLeftSelections() {
   const { type_id: userTypeId } = useSelector((state) => state.auth.user);
-
-  const { data: myBranches } = useSelector(
-    (state) => state.profileSettings2.profileBranches.myBranches
-  );
 
   const {
     workPlaceCapacity: { data: workPlaceCapacity },
@@ -43,6 +39,10 @@ export default function GroupLeftSelections() {
     gymList: { data: gymList },
   } = useSelector((state) => state.profileSettings2.sessionType);
 
+  const { data } = useSelector(
+    (state) => state?.profileSettings?.ptBranchList
+  );
+
   const {
     ptHomePlace: { data: ptHomePlace },
   } = useSelector((state) => state.userProfile.workPlace);
@@ -59,7 +59,9 @@ export default function GroupLeftSelections() {
     if (userTypeId === PERSONAL_TRAINER) {
       dispatch(getSessionTypes());
 
-      dispatch(getMyBranches());
+      // dispatch(getMyBranches());
+
+      dispatch(getUserPTBranchList());
 
       dispatch(getGroupImages());
 
@@ -91,6 +93,8 @@ export default function GroupLeftSelections() {
 
   const selectDataHandler = (name, value) =>
     dispatch(setGroupSelectionData(name, value));
+
+
 
   return (
     <div>
@@ -148,7 +152,8 @@ export default function GroupLeftSelections() {
                 selectDataHandler('branchSelection', e.target.value)
               }
             >
-              {myBranches.map((branch) => (
+              {data?.branches?.map((branch) => (
+                branch?.status_id === 2 &&
                 <MenuItem key={branch.id} value={branch}>
                   {branch.name}
                 </MenuItem>

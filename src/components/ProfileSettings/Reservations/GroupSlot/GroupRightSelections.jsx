@@ -36,6 +36,7 @@ export default function GroupRightSelections({ setTab = () => {}, setTabPage = (
     sessionSelection,
     locationSelection,
     courseDetails,
+    seanceCount
   } = useSelector((state) => state.profileSettings2.reservationGroupSlot);
 
   const dispatch = useDispatch();
@@ -50,6 +51,12 @@ export default function GroupRightSelections({ setTab = () => {}, setTabPage = (
 
   const selectDataHandler = (name, value) =>
     dispatch(setGroupSelectionData(name, value));
+
+
+  const  setPriceWithSeance= (name, value)=>{
+    setPrice(value*branchSelection.price)
+    selectDataHandler(name,value)
+  }
 
   // useEffect(() => {
   //   setMaxCapacityCount(classSelection.capacity || 0);
@@ -76,9 +83,9 @@ export default function GroupRightSelections({ setTab = () => {}, setTabPage = (
     (date) => new Date(moment(date, 'DD.MM.YYYY').toDate())
   );
 
-  const addGroupSlotFail = () => {
+  const addGroupSlotFail = (error) => {
     toast.error(
-      'Lütfen Bilgilerinizi Kontrol Ederek Tekrar Deneyiniz',
+      error,
       {
         position: 'bottom-right',
         autoClose: 3000,
@@ -87,7 +94,6 @@ export default function GroupRightSelections({ setTab = () => {}, setTabPage = (
   };
 
   const createGroupSlotHandler = () => {
-    reservationSuccessModalRef.current.openModal();
     switch (userTypeId) {
       case DIETITIAN:
         dispatch(
@@ -105,7 +111,7 @@ export default function GroupRightSelections({ setTab = () => {}, setTabPage = (
 
       default:
         if (
-          +price > 50 ||
+          +price > branchSelection.price*seanceCount ||
           [
             branchSelection,
             sessionSelection,
@@ -125,7 +131,7 @@ export default function GroupRightSelections({ setTab = () => {}, setTabPage = (
               max_capacity: maxCapacityCount,
             },
             () => reservationSuccessModalRef.current.openModal(),
-            addGroupSlotFail
+            (error) => addGroupSlotFail(error)
           )
         );
         break;
@@ -287,8 +293,7 @@ export default function GroupRightSelections({ setTab = () => {}, setTabPage = (
         <DarkTitle>Seans Sayısını Belirletiniz</DarkTitle>
 
         <Material.TextField
-          onChange={(e) => selectDataHandler('seanceCount', e.target.value)}
-          error={price > 50}
+          onChange={(e) => setPriceWithSeance('seanceCount', e.target.value)}
           label="Giriniz"
           type="number"
         />
@@ -314,14 +319,15 @@ export default function GroupRightSelections({ setTab = () => {}, setTabPage = (
         {userTypeId !== DIETITIAN && (
           <>
             <Material.TextField
+              changeValue={price}
               onChange={(e) => setPrice(e.target.value)}
-              error={price > 50}
+              error={price > branchSelection.price*seanceCount}
               label="Giriniz"
               type="number"
             />
 
             <Text color="red" fontSize="0.9rem">
-              *Max 50 TL fiyat giriniz
+              *Max {branchSelection.price*seanceCount} TL fiyat giriniz
             </Text>
           </>
         )}

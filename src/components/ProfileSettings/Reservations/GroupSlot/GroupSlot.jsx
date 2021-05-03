@@ -7,8 +7,8 @@ import GroupRightSelections from './GroupRightSelections';
 import styled from 'styled-components/macro';
 
 export default function GroupSlot({
-  setTabPage = () => {},
-  setTab = () => {},
+  setTabPage,
+  setTab,
 }) {
   return (
     <>

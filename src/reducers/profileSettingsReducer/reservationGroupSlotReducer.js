@@ -19,7 +19,7 @@ const initialState = {
     isLoading: false,
     error: null,
   },
-  branchSelection: '',
+  branchSelection: [],
   sessionSelection: '',
   locationSelection: '',
   selectedHour: '',
