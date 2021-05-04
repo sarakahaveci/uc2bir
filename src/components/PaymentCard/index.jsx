@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
 import { device } from 'utils';
-import { Button, Accordion, Material, Switch } from 'components';
+import { Button, Accordion, Switch, DatePicker } from 'components';
 import Svg from 'components/statics/svg';
 import { space } from 'styled-system';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
-import { setReservation, deleteSlot, addSlot, sendReservation } from 'actions';
-
+import {
+  setReservation,
+  deleteSlot,
+  addSlot,
+  sendReservation,
+  clearReservationCalendar,
+} from 'actions';
+import moment from 'moment';
 export default function PaymentCard({ type, dateOption }) {
   const dispatch = useDispatch();
   const reservation = useSelector((state) => state.reservation);
@@ -15,6 +21,10 @@ export default function PaymentCard({ type, dateOption }) {
   const { userInfo } = useSelector((state) => state.userProfile.userInfo);
   const [toggleState, setToggleState] = useState(false);
   const wallet = useSelector((state) => state.userProfile.wallet);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  useEffect(() => {
+    dispatch(clearReservationCalendar());
+  }, []);
   useEffect(() => {
     if (reservation?.data?.slot?.length > 0) {
       dispatch(
@@ -30,6 +40,11 @@ export default function PaymentCard({ type, dateOption }) {
       );
     }
   }, [reservation?.data?.slot]);
+  useEffect(() => {
+    dispatch(
+      setReservation({ date: moment(selectedDate).format('DD.MM.YYYY') })
+    );
+  }, [selectedDate]);
 
   useEffect(() => {
     switch (type) {
@@ -47,6 +62,20 @@ export default function PaymentCard({ type, dateOption }) {
     reservation?.data?.gym_price,
     reservation?.data?.guest,
   ]);
+  const startOfWeeksArr = () => {
+    if (
+      reservationCalendar?.data &&
+      reservationCalendar?.data?.working_days?.length > 0
+    ) {
+      let arr = reservationCalendar?.data?.working_days.map(
+        (date) => new Date(moment(date, 'DD.MM.YYYY').toDate())
+      );
+      return arr;
+    } else {
+      return [];
+    }
+  };
+
   function setTotalAmountPT() {
     var ptPrice = reservation?.data?.pt_price || 0;
     var gymPrice = reservation?.data?.gym_price || 0;
@@ -148,15 +177,21 @@ export default function PaymentCard({ type, dateOption }) {
       {dateOption && (
         <ReservationContainer disable={reservation?.data?.payment_type}>
           <AddHeader>Tarih Seçiniz</AddHeader>
-          <Material.MaterialDateField
-            type="text"
-            name="date"
-            onChange={(e) => {
-              dispatch(setReservation({ date: e.target.value }));
-            }}
-            defaultValue={reservation?.data?.date}
-            settings
-          />
+          <DateContainer>
+            <DatePicker
+              selected={selectedDate || new Date()}
+              onSelect={(date) => {
+                setSelectedDate(date);
+              }}
+              selectsRange
+              inline
+              highlightDates={[
+                {
+                  'react-datepicker__day--highlighted': startOfWeeksArr(),
+                },
+              ]}
+            />{' '}
+          </DateContainer>
           {reservation?.data?.date && (
             <>
               <AddHeader>Saat Seçiniz</AddHeader>
@@ -539,4 +574,8 @@ const Hour = styled.div`
   border-width: 1px;
   border-color: ${(p) => (p.selected ? 'var(--blue)' : '#c6c6c6')};
   cursor: pointer;
+`;
+const DateContainer = styled.div`
+  margin-top: 20px;
+  width: 100%;
 `;

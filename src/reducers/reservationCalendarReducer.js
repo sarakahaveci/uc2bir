@@ -12,6 +12,7 @@ import {
   GET_AREA_FOR_PT_REQUEST,
   GET_AREA_FOR_PT_SUCCESS,
   GET_AREA_FOR_PT_FAILURE,
+  CLEAR_RESERVATIONCALENDAR,
 } from '../constants';
 
 const initialState = {
@@ -100,6 +101,12 @@ export default (state = initialState, action) => {
         ...state,
         isLoading: false,
         data: action.payload,
+      };
+    case CLEAR_RESERVATIONCALENDAR:
+      return {
+        ...state,
+        isLoading: false,
+        data: {},
       };
 
     default:

@@ -5,6 +5,7 @@ import {
   GET_GYM_RESERVATION_CALENDAR,
   GET_PT_FOR_GYM,
   GET_AREA_FOR_PT,
+  CLEAR_RESERVATIONCALENDAR,
 } from '../constants';
 import { toast } from 'react-toastify';
 export const getAreaForPT = (id, date, hour, branch_id, session) => async (
@@ -136,5 +137,11 @@ export const getPtforGym = (id, date, hour, branch_id) => async (dispatch) => {
       label: GET_PT_FOR_GYM,
       transformData: (data) => data.data,
     },
+  });
+};
+
+export const clearReservationCalendar = () => async (dispatch) => {
+  dispatch({
+    type: CLEAR_RESERVATIONCALENDAR,
   });
 };
