@@ -176,7 +176,7 @@ export default function GroupLeftSelections() {
         </>
       )}
       <Text color="gray10" fontWeight="600" fontSize="1.1rem" mt="20px">
-        {userTypeId == DIETITIAN
+        {userTypeId === DIETITIAN
           ? 'Paket İçeriği Giriniz'
           : 'Ders İçeriği Giriniz'}
       </Text>

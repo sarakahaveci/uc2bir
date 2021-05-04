@@ -91,12 +91,12 @@ export default function GroupRightSelections({ setTab = () => {}, setTabPage = (
       case DIETITIAN:
         dispatch(
           dtCreateSeance(
-            {
-              price,
-              date: selectedDate,
-              min_capacity: minCapacityCount,
-              max_capacity: maxCapacityCount,
-            },
+            // {
+            //   price,
+            //   date: selectedDate,
+            //   min_capacity: minCapacityCount,
+            //   max_capacity: maxCapacityCount,
+            // },
             () => reservationSuccessModalRef.current.openModal()
           )
         );
