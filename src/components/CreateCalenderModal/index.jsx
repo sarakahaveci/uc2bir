@@ -5,9 +5,11 @@ import { Link } from 'react-router-dom';
 import { device } from 'utils';
 import { useSelector } from 'react-redux';
 import * as KEYS from '../../constants/userKeys';
+import CloseIcon from '@material-ui/icons/Close';
 
 const CreateCalenderModal = ({
   open,
+  closeModal,
   approve = () => {},
   cancel = () => {},
 }) => {
@@ -28,6 +30,10 @@ const CreateCalenderModal = ({
   return (
     <Root style={{ display: open ? 'flex' : 'none' }}>
       <MainContainer>
+        <CloseIcon
+          style={{ alignSelf: 'flex-end', cursor: 'pointer' }}
+          onClick={closeModal}
+        />
         <ContextContainer>
           <Svg.SmileyFaceIcon />
           <Text
@@ -39,7 +45,6 @@ const CreateCalenderModal = ({
           >
             Merhaba {name}
           </Text>
-
           <Text textAlign="center" fontSize="1rem" color="dark">
             Lütfen Vermek İstediğiniz Ders Tipini Seçiniz
           </Text>

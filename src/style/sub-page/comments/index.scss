@@ -37,18 +37,6 @@
         font-size: 3em;
         color: #00b2a9;
       }
-
-      &:before {
-        content: '\f10d';
-        top: -50px;
-        left: 0;
-      }
-
-      &:after {
-        content: '\f10e';
-        bottom: -50px;
-        right: 0;
-      }
     }
 
     .avatar {

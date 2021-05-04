@@ -60,8 +60,8 @@ const Awaitings = () => {
               title={moment(selectedDate).format('DD.MM.YYYY')}
             >
               <ReservationAccordion
-                miniIcon={<Svg.SessionType.Gym />}
-                title="Clinic"
+                miniIcon={<Svg.SessionType.Clinic />}
+                title="KLİNİK"
                 defaultOpen
               >
                 {items?.appointment?.[

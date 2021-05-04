@@ -7,53 +7,22 @@ import styled from 'styled-components/macro';
 import image from '../../assets/my-wallet.jpg';
 import Svg from 'components/statics/svg';
 import Wrapper from './Wrapper';
-import { getWallet } from 'actions/userProfileActions/walletActions';
+import {
+  getWallet,
+  getWalletTransactions,
+} from 'actions/userProfileActions/walletActions';
 
 const Home = ({ setPage }) => {
-  const payment = [
-    {
-      id: 1,
-      title: 'Paket Ödemeleri',
-      name: 'Aylin',
-      packageName: 'Diet',
-      dersBedeli: 100,
-      komisyon: 20,
-      kdv: 5,
-      stopaj: 1,
-      sonHareket: ' 15 - 04 - 2021',
-    },
-    {
-      id: 2,
-      title: 'Grup Ders Ödemeleri',
-      name: 'Batu',
-      packageName: 'Diet',
-      dersBedeli: 100,
-      komisyon: 20,
-      stopaj: 1,
-      sonHareket: ' 1 - 04 - 2021',
-    },
-    {
-      id: 3,
-      name: 'Sedat',
-      packageName: 'Full-Body',
-      dersBedeli: 400,
-      komisyon: 20,
-      stopaj: 1,
-      sonHareket: ' 5 - 03 - 2021',
-    },
-    {
-      id: 4,
-      title: 'Banka Hesabına Transfer',
-      sonHareket: ' 5 - 03 - 2021',
-      transferToBank: 500,
-    },
-  ];
-
+  // TODO : Backend tarafından data gelecek
   const wallet = useSelector((state) => state?.userProfile?.wallet);
+  const transactionsData = useSelector(
+    (state) => state?.userProfile?.wallet.transactionsData
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getWallet());
+    dispatch(getWalletTransactions());
   }, []);
 
   return (
@@ -92,8 +61,8 @@ const Home = ({ setPage }) => {
                 </Col>
               </Explanation>
               <Accordion>
-                {payment &&
-                  payment.map((item, index) => (
+                {transactionsData &&
+                  transactionsData.map((item, index) => (
                     <Wrapper item={item} key={index} />
                   ))}
               </Accordion>

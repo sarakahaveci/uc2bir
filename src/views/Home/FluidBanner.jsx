@@ -27,7 +27,8 @@ const FluidBanner = (props) => {
           </Title>
           <Text textAlign="center" color="white" fontSize="18px">
             Sporseverler, eğitmen seçiyor, yeri ve zamanı belirliyor. Bire bir
-            ilgi, diyetisyen desteği, spor salonu seçenekleri hepsi burada.<br/>
+            ilgi, diyetisyen desteği, spor salonu seçenekleri hepsi burada.
+            <br />
             Başarmak için hemen başla!
           </Text>
           <Button text="ÜYE OL" soft />

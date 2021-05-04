@@ -98,8 +98,10 @@ export default function ActivityCard({
     branch_id: branch_id,
   });
 
-
-  const isInitialForm = isWorkPlace && initialFormData.price === formData.price && initialFormData.capacity === formData.capacity;
+  const isInitialForm =
+    isWorkPlace &&
+    initialFormData.price === formData.price &&
+    initialFormData.capacity === formData.capacity;
 
   const [selectedBranch, setSelectedBranch] = useState([]);
 
@@ -124,7 +126,7 @@ export default function ActivityCard({
 
   const submitChange = () => {
     if (isWorkPlace) {
-      if(formData.capacity>0 && selectedBranch.length>0){
+      if (formData.capacity > 0 && selectedBranch.length > 0) {
         dispatch(
           updateWorkPlaceActivity(
             {
@@ -150,36 +152,33 @@ export default function ActivityCard({
             }
           )
         );
-    }else {
-      toast.error(
-        'Lütfen Tüm Alanları Eksiksiz Doldurunuz',
-        {
+      } else {
+        toast.error('Lütfen Tüm Alanları Eksiksiz Doldurunuz', {
           position: 'bottom-right',
           autoClose: 7000,
-        }
-      );
-    }
+        });
+      }
     } else {
-        dispatch(
-          updatePTBranch(
-            branchData,
-            () => {
-              toast.success(
-                'Talebiniz gönderildi incelendikten sonra tarafınıza bildirim gönderilecektir.',
-                {
-                  position: 'bottom-right',
-                  autoClose: 7000,
-                }
-              );
-            },
-            (error) => {
-              toast.error(error, {
+      dispatch(
+        updatePTBranch(
+          branchData,
+          () => {
+            toast.success(
+              'Talebiniz gönderildi incelendikten sonra tarafınıza bildirim gönderilecektir.',
+              {
                 position: 'bottom-right',
                 autoClose: 7000,
-              });
-            }
-          )
-        );
+              }
+            );
+          },
+          (error) => {
+            toast.error(error, {
+              position: 'bottom-right',
+              autoClose: 7000,
+            });
+          }
+        )
+      );
     }
   };
 
@@ -293,7 +292,7 @@ export default function ActivityCard({
         text="Kaydet"
         fontWeight="500"
         onClick={submitChange}
-        disabled={!isAccepted || waitingPrice  || isInitialForm}
+        disabled={!isAccepted || waitingPrice || isInitialForm}
       />
     </div>
   );

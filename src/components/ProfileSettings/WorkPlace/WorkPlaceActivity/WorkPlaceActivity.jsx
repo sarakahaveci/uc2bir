@@ -27,6 +27,7 @@ export default function WorkPlaceActivity() {
 
   const [showAddActivity, setShowAddActivity] = useState(false);
   const [open, setOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   const [specialPrice, setSpecialPrice] = useState(false);
   const [selectedActivity, setSelectedActivity] = useState([]);
 
@@ -54,6 +55,7 @@ export default function WorkPlaceActivity() {
 
   const submitSpicialPrice = () => {
     dispatch(updateGymSpecialPrice({ price: specialPrice }));
+    setOpenModal(true);
   };
 
   const submitNewActivity = () => {
@@ -129,48 +131,7 @@ export default function WorkPlaceActivity() {
               />
             </Title>
           )}
-          <div
-            className={`d-flex mb-3 mr-2 p-4 flex-column  facility-card-wrapper`}
-          >
-            <div className="mb-2">
-              <Title
-                fontWeight="600"
-                textAlign="left"
-                letterSpacing="0.2em"
-                fontSize="13px"
-                color="black3"
-              >
-                Özel Ders Seans Ücreti
-              </Title>
-            </div>
-            <div>
-              <Material.TextField
-                label="Tüm branşlar için özel ders seans (TL)"
-                type="number"
-                name="price"
-                onChange={handleFormOnChange}
-                changeValue={data?.session_price}
-              />
 
-              {data?.waiting_approval_session_price && (
-                <Title
-                  fontWeight="400"
-                  textAlign="left"
-                  fontSize="11px"
-                  color="black3"
-                >
-                  Onay Bekleyen {data?.waiting_approval_session_price}{' '}
-                  Tl&apos;lik talebiniz bulunmaktadır
-                </Title>
-              )}
-            </div>
-            <Button
-              className="blue mt-3"
-              text="Kaydet"
-              fontWeight="500"
-              onClick={submitSpicialPrice}
-            />
-          </div>
           <div className={`w-100 ${!showAddActivity ? 'card-wrapper' : ''}`}>
             {!showAddActivity ? (
               data?.class?.length > 0 &&
@@ -212,6 +173,60 @@ export default function WorkPlaceActivity() {
           </div>
         </div>
       </div>
+      {!showAddActivity && (
+        <div
+          className={`d-flex mb-3 mr-2 p-4 flex-column  facility-card-wrapper`}
+        >
+          <div className="mb-2">
+            <Title
+              fontWeight="600"
+              textAlign="left"
+              letterSpacing="0.2em"
+              fontSize="13px"
+              color="black3"
+            >
+              Seans Ücreti
+            </Title>
+          </div>
+          <div>
+            <Material.TextField
+              label="Tüm branşlar için seans (TL)"
+              type="number"
+              name="price"
+              onChange={handleFormOnChange}
+              changeValue={data?.session_price}
+            />
+
+            {data?.waiting_approval_session_price && (
+              <Title
+                fontWeight="400"
+                textAlign="left"
+                fontSize="11px"
+                color="black3"
+              >
+                Onay Bekleyen {data?.waiting_approval_session_price} Tl&apos;lik
+                talebiniz bulunmaktadır
+              </Title>
+            )}
+          </div>
+          <Button
+            className="blue mt-3"
+            text="Kaydet"
+            fontWeight="500"
+            onClick={submitSpicialPrice}
+          />
+          <Title
+            paddingTop="5px"
+            fontWeight="600"
+            textAlign="left"
+            letterSpacing="0.2em"
+            fontSize="10px"
+            color="red"
+          >
+            *Seans ücretini güncellemek için değeri girin ve kaydedin.
+          </Title>
+        </div>
+      )}
       <Modal show={open} onHide={() => setOpen(false)} backdrop="static">
         <Container>
           <Svg.SuccessIcon />
@@ -235,6 +250,36 @@ export default function WorkPlaceActivity() {
 
         <div className="modal-footer" closeIcon={false}>
           <StyledLink onClick={() => setOpen(false)}>Devam Et</StyledLink>
+        </div>
+      </Modal>
+
+      <Modal
+        show={openModal}
+        onHide={() => setOpenModal(false)}
+        backdrop="static"
+      >
+        <Container>
+          <Svg.SuccessIcon />
+
+          <Text
+            variant="h2"
+            fontSize="1.2rem"
+            color="dark"
+            fontWeight="500"
+            textAlign="center"
+          >
+            Merhaba Sevgili Üyemiz{' '}
+          </Text>
+
+          <Text textAlign="center" fontSize="1rem" color="dark">
+            Girmiş Olduğun seans ücreti tarafımızca incelendikten sonra bilgi
+            vereceğiz.
+            <span> Bildirimleri açmayı unutma :)</span>
+          </Text>
+        </Container>
+
+        <div className="modal-footer" closeIcon={false}>
+          <StyledLink onClick={() => setOpenModal(false)}>Devam Et</StyledLink>
         </div>
       </Modal>
     </div>

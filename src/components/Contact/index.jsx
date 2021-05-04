@@ -119,6 +119,7 @@ export default function Contact() {
                 />
                 <div className="materials" style={{ padding_left: '0px' }}>
                   <InputMask
+                    required
                     mask="\0(999) 999 99 99"
                     value={phone}
                     disabled={false}

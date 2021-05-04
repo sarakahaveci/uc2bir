@@ -29,6 +29,8 @@ import {
   GET_ALL_ACTIVITY_BRANCH_LIST_REQUEST,
   GET_ALL_ACTIVITY_BRANCH_LIST_SUCCESS,
   GET_ALL_ACTIVITY_BRANCH_LIST_FAILURE,
+  // SHOW_ACTIVITY_LIST_MODAL,
+  // HIDE_ACTIVITY_LIST_MODAL,
 } from '../constants';
 
 const initialState = {
@@ -43,6 +45,7 @@ const initialState = {
     isLoading: false,
     data: [],
     error: null,
+    // showActivityListModal: false,
     allList: [],
     subBranches: [],
   },
@@ -312,6 +315,23 @@ export default (state = initialState, action) => {
           isSuccess: false,
         },
       };
+
+    // case SHOW_ACTIVITY_LIST_MODAL:
+    //   return {
+    //     ...state,
+    //     activityList: {
+    //       ...state.activityList,
+    //       showActivityListModal: true,
+    //     },
+    //   };
+    // case HIDE_ACTIVITY_LIST_MODAL:
+    //   return {
+    //     ...state,
+    //     activityList: {
+    //       ...state.activityList,
+    //       showActivityListModal: false,
+    //     },
+    //   };
 
     default:
       return state;

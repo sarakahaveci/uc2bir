@@ -113,6 +113,8 @@ import SessionTypePark from './images/session_type/park.svg';
 import SessionTypeClinic from './images/session_type/clinic.svg';
 import Reject from './images/reject.svg';
 import Approve from './images/approve.svg';
+import Ql from './images/quote-left.svg';
+import Qr from './images/quote-right.svg';
 
 import WhitePencil from './images/white-pencil.svg';
 
@@ -195,6 +197,8 @@ const Svg = {
   YogaSportIcon: (props) => <ReactSVG {...props} src={YogaSportIcon} />,
   SmileyFaceIcon: (props) => <ReactSVG {...props} src={SmileyFace} />,
   Tl: (props) => <ReactSVG {...props} src={Tl} />,
+  Ql: (props) => <ReactSVG {...props} src={Ql} />,
+  Qr: (props) => <ReactSVG {...props} src={Qr} />,
   UpDownIcon: (props) => <ReactSVG {...props} src={UpDown} />,
   LocationCardIcon: (props) => <ReactSVG {...props} src={LocationCard} />,
   ActiveHeartIcon: (props) => <ReactSVG {...props} src={ActiveHeart} />,

@@ -14,7 +14,7 @@ const Header = () => {
 
   const [menuActive, setMenuActive] = useState(false);
   const [toggle, setToggle] = useState(false);
-
+  const [search, setSearch] = useState('');
   const history = useHistory();
 
   useEffect(() => {
@@ -96,11 +96,22 @@ const Header = () => {
               <div className="bar-item left-bar">
                 <ul>
                   <li>
-                    <Button
+                    <div className="menubar-search-wrapper">
+                      <AwesomeIcon.Search />
+                      <input
+                        className="menubar-search-input"
+                        placeholder="| Ne Arıyorsun?"
+                        name="search"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                      />
+                    </div>
+
+                    {/* <Button
                       icon={AwesomeIcon.Search}
                       text="Ne arıyorsun?"
                       className="blue"
-                    />
+                    /> */}
                   </li>
                   <li>
                     <Link to="/info">Üç2Bir Hakkında</Link>

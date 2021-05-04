@@ -105,6 +105,7 @@ const GYM = () => {
           setOpenCreateCalender(false);
           setSubPage(<GroupSlot setTabPage={setSubPage} />);
         }}
+        closeModal={() => setOpenCreateCalender(false)}
       />
     </Container>
   );

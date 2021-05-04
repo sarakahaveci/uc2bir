@@ -21,6 +21,8 @@ import {
   GET_BLOGS_DETAIL,
   GET_ALL_ACTIVITY_BRANCH_LIST,
   SET_USER_DETAILS,
+  // SHOW_ACTIVITY_LIST_MODAL,
+  // HIDE_ACTIVITY_LIST_MODAL,
 } from '../constants';
 import { information } from './authActions';
 
@@ -371,3 +373,15 @@ export const updatePTBranch = (body, successCallback, errorCallback) => async (
     },
   });
 };
+
+// export const showActivityListModalAC = () => (dispatch) => {
+//   dispatch({
+//     type: SHOW_ACTIVITY_LIST_MODAL,
+//   });
+// };
+
+// export const hideActivityListModalAC = () => (dispatch) => {
+//   dispatch({
+//     type: HIDE_ACTIVITY_LIST_MODAL,
+//   });
+// };

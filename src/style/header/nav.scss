@@ -66,6 +66,33 @@
     .bar {
       padding: 0;
 
+      .menubar-search-wrapper {
+        position: relative;
+        svg {
+          position: absolute;
+          left: 40px;
+          right: 5px;
+          top: 20px;
+          color: white;
+        }
+      }
+
+      .menubar-search-input {
+        background-color: #00b2a9;
+        border: none;
+        border-radius: 5px;
+        padding-top: 18px;
+        padding-bottom: 18px;
+        padding-left: 63px;
+        font-size: 1rem;
+        color: white;
+
+        &::placeholder {
+          /* Chrome, Firefox, Opera, Safari 10.1+ */
+          color: white;
+          opacity: 1; /* Firefox */
+        }
+      }
       .nav-element {
         width: 100%;
         justify-content: space-between;

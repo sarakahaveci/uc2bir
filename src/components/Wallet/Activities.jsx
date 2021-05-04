@@ -89,7 +89,7 @@ const Activities = ({ setPage }) => {
               className="w-100 d-flex align-items-center justify-content-center"
             >
               <Button
-                style={{ borderRadius: 0 }}
+                style={{ borderRadius: 0, marginRight: '10px' }}
                 className="blue"
                 text="Yazdır"
                 onClick={() => window.print()}
