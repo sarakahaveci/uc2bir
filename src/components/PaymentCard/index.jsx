@@ -7,6 +7,8 @@ import { space } from 'styled-system';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { setReservation, deleteSlot, addSlot, sendReservation } from 'actions';
+import CounterInput from 'react-counter-input';
+
 export default function PaymentCard({ type, dateOption }) {
   const dispatch = useDispatch();
   const reservation = useSelector((state) => state.reservation);
@@ -42,13 +44,19 @@ export default function PaymentCard({ type, dateOption }) {
       default:
         break;
     }
-  }, [reservation?.data?.[`${type}_price`], reservation?.data?.gym_price]);
+  }, [
+    reservation?.data?.[`${type}_price`],
+    reservation?.data?.gym_price,
+    reservation?.data?.guest,
+  ]);
   function setTotalAmountPT() {
     var ptPrice = reservation?.data?.pt_price || 0;
     var gymPrice = reservation?.data?.gym_price || 0;
+    var guestPrice = reservation?.data?.guest || 0; // Buraya Çarpan gelecektir
+
     dispatch(
       setReservation({
-        totals_amount: ptPrice + gymPrice,
+        totals_amount: ptPrice + gymPrice + guestPrice,
       })
     );
   }
@@ -101,6 +109,7 @@ export default function PaymentCard({ type, dateOption }) {
       cvc: reservation?.data?.cvc,
       deposit_amount: reservation?.data?.deposit_amount,
       slot: reservation?.data?.slot,
+      guest: reservation?.data?.guest && reservation?.data?.guest > 0,
     };
 
     dispatch(sendReservation('pt', removeEmpty(json), () => {}));
@@ -182,6 +191,17 @@ export default function PaymentCard({ type, dateOption }) {
             <AddDesc>
               Dilersen istediğin bir arkadaşınla beraber derse gelebilirsin.
             </AddDesc>
+            <CounterInput
+              min={0}
+              max={1}
+              onCountChange={(count) =>
+                dispatch(
+                  setReservation({
+                    guest: count,
+                  })
+                )
+              }
+            />
           </>
         )}
       </AddTextContainer>
@@ -202,6 +222,14 @@ export default function PaymentCard({ type, dateOption }) {
                   {reservation?.data?.gym_price}
                 </Text>
               </Info>
+              {reservation?.data?.guest > 0 && (
+                <Info borderDisable>
+                  <Text style={{ fontWeight: 800 }}>Misafir Ücreti</Text>
+                  <Text style={{ fontWeight: 800 }}>
+                    {reservation?.data?.guest + ' * Misafir Başı Ücret'}
+                  </Text>
+                </Info>
+              )}
             </>
           </DataContainer>
         </InfoContainer>
