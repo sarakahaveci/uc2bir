@@ -21,7 +21,7 @@ const Adds = ({ icons, setBannerActive, setPage, get, selected }) => {
       return (
         <>
           <div style={{ display: 'flex', cursor: 'pointer' }}>
-            <Svg.EditIcon></Svg.EditIcon>
+            <Svg.EditIcon/>
             <BoldText
               style={{ marginLeft: '5px' }}
               onClick={() => setPage('Home')}

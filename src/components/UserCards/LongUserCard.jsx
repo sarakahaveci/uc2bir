@@ -61,7 +61,7 @@ const LongUserCard = ({
         />
 
         <div className="long-user-card__navigator-wrapper">
-          {!isGym && !(type == 'selection') ? (
+          {!isGym && !(type === 'selection') ? (
             <div
               className="long-user-card__profile-navigator"
               onClick={navigateToUser}
@@ -69,10 +69,10 @@ const LongUserCard = ({
               {hoverText}
             </div>
           ) : (
+            data?.has_working_count ===0 &&
             <div
               className="long-user-card__profile-navigator"
-              onClick={() => onClickHover(data)}
-            >
+              onClick={() => onClickHover(data)}>
               {hoverText}
             </div>
           )}

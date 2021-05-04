@@ -127,7 +127,7 @@ const AddGym = ({ setSubPage, setBannerActive }) => {
       </div>
       <GoogleMapClusterer
         isSaloonMap
-        defaultMarkerIcon={<Svg.FitnessIcon></Svg.FitnessIcon>}
+        defaultMarkerIcon={<Svg.FitnessIcon/>}
         onSelected={(selected) => {
           setSelectedItem(data.find((item) => item.id == selected));
         }}
