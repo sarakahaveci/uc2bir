@@ -106,6 +106,7 @@ const PT = () => {
           setOpenCreateCalender(false);
           setSubPage(<GroupSlot setTabPage={setSubPage} setTab={setTab} />);
         }}
+        closeModal={() => setOpenCreateCalender(false)}
       />
     </Container>
   );

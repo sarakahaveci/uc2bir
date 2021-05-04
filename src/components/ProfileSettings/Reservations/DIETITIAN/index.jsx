@@ -105,9 +105,9 @@ const DIETITIAN = () => {
         }}
         cancel={() => {
           setSubPage(<GroupSlot setTabPage={setSubPage} />);
-
           setOpenCreateCalender(false);
         }}
+        closeModal={() => setOpenCreateCalender(false)}
       />
     </Container>
   );
