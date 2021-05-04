@@ -185,7 +185,7 @@ export default function PaymentCard({ type, dateOption }) {
         </ReservationContainer>
       )}
       <AddTextContainer>
-        {type === 'pt' && !reservation?.data?.payment_type && (
+        {(type === 'pt' || type === 'gym') && !reservation?.data?.payment_type && (
           <>
             <AddHeader>Misafir Ekle</AddHeader>
             <AddDesc>
