@@ -76,7 +76,7 @@ const SessionHistory = () => {
           lg={4}
         >
           <DateContainer>
-            <DatePicker minDate={new Date()} inline selected={null} />
+            <DatePicker inline selected={null} />
           </DateContainer>
         </StyledCol>
       </StyledRow>

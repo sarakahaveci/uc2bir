@@ -24,9 +24,9 @@ const EditLesson = ({ setBannerActive = () => {}, setPage = () => {} }) => {
   const classes = useStyles();
   var temp = ['55', '55s5d', '626', 'd', 'sdsd', 'sdasd', 'sdad'];
   function locationSelector(index) {
-    if (index % 3 == 0) {
+    if (index % 3 === 0) {
       return 'start';
-    } else if (index % 3 == 2) {
+    } else if (index % 3 === 2) {
       return 'end';
     } else {
       return 'mid';
@@ -35,10 +35,7 @@ const EditLesson = ({ setBannerActive = () => {}, setPage = () => {} }) => {
   function _renderLessons() {
     return temp.map((elm, index) => (
       <Col key={index} style={{ padding: 0 }} lg="4">
-        <CustomProgress
-          location={temp.length - 1 == index ? 'end' : locationSelector(index)}
-          active="true"
-        ></CustomProgress>
+        <CustomProgress location={temp.length - 1 === index ? 'end' : locationSelector(index)} active='true' />
         <LessonCardContainer onClick={onClickLesson}>
           <MainField>
             <HeaderArea>
@@ -52,12 +49,12 @@ const EditLesson = ({ setBannerActive = () => {}, setPage = () => {} }) => {
               <BoldText style={{ marginLeft: '9px' }}>Gelişim Testi</BoldText>
             </HeaderArea>
             <DescArea>
-              <IconArea></IconArea>
+              <IconArea/>
               <DescText>Denememasdoa ösasd oasöodoöasasdsad </DescText>
             </DescArea>
           </MainField>
           <RightSideField>
-            <Svg.ArrowRightIcon></Svg.ArrowRightIcon>
+            <Svg.ArrowRightIcon/>
           </RightSideField>
         </LessonCardContainer>
       </Col>
@@ -69,7 +66,10 @@ const EditLesson = ({ setBannerActive = () => {}, setPage = () => {} }) => {
         style={{ cursor: 'pointer', padding: 15 }}
         fontSize="14pt"
         textAlign="left"
-        onClick={() => setPage('Home')}
+        onClick={() => {
+          setPage('Home');
+          setBannerActive(true);
+        }}
       >
         {`< Geri`}
       </Title>
