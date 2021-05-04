@@ -204,22 +204,25 @@ export default function ReservationTemplate({
             <InnerWrapper>
               <TemplateSummary />
 
-              <Box mt="40px" px="20px">
-                <Box row>
-                  <Text color="dark" fontWeight="500">
-                    Misafir Kabul Ediyorum
-                  </Text>
+              {userTypeId !== DIETITIAN &&
+                <Box mt="40px" px="20px">
+                  <Box row>
+                    <Text color="dark" fontWeight="500">
+                      Misafir Kabul Ediyorum
+                    </Text>
 
-                  <Box row alignItems="center">
-                    <Svg.GuestIcon className="guest-icon" />
+                    <Box row alignItems="center">
+                      <Svg.GuestIcon className="guest-icon" />
 
-                    <Switch
-                      checked={acceptGuest}
-                      onChange={() => setAcceptGuest(!acceptGuest)}
-                    />
+                      <Switch
+                        checked={acceptGuest}
+                        onChange={() => setAcceptGuest(!acceptGuest)}
+                      />
+                    </Box>
                   </Box>
                 </Box>
-              </Box>
+              }
+
             </InnerWrapper>
 
             <NextButtonWrapper>

@@ -136,7 +136,6 @@ const SessionHistory = () => {
                   'react-datepicker__day--highlighted': startOfWeeksArr(),
                 },
               ]}
-              minDate={new Date()}
             />
           </DateContainer>
         </StyledCol>
