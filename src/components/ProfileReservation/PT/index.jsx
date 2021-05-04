@@ -5,7 +5,7 @@ import {
   PaymentCard,
   Accordion,
   Svg,
-  MultiContract,
+  CreditCard,
 } from 'components';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -13,7 +13,6 @@ import styled from 'styled-components/macro';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import { device } from 'utils';
-import { Modal } from 'react-bootstrap';
 import {
   setReservation,
   getPtGymList,
@@ -21,7 +20,6 @@ import {
   getPtWorkingHomePlace,
   //getTemplates,
   getPtReservationCalendar,
-  getStaticPage,
   getAreaForPT,
   deleteAllSlot,
 } from 'actions';
@@ -43,11 +41,9 @@ const PT = () => {
   const [town, setTown] = useState([]);
   const [district, setDistrict] = useState([]);
   const [sessionTypes, setSessionTypes] = useState(undefined);
-  const [openModal, setOpenModal] = useState(false);
   //Redux States
   const { userInfo } = useSelector((state) => state.userProfile.userInfo);
   const wallet = useSelector((state) => state.userProfile.wallet);
-  const staticPages = useSelector((state) => state.staticPages);
   const reservation = useSelector((state) => state.reservation);
   const { branches: branchList } = useSelector(
     (state) => state.userProfile.branch
@@ -68,8 +64,6 @@ const PT = () => {
     dispatch(getWallet());
     //dispatch(getTemplates()); HATA VARSA BURAYA Bİ BAK
     dispatch(setReservation({ pt_id: userInfo.id }));
-    dispatch(getStaticPage('uye-mesafeli-hizmet-sozlesmesi'));
-    dispatch(getStaticPage('uye-on-bilgilendirme-formu'));
   }, [userInfo]);
   useEffect(() => {
     // iF DATE OPTİON TRUE
@@ -355,104 +349,7 @@ const PT = () => {
         return <></>;
     }
   }
-  function CreditCard() {
-    return (
-      <>
-        <InfoContainer>
-          <DataContainer>
-            <Info borderDisable>
-              <Text style={{ fontWeight: 800 }}>Kart Bilgileri</Text>
-            </Info>
 
-            <Material.TextField
-              label="Kart Üzerindeki İsim"
-              type="text"
-              name="holder_name"
-              defaultValue={reservation?.data?.holder_name}
-              onBlur={(e) => {
-                dispatch(setReservation({ holder_name: e.target.value }));
-              }}
-            />
-
-            <Material.TextField
-              mask="9999 9999 9999 9999"
-              label="Kart No Giriniz"
-              type="text"
-              name="card_number"
-              defaultValue={reservation?.data?.card_number}
-              onBlur={(e) => {
-                dispatch(setReservation({ card_number: e.target.value }));
-              }}
-            />
-            <Info borderDisable>
-              <Material.TextField
-                label="SKT"
-                type="text"
-                name="skt"
-                mask="99/9999"
-                defaultValue={
-                  reservation?.data?.expiration_month +
-                  '/' +
-                  reservation?.data?.expiration_year
-                }
-                onBlur={(e) => {
-                  var sktArr = e.target.value.split('/');
-                  dispatch(
-                    setReservation({
-                      expiration_month: sktArr[0],
-                      expiration_year: sktArr[1],
-                    })
-                  );
-                }}
-              />
-              <Material.TextField
-                mask="999"
-                label="CVV"
-                type="text"
-                name="cvv"
-                defaultValue={reservation?.data?.cvc}
-                onBlur={(e) => {
-                  dispatch(setReservation({ cvc: e.target.value }));
-                }}
-              />
-            </Info>
-
-            {/**<Material.TextField
-              label="Yükelenecek Tutarı Giriniz"
-              type="text"
-              name="cvv"
-            /> */}
-          </DataContainer>
-          <div style={{ padding: '10px' }}>
-            <text>
-              Güvenliğiniz sebebi ile bu işleminiz 3D secure ile
-              gerçekleştirilecektir.
-            </text>
-          </div>
-          <div style={{ padding: '10px' }}>
-            <Material.CheckBox
-              checked={reservation?.data?.is_contracts_accepted}
-              onChange={() => {
-                if (reservation?.data.is_contracts_accepted) {
-                  dispatch(setReservation({ is_contracts_accepted: false }));
-                } else {
-                  setOpenModal(true);
-                }
-              }}
-              label={
-                <div>
-                  <span className="underline-text" onClick={() => {}}>
-                    Ön Bilgilendirme Koşulları’nı ve Mesafeli Satış Sözleşmesini
-                    okudum, onaylıyorum.
-                  </span>
-                </div>
-              }
-            />
-          </div>
-        </InfoContainer>
-      </>
-    );
-  }
   function _renderLeftArea() {
     switch (reservation?.data?.payment_type) {
       case 'wallet':
@@ -491,11 +388,67 @@ const PT = () => {
                 </text>
               </div>
             </InfoContainer>
-            {diff < 0 && <CreditCard />}
+            {diff < 0 && (
+              <CreditCard
+                defaultCardName={reservation?.data?.holder_name}
+                defaultCardNo={reservation?.data?.card_number}
+                defaultSKT={
+                  reservation?.data?.expiration_month +
+                  '/' +
+                  reservation?.data?.expiration_year
+                }
+                defaultCVV={reservation?.data?.cvc}
+                onCardName={(val) => {
+                  dispatch(setReservation({ holder_name: val }));
+                }}
+                onCardNo={(val) => {
+                  dispatch(setReservation({ card_number: val }));
+                }}
+                onSKT={(month, year) => {
+                  dispatch(
+                    setReservation({
+                      expiration_month: month,
+                      expiration_year: year,
+                    })
+                  );
+                }}
+                onCVV={(val) => {
+                  dispatch(setReservation({ cvc: val }));
+                }}
+              />
+            )}
           </>
         );
       case 'credit_card':
-        return <CreditCard />;
+        return (
+          <CreditCard
+            defaultCardName={reservation?.data?.holder_name}
+            defaultCardNo={reservation?.data?.card_number}
+            defaultSKT={
+              reservation?.data?.expiration_month +
+              '/' +
+              reservation?.data?.expiration_year
+            }
+            defaultCVV={reservation?.data?.cvc}
+            onCardName={(val) => {
+              dispatch(setReservation({ holder_name: val }));
+            }}
+            onCardNo={(val) => {
+              dispatch(setReservation({ card_number: val }));
+            }}
+            onSKT={(month, year) => {
+              dispatch(
+                setReservation({
+                  expiration_month: month,
+                  expiration_year: year,
+                })
+              );
+            }}
+            onCVV={(val) => {
+              dispatch(setReservation({ cvc: val }));
+            }}
+          />
+        );
 
       default:
         return (
@@ -566,32 +519,10 @@ const PT = () => {
       <RightWrapper>
         <PaymentCard type="pt" dateOption={!reservation?.data?.isSelected} />
       </RightWrapper>
-      <StyledModal show={openModal} onHide={() => setOpenModal(false)}>
-        <MultiContract
-          acceptKvkk={true}
-          setAccept={() => {
-            dispatch(setReservation({ is_contracts_accepted: true }));
-          }}
-          setOpenModal={setOpenModal}
-          confirmationData={staticPages.data}
-          userTypeId={1}
-        />
-      </StyledModal>
     </Container>
   );
 };
-const StyledModal = styled(Modal)`
-  .modal-content {
-    width: 600px;
-    background-color: var(--white1);
-    padding: 15px 30px;
-    @media ${device.sm} {
-      height: 70vh;
-      width: 90vw;
-      overflow: scroll;
-    }
-  }
-`;
+
 const Container = styled.div`
   display: flex;
   width: 100%;

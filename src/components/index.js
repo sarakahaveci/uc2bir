@@ -80,3 +80,4 @@ export { default as PaymentCard } from './PaymentCard';
 export { default as TrainerCard } from './TrainerCard';
 export { default as ClinicAccordion } from './ClinicAccordion';
 export { default as ReservationDetail } from './ReservationDetail';
+export { default as CreditCard } from './CreditCard';
