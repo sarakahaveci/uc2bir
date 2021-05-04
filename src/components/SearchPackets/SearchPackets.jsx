@@ -31,7 +31,7 @@ const SearchProfessional = () => {
 
   const searchParams = queryString.parse(useLocation().search);
 
-  const { type } = searchParams || 'pt';
+  const { type } = searchParams || 'packets';
 
   const userTypeText = 'Paket';
 
@@ -76,7 +76,7 @@ const SearchProfessional = () => {
   }, [window.location.href]);
 
   const linkChangeHandler = (pageNumber) => {
-    let url = `/find?type=${type}`;
+    let url = `/packets?type=${type}`;
 
     const formData = {
       title,
@@ -114,7 +114,11 @@ const SearchProfessional = () => {
   };
 
   return (
-    <div className="mb-5 p-3">
+    <div
+      style={{
+        minHeight: '70vh',
+      }}
+    >
       <Container className="mb-5 d-flex flex-column">
         <BackLink path="/" text={`${userTypeText} Arayın`} />
 
@@ -184,7 +188,7 @@ const SearchProfessional = () => {
 
         {data.length > 0 ? (
           <>
-            <GymListWrapper>
+            <PacketListWrapper>
               {data?.map((professional) => (
                 <PacketCard
                   showHeartBg
@@ -194,7 +198,7 @@ const SearchProfessional = () => {
                   district={professional?.district}
                 />
               ))}
-            </GymListWrapper>
+            </PacketListWrapper>
 
             <div className="d-flex w-100 mt-3">
               <Pagination
@@ -240,7 +244,7 @@ const SearchWrapper = styled.div`
   }
 `;
 
-const GymListWrapper = styled.div`
+const PacketListWrapper = styled.div`
   display: grid;
   grid-column-gap: 10px;
   grid-template-columns: 300px 300px 300px 300px;
