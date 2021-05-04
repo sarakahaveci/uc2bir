@@ -198,15 +198,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
                 }}
               />
             </Info>
-            <Material.TextField
-              label="Yüklenecek Tutarı Giriniz"
-              type="number"
-              name="deposit_amount"
-              defaultValue={reservation?.data?.deposit_amount}
-              onBlur={(e) => {
-                dispatch(setReservation({ deposit_amount: e.target.value }));
-              }}
-            />
+
             {/**<Material.TextField
                 label="Yükelenecek Tutarı Giriniz"
                 type="text"

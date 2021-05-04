@@ -107,7 +107,6 @@ export default function PaymentCard({ type, dateOption }) {
       expiration_month: reservation?.data?.expiration_month,
       expiration_year: reservation?.data?.expiration_year,
       cvc: reservation?.data?.cvc,
-      deposit_amount: reservation?.data?.deposit_amount,
       slot: reservation?.data?.slot,
       guest: reservation?.data?.guest && reservation?.data?.guest > 0,
     };
@@ -127,7 +126,6 @@ export default function PaymentCard({ type, dateOption }) {
       expiration_month: reservation?.data?.expiration_month,
       expiration_year: reservation?.data?.expiration_year,
       cvc: reservation?.data?.cvc,
-      deposit_amount: reservation?.data?.deposit_amount,
       slot: reservation?.data?.slot,
     };
 

@@ -183,15 +183,6 @@ const Dietitian = () => {
               type="text"
               name="cvv"
             /> */}
-            <Material.TextField
-              label="Yüklenecek Tutarı Giriniz"
-              type="number"
-              name="deposit_amount"
-              defaultValue={reservation?.data?.deposit_amount}
-              onBlur={(e) => {
-                dispatch(setReservation({ deposit_amount: e.target.value }));
-              }}
-            />
           </DataContainer>
           <div style={{ padding: '10px' }}>
             <text>
