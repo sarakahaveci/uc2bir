@@ -283,7 +283,11 @@ const Dietitian = () => {
                   <Text color="#9B9B9B">{'Tarih ve Saat Seçiminiz'}</Text>
                   <Material.TextField
                     type="text"
-                    defaultValue="04.08.2021 - 10:00"
+                    defaultValue={
+                      reservation?.data?.date +
+                      ' ' +
+                      reservation?.data?.slot?.[0]
+                    }
                     inputProps={{
                       readOnly: true,
                     }}
