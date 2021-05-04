@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
 import { device } from 'utils';
-import { Button, Accordion, Material } from 'components';
+import { Button, Accordion, Material, Switch } from 'components';
 import Svg from 'components/statics/svg';
 import { space } from 'styled-system';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { setReservation, deleteSlot, addSlot, sendReservation } from 'actions';
-import CounterInput from 'react-counter-input';
 
 export default function PaymentCard({ type, dateOption }) {
   const dispatch = useDispatch();
@@ -16,7 +15,6 @@ export default function PaymentCard({ type, dateOption }) {
   const { userInfo } = useSelector((state) => state.userProfile.userInfo);
   const [toggleState, setToggleState] = useState(false);
   const wallet = useSelector((state) => state.userProfile.wallet);
-
   useEffect(() => {
     if (reservation?.data?.slot?.length > 0) {
       dispatch(
@@ -52,7 +50,7 @@ export default function PaymentCard({ type, dateOption }) {
   function setTotalAmountPT() {
     var ptPrice = reservation?.data?.pt_price || 0;
     var gymPrice = reservation?.data?.gym_price || 0;
-    var guestPrice = reservation?.data?.guest || 0; // Buraya Çarpan gelecektir
+    var guestPrice = reservation?.data?.guest ? gymPrice + ptPrice : 0; // Buraya Çarpan gelecektir
 
     dispatch(
       setReservation({
@@ -108,7 +106,7 @@ export default function PaymentCard({ type, dateOption }) {
       expiration_year: reservation?.data?.expiration_year,
       cvc: reservation?.data?.cvc,
       slot: reservation?.data?.slot,
-      guest: reservation?.data?.guest && reservation?.data?.guest > 0,
+      guest: reservation?.data?.guest,
     };
 
     dispatch(sendReservation('pt', removeEmpty(json), () => {}));
@@ -189,16 +187,15 @@ export default function PaymentCard({ type, dateOption }) {
             <AddDesc>
               Dilersen istediğin bir arkadaşınla beraber derse gelebilirsin.
             </AddDesc>
-            <CounterInput
-              min={0}
-              max={1}
-              onCountChange={(count) =>
+            <Switch
+              checked={reservation?.data?.guest}
+              onChange={() => {
                 dispatch(
                   setReservation({
-                    guest: count,
+                    guest: !reservation?.data?.guest,
                   })
-                )
-              }
+                );
+              }}
             />
           </>
         )}
@@ -220,11 +217,12 @@ export default function PaymentCard({ type, dateOption }) {
                   {reservation?.data?.gym_price}
                 </Text>
               </Info>
-              {reservation?.data?.guest > 0 && (
+              {reservation?.data?.guest && (
                 <Info borderDisable>
                   <Text style={{ fontWeight: 800 }}>Misafir Ücreti</Text>
                   <Text style={{ fontWeight: 800 }}>
-                    {reservation?.data?.guest + ' * Misafir Başı Ücret'}
+                    {(reservation?.data?.gym_price || 0) +
+                      reservation?.data?.pt_price || 0}
                   </Text>
                 </Info>
               )}
