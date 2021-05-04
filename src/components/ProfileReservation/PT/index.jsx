@@ -416,15 +416,7 @@ const PT = () => {
                 }}
               />
             </Info>
-            <Material.TextField
-              label="Yüklenecek Tutarı Giriniz"
-              type="number"
-              name="deposit_amount"
-              defaultValue={reservation?.data?.deposit_amount}
-              onBlur={(e) => {
-                dispatch(setReservation({ deposit_amount: e.target.value }));
-              }}
-            />
+
             {/**<Material.TextField
               label="Yükelenecek Tutarı Giriniz"
               type="text"
@@ -521,7 +513,11 @@ const PT = () => {
                   <Text color="#9B9B9B">{'Tarih ve Saat Seçiminiz'}</Text>
                   <Material.TextField
                     type="text"
-                    defaultValue="04.08.2021 - 10:00"
+                    defaultValue={
+                      reservation?.data?.date +
+                      ' ' +
+                      reservation?.data?.slot?.[0]
+                    }
                     inputProps={{
                       readOnly: true,
                     }}
