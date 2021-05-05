@@ -15,6 +15,7 @@ import { toast } from 'react-toastify';
 
 import defaultImg from '../../../assets/default-profile.jpg';
 import { information } from 'actions';
+import { resizeFile } from '../../../utils';
 
 const ProfileCard = ({
   user = false,
@@ -37,9 +38,11 @@ const ProfileCard = ({
   };
   const createData = new FormData();
 
-  const upload = () => {
+
+  const   upload = async () => {
     setLoading(true);
-    createData.append('files[]', files?.file);
+    const resizedFile = await resizeFile(files?.file);
+    createData.append('files[]', resizedFile);
     createData.append('type_id', '1');
     axios({ ...config, data: createData })
       .then(function () {
@@ -65,7 +68,7 @@ const ProfileCard = ({
 
   useEffect(() => {
     if (files?.file) {
-      upload();
+      upload()
     }
   }, [files]);
 
