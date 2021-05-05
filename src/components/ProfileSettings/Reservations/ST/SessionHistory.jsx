@@ -90,7 +90,7 @@ const SessionHistory = () => {
                   <ApproveCardContainer key={i}>
                     <ApproveCard
                       date={elm?.hour}
-                      customerName="MOCKDATA"
+                      customerName={elm?.pt?.name}
                       type="history"
                       rateText="Eğitmeni Puanla"
                       onApprove={() => {
@@ -114,7 +114,7 @@ const SessionHistory = () => {
                   <ApproveCardContainer key={i}>
                     <ApproveCard
                       date={elm?.hour}
-                      customerName="MOCKDATA"
+                      customerName={elm?.pt?.name || elm?.dt?.name}
                       type="history"
                       rateText="Eğitmeni / Diyetisyeni Puanla"
                       onApprove={() => {
@@ -138,7 +138,7 @@ const SessionHistory = () => {
                   <ApproveCardContainer key={i}>
                     <ApproveCard
                       date={elm?.hour}
-                      customerName="MOCKDATA"
+                      customerName={elm?.dt?.name}
                       type="history"
                       rateText="Diyetisyeni Puanla"
                       onApprove={() => {

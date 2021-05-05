@@ -19,7 +19,7 @@ import moment from 'moment';
 const Rejecteds = () => {
   const dispatch = useDispatch();
   const items = useSelector(
-    (state) => state.professionalReservation?.dtReservation?.rejecteds
+    (state) => state.professionalReservation?.userReservation?.rejecteds
   );
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
   const [openApprove, setOpenApprove] = useState(false);
@@ -36,6 +36,12 @@ const Rejecteds = () => {
       return [];
     }
   };
+
+  useEffect(() => {
+    if (selectedDate) {
+      dispatch(getUserRejects(moment(selectedDate).format('DD.MM.YYYY')));
+    }
+  }, [selectedDate]);
   useEffect(() => {
     if (window.innerWidth <= 760) {
       setIsSmallScreen(true);
@@ -45,103 +51,123 @@ const Rejecteds = () => {
     setSelectedDate(new Date());
     dispatch(getUserRejects());
   }, []);
-  useEffect(() => {
-    if (selectedDate) {
-      dispatch(getUserRejects(moment(selectedDate).format('DD.MM.YYYY')));
-    }
-  }, [selectedDate]);
   return (
     <StyledContainer>
       <StyledRow>
         <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
-          {startOfWeeksArr().map((elm, index) => (
-            <AccordionContainer key={index}>
-              <Number>{index + 1}.</Number>
+          <AccordionContainer>
+            <ReservationAccordion
+              defaultOpen={true}
+              parent
+              title={moment(selectedDate).format('DD.MM.YYYY')}
+            >
               <ReservationAccordion
-                defaultOpen={index == 0 ? true : false}
-                parent
-                title="24 OCAK ÇARŞAMBA"
+                miniIcon={<Svg.SessionType.Gym />}
+                title="SPOR ALANI"
+                defaultOpen
               >
-                <ReservationAccordion
-                  miniIcon={<Svg.SessionType.Gym />}
-                  title="SPOR ALANI"
-                  defaultOpen
-                >
-                  {items?.appointment?.[
-                    moment(selectedDate).format('DD.MM.YYYY')
-                  ]?.gym?.map((elm, i) => (
-                    <ApproveCardContainer key={i}>
-                      <ApproveCard
-                        date="18:00 - 19:00"
-                        customerName="Ali Veli"
-                        type="rejecteds"
-                        userType="user"
-                        onTransfer={() => {
-                          setOpenTransfer(true);
-                        }}
-                        onApprove={() => {
-                          setOpenApprove(true);
-                        }}
-                        onReject={() => {
-                          setOpenReject(true);
-                        }}
-                      />
-                    </ApproveCardContainer>
-                  ))}
-                </ReservationAccordion>
-                <ReservationAccordion
-                  miniIcon={<Svg.SessionType.Park />}
-                  title="EV / PARK"
-                >
-                  {items?.appointment?.[
-                    moment(selectedDate).format('DD.MM.YYYY')
-                  ]?.home_park?.map((elm, i) => (
-                    <ApproveCardContainer key={i}>
-                      <ApproveCard
-                        date="18:00 - 19:00"
-                        customerName="Ali Veli"
-                        type="rejecteds"
-                        onTransfer={() => {
-                          setOpenTransfer(true);
-                        }}
-                        onApprove={() => {
-                          setOpenApprove(true);
-                        }}
-                        onReject={() => {
-                          setOpenReject(true);
-                        }}
-                      />
-                    </ApproveCardContainer>
-                  ))}
-                </ReservationAccordion>
-                <ReservationAccordion
-                  miniIcon={<Svg.SessionType.Online />}
-                  title="ONLİNE"
-                >
-                  {items?.appointment?.[
-                    moment(selectedDate).format('DD.MM.YYYY')
-                  ]?.online?.map((elm, i) => (
-                    <ApproveCardContainer key={i}>
-                      <ApproveCard
-                        date="18:00 - 19:00"
-                        customerName="Ali Veli"
-                        type="rejecteds"
-                        onTransfer={() => {
-                          setOpenTransfer(true);
-                        }}
-                        onApprove={() => {
-                          setOpenApprove(true);
-                        }}
-                        onReject={() => {
-                          setOpenReject(true);
-                        }}
-                      />
-                    </ApproveCardContainer>
-                  ))}
-                </ReservationAccordion>
+                {items?.appointment?.[
+                  moment(selectedDate).format('DD.MM.YYYY')
+                ]?.gym?.map((elm, i) => (
+                  <ApproveCardContainer key={i}>
+                    <ApproveCard
+                      date={elm?.hour}
+                      customerName={elm?.pt?.name}
+                      type="rejecteds"
+                      userType="user"
+                      onTransfer={() => {
+                        setOpenTransfer(true);
+                      }}
+                      onApprove={() => {
+                        setOpenApprove(true);
+                      }}
+                      onReject={() => {
+                        setOpenReject(true);
+                      }}
+                    />
+                  </ApproveCardContainer>
+                ))}
               </ReservationAccordion>
-            </AccordionContainer>
-          ))}
+              <ReservationAccordion
+                miniIcon={<Svg.SessionType.Park />}
+                title="EV / PARK"
+              >
+                {items?.appointment?.[
+                  moment(selectedDate).format('DD.MM.YYYY')
+                ]?.home_park?.map((elm, i) => (
+                  <ApproveCardContainer key={i}>
+                    <ApproveCard
+                      date={elm?.hour}
+                      customerName={elm?.pt?.name}
+                      type="rejecteds"
+                      userType="user"
+                      onTransfer={() => {
+                        setOpenTransfer(true);
+                      }}
+                      onApprove={() => {
+                        setOpenApprove(true);
+                      }}
+                      onReject={() => {
+                        setOpenReject(true);
+                      }}
+                    />
+                  </ApproveCardContainer>
+                ))}
+              </ReservationAccordion>
+              <ReservationAccordion
+                miniIcon={<Svg.SessionType.Online />}
+                title="ONLİNE"
+              >
+                {items?.appointment?.[
+                  moment(selectedDate).format('DD.MM.YYYY')
+                ]?.online?.map((elm, i) => (
+                  <ApproveCardContainer key={i}>
+                    <ApproveCard
+                      date={elm?.hour}
+                      customerName={elm?.pt?.name || elm?.dt?.name}
+                      type="rejecteds"
+                      userType="user"
+                      onTransfer={() => {
+                        setOpenTransfer(true);
+                      }}
+                      onApprove={() => {
+                        setOpenApprove(true);
+                      }}
+                      onReject={() => {
+                        setOpenReject(true);
+                      }}
+                    />
+                  </ApproveCardContainer>
+                ))}
+              </ReservationAccordion>
+              <ReservationAccordion
+                miniIcon={<Svg.SessionType.Online />}
+                title="KLİNİK"
+              >
+                {items?.appointment?.[
+                  moment(selectedDate).format('DD.MM.YYYY')
+                ]?.clinic?.map((elm, i) => (
+                  <ApproveCardContainer key={i}>
+                    <ApproveCard
+                      date={elm?.hour}
+                      customerName={elm?.dt?.name}
+                      type="rejecteds"
+                      userType="user"
+                      onTransfer={() => {
+                        setOpenTransfer(true);
+                      }}
+                      onApprove={() => {
+                        setOpenApprove(true);
+                      }}
+                      onReject={() => {
+                        setOpenReject(true);
+                      }}
+                    />
+                  </ApproveCardContainer>
+                ))}
+              </ReservationAccordion>
+            </ReservationAccordion>
+          </AccordionContainer>
           {!(startOfWeeksArr().length > 0) && (
             <text>Bu tarihe ilişkin veri bulunamadı</text>
           )}
@@ -210,10 +236,10 @@ const Rejecteds = () => {
     </StyledContainer>
   );
 };
-
 const DateContainer = styled.div`
   width: 100%;
 `;
+
 const AccordionContainer = styled.div`
   display: flex;
 `;
@@ -221,13 +247,6 @@ const ApproveCardContainer = styled.div`
   margin: 20px 0;
   @media ${device.sm} {
     margin: 0;
-  }
-`;
-const Number = styled.text`
-  font-size: 16px;
-  margin: 15px;
-  @media ${device.sm} {
-    display: none;
   }
 `;
 

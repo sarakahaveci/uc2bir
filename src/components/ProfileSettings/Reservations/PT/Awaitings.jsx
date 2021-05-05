@@ -32,6 +32,12 @@ const Awaitings = () => {
       return [];
     }
   };
+
+  useEffect(() => {
+    if (selectedDate) {
+      dispatch(getPtAwaitings(moment(selectedDate).format('DD.MM.YYYY')));
+    }
+  }, [selectedDate]);
   useEffect(() => {
     if (window.innerWidth <= 760) {
       setIsSmallScreen(true);
@@ -41,11 +47,6 @@ const Awaitings = () => {
     setSelectedDate(new Date());
     dispatch(getPtAwaitings());
   }, []);
-  useEffect(() => {
-    if (selectedDate) {
-      dispatch(getPtAwaitings(moment(selectedDate).format('DD.MM.YYYY')));
-    }
-  }, [selectedDate]);
   function getSelectedDate() {
     dispatch(getPtAwaitings(moment(selectedDate).format('DD.MM.YYYY')));
   }
