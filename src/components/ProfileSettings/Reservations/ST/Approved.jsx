@@ -85,7 +85,8 @@ const Approved = ({ setSubPage = () => {} }) => {
                     <ApproveCardContainer key={i}>
                       <ApproveCard
                         date={elm.hour}
-                        customerName={elm?.student}
+                        customerName={elm?.pt?.name}
+                        optionalField_1={elm?.branch}
                         type="approve"
                         onApprove={() => {
                           openReservationDetail(elm?.id);
@@ -108,8 +109,9 @@ const Approved = ({ setSubPage = () => {} }) => {
                   ]?.home_park?.map((elm, i) => (
                     <ApproveCardContainer key={i}>
                       <ApproveCard
+                        optionalField_1={elm?.branch}
                         date={elm.hour}
-                        customerName={elm?.student}
+                        customerName={elm?.pt?.name}
                         type="approve"
                         onApprove={() => {
                           openReservationDetail(elm?.id);
@@ -132,8 +134,9 @@ const Approved = ({ setSubPage = () => {} }) => {
                   ]?.online?.map((elm, i) => (
                     <ApproveCardContainer key={i}>
                       <ApproveCard
+                        optionalField_1={elm?.branch}
                         date={elm.hour}
-                        customerName={elm?.student}
+                        customerName={elm?.pt?.name || elm?.dt?.name}
                         type="approve"
                         onApprove={() => {
                           openReservationDetail(elm?.id);
@@ -157,7 +160,7 @@ const Approved = ({ setSubPage = () => {} }) => {
                     <ApproveCardContainer key={i}>
                       <ApproveCard
                         date={elm.hour}
-                        customerName={elm?.student}
+                        customerName={elm?.dt?.name}
                         type="approve"
                         onApprove={() => {
                           openReservationDetail(elm?.id);
