@@ -22,6 +22,7 @@ import { toast } from 'react-toastify';
 import { default as MaterialButton } from '@material-ui/core/Button';
 import { useHistory } from 'react-router-dom';
 import moment from 'moment';
+import { resizeFile } from '../../utils';
 
 const Blog = () => {
   const history = useHistory();
@@ -60,8 +61,9 @@ const Blog = () => {
     },
   };
 
-  const upload = () => {
-    createData.append('files[]', file);
+  const upload = async () => {
+    const resizedFile = await resizeFile(file);
+    createData.append('files[]', resizedFile);
     createData.append('category_id', category_id);
     createData.append('detail', detail);
     createData.append('title', title);
@@ -254,7 +256,6 @@ const Blog = () => {
                             label="Başlık giriniz"
                             name="title"
                             required
-                            value={data.blog.title}
                             defaultValue={data?.blog?.title}
                             onChange={(e) => setTitle(e.target.value)}
                           />
@@ -262,7 +263,6 @@ const Blog = () => {
                         <Material.TexAreaField
                           label="Detay Giriniz"
                           name="detail"
-                          value={data?.blog?.detail}
                           defaultValue={data?.blog?.detail}
                           required
                           onChange={(e) => setDetail(e.target.value)}
