@@ -36,6 +36,12 @@ const Rejecteds = () => {
       return [];
     }
   };
+
+  useEffect(() => {
+    if (selectedDate) {
+      dispatch(getUserRejects(moment(selectedDate).format('DD.MM.YYYY')));
+    }
+  }, [selectedDate]);
   useEffect(() => {
     if (window.innerWidth <= 760) {
       setIsSmallScreen(true);
@@ -45,11 +51,6 @@ const Rejecteds = () => {
     setSelectedDate(new Date());
     dispatch(getUserRejects());
   }, []);
-  useEffect(() => {
-    if (selectedDate) {
-      dispatch(getUserRejects(moment(selectedDate).format('DD.MM.YYYY')));
-    }
-  }, [selectedDate]);
   return (
     <StyledContainer>
       <StyledRow>
@@ -235,10 +236,10 @@ const Rejecteds = () => {
     </StyledContainer>
   );
 };
-
 const DateContainer = styled.div`
   width: 100%;
 `;
+
 const AccordionContainer = styled.div`
   display: flex;
 `;

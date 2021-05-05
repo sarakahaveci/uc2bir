@@ -25,9 +25,6 @@ const GYM = () => {
 
   useEffect(() => {
     dispatch(getTemplates());
-  }, []);
-
-  useEffect(() => {
     getGeocode();
   }, []);
 

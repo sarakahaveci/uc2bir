@@ -33,6 +33,12 @@ const Rejecteds = () => {
       return [];
     }
   };
+
+  useEffect(() => {
+    if (selectedDate) {
+      dispatch(getPtRejects(moment(selectedDate).format('DD.MM.YYYY')));
+    }
+  }, [selectedDate]);
   useEffect(() => {
     if (window.innerWidth <= 760) {
       setIsSmallScreen(true);
@@ -42,11 +48,6 @@ const Rejecteds = () => {
     setSelectedDate(new Date());
     dispatch(getPtRejects());
   }, []);
-  useEffect(() => {
-    if (selectedDate) {
-      dispatch(getPtRejects(moment(selectedDate).format('DD.MM.YYYY')));
-    }
-  }, [selectedDate]);
   return (
     <StyledContainer>
       <StyledRow>

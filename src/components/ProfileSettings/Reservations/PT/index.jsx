@@ -24,13 +24,8 @@ const PT = () => {
 
   useEffect(() => {
     dispatch(getTemplates());
-  }, []);
-
-  useEffect(() => {
     getGeocode();
   }, []);
-
-  useEffect(() => {}, []);
 
   let content;
   switch (tab) {
