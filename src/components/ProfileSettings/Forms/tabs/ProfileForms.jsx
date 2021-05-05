@@ -130,7 +130,7 @@ const ProfileForms = ({ type }) => {
               }}
               settings="current"
               minDate={'01.01.1945'}
-              maxDate={'01.15.2020'}
+              maxDate={'01.15.2014'}
             />
           )}
           <Footer>

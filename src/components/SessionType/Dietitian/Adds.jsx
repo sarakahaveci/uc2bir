@@ -44,9 +44,13 @@ const Adds = ({ icons, selected, get, setPage }) => {
                       {val.create && (
                         <>
                           <Link>
-                            <Edits onClick={() => setSubPage(val.create.subPage)}>
+                            <Edits
+                              onClick={() => setSubPage(val.create.subPage)}
+                            >
                               <Svg.WhitePencil />
-                              <text style={{ marginLeft: '5px', color: 'white' }}>
+                              <text
+                                style={{ marginLeft: '5px', color: 'white' }}
+                              >
                                 Adreslerimi düzenle
                               </text>
                             </Edits>
@@ -54,7 +58,8 @@ const Adds = ({ icons, selected, get, setPage }) => {
                           <Create
                             onClick={() => {
                               setSubPage(val.create.action);
-                            }}>
+                            }}
+                          >
                             {val.create.name}
                             <img
                               src={BluePlusIcon}

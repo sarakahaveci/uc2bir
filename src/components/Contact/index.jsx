@@ -26,8 +26,17 @@ export default function Contact() {
 
   const Cordinate = infoData?.coordinates?.split(',');
 
+  const phoneNumberNormalize = (phoneNumber) => {
+    let normalizedNumber = phoneNumber.replace(/[- )(]/g, '');
+    return normalizedNumber;
+  };
+
   const handleFormOnChange = (event) => {
-    setFormData({ ...formData, [event.target.name]: event.target.value });
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value,
+      phone: phoneNumberNormalize(phone),
+    });
   };
 
   const submitForm = (e) => {
@@ -49,7 +58,6 @@ export default function Contact() {
       )
     );
   };
-
   return (
     <div className="d-flex w-100 flex-column contact-header">
       <div className="d-flex w-75 flex-column mx-auto contact-header__title-wrapper">
@@ -97,7 +105,7 @@ export default function Contact() {
       </div>
       <div className="d-flex w-100 flex-column mt-5">
         <span className="contact-header__contact-title">
-          Bize Mesaj Birakın
+          Bize Mesaj Bırakın
         </span>
         <form className="d-flex row w-100" onSubmit={submitForm}>
           {!isAuthenticated ? (
@@ -148,12 +156,15 @@ export default function Contact() {
                   label="Konu Başlığı"
                   type="text"
                   name="subject"
+                  value={formData.subject}
                   onChange={handleFormOnChange}
+                  inputProps={{ minLength: 5 }}
                 />
               </div>
               <div className="d-flex  flex-column col-md-6 col-sm-12 mt-2">
                 <Material.TexAreaField
                   name="message"
+                  type="text"
                   label="Mesajınız"
                   rows={8}
                   onChange={handleFormOnChange}
@@ -176,6 +187,7 @@ export default function Contact() {
                 type="text"
                 name="subject"
                 onChange={handleFormOnChange}
+                inputProps={{ minLength: 5 }}
               />
               <Material.TexAreaField
                 name="message"

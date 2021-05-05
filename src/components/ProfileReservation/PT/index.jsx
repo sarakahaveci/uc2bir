@@ -304,7 +304,7 @@ const PT = () => {
               />
               <Material.SimpleSelect
                 required
-                label={town ? 'Önce İl Seçiniz' : 'İlçe Seçiniz'}
+                label={town ? 'İlçe Seçiniz' : 'Önce İl Seçiniz'}
                 items={town ? town : []}
                 name="district"
                 changeValue={formData?.district || ''}
@@ -331,7 +331,7 @@ const PT = () => {
               />
               <Material.SimpleSelect
                 required
-                label={district ? 'Önce İlçe Seçiniz' : 'Mahalle Seçiniz'}
+                label={district ? 'Mahalle Seçiniz' : 'Önce İlçe Seçiniz'}
                 items={district ? district : []}
                 name="town"
                 changeValue={formData?.town || ''}
