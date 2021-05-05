@@ -72,7 +72,7 @@ const messagesReducer = (state = initialState, action) => {
         ...state,
         rooms: {
           isLoading: false,
-          data: action.payload,
+          data: action.payload.reverse(),
           error: null,
         },
       };
