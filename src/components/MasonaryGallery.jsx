@@ -29,6 +29,7 @@ import { getMyGalleries } from 'actions';
 import axios from 'axios';
 import FormData from 'form-data';
 import { Material } from './inputs/material';
+import { resizeFile } from '../utils';
 
 const MasonaryGallery = ({
   gutter = '10px',
@@ -116,9 +117,10 @@ const MasonaryGallery = ({
       });
   };
 
-  const upload = () => {
+  const upload = async () => {
+    const resizedFile = await resizeFile(file);
     setLoading(true)
-    createData.append('files[]', file);
+    createData.append('files[]', resizedFile);
     createData.append('type_id', '8');
     createData.append('type', type);
     createData.append('link', link);
