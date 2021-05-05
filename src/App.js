@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect, useEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import styled, { ThemeProvider } from 'styled-components';
@@ -42,15 +42,12 @@ import Kvkk from './views/Footer/Kvkk';
 import RefundConditions from './views/Footer/RefundConditions';
 import Online from 'views/Online';
 import ReactGA from 'react-ga';
-
+ReactGA.initialize('G-RG1WMQBY0S');
 const App = () => {
   const [loading, setLoading] = useState(true);
 
   const dispatch = useDispatch();
-  useEffect(() => {
-    ReactGA.initialize('G-K54BQG0FEX');
-    ReactGA.pageview(window.location.pathname + window.location.search);
-  });
+
   useLayoutEffect(() => {
     setTimeout(() => {
       setLoading(false);
