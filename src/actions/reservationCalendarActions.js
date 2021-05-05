@@ -31,7 +31,7 @@ export const getAreaForPT = (id, date, hour, branch_id, session) => async (
     },
   });
 };
-export const getPtReservationCalendar = (
+/*export const getPtReservationCalendar = (
   id,
   date,
   hour,
@@ -55,16 +55,50 @@ export const getPtReservationCalendar = (
       transformData: (data) => data.data,
     },
   });
+};*/
+export const getPtReservationCalendar = (
+  id,
+  date,
+  hour,
+  branch_id,
+  session,
+  location_id
+) => async (dispatch) => {
+  let url = `https://gateway.321.4alabs.com/appointment/pt-calendar/step-x/${id}`;
+  let extras = '?';
+
+  if (date) extras += `date=${date}&`;
+  if (hour) extras += `hour=${hour}&`;
+  if (branch_id) extras += `branch_id=${branch_id}&`;
+  if (session) extras += `session=${session}&`;
+  if (location_id) extras += `location_id=${location_id}&`;
+
+  url += extras;
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'GET',
+      url,
+      label: GET_PT_RESERVATION_CALENDAR,
+      transformData: (data) => data.data,
+    },
+  });
 };
-export const getDtReservationCalendar = (id, date, hour, session) => async (
-  dispatch
-) => {
-  let url = `https://gateway.321.4alabs.com/appointment/dt-calendar/step-1/${id}`;
+export const getDtReservationCalendar = (
+  id,
+  date,
+  hour,
+  session,
+  location_id
+) => async (dispatch) => {
+  let url = `https://gateway.321.4alabs.com/appointment/dt-calendar/step-x/${id}`;
   let extras = '?';
 
   if (date) extras += `date=${date}&`;
   if (hour) extras += `hour=${hour}&`;
   if (session) extras += `session=${session}&`;
+  if (location_id) extras += `location_id=${location_id}&`;
+
   url += extras;
   await dispatch({
     type: HTTP_REQUEST,
@@ -101,15 +135,20 @@ export const sendReservation = (type, body, successCallback) => async (
   });
 };
 
-export const getGymReservationCalendar = (id, date, hour, branch_id) => async (
-  dispatch
-) => {
-  let url = `https://gateway.321.4alabs.com/appointment/bs-calendar/step-1/${id}`;
+export const getGymReservationCalendar = (
+  id,
+  date,
+  hour,
+  branch_id,
+  pt_id
+) => async (dispatch) => {
+  let url = `https://gateway.321.4alabs.com/appointment/bs-calendar/step-x/${id}`;
   let extras = '?';
 
   if (date) extras += `date=${date}&`;
   if (hour) extras += `hour=${hour}&`;
   if (branch_id) extras += `branch_id=${branch_id}&`;
+  if (pt_id) extras += `branch_id=${pt_id}&`;
   url += extras;
   await dispatch({
     type: HTTP_REQUEST,
