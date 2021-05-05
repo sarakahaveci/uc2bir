@@ -8,7 +8,7 @@ import { SearchInput, Box } from 'components';
 import DefaultProfileImg from 'assets/default-profile.jpg';
 
 const MessageSearch = () => {
-  const { profile_image } = useSelector((state) => state.auth.user);
+  const photo  = useSelector((state) => state.auth.user.photo);
 
   const [searchValue, setSearchValue] = useState('');
   const debouncedSearchValue = useDebounce(searchValue, 1000);
@@ -26,7 +26,7 @@ const MessageSearch = () => {
   return (
     <Wrapper>
       <InnerWrapper>
-        <Avatar src={profile_image?.path || DefaultProfileImg} />
+        <Avatar src={photo || DefaultProfileImg} />
 
         <Box row m="0 27px 0 10px" alignItems="center">
           <SearchInput

@@ -11,6 +11,7 @@ import {
   addFavoriteUser,
   removeFavoriteUser,
   setReservation,
+  setNewMessageRoom
 } from '../../../actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { USER } from '../../../constants';
@@ -69,7 +70,7 @@ const ProfileBanner = ({
             {!isUserDetail ? (
               user?.type_id === USER && (
                 <CardFooter>
-                  <Comment to={'/myprofile/settings/message'} className="list">
+                  <Comment to={'/myprofile/settings/message'} className="list" onClick={()=>dispatch(setNewMessageRoom(info))}>
                     <Svg.Comment />
                   </Comment>
                   <Button

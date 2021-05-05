@@ -9,6 +9,7 @@ import {
   RESET_MESSAGES,
   READ_MESSAGE,
   MESSAGE_SIDEBAR_OPEN,
+  SEND_NEW_MESSAGE
 } from '../../constants';
 import { toast } from 'react-toastify';
 
@@ -40,6 +41,24 @@ export const setMessageSideBarOpen = (open) => async (dispatch) => {
     type: MESSAGE_SIDEBAR_OPEN,
     payload: {
       messageSideBarOpen: open,
+    },
+  });
+};
+
+export const setNewMessageRoom = (userInfo) => async (dispatch, getState) => {
+  const id = getState().auth.user.id;
+  dispatch({
+    type: SEND_NEW_MESSAGE,
+    payload: {
+      userInfo: { ...userInfo},
+      messageInfo:{
+        created_at:new Date(),
+        file:0,
+        sender_id: id,
+        room_name: userInfo.id+'tempRoom',
+        receiver_id : userInfo.id,
+        message:''
+      }
     },
   });
 };

@@ -19,6 +19,11 @@ const MessageSidebar = () => {
     (state) => state.profileSettings2.messages
   );
 
+  const { userInfo: userInfo , messageInfo:messageInfo} = useSelector(
+    (state) => state.profileSettings2.messages
+  );
+
+
   const rooms = searched ? foundRooms : allRooms;
 
   return (
@@ -26,6 +31,14 @@ const MessageSidebar = () => {
       <MessageSearch />
 
       <MessagesInfoWrapper>
+        {userInfo &&
+        <MessageInfoRow
+          messageData={messageInfo}
+          userData={userInfo}
+          unreadMessages={false}
+          isNewMessage={true}
+        />
+        }
         {rooms?.map((data, index) => (
           <MessageInfoRow
             key={index + 'message'}
@@ -48,8 +61,9 @@ const MessagesInfoWrapper = styled.div`
 `;
 
 const Sidebar = styled.div`
-  max-width: 350px;
+  max-width: 450px;
   position: relative;
+  width: 400px;
 
   @media ${device.sm} {
     display: ${(props) => (props.open ? 'initial' : 'none')};

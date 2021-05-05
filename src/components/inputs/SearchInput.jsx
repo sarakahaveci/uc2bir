@@ -9,6 +9,7 @@ export default function SearchInput({
   setSearchValue,
   placeholder,
   showClearInput,
+  onChange,
   ...restProps
 }) {
   return (
@@ -17,7 +18,7 @@ export default function SearchInput({
 
       <StyledSearchInput
         value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
+        onChange={onChange}
         placeholder={placeholder}
       />
 

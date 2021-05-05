@@ -13,6 +13,7 @@ import {
   SEND_MESSAGE_FAILURE,
   RESET_MESSAGES,
   MESSAGE_SIDEBAR_OPEN,
+  SEND_NEW_MESSAGE
 } from '../../constants';
 
 const initialState = {
@@ -37,6 +38,8 @@ const initialState = {
   },
   isSuccessSendMessage: false,
   messageSideBarOpen: false,
+  userInfo:null,
+  messageInfo:null
 };
 
 const messagesReducer = (state = initialState, action) => {
@@ -92,6 +95,13 @@ const messagesReducer = (state = initialState, action) => {
           searched: true,
           foundRooms: action.payload.foundRooms,
         },
+      };
+
+    case SEND_NEW_MESSAGE:
+      return {
+        ...state,
+        userInfo: action.payload.userInfo,
+        messageInfo: action.payload.messageInfo,
       };
 
     case RESET_MESSAGE_SEARCH: {
