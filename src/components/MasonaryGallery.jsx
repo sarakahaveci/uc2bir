@@ -61,6 +61,7 @@ const MasonaryGallery = ({
   const [link, setLink] = useState('');
   const [file, setFile] = useState('');
   const [content, setContent] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const { accessToken } = useSelector((state) => state.auth);
 
@@ -116,6 +117,7 @@ const MasonaryGallery = ({
   };
 
   const upload = () => {
+    setLoading(true)
     createData.append('files[]', file);
     createData.append('type_id', '8');
     createData.append('type', type);
@@ -126,12 +128,14 @@ const MasonaryGallery = ({
         dispatch(getMyGalleries());
         setActivePage('index');
         setFile(false);
+        setLoading(false)
         toast.success('Dosya yüklendi.', {
           position: 'bottom-right',
           autoClose: 2000,
         });
       })
       .catch(function () {
+        setLoading(false)
         toast.error('Dosya gönderilemedi.', {
           position: 'bottom-right',
           autoClose: 2000,
@@ -201,13 +205,13 @@ const MasonaryGallery = ({
       let video = results === null ? content.path : results[1];
       return (
         <iframe
-          width="1280"
-          height="720"
+          width='1280'
+          height='720'
           src={`https://www.youtube.com/embed/${video}`}
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          frameBorder='0'
+          allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
           allowFullScreen
-        ></iframe>
+          />
       );
     }
   };
@@ -370,7 +374,7 @@ const MasonaryGallery = ({
             <>
               <ImageShow image={URL.createObjectURL(file)} />
               <section className="d-flex">
-                <PlusButton onClick={upload} />
+                { !loading && <PlusButton onClick={upload} />}
 
                 <AwesomeIcon.FaClose
                   className="close-icon"
