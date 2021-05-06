@@ -473,58 +473,58 @@ export default function PaymentCard({ type, dateOption }) {
               </BottomContainer>
             </>
           ))}
-
-        {type == 'buy_packet' && buyPacket?.reservation?.payment_type ? (
-          <BottomContainer>
-            <Button
-              style={{ width: '100%', padding: '20px' }}
-              className="blue"
-              text="Ödeme Yap"
-              onClick={() => {
-                switch (type) {
-                  case 'pt':
-                    sendPaymentPT();
-                    break;
-                  case 'dt':
-                    sendPaymentDT();
-                    break;
-                  default:
-                    break;
-                }
-              }}
-            />
-          </BottomContainer>
-        ) : (
-          <>
+        {type == 'buy_packet' &&
+          (buyPacket?.reservation?.payment_type ? (
             <BottomContainer>
               <Button
                 style={{ width: '100%', padding: '20px' }}
                 className="blue"
-                text="Cüzdanımdan Öde"
+                text="Ödeme Yap"
                 onClick={() => {
-                  var wallet_balance = wallet?.data?.balance || 0;
-                  var amount = reservation?.data?.totals_amount || 0;
-                  var diff = wallet_balance - amount;
-                  if (diff < 0) {
-                    selectPaymentType('both');
-                  } else {
-                    selectPaymentType('wallet');
+                  switch (type) {
+                    case 'pt':
+                      sendPaymentPT();
+                      break;
+                    case 'dt':
+                      sendPaymentDT();
+                      break;
+                    default:
+                      break;
                   }
                 }}
               />
             </BottomContainer>
-            <BottomContainer style={{ margin: '5px' }}>
-              <Button
-                style={{ width: '100%', padding: '20px' }}
-                className="blue"
-                text="Kredi Kartından Öde"
-                onClick={() => {
-                  selectPaymentType('credit_card');
-                }}
-              />
-            </BottomContainer>
-          </>
-        )}
+          ) : (
+            <>
+              <BottomContainer>
+                <Button
+                  style={{ width: '100%', padding: '20px' }}
+                  className="blue"
+                  text="Cüzdanımdan Öde"
+                  onClick={() => {
+                    var wallet_balance = wallet?.data?.balance || 0;
+                    var amount = reservation?.data?.totals_amount || 0;
+                    var diff = wallet_balance - amount;
+                    if (diff < 0) {
+                      selectPaymentType('both');
+                    } else {
+                      selectPaymentType('wallet');
+                    }
+                  }}
+                />
+              </BottomContainer>
+              <BottomContainer style={{ margin: '5px' }}>
+                <Button
+                  style={{ width: '100%', padding: '20px' }}
+                  className="blue"
+                  text="Kredi Kartından Öde"
+                  onClick={() => {
+                    selectPaymentType('credit_card');
+                  }}
+                />
+              </BottomContainer>
+            </>
+          ))}
       </ConfirmContainer>
     </Container>
   );
