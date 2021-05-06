@@ -42,9 +42,13 @@ const ReservationDetail = ({ type, goBack = () => {} }) => {
         <Left>
           <InfoItem>
             <InfoMain>
-              <CustomerImage></CustomerImage>
+              <CustomerImage
+                src={detailData?.pt?.photo || detailData?.dt?.photo}
+              ></CustomerImage>
               <BoldText>
-                {detailData?.student?.name || detailData?.bs?.title}
+                {detailData?.student?.name ||
+                  detailData?.bs?.title ||
+                  detailData?.pt?.name}
               </BoldText>
             </InfoMain>
             <text style={{ fontSize: '30px' }}> {'>'} </text>
@@ -68,14 +72,16 @@ const ReservationDetail = ({ type, goBack = () => {} }) => {
               </AdressText>
             </InfoMain>
           </InfoItem>
-          <InfoItem>
-            <InfoMain>
-              <Icon>
-                <Svg.LocationIcon />
-              </Icon>
-              <AdressText>{detailData?.address_detail}</AdressText>
-            </InfoMain>
-          </InfoItem>
+          {detailData?.address_detail && (
+            <InfoItem>
+              <InfoMain>
+                <Icon>
+                  <Svg.LocationIcon />
+                </Icon>
+                <AdressText>{detailData?.address_detail}</AdressText>
+              </InfoMain>
+            </InfoItem>
+          )}
           <MapWrapper>
             <GoogleMap
               locationFromUser={{
