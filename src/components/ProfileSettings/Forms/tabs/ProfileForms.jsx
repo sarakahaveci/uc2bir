@@ -11,27 +11,28 @@ const ProfileForms = ({ type }) => {
   const { detail } = useSelector(
     (state) => state.profileSettings2.profileDetail
   );
-  let data = {};
+  // let data = {};
   const [saveEnable, setSaveEnable] = useState(false);
+  const [data, setData] = useState({});
 
   const diffHandler = () => {
     var fields = Object.keys(data);
     var isDiff = fields.every((field) => data[field] == detail?.data[field]);
-    var charValidation = fields.every((field) => { 
-      if (field == "name") { return data[field].length >= 6 }
-      if (field == "title") { return true }
-      if (field == "company_date") { return data[field] !== "Invalid date"; }
-    });
+    // var charValidation = fields.every((field) => {
+    //   if (field == "name") { return data[field].length >= 6 }
+    //   if (field == "title") { return true }
+    //   if (field == "company_date") { return data[field] !== "Invalid date"; }
+    // });
     if (isDiff) {
       setSaveEnable(false);
     } else {
       setSaveEnable(true);
     }
-    if (charValidation) {
-      setSaveEnable(true);
-    } else {
-      setSaveEnable(false);
-    }
+    // if (charValidation) {
+    //   setSaveEnable(true);
+    // } else {
+    //   setSaveEnable(false);
+    // }
   };
 
   const onSubmit = (event) => {
@@ -44,14 +45,14 @@ const ProfileForms = ({ type }) => {
             position: 'bottom-right',
             autoClose: 2000,
           });
-          data = {};
+          setData({}) ;
         },
         () => {
           toast.error('Güncelleme işlemi yapılamadı.', {
             position: 'bottom-right',
             autoClose: 2000,
           });
-          data = {};
+          setData({}) ;
         }
       )
     );
@@ -67,7 +68,7 @@ const ProfileForms = ({ type }) => {
             name="name"
             defaultValue={detail?.data?.name}
             onChange={(e) => {
-              data = { ...data, [e.target.name]: e.target.value };
+              setData({ ...data, [e.target.name]: e.target.value });
               diffHandler(e);
             }}
             settings="current"
@@ -79,7 +80,7 @@ const ProfileForms = ({ type }) => {
               name="title"
               defaultValue={detail?.data?.title}
               onChange={(e) => {
-                data = { ...data, [e.target.name]: e.target.value };
+                setData({ ...data, [e.target.name]: e.target.value });
                 diffHandler();
               }}
               settings="current"
@@ -91,7 +92,7 @@ const ProfileForms = ({ type }) => {
             name="email"
             defaultValue={detail?.data?.email}
             onChange={(e) => {
-              data = { ...data, [e.target.name]: e.target.value };
+              setData({ ...data, [e.target.name]: e.target.value });
               diffHandler(e);
             }}
             settings="current"
@@ -106,7 +107,7 @@ const ProfileForms = ({ type }) => {
               name="genre"
               defaultValue={detail?.data?.genre}
               onChange={(e) => {
-                data = { ...data, [e.target.name]: e.target.value };
+                setData({ ...data, [e.target.name]: e.target.value });
                 diffHandler(e);
               }}
               settings="current"
@@ -120,7 +121,7 @@ const ProfileForms = ({ type }) => {
               value={detail?.data?.company_date}
               defaultValue={detail?.data?.company_date}
               onChange={(e) => {
-                data = { ...data, [e.target.name]: e.target.value };
+                setData({ ...data, [e.target.name]: e.target.value });
                 diffHandler(e);
               }}
               settings="current"
@@ -134,7 +135,7 @@ const ProfileForms = ({ type }) => {
               defaultValue={detail?.data?.birthday}
               onChange={(e) => {
                 if (e.target.value !== 'Invalid date') {
-                  data = { ...data, [e.target.name]: e.target.value };
+                  setData({ ...data, [e.target.name]: e.target.value });
                   diffHandler(e);
                 }
               }}
