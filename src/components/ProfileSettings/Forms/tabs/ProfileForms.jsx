@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Material, Button } from 'components';
 import { genderData } from 'constants/formData';
 import styled from 'styled-components/macro';
@@ -16,6 +16,11 @@ const ProfileForms = ({ type }) => {
   const [saveEnable, setSaveEnable] = useState(false);
   const [data, setData] = useState({});
   const [isDiff, setIsDiff] = useState();
+
+
+  useEffect(() => {
+    setData({...data, name:detail?.data?.name})
+  }, [detail]);
 
   const diffHandler = () => {
     const fields = Object.keys(data);
@@ -39,14 +44,12 @@ const ProfileForms = ({ type }) => {
               position: 'bottom-right',
               autoClose: 2000,
             });
-            setData({}) ;
           },
           () => {
             toast.error('Güncelleme işlemi yapılamadı.', {
               position: 'bottom-right',
               autoClose: 2000,
             });
-            setData({}) ;
           }
         )
       );
