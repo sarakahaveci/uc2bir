@@ -15,48 +15,48 @@ const ProfileForms = ({ type }) => {
   const user = useSelector((state) => state.auth.user);
   const [saveEnable, setSaveEnable] = useState(false);
   const [data, setData] = useState({});
+  const [isDiff, setIsDiff] = useState();
 
   const diffHandler = () => {
-    var fields = Object.keys(data);
-    var isDiff = fields.every((field) => data[field] === detail?.data[field]);
-    // var charValidation = fields.every((field) => {
-    //   if (field == "name") { return data[field].length >= 6 }
-    //   if (field == "title") { return true }
-    //   if (field == "company_date") { return data[field] !== "Invalid date"; }
-    // });
-    if (isDiff) {
-      setSaveEnable(true);
-    } else {
+    const fields = Object.keys(data);
+    setIsDiff(fields.every((field) => data[field] === detail?.data[field]));
+
+    if (isDiff ) {
       setSaveEnable(false);
+    } else {
+      setSaveEnable(true);
     }
-    // if (charValidation) {
-    //   setSaveEnable(true);
-    // } else {
-    //   setSaveEnable(false);
-    // }
   };
 
   const onSubmit = (event) => {
     event.preventDefault();
-    dispatch(
-      setProfile(
-        { ...data },
-        () => {
-          toast.success('Bilgileriniz güncellendi.', {
-            position: 'bottom-right',
-            autoClose: 2000,
-          });
-          setData({}) ;
-        },
-        () => {
-          toast.error('Güncelleme işlemi yapılamadı.', {
-            position: 'bottom-right',
-            autoClose: 2000,
-          });
-          setData({}) ;
-        }
-      )
-    );
+    if(data.name){
+      dispatch(
+        setProfile(
+          { ...data },
+          () => {
+            toast.success('Bilgileriniz güncellendi.', {
+              position: 'bottom-right',
+              autoClose: 2000,
+            });
+            setData({}) ;
+          },
+          () => {
+            toast.error('Güncelleme işlemi yapılamadı.', {
+              position: 'bottom-right',
+              autoClose: 2000,
+            });
+            setData({}) ;
+          }
+        )
+      );
+    }else {
+      toast.error('İsim Alanı Boş Girilemez', {
+        position: 'bottom-right',
+        autoClose: 2000,
+      });
+    }
+
   };
 
   return (
