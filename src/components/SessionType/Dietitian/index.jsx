@@ -77,7 +77,6 @@ const PT = ({ icons, setBannerActive }) => {
             get={get}
             selected={selected}
           />
-          ;
         </div>
       );
 
