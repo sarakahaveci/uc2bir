@@ -138,7 +138,7 @@ const Blog = () => {
       .then(function (response) {
         setData(response?.data?.data);
         setSeo(response?.data?.data?.blog?.id);
-        setFile(false);
+        setFile(response?.data?.data?.blog?.photo);
         setPage('edit');
       })
       .catch(function (err) {
@@ -225,7 +225,7 @@ const Blog = () => {
                           </div>
                         </ExtendButton>*/}
                           {file ? (
-                            <ImageShow image={fileUrl} />
+                            <ImageShow image={file} />
                           ) : (
                             <MaterialButton
                               style={{
@@ -345,10 +345,7 @@ const Blog = () => {
                                   </LinkText>
                                 </div>
                               </div>
-                              <div
-                                style={{ backgroundImage: `url(${val.photo})` }}
-                                className="img"
-                              ></div>
+                              <div style={{ backgroundImage: `url(${val.photo})` }} className='img' />
                               <Footer>
                                 <div className="footer-title">
                                   Yazar : {user.name}

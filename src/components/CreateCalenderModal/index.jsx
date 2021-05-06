@@ -57,7 +57,7 @@ const CreateCalenderModal = ({
               approve();
             }}
           >
-            {type[0]?.key == KEYS.DIETIAN
+            {type[0]?.key === KEYS.DIETIAN
               ? 'SEANS OLUŞTUR'
               : 'ÖZEL DERS OLUŞTUR'}
           </StyledButton>
@@ -69,7 +69,7 @@ const CreateCalenderModal = ({
               cancel();
             }}
           >
-            {type[0]?.key == KEYS.DIETIAN
+            {type[0]?.key === KEYS.DIETIAN
               ? 'PAKET SEANS OLUŞTUR'
               : 'GRUP DERSİ OLUŞTUR'}
           </StyledButton>
