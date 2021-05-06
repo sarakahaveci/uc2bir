@@ -66,7 +66,13 @@ export default function Profile({ match }) {
     {
       eventKey: 'calendar',
       title: 'TAKVİM',
-      component: <MyCalendar userId={match?.params?.id} typeId={userInfo?.type_id} setPage={setPage}/>,
+      component: (
+        <MyCalendar
+          userId={match?.params?.id}
+          typeId={userInfo?.type_id}
+          setPage={setPage}
+        />
+      ),
     },
     {
       eventKey: 'comments',
@@ -107,12 +113,18 @@ export default function Profile({ match }) {
       title: 'EĞİTMENLER',
       component: <FindPt userId={match?.params?.id} />,
     },
-      {
+    {
       eventKey: 'calendar',
       title: 'TAKVİM',
-      component: <MyCalendar userId={match?.params?.id} typeId={userInfo?.type_id} setPage={setPage}/>,
+      component: (
+        <MyCalendar
+          userId={match?.params?.id}
+          typeId={userInfo?.type_id}
+          setPage={setPage}
+        />
+      ),
     },
-       {
+    {
       eventKey: 'comments',
       title: 'YORUMLAR',
       component: <Comment userId={match?.params?.id} />,
@@ -164,8 +176,8 @@ export default function Profile({ match }) {
                   location: `${userInfo?.district},${userInfo?.city}`,
                   comment: '/',
                   type_id: userInfo?.type_id,
-                  id:userInfo?.id,
-                  has_favorite:userInfo?.has_favorite
+                  id: userInfo?.id,
+                  has_favorite: userInfo?.has_favorite,
                 }}
                 categories={userInfo?.session || userInfo?.branch}
                 about={

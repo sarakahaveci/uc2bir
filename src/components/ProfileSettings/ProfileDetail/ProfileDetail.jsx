@@ -7,7 +7,7 @@ import { getUserInfo } from 'actions';
 import profileImg from 'assets/default-profile.jpg';
 import styled from 'styled-components/macro';
 
-import {Tabbar} from 'components';
+import { Tabbar } from 'components';
 import ProfileBanner from 'components/banner/profile-banner';
 import Branch from 'components/Profile/Branch';
 import ProfileCertificate from 'components/Profile/ProfileCertificate';
@@ -24,8 +24,7 @@ import FindPt from 'components/Profile/Gym/FindPt';
 import GymLocation from 'components/Profile/Gym/Location';
 import MyCalendar from 'components/Profile/MyCalendar/MyCalendar';
 
-
-export default function Profile( ) {
+export default function Profile() {
   const dispatch = useDispatch();
   const [page, setPage] = useState('Start');
 
@@ -33,38 +32,47 @@ export default function Profile( ) {
     (state) => state.userProfile.userInfo
   );
   const [tab, setTab] = useState();
-  const { id:id} = useSelector((state) => state.auth.user);
+  const { id: id } = useSelector((state) => state.auth.user);
 
   useEffect(() => {
     dispatch(getUserInfo(id));
   }, [id]);
 
-  useEffect(()=>{
-    setTab(userInfo.type_id !==WORK_PLACE ? 'Branches': 'Facility')
-  },[userInfo])
+  useEffect(() => {
+    setTab(userInfo.type_id !== WORK_PLACE ? 'Branches' : 'Facility');
+  }, [userInfo]);
 
   let content;
   if (userInfo?.type_id !== WORK_PLACE) {
     switch (tab) {
       case 'Branches':
-        content =   userInfo?.type_id === DIETITIAN ? (
-          <DietitionSpeciality userId={id} />
-        ) : (
-          <Branch userId={id} />
-        );
+        content =
+          userInfo?.type_id === DIETITIAN ? (
+            <DietitionSpeciality userId={id} />
+          ) : (
+            <Branch userId={id} />
+          );
         break;
       case 'Certificates':
         content = <ProfileCertificate userId={id} />;
         break;
       case 'WorkPlace':
-        content =  userInfo?.type_id === DIETITIAN ? (
-          <DietitionPlace userId={id} />
-        ) : (
-          <Place userId={id} />
-        );
+        content =
+          userInfo?.type_id === DIETITIAN ? (
+            <DietitionPlace userId={id} />
+          ) : (
+            <Place userId={id} />
+          );
         break;
       case 'Calendar':
-        content =  <MyCalendar userId={id} typeId={userInfo?.type_id} setPage={setPage} isUserDetail={true}/>;
+        content = (
+          <MyCalendar
+            userId={id}
+            typeId={userInfo?.type_id}
+            setPage={setPage}
+            isUserDetail={true}
+          />
+        );
         break;
       case 'Comments':
         content = <Comment userId={id} />;
@@ -78,10 +86,10 @@ export default function Profile( ) {
       default:
         return <></>;
     }
-  }else {
+  } else {
     switch (tab) {
       case 'Facility':
-        content =  <FacilityList userId={id} />;
+        content = <FacilityList userId={id} />;
         break;
       case 'Certificates':
         content = <ProfileCertificate userId={id} />;
@@ -90,10 +98,16 @@ export default function Profile( ) {
         content = <Classes userId={id} />;
         break;
       case 'Trainers':
-        content =  <FindPt userId={id} />;
+        content = <FindPt userId={id} />;
         break;
       case 'Calendar':
-        content = <MyCalendar userId={id} typeId={userInfo?.type_id} isUserDetail={true}/>;
+        content = (
+          <MyCalendar
+            userId={id}
+            typeId={userInfo?.type_id}
+            isUserDetail={true}
+          />
+        );
         break;
       case 'Comments':
         content = <Comment userId={id} />;
@@ -108,7 +122,6 @@ export default function Profile( ) {
         return <></>;
     }
   }
-
 
   switch (page) {
     case 'Start':
@@ -130,8 +143,8 @@ export default function Profile( ) {
                   location: `${userInfo?.district},${userInfo?.city}`,
                   comment: '/',
                   type_id: userInfo?.type_id,
-                  id:userInfo?.id,
-                  has_favorite:userInfo?.has_favorite
+                  id: userInfo?.id,
+                  has_favorite: userInfo?.has_favorite,
                 }}
                 categories={userInfo?.session || userInfo?.branch}
                 about={
@@ -143,21 +156,22 @@ export default function Profile( ) {
             <TabContainers>
               <>
                 {userInfo.type_id !== WORK_PLACE ? (
-                <Tabbar
-                  defaultSelected="Branches"
-                  onSelect={(value) => {
-                    setTab(value);
-                  }}
-                  tabs={[
-                    { text: 'BRANŞLAR', value: 'Branches' },
-                    { text: 'SERTİFİKALAR', value: 'Certificates' },
-                    { text: 'ÇALIŞTIĞI YERLER', value: 'WorkPlace' },
-                    { text: 'TAKVİM', value: 'Calendar' },
-                    { text: 'YORUMLAR', value: 'Comments' },
-                    { text: 'GALERİ', value: 'Gallery' },
-                    { text: 'BLOG', value: 'Blog' },
-                  ]}
-                />):(
+                  <Tabbar
+                    defaultSelected="Branches"
+                    onSelect={(value) => {
+                      setTab(value);
+                    }}
+                    tabs={[
+                      { text: 'BRANŞLAR', value: 'Branches' },
+                      { text: 'SERTİFİKALAR', value: 'Certificates' },
+                      { text: 'ÇALIŞTIĞI YERLER', value: 'WorkPlace' },
+                      { text: 'TAKVİM', value: 'Calendar' },
+                      { text: 'YORUMLAR', value: 'Comments' },
+                      { text: 'GALERİ', value: 'Gallery' },
+                      { text: 'BLOG', value: 'Blog' },
+                    ]}
+                  />
+                ) : (
                   <Tabbar
                     defaultSelected="Facility"
                     onSelect={(value) => {
@@ -194,13 +208,7 @@ export default function Profile( ) {
       content = <ProfileReservation setPage={setPage} />;
       break;
   }
-  return isLoading ? (
-    <div>Yükleniyor</div>
-  ) : (
-    <>
-      {content}
-    </>
-  );
+  return isLoading ? <div>Yükleniyor</div> : <>{content}</>;
 }
 
 const TabContainers = styled.div`

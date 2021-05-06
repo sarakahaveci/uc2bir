@@ -109,7 +109,7 @@ const PT = () => {
             null,
             reservation?.data?.branch_id,
             reservation.data?.session,
-            null
+            reservation?.data?.location_id
           )
         );
       }
