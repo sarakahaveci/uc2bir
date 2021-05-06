@@ -76,7 +76,7 @@ export const searchProffesional = (
       method: 'GET',
       url: finalUrls,
       label: SEARCH_PROFESSIONAL,
-      transformData: (data) => data.data,
+      transformData: (data) => data,
       callBack: () => successCallback(),
     },
   });
