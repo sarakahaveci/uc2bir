@@ -91,10 +91,7 @@ const StepThree = () => {
   };
 
   const handleBirthdayChange = (event) => {
-    const value = event.target?.value
-      ?.toLocaleDateString?.()
-      .replaceAll('/', '.');
-    setFormData({ ...formData, [event.target.name]: value });
+    setFormData({ ...formData, [event.target.name]: event.target?.value });
   };
 
   const isSuccess = () => {

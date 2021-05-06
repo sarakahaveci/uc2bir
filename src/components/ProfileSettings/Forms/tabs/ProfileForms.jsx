@@ -17,16 +17,16 @@ const ProfileForms = ({ type }) => {
 
   const diffHandler = () => {
     var fields = Object.keys(data);
-    var isDiff = fields.every((field) => data[field] == detail?.data[field]);
+    var isDiff = fields.every((field) => data[field] === detail?.data[field]);
     // var charValidation = fields.every((field) => {
     //   if (field == "name") { return data[field].length >= 6 }
     //   if (field == "title") { return true }
     //   if (field == "company_date") { return data[field] !== "Invalid date"; }
     // });
     if (isDiff) {
-      setSaveEnable(false);
-    } else {
       setSaveEnable(true);
+    } else {
+      setSaveEnable(false);
     }
     // if (charValidation) {
     //   setSaveEnable(true);
