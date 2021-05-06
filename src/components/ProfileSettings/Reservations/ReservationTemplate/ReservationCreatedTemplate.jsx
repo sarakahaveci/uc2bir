@@ -4,17 +4,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import { Link } from 'react-router-dom';
 
-
 import { Box, Button, Modal, Span, Svg, Text, Title } from 'components';
 import image from '../../../../assets/wave-background.png';
 import { device } from '../../../../utils';
 
 import ReservationTemplate from './ReservationTemplate';
 import ApplyTemplateModal from './ApplyTemplateModal';
-import { deleteTemplate, getTemplates, updateDefaultTemplate } from '../../../../actions';
+import {
+  deleteTemplate,
+  getTemplates,
+  updateDefaultTemplate,
+} from '../../../../actions';
 import { toast } from 'react-toastify';
 
-export default function ReservationCreatedTemplate({ setTab = () => {}, setTabPage = () => {} }) {
+export default function ReservationCreatedTemplate({
+  setTab = () => {},
+  setTabPage = () => {},
+}) {
   const [subPage, setSubPage] = useState();
   const applyTemplateModalRef = useRef();
   const successReservationModalRef = useRef();
@@ -31,18 +37,16 @@ export default function ReservationCreatedTemplate({ setTab = () => {}, setTabPa
   }, []);
 
   const closeSuccessReservationModal = useCallback(() => {
-    setTabPage('')
-    setTab('Calendar')
+    successReservationModalRef.current.closeModal();
+    setTabPage('');
+    setTab('Calendar');
   }, []);
 
   const updateTemplateDefaultFail = () => {
-    toast.error(
-      'Varsayılan Şablon Oluştururken Hata Oluştu',
-      {
-        position: 'bottom-right',
-        autoClose: 3000,
-      }
-    );
+    toast.error('Varsayılan Şablon Oluştururken Hata Oluştu', {
+      position: 'bottom-right',
+      autoClose: 3000,
+    });
   };
 
   const updateTemplateDefaultSuccess = () => {
@@ -54,13 +58,10 @@ export default function ReservationCreatedTemplate({ setTab = () => {}, setTabPa
   };
 
   const deleteTemplateFail = () => {
-    toast.error(
-      'Şablonunuz Silinirken Hata Oluştu',
-      {
-        position: 'bottom-right',
-        autoClose: 3000,
-      }
-    );
+    toast.error('Şablonunuz Silinirken Hata Oluştu', {
+      position: 'bottom-right',
+      autoClose: 3000,
+    });
   };
 
   const deleteTemplateSuccess = () => {
@@ -71,143 +72,166 @@ export default function ReservationCreatedTemplate({ setTab = () => {}, setTabPa
     });
   };
 
+  return subPage === 'create' ? (
+    <ReservationTemplate setTab={setTab} setTabPage={setSubPage} />
+  ) : (
+    <div>
+      <BackLink onClick={() => setTabPage('')}>
+        <Svg.ArrowLeftIcon />
 
-  return (
-      subPage === 'create'?
-        ( <ReservationTemplate setTab={setTab} setTabPage={setSubPage}/>)
-      :
-        ( <div>
-        <BackLink onClick={()=>setTabPage('')}>
-          <Svg.ArrowLeftIcon />
-
-          <span>Şablonlar</span>
-        </BackLink>
-        <Row>
-          <Col lg={6}>
-            {myTemplates?.map((item, index) => (
-              <div key={index}>
-                <BoxContainer >
-                  <Box row >
-                    <Text color="dark" fontWeight="500">
-                      {item.name}
-                    </Text>
-                    <Button redborder text={'Sil'} width={'120px'} height={'35px'} onClick={()=>dispatch(
-                      deleteTemplate(
-                        item.id,
-                        deleteTemplateSuccess,
-                        deleteTemplateFail
-                      ))}/>
-                  </Box>
-                </BoxContainer>
-                {!item.is_default&&
+        <span>Şablonlar</span>
+      </BackLink>
+      <Row>
+        <Col lg={6}>
+          {myTemplates?.map((item, index) => (
+            <div key={index}>
+              <BoxContainer>
+                <Box row>
+                  <Text color="dark" fontWeight="500">
+                    {item.name}
+                  </Text>
+                  <Button
+                    redborder
+                    text={'Sil'}
+                    width={'120px'}
+                    height={'35px'}
+                    onClick={() =>
+                      dispatch(
+                        deleteTemplate(
+                          item.id,
+                          deleteTemplateSuccess,
+                          deleteTemplateFail
+                        )
+                      )
+                    }
+                  />
+                </Box>
+              </BoxContainer>
+              {!item.is_default && (
                 <Text
-                  style={{ marginLeft:'15px', display:'flex'}}
+                  style={{ marginLeft: '15px', display: 'flex' }}
                   textAlign="left"
                   fontWeight="500"
-                  fontSize='11px'
+                  fontSize="11px"
                   cursor={'pointer'}
-                  onClick={()=> dispatch(
-                    updateDefaultTemplate(
-                      item.id,
-                      updateTemplateDefaultSuccess,
-                      updateTemplateDefaultFail
-                    ))}
-                  color={'blue'}>
-                  <Span underline lineWidth={'100%'} > Varsayılan Şablon Olarak Seç </Span>
+                  onClick={() =>
+                    dispatch(
+                      updateDefaultTemplate(
+                        item.id,
+                        updateTemplateDefaultSuccess,
+                        updateTemplateDefaultFail
+                      )
+                    )
+                  }
+                  color={'blue'}
+                >
+                  <Span underline lineWidth={'100%'}>
+                    {' '}
+                    Varsayılan Şablon Olarak Seç{' '}
+                  </Span>
                   <Span
-                    style={{marginBottom:'-10px'}}
+                    style={{ marginBottom: '-10px' }}
                     cursor="pointer"
                     fontSize="1rem"
-                    marginLeft="10px">
+                    marginLeft="10px"
+                  >
                     {`>`}
                   </Span>
-                </Text> }
-
-              </div>
-            ))}
-
-          </Col>
-          <Col lg={6}>
-            <DateContainer>
-              <AppointmentDate>
-                <Row>
-                  <Title
-                    style={{ marginLeft:'15px', display:'flex'}}
-                    textAlign="left"
-                    fontWeight="500">
-                    <Span underline lineWidth={'100%'} > Şablon Hakkında </Span>
-                  </Title>
-
-                  <Text  style={{ margin:'15px', display:'flex'}} fontWeight="300" color={'grey'}>
-                    Merhaba {name}, rezervasyon takvimini tamamlamak için oluşturduğun şablonalardan birini kullanabilirsin
-                  </Text>
-                </Row>
-              </AppointmentDate>
-
-              <AcceptButton src={image}>
-                <Button
-                  onClick={openApplyTemplateModal}
-                  text="Haftalık Rezervasyon Takvimimi Oluştur"
-                  className="blue"
-                  width={'496px'}
-                  height={'66px'}
-                />
-
-                <Button
-                  blueborder = {true}
-                  onClick={() => {
-                    setSubPage('create');
-                  }}
-                  text="Yeni Şablon Oluşturmak İstiyorum"
-                  width={'496px'}
-                  height={'66px'}
-                  style={{marginTop:'15px'}}
-                />
-              </AcceptButton>
-
-            </DateContainer>
-          </Col>
-
-          <ApplyTemplateModal
-            ref={applyTemplateModalRef}
-            openSuccessReservationModal={openSuccessReservationModal}
-          />
-
-          <SuccessReservationModal
-            activateFooter
-            ref={successReservationModalRef}>
-            <div className="reservation__success-modal">
-              <Box center mb="35px">
-                <Svg.SuccessIcon />
-              </Box>
-
-              <Text textAlign="center" fontSize="1.1rem" fontWeight="600">
-                Tebrikler
-              </Text>
-
-              <Text textAlign="center" fontSize="1.1rem" mb="15px">
-                Rezervasyonlarınız oluşturuldu.
-              </Text>
+                </Text>
+              )}
             </div>
+          ))}
+        </Col>
+        <Col lg={6}>
+          <DateContainer>
+            <AppointmentDate>
+              <Row>
+                <Title
+                  style={{ marginLeft: '15px', display: 'flex' }}
+                  textAlign="left"
+                  fontWeight="500"
+                >
+                  <Span underline lineWidth={'100%'}>
+                    {' '}
+                    Şablon Hakkında{' '}
+                  </Span>
+                </Title>
 
-            <Modal.Footer>
-              <Text
-                onClick={closeSuccessReservationModal}
-                textAlign="center"
-                p="0 0 20px 0"
-                color="blue"
-                cursor="pointer"
-              >
-                Rezervasyon takvimimi gör
-              </Text>
+                <Text
+                  style={{ margin: '15px', display: 'flex' }}
+                  fontWeight="300"
+                  color={'grey'}
+                >
+                  Merhaba {name}, rezervasyon takvimini tamamlamak için
+                  oluşturduğun şablonalardan birini kullanabilirsin
+                </Text>
+              </Row>
+            </AppointmentDate>
 
-              <Link to="/" className="reservation__return-homepage">
-                ANASAYFA
-              </Link>
-            </Modal.Footer>
-          </SuccessReservationModal>
-        </Row>
-      </div>)
+            <AcceptButton src={image}>
+              <Button
+                onClick={openApplyTemplateModal}
+                text="Haftalık Rezervasyon Takvimimi Oluştur"
+                className="blue"
+                width={'496px'}
+                height={'66px'}
+              />
+
+              <Button
+                blueborder={true}
+                onClick={() => {
+                  setSubPage('create');
+                }}
+                text="Yeni Şablon Oluşturmak İstiyorum"
+                width={'496px'}
+                height={'66px'}
+                style={{ marginTop: '15px' }}
+              />
+            </AcceptButton>
+          </DateContainer>
+        </Col>
+
+        <ApplyTemplateModal
+          ref={applyTemplateModalRef}
+          openSuccessReservationModal={openSuccessReservationModal}
+        />
+
+        <SuccessReservationModal
+          activateFooter
+          ref={successReservationModalRef}
+        >
+          <div className="reservation__success-modal">
+            <Box center mb="35px">
+              <Svg.SuccessIcon />
+            </Box>
+
+            <Text textAlign="center" fontSize="1.1rem" fontWeight="600">
+              Tebrikler
+            </Text>
+
+            <Text textAlign="center" fontSize="1.1rem" mb="15px">
+              Rezervasyonlarınız oluşturuldu.
+            </Text>
+          </div>
+
+          <Modal.Footer>
+            <Text
+              onClick={closeSuccessReservationModal}
+              textAlign="center"
+              p="0 0 20px 0"
+              color="blue"
+              cursor="pointer"
+            >
+              Rezervasyon takvimimi gör
+            </Text>
+
+            <Link to="/" className="reservation__return-homepage">
+              ANASAYFA
+            </Link>
+          </Modal.Footer>
+        </SuccessReservationModal>
+      </Row>
+    </div>
   );
 }
 
@@ -244,14 +268,14 @@ const DateContainer = styled.div`
   width: 586px;
   height: 326px;
   margin-left: 25px;
-  background: #F8F8F8;
+  background: #f8f8f8;
   border-radius: 20px;
   margin-top: 10px;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
-  @media ${device.sm}  {
+  @media ${device.sm} {
     height: 190px;
     width: 310px;
   }
@@ -260,12 +284,11 @@ const DateContainer = styled.div`
 const AppointmentDate = styled.div`
   margin: 30px;
   flex-direction: column;
-  @media ${device.sm}  {
+  @media ${device.sm} {
     height: 95px;
     width: 290px;
   }
 `;
-
 
 const AcceptButton = styled.div`
   justify-content: center;
@@ -273,10 +296,10 @@ const AcceptButton = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-bottom-right-radius: 20px;
   border-bottom-left-radius: 20px;
-  @media ${device.sm}  {
+  @media ${device.sm} {
     height: 95px;
     width: 310px;
   }

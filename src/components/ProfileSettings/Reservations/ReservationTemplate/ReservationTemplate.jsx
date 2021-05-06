@@ -132,6 +132,7 @@ export default function ReservationTemplate({
     -1;
 
   const closeSuccessReservationModal = useCallback(() => {
+    successReservationModalRef.current.closeModal()
     setTabPage('');
     setTab('Calendar');
   }, []);

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { Title } from 'components';
-
 export default function ProficiencyCard({ title, data }) {
   return (
     <div className="proficiencyCard__wrapper">
@@ -15,31 +14,32 @@ export default function ProficiencyCard({ title, data }) {
         {title}
       </Title>
       <div className="d-flex proficiencyCard__line__wrapper">
-        {data?.map((value) => (
-          <div
-            className="d-flex  justify-content-between proficiencyCard__line"
-            key={value?.name}
-          >
-            <Title
-              fontSize="14px"
-              letterSpacing="0.01em"
-              fontWeight="500"
-              textAlign="left"
+        {data?.length > 0 &&
+          data?.map((value) => (
+            <div
+              className="d-flex  justify-content-between proficiencyCard__line"
+              key={value?.name}
             >
-              {value?.name}
-            </Title>
+              <Title
+                fontSize="14px"
+                letterSpacing="0.01em"
+                fontWeight="500"
+                textAlign="left"
+              >
+                {value?.name}
+              </Title>
 
-            <Title
-              fontSize="14px"
-              letterSpacing="0.01em"
-              fontWeight="500"
-              textAlign="right"
-              color={value?.status === 'pending' ? '#f01c62' : '#00b2a9'}
-            >
-              {value?.status === 'pending' ? 'Onay Bekliyor' : 'Onaylandı'}
-            </Title>
-          </div>
-        ))}
+              <Title
+                fontSize="14px"
+                letterSpacing="0.01em"
+                fontWeight="500"
+                textAlign="right"
+                color={value?.status === 'pending' ? '#f01c62' : '#00b2a9'}
+              >
+                {value?.status === 'pending' ? 'Onay Bekliyor' : 'Onaylandı'}
+              </Title>
+            </div>
+          ))}
       </div>
     </div>
   );

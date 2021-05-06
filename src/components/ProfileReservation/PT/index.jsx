@@ -19,9 +19,9 @@ import {
   getUserBranchList,
   getPtWorkingHomePlace,
   //getTemplates,
-  getPtReservationCalendar,
   getAreaForPT,
   deleteAllSlot,
+  getPtReservationCalendar,
 } from 'actions';
 import { space } from 'styled-system';
 import GoogleMap from 'components/GoogleMaps/GoogleMap';
@@ -76,13 +76,25 @@ const PT = () => {
           reservation.data?.date,
           null,
           reservation?.data?.branch_id,
-          reservation.data?.session,
-          1
+          reservation.data?.session
         )
       );
     }
   }, [reservation?.data?.session]);
-
+  useEffect(() => {
+    if (reservation?.data?.location_id) {
+      dispatch(
+        getPtReservationCalendar(
+          userInfo.id,
+          reservation.data?.date,
+          null,
+          reservation?.data?.branch_id,
+          reservation?.data?.session,
+          reservation?.data?.location_id
+        )
+      );
+    }
+  }, [reservation?.data?.location_id]); //YENİ
   useEffect(() => {
     if (!reservation?.data?.isSelected) {
       if (
@@ -96,7 +108,8 @@ const PT = () => {
             reservation.data?.date,
             null,
             reservation?.data?.branch_id,
-            reservation.data?.session
+            reservation.data?.session,
+            null
           )
         );
       }
@@ -291,7 +304,7 @@ const PT = () => {
               />
               <Material.SimpleSelect
                 required
-                label={town ? 'Önce İl Seçiniz' : 'İlçe Seçiniz'}
+                label={town ? 'İlçe Seçiniz' : 'Önce İl Seçiniz'}
                 items={town ? town : []}
                 name="district"
                 changeValue={formData?.district || ''}
@@ -318,7 +331,7 @@ const PT = () => {
               />
               <Material.SimpleSelect
                 required
-                label={district ? 'Önce İlçe Seçiniz' : 'Mahalle Seçiniz'}
+                label={district ? 'Mahalle Seçiniz' : 'Önce İlçe Seçiniz'}
                 items={district ? district : []}
                 name="town"
                 changeValue={formData?.town || ''}

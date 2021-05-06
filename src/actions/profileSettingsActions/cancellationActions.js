@@ -5,7 +5,7 @@ import {
 } from '../../constants';
 
 export const getCancellationReasons = () => async (dispatch) => {
-  const url = '/cms/status-reason-type/all';
+  const url = '/cms/status-reason-type/all?type=member&status=active';
 
   await dispatch({
     type: HTTP_REQUEST,

@@ -64,6 +64,7 @@ export default function GroupRightSelections({ setTab = () => {}, setTabPage = (
   }, [selectedDate]);
 
   const closeSuccessReservationModal = useCallback(() => {
+    reservationSuccessModalRef.current.closeModal()
     setTabPage('')
     setTab('Calendar')
   }, []);
