@@ -90,7 +90,7 @@ const StyledCard = styled(Col)`
   ${(props) =>
     !props.user
       ? css`
-          max-width: 375px;
+          width: 375px;
           height: 285px;
           position: relative;
           background-image: url('${(props) => props.img}');
