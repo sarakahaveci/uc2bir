@@ -52,7 +52,19 @@ const Dietitian = () => {
     dispatch(getStaticPage('uye-mesafeli-hizmet-sozlesmesi'));
     dispatch(getStaticPage('uye-on-bilgilendirme-formu'));
   }, [userInfo]);
-
+  useEffect(() => {
+    if (reservation?.data?.location_id) {
+      dispatch(
+        getDtReservationCalendar(
+          userInfo.id,
+          reservation.data?.date,
+          null,
+          reservation.data?.session,
+          reservation?.data?.location_id
+        )
+      );
+    }
+  }, [reservation?.data?.location_id]); //YENİ
   useEffect(() => {
     if (reservation?.data?.session && reservation?.data?.date) {
       dispatch(
@@ -60,7 +72,8 @@ const Dietitian = () => {
           userInfo.id,
           reservation.data?.date,
           null,
-          reservation.data?.session
+          reservation.data?.session,
+          reservation?.data?.location_id
         )
       );
     }

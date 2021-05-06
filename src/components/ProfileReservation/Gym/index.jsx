@@ -5,6 +5,7 @@ import {
   PaymentCard,
   MultiContract,
   CreditCard,
+  Pagination,
 } from 'components';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -17,6 +18,7 @@ import {
   setReservation,
   getStaticPage,
   getGymReservationCalendar,
+  getGymPtList,
 } from 'actions';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import axios from 'axios';
@@ -28,7 +30,8 @@ const Gym = ({ dateOption = true }) => {
   const dispatch = useDispatch();
   //Local States
   const [city, setCity] = useState(false);
-  // const [wantPt, setWantPt] = useState(false);
+  const [wantPt, setWantPt] = useState(false);
+  const [page, setPage] = useState(1);
 
   const [openModal, setOpenModal] = useState(false);
   //Redux States
@@ -36,12 +39,15 @@ const Gym = ({ dateOption = true }) => {
   const wallet = useSelector((state) => state.userProfile.wallet);
   const staticPages = useSelector((state) => state.staticPages);
   const reservation = useSelector((state) => state.reservation);
+  const gymList = useSelector((state) => state.userProfile.gymPtList);
 
   //const gymList = useSelector((state) => state.userProfile.ptGymList);
 
   const allBranchList = useSelector(
     (state) => state.profileSettings.ptBranchList.allList
   );
+  const pageChangeHandler = (event, value) => setPage(value);
+
   useEffect(() => {
     dispatch(getWallet());
     //dispatch(getTemplates()); HATA VARSA BURAYA Bİ BAK
@@ -49,7 +55,9 @@ const Gym = ({ dateOption = true }) => {
     dispatch(getStaticPage('uye-mesafeli-hizmet-sozlesmesi'));
     dispatch(getStaticPage('uye-on-bilgilendirme-formu'));
   }, [userInfo]);
-
+  useEffect(() => {
+    setPage(1);
+  }, []);
   useEffect(() => {
     if (reservation?.data?.branch_id && reservation?.data?.date) {
       dispatch(
@@ -62,6 +70,13 @@ const Gym = ({ dateOption = true }) => {
       );
     }
   }, [reservation?.data?.branch_id, reservation?.data?.date]);
+  useEffect(() => {
+    if (wantPt) {
+      dispatch(getGymPtList(userInfo.id, page));
+    } else {
+      dispatch(getGymPtList());
+    }
+  }, [wantPt]);
   useEffect(() => {
     if (!city) {
       axios
@@ -241,14 +256,17 @@ const Gym = ({ dateOption = true }) => {
                   defaultValue={reservation?.data?.branch_id}
                   onChange={(e) => {
                     if (e.target?.value === 2) {
-                      //setWantPt(true);
+                      setWantPt(true);
                     } else {
-                      //setWantPt(false);
+                      setWantPt(false);
+                      dispatch(
+                        setReservation({ pt_id: undefined, pt_price: 0 })
+                      );
                     }
                   }}
                 />
               </InputContainer>
-              {_renderTrainerSelections()}
+              {wantPt && _renderTrainerSelections()}
             </SelectionContainer>
           </>
         );
@@ -259,18 +277,18 @@ const Gym = ({ dateOption = true }) => {
       <>
         <Text color="#9B9B9B">{'Egitmen Seçiniz:'}</Text>
         <RadioGroup row aria-label="workArea" name="workArea" defaultValue="0l">
-          {['sdsd', 'sd', 'sd'].map((item) => (
+          {gymList?.data?.data?.map((item) => (
             <>
               <CardGroup style={{ padding: 0 }}>
                 <TrainerCard
-                  name={'Efe Parlak'}
-                  stars={3}
-                  category={'Fitness Eğitmeni'}
+                  name={item?.name}
+                  stars={item?.rating}
+                  category={item?.title}
                   price={item.price}
-                  classification="A"
+                  classification={item?.classification}
                 />
 
-                {reservation?.data?.location_id === item.id ? (
+                {reservation?.data?.pt_id === item.user_id ? (
                   <RadioButtonCheckedIcon
                     style={{ marginLeft: '5px', cursor: 'pointer' }}
                   />
@@ -279,8 +297,8 @@ const Gym = ({ dateOption = true }) => {
                     onClick={() => {
                       dispatch(
                         setReservation({
-                          location_id: item.id,
-                          gym_price: item.price,
+                          pt_id: item.user_id,
+                          pt_price: item.price,
                         })
                       );
                     }}
@@ -291,6 +309,12 @@ const Gym = ({ dateOption = true }) => {
             </>
           )) || null}
         </RadioGroup>
+        <Pagination
+          mt="50px"
+          count={gymList?.data?.totalPage}
+          page={page}
+          onChange={pageChangeHandler}
+        />
       </>
     );
   }
