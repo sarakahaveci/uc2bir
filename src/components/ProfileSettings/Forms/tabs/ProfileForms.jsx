@@ -5,13 +5,14 @@ import styled from 'styled-components/macro';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { setProfile } from 'actions';
+import { WORK_PLACE } from '../../../../constants';
 
 const ProfileForms = ({ type }) => {
   const dispatch = useDispatch();
   const { detail } = useSelector(
     (state) => state.profileSettings2.profileDetail
   );
-  // let data = {};
+  const user = useSelector((state) => state.auth.user);
   const [saveEnable, setSaveEnable] = useState(false);
   const [data, setData] = useState({});
 
@@ -113,7 +114,7 @@ const ProfileForms = ({ type }) => {
               settings="current"
             />
           )}
-          {type === 'WORK_PLACE' ? (
+          {user?.type_id === WORK_PLACE ? (
             <Material.MaterialDateField
               label="Şirket Kuruluş Tarihi"
               type="text"
