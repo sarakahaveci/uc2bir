@@ -44,6 +44,7 @@ const SearchProfessional = () => {
       price = '[0, 1000]',
       ratings = '[]',
       classification,
+      type = 'packets', //hata olabilir
     } = searchParams;
 
     // Parsing this because it is coming string from url such as '[0, 1000]'
@@ -91,7 +92,7 @@ const SearchProfessional = () => {
     url = Object.keys(formData).reduce((acc, curr) => {
       if (formData[curr]) {
         if (Array.isArray(formData[curr])) {
-          if (formData[curr].length) {
+          if (formData[curr]?.length) {
             return acc + `&${curr}=${JSON.stringify(formData[curr])}`;
           } else {
             return acc;
@@ -186,7 +187,7 @@ const SearchProfessional = () => {
           </Row>
         </SearchWrapper>
 
-        {data.length > 0 ? (
+        {data?.length > 0 ? (
           <>
             <PacketListWrapper>
               {data?.map((professional) => (

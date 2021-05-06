@@ -2,6 +2,7 @@ import React from 'react';
 
 import MockImage from 'assets/default-profile.jpg';
 import { Title, AwesomeIcon, Span } from 'components';
+import { useHistory } from 'react-router-dom';
 
 const PacketCard = ({
   data,
@@ -14,9 +15,9 @@ const PacketCard = ({
 }) => {
   const history = useHistory();
 
-  const navigateToUser = () => {
+  const navigateToPacket = () => {
     const userId = data?.id || data?.user_id;
-    history.push('/user/' + userId);
+    history.push('/packets/detail/' + userId);
   };
 
   return (
@@ -31,7 +32,7 @@ const PacketCard = ({
           {!isGym && !(type == 'selection') ? (
             <div
               className="long-user-card__profile-navigator"
-              onClick={navigateToUser}
+              onClick={navigateToPacket}
             >
               {hoverText}
             </div>
@@ -51,7 +52,7 @@ const PacketCard = ({
           {data?.name}
         </Title>
 
-        <Span underline>{data?.title}</Span>
+        <Span underline>{data?.branch}</Span>
 
         <div className="long-user-card__location-wrapper">
           <div className="long-user-card__location-text">

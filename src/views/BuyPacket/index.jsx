@@ -1,45 +1,196 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled, { css } from 'styled-components/macro';
 import profileImg from '../../assets/banner/slider-item-1.png';
-import packetImg from '../../assets/banner/dw1.jpg';
 import avatar1 from '../../assets/slider/04.jpg';
 import avatar3 from '../../assets/slider/05.jpg';
 import avatar4 from '../../assets/slider/p1.jpg';
 import avatar5 from '../../assets/slider/p2.jpg';
-
-import { Button, Svg } from 'components';
+import ReactHtmlParser from 'react-html-parser';
+import { decode } from 'html-entities';
+import { Button, Svg, PaymentCard, CreditCard } from 'components';
 import { Main } from 'components';
-import PaymentCard from 'components/PaymentCard';
-const BuyPacket = () => {
+import { useDispatch, useSelector } from 'react-redux';
+import { getPacketDetail, setPacketReservation } from 'actions';
+import { device } from 'utils';
+import { useHistory } from 'react-router-dom';
+const BuyPacket = ({ match }) => {
+  const dispatch = useDispatch();
+  const packet = useSelector((state) => state.buyPacket);
+  const wallet = useSelector((state) => state.userProfile.wallet);
+  let history = useHistory();
+
+  useEffect(() => {
+    dispatch(getPacketDetail(match?.params?.id));
+  }, []);
+  useEffect(() => {
+    dispatch(
+      setPacketReservation({
+        totals_amount: packet?.data?.price,
+        id: packet?.data?.id,
+      })
+    );
+  }, [packet?.data]);
+  function onChangeLevel(level) {
+    dispatch(setPacketReservation({ level: level }));
+  }
+
+  function _renderLeftArea() {
+    switch (packet?.reservation?.payment_type) {
+      case 'wallet':
+      case 'both':
+        var wallet_balance = wallet?.data?.balance || 0;
+        var amount = packet?.reservation?.totals_amount || 0;
+        var diff = wallet_balance - amount;
+        return (
+          <div style={{ padding: '0 20px' }}>
+            <InfoContainer_Wallet>
+              <DataContainer>
+                <Info>
+                  <Text style={{ fontWeight: 800 }}>Cüzdanım</Text>
+                  <Text style={{ fontWeight: 800 }}>{wallet_balance}</Text>
+                </Info>
+                <Info>
+                  <Text style={{ fontWeight: 800 }}>İşlem Tutarı</Text>
+                  <Text style={{ fontWeight: 800 }}>{amount}</Text>
+                </Info>
+                <Info>
+                  <Text style={{ fontWeight: 800 }}>Kalan Tutar</Text>
+                  <Text
+                    style={{
+                      fontWeight: 800,
+                      color: diff < 0 ? 'red' : 'black',
+                    }}
+                  >
+                    {diff}
+                  </Text>
+                </Info>
+              </DataContainer>
+              <div style={{ padding: '10px' }}>
+                <text>
+                  Yapacağınız işlem sonrası cüdanınızda kalacak olan toplam
+                  tutar {packet?.reservation?.totals_amount} TL’dir
+                </text>
+              </div>
+            </InfoContainer_Wallet>
+            {diff < 0 && (
+              <CreditCard
+                defaultCardName={packet?.reservation?.holder_name}
+                defaultCardNo={packet?.reservation?.card_number}
+                defaultSKT={
+                  packet?.reservation?.expiration_month +
+                  '/' +
+                  packet?.reservation?.expiration_year
+                }
+                defaultCVV={packet?.reservation?.cvc}
+                onCardName={(val) => {
+                  dispatch(setPacketReservation({ holder_name: val }));
+                }}
+                onCardNo={(val) => {
+                  dispatch(setPacketReservation({ card_number: val }));
+                }}
+                onSKT={(month, year) => {
+                  dispatch(
+                    setPacketReservation({
+                      expiration_month: month,
+                      expiration_year: year,
+                    })
+                  );
+                }}
+                onCVV={(val) => {
+                  dispatch(setPacketReservation({ cvc: val }));
+                }}
+              />
+            )}
+          </div>
+        );
+      case 'credit_card':
+        return (
+          <div style={{ padding: '0 20px' }}>
+            <CreditCard
+              defaultCardName={packet?.reservation?.holder_name}
+              defaultCardNo={packet?.reservation?.card_number}
+              defaultSKT={
+                packet?.reservation?.expiration_month +
+                '/' +
+                packet?.reservation?.expiration_year
+              }
+              defaultCVV={packet?.reservation?.cvc}
+              onCardName={(val) => {
+                dispatch(setPacketReservation({ holder_name: val }));
+              }}
+              onCardNo={(val) => {
+                dispatch(setPacketReservation({ card_number: val }));
+              }}
+              onSKT={(month, year) => {
+                dispatch(
+                  setPacketReservation({
+                    expiration_month: month,
+                    expiration_year: year,
+                  })
+                );
+              }}
+              onCVV={(val) => {
+                dispatch(setPacketReservation({ cvc: val }));
+              }}
+            />
+          </div>
+        );
+
+      default:
+        return (
+          <>
+            <SideContainer>
+              <Image src={packet?.data?.photo}></Image>
+              <InfoContainer>
+                <HeaderText>{packet?.data?.name}</HeaderText>
+                <TitleText>12 Günde 8 Kilo Verin!</TitleText>
+                <BigSeperator />
+                <SubInfo>
+                  <Svg.FitnessMediumIcon></Svg.FitnessMediumIcon>
+                  <text style={{ margin: '0 5px' }}>
+                    {packet?.data?.branch}
+                  </text>
+                  <Svg.ClockMediumIcon></Svg.ClockMediumIcon>
+                  <text style={{ margin: '0 5px' }}>
+                    {packet?.data?.lesson_amount} Ders
+                  </text>
+                </SubInfo>
+                <LabelText>İçerik</LabelText>
+                <Seperator />
+
+                <DescText>
+                  {ReactHtmlParser(decode(packet?.data?.detail))}
+                </DescText>
+              </InfoContainer>
+            </SideContainer>
+          </>
+        );
+    }
+  }
+
   return (
     <Main>
       <img src={profileImg} alt="" className="banner-image" />
+
+      <div style={{ padding: '20px 17%' }}>
+        <BackLink
+          onClick={() => {
+            packet?.reservation?.payment_type
+              ? dispatch(setPacketReservation({ payment_type: undefined }))
+              : history.push('/packets');
+          }}
+        >
+          <Svg.ArrowLeftIcon />
+
+          {packet?.reservation?.payment_type ? (
+            <span>Ödeme Yap</span>
+          ) : (
+            <span>Paket Detayı</span>
+          )}
+        </BackLink>
+      </div>
       <Container>
-        <SideContainer>
-          <Image src={packetImg}></Image>
-          <InfoContainer>
-            <HeaderText>Gelin Paketi</HeaderText>
-            <TitleText>12 Günde 8 Kilo Verin!</TitleText>
-            <BigSeperator />
-            <SubInfo>
-              <Svg.FitnessMediumIcon></Svg.FitnessMediumIcon>
-              <text style={{ margin: '0 5px' }}>Fitness</text>
-              <Svg.ClockMediumIcon></Svg.ClockMediumIcon>
-              <text style={{ margin: '0 5px' }}>12 Ders</text>
-            </SubInfo>
-            <LabelText>İçerik</LabelText>
-            <Seperator />
-            <DescText>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum. dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.”
-            </DescText>
-          </InfoContainer>
-        </SideContainer>
+        {_renderLeftArea()}
         <SideContainer>
           <TrainerGroupContainer>
             <TrainerGroupWrapper>
@@ -47,12 +198,33 @@ const BuyPacket = () => {
                 <LabelText>Seviyenizi Seçiniz</LabelText>
                 <Seperator></Seperator>
                 <LevelContainer>
-                  <LevelCircle enable>A</LevelCircle>
+                  <LevelCircle
+                    onClick={() => {
+                      onChangeLevel('A');
+                    }}
+                    enable={packet?.reservation?.level == 'A'}
+                  >
+                    A
+                  </LevelCircle>
                   <Line />
-                  <LevelCircle>B</LevelCircle>
+                  <LevelCircle
+                    onClick={() => {
+                      onChangeLevel('B');
+                    }}
+                    enable={packet?.reservation?.level == 'B'}
+                  >
+                    B
+                  </LevelCircle>
                   <Line />
 
-                  <LevelCircle>C</LevelCircle>
+                  <LevelCircle
+                    onClick={() => {
+                      onChangeLevel('C');
+                    }}
+                    enable={packet?.reservation?.level == 'C'}
+                  >
+                    C
+                  </LevelCircle>
                 </LevelContainer>
               </div>
               <BottomContainer>
@@ -72,7 +244,7 @@ const BuyPacket = () => {
               </BottomContainer>
             </TrainerGroupWrapper>
           </TrainerGroupContainer>
-          <PaymentCard></PaymentCard>
+          <PaymentCard type="buy_packet"></PaymentCard>
         </SideContainer>
       </Container>
     </Main>
@@ -82,10 +254,11 @@ const Container = styled.div`
   display: flex;
   widht: 100%;
   min-height: 1200px;
-  padding: 50px 15%;
+  padding: 0 15%;
   justify-content: space-between;
 `;
 const SideContainer = styled.div`
+  margin-top: 30px;
   width: 48%;
 `;
 const Image = styled.img`
@@ -104,6 +277,7 @@ const InfoContainer = styled.div`
   margin: -50px 0;
   padding: 40px;
 `;
+
 const HeaderText = styled.text`
   font-size: 26px;
   font-weight: bold;
@@ -117,7 +291,7 @@ const LabelText = styled.text`
   font-weight: bold;
   color: var(--blue);
 `;
-const DescText = styled.text`
+const DescText = styled.div`
   font-size: 18px;
 `;
 const Seperator = styled.div`
@@ -151,6 +325,7 @@ const LevelContainer = styled.div`
   align-items: center;
 `;
 const LevelCircle = styled.div`
+  cursor: pointer;
   width: 80px;
   height: 80px;
   border-radius: 80px;
@@ -220,3 +395,54 @@ const SubInfo = styled.div`
   margin-bottom: 20px;
 `;
 export default BuyPacket;
+//
+const DataContainer = styled.div`
+  width: 100%;
+  background: white;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #c6c6c6;
+  padding: 5px 20px;
+`;
+const Text = styled.text`
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif;
+  color: ${(props) => props.color || 'black'};
+  @media ${device.sm} {
+    font-size: 0.7rem;
+  }
+`;
+const Info = styled.div`
+  display: flex;
+  justify-content: space-between;
+  border-style: ${(p) => (p.borderDisable ? 'none' : 'solid')};
+  border-color: rgba(144, 144, 144, 0.5);
+  border-width: 0 0 1px 0;
+  padding: 10px 5px;
+`;
+const InfoContainer_Wallet = styled.div`
+  width: 586px;
+  background: #f8f8f8;
+  border-radius: 10px;
+  @media ${device.sm} {
+    width: 100%;
+  }
+`;
+const BackLink = styled(Text)`
+  display: flex;
+  cursor: pointer;
+  margin-bottom: 15px;
+
+  svg {
+    margin-top: 2px;
+  }
+
+  > span {
+    margin-left: 10px;
+    color: ${(p) => p.theme.colors.softDark};
+    font-weight: 600;
+    font-size: 1.2rem;
+  }
+`;

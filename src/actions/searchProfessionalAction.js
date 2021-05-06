@@ -32,6 +32,7 @@ export const searchProffesional = (
   const gymUrl = '/user/search/detail-search-gym?';
   const dietitionUrl = '/user/search/detail-search-dt?';
   const ptUrl = '/user/search/detail-search-pt?';
+  const packetUrl = '/cms/package/list?';
 
   let url;
   switch (type) {
@@ -44,7 +45,9 @@ export const searchProffesional = (
     case 'dt':
       url = dietitionUrl;
       break;
-
+    case 'packets':
+      url = packetUrl;
+      break;
     default:
       break;
   }

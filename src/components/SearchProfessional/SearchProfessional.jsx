@@ -213,9 +213,9 @@ const SearchProfessional = () => {
           </Row>
         </SearchWrapper>
 
-        <GoogleMapClusterer data={data} />
+        {data && <GoogleMapClusterer data={data} />}
 
-        {data.length > 0 ? (
+        {data?.length > 0 ? (
           <>
             <GymListWrapper>
               {data?.map((professional) => (

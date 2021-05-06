@@ -12,11 +12,14 @@ import {
   addSlot,
   sendReservation,
   clearReservationCalendar,
+  setPacketReservation,
 } from 'actions';
 import moment from 'moment';
 export default function PaymentCard({ type, dateOption }) {
   const dispatch = useDispatch();
   const reservation = useSelector((state) => state.reservation);
+  const buyPacket = useSelector((state) => state.buyPacket);
+
   const reservationCalendar = useSelector((state) => state.reservationCalendar);
   const { userInfo } = useSelector((state) => state.userProfile.userInfo);
   const [toggleState, setToggleState] = useState(false);
@@ -95,14 +98,25 @@ export default function PaymentCard({ type, dateOption }) {
       })
     );
   }
-  function selectPaymentType(type) {
-    if (reservation?.data?.totals_amount > 0) {
-      dispatch(setReservation({ payment_type: type }));
+  function selectPaymentType(payment_type) {
+    if (type !== 'buy_packet') {
+      if (reservation?.data?.totals_amount > 0) {
+        dispatch(setReservation({ payment_type: payment_type }));
+      } else {
+        toast.error('Sepetiniz Boş', {
+          position: 'bottom-right',
+          autoClose: 4000,
+        });
+      }
     } else {
-      toast.error('Sepetiniz Boş', {
-        position: 'bottom-right',
-        autoClose: 4000,
-      });
+      if (buyPacket?.reservation?.totals_amount > 0) {
+        dispatch(setPacketReservation({ payment_type: payment_type }));
+      } else {
+        toast.error('Sepetiniz Boş', {
+          position: 'bottom-right',
+          autoClose: 4000,
+        });
+      }
     }
   }
 
@@ -291,116 +305,176 @@ export default function PaymentCard({ type, dateOption }) {
           </DataContainer>
         </InfoContainer>
       )}
-
-      <InfoContainer>
-        <DataContainer>
-          <Info borderDisable>
-            <Accordion>
-              <AccordionItemWrapper>
-                <Accordion.Item defaultOpen={false}>
-                  <Accordion.Toggle
-                    onToggle={(state) => setToggleState(state)}
-                    className="accordion-toggler"
-                  >
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                      {/*miniIcon*/}
-                      <DarkTitle>{'Rezervasyonlarınız'}</DarkTitle>
-                    </div>
-                    {toggleState ? <Svg.ArrowDownIcon /> : <Svg.ArrowUpIcon />}
-                  </Accordion.Toggle>
-                  <Accordion.Collapse>
-                    {reservation?.data?.slot?.map((elm, key) => (
-                      <Info key={key}>
-                        <div style={{ display: 'flex' }}>
-                          <Text
-                            style={{
-                              fontWeight: 800,
-                              padding: '0 7px',
-                              borderRightStyle: 'solid',
-                              borderWidth: '1px',
-                              borderColor: 'gray',
-                            }}
-                          >
-                            {key + 1}.
-                            {(type === 'pt' && 'Ders') ||
-                              (type === 'dt' && 'Seans')}
-                          </Text>
-                          <Svg.Date style={{ marginLeft: '5px' }} />
-                          <Text
-                            color="#00B2A9"
-                            style={{
-                              fontWeight: 800,
-                              padding: '0 7px',
-                            }}
-                          >
-                            Tarih:
-                          </Text>
-                          <Text
-                            color="gray"
-                            style={{
-                              fontWeight: 800,
-                              padding: '0 7px',
-                            }}
-                          >
-                            {elm.date}
-                          </Text>
-                          <Text
-                            color="#00B2A9"
-                            style={{
-                              fontWeight: 800,
-                              padding: '0 7px',
-                            }}
-                          >
-                            Saat:
-                          </Text>
-                          <Text
-                            color="gray"
-                            style={{
-                              fontWeight: 800,
-                              padding: '0 7px',
-                            }}
-                          >
-                            {elm.hour}
-                          </Text>
-                        </div>
-                        {!reservation?.data?.payment_type && (
-                          <Svg.TrashIcon
-                            onClick={() => {
-                              dispatch(deleteSlot(elm));
-                            }}
-                          />
-                        )}
-                      </Info>
-                    ))}
-                  </Accordion.Collapse>
-                </Accordion.Item>
-              </AccordionItemWrapper>
-            </Accordion>
-          </Info>
-        </DataContainer>
-        {(type === 'pt' && (
-          <AddTextContainer>
-            <AddHeader>Ders Ekle</AddHeader>
-            <AddDesc>Aynı eğitmen ve salondan daha fazla ders alın</AddDesc>
-          </AddTextContainer>
-        )) ||
-          (type === 'dt' && (
+      {type !== 'buy_packet' && (
+        <InfoContainer>
+          <DataContainer>
+            <Info borderDisable>
+              <Accordion>
+                <AccordionItemWrapper>
+                  <Accordion.Item defaultOpen={false}>
+                    <Accordion.Toggle
+                      onToggle={(state) => setToggleState(state)}
+                      className="accordion-toggler"
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                        {/*miniIcon*/}
+                        <DarkTitle>{'Rezervasyonlarınız'}</DarkTitle>
+                      </div>
+                      {toggleState ? (
+                        <Svg.ArrowDownIcon />
+                      ) : (
+                        <Svg.ArrowUpIcon />
+                      )}
+                    </Accordion.Toggle>
+                    <Accordion.Collapse>
+                      {reservation?.data?.slot?.map((elm, key) => (
+                        <Info key={key}>
+                          <div style={{ display: 'flex' }}>
+                            <Text
+                              style={{
+                                fontWeight: 800,
+                                padding: '0 7px',
+                                borderRightStyle: 'solid',
+                                borderWidth: '1px',
+                                borderColor: 'gray',
+                              }}
+                            >
+                              {key + 1}.
+                              {(type === 'pt' && 'Ders') ||
+                                (type === 'dt' && 'Seans')}
+                            </Text>
+                            <Svg.Date style={{ marginLeft: '5px' }} />
+                            <Text
+                              color="#00B2A9"
+                              style={{
+                                fontWeight: 800,
+                                padding: '0 7px',
+                              }}
+                            >
+                              Tarih:
+                            </Text>
+                            <Text
+                              color="gray"
+                              style={{
+                                fontWeight: 800,
+                                padding: '0 7px',
+                              }}
+                            >
+                              {elm.date}
+                            </Text>
+                            <Text
+                              color="#00B2A9"
+                              style={{
+                                fontWeight: 800,
+                                padding: '0 7px',
+                              }}
+                            >
+                              Saat:
+                            </Text>
+                            <Text
+                              color="gray"
+                              style={{
+                                fontWeight: 800,
+                                padding: '0 7px',
+                              }}
+                            >
+                              {elm.hour}
+                            </Text>
+                          </div>
+                          {!reservation?.data?.payment_type && (
+                            <Svg.TrashIcon
+                              onClick={() => {
+                                dispatch(deleteSlot(elm));
+                              }}
+                            />
+                          )}
+                        </Info>
+                      ))}
+                    </Accordion.Collapse>
+                  </Accordion.Item>
+                </AccordionItemWrapper>
+              </Accordion>
+            </Info>
+          </DataContainer>
+          {(type === 'pt' && (
             <AddTextContainer>
-              <AddHeader>Seans Ekle</AddHeader>
-              <AddDesc>
-                Aynı diyetisyen ve klinikten daha fazla randevu alın
-              </AddDesc>
+              <AddHeader>Ders Ekle</AddHeader>
+              <AddDesc>Aynı eğitmen ve salondan daha fazla ders alın</AddDesc>
             </AddTextContainer>
-          ))}
-      </InfoContainer>
+          )) ||
+            (type === 'dt' && (
+              <AddTextContainer>
+                <AddHeader>Seans Ekle</AddHeader>
+                <AddDesc>
+                  Aynı diyetisyen ve klinikten daha fazla randevu alın
+                </AddDesc>
+              </AddTextContainer>
+            ))}
+        </InfoContainer>
+      )}
       <ConfirmContainer>
         <BottomContainer>
           <Text style={{ fontWeight: 800 }}>Toplam Ücret</Text>
           <Text color="#00B2A9" style={{ fontWeight: 800, fontSize: 30 }}>
-            {reservation?.data?.totals_amount}
+            {type == 'buy_packet'
+              ? buyPacket?.reservation?.totals_amount
+              : reservation?.data?.totals_amount}
           </Text>
         </BottomContainer>
-        {reservation?.data?.payment_type ? (
+        {type !== 'buy_packet' &&
+          (reservation?.data?.payment_type ? (
+            <BottomContainer>
+              <Button
+                style={{ width: '100%', padding: '20px' }}
+                className="blue"
+                text="Ödeme Yap"
+                onClick={() => {
+                  switch (type) {
+                    case 'pt':
+                      sendPaymentPT();
+                      break;
+                    case 'dt':
+                      sendPaymentDT();
+                      break;
+                    default:
+                      break;
+                  }
+                }}
+              />
+            </BottomContainer>
+          ) : (
+            <>
+              <BottomContainer>
+                <Button
+                  style={{ width: '100%', padding: '20px' }}
+                  className="blue"
+                  text="Cüzdanımdan Öde"
+                  onClick={() => {
+                    var wallet_balance = wallet?.data?.balance || 0;
+                    var amount = reservation?.data?.totals_amount || 0;
+                    var diff = wallet_balance - amount;
+                    if (diff < 0) {
+                      selectPaymentType('both');
+                    } else {
+                      selectPaymentType('wallet');
+                    }
+                  }}
+                />
+              </BottomContainer>
+              <BottomContainer style={{ margin: '5px' }}>
+                <Button
+                  style={{ width: '100%', padding: '20px' }}
+                  className="blue"
+                  text="Kredi Kartından Öde"
+                  onClick={() => {
+                    selectPaymentType('credit_card');
+                  }}
+                />
+              </BottomContainer>
+            </>
+          ))}
+
+        {type == 'buy_packet' && buyPacket?.reservation?.payment_type ? (
           <BottomContainer>
             <Button
               style={{ width: '100%', padding: '20px' }}
