@@ -180,7 +180,7 @@ export default function Profile({ match }) {
                   has_favorite: userInfo?.has_favorite,
                 }}
                 categories={userInfo?.session || userInfo?.branch}
-                about={ userInfo?.about}
+                about={userInfo?.about}
               />
             </Row>
             <TabContainers>

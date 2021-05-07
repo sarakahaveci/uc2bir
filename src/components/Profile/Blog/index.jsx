@@ -32,6 +32,7 @@ export default function Blog({ userId, userName }) {
           photo={blog?.photo}
           createdTime={blog?.created_at}
           userName={userName}
+          detail_url={blog?.seo_friendly_url}
         />
       ))}
       {blogData?.blogs?.length > 0 ? (

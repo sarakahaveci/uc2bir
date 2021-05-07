@@ -2,14 +2,17 @@ import React from 'react';
 
 import { Title } from 'components';
 import TwitterIcon from 'assets/twitter.svg';
-
+import { useHistory } from 'react-router-dom';
 export default function BlogCard({
-  title = 'Sporcu Beslenmesi',
-  description = 'Lorem morem Lorem morem Lorem morem Lorem morem Lorem morem Lorem morem Lorem morem Lorem morem Lorem morem Lorem morem Lorem morem Lorem morem Lorem morem Lorem morem Lorem morem Lorem morem Lorem morem Lorem morem ',
+  title = '',
+  description = '',
   photo,
   createdTime,
-  userName
+  userName,
+  detail_url = '',
 }) {
+  const history = useHistory();
+
   return (
     <div className="row">
       <div>
@@ -30,7 +33,26 @@ export default function BlogCard({
           >
             {description}
           </Title>
+
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'flex-end',
+              justifyContent: 'flex-end',
+              padding: '20px',
+            }}
+          >
+            <div
+              onClick={() => {
+                history.push(`/blog-detail/${detail_url}`);
+              }}
+              style={{ display: 'flex', cursor: 'pointer' }}
+            >
+              Tümünü Görüntüle
+            </div>
+          </div>
         </div>
+
         <div className="col-md-4 col-sm-12">
           <img
             src={photo || TwitterIcon}
