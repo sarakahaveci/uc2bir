@@ -105,7 +105,7 @@ const ProfileBanner = ({
         <Cols lg={4} padding="0 30px">
           <CardInfo
             name={info.name}
-            price={info.price || '300'}
+            price={info.price}
             categories={categories}
             jobType={info.category}
             location={info.location}

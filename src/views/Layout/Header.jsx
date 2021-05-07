@@ -100,7 +100,7 @@ const Header = () => {
                       <AwesomeIcon.Search />
                       <input
                         className="menubar-search-input"
-                        placeholder="| Ne Arıyorsun?"
+                        placeholder="Ne Arıyorsun?"
                         name="search"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
