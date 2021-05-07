@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import InputMask from 'react-input-mask';
 import { TextField } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 
 import { Material, Button } from 'components';
 import GoogleMap from 'components/GoogleMaps/GoogleMap';
@@ -14,15 +15,20 @@ import LinkedinIcon from 'assets/linkedin.svg';
 import TwitterIcon from 'assets/twitter.svg';
 
 export default function Contact() {
-  const [phone, setPhone] = useState('');
   const [shrink, setShrink] = useState(false);
 
+  const [name_surname, setName] = useState('');
+  const [subject, setSubject] = useState('');
+  const [message, setMessage] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+
+  const history = useHistory();
   const { isAuthenticated } = useSelector((state) => state.auth);
   const { infoData } = useSelector((state) => state.footer);
-
   const dispatch = useDispatch();
 
-  const [formData, setFormData] = useState({});
+  // const [formData, setFormData] = useState({});
 
   const Cordinate = infoData?.coordinates?.split(',');
 
@@ -31,25 +37,34 @@ export default function Contact() {
     return normalizedNumber;
   };
 
-  const handleFormOnChange = (event) => {
-    setFormData({
-      ...formData,
-      [event.target.name]: event.target.value,
-      phone: phoneNumberNormalize(phone),
-    });
-  };
+  // const handleFormOnChange = (event) => {
+  //   setFormData({
+  //     ...formData,
+  //     [event.target.name]: event.target.value,
+  //     phone: phoneNumberNormalize(phone),
+  //   });
+  // };
 
   const submitForm = (e) => {
     e.stopPropagation();
     e.preventDefault();
     dispatch(
       sendTicket(
-        formData,
-        () =>
+        {
+          name_surname,
+          subject,
+          message,
+          email,
+          phone: phoneNumberNormalize(phone),
+        },
+        () => {
           toast.success('Mesajınız başarı ile iletildi', {
             position: 'bottom-right',
             autoClose: 7000,
-          }),
+          });
+          history.push('/');
+        },
+
         (message) =>
           toast.error(message, {
             position: 'bottom-right',
@@ -116,14 +131,16 @@ export default function Contact() {
                   label="Adı Soyadı"
                   type="text"
                   name="name_surname"
-                  onChange={handleFormOnChange}
+                  value={name_surname}
+                  onChange={(e) => setName(e.target.value)}
                 />
                 <Material.TextField
                   required
                   label="Email"
                   type="email"
                   name="email"
-                  onChange={handleFormOnChange}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
                 <div className="materials" style={{ padding_left: '0px' }}>
                   <InputMask
@@ -137,7 +154,7 @@ export default function Contact() {
                     onFocus={() => setShrink(true)}
                     onBlur={() =>
                       // Had to do that for fixing shrink
-                      phone !== '0(   )          '
+                      phone !== '\0(   )          '
                         ? setShrink(true)
                         : setShrink(false)
                     }
@@ -151,13 +168,14 @@ export default function Contact() {
                     )}
                   </InputMask>
                 </div>
+
                 <Material.TextField
                   required
                   label="Konu Başlığı"
                   type="text"
                   name="subject"
-                  value={formData.subject}
-                  onChange={handleFormOnChange}
+                  defaultValue={subject}
+                  onChange={(e) => setSubject(e.target.value)}
                   inputProps={{ minLength: 5 }}
                 />
               </div>
@@ -166,8 +184,9 @@ export default function Contact() {
                   name="message"
                   type="text"
                   label="Mesajınız"
+                  defaultValue={message}
                   rows={8}
-                  onChange={handleFormOnChange}
+                  onChange={(e) => setMessage(e.target.value)}
                   required
                   inputProps={{ minLength: 50, maxLength: 200 }}
                 />
@@ -181,21 +200,24 @@ export default function Contact() {
             </>
           ) : (
             <div className="d-flex  flex-column col-12 mt-2">
-              <Material.TextField
+              <Material.TexAreaField
                 required
                 label="Konu Başlığı"
                 type="text"
                 name="subject"
-                onChange={handleFormOnChange}
+                defaultValue={subject}
+                rows={2}
+                onChange={(e) => setSubject(e.target.value)}
                 inputProps={{ minLength: 5 }}
               />
               <Material.TexAreaField
                 name="message"
                 label="Mesajiniz"
                 rows={8}
-                onChange={handleFormOnChange}
+                defaultValue={message}
+                onChange={(e) => setMessage(e.target.value)}
                 required
-                inputProps={{ minLength: 50, maxLength: 200 }}
+                inputProps={{ minLength: 50, maxLength: 2500 }}
               />
               <Button
                 type="submit"
