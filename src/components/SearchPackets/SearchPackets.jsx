@@ -187,10 +187,10 @@ const SearchProfessional = () => {
           </Row>
         </SearchWrapper>
 
-        {data?.data?.length > 0 ? (
+        {data?.length > 0 ? (
           <>
             <PacketListWrapper>
-              {data?.data?.map((packet) => (
+              {data?.map((packet) => (
                 <PacketCard
                   showHeartBg
                   key={packet?.id || packet?.user_id}
