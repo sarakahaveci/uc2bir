@@ -188,7 +188,7 @@ export default function Contact() {
                   rows={8}
                   onChange={(e) => setMessage(e.target.value)}
                   required
-                  inputProps={{ minLength: 50, maxLength: 200 }}
+                  inputProps={{ minLength: 10, maxLength: 200 }}
                 />
                 <Button
                   type="submit"
@@ -217,7 +217,7 @@ export default function Contact() {
                 defaultValue={message}
                 onChange={(e) => setMessage(e.target.value)}
                 required
-                inputProps={{ minLength: 50, maxLength: 2500 }}
+                inputProps={{ minLength: 10, maxLength: 2500 }}
               />
               <Button
                 type="submit"

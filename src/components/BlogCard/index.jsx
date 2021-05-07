@@ -61,7 +61,6 @@ export default function BlogCard({
               width: '300px',
               height: '250px',
               borderLeft: '0.5px solid #70707063 ',
-
               paddingLeft: '25px',
             }}
           />
