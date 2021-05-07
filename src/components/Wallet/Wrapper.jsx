@@ -49,7 +49,9 @@ const Wrapper = ({ item }) => {
                     <tbody>
                       <tr>
                         <td>Toplam</td>
-                        <td className="text-right font-weight-bold">500 ₺</td>
+                        <td className="text-right font-weight-bold">
+                          {item.amount} ₺
+                        </td>
                       </tr>
                     </tbody>
                   </table>
