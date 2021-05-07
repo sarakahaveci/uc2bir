@@ -187,16 +187,16 @@ const SearchProfessional = () => {
           </Row>
         </SearchWrapper>
 
-        {data?.length > 0 ? (
+        {data?.data?.length > 0 ? (
           <>
             <PacketListWrapper>
-              {data?.map((professional) => (
+              {data?.data?.map((packet) => (
                 <PacketCard
                   showHeartBg
-                  key={professional?.id || professional?.user_id}
-                  data={professional}
-                  city={professional?.city}
-                  district={professional?.district}
+                  key={packet?.id || packet?.user_id}
+                  data={packet}
+                  city={packet?.city}
+                  district={packet?.district}
                 />
               ))}
             </PacketListWrapper>
