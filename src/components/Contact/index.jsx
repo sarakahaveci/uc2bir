@@ -213,7 +213,7 @@ export default function Contact() {
                 defaultValue={message}
                 onBlur={(e) => setMessage(e.target.value)}
                 required
-                inputProps={{ minLength: 50, maxLength: 2500 }}
+                inputProps={{ minLength: 10, maxLength: 2500 }}
               />
               <Button
                 type="submit"

@@ -19,23 +19,35 @@ const ProfileForms = ({ type }) => {
 
 
   useEffect(() => {
-    setData({...data, name:detail?.data?.name})
+    setData({ ...data, name: detail?.data?.name })
   }, [detail]);
 
   const diffHandler = () => {
     const fields = Object.keys(data);
     setIsDiff(fields.every((field) => data[field] === detail?.data[field]));
 
-    if (isDiff ) {
+    if (isDiff) {
       setSaveEnable(false);
     } else {
       setSaveEnable(true);
     }
   };
 
+  const checkDateRange = (minYY, maxYY, value) => {
+    if (value !== "Invalid date" &&
+      Number(value.substring(6, 10)) >= minYY &&
+      Number(value.substring(6, 10)) <= maxYY
+    ) {
+      setSaveEnable(true);
+    }
+    else {
+      setSaveEnable(false);
+    }
+  }
+
   const onSubmit = (event) => {
     event.preventDefault();
-    if(data.name){
+    if (data.name) {
       dispatch(
         setProfile(
           { ...data },
@@ -53,7 +65,7 @@ const ProfileForms = ({ type }) => {
           }
         )
       );
-    }else {
+    } else {
       toast.error('İsim Alanı Boş Girilemez', {
         position: 'bottom-right',
         autoClose: 2000,
@@ -139,13 +151,14 @@ const ProfileForms = ({ type }) => {
               defaultValue={detail?.data?.birthday}
               onChange={(e) => {
                 if (e.target.value !== 'Invalid date') {
+                  checkDateRange(1945, 2014, e.target.value)
                   setData({ ...data, [e.target.name]: e.target.value });
-                  diffHandler(e);
+                  //diffHandler(e);
                 }
               }}
               settings="current"
               minDate={'01.01.1945'}
-              maxDate={'01.15.2014'}
+              maxDate={'12.12.2014'}
             />
           )}
           <Footer>
