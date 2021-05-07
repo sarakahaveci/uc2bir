@@ -131,33 +131,29 @@ export default function Contact() {
                   label="Adı Soyadı"
                   type="text"
                   name="name_surname"
-                  value={name_surname}
-                  onChange={(e) => setName(e.target.value)}
+                  onBlur={(e) => setName(e.target.value)}
                 />
                 <Material.TextField
                   required
                   label="Email"
                   type="email"
                   name="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onBlur={(e) => setEmail(e.target.value)}
                 />
                 <div className="materials" style={{ padding_left: '0px' }}>
                   <InputMask
                     required
                     mask="\0(999) 999 99 99"
-                    value={phone}
                     disabled={false}
-                    onChange={(e) => setPhone(e.target.value)}
                     alwaysShowMask={false}
                     maskChar=" "
                     onFocus={() => setShrink(true)}
-                    onBlur={() =>
-                      // Had to do that for fixing shrink
+                    onBlur={(e) => {
+                      setPhone(e.target.value);
                       phone !== '\0(   )          '
                         ? setShrink(true)
-                        : setShrink(false)
-                    }
+                        : setShrink(false);
+                    }}
                   >
                     {() => (
                       <TextField
@@ -175,7 +171,7 @@ export default function Contact() {
                   type="text"
                   name="subject"
                   defaultValue={subject}
-                  onChange={(e) => setSubject(e.target.value)}
+                  onBlur={(e) => setSubject(e.target.value)}
                   inputProps={{ minLength: 5 }}
                 />
               </div>
@@ -186,9 +182,9 @@ export default function Contact() {
                   label="Mesajınız"
                   defaultValue={message}
                   rows={8}
-                  onChange={(e) => setMessage(e.target.value)}
+                  onBlur={(e) => setMessage(e.target.value)}
                   required
-                  inputProps={{ minLength: 50, maxLength: 200 }}
+                  inputProps={{ minLength: 50, maxLength: 2500 }}
                 />
                 <Button
                   type="submit"
@@ -207,7 +203,7 @@ export default function Contact() {
                 name="subject"
                 defaultValue={subject}
                 rows={2}
-                onChange={(e) => setSubject(e.target.value)}
+                onBlur={(e) => setSubject(e.target.value)}
                 inputProps={{ minLength: 5 }}
               />
               <Material.TexAreaField
@@ -215,7 +211,7 @@ export default function Contact() {
                 label="Mesajiniz"
                 rows={8}
                 defaultValue={message}
-                onChange={(e) => setMessage(e.target.value)}
+                onBlur={(e) => setMessage(e.target.value)}
                 required
                 inputProps={{ minLength: 50, maxLength: 2500 }}
               />
