@@ -189,13 +189,6 @@ export default function Profile() {
 
                 {content}
               </>
-              {/*<Tab*/}
-              {/*  baseUrl={`/myprofile/settings/profile/`}*/}
-              {/*  tabData={tabData}*/}
-              {/*  defaultActiveKey={*/}
-              {/*    match?.params?.activeTabKey || tabData?.[0]?.eventKey*/}
-              {/*  }*/}
-              {/*/>*/}
             </TabContainers>
           </Container>
         </>

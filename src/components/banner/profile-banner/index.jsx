@@ -102,7 +102,7 @@ const ProfileBanner = ({
           </Card>
         </Cols>
 
-        <Cols lg={4} padding="0 30px">
+        <Cols lg={4}>
           <CardInfo
             name={info.name}
             price={info.price}
