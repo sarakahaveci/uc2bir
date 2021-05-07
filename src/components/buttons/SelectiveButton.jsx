@@ -6,6 +6,7 @@ export default function SelectiveButton({
   name = 'asdas',
   selectButtonHandler = () => {},
   isActive,
+  indelible = false,
 }) {
   const buttonClass = isActive ? 'branch-button activeButton' : 'branch-button';
 
@@ -16,7 +17,7 @@ export default function SelectiveButton({
       onClick={() => selectButtonHandler(id)}
     >
       {name}
-      {isActive && <span className="button-close-icon">x</span>}
+      {!indelible && isActive && <span className="button-close-icon">x</span>}
     </Button>
   );
 }

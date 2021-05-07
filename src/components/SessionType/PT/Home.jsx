@@ -3,7 +3,6 @@ import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { Button } from 'components';
 import SelectiveButton from '../../buttons/SelectiveButton';
-
 const Home = ({
   icons = [],
   select = () => {},
@@ -20,6 +19,10 @@ const Home = ({
           id={val.id}
           name={val.name}
           selectButtonHandler={select}
+          indelible={
+            get?.data?.data?.filter((f) => f.type === val.id)[0]?.status ===
+            'active'
+          }
           isActive={
             selected.includes(val.id) ||
             get?.data?.data?.filter((f) => f.type === val.id)[0]?.status ===

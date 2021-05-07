@@ -30,7 +30,10 @@ const PT = ({ icons, setBannerActive }) => {
   }, [get]);
   const select = (key) => {
     if (selected.includes(key)) {
-      setSelected(selected.filter((item) => item !== key));
+      var filtered = selected.filter((item) => item !== key);
+
+      setSelected(filtered);
+      setTypes([...filtered]);
     } else {
       setSelected((selecteds) => [...selecteds, key]);
       setTypes([...types, key]);
@@ -42,10 +45,14 @@ const PT = ({ icons, setBannerActive }) => {
     if (get?.data?.data?.length > 0) {
       get.data.data.map((val) => new_types.push(val.type));
     }
+
     await dispatch(
       createTypes(
         { types: new_types },
-        () => setPage('Adds'),
+        () => {
+          setPage('Adds');
+          dispatch(getSessionTypes());
+        },
         () =>
           toast.error('Bir sorun oluştu lütfen daha sonra tekrar deneyiniz.', {
             position: 'bottom-right',
