@@ -1,8 +1,11 @@
 import React from 'react';
-
+import styled from 'styled-components';
 import { Title } from 'components';
 import TwitterIcon from 'assets/twitter.svg';
 import { useHistory } from 'react-router-dom';
+// import { Button } from 'react-scroll';
+// import { right } from 'styled-system';
+
 export default function BlogCard({
   title = '',
   description = '',
@@ -39,17 +42,18 @@ export default function BlogCard({
               display: 'flex',
               alignItems: 'flex-end',
               justifyContent: 'flex-end',
-              padding: '20px',
+              paddingRight: '25px',
+              paddingBottom: '20px',
             }}
           >
-            <div
+            <ButtonWrapper
               onClick={() => {
                 history.push(`/blog-detail/${detail_url}`);
               }}
               style={{ display: 'flex', cursor: 'pointer' }}
             >
-              Tümünü Görüntüle
-            </div>
+              Devamını Oku
+            </ButtonWrapper>
           </div>
         </div>
 
@@ -87,3 +91,18 @@ export default function BlogCard({
     </div>
   );
 }
+
+const ButtonWrapper = styled.div`
+  color: white;
+  background: #00b2a9;
+  padding: 1%;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  border: 2px solid;
+
+  &:hover {
+    color: #00b2a9;
+    background: white;
+    border-color: #00b2a9;
+  }
+`;
