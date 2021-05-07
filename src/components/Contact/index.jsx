@@ -62,11 +62,6 @@ export default function Contact() {
             position: 'bottom-right',
             autoClose: 7000,
           });
-          setName('');
-          setSubject('');
-          setMessage('');
-          setEmail('');
-          setPhone('');
           history.push('/');
         },
 
