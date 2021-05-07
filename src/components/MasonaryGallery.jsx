@@ -213,7 +213,7 @@ const MasonaryGallery = ({
           frameBorder='0'
           allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
           allowFullScreen
-          />
+        />
       );
     }
   };
@@ -279,10 +279,10 @@ const MasonaryGallery = ({
           </StyledCategories>
 
           <ResponsiveMasonry columnsCountBreakPoints={columnsCountBreakPoints}>
-            <Masonry columnsCount={columnsCount} gutter={gutter}>
+            <Masonry columnsCount={columnsCount} gutter={gutter} className="abc" >
               {myGalleries?.data?.data?.map((image, i) =>
                 active === 'all' ? (
-                  <>
+                  <StyledCard>
                     <Div padding={15} id={image.id}>
                       <Icon
                         img={image.status ? tickIcon : closeIcon}
@@ -294,35 +294,38 @@ const MasonaryGallery = ({
                       />
                       <div className="img" onClick={() => openModal(image)}>
                         <img
+
                           key={i}
                           src={`${getImage(image)}`}
-                          style={{ width: '100%', display: 'block' }}
+                          style={{ width: '100%', display: 'block', objectFit: "cover" }}
                           alt={image.name}
                         />
                       </div>
                     </Div>
-                  </>
+                  </StyledCard>
                 ) : (
                   <>
                     {active === image.file_type && (
-                      <Div padding={15} id={image.id}>
-                        <Icon
-                          img={image.status ? tickIcon : closeIcon}
-                          name={image.id}
-                          top="0px"
-                          onClick={(e) =>
-                            image.status ? '' : deleted(e.target.name)
-                          }
-                        />
-                        <div className="img" onClick={() => openModal(image)}>
-                          <img
-                            key={i}
-                            src={`${getImage(image)}`}
-                            style={{ width: '100%', display: 'block' }}
-                            alt={image.name}
+                      <StyledCard>
+                        <Div padding={15} id={image.id}>
+                          <Icon
+                            img={image.status ? tickIcon : closeIcon}
+                            name={image.id}
+                            top="0px"
+                            onClick={(e) =>
+                              image.status ? '' : deleted(e.target.name)
+                            }
                           />
-                        </div>
-                      </Div>
+                          <div className="img" onClick={() => openModal(image)}>
+                            <img
+                              key={i}
+                              src={`${getImage(image)}`}
+                              style={{ width: '100%', display: 'block' }}
+                              alt={image.name}
+                            />
+                          </div>
+                        </Div>
+                      </StyledCard>
                     )}
                   </>
                 )
@@ -376,7 +379,7 @@ const MasonaryGallery = ({
             <>
               <ImageShow image={URL.createObjectURL(file)} />
               <section className="d-flex">
-                { !loading && <PlusButton onClick={upload} />}
+                {!loading && <PlusButton onClick={upload} />}
 
                 <AwesomeIcon.FaClose
                   className="close-icon"
@@ -445,6 +448,18 @@ const Section = styled.section`
   height: auto;
 `;
 
+const StyledCard = styled.div`
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:4px;
+background-color:whitesmoke;
+padding:10px;
+max-width:300px;
+max-height:300px;
+aspect-ratio:1;
+`;
+
 const ImageShow = styled.div`
   display: flex;
   align-items: center;
@@ -479,7 +494,7 @@ const Div = styled.div`
 
   .img {
     position: relative;
-
+     
     &:hover {
       &:before {
         content: '';
