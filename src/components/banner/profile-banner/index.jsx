@@ -112,10 +112,8 @@ const ProfileBanner = ({
           />
         </Cols>
 
-        <Cols lg={1}>
-          <Line />
-        </Cols>
-        <Cols lg={3}>
+        <Cols lg={4} style={{display:'flex'}}>
+          <Line style={{marginRight:'10px'}}/>
           <Text>{about}</Text>
         </Cols>
       </Rows>
