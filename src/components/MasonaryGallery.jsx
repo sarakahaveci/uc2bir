@@ -284,12 +284,17 @@ const MasonaryGallery = ({
                 active === 'all' ? (
                   <StyledCard>
                     <Div padding={15} id={image.id}>
+                      {image.status && <Icon
+                        img={tickIcon}
+                        name={image.id}
+                        top="35px" 
+                      />}
                       <Icon
-                        img={image.status ? tickIcon : closeIcon}
+                        img={closeIcon}
                         name={image.id}
                         top="0px"
                         onClick={(e) =>
-                          image.status ? '' : deleted(e.target.name)
+                           deleted(e.target.name)
                         }
                       />
                       <div className="img" onClick={() => openModal(image)}>
@@ -308,14 +313,19 @@ const MasonaryGallery = ({
                     {active === image.file_type && (
                       <StyledCard>
                         <Div padding={15} id={image.id}>
-                          <Icon
-                            img={image.status ? tickIcon : closeIcon}
-                            name={image.id}
-                            top="0px"
-                            onClick={(e) =>
-                              image.status ? '' : deleted(e.target.name)
-                            }
-                          />
+                        {image.status && <Icon
+                        img={tickIcon}
+                        name={image.id}
+                        top="35px" 
+                      />}
+                      <Icon
+                        img={closeIcon}
+                        name={image.id}
+                        top="0px"
+                        onClick={(e) =>
+                           deleted(e.target.name)
+                        }
+                      />
                           <div className="img" onClick={() => openModal(image)}>
                             <img
                               key={i}
