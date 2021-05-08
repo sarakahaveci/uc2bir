@@ -3,7 +3,14 @@ import styled from 'styled-components/macro';
 import { Text, Svg, Button, Material } from 'components';
 import { Link } from 'react-router-dom';
 import { device } from 'utils';
-const ReturnMoneyModal = ({ open, wallet = () => {}, card = () => {} }) => {
+import CloseIcon from '@material-ui/icons/Close';
+
+const ReturnMoneyModal = ({
+  open,
+  wallet = () => {},
+  card = () => {},
+  closeModal = () => {},
+}) => {
   const [page, setPage] = useState('main');
   useEffect(() => {
     if (!open) {
@@ -119,6 +126,10 @@ const ReturnMoneyModal = ({ open, wallet = () => {}, card = () => {} }) => {
       content = (
         <>
           <MainContainer>
+            <CloseIcon
+              style={{ alignSelf: 'flex-end', cursor: 'pointer' }}
+              onClick={closeModal}
+            />
             <ContextContainer>
               <Svg.SuccessIcon />
               <Text
@@ -136,7 +147,6 @@ const ReturnMoneyModal = ({ open, wallet = () => {}, card = () => {} }) => {
                 istersenizde kart hesabınıza aktarabiliriz.
               </Text>
             </ContextContainer>
-
             <div className="modal-footer" closeIcon={false}>
               <StyledButton
                 approve
