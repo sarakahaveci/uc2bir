@@ -284,13 +284,21 @@ const MasonaryGallery = ({
                 active === 'all' ? (
                   <StyledCard>
                     <Div padding={15} id={image.id}>
+                      {image.status && 
                       <Icon
-                        img={image.status ? tickIcon : closeIcon}
+                        img={tickIcon}
+                        name={image.id}
+                        top="35px" 
+                        cursor="default"
+                      />}
+                      <Icon
+                        img={closeIcon}
                         name={image.id}
                         top="0px"
                         onClick={(e) =>
-                          image.status ? '' : deleted(e.target.name)
-                        }
+                           deleted(e.target.name)
+                        } 
+                        cursor="pointer"
                       />
                       <div className="img" onClick={() => openModal(image)}>
                         <img
@@ -308,14 +316,21 @@ const MasonaryGallery = ({
                     {active === image.file_type && (
                       <StyledCard>
                         <Div padding={15} id={image.id}>
-                          <Icon
-                            img={image.status ? tickIcon : closeIcon}
-                            name={image.id}
-                            top="0px"
-                            onClick={(e) =>
-                              image.status ? '' : deleted(e.target.name)
-                            }
-                          />
+                        {image.status && <Icon
+                        img={tickIcon}
+                        name={image.id}
+                        top="35px"
+                        cursor="default" 
+                      />}
+                      <Icon
+                        img={closeIcon}
+                        name={image.id}
+                        top="0px"
+                        onClick={(e) =>
+                           deleted(e.target.name)
+                        }
+                        cursor="pointer" 
+                      />
                           <div className="img" onClick={() => openModal(image)}>
                             <img
                               key={i}
@@ -517,8 +532,8 @@ const Div = styled.div`
 `;
 
 const Icon = styled.a`
-  position: absolute;
-  cursor: pointer;
+  position: absolute; 
+  cursor:  ${(props) => props.cursor};
   background-image: url('${(props) => props.img}');
   width: 20px;
   height: 20px;

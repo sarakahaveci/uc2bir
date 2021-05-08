@@ -15,3 +15,4 @@ export * from './staticPagesActions';
 export * from './reservationsActions';
 export * from './buyPacketActions';
 export * from './paymentActions';
+export * from './onlineActions';

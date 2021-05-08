@@ -79,17 +79,6 @@ const Approved = ({ setSubPage = () => {} }) => {
                 defaultOpen
               >
                 <>
-                  {/*<ApproveCardContainer>*/}
-                  {/*  <ApproveCard*/}
-                  {/*    date="18:00 - 19:00"*/}
-                  {/*    customerName="Ali Veli"*/}
-                  {/*    type="approve"*/}
-                  {/*    onApprove={() => {openReservationDetail();}}*/}
-                  {/*    onReject={() => {*/}
-                  {/*      setOpenReject(true);*/}
-                  {/*    }}*/}
-                  {/*  />*/}
-                  {/*</ApproveCardContainer>*/}
                   {items?.appointment?.[
                     moment(selectedDate).format('DD.MM.YYYY')
                   ]?.gym?.map((elm, i) => (
