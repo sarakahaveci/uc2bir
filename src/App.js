@@ -36,12 +36,15 @@ import SearchProfessional from 'views/SearchProfessional';
 import Interceptor from './Interceptor';
 import CookieConsent from './components/CookieConsent';
 
-import TermsOfUse from './views/Footer/TermsOfUse';
+import UyeOnBilgilendirmeFormu from './views/Footer/UyeOnBilgilendirmeFormu';
 import MembershipAgreement from './views/Footer/MembershipAgreement';
-import Kvkk from './views/Footer/Kvkk';
-import RefundConditions from './views/Footer/RefundConditions';
+import PrivacyPolicy from './views/Footer/PrivacyPolicy';
+import UyeMesafeliHizmetSozlesmesi from './views/Footer/UyeMesafeliHizmetSozlesmesi';
 import Online from 'views/Online';
 import ReactGA from 'react-ga';
+import UyeAydinlatmaBildirimi from 'views/Footer/UyeAydinlatmaBildirimi';
+import UyeAcikRizaFormu from 'views/Footer/UyeAcikRizaFormu';
+
 ReactGA.initialize('G-RG1WMQBY0S');
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -118,17 +121,31 @@ const App = () => {
 
                 <Route exact path="/contact" component={Contact} />
                 <Route exact path="/find" component={SearchProfessional} />
-                <Route exact path="/terms-of-use" component={TermsOfUse} />
+                <Route
+                  exact
+                  path="/uye-on-bilgilendirme-formu"
+                  component={UyeOnBilgilendirmeFormu}
+                />
                 <Route
                   exact
                   path="/membership-agreement"
                   component={MembershipAgreement}
                 />
-                <Route exact path="/kvkk" component={Kvkk} />
+                <Route exact path="/privacy-policy" component={PrivacyPolicy} />
                 <Route
                   exact
-                  path="/refund-conditions"
-                  component={RefundConditions}
+                  path="/uye-mesafeli-hizmet-sozlesmesi"
+                  component={UyeMesafeliHizmetSozlesmesi}
+                />
+                <Route
+                  exact
+                  path="/uye-aydinlatma-bildirimi"
+                  component={UyeAydinlatmaBildirimi}
+                />
+                <Route
+                  exact
+                  path="/uye-acik-riza-formu"
+                  component={UyeAcikRizaFormu}
                 />
                 <Route component={NotFoundPage} />
               </Switch>

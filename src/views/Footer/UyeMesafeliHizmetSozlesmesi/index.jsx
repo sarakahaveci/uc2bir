@@ -7,29 +7,31 @@ import ReactHtmlParser from 'react-html-parser';
 import { device } from 'utils';
 import { decode } from 'html-entities';
 
-const MembershipAgreement = () => {
+const UyeMesafeliHizmetSozlesmesi = () => {
   const staticPages = useSelector((state) => state?.staticPages);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getStaticPage('uye-sozlesme'));
+    dispatch(getStaticPage('uye-mesafeli-hizmet-sozlesmesi'));
   }, []);
 
   return (
     <KvkkContainer>
       <ConfirmationTitle
         dangerouslySetInnerHTML={{
-          __html: staticPages?.data?.['uye-sozlesme']?.title,
+          __html: staticPages?.data?.['uye-mesafeli-hizmet-sozlesmesi']?.title,
         }}
       />
       <div>
-        {ReactHtmlParser(decode(staticPages?.data?.['uye-sozlesme']?.detail))}
+        {ReactHtmlParser(
+          decode(staticPages?.data?.['uye-mesafeli-hizmet-sozlesmesi']?.detail)
+        )}
       </div>
     </KvkkContainer>
   );
 };
 
-export default MembershipAgreement;
+export default UyeMesafeliHizmetSozlesmesi;
 
 const KvkkContainer = styled.div`
   max-width: 960px;

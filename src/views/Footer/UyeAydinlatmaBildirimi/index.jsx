@@ -7,36 +7,38 @@ import ReactHtmlParser from 'react-html-parser';
 import { device } from 'utils';
 import { decode } from 'html-entities';
 
-const RefundConditions = () => {
+const UyeAydinlatmaBildirimi = () => {
   const staticPages = useSelector((state) => state?.staticPages);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getStaticPage('uye-sozlesme'));
+    dispatch(getStaticPage('uye-aydinlatma-bildirimi'));
   }, []);
 
   return (
     <KvkkContainer>
       <ConfirmationTitle
         dangerouslySetInnerHTML={{
-          __html: staticPages?.data?.['uye-sozlesme']?.title,
+          __html: staticPages?.data?.['uye-aydinlatma-bildirimi']?.title,
         }}
       />
       <div>
-        {ReactHtmlParser(decode(staticPages?.data?.['uye-sozlesme']?.detail))}
+        {ReactHtmlParser(
+          decode(staticPages?.data?.['uye-aydinlatma-bildirimi']?.detail)
+        )}
       </div>
     </KvkkContainer>
   );
 };
 
-export default RefundConditions;
+export default UyeAydinlatmaBildirimi;
 
 const KvkkContainer = styled.div`
   max-width: 960px;
   padding: 200px 0 100px 0;
   margin: auto;
   @media ${device.sm} {
-    padding: 200px 0 100px 50px;
+    padding: 200px 50px 200px 50px;
     margin: auto;
   }
 `;

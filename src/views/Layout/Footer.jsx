@@ -51,16 +51,28 @@ const Footer = () => {
             </Title>
             <ul>
               <li>
-                <Link to="/terms-of-use">Kullanım Koşulları</Link>
+                <Link to="/privacy-policy">Gizlilik Politikası</Link>
               </li>
               <li>
                 <Link to="/membership-agreement">Üyelik Sözleşmesi</Link>
               </li>
               <li>
-                <Link to="/kvkk">Kişisel Verilerin Korunması</Link>
+                <Link to="/uye-acik-riza-formu">Üye Açık Rıza Formu</Link>
               </li>
               <li>
-                <Link to="/refund-conditions">İade Koşulları</Link>
+                <Link to="/uye-on-bilgilendirme-formu">
+                  Üye Ön Bilgilendirme Formu
+                </Link>
+              </li>
+              <li>
+                <Link to="/uye-mesafeli-hizmet-sozlesmesi">
+                  Üye Mesafeli Hizmet Sözleşmesi
+                </Link>
+              </li>
+              <li>
+                <Link to="/uye-aydinlatma-bildirimi">
+                  Üye Aydınlatma Bildirimi
+                </Link>
               </li>
             </ul>
           </div>
@@ -119,17 +131,17 @@ const Footer = () => {
             </ul>
             <ul className="social">
               <li>
-                <a href="/" target="_blank">
+                <a>
                   <AwesomeIcon.Facebook />
                 </a>
               </li>
               <li>
-                <a href="/" target="_blank">
-                  <AwesomeIcon.Twitter />
+                <a>
+                  <AwesomeIcon.Youtube />
                 </a>
               </li>
               <li>
-                <a href="/" target="_blank">
+                <a href={infoData.instagram} target="_blank">
                   <AwesomeIcon.Instagram />
                 </a>
               </li>
