@@ -5,7 +5,6 @@ import { Button, Accordion, Switch, DatePicker } from 'components';
 import Svg from 'components/statics/svg';
 import { space } from 'styled-system';
 import { toast } from 'react-toastify';
-
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
@@ -35,7 +34,7 @@ export default function PaymentCard({ type, dateOption }) {
 
   useEffect(() => {
     if (payment?.request?.data?.merchant_id) {
-      formRef.current.submit();
+      //formRef.current.submit();
     }
   }, [payment?.request]);
   useEffect(() => {
@@ -577,7 +576,11 @@ export default function PaymentCard({ type, dateOption }) {
           name="currency"
           value={payment?.request?.data?.currency}
         />
-        <input type="hidden" name="test_mode" value={0} />
+        <input
+          type="hidden"
+          name="test_mode"
+          value={payment?.request?.data?.test_mode}
+        />
         <input
           type="hidden"
           name="non_3d"
@@ -593,15 +596,27 @@ export default function PaymentCard({ type, dateOption }) {
           name="merchant_fail_url"
           value={payment?.request?.data?.merchant_fail_url}
         />
-        <input type="hidden" name="user_name" value={'bireysel bireysel'} />
+        <input
+          type="hidden"
+          name="user_name"
+          value={payment?.request?.data?.user_name}
+        />
         <input type="hidden" name="user_address" value={'adress adress'} />
-        <input type="hidden" name="user_phone" value={'05315682228'} />
+        <input
+          type="hidden"
+          name="user_phone"
+          value={payment?.request?.data?.phone}
+        />
         <input
           type="hidden"
           name="user_basket"
           value={payment?.request?.data?.user_basket}
         />
-        <input type="hidden" name="debug_on" value="1" />
+        <input
+          type="hidden"
+          name="debug_on"
+          value={payment?.request?.data?.debug_on}
+        />
         <input
           type="hidden"
           name="paytr_token"
@@ -612,12 +627,14 @@ export default function PaymentCard({ type, dateOption }) {
           name="non3d_test_failed"
           value={payment?.request?.data?.non3d_test_failed}
         />
-        <input type="hidden" name="installment_count" value={0} />
+        <input
+          type="hidden"
+          name="installment_count"
+          value={payment?.request?.data?.installment_count}
+        />
         <input type="hidden" name="no_installment" value={0} />
         <input type="hidden" name="max_installment" value={0} />
-        <input type="hidden" name="lang" value={'tr'} />
-
-        <input type="hidden" name="card_type" value={'bonus'} />
+        <input type="text" name="lang" value={'tr'} />
       </form>
     </Container>
   );
