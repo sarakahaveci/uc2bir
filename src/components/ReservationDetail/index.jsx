@@ -3,13 +3,16 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
 import { device } from 'utils';
 import GoogleMap from 'components/GoogleMaps/GoogleMap';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { generateTwilioToken } from 'actions';
 const ReservationDetail = ({ type, goBack = () => {} }) => {
   const [detailData, setDetailData] = useState({});
-  var professionalReservation = useSelector(
+  const dispatch = useDispatch();
+  const professionalReservation = useSelector(
     (state) => state.professionalReservation
   );
+
   useEffect(() => {
     switch (type) {
       case 'pt':
@@ -42,9 +45,7 @@ const ReservationDetail = ({ type, goBack = () => {} }) => {
         <Left>
           <InfoItem>
             <InfoMain>
-              <CustomerImage
-                src={detailData?.pt?.photo || detailData?.dt?.photo}
-              ></CustomerImage>
+              <CustomerImage src={detailData?.pt?.photo || detailData?.dt?.photo} />
               <BoldText>
                 {detailData?.student?.name ||
                   detailData?.bs?.title ||
@@ -110,8 +111,8 @@ const ReservationDetail = ({ type, goBack = () => {} }) => {
             <MessageButtonContainer>
               <MessageButton>Mesaj Gönder</MessageButton>
               <Link to={'/myprofile/online'}>
-                <OnlineClassButton color={'blue2'}>
-                  Derse Gir{' '}
+                <OnlineClassButton color={'blue2'} onClick={()=>dispatch(generateTwilioToken())}>
+                  Derse Gir
                 </OnlineClassButton>
               </Link>
             </MessageButtonContainer>
