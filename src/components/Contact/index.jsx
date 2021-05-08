@@ -73,6 +73,7 @@ export default function Contact() {
       )
     );
   };
+
   return (
     <div className="d-flex w-100 flex-column contact-header">
       <div className="d-flex w-75 flex-column mx-auto contact-header__title-wrapper">
@@ -178,10 +179,9 @@ export default function Contact() {
               <div className="d-flex  flex-column col-md-6 col-sm-12 mt-2">
                 <Material.TexAreaField
                   name="message"
-                  type="text"
                   label="Mesajınız"
-                  defaultValue={message}
                   rows={8}
+                  defaultValue={message}
                   onBlur={(e) => setMessage(e.target.value)}
                   required
                   inputProps={{ minLength: 10, maxLength: 2500 }}
@@ -196,20 +196,18 @@ export default function Contact() {
             </>
           ) : (
             <div className="d-flex  flex-column col-12 mt-2">
-              <Material.TexAreaField
+              <Material.TextField
                 required
                 label="Konu Başlığı"
                 type="text"
                 name="subject"
                 defaultValue={subject}
-                rows={2}
                 onBlur={(e) => setSubject(e.target.value)}
                 inputProps={{ minLength: 5 }}
               />
               <Material.TexAreaField
                 name="message"
-                label="Mesajiniz"
-                rows={8}
+                label="Mesajınız"
                 defaultValue={message}
                 onBlur={(e) => setMessage(e.target.value)}
                 required

@@ -7,38 +7,38 @@ import ReactHtmlParser from 'react-html-parser';
 import { device } from 'utils';
 import { decode } from 'html-entities';
 
-const Kvkk = () => {
+const UyeOnBilgilendirmeFormu = () => {
   const staticPages = useSelector((state) => state?.staticPages);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getStaticPage('kvkk-sozlesmesi'));
+    dispatch(getStaticPage('uye-on-bilgilendirme-formu'));
   }, []);
 
   return (
     <KvkkContainer>
       <ConfirmationTitle
         dangerouslySetInnerHTML={{
-          __html: staticPages?.data?.['kvkk-sozlesmesi']?.title,
+          __html: staticPages?.data?.['uye-on-bilgilendirme-formu']?.title,
         }}
       />
       <div>
         {ReactHtmlParser(
-          decode(staticPages?.data?.['kvkk-sozlesmesi']?.detail)
+          decode(staticPages?.data?.['uye-on-bilgilendirme-formu']?.detail)
         )}
       </div>
     </KvkkContainer>
   );
 };
 
-export default Kvkk;
+export default UyeOnBilgilendirmeFormu;
 
 const KvkkContainer = styled.div`
   max-width: 960px;
   padding: 200px 0 100px 0;
   margin: auto;
   @media ${device.sm} {
-    padding: 200px 0 100px 50px;
+    padding: 200px 50px 200px 50px;
     margin: auto;
   }
 `;
