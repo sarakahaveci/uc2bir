@@ -24,6 +24,7 @@ import reservationCalendar from '../reducers/reservationCalendarReducer';
 import staticPages from '../reducers/staticPagesReducer';
 import professionalReservation from '../reducers/reservationProfessionalReducers';
 import buyPacket from '../reducers/buyPacketReducer';
+import payment from '../reducers/paymentReducer';
 
 const reducers = combineReducers({
   auth,
@@ -49,6 +50,7 @@ const reducers = combineReducers({
   staticPages,
   professionalReservation,
   buyPacket,
+  payment,
 });
 
 export default reducers;

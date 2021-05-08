@@ -1,13 +1,11 @@
 import {
   HTTP_REQUEST,
   GET_PT_RESERVATION_CALENDAR,
-  SEND_RESERVATİON,
   GET_GYM_RESERVATION_CALENDAR,
   GET_PT_FOR_GYM,
   GET_AREA_FOR_PT,
   CLEAR_RESERVATIONCALENDAR,
 } from '../constants';
-import { toast } from 'react-toastify';
 export const getAreaForPT = (id, date, hour, branch_id, session) => async (
   dispatch
 ) => {
@@ -106,30 +104,6 @@ export const getDtReservationCalendar = (
       method: 'GET',
       url,
       label: GET_PT_RESERVATION_CALENDAR,
-      transformData: (data) => data.data,
-    },
-  });
-};
-export const sendReservation = (type, body, successCallback) => async (
-  dispatch
-) => {
-  const url = `/appointment/${type}-calendar`;
-
-  await dispatch({
-    type: HTTP_REQUEST,
-    payload: {
-      method: 'POST',
-      url,
-      body: { ...body },
-      label: SEND_RESERVATİON,
-      callBack: () => successCallback(),
-      errorHandler: () => {
-        toast.error('Bilgilerinizi gözden geçiriniz.', {
-          position: 'bottom-right',
-          autoClose: 4000,
-        });
-      },
-
       transformData: (data) => data.data,
     },
   });

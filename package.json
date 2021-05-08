@@ -58,6 +58,7 @@
     "use-debounce": "^5.2.0",
     "use-file-upload": "^1.0.9",
     "use-places-autocomplete": "^1.9.1",
+    "utf8": "^3.0.0",
     "uuid": "^8.3.2",
     "webpack": "^4.44.1"
   },

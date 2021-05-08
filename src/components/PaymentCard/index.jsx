@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components/macro';
 import { device } from 'utils';
 import { Button, Accordion, Switch, DatePicker } from 'components';
 import Svg from 'components/statics/svg';
 import { space } from 'styled-system';
 import { toast } from 'react-toastify';
+
 import { useDispatch, useSelector } from 'react-redux';
+
 import {
   setReservation,
   deleteSlot,
@@ -16,11 +18,13 @@ import {
 } from 'actions';
 import moment from 'moment';
 export default function PaymentCard({ type, dateOption }) {
+  const formRef = useRef(null);
   const dispatch = useDispatch();
   const reservation = useSelector((state) => state.reservation);
   const buyPacket = useSelector((state) => state.buyPacket);
-
   const reservationCalendar = useSelector((state) => state.reservationCalendar);
+
+  const payment = useSelector((state) => state.payment);
   const { userInfo } = useSelector((state) => state.userProfile.userInfo);
   const [toggleState, setToggleState] = useState(false);
   const wallet = useSelector((state) => state.userProfile.wallet);
@@ -28,6 +32,12 @@ export default function PaymentCard({ type, dateOption }) {
   useEffect(() => {
     dispatch(clearReservationCalendar());
   }, []);
+
+  useEffect(() => {
+    if (payment?.request?.data?.merchant_id) {
+      formRef.current.submit();
+    }
+  }, [payment?.request]);
   useEffect(() => {
     if (reservation?.data?.slot?.length > 0) {
       dispatch(
@@ -526,6 +536,89 @@ export default function PaymentCard({ type, dateOption }) {
             </>
           ))}
       </ConfirmContainer>
+      <form ref={formRef} action="https://www.paytr.com/odeme" method="POST">
+        <input type="hidden" name="cc_owner" value="TEST KARTI" />
+        <input type="hidden" name="card_number" value="5406675406675403" />
+        <input type="hidden" name="expiry_month" value="12" />
+        <input type="hidden" name="expiry_year" value="2028" />
+        <input type="hidden" name="cvv" value="000" />
+        <input
+          type="hidden"
+          name="merchant_id"
+          value={payment?.request?.data?.merchant_id}
+        />
+        <input
+          type="hidden"
+          name="user_ip"
+          value={payment?.request?.data?.user_ip}
+        />
+        <input
+          type="hidden"
+          name="merchant_oid"
+          value={payment?.request?.data?.merchant_oid}
+        />
+        <input
+          type="hidden"
+          name="email"
+          value={payment?.request?.data?.email}
+        />
+        <input
+          type="hidden"
+          name="payment_type"
+          value={payment?.request?.data?.payment_type}
+        />
+        <input
+          type="hidden"
+          name="payment_amount"
+          value={payment?.request?.data?.payment_amount}
+        />
+        <input
+          type="hidden"
+          name="currency"
+          value={payment?.request?.data?.currency}
+        />
+        <input type="hidden" name="test_mode" value={0} />
+        <input
+          type="hidden"
+          name="non_3d"
+          value={payment?.request?.data?.non_3d}
+        />
+        <input
+          type="hidden"
+          name="merchant_ok_url"
+          value={payment?.request?.data?.merchant_ok_url}
+        />
+        <input
+          type="hidden"
+          name="merchant_fail_url"
+          value={payment?.request?.data?.merchant_fail_url}
+        />
+        <input type="hidden" name="user_name" value={'bireysel bireysel'} />
+        <input type="hidden" name="user_address" value={'adress adress'} />
+        <input type="hidden" name="user_phone" value={'05315682228'} />
+        <input
+          type="hidden"
+          name="user_basket"
+          value={payment?.request?.data?.user_basket}
+        />
+        <input type="hidden" name="debug_on" value="1" />
+        <input
+          type="hidden"
+          name="paytr_token"
+          value={payment?.request?.data?.paytr_token}
+        />
+        <input
+          type="hidden"
+          name="non3d_test_failed"
+          value={payment?.request?.data?.non3d_test_failed}
+        />
+        <input type="hidden" name="installment_count" value={0} />
+        <input type="hidden" name="no_installment" value={0} />
+        <input type="hidden" name="max_installment" value={0} />
+        <input type="hidden" name="lang" value={'tr'} />
+
+        <input type="hidden" name="card_type" value={'bonus'} />
+      </form>
     </Container>
   );
 }

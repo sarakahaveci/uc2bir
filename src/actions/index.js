@@ -14,3 +14,4 @@ export * from './reservationCalendarActions';
 export * from './staticPagesActions';
 export * from './reservationsActions';
 export * from './buyPacketActions';
+export * from './paymentActions';
