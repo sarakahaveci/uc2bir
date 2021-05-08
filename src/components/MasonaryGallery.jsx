@@ -284,10 +284,12 @@ const MasonaryGallery = ({
                 active === 'all' ? (
                   <StyledCard>
                     <Div padding={15} id={image.id}>
-                      {image.status && <Icon
+                      {image.status && 
+                      <Icon
                         img={tickIcon}
                         name={image.id}
                         top="35px" 
+                        cursor="default"
                       />}
                       <Icon
                         img={closeIcon}
@@ -295,7 +297,8 @@ const MasonaryGallery = ({
                         top="0px"
                         onClick={(e) =>
                            deleted(e.target.name)
-                        }
+                        } 
+                        cursor="pointer"
                       />
                       <div className="img" onClick={() => openModal(image)}>
                         <img
@@ -316,7 +319,8 @@ const MasonaryGallery = ({
                         {image.status && <Icon
                         img={tickIcon}
                         name={image.id}
-                        top="35px" 
+                        top="35px"
+                        cursor="default" 
                       />}
                       <Icon
                         img={closeIcon}
@@ -325,6 +329,7 @@ const MasonaryGallery = ({
                         onClick={(e) =>
                            deleted(e.target.name)
                         }
+                        cursor="pointer" 
                       />
                           <div className="img" onClick={() => openModal(image)}>
                             <img
@@ -527,8 +532,8 @@ const Div = styled.div`
 `;
 
 const Icon = styled.a`
-  position: absolute;
-  cursor: pointer;
+  position: absolute; 
+  cursor:  ${(props) => props.cursor};
   background-image: url('${(props) => props.img}');
   width: 20px;
   height: 20px;
