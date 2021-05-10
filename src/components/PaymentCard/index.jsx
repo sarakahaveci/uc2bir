@@ -194,16 +194,28 @@ export default function PaymentCard({ type, dateOption }) {
       guest: reservation?.data?.guest,
     };
 
-    dispatch(sendReservation('pt', removeEmpty(json), () => {}));
+    if (
+      reservation?.data?.holder_name &&
+      reservation?.data?.card_number &&
+      reservation?.data?.expiration_month &&
+      reservation?.data?.expiration_year &&
+      reservation?.data?.cvc
+    ) {
+      dispatch(sendReservation('pt', removeEmpty(json), () => {}));
+    } else {
+      toast.error('Eksik Kart Bilgilerini Doldurunuz !', {
+        position: 'bottom-right',
+        autoClose: 4000,
+      });
+    }
   }
   function sendPaymentPtPacket() {
     var json = {
       package_id: buyPacket?.reservation?.id,
-      classification: buyPacket.reservation.classification,
+      classification: buyPacket?.reservation?.level,
       is_contracts_accepted: true,
-      payment_type: reservation?.data?.payment_type,
+      payment_type: buyPacket.reservation?.payment_type,
     };
-
     dispatch(sendPackageReservation('pt', removeEmpty(json), () => {}));
   }
   function sendPaymentDT() {
@@ -213,16 +225,30 @@ export default function PaymentCard({ type, dateOption }) {
       is_contracts_accepted: true,
       session: reservation?.data?.session,
       location_id: reservation?.data?.location_id,
+      cvc: reservation?.data?.cvc,
+
       guest: false,
       holder_name: reservation?.data?.holder_name,
       card_number: reservation?.data?.card_number,
       expiration_month: reservation?.data?.expiration_month,
       expiration_year: reservation?.data?.expiration_year,
-      cvc: reservation?.data?.cvc,
       slot: reservation?.data?.slot,
     };
 
-    dispatch(sendReservation('dt', removeEmpty(json), () => {}));
+    if (
+      reservation?.data?.holder_name &&
+      reservation?.data?.card_number &&
+      reservation?.data?.expiration_month &&
+      reservation?.data?.expiration_year &&
+      reservation?.data?.cvc
+    ) {
+      dispatch(sendReservation('dt', removeEmpty(json), () => {}));
+    } else {
+      toast.error('Eksik Kart Bilgilerini Doldurunuz !', {
+        position: 'bottom-right',
+        autoClose: 4000,
+      });
+    }
   }
   function handleHourClick(item) {
     var slot = reservation?.data?.slot;
@@ -571,11 +597,33 @@ export default function PaymentCard({ type, dateOption }) {
           ))}
       </ConfirmContainer>
       <form ref={formRef} action="https://www.paytr.com/odeme" method="POST">
-        <input type="text" name="cc_owner" value="PAYTR TEST" />
+        {/*<input type="text" name="cc_owner" value="PAYTR TEST" />
         <input type="hidden" name="card_number" value="9792030394440796" />
         <input type="hidden" name="expiry_month" value="12" />
         <input type="hidden" name="expiry_year" value="24" />
-        <input type="hidden" name="cvv" value="000" />
+                <input type="hidden" name="cvv" value="000" />*/}
+        <input
+          type="text"
+          name="cc_owner"
+          value={reservation?.data?.holder_name}
+        />
+        <input
+          type="hidden"
+          name="card_number"
+          value={reservation?.data?.card_number?.replace(/\s/g, '')}
+        />
+        <input
+          type="hidden"
+          name="expiry_month"
+          value={reservation?.data?.expiration_month}
+        />
+        <input
+          type="hidden"
+          name="expiry_year"
+          value={reservation?.data?.expiration_year}
+        />
+        <input type="hidden" name="cvv" value={reservation?.data?.cvc} />
+
         <input
           type="hidden"
           name="card_type"

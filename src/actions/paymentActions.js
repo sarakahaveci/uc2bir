@@ -33,7 +33,7 @@ export const sendReservation = (type, body, successCallback) => async (
 export const sendPackageReservation = (type, body, successCallback) => async (
   dispatch
 ) => {
-  const url = `/cms/package/buy`;
+  const url = `/user/pt-package/buy`;
 
   await dispatch({
     type: HTTP_REQUEST,
