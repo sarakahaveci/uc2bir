@@ -69,7 +69,7 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
             <a onClick={() => setVirtual('pt')}>EĞİTMEN</a>
           </li>
           <li className={`${virtual === 'gym' ? 'active' : ''}`}>
-            <a onClick={() => setVirtual('gym')}>SPOR ALANI</a>
+            <a onClick={() => setVirtual('gym')}>SALON</a>
           </li>
           <li className={`${virtual === 'dt' ? 'active' : ''}`}>
             <a onClick={() => setVirtual('dt')}>DİYETİSYEN</a>
@@ -83,16 +83,13 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
           <li className={`${virtual === 'map' ? 'active' : ''}`}>
             <a onClick={() => setVirtual('packets')}>GRUP DERSLERİ</a>
           </li>
-          <li className={`${virtual === 'map' ? 'active' : ''}`}>
-            <a onClick={() => setVirtual('group-lessons')}>GRUP DERSLER</a>
-          </li>
         </ul>
         <div className="search-items">
           <ul className="list-items">
             <li>
               <IconLabel
                 icon={Svg.SearchBoard}
-                style={{ paddingBottom: '5px', color: 'red' }}
+                style={{ paddingBottom: '5px' }}
               />
               <NakedInput
                 placeholder={virtuals[virtual].text}
