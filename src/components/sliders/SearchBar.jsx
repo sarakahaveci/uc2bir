@@ -34,8 +34,7 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
       const url = objectToParamCoverter(formData, baseUrl);
 
       history.push(url);
-    }
-    if (virtual == 'group-lessons') {
+    } else if (virtual == 'group-lessons') {
       const formData = {
         title,
         location,
