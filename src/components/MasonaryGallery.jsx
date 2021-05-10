@@ -1,13 +1,11 @@
 // @ts-nocheck
 import React, { useState, useEffect } from 'react';
-
 import styled from 'styled-components/macro';
-import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import search from './statics/svg/images/plus.svg';
 import BluePlusIcon from 'assets/blue-plus.svg';
-
+import { device } from 'utils';
 import closeIcon from './statics/svg/images/big-close.svg';
 import tickIcon from './statics/svg/images/tick.svg';
 import {
@@ -20,11 +18,9 @@ import {
   Box,
 } from 'components';
 import { default as MaterialButton } from '@material-ui/core/Button';
-
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
 import { getMyGalleries } from 'actions';
 import axios from 'axios';
 import FormData from 'form-data';
@@ -32,8 +28,6 @@ import { Material } from './inputs/material';
 import { resizeFile } from '../utils';
 
 const MasonaryGallery = ({
-  gutter = '10px',
-  columnsCount = 3,
   categories = [
     {
       id: 1,
@@ -53,7 +47,6 @@ const MasonaryGallery = ({
   ],
   className = null,
   style = {},
-  columnsCountBreakPoints = { 350: 1, 750: 2, 900: 3 },
   children = null,
 }) => {
   const [activePage, setActivePage] = useState('index');
@@ -277,27 +270,97 @@ const MasonaryGallery = ({
               </Item>
             ))}
           </StyledCategories>
-
-          <ResponsiveMasonry columnsCountBreakPoints={columnsCountBreakPoints}>
-            <Masonry columnsCount={columnsCount} gutter={gutter} className="abc" >
-              {myGalleries?.data?.data?.map((image, i) =>
-                active === 'all' ? (
-                  <StyledCard>
-                    <Div padding={15} id={image.id}>
-                      {image.status && 
+          <GridWrapper>
+            {active === 'all' &&
+              myGalleries?.data?.data?.map((image, i) => {
+                return (<StyledCard>
+                  <Div padding={15} id={image.id}>
+                    {image.status &&
                       <Icon
                         img={tickIcon}
                         name={image.id}
-                        top="35px" 
+                        top="35px"
                         cursor="default"
                       />}
+                    <Icon
+                      img={closeIcon}
+                      name={image.id}
+                      top="0px"
+                      onClick={(e) =>
+                        deleted(e.target.name)
+                      }
+                      cursor="pointer"
+                    />
+                    <div className="img" onClick={() => openModal(image)}>
+                      <img
+
+                        key={i}
+                        src={`${getImage(image)}`}
+                        style={{ width: '100%', display: 'block', objectFit: "cover" }}
+                        alt={image.name}
+                      />
+                    </div>
+                  </Div>
+                </StyledCard>)
+              })
+            }
+            {active === 'image' &&
+              myGalleries?.data?.data?.map((image, i) => {
+                if (image.file_type == 'image') {
+                  return (
+                    <StyledCard>
+                      <Div padding={15} id={image.id}>
+                        {image.status &&
+                          <Icon
+                            img={tickIcon}
+                            name={image.id}
+                            top="35px"
+                            cursor="default"
+                          />}
+                        <Icon
+                          img={closeIcon}
+                          name={image.id}
+                          top="0px"
+                          onClick={(e) =>
+                            deleted(e.target.name)
+                          }
+                          cursor="pointer"
+                        />
+                        <div className="img" onClick={() => openModal(image)}>
+                          <img
+
+                            key={i}
+                            src={`${getImage(image)}`}
+                            style={{ width: '100%', display: 'block', objectFit: "cover" }}
+                            alt={image.name}
+                          />
+                        </div>
+                      </Div>
+                    </StyledCard>
+                  )
+                }
+              })
+
+            }
+            {active === 'youtube' &&
+              myGalleries?.data?.data?.map((image, i) => {
+                if (image.file_type == 'youtube') return (
+                  <StyledCard>
+                    <Div padding={15} id={image.id}>
+                      {image.status &&
+                        <Icon
+                          img={tickIcon}
+                          name={image.id}
+                          top="35px"
+                          cursor="default"
+                        />}
                       <Icon
                         img={closeIcon}
                         name={image.id}
                         top="0px"
                         onClick={(e) =>
-                           deleted(e.target.name)
-                        } 
+                          deleted(e.target.name)
+                        }
                         cursor="pointer"
                       />
                       <div className="img" onClick={() => openModal(image)}>
@@ -311,42 +374,10 @@ const MasonaryGallery = ({
                       </div>
                     </Div>
                   </StyledCard>
-                ) : (
-                  <>
-                    {active === image.file_type && (
-                      <StyledCard>
-                        <Div padding={15} id={image.id}>
-                        {image.status && <Icon
-                        img={tickIcon}
-                        name={image.id}
-                        top="35px"
-                        cursor="default" 
-                      />}
-                      <Icon
-                        img={closeIcon}
-                        name={image.id}
-                        top="0px"
-                        onClick={(e) =>
-                           deleted(e.target.name)
-                        }
-                        cursor="pointer" 
-                      />
-                          <div className="img" onClick={() => openModal(image)}>
-                            <img
-                              key={i}
-                              src={`${getImage(image)}`}
-                              style={{ width: '100%', display: 'block' }}
-                              alt={image.name}
-                            />
-                          </div>
-                        </Div>
-                      </StyledCard>
-                    )}
-                  </>
                 )
-              )}
-            </Masonry>
-          </ResponsiveMasonry>
+              })
+            }
+          </GridWrapper>
         </>
       )}
       {activePage === 'create' && (
@@ -458,6 +489,23 @@ const MasonaryGallery = ({
     </Section>
   );
 };
+
+
+const GridWrapper = styled.div`
+  display: grid; 
+  grid-column-gap: 20px;
+  grid-template-columns: 400px 400px 400px ;
+  grid-row-gap: 10px;
+  padding: 10px;
+  margin-top: 15px;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: auto auto;
+  }
+  @media ${device.sm} {
+    grid-template-columns: auto;
+  }
+`;
 
 const Section = styled.section`
   height: auto;
