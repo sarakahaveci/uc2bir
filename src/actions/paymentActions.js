@@ -1,6 +1,7 @@
 import {
   HTTP_REQUEST,
   SEND_RESERVATION,
+  SEND_PACKET_RESERVATION,
   SEND_PAYTR,
   PAYTR_RESPONSE,
 } from '../constants';
@@ -17,6 +18,30 @@ export const sendReservation = (type, body, successCallback) => async (
       url,
       body: { ...body },
       label: SEND_RESERVATION,
+      callBack: () => successCallback(),
+      errorHandler: () => {
+        toast.error('Bilgilerinizi gözden geçiriniz.', {
+          position: 'bottom-right',
+          autoClose: 4000,
+        });
+      },
+
+      transformData: (data) => data.data,
+    },
+  });
+};
+export const sendPackageReservation = (type, body, successCallback) => async (
+  dispatch
+) => {
+  const url = `/user/pt-package/buy`;
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'POST',
+      url,
+      body: { ...body },
+      label: SEND_PACKET_RESERVATION,
       callBack: () => successCallback(),
       errorHandler: () => {
         toast.error('Bilgilerinizi gözden geçiriniz.', {

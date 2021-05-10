@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import styled from 'styled-components/macro';
 
 const Participant = ({ participant }) => {
   const [videoTracks, setVideoTracks] = useState([]);
@@ -62,12 +63,43 @@ const Participant = ({ participant }) => {
   }, [audioTracks]);
 
   return (
-    <div className="participant">
-      <h3>{participant.identity}</h3>
-      <video ref={videoRef} autoPlay={true} />
+    <ParticipantContainer>
+      <Video ref={videoRef} autoPlay={true} />
       <audio ref={audioRef} autoPlay={true} />
-    </div>
+    </ParticipantContainer>
   );
 };
 
+const Video = styled.video`
+    
+    transform: scaleX(-1);
+    width: 100%;
+    max-width: 600px;
+    display: block;
+    margin: 0 auto;
+    border-radius: 6px;
+    //width: 100%;
+    //position: relative;
+    //display: flex;
+    //height: 700px;
+    //#video_container {
+    //  position: relative;
+    //}
+    //
+    //.videos {
+    //  display: flex;
+    //}
+    //
+    //#video_container video {
+    //  max-width: 100%;
+    //}
+`;
+
+const ParticipantContainer = styled.div`
+  background: #333e5a;
+  padding: 10px;
+  border-radius: 6px;
+  display: inline-block;
+  margin-right: 10px;
+`;
 export default Participant;

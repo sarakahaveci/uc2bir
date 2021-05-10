@@ -91,6 +91,7 @@ const Rejecteds = () => {
               <ReservationAccordion
                 miniIcon={<Svg.SessionType.Park />}
                 title="EV / PARK"
+                defaultOpen
               >
                 {items?.appointment?.[
                   moment(selectedDate).format('DD.MM.YYYY')
@@ -117,6 +118,7 @@ const Rejecteds = () => {
               <ReservationAccordion
                 miniIcon={<Svg.SessionType.Online />}
                 title="ONLİNE"
+                defaultOpen
               >
                 {items?.appointment?.[
                   moment(selectedDate).format('DD.MM.YYYY')
@@ -143,6 +145,7 @@ const Rejecteds = () => {
               <ReservationAccordion
                 miniIcon={<Svg.SessionType.Online />}
                 title="KLİNİK"
+                defaultOpen
               >
                 {items?.appointment?.[
                   moment(selectedDate).format('DD.MM.YYYY')
@@ -248,6 +251,8 @@ const AccordionContainer = styled.div`
   display: flex;
 `;
 const ApproveCardContainer = styled.div`
+  display: flex;
+  justify-content: center;
   margin: 20px 0;
   @media ${device.sm} {
     margin: 0;

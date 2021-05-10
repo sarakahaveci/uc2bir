@@ -61,7 +61,7 @@ const CreditCard = ({
               label="SKT"
               type="text"
               name="skt"
-              mask="99/9999"
+              mask="99/99"
               defaultValue={
                 defaultSKT
               } /**    reservation?.data?.expiration_month +

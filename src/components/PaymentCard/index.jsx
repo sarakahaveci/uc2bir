@@ -12,9 +12,12 @@ import {
   deleteSlot,
   addSlot,
   sendReservation,
+  sendPackageReservation,
   clearReservationCalendar,
   setPacketReservation,
 } from 'actions';
+import { getWallet } from 'actions/userProfileActions/walletActions';
+
 import moment from 'moment';
 export default function PaymentCard({ type, dateOption }) {
   const formRef = useRef(null);
@@ -30,6 +33,7 @@ export default function PaymentCard({ type, dateOption }) {
   const [selectedDate, setSelectedDate] = useState(new Date());
   useEffect(() => {
     dispatch(clearReservationCalendar());
+    dispatch(getWallet());
   }, []);
 
   useEffect(() => {
@@ -53,9 +57,17 @@ export default function PaymentCard({ type, dateOption }) {
     }
   }, [reservation?.data?.slot]);
   useEffect(() => {
-    dispatch(
-      setReservation({ date: moment(selectedDate).format('DD.MM.YYYY') })
-    );
+    if (type === 'buy_packet') {
+      dispatch(
+        setPacketReservation({
+          date: moment(selectedDate).format('DD.MM.YYYY'),
+        })
+      );
+    } else {
+      dispatch(
+        setReservation({ date: moment(selectedDate).format('DD.MM.YYYY') })
+      );
+    }
   }, [selectedDate]);
 
   useEffect(() => {
@@ -128,6 +140,27 @@ export default function PaymentCard({ type, dateOption }) {
       }
     }
   }
+  function selectPaymentTypePacket(payment_type) {
+    if (type !== 'buy_packet') {
+      if (reservation?.data?.totals_amount > 0) {
+        dispatch(setPacketReservation({ payment_type: payment_type }));
+      } else {
+        toast.error('Sepetiniz Boş', {
+          position: 'bottom-right',
+          autoClose: 4000,
+        });
+      }
+    } else {
+      if (buyPacket?.reservation?.totals_amount > 0) {
+        dispatch(setPacketReservation({ payment_type: payment_type }));
+      } else {
+        toast.error('Sepetiniz Boş', {
+          position: 'bottom-right',
+          autoClose: 4000,
+        });
+      }
+    }
+  }
 
   const removeEmpty = (obj) =>
     Object.entries(obj)
@@ -161,7 +194,29 @@ export default function PaymentCard({ type, dateOption }) {
       guest: reservation?.data?.guest,
     };
 
-    dispatch(sendReservation('pt', removeEmpty(json), () => {}));
+    if (
+      reservation?.data?.holder_name &&
+      reservation?.data?.card_number &&
+      reservation?.data?.expiration_month &&
+      reservation?.data?.expiration_year &&
+      reservation?.data?.cvc
+    ) {
+      dispatch(sendReservation('pt', removeEmpty(json), () => {}));
+    } else {
+      toast.error('Eksik Kart Bilgilerini Doldurunuz !', {
+        position: 'bottom-right',
+        autoClose: 4000,
+      });
+    }
+  }
+  function sendPaymentPtPacket() {
+    var json = {
+      package_id: buyPacket?.reservation?.id,
+      classification: buyPacket?.reservation?.level,
+      is_contracts_accepted: true,
+      payment_type: buyPacket.reservation?.payment_type,
+    };
+    dispatch(sendPackageReservation('pt', removeEmpty(json), () => {}));
   }
   function sendPaymentDT() {
     var json = {
@@ -170,16 +225,30 @@ export default function PaymentCard({ type, dateOption }) {
       is_contracts_accepted: true,
       session: reservation?.data?.session,
       location_id: reservation?.data?.location_id,
+      cvc: reservation?.data?.cvc,
+
       guest: false,
       holder_name: reservation?.data?.holder_name,
       card_number: reservation?.data?.card_number,
       expiration_month: reservation?.data?.expiration_month,
       expiration_year: reservation?.data?.expiration_year,
-      cvc: reservation?.data?.cvc,
       slot: reservation?.data?.slot,
     };
 
-    dispatch(sendReservation('dt', removeEmpty(json), () => {}));
+    if (
+      reservation?.data?.holder_name &&
+      reservation?.data?.card_number &&
+      reservation?.data?.expiration_month &&
+      reservation?.data?.expiration_year &&
+      reservation?.data?.cvc
+    ) {
+      dispatch(sendReservation('dt', removeEmpty(json), () => {}));
+    } else {
+      toast.error('Eksik Kart Bilgilerini Doldurunuz !', {
+        position: 'bottom-right',
+        autoClose: 4000,
+      });
+    }
   }
   function handleHourClick(item) {
     var slot = reservation?.data?.slot;
@@ -445,6 +514,7 @@ export default function PaymentCard({ type, dateOption }) {
                     case 'dt':
                       sendPaymentDT();
                       break;
+
                     default:
                       break;
                   }
@@ -490,16 +560,7 @@ export default function PaymentCard({ type, dateOption }) {
                 className="blue"
                 text="Ödeme Yap"
                 onClick={() => {
-                  switch (type) {
-                    case 'pt':
-                      sendPaymentPT();
-                      break;
-                    case 'dt':
-                      sendPaymentDT();
-                      break;
-                    default:
-                      break;
-                  }
+                  sendPaymentPtPacket();
                 }}
               />
             </BottomContainer>
@@ -512,12 +573,12 @@ export default function PaymentCard({ type, dateOption }) {
                   text="Cüzdanımdan Öde"
                   onClick={() => {
                     var wallet_balance = wallet?.data?.balance || 0;
-                    var amount = reservation?.data?.totals_amount || 0;
+                    var amount = buyPacket?.reservation?.totals_amount || 0;
                     var diff = wallet_balance - amount;
                     if (diff < 0) {
-                      selectPaymentType('both');
+                      selectPaymentTypePacket('both');
                     } else {
-                      selectPaymentType('wallet');
+                      selectPaymentTypePacket('wallet');
                     }
                   }}
                 />
@@ -528,7 +589,7 @@ export default function PaymentCard({ type, dateOption }) {
                   className="blue"
                   text="Kredi Kartından Öde"
                   onClick={() => {
-                    selectPaymentType('credit_card');
+                    selectPaymentTypePacket('credit_card');
                   }}
                 />
               </BottomContainer>
@@ -536,11 +597,33 @@ export default function PaymentCard({ type, dateOption }) {
           ))}
       </ConfirmContainer>
       <form ref={formRef} action="https://www.paytr.com/odeme" method="POST">
-        <input type="text" name="cc_owner" value="PAYTR TEST" />
+        {/*<input type="text" name="cc_owner" value="PAYTR TEST" />
         <input type="hidden" name="card_number" value="9792030394440796" />
         <input type="hidden" name="expiry_month" value="12" />
         <input type="hidden" name="expiry_year" value="24" />
-        <input type="hidden" name="cvv" value="000" />
+                <input type="hidden" name="cvv" value="000" />*/}
+        <input
+          type="text"
+          name="cc_owner"
+          value={reservation?.data?.holder_name}
+        />
+        <input
+          type="hidden"
+          name="card_number"
+          value={reservation?.data?.card_number?.replace(/\s/g, '')}
+        />
+        <input
+          type="hidden"
+          name="expiry_month"
+          value={reservation?.data?.expiration_month}
+        />
+        <input
+          type="hidden"
+          name="expiry_year"
+          value={reservation?.data?.expiration_year}
+        />
+        <input type="hidden" name="cvv" value={reservation?.data?.cvc} />
+
         <input
           type="hidden"
           name="card_type"

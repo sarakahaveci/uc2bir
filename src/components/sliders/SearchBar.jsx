@@ -34,6 +34,18 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
       const url = objectToParamCoverter(formData, baseUrl);
 
       history.push(url);
+    } else if (virtual == 'group-lessons') {
+      const formData = {
+        title,
+        location,
+        branch,
+      };
+
+      let baseUrl = `/group-lessons?type=${virtual}`;
+
+      const url = objectToParamCoverter(formData, baseUrl);
+
+      history.push(url);
     } else {
       const formData = {
         title,
@@ -71,6 +83,9 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
           <li className={`${virtual === 'map' ? 'active' : ''}`}>
             <a onClick={() => setVirtual('packets')}>GRUP DERSLERİ</a>
           </li>
+          <li className={`${virtual === 'map' ? 'active' : ''}`}>
+            <a onClick={() => setVirtual('group-lessons')}>GRUP DERSLER</a>
+          </li>
         </ul>
         <div className="search-items">
           <ul className="list-items">
@@ -85,7 +100,7 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
                 onChange={(event) => setTitle(event.target.value)}
               />
             </li>
-            {virtual !== 'packets' && (
+            {virtual !== 'packets' && virtual !== 'group-lessons' && (
               <li>
                 <IconLabel
                   icon={Svg.SearchLocation}

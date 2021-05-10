@@ -11,6 +11,8 @@ import { Button, Svg, PaymentCard, CreditCard } from 'components';
 import { Main } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPacketDetail, setPacketReservation } from 'actions';
+import { getWallet } from 'actions/userProfileActions/walletActions';
+
 import { device } from 'utils';
 import { useHistory } from 'react-router-dom';
 const BuyPacket = ({ match }) => {
@@ -20,6 +22,7 @@ const BuyPacket = ({ match }) => {
   let history = useHistory();
 
   useEffect(() => {
+    dispatch(getWallet());
     dispatch(getPacketDetail(match?.params?.id));
   }, []);
   useEffect(() => {

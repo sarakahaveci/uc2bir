@@ -33,9 +33,7 @@ const DetailLesson = ({ setBannerActive = () => {}, setPage = () => {} }) => {
       return 'mid';
     }
   }
-  function handleReservationButton() {
-    alert('sd');
-  }
+  function handleReservationButton() {}
   function _renderLessons() {
     return temp.map((elm, index) => (
       <Col key={index} style={{ padding: 0 }} lg="4">
