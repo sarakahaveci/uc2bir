@@ -181,8 +181,7 @@ export default function Contact() {
                   name="message"
                   label="Mesajınız"
                   rows={8}
-                  defaultValue={message}
-                  onBlur={(e) => setMessage(e.target.value)}
+                  onChange={(e) => setMessage(e.target.value)}
                   required
                   inputProps={{ minLength: 10, maxLength: 2500 }}
                 />
