@@ -7,7 +7,7 @@ import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import InputBase from '@material-ui/core/InputBase';
 
-import { Button, IconLabel, AwesomeIcon } from 'components';
+import { Button, IconLabel, AwesomeIcon, Svg } from 'components';
 import { objectToParamCoverter } from 'utils';
 
 const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
@@ -66,13 +66,19 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
             <a onClick={() => setVirtual('map')}>HARİTA</a>
           </li>
           <li className={`${virtual === 'map' ? 'active' : ''}`}>
-            <a onClick={() => setVirtual('packets')}>PAKET</a>
+            <a onClick={() => setVirtual('packets')}>PAKETLER</a>
+          </li>
+          <li className={`${virtual === 'map' ? 'active' : ''}`}>
+            <a onClick={() => setVirtual('packets')}>GRUP DERSLERİ</a>
           </li>
         </ul>
         <div className="search-items">
           <ul className="list-items">
             <li>
-              <IconLabel icon={AwesomeIcon.Search} />
+              <IconLabel
+                icon={Svg.SearchBoard}
+                style={{ paddingBottom: '5px', color: 'red' }}
+              />
               <NakedInput
                 placeholder={virtuals[virtual].text}
                 inputProps={{ 'aria-label': 'naked' }}
@@ -81,7 +87,10 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
             </li>
             {virtual !== 'packets' && (
               <li>
-                <IconLabel icon={AwesomeIcon.Map} />
+                <IconLabel
+                  icon={Svg.SearchLocation}
+                  style={{ paddingBottom: '7px' }}
+                />
                 <NakedInput
                   placeholder="Lokasyon"
                   inputProps={{ 'aria-label': 'naked' }}
@@ -90,6 +99,7 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
               </li>
             )}
             <li>
+              <IconLabel icon={Svg.SearchBranches} />
               <FormControl
                 className={'material-selectbox'}
                 onChange={(event) => setBranch(event.target.value)}
@@ -124,7 +134,8 @@ const NakedInput = styled(InputBase)`
   input {
     border: none;
     background: transparent;
-    font-size: 20px;
+    font-size: 18px;
+    color: black;
   }
 `;
 

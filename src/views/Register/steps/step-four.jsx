@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { toast } from 'react-toastify';
-
+import styled from 'styled-components';
 import { Button, Material } from '../../../components';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -97,6 +97,9 @@ const StepFour = (props) => {
   };
   return (
     <>
+      <Text>
+        *Sağlığınız için 5 dakikanızı ayırıp, testimizi çözmenizi rica ederiz.
+      </Text>
       <form onSubmit={onSubmit} autoComplete="off">
         {macro.length &&
           macro.map((val, key) => {
@@ -175,3 +178,14 @@ const StepFour = (props) => {
 };
 
 export default StepFour;
+
+const Text = styled.div`
+  font-family: 'Poppins', sans-serif;
+  font-size: 11pt;
+  color: #181818;
+  line-height: 175%;
+  color: #00b2a9;
+  margin-bottom: 15px;
+  /* font-style: italic; */
+  /* font-weight: 400; */
+`;

@@ -12,19 +12,19 @@ const UyeAcikRizaFormu = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getStaticPage('uye-acik-riza-formu'));
+    dispatch(getStaticPage('kvkk-sozlesmesi'));
   }, []);
 
   return (
     <KvkkContainer>
       <ConfirmationTitle
         dangerouslySetInnerHTML={{
-          __html: staticPages?.data?.['uye-acik-riza-formu']?.title,
+          __html: staticPages?.data?.['kvkk-sozlesmesi']?.title,
         }}
       />
       <div>
         {ReactHtmlParser(
-          decode(staticPages?.data?.['uye-acik-riza-formu']?.detail)
+          decode(staticPages?.data?.['kvkk-sozlesmesi']?.detail)
         )}
       </div>
     </KvkkContainer>

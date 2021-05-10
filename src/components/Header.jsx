@@ -51,7 +51,7 @@ const Header = ({ className, navLogo, navMenu, toggle, setToggle }) => {
         </div>
       </div>
       <Link to="/" className={navLogo.className}>
-        <img src={navLogo.element()} alt="logo" />
+        <img src={navLogo.element()} alt="logo" style={{ width: '110px' }} />
       </Link>
 
       {isMobile && isAuthenticated ? (

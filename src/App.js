@@ -43,7 +43,7 @@ import UyeMesafeliHizmetSozlesmesi from './views/Footer/UyeMesafeliHizmetSozlesm
 import Online from 'views/Online';
 import ReactGA from 'react-ga';
 import UyeAydinlatmaBildirimi from 'views/Footer/UyeAydinlatmaBildirimi';
-import UyeAcikRizaFormu from 'views/Footer/UyeAcikRizaFormu';
+import Kvkk from 'views/Footer/Kvkk';
 
 import BuyStatus from './views/BuyStatus';
 ReactGA.initialize('G-RG1WMQBY0S');
@@ -145,11 +145,7 @@ const App = () => {
                   path="/uye-aydinlatma-bildirimi"
                   component={UyeAydinlatmaBildirimi}
                 />
-                <Route
-                  exact
-                  path="/uye-acik-riza-formu"
-                  component={UyeAcikRizaFormu}
-                />
+                <Route exact path="/kvkk-sozlesmesi" component={Kvkk} />
                 <Route component={NotFoundPage} />
               </Switch>
             </Layout>

@@ -76,6 +76,11 @@ import ArrowLeft from './images/arrow-left.svg';
 import SmileyFace from './images/smiley-face.svg';
 import Plus from './images/plus.svg';
 import Tl from './images/tl.svg';
+import HeaderEnvelope from './images/header-envelope.svg';
+import HeaderContact from './images/header-contact.svg';
+import SearchBoard from './images/search-board.svg';
+import SearchLocation from './images/search-location.svg';
+import SearchBranches from './images/search-branches.svg';
 import UpDown from './images/up-down.svg';
 import LocationCard from './images/location-card.svg';
 import ActiveHeart from './images/active-heart.svg';
@@ -197,6 +202,11 @@ const Svg = {
   YogaSportIcon: (props) => <ReactSVG {...props} src={YogaSportIcon} />,
   SmileyFaceIcon: (props) => <ReactSVG {...props} src={SmileyFace} />,
   Tl: (props) => <ReactSVG {...props} src={Tl} />,
+  HeaderEnvelope: (props) => <ReactSVG {...props} src={HeaderEnvelope} />,
+  HeaderContact: (props) => <ReactSVG {...props} src={HeaderContact} />,
+  SearchBoard: (props) => <ReactSVG {...props} src={SearchBoard} />,
+  SearchLocation: (props) => <ReactSVG {...props} src={SearchLocation} />,
+  SearchBranches: (props) => <ReactSVG {...props} src={SearchBranches} />,
   Ql: (props) => <ReactSVG {...props} src={Ql} />,
   Qr: (props) => <ReactSVG {...props} src={Qr} />,
   UpDownIcon: (props) => <ReactSVG {...props} src={UpDown} />,
@@ -233,35 +243,35 @@ const Svg = {
 
   Categories: [
     {
-      name: 'Fitness',
+      name: 'FİTNESS',
       svg: (props) => <ReactSVG {...props} src={Fitness} />,
     },
     {
-      name: 'Pilates',
+      name: 'PİLATES',
       svg: (props) => <ReactSVG {...props} src={Pilates} />,
     },
     {
-      name: 'Tenis',
+      name: 'TENİS',
       svg: (props) => <ReactSVG {...props} src={Tennis} />,
     },
     {
-      name: 'Yoga',
+      name: 'YOGA',
       svg: (props) => <ReactSVG {...props} src={Yoga} />,
     },
     {
-      name: 'Kick Boks',
+      name: 'KİCK BOKS',
       svg: (props) => <ReactSVG {...props} src={KickBoks} />,
     },
     {
-      name: 'Atletik Performans',
+      name: 'ATLETİK PERFORMANS',
       svg: (props) => <ReactSVG {...props} src={AthleticPerformance} />,
     },
     {
-      name: 'Cimnastik',
+      name: 'CİMNSATİK',
       svg: (props) => <ReactSVG {...props} src={Athlete} />,
     },
     {
-      name: 'Yüzme',
+      name: 'YÜZME',
       svg: (props) => <ReactSVG {...props} src={Swimming} />,
     },
   ],

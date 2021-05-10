@@ -6,7 +6,7 @@ import { Link, useHistory } from 'react-router-dom';
 
 import { default as NativeHeader } from '../../components/Header';
 import logo from '../../assets/logo.png';
-import { AwesomeIcon, IconLabel, Button, HeaderLogin } from 'components';
+import { AwesomeIcon, IconLabel, Button, HeaderLogin, Svg } from 'components';
 
 const Header = () => {
   const { infoData } = useSelector((state) => state.footer);
@@ -14,7 +14,7 @@ const Header = () => {
 
   const [menuActive, setMenuActive] = useState(false);
   const [toggle, setToggle] = useState(false);
-  const [search, setSearch] = useState('');
+  // const [search, setSearch] = useState('');
   const history = useHistory();
 
   useEffect(() => {
@@ -43,15 +43,17 @@ const Header = () => {
                     href={`mailto:${infoData?.email}`}
                     className="icon-label"
                     text={infoData?.email}
-                    icon={AwesomeIcon.Envolope}
+                    icon={Svg.HeaderEnvelope}
                   />
                 </li>
-
+                <li className="line">
+                  <span></span>
+                </li>
                 <li>
                   <IconLabel
                     className="icon-label"
                     text={infoData?.phone}
-                    icon={AwesomeIcon.Phone}
+                    icon={Svg.HeaderContact}
                   />
                 </li>
 
@@ -96,7 +98,7 @@ const Header = () => {
               <div className="bar-item left-bar">
                 <ul>
                   <li>
-                    <div className="menubar-search-wrapper">
+                    {/* <div className="menubar-search-wrapper">
                       <AwesomeIcon.Search />
                       <input
                         className="menubar-search-input"
@@ -105,22 +107,31 @@ const Header = () => {
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                       />
-                    </div>
+                    </div> */}
 
-                    {/* <Button
+                    <Button
                       icon={AwesomeIcon.Search}
                       text="Ne arıyorsun?"
                       className="blue"
-                    /> */}
+                    />
                   </li>
                   <li>
-                    <Link to="/info">Üç2Bir Hakkında</Link>
+                    <Link
+                      to="/info"
+                      style={{ fontWeight: 'normal', color: 'black' }}
+                    >
+                      Üç2Bir HAKKINDA
+                    </Link>
                   </li>
                   <li>
-                    <Link to="/blog-list">Blog</Link>
+                    <Link to="/blog-list" style={{ fontWeight: 'normal' }}>
+                      BLOG
+                    </Link>
                   </li>
                   <li>
-                    <Link to="/contact">İletişim</Link>
+                    <Link to="/contact" style={{ fontWeight: 'normal' }}>
+                      İLETİŞİM
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -131,7 +142,12 @@ const Header = () => {
                   ) : (
                     <>
                       <li>
-                        <Link to="/login">Giriş Yap</Link>
+                        <Link
+                          to="/login"
+                          style={{ fontWeight: 'normal', color: 'black' }}
+                        >
+                          Giriş Yap
+                        </Link>
                       </li>
                       <li className="line">
                         <span></span>
@@ -141,13 +157,19 @@ const Header = () => {
 
                   {!isAuthenticated && (
                     <li>
-                      <Link to="/register">Üye Ol</Link>
+                      <Link
+                        to="/register"
+                        style={{ fontWeight: 'normal', color: 'black' }}
+                      >
+                        Üye Ol
+                      </Link>
                     </li>
                   )}
 
                   {!isAuthenticated && (
                     <li>
                       <Button
+                        style={{ fontWeight: 'normal', color: 'white' }}
                         text="Profesyonel"
                         className="dark"
                         fontWeight="500"

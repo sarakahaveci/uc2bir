@@ -57,7 +57,7 @@ const Footer = () => {
                 <Link to="/membership-agreement">Üyelik Sözleşmesi</Link>
               </li>
               <li>
-                <Link to="/uye-acik-riza-formu">Üye Açık Rıza Formu</Link>
+                <Link to="/kvkk-sozlesmesi">Kişisel Verilerin Korunması</Link>
               </li>
               <li>
                 <Link to="/uye-on-bilgilendirme-formu">

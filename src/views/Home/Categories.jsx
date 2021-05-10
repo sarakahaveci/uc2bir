@@ -14,8 +14,13 @@ const Categories = ({ className, background, children }) => {
         ></div>
       )}
       <Container>
-        <Title variant="h5" component="h5" lineDisable={false}>
-          Tarzını Seç, Hemen Kategorilere Göz At
+        <Title
+          variant="h5"
+          component="h5"
+          lineDisable={false}
+          letterSpacing="100"
+        >
+          Tarzını Seç, Hemen Branşlara Göz At
         </Title>
         <div className="over-flow-y-auto">
           <ul>
@@ -23,7 +28,9 @@ const Categories = ({ className, background, children }) => {
               <li className="col-4 col-xl col-lg col-md-2 col-sm-3" key={key}>
                 <a title={val.name} href={val.link}>
                   {val.svg({ className: 'category-svg' })}{' '}
-                  <span>{val.name}</span>
+                  <span style={{ fontWeight: 'normal', fontSize: '18px' }}>
+                    {val.name}
+                  </span>
                 </a>
               </li>
             ))}
