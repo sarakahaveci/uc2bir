@@ -45,6 +45,7 @@ import ReactGA from 'react-ga';
 import UyeAydinlatmaBildirimi from 'views/Footer/UyeAydinlatmaBildirimi';
 import UyeAcikRizaFormu from 'views/Footer/UyeAcikRizaFormu';
 
+import BuyStatus from './views/BuyStatus';
 ReactGA.initialize('G-RG1WMQBY0S');
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -120,6 +121,8 @@ const App = () => {
                 <Route exact path="/packets/detail/:id" component={BuyPacket} />
 
                 <Route exact path="/contact" component={Contact} />
+                <Route exact path="/buy/:status" component={BuyStatus} />
+
                 <Route exact path="/find" component={SearchProfessional} />
                 <Route
                   exact

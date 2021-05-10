@@ -34,7 +34,7 @@ export default function PaymentCard({ type, dateOption }) {
 
   useEffect(() => {
     if (payment?.request?.data?.merchant_id) {
-      //formRef.current.submit();
+      formRef.current.submit();
     }
   }, [payment?.request]);
   useEffect(() => {
@@ -536,40 +536,15 @@ export default function PaymentCard({ type, dateOption }) {
           ))}
       </ConfirmContainer>
       <form ref={formRef} action="https://www.paytr.com/odeme" method="POST">
-        <input type="hidden" name="cc_owner" value="TEST KARTI" />
-        <input type="hidden" name="card_number" value="5406675406675403" />
+        <input type="text" name="cc_owner" value="PAYTR TEST" />
+        <input type="hidden" name="card_number" value="9792030394440796" />
         <input type="hidden" name="expiry_month" value="12" />
-        <input type="hidden" name="expiry_year" value="2028" />
+        <input type="hidden" name="expiry_year" value="24" />
         <input type="hidden" name="cvv" value="000" />
         <input
           type="hidden"
-          name="merchant_id"
-          value={payment?.request?.data?.merchant_id}
-        />
-        <input
-          type="hidden"
-          name="user_ip"
-          value={payment?.request?.data?.user_ip}
-        />
-        <input
-          type="hidden"
-          name="merchant_oid"
-          value={payment?.request?.data?.merchant_oid}
-        />
-        <input
-          type="hidden"
-          name="email"
-          value={payment?.request?.data?.email}
-        />
-        <input
-          type="hidden"
-          name="payment_type"
-          value={payment?.request?.data?.payment_type}
-        />
-        <input
-          type="hidden"
-          name="payment_amount"
-          value={payment?.request?.data?.payment_amount}
+          name="card_type"
+          value={payment?.request?.data?.card_type}
         />
         <input
           type="hidden"
@@ -578,18 +553,24 @@ export default function PaymentCard({ type, dateOption }) {
         />
         <input
           type="hidden"
-          name="test_mode"
-          value={payment?.request?.data?.test_mode}
+          name="debug_on"
+          value={payment?.request?.data?.debug_on}
         />
         <input
           type="hidden"
-          name="non_3d"
-          value={payment?.request?.data?.non_3d}
+          name="email"
+          value={payment?.request?.data?.email}
         />
         <input
           type="hidden"
-          name="merchant_ok_url"
-          value={payment?.request?.data?.merchant_ok_url}
+          name="installment_count"
+          value={payment?.request?.data?.installment_count}
+        />
+        <input type="hidden" name="lang" value={payment?.request?.data?.lang} />
+        <input
+          type="hidden"
+          name="max_installment"
+          value={payment?.request?.data?.max_installment}
         />
         <input
           type="hidden"
@@ -598,29 +579,23 @@ export default function PaymentCard({ type, dateOption }) {
         />
         <input
           type="hidden"
-          name="user_name"
-          value={payment?.request?.data?.user_name}
-        />
-        <input type="hidden" name="user_address" value={'adress adress'} />
-        <input
-          type="hidden"
-          name="user_phone"
-          value={payment?.request?.data?.phone}
+          name="merchant_id"
+          value={payment?.request?.data?.merchant_id}
         />
         <input
           type="hidden"
-          name="user_basket"
-          value={payment?.request?.data?.user_basket}
+          name="merchant_oid"
+          value={payment?.request?.data?.merchant_oid}
         />
         <input
           type="hidden"
-          name="debug_on"
-          value={payment?.request?.data?.debug_on}
+          name="merchant_ok_url"
+          value={payment?.request?.data?.merchant_ok_url}
         />
         <input
           type="hidden"
-          name="paytr_token"
-          value={payment?.request?.data?.paytr_token}
+          name="no_installment"
+          value={payment?.request?.data?.no_installment}
         />
         <input
           type="hidden"
@@ -629,12 +604,55 @@ export default function PaymentCard({ type, dateOption }) {
         />
         <input
           type="hidden"
-          name="installment_count"
-          value={payment?.request?.data?.installment_count}
+          name="non_3d"
+          value={payment?.request?.data?.non_3d}
         />
-        <input type="hidden" name="no_installment" value={0} />
-        <input type="hidden" name="max_installment" value={0} />
-        <input type="text" name="lang" value={'tr'} />
+        <input
+          type="hidden"
+          name="payment_amount"
+          value={payment?.request?.data?.payment_amount}
+        />
+        <input
+          type="hidden"
+          name="payment_type"
+          value={payment?.request?.data?.payment_type}
+        />
+        <input
+          type="hidden"
+          name="paytr_token"
+          value={payment?.request?.data?.paytr_token}
+        />
+
+        <input
+          type="hidden"
+          name="test_mode"
+          value={payment?.request?.data?.test_mode}
+        />
+        <input
+          type="hidden"
+          name="user_address"
+          value={payment?.request?.data?.user_address}
+        />
+        <input
+          type="hidden"
+          name="user_basket"
+          value={payment?.request?.data?.user_basket}
+        />
+        <input
+          type="hidden"
+          name="user_ip"
+          value={payment?.request?.data?.user_ip}
+        />
+        <input
+          type="hidden"
+          name="user_name"
+          value={payment?.request?.data?.user_name}
+        />
+        <input
+          type="hidden"
+          name="user_phone"
+          value={payment?.request?.data?.user_phone}
+        />
       </form>
     </Container>
   );
