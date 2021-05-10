@@ -474,7 +474,7 @@ export default function PaymentCard({ type, dateOption }) {
           </Text>
         </BottomContainer>
         {type !== 'buy_packet' &&
-          (buyPacket?.reservation?.payment_type ? (
+          (reservation?.data?.payment_type ? (
             <BottomContainer>
               <Button
                 style={{ width: '100%', padding: '20px' }}
