@@ -46,45 +46,54 @@ const SessionHistory = () => {
     <StyledContainer>
       <StyledRow>
         <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
-          {startOfWeeksArr().map((it, index) => (
-            <AccordionContainer key={index}>
-              <Number>{index + 1}.</Number>
+          <AccordionContainer>
+            <ReservationAccordion
+              defaultOpen={true}
+              parent
+              title={moment(selectedDate).format('DD.MM.YYYY')}
+            >
               <ReservationAccordion
-                defaultOpen={index == 0 ? true : false}
-                parent
-                title={moment(it).format('DD.MM.YYYY')}
+                miniIcon={<Svg.SessionType.Gym />}
+                title="KLİNİK"
+                defaultOpen
               >
-                <ReservationAccordion
-                  miniIcon={<Svg.SessionType.Gym />}
-                  title="SPOR ALANI"
-                  defaultOpen
-                >
-                  {items?.appointment?.[
-                    moment(selectedDate).format('DD.MM.YYYY')
-                  ]?.gym?.map((elm, i) => (
-                    <ApproveCardContainer key={i}>
-                      <ApproveCard
-                        type="history"
-                        date="18:00 - 19:00"
-                        customerName="Ahmet Mehmet"
-                        onApprove={() => {
-                          setOpenRateModal(true);
-                        }}
-                      />
-                    </ApproveCardContainer>
-                  ))}
-                </ReservationAccordion>
-                <ReservationAccordion
-                  miniIcon={<Svg.SessionType.Park />}
-                  title="EV / PARK"
-                ></ReservationAccordion>
-                <ReservationAccordion
-                  miniIcon={<Svg.SessionType.Online />}
-                  title="ONLİNE"
-                ></ReservationAccordion>
+                {items?.appointment?.[
+                  moment(selectedDate).format('DD.MM.YYYY')
+                ]?.clinic?.map((elm, i) => (
+                  <ApproveCardContainer key={i}>
+                    <ApproveCard
+                      type="history"
+                      date="18:00 - 19:00"
+                      customerName="Ahmet Mehmet"
+                      onApprove={() => {
+                        setOpenRateModal(true);
+                      }}
+                    />
+                  </ApproveCardContainer>
+                ))}
               </ReservationAccordion>
-            </AccordionContainer>
-          ))}
+              <ReservationAccordion
+                miniIcon={<Svg.SessionType.Gym />}
+                title="ONLİNE"
+                defaultOpen
+              >
+                {items?.appointment?.[
+                  moment(selectedDate).format('DD.MM.YYYY')
+                ]?.online?.map((elm, i) => (
+                  <ApproveCardContainer key={i}>
+                    <ApproveCard
+                      type="history"
+                      date="18:00 - 19:00"
+                      customerName="MOCDATA"
+                      onApprove={() => {
+                        setOpenRateModal(true);
+                      }}
+                    />
+                  </ApproveCardContainer>
+                ))}
+              </ReservationAccordion>
+            </ReservationAccordion>
+          </AccordionContainer>
         </StyledCol>
         <StyledCol
           style={{
@@ -139,13 +148,6 @@ const ApproveCardContainer = styled.div`
   margin: 20px 0;
   @media ${device.sm} {
     margin: 0;
-  }
-`;
-const Number = styled.text`
-  font-size: 16px;
-  margin: 15px;
-  @media ${device.sm} {
-    display: none;
   }
 `;
 
