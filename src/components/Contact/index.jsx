@@ -208,8 +208,7 @@ export default function Contact() {
               <Material.TexAreaField
                 name="message"
                 label="Mesajınız"
-                defaultValue={message}
-                onBlur={(e) => setMessage(e.target.value)}
+                onChange={(e) => setMessage(e.target.value)}
                 required
                 inputProps={{ minLength: 10, maxLength: 2500 }}
               />
