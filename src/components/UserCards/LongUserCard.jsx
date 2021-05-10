@@ -18,7 +18,7 @@ const LongUserCard = ({
   onClickHover = () => {},
   selected = false,
   type,
-  favoriteId
+  favoriteId,
 }) => {
   const [isFavorited, setIsFavorited] = useState(favoritedUser);
 
@@ -69,12 +69,14 @@ const LongUserCard = ({
               {hoverText}
             </div>
           ) : (
-            data?.has_working_count ===0 &&
-            <div
-              className="long-user-card__profile-navigator"
-              onClick={() => onClickHover(data)}>
-              {hoverText}
-            </div>
+            !(data?.has_working_count > 0) && (
+              <div
+                className="long-user-card__profile-navigator"
+                onClick={() => onClickHover(data)}
+              >
+                {hoverText}
+              </div>
+            )
           )}
         </div>
       </div>

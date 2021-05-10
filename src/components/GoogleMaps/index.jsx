@@ -48,6 +48,7 @@ export default function GoogleMapClusterer({ data, onSelected, isSaloonMap }) {
       >
         <MarkerClusterer options={options}>
           {(clusterer) =>
+            data?.lenght > 0 &&
             data?.map((professional) => {
               const lat = +professional?.address?.lat || professional?.lat;
               const lng = +professional?.address?.lng || professional?.lng;
