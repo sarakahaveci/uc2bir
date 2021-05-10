@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Video from 'twilio-video';
 import Participant from './participant';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components/macro';
 
-const Room = ({ roomName, token, handleLogout }) => {
+const Room = ({ roomName, token }) => {
   const [room, setRoom] = useState(null);
   const [participants, setParticipants] = useState([]);
 
@@ -44,10 +46,11 @@ const Room = ({ roomName, token, handleLogout }) => {
   },[roomName, token]);
 
   return (
-    <div className="room">
-      <h2>Room: {roomName}</h2>
-      <button onClick={handleLogout}>Log out</button>
-      <div className="local-participant">
+    <Container >
+      <Link to={'/myprofile/settings/reservation'}>
+        <LogoutBtn>Log out</LogoutBtn>
+      </Link>
+      <LocalParticipant >
         {room ? (
           <Participant
             key={room.localParticipant.sid}
@@ -56,12 +59,51 @@ const Room = ({ roomName, token, handleLogout }) => {
         ) : (
           ''
         )}
-      </div>
-      <h3>Remote Participants</h3>
-      <div className="remote-participants">{remoteParticipants}</div>
-    </div>
+      </LocalParticipant>
+      <H3>Remote Participants</H3>
+      <RemoteParticipants >{remoteParticipants}</RemoteParticipants>
+    </Container>
   );
 
 };
+
+const Container = styled.div`
+  position: relative;
+`;
+
+const LocalParticipant = styled.div`
+  text-align: center;
+  margin-bottom: 2em;
+`;
+
+const RemoteParticipants = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  padding: 0 2em 2em;
+`;
+
+const H3 = styled.h3`
+  text-align: center;
+  padding-bottom: 0.5em;
+  font-weight: 300;
+  margin-bottom: 1em;
+`;
+
+const LogoutBtn = styled.button`
+  position: absolute;
+  top: 0;
+  right: 20px;
+  background: #333e5a;
+  color: #fff;
+  font-size: 16px;
+  padding: 0.4em;
+  border-radius: 6px;
+  border: 1px solid transparent;
+
+  &:hover {
+    filter: brightness(150%);
+  }
+`;
 
 export default Room;

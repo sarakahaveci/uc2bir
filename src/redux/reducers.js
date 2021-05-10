@@ -11,7 +11,7 @@ import forgotPassword from '../reducers/forgotPaswword';
 import resetPassword from '../reducers/resetPassword';
 import quizGet from '../reducers/quizGetReducer';
 import profileSettings from '../reducers/profileSettingsReducer';
-import onlineReducer from '../reducers/onlineReducer';
+import online from '../reducers/onlineReducer';
 // TODO: profileSettings değiştirildiğinde bu da düzeltilebilir.
 import profileSettings2 from '../reducers/profileSettingsReducer/index';
 import myGalleries from '../reducers/profileSettingsReducer/galleriesReducer';
@@ -53,7 +53,7 @@ const reducers = combineReducers({
   professionalReservation,
   buyPacket,
   payment,
-  onlineReducer,
+  online,
   paymentPacket,
 });
 
