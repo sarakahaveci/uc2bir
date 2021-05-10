@@ -12,9 +12,12 @@ import {
   deleteSlot,
   addSlot,
   sendReservation,
+  sendPackageReservation,
   clearReservationCalendar,
   setPacketReservation,
 } from 'actions';
+import { getWallet } from 'actions/userProfileActions/walletActions';
+
 import moment from 'moment';
 export default function PaymentCard({ type, dateOption }) {
   const formRef = useRef(null);
@@ -30,6 +33,7 @@ export default function PaymentCard({ type, dateOption }) {
   const [selectedDate, setSelectedDate] = useState(new Date());
   useEffect(() => {
     dispatch(clearReservationCalendar());
+    dispatch(getWallet());
   }, []);
 
   useEffect(() => {
@@ -53,9 +57,17 @@ export default function PaymentCard({ type, dateOption }) {
     }
   }, [reservation?.data?.slot]);
   useEffect(() => {
-    dispatch(
-      setReservation({ date: moment(selectedDate).format('DD.MM.YYYY') })
-    );
+    if (type === 'buy_packet') {
+      dispatch(
+        setPacketReservation({
+          date: moment(selectedDate).format('DD.MM.YYYY'),
+        })
+      );
+    } else {
+      dispatch(
+        setReservation({ date: moment(selectedDate).format('DD.MM.YYYY') })
+      );
+    }
   }, [selectedDate]);
 
   useEffect(() => {
@@ -128,6 +140,27 @@ export default function PaymentCard({ type, dateOption }) {
       }
     }
   }
+  function selectPaymentTypePacket(payment_type) {
+    if (type !== 'buy_packet') {
+      if (reservation?.data?.totals_amount > 0) {
+        dispatch(setPacketReservation({ payment_type: payment_type }));
+      } else {
+        toast.error('Sepetiniz Boş', {
+          position: 'bottom-right',
+          autoClose: 4000,
+        });
+      }
+    } else {
+      if (buyPacket?.reservation?.totals_amount > 0) {
+        dispatch(setPacketReservation({ payment_type: payment_type }));
+      } else {
+        toast.error('Sepetiniz Boş', {
+          position: 'bottom-right',
+          autoClose: 4000,
+        });
+      }
+    }
+  }
 
   const removeEmpty = (obj) =>
     Object.entries(obj)
@@ -162,6 +195,16 @@ export default function PaymentCard({ type, dateOption }) {
     };
 
     dispatch(sendReservation('pt', removeEmpty(json), () => {}));
+  }
+  function sendPaymentPtPacket() {
+    var json = {
+      package_id: buyPacket?.reservation?.id,
+      classification: buyPacket.reservation.classification,
+      is_contracts_accepted: true,
+      payment_type: reservation?.data?.payment_type,
+    };
+
+    dispatch(sendPackageReservation('pt', removeEmpty(json), () => {}));
   }
   function sendPaymentDT() {
     var json = {
@@ -431,7 +474,7 @@ export default function PaymentCard({ type, dateOption }) {
           </Text>
         </BottomContainer>
         {type !== 'buy_packet' &&
-          (reservation?.data?.payment_type ? (
+          (buyPacket?.reservation?.payment_type ? (
             <BottomContainer>
               <Button
                 style={{ width: '100%', padding: '20px' }}
@@ -445,6 +488,7 @@ export default function PaymentCard({ type, dateOption }) {
                     case 'dt':
                       sendPaymentDT();
                       break;
+
                     default:
                       break;
                   }
@@ -490,16 +534,7 @@ export default function PaymentCard({ type, dateOption }) {
                 className="blue"
                 text="Ödeme Yap"
                 onClick={() => {
-                  switch (type) {
-                    case 'pt':
-                      sendPaymentPT();
-                      break;
-                    case 'dt':
-                      sendPaymentDT();
-                      break;
-                    default:
-                      break;
-                  }
+                  sendPaymentPtPacket();
                 }}
               />
             </BottomContainer>
@@ -512,12 +547,12 @@ export default function PaymentCard({ type, dateOption }) {
                   text="Cüzdanımdan Öde"
                   onClick={() => {
                     var wallet_balance = wallet?.data?.balance || 0;
-                    var amount = reservation?.data?.totals_amount || 0;
+                    var amount = buyPacket?.reservation?.totals_amount || 0;
                     var diff = wallet_balance - amount;
                     if (diff < 0) {
-                      selectPaymentType('both');
+                      selectPaymentTypePacket('both');
                     } else {
-                      selectPaymentType('wallet');
+                      selectPaymentTypePacket('wallet');
                     }
                   }}
                 />
@@ -528,7 +563,7 @@ export default function PaymentCard({ type, dateOption }) {
                   className="blue"
                   text="Kredi Kartından Öde"
                   onClick={() => {
-                    selectPaymentType('credit_card');
+                    selectPaymentTypePacket('credit_card');
                   }}
                 />
               </BottomContainer>

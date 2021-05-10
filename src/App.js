@@ -25,6 +25,7 @@ import Message from 'views/Message';
 import BuyPacket from 'views/BuyPacket';
 
 import SearchPackets from 'views/SearchPackets';
+import SearchGroupLesson from 'views/SearchGroupLesson';
 
 import { theme } from 'utils';
 import BlogDetail from 'views/BlogDetail';
@@ -118,6 +119,12 @@ const App = () => {
 
                 <Route exact path="/messages/:id?" component={Message} />
                 <Route exact path="/packets" component={SearchPackets} />
+                <Route
+                  exact
+                  path="/group-lessons"
+                  component={SearchGroupLesson}
+                />
+
                 <Route exact path="/packets/detail/:id" component={BuyPacket} />
 
                 <Route exact path="/contact" component={Contact} />

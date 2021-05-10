@@ -1,7 +1,7 @@
 import {
-  SEND_RESERVATION_FAILURE,
-  SEND_RESERVATION_REQUEST,
-  SEND_RESERVATION_SUCCESS,
+  SEND_PACKET_RESERVATION_FAILURE,
+  SEND_PACKET_RESERVATION_REQUEST,
+  SEND_PACKET_RESERVATION_SUCCESS,
 } from 'constants/index';
 
 const initialState = {
@@ -10,21 +10,11 @@ const initialState = {
     isLoading: false,
     error: null,
   },
-  paytr: {
-    data: {},
-    isLoading: false,
-    error: null,
-  },
-  response: {
-    data: {},
-    isLoading: false,
-    error: null,
-  },
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case SEND_RESERVATION_REQUEST:
+    case SEND_PACKET_RESERVATION_REQUEST:
       return {
         ...state,
         request: {
@@ -33,7 +23,7 @@ export default (state = initialState, action) => {
         },
       };
 
-    case SEND_RESERVATION_SUCCESS:
+    case SEND_PACKET_RESERVATION_SUCCESS:
       return {
         ...state,
         request: {
@@ -43,7 +33,7 @@ export default (state = initialState, action) => {
         },
       };
 
-    case SEND_RESERVATION_FAILURE:
+    case SEND_PACKET_RESERVATION_FAILURE:
       return {
         ...state,
         request: {
