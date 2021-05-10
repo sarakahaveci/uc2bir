@@ -226,6 +226,10 @@ const Rejecteds = () => {
           setOpenTransfer(false);
           setOpenCongrats(true);
         }}
+        closeModal={() => {
+          setOpenTransfer(false);
+          setOpenCongrats(false);
+        }}
       />
       <CongratsModal
         open={openCongrats}
