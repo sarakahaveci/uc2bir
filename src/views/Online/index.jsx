@@ -10,12 +10,35 @@ const Online = () => {
   // const [roomName, setRoomName] = useState('');
   const [token, setToken] = useState(null);
   const tokenData = useSelector((state) => state.online.token);
+  const [detailData, setDetailData] = useState({});
+  const user = useSelector((state) => state.auth.user);
+  const professionalReservation = useSelector(
+    (state) => state.professionalReservation
+  );
+
+  useEffect(() => {
+    switch (user?.type_id) {
+      case 2:
+        setDetailData(professionalReservation?.ptReservation?.res_detail);
+        break;
+      case 4:
+        setDetailData(professionalReservation?.dtReservation?.res_detail);
+        break;
+      case 1:
+        setDetailData(professionalReservation?.userReservation?.res_detail);
+        break;
+      default:
+        break;
+    }
+  }, [professionalReservation,user]);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(generateTwilioToken())
-  }, []);
+    if(detailData?.id){
+      dispatch(generateTwilioToken(detailData?.id))
+    }
+  }, [detailData]);
 
   useEffect(() => {
     setToken(tokenData?.token);
@@ -46,9 +69,9 @@ const Online = () => {
   let render;
   if (token) {
     render = (
-      <Main>
+      <>
         <Room roomName={tokenData?.reservation_id} token={token} handleLogout={handleLogout} />
-      </Main>
+      </>
     );
   } else {
     render = (

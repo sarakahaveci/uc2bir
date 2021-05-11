@@ -64,8 +64,8 @@ const Participant = ({ participant }) => {
 
   return (
     <ParticipantContainer>
-      <Video ref={videoRef} autoPlay={true} />
-      <audio ref={audioRef} autoPlay={true} />
+        <Video ref={videoRef} autoPlay={true} />
+        <audio ref={audioRef} autoPlay={true} />
     </ParticipantContainer>
   );
 };
@@ -73,14 +73,9 @@ const Participant = ({ participant }) => {
 const Video = styled.video`
     
     transform: scaleX(-1);
-    width: 100%;
-    max-width: 600px;
-    display: block;
-    margin: 0 auto;
-    border-radius: 6px;
-    //width: 100%;
-    //position: relative;
-    //display: flex;
+    width: 80%;
+    height: 100%;
+    display: flex;
     //height: 700px;
     //#video_container {
     //  position: relative;
@@ -96,10 +91,10 @@ const Video = styled.video`
 `;
 
 const ParticipantContainer = styled.div`
-  background: #333e5a;
-  padding: 10px;
-  border-radius: 6px;
-  display: inline-block;
-  margin-right: 10px;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  
 `;
+
 export default Participant;

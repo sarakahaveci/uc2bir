@@ -3,6 +3,7 @@ import Video from 'twilio-video';
 import Participant from './participant';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
+import { Row, Col } from 'react-bootstrap';
 
 const Room = ({ roomName, token }) => {
   const [room, setRoom] = useState(null);
@@ -48,9 +49,10 @@ const Room = ({ roomName, token }) => {
   return (
     <Container >
       <Link to={'/myprofile/settings/reservation'}>
-        <LogoutBtn>Log out</LogoutBtn>
+        <LogoutBtn>Çıkış Yap</LogoutBtn>
       </Link>
-      <LocalParticipant >
+      <Row>
+      <Col lg={9} style={{padding:'0px'}}>
         {room ? (
           <Participant
             key={room.localParticipant.sid}
@@ -59,9 +61,9 @@ const Room = ({ roomName, token }) => {
         ) : (
           ''
         )}
-      </LocalParticipant>
-      <H3>Remote Participants</H3>
-      <RemoteParticipants >{remoteParticipants}</RemoteParticipants>
+      </Col>
+      <Col lg={3} style={{padding:'0px'}}>{remoteParticipants}</Col>
+      </Row>
     </Container>
   );
 
@@ -69,30 +71,31 @@ const Room = ({ roomName, token }) => {
 
 const Container = styled.div`
   position: relative;
+  display: grid;
 `;
 
-const LocalParticipant = styled.div`
-  text-align: center;
-  margin-bottom: 2em;
-`;
+// const LocalParticipant = styled.div`
+//   text-align: center;
+//   margin-bottom: 2em;
+//
+// `;
+//
+// const RemoteParticipants = styled.div`
+//   grid-template-columns: 1fr 355px;
+//   flex-wrap: nowrap;
+//   justify-content: space-between;
+// `;
 
-const RemoteParticipants = styled.div`
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  padding: 0 2em 2em;
-`;
-
-const H3 = styled.h3`
-  text-align: center;
-  padding-bottom: 0.5em;
-  font-weight: 300;
-  margin-bottom: 1em;
-`;
+// const H3 = styled.h3`
+//   text-align: center;
+//   padding-bottom: 0.5em;
+//   font-weight: 300;
+//   margin-bottom: 1em;
+// `;
 
 const LogoutBtn = styled.button`
   position: absolute;
-  top: 0;
+  top: 10px;
   right: 20px;
   background: #333e5a;
   color: #fff;
@@ -100,6 +103,7 @@ const LogoutBtn = styled.button`
   padding: 0.4em;
   border-radius: 6px;
   border: 1px solid transparent;
+  z-index: 2;
 
   &:hover {
     filter: brightness(150%);

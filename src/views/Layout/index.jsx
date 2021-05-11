@@ -8,16 +8,26 @@ import Footer from './Footer';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useLocation } from 'react-router-dom'
 
 const Layout = (props) => {
-  return (
-    <div id="pt-point-page">
-      <Header />
-      {props.children}
-      <Footer />
-      <ToastContainer autoClose={2000} />
-    </div>
-  );
+  const location = useLocation();
+  if (location.pathname === "/myprofile/online") {
+    return (
+      <>
+        {props.children}
+      </>
+    )
+  } else {
+    return (
+      <div id="pt-point-page">
+        <Header />
+        {props.children}
+        <Footer />
+        <ToastContainer autoClose={2000} />
+      </div>
+    )
+  }
 };
 
 export default Layout;

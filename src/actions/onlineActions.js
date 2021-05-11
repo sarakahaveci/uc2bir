@@ -1,6 +1,6 @@
 import { HTTP_REQUEST, GENERATE_TWILIO_TOKEN } from '../constants';
 
-export const generateTwilioToken = () => async (
+export const generateTwilioToken = (appointment_id) => async (
   dispatch
 ) => {
   const url = '/twilio/generate-token';
@@ -11,7 +11,7 @@ export const generateTwilioToken = () => async (
       method: 'POST',
       url,
       label: GENERATE_TWILIO_TOKEN,
-      body: { device:'web' },
+      body: { device:'web' , appointment_id: appointment_id},
       transformData: (data) => data.data,
       // callBack: (callBack) => console.log(callBack),
       // errorHandler: (error) =>console.log(error),
