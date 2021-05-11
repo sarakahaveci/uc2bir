@@ -6,16 +6,12 @@ import SessionHistory from './SessionHistory';
 import Rejecteds from './Rejecteds';
 import styled from 'styled-components/macro';
 import { Tabbar } from 'components';
-import { useDispatch } from 'react-redux';
-import { getTemplates } from '../../../../actions';
 const ST = () => {
   const [tab, setTab] = useState('Awaitings');
   const [subPage, setSubPage] = useState();
 
-  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getTemplates());
     getGeocode();
   }, []);
 
