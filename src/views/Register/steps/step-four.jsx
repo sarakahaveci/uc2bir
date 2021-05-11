@@ -147,6 +147,7 @@ const StepFour = (props) => {
                       return (
                         <>
                           <Material.CheckBoxGroup
+                            style={{ color: 'red' }}
                             key={`checkbox-key-${key}`}
                             name={val.name}
                             label={item.name}

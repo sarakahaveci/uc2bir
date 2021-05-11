@@ -49,12 +49,25 @@ const Favorites = () => {
   } else {
     content = favoriteUsers?.length ? (
       favoriteUsers.map((item, index) => (
-        <Col lg={4} md={6} sm={12} key={'Favori' + index}>
-          <LongUserCard data={item} favoriteId={item.favorite_id}showHeartBg favoritedUser />
+        <Col
+          lg={4}
+          md={6}
+          sm={12}
+          key={'Favori' + index}
+          style={{ paddingLeft: '35px', marginBottom: '20px' }}
+        >
+          <LongUserCard
+            data={item}
+            favoriteId={item.favorite_id}
+            showHeartBg
+            favoritedUser
+          />
         </Col>
       ))
     ) : (
-      <Col>Herhangi bir favori kullancınız bulunmamaktır.</Col>
+      <Col style={{ paddingLeft: '35px' }}>
+        Herhangi bir favori kullancınız bulunmamaktır.
+      </Col>
     );
   }
 
@@ -64,13 +77,15 @@ const Favorites = () => {
         <Title
           textAlign="left"
           component="h5"
-          fontWeight="600"
-          fontSize="1.5rem"
+          fontWeight="bold"
+          fontSize="1.1rem"
+          paddingLeft="20px"
         >
           Favorilerim
         </Title>
 
         <SubTabs
+          style={{ color: 'red' }}
           data={subTabsData}
           onChange={(item) => {
             setUserType(item.value);

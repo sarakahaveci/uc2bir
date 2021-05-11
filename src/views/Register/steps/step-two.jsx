@@ -6,7 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import { Button, Otp, Box } from '../../../components';
+import { Button, Otp, Box, Svg } from '../../../components';
 
 import { toast } from 'react-toastify';
 
@@ -122,7 +122,7 @@ const StepTwo = (props) => {
           maxWidth={maxWidth}
           open={modal}
         >
-          <DialogTitle className="text-center">
+          <DialogTitle className="text-center" style={{ color: 'black' }}>
             Telefon Numaranızı Doğrulayın
             <span
               style={{
@@ -135,16 +135,16 @@ const StepTwo = (props) => {
               }}
               onClick={() => setModal(false)}
             >
-              x
+              <Svg.CloseIcon />
             </span>
           </DialogTitle>
           <DialogContent>
             <DialogContentText
-              style={{ padding: '15px 30px' }}
+              style={{ padding: '15px 30px', color: 'black' }}
               className="text-center"
             >
-              <b>{phone}</b> numaralı telefona gönderdiğimiz 6 haneli kodu
-              girin.
+              <b>{phone}</b> numaralı telefona <br />
+              gönderdiğimiz 6 haneli kodu girin.
             </DialogContentText>
             <div className="d-flex flex-wrap dialog-center">
               <form
@@ -157,6 +157,7 @@ const StepTwo = (props) => {
                 {counter > 0 ? (
                   <Button
                     variant="link"
+                    color="#00b2a9"
                     text={`Güvenlik kodunu girmek için kalan süreniz ${Math.floor(
                       counter / 60
                     )}:${Math.ceil(counter % 60) < 10 ? 0 : ''}${Math.ceil(
@@ -165,6 +166,7 @@ const StepTwo = (props) => {
                   />
                 ) : (
                   <Button
+                    color="#00b2a9"
                     onClick={vrf_response}
                     variant="link"
                     text={`Güvenlik kodunu tekrar gönder.`}

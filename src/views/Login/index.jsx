@@ -46,14 +46,12 @@ const Login = () => {
                 fontFamily="'Montserrat', sans-serif"
                 fontSize="1.2rem"
                 color="orange2"
-              >
-                BAŞARMAK İÇİN BAŞLA
-              </Text>
+              ></Text>
 
               <Text
                 mb="10px"
                 fontFamily="'Bebas Neue', cursive"
-                fontSize="2rem"
+                fontSize="3rem"
                 fontWeight="500"
                 color="dark"
               >
@@ -63,7 +61,7 @@ const Login = () => {
               <Text
                 mb="40px"
                 fontFamily="'Montserrat', sans-serif"
-                fontSize="0.8rem"
+                fontSize="1.2rem"
                 fontWeight="500"
                 color="dark"
               >
@@ -92,7 +90,7 @@ const Login = () => {
                   name="login-email"
                   label="E-mail"
                   type="text"
-                  icon={AwesomeIcon.At}
+                  icon={AwesomeIcon.User}
                 />
 
                 <Material.TextField

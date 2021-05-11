@@ -15,7 +15,7 @@ export default function ProfileInfoSetting() {
     <Spinner size="md" />
   ) : (
     <Row>
-      <Col md={4} sm={12}>
+      <Col md={4} sm={12} style={{ paddingLeft: '30px', marginBottom: '20px' }}>
         <ProfileCard img={DefaultProfilePicture} />
       </Col>
       <Col md={8} sm={12}>

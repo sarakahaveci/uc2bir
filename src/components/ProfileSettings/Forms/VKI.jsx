@@ -90,7 +90,9 @@ const VKI = () => {
             }
           />
           <Span>
-            <b>VKI</b>: {vki?.data?.vki || result}
+            <p style={{ fontWeight: '400', fontSize: '14px' }}>
+              VKI (Vücut Kitle Endeksi ) : {vki?.data?.vki || result}
+            </p>{' '}
           </Span>
           <Footer>
             <Button
