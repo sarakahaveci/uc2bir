@@ -67,6 +67,15 @@
         color: #00b2a9;
         width: 25px;
         height: 17px;
+        @media (max-width: 768px) {
+          width: 17px;
+          height: 12px;
+        }
+      }
+      span {
+        @media (max-width: 768px) {
+          font-size: 10pt;
+        }
       }
     }
   }
@@ -217,7 +226,7 @@
     .logo {
       position: absolute;
       z-index: 100;
-      right: -140px;
+      right: -120px;
       background: #1a1818;
       padding: 5px 0;
 
@@ -226,7 +235,7 @@
       }
 
       img {
-        height: 140px;
+        height: 100px;
       }
     }
 

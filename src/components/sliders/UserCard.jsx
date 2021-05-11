@@ -1,7 +1,7 @@
 /* eslint-disable react/no-children-prop */
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import styled from 'styled-components';
 import {
   Svg,
   Button,
@@ -56,12 +56,18 @@ const UserCard = ({ top = false, bottom = false, data = {}, className }) => {
             />
 
             <Title textAlign="left" variant="h4" component="h4">
-              <span>
-                {data.price} <AwesomeIcon.Tl />
-              </span>
+              <SpanWrapper>
+                {data.price}{' '}
+                <AwesomeIcon.Tl
+                  style={{
+                    height: '20px',
+                    verticalAlign: 'middle',
+                  }}
+                />
+              </SpanWrapper>
             </Title>
 
-            <Text fontSize="16px" color="gray2" mb="10px">
+            <Text fontSize="16px" color="black" mb="10px">
               {data.title}
             </Text>
 
@@ -88,3 +94,7 @@ const UserCard = ({ top = false, bottom = false, data = {}, className }) => {
 };
 
 export default UserCard;
+
+const SpanWrapper = styled.span`
+  border-bottom: 3px solid #00b2a9;
+`;

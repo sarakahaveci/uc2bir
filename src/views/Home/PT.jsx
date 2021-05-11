@@ -18,7 +18,13 @@ const PT = ({ className }) => {
   return (
     <section className={cx('pt', { [`${className}`]: className })}>
       <Container>
-        <Title variant="h3" lineDisable={false} component="h3">
+        <Title
+          variant="h3"
+          lineDisable={false}
+          component="h3"
+          letterSpacing="100"
+          fontWeight="600"
+        >
           EĞİTMENLER
         </Title>
         <Title variant="h6" component="h6" fontWeight="500">

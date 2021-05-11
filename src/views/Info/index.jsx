@@ -40,7 +40,7 @@ const Info = () => {
             <Text
               textAlign="center"
               fontSize="14pt"
-              blue
+              color="#00b2a9"
               style={{
                 marginTop: 15,
                 marginBottom: 15,
@@ -70,15 +70,19 @@ const Info = () => {
             <ul className="base-icon">
               <li className="col-md-3">
                 <Svg.InfoHome />
-                <span>İstediğin açık hava bir alanda (park/bahçe/sahil)</span>
+                <span style={{ fontSize: '18px' }}>
+                  İstediğin açık hava bir alanda (park/bahçe/sahil)
+                </span>
               </li>
               <li className="col-md-3">
                 <Svg.InfoOnline />
-                <span>Online</span>
+                <span style={{ fontSize: '18px' }}>Online</span>
               </li>
               <li className="col-md-3">
                 <Svg.InfoSport />
-                <span>Anlaşmalı spor alanı veya diyetisyen kliniğinde</span>
+                <span style={{ fontSize: '18px' }}>
+                  Anlaşmalı spor alanı veya diyetisyen kliniğinde
+                </span>
               </li>
             </ul>
 
@@ -91,10 +95,11 @@ const Info = () => {
               </Title>
 
               <ul className="animation-text">
-                <li>Paket satın alımlarında eğitmen değiştirme fırsatı</li>
                 <li className="active">
                   Uzman ekiplerce onaylanmış eğitmenler
                 </li>
+                <li>Paket satın alımlarında eğitmen değiştirme fırsatı</li>
+
                 <li>
                   Kişiye özel hazırlanan müfredata uygun eğitim içerikleri
                 </li>

@@ -3,6 +3,7 @@ import { Container } from 'react-bootstrap';
 import { default as SlickSlider } from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { Button } from 'components';
 
 import CardSlider from './CardSlider';
 import AwesomeIcon from '../statics/icon';
@@ -58,14 +59,14 @@ const HomeUserSlider = ({ className, data = [] }) => {
       <Container>
         <div className="row">
           <div
-            style={{ marginTop: '-45px' }}
+            style={{ marginTop: '-100px' }}
             className="col d-flex justify-content-center"
           >
-            {/*   <Button
+            <Button
               lineButton
-              onClick={() => history.push(props.link)}
+              // onClick={() => history.push(props.link)}
               text="Tümünü Gör"
-            /> */}
+            />
           </div>
         </div>
       </Container>

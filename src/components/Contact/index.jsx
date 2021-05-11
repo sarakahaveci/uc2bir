@@ -99,15 +99,18 @@ export default function Contact() {
             <p className="contact-header__contact-subtitle">
               {infoData?.email}
             </p>
+            <p className="contact-header__contact-subtitle">
+              {infoData?.phone}
+            </p>
           </div>
-          <div className="w-50 ml-auto">
+          {/* <div className="w-50 ml-auto">
             <span className="contact-header__contact-title">
               Telefon Numarası
             </span>
             <p className="contact-header__contact-subtitle">
               {infoData?.phone}
             </p>
-          </div>
+          </div> */}
         </div>
         <div className="col-md-8 col-sm-12 contact-header__map-wrapper">
           <GoogleMap

@@ -46,6 +46,7 @@ const Footer = () => {
               lineDisable
               variant="h6"
               component="h6"
+              paddingTop="10px"
             >
               Bilgilendirme
             </Title>
@@ -59,7 +60,7 @@ const Footer = () => {
               <li>
                 <Link to="/kvkk-sozlesmesi">Kişisel Verilerin Korunması</Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to="/uye-on-bilgilendirme-formu">
                   Üye Ön Bilgilendirme Formu
                 </Link>
@@ -73,7 +74,7 @@ const Footer = () => {
                 <Link to="/uye-aydinlatma-bildirimi">
                   Üye Aydınlatma Bildirimi
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
 

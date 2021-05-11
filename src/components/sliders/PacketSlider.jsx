@@ -8,6 +8,7 @@ import { default as SlickSlider } from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 
 import AwesomeIcon from '../statics/icon';
+import { Button } from 'components';
 
 import Groups from './packets-items';
 
@@ -101,11 +102,11 @@ function PacketSlider(props) {
             style={{ marginTop: '45px' }}
             className="col d-flex justify-content-center"
           >
-            {/*   <Button
+            <Button
               lineButton
-              onClick={() => history.push(props.link)}
+              // onClick={() => history.push(props.link)}
               text="Tümünü Gör"
-            /> */}
+            />
           </div>
         </div>
       </Container>
