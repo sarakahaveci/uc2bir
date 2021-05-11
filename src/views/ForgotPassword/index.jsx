@@ -105,7 +105,7 @@ const ForgotPassword = () => {
                       name="email"
                       label="E-mail'inizi giriniz."
                       type="text"
-                      icon={AwesomeIcon.At}
+                      icon={AwesomeIcon.User}
                     />
                     {getForgotPassword.isLoading ? (
                       <Button text={`Yükleniyor...`} className="blue" />

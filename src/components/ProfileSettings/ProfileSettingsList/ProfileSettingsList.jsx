@@ -197,6 +197,12 @@ const Wrapper = styled.div`
   background: #fff;
   box-shadow: 2px 3px 18px rgba(0, 0, 0, 0.09);
   margin-bottom: 25px;
+
+  width: 622px;
+  @media (max-width: 768px) {
+    margin-left: 10px;
+    width: 375px;
+  }
 `;
 
 const SettingsRow = styled.div`

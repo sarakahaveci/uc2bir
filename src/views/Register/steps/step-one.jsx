@@ -282,7 +282,10 @@ const StepOne = (props) => {
         gray
         textAlign="center"
       >
-        Hesabınız var mı? <Link to="/login">Giriş Yap</Link>
+        Hesabınız var mı?{' '}
+        <Link style={{ color: 'var(--blue)', marginLeft: '5px' }} to="/login">
+          Giriş Yap
+        </Link>
       </Text>
       <StyledModal show={openModal} onHide={() => setOpenModal(false)}>
         {confirmation}

@@ -71,8 +71,8 @@
   }
 
   .page {
-    /*min-height: 999px;*/
-    /*height: calc(100vh);*/
+    // min-height: 999px;
+    // height: calc(100vh);
     height: auto;
     position: relative;
     /*left: 8px;*/
@@ -198,7 +198,7 @@
 
         .remember-password {
           padding: 0;
-          margin-right: -15px;
+          margin-right: 0px;
 
           a {
             font-size: 10pt;
@@ -264,5 +264,9 @@
     align-items: center;
     color: #181818;
     margin-top: 20px;
+
+    &:hover {
+      color: #00b2a9;
+    }
   }
 }

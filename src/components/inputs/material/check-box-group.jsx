@@ -4,13 +4,13 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
-import { green } from '@material-ui/core/colors';
+import { teal } from '@material-ui/core/colors';
 
 const GreenCheckbox = withStyles({
   root: {
-    color: green[400],
+    color: teal[300],
     '&$checked': {
-      color: green[600],
+      color: teal[400],
     },
   },
   checked: {},

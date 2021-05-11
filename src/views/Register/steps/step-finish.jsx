@@ -19,15 +19,20 @@ const StepFinish = () => {
         <AwesomeIcon.Success style={{ fontSize: '4em', color: '#00b2a9' }} />
       </span>
       <Text
-        style={{ marginBottom: 5 }}
-        children="Aramıza Hoş Geldin."
+        style={{ marginBottom: 5, fontSize: '18px', letterSpacing: '1px' }}
+        children="Tebrikler"
         blue
+        textAlign="center"
+      />
+      <Text
+        fontSize="11pt"
+        children="Başlangıç yapmak için harika bir gün..."
         textAlign="center"
       />
       <Text
         style={{ marginBottom: 25 }}
         fontSize="11pt"
-        children="Sistem onayın için ilgili arkadaşlarımız en kısa zamanda seninle iletişime geçecek."
+        children="Şimdinin gücüne inan!"
         textAlign="center"
       />
       <Button
