@@ -9,6 +9,8 @@ import { CustomProgress } from 'components';
 import { Container, Row, Col } from 'react-bootstrap';
 import { device } from 'utils';
 import image from '../../../assets/session-type.jpg';
+import { useDispatch } from 'react-redux';
+import { getUserMyPacketDetail } from 'actions';
 
 const useStyles = makeStyles({
   barColorPrimary: {
@@ -16,7 +18,10 @@ const useStyles = makeStyles({
   },
 });
 const DetailLesson = ({ setBannerActive = () => {}, setPage = () => {} }) => {
+  const dispatch = useDispatch();
+
   useEffect(() => {
+    dispatch(getUserMyPacketDetail('PACKETID'));
     setBannerActive(false);
   }, []);
   function onClickLesson() {

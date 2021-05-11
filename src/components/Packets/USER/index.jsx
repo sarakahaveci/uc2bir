@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { createTypes, getSessionTypes } from 'actions';
+import { createTypes, getSessionTypes, getUserMyPacket } from 'actions';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { getGeocode } from 'use-places-autocomplete';
@@ -22,9 +22,11 @@ const User = ({ icons, setBannerActive }) => {
 
   const { create } = useSelector((state) => state.profileSettings2.sessionType);
   const { get } = useSelector((state) => state.profileSettings2.sessionType);
+  // const myPackets = useSelector((state) => state.myPackets.user);
 
   useEffect(() => {
     dispatch(getSessionTypes());
+    dispatch(getUserMyPacket());
   }, []);
 
   const select = (key) => {

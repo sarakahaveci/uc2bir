@@ -27,6 +27,7 @@ import professionalReservation from '../reducers/reservationProfessionalReducers
 import buyPacket from '../reducers/buyPacketReducer';
 import payment from '../reducers/paymentReducer';
 import paymentPacket from '../reducers/paymentPacketReducer';
+import myPackets from '../reducers/myPacketsReducer';
 
 const reducers = combineReducers({
   auth,
@@ -55,6 +56,7 @@ const reducers = combineReducers({
   payment,
   online,
   paymentPacket,
+  myPackets,
 });
 
 export default reducers;
