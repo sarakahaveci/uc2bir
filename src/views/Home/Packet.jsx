@@ -22,13 +22,13 @@ const Packet = (props) => {
       id: 2,
       name: 'Eğitmen Paketleri',
       activeClass: '',
-      link: '#all',
+      // link: '#all',
     },
     {
       id: 3,
       name: 'Diyetisyen Paketleri',
       activeClass: '',
-      link: '#all',
+      // link: '#all',
     },
   ];
   return (
