@@ -187,5 +187,5 @@ const Text = styled.div`
   color: #00b2a9;
   margin-bottom: 15px;
   /* font-style: italic; */
-  /* font-weight: 400; */
+  /* font-weight: 600; */
 `;

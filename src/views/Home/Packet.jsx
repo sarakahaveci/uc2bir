@@ -8,7 +8,7 @@ import * as Data from './MocData';
 
 const Packet = (props) => {
   const query = true;
-
+  //TODO : Tablara linklemeleri yapılacak
   const data = Data.Packets;
   const groups = 'Packet';
   const link = '/packets';
@@ -18,7 +18,7 @@ const Packet = (props) => {
       name: 'Tümü',
       activeClass: 'active',
     },
-    /*   {
+    {
       id: 2,
       name: 'Eğitmen Paketleri',
       activeClass: '',
@@ -29,12 +29,18 @@ const Packet = (props) => {
       name: 'Diyetisyen Paketleri',
       activeClass: '',
       link: '#all',
-    }, */
+    },
   ];
   return (
     <section className={`pt ${props.className}`}>
       <Container>
-        <Title variant="h3" component="h3" lineDisable={false}>
+        <Title
+          variant="h3"
+          component="h3"
+          lineDisable={false}
+          letterSpacing="100"
+          fontWeight="600"
+        >
           PAKETLER
         </Title>
         <Title variant="h6" component="h6" fontWeight="500">
