@@ -49,7 +49,7 @@ const Favorites = () => {
   } else {
     content = favoriteUsers?.length ? (
       favoriteUsers.map((item, index) => (
-        <Col lg={4} md={6} sm={12} key={'Favori' + index}>
+        <Col lg={4} md={6} sm={12} key={'Favori' + index} style={{marginBottom:'20px'}}>
           <LongUserCard data={item} favoriteId={item.favorite_id}showHeartBg favoritedUser />
         </Col>
       ))
