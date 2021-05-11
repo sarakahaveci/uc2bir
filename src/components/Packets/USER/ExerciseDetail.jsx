@@ -1,18 +1,25 @@
 // @ts-nocheck
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { makeStyles } from '@material-ui/core/styles';
 import { device } from 'utils';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Svg from 'components/statics/svg';
+import { getUserExerciseDetail } from 'actions';
+import { useDispatch } from 'react-redux';
+
 const useStyles = makeStyles({
   barColorPrimary: {
     backgroundColor: '#00B2A9',
   },
 });
 const ExerciseDetail = ({ setPage = () => {} }) => {
-  const classes = useStyles();
+  const dispatch = useDispatch();
 
+  const classes = useStyles();
+  useEffect(() => {
+    dispatch(getUserExerciseDetail('EXERCİSEDETAİL'));
+  }, []);
   return (
     <Main>
       <BackLink onClick={() => setPage('Exercises')}>

@@ -54,9 +54,7 @@ const GroupLesson = ({ val }) => {
             <div className="row info">
               <div className="col">
                 <ul>
-                  <li style={{ fontSize: '10pt' }}>
-                    {val.content}
-                  </li>
+                  <li style={{ fontSize: '10pt' }}>{val.content}</li>
                   <li style={{ fontSize: '8pt', marginTop: 5 }}>
                     <AwesomeIcon.Map /> {val.location}
                   </li>

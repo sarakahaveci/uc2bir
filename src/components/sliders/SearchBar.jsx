@@ -101,7 +101,7 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
               <li>
                 <IconLabel
                   icon={Svg.SearchLocation}
-                  style={{ paddingBottom: '7px' }}
+                  style={{ paddingBottom: '6px' }}
                 />
                 <NakedInput
                   placeholder="Lokasyon"
@@ -111,12 +111,23 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
               </li>
             )}
             <li>
-              <IconLabel icon={Svg.SearchBranches} />
+              <IconLabel
+                icon={Svg.SearchBranches}
+                style={{ paddingTop: '5px' }}
+              />
               <FormControl
                 className={'material-selectbox'}
                 onChange={(event) => setBranch(event.target.value)}
               >
-                <InputLabel htmlFor="age-native-helper">Branşlar</InputLabel>
+                <InputLabel
+                  htmlFor="age-native-helper"
+                  style={{
+                    fontFamily: 'Poppins',
+                    fontSize: '18px',
+                  }}
+                >
+                  Branşlar
+                </InputLabel>
                 <NativeSelect>
                   <option aria-label="None" value="" />
                   {allBranchList.map((item, index) => (

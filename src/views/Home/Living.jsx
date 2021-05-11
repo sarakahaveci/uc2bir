@@ -19,7 +19,13 @@ const Living = (props) => {
   return (
     <section className={`pt ${props.className}`}>
       <Container>
-        <Title variant="h3" lineDisable={false} component="h3">
+        <Title
+          variant="h3"
+          lineDisable={false}
+          component="h3"
+          letterSpacing="100"
+          fontWeight="600"
+        >
           SALONLAR
         </Title>
         <Title variant="h6" component="h6" fontWeight="500">

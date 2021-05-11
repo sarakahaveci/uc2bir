@@ -7,14 +7,22 @@ import { Container, Row, Col } from 'react-bootstrap';
 import ExerciseCard from '../ExerciseCard/ExerciseCard';
 import { device } from 'utils';
 import Svg from 'components/statics/svg';
-
+import {
+  getUserPacketLessonDetail,
+  setUserPacketLessonComplete,
+} from 'actions';
+import { useDispatch } from 'react-redux';
 const useStyles = makeStyles({
   barColorPrimary: {
     backgroundColor: '#00B2A9',
   },
 });
 const Exercises = ({ setPage = () => {} }) => {
-  useEffect(() => {}, []);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUserPacketLessonDetail('lesssoNIDDD'));
+  }, []);
   const classes = useStyles();
   var temp = ['55', '55s5d', '626', 'd', 'sdsd', 'sdasd', 'sdad'];
   function locationSelector(index) {
@@ -37,7 +45,11 @@ const Exercises = ({ setPage = () => {} }) => {
           active="false"
         ></CustomProgress>
         <ExerciseCard type="user" onClickExercise={onClickExercise} />
-        <TickContainer>
+        <TickContainer
+          onClick={() => {
+            dispatch(setUserPacketLessonComplete());
+          }}
+        >
           {true ? <Svg.TickLesson /> : <Svg.TickLessonDisable />}
           <TickLabel enable>Tamamlandı</TickLabel>
         </TickContainer>

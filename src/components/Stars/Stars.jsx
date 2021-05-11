@@ -35,7 +35,7 @@ const StarsList = styled.ul`
   display: flex;
   position: absolute;
   left: 0px;
-  padding: 5px 15px;
+  padding: 5px 15px 10px 10px;
   z-index: 2;
   background-color: rgba(255, 255, 255, 0.7);
 
@@ -56,7 +56,7 @@ const StarsList = styled.ul`
 `;
 
 const Star = styled.li`
-  margin: 2px;
+  margin: 0px;
   cursor: pointer;
 
   svg {

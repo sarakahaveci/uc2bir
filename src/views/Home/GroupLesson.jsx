@@ -8,7 +8,7 @@ import * as Data from './MocData';
 
 const GroupLesson = (props) => {
   const query = true;
-
+  //TODO : Tablara linklemeleri yapılacak
   const data = Data.GroupLesson;
   const groups = 'GroupLesson';
   const link = '/packets';
@@ -53,10 +53,16 @@ const GroupLesson = (props) => {
   return (
     <section className={`pt ${props.className}`}>
       <Container>
-        <Title variant="h3" component="h3" lineDisable={false}>
+        <Title
+          variant="h3"
+          component="h3"
+          lineDisable={false}
+          letterSpacing="100"
+          fontWeight="600"
+        >
           GRUP DERSLERİ
         </Title>
-        <Title variant="h6" component="h6" fontWeight="500" >
+        <Title variant="h6" component="h6" fontWeight="500">
           ARKADAŞLARINLA BERABER, İSTEDİĞİN SALONDA, İSTEDİĞİN EĞİTMENDEN DERS
           ALMA FIRSATI
         </Title>

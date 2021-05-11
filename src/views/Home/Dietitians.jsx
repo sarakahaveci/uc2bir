@@ -20,7 +20,13 @@ const Dietitians = (props) => {
   return (
     <section className={`pt ${props.className}`}>
       <Container>
-        <Title variant="h3" component="h3" lineDisable={false}>
+        <Title
+          variant="h3"
+          component="h3"
+          lineDisable={false}
+          letterSpacing="100"
+          fontWeight="600"
+        >
           DİYETİSYENLER
         </Title>
         <Title variant="h6" component="h6" fontWeight="500">

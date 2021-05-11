@@ -18,7 +18,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         request: {
-          ...state.content,
+          ...state.request,
           isLoading: true,
         },
       };
@@ -37,7 +37,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         request: {
-          ...state.content,
+          ...state.request,
           isLoading: false,
           error: action.payload,
         },
