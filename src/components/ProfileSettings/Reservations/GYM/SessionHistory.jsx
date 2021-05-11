@@ -23,7 +23,7 @@ const SessionHistory = () => {
             <ReservationAccordion
               defaultOpen={true}
               parent
-              title="24 OCAK ÇARŞAMBA"
+              title={'DENEME TARİHİ'}
             >
               <ReservationAccordion
                 miniIcon={<Svg.SessionType.Gym />}
