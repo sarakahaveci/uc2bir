@@ -20,14 +20,35 @@ const Info = () => {
         </div>
         <Container className="content">
           <Row>
-            <Title variant={'h4'} component={'h4'} textLeft lineDisable>
+            <Title
+              variant={'h4'}
+              component={'h4'}
+              textLeft
+              lineDisable
+              style={{
+                fontSize: '2rem',
+                fontWeight: 'bold',
+                color: 'black',
+              }}
+            >
               ÜÇ2BİR
             </Title>
-            <Title variant={'h3'} component={'h3'} textLeft>
+            <Title
+              variant={'h3'}
+              component={'h3'}
+              textLeft
+              style={{
+                fontSize: '3rem',
+                fontWeight: 'bold',
+                color: 'white',
+                textShadow:
+                  ' -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black',
+              }}
+            >
               HAKKINDA
             </Title>
 
-            <Text fontSize="11pt">
+            <Text fontSize="11pt" lineHeight="20px">
               Bizim hikayemiz, aynı anda binlerce kişinin de hikayesi…Hayat
               hızlı, şehir büyük, yollar kalabalık, gün yorucu, zaman dar,
               ekonomi sıkıntılı, korona dört bir yanda…ve biz: Bahane
@@ -52,7 +73,7 @@ const Info = () => {
               üzere geri sayıma başladık… Seni de aramızda görmekten büyük
               mutluluk duyarız.
             </Text>
-            <Text fontSize="11pt">
+            <Text fontSize="11pt" lineHeight="20px">
               Üç2bir; Spor, diyet, spor alanı, spor etkinlikleri gibi sağlıklı
               yaşama dair her şeyi bulabileceğin, kolayca kullanabileceğin,
               ihtiyacın olan kadarını satın alabileceğin, kontrolü kullanıcıya
@@ -87,10 +108,31 @@ const Info = () => {
             </ul>
 
             <div className="animation-info-group">
-              <Title variant={'h4'} component={'h4'} textLeft lineDisable>
+              <Title
+                variant={'h4'}
+                component={'h4'}
+                textLeft
+                lineDisable
+                style={{
+                  fontSize: '2rem',
+                  fontWeight: 'bold',
+                  color: 'black',
+                }}
+              >
                 NEDEN
               </Title>
-              <Title variant={'h3'} component={'h3'} textLeft>
+              <Title
+                variant={'h3'}
+                component={'h3'}
+                textLeft
+                style={{
+                  fontSize: '3rem',
+                  fontWeight: 'bold',
+                  color: 'white',
+                  textShadow:
+                    ' -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black',
+                }}
+              >
                 ÜÇ2BİR?
               </Title>
 
@@ -144,14 +186,35 @@ const Info = () => {
               </ul>*/}
             </div>
 
-            <Title variant={'h4'} component={'h4'} textLeft lineDisable>
+            <Title
+              variant={'h4'}
+              component={'h4'}
+              textLeft
+              lineDisable
+              style={{
+                fontSize: '2rem',
+                fontWeight: 'bold',
+                color: 'black',
+              }}
+            >
               BİZ
             </Title>
-            <Title variant={'h3'} component={'h3'} textLeft>
+            <Title
+              variant={'h3'}
+              component={'h3'}
+              textLeft
+              style={{
+                fontSize: '3rem',
+                fontWeight: 'bold',
+                color: 'white',
+                textShadow:
+                  ' -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black',
+              }}
+            >
               KİMİZ?
             </Title>
 
-            <Text fontSize="11pt">
+            <Text fontSize="11pt" lineHeight="20px">
               Ekonomiden sosyal hayata, eğitimden sağlığa bildiğimiz tüm
               sistemlerin değiştiğini, dönüştüğünü görüyoruz ve
               yaşıyoruz. Teknoloji ve dijitalleşme günümüzde her şeyden önemli
