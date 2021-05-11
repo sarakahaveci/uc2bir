@@ -112,7 +112,7 @@ const MasonaryGallery = ({
 
   const upload = async () => {
     const resizedFile = await resizeFile(file);
-    setLoading(true)
+    setLoading(true);
     createData.append('files[]', resizedFile);
     createData.append('type_id', '8');
     createData.append('type', type);
@@ -123,14 +123,14 @@ const MasonaryGallery = ({
         dispatch(getMyGalleries());
         setActivePage('index');
         setFile(false);
-        setLoading(false)
+        setLoading(false);
         toast.success('Dosya yüklendi.', {
           position: 'bottom-right',
           autoClose: 2000,
         });
       })
       .catch(function () {
-        setLoading(false)
+        setLoading(false);
         toast.error('Dosya gönderilemedi.', {
           position: 'bottom-right',
           autoClose: 2000,
@@ -200,11 +200,11 @@ const MasonaryGallery = ({
       let video = results === null ? content.path : results[1];
       return (
         <iframe
-          width='1280'
-          height='720'
+          width="1280"
+          height="720"
           src={`https://www.youtube.com/embed/${video}`}
-          frameBorder='0'
-          allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         />
       );
@@ -273,110 +273,115 @@ const MasonaryGallery = ({
           <GridWrapper>
             {active === 'all' &&
               myGalleries?.data?.data?.map((image, i) => {
-                return (<StyledCard>
-                  <Div padding={15} id={image.id}>
-                    {image.status &&
+                return (
+                  <StyledCard key={i}>
+                    <Div padding={15} id={image.id}>
+                      {image.status && (
+                        <Icon
+                          img={tickIcon}
+                          name={image.id}
+                          top="35px"
+                          cursor="default"
+                        />
+                      )}
                       <Icon
-                        img={tickIcon}
+                        img={closeIcon}
                         name={image.id}
-                        top="35px"
-                        cursor="default"
-                      />}
-                    <Icon
-                      img={closeIcon}
-                      name={image.id}
-                      top="0px"
-                      onClick={(e) =>
-                        deleted(e.target.name)
-                      }
-                      cursor="pointer"
-                    />
-                    <div className="img" onClick={() => openModal(image)}>
-                      <img
-
-                        key={i}
-                        src={`${getImage(image)}`}
-                        style={{ width: '100%', display: 'block', objectFit: "cover" }}
-                        alt={image.name}
+                        top="0px"
+                        onClick={(e) => deleted(e.target.name)}
+                        cursor="pointer"
                       />
-                    </div>
-                  </Div>
-                </StyledCard>)
-              })
-            }
+                      <div className="img" onClick={() => openModal(image)}>
+                        <img
+                          key={i}
+                          src={`${getImage(image)}`}
+                          style={{
+                            width: '100%',
+                            display: 'block',
+                            objectFit: 'cover',
+                          }}
+                          alt={image.name}
+                        />
+                      </div>
+                    </Div>
+                  </StyledCard>
+                );
+              })}
             {active === 'image' &&
               myGalleries?.data?.data?.map((image, i) => {
                 if (image.file_type == 'image') {
                   return (
                     <StyledCard>
                       <Div padding={15} id={image.id}>
-                        {image.status &&
+                        {image.status && (
                           <Icon
                             img={tickIcon}
                             name={image.id}
                             top="35px"
                             cursor="default"
-                          />}
+                          />
+                        )}
                         <Icon
                           img={closeIcon}
                           name={image.id}
                           top="0px"
-                          onClick={(e) =>
-                            deleted(e.target.name)
-                          }
+                          onClick={(e) => deleted(e.target.name)}
                           cursor="pointer"
                         />
                         <div className="img" onClick={() => openModal(image)}>
                           <img
-
                             key={i}
                             src={`${getImage(image)}`}
-                            style={{ width: '100%', display: 'block', objectFit: "cover" }}
+                            style={{
+                              width: '100%',
+                              display: 'block',
+                              objectFit: 'cover',
+                            }}
                             alt={image.name}
                           />
                         </div>
                       </Div>
                     </StyledCard>
-                  )
+                  );
                 }
-              })
-
-            }
+              })}
             {active === 'youtube' &&
               myGalleries?.data?.data?.map((image, i) => {
-                if (image.file_type == 'youtube') return (
-                  <StyledCard>
-                    <Div padding={15} id={image.id}>
-                      {image.status &&
+                if (image.file_type == 'youtube')
+                  return (
+                    <StyledCard>
+                      <Div padding={15} id={image.id}>
+                        {image.status && (
+                          <Icon
+                            img={tickIcon}
+                            name={image.id}
+                            top="35px"
+                            cursor="default"
+                          />
+                        )}
                         <Icon
-                          img={tickIcon}
+                          img={closeIcon}
                           name={image.id}
-                          top="35px"
-                          cursor="default"
-                        />}
-                      <Icon
-                        img={closeIcon}
-                        name={image.id}
-                        top="0px"
-                        onClick={(e) =>
-                          deleted(e.target.name)
-                        }
-                        cursor="pointer"
-                      />
-                      <div className="img" onClick={() => openModal(image)}>
-                        <img
-
-                          key={i}
-                          src={`${getImage(image)}`}
-                          style={{ width: '100%', display: 'block', objectFit: "cover" }}
-                          alt={image.name}
+                          top="0px"
+                          onClick={(e) => deleted(e.target.name)}
+                          cursor="pointer"
                         />
-                      </div>
-                    </Div>
-                  </StyledCard>
-                )
-              })
-            }
+                        <div className="img" onClick={() => openModal(image)}>
+                          <img
+                            key={i}
+                            src={`${getImage(image)}`}
+                            style={{
+                              width: '100%',
+                              display: 'block',
+                              objectFit: 'cover',
+                            }}
+                            alt={image.name}
+                          />
+                        </div>
+                      </Div>
+                    </StyledCard>
+                  );
+              })}
           </GridWrapper>
         </>
       )}
@@ -490,11 +495,10 @@ const MasonaryGallery = ({
   );
 };
 
-
 const GridWrapper = styled.div`
-  display: grid; 
+  display: grid;
   grid-column-gap: 20px;
-  grid-template-columns: 400px 400px 400px ;
+  grid-template-columns: 400px 400px 400px;
   grid-row-gap: 10px;
   padding: 10px;
   margin-top: 15px;
@@ -512,15 +516,15 @@ const Section = styled.section`
 `;
 
 const StyledCard = styled.div`
-display:flex;
-align-items:center;
-justify-content:center;
-border-radius:4px;
-background-color:whitesmoke;
-padding:10px;
-max-width:300px;
-max-height:300px;
-aspect-ratio:1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background-color: whitesmoke;
+  padding: 10px;
+  max-width: 300px;
+  max-height: 300px;
+  aspect-ratio: 1;
 `;
 
 const ImageShow = styled.div`
@@ -557,7 +561,7 @@ const Div = styled.div`
 
   .img {
     position: relative;
-     
+
     &:hover {
       &:before {
         content: '';
@@ -580,8 +584,8 @@ const Div = styled.div`
 `;
 
 const Icon = styled.a`
-  position: absolute; 
-  cursor:  ${(props) => props.cursor};
+  position: absolute;
+  cursor: ${(props) => props.cursor};
   background-image: url('${(props) => props.img}');
   width: 20px;
   height: 20px;
