@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Video from 'twilio-video';
 import Participant from './participant';
-import { Link } from 'react-router-dom';
+import { Link,useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { Row, Col } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 
 const Room = ({ roomName, token }) => {
+  const history = useHistory();
   const [room, setRoom] = useState(null);
   const [participants, setParticipants] = useState([]);
 
@@ -29,6 +31,15 @@ const Room = ({ roomName, token }) => {
       room.on('participantConnected', participantConnected);
       room.on('participantDisconnected', participantDisconnected);
       room.participants.forEach(participantConnected);
+    }).catch(()=> {
+      toast.error(
+        'Ders saatiniz başlamadı veya bir hata oluştu',
+        {
+          position: 'bottom-right',
+          autoClose: 3000,
+        }
+      );
+      history.push('/myprofile/settings/reservation');
     });
 
     return () => {
