@@ -144,7 +144,7 @@ export const getPtReservationDetail = (id) => async (dispatch) => {
 };
 
 export const getSessionHistorys = (date) => async (dispatch) => {
-  let url = '/appointment/calendar/completed';
+  let url = '/appointment/pt-calendar/completed';
   let extras = '?';
   if (date) extras += `date=${date}&`;
   url += extras;

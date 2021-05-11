@@ -4,12 +4,14 @@ import ReservationAccordion from '../ReservationAccordion';
 import styled from 'styled-components/macro';
 import { ApproveCard, DatePicker, RateModal, Svg } from 'components';
 import { device } from 'utils';
-import { getSessionHistorys } from 'actions';
+import { getSessionHistorys, rateAndComment } from 'actions';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 const SessionHistory = () => {
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
   const [openRateModal, setOpenRateModal] = useState(false);
+  const [appointment, setAppointment] = useState(undefined);
+
   const dispatch = useDispatch();
   const items = useSelector(
     (state) => state.professionalReservation?.ptReservation?.session_historys
@@ -61,10 +63,15 @@ const SessionHistory = () => {
                 ]?.gym?.map((elm, i) => (
                   <ApproveCardContainer key={i}>
                     <ApproveCard
-                      date="18:00 - 19:00"
-                      customerName="Ali Veli"
+                      date={elm?.hour}
+                      customerName={elm?.student}
                       type="history"
+                      rateText="Öğrenciyi Puanla"
                       onApprove={() => {
+                        setAppointment({
+                          id: elm?.id,
+                          userId: elm?.pt?.id,
+                        });
                         setOpenRateModal(true);
                       }}
                     />
@@ -78,13 +85,18 @@ const SessionHistory = () => {
               >
                 {items?.appointment?.[
                   moment(selectedDate).format('DD.MM.YYYY')
-                ]?.gym?.map((elm, i) => (
+                ]?.home_park?.map((elm, i) => (
                   <ApproveCardContainer key={i}>
                     <ApproveCard
-                      date="18:00 - 19:00"
-                      customerName="Ali Veli"
+                      date={elm?.hour}
+                      customerName={elm?.student}
                       type="history"
+                      rateText="Öğrenciyi Puanla"
                       onApprove={() => {
+                        setAppointment({
+                          id: elm?.id,
+                          userId: elm?.pt?.id,
+                        });
                         setOpenRateModal(true);
                       }}
                     />
@@ -98,13 +110,18 @@ const SessionHistory = () => {
               >
                 {items?.appointment?.[
                   moment(selectedDate).format('DD.MM.YYYY')
-                ]?.gym?.map((elm, i) => (
+                ]?.online?.map((elm, i) => (
                   <ApproveCardContainer key={i}>
                     <ApproveCard
-                      date="18:00 - 19:00"
-                      customerName="Ali Veli"
+                      date={elm?.hour}
+                      customerName={elm?.student}
                       type="history"
+                      rateText="Öğrenciyi Puanla"
                       onApprove={() => {
+                        setAppointment({
+                          id: elm?.id,
+                          userId: elm?.pt?.id,
+                        });
                         setOpenRateModal(true);
                       }}
                     />
@@ -143,14 +160,29 @@ const SessionHistory = () => {
         </StyledCol>
       </StyledRow>
       <RateModal
-        descText="Faruk Kale isimli öğrencinizi puanlamak ister misiniz?"
+        appointment_id={appointment?.id}
+        descText="Öğrencinizi puanlamak ister misiniz?"
         rateLabel="PUANLA"
         cancelLabel="VAZGEÇ"
         open={openRateModal}
-        rate={() => {
-          setOpenRateModal(false);
+        rate={({ rate, comment }) => {
+          dispatch(
+            rateAndComment(
+              {
+                appointment_id: appointment?.id,
+                rating: rate,
+                comment: comment,
+                commented_id: appointment?.userId,
+              },
+              () => {
+                setAppointment(undefined);
+                setOpenRateModal(false);
+              }
+            )
+          );
         }}
         cancel={() => {
+          setAppointment(undefined);
           setOpenRateModal(false);
         }}
       />

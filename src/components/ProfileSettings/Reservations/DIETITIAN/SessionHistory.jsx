@@ -5,7 +5,7 @@ import styled from 'styled-components/macro';
 import { ApproveCard, DatePicker, RateModal, Svg } from 'components';
 import { device } from 'utils';
 import { useSelector, useDispatch } from 'react-redux';
-import { getDtSessionHistorys } from 'actions';
+import { getDtSessionHistorys, rateAndComment } from 'actions';
 import moment from 'moment';
 
 const SessionHistory = () => {
@@ -16,6 +16,8 @@ const SessionHistory = () => {
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
   const [openRateModal, setOpenRateModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [appointment, setAppointment] = useState(undefined);
+
   const startOfWeeksArr = () => {
     if (items?.date) {
       return Object.keys(items?.date).map(
@@ -63,9 +65,14 @@ const SessionHistory = () => {
                   <ApproveCardContainer key={i}>
                     <ApproveCard
                       type="history"
-                      date="18:00 - 19:00"
-                      customerName="Ahmet Mehmet"
+                      date={elm?.hour}
+                      customerName={elm?.student}
+                      rateText="Danışanı Puanla"
                       onApprove={() => {
+                        setAppointment({
+                          id: elm?.id,
+                          userId: elm?.pt?.id,
+                        });
                         setOpenRateModal(true);
                       }}
                     />
@@ -83,9 +90,14 @@ const SessionHistory = () => {
                   <ApproveCardContainer key={i}>
                     <ApproveCard
                       type="history"
-                      date="18:00 - 19:00"
-                      customerName="MOCDATA"
+                      date={elm?.hour}
+                      customerName={elm?.student}
+                      rateText="Danışanı Puanla"
                       onApprove={() => {
+                        setAppointment({
+                          id: elm?.id,
+                          userId: elm?.pt?.id,
+                        });
                         setOpenRateModal(true);
                       }}
                     />
@@ -121,14 +133,29 @@ const SessionHistory = () => {
         </StyledCol>
       </StyledRow>
       <RateModal
-        descText="Faruk Kale isimli öğrencinizi puanlamak ister misiniz?"
+        appointment_id={appointment?.id}
+        descText="Danışanızı puanlamak ister misiniz?"
         rateLabel="PUANLA"
         cancelLabel="VAZGEÇ"
         open={openRateModal}
-        rate={() => {
-          setOpenRateModal(false);
+        rate={({ rate, comment }) => {
+          dispatch(
+            rateAndComment(
+              {
+                appointment_id: appointment?.id,
+                rating: rate,
+                comment: comment,
+                commented_id: appointment?.userId,
+              },
+              () => {
+                setAppointment(undefined);
+                setOpenRateModal(false);
+              }
+            )
+          );
         }}
         cancel={() => {
+          setAppointment(undefined);
           setOpenRateModal(false);
         }}
       />

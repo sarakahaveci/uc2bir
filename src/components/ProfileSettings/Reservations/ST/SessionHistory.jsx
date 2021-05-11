@@ -87,7 +87,7 @@ const SessionHistory = () => {
               >
                 {items?.appointment?.[
                   moment(selectedDate).format('DD.MM.YYYY')
-                ]?.gym?.map((elm, i) => (
+                ]?.home_park?.map((elm, i) => (
                   <ApproveCardContainer key={i}>
                     <ApproveCard
                       date={elm?.hour}
@@ -112,7 +112,7 @@ const SessionHistory = () => {
               >
                 {items?.appointment?.[
                   moment(selectedDate).format('DD.MM.YYYY')
-                ]?.gym?.map((elm, i) => (
+                ]?.online?.map((elm, i) => (
                   <ApproveCardContainer key={i}>
                     <ApproveCard
                       date={elm?.hour}
