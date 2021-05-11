@@ -57,7 +57,7 @@ const Approved = ({ setSubPage = () => {} }) => {
   function getSelectedDate() {
     dispatch(getDtApproved(moment(selectedDate).format('DD.MM.YYYY')));
   }
-  function openReservationDetail(id) {
+  function openReservationDetail(id, isOnline) {
     dispatch(getDtReservationDetail(id));
     setSubPage(
       <ReservationDetail
@@ -65,6 +65,7 @@ const Approved = ({ setSubPage = () => {} }) => {
         goBack={() => {
           setSubPage();
         }}
+        isOnline={isOnline}
       />
     );
   }
@@ -116,7 +117,7 @@ const Approved = ({ setSubPage = () => {} }) => {
                       type="approve"
                       customerName="Ahmet Mehmet"
                       onApprove={() => {
-                        openReservationDetail(elm?.id);
+                        openReservationDetail(elm?.id, true);
                       }}
                       onReject={() => {
                         setOpenCancellation(elm?.id);

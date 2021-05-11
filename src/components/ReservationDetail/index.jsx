@@ -3,13 +3,15 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
 import { device } from 'utils';
 import GoogleMap from 'components/GoogleMaps/GoogleMap';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-const ReservationDetail = ({ type, goBack = () => {} }) => {
+import { setNewMessageRoom } from '../../actions';
+const ReservationDetail = ({ type, goBack = () => {}, isOnline }) => {
   const [detailData, setDetailData] = useState({});
   const professionalReservation = useSelector(
     (state) => state.professionalReservation
   );
+  const dispatch = useDispatch();
 
   useEffect(() => {
     switch (type) {
@@ -107,12 +109,17 @@ const ReservationDetail = ({ type, goBack = () => {} }) => {
               </DescText>
             </DescTextWrapper>
             <MessageButtonContainer>
-              <MessageButton>Mesaj Gönder</MessageButton>
+              <Link to={'/messages'} onClick={()=>dispatch(setNewMessageRoom(detailData?.student || detailData?.pt|| detailData?.dt ))}>
+                <MessageButton>Mesaj Gönder</MessageButton>
+              </Link>
+              {isOnline&&
               <Link to={'/myprofile/online'}>
                 <OnlineClassButton color={'blue2'} >
                   Derse Gir
                 </OnlineClassButton>
               </Link>
+              }
+
             </MessageButtonContainer>
           </RightAreaWrapper>
         </Right>
