@@ -198,7 +198,7 @@ const BuyPacket = ({ match }) => {
           <TrainerGroupContainer>
             <TrainerGroupWrapper>
               <div>
-                <LabelText>Seviyenizi Seçiniz</LabelText>
+                <LabelText>Seviyenizi Seçiniz </LabelText>
                 <Seperator></Seperator>
                 <LevelContainer>
                   <LevelCircle
