@@ -271,27 +271,47 @@ export default function GroupLeftSelections() {
         </FormControl>
       )}
 
-      {userTypeId !== DIETITIAN && (
-        <>
-          <FormControl className="w-100 mt-2">
-            <InputLabel>Sınıf Seçiniz</InputLabel>
+      {sessionSelection.type === 'gym' && (
+        <FormControl className="w-100 mt-2">
+          <InputLabel>Sınıf Seçiniz</InputLabel>
 
-            <Select
-              value={classSelection}
-              input={<Input />}
-              onChange={(e) =>
-                selectDataHandler('classSelection', e.target.value)
-              }
-            >
-              {workPlaceCapacity?.map((item) => (
-                <MenuItem key={item.id} value={item}>
-                  {item.name} {item.capacity} Kişilik
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </>
+          <Select
+            value={classSelection}
+            input={<Input />}
+            onChange={(e) =>
+              selectDataHandler('classSelection', e.target.value)
+            }
+          >
+            {workPlaceCapacity?.map((item) => (
+              <MenuItem key={item.id} value={item}>
+                {item.name} {item.capacity} Kişilik
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       )}
+
+      {/*{userTypeId !== DIETITIAN && (*/}
+      {/*  <>*/}
+      {/*    <FormControl className="w-100 mt-2">*/}
+      {/*      <InputLabel>Sınıf Seçiniz</InputLabel>*/}
+
+      {/*      <Select*/}
+      {/*        value={classSelection}*/}
+      {/*        input={<Input />}*/}
+      {/*        onChange={(e) =>*/}
+      {/*          selectDataHandler('classSelection', e.target.value)*/}
+      {/*        }*/}
+      {/*      >*/}
+      {/*        {workPlaceCapacity?.map((item) => (*/}
+      {/*          <MenuItem key={item.id} value={item}>*/}
+      {/*            {item.name} {item.capacity} Kişilik*/}
+      {/*          </MenuItem>*/}
+      {/*        ))}*/}
+      {/*      </Select>*/}
+      {/*    </FormControl>*/}
+      {/*  </>*/}
+      {/*)}*/}
 
       <SelectPictureModal
         ref={selectPicModalRef}
