@@ -1,35 +1,33 @@
 // @ts-nocheck
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Col } from 'react-bootstrap';
 import styled from 'styled-components/macro';
+import { useSelector } from 'react-redux';
 
 import UserPacketCard from '../UserPacketCard';
 const Home = ({ setPage = () => {} }) => {
+  const myPackets = useSelector((state) => state.myPackets.user?.data);
+  useEffect(() => {}, [myPackets]);
   return (
     <>
       <Col style={{ padding: 0 }} lg="4">
-        <CardContainer>
-          <UserPacketCard
-            type="gym"
-            onClickDetail={() => {
-              setPage('DetailLesson');
-            }}
-            onClickReservation={() => {
-              setPage('PacketReservation');
-            }}
-          />
-        </CardContainer>
-        <CardContainer>
-          <UserPacketCard
-            type="dt"
-            onClickDetail={() => {
-              setPage('DetailLesson');
-            }}
-            onClickReservation={() => {
-              alert('PacketReservation');
-            }}
-          />
-        </CardContainer>
+        {myPackets?.data?.data?.map((elm, i) => (
+          <CardContainer key={i}>
+            <UserPacketCard
+              type={elm?.type}
+              branch={elm?.branch}
+              sessionTypes={elm?.session_type?.toString()}
+              packetName={elm?.name}
+              trainerClass={elm?.classification}
+              onClickDetail={() => {
+                setPage('DetailLesson');
+              }}
+              onClickReservation={() => {
+                setPage('PacketReservation');
+              }}
+            />
+          </CardContainer>
+        ))}
       </Col>
     </>
   );

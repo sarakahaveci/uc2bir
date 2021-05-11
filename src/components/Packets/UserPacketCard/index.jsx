@@ -2,52 +2,106 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { device } from 'utils';
 
-const PacketCard = ({ onClickDetail, onClickReservation }) => {
+const PacketCard = ({
+  type,
+  trainerClass, //typeözel
+  packetName,
+  branch,
+  sessionTypes,
+  onClickDetail,
+  onClickReservation,
+}) => {
   useEffect(() => {}, []);
+  let content;
+  switch (type) {
+    case 'pt':
+      content = (
+        <>
+          <Column>
+            <Row>
+              <BoldText>{trainerClass} SINIFI EĞİTMEN:</BoldText>
 
-  return (
-    <Container>
-      <Column>
-        <Row>
-          <BoldText>B SINIFI EĞİTMEN:</BoldText>
+              <BoldText style={{ marginLeft: '5px' }}>{packetName}</BoldText>
+            </Row>
 
-          <BoldText style={{ marginLeft: '5px' }}>KAS YAPMA PAKETİ</BoldText>
-        </Row>
+            <FlexSpace position={'END'}>
+              <BoldText>{branch}</BoldText>
+            </FlexSpace>
+          </Column>
 
-        <FlexSpace position={'END'}>
-          <BoldText>FITNESS</BoldText>
-        </FlexSpace>
-      </Column>
+          <Column>
+            <Row>
+              <BoldText color={'gray'}>OTURUM TÜRLERİ: {sessionTypes}</BoldText>
+            </Row>
+          </Column>
+          <Column borderDisable>
+            <FlexSpace>
+              <BoldText color={'gray'}>DERS : 1/2 DERS</BoldText>
+            </FlexSpace>
 
-      <Column>
-        <Row>
-          <BoldText color={'gray'}>OTURUM TÜRLERİ: Online,Klinik</BoldText>
-        </Row>
-      </Column>
-      <Column borderDisable>
-        <FlexSpace>
-          {true ? (
-            <BoldText color={'gray'}>SEANS : 1/2 SEANS</BoldText>
-          ) : (
-            <BoldText color={'gray'}>DERS : 1/2 DERS</BoldText>
-          )}
-        </FlexSpace>
+            <Row>
+              {true ? (
+                <>
+                  <Button onClick={onClickReservation}>Rezervasyon Yap</Button>
+                  <ApproveButton onClick={onClickDetail}>
+                    Paket Detayı
+                  </ApproveButton>
+                </>
+              ) : (
+                <Button onClick={onClickDetail}>Tekrar Al</Button>
+              )}
+            </Row>
+          </Column>
+        </>
+      );
+      break;
+    case 'dt':
+      content = (
+        <>
+          <Column>
+            <Row>
+              <BoldText>B SINIFI EĞİTMEN:</BoldText>
 
-        <Row>
-          {true ? (
-            <>
-              <Button onClick={onClickReservation}>Rezervasyon Yap</Button>
-              <ApproveButton onClick={onClickDetail}>
-                Paket Detayı
-              </ApproveButton>
-            </>
-          ) : (
-            <Button onClick={onClickDetail}>Tekrar Al</Button>
-          )}
-        </Row>
-      </Column>
-    </Container>
-  );
+              <BoldText style={{ marginLeft: '5px' }}>
+                KAS YAPMA PAKETİ
+              </BoldText>
+            </Row>
+
+            <FlexSpace position={'END'}>
+              <BoldText>FITNESS</BoldText>
+            </FlexSpace>
+          </Column>
+
+          <Column>
+            <Row>
+              <BoldText color={'gray'}>OTURUM TÜRLERİ: Online,Klinik</BoldText>
+            </Row>
+          </Column>
+          <Column borderDisable>
+            <FlexSpace>
+              <BoldText color={'gray'}>SEANS : 1/2 SEANS</BoldText>
+            </FlexSpace>
+
+            <Row>
+              {true ? (
+                <>
+                  <Button onClick={onClickReservation}>Rezervasyon Yap</Button>
+                  <ApproveButton onClick={onClickDetail}>
+                    Paket Detayı
+                  </ApproveButton>
+                </>
+              ) : (
+                <Button onClick={onClickDetail}>Tekrar Al</Button>
+              )}
+            </Row>
+          </Column>
+        </>
+      );
+      break;
+    default:
+      break;
+  }
+  return <Container>{content}</Container>;
 };
 
 const Container = styled.section`

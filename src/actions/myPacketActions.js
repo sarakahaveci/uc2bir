@@ -8,7 +8,7 @@ import {
 } from '../constants';
 
 export const getUserMyPacket = () => async (dispatch) => {
-  const url = `/mockmock/`;
+  const url = `/user/purchased-package/`;
 
   await dispatch({
     type: HTTP_REQUEST,

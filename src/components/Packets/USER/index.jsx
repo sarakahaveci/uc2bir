@@ -22,7 +22,6 @@ const User = ({ icons, setBannerActive }) => {
 
   const { create } = useSelector((state) => state.profileSettings2.sessionType);
   const { get } = useSelector((state) => state.profileSettings2.sessionType);
-  // const myPackets = useSelector((state) => state.myPackets.user);
 
   useEffect(() => {
     dispatch(getSessionTypes());
