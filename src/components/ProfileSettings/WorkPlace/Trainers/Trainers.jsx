@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import { Row, Col, Form, Container } from 'react-bootstrap';
 
 import { searchProffesional } from 'actions';
@@ -11,6 +11,7 @@ import SearchFilters from 'components/SearchProfessional/SearchFilters';
 
 const Trainers = ({ type, onClickHover = () => {} }) => {
   const dispatch = useDispatch();
+  const [packetLevel, setPacketLevel] = useState('A');
   const allBranchList = useSelector(
     (state) => state.profileSettings.ptBranchList.allList
   );
@@ -39,7 +40,6 @@ const Trainers = ({ type, onClickHover = () => {} }) => {
         ratings: parsedRatings,
         minPrice: parsedPrice?.[0],
         maxPrice: parsedPrice?.[1],
-        // TODO: take it from sorting state
         sortBy: 'asc',
         branch,
         location,
@@ -60,7 +60,6 @@ const Trainers = ({ type, onClickHover = () => {} }) => {
         ratings: parsedRatings,
         minPrice: parsedPrice?.[0],
         maxPrice: parsedPrice?.[1],
-        // TODO: take it from sorting state
         sortBy: 'asc',
         branch,
         location,
@@ -92,7 +91,6 @@ const Trainers = ({ type, onClickHover = () => {} }) => {
             <SearchCol>
               <div className="search-trainer__location-row">
                 <Svg.LocationIcon className="mr-1 mb-1" />
-
                 <input
                   className="search-trainer__search-input"
                   value={location}
@@ -124,7 +122,6 @@ const Trainers = ({ type, onClickHover = () => {} }) => {
               <FilterButton onClick={() => setShowFilters(!showFilters)}>
                 Filtrele
               </FilterButton>
-
               {showFilters && (
                 <SearchFilters
                   setShowFilters={setShowFilters}
@@ -155,7 +152,41 @@ const Trainers = ({ type, onClickHover = () => {} }) => {
             </SearchCol>
           </Row>
         </SearchWrapper>
+        {type == 'selection' && (
+          <div style={{ width: '40%', margin: '20px' }}>
+            <LabelText>Seviyenizi Seçiniz</LabelText>
+            <Seperator></Seperator>
+            <LevelContainer>
+              <LevelCircle
+                onClick={() => {
+                  setPacketLevel('A');
+                }}
+                enable={packetLevel == 'A'}
+              >
+                A
+              </LevelCircle>
+              <Line />
+              <LevelCircle
+                onClick={() => {
+                  setPacketLevel('B');
+                }}
+                enable={packetLevel == 'B'}
+              >
+                B
+              </LevelCircle>
+              <Line />
 
+              <LevelCircle
+                onClick={() => {
+                  setPacketLevel('C');
+                }}
+                enable={packetLevel == 'C'}
+              >
+                C
+              </LevelCircle>
+            </LevelContainer>
+          </div>
+        )}
         {data.length > 0 ? (
           <>
             <GymListWrapper>
@@ -238,6 +269,57 @@ const FilterButton = styled.button`
   border: none;
   background-color: white;
   z-index: 2;
+`;
+/////////////
+
+const LabelText = styled.text`
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--blue);
+`;
+
+const Seperator = styled.div`
+  width: 60px;
+  border-bottom-style: solid;
+  border-color: var(--blue);
+  border-width: 3px;
+  margin-bottom: 15px;
+`;
+
+const LevelContainer = styled.div`
+  widht: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+const LevelCircle = styled.div`
+  cursor: pointer;
+  width: 80px;
+  height: 80px;
+  border-radius: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  ${(p) =>
+    p.enable
+      ? css`
+          background: var(--blue);
+          color: white;
+        `
+      : css`
+          background: white;
+          border-style: solid;
+          border-width: 1px;
+          border-color: #d3d3d3;
+          color: gray;
+        `}
+`;
+const Line = styled.div`
+  flex-grow: 1;
+  background: #d3d3d3;
+  height: 1px;
+  margin: 7px;
 `;
 
 export default Trainers;
