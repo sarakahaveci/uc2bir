@@ -38,8 +38,7 @@ const ProfileCard = ({
   };
   const createData = new FormData();
 
-
-  const   upload = async () => {
+  const upload = async () => {
     setLoading(true);
     const resizedFile = await resizeFile(files?.file);
     createData.append('files[]', resizedFile);
@@ -68,7 +67,7 @@ const ProfileCard = ({
 
   useEffect(() => {
     if (files?.file) {
-      upload()
+      upload();
     }
   }, [files]);
 
