@@ -43,6 +43,7 @@ const AddGym = ({ setSubPage, setBannerActive }) => {
     dispatch(searchGymForPt(pageNumber));
     dispatch(getAllPTBranchList());
   }, []);
+
   const searchGymHandler = () => {
     dispatch(searchGymWithDetail(trainerName, page, location, branch));
     setShowSearch(true);
@@ -148,11 +149,8 @@ const AddGym = ({ setSubPage, setBannerActive }) => {
           />
         )}
 
-        {selectedItem &&
-          data
-            .filter((item) => item.id !== selectedItem.id)
-            .slice(0, 2)
-            .map((item, i) => (
+        {
+          data.map((item, i) => (
               <LongUserWrapper key={item?.id}>
                 <LongUserCard
                   selected={false}
