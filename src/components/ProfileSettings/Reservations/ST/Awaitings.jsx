@@ -18,7 +18,7 @@ import {
   UserAwaitingReject,
 } from 'actions';
 import { useDispatch, useSelector } from 'react-redux';
-const Awaitings = () => {
+const Awaitings = ({ setAwaitingCount }) => {
   const dispatch = useDispatch();
   const items = useSelector(
     (state) => state.professionalReservation?.userReservation?.awaitings
@@ -36,6 +36,16 @@ const Awaitings = () => {
       return [];
     }
   };
+
+  useEffect(() => {
+    for(const i in items?.date){
+      if (i === moment(selectedDate).format('DD.MM.YYYY')) {
+        setAwaitingCount(items?.date[i])
+      }else {
+        setAwaitingCount(0)
+      }
+    }
+  }, [selectedDate]);
 
   useEffect(() => {
     if (window.innerWidth <= 760) {
