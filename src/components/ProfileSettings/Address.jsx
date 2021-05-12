@@ -18,15 +18,8 @@ import { Material, Button } from 'components';
 export default function Address({ locationDisable = false }) {
   const dispatch = useDispatch();
 
-  const {
-    cities,
-    distict,
-    town,
-    cityId,
-    districtId,
-    townId,
-    isSuccessGetId,
-  } = useSelector((state) => state.registerData);
+  const { cities, distict, town, cityId, districtId, townId, isSuccessGetId } =
+    useSelector((state) => state.registerData);
 
   const { userInfo, isLoading, isSuccessGetDetail } = useSelector(
     (state) => state.profile

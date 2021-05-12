@@ -255,7 +255,7 @@ const BuyPacket = ({ match }) => {
 };
 const Container = styled.div`
   display: flex;
-  widht: 100%;
+  width: 100%;
   min-height: 1200px;
   padding: 0 15%;
   justify-content: space-between;
@@ -305,7 +305,7 @@ const Seperator = styled.div`
   margin-bottom: 15px;
 `;
 const TrainerGroupContainer = styled.div`
-  widht: 100%;
+  width: 100%;
   background: #f8f8f8;
   height: 350px;
   border-radius: 30px;
@@ -314,7 +314,7 @@ const TrainerGroupContainer = styled.div`
 const TrainerGroupWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  widht: 100%;
+  width: 100%;
   background: white;
   height: 100%;
   border-radius: 30px;
@@ -322,7 +322,7 @@ const TrainerGroupWrapper = styled.div`
   justify-content: space-between;
 `;
 const LevelContainer = styled.div`
-  widht: 100%;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;

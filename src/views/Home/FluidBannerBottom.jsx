@@ -14,7 +14,7 @@ const FluidBanner = (props) => {
       backgroundImage={backgroundImage}
     >
       <Container>
-        <Text style={{ paddingBottom: '60px' }} textAlign="center">
+        <Text textAlign="center">
           <Title
             color="white"
             variant="h5"
@@ -24,16 +24,24 @@ const FluidBanner = (props) => {
           >
             Sen neredeysen spor ve eğitmen orada!
           </Title>
-          <Text textAlign="center" color="white" fontSize="1.2rem">
-            Sporseverler, eğitmen seçiyor, yeri ve zamanı belirliyor. Bire bir
-            ilgi, diyetisyen desteği, spor salonu seçenekleri hepsi burada.
+          <Text
+            textAlign="center"
+            color="white"
+            fontSize="1.2rem"
+            letterSpacing="1px"
+            lineHeight="30px"
+          >
+            Sporseverler, eğitmen seçiyor, yeri ve zamanı belirliyor.
+            <br />
+            Bire bir ilgi, diyetisyen desteği, spor salonu seçenekleri hepsi
+            burada.
             <br />
             Başarmak için hemen başla!
           </Text>
           <br />
-          <br />
+
           <Button
-            style={{ paddingLeft: '70px', paddingRight: '70px' }}
+            // style={{ paddingLeft: '70px', paddingRight: '70px' }}
             text="ÜYE OL"
             soft
           />
