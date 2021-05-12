@@ -11,7 +11,24 @@ const PacketCard = ({
   onClickDetail,
   onClickReservation,
 }) => {
-  useEffect(() => {}, []);
+
+  const getSessionTypes = () => {
+    let tmpString = ""; 
+    var res = sessionTypes.split(","); 
+    res.forEach(element => {
+      if (element == "gym")
+        tmpString = tmpString + "Spor Alanı, "
+      if (element == "home_park")
+        tmpString = tmpString + "Park Alanı, "
+      if (element == "online")
+        tmpString = tmpString + "Online, "
+    });
+    tmpString = tmpString.substring(0, tmpString.length - 2);
+
+    return tmpString;
+  }
+
+  useEffect(() => { }, []);
   let content;
   switch (type) {
     case 'pt':
@@ -31,7 +48,7 @@ const PacketCard = ({
 
           <Column>
             <Row>
-              <BoldText color={'gray'}>OTURUM TÜRLERİ: {sessionTypes}</BoldText>
+              <BoldText color={'gray'}>OTURUM TÜRLERİ:{getSessionTypes()}</BoldText>
             </Row>
           </Column>
           <Column borderDisable>
