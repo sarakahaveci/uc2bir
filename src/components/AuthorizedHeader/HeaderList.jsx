@@ -25,7 +25,7 @@ const List = ({
       <Lists className={className} onClick={pushToLink}>
         {children}
 
-        {dropDown.map((val, key) => (
+        {dropDown?.map((val, key) => (
           <li className="col" key={key}>
             <A onClick={val.onClick} to={val.link}>
               {val.icon && <Icon className="item-icon">{val.icon}</Icon>}
@@ -51,7 +51,7 @@ const List = ({
 
         {!isMobile && dropDown.length > 0 && (
           <Lists className={`drop-down ${dropClassName}`}>
-            {dropDown.map((val, key) => (
+            {dropDown?.map((val, key) => (
               <Item
                 pulse={val.pulse}
                 className={`col ${val.tabs?.length > 0 && 'drop-li'}`}

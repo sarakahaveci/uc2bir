@@ -35,7 +35,15 @@ export default function PaymentCard({ type, dateOption }) {
     dispatch(clearReservationCalendar());
     dispatch(getWallet());
   }, []);
-
+  useEffect(() => {
+    if (reservation?.data?.isSelected && reservation?.data?.isSelectedDate) {
+      setSelectedDate(
+        new Date(
+          moment(reservation?.data?.isSelectedDate, 'DD.MM.YYYY').toDate()
+        )
+      );
+    }
+  }, [reservation?.data?.isSelectedDate]);
   useEffect(() => {
     if (payment?.request?.data?.merchant_id) {
       formRef.current.submit();
@@ -537,13 +545,20 @@ export default function PaymentCard({ type, dateOption }) {
                   className="blue"
                   text="Cüzdanımdan Öde"
                   onClick={() => {
-                    var wallet_balance = wallet?.data?.balance || 0;
-                    var amount = reservation?.data?.totals_amount || 0;
-                    var diff = wallet_balance - amount;
-                    if (diff < 0) {
-                      selectPaymentType('both');
+                    if (reservation?.data?.session) {
+                      var wallet_balance = wallet?.data?.balance || 0;
+                      var amount = reservation?.data?.totals_amount || 0;
+                      var diff = wallet_balance - amount;
+                      if (diff < 0) {
+                        selectPaymentType('both');
+                      } else {
+                        selectPaymentType('wallet');
+                      }
                     } else {
-                      selectPaymentType('wallet');
+                      toast.error('Lütfen Oturum Türü Seçiniz!', {
+                        position: 'bottom-right',
+                        autoClose: 4000,
+                      });
                     }
                   }}
                 />
@@ -554,7 +569,14 @@ export default function PaymentCard({ type, dateOption }) {
                   className="blue"
                   text="Kredi Kartından Öde"
                   onClick={() => {
-                    selectPaymentType('credit_card');
+                    if (reservation?.data?.session) {
+                      selectPaymentType('credit_card');
+                    } else {
+                      toast.error('Lütfen Oturum Türü Seçiniz!', {
+                        position: 'bottom-right',
+                        autoClose: 4000,
+                      });
+                    }
                   }}
                 />
               </BottomContainer>

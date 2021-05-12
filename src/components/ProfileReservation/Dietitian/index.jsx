@@ -81,7 +81,12 @@ const Dietitian = () => {
   function WorkAreaSelect() {
     if (reservation?.data.session == 'clinic') {
       return (
-        <GymWrapper disable={reservation?.data?.slot?.length > 0}>
+        <GymWrapper
+          disable={
+            reservation?.data?.slot?.length > 0 &&
+            !reservation?.data?.isSelected
+          }
+        >
           <Text color="#9B9B9B">{'Klinik Seçiniz:'}</Text>
           <RadioGroup
             row
