@@ -10,6 +10,7 @@ const ApproveCard = ({
   optionalField_1 = null,
   optionalField_2 = null,
   optionalField_3 = null,
+  ptName='',
   userType,
   onApprove = () => {},
   onReject = () => {},
@@ -105,6 +106,10 @@ const ApproveCard = ({
             <Seperator></Seperator>
             <Column>
               <BoldText>{optionalField_1}</BoldText>
+            </Column>
+            <Seperator></Seperator>
+            <Column>
+            <BoldText>{ptName}</BoldText>
             </Column>
             <Seperator></Seperator>
           </>
