@@ -91,7 +91,7 @@ export default function ReservationCreatedTemplate({
                     {item.name}
                   </Text>
                   <Button
-                    redborder
+                    redborder={'true'}
                     text={'Sil'}
                     width={'120px'}
                     height={'35px'}
@@ -178,7 +178,7 @@ export default function ReservationCreatedTemplate({
               />
 
               <Button
-                blueborder={true}
+                blueborder={'true'}
                 onClick={() => {
                   setSubPage('create');
                 }}
