@@ -17,7 +17,7 @@ const ChatBoxHeader = () => {
   const { messageSideBarOpen } = useSelector(
     (state) => state.profileSettings2.messages
   );
-  const photo = selectedRoomUser?.photo || DefaultProfileImg;
+  const photo = selectedRoomUser?.profile_image?.path || DefaultProfileImg;
 
   return (
     <Wrapper>
@@ -74,6 +74,7 @@ const Avatar = styled.img`
   width: 50px;
   height: 50px;
   border-radius: 50%;
+  object-fit: contain;
 `;
 const IconWrapper = styled.div`
   display: none;

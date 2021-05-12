@@ -30,10 +30,9 @@ const Header = () => {
   };
 
   const handleSearch = () => {
-    history.push('/find?type=' + searchType)
+    history.push('/find?type=' + searchType);
     setIsOpenSearchWhatBox(!isOpenSearchWhatBox);
   };
-
 
   useEffect(() => {
     history.listen(() => {
@@ -236,7 +235,9 @@ const Header = () => {
                 { id: 'gym', name: 'Salon' },
                 { id: 'dt', name: 'Diyetisyen' },
               ]}
-              onChange={(e) => { setSearchType(e.target.value) }}
+              onChange={(e) => {
+                setSearchType(e.target.value);
+              }}
             />
           </StyledDiv>
           <Button

@@ -140,6 +140,7 @@ const Avatar = styled.img`
   border: ${(p) => p.showBorder && '2px solid white'};
   border-radius: 50%;
   position: relative;
+  object-fit: contain;
 
   ${(p) =>
     p.small &&

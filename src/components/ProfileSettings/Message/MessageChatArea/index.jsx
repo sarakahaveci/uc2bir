@@ -80,7 +80,8 @@ export default function MessageArea() {
         <div className="message-page__chat__row">
           {allMessages?.map((message, index) => {
             const time = ISOToTimeConverter(message.created_at);
-            const photo = selectedRoomUser?.photo || DefaultProfileImg;
+            const photo =
+              selectedRoomUser?.profile_image?.path || DefaultProfileImg;
 
             return (
               <MessageRow
