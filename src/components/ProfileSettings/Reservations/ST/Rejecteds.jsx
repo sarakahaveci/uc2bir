@@ -72,6 +72,7 @@ const Rejecteds = () => {
                   <ApproveCardContainer key={i}>
                     <ApproveCard
                       date={elm?.hour}
+                      transaction_id={elm?.transaction_id ? elm.transaction_id : null}
                       customerName={elm?.pt?.name}
                       type="rejecteds"
                       userType="user"
@@ -99,6 +100,7 @@ const Rejecteds = () => {
                   <ApproveCardContainer key={i}>
                     <ApproveCard
                       date={elm?.hour}
+                      transaction_id={elm?.transaction_id ? elm.transaction_id : null}
                       customerName={elm?.pt?.name}
                       type="rejecteds"
                       userType="user"
@@ -126,6 +128,7 @@ const Rejecteds = () => {
                   <ApproveCardContainer key={i}>
                     <ApproveCard
                       date={elm?.hour}
+                      transaction_id={elm?.transaction_id ? elm.transaction_id : null}
                       customerName={elm?.pt?.name || elm?.dt?.name}
                       type="rejecteds"
                       userType="user"
@@ -153,6 +156,7 @@ const Rejecteds = () => {
                   <ApproveCardContainer key={i}>
                     <ApproveCard
                       date={elm?.hour}
+                      transaction_id={elm?.transaction_id ? elm.transaction_id : null}
                       customerName={elm?.dt?.name}
                       type="rejecteds"
                       userType="user"
