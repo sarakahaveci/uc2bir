@@ -49,7 +49,13 @@ export const sendPackageReservation = (type, body, successCallback) => async (
       url,
       body: { ...body },
       label: SEND_PACKET_RESERVATION,
-      callBack: () => successCallback(),
+      callBack: () => {
+        toast.success('İşleminiz başarılı.', {
+          position: 'bottom-right',
+          autoClose: 4000,
+        });
+        successCallback();
+      },
       errorHandler: () => {
         toast.error('Bilgilerinizi gözden geçiriniz.', {
           position: 'bottom-right',
