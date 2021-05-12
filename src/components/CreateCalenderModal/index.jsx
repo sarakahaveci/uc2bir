@@ -62,18 +62,20 @@ const CreateCalenderModal = ({
               : 'ÖZEL DERS OLUŞTUR'}
           </StyledButton>
         </div>
-        <div className="modal-footer" closeIcon={false}>
-          <StyledButton
-            approve
-            onClick={() => {
-              cancel();
-            }}
-          >
-            {type[0]?.key === KEYS.DIETIAN
-              ? 'PAKET SEANS OLUŞTUR'
-              : 'GRUP DERSİ OLUŞTUR'}
-          </StyledButton>
-        </div>
+        {type[0]?.key !== KEYS.GYM && (
+          <div className="modal-footer" closeIcon={false}>
+            <StyledButton
+              approve
+              onClick={() => {
+                cancel();
+              }}
+            >
+              {type[0]?.key === KEYS.DIETIAN
+                ? 'PAKET SEANS OLUŞTUR'
+                : 'GRUP DERSİ OLUŞTUR'}
+            </StyledButton>
+          </div>
+        )}
       </MainContainer>
     </Root>
   );

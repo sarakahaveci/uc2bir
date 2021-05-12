@@ -3,13 +3,12 @@ import styled from 'styled-components/macro';
 import { Text, Svg } from 'components';
 import { Link } from 'react-router-dom';
 import { device } from 'utils';
-const ApproveModal = ({ open, approve = () => {}, cancel = () => {} }) => {
+const ApproveModal = ({elm, open, approve = () => {}, cancel = () => {} }) => { 
   return (
     <Root style={{ display: open ? 'flex' : 'none' }}>
       <MainContainer>
         <ContextContainer>
-          <Svg.SuccessIcon />
-
+          <Svg.SuccessIcon /> 
           <Text
             variant="h2"
             fontSize="1.2rem"
@@ -20,10 +19,10 @@ const ApproveModal = ({ open, approve = () => {}, cancel = () => {} }) => {
             Rezervasyonu reddetmek istediğinize emin misiniz?
           </Text>
 
-          <Text textAlign="center" fontSize="1rem" color="dark">
-            24 Kasım Çarşamba, saat 16:00 - 17:00 için gelen rezervasyon
-            talebiniz reddedilecektir.
-          </Text>
+          {elm &&  <Text textAlign="center" fontSize="1rem" color="dark">
+            {elm.date} Tarihinde saat {elm.hour} için gelen rezervasyon 
+            talebiniz reddedilecektir. 
+          </Text>}
         </ContextContainer>
 
         <div className="modal-footer" closeIcon={false}>

@@ -31,6 +31,7 @@ export default function Profile() {
   const { userInfo, isLoading } = useSelector(
     (state) => state.userProfile.userInfo
   );
+  const { user } = useSelector((state) => state.auth);
   const [tab, setTab] = useState();
   const { id: id } = useSelector((state) => state.auth.user);
 
@@ -140,7 +141,9 @@ export default function Profile() {
                   category: userInfo?.title,
                   price: userInfo?.price,
                   stars: userInfo?.rating,
-                  location: `${userInfo?.district},${userInfo?.city}`,
+                  location: `${userInfo?.district || user?.district},${
+                    userInfo?.city || user?.city
+                  }`,
                   comment: '/',
                   type_id: userInfo?.type_id,
                   id: userInfo?.id,

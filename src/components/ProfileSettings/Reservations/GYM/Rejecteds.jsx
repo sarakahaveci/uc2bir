@@ -22,6 +22,7 @@ const Rejecteds = () => {
   const [openApprove, setOpenApprove] = useState(false);
   const [openReject, setOpenReject] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [choosenElm, setChoosenElm] = useState(null);
   const startOfWeeksArr = () => {
     if (items?.date) {
       return Object.keys(items?.date).map(
@@ -79,9 +80,11 @@ const Rejecteds = () => {
                         value2: '3/7 KONTENJAN',
                       }}
                       onApprove={() => {
+                        setChoosenElm(elm);
                         setOpenApprove(true);
                       }}
                       onReject={() => {
+                        setChoosenElm(elm);
                         setOpenReject(true);
                       }}
                     />
@@ -112,9 +115,11 @@ const Rejecteds = () => {
                         value2: '3/7 KONTENJAN',
                       }}
                       onApprove={() => {
+                        setChoosenElm(elm);
                         setOpenApprove(true);
                       }}
                       onReject={() => {
+                        setChoosenElm(elm);
                         setOpenReject(true);
                       }}
                     />
@@ -141,6 +146,7 @@ const Rejecteds = () => {
         </StyledCol>
       </StyledRow>
       <RejectModal
+       elm={choosenElm}
         open={openReject}
         reject={() => {
           setOpenReject(false);
@@ -150,6 +156,7 @@ const Rejecteds = () => {
         }}
       />
       <ApproveModal
+       elm={choosenElm}
         open={openApprove}
         approve={() => {
           setOpenApprove(false);

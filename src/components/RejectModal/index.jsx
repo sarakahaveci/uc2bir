@@ -11,6 +11,7 @@ const RejectModal = ({
   descText = '',
   cancelLabel = '',
   rejectLabel = '',
+  elm,
 }) => {
   const [selectedPage, setSelectedPage] = useState('start');
   const [rejectStatus, setRejectStatus] = useState(undefined);
@@ -43,7 +44,7 @@ const RejectModal = ({
             </Text>
 
             <Text textAlign="center" fontSize="1rem" color="dark">
-              {descText}
+              {elm ?  (elm?.date + " Tarihinde saat "+ elm?.hour +" için gelen rezervasyon talebiniz reddedilecektir. " ) : descText}
             </Text>
           </ContextContainer>
 
