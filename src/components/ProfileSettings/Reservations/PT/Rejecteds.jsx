@@ -22,7 +22,7 @@ const Rejecteds = () => {
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
   const [openApprove, setOpenApprove] = useState(false);
   const [openReject, setOpenReject] = useState(false);
-
+  const [choosenElm, setChoosenElm] = useState(null);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const startOfWeeksArr = () => {
     if (items?.date) {
@@ -72,9 +72,11 @@ const Rejecteds = () => {
                       customerName={elm?.student}
                       type="rejecteds"
                       onApprove={() => {
+                        setChoosenElm(elm);
                         setOpenApprove(true);
                       }}
                       onReject={() => {
+                        setChoosenElm(elm);
                         setOpenReject(true);
                       }}
                     />
@@ -95,9 +97,11 @@ const Rejecteds = () => {
                       customerName={elm?.student}
                       type="rejecteds"
                       onApprove={() => {
+                        setChoosenElm(elm);
                         setOpenApprove(true);
                       }}
                       onReject={() => {
+                        setChoosenElm(elm);
                         setOpenReject(true);
                       }}
                     />
@@ -118,9 +122,11 @@ const Rejecteds = () => {
                       customerName={elm?.student}
                       type="rejecteds"
                       onApprove={() => {
+                        setChoosenElm(elm);
                         setOpenApprove(true);
                       }}
                       onReject={() => {
+                        setChoosenElm(elm);
                         setOpenReject(true);
                       }}
                     />
@@ -160,6 +166,7 @@ const Rejecteds = () => {
         </StyledCol>
       </StyledRow>
       <RejectModal
+        elm={choosenElm}
         open={openReject}
         reject={() => {
           setOpenReject(false);
@@ -169,6 +176,7 @@ const Rejecteds = () => {
         }}
       />
       <ApproveModal
+        elm={choosenElm}
         open={openApprove}
         approve={() => {
           setOpenApprove(false);

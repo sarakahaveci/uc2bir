@@ -23,6 +23,8 @@ const Awaitings = ({ setAwaitingCount }) => {
   const [openApprove, setOpenApprove] = useState(false);
   const [openReject, setOpenReject] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [choosenElm, setChoosenElm] = useState(null);
+  
   const startOfWeeksArr = () => {
     if (items?.date) {
       return Object.keys(items?.date).map(
@@ -84,9 +86,11 @@ const Awaitings = ({ setAwaitingCount }) => {
                       date={elm?.hour}
                       customerName={elm?.student}
                       onApprove={() => {
+                        setChoosenElm(elm);
                         setOpenApprove(elm?.id);
                       }}
                       onReject={() => {
+                        setChoosenElm(elm);
                         setOpenReject(elm?.id);
                       }}
                     />
@@ -107,9 +111,11 @@ const Awaitings = ({ setAwaitingCount }) => {
                       date={elm?.hour}
                       customerName={elm?.student}
                       onApprove={() => {
+                        setChoosenElm(elm);
                         setOpenApprove(elm?.id);
                       }}
                       onReject={() => {
+                        setChoosenElm(elm);
                         setOpenReject(elm?.id);
                       }}
                     />
@@ -149,8 +155,9 @@ const Awaitings = ({ setAwaitingCount }) => {
         </StyledCol>
       </StyledRow>
       <RejectModal
+      elm={choosenElm}
         headerText="Rezervasyonu reddetmek istediğinize emin misiniz?"
-        descText="24 Kasım Çarşamba, saat 16:00 - 17:00 için gelen rezervasyon talebiniz reddedilecektir."
+        descText=""
         cancelLabel="VAZGEÇ"
         rejectLabel="REDDET"
         open={openReject}
@@ -163,6 +170,7 @@ const Awaitings = ({ setAwaitingCount }) => {
         }}
       />
       <ApproveModal
+      elm={choosenElm}
         open={openApprove}
         approve={(id) => {
           setOpenApprove(undefined);

@@ -23,6 +23,8 @@ const Awaitings = ({ setAwaitingCount }) => {
   const [openApprove, setOpenApprove] = useState(undefined);
   const [openReject, setOpenReject] = useState(undefined);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [choosenElm, setChoosenElm] = useState(null);
+
   const startOfWeeksArr = () => {
     if (items?.date) {
       return Object.keys(items?.date).map(
@@ -34,10 +36,10 @@ const Awaitings = ({ setAwaitingCount }) => {
   };
 
   useEffect(() => {
-    for(const i in items?.date){
+    for (const i in items?.date) {
       if (i === moment(selectedDate).format('DD.MM.YYYY')) {
         setAwaitingCount(items?.date[i])
-      }else {
+      } else {
         setAwaitingCount(0)
       }
     }
@@ -92,10 +94,12 @@ const Awaitings = ({ setAwaitingCount }) => {
                         optionalField_3={{
                           value: '1020 sokak no 56 Mardin Midyat',
                         }}
-                        onApprove={() => {
+                        onApprove={ () => {
+                           setChoosenElm(elm);
                           setOpenApprove(elm?.id);
                         }}
                         onReject={() => {
+                           setChoosenElm(elm);
                           setOpenReject(elm?.id);
                         }}
                       />
@@ -123,10 +127,12 @@ const Awaitings = ({ setAwaitingCount }) => {
                       optionalField_3={{
                         value: '1020 sokak no 56 Mardin Midyat',
                       }}
-                      onApprove={() => {
+                      onApprove={ () => {
+                         setChoosenElm(elm);
                         setOpenApprove(elm.id);
                       }}
                       onReject={() => {
+                         setChoosenElm(elm);
                         setOpenReject(elm.id);
                       }}
                     />
@@ -146,10 +152,12 @@ const Awaitings = ({ setAwaitingCount }) => {
                       date={elm?.hour}
                       customerName={elm?.student}
                       optionalField_1={elm?.branch}
-                      onApprove={() => {
+                      onApprove={ () => {
+                         setChoosenElm(elm);
                         setOpenApprove(elm?.id);
                       }}
                       onReject={() => {
+                         setChoosenElm(elm);
                         setOpenReject(elm?.id);
                       }}
                     />
@@ -189,8 +197,9 @@ const Awaitings = ({ setAwaitingCount }) => {
         </StyledCol>
       </StyledRow>
       <RejectModal
+        elm={choosenElm}
         headerText="Rezervasyonu reddetmek istediğinize emin misiniz?"
-        descText="24 Kasım Çarşamba, saat 16:00 - 17:00 için gelen rezervasyon talebiniz reddedilecektir."
+        descText=""
         cancelLabel="VAZGEÇ"
         rejectLabel="REDDET"
         open={openReject}
@@ -203,6 +212,7 @@ const Awaitings = ({ setAwaitingCount }) => {
         }}
       />
       <ApproveModal
+        elm={choosenElm}
         open={openApprove}
         approve={(id) => {
           setOpenApprove(undefined);
