@@ -58,7 +58,7 @@ const Favorites = () => {
         >
           <LongUserCard
             data={item}
-            favoriteId={item.favorite_id}
+            favoriteId={item?.favorite_id}
             showHeartBg
             favoritedUser
           />
