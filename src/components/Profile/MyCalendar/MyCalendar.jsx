@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import styled from 'styled-components/macro';
-//import { format } from 'date-fns';
+import { format } from 'date-fns';
 
 import { Accordion, Button, DatePicker } from 'components';
 import BranchRowToggler from 'components/BranchRow/BranchRowToggler';
@@ -111,13 +111,13 @@ export default function MyCalendar({
                 dispatch(
                   setReservation({
                     isSelected: true,
-                    /*date: format(startDate, 'dd.MM.yyyy'),
+                    isSelectedDate: format(startDate, 'dd.MM.yyyy'),
                     slot: [
                       {
                         date: format(startDate, 'dd.MM.yyyy'),
                         hour: selectedHour,
                       },
-                    ],*/
+                    ],
                     branch_id: selectedBranch,
                   })
                 );

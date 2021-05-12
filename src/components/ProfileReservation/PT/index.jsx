@@ -57,7 +57,7 @@ const PT = () => {
       name: item.title,
       id: item.type,
     }));
-    setSessionTypes([...items, { id: 'b', name: 'Belirttiğim Adres' }]);
+    setSessionTypes(items);
     dispatch(getUserBranchList(userInfo.id));
     dispatch(getPtGymList(userInfo.id));
     dispatch(getPtWorkingHomePlace(userInfo.id));
@@ -81,6 +81,7 @@ const PT = () => {
       );
     }
   }, [reservation?.data?.session]);
+
   useEffect(() => {
     if (reservation?.data?.location_id) {
       dispatch(
@@ -151,7 +152,12 @@ const PT = () => {
     switch (reservation?.data?.session) {
       case 'gym':
         return (
-          <GymWrapper disable={reservation?.data?.slot?.length > 0}>
+          <GymWrapper
+            disable={
+              reservation?.data?.slot?.length > 0 &&
+              !reservation?.data?.isSelected
+            }
+          >
             <Text color="#9B9B9B">{'Spor Alanı Seçiniz:'}</Text>
             <RadioGroup
               row
@@ -197,7 +203,12 @@ const PT = () => {
         );
       case 'home_park':
         return (
-          <GymWrapper disable={reservation?.data?.slot?.length > 0}>
+          <GymWrapper
+            disable={
+              reservation?.data?.slot?.length > 0 &&
+              !reservation?.data?.isSelected
+            }
+          >
             <Text color="#9B9B9B">{'Spor Alanı Seçiniz:'}</Text>
             <RadioGroup
               row
