@@ -262,7 +262,7 @@ export default function UserProfile({ match }) {
   const user = useSelector((state) => state.auth.user);
 
   useEffect(() => {
-    //dispatch(getProfileDetails());
+    dispatch(getProfileDetails());
   }, []);
 
   let tabData;

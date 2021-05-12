@@ -98,8 +98,8 @@ const ReservationDetail = ({ type, goBack = () => {}, isOnline }) => {
           <MapWrapper>
             <GoogleMap
               locationFromUser={{
-                lat: 34.0525,
-                lng: 41.0525,
+                lat: 25.0525,
+                lng: 27.0525,
               }}
             />
           </MapWrapper>
@@ -108,17 +108,7 @@ const ReservationDetail = ({ type, goBack = () => {}, isOnline }) => {
           <RightAreaWrapper>
             <DescTextWrapper>
               <DescHeader>Ders Hakkında</DescHeader>
-              <DescText>
-                Burada oturum türüne göre, ders hakkında yazılar hazır bir
-                şeklde gelecek. Lie back on a flat bench. Using a medium width
-                grip, lift the bar from the rack and hold it straight. over you
-                with your arms locked. This will be your starting
-                position.Burada oturum türüne göre, ders hakkında yazılar hazır
-                bir şeklde gelecek. Lie back on a flat bench. Using a medium
-                width grip, lift the bar from the rack and hold it straight.
-                over you with your arms locked. This will be your starting
-                position.
-              </DescText>
+              <DescText>{detailData?.detail}</DescText>
             </DescTextWrapper>
             <MessageButtonContainer>
               <Link
