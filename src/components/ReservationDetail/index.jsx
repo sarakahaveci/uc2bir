@@ -237,7 +237,7 @@ const InfoMain = styled.div`
 const CustomerImage = styled.img`
   width: 41px;
   height: 41px;
-  backround: white;
+  background: white;
   -webkit-box-shadow: 0px 0px 4px 3px rgba(197, 196, 196, 0.28);
   box-shadow: 0px 0px 4px 3px rgba(197, 196, 196, 0.28);
   display: flex;

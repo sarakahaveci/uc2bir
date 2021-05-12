@@ -18,6 +18,9 @@ const Home = ({ setPage }) => {
   const transactionsData = useSelector(
     (state) => state?.userProfile?.wallet.transactionsData
   );
+
+  const { user } = useSelector((state) => state.auth);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -78,16 +81,29 @@ const Home = ({ setPage }) => {
                   style={{ marginTop: 50, marginBottom: 40 }}
                   className="justify-content-end"
                 >
-                  <Button
-                    style={{ width: '100%', padding: '20px' }}
-                    className="blue"
-                    text="Hesabıma Aktar"
-                    onClick={() => setPage('transfer')}
-                  />
-                  <Text textAlign="right" color="red">
-                    Hesaba para aktarma işlemi yalnızca her ayın 15. ve
-                    20.günleri arasında yapılır.
-                  </Text>
+                  {user.type_id !== 1 && (
+                    <Button
+                      style={{ width: '100%', padding: '20px' }}
+                      className="blue"
+                      text="Hesabıma Aktar"
+                      onClick={() => setPage('transfer')}
+                    />
+                  )}
+                  {user.type_id === 1 && (
+                    <Button
+                      style={{ width: '100%', padding: '20px' }}
+                      className="blue"
+                      text="Cüzdana Para Aktar"
+                      onClick={() => setPage('transfer')}
+                    />
+                  )}
+
+                  {user.type_id !== 1 && (
+                    <Text textAlign="right" color="red">
+                      Hesaba para aktarma işlemi yalnızca her ayın 15. ve
+                      20.günleri arasında yapılır.
+                    </Text>
+                  )}
                 </Row>
               </Col>
             </>
