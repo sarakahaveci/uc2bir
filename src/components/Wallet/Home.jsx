@@ -70,12 +70,25 @@ const Home = ({ setPage }) => {
                   ))}
               </Accordion>
               <Button
-                style={{ textDecoration: 'underline' }}
-                fontWeight="bold"
+                style={{
+                  textDecoration: 'underline',
+                  display: 'block',
+                  marginTop: '20px',
+                }}
+                fontWeight="600"
                 color="blue"
-                text="Hesap hareketlerime git >"
+                text="Hesap Hareketlerime Git >"
                 onClick={() => setPage('activities')}
               />
+              {user.type_id === 1 && (
+                <Button
+                  style={{ textDecoration: 'underline', display: 'block' }}
+                  fontWeight="600"
+                  color="blue"
+                  text="Hesabımdaki Bakiyeyi Aktar >"
+                  onClick={() => setPage('transfer')}
+                />
+              )}
               <Col xs={{ span: 7, offset: 5 }}>
                 <Row
                   style={{ marginTop: 50, marginBottom: 40 }}
@@ -89,15 +102,6 @@ const Home = ({ setPage }) => {
                       onClick={() => setPage('transfer')}
                     />
                   )}
-                  {user.type_id === 1 && (
-                    <Button
-                      style={{ width: '100%', padding: '20px' }}
-                      className="blue"
-                      text="Cüzdana Para Aktar"
-                      onClick={() => setPage('transfer')}
-                    />
-                  )}
-
                   {user.type_id !== 1 && (
                     <Text textAlign="right" color="red">
                       Hesaba para aktarma işlemi yalnızca her ayın 15. ve
