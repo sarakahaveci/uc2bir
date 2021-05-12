@@ -20,6 +20,7 @@ const GYM = () => {
   const {
     myTemplates: { data: myTemplates },
   } = useSelector((state) => state.profileSettings2.reservationTemplate);
+  const [awaitingCount, setAwaitingCount] = useState(0);
 
   const dispatch = useDispatch();
 
@@ -31,7 +32,7 @@ const GYM = () => {
   let content;
   switch (tab) {
     case 'Awaitings':
-      content = <Awaitings />;
+      content = <Awaitings setAwaitingCount={setAwaitingCount}/>;
       break;
     case 'Calendar':
       content = <Calendar />;
@@ -62,7 +63,7 @@ const GYM = () => {
               setTab(value);
             }}
             tabs={[
-              { text: 'ONAYDAKİLER', value: 'Awaitings' },
+              { text: 'ONAYDAKİLER', value: 'Awaitings', notify:awaitingCount },
               { text: 'TAKVİMİM', value: 'Calendar' },
               { text: 'ONAYLANANLAR', value: 'Approved' },
               { text: 'REDDEDİLENLER', value: 'Rejecteds' },

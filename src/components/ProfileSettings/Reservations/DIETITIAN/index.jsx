@@ -17,6 +17,7 @@ const DIETITIAN = () => {
   const [tab, setTab] = useState('Awaitings');
   const [subPage, setSubPage] = useState();
   const [openCreateCalender, setOpenCreateCalender] = useState(false);
+  const [awaitingCount, setAwaitingCount] = useState(0);
   const {
     myTemplates: { data: myTemplates },
   } = useSelector((state) => state.profileSettings2.reservationTemplate);
@@ -31,7 +32,7 @@ const DIETITIAN = () => {
   let content;
   switch (tab) {
     case 'Awaitings':
-      content = <Awaitings />;
+      content = <Awaitings setAwaitingCount={setAwaitingCount}/>;
       break;
     case 'Calendar':
       content = <Calendar />;
@@ -62,7 +63,7 @@ const DIETITIAN = () => {
               setTab(value);
             }}
             tabs={[
-              { text: 'ONAYDAKİLER', value: 'Awaitings' },
+              { text: 'ONAYDAKİLER', value: 'Awaitings', notify:awaitingCount },
               { text: 'TAKVİMİM', value: 'Calendar' },
               { text: 'ONAYLANANLAR', value: 'Approved' },
               { text: 'REDDEDİLENLER', value: 'Rejecteds' },

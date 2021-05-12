@@ -14,7 +14,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getDtAwaitings, DtAwaitingApprove, DtAwaitingReject } from 'actions';
 import moment from 'moment';
 
-const Awaitings = () => {
+const Awaitings = ({ setAwaitingCount }) => {
   const dispatch = useDispatch();
   const items = useSelector(
     (state) => state.professionalReservation?.dtReservation?.awaitings
@@ -32,6 +32,18 @@ const Awaitings = () => {
       return [];
     }
   };
+
+  useEffect(() => {
+    for(const i in items?.date){
+      if (i === moment(selectedDate).format('DD.MM.YYYY')) {
+        setAwaitingCount(items?.date[i])
+      }else {
+        setAwaitingCount(0)
+      }
+    }
+  }, [selectedDate]);
+
+
   useEffect(() => {
     if (window.innerWidth <= 760) {
       setIsSmallScreen(true);

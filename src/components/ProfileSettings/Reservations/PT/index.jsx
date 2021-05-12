@@ -16,6 +16,7 @@ const PT = () => {
   const [tab, setTab] = useState('Awaitings');
   const [subPage, setSubPage] = useState();
   const [openCreateCalender, setOpenCreateCalender] = useState(false);
+  const [awaitingCount, setAwaitingCount] = useState(0);
   const {
     myTemplates: { data: myTemplates },
   } = useSelector((state) => state.profileSettings2.reservationTemplate);
@@ -30,7 +31,7 @@ const PT = () => {
   let content;
   switch (tab) {
     case 'Awaitings':
-      content = <Awaitings />;
+      content = <Awaitings setAwaitingCount={setAwaitingCount}/>;
       break;
     case 'Calendar':
       content = <Calendar />;
@@ -61,11 +62,11 @@ const PT = () => {
               setTab(value);
             }}
             tabs={[
-              { text: 'ONAYDAKİLER', value: 'Awaitings' },
-              { text: 'TAKVİMİM', value: 'Calendar' },
+              { text: 'ONAYDAKİLER', value: 'Awaitings', notify:awaitingCount },
+              { text: 'TAKVİMİM', value: 'Calendar'},
               { text: 'ONAYLANANLAR', value: 'Approved' },
               { text: 'REDDEDİLENLER', value: 'Rejecteds' },
-              { text: 'DERS GEÇMİŞİ', value: 'SessionHistory' },
+              { text: 'DERS GEÇMİŞİ', value: 'SessionHistory'},
             ]}
             rightButton={
               <DateCreateButton

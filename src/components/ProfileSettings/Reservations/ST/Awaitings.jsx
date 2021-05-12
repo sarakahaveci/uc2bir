@@ -18,7 +18,7 @@ import {
   UserAwaitingReject,
 } from 'actions';
 import { useDispatch, useSelector } from 'react-redux';
-const Awaitings = () => {
+const Awaitings = ({ setAwaitingCount }) => {
   const dispatch = useDispatch();
   const items = useSelector(
     (state) => state.professionalReservation?.userReservation?.awaitings
@@ -36,6 +36,16 @@ const Awaitings = () => {
       return [];
     }
   };
+
+  useEffect(() => {
+    for(const i in items?.date){
+      if (i === moment(selectedDate).format('DD.MM.YYYY')) {
+        setAwaitingCount(items?.date[i])
+      }else {
+        setAwaitingCount(0)
+      }
+    }
+  }, [selectedDate]);
 
   useEffect(() => {
     if (window.innerWidth <= 760) {
@@ -141,8 +151,8 @@ const Awaitings = () => {
                     <ApproveCard
                       cardType="userCard"
                       date={elm?.hour}
-                      customerName={elm?.student}
-                      optionalField_1={elm?.branch}
+                      customerName={elm?.pt?.name ? elm?.pt?.name : elm?.student}
+                      optionalField_1={elm?.branch} 
                       onApprove={() => {
                         setOpenApprove(elm?.id);
                       }}

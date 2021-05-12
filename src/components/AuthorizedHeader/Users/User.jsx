@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Svg from 'components/statics/svg';
 import List from '../HeaderList';
 import Item from '../HeaderItem';
 import TABS from 'constants/tabUri';
+import { useSelector } from 'react-redux';
 
 const User = ({ user_name, user_img = null, logoutHandler }) => {
+  const { data: allRooms } = useSelector(
+    (state) => state.profileSettings2.messages.rooms
+  );
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    setCount(allRooms?.filter(value => value.unread_messages === 1).length);
+
+  }, [allRooms]);
   const userDependentMenu = [
     {
       name: 'Profilim',
@@ -46,7 +55,7 @@ const User = ({ user_name, user_img = null, logoutHandler }) => {
     {
       name: 'Mesajlarım',
       icon: <Svg.CommentBlack />,
-      notify: [],
+      notify: count,
       pulse: true,
       linkPath: TABS.messagePath,
     },
@@ -74,7 +83,7 @@ const User = ({ user_name, user_img = null, logoutHandler }) => {
             dropDown={val.menu || val.notify}
             linkPath={val?.linkPath}
           >
-            <Item icon={val.icon} text={val.name} notify={val.notify?.length} />
+            <Item icon={val.icon} text={val.name} notify={val.notify} />
           </List>
         );
       })}

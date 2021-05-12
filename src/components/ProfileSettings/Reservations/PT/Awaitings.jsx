@@ -14,7 +14,7 @@ import moment from 'moment';
 import { device } from 'utils';
 import { getPtAwaitings, PtAwaitingApprove, PtAwaitingReject } from 'actions';
 import { useDispatch, useSelector } from 'react-redux';
-const Awaitings = () => {
+const Awaitings = ({ setAwaitingCount }) => {
   const dispatch = useDispatch();
   const items = useSelector(
     (state) => state.professionalReservation?.ptReservation?.awaitings
@@ -34,8 +34,19 @@ const Awaitings = () => {
   };
 
   useEffect(() => {
+    for(const i in items?.date){
+      if (i === moment(selectedDate).format('DD.MM.YYYY')) {
+        setAwaitingCount(items?.date[i])
+      }else {
+        setAwaitingCount(0)
+      }
+    }
+  }, [selectedDate]);
+
+  useEffect(() => {
     if (selectedDate) {
       dispatch(getPtAwaitings(moment(selectedDate).format('DD.MM.YYYY')));
+
     }
   }, [selectedDate]);
   useEffect(() => {

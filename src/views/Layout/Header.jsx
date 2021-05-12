@@ -20,6 +20,7 @@ const Header = () => {
 
   const [menuActive, setMenuActive] = useState(false);
   const [isOpenSearchWhatBox, setIsOpenSearchWhatBox] = useState(false);
+  const [searchType, setSearchType] = useState('pt');
   const [toggle, setToggle] = useState(false);
   // const [search, setSearch] = useState('');
   const history = useHistory();
@@ -27,6 +28,12 @@ const Header = () => {
   const handleSearchWhatClick = () => {
     setIsOpenSearchWhatBox(!isOpenSearchWhatBox);
   };
+
+  const handleSearch = () => {
+    history.push('/find?type=' + searchType)
+    setIsOpenSearchWhatBox(!isOpenSearchWhatBox);
+  };
+
 
   useEffect(() => {
     history.listen(() => {
@@ -221,14 +228,15 @@ const Header = () => {
           </StyledDiv>
           <StyledDiv>
             <AwesomeIcon.Bars color="white" />
+
             <Material.SimpleSelect
-              placeholder="Tüm Kategoriler"
+              label="Tüm Kategoriler"
               items={[
-                { id: 'Option1', name: 'Option1' },
-                { id: 'Option2', name: 'Option2' },
-                { id: 'Option3', name: 'Option3' },
+                { id: 'pt', name: 'Eğitmen' },
+                { id: 'gym', name: 'Salon' },
+                { id: 'dt', name: 'Diyetisyen' },
               ]}
-              // onChange={(e) => {} }
+              onChange={(e) => { setSearchType(e.target.value) }}
             />
           </StyledDiv>
           <Button
@@ -236,7 +244,7 @@ const Header = () => {
             icon={AwesomeIcon.Search}
             className="blue"
             onClick={() => {
-              handleSearchWhatClick();
+              handleSearch();
             }}
           />
         </GridWrapper>

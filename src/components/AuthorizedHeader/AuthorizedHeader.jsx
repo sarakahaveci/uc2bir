@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import { getUserKeys, logout } from 'actions';
+import { getRooms, getUserKeys, logout } from 'actions';
 import User from './Users/User';
 import Pt from './Users/Pt';
 import Gym from './Users/Gym';
@@ -19,6 +19,9 @@ const HeaderLogin = ({ type_id, user }) => {
   };
 
   useEffect(() => {
+    const isFirstTime = true;
+
+    dispatch(getRooms(isFirstTime));
     actionRegisterData();
   }, []);
 

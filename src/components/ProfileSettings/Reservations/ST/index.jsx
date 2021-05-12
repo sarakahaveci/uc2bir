@@ -9,6 +9,7 @@ import { Tabbar } from 'components';
 const ST = () => {
   const [tab, setTab] = useState('Awaitings');
   const [subPage, setSubPage] = useState();
+  const [awaitingCount, setAwaitingCount] = useState(0);
 
 
   useEffect(() => {
@@ -18,7 +19,7 @@ const ST = () => {
   let content;
   switch (tab) {
     case 'Awaitings':
-      content = <Awaitings />;
+      content = <Awaitings setAwaitingCount={setAwaitingCount}/>;
       break;
     case 'Approved':
       content = <Approved setSubPage={setSubPage} />;
@@ -46,7 +47,7 @@ const ST = () => {
               setTab(value);
             }}
             tabs={[
-              { text: 'ONAYDAKİLER', value: 'Awaitings' },
+              { text: 'ONAYDAKİLER', value: 'Awaitings', notify:awaitingCount },
               { text: 'ONAYLANANLAR', value: 'Approved' },
               { text: 'REDDEDİLENLER', value: 'Rejecteds' },
               { text: 'DERS GEÇMİŞİ', value: 'SessionHistory' },
