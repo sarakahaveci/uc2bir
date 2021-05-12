@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { setNewMessageRoom } from '../../actions';
 import moment from 'moment';
+import ReactHtmlParser from 'react-html-parser';
+import { decode } from 'html-entities';
 const ReservationDetail = ({ type, goBack = () => {}, isOnline }) => {
   const [detailData, setDetailData] = useState({});
   const professionalReservation = useSelector(
@@ -98,8 +100,8 @@ const ReservationDetail = ({ type, goBack = () => {}, isOnline }) => {
           <MapWrapper>
             <GoogleMap
               locationFromUser={{
-                lat: 25.0525,
-                lng: 27.0525,
+                lat: 41.015137,
+                lng: 28.97953,
               }}
             />
           </MapWrapper>
@@ -108,7 +110,7 @@ const ReservationDetail = ({ type, goBack = () => {}, isOnline }) => {
           <RightAreaWrapper>
             <DescTextWrapper>
               <DescHeader>Ders Hakkında</DescHeader>
-              <DescText>{detailData?.detail}</DescText>
+              <DescText>{ReactHtmlParser(decode(detailData?.detail))}</DescText>
             </DescTextWrapper>
             <MessageButtonContainer>
               <Link
