@@ -37,7 +37,7 @@ const LongUserCard = ({
   };
 
   const navigateToUser = () => {
-    const userId = data?.id || data?.user_id;
+    const userId = data?.id || data?.user_id || favoriteId;
     history.push('/user/' + userId);
   };
 

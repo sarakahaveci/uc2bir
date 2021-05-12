@@ -150,7 +150,7 @@ export default function ReservationTemplate({
       return (
         !sessionSelection.length ||
         // If gym or home_park selected, check their selections are fulfilled.
-        (checkSessionSelection('gym') && !workPlaceSelection.length) ||
+        (checkSessionSelection('gym') && !workPlaceSelection?.id) ||
         (checkSessionSelection('home_park') && !locationSelection.length)
       );
     }

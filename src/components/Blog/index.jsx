@@ -102,7 +102,9 @@ const Blog = () => {
     return history.push('/mine-blog/' + id);
   };
   const updated = () => {
-    createData.append('files[]', file || data.blog.photo);
+    if(fileUrl){
+      createData.append('files[]', fileUrl);
+    }
     createData.append('category_id', category_id);
     createData.append('detail', detail || data.blog.detail);
     createData.append('title', title || data.blog.title);

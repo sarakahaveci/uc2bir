@@ -28,7 +28,7 @@ const FluidBanner = (props) => {
           <Text
             textAlign="center"
             color="white"
-            fontSize="18px"
+            fontSize="1.2rem"
             letterSpacing="1px"
             lineHeight="30px"
           >
@@ -39,6 +39,8 @@ const FluidBanner = (props) => {
             <br />
             Başarmak için hemen başla!
           </Text>
+          <br />
+
           <Button text="ÜYE OL" soft />
         </Text>
       </Container>
