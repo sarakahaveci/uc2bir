@@ -31,7 +31,10 @@ const ReservationDetail = ({ type, goBack = () => {}, isOnline }) => {
   }, [professionalReservation]);
 
   const hour = (detailData?.hour || '').split('-');
-  const startDate = moment(`${detailData?.date} ${hour[0].trim()}`, 'DD.MM.YYYY hh:mm');
+  const startDate = moment(
+    `${detailData?.date} ${hour[0].trim()}`,
+    'DD.MM.YYYY hh:mm'
+  );
   return (
     <Container>
       <Header>
@@ -48,7 +51,13 @@ const ReservationDetail = ({ type, goBack = () => {}, isOnline }) => {
         <Left>
           <InfoItem>
             <InfoMain>
-              <CustomerImage src={detailData?.pt?.photo || detailData?.dt?.photo || detailData?.student?.photo} />
+              <CustomerImage
+                src={
+                  detailData?.pt?.photo ||
+                  detailData?.dt?.photo ||
+                  detailData?.student?.photo
+                }
+              />
               <BoldText>
                 {detailData?.student?.name ||
                   detailData?.bs?.title ||
@@ -112,16 +121,25 @@ const ReservationDetail = ({ type, goBack = () => {}, isOnline }) => {
               </DescText>
             </DescTextWrapper>
             <MessageButtonContainer>
-              <Link to={'/messages'} onClick={()=>dispatch(setNewMessageRoom(detailData?.student || detailData?.pt|| detailData?.dt ))}>
+              <Link
+                to={'/messages'}
+                onClick={() =>
+                  dispatch(
+                    setNewMessageRoom(
+                      detailData?.student || detailData?.pt || detailData?.dt
+                    )
+                  )
+                }
+              >
                 <MessageButton>Mesaj Gönder</MessageButton>
               </Link>
-              {isOnline&&
-              <Link to={'/myprofile/online'}>
-                <OnlineClassButton color={'blue2'} >
-                  Derse Gir
-                </OnlineClassButton>
-              </Link>
-              }
+              {isOnline && (
+                <Link to={'/myprofile/online'}>
+                  <OnlineClassButton color={'blue2'}>
+                    Derse Gir
+                  </OnlineClassButton>
+                </Link>
+              )}
             </MessageButtonContainer>
             <TextWrapper>
               <DescText> {startDate.fromNow()} </DescText>

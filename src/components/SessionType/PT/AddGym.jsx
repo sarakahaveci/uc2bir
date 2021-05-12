@@ -128,7 +128,7 @@ const AddGym = ({ setSubPage, setBannerActive }) => {
       </div>
       <GoogleMapClusterer
         isSaloonMap
-        defaultMarkerIcon={<Svg.FitnessIcon/>}
+        defaultMarkerIcon={<Svg.FitnessIcon />}
         onSelected={(selected) => {
           setSelectedItem(data.find((item) => item.id == selected));
         }}
@@ -149,21 +149,20 @@ const AddGym = ({ setSubPage, setBannerActive }) => {
           />
         )}
 
-        {
-          data.map((item, i) => (
-              <LongUserWrapper key={item?.id}>
-                <LongUserCard
-                  selected={false}
-                  data={item}
-                  city={item?.address?.city}
-                  district={item?.address?.district}
-                  hoverText="+ Salonu Ekle"
-                  showHeartBg
-                  isGym
-                  onClickHover={(id) => addGymHandler(id)}
-                />
-              </LongUserWrapper>
-            ))}
+        {data.map((item, i) => (
+          <LongUserWrapper key={item?.id}>
+            <LongUserCard
+              selected={false}
+              data={item}
+              city={item?.address?.city}
+              district={item?.address?.district}
+              hoverText="+ Salonu Ekle"
+              showHeartBg
+              isGym
+              onClickHover={(id) => addGymHandler(id)}
+            />
+          </LongUserWrapper>
+        ))}
       </GymListWrapper>
 
       <Pagination

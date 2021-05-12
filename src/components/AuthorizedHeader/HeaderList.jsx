@@ -25,21 +25,22 @@ const List = ({
       <Lists className={className} onClick={pushToLink}>
         {children}
 
-        {dropDown?.map((val, key) => (
-          <li className="col" key={key}>
-            <A onClick={val.onClick} to={val.link}>
-              {val.icon && <Icon className="item-icon">{val.icon}</Icon>}
-              <Span>
-                {val.name}
-                {val.tabs?.length > 0 && <Notify>{val.tabs?.length}</Notify>}
-              </Span>
-            </A>
+        {dropDown.length > 0 &&
+          dropDown?.map((val, key) => (
+            <li className="col" key={key}>
+              <A onClick={val.onClick} to={val.link}>
+                {val.icon && <Icon className="item-icon">{val.icon}</Icon>}
+                <Span>
+                  {val.name}
+                  {val.tabs?.length > 0 && <Notify>{val.tabs?.length}</Notify>}
+                </Span>
+              </A>
 
-            {val.tabs?.length > 0 && (
-              <List dropClassName="ul-drop-down" dropDown={[...val.tabs]} />
-            )}
-          </li>
-        ))}
+              {val.tabs?.length > 0 && (
+                <List dropClassName="ul-drop-down" dropDown={[...val.tabs]} />
+              )}
+            </li>
+          ))}
       </Lists>
     );
   }
