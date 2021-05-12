@@ -4,9 +4,10 @@ import profileImg from '../../assets/banner/slider-item-1.png';
 
 import { Svg, svgBackground } from 'components';
 import { Main } from 'components';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 const BuyStatus = ({ match }) => {
   let history = useHistory();
+  const location = useLocation();
 
   function SuccessCard() {
     return (
@@ -45,9 +46,13 @@ const BuyStatus = ({ match }) => {
       </CardContainer>
     );
   }
+
   return (
     <Main>
-      <img src={profileImg} alt="" className="banner-image" />
+      {!(
+        location.pathname === '/mobile/buy/success' ||
+        location.pathname === '/mobile/buy/fail'
+      ) && <img src={profileImg} alt="" className="banner-image" />}
       <Container>
         {match?.params?.status === 'success' && <SuccessCard />}
         {match?.params?.status === 'fail' && <FailCard />}

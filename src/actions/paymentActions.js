@@ -18,11 +18,18 @@ export const sendReservation = (type, body, successCallback) => async (
       url,
       body: { ...body },
       label: SEND_RESERVATION,
-      callBack: () => successCallback(),
-      errorHandler: () => {
-        toast.error('Bilgilerinizi gözden geçiriniz.', {
+      callBack: () => {
+        toast.success('İşleminiz başarılı!', {
           position: 'bottom-right',
-          autoClose: 4000,
+          autoClose: 1500,
+        });
+
+        successCallback();
+      },
+      errorHandler: (error) => {
+        toast.error(error.message, {
+          position: 'bottom-right',
+          autoClose: 2000,
         });
       },
 

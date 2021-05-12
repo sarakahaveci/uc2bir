@@ -203,10 +203,14 @@ export default function PaymentCard({ type, dateOption }) {
     ) {
       dispatch(sendReservation('pt', removeEmpty(json), () => {}));
     } else {
-      toast.error('Eksik Kart Bilgilerini Doldurunuz !', {
-        position: 'bottom-right',
-        autoClose: 4000,
-      });
+      if (reservation?.data?.payment_type == 'wallet') {
+        dispatch(sendReservation('pt', removeEmpty(json), () => {}));
+      } else {
+        toast.error('Eksik Kart Bilgilerini Doldurunuz !', {
+          position: 'bottom-right',
+          autoClose: 4000,
+        });
+      }
     }
   }
   function sendPaymentPtPacket() {
@@ -244,10 +248,14 @@ export default function PaymentCard({ type, dateOption }) {
     ) {
       dispatch(sendReservation('dt', removeEmpty(json), () => {}));
     } else {
-      toast.error('Eksik Kart Bilgilerini Doldurunuz !', {
-        position: 'bottom-right',
-        autoClose: 4000,
-      });
+      if (reservation?.data?.payment_type == 'wallet') {
+        dispatch(sendReservation('dt', removeEmpty(json), () => {}));
+      } else {
+        toast.error('Eksik Kart Bilgilerini Doldurunuz !', {
+          position: 'bottom-right',
+          autoClose: 4000,
+        });
+      }
     }
   }
   function handleHourClick(item) {
@@ -603,7 +611,7 @@ export default function PaymentCard({ type, dateOption }) {
         <input type="hidden" name="expiry_year" value="24" />
                 <input type="hidden" name="cvv" value="000" />*/}
         <input
-          type="text"
+          type="hidden"
           name="cc_owner"
           value={reservation?.data?.holder_name}
         />
