@@ -405,7 +405,7 @@ export default function PaymentCard({ type, dateOption }) {
             <Info borderDisable>
               <Accordion>
                 <AccordionItemWrapper>
-                  <Accordion.Item defaultOpen={false}>
+                  <Accordion.Item defaultOpen={true}>
                     <Accordion.Toggle
                       onToggle={(state) => setToggleState(state)}
                       className="accordion-toggler"
