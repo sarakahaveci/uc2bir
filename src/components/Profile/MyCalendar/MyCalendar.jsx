@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import styled from 'styled-components/macro';
-import { format } from 'date-fns';
+//import { format } from 'date-fns';
 
 import { Accordion, Button, DatePicker } from 'components';
 import BranchRowToggler from 'components/BranchRow/BranchRowToggler';
@@ -15,15 +15,22 @@ import {
 import moment from 'moment';
 import { DIETITIAN, USER } from '../../../constants';
 
-export default function MyCalendar({ userId, typeId, setPage = () => {} , isUserDetail=false}) {
+export default function MyCalendar({
+  userId,
+  typeId,
+  setPage = () => {},
+  isUserDetail = false,
+}) {
   const dispatch = useDispatch();
   const [startDate, setStartDate] = useState(new Date());
   const [selectedHour, setSelectedHour] = useState();
   const [selectedBranch, setSelectedBranch] = useState();
 
-  const { working_days: working_days, branches: branchList, slots:slots } = useSelector(
-    (state) => state.userProfile.calendar
-  );
+  const {
+    working_days: working_days,
+    branches: branchList,
+    slots: slots,
+  } = useSelector((state) => state.userProfile.calendar);
   const user = useSelector((state) => state.auth.user);
 
   useEffect(() => {
@@ -58,8 +65,8 @@ export default function MyCalendar({ userId, typeId, setPage = () => {} , isUser
 
       <Col lg={5}>
         <Accordion>
-          {typeId===DIETITIAN ?(
-            <AccordionItemWrapper >
+          {typeId === DIETITIAN ? (
+            <AccordionItemWrapper>
               <Accordion.Item defaultOpen={true}>
                 <Accordion.Toggle>
                   <BranchRowToggler data={startDate} typeId={typeId} />
@@ -75,26 +82,26 @@ export default function MyCalendar({ userId, typeId, setPage = () => {} , isUser
                 </Accordion.Collapse>
               </Accordion.Item>
             </AccordionItemWrapper>
-          ):
-          (branchList?.map((item, index) => (
-            <AccordionItemWrapper key={index} >
-              <Accordion.Item   defaultOpen={ true}>
-                <Accordion.Toggle>
-                  <BranchRowToggler data={item} typeId={typeId}/>
-                </Accordion.Toggle>
+          ) : (
+            branchList?.map((item, index) => (
+              <AccordionItemWrapper key={index}>
+                <Accordion.Item defaultOpen={true}>
+                  <Accordion.Toggle>
+                    <BranchRowToggler data={item} typeId={typeId} />
+                  </Accordion.Toggle>
 
-                <Accordion.Collapse>
-                  <MyCalendarCollapser
-                    data={item}
-                    setSelectedHour={setSelectedHour}
-                    setSelectedBranch={setSelectedBranch}
-                    typeId={typeId}
-                  />
-                </Accordion.Collapse>
-              </Accordion.Item>
-            </AccordionItemWrapper>
-          )))}
-
+                  <Accordion.Collapse>
+                    <MyCalendarCollapser
+                      data={item}
+                      setSelectedHour={setSelectedHour}
+                      setSelectedBranch={setSelectedBranch}
+                      typeId={typeId}
+                    />
+                  </Accordion.Collapse>
+                </Accordion.Item>
+              </AccordionItemWrapper>
+            ))
+          )}
         </Accordion>
         <BranchWrapper>
           {selectedHour && isUserDetail === false && user?.type_id === USER && (
@@ -104,11 +111,17 @@ export default function MyCalendar({ userId, typeId, setPage = () => {} , isUser
                 dispatch(
                   setReservation({
                     isSelected: true,
-                    date: format(startDate, 'dd.MM.yyyy'),
-                    slot: [selectedHour],
-                    branch_id:selectedBranch
+                    /*date: format(startDate, 'dd.MM.yyyy'),
+                    slot: [
+                      {
+                        date: format(startDate, 'dd.MM.yyyy'),
+                        hour: selectedHour,
+                      },
+                    ],*/
+                    branch_id: selectedBranch,
                   })
                 );
+
                 setPage('Reservation');
               }}
               text="Devam Et"

@@ -73,8 +73,8 @@ const PT = () => {
       dispatch(
         getAreaForPT(
           userInfo.id,
-          reservation.data?.date,
-          null,
+          reservation.data?.slot?.[0].date,
+          reservation.data?.slot?.[0].hour,
           reservation?.data?.branch_id,
           reservation.data?.session
         )
@@ -96,23 +96,21 @@ const PT = () => {
     }
   }, [reservation?.data?.location_id]); //YENİ
   useEffect(() => {
-    if (!reservation?.data?.isSelected) {
-      if (
-        reservation?.data?.branch_id &&
-        reservation?.data?.session &&
-        reservation?.data?.date
-      ) {
-        dispatch(
-          getPtReservationCalendar(
-            userInfo.id,
-            reservation.data?.date,
-            null,
-            reservation?.data?.branch_id,
-            reservation.data?.session,
-            reservation?.data?.location_id
-          )
-        );
-      }
+    if (
+      reservation?.data?.branch_id &&
+      reservation?.data?.session &&
+      reservation?.data?.date
+    ) {
+      dispatch(
+        getPtReservationCalendar(
+          userInfo.id,
+          reservation.data?.date,
+          null,
+          reservation?.data?.branch_id,
+          reservation.data?.session,
+          reservation?.data?.location_id
+        )
+      );
     }
   }, [
     reservation?.data?.branch_id,
@@ -474,7 +472,7 @@ const PT = () => {
               price={userInfo.price}
             />
             <SelectionContainer>
-              {reservation?.data?.isSelected && (
+              {/*reservation?.data?.isSelected && (
                 <InputContainer>
                   <Text color="#9B9B9B">{'Tarih ve Saat Seçiminiz'}</Text>
                   <Material.TextField
@@ -482,14 +480,14 @@ const PT = () => {
                     defaultValue={
                       reservation?.data?.date +
                       ' ' +
-                      reservation?.data?.slot?.[0]
+                      reservation?.data?.slot?.[0].hour
                     }
                     inputProps={{
                       readOnly: true,
                     }}
                   />
                 </InputContainer>
-              )}
+                  )*/}
               <InputContainer disable={reservation?.data?.isSelected}>
                 <Text color="#9B9B9B">{'Branş Seçiniz:'}</Text>
                 <Material.SimpleSelect
@@ -530,7 +528,7 @@ const PT = () => {
     <Container>
       <LeftWrapper>{_renderLeftArea()}</LeftWrapper>
       <RightWrapper>
-        <PaymentCard type="pt" dateOption={!reservation?.data?.isSelected} />
+        <PaymentCard type="pt" dateOption={true} />
       </RightWrapper>
     </Container>
   );

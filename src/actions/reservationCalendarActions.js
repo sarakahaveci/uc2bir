@@ -9,14 +9,14 @@ import {
 export const getAreaForPT = (id, date, hour, branch_id, session) => async (
   dispatch
 ) => {
-  let url = `https://gateway.321.4alabs.com/appointment/pt-calendar/step-2/${id}`;
+  let url = `https://gateway.321.4alabs.com/appointment/pt-calendar/${id}`;
   let extras = '?';
 
   if (date) extras += `date=${date}&`;
   if (hour) extras += `hour=${hour}&`;
   if (branch_id) extras += `branch_id=${branch_id}&`;
   if (session) extras += `session=${session}&`;
-  if (session) extras += `page=${pageXOffset}&`;
+  if (session) extras += `page=${1}&`;
 
   url += extras;
   await dispatch({
