@@ -22,8 +22,20 @@ const VKI = () => {
             <Title variant="h5" component="h5" lineDisable textLeft>
               VKI HESAPLAMA
             </Title>
-            <Title variant="h3" component="h3" lineDisable textLeft>
-              VKI NEDİR?
+            <Title
+              variant="h3"
+              component="h3"
+              lineDisable
+              textLeft
+              style={{
+                fontSize: '3rem',
+                fontWeight: 'bold',
+                color: '#dedee0',
+                textShadow:
+                  ' -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black',
+              }}
+            >
+              VKI Nedir?
             </Title>
             <Text fontSize="10pt" className="p-0">
               Vücut kitle endeksi, yetişkin bir insanın ağırlığının, boyuna göre

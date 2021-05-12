@@ -6,6 +6,7 @@ import GoogleMap from 'components/GoogleMaps/GoogleMap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { setNewMessageRoom } from '../../actions';
+import moment from 'moment';
 const ReservationDetail = ({ type, goBack = () => {}, isOnline }) => {
   const [detailData, setDetailData] = useState({});
   const professionalReservation = useSelector(
@@ -29,6 +30,8 @@ const ReservationDetail = ({ type, goBack = () => {}, isOnline }) => {
     }
   }, [professionalReservation]);
 
+  const hour = (detailData?.hour || '').split('-');
+  const startDate = moment(`${detailData?.date} ${hour[0].trim()}`, 'DD.MM.YYYY hh:mm');
   return (
     <Container>
       <Header>
@@ -119,8 +122,10 @@ const ReservationDetail = ({ type, goBack = () => {}, isOnline }) => {
                 </OnlineClassButton>
               </Link>
               }
-
             </MessageButtonContainer>
+            <TextWrapper>
+              <DescText> {startDate.fromNow()} </DescText>
+            </TextWrapper>
           </RightAreaWrapper>
         </Right>
       </Sections>
@@ -173,7 +178,7 @@ const RightAreaWrapper = styled.div`
 `;
 const MessageButtonContainer = styled.div`
   width: 100%;
-  padding: 30px;
+  padding: 10px 30px;
 `;
 const MessageButton = styled.button`
   width: 100%;
@@ -248,6 +253,7 @@ const AdressText = styled.text`
     font-size: 0.6rem;
   }
 `;
+
 const DescTextWrapper = styled.div`
   width: 100%;
   background: #f8f8f8;
@@ -255,6 +261,18 @@ const DescTextWrapper = styled.div`
   flex-direction: column;
   padding: 25px;
 `;
+
+const TextWrapper = styled.div`
+  font-family: 'Poppins', sans-serif;
+  width: 100%;
+  background: #f8f8f8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 500;
+  margin-bottom: 10px;
+`;
+
 const DescHeader = styled.text`
   font-family: 'Poppins', sans-serif;
   border-bottom-style: solid;

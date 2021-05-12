@@ -5,7 +5,14 @@ import { useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { default as NativeHeader } from '../../components/Header';
 import logo from '../../assets/logo.png';
-import { AwesomeIcon, IconLabel, Button, HeaderLogin, Svg, Material } from 'components';
+import {
+  AwesomeIcon,
+  IconLabel,
+  Button,
+  HeaderLogin,
+  Svg,
+  Material,
+} from 'components';
 
 const Header = () => {
   const { infoData } = useSelector((state) => state.footer);
@@ -17,12 +24,10 @@ const Header = () => {
   // const [search, setSearch] = useState('');
   const history = useHistory();
 
-
   const handleSearchWhatClick = () => {
-    setIsOpenSearchWhatBox(!isOpenSearchWhatBox)
-  }
+    setIsOpenSearchWhatBox(!isOpenSearchWhatBox);
+  };
 
- 
   useEffect(() => {
     history.listen(() => {
       setMenuActive(false);
@@ -34,9 +39,6 @@ const Header = () => {
     className: 'col logo justify-content-center',
     element: () => logo,
   };
-
-
-
 
   const nav_widget = {
     status: true,
@@ -122,7 +124,9 @@ const Header = () => {
                       icon={AwesomeIcon.Search}
                       text="Ne arıyorsun?"
                       className="blue"
-                      onClick={() => { handleSearchWhatClick() }}
+                      onClick={() => {
+                        handleSearchWhatClick();
+                      }}
                     />
                   </li>
                   <li>
@@ -197,7 +201,7 @@ const Header = () => {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "row" }} >
+    <div style={{ display: 'flex', flexDirection: 'row' }}>
       <NativeHeader
         className="header position-fixed"
         navLogo={nav_logo}
@@ -205,106 +209,106 @@ const Header = () => {
         toggle={menuActive}
         setToggle={() => setMenuActive(!menuActive)}
       />
-      {isOpenSearchWhatBox &&
+      {isOpenSearchWhatBox && (
         <GridWrapper>
           <StyledDiv>
             <AwesomeIcon.Keyboard color="white" />
-            <StyledInput
-              placeholder={"Ne arıyorsun"}
-            />
+            <StyledInput placeholder={'Ne arıyorsun'} />
           </StyledDiv>
           <StyledDiv>
             <AwesomeIcon.Map color="white" />
-            <StyledInput
-              placeholder={"Lokasyon... "}
-            />
+            <StyledInput placeholder={'Lokasyon... '} />
           </StyledDiv>
           <StyledDiv>
             <AwesomeIcon.Bars color="white" />
             <Material.SimpleSelect
               placeholder="Tüm Kategoriler"
-              items={[{ id: 'Option1', name: 'Option1' },
-              { id: 'Option2', name: 'Option2' },
-              { id: 'Option3', name: 'Option3' },]}  
-              // onChange={(e) => {} }  
+              items={[
+                { id: 'Option1', name: 'Option1' },
+                { id: 'Option2', name: 'Option2' },
+                { id: 'Option3', name: 'Option3' },
+              ]}
+              // onChange={(e) => {} }
             />
           </StyledDiv>
           <Button
             text="Ara"
             icon={AwesomeIcon.Search}
             className="blue"
-            onClick={() => { handleSearchWhatClick() }}
+            onClick={() => {
+              handleSearchWhatClick();
+            }}
           />
-        </GridWrapper> 
-      } 
+        </GridWrapper>
+      )}
     </div>
   );
 };
 import styled from 'styled-components/macro';
 import { device } from 'utils';
-// ${(p) => p.theme.colors.gray1} input bg 
+// ${(p) => p.theme.colors.gray1} input bg
 const GridWrapper = styled.div`
-margin-top:130px;
-position: fixed;
-z-index: 10000; 
-width:100%;
-height:100px;  
-  display: grid; 
+  margin-top: 130px;
+  position: fixed;
+  z-index: 10000;
+  width: 100%;
+  height: 100px;
+  display: grid;
   grid-column-gap: 10px;
-   justify-content:center;
-   align-items:center;
-   background-color: ${(p) => p.theme.colors.dark} ;
+  justify-content: center;
+  align-items: center;
+  background-color: ${(p) => p.theme.colors.dark};
   grid-template-columns: 240px 240px 240px 100px;
-  grid-row-gap: 10px; 
+  grid-row-gap: 10px;
 
   @media (max-width: 1200px) {
-    height:150px;
-    grid-template-columns: 400px 400px; 
-    margin-top:90px; 
-  }  
+    height: 150px;
+    grid-template-columns: 400px 400px;
+    margin-top: 90px;
+  }
   @media (max-width: 768px) {
-    margin-top:90px; 
+    margin-top: 90px;
   }
   @media ${device.sm} {
-    height:250px;
+    height: 250px;
     grid-template-columns: auto;
-  } 
+  }
 `;
 const StyledDiv = styled.div`
-background: ${(p) => p.theme.colors.gray1};
-max-width:300px;
-height:50px;
-display:flex;
-flexDirection:row;
-justify-content:space-between;
-align-items:center;
-padding:7px;  
-@media ${device.sm} {
-  height:35px; 
-} 
-.text-input{
-  background-color:red;
+  background: ${(p) => p.theme.colors.gray1};
+  max-width: 300px;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px;
   @media ${device.sm} {
-    padding:-50px;
-  } 
-}
+    height: 35px;
+  }
+  .text-input {
+    background-color: red;
+    @media ${device.sm} {
+      padding: -50px;
+    }
+  }
 `;
 
 const StyledInput = styled.input`
-flex: 1;
-height: 40px;
-width: 100%; 
-background: transparent;
-border: none;
-padding:5px;
-font-size: 0.9rem; 
-
-&::placeholder {
+  flex: 1;
+  height: 40px;
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 5px;
   font-size: 0.9rem;
-  color: white; 
-}
-@media ${device.sm} {
-  height:30px; 
-} 
-`
+
+  &::placeholder {
+    font-size: 0.9rem;
+    color: white;
+  }
+  @media ${device.sm} {
+    height: 30px;
+  }
+`;
 export default Header;

@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React, { useMemo } from 'react';
 import styled, { css } from 'styled-components/macro';
 import { useSelector, useDispatch } from 'react-redux';
 import { differenceInDays } from 'date-fns';
@@ -8,8 +8,13 @@ import { setRoomName, setMessageSideBarOpen } from 'actions';
 import { ISOToTimeConverter, ISOToDateConverter } from 'utils';
 import DefaultProfileImg from 'assets/default-profile.jpg';
 
-const MessageInfoRow = ({ messageData, userData, unreadMessages, isNewMessage }) => {
-  const { id: myProfileId, photo:profile_image } = useSelector(
+const MessageInfoRow = ({
+  messageData,
+  userData,
+  unreadMessages,
+  isNewMessage,
+}) => {
+  const { id: myProfileId, photo: profile_image } = useSelector(
     (state) => state.auth.user
   );
 
@@ -27,7 +32,6 @@ const MessageInfoRow = ({ messageData, userData, unreadMessages, isNewMessage })
     dispatch(setRoomName(messageData.room_name, userData));
     dispatch(setMessageSideBarOpen(false));
   };
-
 
   const messageDate = useMemo(() => {
     if (differenceInDays(new Date(), new Date(messageData.created_at)) === 0) {
@@ -47,7 +51,11 @@ const MessageInfoRow = ({ messageData, userData, unreadMessages, isNewMessage })
     >
       <AvatarWrapper>
         <Avatar
-          src={isNewMessage ? userData.img : userData?.profile_image?.path || DefaultProfileImg}
+          src={
+            isNewMessage
+              ? userData.img
+              : userData?.profile_image?.path || DefaultProfileImg
+          }
           showBorder
         >
           {messageData?.user_active && <ActiveCircle />}

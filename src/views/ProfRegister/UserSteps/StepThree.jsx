@@ -297,6 +297,10 @@ const StepThree = () => {
           </>
         )}
         <IconLabel
+          style={{
+            color: '#00b2a9',
+            textDecoration: 'underline',
+          }}
           icon={AwesomeIcon.Map}
           text="Haritadan Ekle"
           onClick={handleClickOpen}

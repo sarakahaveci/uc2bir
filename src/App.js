@@ -129,6 +129,7 @@ const App = () => {
 
                 <Route exact path="/contact" component={Contact} />
                 <Route exact path="/buy/:status" component={BuyStatus} />
+                <Route exact path="/mobile/buy/:status" component={BuyStatus} />
 
                 <Route exact path="/find" component={SearchProfessional} />
                 <Route

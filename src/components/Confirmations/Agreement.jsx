@@ -70,6 +70,7 @@ const Agreement = ({
           </InfoField>
           <ConfirmContainer>
             <Material.checkbox
+              marginBottom="50px"
               checked={acceptFirst}
               onChange={() => setAcceptFirst(!acceptFirst)}
             />

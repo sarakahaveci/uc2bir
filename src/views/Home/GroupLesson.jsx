@@ -17,37 +17,37 @@ const GroupLesson = (props) => {
       id: 1,
       name: 'Tümü',
       activeClass: 'active',
-      link: '#all',
+      // link: '#all',
     },
     {
       id: 2,
       name: 'Yoga',
       activeClass: '',
-      link: '#all',
+      // link: '#all',
     },
     {
       id: 3,
       name: 'Box',
       activeClass: '',
-      link: '#all',
+      // link: '#all',
     },
     {
       id: 4,
       name: 'Meditasyon',
       activeClass: '',
-      link: '#all',
+      // link: '#all',
     },
     {
       id: 5,
       name: 'Vücut Geliştirme',
       activeClass: '',
-      link: '#all',
+      // link: '#all',
     },
     {
       id: 6,
       name: 'Pilates',
       activeClass: '',
-      link: '#all',
+      // link: '#all',
     },
   ];
   return (
