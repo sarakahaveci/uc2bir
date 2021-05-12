@@ -204,11 +204,7 @@ export default function PaymentCard({ type, dateOption }) {
       dispatch(sendReservation('pt', removeEmpty(json), () => {}));
     } else {
       if (reservation?.data?.payment_type == 'wallet') {
-        dispatch(
-          sendReservation('pt', removeEmpty(json), () => {
-            // console.log('CALLBACK', callback);
-          })
-        );
+        dispatch(sendReservation('pt', removeEmpty(json), () => {}));
       } else {
         toast.error('Eksik Kart Bilgilerini Doldurunuz !', {
           position: 'bottom-right',
@@ -253,14 +249,7 @@ export default function PaymentCard({ type, dateOption }) {
       dispatch(sendReservation('dt', removeEmpty(json), () => {}));
     } else {
       if (reservation?.data?.payment_type == 'wallet') {
-        dispatch(
-          sendReservation('dt', removeEmpty(json), () => {
-            /*console.log(
-              'CALLBACKkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk',
-              callback
-            );*/
-          })
-        );
+        dispatch(sendReservation('dt', removeEmpty(json), () => {}));
       } else {
         toast.error('Eksik Kart Bilgilerini Doldurunuz !', {
           position: 'bottom-right',
