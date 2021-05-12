@@ -143,6 +143,7 @@ const Awaitings = () => {
                       date={elm?.hour}
                       customerName={elm?.student}
                       optionalField_1={elm?.branch}
+                      ptName={elm?.pt?.name}
                       onApprove={() => {
                         setOpenApprove(elm?.id);
                       }}
