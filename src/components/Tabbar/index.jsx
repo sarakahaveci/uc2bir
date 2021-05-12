@@ -20,9 +20,10 @@ const Tabbar = ({
             }}
             key={index}
           >
-            <BoldText selected={selectedValue == elm.value}>
+            <BoldText selected={selectedValue === elm.value}>
               {elm.text}
             </BoldText>
+            {elm?.notify > 0 && <Notify>{elm?.notify}</Notify>}
           </Tab>
         ))}
         {rightButton}
@@ -36,7 +37,26 @@ const Container = styled.div`
   flex-wrap: wrap;
   margin: 10px;
 `;
+
+const Notify = styled.div`
+  border-radius: 100%;
+  background: ${(p) => p.theme.colors.blue};
+  right: 0;
+  top: 5px;
+  font-size: 6pt;
+  font-weight: bold;
+  margin-top: -5px;
+  width: 15px;
+  height: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 3px;
+  color: white;
+`;
+
 const Tab = styled.button`
+  display: flex;
   padding: 20px;
   background: white;
 `;
