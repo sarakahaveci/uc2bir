@@ -3,12 +3,18 @@ import styled from 'styled-components/macro';
 import { Text, Svg } from 'components';
 import { Link } from 'react-router-dom';
 import { device } from 'utils';
-const ApproveModal = ({elm, open, approve = () => {}, cancel = () => {} }) => { 
+const ApproveModal = ({ elm, open, approve = () => {}, cancel = () => {} }) => {
   return (
     <Root style={{ display: open ? 'flex' : 'none' }}>
       <MainContainer>
+        <Svg.CloseIcon
+          className="close-icon"
+          onClick={() => {
+            cancel();
+          }}
+        />
         <ContextContainer>
-          <Svg.SuccessIcon /> 
+          <Svg.SmileyFaceIcon />
           <Text
             variant="h2"
             fontSize="1.2rem"
@@ -16,13 +22,15 @@ const ApproveModal = ({elm, open, approve = () => {}, cancel = () => {} }) => {
             fontWeight="500"
             textAlign="center"
           >
-            Rezervasyonu reddetmek istediğinize emin misiniz?
+            Rezervasyonu onaylamak istediğinize emin misiniz?
           </Text>
 
-          {elm &&  <Text textAlign="center" fontSize="1rem" color="dark">
-            {elm.date} Tarihinde saat {elm.hour} için gelen rezervasyon 
-            talebiniz reddedilecektir. 
-          </Text>}
+          {elm && (
+            <Text textAlign="center" fontSize="1rem" color="dark">
+              {elm.date} Tarihinde saat {elm.hour} için gelen rezervasyon
+              talebiniz onaylanacaktır.
+            </Text>
+          )}
         </ContextContainer>
 
         <div className="modal-footer" closeIcon={false}>
@@ -63,11 +71,20 @@ const Root = styled.div`
 `;
 const MainContainer = styled.div`
   display: flex;
+  border-radius: 30px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 20px;
   background: white;
+  .close-icon {
+    align-self: flex-end;
+
+    svg {
+      cursor: pointer;
+    }
+  }
+
   @media ${device.sm} {
     width: 95vw;
     height: 95vh;
@@ -89,10 +106,10 @@ const StyledButton = styled(Link)`
 const ContextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 50vw;
+  width: 30vw;
   justify-content: center;
   align-items: center;
-  padding: 60px 110px 30px;
+  padding: 50px 70px 30px;
   svg {
     margin-bottom: 15px;
   }

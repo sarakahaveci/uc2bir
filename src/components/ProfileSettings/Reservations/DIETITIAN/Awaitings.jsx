@@ -24,7 +24,7 @@ const Awaitings = ({ setAwaitingCount }) => {
   const [openReject, setOpenReject] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [choosenElm, setChoosenElm] = useState(null);
-  
+
   const startOfWeeksArr = () => {
     if (items?.date) {
       return Object.keys(items?.date).map(
@@ -36,15 +36,14 @@ const Awaitings = ({ setAwaitingCount }) => {
   };
 
   useEffect(() => {
-    for(const i in items?.date){
+    for (const i in items?.date) {
       if (i === moment(selectedDate).format('DD.MM.YYYY')) {
-        setAwaitingCount(items?.date[i])
-      }else {
-        setAwaitingCount(0)
+        setAwaitingCount(items?.date[i]);
+      } else {
+        setAwaitingCount(0);
       }
     }
   }, [selectedDate]);
-
 
   useEffect(() => {
     if (window.innerWidth <= 760) {
@@ -155,7 +154,7 @@ const Awaitings = ({ setAwaitingCount }) => {
         </StyledCol>
       </StyledRow>
       <RejectModal
-      elm={choosenElm}
+        elm={choosenElm}
         headerText="Rezervasyonu reddetmek istediğinize emin misiniz?"
         descText=""
         cancelLabel="VAZGEÇ"
@@ -170,7 +169,7 @@ const Awaitings = ({ setAwaitingCount }) => {
         }}
       />
       <ApproveModal
-      elm={choosenElm}
+        elm={choosenElm}
         open={openApprove}
         approve={(id) => {
           setOpenApprove(undefined);

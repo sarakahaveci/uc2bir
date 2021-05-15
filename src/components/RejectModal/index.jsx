@@ -28,6 +28,12 @@ const RejectModal = ({
     case 'start':
       content = (
         <MainContainer>
+          <Svg.CloseIcon
+            className="close-icon"
+            onClick={() => {
+              cancel();
+            }}
+          />
           <ContextContainer>
             <IconContainer>
               <Svg.Reject />
@@ -39,12 +45,18 @@ const RejectModal = ({
               color="dark"
               fontWeight="500"
               textAlign="center"
+              marginTop="10px"
             >
               {headerText}
             </Text>
 
             <Text textAlign="center" fontSize="1rem" color="dark">
-              {elm ?  (elm?.date + " Tarihinde saat "+ elm?.hour +" için gelen rezervasyon talebiniz reddedilecektir. " ) : descText}
+              {elm
+                ? elm?.date +
+                  ' Tarihinde saat ' +
+                  elm?.hour +
+                  ' için gelen rezervasyon talebiniz reddedilecektir. '
+                : descText}
             </Text>
           </ContextContainer>
 
@@ -74,6 +86,12 @@ const RejectModal = ({
       content = (
         <MainContainer>
           <ReasonContextContainer>
+            <Svg.CloseIcon
+              className="close-icon"
+              onClick={() => {
+                setSelectedPage('start');
+              }}
+            />
             <TextContainer>
               <StyledText>Lütfen Red Sebebinizi Seçiniz</StyledText>
             </TextContainer>
@@ -123,11 +141,19 @@ const Root = styled.div`
 `;
 const MainContainer = styled.div`
   display: flex;
+  border-radius: 30px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 20px;
   background: white;
+  .close-icon {
+    align-self: flex-end;
+
+    svg {
+      cursor: pointer;
+    }
+  }
   @media ${device.sm} {
     width: 95vw;
     height: 95vh;
@@ -158,10 +184,10 @@ const StyledButton = styled(Link)`
 const ContextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 50vw;
+  width: 30vw;
   justify-content: center;
   align-items: center;
-  padding: 60px 110px 30px;
+  padding: 50px 70px 30px;
 
   @media ${device.sm} {
     padding: 20px 0;
@@ -171,7 +197,7 @@ const ContextContainer = styled.div`
 const ReasonContextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 50vw;
+  width: 30vw;
 
   @media ${device.sm} {
     padding: 20px 0;

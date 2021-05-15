@@ -9,7 +9,7 @@ const ApproveCard = ({
   cardType,
   optionalField_1 = null,
   optionalField_2 = null,
-  optionalField_3 = null, 
+  optionalField_3 = null,
   transaction_id,
   userType,
   onApprove = () => {},
@@ -56,7 +56,10 @@ const ApproveCard = ({
       buttonGroup =
         userType == 'user' ? (
           <>
-            {transaction_id && <ButtonText onClick={onTransfer}>Para Iadesi</ButtonText>} Reddedildi
+            {transaction_id && (
+              <ButtonText onClick={onTransfer}>Para Iadesi</ButtonText>
+            )}{' '}
+            Reddedildi
           </>
         ) : (
           'Reddedildi'
@@ -107,7 +110,7 @@ const ApproveCard = ({
             <Column>
               <BoldText>{optionalField_1}</BoldText>
             </Column>
-            <Seperator></Seperator> 
+            <Seperator></Seperator>
           </>
         )}
         <FlexSpace position={'END'}>
