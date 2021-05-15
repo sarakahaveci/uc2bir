@@ -12,8 +12,7 @@ const User = ({ user_name, user_img = null, logoutHandler }) => {
   );
   const [count, setCount] = useState(0);
   useEffect(() => {
-    setCount(allRooms?.filter(value => value.unread_messages === 1).length);
-
+    setCount(allRooms?.filter((value) => value.unread_messages === 1).length);
   }, [allRooms]);
   const userDependentMenu = [
     {
@@ -23,21 +22,21 @@ const User = ({ user_name, user_img = null, logoutHandler }) => {
       link: TABS.profilePath,
       pulse: true,
     },
-    /*   {
+    {
       name: 'Rezervasyonlarım',
       icon: <Svg.Date />,
       link: TABS.reservationsPath,
-    }, */
-    /*   {
+    },
+    {
       name: 'Paketlerim',
       icon: <Svg.Packet />,
-      link: TABS.profilePath,
-    }, */
-    /*    {
+      link: TABS.packetsPath,
+    },
+    {
       name: 'Cüzdanım',
       icon: <Svg.Wallet />,
       link: TABS.walletPath,
-    }, */
+    },
     {
       name: 'Çıkış Yap',
       icon: <Svg.Closed />,
