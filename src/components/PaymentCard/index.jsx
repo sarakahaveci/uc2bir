@@ -21,12 +21,16 @@ import { getWallet } from 'actions/userProfileActions/walletActions';
 import moment from 'moment';
 export default function PaymentCard({ type, dateOption }) {
   const formRef = useRef(null);
+  const packetFormRef = useRef(null);
+
   const dispatch = useDispatch();
   const reservation = useSelector((state) => state.reservation);
   const buyPacket = useSelector((state) => state.buyPacket);
   const reservationCalendar = useSelector((state) => state.reservationCalendar);
 
   const payment = useSelector((state) => state.payment);
+  const paymentPacket = useSelector((state) => state.paymentPacket);
+
   const { userInfo } = useSelector((state) => state.userProfile.userInfo);
   const [toggleState, setToggleState] = useState(false);
   const wallet = useSelector((state) => state.userProfile.wallet);
@@ -49,6 +53,12 @@ export default function PaymentCard({ type, dateOption }) {
       formRef.current.submit();
     }
   }, [payment?.request]);
+
+  useEffect(() => {
+    if (paymentPacket?.request?.data?.merchant_id) {
+      packetFormRef.current.submit();
+    }
+  }, [paymentPacket?.request]);
   useEffect(() => {
     if (reservation?.data?.slot?.length > 0) {
       dispatch(
@@ -765,6 +775,156 @@ export default function PaymentCard({ type, dateOption }) {
           type="hidden"
           name="user_phone"
           value={payment?.request?.data?.user_phone}
+        />
+      </form>
+
+      <form
+        ref={packetFormRef}
+        action="https://www.paytr.com/odeme"
+        method="POST"
+      >
+        {/*<input type="text" name="cc_owner" value="PAYTR TEST" />
+        <input type="hidden" name="card_number" value="9792030394440796" />
+        <input type="hidden" name="expiry_month" value="12" />
+        <input type="hidden" name="expiry_year" value="24" />
+                <input type="hidden" name="cvv" value="000" />*/}
+        <input
+          type="text"
+          name="cc_owner"
+          value={buyPacket?.reservation?.holder_name}
+        />
+        <input
+          type="hidden"
+          name="card_number"
+          value={buyPacket?.reservation?.card_number?.replace(/\s/g, '')}
+        />
+        <input
+          type="hidden"
+          name="expiry_month"
+          value={buyPacket?.reservation?.expiration_month}
+        />
+        <input
+          type="hidden"
+          name="expiry_year"
+          value={buyPacket?.reservation?.expiration_year}
+        />
+        <input type="hidden" name="cvv" value={buyPacket?.reservation?.cvc} />
+
+        <input
+          type="hidden"
+          name="card_type"
+          value={paymentPacket?.request?.data?.card_type}
+        />
+        <input
+          type="hidden"
+          name="currency"
+          value={paymentPacket?.request?.data?.currency}
+        />
+        <input
+          type="hidden"
+          name="debug_on"
+          value={paymentPacket?.request?.data?.debug_on}
+        />
+        <input
+          type="hidden"
+          name="email"
+          value={paymentPacket?.request?.data?.email}
+        />
+        <input
+          type="hidden"
+          name="installment_count"
+          value={paymentPacket?.request?.data?.installment_count}
+        />
+        <input
+          type="hidden"
+          name="lang"
+          value={paymentPacket?.request?.data?.lang}
+        />
+        <input
+          type="hidden"
+          name="max_installment"
+          value={paymentPacket?.request?.data?.max_installment}
+        />
+        <input
+          type="hidden"
+          name="merchant_fail_url"
+          value={paymentPacket?.request?.data?.merchant_fail_url}
+        />
+        <input
+          type="hidden"
+          name="merchant_id"
+          value={paymentPacket?.request?.data?.merchant_id}
+        />
+        <input
+          type="hidden"
+          name="merchant_oid"
+          value={paymentPacket?.request?.data?.merchant_oid}
+        />
+        <input
+          type="hidden"
+          name="merchant_ok_url"
+          value={paymentPacket?.request?.data?.merchant_ok_url}
+        />
+        <input
+          type="hidden"
+          name="no_installment"
+          value={paymentPacket?.request?.data?.no_installment}
+        />
+        <input
+          type="hidden"
+          name="non3d_test_failed"
+          value={paymentPacket?.request?.data?.non3d_test_failed}
+        />
+        <input
+          type="hidden"
+          name="non_3d"
+          value={paymentPacket?.request?.data?.non_3d}
+        />
+        <input
+          type="hidden"
+          name="payment_amount"
+          value={paymentPacket?.request?.data?.payment_amount}
+        />
+        <input
+          type="hidden"
+          name="payment_type"
+          value={paymentPacket?.request?.data?.payment_type}
+        />
+        <input
+          type="hidden"
+          name="paytr_token"
+          value={paymentPacket?.request?.data?.paytr_token}
+        />
+
+        <input
+          type="hidden"
+          name="test_mode"
+          value={paymentPacket?.request?.data?.test_mode}
+        />
+        <input
+          type="hidden"
+          name="user_address"
+          value={paymentPacket?.request?.data?.user_address}
+        />
+        <input
+          type="hidden"
+          name="user_basket"
+          value={paymentPacket?.request?.data?.user_basket}
+        />
+        <input
+          type="hidden"
+          name="user_ip"
+          value={paymentPacket?.request?.data?.user_ip}
+        />
+        <input
+          type="hidden"
+          name="user_name"
+          value={paymentPacket?.request?.data?.user_name}
+        />
+        <input
+          type="hidden"
+          name="user_phone"
+          value={paymentPacket?.request?.data?.user_phone}
         />
       </form>
     </Container>
