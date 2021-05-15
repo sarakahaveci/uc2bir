@@ -111,6 +111,35 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
       );
     });
 
+  const manipulateName = (name) => {
+    if (name.search(" ") == -1) {
+      const capitalized = name.charAt(0).toUpperCase() + name.slice(1);
+
+
+      return capitalized;
+    }
+    else {
+      var res = name.toLowerCase().split(" ");
+
+      const tmpArr = [];
+      res.forEach(element => {
+        const capitalizedWord = element.charAt(0).toUpperCase() + element.slice(1);
+        tmpArr.push(capitalizedWord)
+      });
+      var res2 = "";
+      tmpArr.forEach((element, key) => {
+        if (key == tmpArr.length - 1) {
+          res2 = res2 + element
+        }
+        else {
+          res2 = res2 + element + " "
+        }
+      });
+
+      return res2;
+    }
+  }
+
   const submitHandler = (e) => {
     e.preventDefault();
     const regex = new RegExp('^(?=.{6,})(?=.*[a-z])(?=.*[A-Z]).*$');
@@ -148,7 +177,8 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
     dispatch(
       setStepOne(
         {
-          ...form,
+          name: manipulateName(form.name),
+          email: form.email,
           password,
           type_id: userTypeId,
           kvkk: acceptKvkk ? 1 : 0,
