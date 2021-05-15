@@ -18,6 +18,7 @@ import Info from './views/Info';
 import Register from './views/Register';
 import ProfRegister from './views/ProfRegister';
 import NotFoundPage from './views/NotFoundPage';
+import HeaderSearchResults from './views/HeaderSearchResults'
 import ForgotPassword from 'views/ForgotPassword';
 import Profile from 'views/Profile';
 import UserProfile from 'views/ProfileSettings';
@@ -155,6 +156,7 @@ const App = () => {
                   path="/uye-on-bilgilendirme-formu"
                   component={UyeOnBilgilendirmeFormu}
                 /> */}
+                <Route path="/search" component={HeaderSearchResults} />
                 <Route component={NotFoundPage} />
               </Switch>
             </Layout>

@@ -10,8 +10,7 @@ import {
   IconLabel,
   Button,
   HeaderLogin,
-  Svg,
-  Material,
+  Svg, 
 } from 'components';
 
 const Header = () => {
@@ -20,7 +19,7 @@ const Header = () => {
 
   const [menuActive, setMenuActive] = useState(false);
   const [isOpenSearchWhatBox, setIsOpenSearchWhatBox] = useState(false);
-  const [searchType, setSearchType] = useState('pt');
+ 
   const [toggle, setToggle] = useState(false);
   // const [search, setSearch] = useState('');
   const history = useHistory();
@@ -30,7 +29,7 @@ const Header = () => {
   };
 
   const handleSearch = () => {
-    history.push('/find?type=' + searchType);
+    history.push('/search');
     setIsOpenSearchWhatBox(!isOpenSearchWhatBox);
   };
 
@@ -216,39 +215,22 @@ const Header = () => {
         setToggle={() => setMenuActive(!menuActive)}
       />
       {isOpenSearchWhatBox && (
-        <GridWrapper>
-          <StyledDiv>
-            <AwesomeIcon.Keyboard color="white" />
-            <StyledInput placeholder={'Ne arıyorsun'} />
-          </StyledDiv>
-          <StyledDiv>
-            <AwesomeIcon.Map color="white" />
-            <StyledInput placeholder={'Lokasyon... '} />
-          </StyledDiv>
-          <StyledDiv>
-            <AwesomeIcon.Bars color="white" />
-
-            <Material.SimpleSelect
-              label="Tüm Kategoriler"
-              items={[
-                { id: 'pt', name: 'Eğitmen' },
-                { id: 'gym', name: 'Salon' },
-                { id: 'dt', name: 'Diyetisyen' },
-              ]}
-              onChange={(e) => {
-                setSearchType(e.target.value);
+        <Wrapper>
+          <div className="all-container" >
+            <StyledDiv>
+              <AwesomeIcon.Keyboard color="white" />
+              <StyledInput placeholder={'Ne arıyorsun?'} />
+            </StyledDiv>
+            <Button
+              text="Ara"
+              icon={AwesomeIcon.Search}
+              className="blue"
+              onClick={() => {
+                handleSearch();
               }}
             />
-          </StyledDiv>
-          <Button
-            text="Ara"
-            icon={AwesomeIcon.Search}
-            className="blue"
-            onClick={() => {
-              handleSearch();
-            }}
-          />
-        </GridWrapper>
+          </div>
+        </Wrapper>
       )}
     </div>
   );
@@ -256,40 +238,43 @@ const Header = () => {
 import styled from 'styled-components/macro';
 import { device } from 'utils';
 // ${(p) => p.theme.colors.gray1} input bg
-const GridWrapper = styled.div`
+const Wrapper = styled.div`
   margin-top: 130px;
   position: fixed;
   z-index: 10000;
   width: 100%;
   height: 100px;
-  display: grid;
-  grid-column-gap: 10px;
-  justify-content: center;
+  display: flex; 
+  justify-content: space-evenly;
   align-items: center;
-  background-color: ${(p) => p.theme.colors.dark};
-  grid-template-columns: 240px 240px 240px 100px;
-  grid-row-gap: 10px;
+  background-color: ${(p) => p.theme.colors.dark};  
 
+  .all-container{ 
+    display:flex;
+    flex-direction:row;
+    justify-content:space-evenly;
+    width:70%;
+  }
+ 
   @media (max-width: 1200px) {
-    height: 150px;
-    grid-template-columns: 400px 400px;
+    height: 150px; 
     margin-top: 90px;
   }
   @media (max-width: 768px) {
     margin-top: 90px;
   }
   @media ${device.sm} {
-    height: 250px;
-    grid-template-columns: auto;
+    height: 250px; 
   }
 `;
 const StyledDiv = styled.div`
   background: ${(p) => p.theme.colors.gray1};
-  max-width: 300px;
+  width: 50vw;
   height: 50px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  border-radius:9px;
   align-items: center;
   padding: 7px;
   @media ${device.sm} {

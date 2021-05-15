@@ -47,6 +47,19 @@
     padding: 12px 45px;
   }
 
+  &__detail { 
+    flex: 1;
+    font-size: 0.9rem;
+    display: flex;  
+    color: var(--gray10);
+    max-height: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+  }
+
   &:hover {
     .long-user-card__navigator-wrapper {
       opacity: 1;
