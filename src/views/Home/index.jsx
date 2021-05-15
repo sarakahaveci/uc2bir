@@ -15,7 +15,8 @@ import GroupLesson from './GroupLesson';
 import Dietitians from './Dietitians';
 import VKI from './VKI';
 import Blog from './Blog';
-import { getHomeContent } from 'actions';
+import { getHomeContent, getHomeTags } from 'actions';
+
 import Comments from './Comments';
 
 const Home = () => {

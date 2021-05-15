@@ -126,7 +126,7 @@ const Footer = () => {
             <ul>
               {tags.map((tag) => (
                 <li key={tag?.name}>
-                  <a>{tag?.name}</a>
+                  <a href={tag?.link}>{tag?.name}</a>
                 </li>
               ))}
             </ul>
