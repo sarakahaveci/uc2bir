@@ -274,7 +274,8 @@ export default function Address({ locationDisable = false }) {
                 id="apartmentNo"
                 name="apt_no"
                 label="Bina"
-                changeValue={+formData?.apt_no || ''}
+                type="text"
+                changeValue={formData?.apt_no || ''}
                 onChange={handleFormOnChange}
                 inputProps={{ maxLength: 5 }}
               />
@@ -285,7 +286,8 @@ export default function Address({ locationDisable = false }) {
                 id="buildNo"
                 name="build_no"
                 label="Daire"
-                changeValue={+formData?.build_no || ''}
+                type="text"
+                changeValue={formData?.build_no || ''}
                 onChange={handleFormOnChange}
                 inputProps={{ maxLength: 5 }}
               />

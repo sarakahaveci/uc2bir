@@ -287,7 +287,7 @@ const Seperator = styled.div`
 `;
 
 const LevelContainer = styled.div`
-  widht: 100%;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;

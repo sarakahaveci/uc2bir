@@ -60,7 +60,7 @@ const Banner = () => {
     },
     gym: {
       className: '',
-      text: 'Salon veya Salonlar Ara',
+      text: 'Salon Ara',
       component: () => {
         return (
           <>
