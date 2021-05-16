@@ -97,9 +97,12 @@ export const getDtReservationCalendar =
     });
   };
 export const getPacketPtReservationCalendar =
-  (date, hour, session, location_id) => async (dispatch) => {
+  (package_uuid, pt_id, date, hour, session, location_id) =>
+  async (dispatch) => {
     let url = `https://gateway.321.4alabs.com/appointment/pt-calendar/package`;
     let extras = '?';
+    if (package_uuid) extras += `package_uuid=${package_uuid}&`;
+    if (pt_id) extras += `pt_id=${pt_id}&`;
 
     if (date) extras += `date=${date}&`;
     if (hour) extras += `hour=${hour}&`;

@@ -789,7 +789,7 @@ export default function PaymentCard({ type, dateOption }) {
         <input type="hidden" name="expiry_year" value="24" />
                 <input type="hidden" name="cvv" value="000" />*/}
         <input
-          type="text"
+          type="hidden"
           name="cc_owner"
           value={buyPacket?.reservation?.holder_name}
         />

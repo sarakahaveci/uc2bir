@@ -85,27 +85,37 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
   }, [reservation?.data?.session]);
 
   useEffect(() => {
-    if (!reservation?.data?.isSelected) {
-      if (
-        reservation?.data?.branch_id &&
-        reservation?.data?.session &&
-        reservation?.data?.date
-      ) {
-        dispatch(
-          getPacketPtReservationCalendar(
-            reservation.data.package_uuid,
-            reservation.data?.date,
-            null,
-            reservation?.data?.branch_id,
-            reservation.data?.session
-          )
-        );
-      }
+    /*console.log('reservation?.data?.session', reservation?.data?.session);
+    console.log('reservation?.data?.date', reservation?.data?.date);
+    console.log(
+      ' reservation?.data?.selectedPt',
+      reservation?.data?.selectedPt
+    );*/
+
+    if (
+      // reservation?.data?.branch_id &&
+      reservation?.data?.session &&
+      reservation?.data?.date &&
+      reservation?.data?.selectedPt
+    ) {
+      // alert('ds');
+      dispatch(
+        getPacketPtReservationCalendar(
+          reservation.data.package_uuid,
+          reservation?.data?.selectedPt?.user_id,
+          reservation.data?.date,
+          null,
+          reservation.data?.session,
+          reservation?.data?.location_id
+        )
+      );
     }
   }, [
     reservation?.data?.branch_id,
     reservation?.data?.session,
     reservation?.data?.date,
+    reservation?.data?.selectedPt,
+    reservation?.data?.location_id,
   ]);
   useEffect(() => {
     if (!city) {
