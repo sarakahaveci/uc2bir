@@ -3,9 +3,11 @@ import React, { useEffect } from 'react';
 import { Col } from 'react-bootstrap';
 import styled from 'styled-components/macro';
 import { useSelector } from 'react-redux';
-
+import { clearReservation, setReservation } from 'actions';
+import { useDispatch } from 'react-redux';
 import UserPacketCard from '../UserPacketCard';
 const Home = ({ setPage = () => {} }) => {
+  const dispatch = useDispatch();
   const myPackets = useSelector((state) => state.myPackets.user?.data);
   useEffect(() => {}, [myPackets]);
   return (
@@ -23,6 +25,9 @@ const Home = ({ setPage = () => {} }) => {
                 setPage('DetailLesson');
               }}
               onClickReservation={() => {
+                dispatch(clearReservation());
+                dispatch(setReservation({ package_uuid: elm?.package_uuid }));
+
                 setPage('PacketReservation');
               }}
             />
