@@ -40,7 +40,11 @@ const notificationSettingsTypes = [
 
 const Notifications = () => {
   const {
-    notifications: { data: notifications, isLoading: notificationsLoading, types:notificationSettings },
+    notifications: {
+      data: notifications,
+      isLoading: notificationsLoading,
+      types: notificationSettings,
+    },
   } = useSelector((state) => state.profileSettings2.notifications);
 
   const [pageNumber, setPageNumber] = useState(1);

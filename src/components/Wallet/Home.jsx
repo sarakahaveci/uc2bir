@@ -85,8 +85,8 @@ const Home = ({ setPage }) => {
                   style={{ textDecoration: 'underline', display: 'block' }}
                   fontWeight="600"
                   color="blue"
-                  text="Hesabımdaki Bakiyeyi Aktar >"
-                  onClick={() => setPage('transfer')}
+                  text="Cüzdanıma Bakiye Yükle >"
+                  onClick={() => setPage('UserTransfer')}
                 />
               )}
               <Col xs={{ span: 7, offset: 5 }}>
