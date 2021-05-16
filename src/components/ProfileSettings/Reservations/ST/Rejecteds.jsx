@@ -12,7 +12,7 @@ import {
   CongratsModal,
 } from 'components';
 import { device } from 'utils';
-import { getUserRejects } from 'actions';
+import { getUserRejects, transferRefund } from 'actions';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 
@@ -28,6 +28,12 @@ const Rejecteds = () => {
   const [openTransfer, setOpenTransfer] = useState(false);
   const [openCongrats, setOpenCongrats] = useState(false);
   const [choosenElm, setChoosenElm] = useState(null);
+  const [transactionId, setTransactionId] = useState("null");
+
+  // const items = useSelector(
+  //   (state) => state.professionalReservation?.userReservation?.rejecteds
+  // );
+
   const startOfWeeksArr = () => {
     if (items?.date) {
       return Object.keys(items?.date).map(
@@ -37,6 +43,13 @@ const Rejecteds = () => {
       return [];
     }
   };
+
+  const handleRefund = (type) => {
+    dispatch(transferRefund(
+      { type: type, transaction_id: transactionId }
+    ));
+  }
+
 
   useEffect(() => {
     if (selectedDate) {
@@ -55,7 +68,7 @@ const Rejecteds = () => {
   return (
     <StyledContainer>
       <StyledRow>
-        <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
+        <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}> 
           <AccordionContainer>
             <ReservationAccordion
               defaultOpen={true}
@@ -78,7 +91,7 @@ const Rejecteds = () => {
                       type="rejecteds"
                       userType="user"
                       onTransfer={() => {
-                        setOpenTransfer(true);
+                        setOpenTransfer(true); 
                       }}
                       onApprove={() => {
                         setChoosenElm(elm);
@@ -139,6 +152,7 @@ const Rejecteds = () => {
                       userType="user"
                       onTransfer={() => {
                         setOpenTransfer(true);
+                        setTransactionId(elm?.transaction_id);
                       }}
                       onApprove={() => {
                         setChoosenElm(elm);
@@ -236,15 +250,16 @@ const Rejecteds = () => {
       />
       <ReturnMoneyModal
         open={openTransfer}
-        wallet={() => {
+        wallet={() => { 
           setOpenTransfer(false);
           setOpenCongrats(true);
         }}
-        card={() => {
+        card={() => { 
+          handleRefund("card");
           setOpenTransfer(false);
           setOpenCongrats(true);
         }}
-        closeModal={() => {
+        closeModal={() => { 
           setOpenTransfer(false);
           setOpenCongrats(false);
         }}
