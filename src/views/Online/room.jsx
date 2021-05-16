@@ -95,8 +95,6 @@ const Room = ({ roomName, token }) => {
         <Participant
           key={room.localParticipant.sid}
           participant={room.localParticipant}
-          isMuted={isMuted}
-          isVideoOff={isVideoOff}
         />
       ) : (
         ''
@@ -123,8 +121,28 @@ const Room = ({ roomName, token }) => {
 
         <Col lg={1}>
           <RowAudio>
-            {isMuted? <MicMuted onClick={()=>setIsMuted(!isMuted)}/> :  <Mic onClick={()=>setIsMuted(!isMuted)}/>}
-            {isVideoOff? <VideoQuiet onClick={()=>setIsVideoOff(!isVideoOff)}/> :  <VideoIcon onClick={()=>setIsVideoOff(!isVideoOff)}/>}
+            {isMuted? <MicMuted onClick={()=> {
+              room.localParticipant.audioTracks.forEach(function(trackPublication) {
+                trackPublication.track.enable();
+              });
+              setIsMuted(!isMuted);
+            }}/> :  <Mic onClick={()=> {
+              setIsMuted(!isMuted);
+              room.localParticipant.audioTracks.forEach(function(trackPublication) {
+                trackPublication.track.disable();
+              });
+            }}/>}
+            {isVideoOff? <VideoQuiet onClick={()=> {
+              room.localParticipant.videoTracks.forEach(function(trackPublication) {
+                trackPublication.track.enable();
+              });
+              setIsVideoOff(!isVideoOff);
+            }}/> :  <VideoIcon onClick={()=> {
+              room.localParticipant.videoTracks.forEach(function(trackPublication) {
+                trackPublication.track.disable();
+              });
+              setIsVideoOff(!isVideoOff);
+            }}/>}
             <Link to={'/myprofile/settings/reservation'}>
               <PhoneMissed/>
             </Link>

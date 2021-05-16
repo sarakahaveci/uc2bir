@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components/macro';
 
-const Participant = ({ participant, isMuted,isVideoOff }) => {
+const Participant = ({ participant }) => {
   const [videoTracks, setVideoTracks] = useState([]);
   const [audioTracks, setAudioTracks] = useState([]);
 
@@ -14,6 +14,7 @@ const Participant = ({ participant, isMuted,isVideoOff }) => {
 
 
   useEffect(() => {
+
     const trackSubscribed = track => {
       if (track.kind === 'video') {
         setVideoTracks(videoTracks => [...videoTracks, track]);
@@ -30,8 +31,8 @@ const Participant = ({ participant, isMuted,isVideoOff }) => {
       }
     };
 
-    setVideoTracks(trackpubsToTracks(participant.videoTracks));
     setAudioTracks(trackpubsToTracks(participant.audioTracks));
+    setVideoTracks(trackpubsToTracks(participant.videoTracks));
 
     participant.on('trackSubscribed', trackSubscribed);
     participant.on('trackUnsubscribed', trackUnsubscribed);
@@ -65,14 +66,13 @@ const Participant = ({ participant, isMuted,isVideoOff }) => {
 
   return (
     <ParticipantContainer>
-        {!isVideoOff && <Video ref={videoRef} autoPlay={true} />}
-        <audio ref={audioRef} autoPlay={true} muted={isMuted}/>
+        <Video ref={videoRef} autoPlay={true} />
+        <audio ref={audioRef} autoPlay={true} />
     </ParticipantContainer>
   );
 };
 
 const Video = styled.video`
-    
     transform: scaleX(-1);
     width: 100%;
     height: 100%;
