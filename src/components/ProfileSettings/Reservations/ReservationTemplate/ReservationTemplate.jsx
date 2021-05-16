@@ -37,6 +37,7 @@ export default function ReservationTemplate({
   const [workPlaceSelection, setWorkPlaceSelection] = useState([]);
   const [locationSelection, setLocationSelection] = useState([]);
   const [classSelection, setClassSelection] = useState([]);
+  const [isGuestVisible, setIsGuestVisible] = useState(true);
 
   const [acceptGuest, setAcceptGuest] = useState(false);
 
@@ -51,6 +52,16 @@ export default function ReservationTemplate({
   useEffect(() => {
     dispatch(setSelectedDay(0));
   }, []);
+
+  useEffect(() => {
+    sessionSelection.map((session)=>{
+        if(session.type === 'online' && sessionSelection.length===1){
+          setIsGuestVisible(false)
+        }else {
+          setIsGuestVisible(true)
+        }
+    })
+  }, [sessionSelection]);
 
   const openSuccessTemplateModal = () =>
     successTemplateModalRef.current.openModal();
@@ -90,6 +101,7 @@ export default function ReservationTemplate({
             : locationSelection,
       }),
     }));
+
 
     dispatch(
       addHoursToTemplate(selectedDay.day, {
@@ -205,7 +217,7 @@ export default function ReservationTemplate({
             <InnerWrapper>
               <TemplateSummary />
 
-              {userTypeId !== DIETITIAN &&
+              {userTypeId !== DIETITIAN && isGuestVisible &&
                 <Box mt="40px" px="20px">
                   <Box row>
                     <Text color="dark" fontWeight="500">
