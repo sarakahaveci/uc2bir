@@ -9,7 +9,8 @@ import { setNewMessageRoom, setReservationDetail } from '../../actions';
 import moment from 'moment';
 import ReactHtmlParser from 'react-html-parser';
 import { decode } from 'html-entities';
-const ReservationDetail = ({ type, goBack = () => {}, isOnline }) => {
+import DefaultProfileImg from 'assets/default-profile.jpg';
+const ReservationDetail = ({ type, goBack = () => { }, isOnline }) => {
   const [detailData, setDetailData] = useState({});
   const professionalReservation = useSelector(
     (state) => state.professionalReservation
@@ -57,7 +58,8 @@ const ReservationDetail = ({ type, goBack = () => {}, isOnline }) => {
                 src={
                   detailData?.pt?.photo ||
                   detailData?.dt?.photo ||
-                  detailData?.student?.photo
+                  detailData?.student?.photo ||
+                  DefaultProfileImg
                 }
               />
               <BoldText>
@@ -127,13 +129,13 @@ const ReservationDetail = ({ type, goBack = () => {}, isOnline }) => {
               </Link>
               {isOnline && (
                 <Link to={'/myprofile/online'}
-                      onClick={() =>
-                        dispatch(
-                          setReservationDetail(
-                            detailData
-                          )
-                        )
-                      }>
+                  onClick={() =>
+                    dispatch(
+                      setReservationDetail(
+                        detailData
+                      )
+                    )
+                  }>
                   <OnlineClassButton color={'blue2'}>
                     Derse Gir
                   </OnlineClassButton>

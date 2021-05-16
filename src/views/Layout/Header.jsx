@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 import React, { useState, useEffect } from 'react';
 import { Row } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { default as NativeHeader } from '../../components/Header';
 import logo from '../../assets/logo.png';
@@ -10,8 +10,10 @@ import {
   IconLabel,
   Button,
   HeaderLogin,
-  Svg, 
+  Svg,
 } from 'components';
+import { getSearchResults } from 'actions';
+import { toast } from 'react-toastify';
 
 const Header = () => {
   const { infoData } = useSelector((state) => state.footer);
@@ -19,18 +21,27 @@ const Header = () => {
 
   const [menuActive, setMenuActive] = useState(false);
   const [isOpenSearchWhatBox, setIsOpenSearchWhatBox] = useState(false);
- 
-  const [toggle, setToggle] = useState(false);
-  // const [search, setSearch] = useState('');
-  const history = useHistory();
 
+  const [toggle, setToggle] = useState(false);
+  const [keyword, setKeyword] = useState(null);
+  const history = useHistory();
+  const dispatch = useDispatch();
   const handleSearchWhatClick = () => {
     setIsOpenSearchWhatBox(!isOpenSearchWhatBox);
   };
 
   const handleSearch = () => {
-    history.push('/search');
-    setIsOpenSearchWhatBox(!isOpenSearchWhatBox);
+    if (keyword.length >= 3) {
+      dispatch(getSearchResults(keyword))
+      history.push('/search');
+      setIsOpenSearchWhatBox(!isOpenSearchWhatBox);
+    }
+    else { 
+      toast.error('3 Harf ve daha fazlasıyla arama yapabilirsiniz.', {
+        position: 'bottom-right',
+        autoClose: 2000,
+      });
+    }
   };
 
   useEffect(() => {
@@ -219,7 +230,7 @@ const Header = () => {
           <div className="all-container" >
             <StyledDiv>
               <AwesomeIcon.Keyboard color="white" />
-              <StyledInput placeholder={'Ne arıyorsun?'} />
+              <StyledInput onChange={(e) => { setKeyword(e.target.value) }} placeholder={'Ne arıyorsun?'} />
             </StyledDiv>
             <Button
               text="Ara"

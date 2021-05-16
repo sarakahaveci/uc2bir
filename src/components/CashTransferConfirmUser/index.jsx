@@ -5,7 +5,7 @@ import { Button } from 'components';
 import { getWallet } from 'actions/userProfileActions/walletActions';
 import { useDispatch, useSelector } from 'react-redux';
 
-export default function CashTransferConfirmUser({}) {
+export default function CashTransferConfirmUser({ amount }) {
   const wallet = useSelector((state) => state?.userProfile?.wallet);
   const dispatch = useDispatch();
 
@@ -28,7 +28,7 @@ export default function CashTransferConfirmUser({}) {
             <BottomContainer>
               <Text style={{ fontWeight: 800 }}>Toplam Ücret</Text>
               <Text color="#00B2A9" style={{ fontWeight: 800, fontSize: 20 }}>
-                (Yüklenecek Tutar)
+                {amount ? amount : 0}₺
               </Text>
             </BottomContainer>
             <br />
