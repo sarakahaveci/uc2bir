@@ -3,7 +3,6 @@ import { Container } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
 import { HomeUserSlider, Title } from 'components';
-import * as Data from './MocData';
 
 const Dietitians = (props) => {
   const {
@@ -11,7 +10,6 @@ const Dietitians = (props) => {
   } = useSelector((state) => state.home);
 
   const link = '/dietitians';
-  const data = Data.Dietitians;
   // You can delete it later
   if ((content?.list_dt || []).length === 0) {
     return <> </>;
@@ -34,8 +32,8 @@ const Dietitians = (props) => {
         </Title>
       </Container>
       <HomeUserSlider
-        //data={content.list_dt || []}
-        data={data}
+        data={content.list_dt || []}
+        //data={data}
         link={link}
       />
     </section>
