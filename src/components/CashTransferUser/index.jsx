@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
 import { device } from 'utils';
 import { useDispatch, useSelector } from 'react-redux';
-import { Material, MultiContract } from 'components';
-import { getStaticPage, setReservation } from 'actions';
+import { Material } from 'components';
+import { getStaticPage } from 'actions';
 import { Modal } from 'react-bootstrap';
+import MultiContractWallet from '../Confirmations/MultiContractWallet';
 
 const CashTransferUser = ({
   onCardName = () => {},
@@ -15,10 +16,12 @@ const CashTransferUser = ({
   defaultCardNo,
   defaultSKT,
   defaultCVV,
+  setAmount,
 }) => {
   const dispatch = useDispatch();
-  const reservation = useSelector((state) => state.reservation);
+  // const reservation = useSelector((state) => state.reservation);
   const [openModal, setOpenModal] = useState(false);
+  const [accept, setAccept] = useState(false);
   const staticPages = useSelector((state) => state.staticPages);
 
   useEffect(() => {
@@ -96,7 +99,9 @@ const CashTransferUser = ({
             type="text"
             name="holder_name"
             // defaultValue={}
-            onBlur={() => {}}
+            onChange={(e) => {
+              setAmount(e.target.value);
+            }}
           />
         </DataContainer>
         <div style={{ padding: '10px' }}>
@@ -107,13 +112,9 @@ const CashTransferUser = ({
         </div>
         <div style={{ padding: '10px' }}>
           <Material.CheckBox
-            checked={reservation?.data?.is_contracts_accepted}
+            checked={accept}
             onChange={() => {
-              if (reservation?.data.is_contracts_accepted) {
-                dispatch(setReservation({ is_contracts_accepted: false }));
-              } else {
-                setOpenModal(true);
-              }
+              setOpenModal(true);
             }}
             label={
               <div>
@@ -127,14 +128,10 @@ const CashTransferUser = ({
         </div>
       </InfoContainer>
       <StyledModal show={openModal} onHide={() => setOpenModal(false)}>
-        <MultiContract
-          acceptKvkk={true}
-          setAccept={() => {
-            dispatch(setReservation({ is_contracts_accepted: true }));
-          }}
+        <MultiContractWallet
           setOpenModal={setOpenModal}
           confirmationData={staticPages.data}
-          userTypeId={1}
+          setAccept={setAccept}
         />
       </StyledModal>
     </>
