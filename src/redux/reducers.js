@@ -29,6 +29,7 @@ import payment from '../reducers/paymentReducer';
 import paymentPacket from '../reducers/paymentPacketReducer';
 import myPackets from '../reducers/myPacketsReducer';
 import transferRefund from '../reducers/transferRefundReducer';
+import searchResults from '../reducers/searchResultsReducer';
 
 const reducers = combineReducers({
   auth,
@@ -59,6 +60,7 @@ const reducers = combineReducers({
   paymentPacket,
   myPackets,
   transferRefund,
+  searchResults,
 });
 
 export default reducers;
