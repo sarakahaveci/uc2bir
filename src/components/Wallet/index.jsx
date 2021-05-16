@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import Home from './Home';
 import Activities from './Activities';
 import Transfer from './Transfer';
+import UserTransfer from './UserTransfer';
+
 const Wallet = () => {
   const [page, setPage] = useState('home');
   switch (page) {
@@ -12,6 +14,8 @@ const Wallet = () => {
       return <Activities setPage={setPage} />;
     case 'transfer':
       return <Transfer setPage={setPage} />;
+    case 'UserTransfer':
+      return <UserTransfer setPage={setPage} />;
     default:
       break;
   }

@@ -24,8 +24,7 @@ import {
   setReservation,
 
   //getTemplates,
-  getPtReservationCalendar,
-  getAreaForPT,
+  getPacketPtReservationCalendar,
   deleteAllSlot,
   getPtGymList,
   getPtWorkingHomePlace,
@@ -93,8 +92,8 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
         reservation?.data?.date
       ) {
         dispatch(
-          getPtReservationCalendar(
-            userInfo.id,
+          getPacketPtReservationCalendar(
+            reservation.data.package_uuid,
             reservation.data?.date,
             null,
             reservation?.data?.branch_id,
@@ -456,7 +455,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
           <>
             <MiniProfileCard
               photo={userInfo.photo}
-              name={'Gelin Paketi'}
+              name={'Gelin Paketia'}
               rating={userInfo.rating}
               type_id={userInfo.type_id}
               price={userInfo.price}
