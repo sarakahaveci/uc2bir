@@ -217,7 +217,7 @@ export default function ReservationTemplate({
             <InnerWrapper>
               <TemplateSummary />
 
-              {userTypeId !== DIETITIAN && isGuestVisible &&
+              {userTypeId === PERSONAL_TRAINER && isGuestVisible &&
                 <Box mt="40px" px="20px">
                   <Box row>
                     <Text color="dark" fontWeight="500">
