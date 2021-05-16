@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="36.364" height="45.783" viewBox="0 0 36.364 45.783">
+  <g id="repeat" transform="translate(1 1.414)">
+    <path id="Shape" d="M0,0,7.636,7.81,0,15.62" transform="translate(26.728)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <path id="Shape-2" data-name="Shape" d="M0,11.715V7.81A7.725,7.725,0,0,1,7.636,0H34.364" transform="translate(0 7.81)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <path id="Shape-3" data-name="Shape" d="M7.636,15.62,0,7.81,7.636,0" transform="translate(0 27.335)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <path id="Shape-4" data-name="Shape" d="M34.364,0V3.9a7.725,7.725,0,0,1-7.636,7.81H0" transform="translate(0 23.43)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+  </g>
+</svg>

@@ -17,6 +17,10 @@ import Error from './images/error.svg';
 import TickWithBg from './images/tick-with-bg.svg';
 import TickLesson from './images/tick-lesson.svg';
 import TickLessonDisable from './images/tick-lesson-disable.svg';
+import Mic from './images/mic.svg';
+import MicQuiet from './images/mic-off-S-quiet.svg';
+import Video from './images/video.svg';
+import VideoQuiet from './images/video-off-S-quiet.svg';
 
 import Trash from './images/trash.svg';
 import Close from './images/close.svg';
@@ -120,6 +124,7 @@ import Reject from './images/reject.svg';
 import Approve from './images/approve.svg';
 import Ql from './images/quote-left.svg';
 import Qr from './images/quote-right.svg';
+import PhoneMissed from './images/phone-missed.svg';
 
 import WhitePencil from './images/white-pencil.svg';
 
@@ -147,6 +152,11 @@ const Svg = {
   WaveBackgroundIcon: (props) => <ReactSVG {...props} src={WaveBackground} />,
   YogaIcon: (props) => <ReactSVG {...props} src={Yoga} />,
   FitnessIcon: (props) => <ReactSVG {...props} src={Fitness} />,
+  Mic: (props) => <ReactSVG {...props} src={Mic} />,
+  MicQuiet: (props) => <ReactSVG {...props} src={MicQuiet} />,
+  Video: (props) => <ReactSVG {...props} src={Video} />,
+  VideoQuiet: (props) => <ReactSVG {...props} src={VideoQuiet} />,
+  PhoneMissed: (props) => <ReactSVG {...props} src={PhoneMissed} />,
   FitnessMediumIcon: (props) => <ReactSVG {...props} src={FitnessMedium} />,
 
   PilatesIcon: (props) => <ReactSVG {...props} src={Pilates} />,

@@ -5,7 +5,7 @@ import { device } from 'utils';
 import GoogleMap from 'components/GoogleMaps/GoogleMap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { setNewMessageRoom } from '../../actions';
+import { setNewMessageRoom, setReservationDetail } from '../../actions';
 import moment from 'moment';
 import ReactHtmlParser from 'react-html-parser';
 import { decode } from 'html-entities';
@@ -126,7 +126,14 @@ const ReservationDetail = ({ type, goBack = () => {}, isOnline }) => {
                 <MessageButton>Mesaj Gönder</MessageButton>
               </Link>
               {isOnline && (
-                <Link to={'/myprofile/online'}>
+                <Link to={'/myprofile/online'}
+                      onClick={() =>
+                        dispatch(
+                          setReservationDetail(
+                            detailData
+                          )
+                        )
+                      }>
                   <OnlineClassButton color={'blue2'}>
                     Derse Gir
                   </OnlineClassButton>

@@ -1,0 +1,10 @@
+<svg id="mic-off-S-quiet" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+  <rect id="bounds" width="48" height="48" fill="rgba(28,143,248,0.34)" opacity="0"/>
+  <g id="mic-off" transform="translate(7 6)">
+    <path id="Shape" d="M0,0,35,33.917" transform="translate(0 1.542)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <path id="Shape-2" data-name="Shape" d="M4.772,21.584h0a4.881,4.881,0,0,1-1.826-.352A4.612,4.612,0,0,1,0,16.963V12.338l8.146,7.894A4.823,4.823,0,0,1,4.772,21.584Zm4.773-8.721,0,0L.1,3.705A4.751,4.751,0,0,1,4.769,0c.16,0,.323.008.483.024A4.668,4.668,0,0,1,9.545,4.63v8.233Z" transform="translate(12.727 1.537)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <path id="Shape-3" data-name="Shape" d="M11.134,13.954a11.384,11.384,0,0,1-4.245-.816A11.029,11.029,0,0,1,1.859,9.131,10.514,10.514,0,0,1,0,3.083V0L19.091,10.714a11.091,11.091,0,0,1-3.679,2.412A11.4,11.4,0,0,1,11.134,13.954ZM22.1,4.966h0L22.273,0V3.083A10.516,10.516,0,0,1,22.1,4.966Z" transform="translate(6.363 15.417)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <path id="Shape-4" data-name="Shape" d="M0,0V6.167" transform="translate(17.5 29.292)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <path id="Shape-5" data-name="Shape" d="M0,0H12.727" transform="translate(11.136 35.458)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+  </g>
+</svg>

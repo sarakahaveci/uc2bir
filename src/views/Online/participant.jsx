@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components/macro';
 
-const Participant = ({ participant }) => {
+const Participant = ({ participant, isMuted,isVideoOff }) => {
   const [videoTracks, setVideoTracks] = useState([]);
   const [audioTracks, setAudioTracks] = useState([]);
 
@@ -11,6 +11,7 @@ const Participant = ({ participant }) => {
   const trackpubsToTracks = trackMap => Array.from(trackMap.values())
     .map(publication => publication.track)
     .filter(track => track !== null);
+
 
   useEffect(() => {
     const trackSubscribed = track => {
@@ -64,8 +65,8 @@ const Participant = ({ participant }) => {
 
   return (
     <ParticipantContainer>
-        <Video ref={videoRef} autoPlay={true} />
-        <audio ref={audioRef} autoPlay={true} />
+        {!isVideoOff && <Video ref={videoRef} autoPlay={true} />}
+        <audio ref={audioRef} autoPlay={true} muted={isMuted}/>
     </ParticipantContainer>
   );
 };
@@ -73,28 +74,15 @@ const Participant = ({ participant }) => {
 const Video = styled.video`
     
     transform: scaleX(-1);
-    width: 80%;
+    width: 100%;
     height: 100%;
-    display: flex;
-    //height: 700px;
-    //#video_container {
-    //  position: relative;
-    //}
-    //
-    //.videos {
-    //  display: flex;
-    //}
-    //
-    //#video_container video {
-    //  max-width: 100%;
-    //}
 `;
 
 const ParticipantContainer = styled.div`
-  display: flex;
   width: 100%;
   height: 100%;
-  
+  overflow: hidden;
+  position: relative;
 `;
 
 export default Participant;
