@@ -56,7 +56,7 @@ const Categories = ({ className, background, children }) => {
                 <a
                   title={val.name}
                   onClick={() => {
-                    handleClick();
+                    handleClick(val.name);
                   }}
                 >
                   {val.svg({ className: 'category-svg' })}{' '}
