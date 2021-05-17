@@ -44,7 +44,7 @@ import FitnessMedium from './images/fitnessMedium.svg';
 
 import Yoga from './images/yoga.svg';
 import KickBoks from './images/kick-boks.svg';
-import AthleticPerformance from './images/athletic-performance.svg';
+// import AthleticPerformance from './images/athletic-performance.svg';
 import Tennis from './images/tennis.svg';
 import Athlete from './images/athlete.svg';
 import Swimming from './images/swimming.svg';
@@ -272,12 +272,12 @@ const Svg = {
       name: 'KİCK BOKS',
       svg: (props) => <ReactSVG {...props} src={KickBoks} />,
     },
+    // {
+    //   name: 'ATLETİK PERFORMANS',
+    //   svg: (props) => <ReactSVG {...props} src={AthleticPerformance} />,
+    // },
     {
-      name: 'ATLETİK PERFORMANS',
-      svg: (props) => <ReactSVG {...props} src={AthleticPerformance} />,
-    },
-    {
-      name: 'CİMNSATİK',
+      name: 'JİMNASTİK',
       svg: (props) => <ReactSVG {...props} src={Athlete} />,
     },
     {
