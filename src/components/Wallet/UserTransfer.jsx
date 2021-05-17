@@ -10,10 +10,11 @@ const UserTransfer = ({ setPage }) => {
   const [defaultSKT] = useState(null);
   const [defaultCardNo] = useState(null);
   const [defaultCVV] = useState(null);
-  const onCardName = () => {};
-  const onCardNo = () => {};
-  const onSKT = () => {};
-  const onCVV = () => {};
+  const [cardName, setCardName] = useState(null);
+  const [cardNo, setCardNo] = useState(null);
+  const [sktMM, setSktMM] = useState(null);
+  const [sktYY, setSktYY] = useState(null);
+  const [CVV, setCVV] = useState(null);
 
   return (
     <>
@@ -34,14 +35,27 @@ const UserTransfer = ({ setPage }) => {
               defaultSKT={defaultSKT}
               defaultCardNo={defaultCardNo}
               defaultCVV={defaultCVV}
-              onCardName={onCardName}
-              onCardNo={onCardNo}
-              onSKT={onSKT}
-              onCVV={onCVV}
+              setCardName={setCardName}
+              setCardNo={setCardNo}
+              setSktMM={setSktMM}
+              setSktYY={setSktYY}
+              setCVV={setCVV}
             />
           </Col>
           <Col lg={12} xl={6}>
-            <CashTransferConfirmUser amount={amount} />
+            <CashTransferConfirmUser
+              amount={amount}
+              setAmount={setAmount}
+              defaultCardName={defaultCardName}
+              defaultSKT={defaultSKT}
+              defaultCardNo={defaultCardNo}
+              defaultCVV={defaultCVV}
+              cardName={cardName}
+              cardNo={cardNo}
+              sktMM={sktMM}
+              sktYY={sktYY}
+              CVV={CVV}
+            />
           </Col>
         </Row>
       </Container>

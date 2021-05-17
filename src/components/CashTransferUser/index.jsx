@@ -8,10 +8,11 @@ import { Modal } from 'react-bootstrap';
 import MultiContractWallet from '../Confirmations/MultiContractWallet';
 
 const CashTransferUser = ({
-  onCardName = () => {},
-  onCardNo = () => {},
-  onSKT = () => {},
-  onCVV = () => {},
+  setCardName,
+  setCardNo,
+  setSktMM,
+  setSktYY,
+  setCVV,
   defaultCardName,
   defaultCardNo,
   defaultSKT,
@@ -43,7 +44,7 @@ const CashTransferUser = ({
             name="holder_name"
             defaultValue={defaultCardName}
             onBlur={(e) => {
-              onCardName(e.target.value);
+              setCardName(e.target.value);
               //dispatch(setReservation({ holder_name: e.target.value }));
             }}
           />
@@ -55,7 +56,7 @@ const CashTransferUser = ({
             name="card_number"
             defaultValue={defaultCardNo} /*reservation?.data?.card_number*/
             onBlur={(e) => {
-              onCardNo(e.target.value);
+              setCardNo(e.target.value.replace(/ /g, ''));
               //dispatch(setReservation({ card_number: e.target.value }));
             }}
           />
@@ -72,7 +73,8 @@ const CashTransferUser = ({
                                   reservation?.data?.expiration_year */
               onBlur={(e) => {
                 var sktArr = e.target.value.split('/');
-                onSKT(sktArr[0], sktArr[1]);
+                setSktMM(sktArr[0]);
+                setSktYY(sktArr[1]);
                 /*  dispatch(
                   setReservation({
                     expiration_month: sktArr[0],
@@ -88,7 +90,7 @@ const CashTransferUser = ({
               name="cvv"
               defaultValue={defaultCVV} /**reservation?.data?.cvc */
               onBlur={(e) => {
-                onCVV(e.target.value);
+                setCVV(e.target.value);
                 //dispatch(setReservation({ cvc: e.target.value }));
               }}
             />
@@ -97,7 +99,7 @@ const CashTransferUser = ({
             style={{ marginBottom: '20px' }}
             label="Yüklenecek Tutarı Giriniz (TL)"
             type="text"
-            name="holder_name"
+            name="amount"
             // defaultValue={}
             onChange={(e) => {
               setAmount(e.target.value);

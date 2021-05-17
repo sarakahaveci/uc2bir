@@ -14,7 +14,7 @@ const Wrapper = ({ item }) => {
             <SettingsRow>
               <Box col>
                 <Text color="dark" textAlign="left" fontWeight="500" p="2px">
-                  {item.transaction_info}
+                  {item.info}
                 </Text>
               </Box>
               <Svg.ArrowUpIcon />

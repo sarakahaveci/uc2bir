@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components/macro';
 import { device } from 'utils';
 import { Button } from 'components';
@@ -6,11 +6,18 @@ import { getWallet } from 'actions/userProfileActions/walletActions';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 
-export default function CashTransferConfirmUser({ amount }) {
+export default function CashTransferConfirmUser({
+  amount,
+  cardName,
+  cardNo,
+  sktMM,
+  sktYY,
+  CVV,
+}) {
   const wallet = useSelector((state) => state?.userProfile?.wallet);
   const { accessToken } = useSelector((state) => state.auth);
-  // const formRef = useRef(null);
-
+  const formRef = useRef(null);
+  const [paymentData, setPaymentData] = useState(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -33,11 +40,13 @@ export default function CashTransferConfirmUser({ amount }) {
         ...config,
         data: formData,
       })
-        .then(function () {
-          // console.log(res);
+        .then(function (res) {
+          setPaymentData(res?.data?.data);
+          formRef.current.submit();
         })
-        .catch(function () {
-          // console.log(err);
+        .catch(function (err) {
+          // eslint-disable-next-line
+          console.log(err);
         });
     }
   };
@@ -57,7 +66,7 @@ export default function CashTransferConfirmUser({ amount }) {
           <ConfirmContainer>
             <BottomContainer>
               <Text style={{ fontWeight: 800 }}>Toplam Ücret</Text>
-              <Text color="#00B2A9" style={{ fontWeight: 800, fontSize: 20 }}>
+              <Text color="#00B2A9" style={{ fontWeight: 600, fontSize: 20 }}>
                 {amount ? amount : 0}₺
               </Text>
             </BottomContainer>
@@ -75,142 +84,100 @@ export default function CashTransferConfirmUser({ amount }) {
           </ConfirmContainer>
         </DataContainer>
       </InfoContainer>
-      {/* <form ref={formRef} action="https://www.paytr.com/odeme" method="POST">
-        <input
-          type="hidden"
-          name="cc_owner"
-          value={reservation?.data?.holder_name}
-        />
-        <input
-          type="hidden"
-          name="card_number"
-          value={reservation?.data?.card_number?.replace(/\s/g, '')}
-        />
-        <input
-          type="hidden"
-          name="expiry_month"
-          value={reservation?.data?.expiration_month}
-        />
-        <input
-          type="hidden"
-          name="expiry_year"
-          value={reservation?.data?.expiration_year}
-        />
-        <input type="hidden" name="cvv" value={reservation?.data?.cvc} />
+      <form ref={formRef} action="https://www.paytr.com/odeme" method="POST">
+        {/* <input type="hidden" name="cc_owner" value="PAYTR TEST" />
+        <input type="hidden" name="card_number" value="9792030394440796" />
+        <input type="hidden" name="expiry_month" value="12" />
+        <input type="hidden" name="expiry_year" value="24" />
+        <input type="hidden" name="cvv" value="000" /> */}
 
-        <input
-          type="hidden"
-          name="card_type"
-          value={payment?.request?.data?.card_type}
-        />
-        <input
-          type="hidden"
-          name="currency"
-          value={payment?.request?.data?.currency}
-        />
-        <input
-          type="hidden"
-          name="debug_on"
-          value={payment?.request?.data?.debug_on}
-        />
-        <input
-          type="hidden"
-          name="email"
-          value={payment?.request?.data?.email}
-        />
+        <input type="hidden" name="cc_owner" value={cardName} />
+        <input type="hidden" name="card_number" value={cardNo} />
+        <input type="hidden" name="expiry_month" value={sktMM} />
+        <input type="hidden" name="expiry_year" value={sktYY} />
+        <input type="hidden" name="cvv" value={CVV} />
+
+        <input type="hidden" name="card_type" value={paymentData?.card_type} />
+        <input type="hidden" name="currency" value={paymentData?.currency} />
+        <input type="hidden" name="debug_on" value={paymentData?.debug_on} />
+        <input type="hidden" name="email" value={paymentData?.email} />
         <input
           type="hidden"
           name="installment_count"
-          value={payment?.request?.data?.installment_count}
+          value={paymentData?.installment_count}
         />
-        <input type="hidden" name="lang" value={payment?.request?.data?.lang} />
+        <input type="hidden" name="lang" value={paymentData?.lang} />
         <input
           type="hidden"
           name="max_installment"
-          value={payment?.request?.data?.max_installment}
+          value={paymentData?.max_installment}
         />
         <input
           type="hidden"
           name="merchant_fail_url"
-          value={payment?.request?.data?.merchant_fail_url}
+          value={paymentData?.merchant_fail_url}
         />
         <input
           type="hidden"
           name="merchant_id"
-          value={payment?.request?.data?.merchant_id}
+          value={paymentData?.merchant_id}
         />
         <input
           type="hidden"
           name="merchant_oid"
-          value={payment?.request?.data?.merchant_oid}
+          value={paymentData?.merchant_oid}
         />
         <input
           type="hidden"
           name="merchant_ok_url"
-          value={payment?.request?.data?.merchant_ok_url}
+          value={paymentData?.merchant_ok_url}
         />
         <input
           type="hidden"
           name="no_installment"
-          value={payment?.request?.data?.no_installment}
+          value={paymentData?.no_installment}
         />
         <input
           type="hidden"
           name="non3d_test_failed"
-          value={payment?.request?.data?.non3d_test_failed}
+          value={paymentData?.non3d_test_failed}
         />
-        <input
-          type="hidden"
-          name="non_3d"
-          value={payment?.request?.data?.non_3d}
-        />
+        <input type="hidden" name="non_3d" value={paymentData?.non_3d} />
         <input
           type="hidden"
           name="payment_amount"
-          value={payment?.request?.data?.payment_amount}
+          value={paymentData?.payment_amount}
         />
         <input
           type="hidden"
           name="payment_type"
-          value={payment?.request?.data?.payment_type}
+          value={paymentData?.payment_type}
         />
         <input
           type="hidden"
           name="paytr_token"
-          value={payment?.request?.data?.paytr_token}
+          value={paymentData?.paytr_token}
         />
 
-        <input
-          type="hidden"
-          name="test_mode"
-          value={payment?.request?.data?.test_mode}
-        />
+        <input type="hidden" name="test_mode" value={paymentData?.test_mode} />
         <input
           type="hidden"
           name="user_address"
-          value={payment?.request?.data?.user_address}
+          value={paymentData?.user_address}
         />
         <input
           type="hidden"
           name="user_basket"
-          value={payment?.request?.data?.user_basket}
+          value={paymentData?.user_basket}
         />
-        <input
-          type="hidden"
-          name="user_ip"
-          value={payment?.request?.data?.user_ip}
-        />
-        <input
-          type="hidden"
-          name="user_name"
-          value={payment?.request?.data?.user_name}
-        />
+        <input type="hidden" name="user_ip" value={paymentData?.user_ip} />
+        <input type="hidden" name="user_name" value={paymentData?.user_name} />
         <input
           type="hidden"
           name="user_phone"
-          value={payment?.request?.data?.user_phone}
+          value={paymentData?.user_phone}
         />
-      </form> */}
+      </form>
     </Container>
   );
 }
