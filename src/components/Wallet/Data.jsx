@@ -1,17 +1,22 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { useDispatch, useSelector } from 'react-redux';
-import { getWalletTransactions } from 'actions/userProfileActions/walletActions';
+import {
+  getWalletTransactions,
+  getWallet,
+} from 'actions/userProfileActions/walletActions';
 import moment from 'moment';
 
 const Data = () => {
   // TODO : Backend den data gelecek
+  const wallet = useSelector((state) => state?.userProfile?.wallet);
   const transactionsData = useSelector(
     (state) => state?.userProfile?.wallet.transactionsData
   );
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(getWallet());
     dispatch(getWalletTransactions());
   }, []);
   return (
@@ -20,7 +25,7 @@ const Data = () => {
         <tbody>
           <tr>
             <th>Tarih</th>
-            <th>Ödeme Türü</th>
+            <th>Ödeme Şekli</th>
             <th>Tutar</th>
             <th>Bakiye</th>
           </tr>
@@ -28,9 +33,9 @@ const Data = () => {
             transactionsData.map((item, index) => (
               <tr key={index}>
                 <td>{moment(item?.updated_at).format('LL')}</td>
-                <td>{item.transaction_info}</td>
+                <td>{item.payment_type}</td>
                 <td>{item.amount}₺</td>
-                <td>1000₺</td>
+                <td> {wallet?.data?.balance}₺</td>
               </tr>
             ))}
         </tbody>

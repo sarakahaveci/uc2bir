@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { Text, Title, Accordion, Box, Svg } from 'components';
+import { Text, Accordion, Box, Svg } from 'components';
 import styled from 'styled-components/macro';
 import moment from 'moment';
+import { getWalletTransactions } from 'actions/userProfileActions/walletActions';
 
-const Wrapper = ({ item }) => {
+const Wrapper = () => {
+  const transactionsData = useSelector(
+    (state) => state?.userProfile?.wallet.transactionsData
+  );
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getWalletTransactions());
+  }, []);
+
   // TODO : Backend tarafından data gelecek
   return (
     <div>
@@ -13,8 +23,8 @@ const Wrapper = ({ item }) => {
           <Accordion.Toggle>
             <SettingsRow>
               <Box col>
-                <Text color="dark" textAlign="left" fontWeight="500" p="2px">
-                  {item.info}
+                <Text color="dark" textAlign="left" fontWeight="800" p="2px">
+                  Son Hareket
                 </Text>
               </Box>
               <Svg.ArrowUpIcon />
@@ -22,37 +32,58 @@ const Wrapper = ({ item }) => {
           </Accordion.Toggle>
           <Accordion.Collapse>
             <BodyWrapper>
-              <Text>
-                <b>Son Hareket</b> | {moment(item?.updated_at).format('LL')}
+              <Text textAlign="left" fontWeight="600" p="2px" color="#00b2a9">
+                {transactionsData[transactionsData.length - 1]?.info}
               </Text>
               <Capsule>
                 <CapsuleItem>
-                  <Title textAlign="left">{item.name}</Title>
-                  <Title textAlign="left" fontWeight="normal">
-                    {item.packageName}
-                  </Title>
+                  <Text textAlign="left" fontWeight="600">
+                    {' '}
+                    Oluşturma Tarihi |{' '}
+                    {moment(
+                      transactionsData[transactionsData.length - 1]?.updated_at
+                    ).format('LL')}
+                  </Text>
                 </CapsuleItem>
                 <CapsuleItem>
                   <table>
                     <tbody>
-                      {item.amount && (
+                      {transactionsData[transactionsData.length - 1]
+                        ?.payment_type && (
                         <tr>
-                          <td>Ders Bedeli</td>
-                          <td className="text-right">{item.amount} ₺</td>
+                          <td>Ödeme Şekli</td>
+                          <td className="text-right">
+                            {
+                              transactionsData[transactionsData.length - 1]
+                                ?.payment_type
+                            }
+                          </td>
                         </tr>
                       )}
-                    </tbody>
-                  </table>
-                </CapsuleItem>
-                <CapsuleItem>
-                  <table>
-                    <tbody>
-                      <tr>
-                        <td>Toplam</td>
-                        <td className="text-right font-weight-bold">
-                          {item.amount} ₺
-                        </td>
-                      </tr>
+                      {transactionsData[transactionsData.length - 1]
+                        ?.status && (
+                        <tr>
+                          <td>Durumu</td>
+                          <td className="text-right">
+                            {
+                              transactionsData[transactionsData.length - 1]
+                                ?.status
+                            }
+                          </td>
+                        </tr>
+                      )}
+                      {transactionsData[transactionsData.length - 1]
+                        ?.amount && (
+                        <tr>
+                          <td>Miktar</td>
+                          <td className="text-right">
+                            {
+                              transactionsData[transactionsData.length - 1]
+                                ?.amount
+                            }
+                          </td>
+                        </tr>
+                      )}
                     </tbody>
                   </table>
                 </CapsuleItem>

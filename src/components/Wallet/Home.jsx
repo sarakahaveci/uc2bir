@@ -7,17 +7,11 @@ import styled from 'styled-components/macro';
 import image from '../../assets/my-wallet.jpg';
 import Svg from 'components/statics/svg';
 import Wrapper from './Wrapper';
-import {
-  getWallet,
-  getWalletTransactions,
-} from 'actions/userProfileActions/walletActions';
+import { getWallet } from 'actions/userProfileActions/walletActions';
 
 const Home = ({ setPage }) => {
   // TODO : Backend tarafından data gelecek
   const wallet = useSelector((state) => state?.userProfile?.wallet);
-  const transactionsData = useSelector(
-    (state) => state?.userProfile?.wallet.transactionsData
-  );
 
   const { user } = useSelector((state) => state.auth);
 
@@ -25,7 +19,6 @@ const Home = ({ setPage }) => {
 
   useEffect(() => {
     dispatch(getWallet());
-    dispatch(getWalletTransactions());
   }, []);
 
   return (
@@ -64,10 +57,7 @@ const Home = ({ setPage }) => {
                 </Col>
               </Explanation>
               <Accordion>
-                {transactionsData &&
-                  transactionsData.map((item, index) => (
-                    <Wrapper item={item} key={index} />
-                  ))}
+                <Wrapper />
               </Accordion>
               <Button
                 style={{
