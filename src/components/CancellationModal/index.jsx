@@ -24,6 +24,12 @@ const CancalletionModal = ({
     case 'start':
       content = (
         <MainContainer>
+          <Svg.CloseIcon
+            className="close-icon"
+            onClick={() => {
+              cancelProcess();
+            }}
+          />
           <ContextContainer>
             <IconContainer>
               <Svg.Reject />
@@ -123,9 +129,17 @@ const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  border-radius: 30px;
   align-items: center;
   padding: 20px;
   background: white;
+  .close-icon {
+    align-self: flex-end;
+
+    svg {
+      cursor: pointer;
+    }
+  }
   @media ${device.sm} {
     width: 95vw;
     height: 95vh;
@@ -140,6 +154,7 @@ const IconContainer = styled.div`
   height: 120px;
   border-radius: 200px;
   background: #f01c62;
+  margin-bottom: 15px;
 `;
 const StyledButton = styled(Link)`
   font-size: 1.2rem;
@@ -156,10 +171,10 @@ const StyledButton = styled(Link)`
 const ContextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 50vw;
+  width: 30vw;
   justify-content: center;
   align-items: center;
-  padding: 60px 110px 30px;
+  padding: 50px 70px 30px;
 
   @media ${device.sm} {
     padding: 20px 0;
