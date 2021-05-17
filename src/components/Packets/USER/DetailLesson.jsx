@@ -31,9 +31,11 @@ const DetailLesson = ({
     dispatch(getUserMyPacketDetail(globalState?.package_uuid));
     setBannerActive(false);
   }, []);
-  function onClickLesson(id) {
-    setGlobalState({ ...globalState, lesson_id: id });
-    setPage('Exercises');
+  function onClickLesson(elm) {
+    if (elm?.type == 'lesson') {
+      setGlobalState({ ...globalState, lesson_id: elm?.id });
+      setPage('Exercises');
+    }
   }
   const classes = useStyles();
   var temp = ['55', '55s5d', '626', 'd', 'sdsd', 'sdasd', 'sdad'];
@@ -56,7 +58,7 @@ const DetailLesson = ({
         ></CustomProgress>
         <LessonCardContainer
           onClick={() => {
-            onClickLesson(elm?.id);
+            onClickLesson(elm);
           }}
         >
           <MainField>
