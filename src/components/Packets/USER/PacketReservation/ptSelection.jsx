@@ -6,7 +6,11 @@ import { device } from 'utils';
 import Trainers from 'components/ProfileSettings/WorkPlace/Trainers/Trainers';
 import { setReservation } from 'actions';
 
-const PtSelection = ({ setField = () => {}, setGlobalState = () => {} }) => {
+const PtSelection = ({
+  setField = () => {},
+  setGlobalState = () => {},
+  globalState,
+}) => {
   //Local States
   const dispatch = useDispatch();
   const reservation = useSelector((state) => state.reservation);
@@ -29,7 +33,7 @@ const PtSelection = ({ setField = () => {}, setGlobalState = () => {} }) => {
         }}
         onClickUpgrageClass={(level) => {
           setField('upgradeClass');
-          setGlobalState({ level: level });
+          setGlobalState({ ...globalState, level: level });
         }}
       />
     </Main>

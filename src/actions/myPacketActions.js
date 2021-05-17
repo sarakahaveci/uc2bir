@@ -20,32 +20,32 @@ export const getUserMyPacket = () => async (dispatch) => {
     },
   });
 };
-export const getUserMyPacketDetail =
-  (package_uuid, appointment_id) => async (dispatch) => {
-    const url = `/user/pt-package/appointment-lesson?package_uuid=${package_uuid}&appointment_id=${appointment_id}`;
+export const getUserMyPacketDetail = (package_uuid) => async (dispatch) => {
+  const url = `/user/pt-package/appointment-lesson?package_uuid=${package_uuid}`;
 
-    await dispatch({
-      type: HTTP_REQUEST,
-      payload: {
-        method: 'GET',
-        url,
-        label: GET_USER_MY_PACKET_DETAIL,
-        transfomrData: (data) => data.data,
-      },
-    });
-  };
-export const getUserPacketLessonDetail = (id) => async (dispatch) => {
-  const url = `/mockmockDetailLESSONNNN/${id}`;
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
       method: 'GET',
       url,
-      label: GET_USER_PACKET_LESSON_DETAIL,
+      label: GET_USER_MY_PACKET_DETAIL,
       transfomrData: (data) => data.data,
     },
   });
 };
+export const getUserPacketLessonDetail =
+  (id, package_uuid) => async (dispatch) => {
+    const url = `/user/pt-package/appointment-lesson-detail?package_uuid=${package_uuid}&lesson_id=${id}&type=lesson`;
+    await dispatch({
+      type: HTTP_REQUEST,
+      payload: {
+        method: 'GET',
+        url,
+        label: GET_USER_PACKET_LESSON_DETAIL,
+        transfomrData: (data) => data.data,
+      },
+    });
+  };
 export const setUserPacketLessonComplete = (id) => async (dispatch) => {
   const url = `/packetCompolate/${id}`;
 

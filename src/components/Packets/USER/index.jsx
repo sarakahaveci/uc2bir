@@ -113,8 +113,6 @@ const User = ({ icons, setBannerActive }) => {
           <PacketReservation
             setPage={setPage}
             setBannerActive={setBannerActive}
-            globalState={globalState}
-            setGlobalState={setGlobalState}
           />
         </div>
       );

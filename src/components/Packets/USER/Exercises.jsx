@@ -17,11 +17,20 @@ const useStyles = makeStyles({
     backgroundColor: '#00B2A9',
   },
 });
-const Exercises = ({ setPage = () => {} }) => {
+const Exercises = ({
+  setPage = () => {},
+  /*setGlobalState = () => {},*/
+  globalState,
+}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUserPacketLessonDetail('lesssoNIDDD'));
+    dispatch(
+      getUserPacketLessonDetail(
+        globalState?.lesson_id,
+        globalState?.package_uuid
+      )
+    );
   }, []);
   const classes = useStyles();
   var temp = ['55', '55s5d', '626', 'd', 'sdsd', 'sdasd', 'sdad'];

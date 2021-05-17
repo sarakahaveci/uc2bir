@@ -9,9 +9,8 @@ import { CustomProgress } from 'components';
 import { Container, Row, Col } from 'react-bootstrap';
 import { device } from 'utils';
 import image from '../../../assets/session-type.jpg';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getUserMyPacketDetail } from 'actions';
-
 const useStyles = makeStyles({
   barColorPrimary: {
     backgroundColor: '#00B2A9',
@@ -21,14 +20,19 @@ const DetailLesson = ({
   setBannerActive = () => {},
   setPage = () => {},
   globalState,
+  setGlobalState,
 }) => {
   const dispatch = useDispatch();
+  const detailData = useSelector(
+    (state) => state.myPackets?.user?.detail?.data
+  );
 
   useEffect(() => {
     dispatch(getUserMyPacketDetail(globalState?.package_uuid));
     setBannerActive(false);
   }, []);
-  function onClickLesson() {
+  function onClickLesson(id) {
+    setGlobalState({ ...globalState, lesson_id: id });
     setPage('Exercises');
   }
   const classes = useStyles();
@@ -44,27 +48,31 @@ const DetailLesson = ({
   }
   function handleReservationButton() {}
   function _renderLessons() {
-    return temp.map((elm, index) => (
+    return detailData?.lessons?.map((elm, index) => (
       <Col key={index} style={{ padding: 0 }} lg="4">
         <CustomProgress
           location={temp.length - 1 == index ? 'end' : locationSelector(index)}
           active="true"
         ></CustomProgress>
-        <LessonCardContainer onClick={onClickLesson}>
+        <LessonCardContainer
+          onClick={() => {
+            onClickLesson(elm?.id);
+          }}
+        >
           <MainField>
             <HeaderArea>
               {false ? (
                 <Svg.TickLesson />
               ) : (
                 <Number>
-                  <BoldText color={'#C5C4C4'}>1.</BoldText>
+                  <BoldText color={'#C5C4C4'}>{index + 1}</BoldText>
                 </Number>
               )}
-              <BoldText style={{ marginLeft: '9px' }}>Gelişim Testi</BoldText>
+              <BoldText style={{ marginLeft: '9px' }}>{elm?.title}</BoldText>
             </HeaderArea>
             <DescArea>
               <IconArea></IconArea>
-              <DescText>Denememasdoa ösasd oasöodoöasasdsad </DescText>
+              <DescText>{elm?.description} </DescText>
             </DescArea>
           </MainField>
           <RightSideField>
@@ -196,6 +204,11 @@ const IconArea = styled.div`
 const DescText = styled.text`
   margin-left: 9px;
   overflow: hidden;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  -webkit-box-orient: vertical;
 `;
 const InfoContainer = styled.div`
   display: flex;
