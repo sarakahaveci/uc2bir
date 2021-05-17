@@ -33,6 +33,7 @@ import {
 
 import axios from 'axios';
 import PtSelection from './ptSelection';
+import UpgradeClass from './upgradeClass';
 
 const uri = `${process.env.REACT_APP_API_URL}/regions`;
 
@@ -48,6 +49,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
   );
   const [openModal, setOpenModal] = useState(false);
   const [field, setField] = useState('main');
+  const [globalState, setGlobalState] = useState(null);
 
   //Redux States
   const { userInfo } = useSelector((state) => state.userProfile.userInfo);
@@ -577,8 +579,23 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
         </Main>
       );
     case 'ptSelection':
-      return <PtSelection setField={setField} />;
-
+      return (
+        <PtSelection
+          setGlobalState={setGlobalState}
+          globalState={globalState}
+          setField={setField}
+        />
+      );
+    case 'upgradeClass':
+      return (
+        <>
+          <UpgradeClass
+            setGlobalState={setGlobalState}
+            globalState={globalState}
+            setField={setField}
+          />
+        </>
+      );
     default:
       break;
   }

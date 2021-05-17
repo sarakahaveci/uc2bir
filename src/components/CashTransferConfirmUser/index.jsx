@@ -26,9 +26,12 @@ export default function CashTransferConfirmUser({ amount }) {
       },
     };
     if (amount && amount > 0) {
+      const formData = new FormData();
+      formData.append('payment_amount', amount);
+      formData.append('user_basket[]', `deposit,${amount}`);
       axios({
         ...config,
-        data: { payment_amount: amount, user_basket: { deposit: amount } },
+        data: formData,
       })
         .then(function () {
           // console.log(res);

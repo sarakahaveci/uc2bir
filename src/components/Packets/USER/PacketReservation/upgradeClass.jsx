@@ -1,19 +1,16 @@
 import { Svg } from 'components';
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+//import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import { device } from 'utils';
-import Trainers from 'components/ProfileSettings/WorkPlace/Trainers/Trainers';
-import { setReservation } from 'actions';
 
-const PtSelection = ({ setField = () => {}, setGlobalState = () => {} }) => {
+const UpgradeClass = ({ setField = () => {}, globalState }) => {
   //Local States
-  const dispatch = useDispatch();
-  const reservation = useSelector((state) => state.reservation);
-  function setTrainer(data) {
-    dispatch(setReservation({ selectedPt: data }));
-    setField('main');
-  }
+  //const reservation = useSelector((state) => state.reservation);
+
+  useEffect(() => {
+    alert(globalState?.level);
+  }, [globalState]);
   return (
     <Main>
       <BackLink onClick={() => setField('main')}>
@@ -21,17 +18,6 @@ const PtSelection = ({ setField = () => {}, setGlobalState = () => {} }) => {
 
         <span>Eğitmen Arayın</span>
       </BackLink>
-      <Trainers
-        type="selection"
-        level={reservation?.data?.packetInfo?.classification}
-        onClickHover={(e) => {
-          setTrainer(e);
-        }}
-        onClickUpgrageClass={(level) => {
-          setField('upgradeClass');
-          setGlobalState({ level: level });
-        }}
-      />
     </Main>
   );
 };
@@ -66,4 +52,4 @@ const BackLink = styled(Text)`
   }
 `;
 
-export default PtSelection;
+export default UpgradeClass;

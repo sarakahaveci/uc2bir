@@ -9,9 +9,14 @@ import { Button, Pagination, Svg } from 'components';
 import LongUserCard from 'components/UserCards/LongUserCard';
 import SearchFilters from 'components/SearchProfessional/SearchFilters';
 
-const Trainers = ({ type, onClickHover = () => {} }) => {
+const Trainers = ({
+  type,
+  onClickHover = () => {},
+  level = 'A',
+  onClickUpgrageClass = () => {},
+}) => {
   const dispatch = useDispatch();
-  const [packetLevel, setPacketLevel] = useState('A');
+  const [packetLevel, setPacketLevel] = useState(level);
   const allBranchList = useSelector(
     (state) => state.profileSettings.ptBranchList.allList
   );
@@ -46,11 +51,36 @@ const Trainers = ({ type, onClickHover = () => {} }) => {
         type: 'pt',
         lat: 0,
         lng: 0,
-        classification,
+        classification: level || classification,
       })
     );
   }, []);
-
+  function levelCompare(main, other) {
+    if (main == 'A' || main == 'a') {
+      main = 3;
+    }
+    if (main == 'B' || main == 'b') {
+      main = 2;
+    }
+    if (main == 'C' || main == 'c') {
+      main = 1;
+    }
+    //other
+    if (other == 'A' || other == 'a') {
+      other = 3;
+    }
+    if (other == 'B' || other == 'b') {
+      other = 2;
+    }
+    if (other == 'C' || other == 'c') {
+      other = 1;
+    }
+    if (main >= other) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   const linkChangeHandler = () => {
     const parsedPrice = JSON.parse(price);
     const parsedRatings = JSON.parse(ratings);
@@ -64,7 +94,7 @@ const Trainers = ({ type, onClickHover = () => {} }) => {
         branch,
         location,
         type: 'pt',
-        classification,
+        classification: level || classification,
       })
     );
   };
@@ -159,7 +189,12 @@ const Trainers = ({ type, onClickHover = () => {} }) => {
             <LevelContainer>
               <LevelCircle
                 onClick={() => {
-                  setPacketLevel('A');
+                  let result = levelCompare(level, 'A');
+                  if (result) {
+                    setPacketLevel('A');
+                  } else {
+                    onClickUpgrageClass('A');
+                  }
                 }}
                 enable={packetLevel == 'A'}
               >
@@ -168,7 +203,12 @@ const Trainers = ({ type, onClickHover = () => {} }) => {
               <Line />
               <LevelCircle
                 onClick={() => {
-                  setPacketLevel('B');
+                  let result = levelCompare(level, 'B');
+                  if (result) {
+                    setPacketLevel('B');
+                  } else {
+                    onClickUpgrageClass('B');
+                  }
                 }}
                 enable={packetLevel == 'B'}
               >
@@ -178,7 +218,12 @@ const Trainers = ({ type, onClickHover = () => {} }) => {
 
               <LevelCircle
                 onClick={() => {
-                  setPacketLevel('C');
+                  let result = levelCompare(level, 'C');
+                  if (result) {
+                    setPacketLevel('C');
+                  } else {
+                    onClickUpgrageClass('C');
+                  }
                 }}
                 enable={packetLevel == 'C'}
               >
@@ -194,7 +239,13 @@ const Trainers = ({ type, onClickHover = () => {} }) => {
                 <LongUserCard
                   type={type}
                   showHeartBg
-                  hoverText={type == 'selection' ? '+ Eğitmeni Seç' : undefined}
+                  hoverText={
+                    type == 'selection'
+                      ? levelCompare(level, professional?.classification)
+                        ? '+ Eğitmeni Seç'
+                        : 'Paket Yükselt'
+                      : undefined
+                  }
                   key={professional?.id || professional?.user_id}
                   data={professional}
                   city={professional?.city}
