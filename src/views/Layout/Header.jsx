@@ -23,20 +23,22 @@ const Header = () => {
   const [isOpenSearchWhatBox, setIsOpenSearchWhatBox] = useState(false);
 
   const [toggle, setToggle] = useState(false);
-  const [keyword, setKeyword] = useState(null);
+  const [keyword, setKeyword] = useState("");
   const history = useHistory();
   const dispatch = useDispatch();
   const handleSearchWhatClick = () => {
     setIsOpenSearchWhatBox(!isOpenSearchWhatBox);
-  };
+  }; 
 
   const handleSearch = () => {
     if (keyword.length >= 3) {
-      dispatch(getSearchResults(keyword))
+      dispatch(getSearchResults(keyword)) 
       history.push('/search');
       setIsOpenSearchWhatBox(!isOpenSearchWhatBox);
+      setKeyword("");
+      
     }
-    else { 
+    else {
       toast.error('3 Harf ve daha fazlasıyla arama yapabilirsiniz.', {
         position: 'bottom-right',
         autoClose: 2000,

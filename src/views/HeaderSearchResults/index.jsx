@@ -9,7 +9,8 @@ import {
     Svg,
     pulse,
 } from 'components';
-import PackagesTab from '../../components/HeaderSearchResults/PackagesTab'
+import PtPackagesTab from '../../components/HeaderSearchResults/PtPackagesTab'
+import DtPackagesTab from '../../components/HeaderSearchResults/DtPackagesTab'
 import PTTab from '../../components/HeaderSearchResults/PTTab'
 import GymTab from '../../components/HeaderSearchResults/GymTab'
 import DietitiansTab from '../../components/HeaderSearchResults/DietitiansTab'
@@ -18,15 +19,16 @@ import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 /* images */
 import img from '../../assets/info/banner/info-img.png';
- 
 
-const HeaderSearchResults = () => { 
-    const data = useSelector((state) => state.searchResults.data); 
-    const pts = data?.pt ; 
-    const dts = data?.dt ; 
-    const gyms = data?.gym ; 
-    const packages = data?.package ; 
-    const blogs = data?.blog ; 
+
+const HeaderSearchResults = () => {
+    const data = useSelector((state) => state.searchResults.data);
+    const pts = data?.pt;
+    const dts = data?.dt;
+    const gyms = data?.gym;
+    const ptPackages = data?.pt_package;
+    const dtPackages = data?.dt_package;
+    const blogs = data?.blog;
 
     const Tabs = [
         {
@@ -42,9 +44,13 @@ const HeaderSearchResults = () => {
             body: <DietitiansTab dts={dts} />,
         },
         {
-            settingsName: 'Paketler (' + packages?.length + ')',
-            body: <PackagesTab packages={packages} />,
-        }, ,
+            settingsName: 'Eğitmen Paketleri (' + ptPackages?.length + ')',
+            body: <PtPackagesTab packages={ptPackages} />,
+        },
+        {
+            settingsName: 'Diyetisyen Paketleri (' + dtPackages?.length + ')',
+            body: <DtPackagesTab packages={dtPackages} />,
+        },
         {
             settingsName: 'Bloglar (' + blogs?.length + ')',
             body: <BlogsTab blogs={blogs} />,
