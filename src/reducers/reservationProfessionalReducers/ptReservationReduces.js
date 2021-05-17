@@ -2,15 +2,18 @@ import {
   GET_PT_RESERVATION_STATE_DATA_REQUEST,
   GET_PT_RESERVATION_STATE_DATA_SUCCESS,
   GET_PT_RESERVATION_STATE_DATA_FAILURE,
-  PT_RESERVATION_FUNC,
   PT_RESERVATION_FUNC_SUCCESS,
   PT_RESERVATION_FUNC_REQUEST,
   PT_RESERVATION_FUNC_FAILURE,
+  GET_PT_RESERVATION_PACKAGE_SUCCESS,
+  GET_PT_RESERVATION_PACKAGE_REQUEST,
+  GET_PT_RESERVATION_PACKAGE_FAILURE
 } from '../../constants';
 
 const initialState = {
   isLoading: false,
   error: null,
+  packets:null,
 };
 
 export default (state = initialState, action) => {
@@ -54,6 +57,27 @@ export default (state = initialState, action) => {
         isLoading: false,
         funcStatus: { ...action.payload },
       };
+
+    case GET_PT_RESERVATION_PACKAGE_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+
+    case GET_PT_RESERVATION_PACKAGE_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload.message,
+      };
+
+    case GET_PT_RESERVATION_PACKAGE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        packets: action.payload,
+      };
+
 
     default:
       return state;

@@ -14,6 +14,7 @@ const PT = ({ icons, setBannerActive }) => {
   const [selected, setSelected] = useState([]);
   const [types, setTypes] = useState([]);
   const [page, setPage] = useState('Home');
+  const [packageData, setPackageData] = useState();
 
   useEffect(() => {
     getGeocode();
@@ -62,6 +63,7 @@ const PT = ({ icons, setBannerActive }) => {
           get={get}
           create={create}
           submit={submit}
+          packageData={(data)=> setPackageData(data)}
           setPage={setPage}
         />
       );
@@ -73,6 +75,7 @@ const PT = ({ icons, setBannerActive }) => {
             setPage={setPage}
             icons={icons}
             setBannerActive={setBannerActive}
+            packageData={packageData}
           />
         </div>
       );

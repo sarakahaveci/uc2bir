@@ -34,17 +34,11 @@ const Header = () => {
     setIsOpenSearchWhatBox(!isOpenSearchWhatBox);
     setKeyword("");
   }
-
-  const handleErrorSearch = () => {
-    toast.error('Arama sonucu bulunamadı, lütfen başka bir arama yapınız.', {
-      position: 'bottom-right',
-      autoClose: 2000,
-    });
-  }
+ 
 
   const handleSearch = () => {
     if (keyword.length >= 3) {
-      dispatch(getSearchResults(keyword, handleSuccessSearch, handleErrorSearch))
+      dispatch(getSearchResults(keyword, handleSuccessSearch))
     }
     else {
       toast.error('3 Harf ve daha fazlasıyla arama yapabilirsiniz.', {

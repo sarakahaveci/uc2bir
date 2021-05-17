@@ -56,8 +56,8 @@ export default function GroupRightSelections({ setTab = () => {}, setTabPage = (
   // }, [classSelection]);
 
   useEffect(() => {
-    locationSelection?.id && dispatch(getProfessionalCalendar(locationSelection.id, 2, selectedDate));
-  }, [locationSelection]);
+    locationSelection?.id && dispatch(getProfessionalCalendar(locationSelection.id, 3, selectedDate));
+  }, [locationSelection, selectedDate]);
 
   useEffect(() => {
     selectDataHandler('selectedDate', selectedDate)

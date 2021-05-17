@@ -2,6 +2,7 @@ import {
   HTTP_REQUEST,
   GET_PT_RESERVATION_STATE_DATA,
   PT_RESERVATION_FUNC,
+  GET_PT_RESERVATION_PACKAGE
 } from '../../constants';
 
 export const getPtAwaitings = (date) => async (dispatch) => {
@@ -157,6 +158,37 @@ export const getSessionHistorys = (date) => async (dispatch) => {
       transformData: (data) => (
         (data.data.status = 'session_historys'), data.data
       ),
+    },
+  });
+};
+
+export const getPackage = () => async (dispatch) => {
+  let url = '/appointment/pt-calendar/my-package';
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'GET',
+      url,
+      label: GET_PT_RESERVATION_PACKAGE,
+      transformData: (data) => data.data,
+    },
+  });
+};
+
+export const getPackageClass = (data) => async (dispatch) => {
+  let url = '/user/pt-package/appointment-lesson';
+  let extras = '?';
+  if (data) extras += `package_uuid=${data.package_uuid}&appointment_id=${data.appointment_id}`;
+  url += extras;
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'GET',
+      url,
+      label: GET_PT_RESERVATION_PACKAGE,
+      transformData: (data) => data.data,
     },
   });
 };

@@ -1,27 +1,40 @@
 // @ts-nocheck
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Col } from 'react-bootstrap';
 import styled from 'styled-components/macro';
 
 import PacketCard from '../PacketCard';
-const Home = ({ setPage = () => {} }) => {
+import { useDispatch, useSelector } from 'react-redux';
+import { getPackage } from '../../../actions';
+const Home = ({ setPage = () => {}, packageData }) => {
+  const dispatch = useDispatch();
+  const { packets } = useSelector(
+    (state) => state.professionalReservation.ptReservation
+  );
+
+  useEffect(() => {
+    dispatch(getPackage());
+  }, []);
+
+  const setPackageData = (data) =>{
+    setPage('EditLesson');
+    packageData(data)
+  }
+
   return (
     <>
       <Col style={{ padding: 0 }} lg="4">
-        <CardContainer>
-          <PacketCard
-            onClickEdit={() => {
-              setPage('EditLesson');
-            }}
-          />
-        </CardContainer>
-        <CardContainer>
-          <PacketCard
-            onClickEdit={() => {
-              setPage('EditLesson');
-            }}
-          />
-        </CardContainer>
+        {packets?.map((item, index)=>(
+          <CardContainer key={index}>
+            <PacketCard
+              data={item}
+              onClickEdit={(data) => {
+                setPackageData(data)
+              }}
+            />
+          </CardContainer>
+        ))}
+
       </Col>
     </>
   );
