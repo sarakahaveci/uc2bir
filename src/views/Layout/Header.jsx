@@ -29,14 +29,22 @@ const Header = () => {
   const handleSearchWhatClick = () => {
     setIsOpenSearchWhatBox(!isOpenSearchWhatBox);
   }; 
+  const handleSuccessSearch = () => {
+    history.push('/search');
+    setIsOpenSearchWhatBox(!isOpenSearchWhatBox);
+    setKeyword("");
+  }
+
+  const handleErrorSearch = () => {
+    toast.error('Arama sonucu bulunamadı, lütfen başka bir arama yapınız.', {
+      position: 'bottom-right',
+      autoClose: 2000,
+    });
+  }
 
   const handleSearch = () => {
     if (keyword.length >= 3) {
-      dispatch(getSearchResults(keyword)) 
-      history.push('/search');
-      setIsOpenSearchWhatBox(!isOpenSearchWhatBox);
-      setKeyword("");
-      
+      dispatch(getSearchResults(keyword, handleSuccessSearch, handleErrorSearch))
     }
     else {
       toast.error('3 Harf ve daha fazlasıyla arama yapabilirsiniz.', {
