@@ -139,13 +139,24 @@ export default function PaymentCard({ type, dateOption }) {
   }
   function selectPaymentType(payment_type) {
     if (type !== 'buy_packet') {
-      if (reservation?.data?.totals_amount > 0) {
-        dispatch(setReservation({ payment_type: payment_type }));
+      if (type == 'packet') {
+        if (reservation?.data?.slot.length > 0) {
+          dispatch(setReservation({ payment_type: payment_type }));
+        } else {
+          toast.error('Sepetiniz Boş', {
+            position: 'bottom-right',
+            autoClose: 4000,
+          });
+        }
       } else {
-        toast.error('Sepetiniz Boş', {
-          position: 'bottom-right',
-          autoClose: 4000,
-        });
+        if (reservation?.data?.totals_amount > 0) {
+          dispatch(setReservation({ payment_type: payment_type }));
+        } else {
+          toast.error('Sepetiniz Boş', {
+            position: 'bottom-right',
+            autoClose: 4000,
+          });
+        }
       }
     } else {
       if (buyPacket?.reservation?.totals_amount > 0) {
@@ -268,6 +279,43 @@ export default function PaymentCard({ type, dateOption }) {
     } else {
       if (reservation?.data?.payment_type == 'wallet') {
         dispatch(sendReservation('dt', removeEmpty(json), () => {}));
+      } else {
+        toast.error('Eksik Kart Bilgilerini Doldurunuz !', {
+          position: 'bottom-right',
+          autoClose: 4000,
+        });
+      }
+    }
+  }
+  function sendPaymentPtPacketReservation() {
+    var json = {
+      package_uuid: reservation?.data?.package_uuid,
+      pt_id: reservation?.data?.selectedPt?.user_id,
+      payment_type: 'package', // burasını dÜZELT dinamik hale getir
+      is_contracts_accepted: true,
+      session: reservation?.data?.session,
+      location_id: reservation?.data?.location_id,
+      cvc: reservation?.data?.cvc,
+
+      guest: false,
+      holder_name: reservation?.data?.holder_name,
+      card_number: reservation?.data?.card_number,
+      expiration_month: reservation?.data?.expiration_month,
+      expiration_year: reservation?.data?.expiration_year,
+      slot: reservation?.data?.slot,
+    };
+
+    if (
+      reservation?.data?.holder_name &&
+      reservation?.data?.card_number &&
+      reservation?.data?.expiration_month &&
+      reservation?.data?.expiration_year &&
+      reservation?.data?.cvc
+    ) {
+      dispatch(sendReservation('pt', removeEmpty(json), () => {}));
+    } else {
+      if (reservation?.data?.payment_type == 'wallet') {
+        dispatch(sendReservation('pt', removeEmpty(json), () => {}));
       } else {
         toast.error('Eksik Kart Bilgilerini Doldurunuz !', {
           position: 'bottom-right',
@@ -539,6 +587,9 @@ export default function PaymentCard({ type, dateOption }) {
                       break;
                     case 'dt':
                       sendPaymentDT();
+                      break;
+                    case 'packet':
+                      sendPaymentPtPacketReservation();
                       break;
 
                     default:

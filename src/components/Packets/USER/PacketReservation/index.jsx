@@ -464,11 +464,8 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
         return (
           <>
             <MiniProfileCard
-              photo={userInfo.photo}
-              name={'Gelin Paketia'}
-              rating={userInfo.rating}
-              type_id={userInfo.type_id}
-              price={userInfo.price}
+              photo={reservation?.data?.packetInfo?.photo}
+              name={reservation?.data?.packetInfo?.name}
             />
             <SelectionContainer>
               {reservation?.data?.isSelected && (

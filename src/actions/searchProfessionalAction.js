@@ -14,70 +14,72 @@ export const searchTrainers = () => async (dispatch) => {
   });
 };
 
-export const searchProffesional = (
-  {
-    title,
-    ratings,
-    minPrice,
-    maxPrice,
-    sortBy,
-    branch,
-    location,
-    type,
-    page,
-    classification,
-  },
-  successCallback = () => {}
-) => async (dispatch) => {
-  const gymUrl = '/user/search/detail-search-gym?';
-  const dietitionUrl = '/user/search/detail-search-dt?';
-  const ptUrl = '/user/search/detail-search-pt?';
-  const packetUrl = '/cms/package/list?';
-
-  let url;
-  switch (type) {
-    case 'gym':
-      url = gymUrl;
-      break;
-    case 'pt':
-      url = ptUrl;
-      break;
-    case 'dt':
-      url = dietitionUrl;
-      break;
-    case 'packets':
-      url = packetUrl;
-      break;
-    default:
-      break;
-  }
-
-  const urlWithTitle = type === 'pt' ? `&name=${title}` : `&title=${title}`;
-  const urlWithLocation = `&location_key=${location}`;
-  const urlWithBranch = `&branch_id=${branch}`;
-  const urlWithRating = `&rating=${ratings?.[0]}`;
-  const urlWithMinPrice = `&min_price=${minPrice}`;
-  const urlWithMaxPrice = `&max_price=${maxPrice}`;
-  const urlWithSortBy = `&sortBy=${sortBy}`;
-  const urlWithPage = `&page=${page}`;
-  const urlWithClassification = `&classification=${classification}`;
-
-  const finalUrls = `${url}${location ? urlWithLocation : ''}${
-    title ? urlWithTitle : ''
-  }${ratings?.length > 0 ? urlWithRating : ''}${urlWithMinPrice}${
-    maxPrice ? urlWithMaxPrice : ''
-  }${sortBy ? urlWithSortBy : ''}${
-    classification ? urlWithClassification : ''
-  }${page ? urlWithPage : ''}${branch ? urlWithBranch : ''}`.trim();
-
-  await dispatch({
-    type: HTTP_REQUEST,
-    payload: {
-      method: 'GET',
-      url: finalUrls,
-      label: SEARCH_PROFESSIONAL,
-      transformData: (data) => data,
-      callBack: () => successCallback(),
+export const searchProffesional =
+  (
+    {
+      title,
+      ratings,
+      minPrice,
+      maxPrice,
+      sortBy,
+      branch,
+      location,
+      type,
+      page,
+      classification,
     },
-  });
-};
+    successCallback = () => {}
+  ) =>
+  async (dispatch) => {
+    const gymUrl = '/user/search/detail-search-gym?';
+    const dietitionUrl = '/user/search/detail-search-dt?';
+    const ptUrl = '/user/search/detail-search-pt?';
+    const packetUrl = '/cms/package/list?';
+
+    let url;
+    switch (type) {
+      case 'gym':
+        url = gymUrl;
+        break;
+      case 'pt':
+        url = ptUrl;
+        break;
+      case 'dt':
+        url = dietitionUrl;
+        break;
+      case 'packets':
+        url = packetUrl;
+        break;
+      default:
+        break;
+    }
+
+    const urlWithTitle = type === 'pt' ? `&name=${title}` : `&title=${title}`;
+    const urlWithLocation = `&location_key=${location}`;
+    const urlWithBranch = `&branch_id=${branch}`;
+    const urlWithRating = `&rating=${ratings?.[0]}`;
+    const urlWithMinPrice = `&min_price=${minPrice}`;
+    const urlWithMaxPrice = `&max_price=${maxPrice}`;
+    const urlWithSortBy = `&sortBy=${sortBy}`;
+    const urlWithPage = `&page=${page}`;
+    const urlWithClassification = `&classification=${classification}`;
+
+    const finalUrls = `${url}${location ? urlWithLocation : ''}${
+      title ? urlWithTitle : ''
+    }${ratings?.length > 0 ? urlWithRating : ''}${urlWithMinPrice}${
+      maxPrice ? urlWithMaxPrice : ''
+    }${sortBy ? urlWithSortBy : ''}${
+      classification ? urlWithClassification : ''
+    }${page ? urlWithPage : ''}${branch ? urlWithBranch : ''}`.trim();
+
+    await dispatch({
+      type: HTTP_REQUEST,
+      payload: {
+        method: 'GET',
+        url: finalUrls,
+        label: SEARCH_PROFESSIONAL,
+        transformData: (data) => data,
+        callBack: () => successCallback(),
+      },
+    });
+  };

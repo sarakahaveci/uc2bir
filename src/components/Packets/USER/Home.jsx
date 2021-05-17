@@ -27,7 +27,7 @@ const Home = ({ setPage = () => {} }) => {
               onClickReservation={() => {
                 dispatch(clearReservation());
                 dispatch(setReservation({ package_uuid: elm?.package_uuid }));
-
+                dispatch(setReservation({ packetInfo: elm }));
                 setPage('PacketReservation');
               }}
             />
