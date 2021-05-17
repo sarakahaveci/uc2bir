@@ -44,9 +44,14 @@ const Rejecteds = () => {
     }
   };
 
+  const handleRefundSuccess = () => { 
+    dispatch(getUserRejects(moment(selectedDate).format('DD.MM.YYYY')));
+  }
+
   const handleRefund = (type) => {
     dispatch(transferRefund(
-      { type: type, transaction_id: transactionId }
+      { type: type, transaction_id: transactionId },
+      handleRefundSuccess
     ));
   }
 
@@ -68,7 +73,7 @@ const Rejecteds = () => {
   return (
     <StyledContainer>
       <StyledRow>
-        <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}> 
+        <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
           <AccordionContainer>
             <ReservationAccordion
               defaultOpen={true}
@@ -91,7 +96,7 @@ const Rejecteds = () => {
                       type="rejecteds"
                       userType="user"
                       onTransfer={() => {
-                        setOpenTransfer(true); 
+                        setOpenTransfer(true);
                       }}
                       onApprove={() => {
                         setChoosenElm(elm);
@@ -250,16 +255,17 @@ const Rejecteds = () => {
       />
       <ReturnMoneyModal
         open={openTransfer}
-        wallet={() => { 
+        wallet={() => {
+          handleRefund("wallet");
           setOpenTransfer(false);
           setOpenCongrats(true);
         }}
-        card={() => { 
+        card={() => {
           handleRefund("card");
           setOpenTransfer(false);
           setOpenCongrats(true);
         }}
-        closeModal={() => { 
+        closeModal={() => {
           setOpenTransfer(false);
           setOpenCongrats(false);
         }}

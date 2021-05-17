@@ -3,19 +3,19 @@ import React from 'react';
 
 import styled from 'styled-components/macro'; 
 import { device } from 'utils';
-import PacketCard from 'components/UserCards/PacketCard';
+import PtPacketCard from 'components/UserCards/PtPacketCard';
 
 
 // import {
 //     Pagination,
 // } from 'components';
-const PackagesTab = ({ packages, }) => {
+const PtPackagesTab = ({ packages, }) => {
 
     return (
         <div>
             <GymListWrapper>
                 {packages?.map((packet) => (
-                    <PacketCard
+                    <PtPacketCard
                         showHeartBg
                         key={packet?.id || packet?.user_id}
                         data={packet}
@@ -38,7 +38,7 @@ const PackagesTab = ({ packages, }) => {
         </div>
     );
 };
-export default PackagesTab;
+export default PtPackagesTab;
 const GymListWrapper = styled.div`
   display: grid;
   grid-column-gap: 10px;
