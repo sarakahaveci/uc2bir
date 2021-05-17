@@ -17,11 +17,15 @@ const useStyles = makeStyles({
     backgroundColor: '#00B2A9',
   },
 });
-const DetailLesson = ({ setBannerActive = () => {}, setPage = () => {} }) => {
+const DetailLesson = ({
+  setBannerActive = () => {},
+  setPage = () => {},
+  globalState,
+}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUserMyPacketDetail('PACKETID'));
+    dispatch(getUserMyPacketDetail(globalState?.package_uuid));
     setBannerActive(false);
   }, []);
   function onClickLesson() {

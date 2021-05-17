@@ -20,19 +20,20 @@ export const getUserMyPacket = () => async (dispatch) => {
     },
   });
 };
-export const getUserMyPacketDetail = (id) => async (dispatch) => {
-  const url = `/mockmockDetailPACKET/${id}`;
+export const getUserMyPacketDetail =
+  (package_uuid, appointment_id) => async (dispatch) => {
+    const url = `/user/pt-package/appointment-lesson?package_uuid=${package_uuid}&appointment_id=${appointment_id}`;
 
-  await dispatch({
-    type: HTTP_REQUEST,
-    payload: {
-      method: 'GET',
-      url,
-      label: GET_USER_MY_PACKET_DETAIL,
-      transfomrData: (data) => data.data,
-    },
-  });
-};
+    await dispatch({
+      type: HTTP_REQUEST,
+      payload: {
+        method: 'GET',
+        url,
+        label: GET_USER_MY_PACKET_DETAIL,
+        transfomrData: (data) => data.data,
+      },
+    });
+  };
 export const getUserPacketLessonDetail = (id) => async (dispatch) => {
   const url = `/mockmockDetailLESSONNNN/${id}`;
   await dispatch({

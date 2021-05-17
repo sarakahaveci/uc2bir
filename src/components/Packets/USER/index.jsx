@@ -15,6 +15,7 @@ const User = ({ icons, setBannerActive }) => {
   const [selected, setSelected] = useState([]);
   const [types, setTypes] = useState([]);
   const [page, setPage] = useState('Home');
+  const [globalState, setGlobalState] = useState({});
 
   useEffect(() => {
     getGeocode();
@@ -65,6 +66,8 @@ const User = ({ icons, setBannerActive }) => {
           create={create}
           submit={submit}
           setPage={setPage}
+          globalState={globalState}
+          setGlobalState={setGlobalState}
         />
       );
 
@@ -75,6 +78,8 @@ const User = ({ icons, setBannerActive }) => {
             setPage={setPage}
             icons={icons}
             setBannerActive={setBannerActive}
+            globalState={globalState}
+            setGlobalState={setGlobalState}
           />
         </div>
       );
@@ -85,6 +90,8 @@ const User = ({ icons, setBannerActive }) => {
             setPage={setPage}
             icons={icons}
             setBannerActive={setBannerActive}
+            globalState={globalState}
+            setGlobalState={setGlobalState}
           />
         </div>
       );
@@ -95,6 +102,8 @@ const User = ({ icons, setBannerActive }) => {
             setPage={setPage}
             icons={icons}
             setBannerActive={setBannerActive}
+            globalState={globalState}
+            setGlobalState={setGlobalState}
           />
         </div>
       );
@@ -104,6 +113,8 @@ const User = ({ icons, setBannerActive }) => {
           <PacketReservation
             setPage={setPage}
             setBannerActive={setBannerActive}
+            globalState={globalState}
+            setGlobalState={setGlobalState}
           />
         </div>
       );

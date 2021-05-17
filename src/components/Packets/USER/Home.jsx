@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { clearReservation, setReservation } from 'actions';
 import { useDispatch } from 'react-redux';
 import UserPacketCard from '../UserPacketCard';
-const Home = ({ setPage = () => {} }) => {
+const Home = ({ setPage = () => {}, setGlobalState = () => {} }) => {
   const dispatch = useDispatch();
   const myPackets = useSelector((state) => state.myPackets.user?.data);
   useEffect(() => {}, [myPackets]);
@@ -23,6 +23,7 @@ const Home = ({ setPage = () => {} }) => {
               trainerClass={elm?.classification}
               onClickDetail={() => {
                 setPage('DetailLesson');
+                setGlobalState(elm);
               }}
               onClickReservation={() => {
                 dispatch(clearReservation());
