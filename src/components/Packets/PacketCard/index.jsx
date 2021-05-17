@@ -3,50 +3,60 @@ import styled from 'styled-components/macro';
 import Svg from '../../statics/svg';
 import { device } from 'utils';
 
-const PacketCard = ({ onClickEdit }) => {
+const PacketCard = ({ onClickEdit, data }) => {
   useEffect(() => {}, []);
 
   return (
     <Container>
       <Column>
         <Row>
-          <Svg.ClockIcon
-            style={{ marginRight: '9px', marginBottom: '2px' }}
-          ></Svg.ClockIcon>
-          <BoldText>08:00 - 09:00</BoldText>
+          <Svg.ClockIcon style={{ marginRight: '9px', marginBottom: '2px' }} />
+          <BoldText>{data?.hour}</BoldText>
         </Row>
-        <Seperator></Seperator>
+        <Seperator/>
         <Row>
-          <BoldText>FITNESS</BoldText>
+          <BoldText>{data?.branch}</BoldText>
         </Row>
-        <Seperator></Seperator>
+        <Seperator/>
         <FlexSpace position={'END'}>
           <Dot />
-          <BoldText>Faruk Kale</BoldText>
+          <BoldText>{data?.user}</BoldText>
         </FlexSpace>
       </Column>
       <Column>
         <Row>
-          <BoldText>GELİN PAKETİ</BoldText>
+          <BoldText>{data?.title.toUpperCase() }</BoldText>
         </Row>
         <FlexSpace position={'END'}>
-          <BoldText color={'#00B2A9'}>2 / 12 DERS</BoldText>
+          <BoldText color={'#00B2A9'}>{data?.lesson}/{data?.quantity} DERS</BoldText>
         </FlexSpace>
       </Column>
+      {data?.session_type !== 'online' &&
       <Column>
         <Row>
           <BoldText>SPOR ALANI: FIGHTNING FIT CLUB</BoldText>
         </Row>
       </Column>
-      <Column borderDisable>
-        <FlexSpace>
-          <Svg.LocationIcon></Svg.LocationIcon>
-          <AdressText>Denemememmejsad saokdk asokdo</AdressText>
-        </FlexSpace>
-        <Seperator></Seperator>
+      }
 
+      {data?.session_type !== 'online' &&
+      <Column>
         <Row>
-          <Button onClick={onClickEdit}>Dersleri Düzenle</Button>
+          <BoldText>SPOR ALANI: FIGHTNING FIT CLUB</BoldText>
+        </Row>
+      </Column>
+      }
+
+      <Column borderDisable>
+          <FlexSpace>
+            <Svg.LocationIcon/>
+            {data?.session_type !== 'online' &&
+            <AdressText>Denemememmejsad saokdk asokdo</AdressText>
+            }
+          </FlexSpace>
+        <Seperator/>
+        <Row>
+          <Button onClick={()=>onClickEdit(data)}>Dersleri Düzenle</Button>
         </Row>
       </Column>
     </Container>

@@ -14,6 +14,7 @@ const useStyles = makeStyles({
     backgroundColor: '#00B2A9',
   },
 });
+
 const EditLesson = ({ setBannerActive = () => {}, setPage = () => {} }) => {
   useEffect(() => {
     setBannerActive(false);
