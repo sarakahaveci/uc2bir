@@ -11,6 +11,8 @@ import { device } from 'utils';
 import image from '../../../assets/session-type.jpg';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserMyPacketDetail } from 'actions';
+import ReactHtmlParser from 'react-html-parser';
+import { decode } from 'html-entities';
 const useStyles = makeStyles({
   barColorPrimary: {
     backgroundColor: '#00B2A9',
@@ -38,7 +40,6 @@ const DetailLesson = ({
     }
   }
   const classes = useStyles();
-  var temp = ['55', '55s5d', '626', 'd', 'sdsd', 'sdasd', 'sdad'];
   function locationSelector(index) {
     if (index % 3 == 0) {
       return 'start';
@@ -53,7 +54,11 @@ const DetailLesson = ({
     return detailData?.lessons?.map((elm, index) => (
       <Col key={index} style={{ padding: 0 }} lg="4">
         <CustomProgress
-          location={temp.length - 1 == index ? 'end' : locationSelector(index)}
+          location={
+            detailData?.lessons?.length - 1 == index
+              ? 'end'
+              : locationSelector(index)
+          }
           active="true"
         ></CustomProgress>
         <LessonCardContainer
@@ -93,18 +98,11 @@ const DetailLesson = ({
             <Button onClick={handleReservationButton}>Rezervasyon Yap</Button>
           </ImageContainer>
           <TextContainer>
-            <Title>Gelin Paketi</Title>
-            <DescText>12 Günde 8 Kilo Verin!</DescText>
+            <Title>{detailData?.package?.title}</Title>
           </TextContainer>
         </Right>
         <RichText>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum. dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.”
+          {ReactHtmlParser(decode(detailData?.package?.detail))}
         </RichText>
       </InfoContainer>
       <Wrapper>

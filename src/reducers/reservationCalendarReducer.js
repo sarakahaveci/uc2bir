@@ -34,6 +34,7 @@ export default (state = initialState, action) => {
         ...state,
         isLoading: false,
         error: action.payload.message,
+        data: {},
       };
     case GET_PT_RESERVATION_CALENDAR_SUCCESS:
       return {
@@ -74,6 +75,7 @@ export default (state = initialState, action) => {
         ...state,
         isLoading: false,
         error: action.payload.message,
+        data: {},
       };
     case GET_GYM_RESERVATION_CALENDAR_SUCCESS:
       return {

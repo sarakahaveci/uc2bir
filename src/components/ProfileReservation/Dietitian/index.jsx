@@ -293,7 +293,7 @@ const Dietitian = () => {
     <Container>
       <LeftWrapper>{_renderLeftArea()}</LeftWrapper>
       <RightWrapper>
-        <PaymentCard type="dt" dateOption={dateOption} />
+        <PaymentCard type="dt" dateOption={!reservation?.data?.isSelected} />
       </RightWrapper>
       <StyledModal show={openModal} onHide={() => setOpenModal(false)}>
         <MultiContract

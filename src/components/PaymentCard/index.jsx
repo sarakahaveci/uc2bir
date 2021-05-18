@@ -600,6 +600,34 @@ export default function PaymentCard({ type, dateOption }) {
             </BottomContainer>
           ) : (
             <>
+              {(reservationCalendar?.data?.slice &&
+                reservationCalendar?.data?.slice?.length > 0 && (
+                  <div
+                    style={{
+                      width: '100%',
+                      display: 'flex',
+                      padding: '40px',
+                    }}
+                  >
+                    <Svg.TickLesson></Svg.TickLesson>
+                    <text style={{ marginLeft: '5px' }}>
+                      Seçiminiz Rezervasyon İçin Uygundur
+                    </text>
+                  </div>
+                )) || (
+                <div
+                  style={{
+                    width: '100%',
+                    display: 'flex',
+                    padding: '40px',
+                  }}
+                >
+                  <Svg.CencelIcon></Svg.CencelIcon>
+                  <text style={{ marginLeft: '5px' }}>
+                    Seçiminiz Rezervasyon İçin Uygun Değildir
+                  </text>
+                </div>
+              )}
               <BottomContainer>
                 <Button
                   style={{ width: '100%', padding: '20px' }}
@@ -607,13 +635,23 @@ export default function PaymentCard({ type, dateOption }) {
                   text="Cüzdanımdan Öde"
                   onClick={() => {
                     if (reservation?.data?.session) {
-                      var wallet_balance = wallet?.data?.balance || 0;
-                      var amount = reservation?.data?.totals_amount || 0;
-                      var diff = wallet_balance - amount;
-                      if (diff < 0) {
-                        selectPaymentType('both');
+                      if (
+                        reservationCalendar?.data?.slice &&
+                        reservationCalendar?.data?.slice?.length > 0
+                      ) {
+                        var wallet_balance = wallet?.data?.balance || 0;
+                        var amount = reservation?.data?.totals_amount || 0;
+                        var diff = wallet_balance - amount;
+                        if (diff < 0) {
+                          selectPaymentType('both');
+                        } else {
+                          selectPaymentType('wallet');
+                        }
                       } else {
-                        selectPaymentType('wallet');
+                        toast.error('Lütfen Seçiminizi Gözden Geçiriniz!', {
+                          position: 'bottom-right',
+                          autoClose: 4000,
+                        });
                       }
                     } else {
                       toast.error('Lütfen Oturum Türü Seçiniz!', {
@@ -631,7 +669,17 @@ export default function PaymentCard({ type, dateOption }) {
                   text="Kredi Kartından Öde"
                   onClick={() => {
                     if (reservation?.data?.session) {
-                      selectPaymentType('credit_card');
+                      if (
+                        reservationCalendar?.data?.slice &&
+                        reservationCalendar?.data?.slice?.length > 0
+                      ) {
+                        selectPaymentType('credit_card');
+                      } else {
+                        toast.error('Lütfen Seçiminizi Gözden Geçiriniz!', {
+                          position: 'bottom-right',
+                          autoClose: 4000,
+                        });
+                      }
                     } else {
                       toast.error('Lütfen Oturum Türü Seçiniz!', {
                         position: 'bottom-right',

@@ -18,8 +18,6 @@ import {
   getPtGymList,
   getUserBranchList,
   getPtWorkingHomePlace,
-  //getTemplates,
-  getAreaForPT,
   deleteAllSlot,
   getPtReservationCalendar,
 } from 'actions';
@@ -45,6 +43,8 @@ const PT = () => {
   const { userInfo } = useSelector((state) => state.userProfile.userInfo);
   const wallet = useSelector((state) => state.userProfile.wallet);
   const reservation = useSelector((state) => state.reservation);
+  const reservationCalendar = useSelector((state) => state.reservationCalendar);
+
   const { branches: branchList } = useSelector(
     (state) => state.userProfile.branch
   );
@@ -57,7 +57,11 @@ const PT = () => {
       name: item.title,
       id: item.type,
     }));
-    setSessionTypes(items);
+    if (reservation?.data?.isSelected) {
+      //if
+    } else {
+      setSessionTypes(items);
+    }
     dispatch(getUserBranchList(userInfo.id));
     dispatch(getPtGymList(userInfo.id));
     dispatch(getPtWorkingHomePlace(userInfo.id));
@@ -66,11 +70,26 @@ const PT = () => {
     dispatch(setReservation({ pt_id: userInfo.id }));
   }, [userInfo]);
   useEffect(() => {
+    if (reservation?.data?.isSelected && !reservation?.data?.session) {
+      var result = reservationCalendar?.data?.slice
+        ?.filter(
+          (elm) =>
+            elm?.date == reservation.data?.slot[0].date &&
+            elm?.time == reservation.data?.slot[0].hour
+        )[0]
+        ?.session_types?.map((item) => ({
+          name: item,
+          id: item,
+        }));
+      setSessionTypes(result);
+    }
+  }, [reservationCalendar?.data?.slice]);
+  useEffect(() => {
     // iF DATE OPTİON TRUE
     if (!reservation?.data?.isSelected) {
       dispatch(deleteAllSlot());
     } else {
-      dispatch(
+      /*dispatch(
         getAreaForPT(
           userInfo.id,
           reservation.data?.slot?.[0].date,
@@ -78,7 +97,7 @@ const PT = () => {
           reservation?.data?.branch_id,
           reservation.data?.session
         )
-      );
+      );*/
     }
   }, [reservation?.data?.session]);
 
@@ -87,8 +106,8 @@ const PT = () => {
       dispatch(
         getPtReservationCalendar(
           userInfo.id,
-          reservation.data?.date,
-          null,
+          reservation.data?.slot?.[0]?.date,
+          reservation.data?.slot?.[0]?.hour,
           reservation?.data?.branch_id,
           reservation?.data?.session,
           reservation?.data?.location_id
@@ -97,21 +116,36 @@ const PT = () => {
     }
   }, [reservation?.data?.location_id]); //YENİ
   useEffect(() => {
-    if (
-      reservation?.data?.branch_id &&
-      reservation?.data?.session &&
-      reservation?.data?.date
-    ) {
-      dispatch(
-        getPtReservationCalendar(
-          userInfo.id,
-          reservation.data?.date,
-          null,
-          reservation?.data?.branch_id,
-          reservation.data?.session,
-          reservation?.data?.location_id
-        )
-      );
+    if (reservation?.data?.isSelected) {
+      if (reservation?.data?.branch_id && reservation?.data?.date) {
+        dispatch(
+          getPtReservationCalendar(
+            userInfo.id,
+            reservation.data?.slot?.[0]?.date,
+            reservation.data?.slot?.[0]?.hour,
+            reservation?.data?.branch_id,
+            reservation.data?.session,
+            reservation?.data?.location_id
+          )
+        );
+      }
+    } else {
+      if (
+        reservation?.data?.branch_id &&
+        reservation?.data?.session &&
+        reservation?.data?.date
+      ) {
+        dispatch(
+          getPtReservationCalendar(
+            userInfo.id,
+            reservation.data?.date,
+            null,
+            reservation?.data?.branch_id,
+            reservation.data?.session,
+            reservation?.data?.location_id
+          )
+        );
+      }
     }
   }, [
     reservation?.data?.branch_id,
@@ -539,7 +573,7 @@ const PT = () => {
     <Container>
       <LeftWrapper>{_renderLeftArea()}</LeftWrapper>
       <RightWrapper>
-        <PaymentCard type="pt" dateOption={true} />
+        <PaymentCard type="pt" dateOption={!reservation?.data?.isSelected} />
       </RightWrapper>
     </Container>
   );
