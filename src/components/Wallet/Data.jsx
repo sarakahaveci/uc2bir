@@ -32,7 +32,7 @@ const Data = () => {
           {transactionsData &&
             transactionsData.map((item, index) => (
               <tr key={index}>
-                <td>{moment(item?.updated_at).format('LL')}</td>
+                <td>{moment(item?.updated_at).format('LLL')}</td>
                 <td>{item.payment_type}</td>
                 <td>{item.amount}₺</td>
                 <td> {wallet?.data?.balance}₺</td>
