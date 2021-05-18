@@ -1,8 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
-import { toast } from 'react-toastify';
-
+import { toast } from 'react-toastify'; 
 import { ISOToTimeConverter } from 'utils';
 import {
   getRoomMessages,
@@ -19,6 +18,7 @@ import { resizeFile } from 'utils';
 export default function MessageArea() {
   // eslint-disable-next-line
   const [file, setFile] = useState();
+  const [previewImg, setPreviewImg] = useState(null);
   const [message, setMessage] = useState(null);
 
   const fileInputRef = useRef();
@@ -47,6 +47,7 @@ export default function MessageArea() {
     dispatch(getRoomMessages(selectedRoomName));
     dispatch(getRooms());
     setFile();
+    setPreviewImg(null);
   };
 
   const handleSubmitMessage = (event) => {
@@ -55,14 +56,22 @@ export default function MessageArea() {
     }
   };
 
+  const handleSubmitPhoto = () => {
+    dispatch(sendFileToRoom(file, successMessageCallback));
+  };
+
+  const handleCancelSubmitPhoto = () => {
+    setPreviewImg(null);
+  };
+
+
+
   const fileChangeHandler = async (e) => {
     const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
     if (allowedExtensions.exec(e.target.value)) {
       const resizedFile = await resizeFile(e.target.files[0]);
-
       setFile(resizedFile);
-
-      dispatch(sendFileToRoom(resizedFile, successMessageCallback));
+      setPreviewImg(URL.createObjectURL(e.target.files[0]))
     } else {
       toast.error('Yalnızca fotoğraf gönderebilirsiniz.');
     }
@@ -77,6 +86,15 @@ export default function MessageArea() {
     >
       <ChatBoxHeader />
       <div className="message-page__message__wrapper">
+        {previewImg &&
+          <StyledPreview>
+            <img className="preview-img" src={previewImg} />
+            <StyledPreviewButtons>
+              <span onClick={() => { handleCancelSubmitPhoto() }} className="button-container left" >Vazgeç</span>
+              <span onClick={() => { handleSubmitPhoto() }} className="button-container right" >Fotoğrafı Gönder</span>
+            </StyledPreviewButtons>
+          </StyledPreview>
+        }
         <div className="message-page__chat__row">
           {allMessages?.map((message, index) => {
             const time = ISOToTimeConverter(message.created_at);
@@ -135,4 +153,52 @@ const InputWrapper = styled.div`
 
 const FileInput = styled.input`
   display: none;
+`;
+
+const StyledPreview = styled.div`
+border-top-right-radius:25px;
+border-top-left-radius:25px;
+border-bottom-left-radius:25px;
+margin-bottom:40px;
+zIndex:999;
+position:absolute;
+background-color:#00b2a998;
+display:flex;
+flex-direction:column;
+width:96%;
+height:47%;
+align-items:center;
+justify-content:center; 
+.preview-img{ 
+border-top-right-radius:25px;
+border-top-left-radius:25px;
+border-bottom-left-radius:25px;
+width:auto;
+max-width:80%;
+height:90%;
+margin-top:30px; 
+}
+`;
+
+const StyledPreviewButtons = styled.div`
+margin-bottom:30px;
+width:100%;
+justify-content:space-between;
+display:flex;
+background-color:transparent; 
+.button-container{
+  width:100%;
+  background-color:transparent;
+  color:white;
+  font-size:0.9rem;
+  font-weight:600;    
+  cursor:pointer; !important;
+}
+.left{
+  margin-left:10%; 
+}
+.right{ 
+  cursor:pointer; !important;
+  margin-right:10%;
+}
 `;
