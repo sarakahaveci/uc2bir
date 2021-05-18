@@ -33,6 +33,12 @@ const RateModal = ({
     case 'start':
       content = (
         <MainContainer>
+          <Svg.CloseIcon
+            className="close-icon"
+            onClick={() => {
+              cancel();
+            }}
+          />
           <ContextContainer>
             <IconContainer>
               <Svg.Approve />
@@ -147,10 +153,18 @@ const Root = styled.div`
 const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
+  border-radius: 30px;
   justify-content: center;
   align-items: center;
   padding: 20px;
   background: white;
+  .close-icon {
+    align-self: flex-end;
+
+    svg {
+      cursor: pointer;
+    }
+  }
   @media ${device.sm} {
     width: 95vw;
     height: 95vh;
@@ -181,10 +195,10 @@ const StyledButton = styled(Link)`
 const ContextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 50vw;
+  width: 30vw;
   justify-content: center;
   align-items: center;
-  padding: 60px 110px 30px;
+  padding: 50px 70px 30px;
 
   @media ${device.sm} {
     padding: 20px 0;

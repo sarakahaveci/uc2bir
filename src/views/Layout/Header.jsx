@@ -15,26 +15,26 @@ import {
 import { getSearchResults } from 'actions';
 import { toast } from 'react-toastify';
 
-const Header = () => {
+const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
   const { infoData } = useSelector((state) => state.footer);
   const { isAuthenticated, user } = useSelector((state) => state.auth);
 
   const [menuActive, setMenuActive] = useState(false);
-  const [isOpenSearchWhatBox, setIsOpenSearchWhatBox] = useState(false);
 
   const [toggle, setToggle] = useState(false);
   const [keyword, setKeyword] = useState("");
   const history = useHistory();
   const dispatch = useDispatch();
   const handleSearchWhatClick = () => {
-    setIsOpenSearchWhatBox(!isOpenSearchWhatBox);
-  }; 
+    setIsSearchBarOpen(!isSearchBarOpen)
+    setMenuActive(false);
+  };
   const handleSuccessSearch = () => {
     history.push('/search');
-    setIsOpenSearchWhatBox(!isOpenSearchWhatBox);
+    setIsSearchBarOpen(!isSearchBarOpen)
     setKeyword("");
   }
- 
+
 
   const handleSearch = () => {
     if (keyword.length >= 3) {
@@ -219,7 +219,13 @@ const Header = () => {
       );
     },
   };
-
+  const keyPress = (e) => { 
+    if (e.keyCode == 13) {
+      handleSearch();
+    } if (e.keyCode == 27) {
+      setIsSearchBarOpen(!isSearchBarOpen)
+    }
+  }
   return (
     <div style={{ display: 'flex', flexDirection: 'row' }}>
       <NativeHeader
@@ -229,12 +235,12 @@ const Header = () => {
         toggle={menuActive}
         setToggle={() => setMenuActive(!menuActive)}
       />
-      {isOpenSearchWhatBox && (
+      {isSearchBarOpen && (
         <Wrapper>
           <div className="all-container" >
             <StyledDiv>
               <AwesomeIcon.Keyboard color="white" />
-              <StyledInput onChange={(e) => { setKeyword(e.target.value) }} placeholder={'Ne arıyorsun?'} />
+              <StyledInput onKeyDown={keyPress} onChange={(e) => { setKeyword(e.target.value) }} placeholder={'Ne arıyorsun?'} />
             </StyledDiv>
             <Button
               text="Ara"

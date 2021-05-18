@@ -13,7 +13,7 @@ const PTTab = ({ pts, }) => {
 
     return (
         <div> 
-                <GymListWrapper>
+             {pts?.length>0?   <GymListWrapper>
                     {pts?.map((professional) => (
                         <LongUserCard
                             favoriteId={professional?.user_id}
@@ -24,7 +24,9 @@ const PTTab = ({ pts, }) => {
                             district={professional?.district}
                         />
                     ))}
-                </GymListWrapper>
+                </GymListWrapper>:
+            <span style={{marginLeft:8,color:"var(--blue)"}} >Aramanız ile ilgili eğitmen bulunamadı.</span>
+            }
 
                 {/*     <div className="d-flex w-100 mt-3">
                     <Pagination

@@ -13,7 +13,7 @@ const DietitiansTab = ({dts,}) => {
 
     return (
         <div> 
-                <GymListWrapper>
+               {dts?.length>0? <GymListWrapper>
                     {dts?.map((professional) => (
                         <LongUserCard
                             favoriteId={professional?.user_id}
@@ -24,7 +24,9 @@ const DietitiansTab = ({dts,}) => {
                             district={professional?.district}
                         />
                     ))}
-                </GymListWrapper>
+                </GymListWrapper>:
+            <span style={{marginLeft:8,color:"var(--blue)"}} >Aramanız ile ilgili diyetisyen bulunamadı.</span>
+            }
 
                 {/*     <div className="d-flex w-100 mt-3">
                     <Pagination

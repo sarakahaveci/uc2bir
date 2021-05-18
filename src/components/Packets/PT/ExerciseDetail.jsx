@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components/macro';
 import { makeStyles } from '@material-ui/core/styles';
 import { device } from 'utils';
-import { AddExercise, Title } from 'components';
+import { AddExercise, Button, Title } from 'components';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Svg from 'components/statics/svg';
 const useStyles = makeStyles({
@@ -95,6 +95,17 @@ const ExerciseDetail = ({ setPage = () => {} }) => {
             </PropertyContainer>
           </Properties>
         </Info>
+
+        <div style={{display:'flex', alignContent:'center'}}>
+          <Button
+            className="blue dietitan-price__saveButton"
+            text="Kaydet"
+            fontSize="10pt"
+            style={{width:'90%'}}
+          />
+        </div>
+
+
       </Side>
     </Container>
   );

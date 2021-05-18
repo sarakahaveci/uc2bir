@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 
-import ChatBox from './ChatBox';
-import { Title } from 'components';
+import ChatBox from './ChatBox'; 
 
 export default function MessageRow({
   time = '20:10',
@@ -22,16 +21,9 @@ export default function MessageRow({
       {!isMyMessage && <Avatar src={senderProfileAvatar} alt="" />}
       <div>
         <ChatBox isMyMessage={isMyMessage} message={message} file={file} />
-        <div>
-          <Title
-            fontSize="0.8rem"
-            fontWeight="400"
-            color="gray1"
-            textAlign={timeAlignClass}
-          >
-            {time}
-          </Title>
-        </div>
+        <Time textAlign={timeAlignClass}>
+          <span className="time-text">{time}</span>
+        </Time>
       </div>
     </div>
   );
@@ -42,4 +34,14 @@ const Avatar = styled.img`
   height: 50px;
   border-radius: 50%;
   object-fit: contain;
+`;
+const Time = styled.div`
+display:flex;
+.time-text{
+  width:100%;
+  font-size:0.8rem;
+  font-weight:400;
+  color:#909090;
+  text-align: ${(props) => props.textAlign};
+}
 `;

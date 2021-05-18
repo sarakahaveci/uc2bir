@@ -63,7 +63,7 @@ const HeaderSearchResults = () => {
                 <Accordion.Toggle>
                     <SettingsRow pulse={item.pulse}>
                         <Box col>
-                            <Text color="dark" textAlign="left" fontWeight="500" p="2px">
+                            <Text color="dark" textAlign="left" fontWeight="500" p="12px">
                                 {item.settingsName}
                             </Text>
                         </Box>

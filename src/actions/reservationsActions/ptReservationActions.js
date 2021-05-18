@@ -2,7 +2,9 @@ import {
   HTTP_REQUEST,
   GET_PT_RESERVATION_STATE_DATA,
   PT_RESERVATION_FUNC,
-  GET_PT_RESERVATION_PACKAGE
+  GET_PT_RESERVATION_PACKAGE,
+  GET_PT_RESERVATION_PACKAGE_CLASS,
+  GET_PT_PACKAGE_DETAIL_CLASS
 } from '../../constants';
 
 export const getPtAwaitings = (date) => async (dispatch) => {
@@ -187,7 +189,24 @@ export const getPackageClass = (data) => async (dispatch) => {
     payload: {
       method: 'GET',
       url,
-      label: GET_PT_RESERVATION_PACKAGE,
+      label: GET_PT_RESERVATION_PACKAGE_CLASS,
+      transformData: (data) => data.data,
+    },
+  });
+};
+
+export const getPackageClassDetail = (data) => async (dispatch) => {
+  let url = '/user/pt-package/appointment-lesson-detail';
+  let extras = '?';
+  if (data) extras += `package_uuid=${data.package_uuid}&appointment_id=${data.appointment_id}&lesson_id=${data.lesson_id}&type=${data.type}`;
+  url += extras;
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'GET',
+      url,
+      label: GET_PT_PACKAGE_DETAIL_CLASS,
       transformData: (data) => data.data,
     },
   });

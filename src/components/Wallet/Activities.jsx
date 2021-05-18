@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Text, Title, Button } from 'components';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styled from 'styled-components/macro';
 import image from '../../assets/my-wallet.jpg';
@@ -12,11 +13,19 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { DialogActions } from '@material-ui/core';
+import { getWalletTransactions } from 'actions/userProfileActions/walletActions';
 
 const Activities = ({ setPage }) => {
+  const transactionsData = useSelector(
+    (state) => state?.userProfile?.wallet.transactionsData
+  );
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getWalletTransactions());
+  }, []);
+
   const [open, setOpen] = useState(false);
   const fullWidth = true;
-  const maxWidth = 'sm';
   return (
     <>
       <Container>
@@ -43,40 +52,71 @@ const Activities = ({ setPage }) => {
               <Text fontSize="10pt">
                 Bütün hesap hareketlerinizi bu alanda görüntüleyebilirsiniz.
               </Text>
-              <FilterSelect>
-                <Col>
-                  <Material.SimpleSelect
-                    label="Ödeme Türü"
-                    items={[{ id: 'all', name: 'Hepsi' }]}
-                  />
-                </Col>
-                <Col>
-                  <Material.SimpleSelect
-                    label="Dönem"
-                    items={[{ id: 'all', name: 'Hepsi' }]}
-                  />
-                </Col>
-                <Button className="blue" text="Listele" />
-              </FilterSelect>
-              <Data />
-              <Row className="justify-content-end">
-                <Button
-                  style={{ textDecoration: 'underline' }}
-                  fontWeight="bold"
-                  color="blue"
-                  text="Döküm Al >"
-                  onClick={() => setOpen(true)}
-                />
-              </Row>
+
+              {transactionsData.length > 0 ? (
+                <div>
+                  {' '}
+                  <FilterSelect>
+                    <Col>
+                      <Material.SimpleSelect
+                        label="Ödeme Şekli"
+                        items={[
+                          { id: 'all', name: 'Hepsi' },
+                          { id: 'wallet', name: 'Cüzdan' },
+                          { id: 'card', name: 'Kredi Kartı' },
+                        ]}
+                      />
+                    </Col>
+                    <Col>
+                      <Material.SimpleSelect
+                        label="Dönem"
+                        items={[
+                          { id: 'all', name: 'Hepsi' },
+                          { id: '7', name: 'Son 7 Gün' },
+                          { id: '15', name: 'Son 15 Gün' },
+                          { id: '30', name: 'Son 1 Ay' },
+                          { id: '90', name: 'Son 3 Ay' },
+                        ]}
+                      />
+                    </Col>
+                    <Button className="blue" text="Listele" />
+                  </FilterSelect>
+                  <Data />
+                  <Row className="justify-content-end">
+                    <Button
+                      style={{ textDecoration: 'underline' }}
+                      fontWeight="bold"
+                      color="blue"
+                      text="Döküm Al >"
+                      onClick={() => setOpen(true)}
+                    />
+                  </Row>{' '}
+                </div>
+              ) : (
+                <Capsule>
+                  {' '}
+                  <CapsuleItem>
+                    <Text
+                      color="dark"
+                      textAlign="left"
+                      fontWeight="500"
+                      p="5px"
+                    >
+                      Herhangi bir veri bulunamadı.
+                    </Text>
+                  </CapsuleItem>
+                </Capsule>
+              )}
             </>
           </Col>
         </Row>
       </Container>
+
       <React.Fragment>
-        <Dialog
+        <StyledDialog
           className="material-dialog"
           fullWidth={fullWidth}
-          maxWidth={maxWidth}
+          maxWidth="sm"
           open={open}
         >
           <DialogTitle className="text-center">Cüzdanım</DialogTitle>
@@ -102,7 +142,7 @@ const Activities = ({ setPage }) => {
               />
             </div>
           </DialogActions>
-        </Dialog>
+        </StyledDialog>
       </React.Fragment>
     </>
   );
@@ -118,6 +158,11 @@ const FilterSelect = styled.div`
   margin-left: -15px;
 `;
 
+const StyledDialog = styled(Dialog)`
+  margin-top: 150px;
+  height: 70vh;
+`;
+
 const ImageBanner = styled.section`
   width: 100%;
   height: 285px;
@@ -126,6 +171,41 @@ const ImageBanner = styled.section`
   background-image: url('${(props) => props.src}');
   background-size: cover;
   background-repeat: no-repeat;
+`;
+
+const Capsule = styled.div`
+  width: 75%;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  padding-left: 15px;
+  margin: 10px 0;
+
+  &:before {
+    content: '';
+    width: 3px;
+    background: #ffc47c;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+`;
+
+const CapsuleItem = styled.div`
+  width: 100%;
+  height: auto;
+  padding-bottom: 7px;
+  border-bottom: 1px solid #ddd;
+
+  tr {
+    background: transparent !important;
+
+    td {
+      padding: 7px 0;
+    }
+  }
 `;
 
 export default Activities;

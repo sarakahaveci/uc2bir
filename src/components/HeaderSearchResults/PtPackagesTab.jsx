@@ -13,7 +13,7 @@ const PtPackagesTab = ({ packages, }) => {
 
     return (
         <div>
-            <GymListWrapper>
+             {packages?.length>0?<GymListWrapper>
                 {packages?.map((packet) => (
                     <PtPacketCard
                         showHeartBg
@@ -23,7 +23,9 @@ const PtPackagesTab = ({ packages, }) => {
                         district={packet?.district}
                     />
                 ))}
-            </GymListWrapper>
+            </GymListWrapper>:
+            <span style={{marginLeft:8,color:"var(--blue)"}} >Aramanız ile ilgili paket bulunamadı.</span>
+            }
 
             {/*     <div className="d-flex w-100 mt-3">
                     <Pagination

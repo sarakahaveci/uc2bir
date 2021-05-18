@@ -46,7 +46,7 @@ const Wrapper = () => {
                         {moment(
                           transactionsData[transactionsData.length - 1]
                             ?.updated_at
-                        ).format('LL')}
+                        ).format('LLL')}
                       </Text>
                     </CapsuleItem>
                   )}

@@ -12,7 +12,7 @@ const BlogsTab = ({ blogs, }) => {
 
     return (
         <div>
-            <GymListWrapper>
+            {blogs?.length>0?<GymListWrapper>
                 {blogs?.map((professional) => (
                     <BlogCard
                         favoriteId={professional?.user_id}
@@ -23,7 +23,9 @@ const BlogsTab = ({ blogs, }) => {
                         district={professional?.district}
                     />
                 ))}
-            </GymListWrapper>
+            </GymListWrapper>:
+            <span style={{marginLeft:8,color:"var(--blue)"}} >Aramanız ile ilgili blog yazısı bulunamadı.</span>
+            }
 
             {/*     <div className="d-flex w-100 mt-3">
                     <Pagination

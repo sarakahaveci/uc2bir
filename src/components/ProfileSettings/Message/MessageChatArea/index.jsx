@@ -162,7 +162,7 @@ border-bottom-left-radius:25px;
 margin-bottom:40px;
 zIndex:999;
 position:absolute;
-background-color:#00b2a998;
+background-color:#00b2a9;
 display:flex;
 flex-direction:column;
 width:96%;
@@ -196,9 +196,11 @@ background-color:transparent;
 }
 .left{
   margin-left:10%; 
+  text-align:start;
 }
 .right{ 
   cursor:pointer; !important;
   margin-right:10%;
+  text-align:end;
 }
 `;
