@@ -19,6 +19,7 @@ import {
   getStaticPage,
   getGymReservationCalendar,
   getGymPtList,
+  clearReservationCalendar,
 } from 'actions';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import axios from 'axios';
@@ -63,18 +64,34 @@ const Gym = ({ dateOption = true }) => {
       dispatch(
         getGymReservationCalendar(
           userInfo.id,
-          reservation.data?.date,
-          null,
-          reservation?.data?.branch_id
+          reservation.data?.slot?.[0]?.date,
+          reservation.data?.slot?.[0]?.hour,
+          reservation?.data?.branch_id,
+          reservation?.data?.pt_id
         )
       );
     }
   }, [reservation?.data?.branch_id, reservation?.data?.date]);
   useEffect(() => {
+    getGymReservationCalendar(
+      userInfo.id,
+      reservation.data?.slot?.[0]?.date,
+      reservation.data?.slot?.[0]?.hour,
+      reservation?.data?.branch_id,
+      reservation?.data?.pt_id
+    );
+  }, [reservation?.data?.pt_id]);
+  useEffect(() => {
     if (wantPt) {
       dispatch(getGymPtList(userInfo.id, page));
+      dispatch(clearReservationCalendar());
     } else {
-      dispatch(getGymPtList());
+      getGymReservationCalendar(
+        userInfo.id,
+        reservation.data?.slot?.[0]?.date,
+        reservation.data?.slot?.[0]?.hour,
+        reservation?.data?.branch_id
+      );
     }
   }, [wantPt]);
   useEffect(() => {
@@ -253,7 +270,6 @@ const Gym = ({ dateOption = true }) => {
                     { id: 2, name: 'Evet' },
                   ]}
                   name="branch"
-                  defaultValue={reservation?.data?.branch_id}
                   onChange={(e) => {
                     if (e.target?.value === 2) {
                       setWantPt(true);
@@ -322,7 +338,7 @@ const Gym = ({ dateOption = true }) => {
     <Container>
       <LeftWrapper>{_renderLeftArea()}</LeftWrapper>
       <RightWrapper>
-        <PaymentCard type="pt" dateOption={dateOption} />
+        <PaymentCard type="gym" dateOption={dateOption} />
       </RightWrapper>
       <StyledModal show={openModal} onHide={() => setOpenModal(false)}>
         <MultiContract

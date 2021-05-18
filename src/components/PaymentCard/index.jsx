@@ -653,6 +653,15 @@ export default function PaymentCard({ type, dateOption }) {
                           autoClose: 4000,
                         });
                       }
+                    } else if (type == 'gym') {
+                      var wallet_balance = wallet?.data?.balance || 0;
+                      var amount = reservation?.data?.totals_amount || 0;
+                      var diff = wallet_balance - amount;
+                      if (diff < 0) {
+                        selectPaymentType('both');
+                      } else {
+                        selectPaymentType('wallet');
+                      }
                     } else {
                       toast.error('Lütfen Oturum Türü Seçiniz!', {
                         position: 'bottom-right',
@@ -680,6 +689,8 @@ export default function PaymentCard({ type, dateOption }) {
                           autoClose: 4000,
                         });
                       }
+                    } else if (type == 'gym') {
+                      selectPaymentType('credit_card');
                     } else {
                       toast.error('Lütfen Oturum Türü Seçiniz!', {
                         position: 'bottom-right',
