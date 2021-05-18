@@ -59,7 +59,7 @@ const DetailLesson = ({
               ? 'end'
               : locationSelector(index)
           }
-          active="true"
+          active={elm?.is_completed ? 'true' : 'false'}
         ></CustomProgress>
         <LessonCardContainer
           onClick={() => {
@@ -68,7 +68,7 @@ const DetailLesson = ({
         >
           <MainField>
             <HeaderArea>
-              {false ? (
+              {elm?.is_completed ? (
                 <Svg.TickLesson />
               ) : (
                 <Number>
@@ -82,9 +82,11 @@ const DetailLesson = ({
               <DescText>{elm?.description} </DescText>
             </DescArea>
           </MainField>
-          <RightSideField>
-            <Svg.ArrowRightIcon></Svg.ArrowRightIcon>
-          </RightSideField>
+          {elm?.type == 'lesson' && (
+            <RightSideField>
+              <Svg.ArrowRightIcon></Svg.ArrowRightIcon>
+            </RightSideField>
+          )}
         </LessonCardContainer>
       </Col>
     ));
