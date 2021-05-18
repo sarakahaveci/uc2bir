@@ -15,23 +15,23 @@ import {
 import { getSearchResults } from 'actions';
 import { toast } from 'react-toastify';
 
-const Header = ({isSearchBarOpen,setIsSearchBarOpen}) => {
+const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
   const { infoData } = useSelector((state) => state.footer);
   const { isAuthenticated, user } = useSelector((state) => state.auth);
 
-  const [menuActive, setMenuActive] = useState(false); 
+  const [menuActive, setMenuActive] = useState(false);
 
   const [toggle, setToggle] = useState(false);
   const [keyword, setKeyword] = useState("");
   const history = useHistory();
   const dispatch = useDispatch();
   const handleSearchWhatClick = () => {
-    setIsSearchBarOpen(!isSearchBarOpen) 
+    setIsSearchBarOpen(!isSearchBarOpen)
     setMenuActive(false);
   };
   const handleSuccessSearch = () => {
     history.push('/search');
-    setIsSearchBarOpen(!isSearchBarOpen) 
+    setIsSearchBarOpen(!isSearchBarOpen)
     setKeyword("");
   }
 
@@ -219,7 +219,13 @@ const Header = ({isSearchBarOpen,setIsSearchBarOpen}) => {
       );
     },
   };
-
+  const keyPress = (e) => { 
+    if (e.keyCode == 13) {
+      handleSearch();
+    } if (e.keyCode == 27) {
+      setIsSearchBarOpen(!isSearchBarOpen)
+    }
+  }
   return (
     <div style={{ display: 'flex', flexDirection: 'row' }}>
       <NativeHeader
@@ -234,7 +240,7 @@ const Header = ({isSearchBarOpen,setIsSearchBarOpen}) => {
           <div className="all-container" >
             <StyledDiv>
               <AwesomeIcon.Keyboard color="white" />
-              <StyledInput onChange={(e) => { setKeyword(e.target.value) }} placeholder={'Ne arıyorsun?'} />
+              <StyledInput onKeyDown={keyPress} onChange={(e) => { setKeyword(e.target.value) }} placeholder={'Ne arıyorsun?'} />
             </StyledDiv>
             <Button
               text="Ara"
