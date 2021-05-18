@@ -6,6 +6,7 @@ import { CustomProgress, Title } from 'components';
 import { Container, Row, Col } from 'react-bootstrap';
 import ExerciseCard from '../ExerciseCard/ExerciseCard';
 import { device } from 'utils';
+import Svg from '../../statics/svg';
 
 const useStyles = makeStyles({
   barColorPrimary: {
@@ -50,16 +51,25 @@ const Exercises = ({ setPage = () => {} }) => {
         >
           {`< Ana Sayfa`}
         </Title> */}
-        <Title
-          style={{ cursor: 'pointer', padding: 5 }}
-          fontSize="14pt"
-          textAlign="left"
-          onClick={() => setPage('EditLesson')}
-        >
-          {`< Geri`}
-        </Title>
+        <div style={{display:'flex', flex:'1', marginTop:'10px'}}>
+          <Title
+            style={{ cursor: 'pointer', padding: 5 }}
+            fontSize="14pt"
+            textAlign="left"
+            onClick={() => setPage('EditLesson')}>
+            {`< Geri`}
+          </Title>
+          <ExerciseCreateBtn onClick={onClickExercise}>
+            <Svg.BluePlusIcon />
+            <ButtonText >Egzersiz Ekle</ButtonText>
+          </ExerciseCreateBtn>
+
+        </div>
+
 
         <Col lg="12" style={{ padding: 10 }}>
+
+
           <HeaderText>Egzersizler</HeaderText>
 
           <LinearProgress
@@ -73,6 +83,20 @@ const Exercises = ({ setPage = () => {} }) => {
     </Wrapper>
   );
 };
+
+const ExerciseCreateBtn = styled.button`
+  display: flex;
+  align-items: center;
+  width: 219px;
+  height: 32px;
+  margin-top: 7px;
+  border-radius: 20px;
+  background: var(--blue);
+`;
+const ButtonText = styled.text`
+  color: white;
+  margin-left: 40px;
+`;
 
 const Wrapper = styled(Container)`
   width: 100%;
