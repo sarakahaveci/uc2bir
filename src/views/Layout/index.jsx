@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../style/main.scss';
@@ -12,6 +12,7 @@ import { useLocation } from 'react-router-dom';
 
 const Layout = (props) => {
   const location = useLocation();
+  const [isSearchBarOpen, setIsSearchBarOpen] = useState(false);
   if (
     location.pathname === '/myprofile/online' ||
     location.pathname === '/mobile/buy/success' ||
@@ -19,10 +20,13 @@ const Layout = (props) => {
   ) {
     return <>{props.children}</>;
   } else {
+
     return (
       <div id="pt-point-page">
-        <Header />
-        {props.children}
+        <Header isSearchBarOpen={isSearchBarOpen} setIsSearchBarOpen={setIsSearchBarOpen} />
+        <div onClick={() => { if (isSearchBarOpen) { setIsSearchBarOpen(false) } }}>
+          {props.children}
+        </div>
         <Footer />
         <ToastContainer autoClose={2000} />
       </div>
