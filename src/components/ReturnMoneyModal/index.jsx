@@ -132,7 +132,8 @@ const ReturnMoneyModal = ({
                 </Info>
                 <Info>
                   <Label>Aktarım Sonrası Bakiye</Label>
-                  <ValueText>{balance?.data?.balance}- </ValueText>
+                  {/* Bakiye + Bireysel Üyenin Satın Aldığı Hizmet Bedeli */}
+                  <ValueText>+</ValueText>
                 </Info>
                 <Button
                   className="blue mt-3"
@@ -187,7 +188,15 @@ const MainContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding: 20px;
+  border-radius: 30px;
   background: white;
+  .close-icon {
+    align-self: flex-end;
+
+    svg {
+      cursor: pointer;
+    }
+  }
   @media ${device.sm} {
     width: 95vw;
     height: 95vh;
@@ -209,10 +218,10 @@ const StyledButton = styled(Link)`
 const ContextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 50vw;
+  width: 30vw;
   justify-content: center;
   align-items: center;
-  padding: 10px 110px 30px;
+  padding: 50px 70px 30px;
   svg {
     margin-bottom: 15px;
   }
