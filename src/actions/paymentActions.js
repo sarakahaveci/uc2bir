@@ -6,67 +6,65 @@ import {
   PAYTR_RESPONSE,
 } from '../constants';
 import { toast } from 'react-toastify';
-export const sendReservation = (type, body, successCallback) => async (
-  dispatch
-) => {
-  const url = `/appointment/${type}-calendar`;
+export const sendReservation =
+  (type, body, successCallback) => async (dispatch) => {
+    let url = `/appointment/${type}-calendar`;
+    if (type == 'upgrade_packet') url = '/user/pt-package/upgrade';
+    await dispatch({
+      type: HTTP_REQUEST,
+      payload: {
+        method: 'POST',
+        url,
+        body: { ...body },
+        label: SEND_RESERVATION,
+        callBack: () => {
+          toast.success('İşleminiz başarılı!', {
+            position: 'bottom-right',
+            autoClose: 1500,
+          });
 
-  await dispatch({
-    type: HTTP_REQUEST,
-    payload: {
-      method: 'POST',
-      url,
-      body: { ...body },
-      label: SEND_RESERVATION,
-      callBack: () => {
-        toast.success('İşleminiz başarılı!', {
-          position: 'bottom-right',
-          autoClose: 1500,
-        });
+          successCallback();
+        },
+        errorHandler: (error) => {
+          toast.error(error.message, {
+            position: 'bottom-right',
+            autoClose: 2000,
+          });
+        },
 
-        successCallback();
+        transformData: (data) => data.data,
       },
-      errorHandler: (error) => {
-        toast.error(error.message, {
-          position: 'bottom-right',
-          autoClose: 2000,
-        });
-      },
+    });
+  };
+export const sendPackageReservation =
+  (type, body, successCallback) => async (dispatch) => {
+    const url = `/user/pt-package/buy`;
 
-      transformData: (data) => data.data,
-    },
-  });
-};
-export const sendPackageReservation = (type, body, successCallback) => async (
-  dispatch
-) => {
-  const url = `/user/pt-package/buy`;
+    await dispatch({
+      type: HTTP_REQUEST,
+      payload: {
+        method: 'POST',
+        url,
+        body: { ...body },
+        label: SEND_PACKET_RESERVATION,
+        callBack: () => {
+          toast.success('İşleminiz başarılı.', {
+            position: 'bottom-right',
+            autoClose: 4000,
+          });
+          successCallback();
+        },
+        errorHandler: () => {
+          toast.error('Bilgilerinizi gözden geçiriniz.', {
+            position: 'bottom-right',
+            autoClose: 4000,
+          });
+        },
 
-  await dispatch({
-    type: HTTP_REQUEST,
-    payload: {
-      method: 'POST',
-      url,
-      body: { ...body },
-      label: SEND_PACKET_RESERVATION,
-      callBack: () => {
-        toast.success('İşleminiz başarılı.', {
-          position: 'bottom-right',
-          autoClose: 4000,
-        });
-        successCallback();
+        transformData: (data) => data.data,
       },
-      errorHandler: () => {
-        toast.error('Bilgilerinizi gözden geçiriniz.', {
-          position: 'bottom-right',
-          autoClose: 4000,
-        });
-      },
-
-      transformData: (data) => data.data,
-    },
-  });
-};
+    });
+  };
 export const sendPaytr = (body, successCallback) => async (dispatch) => {
   const url = `https://www.paytr.com/odeme`;
 

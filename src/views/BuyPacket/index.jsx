@@ -243,6 +243,9 @@ const BuyPacket = ({ match }) => {
                   text="Eğitmenleri Gör"
                   fontSize="11pt"
                   color="blue"
+                  onClick={() => {
+                    history.push('/find?type=pt');
+                  }}
                 />
               </BottomContainer>
             </TrainerGroupWrapper>
