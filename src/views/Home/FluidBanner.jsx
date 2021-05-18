@@ -1,4 +1,6 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+
 // @ts-ignore
 import { default as NativeFluidBanner } from '../../components/banner/fluid-banner';
 import { Title, Text, Button } from '../../components';
@@ -8,6 +10,10 @@ import backgroundImage from '../../components/statics/background/images/fluid-ba
 import { Container } from 'react-bootstrap';
 
 const FluidBanner = (props) => {
+  const history = useHistory();
+  const handleClick = () => {
+    history.push('/login');
+  };
   return (
     <NativeFluidBanner
       className={props.className}
@@ -41,7 +47,7 @@ const FluidBanner = (props) => {
           </Text>
           <br />
 
-          <Button text="ÜYE OL" soft />
+          <Button text="ÜYE OL" soft onClick={() => handleClick()} />
         </Text>
       </Container>
     </NativeFluidBanner>

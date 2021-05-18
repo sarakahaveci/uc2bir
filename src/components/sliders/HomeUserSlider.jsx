@@ -9,7 +9,7 @@ import CardSlider from './CardSlider';
 import AwesomeIcon from '../statics/icon';
 import UserCard from './UserCard';
 
-const HomeUserSlider = ({ className, data = [] }) => {
+const HomeUserSlider = ({ className, data = [], handleSeeMoreClick }) => {
   const slider1 = useRef();
   const slider2 = useRef();
 
@@ -64,7 +64,7 @@ const HomeUserSlider = ({ className, data = [] }) => {
           >
             <Button
               lineButton
-              // onClick={() => history.push(props.link)}
+              onClick={() => handleSeeMoreClick()}
               text="Tümünü Gör"
             />
           </div>

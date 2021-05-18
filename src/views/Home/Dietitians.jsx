@@ -1,10 +1,16 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { HomeUserSlider, Title } from 'components';
 
 const Dietitians = (props) => {
+  const history = useHistory();
+  const handleSeeMoreClick = () => {
+    history.push('/find?type=dt');
+  };
+
   const {
     content: { data: content },
   } = useSelector((state) => state.home);
@@ -32,6 +38,7 @@ const Dietitians = (props) => {
         </Title>
       </Container>
       <HomeUserSlider
+        handleSeeMoreClick={handleSeeMoreClick}
         data={content.list_dt || []}
         //data={data}
         link={link}

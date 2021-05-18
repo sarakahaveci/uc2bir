@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Main from '../../components/Main';
 import Banner from './Banner';
@@ -20,6 +20,8 @@ import { getHomeContent, getHomeTags } from 'actions';
 import Comments from './Comments';
 
 const Home = () => {
+  const { isAuthenticated } = useSelector((state) => state.auth);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -32,7 +34,7 @@ const Home = () => {
       <Categories />
       <TopPromotion background />
       <PT />
-      <FluidBanner />
+      {isAuthenticated ? '' : <FluidBanner />}
       <Living />
       <Packet />
       <GroupLesson />
@@ -40,7 +42,7 @@ const Home = () => {
       <VKI />
       <Blog />
       <Comments />
-      <FluidBannerBottom />
+      {isAuthenticated ? '' : <FluidBannerBottom />}
     </Main>
   );
 };

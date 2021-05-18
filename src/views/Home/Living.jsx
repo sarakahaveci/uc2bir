@@ -1,9 +1,14 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { HomeUserSlider, Title } from 'components';
 const Living = (props) => {
+  const history = useHistory();
+  const handleSeeMoreClick = () => {
+    history.push('/find?type=gym');
+  };
   const {
     content: { data: content },
   } = useSelector((state) => state.home);
@@ -31,6 +36,7 @@ const Living = (props) => {
         </Title>
       </Container>
       <HomeUserSlider
+        handleSeeMoreClick={handleSeeMoreClick}
         data={content?.list_bs || []}
         //data={data}
         link={link}

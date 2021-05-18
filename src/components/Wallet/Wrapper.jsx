@@ -18,80 +18,96 @@ const Wrapper = () => {
   // TODO : Backend tarafından data gelecek
   return (
     <div>
-      <StyledWrapper>
-        <Accordion.Item>
-          <Accordion.Toggle>
-            <SettingsRow>
-              <Box col>
-                <Text color="dark" textAlign="left" fontWeight="800" p="2px">
-                  Son Hareket
-                </Text>
-              </Box>
-              <Svg.ArrowUpIcon />
-            </SettingsRow>
-          </Accordion.Toggle>
-          <Accordion.Collapse>
-            <BodyWrapper>
-              <Text textAlign="left" fontWeight="600" p="2px" color="#00b2a9">
-                {transactionsData[transactionsData.length - 1]?.info}
-              </Text>
-              <Capsule>
-                <CapsuleItem>
-                  <Text textAlign="left" fontWeight="600">
-                    {' '}
-                    Oluşturma Tarihi |{' '}
-                    {moment(
-                      transactionsData[transactionsData.length - 1]?.updated_at
-                    ).format('LL')}
+      {transactionsData.length > 0 ? (
+        <StyledWrapper>
+          <Accordion.Item>
+            <Accordion.Toggle>
+              <SettingsRow>
+                <Box col>
+                  <Text color="dark" textAlign="left" fontWeight="800" p="2px">
+                    Son Hareket
                   </Text>
-                </CapsuleItem>
-                <CapsuleItem>
-                  <table>
-                    <tbody>
-                      {transactionsData[transactionsData.length - 1]
-                        ?.payment_type && (
-                        <tr>
-                          <td>Ödeme Şekli</td>
-                          <td className="text-right">
-                            {
-                              transactionsData[transactionsData.length - 1]
-                                ?.payment_type
-                            }
-                          </td>
-                        </tr>
-                      )}
-                      {transactionsData[transactionsData.length - 1]
-                        ?.status && (
-                        <tr>
-                          <td>Durumu</td>
-                          <td className="text-right">
-                            {
-                              transactionsData[transactionsData.length - 1]
-                                ?.status
-                            }
-                          </td>
-                        </tr>
-                      )}
-                      {transactionsData[transactionsData.length - 1]
-                        ?.amount && (
-                        <tr>
-                          <td>Miktar</td>
-                          <td className="text-right">
-                            {
-                              transactionsData[transactionsData.length - 1]
-                                ?.amount
-                            }
-                          </td>
-                        </tr>
-                      )}
-                    </tbody>
-                  </table>
-                </CapsuleItem>
-              </Capsule>
-            </BodyWrapper>
-          </Accordion.Collapse>
-        </Accordion.Item>
-      </StyledWrapper>
+                </Box>
+                <Svg.ArrowUpIcon />
+              </SettingsRow>
+            </Accordion.Toggle>
+            <Accordion.Collapse>
+              <BodyWrapper>
+                <Text textAlign="left" fontWeight="600" p="2px" color="#00b2a9">
+                  {transactionsData[transactionsData.length - 1]?.info}
+                </Text>
+                <Capsule>
+                  {transactionsData[transactionsData.length - 1]
+                    ?.updated_at && (
+                    <CapsuleItem>
+                      <Text textAlign="left" fontWeight="600">
+                        {' '}
+                        Oluşturma Tarihi |{' '}
+                        {moment(
+                          transactionsData[transactionsData.length - 1]
+                            ?.updated_at
+                        ).format('LL')}
+                      </Text>
+                    </CapsuleItem>
+                  )}
+
+                  <CapsuleItem>
+                    <table>
+                      <tbody>
+                        {transactionsData[transactionsData.length - 1]
+                          ?.payment_type && (
+                          <tr>
+                            <td>Ödeme Şekli</td>
+                            <td className="text-right">
+                              {
+                                transactionsData[transactionsData.length - 1]
+                                  ?.payment_type
+                              }
+                            </td>
+                          </tr>
+                        )}
+                        {transactionsData[transactionsData.length - 1]
+                          ?.status && (
+                          <tr>
+                            <td>Durumu</td>
+                            <td className="text-right">
+                              {
+                                transactionsData[transactionsData.length - 1]
+                                  ?.status
+                              }
+                            </td>
+                          </tr>
+                        )}
+                        {transactionsData[transactionsData.length - 1]
+                          ?.amount && (
+                          <tr>
+                            <td>Miktar</td>
+                            <td className="text-right">
+                              {
+                                transactionsData[transactionsData.length - 1]
+                                  ?.amount
+                              }
+                            </td>
+                          </tr>
+                        )}
+                      </tbody>
+                    </table>
+                  </CapsuleItem>
+                </Capsule>
+              </BodyWrapper>
+            </Accordion.Collapse>
+          </Accordion.Item>
+        </StyledWrapper>
+      ) : (
+        <Capsule>
+          {' '}
+          <CapsuleItem>
+            <Text color="dark" textAlign="left" fontWeight="500" p="5px">
+              Herhangi bir veri bulunamadı.
+            </Text>
+          </CapsuleItem>
+        </Capsule>
+      )}
     </div>
   );
 };

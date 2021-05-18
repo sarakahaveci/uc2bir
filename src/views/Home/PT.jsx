@@ -3,7 +3,14 @@ import { Container } from 'react-bootstrap';
 import cx from 'classnames';
 import { useSelector } from 'react-redux';
 import { HomeUserSlider, Title } from 'components';
+import { useHistory } from 'react-router-dom';
+
 const PT = ({ className }) => {
+  const history = useHistory();
+  const handleSeeMoreClick = () => {
+    history.push('/find?type=pt');
+  };
+
   const {
     content: { data: content },
   } = useSelector((state) => state.home);
@@ -31,6 +38,7 @@ const PT = ({ className }) => {
       </Container>
 
       <HomeUserSlider
+        handleSeeMoreClick={handleSeeMoreClick}
         data={content?.list_pt || []}
         //data={data || []}
         link={link}

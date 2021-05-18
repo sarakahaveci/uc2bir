@@ -31,9 +31,9 @@ const SearchGroupLesson = () => {
 
   const searchParams = queryString.parse(useLocation().search);
 
-  const { type } = searchParams || 'packets';
+  const { type } = searchParams || 'group-lessons';
 
-  const userTypeText = 'Paket';
+  const userTypeText = 'Grup Dersleri';
 
   useEffect(() => {
     const {

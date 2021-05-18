@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 import Title from '../../components/typography/Titles';
 import PacketSlider from '../../components/sliders/PacketSlider';
 
@@ -7,6 +8,11 @@ import PacketSlider from '../../components/sliders/PacketSlider';
 import * as Data from './MocData';
 
 const Packet = (props) => {
+  const history = useHistory();
+  const handleSeeMoreClick = () => {
+    history.push('/packets?type=packets');
+  };
+
   const query = true;
   //TODO : Tablara linklemeleri yapılacak
   const data = Data.Packets;
@@ -53,6 +59,7 @@ const Packet = (props) => {
         groups={groups}
         categories={categories}
         link={link}
+        handleSeeMoreClick={handleSeeMoreClick}
       />
     </section>
   );

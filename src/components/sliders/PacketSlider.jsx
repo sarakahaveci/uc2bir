@@ -13,7 +13,7 @@ import { Button } from 'components';
 import Groups from './packets-items';
 
 function PacketSlider(props) {
-  const { data, query, categories } = props;
+  const { data, query, categories, handleSeeMoreClick } = props;
   let slider;
 
   const settings = {
@@ -104,7 +104,7 @@ function PacketSlider(props) {
           >
             <Button
               lineButton
-              // onClick={() => history.push(props.link)}
+              onClick={() => handleSeeMoreClick()}
               text="Tümünü Gör"
             />
           </div>

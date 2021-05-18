@@ -1,4 +1,6 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+
 import { Container } from 'react-bootstrap';
 import Title from '../../components/typography/Titles';
 import PacketSlider from '../../components/sliders/PacketSlider';
@@ -7,6 +9,11 @@ import PacketSlider from '../../components/sliders/PacketSlider';
 import * as Data from './MocData';
 
 const GroupLesson = (props) => {
+  const history = useHistory();
+  const handleSeeMoreClick = () => {
+    history.push('/group-lessons?type=group-lessons');
+  };
+
   const query = true;
   //TODO : Tablara linklemeleri yapılacak
   const data = Data.GroupLesson;
@@ -73,6 +80,7 @@ const GroupLesson = (props) => {
         groups={groups}
         categories={categories}
         link={link}
+        handleSeeMoreClick={handleSeeMoreClick}
       />
     </section>
   );
