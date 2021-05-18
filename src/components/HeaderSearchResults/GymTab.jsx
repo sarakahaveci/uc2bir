@@ -1,6 +1,6 @@
 
 // @ts-nocheck
-import React from 'react'; 
+import React from 'react';
 
 import styled from 'styled-components/macro';
 import LongUserCard from 'components/UserCards/LongUserCard';
@@ -14,7 +14,7 @@ const GymTab = ({ gyms, }) => {
 
     return (
         <div>
-            <GymListWrapper>
+            {gyms?.length > 0 ? <GymListWrapper>
                 {gyms?.map((professional) => (
                     <LongUserCard
                         favoriteId={professional?.user_id}
@@ -25,7 +25,8 @@ const GymTab = ({ gyms, }) => {
                         district={professional?.district}
                     />
                 ))}
-            </GymListWrapper>
+            </GymListWrapper> :
+                <span style={{ marginLeft: 8, color: "var(--blue)" }} >Aramanız ile ilgili spor salonu bulunamadı.</span>}
 
             {/*     <div className="d-flex w-100 mt-3">
                     <Pagination
