@@ -34,7 +34,7 @@ const EditLesson = ({ setBannerActive = () => {}, setPage = () => {}, packageDat
     setBannerActive(false);
   }, []);
 
-  const { classDetail } = useSelector(
+  const { classDetail, classDetailItem } = useSelector(
     (state) => state.professionalReservation.ptReservation
   );
 
@@ -43,12 +43,17 @@ const EditLesson = ({ setBannerActive = () => {}, setPage = () => {}, packageDat
   },[]);
 
 
-  function onClickLesson(id, title, package_uuid, appointment_id) {
+  function onClickLesson(id, title, package_uuid, appointment_id, type) {
 
     // setPage('Exercises');
-    dispatch(getPackageClassDetail({package_uuid, appointment_id, lesson_id:id, type:'parq'}));
-    // setModal(true)
-    setTestName(title)
+    if(type==='lesson'){
+      setPage('Exercises');
+    }else {
+      dispatch(getPackageClassDetail({package_uuid, appointment_id, lesson_id:id, type:'parq'}));
+      setModal(true)
+      setTestName(title)
+    }
+
   }
   const classes = useStyles();
   function locationSelector(index) {
@@ -64,7 +69,7 @@ const EditLesson = ({ setBannerActive = () => {}, setPage = () => {}, packageDat
     return classDetail?.lessons.map((elm, index) => (
       <Col key={index} style={{ padding: 0 }} lg="4">
         <CustomProgress location={classDetail?.lessons.length - 1 === index ? 'end' : locationSelector(index)} active='true' />
-        <LessonCardContainer onClick={()=>onClickLesson(elm?.id,elm?.title, classDetail?.package_uuid, classDetail?.appointment_id)}>
+        <LessonCardContainer onClick={()=>onClickLesson(elm?.id,elm?.title, classDetail?.package_uuid, classDetail?.appointment_id, elm?.type)}>
           <MainField>
             <HeaderArea>
               {
@@ -214,20 +219,20 @@ const EditLesson = ({ setBannerActive = () => {}, setPage = () => {}, packageDat
             <Table>
               <table>
                 <tbody>
-                {/*{testDetail?.data?.map((val) => {*/}
-                {/*  return (*/}
-                {/*    <>*/}
-                {/*      <tr>*/}
-                {/*        <th>{val.title}</th>*/}
-                {/*      </tr>*/}
-                {/*      <tr>*/}
-                {/*        <td>*/}
-                {/*          {val.answer}*/}
-                {/*        </td>*/}
-                {/*      </tr>*/}
-                {/*    </>*/}
-                {/*  );*/}
-                {/*})}*/}
+                {classDetailItem?.map((val) => {
+                  return (
+                    <>
+                      <tr>
+                        <th>{val.title}</th>
+                      </tr>
+                      <tr>
+                        <td>
+                          {val.answer}
+                        </td>
+                      </tr>
+                    </>
+                  );
+                })}
                 </tbody>
               </table>
             </Table>
