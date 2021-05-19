@@ -23,6 +23,7 @@ const UpgradeClass = ({ setField = () => {} /* globalState */ }) => {
   useEffect(() => {
     dispatch(getWallet());
     dispatch(getPacketDetail(reservation?.data?.packetInfo?.package_id));
+  
   }, []);
   useEffect(() => {
     if (reservation?.data?.packetInfo?.package_uuid) {
@@ -149,7 +150,7 @@ const UpgradeClass = ({ setField = () => {} /* globalState */ }) => {
         return (
           <>
             <SideContainer>
-              <Image src={packet?.data?.srcset}></Image>
+              <Image src={packet?.data?.srcset?.split(',')[0]?.split(' ')?.[0]}></Image>
               <InfoContainer>
                 <HeaderText>{packet?.data?.name}</HeaderText>
                 <BigSeperator />
