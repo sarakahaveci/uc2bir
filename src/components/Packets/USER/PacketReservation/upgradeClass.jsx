@@ -29,7 +29,7 @@ const UpgradeClass = ({ setField = () => {} /* globalState */ }) => {
       dispatch(
         setPacketReservation({
           package_uuid: reservation?.data?.packetInfo?.package_uuid,
-          totals_amount: 50,
+          totals_amount: packet?.data?.[`price_${packet?.reservation?.level?.toLowerCase()}`],
         })
       );
     }
@@ -149,10 +149,9 @@ const UpgradeClass = ({ setField = () => {} /* globalState */ }) => {
         return (
           <>
             <SideContainer>
-              <Image src={reservation?.data?.packageInfo?.photo}></Image>
+              <Image src={packet?.data?.srcset}></Image>
               <InfoContainer>
-                <HeaderText>{reservation?.data?.packageInfo?.name}</HeaderText>
-                <TitleText>321!</TitleText>
+                <HeaderText>{packet?.data?.name}</HeaderText>
                 <BigSeperator />
                 <SubInfo>
                   <Svg.FitnessMediumIcon></Svg.FitnessMediumIcon>
@@ -210,7 +209,7 @@ const UpgradeClass = ({ setField = () => {} /* globalState */ }) => {
                       onClick={() => {
                         onChangeLevel('A');
                       }}
-                      enable={packet?.reservation?.level == 'A'}
+                      enable={packet?.reservation?.level == 'A' }
                     >
                       A
                     </LevelCircle>
@@ -219,7 +218,7 @@ const UpgradeClass = ({ setField = () => {} /* globalState */ }) => {
                       onClick={() => {
                         onChangeLevel('B');
                       }}
-                      enable={packet?.reservation?.level == 'B'}
+                      enable={packet?.reservation?.level == 'B' || packet?.reservation?.level == 'A'}
                     >
                       B
                     </LevelCircle>
@@ -229,7 +228,7 @@ const UpgradeClass = ({ setField = () => {} /* globalState */ }) => {
                       onClick={() => {
                         onChangeLevel('C');
                       }}
-                      enable={packet?.reservation?.level == 'C'}
+                      enable={packet?.reservation?.level == 'A' || packet?.reservation?.level == 'B' || packet?.reservation?.level == 'C'}
                     >
                       C
                     </LevelCircle>

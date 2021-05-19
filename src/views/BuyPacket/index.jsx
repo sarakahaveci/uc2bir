@@ -204,18 +204,24 @@ const BuyPacket = ({ match }) => {
                   <LevelCircle
                     onClick={() => {
                       onChangeLevel('A');
+                      dispatch(setPacketReservation({
+                        totals_amount: packet?.data?.price_a,
+                      }))
                     }}
                     enable={packet?.reservation?.level == 'A'}
-                  >
+                    >
                     A
                   </LevelCircle>
                   <Line />
                   <LevelCircle
                     onClick={() => {
                       onChangeLevel('B');
+                      dispatch(setPacketReservation({
+                        totals_amount: packet?.data?.price_b,
+                      }))
                     }}
-                    enable={packet?.reservation?.level == 'B'}
-                  >
+                    enable={packet?.reservation?.level == 'B' || packet?.reservation?.level == 'A'}
+                    >
                     B
                   </LevelCircle>
                   <Line />
@@ -223,8 +229,11 @@ const BuyPacket = ({ match }) => {
                   <LevelCircle
                     onClick={() => {
                       onChangeLevel('C');
+                      dispatch(setPacketReservation({
+                        totals_amount: packet?.data?.price_c,
+                      }))
                     }}
-                    enable={packet?.reservation?.level == 'C'}
+                    enable={packet?.reservation?.level == 'C'|| packet?.reservation?.level == 'A' || packet?.reservation?.level == 'B' }  
                   >
                     C
                   </LevelCircle>
