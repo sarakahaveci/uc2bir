@@ -5,17 +5,18 @@ import styled from 'styled-components/macro';
 import Svg from '../../statics/svg';
 import { makeStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import { CustomProgress, Title } from 'components';
+import { Button, CustomProgress, Material, Title} from 'components';
 import { Container, Row, Col } from 'react-bootstrap';
 import { device } from 'utils';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPackageClass,getPackageClassDetail } from '../../../actions';
+import { getPackageClass, getPackageClassDetail, getPackageTestQuestions, setPackageSurvey } from '../../../actions';
 import Card  from '../../banner/profile-banner/Card';
 import ReactHtmlParser from 'react-html-parser';
 import { decode } from 'html-entities';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
+import { toast } from 'react-toastify';
 
 const useStyles = makeStyles({
   barColorPrimary: {
@@ -26,6 +27,10 @@ const useStyles = makeStyles({
 const EditLesson = ({ setBannerActive = () => {}, setPage = () => {}, packageData }) => {
   const dispatch = useDispatch();
   const [testName, setTestName] = useState('');
+  const [changeable, setChangeable] = useState(false);
+  const [question, _question] = useState([]);
+  const [answer, _answer] = useState({});
+  const [lessonId, setLessonId] = useState('');
   const fullWidth = true;
   const maxWidth = 'sm';
   const [modal, setModal] = useState(false);
@@ -34,7 +39,7 @@ const EditLesson = ({ setBannerActive = () => {}, setPage = () => {}, packageDat
     setBannerActive(false);
   }, []);
 
-  const { classDetail, classDetailItem } = useSelector(
+  const { classDetail, classDetailItem, testQuestion, isQuestionLoading } = useSelector(
     (state) => state.professionalReservation.ptReservation
   );
 
@@ -42,16 +47,73 @@ const EditLesson = ({ setBannerActive = () => {}, setPage = () => {}, packageDat
     dispatch(getPackageClass({package_uuid:packageData?.package_uuid, appointment_id:packageData?.appointment_id}));
   },[]);
 
+  const succsess = () => {
+    toast.success(`Soru cevapları gönderildi.`, {
+      position: 'bottom-right',
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
 
-  function onClickLesson(id, title, package_uuid, appointment_id, type) {
+    setTimeout(() => {
+      toast.info('Lütfen Bekleyiniz! Yönlendiriliyorsunuz...', {
+        position: 'bottom-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        onClose: () => setSteps('finish'),
+      });
+    }, 1000);
+  };
 
-    // setPage('Exercises');
-    if(type==='lesson'){
+  const err = () => {
+    toast.error(`Soru cevapları gönderilemedi!`, {
+      position: 'bottom-right',
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    return dispatch(
+      setPackageSurvey(
+        {
+          answer: answer,
+          package_uuid:classDetail?.package_uuid,
+          appointment_id:classDetail?.appointment_id,
+          lesson_id:lessonId
+        },
+        succsess,
+        err
+      )
+    );
+  };
+
+
+  function onClickLesson(package_uuid, appointment_id, item) {
+    setChangeable(item.is_changeable)
+    if(item?.type==='lesson'){
       setPage('Exercises');
-    }else {
-      dispatch(getPackageClassDetail({package_uuid, appointment_id, lesson_id:id, type:'parq'}));
+    }else if(item.is_changeable){
       setModal(true)
-      setTestName(title)
+      dispatch(getPackageTestQuestions({package_uuid, appointment_id, lesson_id:item?.id}));
+      setTestName(item?.title)
+      setLessonId(item?.id)
+    }else {
+      dispatch(getPackageClassDetail({package_uuid, appointment_id, lesson_id:item?.id, type:item?.type}));
+      setModal(true)
+      setTestName(item?.title)
     }
 
   }
@@ -69,7 +131,7 @@ const EditLesson = ({ setBannerActive = () => {}, setPage = () => {}, packageDat
     return classDetail?.lessons.map((elm, index) => (
       <Col key={index} style={{ padding: 0 }} lg="4">
         <CustomProgress location={classDetail?.lessons.length - 1 === index ? 'end' : locationSelector(index)} active='true' />
-        <LessonCardContainer onClick={()=>onClickLesson(elm?.id,elm?.title, classDetail?.package_uuid, classDetail?.appointment_id, elm?.type)}>
+        <LessonCardContainer onClick={()=>onClickLesson(classDetail?.package_uuid, classDetail?.appointment_id, elm)}>
           <MainField>
             <HeaderArea>
               {
@@ -158,7 +220,6 @@ const EditLesson = ({ setBannerActive = () => {}, setPage = () => {}, packageDat
               </div>
             </div>
           </Col>
-
           <Col lg={5} style={{display:'flex'}}>
             <Line style={{marginRight:'10px'}}/>
             {ReactHtmlParser(
@@ -175,8 +236,7 @@ const EditLesson = ({ setBannerActive = () => {}, setPage = () => {}, packageDat
           onClick={() => {
             setPage('Home');
             setBannerActive(true);
-          }}
-        >
+          }}>
           {`< Geri`}
         </Title>
         <StyledRow header style={{}}>
@@ -191,7 +251,6 @@ const EditLesson = ({ setBannerActive = () => {}, setPage = () => {}, packageDat
         </StyledRow>
         <StyledRow style={{}}>{_renderLessons()}</StyledRow>
       </Wrapper>
-
       <React.Fragment>
         <Dialog
           className="material-dialog"
@@ -216,26 +275,122 @@ const EditLesson = ({ setBannerActive = () => {}, setPage = () => {}, packageDat
             </span>
           </DialogTitle>
           <DialogContent>
+            {!changeable?(
             <Table>
               <table>
                 <tbody>
                 {classDetailItem?.map((val) => {
-                  return (
-                    <>
-                      <tr>
-                        <th>{val.title}</th>
-                      </tr>
-                      <tr>
-                        <td>
-                          {val.answer}
-                        </td>
-                      </tr>
-                    </>
-                  );
-                })}
+                    return (
+                      <>
+                        <tr>
+                          <th>{val.title}</th>
+                        </tr>
+                        <tr>
+                          <td>
+                            {val.answer}
+                          </td>
+                        </tr>
+                      </>
+                    );
+                  })}
                 </tbody>
               </table>
-            </Table>
+            </Table>)
+            :(<form onSubmit={onSubmit} autoComplete="off">
+              {testQuestion?.survey?.questions?.length &&
+              testQuestion?.survey?.questions?.map((val, key) => {
+                if (val.answer_type === 'radio') {
+                  return (
+                    <Material.RadioButtonsGroup
+                      required={val.required}
+                      val={val.name}
+                      key={key}
+                      name={val.name}
+                      label={`${++key}. ${val.name}`}
+                      items={val.options}
+                      onChange={(e) => {
+                        _question([...question, val.id]);
+                        _answer({ ...answer, [val.id]: [e.target.value] });
+                      }}
+                    />
+                  );
+                } else if (val.answer_type === 'string'  ) {
+                  return (
+                    <div style={{ marginTop: 15, marginBottom: 30 }}>
+                      <div style={{ fontSize: '11pt' }} className="label">
+                        {`${++key}. ${val.name}`}
+                      </div>
+                      <Material.TextField
+                        required={val.required}
+                        key={key}
+                        name={val.name}
+                        onChange={(e) => {
+                          _question([...question, val.id]);
+                          _answer({ ...answer, [e.target.name]: [e.target.value] });
+                        }}
+                      />
+                    </div>
+                  );
+                } else if(val.answer_type === 'numeric'){
+                  return (
+                    <div style={{ marginTop: 15, marginBottom: 30 }}>
+                      <div style={{ fontSize: '11pt' }} className="label">
+                        {`${++key}. ${val.name}`}
+                      </div>
+                      <Material.TextField
+                        required={val.required}
+                        type="number"
+                        key={key}
+                        name={val.name}
+                        onChange={(e) => {
+                          _question([...question, val.id]);
+                          _answer({ ...answer, [val.id]: [e.target.value] });
+                        }}
+                      />
+                    </div>
+                  );
+                }
+                else if (val.answer_type === 'checkbox') {
+                  return (
+                    <div style={{ marginTop: 15, marginBottom: 30 }}>
+                      <div style={{ fontSize: '11pt' }} className="label">
+                        {`${++key}. ${val.text}`}
+                      </div>
+                      <div style={{ margin: '15px 20px 0' }}>
+                        {val.options.map((item, key) => {
+                          return (
+                            <>
+                              <Material.CheckBoxGroup
+                                style={{ color: 'red' }}
+                                key={`checkbox-key-${key}`}
+                                name={val.name}
+                                label={item.name}
+                                onChange={(e) => {
+                                  _question([...question, val.id]);
+                                  _answer({
+                                    ...answer,
+                                    [e.target.name]: [item.id],
+                                  });
+                                }}
+                              />
+                            </>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                }
+              })}
+              {!isQuestionLoading ? (
+                <div style={{display:'flex', justifyContent:'center', flex:'1'}}>
+                  <Button type="submit" text={`Testi Tamamla`} className="blue" width={'90%'} />
+                </div>
+              ) : (
+                <div style={{display:'flex', justifyContent:'center', flex:'1'}}>
+                  <Button text={`Yükleniyor...`} className="blue"  width={'90%'} />
+                </div>
+              )}
+            </form>)}
           </DialogContent>
         </Dialog>
       </React.Fragment>

@@ -13,15 +13,20 @@ import {
   GET_PT_RESERVATION_PACKAGE_CLASS_FAILURE,
   GET_PT_PACKAGE_DETAIL_CLASS_SUCCESS,
   GET_PT_PACKAGE_DETAIL_CLASS_REQUEST,
-  GET_PT_PACKAGE_DETAIL_CLASS_FAILURE
+  GET_PT_PACKAGE_DETAIL_CLASS_FAILURE,
+  GET_PT_PACKAGE_TEST_QUESTION_SUCCESS,
+  GET_PT_PACKAGE_TEST_QUESTION_REQUEST,
+  GET_PT_PACKAGE_TEST_QUESTION_FAILURE
 } from '../../constants';
 
 const initialState = {
   isLoading: false,
+  isQuestionLoading: false,
   error: null,
   packets:null,
   classDetail:null,
   classDetailItem:null,
+  testQuestion:null,
 };
 
 export default (state = initialState, action) => {
@@ -124,6 +129,26 @@ export default (state = initialState, action) => {
         ...state,
         isLoading: false,
         classDetailItem: action.payload,
+      };
+
+    case GET_PT_PACKAGE_TEST_QUESTION_REQUEST:
+      return {
+        ...state,
+        isQuestionLoading: true,
+      };
+
+    case GET_PT_PACKAGE_TEST_QUESTION_FAILURE:
+      return {
+        ...state,
+        isQuestionLoading: false,
+        error: action.payload.message,
+      };
+
+    case GET_PT_PACKAGE_TEST_QUESTION_SUCCESS:
+      return {
+        ...state,
+        isQuestionLoading: false,
+        testQuestion: action.payload,
       };
 
 

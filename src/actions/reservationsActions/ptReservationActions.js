@@ -4,7 +4,9 @@ import {
   PT_RESERVATION_FUNC,
   GET_PT_RESERVATION_PACKAGE,
   GET_PT_RESERVATION_PACKAGE_CLASS,
-  GET_PT_PACKAGE_DETAIL_CLASS
+  GET_PT_PACKAGE_DETAIL_CLASS,
+  GET_PT_PACKAGE_TEST_QUESTION,
+  SET_PT_PACKAGE_TEST_QUESTION,
 } from '../../constants';
 
 export const getPtAwaitings = (date) => async (dispatch) => {
@@ -211,3 +213,38 @@ export const getPackageClassDetail = (data) => async (dispatch) => {
     },
   });
 };
+
+export const getPackageTestQuestions = (data) => async (dispatch) => {
+  let url = '/user/pt-package/survey';
+  let extras = '?';
+  if (data) extras += `package_uuid=${data.package_uuid}&appointment_id=${data.appointment_id}&lesson_id=${data.lesson_id}`;
+  url += extras;
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'GET',
+      url,
+      label: GET_PT_PACKAGE_TEST_QUESTION,
+      transformData: (data) => data.data,
+    },
+  });
+};
+
+export const setPackageSurvey = (data, successCallback, errorCallback) => async (dispatch) => {
+  const url = '/user/pt-package/survey';
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'POST',
+      url,
+      label: SET_PT_PACKAGE_TEST_QUESTION,
+      body: { ...data },
+      transformData: (data) => data.data,
+      callBack: () => successCallback(),
+      errorHandler: () => errorCallback(),
+    },
+  });
+};
+
