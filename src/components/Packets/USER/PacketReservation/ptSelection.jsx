@@ -8,8 +8,6 @@ import { setReservation,setPacketReservation } from 'actions';
 
 const PtSelection = ({
   setField = () => {},
-  setGlobalState = () => {},
-  globalState,
 }) => {
   //Local States
   const dispatch = useDispatch();

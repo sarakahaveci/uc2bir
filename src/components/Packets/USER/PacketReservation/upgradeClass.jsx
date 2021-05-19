@@ -428,10 +428,7 @@ const HeaderText = styled.text`
   font-size: 26px;
   font-weight: bold;
 `;
-const TitleText = styled.text`
-  font-size: 18px;
-  font-weight: bold;
-`;
+
 const LabelText = styled.text`
   font-size: 18px;
   font-weight: bold;
