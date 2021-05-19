@@ -196,7 +196,7 @@ const Trainers = ({
                     onClickUpgrageClass('A');
                   }
                 }}
-                enable={packetLevel == 'A'}
+                enable={packetLevel == 'A' }
               >
                 A
               </LevelCircle>
@@ -210,7 +210,7 @@ const Trainers = ({
                     onClickUpgrageClass('B');
                   }
                 }}
-                enable={packetLevel == 'B'}
+                enable={packetLevel == 'B' || packetLevel=='A'}
               >
                 B
               </LevelCircle>
@@ -225,7 +225,8 @@ const Trainers = ({
                     onClickUpgrageClass('C');
                   }
                 }}
-                enable={packetLevel == 'C'}
+                enable={packetLevel == 'A' || packetLevel =='B' ||  packetLevel =='C'}
+              
               >
                 C
               </LevelCircle>

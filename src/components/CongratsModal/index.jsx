@@ -3,10 +3,18 @@ import styled from 'styled-components/macro';
 import { Text, Svg } from 'components';
 import { Link } from 'react-router-dom';
 import { device } from 'utils';
+import CloseIcon from '@material-ui/icons/Close';
+
 const CongratsModal = ({ open, cancel = () => {} }) => {
   return (
     <Root style={{ display: open ? 'flex' : 'none' }}>
       <MainContainer>
+        <CloseIcon
+          style={{ alignSelf: 'flex-end', cursor: 'pointer' }}
+          onClick={() => {
+            cancel();
+          }}
+        />
         <ContextContainer>
           <Svg.SuccessIcon />
 
@@ -58,7 +66,15 @@ const MainContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding: 20px;
+  border-radius: 30px;
   background: white;
+  .close-icon {
+    align-self: flex-end;
+
+    svg {
+      cursor: pointer;
+    }
+  }
   @media ${device.sm} {
     width: 95vw;
     height: 95vh;
@@ -80,10 +96,10 @@ const StyledButton = styled(Link)`
 const ContextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 50vw;
+  width: 30vw;
   justify-content: center;
   align-items: center;
-  padding: 60px 110px 30px;
+  padding: 50px 70px 30px;
   svg {
     margin-bottom: 15px;
   }

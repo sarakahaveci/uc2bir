@@ -4,12 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import { device } from 'utils';
 import Trainers from 'components/ProfileSettings/WorkPlace/Trainers/Trainers';
-import { setReservation } from 'actions';
+import { setReservation,setPacketReservation } from 'actions';
 
 const PtSelection = ({
   setField = () => {},
-  setGlobalState = () => {},
-  globalState,
 }) => {
   //Local States
   const dispatch = useDispatch();
@@ -33,7 +31,7 @@ const PtSelection = ({
         }}
         onClickUpgrageClass={(level) => {
           setField('upgradeClass');
-          setGlobalState({ ...globalState, level: level });
+          dispatch(setPacketReservation({level:level}))
         }}
       />
     </Main>

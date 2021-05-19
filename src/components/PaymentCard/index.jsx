@@ -138,7 +138,7 @@ export default function PaymentCard({ type, dateOption }) {
     );
   }
   function selectPaymentType(payment_type) {
-    if (type !== 'buy_packet') {
+    if (type !== 'buy_packet' && type !== 'upgrade_packet') {
       if (type == 'packet') {
         if (reservation?.data?.slot.length > 0) {
           dispatch(setReservation({ payment_type: payment_type }));
@@ -170,7 +170,7 @@ export default function PaymentCard({ type, dateOption }) {
     }
   }
   function selectPaymentTypePacket(payment_type) {
-    if (type !== 'buy_packet') {
+    if (type !== 'buy_packet' && type !== 'upgrade_packet') {
       if (reservation?.data?.totals_amount > 0) {
         dispatch(setPacketReservation({ payment_type: payment_type }));
       } else {
@@ -234,6 +234,43 @@ export default function PaymentCard({ type, dateOption }) {
     } else {
       if (reservation?.data?.payment_type == 'wallet') {
         dispatch(sendReservation('pt', removeEmpty(json), () => {}));
+      } else {
+        toast.error('Eksik Kart Bilgilerini Doldurunuz !', {
+          position: 'bottom-right',
+          autoClose: 4000,
+        });
+      }
+    }
+  }
+  function sendPaymentPtPacketUpgrade() {
+    var json = {
+      package_id: buyPacket?.data?.id,
+      classification: buyPacket?.reservation?.level,
+      holder_name: buyPacket?.reservation?.holder_name,
+      is_contracts_accepted:
+        buyPacket?.reservation?.is_contracts_accepted || true,
+      payment_type: buyPacket?.reservation?.payment_type,
+      cvc: buyPacket?.reservation?.cvc,
+      slot: buyPacket?.reservation?.slot,
+      guest: buyPacket?.reservation?.guest,
+      card_number: buyPacket?.reservation?.card_number,
+      expiration_month: buyPacket?.reservation?.expiration_month,
+      expiration_year: buyPacket?.reservation?.expiration_year,
+    };
+
+    if (
+      buyPacket?.reservation?.holder_name &&
+      buyPacket?.reservation?.card_number &&
+      buyPacket?.reservation?.expiration_month &&
+      buyPacket?.reservation?.expiration_year &&
+      buyPacket?.reservation?.cvc
+    ) {
+      dispatch(sendReservation('upgrade_packet', removeEmpty(json), () => {}));
+    } else {
+      if (buyPacket?.reservation?.payment_type == 'wallet') {
+        dispatch(
+          sendReservation('upgrade_packet', removeEmpty(json), () => {})
+        );
       } else {
         toast.error('Eksik Kart Bilgilerini Doldurunuz !', {
           position: 'bottom-right',
@@ -457,7 +494,7 @@ export default function PaymentCard({ type, dateOption }) {
           </DataContainer>
         </InfoContainer>
       )}
-      {type !== 'buy_packet' && (
+      {type !== 'buy_packet' && type !== 'upgrade_packet' && (
         <InfoContainer>
           <DataContainer>
             <Info borderDisable>
@@ -568,12 +605,13 @@ export default function PaymentCard({ type, dateOption }) {
         <BottomContainer>
           <Text style={{ fontWeight: 800 }}>Toplam Ücret</Text>
           <Text color="#00B2A9" style={{ fontWeight: 800, fontSize: 30 }}>
-            {type == 'buy_packet'
+            {type == 'buy_packet' || type == 'upgrade_packet'
               ? buyPacket?.reservation?.totals_amount
               : reservation?.data?.totals_amount}
           </Text>
         </BottomContainer>
         {type !== 'buy_packet' &&
+          type !== 'upgrade_packet' &&
           (reservation?.data?.payment_type ? (
             <BottomContainer>
               <Button
@@ -662,6 +700,15 @@ export default function PaymentCard({ type, dateOption }) {
                       } else {
                         selectPaymentType('wallet');
                       }
+                    } else if (type == 'upgrade_packet') {
+                      var wallet_balance = wallet?.data?.balance || 0;
+                      var amount = reservation?.data?.totals_amount || 0;
+                      var diff = wallet_balance - amount;
+                      if (diff < 0) {
+                        selectPaymentType('both');
+                      } else {
+                        selectPaymentType('wallet');
+                      }
                     } else {
                       toast.error('Lütfen Oturum Türü Seçiniz!', {
                         position: 'bottom-right',
@@ -691,6 +738,8 @@ export default function PaymentCard({ type, dateOption }) {
                       }
                     } else if (type == 'gym') {
                       selectPaymentType('credit_card');
+                    } else if (type == 'upgrade_packet') {
+                      selectPaymentType('credit_card');
                     } else {
                       toast.error('Lütfen Oturum Türü Seçiniz!', {
                         position: 'bottom-right',
@@ -702,7 +751,7 @@ export default function PaymentCard({ type, dateOption }) {
               </BottomContainer>
             </>
           ))}
-        {type == 'buy_packet' &&
+        {(type == 'buy_packet' || type == 'upgrade_packet') &&
           (buyPacket?.reservation?.payment_type ? (
             <BottomContainer>
               <Button
@@ -710,7 +759,19 @@ export default function PaymentCard({ type, dateOption }) {
                 className="blue"
                 text="Ödeme Yap"
                 onClick={() => {
-                  sendPaymentPtPacket();
+                  switch (type) {
+                    case 'upgrade_packet':
+                      sendPaymentPtPacketUpgrade();
+
+                      break;
+                    case 'buy_packet':
+                      sendPaymentPtPacket();
+
+                      break;
+
+                    default:
+                      break;
+                  }
                 }}
               />
             </BottomContainer>

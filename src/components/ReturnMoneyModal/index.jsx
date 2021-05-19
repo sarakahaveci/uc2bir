@@ -1,17 +1,26 @@
-
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import styled from 'styled-components/macro';
 import { Text, Svg, Button } from 'components';
 import { Link } from 'react-router-dom';
 import { device } from 'utils';
 import CloseIcon from '@material-ui/icons/Close';
+import { getWallet } from 'actions/userProfileActions/walletActions';
 
 const ReturnMoneyModal = ({
   open,
-  wallet = () => { },
-  card = () => { },
-  closeModal = () => { },
+  wallet = () => {},
+  card = () => {},
+  closeModal = () => {},
 }) => {
+  const balance = useSelector((state) => state?.userProfile?.wallet);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getWallet());
+  }, []);
+
   const [page, setPage] = useState('main');
   useEffect(() => {
     if (!open) {
@@ -35,8 +44,9 @@ const ReturnMoneyModal = ({
               fontWeight="500"
               textAlign="center"
             >
-              Rezervasyon için ödediğiniz tutar AYNI kredi kartınıza tekrar yatırılacaktır.Onaylıyor musunuz?
-              </Text>
+              Rezervasyon için ödediğiniz tutar AYNI kredi kartınıza tekrar
+              yatırılacaktır.Onaylıyor musunuz?
+            </Text>
           </ContextContainer>
           <Button
             className="blue mt-3"
@@ -45,10 +55,9 @@ const ReturnMoneyModal = ({
             onClick={() => {
               card(open);
             }}
-          //disabled={!isAccepted || waitingPrice || isInitialForm}
+            //disabled={!isAccepted || waitingPrice || isInitialForm}
           />
         </MainContainer>
-
       </>
     );
   }
@@ -119,11 +128,12 @@ const ReturnMoneyModal = ({
                 <Header>Cüzdana Transfer</Header>
                 <Info>
                   <Label>Bakiye</Label>
-                  <ValueText>200</ValueText>
+                  <ValueText>{balance?.data?.balance}₺</ValueText>
                 </Info>
                 <Info>
                   <Label>Aktarım Sonrası Bakiye</Label>
-                  <ValueText>300</ValueText>
+                  {/* Bakiye + Bireysel Üyenin Satın Aldığı Hizmet Bedeli */}
+                  <ValueText>+</ValueText>
                 </Info>
                 <Button
                   className="blue mt-3"
@@ -132,7 +142,7 @@ const ReturnMoneyModal = ({
                   onClick={() => {
                     wallet(open);
                   }}
-                //disabled={!isAccepted || waitingPrice || isInitialForm}
+                  //disabled={!isAccepted || waitingPrice || isInitialForm}
                 />
               </WalletContainer>
             </ContextContainer>
@@ -178,7 +188,15 @@ const MainContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding: 20px;
+  border-radius: 30px;
   background: white;
+  .close-icon {
+    align-self: flex-end;
+
+    svg {
+      cursor: pointer;
+    }
+  }
   @media ${device.sm} {
     width: 95vw;
     height: 95vh;
@@ -200,10 +218,10 @@ const StyledButton = styled(Link)`
 const ContextContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 50vw;
+  width: 30vw;
   justify-content: center;
   align-items: center;
-  padding: 10px 110px 30px;
+  padding: 50px 70px 30px;
   svg {
     margin-bottom: 15px;
   }

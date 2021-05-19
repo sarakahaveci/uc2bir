@@ -10,28 +10,38 @@ import { Button, Svg, PaymentCard, CreditCard } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPacketDetail, setPacketReservation } from 'actions';
 import { getWallet } from 'actions/userProfileActions/walletActions';
+import { useHistory } from 'react-router-dom';
 
 import { device } from 'utils';
-const UpgradeClass = ({ setField = () => {} /* globalState*/ }) => {
+const UpgradeClass = ({ setField = () => {} /* globalState */ }) => {
   const dispatch = useDispatch();
   const packet = useSelector((state) => state.buyPacket);
   const wallet = useSelector((state) => state.userProfile.wallet);
   const reservation = useSelector((state) => state.reservation);
+  let history = useHistory();
 
   useEffect(() => {
     dispatch(getWallet());
-    dispatch(getPacketDetail(reservation?.data?.packetInfo?.package_uuid));
+    dispatch(getPacketDetail(reservation?.data?.packetInfo?.package_id));
+  
   }, []);
   useEffect(() => {
+    if (reservation?.data?.packetInfo?.package_uuid) {
+      dispatch(
+        setPacketReservation({
+          package_uuid: reservation?.data?.packetInfo?.package_uuid,
+          totals_amount: packet?.data?.[`price_${packet?.reservation?.level?.toLowerCase()}`],
+        })
+      );
+    }
+  }, [reservation?.data?.packetInfo?.package_uuid]);
+
+  function onChangeLevel(level) {
     dispatch(
       setPacketReservation({
-        totals_amount: packet?.data?.price,
-        id: packet?.data?.id,
+        level: level,
       })
     );
-  }, [packet?.data]);
-  function onChangeLevel(level) {
-    dispatch(setPacketReservation({ level: level }));
   }
 
   function _renderLeftArea() {
@@ -140,10 +150,9 @@ const UpgradeClass = ({ setField = () => {} /* globalState*/ }) => {
         return (
           <>
             <SideContainer>
-              <Image src={reservation?.data?.packageInfo?.photo}></Image>
+              <Image src={packet?.data?.srcset?.split(',')[0]?.split(' ')?.[0]}></Image>
               <InfoContainer>
-                <HeaderText>{reservation?.data?.packageInfo?.photo}</HeaderText>
-                <TitleText>12 Günde 8 Kilo Verin!</TitleText>
+                <HeaderText>{packet?.data?.name}</HeaderText>
                 <BigSeperator />
                 <SubInfo>
                   <Svg.FitnessMediumIcon></Svg.FitnessMediumIcon>
@@ -201,7 +210,7 @@ const UpgradeClass = ({ setField = () => {} /* globalState*/ }) => {
                       onClick={() => {
                         onChangeLevel('A');
                       }}
-                      enable={packet?.reservation?.level == 'A'}
+                      enable={packet?.reservation?.level == 'A' }
                     >
                       A
                     </LevelCircle>
@@ -210,7 +219,7 @@ const UpgradeClass = ({ setField = () => {} /* globalState*/ }) => {
                       onClick={() => {
                         onChangeLevel('B');
                       }}
-                      enable={packet?.reservation?.level == 'B'}
+                      enable={packet?.reservation?.level == 'B' || packet?.reservation?.level == 'A'}
                     >
                       B
                     </LevelCircle>
@@ -220,7 +229,7 @@ const UpgradeClass = ({ setField = () => {} /* globalState*/ }) => {
                       onClick={() => {
                         onChangeLevel('C');
                       }}
-                      enable={packet?.reservation?.level == 'C'}
+                      enable={packet?.reservation?.level == 'A' || packet?.reservation?.level == 'B' || packet?.reservation?.level == 'C'}
                     >
                       C
                     </LevelCircle>
@@ -239,11 +248,14 @@ const UpgradeClass = ({ setField = () => {} /* globalState*/ }) => {
                     text="Eğitmenleri Gör"
                     fontSize="11pt"
                     color="blue"
+                    onClick={() => {
+                      history.push('/find?type=pt');
+                    }}
                   />
                 </BottomContainer>
               </TrainerGroupWrapper>
             </TrainerGroupContainer>
-            <PaymentCard type="buy_packet"></PaymentCard>
+            <PaymentCard type="upgrade_packet"></PaymentCard>
           </SideContainer>
         </Container>
       </Main>
@@ -417,10 +429,7 @@ const HeaderText = styled.text`
   font-size: 26px;
   font-weight: bold;
 `;
-const TitleText = styled.text`
-  font-size: 18px;
-  font-weight: bold;
-`;
+
 const LabelText = styled.text`
   font-size: 18px;
   font-weight: bold;
