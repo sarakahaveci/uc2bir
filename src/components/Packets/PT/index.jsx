@@ -36,6 +36,7 @@ const PT = ({ icons, setBannerActive }) => {
             setPage={setPage}
             icons={icons}
             setBannerActive={setBannerActive}
+            packageData={packageData}
           />
         </div>
       );
@@ -46,6 +47,7 @@ const PT = ({ icons, setBannerActive }) => {
             setPage={setPage}
             icons={icons}
             setBannerActive={setBannerActive}
+            packageData={packageData}
           />
         </div>
       );

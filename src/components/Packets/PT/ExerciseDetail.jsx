@@ -1,30 +1,44 @@
 // @ts-nocheck
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
 import { makeStyles } from '@material-ui/core/styles';
 import { device } from 'utils';
 import { AddExercise, Button, Title } from 'components';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Svg from 'components/statics/svg';
+import { useDispatch, useSelector } from 'react-redux';
+import { getPackageExerciseList } from '../../../actions';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import Input from '@material-ui/core/Input';
+import MenuItem from '@material-ui/core/MenuItem';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
+import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
+import ReactHtmlParser from 'react-html-parser';
+import { decode } from 'html-entities';
 const useStyles = makeStyles({
   barColorPrimary: {
     backgroundColor: '#00B2A9',
   },
 });
-const ExerciseDetail = ({ setPage = () => {} }) => {
+const ExerciseDetail = ({ setPage = () => {},packageData }) => {
   const classes = useStyles();
+  const [categorySelection, setCategorySelection] = useState('');
+  const [exerciseItem, setExerciseItem] = useState('');
+  const [data, setData] = useState({});
+  const dispatch = useDispatch();
+  const { exerciseList } = useSelector(
+    (state) => state.professionalReservation.ptReservation
+  );
+
+  useEffect(() => {
+    dispatch(getPackageExerciseList({package_uuid:packageData?.package_uuid, appointment_id:packageData?.appointment_id}));
+  }, []);
 
   return (
     <Container>
-      {/* <Title
-        style={{ cursor: 'pointer', padding: 5, display: '' }}
-        fontSize="14pt"
-        textAlign="left"
-        onClick={() => setPage('Home')}
-      >
-        {`< Ana Sayfa`}
-      </Title> */}
-
       <Side>
         <Title
           style={{ cursor: 'pointer', padding: 15 }}
@@ -34,8 +48,50 @@ const ExerciseDetail = ({ setPage = () => {} }) => {
         >
           {`<Geri`}
         </Title>
-        <AddExercise />
-        <AddExercise />
+        <FormControlWrapper>
+          <FormControl>
+            <InputLabel>Kategori Seçiniz</InputLabel>
+            <Select
+              value={categorySelection}
+              input={<Input />}
+              onChange={(e) => setCategorySelection(e.target.value)}>
+              {exerciseList?.categories?.map((exercise) => (
+                <MenuItem key={exercise?.category_id} value={exercise?.category_id}>
+                  {exercise.title}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </FormControlWrapper>
+        <RadioGroup
+          row
+          aria-label="workArea"
+          name="workArea"
+          defaultValue="0l">
+          {categorySelection && exerciseList?.trainings[categorySelection].map((item, index) => (
+            <>
+              <CardGroup style={{ padding: 0 }}>
+                <AddExercise
+                  key={index}
+                  item={item}
+                  setData={setData}
+                  data={data}/>
+                {exerciseItem === index+1 ? (
+                  <RadioButtonCheckedIcon
+                    style={{ marginLeft: '5px', cursor: 'pointer' }}
+                  />
+                ) : (
+                  <RadioButtonUncheckedIcon
+                    onClick={() => {
+                     setExerciseItem(index+1)
+                    }}
+                    style={{ marginLeft: '5px', cursor: 'pointer' }}
+                  />
+                )}
+              </CardGroup>
+            </>
+          )) || null}
+        </RadioGroup>
       </Side>
       <Side>
         <TextContent>
@@ -45,52 +101,52 @@ const ExerciseDetail = ({ setPage = () => {} }) => {
             variant="determinate"
             value={20}
           />
+          {exerciseItem&&
           <Text>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum. dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.”
+            {ReactHtmlParser(
+              decode(exerciseList?.trainings[categorySelection][exerciseItem-1]?.detail)
+            )}
           </Text>
+          }
         </TextContent>
         <Info>
           <Text bold>Squat</Text>
           <Properties>
+            {exerciseItem&&
             <PropertyContainer>
-              <Svg.Difficulty></Svg.Difficulty>
+              <Svg.Difficulty/>
               <TextWrapper>
                 <Text>Zorluk</Text>
-                <Text bold>2</Text>
+                <Text bold>{exerciseList?.trainings[categorySelection][exerciseItem-1]?.level}</Text>
               </TextWrapper>
             </PropertyContainer>
+            }
             <PropertyContainer>
-              <Svg.Weight></Svg.Weight>
+              <Svg.Weight/>
               <TextWrapper>
                 <Text>Ağırlık</Text>
-                <Text bold>1 kg</Text>
+                <Text bold>{data?.weight} kg</Text>
               </TextWrapper>
             </PropertyContainer>
             <PropertyContainer>
-              <Svg.Set></Svg.Set>
+              <Svg.Set/>
               <TextWrapper>
                 <Text>Set</Text>
-                <Text bold>1</Text>
+                <Text bold>{data?.set}</Text>
               </TextWrapper>
             </PropertyContainer>
             <PropertyContainer>
-              <Svg.Break></Svg.Break>
+              <Svg.Break/>
               <TextWrapper>
                 <Text>Mola</Text>
-                <Text bold>00:30</Text>
+                <Text bold>{data?.breakTime}</Text>
               </TextWrapper>
             </PropertyContainer>
             <PropertyContainer>
-              <Svg.Repetition></Svg.Repetition>
+              <Svg.Repetition/>
               <TextWrapper>
                 <Text>Tekrar</Text>
-                <Text bold>1</Text>
+                <Text bold>{data?.repetition}</Text>
               </TextWrapper>
             </PropertyContainer>
           </Properties>
@@ -115,7 +171,7 @@ const Container = styled.div`
 `;
 const Side = styled.div`
   width: 586px;
-  height: 586px;
+  height: auto;
   @media ${device.sm} {
     width: 100%;
   }
@@ -143,6 +199,18 @@ const Properties = styled.div`
     width: 100%;
   }
 `;
+
+const CardGroup = styled.div`
+  display: flex;
+  width: 100%;
+  height: auto;
+  margin-top: 10px;
+  padding-right: 95px;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+`;
+
 const PropertyContainer = styled.div`
   display: flex;
   align-items: center;
@@ -162,5 +230,15 @@ const Text = styled.text`
     font-size: 0.7rem;
   }
 `;
+
+const FormControlWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  .MuiFormControl-root {
+    margin-bottom: 20px;
+  }
+`;
+
 
 export default ExerciseDetail;

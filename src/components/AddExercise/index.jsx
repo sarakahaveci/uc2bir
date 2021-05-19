@@ -1,63 +1,90 @@
 import Svg from 'components/statics/svg';
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components/macro';
 import { device } from 'utils';
 
-const AddExercise = () => {
-  useEffect(() => {}, []);
+const AddExercise = ({item, data, setData}) => {
+  const [weight, setWeight] = useState(0);
+  const [set, setSet] = useState(0);
+  const [time, setTime] = useState(0);
+  const [breakTime, setBreakTime] = useState(0);
+  const [repetition, setRepetition] = useState(0);
 
   return (
     <Container>
-      <MovementSection></MovementSection>
+      <MovementSection>
+        <BoldText style={{textAlign:'center'}}>{item?.title} </BoldText>
+      </MovementSection>
       <Selections>
+        {item?.weight&&
         <Row>
           <text>Ağırlık</text>
           <Counter>
-            <CircleButton>
+            <CircleButton onClick={() => {setWeight(weight + 1); setData({...data, weight:weight+1})}}>
               <Svg.PlusIcon />
             </CircleButton>
-            <BoldText color="#00B2A9">1kg</BoldText>
-            <CircleButton>
+            <BoldText color="#00B2A9">{weight}kg</BoldText>
+            <CircleButton onClick={() => {setWeight(weight - 1); setData({...data, weight:weight-1})}}>
               <Svg.Minus />
             </CircleButton>
           </Counter>
-        </Row>
+        </Row> }
+        {item?.set &&
         <Row>
           <text>SET</text>
           <Counter>
-            <CircleButton>
+            <CircleButton onClick={() => {setSet(set + 1); setData({...data, set:set+1})}}>
               <Svg.PlusIcon />
             </CircleButton>
-            <BoldText color="#00B2A9">1</BoldText>
-            <CircleButton>
+            <BoldText color="#00B2A9">{set}</BoldText>
+            <CircleButton onClick={() => {setSet(set - 1); setData({...data, set:set-1})}}>
               <Svg.Minus />
             </CircleButton>
           </Counter>
-        </Row>
+        </Row>}
+
+        {item?.time&&
+        <Row>
+          <text>Zaman</text>
+          <Counter>
+            <CircleButton onClick={() => {setTime(time + 0.5); setData({...data, time:time+0.5})}}>
+              <Svg.PlusIcon />
+            </CircleButton>
+            <BoldText color="#00B2A9">{time} dk</BoldText>
+            <CircleButton onClick={() => {setTime(time - 0.5); setData({...data, time:time-0.5})}}>
+              <Svg.Minus />
+            </CircleButton>
+          </Counter>
+        </Row>}
+
+        {item?.break&&
         <Row>
           <text>Mola</text>
           <Counter>
-            <CircleButton>
+            <CircleButton onClick={() => {setBreakTime(breakTime + 0.5); setData({...data, breakTime:breakTime+0.5})}}>
               <Svg.PlusIcon />
             </CircleButton>
-            <BoldText color="#00B2A9">0:30</BoldText>
-            <CircleButton>
+            <BoldText color="#00B2A9">{breakTime} dk</BoldText>
+            <CircleButton  onClick={() => {setBreakTime(breakTime - 0.5); setData({...data, breakTime:breakTime-0.5})}}>
               <Svg.Minus />
             </CircleButton>
           </Counter>
-        </Row>
-        <Row end>
+        </Row>}
+
+        {item?.repetition&&
+        <Row end={'true'}>
           <text>Tekrar</text>
           <Counter>
-            <CircleButton>
+            <CircleButton  onClick={() => {setRepetition(repetition + 1); setData({...data, repetition:repetition+1})}}>
               <Svg.PlusIcon />
             </CircleButton>
-            <BoldText color="#00B2A9">1</BoldText>
-            <CircleButton>
+            <BoldText color="#00B2A9">{repetition}</BoldText>
+            <CircleButton onClick={() => {setRepetition(repetition - 1); setData({...data, repetition:repetition-1})}}>
               <Svg.Minus />
             </CircleButton>
           </Counter>
-        </Row>
+        </Row>}
+
       </Selections>
     </Container>
   );
@@ -67,7 +94,7 @@ const Container = styled.div`
   display: flex;
   overflow: hidden;
   width: 532px;
-  height: 219px;
+  height: auto;
   background: #fcfbfb;
   border-radius: 10px;
   -webkit-box-shadow: 0px 0px 4px 3px rgba(197, 196, 196, 0.28);
@@ -78,8 +105,11 @@ const Container = styled.div`
 `;
 const MovementSection = styled.div`
   width: 30%;
-  height: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
   background: yellow;
+  padding: 10px;
 `;
 const Selections = styled.div`
   display: flex;
@@ -94,6 +124,8 @@ const Row = styled.div`
   align-items: center;
   width: 85%;
   height: 25%;
+  margin-bottom: 5px;
+  margin-top: 5px;
   border-bottom-style: ${(props) => (props.end ? 'none' : 'solid')};
   border-width: 1px;
   border-color: #afafaf;

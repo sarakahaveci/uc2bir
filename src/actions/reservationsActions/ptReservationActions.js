@@ -7,6 +7,7 @@ import {
   GET_PT_PACKAGE_DETAIL_CLASS,
   GET_PT_PACKAGE_TEST_QUESTION,
   SET_PT_PACKAGE_TEST_QUESTION,
+  GET_PT_PACKAGE_EXERCISE_LIST
 } from '../../constants';
 
 export const getPtAwaitings = (date) => async (dispatch) => {
@@ -192,6 +193,23 @@ export const getPackageClass = (data) => async (dispatch) => {
       method: 'GET',
       url,
       label: GET_PT_RESERVATION_PACKAGE_CLASS,
+      transformData: (data) => data.data,
+    },
+  });
+};
+
+export const getPackageExerciseList = (data) => async (dispatch) => {
+  let url = '/user/pt-package/training';
+  let extras = '?';
+  if (data) extras += `package_uuid=${data.package_uuid}&appointment_id=${data.appointment_id}`;
+  url += extras;
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'GET',
+      url,
+      label: GET_PT_PACKAGE_EXERCISE_LIST,
       transformData: (data) => data.data,
     },
   });

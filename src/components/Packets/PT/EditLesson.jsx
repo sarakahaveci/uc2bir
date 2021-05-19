@@ -48,6 +48,7 @@ const EditLesson = ({ setBannerActive = () => {}, setPage = () => {}, packageDat
   },[]);
 
   const succsess = () => {
+    setModal(false);
     toast.success(`Soru cevapları gönderildi.`, {
       position: 'bottom-right',
       autoClose: 2000,
@@ -57,22 +58,10 @@ const EditLesson = ({ setBannerActive = () => {}, setPage = () => {}, packageDat
       draggable: true,
       progress: undefined,
     });
-
-    setTimeout(() => {
-      toast.info('Lütfen Bekleyiniz! Yönlendiriliyorsunuz...', {
-        position: 'bottom-right',
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        onClose: () => setSteps('finish'),
-      });
-    }, 1000);
   };
 
   const err = () => {
+    setModal(false);
     toast.error(`Soru cevapları gönderilemedi!`, {
       position: 'bottom-right',
       autoClose: 2000,
@@ -105,6 +94,7 @@ const EditLesson = ({ setBannerActive = () => {}, setPage = () => {}, packageDat
     setChangeable(item.is_changeable)
     if(item?.type==='lesson'){
       setPage('Exercises');
+      dispatch(getPackageClassDetail({package_uuid, appointment_id, lesson_id:item?.id, type:item?.type}));
     }else if(item.is_changeable){
       setModal(true)
       dispatch(getPackageTestQuestions({package_uuid, appointment_id, lesson_id:item?.id}));
@@ -235,8 +225,7 @@ const EditLesson = ({ setBannerActive = () => {}, setPage = () => {}, packageDat
           textAlign="left"
           onClick={() => {
             setPage('Home');
-            setBannerActive(true);
-          }}>
+            setBannerActive(true);}}>
           {`< Geri`}
         </Title>
         <StyledRow header style={{}}>
@@ -279,7 +268,7 @@ const EditLesson = ({ setBannerActive = () => {}, setPage = () => {}, packageDat
             <Table>
               <table>
                 <tbody>
-                {classDetailItem?.map((val) => {
+                {classDetailItem?.length>0 && classDetailItem?.map((val) => {
                     return (
                       <>
                         <tr>

@@ -16,17 +16,22 @@ import {
   GET_PT_PACKAGE_DETAIL_CLASS_FAILURE,
   GET_PT_PACKAGE_TEST_QUESTION_SUCCESS,
   GET_PT_PACKAGE_TEST_QUESTION_REQUEST,
-  GET_PT_PACKAGE_TEST_QUESTION_FAILURE
+  GET_PT_PACKAGE_TEST_QUESTION_FAILURE,
+  GET_PT_PACKAGE_EXERCISE_LIST_SUCCESS,
+  GET_PT_PACKAGE_EXERCISE_LIST_REQUEST,
+  GET_PT_PACKAGE_EXERCISE_LIST_FAILURE
 } from '../../constants';
 
 const initialState = {
   isLoading: false,
   isQuestionLoading: false,
+  isExerciseListLoading: false,
   error: null,
   packets:null,
   classDetail:null,
-  classDetailItem:null,
+  classDetailItem:[],
   testQuestion:null,
+  exerciseList:null
 };
 
 export default (state = initialState, action) => {
@@ -151,6 +156,25 @@ export default (state = initialState, action) => {
         testQuestion: action.payload,
       };
 
+    case GET_PT_PACKAGE_EXERCISE_LIST_REQUEST:
+      return {
+        ...state,
+        isQuestionLoading: true,
+      };
+
+    case GET_PT_PACKAGE_EXERCISE_LIST_FAILURE:
+      return {
+        ...state,
+        isQuestionLoading: false,
+        error: action.payload.message,
+      };
+
+    case GET_PT_PACKAGE_EXERCISE_LIST_SUCCESS:
+      return {
+        ...state,
+        isExerciseListLoading: false,
+        exerciseList: action.payload,
+      };
 
     default:
       return state;

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components/macro';
 import { makeStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -13,14 +13,14 @@ const useStyles = makeStyles({
     backgroundColor: '#00B2A9',
   },
 });
+
 const Exercises = ({ setPage = () => {} }) => {
-  useEffect(() => {}, []);
   const classes = useStyles();
   var temp = ['55', '55s5d', '626', 'd', 'sdsd', 'sdasd', 'sdad'];
   function locationSelector(index) {
-    if (index % 3 == 0) {
+    if (index % 3 === 0) {
       return 'start';
-    } else if (index % 3 == 2) {
+    } else if (index % 3 === 2) {
       return 'end';
     } else {
       return 'mid';
@@ -32,10 +32,7 @@ const Exercises = ({ setPage = () => {} }) => {
   function _renderExercises() {
     return temp.map((elm, index) => (
       <Col key={index} style={{ padding: 0 }} lg="4">
-        <CustomProgress
-          location={temp.length - 1 == index ? 'end' : locationSelector(index)}
-          active="false"
-        ></CustomProgress>
+        <CustomProgress location={temp.length - 1 === index ? 'end' : locationSelector(index)} active='false' />
         <ExerciseCard onClickExercise={onClickExercise} />
       </Col>
     ));
@@ -43,14 +40,6 @@ const Exercises = ({ setPage = () => {} }) => {
   return (
     <Wrapper>
       <StyledRow header style={{}}>
-        {/* <Title
-          style={{ cursor: 'pointer', padding: 5 }}
-          fontSize="14pt"
-          textAlign="left"
-          onClick={() => setPage('Home')}
-        >
-          {`< Ana Sayfa`}
-        </Title> */}
         <div style={{display:'flex', flex:'1', marginTop:'10px'}}>
           <Title
             style={{ cursor: 'pointer', padding: 5 }}
@@ -61,15 +50,11 @@ const Exercises = ({ setPage = () => {} }) => {
           </Title>
           <ExerciseCreateBtn onClick={onClickExercise}>
             <Svg.BluePlusIcon />
-            <ButtonText >Egzersiz Ekle</ButtonText>
+            <ButtonText>Egzersiz Ekle</ButtonText>
           </ExerciseCreateBtn>
-
         </div>
 
-
         <Col lg="12" style={{ padding: 10 }}>
-
-
           <HeaderText>Egzersizler</HeaderText>
 
           <LinearProgress
