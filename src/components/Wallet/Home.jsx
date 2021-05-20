@@ -7,18 +7,24 @@ import styled from 'styled-components/macro';
 import image from '../../assets/my-wallet.jpg';
 import Svg from 'components/statics/svg';
 import Wrapper from './Wrapper';
-import { getWallet } from 'actions/userProfileActions/walletActions';
+import {
+  getWallet,
+  getWalletTransactions,
+} from 'actions/userProfileActions/walletActions';
 
 const Home = ({ setPage }) => {
   // TODO : Backend tarafından data gelecek
   const wallet = useSelector((state) => state?.userProfile?.wallet);
-
+  const { data } = useSelector(
+    (state) => state?.userProfile?.wallet.transactionsData
+  );
   const { user } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getWallet());
+    dispatch(getWalletTransactions());
   }, []);
 
   return (
@@ -79,27 +85,31 @@ const Home = ({ setPage }) => {
                   onClick={() => setPage('UserTransfer')}
                 />
               )}
-              <Col xs={{ span: 7, offset: 5 }}>
-                <Row
-                  style={{ marginTop: 50, marginBottom: 40 }}
-                  className="justify-content-end"
-                >
-                  {user.type_id !== 1 && (
-                    <Button
-                      style={{ width: '100%', padding: '20px' }}
-                      className="blue"
-                      text="Hesabıma Aktar"
-                      onClick={() => setPage('transfer')}
-                    />
-                  )}
-                  {user.type_id !== 1 && (
-                    <Text textAlign="right" color="red">
-                      Hesaba para aktarma işlemi yalnızca her ayın 15. ve
-                      20.günleri arasında yapılır.
-                    </Text>
-                  )}
-                </Row>
-              </Col>
+              {data?.length > 0 ? (
+                <Col xs={{ span: 7, offset: 5 }}>
+                  <Row
+                    style={{ marginTop: 50, marginBottom: 40 }}
+                    className="justify-content-end"
+                  >
+                    {user.type_id !== 1 && (
+                      <Button
+                        style={{ width: '100%', padding: '20px' }}
+                        className="blue"
+                        text="Hesabıma Aktar"
+                        onClick={() => setPage('transfer')}
+                      />
+                    )}
+                    {user.type_id !== 1 && (
+                      <Text textAlign="right" color="red">
+                        Hesaba para aktarma işlemi yalnızca her ayın 15. ve
+                        20.günleri arasında yapılır.
+                      </Text>
+                    )}
+                  </Row>
+                </Col>
+              ) : (
+                ''
+              )}
             </>
           </Col>
         </Row>

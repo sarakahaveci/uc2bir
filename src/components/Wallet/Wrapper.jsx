@@ -8,7 +8,7 @@ import { getWalletTransactions } from 'actions/userProfileActions/walletActions'
 
 const Wrapper = () => {
   const transactionsData = useSelector(
-    (state) => state?.userProfile?.wallet.transactionsData
+    (state) => state?.userProfile?.wallet.transactionsData.data
   );
   const dispatch = useDispatch();
   useEffect(() => {
@@ -18,7 +18,7 @@ const Wrapper = () => {
   // TODO : Backend tarafından data gelecek
   return (
     <div>
-      {transactionsData.length > 0 ? (
+      {transactionsData?.length > 0 ? (
         <StyledWrapper>
           <Accordion.Item>
             <Accordion.Toggle>

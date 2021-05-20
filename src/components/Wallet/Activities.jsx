@@ -17,7 +17,7 @@ import { getWalletTransactions } from 'actions/userProfileActions/walletActions'
 
 const Activities = ({ setPage }) => {
   const transactionsData = useSelector(
-    (state) => state?.userProfile?.wallet.transactionsData
+    (state) => state?.userProfile?.wallet.transactionsData.data
   );
   const dispatch = useDispatch();
   useEffect(() => {
@@ -25,7 +25,10 @@ const Activities = ({ setPage }) => {
   }, []);
 
   const [open, setOpen] = useState(false);
+  const [paymentType, setPaymentType] = useState('');
+  // const [date, setDate] = useState(1);
   const fullWidth = true;
+
   return (
     <>
       <Container>
@@ -59,9 +62,12 @@ const Activities = ({ setPage }) => {
                   <FilterSelect>
                     <Col>
                       <Material.SimpleSelect
+                        onChange={(e) => {
+                          setPaymentType(e.target.value);
+                        }}
                         label="Ödeme Şekli"
                         items={[
-                          { id: 'all', name: 'Hepsi' },
+                          { id: '', name: 'Hepsi' },
                           { id: 'wallet', name: 'Cüzdan' },
                           { id: 'card', name: 'Kredi Kartı' },
                         ]}
@@ -71,17 +77,17 @@ const Activities = ({ setPage }) => {
                       <Material.SimpleSelect
                         label="Dönem"
                         items={[
-                          { id: 'all', name: 'Hepsi' },
-                          { id: '7', name: 'Son 7 Gün' },
-                          { id: '15', name: 'Son 15 Gün' },
-                          { id: '30', name: 'Son 1 Ay' },
-                          { id: '90', name: 'Son 3 Ay' },
+                          { id: 1, name: 'Hepsi' },
+                          { id: 2, name: 'Son 7 Gün' },
+                          { id: 3, name: 'Son 15 Gün' },
+                          { id: 4, name: 'Son 1 Ay' },
+                          { id: 5, name: 'Son 3 Ay' },
                         ]}
                       />
                     </Col>
-                    <Button className="blue" text="Listele" />
+                    {/* <Button className="blue" text="Listele" onClick={handleClick} /> */}
                   </FilterSelect>
-                  <Data />
+                  <Data paymentType={paymentType} date={date} />
                   <Row className="justify-content-end">
                     <Button
                       style={{ textDecoration: 'underline' }}

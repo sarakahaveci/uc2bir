@@ -5,6 +5,9 @@ import {
   GET_WALLET_TRANSACTIONS_SUCCESS,
   GET_WALLET_TRANSACTIONS_REQUEST,
   GET_WALLET_TRANSACTIONS_FAILURE,
+  GET_WALLET_TRANSACTIONS_PERPAGE_REQUEST,
+  GET_WALLET_TRANSACTIONS_PERPAGE_SUCCESS,
+  GET_WALLET_TRANSACTIONS_PERPAGE_FAILURE,
 } from '../../constants';
 
 const initialState = {
@@ -12,6 +15,7 @@ const initialState = {
   isLoading: false,
   error: null,
   transactionsData: [],
+  transactionsPerPage: [],
 };
 
 export default (state = initialState, action) => {
@@ -54,6 +58,26 @@ export default (state = initialState, action) => {
         ...state,
         isLoading: false,
         transactionsData: action.payload,
+      };
+
+    case GET_WALLET_TRANSACTIONS_PERPAGE_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+
+    case GET_WALLET_TRANSACTIONS_PERPAGE_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload.message,
+      };
+
+    case GET_WALLET_TRANSACTIONS_PERPAGE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        transactionsPerPage: action.payload,
       };
 
     default:
