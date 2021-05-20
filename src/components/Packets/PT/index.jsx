@@ -8,6 +8,7 @@ import ExerciseDetail from './ExerciseDetail';
 const PT = ({ icons, setBannerActive }) => {
   const [page, setPage] = useState('Home');
   const [packageData, setPackageData] = useState();
+  const [lessonId, setLessonId] = useState();
 
   switch (page) {
     case 'Home':
@@ -26,6 +27,8 @@ const PT = ({ icons, setBannerActive }) => {
             icons={icons}
             setBannerActive={setBannerActive}
             packageData={packageData}
+            lessonId={lessonId}
+            setLessonId={setLessonId}
           />
         </div>
       );
@@ -48,6 +51,7 @@ const PT = ({ icons, setBannerActive }) => {
             icons={icons}
             setBannerActive={setBannerActive}
             packageData={packageData}
+            lessonId={lessonId}
           />
         </div>
       );

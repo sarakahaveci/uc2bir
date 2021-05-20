@@ -7,7 +7,7 @@ import { AddExercise, Button, Title } from 'components';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Svg from 'components/statics/svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPackageExerciseList } from '../../../actions';
+import { getPackageExerciseList, setPackageExerciseList } from '../../../actions';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
@@ -18,15 +18,17 @@ import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import ReactHtmlParser from 'react-html-parser';
 import { decode } from 'html-entities';
+import { toast } from 'react-toastify';
 const useStyles = makeStyles({
   barColorPrimary: {
     backgroundColor: '#00B2A9',
   },
 });
-const ExerciseDetail = ({ setPage = () => {},packageData }) => {
+const ExerciseDetail = ({ setPage = () => {},packageData, lessonId }) => {
   const classes = useStyles();
   const [categorySelection, setCategorySelection] = useState('');
   const [exerciseItem, setExerciseItem] = useState('');
+  const [trainingId, setTrainingId] = useState('');
   const [data, setData] = useState({});
   const dispatch = useDispatch();
   const { exerciseList } = useSelector(
@@ -36,6 +38,33 @@ const ExerciseDetail = ({ setPage = () => {},packageData }) => {
   useEffect(() => {
     dispatch(getPackageExerciseList({package_uuid:packageData?.package_uuid, appointment_id:packageData?.appointment_id}));
   }, []);
+
+
+  const succsess = () => {
+    setPage('Exercises')
+    toast.success(`Dersiniz Kaydedilmiştir`, {
+      position: 'bottom-right',
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+
+
+  const saveExercise = () =>{
+    dispatch(setPackageExerciseList(
+        {
+          ...data,
+          training_id: trainingId,
+          lesson_id:lessonId
+        },
+        succsess,
+      )
+    );
+  }
 
   return (
     <Container>
@@ -83,7 +112,9 @@ const ExerciseDetail = ({ setPage = () => {},packageData }) => {
                 ) : (
                   <RadioButtonUncheckedIcon
                     onClick={() => {
-                     setExerciseItem(index+1)
+                     setExerciseItem(index+1);
+                     setTrainingId(item.training_id);
+                     setData({});
                     }}
                     style={{ marginLeft: '5px', cursor: 'pointer' }}
                   />
@@ -158,6 +189,7 @@ const ExerciseDetail = ({ setPage = () => {},packageData }) => {
             text="Kaydet"
             fontSize="10pt"
             style={{width:'90%'}}
+            onClick={()=>saveExercise()}
           />
         </div>
 

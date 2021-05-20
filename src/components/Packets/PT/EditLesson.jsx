@@ -24,13 +24,12 @@ const useStyles = makeStyles({
   },
 });
 
-const EditLesson = ({ setBannerActive = () => {}, setPage = () => {}, packageData }) => {
+const EditLesson = ({ setBannerActive = () => {}, setPage = () => {}, packageData, lessonId,  setLessonId}) => {
   const dispatch = useDispatch();
   const [testName, setTestName] = useState('');
   const [changeable, setChangeable] = useState(false);
   const [question, _question] = useState([]);
   const [answer, _answer] = useState({});
-  const [lessonId, setLessonId] = useState('');
   const fullWidth = true;
   const maxWidth = 'sm';
   const [modal, setModal] = useState(false);
@@ -49,6 +48,7 @@ const EditLesson = ({ setBannerActive = () => {}, setPage = () => {}, packageDat
 
   const succsess = () => {
     setModal(false);
+    dispatch(getPackageClass({package_uuid:packageData?.package_uuid, appointment_id:packageData?.appointment_id}));
     toast.success(`Soru cevapları gönderildi.`, {
       position: 'bottom-right',
       autoClose: 2000,
@@ -95,6 +95,7 @@ const EditLesson = ({ setBannerActive = () => {}, setPage = () => {}, packageDat
     if(item?.type==='lesson'){
       setPage('Exercises');
       dispatch(getPackageClassDetail({package_uuid, appointment_id, lesson_id:item?.id, type:item?.type}));
+      setLessonId(item?.id)
     }else if(item.is_changeable){
       setModal(true)
       dispatch(getPackageTestQuestions({package_uuid, appointment_id, lesson_id:item?.id}));

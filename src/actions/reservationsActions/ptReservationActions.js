@@ -7,8 +7,10 @@ import {
   GET_PT_PACKAGE_DETAIL_CLASS,
   GET_PT_PACKAGE_TEST_QUESTION,
   SET_PT_PACKAGE_TEST_QUESTION,
-  GET_PT_PACKAGE_EXERCISE_LIST
+  GET_PT_PACKAGE_EXERCISE_LIST,
+  SET_PT_PACKAGE_EXERCISE_LIST
 } from '../../constants';
+import { toast } from 'react-toastify';
 
 export const getPtAwaitings = (date) => async (dispatch) => {
   let url = '/appointment/pt-calendar/pending';
@@ -214,6 +216,28 @@ export const getPackageExerciseList = (data) => async (dispatch) => {
     },
   });
 };
+
+export const setPackageExerciseList = (data, successCallback) => async (dispatch) => {
+  const url = '/user/pt-package/training';
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'POST',
+      url,
+      label: SET_PT_PACKAGE_EXERCISE_LIST,
+      body: { ...data },
+      transformData: (data) => data.data,
+      callBack: () => successCallback(),
+      errorHandler: (error) =>
+        toast.error(error.message, {
+        position: 'bottom-right',
+        autoClose: 2000,
+      }),
+    },
+  });
+};
+
 
 export const getPackageClassDetail = (data) => async (dispatch) => {
   let url = '/user/pt-package/appointment-lesson-detail';
