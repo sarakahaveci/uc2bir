@@ -19,7 +19,6 @@ const center = { lat: 39.925533, lng: 32.866287 };
 export default function GoogleMapClusterer({ data, onSelected, isSaloonMap }) {
   const [selectedMarker, setSelectedMarker] = useState(null);
   const mapContainerStyle = { width: '100%', height: '100%' };
-
   const options = { maxZoom: 15 };
   useEffect(() => {
     onSelected && onSelected(selectedMarker);
@@ -48,7 +47,7 @@ export default function GoogleMapClusterer({ data, onSelected, isSaloonMap }) {
       >
         <MarkerClusterer options={options}>
           {(clusterer) =>
-            data?.lenght > 0 &&
+            data?.length > 0 &&
             data?.map((professional) => {
               const lat = +professional?.address?.lat || professional?.lat;
               const lng = +professional?.address?.lng || professional?.lng;

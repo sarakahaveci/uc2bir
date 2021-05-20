@@ -11,7 +11,7 @@ export default function ProfileCertificate({ userId }) {
   useEffect(() => {
     dispatch(getUserCertificate(userId));
   }, []);
-
+  
   return certificate.length > 0 ? (
     certificate?.map((data, index) => (
       <Certificate

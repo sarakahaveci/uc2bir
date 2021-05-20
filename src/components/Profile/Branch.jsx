@@ -24,13 +24,11 @@ const UserDetails = ({ userId }) => {
           return (
             <StyledRow key={index}>
               <Order>{index + 1}.</Order>
-
               <AccordionItem>
                 <Accordion.Item>
                   <Accordion.Toggle>
                     <BranchCardHeader data={item} />
                   </Accordion.Toggle>
-
                   <Accordion.Collapse>
                     <BranchCardBody speciality={item.speciality} />
                   </Accordion.Collapse>

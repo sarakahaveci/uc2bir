@@ -610,8 +610,7 @@ export default function PaymentCard({ type, dateOption }) {
               : reservation?.data?.totals_amount}
           </Text>
         </BottomContainer>
-        {type !== 'buy_packet' &&
-          type !== 'upgrade_packet' &&
+        {(type == 'pt'|| type == 'dt'|| type == 'packet') &&
           (reservation?.data?.payment_type ? (
             <BottomContainer>
               <Button

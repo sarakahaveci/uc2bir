@@ -12,14 +12,13 @@ import s3 from '../../assets/banner/dw2.jpg';
 import s4 from '../../assets/blog/image-1.png';
 
 import vid from '../../assets/girisvideo1920x660.mp4';
-import { searchGymForPt } from 'actions';
 const Banner = () => {
   const dispatch = useDispatch();
   const [virtual, setVirtual] = useState('pt');
   const handleChangeVirtual = (value) => {
     dispatch({ type: SET_SEARCH_PROFESSIONAL_TYPE, payload: value });
     setVirtual(value);
-    dispatch(searchGymForPt()); //DEĞİŞECEK
+    //dispatch(searchGymForPt()); //DEĞİŞECEK
   };
   const { data } = useSelector(
     (state) => state.profileSettings2.sessionType.searchGym
