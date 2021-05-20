@@ -15,7 +15,7 @@ export default function ChatBox({ message, isMyMessage, file }) {
           <span className="text">{message}</span>
         </StyledTitle> 
       ) : (
-        <img src={message} width="200px" height="200px" />
+        <img style={{objectFit:"cover"}} src={message} width="200px" height="200px" />
       )}
     </div>
   );
