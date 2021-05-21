@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import styled from 'styled-components/macro';
 import image from '../../assets/my-wallet.jpg';
-import Svg from 'components/statics/svg';
 import Wrapper from './Wrapper';
 import {
   getWallet,
@@ -14,7 +13,7 @@ import {
 
 const Home = ({ setPage }) => {
   // TODO : Backend tarafından data gelecek
-  const wallet = useSelector((state) => state?.userProfile?.wallet);
+  const { balance } = useSelector((state) => state?.userProfile?.wallet.data);
   const { data } = useSelector(
     (state) => state?.userProfile?.wallet.transactionsData
   );
@@ -56,9 +55,8 @@ const Home = ({ setPage }) => {
                 <Col>
                   <TitleWrapper>
                     <Title textAlign="right" style={{ display: 'flex' }}>
-                      {wallet?.data?.balance}
+                      {balance.toFixed(2)}₺
                     </Title>
-                    <Svg.Tl />
                   </TitleWrapper>
                 </Col>
               </Explanation>
@@ -152,10 +150,5 @@ const Explanation = styled.section`
 const TitleWrapper = styled.div`
   display: flex;
   align-items: center;
-  svg {
-    width: 12px;
-    height: 12px;
-    margin-bottom: 8px;
-  }
 `;
 export default Home;
