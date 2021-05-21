@@ -51,7 +51,7 @@ const Trainers = ({
         type: 'pt',
         lat: 0,
         lng: 0,
-        classification: level || classification,
+        classification: packetLevel || level,
       })
     );
   }, []);
@@ -94,7 +94,7 @@ const Trainers = ({
         branch,
         location,
         type: 'pt',
-        classification: level || classification,
+        classification:packetLevel || level
       })
     );
   };
