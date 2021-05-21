@@ -24,7 +24,7 @@ const SearchProfessional = () => {
 
   const [ratings, setRatings] = useState([]);
   const [classification, setClassification] = useState('');
-  const [showFilters, setShowFilters] = useState(false);
+  const [showFilters, setShowFilters] = useState(false); 
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -32,6 +32,7 @@ const SearchProfessional = () => {
   const searchParams = queryString.parse(useLocation().search);
 
   const { type } = searchParams || 'packets';
+  const { subType } = searchParams
 
   const userTypeText = 'Paket';
 
@@ -44,9 +45,9 @@ const SearchProfessional = () => {
       price = '[0, 1000]',
       ratings = '[]',
       classification,
-      type = 'packets', //hata olabilir
+      type = 'packets',
+      subType = 'pt' //hata olabilir  //BURASINI DİNAMİK YAPPPPPPPPPP
     } = searchParams;
-
     // Parsing this because it is coming string from url such as '[0, 1000]'
     const parsedPrice = JSON.parse(price);
     const parsedRatings = JSON.parse(ratings);
@@ -70,6 +71,7 @@ const SearchProfessional = () => {
         branch,
         location,
         type,
+        subType,
         page,
         classification,
       })
@@ -150,7 +152,18 @@ const SearchProfessional = () => {
                 />
               </div>
             </SearchCol>
-
+            <SearchCol>
+              <div className="search-trainer__location-row">
+                <select defaultValue={subType} onChange={(e)=>{
+                  
+                  history.push(`/packets?subType=${e.target.value}`
+                  )}} name="packet-type" id="packet-type">
+                  <option value="pt">Eğitmen Paketleri</option>
+                  <option value="dt">Dietisyen Paketleri</option>
+                </select>
+        
+              </div>
+            </SearchCol>
             <SearchCol sm={12}>
               <FilterButton onClick={() => setShowFilters(!showFilters)}>
                 Filtrele
@@ -193,6 +206,7 @@ const SearchProfessional = () => {
               {data?.data?.map((packet) => (
                 <PacketCard
                   showHeartBg
+                  subType={subType || 'pt'}
                   key={packet?.id || packet?.user_id}
                   data={packet}
                   city={packet?.city}

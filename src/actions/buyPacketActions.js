@@ -5,9 +5,18 @@ import {
   CLEAR_PACKET_RESERVATION,
 } from '../constants';
 
-export const getPacketDetail = (id) => async (dispatch) => {
-  let url = `https://gateway.321.4alabs.com/cms/package/detail/${id}`;
-
+export const getPacketDetail = (type, id) => async (dispatch) => {
+  let url;
+  switch (type) {
+    case 'pt':
+      url = `https://gateway.321.4alabs.com/cms/package/detail/${id}`;
+      break;
+    case 'dt':
+      url = `https://gateway.321.4alabs.com/user/package/detail/${id}`;
+      break;
+    default:
+      break;
+  }
   await dispatch({
     type: HTTP_REQUEST,
     payload: {

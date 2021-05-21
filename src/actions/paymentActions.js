@@ -38,7 +38,18 @@ export const sendReservation =
   };
 export const sendPackageReservation =
   (type, body, successCallback) => async (dispatch) => {
-    const url = `/user/pt-package/buy`;
+    let url;
+
+    switch (type) {
+      case 'pt':
+        url = `/user/pt-package/buy`;
+        break;
+      case 'dt':
+        url = `/user/dt-package/buy`;
+        break; 
+      default:
+        break;
+    }
 
     await dispatch({
       type: HTTP_REQUEST,

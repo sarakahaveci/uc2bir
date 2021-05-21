@@ -15,7 +15,7 @@ export const getAreaForPT =
     if (hour) extras += `hour=${hour}&`;
     if (branch_id) extras += `branch_id=${branch_id}&`;
     if (session) extras += `session=${session}&`;
-    if (session) extras += `page=${1}&`;
+    if (page) extras += `page=${1}&`;
 
     url += extras;
     await dispatch({
@@ -104,6 +104,29 @@ export const getPacketPtReservationCalendar =
     if (package_uuid) extras += `package_uuid=${package_uuid}&`;
     if (pt_id) extras += `pt_id=${pt_id}&`;
 
+    if (date) extras += `date=${date}&`;
+    if (hour) extras += `hour=${hour}&`;
+    if (session) extras += `session=${session}&`;
+    if (location_id) extras += `location_id=${location_id}&`;
+
+    url += extras;
+    await dispatch({
+      type: HTTP_REQUEST,
+      payload: {
+        method: 'GET',
+        url,
+        label: GET_PT_RESERVATION_CALENDAR,
+        transformData: (data) => data.data,
+      },
+    });
+  };
+
+  export const getPacketDtReservationCalendar =
+  (package_uuid, date, hour, session, location_id) =>
+  async (dispatch) => {
+    let url = `https://gateway.321.4alabs.com/appointment/dt-calendar/package`;
+    let extras = '?';
+    if (package_uuid) extras += `package_uuid=${package_uuid}&`;
     if (date) extras += `date=${date}&`;
     if (hour) extras += `hour=${hour}&`;
     if (session) extras += `session=${session}&`;

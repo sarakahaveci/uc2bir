@@ -19,7 +19,7 @@ import {
 import { getWallet } from 'actions/userProfileActions/walletActions';
 
 import moment from 'moment';
-export default function PaymentCard({ type, dateOption }) {
+export default function PaymentCard({ match,type, dateOption }) {
   const formRef = useRef(null);
   const packetFormRef = useRef(null);
 
@@ -286,7 +286,7 @@ export default function PaymentCard({ type, dateOption }) {
       is_contracts_accepted: true,
       payment_type: buyPacket.reservation?.payment_type,
     };
-    dispatch(sendPackageReservation('pt', removeEmpty(json), () => {}));
+    dispatch(sendPackageReservation('pt', removeEmpty(json), () => {})); //Burasını değiş
   }
   function sendPaymentDT() {
     var json = {

@@ -126,7 +126,7 @@ const App = () => {
                   component={SearchGroupLesson}
                 />
 
-                <Route exact path="/packets/detail/:id" component={BuyPacket} />
+                <Route exact path="/packets/:type/detail/:id" component={BuyPacket} />
 
                 <Route exact path="/contact" component={Contact} />
                 <Route exact path="/buy/:status" component={BuyStatus} />

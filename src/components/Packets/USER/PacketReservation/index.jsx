@@ -25,6 +25,8 @@ import {
 
   //getTemplates,
   getPacketPtReservationCalendar,
+  getPacketDtReservationCalendar,
+
   deleteAllSlot,
   getPtGymList,
   getPtWorkingHomePlace,
@@ -56,6 +58,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
   const wallet = useSelector((state) => state.userProfile.wallet);
   const staticPages = useSelector((state) => state.staticPages);
   const reservation = useSelector((state) => state.reservation);
+  const {type} = useSelector((state) => state.reservation?.data?.packetInfo);
 
   useEffect(() => {
     setBannerActive(false);
@@ -65,8 +68,10 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
   }, []);
   useEffect(() => {}, [userInfo]); //USER İNFO KOMPLE EKSİK
   useEffect(() => {
-    dispatch(getPtGymList(reservation?.data?.selectedPt?.user_id));
-    dispatch(getPtWorkingHomePlace(reservation?.data?.selectedPt?.user_id));
+    if(type =='pt'){
+      dispatch(getPtGymList(reservation?.data?.selectedPt?.user_id));
+      dispatch(getPtWorkingHomePlace(reservation?.data?.selectedPt?.user_id));
+    }
   }, [reservation?.data?.selectedPt]);
   useEffect(() => {
     // iF DATE OPTİON TRUE
@@ -87,24 +92,28 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
   }, [reservation?.data?.session]);
 
   useEffect(() => {
-    /*console.log('reservation?.data?.session', reservation?.data?.session);
-    console.log('reservation?.data?.date', reservation?.data?.date);
-    console.log(
-      ' reservation?.data?.selectedPt',
-      reservation?.data?.selectedPt
-    );*/
-
-    if (
-      // reservation?.data?.branch_id &&
-      reservation?.data?.session &&
-      reservation?.data?.date &&
-      reservation?.data?.selectedPt
-    ) {
-      // alert('ds');
+ 
+    if(type == 'pt'){
+      if (
+        reservation?.data?.session &&
+        reservation?.data?.date &&
+        reservation?.data?.selectedPt
+      ) {
+        dispatch(
+          getPacketPtReservationCalendar(
+            reservation.data.package_uuid,
+            reservation?.data?.selectedPt?.user_id,
+            reservation.data?.date,
+            null,
+            reservation.data?.session,
+            reservation?.data?.location_id
+          )
+        );
+      }
+    }else if(type == 'dt'){
       dispatch(
-        getPacketPtReservationCalendar(
+        getPacketDtReservationCalendar(
           reservation.data.package_uuid,
-          reservation?.data?.selectedPt?.user_id,
           reservation.data?.date,
           null,
           reservation.data?.session,
@@ -112,6 +121,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
         )
       );
     }
+    
   }, [
     reservation?.data?.branch_id,
     reservation?.data?.session,
@@ -119,35 +129,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
     reservation?.data?.selectedPt,
     reservation?.data?.location_id,
   ]);
-  useEffect(() => {
-    if (!city) {
-      axios
-        .post(uri)
-        .then((res) => res.data)
-        .then((data) => data.data)
-        .then((data) => {
-          const new_data = data?.map((val) => {
-            return {
-              id: val.id,
-              val: val.id,
-              name: val.name,
-            };
-          });
-          return setCity(new_data);
-        })
-        .catch((err) =>
-          toast.error(err, {
-            position: 'bottom-right',
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          })
-        );
-    }
-  }, [city]);
+  
 
   function WorkAreaSelect() {
     switch (reservation?.data?.session) {
@@ -486,7 +468,8 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
                   />
                 </InputContainer>
               )}
-              <InputContainer>
+              {
+                type == 'pt' &&<InputContainer>
                 <Text color="#9B9B9B">{'Eğitmen Seçiniz:'}</Text>
                 <div
                   style={{ cursor: 'pointer' }}
@@ -503,6 +486,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
                   </div>
                 </div>
               </InputContainer>
+              }
               {reservation?.data?.selectedPt && (
                 <InputContainer>
                   <TrainerCard
