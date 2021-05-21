@@ -26,7 +26,6 @@ const User = ({ icons, setBannerActive }) => {
 
   useEffect(() => {
     dispatch(getSessionTypes());
-    dispatch(getUserMyPacket());
   }, []);
 
   const select = (key) => {

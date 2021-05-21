@@ -23,13 +23,13 @@ const BuyPacket = ({ match }) => {
 
   useEffect(() => {
     dispatch(getWallet());
-    dispatch(getPacketDetail(match?.params?.id));
+    dispatch(getPacketDetail(match?.params?.type,match?.params?.id));
   }, []);
   useEffect(() => {
     dispatch(
       setPacketReservation({
         totals_amount: packet?.data?.price,
-        id: packet?.data?.id,
+        id: match?.params?.id
       })
     );
   }, [packet?.data]);

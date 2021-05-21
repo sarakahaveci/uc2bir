@@ -25,6 +25,7 @@ export const searchProffesional =
       branch,
       location,
       type,
+      subType,
       page,
       classification,
     },
@@ -34,7 +35,8 @@ export const searchProffesional =
     const gymUrl = '/user/search/detail-search-gym?';
     const dietitionUrl = '/user/search/detail-search-dt?';
     const ptUrl = '/user/search/detail-search-pt?';
-    const packetUrl = '/cms/package/list?';
+    const packetUrl_pt = '/cms/package/list?';
+    const packetUrl_dt = '/user/package/list?';
 
     let url;
     switch (type) {
@@ -48,7 +50,11 @@ export const searchProffesional =
         url = dietitionUrl;
         break;
       case 'packets':
-        url = packetUrl;
+        if(subType=='pt'){
+          url = packetUrl_pt;
+        }else if(subType=='dt'){
+          url=packetUrl_dt;
+        }
         break;
       default:
         break;

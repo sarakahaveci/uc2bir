@@ -9,6 +9,7 @@ const PacketCard = ({
   district,
   hoverText = 'Pakete Git',
   isGym,
+  subType,
   onClickHover = () => {},
   selected = false,
   type,
@@ -17,7 +18,7 @@ const PacketCard = ({
 
   const navigateToPacket = () => {
     const userId = data?.id || data?.user_id;
-    history.push('/packets/detail/' + userId);
+    history.push(`/packets/${subType}/detail/` + userId);
   };
 
   return (
@@ -49,10 +50,10 @@ const PacketCard = ({
 
       <div className="long-user-card__body">
         <Title textAlign="left" component="h5">
-          {data?.name}
+          {data?.name || data?.title}
         </Title>
 
-        <Span underline>{data?.branch}</Span>
+        <Span underline>{data?.dt?.name}</Span>
 
         <div className="long-user-card__location-wrapper">
           <div className="long-user-card__location-text">

@@ -7,9 +7,14 @@ import {
   GET_USER_MY_PACKET_EXERCISE_DETAIL,
 } from '../constants';
 
-export const getUserMyPacket = () => async (dispatch) => {
-  const url = `/user/purchased-package/`;
+export const getUserMyPacket = (page) => async (dispatch) => {
+  let url = `/user/purchased-package/`;
+  let extras = '?';
 
+ 
+  if (page) extras += `page=${page}&`;
+
+  url += extras;
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
