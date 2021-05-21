@@ -2,13 +2,23 @@ import Svg from 'components/statics/svg';
 import React, { useState } from 'react';
 import styled from 'styled-components/macro';
 import { device } from 'utils';
+import { toast } from 'react-toastify';
 
-const AddExercise = ({item, data, setData}) => {
+const AddExercise = ({item, data, setData, index, exerciseItem}) => {
   const [weight, setWeight] = useState(0);
   const [set, setSet] = useState(0);
   const [time, setTime] = useState(0);
   const [breakTime, setBreakTime] = useState(0);
   const [repetition, setRepetition] = useState(0);
+
+  const checkSelected = ()=>{
+    if(exerciseItem!==index){
+      toast.error(`Lütfen İlk Önce Egzersiz Seçimini Yapınız`, {
+        position: 'bottom-right',
+        autoClose: 2000,
+      });
+    }
+  }
 
   return (
     <Container>
@@ -20,11 +30,11 @@ const AddExercise = ({item, data, setData}) => {
         <Row>
           <text>Ağırlık</text>
           <Counter>
-            <CircleButton onClick={() => {setWeight(weight + 1); setData({...data, weight:weight+1})}}>
+            <CircleButton onClick={() => { exerciseItem===index && (setWeight(weight + 1), setData({...data, weight:weight+1})); checkSelected()}}>
               <Svg.PlusIcon />
             </CircleButton>
             <BoldText color="#00B2A9">{weight}kg</BoldText>
-            <CircleButton onClick={() => {setWeight(weight - 1); setData({...data, weight:weight-1})}}>
+            <CircleButton onClick={() => { exerciseItem===index && (setWeight(weight - 1), setData({...data, weight:weight-1})); checkSelected()}}>
               <Svg.Minus />
             </CircleButton>
           </Counter>
@@ -33,11 +43,11 @@ const AddExercise = ({item, data, setData}) => {
         <Row>
           <text>SET</text>
           <Counter>
-            <CircleButton onClick={() => {setSet(set + 1); setData({...data, set:set+1})}}>
+            <CircleButton onClick={() => { exerciseItem===index && (setSet(set + 1), setData({...data, set:set+1})); checkSelected() }}>
               <Svg.PlusIcon />
             </CircleButton>
             <BoldText color="#00B2A9">{set}</BoldText>
-            <CircleButton onClick={() => {setSet(set - 1); setData({...data, set:set-1})}}>
+            <CircleButton onClick={() => { exerciseItem===index && (setSet(set - 1), setData({...data, set:set-1})); checkSelected()}}>
               <Svg.Minus />
             </CircleButton>
           </Counter>
@@ -47,11 +57,11 @@ const AddExercise = ({item, data, setData}) => {
         <Row>
           <text>Zaman</text>
           <Counter>
-            <CircleButton onClick={() => {setTime(time + 0.5); setData({...data, time:time+0.5})}}>
+            <CircleButton onClick={() => {exerciseItem===index && (setTime(time + 1), setData({...data, time:time+1})); checkSelected()}}>
               <Svg.PlusIcon />
             </CircleButton>
             <BoldText color="#00B2A9">{time} dk</BoldText>
-            <CircleButton onClick={() => {setTime(time - 0.5); setData({...data, time:time-0.5})}}>
+            <CircleButton onClick={() => {exerciseItem===index && (setTime(time - 1), setData({...data, time:time-1})); checkSelected()}}>
               <Svg.Minus />
             </CircleButton>
           </Counter>
@@ -61,11 +71,11 @@ const AddExercise = ({item, data, setData}) => {
         <Row>
           <text>Mola</text>
           <Counter>
-            <CircleButton onClick={() => {setBreakTime(breakTime + 0.5); setData({...data, breakTime:breakTime+0.5})}}>
+            <CircleButton onClick={() => {exerciseItem===index &&(setBreakTime(breakTime + 5), setData({...data, breakTime:breakTime+5})); checkSelected()}}>
               <Svg.PlusIcon />
             </CircleButton>
-            <BoldText color="#00B2A9">{breakTime} dk</BoldText>
-            <CircleButton  onClick={() => {setBreakTime(breakTime - 0.5); setData({...data, breakTime:breakTime-0.5})}}>
+            <BoldText color="#00B2A9">{breakTime} sn</BoldText>
+            <CircleButton  onClick={() => {exerciseItem===index &&(setBreakTime(breakTime - 5), setData({...data, breakTime:breakTime-5})); checkSelected()}}>
               <Svg.Minus />
             </CircleButton>
           </Counter>
@@ -75,11 +85,11 @@ const AddExercise = ({item, data, setData}) => {
         <Row end={'true'}>
           <text>Tekrar</text>
           <Counter>
-            <CircleButton  onClick={() => {setRepetition(repetition + 1); setData({...data, repetition:repetition+1})}}>
+            <CircleButton  onClick={() => {exerciseItem===index &&(setRepetition(repetition + 1), setData({...data, repetition:repetition+1})); checkSelected()}}>
               <Svg.PlusIcon />
             </CircleButton>
             <BoldText color="#00B2A9">{repetition}</BoldText>
-            <CircleButton onClick={() => {setRepetition(repetition - 1); setData({...data, repetition:repetition-1})}}>
+            <CircleButton onClick={() => {exerciseItem===index &&(setRepetition(repetition - 1), setData({...data, repetition:repetition-1})); checkSelected()}}>
               <Svg.Minus />
             </CircleButton>
           </Counter>

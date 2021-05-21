@@ -91,6 +91,7 @@ import ActiveHeart from './images/active-heart.svg';
 import HeadPhone from './images/headphone.svg';
 import ClockIcon from './images/clock.svg';
 import ClockMediumIcon from './images/clockMedium.svg';
+import ExerciseIcon from './images/exercise.svg';
 
 import GuestIcon from './images/guest.svg';
 import MockImage from './images/mock-image.svg';
@@ -125,6 +126,7 @@ import Approve from './images/approve.svg';
 import Ql from './images/quote-left.svg';
 import Qr from './images/quote-right.svg';
 import PhoneMissed from './images/phone-missed.svg';
+import DotsIcon from './images/dots.svg';
 
 import WhitePencil from './images/white-pencil.svg';
 
@@ -205,6 +207,8 @@ const Svg = {
     <ReactSVG {...props} src={CimnastikSportIcon} />
   ),
   KickBoxSportIcon: (props) => <ReactSVG {...props} src={KickBoxSportIcon} />,
+  ExerciseIcon: (props) => <ReactSVG {...props} src={ExerciseIcon} />,
+  DotsIcon: (props) => <ReactSVG {...props} src={DotsIcon} />,
   PilatesSportIcon: (props) => <ReactSVG {...props} src={PilatesSportIcon} />,
   PlusIcon: (props) => <ReactSVG {...props} src={Plus} />,
   SwimSportIcon: (props) => <ReactSVG {...props} src={SwimSportIcon} />,

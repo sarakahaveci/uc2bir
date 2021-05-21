@@ -7,6 +7,9 @@ import { Container, Row, Col } from 'react-bootstrap';
 import ExerciseCard from '../ExerciseCard/ExerciseCard';
 import { device } from 'utils';
 import Svg from '../../statics/svg';
+import { useDispatch, useSelector } from 'react-redux';
+import { deletePackageExerciseList, getPackageClassDetail } from '../../../actions';
+import { toast } from 'react-toastify';
 
 const useStyles = makeStyles({
   barColorPrimary: {
@@ -14,9 +17,12 @@ const useStyles = makeStyles({
   },
 });
 
-const Exercises = ({ setPage = () => {} }) => {
+const Exercises = ({ setPage = () => {} , packageData}) => {
+  const { classDetailItem } = useSelector(
+    (state) => state.professionalReservation.ptReservation
+  );
+  const dispatch = useDispatch();
   const classes = useStyles();
-  var temp = ['55', '55s5d', '626', 'd', 'sdsd', 'sdasd', 'sdad'];
   function locationSelector(index) {
     if (index % 3 === 0) {
       return 'start';
@@ -29,11 +35,22 @@ const Exercises = ({ setPage = () => {} }) => {
   function onClickExercise() {
     setPage('ExerciseDetail');
   }
+
+  const onDeleteExercise =(data)=>{
+    dispatch(deletePackageExerciseList({lesson_id:data?.lesson, training_id:data?.training_id},
+      ()=> toast.success(`Egzersiz Başarılı Bir Şekilde Silindi`, {
+        position: 'bottom-right',
+        autoClose: 2000,
+        onClose:dispatch(getPackageClassDetail({package_uuid:packageData?.package_uuid, appointment_id:packageData?.appointment_id, lesson_id:data?.lesson, type:'lesson'}))
+      })));
+
+  }
+
   function _renderExercises() {
-    return temp.map((elm, index) => (
+    return classDetailItem?.trainings?.map((elm, index) => (
       <Col key={index} style={{ padding: 0 }} lg="4">
-        <CustomProgress location={temp.length - 1 === index ? 'end' : locationSelector(index)} active='false' />
-        <ExerciseCard onClickExercise={onClickExercise} />
+        <CustomProgress location={classDetailItem?.trainings.length - 1 === index ? 'end' : locationSelector(index)} active='false' />
+        <ExerciseCard data={elm} onClickExercise={onClickExercise} onDeleteExercise={(data)=> {onDeleteExercise(data);}}/>
       </Col>
     ));
   }

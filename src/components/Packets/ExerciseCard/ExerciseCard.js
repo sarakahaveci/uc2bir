@@ -4,7 +4,7 @@ import Svg from 'components/statics/svg';
 import Slider from 'react-slick';
 import { device } from 'utils';
 
-const ExerciseCard = ({ onClickExercise, type }) => {
+const ExerciseCard = ({ onClickExercise, type, data, onDeleteExercise}) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -17,40 +17,60 @@ const ExerciseCard = ({ onClickExercise, type }) => {
       <ExerciseCardContainer onClick={onClickExercise}>
         <ImagesContainer>
           <Carousel {...settings}>
-            <img
-              style={{ width: '80px', height: '80px' }}
-              key={1}
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png"
-            ></img>
-            <img
-              style={{ width: '80px', height: '80px' }}
-              key={1}
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png"
-            ></img>
+            <Svg.ExerciseIcon style={{ width: '80px', height: '80px' }} />
           </Carousel>
         </ImagesContainer>
         <InfoContainer>
-          <BoldText color="#00B2A9">Normal Plant</BoldText>
+          <BoldText color="#00B2A9">{data?.title}</BoldText>
           <table>
+            {data?.weight&&
             <tr>
               <th>Ağırlık</th>
-              <td>10kg</td>
+              <td>{data?.weight}kg</td>
             </tr>
+            }
+
+            {data?.set&&
             <tr>
               <th>Set</th>
-              <td>1</td>
+              <td>{data?.set}</td>
             </tr>
+            }
+
+            {data?.break&&
             <tr>
               <th>Mola</th>
-              <td>0:30</td>
+              <td>{data?.break}dk</td>
             </tr>
+            }
+
+            {data?.repetition&&
+            <tr>
+              <th>Tekrar</th>
+              <td>{data?.repetition}</td>
+            </tr>
+            }
+
+            {data?.range&&
+            <tr>
+              <th>Aralık</th>
+              <td>{data?.range}</td>
+            </tr>
+            }
+
+            {data?.time&&
+            <tr>
+              <th>Zaman</th>
+              <td>{data?.time}dk</td>
+            </tr>
+            }
           </table>
         </InfoContainer>
         <Svg.ArrowRightIcon style={{ marginRight: '13px' }} />
       </ExerciseCardContainer>
       {type !== 'user' && (
-        <DeleteIcon>
-          <Svg.TrashIcon></Svg.TrashIcon>
+        <DeleteIcon onClick={()=>onDeleteExercise(data)}>
+          <Svg.TrashIcon/>
         </DeleteIcon>
       )}
     </Container>
@@ -62,7 +82,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   width: 385px;
-  height: 175px;
+  height: 195px;
   cursor: pointer;
   @media ${device.sm} {
     width: 98%;
@@ -71,7 +91,7 @@ const Container = styled.div`
 const ExerciseCardContainer = styled.div`
   display: flex;
   width: 365px;
-  height: 155px;
+  height: 175px;
   border-radius: 20px;
   overflow: hidden;
   border-color: #909090;
@@ -106,7 +126,7 @@ const InfoContainer = styled.div`
 
 const BoldText = styled.text`
   display: block;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: bold;
   font-family: 'Poppins', sans-serif;
   color: ${(props) => props.color || 'black'};
@@ -131,6 +151,7 @@ const DeleteIcon = styled.button`
 
 const Carousel = styled(Slider)`
   width: 80%;
-  background: red;
+  display: flex;
+  justify-content: center;
 `;
 export default ExerciseCard;

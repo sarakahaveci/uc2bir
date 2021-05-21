@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
-import { toast } from 'react-toastify'; 
+import { toast } from 'react-toastify';
 import { ISOToTimeConverter } from 'utils';
 import {
   getRoomMessages,
@@ -34,6 +34,7 @@ export default function MessageArea() {
   const { messageSideBarOpen } = useSelector(
     (state) => state.profileSettings2.messages
   );
+  const [fileSendButtonsEnabled, setFileSendButtonsEnabled] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -48,6 +49,7 @@ export default function MessageArea() {
     dispatch(getRooms());
     setFile();
     setPreviewImg(null);
+    setFileSendButtonsEnabled(true)
   };
 
   const handleSubmitMessage = (event) => {
@@ -57,10 +59,12 @@ export default function MessageArea() {
   };
 
   const handleSubmitPhoto = () => {
+    setFileSendButtonsEnabled(false)
     dispatch(sendFileToRoom(file, successMessageCallback));
   };
 
   const handleCancelSubmitPhoto = () => {
+    setFileSendButtonsEnabled(false)
     setPreviewImg(null);
   };
 
@@ -89,10 +93,13 @@ export default function MessageArea() {
         {previewImg &&
           <StyledPreview>
             <img className="preview-img" src={previewImg} />
-            <StyledPreviewButtons>
-              <span onClick={() => { handleCancelSubmitPhoto() }} className="button-container left" >Vazgeç</span>
-              <span onClick={() => { handleSubmitPhoto() }} className="button-container right" >Fotoğrafı Gönder</span>
-            </StyledPreviewButtons>
+
+            {fileSendButtonsEnabled ?
+              <StyledPreviewButtons>  <span onClick={() => { handleCancelSubmitPhoto() }} className="button-container left" >Vazgeç</span>
+                <span onClick={() => { handleSubmitPhoto() }} className="button-container right" >Fotoğrafı Gönder</span>
+              </StyledPreviewButtons>
+              : <StyledPreviewButtons></StyledPreviewButtons>
+            }
           </StyledPreview>
         }
         <div className="message-page__chat__row">
@@ -185,6 +192,7 @@ margin-bottom:30px;
 width:100%;
 justify-content:space-between;
 display:flex;
+min-height:0.9rem;
 background-color:transparent; 
 .button-container{
   width:100%;

@@ -20,9 +20,12 @@ const UserCard = ({ top = false, bottom = false, data = {}, className }) => {
         <div
           className={`img ${className}`}
           style={{
-            backgroundImage: `url(${data?.photo?.default || data?.photo})`,
+            backgroundColor: "var(--blue)",
+            height: '100%', width: '100%', justifyContent: "center", alignItems: "center"
           }}
         >
+          <img src={data?.photo?.default || data?.photo} style={{ objectFit: "cover", height: '100%', width: '100%' }} />
+
           <ul className="points">
             <Stars rating={data.rating} position="top" />
           </ul>

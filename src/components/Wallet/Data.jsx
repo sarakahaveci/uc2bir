@@ -1,49 +1,47 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
 import { useDispatch, useSelector } from 'react-redux';
 import { Pagination, Text } from 'components';
-import {
-  getWalletTransactions,
-  getWallet,
-} from 'actions/userProfileActions/walletActions';
+import { getWalletTransactionsPerPage } from 'actions/userProfileActions/walletActions';
 import moment from 'moment';
 
-const Data = () => {
-  // TODO : Backend den data gelecek
-  const wallet = useSelector((state) => state?.userProfile?.wallet);
-  const transactionsData = useSelector(
-    (state) => state?.userProfile?.wallet.transactionsData
+const Data = ({ paymentType, date }) => {
+  const { data, totalPage } = useSelector(
+    (state) => state?.userProfile?.wallet?.transactionsPerPage
   );
 
-  // const [page, setPage] = useState(1);
-  // const pageChangeHandler = (event, value) => setPage(value);
+  const [page, setPage] = useState(1);
+
+  const pageChangeHandler = (event, pageNumber) => {
+    setPage(pageNumber);
+  };
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getWallet());
-    dispatch(getWalletTransactions());
-  }, []);
+    dispatch(getWalletTransactionsPerPage(25, page, paymentType, date));
+  }, [page, paymentType, date]);
+
   return (
     <div>
-      {transactionsData.length > 0 ? (
+      {data?.length > 0 ? (
         <div>
           <Table>
             <table>
               <tbody>
                 <tr>
                   <th>Tarih</th>
+                  <th>İşlem Türü</th>
                   <th>Ödeme Şekli</th>
                   <th>Tutar</th>
-                  <th>Bakiye</th>
                 </tr>
-                {transactionsData &&
-                  transactionsData.map((item, index) => (
+                {data &&
+                  data.map((item, index) => (
                     <tr key={index}>
                       <td>{moment(item?.updated_at).format('LLL')}</td>
+                      <td>{item.info}</td>
                       <td>{item.payment_type}</td>
                       <td>{item.amount}₺</td>
-                      <td> {wallet?.data?.balance}₺</td>
                     </tr>
                   ))}
               </tbody>
@@ -51,9 +49,9 @@ const Data = () => {
           </Table>
           <Pagination
             mt="10px"
-            // page={pageNumber}
-            // onChange={pageChangeHandler}
-            // count={}
+            page={page}
+            onChange={pageChangeHandler}
+            count={totalPage}
           />
         </div>
       ) : (

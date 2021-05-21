@@ -23,8 +23,8 @@ const Home = ({ setPage = () => {}, packageData }) => {
 
   return (
     <>
-      <Col style={{ padding: 0 }} lg="4">
-        {packets?.map((item, index)=>(
+      <Col style={{ padding: 0 }} lg="12">
+        {packets?.length>0? (packets?.map((item, index)=>(
           <CardContainer key={index}>
             <PacketCard
               data={item}
@@ -33,7 +33,13 @@ const Home = ({ setPage = () => {}, packageData }) => {
               }}
             />
           </CardContainer>
-        ))}
+        ))):(
+          <CardContainer >
+            <strong className="mx-auto">
+              Paketlerden Herhangi bir Rezervasyonunuz Bulunmamaktadır.
+            </strong>
+          </CardContainer>
+        )}
 
       </Col>
     </>
