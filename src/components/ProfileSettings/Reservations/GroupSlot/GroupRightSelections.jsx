@@ -284,13 +284,18 @@ export default function GroupRightSelections({ setTab = () => {}, setTabPage = (
       </RightBody>
 
       <RightFooter>
-        <DarkTitle>Seans Sayısını Belirletiniz</DarkTitle>
+        {userTypeId === DIETITIAN && (
+          <>
+            <DarkTitle>Seans Sayısını Belirletiniz</DarkTitle>
 
-        <Material.TextField
-          onChange={(e) => selectDataHandler('seanceCount', e.target.value)}
-          label="Giriniz"
-          type="number"
-        />
+            <Material.TextField
+              onChange={(e) => selectDataHandler('seanceCount', e.target.value)}
+              label="Giriniz"
+              type="number"
+            />
+          </>
+        )}
+
 
         {/*<Text color="red" fontSize="0.9rem">*/}
         {/*  *Max 50 TL fiyat giriniz*/}
