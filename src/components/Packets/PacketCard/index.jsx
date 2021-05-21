@@ -39,13 +39,13 @@ const PacketCard = ({ onClickEdit, data }) => {
       </Column>
       }
 
-      {data?.session_type !== 'online' &&
-      <Column>
-        <Row>
-          <BoldText>SPOR ALANI: FIGHTNING FIT CLUB</BoldText>
-        </Row>
-      </Column>
-      }
+      {/*{data?.session_type !== 'online' &&*/}
+      {/*<Column>*/}
+      {/*  <Row>*/}
+      {/*    <BoldText>SPOR ALANI: FIGHTNING FIT CLUB</BoldText>*/}
+      {/*  </Row>*/}
+      {/*</Column>*/}
+      {/*}*/}
 
       <Column borderDisable>
           <FlexSpace>

@@ -54,7 +54,7 @@ const Packets = () => {
           <Col lg="4" style={{ display: bannerActive ? '' : 'none' }}>
             <ImageBanner src={image} />
           </Col>
-          <Col lg={bannerActive ? 7 : 12}>
+          <Col lg={bannerActive ? 8 : 12}>
             <Pt icons={icons} setBannerActive={setBannerActive} />
           </Col>
         </>
