@@ -8,7 +8,8 @@ import {
   GET_PT_PACKAGE_TEST_QUESTION,
   SET_PT_PACKAGE_TEST_QUESTION,
   GET_PT_PACKAGE_EXERCISE_LIST,
-  SET_PT_PACKAGE_EXERCISE_LIST
+  SET_PT_PACKAGE_EXERCISE_LIST,
+  DELETE_PT_PACKAGE_EXERCISE_LIST,
 } from '../../constants';
 import { toast } from 'react-toastify';
 
@@ -234,6 +235,27 @@ export const setPackageExerciseList = (data, successCallback) => async (dispatch
         position: 'bottom-right',
         autoClose: 2000,
       }),
+    },
+  });
+};
+
+export const deletePackageExerciseList  = (data, successCallback) => async (dispatch) => {
+  const url = `/user/pt-package/training`;
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'DELETE',
+      url,
+      label: DELETE_PT_PACKAGE_EXERCISE_LIST,
+      body: { ...data },
+      callBack: () => successCallback(),
+      errorHandler: (error) =>
+        toast.error(error.message, {
+        position: 'bottom-right',
+        autoClose: 2000,
+      }),
+      transformData: (data) => data.data,
     },
   });
 };

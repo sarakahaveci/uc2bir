@@ -7,7 +7,7 @@ import { AddExercise, Button, Title } from 'components';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Svg from 'components/statics/svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPackageExerciseList, setPackageExerciseList } from '../../../actions';
+import { getPackageClassDetail, getPackageExerciseList, setPackageExerciseList } from '../../../actions';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
@@ -41,6 +41,7 @@ const ExerciseDetail = ({ setPage = () => {},packageData, lessonId }) => {
 
 
   const succsess = () => {
+    dispatch(getPackageClassDetail({package_uuid:packageData?.package_uuid, appointment_id:packageData?.appointment_id, lesson_id:lessonId, type:'lesson'}));
     setPage('Exercises')
     toast.success(`Dersiniz Kaydedilmiştir`, {
       position: 'bottom-right',
@@ -101,9 +102,10 @@ const ExerciseDetail = ({ setPage = () => {},packageData, lessonId }) => {
             <>
               <CardGroup style={{ padding: 0 }}>
                 <AddExercise
-                  key={index}
+                  index={index+1}
                   item={item}
                   setData={setData}
+                  exerciseItem={exerciseItem}
                   data={data}/>
                 {exerciseItem === index+1 ? (
                   <RadioButtonCheckedIcon
