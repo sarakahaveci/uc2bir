@@ -12,7 +12,7 @@ const Packet = ({ val }) => {
             <div
               className="img"
               style={{
-                backgroundImage: `url(${val.image?.default})`,
+                backgroundImage: `url(${val.photo})`,
               }}
             >
               <div className="team">{val.class}</div>

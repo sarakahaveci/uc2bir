@@ -259,7 +259,7 @@ const BuyPacket = ({ match }) => {
               </BottomContainer>
             </TrainerGroupWrapper>
           </TrainerGroupContainer>
-          <PaymentCard type="buy_packet"></PaymentCard>
+          <PaymentCard subType={match?.params?.type} type="buy_packet"></PaymentCard>
         </SideContainer>
       </Container>
     </Main>
