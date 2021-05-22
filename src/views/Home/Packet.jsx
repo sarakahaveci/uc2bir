@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import Title from '../../components/typography/Titles';
 import PacketSlider from '../../components/sliders/PacketSlider';
-
+import { useSelector } from 'react-redux'
 //mocdata
 import * as Data from './MocData';
 
@@ -12,31 +12,58 @@ const Packet = (props) => {
   const handleSeeMoreClick = () => {
     history.push('/packets?type=packets');
   };
-
+  const [activeCategory, setActiveCategory] = useState(1);
+  const {
+    content: { data: content },
+  } = useSelector((state) => state.home);
   const query = true;
   //TODO : Tablara linklemeleri yapılacak
-  const data = Data.Packets;
   const groups = 'Packet';
   const link = '/packets';
   const categories = [
     {
       id: 1,
       name: 'Tümü',
-      activeClass: 'active',
+      activeClass: activeCategory == 1 ? 'active' : '',
+      //link: '#all',
+
     },
     {
       id: 2,
       name: 'Eğitmen Paketleri',
-      activeClass: '',
+      activeClass: activeCategory == 2 ? 'active' : '',
       // link: '#all',
     },
     {
       id: 3,
       name: 'Diyetisyen Paketleri',
-      activeClass: '',
+      activeClass: activeCategory == 3 ? 'active' : '',
       // link: '#all',
     },
   ];
+  function dataSelector() {
+    switch (activeCategory) {
+      case 1:
+        return (
+          content?.package_pt?.concat(content?.package_pt)
+
+
+        )
+      case 2:
+        return (
+          content?.package_pt
+
+        )
+      case 2:
+        return (
+          content?.package_dt
+
+        )
+
+      default:
+        break;
+    }
+  }
   return (
     <section className={`pt ${props.className}`}>
       <Container>
@@ -55,7 +82,10 @@ const Packet = (props) => {
       </Container>
       <PacketSlider
         query={query}
-        data={data}
+        data={dataSelector()}
+        handleClickCategory={(id) => {
+          setActiveCategory(id)
+        }}
         groups={groups}
         categories={categories}
         link={link}

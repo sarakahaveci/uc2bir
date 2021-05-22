@@ -10,10 +10,10 @@ import 'slick-carousel/slick/slick.css';
 import AwesomeIcon from '../statics/icon';
 import { Button } from 'components';
 
-import Groups from './packets-items';
+import Packet from './packets-items';
 
 function PacketSlider(props) {
-  const { data, query, categories, handleSeeMoreClick } = props;
+  const { data,query, categories, handleSeeMoreClick ,handleClickCategory} = props;
   let slider;
 
   const settings = {
@@ -80,8 +80,8 @@ function PacketSlider(props) {
           <ul>
             {categories &&
               categories.length > 0 &&
-              categories.map((val) => (
-                <li className={val.activeClass} key={`category-${val.id}`}>
+              categories?.map((val) => (
+                <li onClick={()=>{handleClickCategory(val.id)}} className={val.activeClass} key={`category-${val.id}`}>
                   <a href={val.link}>{val.name}</a>
                 </li>
               ))}
@@ -92,7 +92,7 @@ function PacketSlider(props) {
         <div className="sliders">
           <SlickSlider ref={(c) => (slider = c)} {...settings}>
             {query &&
-              data.map((val, key) => Groups[props.groups]({ key, val }))}
+              data?.map((val, key) => Packet[props.groups]({ key, val }))}
           </SlickSlider>
         </div>
       </Container>
