@@ -14,12 +14,12 @@ const PacketCard = ({
 
   const getSessionTypes = () => {
     let tmpString = ""; 
-    var res = sessionTypes.split(","); 
-    res.forEach(element => {
+    var res = sessionTypes?.split(","); 
+    res?.forEach(element => {
       if (element == "gym")
         tmpString = tmpString + "Spor Alanı, "
       if (element == "home_park")
-        tmpString = tmpString + "Park Alanı, "
+        tmpString = tmpString + "Ev / Park    , "
       if (element == "online")
         tmpString = tmpString + "Online, "
     });
@@ -77,10 +77,10 @@ const PacketCard = ({
         <>
           <Column>
             <Row>
-              <BoldText>B SINIFI EĞİTMEN:</BoldText>
+              <BoldText>DİETİSYEN:</BoldText>
 
               <BoldText style={{ marginLeft: '5px' }}>
-                KAS YAPMA PAKETİ
+                {packetName}
               </BoldText>
             </Row>
 
@@ -91,7 +91,7 @@ const PacketCard = ({
 
           <Column>
             <Row>
-              <BoldText color={'gray'}>OTURUM TÜRLERİ: Online,Klinik</BoldText>
+              <BoldText color={'gray'}>OTURUM TÜRLERİ: {getSessionTypes()}</BoldText>
             </Row>
           </Column>
           <Column borderDisable>

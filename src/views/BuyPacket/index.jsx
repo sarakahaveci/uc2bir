@@ -22,6 +22,7 @@ const BuyPacket = ({ match }) => {
   let history = useHistory();
 
   useEffect(() => {
+    console.log(match?.params)
     dispatch(getWallet());
     dispatch(getPacketDetail(match?.params?.type,match?.params?.id));
   }, []);
@@ -259,7 +260,7 @@ const BuyPacket = ({ match }) => {
               </BottomContainer>
             </TrainerGroupWrapper>
           </TrainerGroupContainer>
-          <PaymentCard type="buy_packet"></PaymentCard>
+          <PaymentCard subType={match?.params?.type} type="buy_packet"></PaymentCard>
         </SideContainer>
       </Container>
     </Main>

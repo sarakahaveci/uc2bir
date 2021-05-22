@@ -1,21 +1,21 @@
 // @ts-nocheck
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col } from 'react-bootstrap';
 import styled from 'styled-components/macro';
 import { useSelector } from 'react-redux';
-import { clearReservation, setReservation,getUserMyPacket } from 'actions';
+import { clearReservation, setReservation, getUserMyPacket } from 'actions';
 import { useDispatch } from 'react-redux';
 import UserPacketCard from '../UserPacketCard';
-import {Pagination} from 'components'
-const Home = ({ setPage = () => {}, setGlobalState = () => {} }) => {
+import { Pagination } from 'components'
+const Home = ({ setPage = () => { }, setGlobalState = () => { } }) => {
   const dispatch = useDispatch();
   const myPackets = useSelector((state) => state.myPackets.user?.data);
   const [listPage, setListPage] = useState(1);
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(getUserMyPacket(listPage));
-  },[listPage])
-  useEffect(() => {}, [myPackets]);
+  }, [listPage])
+  useEffect(() => { }, [myPackets]);
   return (
     <>
       <Col style={{ padding: 0 }} lg="4">
@@ -39,19 +39,20 @@ const Home = ({ setPage = () => {}, setGlobalState = () => {} }) => {
               }}
             />
           </CardContainer>
-          
+
         ))}
-                    <Pagination
-                      className="mx-auto"
-                      mt="50px"
-                      count={myPackets?.data?.totalPage}
-                      page={listPage}
-                      onChange={(e,value)=>{
-                        console.log(value)
-                        setListPage(value)
-                      }}
-                    />
       </Col>
+      <Pagination
+        className="mx-auto"
+        mt="50px"
+        count={myPackets?.data?.totalPage}
+        page={listPage}
+        onChange={(e, value) => {
+          console.log(value)
+          setListPage(value)
+        }}
+      />
+
     </>
   );
 };
