@@ -26,7 +26,7 @@ const Activities = ({ setPage }) => {
 
   const [open, setOpen] = useState(false);
   const [paymentType, setPaymentType] = useState('');
-  // const [date, setDate] = useState(1);
+  const [date, setDate] = useState(1);
   const fullWidth = true;
 
   return (
@@ -67,7 +67,7 @@ const Activities = ({ setPage }) => {
                         }}
                         label="Ödeme Şekli"
                         items={[
-                          { id: '', name: 'Hepsi' },
+                          { id: 'all', name: 'Hepsi' },
                           { id: 'wallet', name: 'Cüzdan' },
                           { id: 'card', name: 'Kredi Kartı' },
                         ]}
@@ -75,13 +75,16 @@ const Activities = ({ setPage }) => {
                     </Col>
                     <Col>
                       <Material.SimpleSelect
+                        onChange={(e) => {
+                          setDate(e.target.value);
+                        }}
                         label="Dönem"
                         items={[
-                          { id: 1, name: 'Hepsi' },
-                          { id: 2, name: 'Son 7 Gün' },
-                          { id: 3, name: 'Son 15 Gün' },
-                          { id: 4, name: 'Son 1 Ay' },
-                          { id: 5, name: 'Son 3 Ay' },
+                          { id: 'all', name: 'Hepsi' },
+                          { id: 1, name: 'Son 7 Gün' },
+                          { id: 2, name: 'Son 15 Gün' },
+                          { id: 3, name: 'Son 1 Ay' },
+                          { id: 4, name: 'Son 3 Ay' },
                         ]}
                       />
                     </Col>

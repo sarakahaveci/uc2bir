@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import styled, { css } from 'styled-components/macro';
-import { Text, Button, Svg, Stars } from 'components';
+import { Button, Svg, Stars } from 'components';
 
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -11,7 +11,7 @@ import {
   addFavoriteUser,
   removeFavoriteUser,
   setReservation,
-  setNewMessageRoom
+  setNewMessageRoom,
 } from '../../../actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { USER } from '../../../constants';
@@ -70,7 +70,11 @@ const ProfileBanner = ({
             {!isUserDetail ? (
               user?.type_id === USER && (
                 <CardFooter>
-                  <Comment to={'/myprofile/settings/message'} className="list" onClick={()=>dispatch(setNewMessageRoom(info))}>
+                  <Comment
+                    to={'/myprofile/settings/message'}
+                    className="list"
+                    onClick={() => dispatch(setNewMessageRoom(info))}
+                  >
                     <Svg.Comment />
                   </Comment>
                   <Button
@@ -102,7 +106,7 @@ const ProfileBanner = ({
           </Card>
         </Cols>
 
-        <Cols lg={4}>
+        <Cols lg={3}>
           <CardInfo
             name={info.name}
             price={info.price}
@@ -111,16 +115,25 @@ const ProfileBanner = ({
             location={info.location}
           />
         </Cols>
-
-        <Cols lg={4} style={{display:'flex'}}>
-          <Line style={{marginRight:'10px'}}/>
-          <Text>{about}</Text>
+        {/* <Cols lg={1}>
+          <Line />
+        </Cols> */}
+        <Cols lg={4} style={{ borderLeft: 'ridge' }}>
+          {about && <TitleWrapper>Hakkımda</TitleWrapper>}
+          <TextWrapper>{about}</TextWrapper>
         </Cols>
       </Rows>
     </Containers>
   );
 };
-
+const TextWrapper = styled.div`
+  text-align: justify;
+`;
+const TitleWrapper = styled.div`
+  font-size: 18px;
+  font-weight: 600;
+  color: #00b2a9;
+`;
 const Containers = styled(Container)`
   min-height: 340px;
   background: transparent;
@@ -136,14 +149,11 @@ const Cols = styled(Col)`
   height: auto;
 `;
 
-const Line = styled.div`
-  max-width: 1px;
-  height: 285px;
-  background: #e5e5e5;
-  margin-left: 5px;
-  margin-right: 5px;
-  flex: 1 1 100%;
-`;
+// const Line = styled.div`
+//   max-width: 1px;
+//   height: 285px;
+//   background: #e5e5e5;
+// `;
 
 const Comment = styled(Link)`
   background: #fff;

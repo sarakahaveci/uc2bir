@@ -15,7 +15,6 @@ const Wrapper = () => {
     dispatch(getWalletTransactions());
   }, []);
 
-  // TODO : Backend tarafından data gelecek
   return (
     <div>
       {transactionsData?.length > 0 ? (
@@ -81,12 +80,12 @@ const Wrapper = () => {
                         {transactionsData[transactionsData.length - 1]
                           ?.amount && (
                           <tr>
-                            <td>Miktar</td>
+                            <td>Tutar</td>
                             <td className="text-right">
-                              {
-                                transactionsData[transactionsData.length - 1]
-                                  ?.amount
-                              }
+                              {transactionsData[
+                                transactionsData.length - 1
+                              ]?.amount.toFixed(2)}
+                              ₺
                             </td>
                           </tr>
                         )}

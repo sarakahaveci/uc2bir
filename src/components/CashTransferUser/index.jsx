@@ -98,7 +98,7 @@ const CashTransferUser = ({
           <Material.TextField
             style={{ marginBottom: '20px' }}
             label="Yüklenecek Tutarı Giriniz (TL)"
-            type="text"
+            type="number"
             name="amount"
             // defaultValue={}
             onChange={(e) => {
