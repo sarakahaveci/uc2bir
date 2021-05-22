@@ -48,7 +48,6 @@ const Home = ({ setPage = () => { }, setGlobalState = () => { } }) => {
         count={myPackets?.data?.totalPage}
         page={listPage}
         onChange={(e, value) => {
-          console.log(value)
           setListPage(value)
         }}
       />

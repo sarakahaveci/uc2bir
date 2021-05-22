@@ -22,7 +22,6 @@ const BuyPacket = ({ match }) => {
   let history = useHistory();
 
   useEffect(() => {
-    console.log(match?.params)
     dispatch(getWallet());
     dispatch(getPacketDetail(match?.params?.type,match?.params?.id));
   }, []);
