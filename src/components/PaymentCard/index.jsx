@@ -349,10 +349,10 @@ export default function PaymentCard({ type,subType, dateOption }) {
       reservation?.data?.expiration_year &&
       reservation?.data?.cvc
     ) {
-      dispatch(sendReservation('pt', removeEmpty(json), () => {}));
+      dispatch(sendReservation(reservation?.data?.packetInfo?.type, removeEmpty(json), () => {}));
     } else {
       if (reservation?.data?.payment_type == 'wallet') {
-        dispatch(sendReservation('pt', removeEmpty(json), () => {}));
+        dispatch(sendReservation(reservation?.data?.packetInfo?.type, removeEmpty(json), () => {}));
       } else {
         toast.error('Eksik Kart Bilgilerini Doldurunuz !', {
           position: 'bottom-right',
