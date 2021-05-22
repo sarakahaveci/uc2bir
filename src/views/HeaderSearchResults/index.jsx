@@ -37,6 +37,7 @@ const HeaderSearchResults = () => {
         Tabs.push(  {
             settingsName: 'Eğitmenler (' + pts?.length + ')',
             body: <PTTab pts={pts} />,
+            size:pts?.length
         })
     }
 
@@ -44,6 +45,7 @@ const HeaderSearchResults = () => {
         Tabs.push( {
             settingsName: 'Spor Salonları (' + gyms?.length + ')',
             body: <GymTab gyms={gyms} />,
+            size:gyms?.length
         })
     }
 
@@ -51,6 +53,7 @@ const HeaderSearchResults = () => {
         Tabs.push( {
             settingsName: 'Diyetisyenler (' + dts?.length + ')',
             body: <DietitiansTab dts={dts} />,
+            size:dts?.length
         })
     }
 
@@ -58,12 +61,14 @@ const HeaderSearchResults = () => {
         Tabs.push( {
             settingsName: 'Eğitmen Paketleri (' + ptPackages?.length + ')',
             body: <PtPackagesTab packages={ptPackages} />,
+            size:ptPackages?.length
         },)
     }
     if(   dtPackages?.length>0){
         Tabs.push( {
             settingsName: 'Diyetisyen Paketleri (' + dtPackages?.length + ')',
             body: <DtPackagesTab packages={dtPackages} />,
+            size:dtPackages?.length
         },)
     }
 
@@ -71,8 +76,11 @@ const HeaderSearchResults = () => {
         Tabs.push( {
             settingsName: 'Bloglar (' + blogs?.length + ')',
             body: <BlogsTab blogs={blogs} />,
+            size:blogs?.length
         })
     }
+
+    Tabs.sort((a,b) => (a.size > b.size) ? -1 : ((b.size > a.size) ? 1 : 0))
 
     const results = Tabs?.map((item, index) => (
       item.settingsName &&
