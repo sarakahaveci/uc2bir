@@ -28,7 +28,7 @@ const Rejecteds = () => {
   const [openTransfer, setOpenTransfer] = useState(false);
   const [openCongrats, setOpenCongrats] = useState(false);
   const [choosenElm, setChoosenElm] = useState(null);
-  const [transactionId, setTransactionId] = useState("null");
+  const [transactionId, setTransactionId] = useState('null');
 
   // const items = useSelector(
   //   (state) => state.professionalReservation?.userReservation?.rejecteds
@@ -44,17 +44,18 @@ const Rejecteds = () => {
     }
   };
 
-  const handleRefundSuccess = () => { 
+  const handleRefundSuccess = () => {
     dispatch(getUserRejects(moment(selectedDate).format('DD.MM.YYYY')));
-  }
+  };
 
   const handleRefund = (type) => {
-    dispatch(transferRefund(
-      { type: type, transaction_id: transactionId },
-      handleRefundSuccess
-    ));
-  }
-
+    dispatch(
+      transferRefund(
+        { type: type, transaction_id: transactionId },
+        handleRefundSuccess
+      )
+    );
+  };
 
   useEffect(() => {
     if (selectedDate) {
@@ -91,7 +92,9 @@ const Rejecteds = () => {
                   <ApproveCardContainer key={i}>
                     <ApproveCard
                       date={elm?.hour}
-                      transaction_id={elm?.transaction_id ? elm.transaction_id : null}
+                      transaction_id={
+                        elm?.transaction_id ? elm.transaction_id : null
+                      }
                       customerName={elm?.pt?.name}
                       type="rejecteds"
                       userType="user"
@@ -121,7 +124,9 @@ const Rejecteds = () => {
                   <ApproveCardContainer key={i}>
                     <ApproveCard
                       date={elm?.hour}
-                      transaction_id={elm?.transaction_id ? elm.transaction_id : null}
+                      transaction_id={
+                        elm?.transaction_id ? elm.transaction_id : null
+                      }
                       customerName={elm?.pt?.name}
                       type="rejecteds"
                       userType="user"
@@ -151,7 +156,9 @@ const Rejecteds = () => {
                   <ApproveCardContainer key={i}>
                     <ApproveCard
                       date={elm?.hour}
-                      transaction_id={elm?.transaction_id ? elm.transaction_id : null}
+                      transaction_id={
+                        elm?.transaction_id ? elm.transaction_id : null
+                      }
                       customerName={elm?.pt?.name || elm?.dt?.name}
                       type="rejecteds"
                       userType="user"
@@ -182,7 +189,9 @@ const Rejecteds = () => {
                   <ApproveCardContainer key={i}>
                     <ApproveCard
                       date={elm?.hour}
-                      transaction_id={elm?.transaction_id ? elm.transaction_id : null}
+                      transaction_id={
+                        elm?.transaction_id ? elm.transaction_id : null
+                      }
                       customerName={elm?.dt?.name}
                       type="rejecteds"
                       userType="user"
@@ -256,12 +265,12 @@ const Rejecteds = () => {
       <ReturnMoneyModal
         open={openTransfer}
         wallet={() => {
-          handleRefund("wallet");
+          handleRefund('wallet');
           setOpenTransfer(false);
           setOpenCongrats(true);
         }}
         card={() => {
-          handleRefund("card");
+          handleRefund('card');
           setOpenTransfer(false);
           setOpenCongrats(true);
         }}

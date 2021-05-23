@@ -55,7 +55,7 @@ const Home = ({ setPage }) => {
                 <Col>
                   <TitleWrapper>
                     <Title textAlign="right" style={{ display: 'flex' }}>
-                      {balance.toFixed(2)}₺
+                      {balance?.toFixed(2)}₺
                     </Title>
                   </TitleWrapper>
                 </Col>

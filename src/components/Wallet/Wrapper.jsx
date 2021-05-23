@@ -33,19 +33,15 @@ const Wrapper = () => {
             <Accordion.Collapse>
               <BodyWrapper>
                 <Text textAlign="left" fontWeight="600" p="2px" color="#00b2a9">
-                  {transactionsData[transactionsData.length - 1]?.info}
+                  {transactionsData[0]?.info}
                 </Text>
                 <Capsule>
-                  {transactionsData[transactionsData.length - 1]
-                    ?.updated_at && (
+                  {transactionsData[0]?.updated_at && (
                     <CapsuleItem>
                       <Text textAlign="left" fontWeight="600">
                         {' '}
                         Oluşturma Tarihi |{' '}
-                        {moment(
-                          transactionsData[transactionsData.length - 1]
-                            ?.updated_at
-                        ).format('LLL')}
+                        {moment(transactionsData[0]?.updated_at).format('LLL')}
                       </Text>
                     </CapsuleItem>
                   )}
@@ -53,39 +49,27 @@ const Wrapper = () => {
                   <CapsuleItem>
                     <table>
                       <tbody>
-                        {transactionsData[transactionsData.length - 1]
-                          ?.payment_type && (
+                        {transactionsData[0]?.payment_type && (
                           <tr>
                             <td>Ödeme Şekli</td>
                             <td className="text-right">
-                              {
-                                transactionsData[transactionsData.length - 1]
-                                  ?.payment_type
-                              }
+                              {transactionsData[0]?.payment_type}
                             </td>
                           </tr>
                         )}
-                        {transactionsData[transactionsData.length - 1]
-                          ?.status && (
+                        {transactionsData[0]?.status && (
                           <tr>
                             <td>Durumu</td>
                             <td className="text-right">
-                              {
-                                transactionsData[transactionsData.length - 1]
-                                  ?.status
-                              }
+                              {transactionsData[0]?.status}
                             </td>
                           </tr>
                         )}
-                        {transactionsData[transactionsData.length - 1]
-                          ?.amount && (
+                        {transactionsData[0]?.amount && (
                           <tr>
                             <td>Tutar</td>
                             <td className="text-right">
-                              {transactionsData[
-                                transactionsData.length - 1
-                              ]?.amount.toFixed(2)}
-                              ₺
+                              {transactionsData[0]?.amount?.toFixed(2)}₺
                             </td>
                           </tr>
                         )}

@@ -5,7 +5,7 @@ import { Pagination, Text } from 'components';
 import { getWalletTransactionsPerPage } from 'actions/userProfileActions/walletActions';
 import moment from 'moment';
 
-const Data = ({ paymentType, date }) => {
+const Data = ({ paymentType, date, changed }) => {
   const { data, totalPage } = useSelector(
     (state) => state?.userProfile?.wallet?.transactionsPerPage
   );
@@ -21,6 +21,10 @@ const Data = ({ paymentType, date }) => {
   useEffect(() => {
     dispatch(getWalletTransactionsPerPage(25, page, paymentType, date));
   }, [page, paymentType, date]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [changed]);
 
   return (
     <div>
@@ -41,7 +45,7 @@ const Data = ({ paymentType, date }) => {
                       <td>{moment(item?.updated_at).format('LLL')}</td>
                       <td>{item.info}</td>
                       <td>{item.payment_type}</td>
-                      <td>{item.amount.toFixed(2)}₺</td>
+                      <td>{item.amount?.toFixed(2)}₺</td>
                     </tr>
                   ))}
               </tbody>

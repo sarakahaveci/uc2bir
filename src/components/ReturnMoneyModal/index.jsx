@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+// import { useDispatch, useSelector } from 'react-redux';
 
 import styled from 'styled-components/macro';
 import { Text, Svg, Button } from 'components';
 import { Link } from 'react-router-dom';
 import { device } from 'utils';
 import CloseIcon from '@material-ui/icons/Close';
-import { getWallet } from 'actions/userProfileActions/walletActions';
+// import { getWallet } from 'actions/userProfileActions/walletActions';
 
 const ReturnMoneyModal = ({
   open,
@@ -14,12 +14,12 @@ const ReturnMoneyModal = ({
   card = () => {},
   closeModal = () => {},
 }) => {
-  const balance = useSelector((state) => state?.userProfile?.wallet);
-  const dispatch = useDispatch();
+  // const balance = useSelector((state) => state?.userProfile?.wallet);
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getWallet());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getWallet());
+  // }, []);
 
   const [page, setPage] = useState('main');
   useEffect(() => {
@@ -127,13 +127,8 @@ const ReturnMoneyModal = ({
               <WalletContainer>
                 <Header>Cüzdana Transfer</Header>
                 <Info>
-                  <Label>Bakiye</Label>
-                  <ValueText>{balance?.data?.balance}₺</ValueText>
-                </Info>
-                <Info>
-                  <Label>Aktarım Sonrası Bakiye</Label>
-                  {/* Bakiye + Bireysel Üyenin Satın Aldığı Hizmet Bedeli */}
-                  <ValueText>+</ValueText>
+                  <Text>İptal işleminden sonra aktarılacak olan miktar</Text>
+                  <ValueText>500₺</ValueText>
                 </Info>
                 <Button
                   className="blue mt-3"
@@ -242,10 +237,10 @@ const Info = styled.div`
   justify-content: space-between;
   margin: 5px 0px;
 `;
-const Label = styled.text`
-  font-weight: bold;
-  font-size: 18px;
-`;
+// const Label = styled.text`
+//   font-weight: bold;
+//   font-size: 18px;
+// `;
 const Header = styled.text`
   font-weight: bold;
   font-size: 20px;

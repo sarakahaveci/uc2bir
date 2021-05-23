@@ -27,7 +27,12 @@ const Activities = ({ setPage }) => {
   const [open, setOpen] = useState(false);
   const [paymentType, setPaymentType] = useState('');
   const [date, setDate] = useState(1);
+  const [changed, setChanged] = useState(false);
   const fullWidth = true;
+
+  const changedTypes = () => {
+    setChanged(!changed);
+  };
 
   return (
     <>
@@ -64,12 +69,14 @@ const Activities = ({ setPage }) => {
                       <Material.SimpleSelect
                         onChange={(e) => {
                           setPaymentType(e.target.value);
+                          changedTypes();
                         }}
                         label="Ödeme Şekli"
                         items={[
                           { id: 'all', name: 'Hepsi' },
                           { id: 'wallet', name: 'Cüzdan' },
                           { id: 'card', name: 'Kredi Kartı' },
+                          { id: 'package', name: 'Paket' },
                         ]}
                       />
                     </Col>
@@ -77,6 +84,7 @@ const Activities = ({ setPage }) => {
                       <Material.SimpleSelect
                         onChange={(e) => {
                           setDate(e.target.value);
+                          changedTypes();
                         }}
                         label="Dönem"
                         items={[
@@ -90,7 +98,11 @@ const Activities = ({ setPage }) => {
                     </Col>
                     {/* <Button className="blue" text="Listele" onClick={handleClick} /> */}
                   </FilterSelect>
-                  <Data paymentType={paymentType} date={date} />
+                  <Data
+                    paymentType={paymentType}
+                    date={date}
+                    changed={changed}
+                  />
                   <Row className="justify-content-end">
                     <Button
                       style={{ textDecoration: 'underline' }}
