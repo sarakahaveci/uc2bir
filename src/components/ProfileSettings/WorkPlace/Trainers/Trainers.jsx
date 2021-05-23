@@ -54,7 +54,7 @@ const Trainers = ({
         classification: packetLevel || level,
       })
     );
-  }, []);
+  }, [packetLevel]);
   function levelCompare(main, other) {
     if (main == 'A' || main == 'a') {
       main = 3;
