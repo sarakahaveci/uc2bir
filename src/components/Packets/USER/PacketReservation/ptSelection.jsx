@@ -25,6 +25,7 @@ const PtSelection = ({
       </BackLink>
       <Trainers
         type="selection"
+        branch={reservation?.data?.packetInfo?.branch_id}
         level={reservation?.data?.packetInfo?.classification}
         onClickHover={(e) => {
           setTrainer(e);
