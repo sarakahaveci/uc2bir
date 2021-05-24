@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { createTypes, getSessionTypes, getUserMyPacket } from 'actions';
+import { createTypes, getSessionTypes } from 'actions';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { getGeocode } from 'use-places-autocomplete';

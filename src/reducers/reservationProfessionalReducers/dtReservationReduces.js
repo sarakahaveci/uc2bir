@@ -6,6 +6,9 @@ import {
   DT_RESERVATION_FUNC_SUCCESS,
   DT_RESERVATION_FUNC_REQUEST,
   DT_RESERVATION_FUNC_FAILURE,
+  GET_DT_RESERVATION_PACKAGE_SUCCESS,
+  GET_DT_RESERVATION_PACKAGE_REQUEST,
+  GET_DT_RESERVATION_PACKAGE_FAILURE
 } from '../../constants';
 
 const initialState = {
@@ -53,6 +56,25 @@ export default (state = initialState, action) => {
         ...state,
         isLoading: false,
         funcStatus: { ...action.payload },
+      };
+      case GET_DT_RESERVATION_PACKAGE_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+
+    case GET_DT_RESERVATION_PACKAGE_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload.message,
+      };
+
+    case GET_DT_RESERVATION_PACKAGE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        packets: action.payload,
       };
 
     default:

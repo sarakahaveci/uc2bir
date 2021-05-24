@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import Title from '../../components/typography/Titles';
 import PacketSlider from '../../components/sliders/PacketSlider';
 import { useSelector } from 'react-redux'
 //mocdata
-import * as Data from './MocData';
 
 const Packet = (props) => {
   const history = useHistory();

@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux';
 
 import { Title } from 'components';
 import Pt from './PT';
+import Dt from './DT';
+
 import User from './USER';
 
 import * as KEYS from '../../constants/userKeys';
@@ -31,11 +33,7 @@ const Packets = () => {
   let content;
 
   switch (type[0]?.key) {
-    case KEYS.DIETIAN:
-      icons = [];
-
-      content = <></>;
-      break;
+    
     case KEYS.USER:
       content = (
         <>
@@ -56,6 +54,18 @@ const Packets = () => {
           </Col>
           <Col lg={bannerActive ? 8 : 12}>
             <Pt icons={icons} setBannerActive={setBannerActive} />
+          </Col>
+        </>
+      );
+      break;
+      case KEYS.DIETIAN:
+      content = (
+        <>
+          <Col lg="4" style={{ display: bannerActive ? '' : 'none' }}>
+            <ImageBanner src={image} />
+          </Col>
+          <Col lg={bannerActive ? 8 : 12}>
+            <Dt icons={icons} setBannerActive={setBannerActive} />
           </Col>
         </>
       );

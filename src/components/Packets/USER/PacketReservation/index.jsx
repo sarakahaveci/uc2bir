@@ -34,11 +34,9 @@ import {
   clearReservation,
 } from 'actions';
 
-import axios from 'axios';
 import PtSelection from './ptSelection';
 import UpgradeClass from './upgradeClass';
 
-const uri = `${process.env.REACT_APP_API_URL}/regions`;
 
 const PacketReservation = ({ setPage, setBannerActive }) => {
   const dispatch = useDispatch();
@@ -48,7 +46,6 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
     (state) => state?.userProfile?.dietitianClinic?.clinics?.clinic
   );
 
-  const [city, setCity] = useState(false);
   const gymList = useSelector((state) => state?.userProfile?.ptGymList);
   const homePlaces = useSelector(
     (state) => state.userProfile.workPlace.ptHomePlace

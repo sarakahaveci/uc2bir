@@ -2,6 +2,7 @@ import {
   HTTP_REQUEST,
   GET_DT_RESERVATION_STATE_DATA,
   DT_RESERVATION_FUNC,
+  GET_DT_RESERVATION_PACKAGE
 } from '../../constants';
 
 export const getDtAwaitings = (date) => async (dispatch) => {
@@ -16,6 +17,19 @@ export const getDtAwaitings = (date) => async (dispatch) => {
       url,
       label: GET_DT_RESERVATION_STATE_DATA,
       transformData: (data) => ((data.data.status = 'awaitings'), data.data),
+    },
+  });
+};
+export const getPackageDt = () => async (dispatch) => {
+  let url = '/appointment/dt-calendar/my-package';
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'GET',
+      url,
+      label: GET_DT_RESERVATION_PACKAGE,
+      transformData: (data) => data.data,
     },
   });
 };
