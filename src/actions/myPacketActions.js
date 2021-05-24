@@ -51,6 +51,19 @@ export const getUserPacketLessonDetail =
       },
     });
   };
+  export const getUserTestDetail =
+  (id, package_uuid) => async (dispatch) => {
+    const url = `/user/pt-package/appointment-lesson-detail?package_uuid=${package_uuid}&lesson_id=${id}&type=parq`;
+    await dispatch({
+      type: HTTP_REQUEST,
+      payload: {
+        method: 'GET',
+        url,
+        label: GET_USER_PACKET_LESSON_DETAIL,
+        transfomrData: (data) => data.data,
+      },
+    });
+  };
 export const setUserPacketLessonComplete = (id) => async (dispatch) => {
   const url = `/packetCompolate/${id}`;
 

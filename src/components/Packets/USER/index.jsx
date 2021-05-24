@@ -9,6 +9,7 @@ import DetailLesson from './DetailLesson';
 import Exercises from './Exercises';
 import ExerciseDetail from './ExerciseDetail';
 import PacketReservation from './PacketReservation';
+import Test from './Test';
 
 const User = ({ icons, setBannerActive }) => {
   const dispatch = useDispatch();
@@ -94,6 +95,18 @@ const User = ({ icons, setBannerActive }) => {
           />
         </div>
       );
+      case 'Test':
+        return (
+          <div>
+            <Test
+              setPage={setPage}
+              icons={icons}
+              setBannerActive={setBannerActive}
+              globalState={globalState}
+              setGlobalState={setGlobalState}
+            />
+          </div>
+        );
     case 'ExerciseDetail':
       return (
         <div>

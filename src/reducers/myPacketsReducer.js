@@ -110,6 +110,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         user: {
+          ...state.user,
           lessonDetail: action.payload,
           isLoading: false,
           error: null,
@@ -121,6 +122,7 @@ export default (state = initialState, action) => {
         ...state,
         user: {
           ...state.user,
+          lessonDetail:{},
           isLoading: false,
           error: action.payload,
         },

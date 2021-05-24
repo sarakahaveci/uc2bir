@@ -1,26 +1,33 @@
 // @ts-nocheck
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
 import Svg from '../../statics/svg';
 import { makeStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import { CustomProgress } from 'components';
+import { CustomProgress, Material } from 'components';
 import { Container, Row, Col } from 'react-bootstrap';
 import { device } from 'utils';
 import image from '../../../assets/session-type.jpg';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserMyPacketDetail } from 'actions';
+import { getUserMyPacketDetail, getUserTestDetail } from 'actions';
 import ReactHtmlParser from 'react-html-parser';
 import { decode } from 'html-entities';
+import { getPackageClass, getPackageClassDetail, getPackageTestQuestions, setPackageSurvey } from '../../../actions';
+import Card from '../../banner/profile-banner/Card';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+const fullWidth = true;
+const maxWidth = 'sm';
 const useStyles = makeStyles({
   barColorPrimary: {
     backgroundColor: '#00B2A9',
   },
 });
 const DetailLesson = ({
-  setBannerActive = () => {},
-  setPage = () => {},
+  setBannerActive = () => { },
+  setPage = () => { },
   globalState,
   setGlobalState,
 }) => {
@@ -28,6 +35,9 @@ const DetailLesson = ({
   const detailData = useSelector(
     (state) => state.myPackets?.user?.detail?.data
   );
+  const [modal, setModal] = useState(false);
+  const [changeable, setChangeable] = useState(false);
+  const tests = useSelector((state) => state.myPackets?.user?.lessonDetail?.data);
 
   useEffect(() => {
     dispatch(getUserMyPacketDetail(globalState?.package_uuid));
@@ -37,6 +47,16 @@ const DetailLesson = ({
     if (elm?.type == 'lesson') {
       setGlobalState({ ...globalState, lesson_id: elm?.id });
       setPage('Exercises');
+    } else {
+      dispatch(
+        getUserTestDetail(
+          elm?.id,
+          globalState?.package_uuid
+        )
+
+      );
+      setModal(true)
+
     }
   }
   const classes = useStyles();
@@ -49,7 +69,40 @@ const DetailLesson = ({
       return 'mid';
     }
   }
-  function handleReservationButton() {}
+  function handleReservationButton() { }
+  const succsess = () => {
+    setModal(false);
+    dispatch(getPackageClass({ package_uuid: packageData?.package_uuid, appointment_id: packageData?.appointment_id }));
+    toast.success(`Soru cevapları gönderildi.`, {
+      position: 'bottom-right',
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+
+  const err = () => {
+    setModal(false);
+    toast.error(`Soru cevapları gönderilemedi!`, {
+      position: 'bottom-right',
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    //ptden alabilirsin
+  };
+
+
   function _renderLessons() {
     return detailData?.lessons?.map((elm, index) => (
       <Col key={index} style={{ padding: 0 }} lg="4">
@@ -120,6 +173,150 @@ const DetailLesson = ({
         </StyledRow>
         <StyledRow style={{}}>{_renderLessons()}</StyledRow>
       </Wrapper>
+
+      <React.Fragment>
+        <Dialog
+          className="material-dialog"
+          fullWidth={fullWidth}
+          maxWidth={maxWidth}
+          open={modal}>
+          <DialogTitle className="text-center">
+            <Title textAlign="left" variant="h5" component="h5">
+              {'testName'}
+            </Title>
+            <span
+              style={{
+                position: 'absolute',
+                right: '5px',
+                top: '5px',
+                cursor: 'pointer',
+                fontWeight: 'bold',
+                padding: '5px 15px',
+              }}
+              onClick={() => setModal(false)}>
+              x
+            </span>
+          </DialogTitle>
+          <DialogContent>
+            {!changeable ? (
+              <Table>
+                <table>
+                  <tbody>
+                    {tests?.length > 0 && tests?.map((val) => {
+                      return (
+                        <>
+                          <tr>
+                            <th>{val.title}</th>
+                          </tr>
+                          <tr>
+                            <td>
+                              {val.answer}
+                            </td>
+                          </tr>
+                        </>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </Table>)
+              : (<form onSubmit={onSubmit} autoComplete="off">
+                {testQuestion?.survey?.questions?.length &&
+                  testQuestion?.survey?.questions?.map((val, key) => {
+                    if (val.answer_type === 'radio') {
+                      return (
+                        <Material.RadioButtonsGroup
+                          required={val.required}
+                          val={val.name}
+                          key={key}
+                          name={val.name}
+                          label={`${++key}. ${val.name}`}
+                          items={val.options}
+                          onChange={(e) => {
+                            _question([...question, val.id]);
+                            _answer({ ...answer, [val.id]: [e.target.value] });
+                          }}
+                        />
+                      );
+                    } else if (val.answer_type === 'string') {
+                      return (
+                        <div style={{ marginTop: 15, marginBottom: 30 }}>
+                          <div style={{ fontSize: '11pt' }} className="label">
+                            {`${++key}. ${val.name}`}
+                          </div>
+                          <Material.TextField
+                            required={val.required}
+                            key={key}
+                            name={val.name}
+                            onChange={(e) => {
+                              _question([...question, val.id]);
+                              _answer({ ...answer, [e.target.name]: [e.target.value] });
+                            }}
+                          />
+                        </div>
+                      );
+                    } else if (val.answer_type === 'numeric') {
+                      return (
+                        <div style={{ marginTop: 15, marginBottom: 30 }}>
+                          <div style={{ fontSize: '11pt' }} className="label">
+                            {`${++key}. ${val.name}`}
+                          </div>
+                          <Material.TextField
+                            required={val.required}
+                            type="number"
+                            key={key}
+                            name={val.name}
+                            onChange={(e) => {
+                              _question([...question, val.id]);
+                              _answer({ ...answer, [val.id]: [e.target.value] });
+                            }}
+                          />
+                        </div>
+                      );
+                    }
+                    else if (val.answer_type === 'checkbox') {
+                      return (
+                        <div style={{ marginTop: 15, marginBottom: 30 }}>
+                          <div style={{ fontSize: '11pt' }} className="label">
+                            {`${++key}. ${val.text}`}
+                          </div>
+                          <div style={{ margin: '15px 20px 0' }}>
+                            {val.options.map((item, key) => {
+                              return (
+                                <>
+                                  <Material.CheckBoxGroup
+                                    style={{ color: 'red' }}
+                                    key={`checkbox-key-${key}`}
+                                    name={val.name}
+                                    label={item.name}
+                                    onChange={(e) => {
+                                      _question([...question, val.id]);
+                                      _answer({
+                                        ...answer,
+                                        [e.target.name]: [item.id],
+                                      });
+                                    }}
+                                  />
+                                </>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      );
+                    }
+                  })}
+                {!isQuestionLoading ? (
+                  <div style={{ display: 'flex', justifyContent: 'center', flex: '1' }}>
+                    <Button type="submit" text={`Testi Tamamla`} className="blue" width={'90%'} />
+                  </div>
+                ) : (
+                  <div style={{ display: 'flex', justifyContent: 'center', flex: '1' }}>
+                    <Button text={`Yükleniyor...`} className="blue" width={'90%'} />
+                  </div>
+                )}
+              </form>)}
+          </DialogContent>
+        </Dialog>
+      </React.Fragment>
     </Main>
   );
 };
@@ -267,4 +464,27 @@ const Button = styled.button`
   bottom: -17px;
   right: 20px;
 `;
+const Table = styled.div`
+  width: 100%;
+  height: 450px;
+  margin-top: 15px;
+  margin-bottom: 30px;
+  overflow: hidden auto;
+  box-shadow: 5px 5px 11px -5px rgba(0, 0, 0, 0.3);
+
+  table {
+    tr {
+      th {
+        background: var(--gray8);
+        padding: 15px;
+      }
+      td {
+        padding: 15px;
+        font-size: 11pt;
+        font-weight: 500;
+      }
+    }
+  }
+`;
+
 export default DetailLesson;
