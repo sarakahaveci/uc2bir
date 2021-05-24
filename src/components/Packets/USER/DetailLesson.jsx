@@ -13,8 +13,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserMyPacketDetail, getUserTestDetail } from 'actions';
 import ReactHtmlParser from 'react-html-parser';
 import { decode } from 'html-entities';
-import { getPackageClass, getPackageClassDetail, getPackageTestQuestions, setPackageSurvey } from '../../../actions';
-import Card from '../../banner/profile-banner/Card';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -40,6 +38,7 @@ const DetailLesson = ({
   const tests = useSelector((state) => state.myPackets?.user?.lessonDetail?.data);
 
   useEffect(() => {
+    setChangeable(false) // for eslint
     dispatch(getUserMyPacketDetail(globalState?.package_uuid));
     setBannerActive(false);
   }, []);
@@ -70,7 +69,7 @@ const DetailLesson = ({
     }
   }
   function handleReservationButton() { }
-  const succsess = () => {
+ /* const succsess = () => {
     setModal(false);
     dispatch(getPackageClass({ package_uuid: packageData?.package_uuid, appointment_id: packageData?.appointment_id }));
     toast.success(`Soru cevapları gönderildi.`, {
@@ -82,9 +81,9 @@ const DetailLesson = ({
       draggable: true,
       progress: undefined,
     });
-  };
+  };*/
 
-  const err = () => {
+  /*const err = () => {
     setModal(false);
     toast.error(`Soru cevapları gönderilemedi!`, {
       position: 'bottom-right',
@@ -95,7 +94,7 @@ const DetailLesson = ({
       draggable: true,
       progress: undefined,
     });
-  };
+  };*/
 
   const onSubmit = async (event) => {
     event.preventDefault();
