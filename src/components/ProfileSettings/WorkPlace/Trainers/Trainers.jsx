@@ -12,6 +12,7 @@ import SearchFilters from 'components/SearchProfessional/SearchFilters';
 const Trainers = ({
   type,
   onClickHover = () => {},
+  branch,
   level = 'A',
   onClickUpgrageClass = () => {},
 }) => {
@@ -27,7 +28,7 @@ const Trainers = ({
 
   const [title, setTitle] = useState('');
   const [location, setLocation] = useState('');
-  const [branch, setBranch] = useState('');
+  //const [branch, setBranch] = useState('');
   const [page, setPage] = useState(1);
   const [price, setPrice] = useState('[0, 1000]');
 

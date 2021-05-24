@@ -484,7 +484,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
                 <Text color="#9B9B9B">{'Oturum Türü Seçiniz:'}</Text>
                 <Material.SimpleSelect
                   items={
-                    type == 'pt ' ? (
+                    type == 'pt' ? (
                       [
                         { id: 'home_park', name: 'Ev / Park' },
                         { id: 'gym', name: 'Spor Salonu' },
