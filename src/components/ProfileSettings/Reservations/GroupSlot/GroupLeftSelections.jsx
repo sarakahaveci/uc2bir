@@ -16,7 +16,7 @@ import {
   getWorkPlaceCapacity,
   setGroupSelectionData,
   getGroupImages,
-  getUserPTBranchList
+  getUserPTBranchList, getDietitianClinics,
 } from 'actions';
 
 export default function GroupLeftSelections() {
@@ -34,6 +34,7 @@ export default function GroupLeftSelections() {
     selectedDate,
   } = useSelector((state) => state.profileSettings2.reservationGroupSlot);
 
+  const { clinics } = useSelector((state) => state.userProfile.dietitianClinic);
   const {
     get: sessionTypes,
     gymList: { data: gymList },
@@ -69,7 +70,7 @@ export default function GroupLeftSelections() {
     }
     if (userTypeId === DIETITIAN) {
       dispatch(getSessionTypes());
-
+      dispatch(getDietitianClinics());
       dispatch(getGroupImages());
     }
   }, []);
@@ -231,6 +232,23 @@ export default function GroupLeftSelections() {
           </Select>
         </FormControl>
       )}
+      {userTypeId === DIETITIAN && (
+        <FormControl className="w-100 mt-2">
+          <InputLabel>Klinik Seçiniz</InputLabel>
+
+          <Select
+            value={locationSelection}
+            input={<Input />}
+            onChange={(e) => selectDataHandler('locationSelection', e.target.value)}>
+            {clinics?.clinic?.map((item) => (
+              <MenuItem key={item.id} value={item}>
+                {item.title}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      )
+      }
       {sessionSelection.type === 'gym' && (
         <FormControl className="w-100 mt-2">
           <InputLabel>Spor Alanı Seçiniz</InputLabel>
