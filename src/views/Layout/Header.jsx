@@ -30,7 +30,7 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
     setMenuActive(false);
   };
   const handleSuccessSearch = () => {
-    history.push('/search');
+    history.push('/search/'+keyword);
     setIsSearchBarOpen(!isSearchBarOpen)
     setKeyword("");
   }
@@ -219,7 +219,7 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
       );
     },
   };
-  const keyPress = (e) => { 
+  const keyPress = (e) => {
     if (e.keyCode == 13) {
       handleSearch();
     } if (e.keyCode == 27) {

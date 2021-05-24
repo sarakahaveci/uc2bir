@@ -12,16 +12,7 @@ export const getSearchResults = (keyword, successCallback) => async (
       url,
       label: SEARCH_RESULTS,
       transformData: (data) => data.data,
-      callBack: () => { 
-        // if (!(data?.data?.blog.length == 0 &&
-        //   data?.data?.dt.length == 0 &&
-        //   data?.data?.dt_package.length == 0 &&
-        //   data?.data?.gym.length == 0 &&
-        //   data?.data?.pt.length == 0 &&
-        //   data?.data?.pt_package.length == 0)) { successCallback(); }
-        // else {
-        //   errorCallback();
-        // }
+      callBack: () => {
         successCallback();
       },
       errorHandler: (error) => {

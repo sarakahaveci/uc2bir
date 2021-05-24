@@ -27,9 +27,8 @@ export default function Services() {
         {'Danışanlar'}
       </Title>
       <CardContainer>
-        {services?.data?.data?.map(service,ind => (
-          <Card key={ind} image={service?.photo} name={service?.name} desc="Danışan" />
-
+        {services?.data?.data?.map((service,index) => (
+          <Card key={index} image={service?.photo} name={service?.name} data={service} desc="Danışan" />
         ))}
       </CardContainer>
       <Pagination

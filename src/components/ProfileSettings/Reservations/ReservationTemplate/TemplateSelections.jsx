@@ -144,7 +144,7 @@ export default function TemplateSelections({
             input={<Input />}
             onChange={(e) => setWorkPlaceSelection(e.target.value)}
           >
-            {clinics?.session_type?.map((item) => (
+            {clinics?.clinic?.map((item) => (
               <MenuItem key={item.id} value={item}>
                 {item.title}
               </MenuItem>
