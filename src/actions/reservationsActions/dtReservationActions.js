@@ -2,7 +2,7 @@ import {
   HTTP_REQUEST,
   GET_DT_RESERVATION_STATE_DATA,
   DT_RESERVATION_FUNC,
-  GET_DT_RESERVATION_PACKAGE
+  GET_DT_RESERVATION_PACKAGE, DELETE_DT_RESERVATION_PACKAGE,
 } from '../../constants';
 
 export const getDtAwaitings = (date) => async (dispatch) => {
@@ -33,6 +33,23 @@ export const getPackageDt = () => async (dispatch) => {
     },
   });
 };
+
+export const deletePackageSeance = (id, successCallback, errorCallback) => async (dispatch) => {
+  const url = `/user/package-seance/${id}`;
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'DELETE',
+      url,
+      label: DELETE_DT_RESERVATION_PACKAGE,
+      callBack: () => successCallback(),
+      errorHandler: (error) => errorCallback(error?.message),
+      transformData: (data) => data.data,
+    },
+  });
+};
+
 export const DtAwaitingApprove = (id, successCallback = () => {}) => async (
   dispatch
 ) => {

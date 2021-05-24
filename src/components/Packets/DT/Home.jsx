@@ -5,8 +5,9 @@ import styled from 'styled-components/macro';
 
 import DietitianPacketCard from '../PacketCard/dietitianPackets';
 import { useDispatch, useSelector } from 'react-redux';
-import {  getPackageDt } from '../../../actions';
-const Home = ({ packageData }) => {
+import { getPackageDt, deletePackageSeance } from '../../../actions';
+import { toast } from 'react-toastify';
+const Home = () => {
   const dispatch = useDispatch();
   const { packets } = useSelector(
     (state) => state.professionalReservation.dtReservation
@@ -16,8 +17,28 @@ const Home = ({ packageData }) => {
     dispatch(getPackageDt());
   }, []);
 
+  const deletePackageSuccess = () =>{
+    dispatch(getPackageDt());
+    toast.success('Paket Silme İşlemi Başarılı Bir Şekilde Tamamlanmıştır.', {
+      position: 'bottom-right',
+      autoClose: 3000,
+    });
+
+  }
+
+  const deletePackageFail = () =>{
+    toast.error('Paket Silinirken Hata Oluştu!',
+      {
+        position: 'bottom-right',
+        autoClose: 3000,
+      }
+    );
+  }
+
+
+
   const setPackageData = (data) =>{
-    packageData(data)
+    dispatch(deletePackageSeance(data?.id, deletePackageSuccess, deletePackageFail))
   }
 
   return (
