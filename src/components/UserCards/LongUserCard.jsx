@@ -57,7 +57,7 @@ const LongUserCard = ({
 
         <img
           className="long-user-card__img"
-          src={data?.photo ? data?.photo : MockImage}
+          src={data?.photo?.path ? data?.photo?.path : data?.photo ? data?.photo : MockImage}
         />
 
         <div className="long-user-card__navigator-wrapper">
