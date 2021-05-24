@@ -65,8 +65,8 @@ export const sendPackageReservation =
           });
           successCallback();
         },
-        errorHandler: () => {
-          toast.error('Bilgilerinizi gözden geçiriniz.', {
+        errorHandler: (err) => {
+          toast.error(err?.message || 'Bilgilerinizi gözden geçiriniz.', {
             position: 'bottom-right',
             autoClose: 4000,
           });
