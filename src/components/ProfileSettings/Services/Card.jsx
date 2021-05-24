@@ -1,12 +1,15 @@
 /* eslint-disable react/jsx-pascal-case */
-
 import React, { useEffect } from 'react';
 import { device } from 'utils';
 import styled from 'styled-components/macro';
 import Svg from 'components/statics/svg';
+import { Link } from 'react-router-dom';
+import { setNewMessageRoom } from '../../../actions';
+import { useDispatch } from 'react-redux';
 
-export default function Card({ image, name, desc }) {
+export default function Card({ image, name, desc, data }) {
   useEffect(() => {}, []);
+  const dispatch = useDispatch();
 
   return (
     <Container>
@@ -18,7 +21,14 @@ export default function Card({ image, name, desc }) {
         </InfoContainer>
       </Left>
       <Comment>
-        <Svg.Comment />
+        <Link
+        to={'/messages'}
+        className="list"
+        onClick={() => dispatch(setNewMessageRoom(data))}>
+
+          <Svg.Comment />
+        </Link>
+
       </Comment>
     </Container>
   );

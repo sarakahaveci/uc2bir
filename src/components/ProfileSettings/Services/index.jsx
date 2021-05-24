@@ -15,7 +15,6 @@ export default function Services() {
   useEffect(() => { }, []);
   useEffect(() => {
     dispatch(dtGetServices(page));
-    console.log('jssjjssjsjjsjsjs',services?.data?.data)
   }, [page]);
 
   function pageChangeHandler(event, value) {
@@ -28,9 +27,8 @@ export default function Services() {
         {'Danışanlar'}
       </Title>
       <CardContainer>
-        {services?.data?.data?.map(service => (
-          <Card image={service?.photo} name={service?.name} desc="Danışan" />
-
+        {services?.data?.data?.map((service,index) => (
+          <Card key={index} image={service?.photo} name={service?.name} data={service} desc="Danışan" />
         ))}
       </CardContainer>
       <Pagination
