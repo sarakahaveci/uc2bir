@@ -3,10 +3,10 @@ import React, { useEffect } from 'react';
 import { Col } from 'react-bootstrap';
 import styled from 'styled-components/macro';
 
-import PacketCard from '../PacketCard';
+import DietitianPacketCard from '../PacketCard/dietitianPackets';
 import { useDispatch, useSelector } from 'react-redux';
 import {  getPackageDt } from '../../../actions';
-const Home = ({ setPage = () => {}, packageData }) => {
+const Home = ({ packageData }) => {
   const dispatch = useDispatch();
   const { packets } = useSelector(
     (state) => state.professionalReservation.dtReservation
@@ -17,16 +17,15 @@ const Home = ({ setPage = () => {}, packageData }) => {
   }, []);
 
   const setPackageData = (data) =>{
-    setPage('EditLesson');
     packageData(data)
   }
 
   return (
     <>
       <Col style={{ padding: 0 }} lg="12">
-        {packets?.length>0? (packets?.map((item, index)=>(
+        {packets?.data?.length>0? (packets?.data?.map((item, index)=>(
           <CardContainer key={index}>
-            <PacketCard
+            <DietitianPacketCard
               data={item}
               onClickEdit={(data) => {
                 setPackageData(data)
