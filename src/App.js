@@ -156,7 +156,7 @@ const App = () => {
                   path="/uye-on-bilgilendirme-formu"
                   component={UyeOnBilgilendirmeFormu}
                 /> */}
-                <Route path="/search" component={HeaderSearchResults} />
+                <Route path="/search/:keyword" component={HeaderSearchResults} />
                 <Route component={NotFoundPage} />
               </Switch>
             </Layout>

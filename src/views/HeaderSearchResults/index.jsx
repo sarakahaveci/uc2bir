@@ -19,6 +19,7 @@ import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 /* images */
 import img from '../../assets/info/banner/info-img.png';
+import { useHistory, useParams } from 'react-router-dom';
 
 
 const HeaderSearchResults = () => {
@@ -29,6 +30,8 @@ const HeaderSearchResults = () => {
     const ptPackages = data?.pt_package;
     const dtPackages = data?.dt_package;
     const blogs = data?.blog;
+    const history = useHistory();
+    const { keyword } = useParams();
 
     const Tabs = [];
 
@@ -37,7 +40,8 @@ const HeaderSearchResults = () => {
         Tabs.push(  {
             settingsName: 'Eğitmenler (' + pts?.length + ')',
             body: <PTTab pts={pts} />,
-            size:pts?.length
+            size:pts?.length,
+            type:'pt'
         })
     }
 
@@ -45,7 +49,8 @@ const HeaderSearchResults = () => {
         Tabs.push( {
             settingsName: 'Spor Salonları (' + gyms?.length + ')',
             body: <GymTab gyms={gyms} />,
-            size:gyms?.length
+            size:gyms?.length,
+            type:'gym'
         })
     }
 
@@ -53,7 +58,8 @@ const HeaderSearchResults = () => {
         Tabs.push( {
             settingsName: 'Diyetisyenler (' + dts?.length + ')',
             body: <DietitiansTab dts={dts} />,
-            size:dts?.length
+            size:dts?.length,
+            type:'dt'
         })
     }
 
@@ -61,14 +67,16 @@ const HeaderSearchResults = () => {
         Tabs.push( {
             settingsName: 'Eğitmen Paketleri (' + ptPackages?.length + ')',
             body: <PtPackagesTab packages={ptPackages} />,
-            size:ptPackages?.length
+            size:ptPackages?.length,
+            type:'packets'
         },)
     }
     if(   dtPackages?.length>0){
         Tabs.push( {
             settingsName: 'Diyetisyen Paketleri (' + dtPackages?.length + ')',
             body: <DtPackagesTab packages={dtPackages} />,
-            size:dtPackages?.length
+            size:dtPackages?.length,
+            type:'packets'
         },)
     }
 
@@ -76,11 +84,21 @@ const HeaderSearchResults = () => {
         Tabs.push( {
             settingsName: 'Bloglar (' + blogs?.length + ')',
             body: <BlogsTab blogs={blogs} />,
-            size:blogs?.length
+            size:blogs?.length,
+            type:'blog-list'
         })
     }
 
     Tabs.sort((a,b) => (a.size > b.size) ? -1 : ((b.size > a.size) ? 1 : 0))
+
+    const go = (type) => {
+        if(type==='blog-list'){
+            return  history.push('/blog-list');
+        }else {
+            return history.push('/find?type='+type+'&title='+ keyword);
+        }
+
+    };
 
     const results = Tabs?.map((item, index) => (
       item.settingsName &&
@@ -93,7 +111,17 @@ const HeaderSearchResults = () => {
                                 {item.settingsName}
                             </Text>
                         </Box>
-                        <Svg.ArrowUpIcon />
+
+                        <div style={{display:'flex'}}>
+                            {item?.size>5 &&
+                              <LinkText
+                                onClick={() => {go(item.type);}}>
+                                  Tümünü Gör
+                              </LinkText>
+                            }
+                            <Svg.ArrowUpIcon />
+                        </div>
+
                     </SettingsRow>
                 </Accordion.Toggle>
                 <Accordion.Collapse>
@@ -141,6 +169,15 @@ const Wrapper = styled.div`
   width: 100%;
   @media (max-width: 768px) {
     margin-left: 10px; 
+  }
+`;
+
+const LinkText = styled.text`
+  cursor: pointer;
+  font-weight: bold;
+  margin-right: 15px;
+  &:hover {
+    color: var(--blue);
   }
 `;
 
