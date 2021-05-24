@@ -15,7 +15,12 @@ import {
   USER_KEYS,
   GET_TEMPLATE_FROM_CALENDAR,
   DELETE_HOUR_OF_CALENDER,
-  GET_DAY_OF_CALENDER, UPDATE_TEMPLATE_DEFAULT,ADD_HOUR_TO_CALENDER,GET_DAY_DETAIL_OF_CALENDER,DELETE_TEMPLATE
+  GET_DAY_OF_CALENDER,
+  UPDATE_TEMPLATE_DEFAULT,
+  ADD_HOUR_TO_CALENDER,
+  GET_DAY_DETAIL_OF_CALENDER,
+  DELETE_TEMPLATE,
+  DIETITIAN,
 } from '../../constants';
 
 export const setSelectedDay = (dayIndex) => async (dispatch, getState) => {
@@ -160,11 +165,19 @@ export const saveTemplate = (templateName, callBack) => async (
       ...(userTypeId === PERSONAL_TRAINER && {
         branch: slice.branch.map((branch) => branch.id),
       }),
-      ...(userTypeId !== WORK_PLACE && {
+      ...(userTypeId === PERSONAL_TRAINER && {
         session_type: slice.session_type.map((sessionType) => ({
           session: sessionType.session.type,
           ...(sessionType.location && {
             location: [sessionType?.location?.id],
+          }),
+        })),
+      }),
+      ...(userTypeId === DIETITIAN && {
+        session_type: slice.session_type.map((sessionType) => ({
+          session: sessionType.session.type,
+          ...(sessionType.location && {
+            location: [sessionType?.session?.id],
           }),
         })),
       }),

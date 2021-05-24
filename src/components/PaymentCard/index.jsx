@@ -213,7 +213,6 @@ export default function PaymentCard({ type,subType, dateOption }) {
       session: reservation?.data?.session,
       location_id: reservation?.data?.location_id,
       branch_id: reservation?.data?.branch_id,
-      guest: false,
       holder_name: reservation?.data?.holder_name,
       card_number: reservation?.data?.card_number,
       expiration_month: reservation?.data?.expiration_month,
