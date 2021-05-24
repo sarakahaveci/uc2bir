@@ -37,6 +37,7 @@ export const searchProffesional =
     const ptUrl = '/user/search/detail-search-pt?';
     const packetUrl_pt = '/cms/package/list?';
     const packetUrl_dt = '/user/package/list?';
+    const groupLessonUrl = '/user/search/group?';
 
     let url;
     switch (type) {
@@ -56,6 +57,9 @@ export const searchProffesional =
           url=packetUrl_dt;
         }
         break;
+        case 'group-lessons':
+          url=groupLessonUrl
+          break;
       default:
         break;
     }
