@@ -1,7 +1,7 @@
 import { HTTP_REQUEST, GET_DT_SERVICES } from '../../constants';
 
 export const dtGetServices = (page) => async (dispatch) => {
-  const url = `/services?page=${page}`;
+  const url = `/user/dt-package/my-customers`;
 
   await dispatch({
     type: HTTP_REQUEST,

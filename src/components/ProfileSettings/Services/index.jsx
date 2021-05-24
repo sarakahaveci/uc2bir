@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-pascal-case */
 
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styled from 'styled-components/macro';
 
@@ -10,11 +10,12 @@ import { Title, Pagination } from 'components';
 import Card from './Card';
 export default function Services() {
   const dispatch = useDispatch();
-  //const { services } = useSelector((state) => state.profileSettings2.services);
+  const { services } = useSelector((state) => state.profileSettings2.services);
   const [page, setPage] = useState(1);
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
   useEffect(() => {
     dispatch(dtGetServices(page));
+    console.log('jssjjssjsjjsjsjs',services?.data?.data)
   }, [page]);
 
   function pageChangeHandler(event, value) {
@@ -27,18 +28,14 @@ export default function Services() {
         {'Danışanlar'}
       </Title>
       <CardContainer>
-        <Card image={null} name="Nazlı Ulu" desc="Öğrenci" />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        {services?.data?.data?.map(service => (
+          <Card image={service?.photo} name={service?.name} desc="Danışan" />
+
+        ))}
       </CardContainer>
       <Pagination
         mt="50px"
-        count={20}
+        count={services?.data?.totalPage}
         style={{ background: 'white' }}
         page={page}
         onChange={pageChangeHandler}

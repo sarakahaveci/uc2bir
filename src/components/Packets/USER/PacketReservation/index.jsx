@@ -7,6 +7,7 @@ import {
   TrainerCard,
   WorkAreaCard,
   Accordion,
+  ClinicAccordion,
   CreditCard,
 } from 'components';
 import React, { useEffect, useState } from 'react';
@@ -26,7 +27,7 @@ import {
   //getTemplates,
   getPacketPtReservationCalendar,
   getPacketDtReservationCalendar,
-
+  getDietitianClinics,
   deleteAllSlot,
   getPtGymList,
   getPtWorkingHomePlace,
@@ -43,6 +44,9 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
   const dispatch = useDispatch();
   //Local States
   const [toggleState, setToggleState] = useState(false);
+  const clinics = useSelector(
+    (state) => state?.userProfile?.dietitianClinic?.clinics?.clinic
+  );
 
   const [city, setCity] = useState(false);
   const gymList = useSelector((state) => state?.userProfile?.ptGymList);
@@ -58,7 +62,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
   const wallet = useSelector((state) => state.userProfile.wallet);
   const staticPages = useSelector((state) => state.staticPages);
   const reservation = useSelector((state) => state.reservation);
-  const {type} = useSelector((state) => state.reservation?.data?.packetInfo);
+  const { type } = useSelector((state) => state.reservation?.data?.packetInfo);
 
   useEffect(() => {
     setBannerActive(false);
@@ -66,13 +70,19 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
       dispatch(clearReservation());
     };
   }, []);
-  useEffect(() => {}, [userInfo]); //USER İNFO KOMPLE EKSİK
+  useEffect(() => { }, [userInfo]); //USER İNFO KOMPLE EKSİK
   useEffect(() => {
-    if(type =='pt'){
+    if (type == 'pt') {
       dispatch(getPtGymList(reservation?.data?.selectedPt?.user_id));
       dispatch(getPtWorkingHomePlace(reservation?.data?.selectedPt?.user_id));
     }
   }, [reservation?.data?.selectedPt]);
+  useEffect(()=>{
+    if(reservation?.data.session =='clinic'){
+      dispatch(getDietitianClinics(reservation?.data?.packetInfo?.dt_id));
+
+    }
+  },[reservation?.data.session])
   useEffect(() => {
     // iF DATE OPTİON TRUE
     if (!reservation?.data?.isSelected) {
@@ -92,8 +102,8 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
   }, [reservation?.data?.session]);
 
   useEffect(() => {
- 
-    if(type == 'pt'){
+
+    if (type == 'pt') {
       if (
         reservation?.data?.session &&
         reservation?.data?.date &&
@@ -110,7 +120,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
           )
         );
       }
-    }else if(type == 'dt'){
+    } else if (type == 'dt') {
       dispatch(
         getPacketDtReservationCalendar(
           reservation.data.package_uuid,
@@ -121,7 +131,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
         )
       );
     }
-    
+
   }, [
     reservation?.data?.branch_id,
     reservation?.data?.session,
@@ -129,7 +139,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
     reservation?.data?.selectedPt,
     reservation?.data?.location_id,
   ]);
-  
+
 
   function WorkAreaSelect() {
     switch (reservation?.data?.session) {
@@ -253,93 +263,60 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
         );
       case 'online':
         return <></>;
-      case 'b':
-        return (
-          <>
-            <>
-              <Material.SimpleSelect
-                required
-                label="İl Seçiniz"
-                items={city}
-                name="city"
-                changeValue={formData?.city || ''}
-                onChange={(e) => {
-                  axios
-                    .post(uri, { city_id: e.target.value })
-                    .then((res) => res.data)
-                    .then((data) => data.data)
-                    .then((data) => {
-                      const new_data = data.map((val) => {
-                        return {
-                          id: val.id,
-                          val: val.id,
-                          name: val.name,
-                        };
-                      });
-                      return setTown(new_data);
-                    });
-                  return setFormData({
-                    ...formData,
-                    [e.target.name]: e.target.value,
-                  });
+        case 'clinic':
+          return <>
+          
+          <GymWrapper
+          disable={
+            reservation?.data?.slot?.length > 0 
+          }
+        >
+          <Text color="#9B9B9B">{'Klinik Seçiniz:'}</Text>
+          <RadioGroup
+            row
+            aria-label="workArea"
+            name="workArea"
+            defaultValue="0l"
+          >
+            {clinics?.map((item, i) => (
+              <div
+                key={i}
+                style={{
+                  display: 'flex',
+                  width: '100%',
                 }}
-              />
-              <Material.SimpleSelect
-                required
-                label={town ? 'Önce İl Seçiniz' : 'İlçe Seçiniz'}
-                items={town ? town : []}
-                name="district"
-                changeValue={formData?.district || ''}
-                onChange={(e) => {
-                  axios
-                    .post(uri, { district_id: e.target.value })
-                    .then((res) => res.data)
-                    .then((data) => data.data)
-                    .then((data) => {
-                      const new_data = data.map((val) => {
-                        return {
-                          id: val.id,
-                          val: val.id,
-                          name: val.name,
-                        };
-                      });
-                      return setDistrict(new_data);
-                    });
-                  return setFormData({
-                    ...formData,
-                    [e.target.name]: e.target.value,
-                  });
-                }}
-              />
-              <Material.SimpleSelect
-                required
-                label={district ? 'Önce İlçe Seçiniz' : 'Mahalle Seçiniz'}
-                items={district ? district : []}
-                name="town"
-                changeValue={formData?.town || ''}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    [e.target.name]: e.target.value,
-                  })
-                }
-              />
-              <Material.TextField
-                required
-                label="Açık Adres"
-                name="address_detail"
-                icon={AwesomeIcon.Map}
-                changeValue={formData.address_detail}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    [e.target.name]: e.target.value,
-                  })
-                }
-              />
-            </>
+              >
+                <ClinicAccordion
+                  title={item.title}
+                  lat={item?.lat}
+                  lng={item?.lng}
+                  address={item.town + ' ' + item.district + ' ' + item.city}
+                />
+                <RadioWrapper>
+                  {reservation?.data?.location_id === item.id ? (
+                    <RadioButtonCheckedIcon
+                      style={{ marginLeft: '5px', cursor: 'pointer' }}
+                    />
+                  ) : (
+                    <RadioButtonUncheckedIcon
+                      onClick={() => {
+                        dispatch(
+                          setReservation({
+                            location_id: item.id,
+                            gym_price: item.price,
+                          })
+                        );
+                      }}
+                      style={{ marginLeft: '5px', cursor: 'pointer' }}
+                    />
+                  )}
+                </RadioWrapper>
+              </div>
+            )) || null}
+          </RadioGroup>
+        </GymWrapper>
           </>
-        );
+
       default:
         return <></>;
     }
@@ -469,23 +446,23 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
                 </InputContainer>
               )}
               {
-                type == 'pt' &&<InputContainer>
-                <Text color="#9B9B9B">{'Eğitmen Seçiniz:'}</Text>
-                <div
-                  style={{ cursor: 'pointer' }}
-                  onClick={() => {
-                    setField('ptSelection');
-                  }}
-                >
-                  <div style={{ pointerEvents: 'none' }}>
-                    <Material.SimpleSelect
-                      name="pt"
-                      label={reservation?.data?.selectedPt?.name || 'Seçiniz'}
-                      onClick={() => {}}
-                    />
+                type == 'pt' && <InputContainer>
+                  <Text color="#9B9B9B">{'Eğitmen Seçiniz:'}</Text>
+                  <div
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => {
+                      setField('ptSelection');
+                    }}
+                  >
+                    <div style={{ pointerEvents: 'none' }}>
+                      <Material.SimpleSelect
+                        name="pt"
+                        label={reservation?.data?.selectedPt?.name || 'Seçiniz'}
+                        onClick={() => { }}
+                      />
+                    </div>
                   </div>
-                </div>
-              </InputContainer>
+                </InputContainer>
               }
               {reservation?.data?.selectedPt && (
                 <InputContainer>
@@ -509,11 +486,21 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
               <InputContainer>
                 <Text color="#9B9B9B">{'Oturum Türü Seçiniz:'}</Text>
                 <Material.SimpleSelect
-                  items={[
-                    { id: 'home_park', name: 'Ev / Park' },
-                    { id: 'gym', name: 'Spor Salonu' },
-                    { id: 'online', name: 'Online' },
-                  ]}
+                  items={
+                    type == 'pt ' ? (
+                      [
+                        { id: 'home_park', name: 'Ev / Park' },
+                        { id: 'gym', name: 'Spor Salonu' },
+                        { id: 'online', name: 'Online' },
+                      ]
+                    ) :
+
+                      [
+                        { id: 'clinic', name: 'Klinik' },
+                        { id: 'online', name: 'Online' },
+                      ]
+
+                  }
                   name="sessionType"
                   defaultValue={reservation?.data?.session}
                   onChange={(e) =>
@@ -725,9 +712,9 @@ const AccordionItemWrapper = styled.div`
   .accordion-toggler {
     display: flex;
     background: ${(p) =>
-      p.parent
-        ? '#EFEFEF'
-        : p.accordionBackground
+    p.parent
+      ? '#EFEFEF'
+      : p.accordionBackground
         ? p.accordionBackground
         : '#F8F8F8'};
     justify-content: space-between;
@@ -748,5 +735,8 @@ const ParkHeader = styled.text`
 const ParkAdress = styled.text`
   font-weight: 300;
   font-size: 1rem;
+`;
+const RadioWrapper = styled.div`
+  margin-top: 20px;
 `;
 export default PacketReservation;
