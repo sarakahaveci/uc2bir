@@ -21,7 +21,7 @@ export const getDtAwaitings = (date) => async (dispatch) => {
   });
 };
 export const getPackageDt = () => async (dispatch) => {
-  let url = '/appointment/dt-calendar/my-package';
+  let url = '/user/package-seance-list';
 
   await dispatch({
     type: HTTP_REQUEST,
