@@ -92,7 +92,7 @@ const Awaitings = ({ setAwaitingCount }) => {
                         elm?.pt
                           ? {
                             label: 'EĞİTMEN',
-                            value: elm?.pt,
+                            value: elm?.pt?.name,
                           }
                           : undefined
                       }
@@ -120,7 +120,7 @@ const Awaitings = ({ setAwaitingCount }) => {
               >
                 {items?.appointment?.[
                   moment(selectedDate).format('DD.MM.YYYY')
-                ]?.no_pt?.map((elm, i) => (
+                ]?.without_pt?.map((elm, i) => (
                   <ApproveCardContainer key={i}>
                     <ApproveCard
                       date="18:00 - 19:00"
