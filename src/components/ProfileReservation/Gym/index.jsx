@@ -22,10 +22,8 @@ import {
   clearReservationCalendar,
 } from 'actions';
 import RadioGroup from '@material-ui/core/RadioGroup';
-import axios from 'axios';
 import { getWallet } from 'actions/userProfileActions/walletActions';
 
-const uri = `${process.env.REACT_APP_API_URL}/regions`;
 
 const Gym = ({ dateOption = true }) => {
   const dispatch = useDispatch();
@@ -40,7 +38,6 @@ const Gym = ({ dateOption = true }) => {
   const staticPages = useSelector((state) => state.staticPages);
   const reservation = useSelector((state) => state.reservation);
   const gymList = useSelector((state) => state.userProfile.gymPtList);
-  const reservationCalendar = useSelector((state) => state.reservationCalendar?.data?.bs);
 
   //const gymList = useSelector((state) => state.userProfile.ptGymList);
 
