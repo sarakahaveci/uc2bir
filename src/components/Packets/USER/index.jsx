@@ -94,6 +94,7 @@ const User = ({ icons, setBannerActive }) => {
           />
         </div>
       );
+     
     case 'ExerciseDetail':
       return (
         <div>

@@ -206,7 +206,7 @@ const SearchProfessional = () => {
               {data?.data?.map((packet) => (
                 <PacketCard
                   showHeartBg
-                  subType={subType}
+                  subType={subType || 'pt'}
                   key={packet?.id || packet?.user_id}
                   data={packet}
                   city={packet?.city}

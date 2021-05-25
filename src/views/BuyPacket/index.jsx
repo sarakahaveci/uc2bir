@@ -197,7 +197,8 @@ const BuyPacket = ({ match }) => {
         <SideContainer>
           <TrainerGroupContainer>
             <TrainerGroupWrapper>
-              <div>
+             {match?.params?.type =='pt' && (
+                <div>
                 <LabelText>Seviyenizi Seçiniz </LabelText>
                 <Seperator></Seperator>
                 <LevelContainer>
@@ -239,6 +240,7 @@ const BuyPacket = ({ match }) => {
                   </LevelCircle>
                 </LevelContainer>
               </div>
+             )}
               <BottomContainer>
                 <PtIconsContainer>
                   <PtIcon src={avatar1} />
@@ -249,11 +251,11 @@ const BuyPacket = ({ match }) => {
                 </PtIconsContainer>
                 <Button
                   blueborder
-                  text="Eğitmenleri Gör"
+                  text={match?.params?.type == 'pt' ? "Eğitmenleri Gör" : "Diyetisyenleri Gör"}
                   fontSize="11pt"
                   color="blue"
                   onClick={() => {
-                    history.push('/find?type=pt');
+                    history.push('/find?type='+match?.params?.type);
                   }}
                 />
               </BottomContainer>
