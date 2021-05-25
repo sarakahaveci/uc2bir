@@ -80,7 +80,7 @@ export default function GroupLeftSelections() {
   }, [selectedImageId]);
 
   useEffect(() => {
-    if (branchSelection && locationSelection) {
+    if (branchSelection && locationSelection && userTypeId === PERSONAL_TRAINER) {
       dispatch(
         getWorkPlaceCapacity(
           branchSelection.id,
