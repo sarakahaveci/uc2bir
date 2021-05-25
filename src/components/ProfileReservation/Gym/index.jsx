@@ -30,8 +30,7 @@ const uri = `${process.env.REACT_APP_API_URL}/regions`;
 const Gym = ({ dateOption = true }) => {
   const dispatch = useDispatch();
   //Local States
-  const [city, setCity] = useState(false);
-  const [wantPt, setWantPt] = useState(false);
+  const [wantPt, setWantPt] = useState(2);
   const [page, setPage] = useState(1);
 
   const [openModal, setOpenModal] = useState(false);
@@ -41,6 +40,7 @@ const Gym = ({ dateOption = true }) => {
   const staticPages = useSelector((state) => state.staticPages);
   const reservation = useSelector((state) => state.reservation);
   const gymList = useSelector((state) => state.userProfile.gymPtList);
+  const reservationCalendar = useSelector((state) => state.reservationCalendar?.data?.bs);
 
   //const gymList = useSelector((state) => state.userProfile.ptGymList);
 
@@ -51,7 +51,6 @@ const Gym = ({ dateOption = true }) => {
 
   useEffect(() => {
     dispatch(getWallet());
-    //dispatch(getTemplates()); HATA VARSA BURAYA Bİ BAK
     dispatch(setReservation({ bs_id: userInfo.id }));
     dispatch(getStaticPage('uye-mesafeli-hizmet-sozlesmesi'));
     dispatch(getStaticPage('uye-on-bilgilendirme-formu'));
@@ -71,59 +70,27 @@ const Gym = ({ dateOption = true }) => {
         )
       );
     }
-  }, [reservation?.data?.branch_id, reservation?.data?.date]);
+  }, [reservation?.data?.branch_id, reservation?.data?.date, wantPt]);
   useEffect(() => {
-    getGymReservationCalendar(
-      userInfo.id,
-      reservation.data?.slot?.[0]?.date,
-      reservation.data?.slot?.[0]?.hour,
-      reservation?.data?.branch_id,
-      reservation?.data?.pt_id
-    );
+    if (reservation?.data?.pt_id) {
+      dispatch(
+        getGymReservationCalendar(
+          userInfo.id,
+          reservation.data?.slot?.[0]?.date,
+          reservation.data?.slot?.[0]?.hour,
+          reservation?.data?.branch_id,
+          reservation?.data?.pt_id
+        )
+      )
+    }
   }, [reservation?.data?.pt_id]);
   useEffect(() => {
-    if (wantPt) {
+    if (wantPt == 1) {
       dispatch(getGymPtList(userInfo.id, page));
       dispatch(clearReservationCalendar());
-    } else {
-      getGymReservationCalendar(
-        userInfo.id,
-        reservation.data?.slot?.[0]?.date,
-        reservation.data?.slot?.[0]?.hour,
-        reservation?.data?.branch_id
-      );
     }
   }, [wantPt]);
-  useEffect(() => {
-    if (!city) {
-      axios
-        .post(uri)
-        .then((res) => res.data)
-        .then((data) => data.data)
-        .then((data) => {
-          const new_data = data.map((val) => {
-            return {
-              id: val.id,
-              val: val.id,
-              name: val.name,
-            };
-          });
-          return setCity(new_data);
-        })
-        .catch((err) =>
-          toast.error(err, {
-            position: 'bottom-right',
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          })
-        );
-    }
-  }, [city]);
-
+ 
   function _renderLeftArea() {
     switch (reservation?.data?.payment_type) {
       case 'wallet':
@@ -266,15 +233,16 @@ const Gym = ({ dateOption = true }) => {
                 <Text color="#9B9B9B">{'Eğitmen İstiyor musunuz ?'}</Text>
                 <Material.SimpleSelect
                   items={[
-                    { id: 1, name: 'Hayır' },
-                    { id: 2, name: 'Evet' },
+                    { id: 1, name: 'Evet' },
+                    { id: 2, name: 'Hayır' },
                   ]}
                   name="branch"
+                  defaultValue={wantPt}
                   onChange={(e) => {
                     if (e.target?.value === 2) {
-                      setWantPt(true);
+                      setWantPt(2);
                     } else {
-                      setWantPt(false);
+                      setWantPt(1);
                       dispatch(
                         setReservation({ pt_id: undefined, pt_price: 0 })
                       );
@@ -282,7 +250,7 @@ const Gym = ({ dateOption = true }) => {
                   }}
                 />
               </InputContainer>
-              {wantPt && _renderTrainerSelections()}
+              {(wantPt == 1) && _renderTrainerSelections()}
             </SelectionContainer>
           </>
         );
