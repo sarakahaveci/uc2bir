@@ -39,7 +39,7 @@ const DietitianPacketCard = ({ onClickEdit, data }) => {
         <FlexSpace>
           <Svg.LocationIcon/>
           {data?.session_type !== 'online' &&
-          <AdressText>Buraya BE den adres data gelecek</AdressText>
+          <AdressText>{data?.address_detail}</AdressText>
           }
         </FlexSpace>
         <Seperator/>

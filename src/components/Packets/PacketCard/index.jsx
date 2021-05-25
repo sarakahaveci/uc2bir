@@ -50,8 +50,9 @@ const PacketCard = ({ onClickEdit, data }) => {
       <Column borderDisable>
           <FlexSpace>
             <Svg.LocationIcon/>
-            {data?.session_type !== 'online' &&
-            <AdressText>Denemememmejsad saokdk asokdo</AdressText>
+            {data?.session_type !== 'online' ?
+            <AdressText>{data?.address}</AdressText> :
+            <AdressText>Online Ders</AdressText>
             }
           </FlexSpace>
         <Seperator/>
