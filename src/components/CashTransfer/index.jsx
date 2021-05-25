@@ -1,35 +1,46 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 import { device } from 'utils';
-import { Material } from 'components';
+import { Material, Button } from 'components';
 export default function CashTransfer({}) {
   return (
     <Container>
       <DataContainer>
-        <BoldText>IBAN</BoldText>
+        <BoldText>Alıcı Hesap Bilgileri</BoldText>
         <Material.TextField
-          mask="TR99 9999 9999 9999 9999 9999 99"
+          label="Alıcı Adı Soyadı"
+          type="text"
+          name="holder_name"
+          // defaultValue={defaultCardName}
+          onBlur={() => {
+            // setCardName(e.target.value);
+          }}
+        />
+        <Material.TextField
+          mask="9999 9999 9999 9999"
           label="IBAN Numarası Giriniz"
           type="text"
-          name="iban"
+          name="card_number"
+          // defaultValue={defaultCardNo}
+          onBlur={() => {
+            // setCardNo(e.target.value.replace(/ /g, ''));
+          }}
         />
         <Material.TextField
-          label="Yüklenecek Tutarı giriniz"
-          type="number"
-          name="value"
-          style={{ marginTop: '10px' }}
+          label="Kayıt Adı"
+          type="text"
+          name="bank_title"
+          // defaultValue={defaultCardName}
+          onBlur={() => {
+            // setCardName(e.target.value);
+          }}
         />
       </DataContainer>
-      <OptionsContainer>
-        <Option>
-          <BoldText>Cüzdanımdaki tüm bakiyeyi aktar</BoldText>
-          <Material.IOSSwitch checked={true} name="checkedB" />
-        </Option>
-        <Option>
-          <BoldText>IBAN’ı kaydet</BoldText>
-          <Material.IOSSwitch checked={true} name="checkedB" />
-        </Option>
-      </OptionsContainer>
+      <Button
+        style={{ width: '100%', padding: '20px', marginTop: '20px' }}
+        className="blue"
+        text="IBAN No Kaydet"
+      />
     </Container>
   );
 }
@@ -37,7 +48,7 @@ export default function CashTransfer({}) {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 586px;
+  width: 700px;
   background: #f8f8f8;
   padding: 20px;
   border-radius: 10px;
@@ -54,25 +65,12 @@ const DataContainer = styled.div`
   border-color: #c6c6c6;
   padding: 50px 20px;
 `;
-const OptionsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  padding: 0 20px;
-`;
-const Option = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 15px;
-`;
-const BoldText = styled.text`
+
+const BoldText = styled.div`
   font-size: 1rem;
   font-weight: bold;
   font-family: 'Poppins', sans-serif;
+  margin-bottom: 20px;
   color: ${(props) => props.color || 'black'};
   @media ${device.sm} {
     font-size: 0.7rem;

@@ -12,7 +12,6 @@ import {
 } from 'actions/userProfileActions/walletActions';
 
 const Home = ({ setPage }) => {
-  // TODO : Backend tarafından data gelecek
   const { balance } = useSelector((state) => state?.userProfile?.wallet.data);
   const { data } = useSelector(
     (state) => state?.userProfile?.wallet.transactionsData
@@ -84,24 +83,19 @@ const Home = ({ setPage }) => {
                 />
               )}
               {data?.length > 0 ? (
-                <Col xs={{ span: 7, offset: 5 }}>
-                  <Row
-                    style={{ marginTop: 50, marginBottom: 40 }}
-                    className="justify-content-end"
-                  >
+                <Col>
+                  <Row>
                     {user.type_id !== 1 && (
                       <Button
-                        style={{ width: '100%', padding: '20px' }}
-                        className="blue"
-                        text="Hesabıma Aktar"
-                        onClick={() => setPage('transfer')}
+                        style={{
+                          textDecoration: 'underline',
+                          display: 'block',
+                        }}
+                        fontWeight="600"
+                        color="blue"
+                        text="Hesabımdaki Bakiyeyi Aktar >"
+                        onClick={() => setPage('TransferInfo')}
                       />
-                    )}
-                    {user.type_id !== 1 && (
-                      <Text textAlign="right" color="red">
-                        Hesaba para aktarma işlemi yalnızca her ayın 15. ve
-                        20.günleri arasında yapılır.
-                      </Text>
                     )}
                   </Row>
                 </Col>

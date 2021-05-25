@@ -17,9 +17,7 @@ export default function CashTransferConfirm({}) {
       <InfoContainer>
         <DataContainer>
           <Info>
-            <Text style={{ fontWeight: 800 }}>
-              IBAN'a Transfer (Havale, EFT)
-            </Text>
+            <Text style={{ fontWeight: 800 }}>IBAN'a Transfer</Text>
           </Info>
           <Info>
             <Text
@@ -36,45 +34,10 @@ export default function CashTransferConfirm({}) {
               color="#909090"
               style={{ marginLeft: '10px', fontWeight: '500' }}
             >
-              IBAN'a Transfer (Havale, EFT)
+              Banka Hesabına Gönderim (EFT, Havale)
             </Text>
           </Info>
-          <Info>
-            <Text
-              style={{
-                borderStyle: 'solid',
-                borderWidth: '0 1px 0 0',
-                borderColor: 'rgba(144, 144, 144, 0.5)',
-                padding: '0 10px 0 0',
-              }}
-            >
-              Alıcı Adı Soyadı
-            </Text>
-            <Text
-              color="#909090"
-              style={{ marginLeft: '10px', fontWeight: '500' }}
-            >
-              ZEYNEP BOZOKLUOGLU
-            </Text>
-          </Info>
-          <Info>
-            <Text
-              style={{
-                borderStyle: 'solid',
-                borderWidth: '0 1px 0 0',
-                borderColor: 'rgba(144, 144, 144, 0.5)',
-                padding: '0 10px 0 0',
-              }}
-            >
-              Alıcı Hesap No
-            </Text>
-            <Text
-              color="#909090"
-              style={{ marginLeft: '10px', fontWeight: '500' }}
-            >
-              092-78900123 KARŞIYAKA
-            </Text>
-          </Info>
+
           <Info>
             <Text
               style={{
@@ -93,31 +56,13 @@ export default function CashTransferConfirm({}) {
               TR45 0000 0000 0003 0000 00
             </Text>
           </Info>
-          <Info>
-            <Text
-              style={{
-                borderStyle: 'solid',
-                borderWidth: '0 1px 0 0',
-                borderColor: 'rgba(144, 144, 144, 0.5)',
-                padding: '0 10px 0 0',
-              }}
-            >
-              Alıcı Banka
-            </Text>
-            <Text
-              color="#909090"
-              style={{ marginLeft: '10px', fontWeight: '500' }}
-            >
-              T.GARANTİ BANKASI
-            </Text>
-          </Info>
         </DataContainer>
       </InfoContainer>
       <ConfirmContainer>
         <BottomContainer>
           <Text style={{ fontWeight: 800 }}>Tutar</Text>
-          <Text color="#00B2A9" style={{ fontWeight: 800, fontSize: 30 }}>
-            {wallet?.data?.balance}
+          <Text color="#00B2A9" style={{ fontWeight: 800, fontSize: 28 }}>
+            {wallet?.data?.balance}₺
           </Text>
         </BottomContainer>
         <BottomContainer>

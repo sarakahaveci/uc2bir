@@ -65,7 +65,7 @@ const Wrapper = () => {
                             </td>
                           </tr>
                         )}
-                        {transactionsData[0]?.amount && (
+                        {!transactionsData[0]?.amount == 0 && (
                           <tr>
                             <td>Tutar</td>
                             <td className="text-right">
