@@ -60,21 +60,6 @@ const Footer = () => {
               <li>
                 <Link to="/kvkk-sozlesmesi">Kişisel Verilerin Korunması</Link>
               </li>
-              {/* <li>
-                <Link to="/uye-on-bilgilendirme-formu">
-                  Üye Ön Bilgilendirme Formu
-                </Link>
-              </li>
-              <li>
-                <Link to="/uye-mesafeli-hizmet-sozlesmesi">
-                  Üye Mesafeli Hizmet Sözleşmesi
-                </Link>
-              </li>
-              <li>
-                <Link to="/uye-aydinlatma-bildirimi">
-                  Üye Aydınlatma Bildirimi
-                </Link>
-              </li> */}
             </ul>
           </div>
 

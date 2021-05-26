@@ -11,6 +11,15 @@ import {
   GET_BANK_ACCOUNT_REQUEST,
   GET_BANK_ACCOUNT_SUCCESS,
   GET_BANK_ACCOUNT_FAILURE,
+  ADD_BANK_ACCOUNT_REQUEST,
+  ADD_BANK_ACCOUNT_SUCCESS,
+  ADD_BANK_ACCOUNT_FAILURE,
+  UPDATE_BANK_ACCOUNT_REQUEST,
+  UPDATE_BANK_ACCOUNT_SUCCESS,
+  UPDATE_BANK_ACCOUNT_FAILURE,
+  DELETE_BANK_ACCOUNT_REQUEST,
+  DELETE_BANK_ACCOUNT_SUCCESS,
+  DELETE_BANK_ACCOUNT_FAILURE,
 } from '../../constants';
 
 const initialState = {
@@ -102,6 +111,63 @@ export default (state = initialState, action) => {
         ...state,
         isLoading: false,
         bankAccounts: action.payload,
+      };
+
+    case ADD_BANK_ACCOUNT_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+
+    case ADD_BANK_ACCOUNT_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload.message,
+      };
+
+    case ADD_BANK_ACCOUNT_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+      };
+
+    case UPDATE_BANK_ACCOUNT_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+
+    case UPDATE_BANK_ACCOUNT_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload.message,
+      };
+
+    case UPDATE_BANK_ACCOUNT_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+      };
+
+    case DELETE_BANK_ACCOUNT_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+
+    case DELETE_BANK_ACCOUNT_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload.message,
+      };
+
+    case DELETE_BANK_ACCOUNT_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
       };
 
     default:

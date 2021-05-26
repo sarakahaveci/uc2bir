@@ -1,85 +1,168 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { Col } from 'react-bootstrap';
-import { Title, Svg } from 'components';
+import { Title, Svg, Button } from 'components';
 import { Material } from 'components';
-import { useDispatch, useSelector } from 'react-redux';
 
 import styled from 'styled-components/macro';
-import { getBankAccount } from 'actions/userProfileActions/walletActions';
 
-const TransferInfo = () => {
-  const data = useSelector((state) => state?.userProfile?.wallet?.bankAccounts);
-  const dispatch = useDispatch();
+const TransferInfo = ({
+  setCardName,
+  setCardNo,
+  setSaveName,
+  handleSubmitUpdate,
+  item,
+  setAccountId,
+  handleSubmitDelete,
+}) => {
+  const [editMode, setEditMode] = useState(false);
 
-  useEffect(() => {
-    dispatch(getBankAccount());
-  }, []);
+  const splitIbanNumber = (text) => {
+    return text.match(/.{1,4}/g)?.join(' ');
+  };
 
   return (
     <>
-      {data &&
-        data.map((item, index) => (
-          <DataContainer key={index}>
-            <Title textAlign="left" fontWeight="500">
-              Kayıt Adı : {item.bank_title}{' '}
-            </Title>
-            <Svg.Pencil
-              style={{
-                textAlign: 'right',
-                marginBottom: '20px',
-                cursor: 'pointer',
+      <DataContainer>
+        <div style={{ textAlignLast: 'end', marginBottom: '10px' }}>
+          <Svg.Pencil
+            className="close-icon"
+            style={{
+              textAlign: 'right',
+              cursor: 'pointer',
+              display: 'inline-block',
+              marginRight: '10px',
+            }}
+            onClick={() => {
+              setEditMode((prev) => !prev);
+              setAccountId(item.id);
+            }}
+          />
+          <Svg.BigClose
+            style={{
+              textAlign: 'right',
+              cursor: 'pointer',
+              display: 'inline-block',
+            }}
+            onClick={() => {
+              handleSubmitDelete(item.id);
+            }}
+          />
+        </div>
+
+        <Explanation>
+          <Col>
+            <Title textAlign="left">Kayıt Adı </Title>
+          </Col>
+          |
+          <Col>
+            <TitleWrapper>
+              {(editMode && (
+                <Material.TextField
+                  required
+                  style={{ display: 'flex' }}
+                  fontWeight="400"
+                  textAlign="right"
+                  type="text"
+                  name="bank_title"
+                  onChange={(e) => {
+                    setSaveName(e.target.value);
+                  }}
+                />
+              )) || (
+                <Title textAlign="right" fontWeight="500">
+                  {item.bank_title}{' '}
+                </Title>
+              )}
+            </TitleWrapper>
+          </Col>
+        </Explanation>
+
+        <Explanation>
+          <Col>
+            <Title textAlign="left">Alıcı Adı Soyadı </Title>
+          </Col>
+          |
+          <Col>
+            <TitleWrapper>
+              {(editMode && (
+                <Material.TextField
+                  required
+                  style={{ display: 'flex' }}
+                  fontWeight="400"
+                  type="text"
+                  name="holder_name"
+                  onChange={(e) => {
+                    setCardName(e.target.value);
+                  }}
+                />
+              )) || (
+                <Title
+                  textAlign="right"
+                  style={{ display: 'flex', textAlign: 'right' }}
+                  fontWeight="400"
+                >
+                  {item.username}
+                </Title>
+              )}
+            </TitleWrapper>
+          </Col>
+        </Explanation>
+
+        <Explanation>
+          <Col>
+            <Title textAlign="left">Alıcı IBAN No </Title>
+          </Col>
+          |
+          <Col>
+            <TitleWrapper>
+              {(editMode && (
+                <Material.TextField
+                  required
+                  mask="9999 9999 9999 9999"
+                  type="text"
+                  name="card_number"
+                  onChange={(e) => {
+                    setCardNo(e.target.value.replace(/ /g, ''));
+                  }}
+                />
+              )) || (
+                <Title
+                  textAlign="right"
+                  style={{ display: 'flex' }}
+                  fontWeight="400"
+                >
+                  TR {splitIbanNumber(item.iban_no)}
+                </Title>
+              )}
+            </TitleWrapper>
+          </Col>
+        </Explanation>
+        {editMode && (
+          <div style={{ textAlign: 'right' }}>
+            <Button
+              style={{ width: '50%', padding: '10px', marginTop: '20px' }}
+              className="blue"
+              text="Kaydet"
+              onClick={() => {
+                handleSubmitUpdate();
+                setEditMode(false);
               }}
             />
-            <Explanation>
-              <Col>
-                <Title textAlign="left">Alıcı Adı Soyadı </Title>
-              </Col>
-              |
-              <Col>
-                <TitleWrapper>
-                  <Title
-                    textAlign="right"
-                    style={{ display: 'flex' }}
-                    fontWeight="400"
-                  >
-                    {item.username}
-                  </Title>
-                </TitleWrapper>
-              </Col>
-            </Explanation>
-            <Explanation>
-              <Col>
-                <Title textAlign="left">Alıcı IBAN No </Title>
-              </Col>
-              |
-              <Col>
-                <TitleWrapper>
-                  <Title
-                    textAlign="right"
-                    style={{ display: 'flex' }}
-                    fontWeight="400"
-                  >
-                    TR{item.iban_no}
-                  </Title>
-                </TitleWrapper>
-              </Col>
-            </Explanation>
-            <CheckBoxWrapper>
-              <Material.CheckBox
-                checked
-                onChange={() => {}}
-                style={{ marginTop: '20px' }}
-                label={
-                  <div>
-                    <span onClick={() => {}}>
-                      Varsayılan Hesap Olarak Ayarla
-                    </span>
-                  </div>
-                }
-              />
-            </CheckBoxWrapper>
-          </DataContainer>
-        ))}
+          </div>
+        )}
+        <CheckBoxWrapper>
+          <Material.CheckBox
+            checked={item.default === 1 ? true : false}
+            onChange={() => {}}
+            style={{ marginTop: '20px' }}
+            label={
+              <div>
+                <span onClick={() => {}}>Varsayılan Hesap Olarak Ayarla</span>
+              </div>
+            }
+          />
+        </CheckBoxWrapper>
+      </DataContainer>
     </>
   );
 };

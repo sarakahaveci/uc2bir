@@ -19,3 +19,4 @@ export * from './onlineActions';
 export * from './myPacketActions';
 export * from './transferActions';
 export * from './searchActions';
+export * from './systemCommentsActions';

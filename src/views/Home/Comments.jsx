@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+
 import { Container } from 'react-bootstrap';
 import Title from '../../components/typography/Titles';
 import Svg from 'components/statics/svg';
@@ -7,12 +9,10 @@ import { default as SlickSlider } from 'react-slick';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { getSystemComments } from 'actions/systemCommentsActions';
 
 //bunları şimdilik ekliyoruz
 // @ts-ignore
-import avatar1 from '../../assets/avatar/a1.jpg';
-import avatar2 from '../../assets/avatar/a2.jpg';
-import avatar3 from '../../assets/avatar/a3.jpg';
 
 const Comments = (props) => {
   const settings = {
@@ -26,8 +26,13 @@ const Comments = (props) => {
     pauseOnHover: false,
   };
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getSystemComments);
+  }, []);
+
   return (
-    //TODO: Statik yazıldı, backend tarafından veri gelecek
     <section className={`comments ${props.className}`}>
       <Container>
         <Title variant="h3" component="h3" lineDisable={false} fontWeight={500}>
@@ -38,7 +43,7 @@ const Comments = (props) => {
             <div className="slider-item">
               <div className="avatar">
                 <div className="img">
-                  <img src={avatar1} />
+                  <img />
                 </div>
               </div>
               <QuoteWrapper>
@@ -54,49 +59,6 @@ const Comments = (props) => {
               </QuoteWrapper>
               <div className="foot">
                 <b>Beren Ç.</b> <i>Üye</i>
-              </div>
-            </div>
-            <div className="slider-item">
-              <div className="avatar">
-                <div className="img">
-                  <img src={avatar2} />
-                </div>
-              </div>
-              <QuoteWrapper>
-                <Svg.Ql className="left-quote-icon" />
-                <div className="text">
-                  Üç2Bir sayesinde farklı yerlerde yaşayan spor aşığı insanlarla
-                  karşılaşma fırsatı buldum. Spor salonlarında, çeşitli
-                  alanlarda, park gibi halka açık yerlerde eğitimlerimi
-                  verebiliyorum. Pandemi sürecinde ise danışanlarıma özel
-                  dersler verebildim. Bana bu fırsatı sunduğunuz için
-                  teşekkürler Üç2Bir!
-                </div>
-                <Svg.Qr className="right-quote-icon" />
-              </QuoteWrapper>
-              <div className="foot">
-                <b>Murat M.</b> <i>Eğitmen</i>
-              </div>
-            </div>
-            <div className="slider-item">
-              <div className="avatar">
-                <div className="img">
-                  <img src={avatar3} />
-                </div>
-              </div>
-              <QuoteWrapper>
-                <Svg.Ql className="left-quote-icon" />
-                <div className="text">
-                  Profesyonel olarak diyet ve beslenme danışmanlığı vermek için
-                  burası mükemmel bir alan! Üç2Bir ie birlikte danışanlarımın
-                  kilo, stres, düzensiz beslenme gibi olumsuz şartlardan
-                  çıkmasına yardımcı oldum. Bütün bunları yapmak ise çok kolay
-                  oldu. Üç2Bir ile birlikte sağlıkla kalın!
-                </div>
-                <Svg.Qr className="right-quote-icon" />
-              </QuoteWrapper>
-              <div className="foot">
-                <b>Seda G.</b> <i>Diyetisyen</i>
               </div>
             </div>
           </SlickSlider>

@@ -1,20 +1,59 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import { Col, Container, Row } from 'react-bootstrap';
-import { CashTransfer } from 'components';
+import { AddBankAccount } from 'components';
 import { Title, Text } from 'components';
 import image from '../../assets/my-wallet.jpg';
 import styled from 'styled-components/macro';
-import { getWallet } from 'actions/userProfileActions/walletActions';
+import {
+  addBankAccount,
+  getWallet,
+} from 'actions/userProfileActions/walletActions';
 
 const Transfer = ({ setPage }) => {
+  const [cardName, setCardName] = useState(null);
+  const [cardNo, setCardNo] = useState(null);
+  const [saveName, setSaveName] = useState(null);
+
   const { balance } = useSelector((state) => state?.userProfile?.wallet.data);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getWallet());
   }, []);
+
+  const handleSubmit = () => {
+    dispatch(
+      addBankAccount(
+        {
+          username: cardName,
+          iban_no: cardNo,
+          bank_title: saveName,
+          default: 0,
+        },
+        handleSuccess,
+        handleFailure
+      )
+    );
+  };
+
+  const handleSuccess = () => {
+    toast.success('Hesap bilgileriniz başarıyla güncellendi.', {
+      position: 'bottom-right',
+      autoClose: 1500,
+    });
+    setPage('TransferInfo');
+  };
+
+  const handleFailure = () => {
+    toast.error('Girdiğiniz kart bilgileri hatalı veya eksik.', {
+      position: 'bottom-right',
+      autoClose: 7000,
+    });
+  };
+
   return (
     <>
       <Container>
@@ -47,13 +86,18 @@ const Transfer = ({ setPage }) => {
                 <Col>
                   <TitleWrapper>
                     <Title textAlign="right" style={{ display: 'flex' }}>
-                      {balance}₺
+                      {balance?.toFixed(2)}₺
                     </Title>
                   </TitleWrapper>
                 </Col>
               </Explanation>
             </>
-            <CashTransfer></CashTransfer>
+            <AddBankAccount
+              setCardName={setCardName}
+              setCardNo={setCardNo}
+              setSaveName={setSaveName}
+              handleSubmit={handleSubmit}
+            />
           </Col>
         </Row>
       </Container>

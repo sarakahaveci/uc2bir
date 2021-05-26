@@ -6,23 +6,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import image from '../../assets/my-wallet.jpg';
 import Wrapper from './Wrapper';
-import {
-  getWallet,
-  getWalletTransactions,
-} from 'actions/userProfileActions/walletActions';
+import { getWallet } from 'actions/userProfileActions/walletActions';
 
 const Home = ({ setPage }) => {
   const { balance } = useSelector((state) => state?.userProfile?.wallet.data);
-  const { data } = useSelector(
-    (state) => state?.userProfile?.wallet.transactionsData
-  );
+
   const { user } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getWallet());
-    dispatch(getWalletTransactions());
   }, []);
 
   return (
@@ -82,26 +76,23 @@ const Home = ({ setPage }) => {
                   onClick={() => setPage('UserTransfer')}
                 />
               )}
-              {data?.length > 0 ? (
-                <Col>
-                  <Row>
-                    {user.type_id !== 1 && (
-                      <Button
-                        style={{
-                          textDecoration: 'underline',
-                          display: 'block',
-                        }}
-                        fontWeight="600"
-                        color="blue"
-                        text="Hesabımdaki Bakiyeyi Aktar >"
-                        onClick={() => setPage('TransferInfo')}
-                      />
-                    )}
-                  </Row>
-                </Col>
-              ) : (
-                ''
-              )}
+
+              <Col>
+                <Row>
+                  {user.type_id !== 1 && (
+                    <Button
+                      style={{
+                        textDecoration: 'underline',
+                        display: 'block',
+                      }}
+                      fontWeight="600"
+                      color="blue"
+                      text="Hesabımdaki Bakiyeyi Aktar >"
+                      onClick={() => setPage('TransferInfo')}
+                    />
+                  )}
+                </Row>
+              </Col>
             </>
           </Col>
         </Row>

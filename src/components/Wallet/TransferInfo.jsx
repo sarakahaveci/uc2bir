@@ -1,13 +1,91 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Title, Button } from 'components';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 import Accounts from './Accounts';
 import styled from 'styled-components/macro';
 import image from '../../assets/my-wallet.jpg';
+import {
+  updateBankAccount,
+  getBankAccount,
+  deleteBankAccount,
+} from 'actions/userProfileActions/walletActions';
 
 const TransferInfo = ({ setPage }) => {
+  const [cardName, setCardName] = useState(null);
+  const [cardNo, setCardNo] = useState(null);
+  const [saveName, setSaveName] = useState(null);
+  const [accountId, setAccountId] = useState(null);
+
   const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state?.userProfile?.wallet?.bankAccounts);
+
+  useEffect(() => {
+    dispatch(getBankAccount());
+  }, []);
+
+  const handleSubmitUpdate = () => {
+    dispatch(
+      updateBankAccount(
+        {
+          username: cardName,
+          iban_no: cardNo,
+          bank_title: saveName,
+          default: 0,
+          id: accountId,
+        },
+        handleSuccess,
+        handleFailure
+      )
+    );
+  };
+
+  const handleSuccess = () => {
+    toast.success('Hesap bilgileriniz başarıyla güncellendi.', {
+      position: 'bottom-right',
+      autoClose: 1500,
+    });
+    setCardName(null);
+    setCardNo(null);
+    setSaveName(null);
+    dispatch(getBankAccount());
+  };
+
+  const handleFailure = () => {
+    toast.error('Girdiğiniz kart bilgileri hatalı veya eksik.', {
+      position: 'bottom-right',
+      autoClose: 7000,
+    });
+  };
+
+  const handleSubmitDelete = (idParam) => {
+    dispatch(
+      deleteBankAccount(
+        {
+          id: idParam,
+        },
+        handleSuccessDelete,
+        handleFailureDelete
+      )
+    );
+  };
+
+  const handleSuccessDelete = () => {
+    toast.success('Hesabınız başarıyla silindi.', {
+      position: 'bottom-right',
+      autoClose: 1500,
+    });
+    dispatch(getBankAccount());
+  };
+
+  const handleFailureDelete = () => {
+    toast.error('Bilgiler hatalı veya eksik.', {
+      position: 'bottom-right',
+      autoClose: 7000,
+    });
+  };
 
   return (
     <>
@@ -35,8 +113,19 @@ const TransferInfo = ({ setPage }) => {
               arasında yapılır. Aktarım yapabilmemiz için lütfen hesap
               bilgilerinizi giriniz.
             </Title>
-
-            <Accounts />
+            {data &&
+              data.map((item, index) => (
+                <Accounts
+                  item={item}
+                  key={index}
+                  setCardName={setCardName}
+                  setCardNo={setCardNo}
+                  setSaveName={setSaveName}
+                  setAccountId={setAccountId}
+                  handleSubmitUpdate={handleSubmitUpdate}
+                  handleSubmitDelete={handleSubmitDelete}
+                />
+              ))}
 
             <Col xs={{ span: 7, offset: 5 }}>
               <Row

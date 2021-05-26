@@ -4,6 +4,9 @@ import {
   GET_WALLET_TRANSACTIONS,
   GET_WALLET_TRANSACTIONS_PERPAGE,
   GET_BANK_ACCOUNT,
+  ADD_BANK_ACCOUNT,
+  UPDATE_BANK_ACCOUNT,
+  DELETE_BANK_ACCOUNT,
 } from '../../constants';
 
 export const getWallet = () => async (dispatch) => {
@@ -63,3 +66,68 @@ export const getBankAccount = () => async (dispatch) => {
     },
   });
 };
+
+export const addBankAccount =
+  (data, successCallback, errorCallback) => async (dispatch) => {
+    const url = `/user/wallet/add-bank-account`;
+
+    await dispatch({
+      type: HTTP_REQUEST,
+      payload: {
+        method: 'POST',
+        url,
+        label: ADD_BANK_ACCOUNT,
+        body: {
+          iban_no: data.iban_no,
+          default: data.default,
+          bank_title: data.bank_title,
+          username: data.username,
+        },
+        transformData: (data) => data.data,
+        callBack: () => successCallback(),
+        errorHandler: (error) => errorCallback(error.message),
+      },
+    });
+  };
+
+export const updateBankAccount =
+  (data, successCallback, errorCallback) => async (dispatch) => {
+    const url = '/user/wallet/update-bank-account';
+
+    await dispatch({
+      type: HTTP_REQUEST,
+      payload: {
+        method: 'POST',
+        url,
+        label: UPDATE_BANK_ACCOUNT,
+        body: {
+          iban_no: data.iban_no,
+          default: data.default,
+          bank_title: data.bank_title,
+          username: data.username,
+          id: data.id,
+        },
+        transformData: (data) => data.data,
+        callBack: () => successCallback(),
+        errorHandler: (error) => errorCallback(error.message),
+      },
+    });
+  };
+
+export const deleteBankAccount =
+  (data, successCallback, errorCallback) => async (dispatch) => {
+    const url = `/user/wallet/delete-bank-account`;
+
+    await dispatch({
+      type: HTTP_REQUEST,
+      payload: {
+        method: 'POST',
+        url,
+        label: DELETE_BANK_ACCOUNT,
+        body: { id: data.id },
+        transformData: (data) => data.data,
+        callBack: () => successCallback(),
+        errorHandler: (error) => errorCallback(error.message),
+      },
+    });
+  };

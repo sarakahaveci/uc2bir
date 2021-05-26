@@ -2,7 +2,12 @@ import React from 'react';
 import styled from 'styled-components/macro';
 import { device } from 'utils';
 import { Material, Button } from 'components';
-export default function CashTransfer({}) {
+export default function AddBankAccount({
+  setCardName,
+  setCardNo,
+  setSaveName,
+  handleSubmit,
+}) {
   return (
     <Container>
       <DataContainer>
@@ -11,9 +16,8 @@ export default function CashTransfer({}) {
           label="Alıcı Adı Soyadı"
           type="text"
           name="holder_name"
-          // defaultValue={defaultCardName}
-          onBlur={() => {
-            // setCardName(e.target.value);
+          onBlur={(e) => {
+            setCardName(e.target.value);
           }}
         />
         <Material.TextField
@@ -21,18 +25,16 @@ export default function CashTransfer({}) {
           label="IBAN Numarası Giriniz"
           type="text"
           name="card_number"
-          // defaultValue={defaultCardNo}
-          onBlur={() => {
-            // setCardNo(e.target.value.replace(/ /g, ''));
+          onBlur={(e) => {
+            setCardNo(e.target.value.replace(/ /g, ''));
           }}
         />
         <Material.TextField
           label="Kayıt Adı"
           type="text"
           name="bank_title"
-          // defaultValue={defaultCardName}
-          onBlur={() => {
-            // setCardName(e.target.value);
+          onBlur={(e) => {
+            setSaveName(e.target.value);
           }}
         />
       </DataContainer>
@@ -40,6 +42,9 @@ export default function CashTransfer({}) {
         style={{ width: '100%', padding: '20px', marginTop: '20px' }}
         className="blue"
         text="IBAN No Kaydet"
+        onClick={() => {
+          handleSubmit();
+        }}
       />
     </Container>
   );
