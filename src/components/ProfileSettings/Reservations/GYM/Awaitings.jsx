@@ -124,7 +124,7 @@ const Awaitings = ({ setAwaitingCount }) => {
                   <ApproveCardContainer key={i}>
                     <ApproveCard
                       date="18:00 - 19:00"
-                      customerName="Ahmet Mehmet"
+                      customerName={elm?.student}
                       optionalField_1="FITNESS" //Sport Type || NULL
                       optionalField_2={{
                         label: 'EĞİTMEN',

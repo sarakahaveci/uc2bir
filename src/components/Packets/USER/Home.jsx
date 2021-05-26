@@ -24,6 +24,9 @@ const Home = ({ setPage = () => { }, setGlobalState = () => { } }) => {
             <UserPacketCard
               type={elm?.type}
               branch={elm?.branch}
+              totalLesson={elm?.quantity}
+              currentLesson={elm?.remaining_quantity}
+
               sessionTypes={elm?.session_type?.toString()}
               packetName={elm?.name}
               trainerClass={elm?.classification}

@@ -7,6 +7,8 @@ const PacketCard = ({
   trainerClass, //typeözel
   packetName,
   branch,
+  totalLesson,
+  currentLesson,
   sessionTypes,
   onClickDetail,
   onClickReservation,
@@ -53,7 +55,7 @@ const PacketCard = ({
           </Column>
           <Column borderDisable>
             <FlexSpace>
-              <BoldText color={'gray'}>DERS : 1/2 DERS</BoldText>
+              <BoldText color={'gray'}>DERS : {currentLesson}/{totalLesson} DERS</BoldText>
             </FlexSpace>
 
             <Row>
@@ -96,7 +98,7 @@ const PacketCard = ({
           </Column>
           <Column borderDisable>
             <FlexSpace>
-              <BoldText color={'gray'}>SEANS : 1/2 SEANS</BoldText>
+              <BoldText color={'gray'}>SEANS : {currentLesson}/{totalLesson}  SEANS</BoldText>
             </FlexSpace>
 
             <Row>

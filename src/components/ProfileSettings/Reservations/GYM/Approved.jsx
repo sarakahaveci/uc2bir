@@ -88,7 +88,7 @@ const Approved = ({ setSubPage }) => {
                     <ApproveCard
                       type="approve"
                       date={'18:00 - 19:00'}
-                      customerName="Ahmet Mehmet"
+                      customerName={elm?.student}
                       optionalField_1="FITNESS" //Sport Type || NULL
                       optionalField_2={{
                         label: 'EĞİTMEN',
@@ -122,7 +122,7 @@ const Approved = ({ setSubPage }) => {
                     <ApproveCard
                       type="approve"
                       date={'18:00 - 19:00'}
-                      customerName="Ahmet Mehmet"
+                      customerName={elm?.student}
                       optionalField_1="FITNESS" //Sport Type || NULL
                       optionalField_2={{
                         label: 'EĞİTMEN',
