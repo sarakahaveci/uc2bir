@@ -26,16 +26,16 @@ const ApproveCard = ({
   useEffect(() => {}, []);
  function getRejectReason(){
     if(status_bs){
-      return 'Spor Salonu Tarafından'
+      return 'Spor Salonu Tarafından '
     }else if(status_pt){
-      return 'Eğitmen Tarafından'
+      return 'Eğitmen Tarafından '
 
     }else if(status_st){
-      return 'Kullanıcı  Tarafından'
+      return 'Kullanıcı  Tarafından '
 
     }
     else if(status_dt){
-      return 'Diyetisyen Tarafından'
+      return 'Diyetisyen Tarafından '
 
     }else{
       return ''
