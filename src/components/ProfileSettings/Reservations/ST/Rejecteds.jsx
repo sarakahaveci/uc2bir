@@ -91,6 +91,8 @@ const Rejecteds = () => {
                 ]?.gym?.map((elm, i) => (
                   <ApproveCardContainer key={i}>
                     <ApproveCard
+                      status_bs={elm?.status_bs}
+                      status_pt={elm?.status_pt}
                       date={elm?.hour}
                       transaction_id={
                         elm?.transaction_id ? elm.transaction_id : null
@@ -124,6 +126,8 @@ const Rejecteds = () => {
                   <ApproveCardContainer key={i}>
                     <ApproveCard
                       date={elm?.hour}
+                      status_bs={elm?.status_bs}
+                      status_pt={elm?.status_pt}
                       transaction_id={
                         elm?.transaction_id ? elm.transaction_id : null
                       }
@@ -159,6 +163,10 @@ const Rejecteds = () => {
                       transaction_id={
                         elm?.transaction_id ? elm.transaction_id : null
                       }
+                      status_bs={elm?.status_bs}
+                      status_pt={elm?.status_pt}
+                      status_dt={elm?.status_dt}
+
                       customerName={elm?.pt?.name || elm?.dt?.name}
                       type="rejecteds"
                       userType="user"
@@ -189,6 +197,7 @@ const Rejecteds = () => {
                   <ApproveCardContainer key={i}>
                     <ApproveCard
                       date={elm?.hour}
+                      status_dt={elm?.status_dt}
                       transaction_id={
                         elm?.transaction_id ? elm.transaction_id : null
                       }

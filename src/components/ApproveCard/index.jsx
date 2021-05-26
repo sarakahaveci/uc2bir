@@ -7,6 +7,11 @@ const ApproveCard = ({
   customerName = '',
   date = '',
   cardType,
+  status_bs,
+  status_pt,
+  status_st,
+  status_dt,
+
   optionalField_1 = null,
   optionalField_2 = null,
   optionalField_3 = null,
@@ -19,6 +24,24 @@ const ApproveCard = ({
   rateText = '',
 }) => {
   useEffect(() => {}, []);
+ function getRejectReason(){
+    if(status_bs){
+      return 'Spor Salonu Tarafından '
+    }else if(status_pt){
+      return 'Eğitmen Tarafından '
+
+    }else if(status_st){
+      return 'Kullanıcı  Tarafından '
+
+    }
+    else if(status_dt){
+      return 'Diyetisyen Tarafından '
+
+    }else{
+      return ''
+    }
+    
+  }
   let buttonGroup;
   switch (type) {
     case 'await':
@@ -59,10 +82,10 @@ const ApproveCard = ({
             {transaction_id && (
               <ButtonText onClick={onTransfer}>Para Iadesi</ButtonText>
             )}{' '}
-            Reddedildi
+           {getRejectReason()} Reddedildi
           </>
         ) : (
-          'Reddedildi'
+          getRejectReason()+ 'Reddedildi' 
         );
       break;
     case 'history':

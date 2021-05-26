@@ -64,8 +64,9 @@ const ReservationDetail = ({ type, goBack = () => { }, isOnline }) => {
               />
               <BoldText>
                 {detailData?.student?.name ||
-                  detailData?.bs?.title ||
-                  detailData?.pt?.name}
+                  detailData?.pt?.name ||
+                  detailData?.bs?.title 
+                  }
               </BoldText>
             </InfoMain>
             <text style={{ fontSize: '30px' }}> {'>'} </text>

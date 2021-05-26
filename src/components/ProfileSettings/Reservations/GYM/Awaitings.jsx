@@ -99,7 +99,7 @@ const Awaitings = ({ setAwaitingCount }) => {
                       optionalField_3={{
                         label: 'SINIF',
                         value: elm?.class,
-                        value2: `${elm?.class_total_appointment}/${elm?.class_capacity} KONTENJAN`,
+                        value2: `${elm?.class_total_appointment}/${elm?.class_capacity}`,
                       }}
                       onApprove={() => {
                         setChoosenElm(elm);
@@ -123,17 +123,18 @@ const Awaitings = ({ setAwaitingCount }) => {
                 ]?.without_pt?.map((elm, i) => (
                   <ApproveCardContainer key={i}>
                     <ApproveCard
-                      date="18:00 - 19:00"
-                      customerName="Ahmet Mehmet"
-                      optionalField_1="FITNESS" //Sport Type || NULL
+                      date={elm?.hour}
+                      customerName={elm?.student}
+                      optionalField_1={elm?.branch}//Sport Type || NULL
                       optionalField_2={{
                         label: 'EĞİTMEN',
-                        value: 'NAZLI GÜMÜŞ',
+                        value: elm?.pt?.name,
                       }}
                       optionalField_3={{
                         label: 'SINIF',
-                        value: 'B SINIFI',
-                        value2: '3/7 KONTENJAN',
+                        value: elm?.class,
+                        value2: elm?.class_total_appointment + '/' + elm?.class_capacity,
+
                       }}
                       onApprove={() => {
                         setChoosenElm(elm);
