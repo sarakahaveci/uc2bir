@@ -89,10 +89,10 @@ const Awaitings = ({ setAwaitingCount }) => {
                         optionalField_1={elm?.branch}
                         optionalField_2={{
                           label: 'SALON',
-                          value: 'ŞAVKAR ARENA',
+                          value: elm?.bs?.name,
                         }}
                         optionalField_3={{
-                          value: '1020 sokak no 56 Mardin Midyat',
+                          value: elm?.address_detail,
                         }}
                         onApprove={ () => {
                            setChoosenElm(elm);
@@ -122,10 +122,10 @@ const Awaitings = ({ setAwaitingCount }) => {
                       optionalField_1={elm?.branch}
                       optionalField_2={{
                         label: 'SALON',
-                        value: 'ŞAVKAR ARENA',
+                        value: elm?.bs?.name,
                       }}
                       optionalField_3={{
-                        value: '1020 sokak no 56 Mardin Midyat',
+                        value: elm?.address_detail,
                       }}
                       onApprove={ () => {
                          setChoosenElm(elm);
