@@ -68,6 +68,8 @@ const Rejecteds = () => {
                     <ApproveCard
                       type="rejecteds"
                       date="18:00 - 19:00"
+                      status_bs={elm?.status_bs}
+                      status_pt={elm?.status_pt}
                       customerName={elm?.student}
                       optionalField_1="FITNESS" //Sport Type || NULL
                       optionalField_2={{
@@ -103,6 +105,8 @@ const Rejecteds = () => {
                     <ApproveCard
                       type="rejecteds"
                       date="18:00 - 19:00"
+                      status_bs={elm?.status_bs}
+                      status_pt={elm?.status_pt}
                       customerName={elm?.student}
                       optionalField_1="FITNESS" //Sport Type || NULL
                       optionalField_2={{

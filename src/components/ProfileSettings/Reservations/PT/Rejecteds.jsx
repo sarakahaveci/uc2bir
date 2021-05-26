@@ -68,6 +68,8 @@ const Rejecteds = () => {
                 ]?.gym?.map((elm, i) => (
                   <ApproveCardContainer key={i}>
                     <ApproveCard
+                        status_bs={elm?.status_bs}
+                        status_st={elm?.status_st}
                       date={elm?.hour}
                       customerName={elm?.student}
                       type="rejecteds"
@@ -95,6 +97,8 @@ const Rejecteds = () => {
                     <ApproveCard
                       date={elm?.hour}
                       customerName={elm?.student}
+                      status_bs={elm?.status_bs}
+                      status_st={elm?.status_st}
                       type="rejecteds"
                       onApprove={() => {
                         setChoosenElm(elm);
@@ -119,6 +123,8 @@ const Rejecteds = () => {
                   <ApproveCardContainer key={i}>
                     <ApproveCard
                       date={elm?.hour}
+                      status_bs={elm?.status_bs}
+                      status_st={elm?.status_st}
                       customerName={elm?.student}
                       type="rejecteds"
                       onApprove={() => {
