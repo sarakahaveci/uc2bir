@@ -87,6 +87,11 @@ const workPlaceTabs = [
     component: <ProfileSettingsList />,
   },
   {
+    eventKey: 'favorites',
+    title: 'Favorilerim',
+    component: <Favorites />,
+  },
+  {
     eventKey: 'reservation',
     title: 'Rezervasyonlarım',
     component: <Reservations />,
