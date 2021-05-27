@@ -114,7 +114,7 @@ const Awaitings = ({ setAwaitingCount }) => {
               >
                 {items?.appointment?.[
                   moment(selectedDate).format('DD.MM.YYYY')
-                ]?.home_place?.map((elm, i) => (
+                ]?.home_park?.map((elm, i) => (
                   <ApproveCardContainer key={i}>
                     <ApproveCard
                       date={elm?.hour}

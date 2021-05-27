@@ -119,7 +119,7 @@ const Awaitings = ({ setAwaitingCount }) => {
               >
                 {items?.appointment?.[
                   moment(selectedDate).format('DD.MM.YYYY')
-                ]?.home_place?.map((elm, i) => (
+                ]?.home_park?.map((elm, i) => (
                   <ApproveCardContainer key={i}>
                     <ApproveCard
                       date={elm?.hour}
@@ -127,11 +127,11 @@ const Awaitings = ({ setAwaitingCount }) => {
                       optionalField_1={elm?.branch}
                       cardType="userCard"
                       optionalField_2={{
-                        label: 'SALON',
-                        value: 'ŞAVKAR ARENA',
+                        label: 'YER',
+                        value: elm?.district,
                       }}
                       optionalField_3={{
-                        value: '1020 sokak no 56 Mardin Midyat',
+                        value: elm?.address_detail
                       }}
                       onApprove={() => {
                         //setOpenApprove(elm.id);
