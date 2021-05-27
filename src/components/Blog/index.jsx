@@ -436,6 +436,7 @@ const Blog = () => {
                             Fotoğraf Yükle
                             <input
                               type="file"
+                              accept="image/png, image/jpeg"
                               hidden
                               onChange={(event) => {
                                 setFile(event.target.files[0]);
