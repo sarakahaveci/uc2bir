@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { Container } from 'react-bootstrap';
 import Title from '../../components/typography/Titles';
@@ -11,7 +11,6 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { getSystemComments } from 'actions/systemCommentsActions';
 
-//bunları şimdilik ekliyoruz
 // @ts-ignore
 
 const Comments = (props) => {
@@ -25,11 +24,12 @@ const Comments = (props) => {
     autoplaySpeed: 7500,
     pauseOnHover: false,
   };
+  const data = useSelector((state) => state?.systemComments?.data);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getSystemComments);
+    dispatch(getSystemComments());
   }, []);
 
   return (
@@ -38,31 +38,30 @@ const Comments = (props) => {
         <Title variant="h3" component="h3" lineDisable={false} fontWeight={500}>
           Sizden Gelen Yorumlar
         </Title>
-        <section className="comment-slider">
-          <SlickSlider {...settings}>
-            <div className="slider-item">
-              <div className="avatar">
-                <div className="img">
-                  <img />
+        <SlickSlider {...settings}>
+          {data.map((item, index) => {
+            return (
+              <section className="comment-slider" key={index}>
+                <div className="slider-item">
+                  <div className="avatar">
+                    <div className="img">
+                      <img src={item.path} />
+                    </div>
+                  </div>
+                  <QuoteWrapper>
+                    <Svg.Ql className="left-quote-icon" />
+                    <div className="text">{item.comment}</div>
+
+                    <Svg.Qr className="right-quote-icon" />
+                  </QuoteWrapper>
+                  <div className="foot">
+                    <b>{item.name}</b>
+                  </div>
                 </div>
-              </div>
-              <QuoteWrapper>
-                <Svg.Ql className="left-quote-icon" />
-                <div className="text">
-                  Çok nezih, çok kaliteli bir platform olmanın yanı sıra hem
-                  işleyişi hem donanımlı eğitmen kadrosuyla hem de güler yüzlü
-                  çalışanlarıyla harika bir deneyim. Gerek aldığım diyetisyen
-                  tavsiyeleri gerekse personal trainer eğitimlerinden çok memnun
-                  kaldım, herkese gözüm kapalı önerebileceğim bi yer!
-                </div>
-                <Svg.Qr className="right-quote-icon" />
-              </QuoteWrapper>
-              <div className="foot">
-                <b>Beren Ç.</b> <i>Üye</i>
-              </div>
-            </div>
-          </SlickSlider>
-        </section>
+              </section>
+            );
+          })}
+        </SlickSlider>
       </Container>
     </section>
   );

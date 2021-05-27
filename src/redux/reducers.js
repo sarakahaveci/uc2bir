@@ -30,6 +30,7 @@ import paymentPacket from '../reducers/paymentPacketReducer';
 import myPackets from '../reducers/myPacketsReducer';
 import transferRefund from '../reducers/transferRefundReducer';
 import searchResults from '../reducers/searchResultsReducer';
+import systemComments from '../reducers/systemCommentsReducer';
 
 const reducers = combineReducers({
   auth,
@@ -61,6 +62,7 @@ const reducers = combineReducers({
   myPackets,
   transferRefund,
   searchResults,
+  systemComments,
 });
 
 export default reducers;

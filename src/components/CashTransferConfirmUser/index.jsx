@@ -58,8 +58,8 @@ export default function CashTransferConfirmUser({
           <Info>
             <Text style={{ fontWeight: 600 }}>Cüzdanınız</Text>
             <br />
-            <Text style={{ fontWeight: 300 }}>
-              Cüzdanınızda {wallet?.data?.balance} ₺ bulunmaktadır.
+            <Text style={{ fontWeight: 400 }}>
+              Cüzdanınızda <u>{wallet?.data?.balance}₺</u> bulunmaktadır.
             </Text>
           </Info>
 
