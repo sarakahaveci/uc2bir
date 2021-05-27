@@ -31,13 +31,15 @@ const Dietitian = () => {
   //Local States
   const [sessionTypes, setSessionTypes] = useState(undefined);
   const [openModal, setOpenModal] = useState(false);
+  const [clinicState, setClinicState] = useState([]);
+
   //Redux States
   const { userInfo } = useSelector((state) => state.userProfile.userInfo);
   const wallet = useSelector((state) => state.userProfile.wallet);
   const staticPages = useSelector((state) => state.staticPages);
   const reservation = useSelector((state) => state.reservation);
   const clinics = useSelector(
-    (state) => state?.userProfile?.dietitianClinic?.clinics?.clinic
+    (state) => state?.reservationCalendar?.data?.location?.clinic
   );
 
   useEffect(() => {
@@ -52,6 +54,11 @@ const Dietitian = () => {
     dispatch(getStaticPage('uye-mesafeli-hizmet-sozlesmesi'));
     dispatch(getStaticPage('uye-on-bilgilendirme-formu'));
   }, [userInfo]);
+  useEffect(()=>{
+    if(!reservation?.data?.location_id){
+      setClinicState(clinics)
+    }
+  },[clinics])
   useEffect(() => {
     if (reservation?.data?.location_id) {
       dispatch(
@@ -94,7 +101,7 @@ const Dietitian = () => {
             name="workArea"
             defaultValue="0l"
           >
-            {clinics?.map((item, i) => (
+            {clinicState?.map((item, i) => (
               <div
                 key={i}
                 style={{
@@ -109,7 +116,7 @@ const Dietitian = () => {
                   address={item.town + ' ' + item.district + ' ' + item.city}
                 />
                 <RadioWrapper>
-                  {reservation?.data?.location_id === item.id ? (
+                  {reservation?.data?.location_id && (reservation?.data?.location_id === item.location_id )? (
                     <RadioButtonCheckedIcon
                       style={{ marginLeft: '5px', cursor: 'pointer' }}
                     />
@@ -118,7 +125,7 @@ const Dietitian = () => {
                       onClick={() => {
                         dispatch(
                           setReservation({
-                            location_id: item.id,
+                            location_id: item.location_id,
                             gym_price: item.price,
                           })
                         );

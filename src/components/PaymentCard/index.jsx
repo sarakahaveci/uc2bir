@@ -440,7 +440,7 @@ export default function PaymentCard({ type, subType, dateOption }) {
             <>
               <AddHeader>Saat Seçiniz</AddHeader>
               <Hours>
-                {(reservationCalendar?.data?.slice?.length > 0 &&
+                {(reservation?.data?.date && reservationCalendar?.data?.slice?.length > 0 &&
                   reservationCalendar?.data?.slice?.map((item, indx) => (
                     <Hour
                       onClick={() => {

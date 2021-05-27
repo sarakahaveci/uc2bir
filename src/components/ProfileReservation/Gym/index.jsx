@@ -30,6 +30,7 @@ const Gym = ({ dateOption = true }) => {
   //Local States
   const [wantPt, setWantPt] = useState(2);
   const [page, setPage] = useState(1);
+  const [ptListState, setPtListState] = useState([]);
 
   const [openModal, setOpenModal] = useState(false);
   //Redux States
@@ -37,7 +38,7 @@ const Gym = ({ dateOption = true }) => {
   const wallet = useSelector((state) => state.userProfile.wallet);
   const staticPages = useSelector((state) => state.staticPages);
   const reservation = useSelector((state) => state.reservation);
-  const gymList = useSelector((state) => state.userProfile.gymPtList);
+  const ptList = useSelector((state) => state.reservationCalendar?.data?.location?.with_pt);
 
   //const gymList = useSelector((state) => state.userProfile.ptGymList);
 
@@ -56,14 +57,27 @@ const Gym = ({ dateOption = true }) => {
     setPage(1);
   }, []);
   useEffect(() => {
+    if (!reservation?.data?.pt_id
+    ) {
+      setPtListState(ptList)
+
+    }
+  }, [ptList])
+  useEffect(() => {
+    if(wantPt){
+      setReservation({pt_id:undefined})
+    }
+  },[reservation?.data?.branch_id])
+
+  useEffect(() => {
     if (reservation?.data?.branch_id && reservation?.data?.date) {
       dispatch(
         getGymReservationCalendar(
           userInfo.id,
-          reservation.data?.slot?.[0]?.date,
+          reservation.data?.slot?.[0]?.date ||reservation.data?.date,
           reservation.data?.slot?.[0]?.hour,
           reservation?.data?.branch_id,
-          reservation?.data?.pt_id
+          wantPt==1 ? reservation?.data?.pt_id:null
         )
       );
     }
@@ -76,18 +90,13 @@ const Gym = ({ dateOption = true }) => {
           reservation.data?.slot?.[0]?.date,
           reservation.data?.slot?.[0]?.hour,
           reservation?.data?.branch_id,
-          reservation?.data?.pt_id
+          wantPt==1 ? reservation?.data?.pt_id:null
         )
       )
     }
   }, [reservation?.data?.pt_id]);
-  useEffect(() => {
-    if (wantPt == 1) {
-      dispatch(getGymPtList(userInfo.id, page));
-      dispatch(clearReservationCalendar());
-    }
-  }, [wantPt]);
- 
+
+
   function _renderLeftArea() {
     switch (reservation?.data?.payment_type) {
       case 'wallet':
@@ -258,7 +267,7 @@ const Gym = ({ dateOption = true }) => {
       <>
         <Text color="#9B9B9B">{'Egitmen Seçiniz:'}</Text>
         <RadioGroup row aria-label="workArea" name="workArea" defaultValue="0l">
-          {gymList?.data?.data?.map((item) => (
+          {ptListState?.map((item) => (
             <>
               <CardGroup style={{ padding: 0 }}>
                 <TrainerCard
@@ -269,7 +278,7 @@ const Gym = ({ dateOption = true }) => {
                   classification={item?.classification}
                 />
 
-                {reservation?.data?.pt_id === item.user_id ? (
+                {reservation?.data?.pt_id && (reservation?.data?.pt_id === item.id) ? (
                   <RadioButtonCheckedIcon
                     style={{ marginLeft: '5px', cursor: 'pointer' }}
                   />
@@ -278,7 +287,7 @@ const Gym = ({ dateOption = true }) => {
                     onClick={() => {
                       dispatch(
                         setReservation({
-                          pt_id: item.user_id,
+                          pt_id: item.id,
                           pt_price: item.price,
                         })
                       );
@@ -292,7 +301,7 @@ const Gym = ({ dateOption = true }) => {
         </RadioGroup>
         <Pagination
           mt="50px"
-          count={gymList?.data?.totalPage}
+          count={ptListState?.totalPage}
           page={page}
           onChange={pageChangeHandler}
         />

@@ -174,7 +174,7 @@ export default function Profile({ match }) {
                   price: userInfo?.price,
                   stars: userInfo?.rating,
                   location:
-                    userInfo.city || userInfo.district
+                    userInfo?.city || userInfo?.district
                       ? `${userInfo?.district},${userInfo?.city}`
                       : '',
                   comment: '/',

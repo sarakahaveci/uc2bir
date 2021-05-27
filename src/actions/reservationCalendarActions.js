@@ -151,7 +151,7 @@ export const getGymReservationCalendar =
     if (date) extras += `date=${date}&`;
     if (hour) extras += `hour=${hour}&`;
     if (branch_id) extras += `branch_id=${branch_id}&`;
-    if (pt_id) extras += `branch_id=${pt_id}&`;
+    if (pt_id) extras += `pt_id=${pt_id}&`;
     url += extras;
     await dispatch({
       type: HTTP_REQUEST,

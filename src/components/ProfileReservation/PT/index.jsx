@@ -37,6 +37,9 @@ const PT = () => {
   const [formData, setFormData] = useState({});
   const [city, setCity] = useState(false);
   const [town, setTown] = useState([]);
+  const [gymListState, setGymListState] = useState([]);
+  const [homeParkState, setHomeParkState] = useState([]);
+
   const [district, setDistrict] = useState([]);
   const [sessionTypes, setSessionTypes] = useState(undefined);
   //Redux States
@@ -48,9 +51,9 @@ const PT = () => {
   const { branches: branchList } = useSelector(
     (state) => state.userProfile.branch
   );
-  const gymList = useSelector((state) => state?.userProfile?.ptGymList);
+  const gymList = useSelector((state) => state?.reservationCalendar?.data?.location?.gym);
   const homePlaces = useSelector(
-    (state) => state.userProfile.workPlace.ptHomePlace
+    (state) => state?.reservationCalendar?.data?.location?.home_park
   );
   useEffect(() => {
     var items = userInfo.session.map((item) => ({
@@ -63,12 +66,21 @@ const PT = () => {
       setSessionTypes(items);
     }
     dispatch(getUserBranchList(userInfo.id));
-    dispatch(getPtGymList(userInfo.id));
     dispatch(getPtWorkingHomePlace(userInfo.id));
     dispatch(getWallet());
     //dispatch(getTemplates()); HATA VARSA BURAYA Bİ BAK
     dispatch(setReservation({ pt_id: userInfo.id }));
   }, [userInfo]);
+  useEffect(()=>{
+    if(!reservation?.data?.location_id){
+      setGymListState(gymList)
+    }
+  },[gymList])
+  useEffect(()=>{
+    if(!reservation?.data?.location_id){
+      setHomeParkState(homePlaces)
+    }
+  },[homePlaces])
   useEffect(() => {
     if (reservation?.data?.isSelected && !reservation?.data?.session) {
       var result = reservationCalendar?.data?.slice
@@ -103,10 +115,11 @@ const PT = () => {
 
   useEffect(() => {
     if (reservation?.data?.location_id) {
+   
       dispatch(
         getPtReservationCalendar(
           userInfo.id,
-          reservation.data?.slot?.[0]?.date,
+          reservation.data?.slot?.[0]?.date || reservation.data?.date ,
           reservation.data?.slot?.[0]?.hour,
           reservation?.data?.branch_id,
           reservation?.data?.session,
@@ -199,7 +212,7 @@ const PT = () => {
               name="workArea"
               defaultValue="0l"
             >
-              {gymList?.data?.map((item) => (
+              {gymListState?.map((item) => (
                 <>
                   <CardGroup style={{ padding: 0 }}>
                     <WorkAreaCard
@@ -243,14 +256,14 @@ const PT = () => {
               !reservation?.data?.isSelected
             }
           >
-            <Text color="#9B9B9B">{'Spor Alanı Seçiniz:'}</Text>
+            <Text color="#9B9B9B">{'Ev Park Seçiniz:'}</Text>
             <RadioGroup
               row
               aria-label="workArea"
               name="workArea"
               defaultValue="0l"
             >
-              {homePlaces.data?.home_park?.map((item, i) => (
+              {homeParkState?.map((item, i) => (
                 <div key={i} style={{ display: 'flex' }}>
                   <Accordion>
                     <AccordionItemWrapper>
@@ -290,16 +303,17 @@ const PT = () => {
                       </Accordion.Item>
                     </AccordionItemWrapper>
                   </Accordion>
-                  {reservation?.data?.location_id === item.id ? (
+                  {reservation?.data?.location_id  &&(reservation?.data?.location_id === item.location_id) ? (
                     <RadioButtonCheckedIcon
                       style={{ marginLeft: '5px', cursor: 'pointer' }}
                     />
                   ) : (
                     <RadioButtonUncheckedIcon
                       onClick={() => {
+                        console.log('ITEMMMM',item)
                         dispatch(
                           setReservation({
-                            location_id: item.id,
+                            location_id: item.location_id,
                             gym_price: item.price,
                           })
                         );

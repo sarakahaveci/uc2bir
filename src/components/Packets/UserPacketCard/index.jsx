@@ -87,7 +87,6 @@ const PacketCard = ({
             </Row>
 
             <FlexSpace position={'END'}>
-              <BoldText>FITNESS</BoldText>
             </FlexSpace>
           </Column>
 
