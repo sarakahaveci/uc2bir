@@ -18,8 +18,7 @@ import {
   setReservation,
   getStaticPage,
   getGymReservationCalendar,
-  getGymPtList,
-  clearReservationCalendar,
+
 } from 'actions';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import { getWallet } from 'actions/userProfileActions/walletActions';

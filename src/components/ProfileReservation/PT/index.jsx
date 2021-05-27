@@ -15,7 +15,6 @@ import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import { device } from 'utils';
 import {
   setReservation,
-  getPtGymList,
   getUserBranchList,
   getPtWorkingHomePlace,
   deleteAllSlot,
@@ -310,7 +309,6 @@ const PT = () => {
                   ) : (
                     <RadioButtonUncheckedIcon
                       onClick={() => {
-                        console.log('ITEMMMM',item)
                         dispatch(
                           setReservation({
                             location_id: item.location_id,
