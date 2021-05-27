@@ -38,7 +38,7 @@ const DIETITIAN = () => {
       content = <Calendar />;
       break;
     case 'Approved':
-      content = <Approved />;
+      content = <Approved setSubPage={setSubPage} />;
       break;
     case 'Rejecteds':
       content = <Rejecteds />;

@@ -89,7 +89,7 @@ const Approved = ({ setSubPage = () => {} }) => {
                 ]?.clinic?.map((elm, i) => (
                   <ApproveCardContainer key={i}>
                     <ApproveCard
-                      date={'18:00 - 19:00'}
+                      date={elm?.hour}
                       type="approve"
                       customerName={elm?.student}
                       onApprove={() => {
@@ -113,10 +113,12 @@ const Approved = ({ setSubPage = () => {} }) => {
                 ]?.online?.map((elm, i) => (
                   <ApproveCardContainer key={i}>
                     <ApproveCard
-                      date={'18:00 - 19:00'}
+                      date={elm?.hour}
+            
                       type="approve"
                       customerName={elm?.student}
                       onApprove={() => {
+
                         openReservationDetail(elm?.id, true);
                       }}
                       onReject={() => {

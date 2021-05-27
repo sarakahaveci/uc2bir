@@ -10,11 +10,15 @@ import moment from 'moment';
 import ReactHtmlParser from 'react-html-parser';
 import { decode } from 'html-entities';
 import DefaultProfileImg from 'assets/default-profile.jpg';
+import { useHistory } from 'react-router-dom';
+
 const ReservationDetail = ({ type, goBack = () => { }, isOnline }) => {
   const [detailData, setDetailData] = useState({});
   const professionalReservation = useSelector(
     (state) => state.professionalReservation
   );
+  let history = useHistory();
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -52,7 +56,7 @@ const ReservationDetail = ({ type, goBack = () => { }, isOnline }) => {
       </Header>
       <Sections>
         <Left>
-          <InfoItem>
+          <InfoItem onClick={()=>{history.push(`/user/${detailData.student.id}`)}}>
             <InfoMain>
               <CustomerImage
                 src={
@@ -71,7 +75,7 @@ const ReservationDetail = ({ type, goBack = () => { }, isOnline }) => {
             </InfoMain>
             <text style={{ fontSize: '30px' }}> {'>'} </text>
           </InfoItem>
-          <InfoItem>
+          {detailData?.branch && <InfoItem>
             <InfoMain>
               <Icon>
                 <Svg.SessionType.Gym />
@@ -79,7 +83,7 @@ const ReservationDetail = ({ type, goBack = () => { }, isOnline }) => {
               <BoldText>{detailData?.branch}</BoldText>
             </InfoMain>
             <text style={{ fontSize: '30px' }}> {'>'} </text>
-          </InfoItem>
+          </InfoItem>}
           <InfoItem>
             <InfoMain>
               <Icon>
@@ -245,6 +249,7 @@ const CustomerImage = styled.img`
   display: flex;
   border-radius: 41px;
   margin-right: 20px;
+  object-fit: cover;
 `;
 const Icon = styled.div``;
 const MapWrapper = styled.div`
