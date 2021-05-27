@@ -2,10 +2,10 @@ import {
   GET_SYSTEM_COMMENTS_REQUEST,
   GET_SYSTEM_COMMENTS_SUCCESS,
   GET_SYSTEM_COMMENTS_FAILURE,
-} from '../../constants';
+} from '../constants';
 
 const initialState = {
-  comments: [],
+  data: [],
   isLoading: false,
   error: null,
 };
@@ -29,7 +29,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        comments: action.payload,
+        data: action.payload,
       };
 
     default:

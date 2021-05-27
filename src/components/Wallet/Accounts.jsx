@@ -2,10 +2,15 @@ import React, { useState } from 'react';
 import { Col } from 'react-bootstrap';
 import { Title, Svg, Button } from 'components';
 import { Material } from 'components';
-
+import { useDispatch } from 'react-redux';
+import {
+  updateBankAccount,
+  getBankAccount,
+} from 'actions/userProfileActions/walletActions';
 import styled from 'styled-components/macro';
+import { toast } from 'react-toastify';
 
-const TransferInfo = ({
+const Accounts = ({
   setCardName,
   setCardNo,
   setSaveName,
@@ -20,6 +25,22 @@ const TransferInfo = ({
     return text.match(/.{1,4}/g)?.join(' ');
   };
 
+  const dispatch = useDispatch();
+
+  const handleSuccess = () => {
+    toast.success('Varsayılan hesabınız başarılı bir şekilde güncellendi.', {
+      position: 'bottom-right',
+      autoClose: 1500,
+    });
+    dispatch(getBankAccount());
+  };
+
+  const handleFailure = () => {
+    toast.error('Varsayılan hesabınız güncellenemedi.', {
+      position: 'bottom-right',
+      autoClose: 7000,
+    });
+  };
   return (
     <>
       <DataContainer>
@@ -48,108 +69,115 @@ const TransferInfo = ({
             }}
           />
         </div>
+        <form
+          onSubmit={() => {
+            handleSubmitUpdate();
+            setEditMode(false);
+          }}
+        >
+          <Explanation>
+            <Col>
+              <Title textAlign="left">Kayıt Adı </Title>
+            </Col>
+            |
+            <Col>
+              <TitleWrapper>
+                {(editMode && (
+                  <Material.TextField
+                    required
+                    style={{ display: 'flex' }}
+                    fontWeight="400"
+                    textAlign="right"
+                    type="text"
+                    name="bank_title"
+                    inputProps={{ minLength: 3 }}
+                    onChange={(e) => {
+                      setSaveName(e.target.value);
+                    }}
+                  />
+                )) || (
+                  <Title textAlign="right" fontWeight="500">
+                    {item.bank_title}{' '}
+                  </Title>
+                )}
+              </TitleWrapper>
+            </Col>
+          </Explanation>
 
-        <Explanation>
-          <Col>
-            <Title textAlign="left">Kayıt Adı </Title>
-          </Col>
-          |
-          <Col>
-            <TitleWrapper>
-              {(editMode && (
-                <Material.TextField
-                  required
-                  style={{ display: 'flex' }}
-                  fontWeight="400"
-                  textAlign="right"
-                  type="text"
-                  name="bank_title"
-                  onChange={(e) => {
-                    setSaveName(e.target.value);
-                  }}
-                />
-              )) || (
-                <Title textAlign="right" fontWeight="500">
-                  {item.bank_title}{' '}
-                </Title>
-              )}
-            </TitleWrapper>
-          </Col>
-        </Explanation>
+          <Explanation>
+            <Col>
+              <Title textAlign="left">Alıcı Adı Soyadı </Title>
+            </Col>
+            |
+            <Col>
+              <TitleWrapper>
+                {(editMode && (
+                  <Material.TextField
+                    required
+                    style={{ display: 'flex' }}
+                    fontWeight="400"
+                    type="text"
+                    name="holder_name"
+                    inputProps={{ minLength: 3 }}
+                    onChange={(e) => {
+                      setCardName(e.target.value);
+                    }}
+                  />
+                )) || (
+                  <Title
+                    textAlign="right"
+                    style={{ display: 'flex', textAlign: 'right' }}
+                    fontWeight="400"
+                  >
+                    {item.username}
+                  </Title>
+                )}
+              </TitleWrapper>
+            </Col>
+          </Explanation>
 
-        <Explanation>
-          <Col>
-            <Title textAlign="left">Alıcı Adı Soyadı </Title>
-          </Col>
-          |
-          <Col>
-            <TitleWrapper>
-              {(editMode && (
-                <Material.TextField
-                  required
-                  style={{ display: 'flex' }}
-                  fontWeight="400"
-                  type="text"
-                  name="holder_name"
-                  onChange={(e) => {
-                    setCardName(e.target.value);
-                  }}
-                />
-              )) || (
-                <Title
-                  textAlign="right"
-                  style={{ display: 'flex', textAlign: 'right' }}
-                  fontWeight="400"
-                >
-                  {item.username}
-                </Title>
-              )}
-            </TitleWrapper>
-          </Col>
-        </Explanation>
+          <Explanation>
+            <Col>
+              <Title textAlign="left">Alıcı IBAN No </Title>
+            </Col>
+            |
+            <Col>
+              <TitleWrapper>
+                {(editMode && (
+                  <Material.TextField
+                    required
+                    mask="9999 9999 9999 9999"
+                    type="text"
+                    name="card_number"
+                    inputProps={{ minLength: 20 }}
+                    onChange={(e) => {
+                      setCardNo(e.target.value.replace(/ /g, ''));
+                    }}
+                  />
+                )) || (
+                  <Title
+                    textAlign="right"
+                    style={{ display: 'flex' }}
+                    fontWeight="400"
+                  >
+                    TR {splitIbanNumber(item.iban_no)}
+                  </Title>
+                )}
+              </TitleWrapper>
+            </Col>
+          </Explanation>
+          {editMode && (
+            <div style={{ textAlign: 'right' }}>
+              <Button
+                style={{ width: '50%', padding: '10px', marginTop: '20px' }}
+                className="blue"
+                text="Kaydet"
+                type="submit"
+              />
+            </div>
+          )}
+        </form>
 
-        <Explanation>
-          <Col>
-            <Title textAlign="left">Alıcı IBAN No </Title>
-          </Col>
-          |
-          <Col>
-            <TitleWrapper>
-              {(editMode && (
-                <Material.TextField
-                  required
-                  mask="9999 9999 9999 9999"
-                  type="text"
-                  name="card_number"
-                  onChange={(e) => {
-                    setCardNo(e.target.value.replace(/ /g, ''));
-                  }}
-                />
-              )) || (
-                <Title
-                  textAlign="right"
-                  style={{ display: 'flex' }}
-                  fontWeight="400"
-                >
-                  TR {splitIbanNumber(item.iban_no)}
-                </Title>
-              )}
-            </TitleWrapper>
-          </Col>
-        </Explanation>
-        {editMode && (
-          <div style={{ textAlign: 'right' }}>
-            <Button
-              style={{ width: '50%', padding: '10px', marginTop: '20px' }}
-              className="blue"
-              text="Kaydet"
-              onClick={() => {
-                handleSubmitUpdate();
-                setEditMode(false);
-              }}
-            />
-          </div>
-        )}
         <CheckBoxWrapper>
           <Material.CheckBox
             checked={item.default === 1 ? true : false}
@@ -157,7 +185,27 @@ const TransferInfo = ({
             style={{ marginTop: '20px' }}
             label={
               <div>
-                <span onClick={() => {}}>Varsayılan Hesap Olarak Ayarla</span>
+                <span
+                  onClick={() => {
+                    if (item.default === 0) {
+                      dispatch(
+                        updateBankAccount(
+                          {
+                            username: item.username,
+                            iban_no: item.iban_no,
+                            bank_title: item.bank_title,
+                            default: 1,
+                            id: item.id,
+                          },
+                          handleSuccess,
+                          handleFailure
+                        )
+                      );
+                    }
+                  }}
+                >
+                  Varsayılan Hesap Olarak Ayarla
+                </span>
               </div>
             }
           />
@@ -203,4 +251,4 @@ const CheckBoxWrapper = styled.div`
   margin-left: 20px;
 `;
 
-export default TransferInfo;
+export default Accounts;
