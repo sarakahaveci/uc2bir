@@ -6,6 +6,8 @@ import Title from '../../components/typography/Titles';
 import Svg from 'components/statics/svg';
 import styled from 'styled-components';
 import { default as SlickSlider } from 'react-slick';
+import { decode } from 'html-entities';
+import ReactHtmlParser from 'react-html-parser';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -21,7 +23,7 @@ const Comments = (props) => {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 7500,
+    autoplaySpeed: 10000,
     pauseOnHover: false,
   };
   const data = useSelector((state) => state?.systemComments?.data);
@@ -41,24 +43,25 @@ const Comments = (props) => {
         <SlickSlider {...settings}>
           {data.map((item, index) => {
             return (
-              <section className="comment-slider" key={index}>
+              <div className="comment-slider" key={index}>
                 <div className="slider-item">
                   <div className="avatar">
                     <div className="img">
-                      <img src={item.path} />
+                      <img src={item.file.path} />
                     </div>
                   </div>
                   <QuoteWrapper>
                     <Svg.Ql className="left-quote-icon" />
-                    <div className="text">{item.comment}</div>
-
+                    <div className="text">
+                      {ReactHtmlParser(decode(item.comment))}
+                    </div>
                     <Svg.Qr className="right-quote-icon" />
                   </QuoteWrapper>
                   <div className="foot">
                     <b>{item.name}</b>
                   </div>
                 </div>
-              </section>
+              </div>
             );
           })}
         </SlickSlider>
@@ -74,7 +77,7 @@ const QuoteWrapper = styled.div`
 
   .left-quote-icon {
     position: absolute;
-    left: 5px;
+    left: 30px;
     top: -50px;
     //TODO
 
@@ -86,7 +89,7 @@ const QuoteWrapper = styled.div`
   }
   .right-quote-icon {
     position: absolute;
-    right: 5px;
+    right: 30px;
     bottom: -50px;
     //TODO
     svg {
