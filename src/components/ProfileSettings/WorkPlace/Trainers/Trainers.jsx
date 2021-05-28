@@ -252,7 +252,8 @@ const Trainers = ({
                   data={professional}
                   city={professional?.city}
                   district={professional?.district}
-                  onClickHover={onClickHover}
+                  onClickHover={levelCompare(level, professional?.classification) ? onClickHover:()=>onClickUpgrageClass(professional?.classification)
+ }
                 />
               ))}
             </GymListWrapper>

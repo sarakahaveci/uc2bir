@@ -22,7 +22,7 @@ const UpgradeClass = ({ setField = () => {} /* globalState */ }) => {
 
   useEffect(() => {
     dispatch(getWallet());
-    dispatch(getPacketDetail(reservation?.data?.packetInfo?.package_id));
+    dispatch(getPacketDetail('pt',reservation?.data?.packetInfo?.package_id));
   
   }, []);
   useEffect(() => {

@@ -6,7 +6,8 @@ import { device } from 'utils';
 import { useLocation, useHistory } from 'react-router-dom';
 import queryString from 'query-string';
 
-import PacketCard from 'components/UserCards/PacketCard';
+import GroupLessonCard from 'components/UserCards/GroupLessonCard';
+
 import { Button, Svg, Pagination, BackLink, Text } from 'components';
 import { searchProffesional } from 'actions';
 import Filter from './SearchFilters';
@@ -152,18 +153,7 @@ const SearchGroupLesson = () => {
                 />
               </div>
             </SearchCol>
-            <SearchCol>
-              <div className="search-trainer__location-row">
-                <select defaultValue={subType} onChange={(e)=>{
-                  
-                  history.push(`/group-lessons?subType=${e.target.value}`
-                  )}} name="packet-type" id="packet-type">
-                  <option value="pt">Eğitmen Paketleri</option>
-                  <option value="dt">Dietisyen Paketleri</option>
-                </select>
-        
-              </div>
-            </SearchCol>
+           
             <SearchCol sm={12}>
               <FilterButton onClick={() => setShowFilters(!showFilters)}>
                 Filtrele
@@ -200,17 +190,18 @@ const SearchGroupLesson = () => {
           </Row>
         </SearchWrapper>
 
-        {data?.data?.length > 0 ? (
+        {data?.length > 0 ? (
           <>
             <PacketListWrapper>
-              {data?.data?.map((packet) => (
-                <PacketCard
+              {data?.map((group) => (
+                <GroupLessonCard
                   showHeartBg
                   subType={subType}
-                  key={packet?.id || packet?.user_id}
-                  data={packet}
-                  city={packet?.city}
-                  district={packet?.district}
+                  hoverText="Grup Derse Git"
+                  key={group?.id || group?.user_id}
+                  data={group}
+                  city={group?.city}
+                  district={group?.district}
                 />
               ))}
             </PacketListWrapper>

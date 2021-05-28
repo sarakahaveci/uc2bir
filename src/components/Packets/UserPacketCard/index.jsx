@@ -7,6 +7,7 @@ const PacketCard = ({
   trainerClass, //typeözel
   packetName,
   branch,
+  status,
   totalLesson,
   currentLesson,
   sessionTypes,
@@ -15,8 +16,8 @@ const PacketCard = ({
 }) => {
 
   const getSessionTypes = () => {
-    let tmpString = ""; 
-    var res = sessionTypes?.split(","); 
+    let tmpString = "";
+    var res = sessionTypes?.split(",");
     res?.forEach(element => {
       if (element == "gym")
         tmpString = tmpString + "Spor Alanı, "
@@ -59,16 +60,20 @@ const PacketCard = ({
             </FlexSpace>
 
             <Row>
-              {true ? (
-                <>
-                  <Button onClick={onClickReservation}>Rezervasyon Yap</Button>
-                  <ApproveButton onClick={onClickDetail}>
-                    Paket Detayı
-                  </ApproveButton>
-                </>
-              ) : (
-                <Button onClick={onClickDetail}>Tekrar Al</Button>
-              )}
+              {
+                {
+                  'active': <>
+                    <Button onClick={onClickReservation}>Rezervasyon Yap</Button>
+                    <ApproveButton onClick={onClickDetail}>
+                      Paket Detayı
+                    </ApproveButton>
+                  </>,
+                  'upgraded': <BoldText >Bu paket yükseltilmiştir</BoldText>
+
+                }[status] || <Button onClick={onClickDetail}>Tekrar Al</Button>
+              }
+
+
             </Row>
           </Column>
         </>
@@ -101,7 +106,7 @@ const PacketCard = ({
             </FlexSpace>
 
             <Row>
-              {true ? (
+              {status == 'active' ? (
                 <>
                   <Button onClick={onClickReservation}>Rezervasyon Yap</Button>
                   <ApproveButton onClick={onClickDetail}>
@@ -109,7 +114,7 @@ const PacketCard = ({
                   </ApproveButton>
                 </>
               ) : (
-                <Button onClick={onClickDetail}>Tekrar Al</Button>
+                <Button >Tekrar Al</Button>
               )}
             </Row>
           </Column>

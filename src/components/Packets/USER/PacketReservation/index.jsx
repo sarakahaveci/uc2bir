@@ -41,14 +41,16 @@ import UpgradeClass from './upgradeClass';
 const PacketReservation = ({ setPage, setBannerActive }) => {
   const dispatch = useDispatch();
   //Local States
+  const [clinicState, setClinicState] = useState([]);
+
   const [toggleState, setToggleState] = useState(false);
   const clinics = useSelector(
-    (state) => state?.userProfile?.dietitianClinic?.clinics?.clinic
+    (state) => state?.reservationCalendar?.data?.location?.clinic
   );
 
-  const gymList = useSelector((state) => state?.userProfile?.ptGymList);
+  const gymList = useSelector((state) => state?.reservationCalendar?.data?.location?.gym );
   const homePlaces = useSelector(
-    (state) => state.userProfile.workPlace.ptHomePlace
+    (state) => state?.reservationCalendar?.data?.location?.home_park
   );
   const [openModal, setOpenModal] = useState(false);
   const [field, setField] = useState('main');
@@ -59,6 +61,9 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
   const wallet = useSelector((state) => state.userProfile.wallet);
   const staticPages = useSelector((state) => state.staticPages);
   const reservation = useSelector((state) => state.reservation);
+  const [gymListState, setGymListState] = useState([]);
+  const [homeParkState, setHomeParkState] = useState([]);
+
   const { type } = useSelector((state) => state.reservation?.data?.packetInfo);
 
   useEffect(() => {
@@ -67,6 +72,21 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
       dispatch(clearReservation());
     };
   }, []);
+  useEffect(()=>{
+    if(!reservation?.data?.location_id){
+      setGymListState(gymList)
+    }
+  },[gymList])
+  useEffect(()=>{
+    if(!reservation?.data?.location_id){
+      setHomeParkState(homePlaces)
+    }
+  },[homePlaces])
+  useEffect(()=>{
+    if(!reservation?.data?.location_id){
+      setClinicState(clinics)
+    }
+  },[clinics])
   useEffect(() => { }, [userInfo]); //USER İNFO KOMPLE EKSİK
   useEffect(() => {
     if (type == 'pt') {
@@ -150,7 +170,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
               name="workArea"
               defaultValue="0l"
             >
-              {gymList?.data?.map((item) => (
+              {gymListState?.map((item) => (
                 <>
                   <CardGroup style={{ padding: 0 }}>
                     <WorkAreaCard
@@ -196,7 +216,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
               name="workArea"
               defaultValue="0l"
             >
-              {homePlaces.data?.home_park?.map((item, i) => (
+              {homeParkState.map((item, i) => (
                 <div key={i} style={{ display: 'flex' }}>
                   <Accordion>
                     <AccordionItemWrapper>
@@ -275,7 +295,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
             name="workArea"
             defaultValue="0l"
           >
-            {clinics?.map((item, i) => (
+            {clinicState?.map((item, i) => (
               <div
                 key={i}
                 style={{

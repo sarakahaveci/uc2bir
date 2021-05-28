@@ -26,7 +26,7 @@ const Home = ({ setPage = () => { }, setGlobalState = () => { } }) => {
               branch={elm?.branch}
               totalLesson={elm?.quantity}
               currentLesson={elm?.remaining_quantity}
-
+              status={elm?.status}
               sessionTypes={elm?.session_type?.toString()}
               packetName={elm?.name}
               trainerClass={elm?.classification}

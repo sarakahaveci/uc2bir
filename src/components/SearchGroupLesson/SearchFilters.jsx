@@ -4,9 +4,10 @@ import styled from 'styled-components/macro';
 import { Material, AwesomeIcon, Text, Button, Slider, Box } from 'components';
 import { useCheckOutsideClick } from 'utils';
 
-const packetTypes = ['Eğitmen Paketi', 'Diyetisyen Paketi'];
+const classificationsArr = ['A', 'B', 'C'];
 
 const SearchFilters = ({
+  type,
   setShowFilters,
   page,
   classification,
@@ -33,25 +34,27 @@ const SearchFilters = ({
 
   return (
     <FiltersWrapper ref={filterWrapperRef}>
-      <>
-        <Text color="dark" fontSize="0.9rem" mb="15px">
-          PAKET TİPİ SEÇİNİZ
-        </Text>
+      {type === 'pt' && (
+        <>
+          <Text color="dark" fontSize="0.9rem" mb="15px">
+            SEVİYE SEÇİNİZ
+          </Text>
 
-        <Box col>
-          {packetTypes.map((item, index) => (
-            <Box
-              key={'class' + index}
-              row
-              onClick={() => setClassification(item)}
-            >
-              <Material.checkbox checked={classification === item} />
+          <Box col>
+            {classificationsArr.map((item, index) => (
+              <Box
+                key={'class' + index}
+                row
+                onClick={() => setClassification(item)}
+              >
+                <Material.checkbox checked={classification === item} />
 
-              <div>{item}</div>
-            </Box>
-          ))}
-        </Box>
-      </>
+                <div>{item}</div>
+              </Box>
+            ))}
+          </Box>
+        </>
+      )}
 
       <Text color="dark" fontSize="0.9rem" m="15px 0 5px 0">
         FİYATA GÖRE LİSTELE ( TL )
@@ -102,6 +105,7 @@ const SearchFilters = ({
 export default SearchFilters;
 
 const FiltersWrapper = styled.div`
+  z-index: 2;
   display: flex;
   flex-direction: column;
   background-color: white;
@@ -110,7 +114,6 @@ const FiltersWrapper = styled.div`
   width: 250px;
   border-radius: 10px;
   box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.05);
-  z-index: 9999999999999999999999999 !important;
 
   .materials {
     width: unset;
