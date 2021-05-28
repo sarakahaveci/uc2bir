@@ -25,7 +25,7 @@ const BuyGroupLesson = ({ match }) => {
   useEffect(() => {
     dispatch(
       setGroupLessonReservation({
-        totals_amount: group?.data?.price,
+        totals_amount: group?.data?.slot?.price,
         id: match?.params?.id
       })
     );
@@ -214,34 +214,37 @@ const BuyGroupLesson = ({ match }) => {
         {_renderLeftArea()}
         <SideContainer>
           <TrainerGroupContainer>
-            <div style={{padding:'8px',display:'flex',flexDirection:'column'}}>
-            <text style={{fontSize:19}}>{group?.data?.bs?.title + " >"}</text>
-            <Seperator/>
+            <div style={{ padding: '8px', display: 'flex', flexDirection: 'column' }}>
+              <text style={{ fontSize: 19 }}>{group?.data?.bs?.title + " >"}</text>
+              <Seperator />
             </div>
             <MapWrapper>
-              <GoogleMap
-                locationFromUser={{
-                  lat: group?.data?.bs?.lat,
-                  lng: group?.data?.bs?.lng,
-                }}
-                disabled
-              />
+              {
+                group?.data?.bs?.lat && group?.data?.bs?.lng && <GoogleMap
+                  locationFromUser={{
+                    lat: group?.data?.bs?.lat,
+                    lng: group?.data?.bs?.lng,
+                  }}
+                  disabled
+                />
+              }
             </MapWrapper>
             <ResDetailContainer>
-                  <text>Grup Ders Tarih ve Saati</text>
-                  <Line/>
-                  <div style={{display:'flex',alignItems:'center'}}>
-                    Ders 
-                    <div style={{height:'18px',width:'1px',backgroundColor:'rgba(0,0,0,0.17)',margin:'5px'}}></div> 
-                    <Svg.Date style={{marginRight:'5px'}}/>
-                    <text style={{marginRight:'10px'}}>{group?.data?.slot?.date}</text>
-                    <text style={{marginRight:'5px',color:'#00b2a9'}}>Saat</text>
-                    <text style={{color:'#00b2a9'}} >{group?.data?.slot?.hour}</text>
-                  </div>
+              <text>Grup Ders Tarih ve Saati</text>
+              <Line />
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                Ders
+                    <div style={{ height: '18px', width: '1px', backgroundColor: 'rgba(0,0,0,0.17)', margin: '5px' }}></div>
+                <Svg.Date style={{ marginRight: '5px' }} />
+                <text style={{ marginRight: '10px' }}>{group?.data?.slot?.date}</text>
+                <text style={{ marginRight: '5px', color: '#00b2a9' }}>Saat</text>
+                <text style={{ color: '#00b2a9' }} >{group?.data?.slot?.hour}</text>
+
+              </div>
             </ResDetailContainer>
           </TrainerGroupContainer>
-       
-          <PaymentCard type="buy_packet"></PaymentCard>
+
+          <PaymentCard type="buy_group_lesson"></PaymentCard>
         </SideContainer>
       </Container>
     </Main>

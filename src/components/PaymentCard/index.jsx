@@ -15,6 +15,7 @@ import {
   sendPackageReservation,
   clearReservationCalendar,
   setPacketReservation,
+  setGroupLessonReservation,
 } from 'actions';
 import { getWallet } from 'actions/userProfileActions/walletActions';
 
@@ -26,6 +27,8 @@ export default function PaymentCard({ type, subType, dateOption }) {
   const dispatch = useDispatch();
   const reservation = useSelector((state) => state.reservation);
   const buyPacket = useSelector((state) => state.buyPacket);
+  const buyGroupLesson = useSelector((state) => state.buyGroupLesson);
+
   const reservationCalendar = useSelector((state) => state.reservationCalendar);
 
   const payment = useSelector((state) => state.payment);
@@ -193,6 +196,18 @@ export default function PaymentCard({ type, subType, dateOption }) {
         });
       }
     }
+  }
+  function selectPaymentTypeGroupLesson(payment_type) {
+   
+      if (buyGroupLesson?.reservation?.totals_amount > 0) {
+        dispatch(setGroupLessonReservation({ payment_type: payment_type }));
+      } else {
+        toast.error('Sepetiniz Boş', {
+          position: 'bottom-right',
+          autoClose: 4000,
+        });
+      }
+    
   }
 
   const removeEmpty = (obj) =>
@@ -646,9 +661,17 @@ export default function PaymentCard({ type, subType, dateOption }) {
         <BottomContainer>
           <Text style={{ fontWeight: 800 }}>Toplam Ücret</Text>
           <Text color="#00B2A9" style={{ fontWeight: 800, fontSize: 30 }}>
-            {type == 'buy_packet' || type == 'upgrade_packet'
-              ? buyPacket?.reservation?.totals_amount
-              : reservation?.data?.totals_amount}
+            {(type == 'buy_packet' || type == 'upgrade_packet')
+              && buyPacket?.reservation?.totals_amount
+            }
+            {
+              (type == 'pt' || type == 'dt' || type == 'gym' || type == 'packet') &&
+              reservation?.data?.totals_amount
+            }
+            {
+              (type == 'buy_group_lesson') && buyGroupLesson?.reservation?.totals_amount
+            }
+
           </Text>
         </BottomContainer>
         {(type == 'pt' || type == 'dt' || type == 'gym' || type == 'packet') &&
@@ -789,6 +812,49 @@ export default function PaymentCard({ type, subType, dateOption }) {
                         autoClose: 4000,
                       });
                     }
+                  }}
+                />
+              </BottomContainer>
+            </>
+          ))}
+        {type == 'buy_group_lesson' &&
+          (buyGroupLesson?.reservation?.payment_type ? (
+            <BottomContainer>
+              <Button
+                style={{ width: '100%', padding: '20px' }}
+                className="blue"
+                text="Ödeme Yap"
+                onClick={() => {
+                  sendPaymentPtPacket();
+                }}
+              />
+            </BottomContainer>
+          ) : (
+            <>
+              <BottomContainer>
+                <Button
+                  style={{ width: '100%', padding: '20px' }}
+                  className="blue"
+                  text="Cüzdanımdan Öde"
+                  onClick={() => {
+                    var wallet_balance = wallet?.data?.balance || 0;
+                    var amount = buyGroupLesson?.reservation?.totals_amount || 0;
+                    var diff = wallet_balance - amount;
+                    if (diff < 0) {
+                      selectPaymentTypeGroupLesson('both');
+                    } else {
+                      selectPaymentTypeGroupLesson('wallet');
+                    }
+                  }}
+                />
+              </BottomContainer>
+              <BottomContainer style={{ margin: '5px' }}>
+                <Button
+                  style={{ width: '100%', padding: '20px' }}
+                  className="blue"
+                  text="Kredi Kartından Öde"
+                  onClick={() => {
+                    selectPaymentTypeGroupLesson('credit_card');
                   }}
                 />
               </BottomContainer>
