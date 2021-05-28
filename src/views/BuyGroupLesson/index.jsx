@@ -1,13 +1,8 @@
 import React, { useEffect } from 'react';
-import styled, { css } from 'styled-components/macro';
+import styled from 'styled-components/macro';
 import profileImg from '../../assets/banner/slider-item-1.png';
-import avatar1 from '../../assets/slider/04.jpg';
-import avatar3 from '../../assets/slider/05.jpg';
-import avatar4 from '../../assets/slider/p1.jpg';
-import avatar5 from '../../assets/slider/p2.jpg';
-import ReactHtmlParser from 'react-html-parser';
-import { decode } from 'html-entities';
-import { Button, Svg, PaymentCard, CreditCard } from 'components';
+
+import { Svg, PaymentCard, CreditCard } from 'components';
 import { Main } from 'components';
 import GoogleMap from 'components/GoogleMaps/GoogleMap';
 
@@ -242,8 +237,6 @@ const BuyGroupLesson = ({ match }) => {
                     <text style={{marginRight:'10px'}}>{group?.data?.slot?.date}</text>
                     <text style={{marginRight:'5px',color:'#00b2a9'}}>Saat</text>
                     <text style={{color:'#00b2a9'}} >{group?.data?.slot?.hour}</text>
-
-
                   </div>
             </ResDetailContainer>
           </TrainerGroupContainer>
@@ -298,10 +291,7 @@ const HeaderText = styled.text`
   color:var(--blue);
   font-weight: bold;
 `;
-const TitleText = styled.text`
-  font-size: 18px;
-  font-weight: bold;
-`;
+
 const LabelText = styled.text`
   font-size: 18px;
   font-weight: bold;
@@ -343,11 +333,7 @@ const Line = styled.div`
   height: 1px;
   margin: 7px;
 `;
-const BottomContainer = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-`;
+
 
 const PtIcon = styled.img`
   width: 100px;
@@ -355,19 +341,6 @@ const PtIcon = styled.img`
   border-radius: 100px;
   object-fit: cover;
   margin-right:10px;
-`;
-const MoreIcon = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  width: 45px;
-  height: 45px;
-  margin: 0 -8px;
-  border-radius: 45px;
-  background: var(--blue);
 `;
 
 const BigSeperator = styled(Seperator)`

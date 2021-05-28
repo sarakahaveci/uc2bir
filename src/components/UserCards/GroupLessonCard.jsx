@@ -37,7 +37,7 @@ const GroupLessonCard = ({
   };
 
   const navigateToUser = () => {
-    const userId = data?.id || data?.user_id || favoriteId;
+    //const userId = data?.id || data?.user_id || favoriteId; Şimdilik el ile verildi
     history.push('/group-lessons/detail/' + 2015);
   };
 
