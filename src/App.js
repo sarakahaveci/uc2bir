@@ -24,6 +24,7 @@ import Profile from 'views/Profile';
 import UserProfile from 'views/ProfileSettings';
 import Message from 'views/Message';
 import BuyPacket from 'views/BuyPacket';
+import BuyGroupLesson from 'views/BuyGroupLesson';
 
 import SearchPackets from 'views/SearchPackets';
 import SearchGroupLesson from 'views/SearchGroupLesson';
@@ -127,6 +128,7 @@ const App = () => {
                 />
 
                 <Route exact path="/packets/:type/detail/:id" component={BuyPacket} />
+                <Route exact path="/group-lessons/detail/:id" component={BuyGroupLesson} />
 
                 <Route exact path="/contact" component={Contact} />
                 <Route exact path="/buy/:status" component={BuyStatus} />

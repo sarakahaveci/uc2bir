@@ -25,6 +25,8 @@ import reservationCalendar from '../reducers/reservationCalendarReducer';
 import staticPages from '../reducers/staticPagesReducer';
 import professionalReservation from '../reducers/reservationProfessionalReducers';
 import buyPacket from '../reducers/buyPacketReducer';
+import buyGroupLesson from '../reducers/buyGroupLessonReducer';
+
 import payment from '../reducers/paymentReducer';
 import paymentPacket from '../reducers/paymentPacketReducer';
 import myPackets from '../reducers/myPacketsReducer';
@@ -63,6 +65,7 @@ const reducers = combineReducers({
   transferRefund,
   searchResults,
   systemComments,
+  buyGroupLesson
 });
 
 export default reducers;

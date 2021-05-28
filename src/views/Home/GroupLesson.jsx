@@ -4,19 +4,20 @@ import { useHistory } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import Title from '../../components/typography/Titles';
 import PacketSlider from '../../components/sliders/PacketSlider';
+import { useSelector } from 'react-redux';
 
-//mocdata
-import * as Data from './MocData';
+
 
 const GroupLesson = (props) => {
   const history = useHistory();
   const handleSeeMoreClick = () => {
     history.push('/group-lessons?type=group-lessons');
   };
-
+  const {
+    content: { data: content },
+  } = useSelector((state) => state.home);
   const query = true;
   //TODO : Tablara linklemeleri yapılacak
-  const data = Data.GroupLesson;
   const groups = 'GroupLesson';
   const link = '/packets';
   const categories = [
@@ -76,7 +77,7 @@ const GroupLesson = (props) => {
       </Container>
       <PacketSlider
         query={query}
-        data={data}
+        data={content.list_dt || []}
         groups={groups}
         categories={categories}
         link={link}
