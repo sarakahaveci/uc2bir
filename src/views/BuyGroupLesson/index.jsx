@@ -9,10 +9,11 @@ import ReactHtmlParser from 'react-html-parser';
 import { decode } from 'html-entities';
 import { Button, Svg, PaymentCard, CreditCard } from 'components';
 import { Main } from 'components';
+import GoogleMap from 'components/GoogleMaps/GoogleMap';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { getGroupLessonDetail, setGroupLessonReservation } from 'actions';
 import { getWallet } from 'actions/userProfileActions/walletActions';
-
 import { device } from 'utils';
 import { useHistory } from 'react-router-dom';
 const BuyGroupLesson = ({ match }) => {
@@ -34,9 +35,7 @@ const BuyGroupLesson = ({ match }) => {
       })
     );
   }, [group?.data]);
-  function onChangeLevel(level) {
-    dispatch(setGroupLessonReservation({ level: level }));
-  }
+
 
   function _renderLeftArea() {
     switch (group?.reservation?.payment_type) {
@@ -144,26 +143,49 @@ const BuyGroupLesson = ({ match }) => {
         return (
           <>
             <SideContainer>
-              <Image src={group?.data?.photo}></Image>
+              <PtCardContainer>
+                <PtIcon src={group?.data?.pt?.photo}></PtIcon>
+                <PtInfoContainer>
+                  <Text>{group?.data?.pt?.name}</Text>
+                  <text>{group?.data?.pt?.title}</text>
+                  <Seperator />
+                  <SubInfo>
+                    <Svg.FitnessMediumIcon></Svg.FitnessMediumIcon>
+                    <text style={{ margin: '0 5px' }}>
+                      {group?.data?.slot?.branch?.name}
+                    </text>
+                    <Svg.UsersGym></Svg.UsersGym>
+                    <text style={{ margin: '0 5px' }}>
+                      {group?.data?.slot?.min_capacity} / {group?.data?.slot?.max_capacity} Kişilik
+                  </text>
+
+                    <text style={{ margin: '0 5px' }}>
+                      {group?.data?.pt?.classification} Sınıf Eğitmen
+                  </text>
+                  </SubInfo>
+                </PtInfoContainer>
+              </PtCardContainer>
               <InfoContainer>
-                <HeaderText>{group?.data?.name}</HeaderText>
-                <TitleText>12 Günde 8 Kilo Verin!</TitleText>
+                <HeaderText>Oturum Türü</HeaderText>
                 <BigSeperator />
-                <SubInfo>
-                  <Svg.FitnessMediumIcon></Svg.FitnessMediumIcon>
-                  <text style={{ margin: '0 5px' }}>
-                    {group?.data?.branch}
-                  </text>
-                  <Svg.ClockMediumIcon></Svg.ClockMediumIcon>
-                  <text style={{ margin: '0 5px' }}>
-                    {group?.data?.lesson_amount} Ders
-                  </text>
-                </SubInfo>
+                {
+                  {
+                    "gym": <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
+                      <Svg.SessionType.Gym style={{ marginRight: '10px' }} /> Spor Alanı
+                  </div>,
+                    "home_park": <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
+                      <Svg.SessionType.Park style={{ marginRight: '10px' }} /> Ev / Park
+                </div>,
+                    "online": <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
+                      <Svg.SessionType.Online style={{ marginRight: '10px' }} /> Online
+              </div>
+                  }[group?.data?.slot?.session]
+                }
                 <LabelText>İçerik</LabelText>
                 <Seperator />
 
                 <DescText>
-                  {ReactHtmlParser(decode(group?.data?.detail))}
+                  {group?.data?.slot?.detail}
                 </DescText>
               </InfoContainer>
             </SideContainer>
@@ -189,7 +211,7 @@ const BuyGroupLesson = ({ match }) => {
           {group?.reservation?.payment_type ? (
             <span>Ödeme Yap</span>
           ) : (
-            <span>Paket Detayı</span>
+            <span>Grup Ders Rezervasyon Oluşturun</span>
           )}
         </BackLink>
       </div>
@@ -197,72 +219,36 @@ const BuyGroupLesson = ({ match }) => {
         {_renderLeftArea()}
         <SideContainer>
           <TrainerGroupContainer>
-            <TrainerGroupWrapper>
-             {match?.params?.type =='pt' && (
-                <div>
-                <LabelText>Seviyenizi Seçiniz </LabelText>
-                <Seperator></Seperator>
-                <LevelContainer>
-                  <LevelCircle
-                    onClick={() => {
-                      onChangeLevel('A');
-                      dispatch(setGroupLessonReservation({
-                        totals_amount: group?.data?.price_a,
-                      }))
-                    }}
-                    enable={group?.reservation?.level == 'A'}
-                    >
-                    A
-                  </LevelCircle>
-                  <Line />
-                  <LevelCircle
-                    onClick={() => {
-                      onChangeLevel('B');
-                      dispatch(setGroupLessonReservation({
-                        totals_amount: group?.data?.price_b,
-                      }))
-                    }}
-                    enable={group?.reservation?.level == 'B' || group?.reservation?.level == 'A'}
-                    >
-                    B
-                  </LevelCircle>
-                  <Line />
+            <div style={{padding:'8px',display:'flex',flexDirection:'column'}}>
+            <text style={{fontSize:19}}>{group?.data?.bs?.title + " >"}</text>
+            <Seperator/>
+            </div>
+            <MapWrapper>
+              <GoogleMap
+                locationFromUser={{
+                  lat: group?.data?.bs?.lat,
+                  lng: group?.data?.bs?.lng,
+                }}
+                disabled
+              />
+            </MapWrapper>
+            <ResDetailContainer>
+                  <text>Grup Ders Tarih ve Saati</text>
+                  <Line/>
+                  <div style={{display:'flex',alignItems:'center'}}>
+                    Ders 
+                    <div style={{height:'18px',width:'1px',backgroundColor:'rgba(0,0,0,0.17)',margin:'5px'}}></div> 
+                    <Svg.Date style={{marginRight:'5px'}}/>
+                    <text style={{marginRight:'10px'}}>{group?.data?.slot?.date}</text>
+                    <text style={{marginRight:'5px',color:'#00b2a9'}}>Saat</text>
+                    <text style={{color:'#00b2a9'}} >{group?.data?.slot?.hour}</text>
 
-                  <LevelCircle
-                    onClick={() => {
-                      onChangeLevel('C');
-                      dispatch(setGroupLessonReservation({
-                        totals_amount: group?.data?.price_c,
-                      }))
-                    }}
-                    enable={group?.reservation?.level == 'C'|| group?.reservation?.level == 'A' || group?.reservation?.level == 'B' }  
-                  >
-                    C
-                  </LevelCircle>
-                </LevelContainer>
-              </div>
-             )}
-              <BottomContainer>
-                <PtIconsContainer>
-                  <PtIcon src={avatar1} />
-                  <PtIcon src={avatar3} />
-                  <PtIcon src={avatar4} />
-                  <PtIcon src={avatar5} />
-                  <MoreIcon>68+</MoreIcon>
-                </PtIconsContainer>
-                <Button
-                  blueborder
-                  text={match?.params?.type == 'pt' ? "Eğitmenleri Gör" : "Diyetisyenleri Gör"}
-                  fontSize="11pt"
-                  color="blue"
-                  onClick={() => {
-                    history.push('/find?type='+match?.params?.type);
-                  }}
-                />
-              </BottomContainer>
-            </TrainerGroupWrapper>
+
+                  </div>
+            </ResDetailContainer>
           </TrainerGroupContainer>
-          <PaymentCard  type="buy_packet"></PaymentCard>
+       
+          <PaymentCard type="buy_packet"></PaymentCard>
         </SideContainer>
       </Container>
     </Main>
@@ -277,12 +263,18 @@ const Container = styled.div`
 `;
 const SideContainer = styled.div`
   margin-top: 30px;
+  display:flex;
+  flex-direction:column;
   width: 48%;
 `;
-const Image = styled.img`
-  width: 100%;
-  border-radius: 30px;
-`;
+const PtCardContainer = styled.div`
+  display:flex;
+  width:100%;
+  z-index:4;
+  padding: 20px 0;
+
+`
+
 const InfoContainer = styled.div`
   position: relative;
   display: flex;
@@ -292,12 +284,18 @@ const InfoContainer = styled.div`
   min-height: 300px;
   border-radius: 30px;
   background: white;
-  margin: -50px 0;
-  padding: 40px;
+  padding: 20px 0;
+`;
+const PtInfoContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  background: white;
+
 `;
 
 const HeaderText = styled.text`
-  font-size: 26px;
+  font-size: 18px;
+  color:var(--blue);
   font-weight: bold;
 `;
 const TitleText = styled.text`
@@ -322,49 +320,23 @@ const Seperator = styled.div`
 const TrainerGroupContainer = styled.div`
   width: 100%;
   background: #f8f8f8;
-  height: 350px;
-  border-radius: 30px;
+  min-height: 350px;
+  border-radius: 20px;
   padding: 20px;
 `;
-const TrainerGroupWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+const ResDetailContainer = styled.div`
   width: 100%;
+  display:flex;
+  flex-direction:column;
   background: white;
-  height: 100%;
-  border-radius: 30px;
-  padding: 30px;
-  justify-content: space-between;
+  min-height: 100px;
+  border-radius: 20px;
+  padding: 20px;
+  margin-top:5px;
+  justify-content:center;
 `;
-const LevelContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-const LevelCircle = styled.div`
-  cursor: pointer;
-  width: 80px;
-  height: 80px;
-  border-radius: 80px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 28px;
-  ${(p) =>
-    p.enable
-      ? css`
-          background: var(--blue);
-          color: white;
-        `
-      : css`
-          background: white;
-          border-style: solid;
-          border-width: 1px;
-          border-color: #d3d3d3;
-          color: gray;
-        `}
-`;
+
+
 const Line = styled.div`
   flex-grow: 1;
   background: #d3d3d3;
@@ -376,16 +348,13 @@ const BottomContainer = styled.div`
   width: 100%;
   justify-content: space-between;
 `;
-const PtIconsContainer = styled.div`
-  width: 50%;
-  display: flex;
-`;
+
 const PtIcon = styled.img`
-  width: 45px;
-  height: 45px;
-  margin: 0 -8px;
-  border-radius: 45px;
+  width: 100px;
+  height: 100px;
+  border-radius: 100px;
   object-fit: cover;
+  margin-right:10px;
 `;
 const MoreIcon = styled.div`
   display: flex;
@@ -463,5 +432,11 @@ const BackLink = styled(Text)`
     font-size: 1.2rem;
   }
 `;
+const MapWrapper = styled.div`
+  width: 100%;
+  border-radius: 30px;
+  overflow: hidden;
+`;
+
 export default BuyGroupLesson;
 
