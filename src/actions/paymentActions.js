@@ -76,6 +76,36 @@ export const sendPackageReservation =
       },
     });
   };
+  export const sendGroupReservation =
+  ( body, successCallback) => async (dispatch) => {
+    let url='/appointment/pt-calendar/group';
+
+   
+    await dispatch({
+      type: HTTP_REQUEST,
+      payload: {
+        method: 'POST',
+        url,
+        body: { ...body },
+        label: SEND_PACKET_RESERVATION,
+        callBack: () => {
+          toast.success('İşleminiz başarılı.', {
+            position: 'bottom-right',
+            autoClose: 4000,
+          });
+          successCallback();
+        },
+        errorHandler: (err) => {
+          toast.error(err?.message || 'Bilgilerinizi gözden geçiriniz.', {
+            position: 'bottom-right',
+            autoClose: 4000,
+          });
+        },
+
+        transformData: (data) => data.data,
+      },
+    });
+  };
 export const sendPaytr = (body, successCallback) => async (dispatch) => {
   const url = `https://www.paytr.com/odeme`;
 

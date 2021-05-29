@@ -16,6 +16,7 @@ import {
   clearReservationCalendar,
   setPacketReservation,
   setGroupLessonReservation,
+  sendGroupReservation
 } from 'actions';
 import { getWallet } from 'actions/userProfileActions/walletActions';
 
@@ -344,6 +345,14 @@ export default function PaymentCard({ type, subType, dateOption }) {
     };
     dispatch(sendPackageReservation(subType, removeEmpty(json), () => { })); //Burasını değiş
   }
+  function sendPaymentPtGroup() {
+    var json = {
+      slot_id: buyGroupLesson?.reservation?.id,
+      is_contracts_accepted: true,
+      payment_type: buyGroupLesson.reservation?.payment_type,
+    };
+    dispatch(sendGroupReservation(removeEmpty(json), () => { })); //Burasını değiş
+  }
   function sendPaymentDT() {
     var json = {
       dt_id: reservation?.data?.dt_id,
@@ -550,7 +559,7 @@ export default function PaymentCard({ type, subType, dateOption }) {
           </DataContainer>
         </InfoContainer>
       )}
-      {type !== 'buy_packet' && type !== 'upgrade_packet' && (
+      {type !== 'buy_packet' && type !== 'upgrade_packet' && type !== 'buy_group_lesson' && (
         <InfoContainer>
           <DataContainer>
             <Info borderDisable>
@@ -662,14 +671,14 @@ export default function PaymentCard({ type, subType, dateOption }) {
           <Text style={{ fontWeight: 800 }}>Toplam Ücret</Text>
           <Text color="#00B2A9" style={{ fontWeight: 800, fontSize: 30 }}>
             {(type == 'buy_packet' || type == 'upgrade_packet')
-              && buyPacket?.reservation?.totals_amount
+              && buyPacket?.reservation?.totals_amount+'₺'
             }
             {
               (type == 'pt' || type == 'dt' || type == 'gym' || type == 'packet') &&
-              reservation?.data?.totals_amount
+              reservation?.data?.totals_amount+'₺'
             }
             {
-              (type == 'buy_group_lesson') && buyGroupLesson?.reservation?.totals_amount
+              (type == 'buy_group_lesson') && buyGroupLesson?.reservation?.totals_amount+'₺'
             }
 
           </Text>
@@ -825,7 +834,7 @@ export default function PaymentCard({ type, subType, dateOption }) {
                 className="blue"
                 text="Ödeme Yap"
                 onClick={() => {
-                  sendPaymentPtPacket();
+                  sendPaymentPtGroup();
                 }}
               />
             </BottomContainer>
