@@ -86,7 +86,7 @@ const Transfer = ({ setPage }) => {
                 <Col>
                   <TitleWrapper>
                     <Title textAlign="right" style={{ display: 'flex' }}>
-                      {balance?.toFixed(2)}₺
+                      {parseFloat(balance).toFixed(2)}₺
                     </Title>
                   </TitleWrapper>
                 </Col>

@@ -45,7 +45,7 @@ const Data = ({ paymentType, date, changed }) => {
                       <td>{moment(item?.updated_at).format('LLL')}</td>
                       <td>{item.info}</td>
                       <td>{item.payment_type}</td>
-                      <td>{item.amount?.toFixed(2)}₺</td>
+                      <td>{parseFloat(item.amount).toFixed(2)}₺</td>
                     </tr>
                   ))}
               </tbody>
