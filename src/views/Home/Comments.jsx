@@ -53,6 +53,7 @@ const Comments = (props) => {
                   <QuoteWrapper>
                     <Svg.Ql className="left-quote-icon" />
                     <div className="text">
+                      <div className="title">{item.user_title}</div>
                       {ReactHtmlParser(decode(item.comment))}
                     </div>
                     <Svg.Qr className="right-quote-icon" />
