@@ -12,18 +12,20 @@ import { Main } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPacketDetail, setPacketReservation } from 'actions';
 import { getWallet } from 'actions/userProfileActions/walletActions';
-
+import { USER } from '../../constants/userTypes'
 import { device } from 'utils';
 import { useHistory } from 'react-router-dom';
 const BuyPacket = ({ match }) => {
   const dispatch = useDispatch();
   const packet = useSelector((state) => state.buyPacket);
+  const userTypeId = useSelector((state) => state.auth?.user?.type_id);
+
   const wallet = useSelector((state) => state.userProfile.wallet);
   let history = useHistory();
 
   useEffect(() => {
     dispatch(getWallet());
-    dispatch(getPacketDetail(match?.params?.type,match?.params?.id));
+    dispatch(getPacketDetail(match?.params?.type, match?.params?.id));
   }, []);
   useEffect(() => {
     dispatch(
@@ -197,50 +199,50 @@ const BuyPacket = ({ match }) => {
         <SideContainer>
           <TrainerGroupContainer>
             <TrainerGroupWrapper>
-             {match?.params?.type =='pt' && (
+              {match?.params?.type == 'pt' && (
                 <div>
-                <LabelText>Seviyenizi Seçiniz </LabelText>
-                <Seperator></Seperator>
-                <LevelContainer>
-                  <LevelCircle
-                    onClick={() => {
-                      onChangeLevel('A');
-                      dispatch(setPacketReservation({
-                        totals_amount: packet?.data?.price_a,
-                      }))
-                    }}
-                    enable={packet?.reservation?.level == 'A'}
+                  <LabelText>Seviyenizi Seçiniz </LabelText>
+                  <Seperator></Seperator>
+                  <LevelContainer>
+                    <LevelCircle
+                      onClick={() => {
+                        onChangeLevel('A');
+                        dispatch(setPacketReservation({
+                          totals_amount: packet?.data?.price_a,
+                        }))
+                      }}
+                      enable={packet?.reservation?.level == 'A'}
                     >
-                    A
+                      A
                   </LevelCircle>
-                  <Line />
-                  <LevelCircle
-                    onClick={() => {
-                      onChangeLevel('B');
-                      dispatch(setPacketReservation({
-                        totals_amount: packet?.data?.price_b,
-                      }))
-                    }}
-                    enable={packet?.reservation?.level == 'B' || packet?.reservation?.level == 'A'}
+                    <Line />
+                    <LevelCircle
+                      onClick={() => {
+                        onChangeLevel('B');
+                        dispatch(setPacketReservation({
+                          totals_amount: packet?.data?.price_b,
+                        }))
+                      }}
+                      enable={packet?.reservation?.level == 'B' || packet?.reservation?.level == 'A'}
                     >
-                    B
+                      B
                   </LevelCircle>
-                  <Line />
+                    <Line />
 
-                  <LevelCircle
-                    onClick={() => {
-                      onChangeLevel('C');
-                      dispatch(setPacketReservation({
-                        totals_amount: packet?.data?.price_c,
-                      }))
-                    }}
-                    enable={packet?.reservation?.level == 'C'|| packet?.reservation?.level == 'A' || packet?.reservation?.level == 'B' }  
-                  >
-                    C
+                    <LevelCircle
+                      onClick={() => {
+                        onChangeLevel('C');
+                        dispatch(setPacketReservation({
+                          totals_amount: packet?.data?.price_c,
+                        }))
+                      }}
+                      enable={packet?.reservation?.level == 'C' || packet?.reservation?.level == 'A' || packet?.reservation?.level == 'B'}
+                    >
+                      C
                   </LevelCircle>
-                </LevelContainer>
-              </div>
-             )}
+                  </LevelContainer>
+                </div>
+              )}
               <BottomContainer>
                 <PtIconsContainer>
                   <PtIcon src={avatar1} />
@@ -255,13 +257,14 @@ const BuyPacket = ({ match }) => {
                   fontSize="11pt"
                   color="blue"
                   onClick={() => {
-                    history.push('/find?type='+match?.params?.type);
+                    history.push('/find?type=' + match?.params?.type);
                   }}
                 />
               </BottomContainer>
             </TrainerGroupWrapper>
           </TrainerGroupContainer>
-          <PaymentCard subType={match?.params?.type} type="buy_packet"></PaymentCard>
+          {userTypeId === USER && <PaymentCard subType={match?.params?.type} type="buy_packet"></PaymentCard>
+          }
         </SideContainer>
       </Container>
     </Main>

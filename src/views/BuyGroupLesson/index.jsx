@@ -11,9 +11,13 @@ import { getGroupLessonDetail, setGroupLessonReservation } from 'actions';
 import { getWallet } from 'actions/userProfileActions/walletActions';
 import { device } from 'utils';
 import { useHistory } from 'react-router-dom';
+import { USER } from '../../constants/userTypes'
+
 const BuyGroupLesson = ({ match }) => {
   const dispatch = useDispatch();
   const group = useSelector((state) => state.buyGroupLesson);
+  const userTypeId = useSelector((state) => state.auth?.user?.type_id);
+
   const wallet = useSelector((state) => state.userProfile.wallet);
   let history = useHistory();
 
@@ -243,8 +247,8 @@ const BuyGroupLesson = ({ match }) => {
               </div>
             </ResDetailContainer>
           </TrainerGroupContainer>
-
-          <PaymentCard type="buy_group_lesson"></PaymentCard>
+          {userTypeId === USER && <PaymentCard type="buy_group_lesson"></PaymentCard>
+          }
         </SideContainer>
       </Container>
     </Main>
