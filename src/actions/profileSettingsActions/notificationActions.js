@@ -1,11 +1,29 @@
 import {
   HTTP_REQUEST,
   GET_NOTIFICATIONS,
+  GET_NOTIFICATIONS_COUNT,
+
   READ_NOTIFICATIONS,
   UPDATE_NOTIFICATION_SETTINGS,
   GET_NOTIFICATION_SETTINGS,
 } from '../../constants';
 
+export const getNotificationCount = (successCallback) => async (
+  dispatch
+) => {
+  const url = `/user/notification`;
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'GET',
+      transformData: (data) => data.data,
+      url,
+      label: GET_NOTIFICATIONS_COUNT,
+
+    },
+  });
+};
 export const getNotifications = (pageNumber, date, successCallback) => async (
   dispatch
 ) => {

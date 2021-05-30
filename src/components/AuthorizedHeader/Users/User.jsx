@@ -10,6 +10,9 @@ const User = ({ user_name, user_img = null, logoutHandler }) => {
   const { data: allRooms } = useSelector(
     (state) => state.profileSettings2.messages.rooms
   );
+  const { message_count,notification_count } = useSelector(
+    (state) => state.profileSettings2.notifications
+  );
   const [count, setCount] = useState(0);
   useEffect(() => {
     setCount(allRooms?.filter((value) => value.unread_messages === 1).length);
@@ -48,13 +51,14 @@ const User = ({ user_name, user_img = null, logoutHandler }) => {
     {
       name: 'Bildirimler',
       icon: <Svg.Notification />,
-      notify: [],
+      notify: notification_count,
+      pulse: true,
       linkPath: TABS.notificationPath,
     },
     {
       name: 'Mesajlarım',
       icon: <Svg.CommentBlack />,
-      notify: count,
+      notify: message_count,
       pulse: true,
       linkPath: TABS.messagePath,
     },

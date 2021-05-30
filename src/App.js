@@ -9,6 +9,7 @@ import {
   setUserDetailsFromStorage,
   getAllPTBranchList,
   getRegisterData,
+  getNotificationCount
 } from 'actions';
 //views
 import Layout from './views/Layout';
@@ -62,7 +63,11 @@ const App = () => {
 
     dispatch(setUserDetailsFromStorage());
     dispatch(getRegisterData());
+    dispatch(getNotificationCount())
+    setInterval(() => {
+      dispatch(getNotificationCount())
 
+    }, (3*60000));
     dispatch(getAllPTBranchList());
   }, []);
 

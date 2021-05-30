@@ -5,14 +5,19 @@ import {
   GET_NOTIFICATION_SETTINGS_REQUEST,
   GET_NOTIFICATION_SETTINGS_SUCCESS,
   GET_NOTIFICATION_SETTINGS_FAILURE,
+  GET_NOTIFICATIONS_COUNT_REQUEST,
+  GET_NOTIFICATIONS_COUNT_SUCCESS,
+  GET_NOTIFICATIONS_COUNT_FAILURE,
 } from '../../constants';
 
 const initialState = {
+  notification_count: 0,
+  message_count: 0,
   notifications: {
     isLoading: true,
     data: [],
     error: null,
-    types:[]
+    types: []
   },
   notificationSettings: {
     isLoading: true,
@@ -82,6 +87,22 @@ export default (state = initialState, action) => {
         },
       };
 
+    // 
+
+    case GET_NOTIFICATIONS_COUNT_SUCCESS:
+      return {
+        ...state,
+        notification_count: action.payload?.notification_count,
+        message_count: action.payload?.message_count,
+
+      };
+    case GET_NOTIFICATIONS_COUNT_FAILURE:
+      return {
+        ...state,
+        notification_count: 0,
+        message_count: 0,
+
+      };
     default:
       return state;
   }

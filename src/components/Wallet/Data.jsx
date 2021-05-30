@@ -9,15 +9,11 @@ const Data = ({ paymentType, date, changed }) => {
   const { data, totalPage } = useSelector(
     (state) => state?.userProfile?.wallet?.transactionsPerPage
   );
-
   const [page, setPage] = useState(1);
-
   const pageChangeHandler = (event, pageNumber) => {
     setPage(pageNumber);
   };
-
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(getWalletTransactionsPerPage(25, page, paymentType, date));
   }, [page, paymentType, date]);
