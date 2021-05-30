@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import Svg from 'components/statics/svg';
 import List from '../HeaderList';
@@ -7,16 +7,16 @@ import TABS from 'constants/tabUri';
 import { useSelector } from 'react-redux';
 
 const User = ({ user_name, user_img = null, logoutHandler }) => {
-  const { data: allRooms } = useSelector(
+  /*const { data: allRooms } = useSelector(
     (state) => state.profileSettings2.messages.rooms
-  );
+  );*/
   const { message_count,notification_count } = useSelector(
     (state) => state.profileSettings2.notifications
   );
-  const [count, setCount] = useState(0);
+  /*const [count, setCount] = useState(0);
   useEffect(() => {
     setCount(allRooms?.filter((value) => value.unread_messages === 1).length);
-  }, [allRooms]);
+  }, [allRooms]);*/
   const userDependentMenu = [
     {
       name: 'Profilim',
