@@ -8,6 +8,7 @@ import logo from '../../assets/logo.png';
 import { AwesomeIcon, IconLabel, Button, HeaderLogin, Svg } from 'components';
 import { getSearchResults } from 'actions';
 import { toast } from 'react-toastify';
+import { animateScroll as scroll } from 'react-scroll';
 
 const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
   const { infoData } = useSelector((state) => state.footer);
@@ -226,7 +227,13 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
         navLogo={nav_logo}
         navMenu={nav_menu}
         toggle={menuActive}
-        setToggle={() => setMenuActive(!menuActive)}
+        setToggle={
+          (() => setMenuActive(!menuActive),
+          scroll.scrollToTop({
+            duration: 1000,
+            smooth: true,
+          }))
+        }
       />
       {isSearchBarOpen && (
         <Wrapper>
