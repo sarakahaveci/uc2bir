@@ -270,26 +270,22 @@ export default function Address({ locationDisable = false }) {
           <div className="d-flex">
             <div className="adress-no">
               <Material.TextField
-                required
                 id="apartmentNo"
                 name="apt_no"
                 label="Bina"
                 type="text"
                 changeValue={formData?.apt_no || ''}
                 onChange={handleFormOnChange}
-                inputProps={{ maxLength: 5 }}
               />
             </div>
             <div className="adress-apartment">
               <Material.TextField
-                required
                 id="buildNo"
                 name="build_no"
                 label="Daire"
                 type="text"
                 changeValue={formData?.build_no || ''}
                 onChange={handleFormOnChange}
-                inputProps={{ maxLength: 5 }}
               />
             </div>
           </div>

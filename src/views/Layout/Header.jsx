@@ -5,13 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { default as NativeHeader } from '../../components/Header';
 import logo from '../../assets/logo.png';
-import {
-  AwesomeIcon,
-  IconLabel,
-  Button,
-  HeaderLogin,
-  Svg,
-} from 'components';
+import { AwesomeIcon, IconLabel, Button, HeaderLogin, Svg } from 'components';
 import { getSearchResults } from 'actions';
 import { toast } from 'react-toastify';
 
@@ -22,25 +16,23 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
   const [menuActive, setMenuActive] = useState(false);
 
   const [toggle, setToggle] = useState(false);
-  const [keyword, setKeyword] = useState("");
+  const [keyword, setKeyword] = useState('');
   const history = useHistory();
   const dispatch = useDispatch();
   const handleSearchWhatClick = () => {
-    setIsSearchBarOpen(!isSearchBarOpen)
+    setIsSearchBarOpen(!isSearchBarOpen);
     setMenuActive(false);
   };
   const handleSuccessSearch = () => {
-    history.push('/search/'+keyword);
-    setIsSearchBarOpen(!isSearchBarOpen)
-    setKeyword("");
-  }
-
+    history.push('/search/' + keyword);
+    setIsSearchBarOpen(!isSearchBarOpen);
+    setKeyword('');
+  };
 
   const handleSearch = () => {
     if (keyword.length >= 3) {
-      dispatch(getSearchResults(keyword, handleSuccessSearch))
-    }
-    else {
+      dispatch(getSearchResults(keyword, handleSuccessSearch));
+    } else {
       toast.error('3 Harf ve daha fazlasıyla arama yapabilirsiniz.', {
         position: 'bottom-right',
         autoClose: 2000,
@@ -162,11 +154,11 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
                       BLOG
                     </Link>
                   </li>
-                  <li>
+                  {/* <li>
                     <Link to="/contact" style={{ fontWeight: 'normal' }}>
                       İLETİŞİM
                     </Link>
-                  </li>
+                  </li> */}
                 </ul>
               </div>
               <div className="bar-item right-bar">
@@ -204,7 +196,7 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
                     <li>
                       <Button
                         style={{ fontWeight: 'normal', color: 'white' }}
-                        text="Profesyonel"
+                        text="Profesyonel Üyelik"
                         className="dark"
                         fontWeight="500"
                         onClick={() => history.push('/profesyonel/register')}
@@ -222,10 +214,11 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
   const keyPress = (e) => {
     if (e.keyCode == 13) {
       handleSearch();
-    } if (e.keyCode == 27) {
-      setIsSearchBarOpen(!isSearchBarOpen)
     }
-  }
+    if (e.keyCode == 27) {
+      setIsSearchBarOpen(!isSearchBarOpen);
+    }
+  };
   return (
     <div style={{ display: 'flex', flexDirection: 'row' }}>
       <NativeHeader
@@ -237,10 +230,16 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
       />
       {isSearchBarOpen && (
         <Wrapper>
-          <div className="all-container" >
+          <div className="all-container">
             <StyledDiv>
               <AwesomeIcon.Keyboard color="white" />
-              <StyledInput onKeyDown={keyPress} onChange={(e) => { setKeyword(e.target.value) }} placeholder={'Ne arıyorsun?'} />
+              <StyledInput
+                onKeyDown={keyPress}
+                onChange={(e) => {
+                  setKeyword(e.target.value);
+                }}
+                placeholder={'Ne arıyorsun?'}
+              />
             </StyledDiv>
             <Button
               text="Ara"
@@ -265,27 +264,27 @@ const Wrapper = styled.div`
   z-index: 10000;
   width: 100%;
   height: 100px;
-  display: flex; 
+  display: flex;
   justify-content: space-evenly;
   align-items: center;
-  background-color: ${(p) => p.theme.colors.dark};  
+  background-color: ${(p) => p.theme.colors.dark};
 
-  .all-container{ 
-    display:flex;
-    flex-direction:row;
-    justify-content:space-evenly;
-    width:70%;
+  .all-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 70%;
   }
- 
+
   @media (max-width: 1200px) {
-    height: 150px; 
+    height: 150px;
     margin-top: 90px;
   }
   @media (max-width: 768px) {
     margin-top: 90px;
   }
   @media ${device.sm} {
-    height: 250px; 
+    height: 250px;
   }
 `;
 const StyledDiv = styled.div`
@@ -295,7 +294,7 @@ const StyledDiv = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border-radius:9px;
+  border-radius: 9px;
   align-items: center;
   padding: 7px;
   @media ${device.sm} {

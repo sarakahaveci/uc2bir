@@ -87,14 +87,14 @@ export default function Contact() {
         <img src={InstagramIcon} alt="instagram" />
       </div>
       <div className="d-flex row w-100 mt-5">
-        <div className="col-md-4 p-5">
-          <div className="mb-3 w-50 ml-auto">
+        {/* <div className="col-md-4 p-5"> */}
+        {/* <div className="mb-3 w-50 ml-auto">
             <span className="contact-header__contact-title">Adres</span>
             <p className="contact-header__contact-subtitle">
               {infoData?.address}
             </p>
-          </div>
-          <div className="w-50 mb-3 ml-auto">
+          </div> */}
+        {/* <div className="w-50 mb-3 ml-auto">
             <span className="contact-header__contact-title">İletişim</span>
             <p className="contact-header__contact-subtitle">
               {infoData?.email}
@@ -102,8 +102,8 @@ export default function Contact() {
             <p className="contact-header__contact-subtitle">
               {infoData?.phone}
             </p>
-          </div>
-          {/* <div className="w-50 ml-auto">
+          </div> */}
+        {/* <div className="w-50 ml-auto">
             <span className="contact-header__contact-title">
               Telefon Numarası
             </span>
@@ -111,8 +111,8 @@ export default function Contact() {
               {infoData?.phone}
             </p>
           </div> */}
-        </div>
-        <div className="col-md-8 col-sm-12 contact-header__map-wrapper">
+        {/* </div> */}
+        <div className="col-md-12 col-sm-12 contact-header__map-wrapper">
           <GoogleMap
             locationFromUser={{
               lat: +Cordinate?.[0],

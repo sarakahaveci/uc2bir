@@ -24,7 +24,8 @@ const Login = () => {
 
   const dispatch = useDispatch();
 
-  const loginSuccessHandler = () => history.push('/');
+  const loginSuccessHandler = () =>
+    history.push('/myprofile/settings/reservation');
 
   const onSubmit = async (event) => {
     event.preventDefault();
