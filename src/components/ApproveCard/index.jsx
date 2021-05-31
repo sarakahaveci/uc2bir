@@ -5,13 +5,13 @@ import { device } from 'utils';
 
 const ApproveCard = ({
   customerName = '',
+  has_comment=0,
   date = '',
   cardType,
   status_bs,
   status_pt,
   status_st,
   status_dt,
-
   optionalField_1 = null,
   optionalField_2 = null,
   optionalField_3 = null,
@@ -89,9 +89,16 @@ const ApproveCard = ({
         );
       break;
     case 'history':
-      buttonGroup = (
-        <HistoryButton onClick={onApprove}>{rateText}</HistoryButton>
-      );
+      if(has_comment > 0){
+        buttonGroup = (
+          <>Puanlandı</>
+        );
+      }else{
+
+        buttonGroup = (
+          <HistoryButton onClick={onApprove}>{rateText}</HistoryButton>
+        );
+      }
       break;
     default:
       break;

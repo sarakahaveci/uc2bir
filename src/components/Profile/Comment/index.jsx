@@ -15,16 +15,16 @@ import { getUserComment } from 'actions';
    }, []);
   return (
     <div>
-      {comments.length > 0 ?
-        (comments?.map((comment, index) => (
+      {comments?.data?.length > 0 ?
+        (comments?.data?.map((comment, index) => (
           <Comment
             index={index}
             key={index + comment.rating}
-            rating={comment.rating}
+            rating={comment.rating+1}
             name={comment.name}
             date={comment.date}
             comment={comment.comment}
-            photo={comment.photo}
+            photo={comment?.commenter?.photo}
           />
       ))) : (
           <div className="d-flex">

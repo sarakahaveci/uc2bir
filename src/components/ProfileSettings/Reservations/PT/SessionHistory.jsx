@@ -67,6 +67,8 @@ const SessionHistory = () => {
                       customerName={elm?.student}
                       type="history"
                       rateText="Öğrenciyi Puanla"
+                      has_comment={elm?.pt?.has_comment}
+
                       onApprove={() => {
                         setAppointment({
                           id: elm?.id,
@@ -92,6 +94,8 @@ const SessionHistory = () => {
                       customerName={elm?.student}
                       type="history"
                       rateText="Öğrenciyi Puanla"
+                      has_comment={elm?.pt?.has_comment}
+
                       onApprove={() => {
                         setAppointment({
                           id: elm?.id,
@@ -117,6 +121,8 @@ const SessionHistory = () => {
                       customerName={elm?.student}
                       type="history"
                       rateText="Öğrenciyi Puanla"
+                      has_comment={elm?.pt?.has_comment}
+
                       onApprove={() => {
                         setAppointment({
                           id: elm?.id,

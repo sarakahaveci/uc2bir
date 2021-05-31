@@ -67,6 +67,8 @@ const SessionHistory = () => {
                     <ApproveCard
                       date={elm?.hour}
                       customerName={elm?.address_title}
+                      has_comment={elm?.pt?.has_comment}
+
                       type="history"
                       rateText="Eğitmeni Puanla"
                       onApprove={() => {
@@ -94,6 +96,8 @@ const SessionHistory = () => {
                       customerName={elm?.pt?.name}
                       type="history"
                       rateText="Eğitmeni Puanla"
+                      has_comment={elm?.pt?.has_comment}
+
                       onApprove={() => {
                         setAppointment({
                           id: elm?.id,
@@ -119,6 +123,8 @@ const SessionHistory = () => {
                       customerName={elm?.pt?.name || elm?.dt?.name}
                       type="history"
                       rateText="Eğitmeni / Diyetisyeni Puanla"
+                      has_comment={elm?.dt?.has_comment}
+
                       onApprove={() => {
                         setAppointment({
                           id: elm?.id,
@@ -144,6 +150,8 @@ const SessionHistory = () => {
                       customerName={elm?.dt?.name}
                       type="history"
                       rateText="Diyetisyeni Puanla"
+                      has_comment={elm?.dt?.has_comment}
+
                       onApprove={() => {
                         setAppointment({ id: elm?.id, userId: elm?.dt?.id });
                         setOpenRateModal(true);

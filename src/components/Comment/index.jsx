@@ -30,7 +30,7 @@ export default function Comment({ name, date, comment, rating, photo, index }) {
           </div>
         </Row>
         <Row>
-          <img src={photo} alt={name} />
+          <img style={{objectFit:'cover'}} src={photo} alt={name} />
           <Col className="comment-author">
             <Row>
               <Title fontSize="12px">{name}</Title>

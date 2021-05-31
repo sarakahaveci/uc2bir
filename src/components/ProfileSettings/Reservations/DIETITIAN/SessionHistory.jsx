@@ -67,11 +67,12 @@ const SessionHistory = () => {
                       type="history"
                       date={elm?.hour}
                       customerName={elm?.student}
+                      has_comment={elm?.dt?.has_comment}
                       rateText="Danışanı Puanla"
                       onApprove={() => {
                         setAppointment({
                           id: elm?.id,
-                          userId: elm?.pt?.id,
+                          userId: elm?.dt?.id,
                         });
                         setOpenRateModal(true);
                       }}
@@ -92,11 +93,13 @@ const SessionHistory = () => {
                       type="history"
                       date={elm?.hour}
                       customerName={elm?.student}
+                      has_comment={elm?.dt?.has_comment}
+
                       rateText="Danışanı Puanla"
                       onApprove={() => {
                         setAppointment({
                           id: elm?.id,
-                          userId: elm?.pt?.id,
+                          userId: elm?.dt?.id,
                         });
                         setOpenRateModal(true);
                       }}
