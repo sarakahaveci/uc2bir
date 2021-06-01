@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components/macro';
 import { device } from 'utils';
 import { useHistory } from 'react-router-dom';
