@@ -16,11 +16,11 @@ import {
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 import InstagramLogin from 'instagram-login-react';
-import AppleLogin from 'react-apple-login'
 import GoogleIcon from 'assets/google-login.png'
 import FacebookIcon from 'assets/facebook-login.png'
 import InstagramIcon from 'assets/instagram-login.png'
 import AppleIcon from 'assets/apple-login.png'
+import AppleSignin from 'react-apple-signin-auth';
 
 
 const Login = () => {
@@ -139,7 +139,7 @@ const Login = () => {
                   className="blue"
                 />
               </form>
-              <div style={{ display: 'flex',width:'100%',justifyContent: 'space-between',padding:'10px 20px' }}>
+              <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between', padding: '10px 20px' }}>
                 <GoogleLogin
                   clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
                   //onSuccess={responseGoogle}
@@ -168,14 +168,30 @@ const Login = () => {
                   render={renderProps => (
                     <img onClick={renderProps.onClick} style={{ width: '40px', height: '40px', cursor: 'pointer' }} src={InstagramIcon}></img>
                   )}
-                  />
-                <AppleLogin
-                  clientId="com.react.apple.login"
-                  redirectURI="https://redirectUrl.com"
+                />
+                <AppleSignin
+                  authOptions={{
+                    clientId: 'com.example.web',
+                    scope: 'email name',
+                    redirectURI: 'https://example.com',
+                    state: 'state',
+                    nonce: 'nonce',
+                    usePopup: true
+                  }} // REQUIRED
+                  /** General props */
+                  uiType="dark"
+                  className="apple-auth-btn"
+                  noDefaultStyle={false}
+                  buttonExtraChildren="Continue with Apple"
+                  //onSuccess={(response) => console.log(response)} // default = undefined
+                  //onError={(error) => console.error(error)} // default = undefined
+                  skipScript={false} // default = undefined
+                  iconProp={{ style: { marginTop: '10px' } }} // default = undefined
                   render={renderProps => (
                     <img onClick={renderProps.onClick} style={{ width: '40px', height: '40px', cursor: 'pointer' }} src={AppleIcon}></img>
                   )}
                 />
+
 
               </div>
               <NoAccountText>
