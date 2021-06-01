@@ -18,7 +18,9 @@ const center = { lat: 39.925533, lng: 32.866287 };
 
 export default function GoogleMapClusterer({ data, onSelected, isSaloonMap }) {
   const [selectedMarker, setSelectedMarker] = useState(null);
+  const [isMapMin, setIsMapMin] = useState(true);
   const mapContainerStyle = { width: '100%', height: '100%' };
+
   const options = { maxZoom: 15 };
   useEffect(() => {
     onSelected && onSelected(selectedMarker);
@@ -38,7 +40,10 @@ export default function GoogleMapClusterer({ data, onSelected, isSaloonMap }) {
 
   const wrapperClass = 'mx-auto map-wrapper';
   return (
-    <div className={wrapperClass}>
+    <div style={{ height: isMapMin ? '25vh' : '55vh', width: '100%' }} className={wrapperClass}>
+      <div className="text-container" > 
+      <span className="map-scale" onClick={()=>{setIsMapMin(!isMapMin)}} >Haritayı {isMapMin ? <span>büyüt</span> : <span>küçült</span>}</span>
+      </div>
       <GoogleMap
         id="google-map"
         mapContainerStyle={mapContainerStyle}
@@ -83,19 +88,19 @@ export default function GoogleMapClusterer({ data, onSelected, isSaloonMap }) {
                     icon={
                       isSaloonMap
                         ? {
-                            url: SaloonSvg,
-                            origin: new window.google.maps.Point(0, 0),
-                            anchor: new window.google.maps.Point(35, 20),
-                            scaledSize: new window.google.maps.Size(70, 60),
-                          }
+                          url: SaloonSvg,
+                          origin: new window.google.maps.Point(0, 0),
+                          anchor: new window.google.maps.Point(35, 20),
+                          scaledSize: new window.google.maps.Size(70, 60),
+                        }
                         : professional?.photo
-                        ? {
+                          ? {
                             url: professional?.photo,
                             origin: new window.google.maps.Point(0, 0),
                             anchor: new window.google.maps.Point(35, 20),
                             scaledSize: new window.google.maps.Size(70, 60),
                           }
-                        : {
+                          : {
                             url: MarkerSvg,
                             origin: new window.google.maps.Point(0, 0),
                             anchor: new window.google.maps.Point(35, 20),
