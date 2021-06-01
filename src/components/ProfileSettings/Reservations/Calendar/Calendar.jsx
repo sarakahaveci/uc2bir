@@ -169,7 +169,6 @@ const Calendar = () => {
 
 
   const addHourToCalender = ()=>{
-    console.log('gidenlr',sessionTypeArr)
     dispatch(applyHourOfCalendar(startDate,sessionTypeArr,branchSelection,selectedHour.hour,addHourSuccess))
   }
   return(
@@ -271,9 +270,7 @@ const Calendar = () => {
                       value={workPlaceSelection}
                       input={<Input />}
                       onChange={((e) => {
-                        console.log('eventtaget',e.target.value)
                         setWorkPlaceSelection(e.target.value)
-                        console.log('statingsonhali',workPlaceSelection)
                       })}
                     >
                       {gymList?.gym?.map((item) => (
