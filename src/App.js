@@ -1,6 +1,6 @@
 import React, { useState, useLayoutEffect } from 'react';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import styled, { ThemeProvider } from 'styled-components';
 
 import { ScrollToTop, ProtectedRoute } from 'components';
@@ -53,7 +53,7 @@ import BuyStatus from './views/BuyStatus';
 ReactGA.initialize('G-RG1WMQBY0S');
 const App = () => {
   const [loading, setLoading] = useState(true);
-
+  const auth = useSelector((state) => state.auth)
   const dispatch = useDispatch();
 
   useLayoutEffect(() => {
@@ -63,11 +63,16 @@ const App = () => {
 
     dispatch(setUserDetailsFromStorage());
     dispatch(getRegisterData());
-    dispatch(getNotificationCount())
-    setInterval(() => {
+    if (auth?.isAuthenticated) {
       dispatch(getNotificationCount())
 
-    }, (3*60000));
+    }
+    setInterval(() => {
+      if (auth?.isAuthenticated) {
+        dispatch(getNotificationCount())
+
+      }
+    }, (3 * 60000));
     dispatch(getAllPTBranchList());
   }, []);
 

@@ -11,6 +11,7 @@ const Packet = (props) => {
   const handleSeeMoreClick = () => {
     history.push('/packets?type=packets');
   };
+
   const [activeCategory, setActiveCategory] = useState(1);
   const {
     content: { data: content },
@@ -53,7 +54,7 @@ const Packet = (props) => {
           content?.package_pt
 
         )
-      case 2:
+      case 3:
         return (
           content?.package_dt
 

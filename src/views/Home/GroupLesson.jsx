@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { Container } from 'react-bootstrap';
 import Title from '../../components/typography/Titles';
 import PacketSlider from '../../components/sliders/PacketSlider';
 import { useSelector } from 'react-redux';
-
+import {FITNESS,PILATES,YOGA,TENNIS} from '../../constants/sportTypes'
 
 
 const GroupLesson = (props) => {
@@ -16,6 +16,8 @@ const GroupLesson = (props) => {
   const {
     content: { data: content },
   } = useSelector((state) => state.home);
+  const [activeCategory, setActiveCategory] = useState(1);
+
   const query = true;
   //TODO : Tablara linklemeleri yapılacak
   const groups = 'GroupLesson';
@@ -24,40 +26,68 @@ const GroupLesson = (props) => {
     {
       id: 1,
       name: 'Tümü',
-      activeClass: 'active',
+      activeClass: activeCategory == 1 ? 'active' : '',
       // link: '#all',
     },
     {
       id: 2,
-      name: 'Yoga',
-      activeClass: '',
+      name: 'Fitness',
+      activeClass: activeCategory == 2 ? 'active' : '',
       // link: '#all',
     },
     {
       id: 3,
-      name: 'Box',
-      activeClass: '',
+      name: 'Yoga',
+      activeClass: activeCategory == 3 ? 'active' : '',
       // link: '#all',
     },
     {
       id: 4,
-      name: 'Meditasyon',
-      activeClass: '',
+      name: 'Tennis',
+      activeClass: activeCategory == 4 ? 'active' : '',
       // link: '#all',
     },
     {
       id: 5,
-      name: 'Vücut Geliştirme',
-      activeClass: '',
-      // link: '#all',
-    },
-    {
-      id: 6,
       name: 'Pilates',
-      activeClass: '',
+      activeClass: activeCategory == 6 ? 'active' : '',
       // link: '#all',
     },
   ];
+  function dataSelector() {
+    switch (activeCategory) {
+      case 1:
+        return (
+          content?.group_lesson?.concat(content?.group_lesson)
+
+
+        )
+      case 2:
+        return (
+          content?.group_lesson?.filter(item=>item?.slot?.branch?.id == FITNESS)
+
+        )
+      case 3:
+        return (
+          content?.group_lesson?.filter(item=>item?.slot?.branch?.id == YOGA)
+
+        )
+      case 4:
+        return (
+          content?.group_lesson?.filter(item=>item?.slot?.branch?.id == TENNIS)
+
+        )
+      case 5:
+        return (
+          content?.group_lesson?.filter(item=>item?.slot?.branch?.id == PILATES)
+
+        )
+     
+
+      default:
+        break;
+    }
+  }
   return (
     <section className={`pt ${props.className}`}>
       <Container>
@@ -77,10 +107,13 @@ const GroupLesson = (props) => {
       </Container>
       <PacketSlider
         query={query}
-        data={content.list_dt || []}
+        data={dataSelector()}
         groups={groups}
         categories={categories}
         link={link}
+        handleClickCategory={(id) => {
+          setActiveCategory(id)
+        }}
         handleSeeMoreClick={handleSeeMoreClick}
       />
     </section>

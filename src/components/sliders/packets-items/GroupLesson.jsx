@@ -13,24 +13,24 @@ const GroupLesson = ({ val }) => {
             <div
               className="img"
               style={{
-                backgroundImage: `url(${val.image?.default})`,
+                backgroundImage: `url(${val?.slot?.photo})`,
               }}
             >
-              <div className="team">A</div>
+              <div className="team">{val?.pt?.classification}</div>
               <ul className="points">
-                <li className="active">
+                <li className={val?.pt?.rating >=1 ? 'active' : ''}>
                   <AwesomeIcon.StarSolid />
                 </li>
-                <li className="active">
+                <li className={val?.pt?.rating >=2 ? 'active' : ''}>
                   <AwesomeIcon.StarSolid />
                 </li>
-                <li className="active">
+                <li className={val?.pt?.rating >=3 ? 'active' : ''}>
                   <AwesomeIcon.StarSolid />
                 </li>
-                <li className="active">
+                <li className={val?.pt?.rating >=4 ? 'active' : ''}>
                   <AwesomeIcon.StarSolid />
                 </li>
-                <li className="active">
+                <li className={val?.pt?.rating >=5 ? 'active' : ''}>
                   <AwesomeIcon.StarSolid />
                 </li>
               </ul>
@@ -38,25 +38,25 @@ const GroupLesson = ({ val }) => {
                 <span className="icon">
                   <AwesomeIcon.Clock />
                 </span>
-                <span className="text">{val.date}</span>
+                <span className="text">{val?.slot?.date}</span>
               </div>
             </div>
             <div className="info">
               <Title lineDisable fontWeight="ligher">
-                {val.category}
+                {val?.slot?.branch?.name}
               </Title>
             </div>
           </div>
           <div className="text-item">
             <Title lineDisable fontWeight="bold">
-              {val.name}
+              {val?.pt?.name}
             </Title>
             <div className="row info">
               <div className="col">
                 <ul>
-                  <li style={{ fontSize: '10pt' }}>{val.content}</li>
+                  <li style={{ fontSize: '10pt' }}>{val.content} sssss</li>
                   <li style={{ fontSize: '8pt', marginTop: 5 }}>
-                    <AwesomeIcon.Map /> {val.location}
+                    <AwesomeIcon.Map /> {val?.address?.district} / {val?.address?.city}
                   </li>
                 </ul>
               </div>
@@ -72,11 +72,11 @@ const GroupLesson = ({ val }) => {
                     right: '0',
                   }}
                 >
-                  {val.seater} Kişilik
+                  {val?.slot?.max_capacity} Kişilik
                 </span>
 
                 <span>
-                  {val.price} <AwesomeIcon.Tl />
+                  {val?.slot?.price} <AwesomeIcon.Tl />
                 </span>
                 <br />
                 <span>{val.ctn}</span>
