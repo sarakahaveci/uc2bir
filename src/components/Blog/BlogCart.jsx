@@ -15,10 +15,10 @@ const BlogCart = ({ blogOrder, data = [] }) => {
 
   return (
     <div className="blog-cart">
-      <div className={cx('blog-cart__top', { 'order-xl-1': !isOrderEven })}>
+      <div className={cx('blog-cart__left', { 'order-xl-1': !isOrderEven })}>
         <img src={data?.photo} alt={data?.title} />
       </div>
-      <div className={cx('blog-cart__bottom', { 'order-xl-0': !isOrderEven })}>
+      <div className={cx('blog-cart__right', { 'order-xl-0': !isOrderEven })}>
         <div className="blog-cart__title">{data?.title}</div>
         <div className="blog-cart__detail">{data?.detail}</div>
         <div className="blog-cart__writer">
