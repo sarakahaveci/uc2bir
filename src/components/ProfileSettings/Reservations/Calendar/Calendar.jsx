@@ -161,7 +161,7 @@ const Calendar = () => {
   const sessionTypeArr = userTypeId ===WORK_PLACE ?({location:classSelection}) : sessionSelection.map((session) => ({ session,
     ...(session.type !== 'online' && {
       location:
-        session.type === 'gym' ? classSelection : session.type === 'clinic'
+        session.type === 'gym' ? (workPlaceSelection || classSelection) : session.type === 'clinic'
           ? workPlaceSelection
           : locationSelection,
     }),
@@ -169,6 +169,7 @@ const Calendar = () => {
 
 
   const addHourToCalender = ()=>{
+    console.log('gidenlr',sessionTypeArr)
     dispatch(applyHourOfCalendar(startDate,sessionTypeArr,branchSelection,selectedHour.hour,addHourSuccess))
   }
   return(
@@ -269,7 +270,11 @@ const Calendar = () => {
                       multiple
                       value={workPlaceSelection}
                       input={<Input />}
-                      onChange={(e) => setWorkPlaceSelection(e.target.value)}
+                      onChange={((e) => {
+                        console.log('eventtaget',e.target.value)
+                        setWorkPlaceSelection(e.target.value)
+                        console.log('statingsonhali',workPlaceSelection)
+                      })}
                     >
                       {gymList?.gym?.map((item) => (
                         <MenuItem key={item.id} value={item}>
