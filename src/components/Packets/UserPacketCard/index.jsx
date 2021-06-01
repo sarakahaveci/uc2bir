@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { device } from 'utils';
-
+import { useHistory } from 'react-router-dom';
 const PacketCard = ({
   type,
   trainerClass, //typeözel
@@ -10,11 +10,12 @@ const PacketCard = ({
   status,
   totalLesson,
   currentLesson,
+  package_id,
   sessionTypes,
   onClickDetail,
   onClickReservation,
 }) => {
-
+  const history = useHistory();
   const getSessionTypes = () => {
     let tmpString = "";
     var res = sessionTypes?.split(",");
@@ -31,7 +32,6 @@ const PacketCard = ({
     return tmpString;
   }
 
-  useEffect(() => { }, []);
   let content;
   switch (type) {
     case 'pt':
@@ -70,7 +70,7 @@ const PacketCard = ({
                   </>,
                   'upgraded': <BoldText >Bu paket yükseltilmiştir</BoldText>
 
-                }[status] || <Button onClick={onClickDetail}>Tekrar Al</Button>
+                }[status] || <Button onClick={() => { history.push(`/packets/${type}/detail/`+package_id) }}>Tekrar Al</Button>
               }
 
 

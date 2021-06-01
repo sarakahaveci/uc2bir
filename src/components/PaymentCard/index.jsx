@@ -671,14 +671,14 @@ export default function PaymentCard({ type, subType, dateOption }) {
           <Text style={{ fontWeight: 800 }}>Toplam Ücret</Text>
           <Text color="#00B2A9" style={{ fontWeight: 800, fontSize: 30 }}>
             {(type == 'buy_packet' || type == 'upgrade_packet')
-              && buyPacket?.reservation?.totals_amount+'₺'
+              && (buyPacket?.reservation?.totals_amount ? buyPacket?.reservation?.totals_amount+'₺': 0 + ' ₺')
             }
             {
               (type == 'pt' || type == 'dt' || type == 'gym' || type == 'packet') &&
-              reservation?.data?.totals_amount+'₺'
+              (reservation?.data?.totals_amount ? reservation?.data?.totals_amount+'₺':0+' ₺' )
             }
             {
-              (type == 'buy_group_lesson') && buyGroupLesson?.reservation?.totals_amount+'₺'
+              (type == 'buy_group_lesson') &&( buyGroupLesson?.reservation?.totals_amount ?  buyGroupLesson?.reservation?.totals_amount+'₺':0+ ' ₺' )
             }
 
           </Text>
