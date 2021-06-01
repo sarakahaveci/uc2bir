@@ -14,39 +14,45 @@ const iconMap = {
   online: OnlineWorkIcon,
   home_park: HomeParkIcon,
 };
+const descriptionMap = {
+  gym: "Spor yapmak istediğin salonu burada göremedin mi? Eğitmene mesaj göndererek tercih ettiğin spor salonunda ders verip veremeyeceğini sorabilirsin.",
+  online: "Spor yapmak istediğin yeri kendin belirlerim diyorsan..", // dummy 
+  home_park: "Spor yapmak istediğin yeri burada göremedin mi? Eğitmene mesaj göndererek tercih ettiğin yerde ders vermenin uygun olup olmadığını sorabilirsin. ",
+};
 
 const Place = ({ userId }) => {
   const { userInfo } = useSelector((state) => state.userProfile.userInfo);
+
+  const [description, setDescription] = useState(descriptionMap.gym);
 
   const [content, setContent] = useState(<SportFields userId={userId} />);
 
   const handleContent = (type) => {
     let newContent;
+    let newDesc;
     switch (type) {
       case 'gym':
         newContent = <SportFields userId={userId} />;
+        newDesc = descriptionMap.gym;
         break;
       case 'home_park':
         newContent = <WorkPlaceList userId={userId} />;
-        break;
-
+        newDesc = descriptionMap.home_park;
+        break; 
       case 'online':
         newContent = <WorkPlaceList userId={userId} />;
+        newDesc = null; 
         break;
 
       default:
         break;
     }
     setContent(newContent);
+    setDescription(newDesc);
   };
 
   return (
-    <div>
-      <Description>
-        Spor alanı ile ilgili detay / bilgi veren yazı alanı. Lorem ipsum dolor
-        sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-        ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-      </Description>
+    <div> 
       <SubTabs
         className="mt-3"
         data={userInfo?.session}
@@ -58,6 +64,9 @@ const Place = ({ userId }) => {
           </>
         )}
       />
+      {description && <Description>
+        {description}
+      </Description>}
       {content}
     </div>
   );

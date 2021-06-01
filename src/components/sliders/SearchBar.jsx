@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import styled from 'styled-components/macro';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import NativeSelect from '@material-ui/core/NativeSelect';
+import styled from 'styled-components/macro'; 
 import InputBase from '@material-ui/core/InputBase';
 
-import { Button, IconLabel, AwesomeIcon, Svg } from 'components';
+import { Button, IconLabel, AwesomeIcon, Svg, Material } from 'components';
 import { objectToParamCoverter } from 'utils';
 
 const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
@@ -115,28 +112,11 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
                 icon={Svg.SearchBranches}
                 style={{ paddingTop: '5px' }}
               />
-              <FormControl
-                className={'material-selectbox'}
+              <Material.SimpleSelect
+                label="Tüm Kategoriler"
+                items={allBranchList}
                 onChange={(event) => setBranch(event.target.value)}
-              >
-                <InputLabel
-                  htmlFor="age-native-helper"
-                  style={{
-                    fontFamily: 'Poppins',
-                    fontSize: '18px',
-                  }}
-                >
-                  Branşlar
-                </InputLabel>
-                <NativeSelect>
-                  <option aria-label="None" value="" />
-                  {allBranchList.map((item, index) => (
-                    <option key={'option' + index} value={item.id}>
-                      {item.name}
-                    </option>
-                  ))}
-                </NativeSelect>
-              </FormControl>
+              />
             </li>
             <li className="buttons">
               <Button
