@@ -13,6 +13,15 @@ import {
   Material,
   Box,
 } from 'components';
+import GoogleLogin from 'react-google-login';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
+import InstagramLogin from 'instagram-login-react';
+import AppleLogin from 'react-apple-login'
+import GoogleIcon from 'assets/google-login.png'
+import FacebookIcon from 'assets/facebook-login.png'
+import InstagramIcon from 'assets/instagram-login.png'
+import AppleIcon from 'assets/apple-login.png'
+
 
 const Login = () => {
   const { isLoading } = useSelector((state) => state.auth);
@@ -130,7 +139,45 @@ const Login = () => {
                   className="blue"
                 />
               </form>
+              <div style={{ display: 'flex',width:'100%',justifyContent: 'space-between',padding:'10px 20px' }}>
+                <GoogleLogin
+                  clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+                  //onSuccess={responseGoogle}
+                  //onFailure={responseGoogle}
+                  cookiePolicy={'single_host_origin'}
+                  render={renderProps => (
+                    <img onClick={renderProps.onClick} style={{ width: '40px', height: '40px', cursor: 'pointer' }} src={GoogleIcon}></img>
+                  )}
+                />
+                <FacebookLogin
+                  appId="1088597931155576"
+                  //autoLoad={true}
+                  //fields="name,email,picture"
+                  render={renderProps => (
+                    <img onClick={renderProps.onClick} style={{ width: '40px', height: '40px', cursor: 'pointer' }} src={FacebookIcon}></img>
+                  )}
 
+                //onClick={componentClicked}
+                // callback={responseFacebook}
+                />
+                <InstagramLogin
+                  clientId="5fd2f11482844c5eba963747a5f34556"
+                  buttonText="Login"
+                  //onSuccess={responseInstagram}
+                  //onFailure={responseInstagram}
+                  render={renderProps => (
+                    <img onClick={renderProps.onClick} style={{ width: '40px', height: '40px', cursor: 'pointer' }} src={InstagramIcon}></img>
+                  )}
+                  />
+                <AppleLogin
+                  clientId="com.react.apple.login"
+                  redirectURI="https://redirectUrl.com"
+                  render={renderProps => (
+                    <img onClick={renderProps.onClick} style={{ width: '40px', height: '40px', cursor: 'pointer' }} src={AppleIcon}></img>
+                  )}
+                />
+
+              </div>
               <NoAccountText>
                 Hesabınız yok mu? <Link to="/register">Üye ol</Link>
               </NoAccountText>
