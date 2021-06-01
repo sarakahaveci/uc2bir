@@ -22,6 +22,7 @@ const Home = ({ setPage = () => { }, setGlobalState = () => { } }) => {
         {myPackets?.data?.data?.map((elm, i) => (
           <CardContainer key={i}>
             <UserPacketCard
+              package_id={elm?.package_id}
               type={elm?.type}
               branch={elm?.branch}
               totalLesson={elm?.quantity}
