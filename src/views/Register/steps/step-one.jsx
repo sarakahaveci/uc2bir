@@ -10,7 +10,8 @@ import {
   Information,
   Privacy,
 } from '../../../components';
-
+import {  SocialLogin
+} from 'components'
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -318,9 +319,10 @@ const StepOne = (props) => {
       <StyledModal show={openModal} onHide={() => setOpenModal(false)}>
         {confirmation}
       </StyledModal>
-      {/* <div className="identfy">
+       <div className="identfy">
         <span>Veya</span>
-      </div> */}
+      </div> 
+      <SocialLogin /> 
     </>
   );
 };
