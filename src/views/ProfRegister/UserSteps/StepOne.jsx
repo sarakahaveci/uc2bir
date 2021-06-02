@@ -452,7 +452,6 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
         <span>Veya</span>
       </div> */}
 
-      {/* <SocialLogin /> */}
 
       {/* STEP TWO  */}
 
