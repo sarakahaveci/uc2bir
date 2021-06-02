@@ -44,9 +44,9 @@ export { default as Select } from './Select/Select';
 export { default as SearchInput } from './inputs/SearchInput';
 export { default as HomeUserSlider } from './sliders/HomeUserSlider';
 
-/*
+
 export { default as SocialLogin } from './SocialLogin/SocialLogin';
-*/
+
 export { default as Tab } from './Tabs/Tabs';
 export { default as Certificate } from './Certificate/Certificate';
 export { default as ProfileCard } from './banner/profile-banner/ProfileCard';

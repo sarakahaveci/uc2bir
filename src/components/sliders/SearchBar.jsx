@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import styled from 'styled-components/macro'; 
+import styled from 'styled-components/macro';
 import InputBase from '@material-ui/core/InputBase';
 
 import { Button, IconLabel, AwesomeIcon, Svg, Material } from 'components';
@@ -107,17 +107,21 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
                 />
               </li>
             )}
-            <li>
-              <IconLabel
-                icon={Svg.SearchBranches}
-                style={{ paddingTop: '5px' }}
-              />
-              <Material.SimpleSelect
-                label="Tüm Kategoriler"
-                items={allBranchList}
-                onChange={(event) => setBranch(event.target.value)}
-              />
-            </li>
+            {
+              virtual !== 'dt' && (
+                <li>
+                  <IconLabel
+                    icon={Svg.SearchBranches}
+                    style={{ paddingTop: '5px' }}
+                  />
+                  <Material.SimpleSelect
+                    label="Tüm Kategoriler"
+                    items={allBranchList}
+                    onChange={(event) => setBranch(event.target.value)}
+                  />
+                </li>
+              )
+            }
             <li className="buttons">
               <Button
                 className="col blue"

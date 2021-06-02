@@ -4,17 +4,46 @@ import ReservationAccordion from '../ReservationAccordion';
 import styled from 'styled-components/macro';
 import { ApproveCard, DatePicker, RateModal, Svg } from 'components';
 import { device } from 'utils';
+import { useSelector, useDispatch } from 'react-redux';
+import { getGymSessionHistorys, rateAndComment } from 'actions';
+import moment from 'moment';
+
 const SessionHistory = () => {
+  const dispatch = useDispatch();
+  const items = useSelector(
+    (state) => state.professionalReservation?.dtReservation?.session_historys
+  );
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
   const [openRateModal, setOpenRateModal] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [appointment, setAppointment] = useState(undefined);
 
+  const startOfWeeksArr = () => {
+    if (items?.date) {
+      return Object.keys(items?.date).map(
+        (date) => new Date(moment(date, 'DD.MM.YYYY').toDate())
+      );
+    } else {
+      return [];
+    }
+  };
   useEffect(() => {
     if (window.innerWidth <= 760) {
       setIsSmallScreen(true);
     } else {
       setIsSmallScreen(false);
     }
+    setSelectedDate(new Date());
+    dispatch(getGymSessionHistorys());
   }, []);
+  useEffect(() => {
+    if (selectedDate) {
+      getSelectedDate();
+    }
+  }, [selectedDate]);
+  function getSelectedDate() {
+    dispatch(getGymSessionHistorys(moment(selectedDate).format('DD.MM.YYYY')));
+  }
   return (
     <StyledContainer>
       <StyledRow>
@@ -23,35 +52,60 @@ const SessionHistory = () => {
             <ReservationAccordion
               defaultOpen={true}
               parent
-              title={'DENEME TARİHİ'}
+              title={moment(selectedDate).format('DD.MM.YYYY')}
             >
               <ReservationAccordion
                 miniIcon={<Svg.SessionType.Gym />}
-                title="SPOR ALANI"
+                title="EĞİTMEN İLE"
                 defaultOpen
               >
-                <ApproveCardContainer>
-                  <ApproveCard
-                    type="history"
-                    onApprove={() => {
-                      setOpenRateModal(true);
-                    }}
-                    date="18:00 - 19:00"
-                    customerName={elm?.student}
-                    optionalField_1={elm?.branch} //Sport Type || NULL
-                    optionalField_2={{
-                      label: 'EĞİTMEN',
-                      value: elm?.pt?.name,
-                    }}
-                    optionalField_3={{
-                      label: 'SINIF',
-                      value: elm?.class,
-                      value2: elm?.class_total_appointment + '/' + elm?.class_capacity,
+                {items?.appointment?.[
+                  moment(selectedDate).format('DD.MM.YYYY')
+                ]?.with_pt?.map((elm, i) => (
+                  <ApproveCardContainer key={i}>
+                    <ApproveCard
+                      type="history"
+                      date={elm?.hour}
+                      customerName={elm?.student}
+                      has_comment={elm?.bs?.has_comment}
+                      rateText="Öğrenciyi Puanla"
+                      onApprove={() => {
+                        setAppointment({
+                          id: elm?.id,
+                          userId: elm?.bs?.id,
+                        });
+                        setOpenRateModal(true);
+                      }}
+                    />
+                  </ApproveCardContainer>
+                ))}
+              </ReservationAccordion>
+              <ReservationAccordion
+                miniIcon={<Svg.SessionType.Gym />}
+                title="EĞİTMENSİZ"
+                defaultOpen
+              >
+                {items?.appointment?.[
+                  moment(selectedDate).format('DD.MM.YYYY')
+                ]?.without_pt?.map((elm, i) => (
+                  <ApproveCardContainer key={i}>
+                    <ApproveCard
+                      type="history"
+                      date={elm?.hour}
+                      customerName={elm?.student}
+                      has_comment={elm?.bs?.has_comment}
 
-                    }}
-                  />
-                </ApproveCardContainer>
-                <ApproveCard type="rejecteds" />
+                      rateText="Öğrenciyi Puanla"
+                      onApprove={() => {
+                        setAppointment({
+                          id: elm?.id,
+                          userId: elm?.bs?.id,
+                        });
+                        setOpenRateModal(true);
+                      }}
+                    />
+                  </ApproveCardContainer>
+                ))}
               </ReservationAccordion>
             </ReservationAccordion>
           </AccordionContainer>
@@ -65,19 +119,46 @@ const SessionHistory = () => {
           lg={4}
         >
           <DateContainer>
-            <DatePicker inline selected={null} />
+            <DatePicker
+              selected={selectedDate}
+              onSelect={(date) => {
+                setSelectedDate(date);
+              }}
+              selectsRange
+              inline
+              highlightDates={[
+                {
+                  'react-datepicker__day--highlighted': startOfWeeksArr(),
+                },
+              ]}
+            />{' '}
           </DateContainer>
         </StyledCol>
       </StyledRow>
       <RateModal
-        descText="Faruk Kale isimli öğrencinizi puanlamak ister misiniz?"
+        appointment_id={appointment?.id}
+        descText="Danışanızı puanlamak ister misiniz?"
         rateLabel="PUANLA"
         cancelLabel="VAZGEÇ"
         open={openRateModal}
-        rate={() => {
-          setOpenRateModal(false);
+        rate={({ rate, comment }) => {
+          dispatch(
+            rateAndComment(
+              {
+                appointment_id: appointment?.id,
+                rating: rate,
+                comment: comment,
+                commented_id: appointment?.userId,
+              },
+              () => {
+                setAppointment(undefined);
+                setOpenRateModal(false);
+              }
+            )
+          );
         }}
         cancel={() => {
+          setAppointment(undefined);
           setOpenRateModal(false);
         }}
       />

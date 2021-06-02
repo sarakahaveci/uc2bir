@@ -336,8 +336,8 @@ const Blog = () => {
                             <BlogContent>
                               <div className="text-group">
                                 <div className="title">{val.title}</div>
-                                <div className="content">
-                                  {val.detail}{' '}
+                                <div style={{overflow:'hidden'}} className="content">
+                                  {val.detail}
                                   <LinkText
                                     onClick={() => {
                                       go(val?.id);

@@ -161,7 +161,7 @@ const Calendar = () => {
   const sessionTypeArr = userTypeId ===WORK_PLACE ?({location:classSelection}) : sessionSelection.map((session) => ({ session,
     ...(session.type !== 'online' && {
       location:
-        session.type === 'gym' ? classSelection : session.type === 'clinic'
+        session.type === 'gym' ? (workPlaceSelection || classSelection) : session.type === 'clinic'
           ? workPlaceSelection
           : locationSelection,
     }),
@@ -269,7 +269,9 @@ const Calendar = () => {
                       multiple
                       value={workPlaceSelection}
                       input={<Input />}
-                      onChange={(e) => setWorkPlaceSelection(e.target.value)}
+                      onChange={((e) => {
+                        setWorkPlaceSelection(e.target.value)
+                      })}
                     >
                       {gymList?.gym?.map((item) => (
                         <MenuItem key={item.id} value={item}>

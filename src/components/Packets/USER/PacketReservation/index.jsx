@@ -216,7 +216,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
               name="workArea"
               defaultValue="0l"
             >
-              {homeParkState.map((item, i) => (
+              {homeParkState?.map((item, i) => (
                 <div key={i} style={{ display: 'flex' }}>
                   <Accordion>
                     <AccordionItemWrapper>

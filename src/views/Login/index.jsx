@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
 
-import { login } from 'actions';
+import { login,socialLogin } from 'actions';
 import {
   FormPages,
   AwesomeIcon,
@@ -13,6 +13,15 @@ import {
   Material,
   Box,
 } from 'components';
+import GoogleLogin from 'react-google-login';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
+import InstagramLogin from 'instagram-login-react';
+import GoogleIcon from 'assets/google-login.png'
+import FacebookIcon from 'assets/facebook-login.png'
+import InstagramIcon from 'assets/instagram-login.png'
+import AppleIcon from 'assets/apple-login.png'
+import AppleSignin from 'react-apple-signin-auth';
+
 
 const Login = () => {
   const { isLoading } = useSelector((state) => state.auth);
@@ -34,7 +43,19 @@ const Login = () => {
 
     dispatch(login({ email: trimmedEmail, password }, loginSuccessHandler));
   };
+  const responseSocial = async (type,res) => {
+    var user = {
+      type:type,
+      accessToken:'deneme',
+      email:'email@example.com',
+      uid:'uid',
+      res:res
+    }
 
+
+    //
+    socialLogin(user)
+  };
   return (
     <FormPages>
       <section className="col-12 col-xl-6 page login-page-widget">
@@ -130,7 +151,61 @@ const Login = () => {
                   className="blue"
                 />
               </form>
+              <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between', padding: '10px 20px' }}>
+                <GoogleLogin
+                  clientId="1234567890-abc123def456.apps.googleusercontent.com"
+                  onSuccess={(res)=>{responseSocial('google',res)}}
+                  //onFailure={responseGoogle}
+                  cookiePolicy={'single_host_origin'}
+                  render={renderProps => (
+                    <img onClick={renderProps.onClick} style={{ width: '40px', height: '40px', cursor: 'pointer' }} src={GoogleIcon}></img>
+                  )}
+                />
+                <FacebookLogin
+                  appId="1088597931155576"
+                  //autoLoad={true}
+                  //fields="name,email,picture"
+                  render={renderProps => (
+                    <img onClick={renderProps.onClick} style={{ width: '40px', height: '40px', cursor: 'pointer' }} src={FacebookIcon}></img>
+                  )}
 
+                //onClick={componentClicked}
+                // callback={responseFacebook}
+                />
+                <InstagramLogin
+                  clientId="5fd2f11482844c5eba963747a5f34556"
+                  buttonText="Login"
+                  //onSuccess={responseInstagram}
+                  //onFailure={responseInstagram}
+                  render={renderProps => (
+                    <img onClick={renderProps.onClick} style={{ width: '40px', height: '40px', cursor: 'pointer' }} src={InstagramIcon}></img>
+                  )}
+                />
+                <AppleSignin
+                  authOptions={{
+                    clientId: 'com.example.web',
+                    scope: 'email name',
+                    redirectURI: 'https://example.com',
+                    state: 'state',
+                    nonce: 'nonce',
+                    usePopup: true
+                  }} // REQUIRED
+                  /** General props */
+                  uiType="dark"
+                  className="apple-auth-btn"
+                  noDefaultStyle={false}
+                  buttonExtraChildren="Continue with Apple"
+                  //onSuccess={(response) => console.log(response)} // default = undefined
+                  //onError={(error) => console.error(error)} // default = undefined
+                  skipScript={false} // default = undefined
+                  iconProp={{ style: { marginTop: '10px' } }} // default = undefined
+                  render={renderProps => (
+                    <img onClick={renderProps.onClick} style={{ width: '40px', height: '40px', cursor: 'pointer' }} src={AppleIcon}></img>
+                  )}
+                />
+
+
+              </div>
               <NoAccountText>
                 Hesabınız yok mu? <Link to="/register">Üye ol</Link>
               </NoAccountText>
