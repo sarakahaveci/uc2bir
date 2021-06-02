@@ -71,7 +71,7 @@ export default function GoogleMapClusterer({ data, onSelected, isSaloonMap }) {
                       }}
                     >
                       <InfoContainer>
-                        <BoldText>{professional?.title}</BoldText>
+                        <BoldText>{professional?.name || professional?.title}</BoldText>
                         <DetailText>{addressDetail}</DetailText>
                       </InfoContainer>
                     </InfoWindow>
