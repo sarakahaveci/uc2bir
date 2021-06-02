@@ -46,7 +46,7 @@ const BlogList = () => {
 };
 
 const End = styled(Container)`
-  margin-top: 1070px;
+  margin-top: 10px;
 `;
 
 export default BlogList;
