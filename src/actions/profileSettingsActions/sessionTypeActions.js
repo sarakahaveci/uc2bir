@@ -73,8 +73,8 @@ export const addAddress = (
 };
 
 export const getAddressList = (
-  successCallback = () => {},
-  errorCallback = () => {}
+  successCallback = () => { },
+  errorCallback = () => { }
 ) => async (dispatch, getState) => {
   const url = `/user/address`;
 
@@ -194,18 +194,21 @@ export const addGymFromPt = (id, successCallback) => async (
   });
 };
 
-export const searchGymForPt = (title = false, page ) => async (dispatch) => {
-  const urlForAllGymList = `/user/address/search-gym?page=`+page;
-  const urlWithTitle = `&title=${title}`;
+export const searchGymForPt = (title = false, page,location,branch) => async (dispatch) => {
+  let url = `/user/address/search-gym`;
+  let extras = '?';
+  if (title) extras += `title=${title}&`;
+  if (page) extras += `page=${page}&`;
+  if (location) extras += `location=${location}&`;
+  if (branch) extras += `branch=${branch}&`;
 
-  //const finalUrl = urlForAllGymList + (title && urlWithTitle); sonra düzelt
-  const finalUrl = urlForAllGymList;
+  url += extras;
 
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
       method: 'GET',
-      url: finalUrl,
+      url: url,
       label: SEARCH_GYM_FOR_PT,
       transformData: (data) => data.data,
       errorHandler: (error) =>
@@ -221,20 +224,17 @@ export const searchGymWithDetail = (
   branch = false
 ) => async (dispatch) => {
   //const urlForAllGymList = `/user/address/search-gym?page=${page}`;
-  const urlForAllGymList = `/user/address/detail-search-gym`;
-
-  const urlWithTitle = `&title=${title}`;
-  const urlWithLocation = `&location_key=${location}`;
-  const urlWithBranch = `&branch_id=${branch}`;
-
-  const finalUrl =
-    urlForAllGymList + urlWithTitle + urlWithLocation + urlWithBranch;
-
+  let url = '/user/address/detail-search-gym';
+  let extras = '?';
+  if (title) extras += `title=${title}&`;
+  if (location) extras += `location=${location}&`;
+  if (branch) extras += `branch=${branch}&`;
+  url += extras;
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
       method: 'GET',
-      url: finalUrl,
+      url: url,
       label: SEARCH_PROFESSIONAL,
       transformData: (data) => data.data,
       errorHandler: (error) =>

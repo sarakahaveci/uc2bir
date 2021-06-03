@@ -31,21 +31,20 @@ const AddGym = ({ setSubPage, setBannerActive }) => {
   const [pageNumber, setPageNumber] = useState(1);
 
   const [showSearch, setShowSearch] = useState(true);
-  const [page, setPage] = useState(1);
 
   const pageChangeHandler = (event, value) => {
-    dispatch(searchGymForPt(event, value));
+    dispatch(searchGymForPt(trainerName, value, location, branch));
     setPageNumber(value);
   };
 
   useEffect(() => {
     setBannerActive(false);
-    dispatch(searchGymForPt(pageNumber));
+    dispatch(searchGymForPt(null,pageNumber));
     dispatch(getAllPTBranchList());
   }, []);
 
   const searchGymHandler = () => {
-    dispatch(searchGymWithDetail(trainerName, page, location, branch));
+    dispatch(searchGymForPt(trainerName, pageNumber, location, branch));
     setShowSearch(true);
   };
 
@@ -67,7 +66,6 @@ const AddGym = ({ setSubPage, setBannerActive }) => {
           fontWeight="bold"
         />
         <Title fontSize="14pt" fontWeight="bold" color="#00b2a9">
-          {' '}
           Spor Salonu Seçiniz.
         </Title>
       </div>
