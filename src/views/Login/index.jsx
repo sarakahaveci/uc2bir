@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
 
-import { login } from 'actions';
+import { login,socialLogin } from 'actions';
 import {
   FormPages,
   AwesomeIcon,
@@ -44,16 +44,13 @@ const Login = () => {
     dispatch(login({ email: trimmedEmail, password }, loginSuccessHandler));
   };
   const responseSocial = async (type,res) => {
-    // eslint-disable-next-line
-    console.log('res',res)
-    /*var user = {
+      var user = {
       type:type,
-      accessToken:'deneme',
-      email:'email@example.com',
-      uid:'uid',
+      accessToken:res?.accessToken,
+      email:res?.profileObj?.email,
+      uid:res?.googleId,
     }
-    
-    socialLogin(user)*/
+    dispatch(socialLogin(user))
   };
   return (
     <FormPages>
@@ -154,8 +151,8 @@ const Login = () => {
                 <GoogleLogin
                   clientId="197190928694-blqpc6dnsr5lsefk7aptk3iq9tjjna8f.apps.googleusercontent.com"
                   onSuccess={(res)=>{responseSocial('google',res)}}
-                 // onFailure={(err)=>{console.log('errr',err)}}
-                  cookiePolicy={'single_host_origin'}
+                  onFailure={()=>{alert('Hata ile karşılaşıldı')}}
+                  //cookiePolicy={'single_host_origin'}
                   render={renderProps => (
                     <img onClick={renderProps.onClick} style={{ width: '40px', height: '40px', cursor: 'pointer' }} src={GoogleIcon}></img>
                   )}
