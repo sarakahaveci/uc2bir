@@ -13,7 +13,8 @@ import { Button } from 'components';
 import Packet from './packets-items';
 
 function PacketSlider(props) {
-  const { data,query, categories, handleSeeMoreClick ,handleClickCategory} = props;
+  const { data, query, categories, handleSeeMoreClick, handleClickCategory } =
+    props;
   let slider;
 
   const settings = {
@@ -81,7 +82,13 @@ function PacketSlider(props) {
             {categories &&
               categories.length > 0 &&
               categories?.map((val) => (
-                <li onClick={()=>{handleClickCategory(val.id)}} className={val.activeClass} key={`category-${val.id}`}>
+                <li
+                  onClick={() => {
+                    handleClickCategory(val.id);
+                  }}
+                  className={val.activeClass}
+                  key={`category-${val.id}`}
+                >
                   <a href={val.link}>{val.name}</a>
                 </li>
               ))}
