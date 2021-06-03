@@ -8,29 +8,6 @@ import { useHistory } from 'react-router';
 const Categories = ({ className, background, children }) => {
   const history = useHistory();
 
-  const handleClick = (name) => {
-    if ('FİTNESS' == name) {
-      history.push('/packets?type=packets&branch=1#/');
-    }
-    if ('PİLATES' == name) {
-      history.push('/packets?type=packets&branch=3#/');
-    }
-    if ('TENİS' == name) {
-      history.push('/packets?type=packets&branch=6#/');
-    }
-    if ('YOGA' == name) {
-      history.push('/packets?type=packets&branch=32#/');
-    }
-    if ('KİCK BOKS' == name) {
-      history.push('/packets?type=packets&branch=9#/');
-    }
-    if ('JİMNASTİK' == name) {
-      history.push('/packets?type=packets&branch=8#/');
-    }
-    if ('YÜZME' == name) {
-      history.push('/packets?type=packets&branch=35#/');
-    }
-  };
 
   return (
     <section className={cx('categories', { [`${className}`]: className })}>
@@ -56,7 +33,7 @@ const Categories = ({ className, background, children }) => {
                 <a
                   title={val.name}
                   onClick={() => {
-                    handleClick(val.name);
+                    history.push('/search/' +val.name)
                   }}
                 >
                   {val.svg({ className: 'category-svg' })}{' '}

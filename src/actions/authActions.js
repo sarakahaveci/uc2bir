@@ -135,7 +135,7 @@ export const setUserDetailsFromStorage = () => (dispatch) => {
   }
 };
 
-export const socialLogin = (user, successCallback) => async (dispatch) => {
+export const socialLogin = (user, successCallback=()=>{}) => async (dispatch) => {
   const url = '/social-login';
 
   await dispatch({

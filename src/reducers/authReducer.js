@@ -46,6 +46,7 @@ export default (state = initialState, action) => {
     case USER_DETAILS_SET_FROM_STORAGE:
       return {
         ...action.payload,
+        accessToken:action.payload?.token,
         isLoading: false,
         error: null,
         isAuthenticated: true,
