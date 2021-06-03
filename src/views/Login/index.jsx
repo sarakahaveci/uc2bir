@@ -49,8 +49,8 @@ const Login = () => {
     var user = {
       type: type,
       accessToken: res?.accessToken,
-      email: res?.profileObj?.email,
-      uid: res?.googleId,
+      email: res?.profileObj?.email || res?.email,
+      uid: res?.googleId||res.userId,
     }
     dispatch(socialLogin(user))
   };
