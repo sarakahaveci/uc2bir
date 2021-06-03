@@ -44,8 +44,23 @@ const SearchProfessional = () => {
 
   const { type } = searchParams || 'pt';
 
-  const userTypeText =
-    type === 'gym' ? 'Salon' : type === 'pt' ? 'Eğitmen' : 'Diyetisyen';
+  let userTypeText;
+
+  switch (type) {
+    case "gym":
+      userTypeText = "Salon"
+      break;
+    case "pt":
+      userTypeText = "Eğitmen"
+      break;
+    case "dt":
+      userTypeText = "Diyetşisyen"
+      break;
+    case "map":
+      userTypeText = "Harita"
+    default:
+      break;
+  }
 
   useEffect(() => {
     const {

@@ -10,8 +10,7 @@ import {
   Information,
   Privacy,
 } from '../../../components';
-import {  SocialLogin
-} from 'components'
+
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -322,7 +321,6 @@ const StepOne = (props) => {
        <div className="identfy">
         <span>Veya</span>
       </div> 
-      <SocialLogin /> 
     </>
   );
 };

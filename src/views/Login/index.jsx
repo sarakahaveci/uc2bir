@@ -153,7 +153,7 @@ const Login = () => {
               </form>
               <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between', padding: '10px 20px' }}>
                 <GoogleLogin
-                  clientId="1234567890-abc123def456.apps.googleusercontent.com"
+                  clientId="197190928694-blqpc6dnsr5lsefk7aptk3iq9tjjna8f.apps.googleusercontent.com"
                   onSuccess={(res)=>{responseSocial('google',res)}}
                   //onFailure={responseGoogle}
                   cookiePolicy={'single_host_origin'}
