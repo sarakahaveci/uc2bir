@@ -50,7 +50,7 @@ const Login = () => {
       type: type,
       accessToken: res?.accessToken,
       email: res?.profileObj?.email || res?.email,
-      uid: res?.googleId||res.userId,
+      uid: res?.googleId||res?.userID,
     }
     dispatch(socialLogin(user))
   };
