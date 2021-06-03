@@ -25,6 +25,7 @@ const Wrapper = () => {
                 <Box col>
                   <Text color="dark" textAlign="left" fontWeight="800" p="2px">
                     Son Hareket
+                    {transactionsData?.earning}
                   </Text>
                 </Box>
                 <Svg.ArrowUpIcon />
@@ -40,8 +41,8 @@ const Wrapper = () => {
                     <CapsuleItem>
                       <Text textAlign="left" fontWeight="600">
                         {' '}
-                        Oluşturma Tarihi |{' '}
-                        {moment(transactionsData[0]?.updated_at).format('LLL')}
+                        Oluşturulma Tarihi |{' '}
+                        {moment(transactionsData[0]?.created_at).format('LLL')}
                       </Text>
                     </CapsuleItem>
                   )}
@@ -49,27 +50,27 @@ const Wrapper = () => {
                   <CapsuleItem>
                     <table>
                       <tbody>
-                        {transactionsData[0]?.payment_type && (
+                        {transactionsData[0]?.detail?.payment_type && (
                           <tr>
                             <td>Ödeme Şekli</td>
                             <td className="text-right">
-                              {transactionsData[0]?.payment_type}
+                              {transactionsData[0]?.detail?.payment_type}
                             </td>
                           </tr>
                         )}
-                        {transactionsData[0]?.status && (
+                        {transactionsData[0]?.detail?.status && (
                           <tr>
                             <td>Durumu</td>
                             <td className="text-right">
-                              {transactionsData[0]?.status}
+                              {transactionsData[0]?.detail?.status}
                             </td>
                           </tr>
                         )}
-                        {!transactionsData[0]?.amount == 0 && (
+                        {!transactionsData[0]?.detail?.amount == 0 && (
                           <tr>
                             <td>Tutar</td>
                             <td className="text-right">
-                              {parseFloat(transactionsData[0]?.amount).toFixed(2)
+                              {parseFloat(transactionsData[0]?.detail?.amount).toFixed(2)
                               }₺
                             </td>
                           </tr>

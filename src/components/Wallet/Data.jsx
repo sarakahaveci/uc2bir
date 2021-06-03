@@ -38,10 +38,10 @@ const Data = ({ paymentType, date, changed }) => {
                 {data &&
                   data.map((item, index) => (
                     <tr key={index}>
-                      <td>{moment(item?.updated_at).format('LLL')}</td>
+                      <td>{moment(item.created_at).format('LLL')}</td>
                       <td>{item.info}</td>
-                      <td>{item.payment_type}</td>
-                      <td>{parseFloat(item.amount).toFixed(2)}₺</td>
+                      <td>{item.detail?.payment_type}</td>
+                      <td>{parseFloat(item.detail?.amount).toFixed(2)}₺</td>
                     </tr>
                   ))}
               </tbody>
