@@ -34,10 +34,10 @@ export default function SelectHourCells({
       {HOURS.map((item, index) => (
         <CalendarCell
           key={index}
-          onClick={() => setSelectedDayHours([...selectedDayHours, index])}
+          onClick={() => (selectedDayHours.length == 2) ? setSelectedDayHours([]) : setSelectedDayHours([...selectedDayHours, index])}
           isActive={activeCellHandler(index)}
           halfActive={halfActiveCellHandler(index)}
-          disabled={selectedDayHours.length === 2}
+          disabled={selectedDayHours.length === 4}
           onMouseEnter={() => setHoveredItemIndex(index)}
           type="time"
         >
