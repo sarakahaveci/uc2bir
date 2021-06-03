@@ -71,7 +71,6 @@ export default function MyCalendar({
                 <Accordion.Toggle>
                   <BranchRowToggler data={startDate} typeId={typeId} />
                 </Accordion.Toggle>
-
                 <Accordion.Collapse>
                   <MyCalendarCollapser
                     data={slots}
@@ -89,7 +88,6 @@ export default function MyCalendar({
                   <Accordion.Toggle>
                     <BranchRowToggler data={item} typeId={typeId} />
                   </Accordion.Toggle>
-
                   <Accordion.Collapse>
                     <MyCalendarCollapser
                       data={item}
