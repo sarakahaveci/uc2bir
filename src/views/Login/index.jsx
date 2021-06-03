@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
 
-import { login,socialLogin } from 'actions';
+import { login, socialLogin } from 'actions';
 import {
   FormPages,
   AwesomeIcon,
@@ -43,12 +43,14 @@ const Login = () => {
 
     dispatch(login({ email: trimmedEmail, password }, loginSuccessHandler));
   };
-  const responseSocial = async (type,res) => {
-      var user = {
-      type:type,
-      accessToken:res?.accessToken,
-      email:res?.profileObj?.email,
-      uid:res?.googleId,
+  const responseSocial = async (type, res) => {
+    // eslint-disable-next-line
+    console.log('response', res)
+    var user = {
+      type: type,
+      accessToken: res?.accessToken,
+      email: res?.profileObj?.email,
+      uid: res?.googleId,
     }
     dispatch(socialLogin(user))
   };
@@ -150,23 +152,23 @@ const Login = () => {
               <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between', padding: '10px 20px' }}>
                 <GoogleLogin
                   clientId="197190928694-blqpc6dnsr5lsefk7aptk3iq9tjjna8f.apps.googleusercontent.com"
-                  onSuccess={(res)=>{responseSocial('google',res)}}
-                  onFailure={()=>{alert('Hata ile karşılaşıldı')}}
+                  onSuccess={(res) => { responseSocial('google', res) }}
+                  onFailure={() => { alert('Hata ile karşılaşıldı') }}
                   //cookiePolicy={'single_host_origin'}
                   render={renderProps => (
                     <img onClick={renderProps.onClick} style={{ width: '40px', height: '40px', cursor: 'pointer' }} src={GoogleIcon}></img>
                   )}
                 />
                 <FacebookLogin
-                  appId="1088597931155576"
+                  appId="911942052953063"
                   //autoLoad={true}
-                  //fields="name,email,picture"
+                  fields="name,email,picture"
                   render={renderProps => (
                     <img onClick={renderProps.onClick} style={{ width: '40px', height: '40px', cursor: 'pointer' }} src={FacebookIcon}></img>
                   )}
 
-                //onClick={componentClicked}
-                // callback={responseFacebook}
+                  //onClick={componentClicked}
+                  callback={(res) => { responseSocial('facebook', res) }}
                 />
                 <InstagramLogin
                   clientId="5fd2f11482844c5eba963747a5f34556"
@@ -179,9 +181,9 @@ const Login = () => {
                 />
                 <AppleSignin
                   authOptions={{
-                    clientId: 'com.example.web',
+                    clientId: 'com.ucikibir.web',
                     scope: 'email name',
-                    redirectURI: 'https://example.com',
+                    redirectURI: 'https://321.4alabs.com',
                     state: 'state',
                     nonce: 'nonce',
                     usePopup: true
