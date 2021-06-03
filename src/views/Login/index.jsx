@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
 
-import { login,socialLogin } from 'actions';
+import { login } from 'actions';
 import {
   FormPages,
   AwesomeIcon,
@@ -44,17 +44,16 @@ const Login = () => {
     dispatch(login({ email: trimmedEmail, password }, loginSuccessHandler));
   };
   const responseSocial = async (type,res) => {
-    var user = {
+    // eslint-disable-next-line
+    console.log('res',res)
+    /*var user = {
       type:type,
       accessToken:'deneme',
       email:'email@example.com',
       uid:'uid',
-      res:res
     }
-
-
-    //
-    socialLogin(user)
+    
+    socialLogin(user)*/
   };
   return (
     <FormPages>
@@ -155,7 +154,7 @@ const Login = () => {
                 <GoogleLogin
                   clientId="197190928694-blqpc6dnsr5lsefk7aptk3iq9tjjna8f.apps.googleusercontent.com"
                   onSuccess={(res)=>{responseSocial('google',res)}}
-                  //onFailure={responseGoogle}
+                 // onFailure={(err)=>{console.log('errr',err)}}
                   cookiePolicy={'single_host_origin'}
                   render={renderProps => (
                     <img onClick={renderProps.onClick} style={{ width: '40px', height: '40px', cursor: 'pointer' }} src={GoogleIcon}></img>
