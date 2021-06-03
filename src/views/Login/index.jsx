@@ -48,7 +48,7 @@ const Login = () => {
     console.log('response', res)
     var user = {
       type: type,
-      accessToken: res?.accessToken,
+      accessToken: res?.signedRequest,
       email: res?.profileObj?.email || res?.email,
       uid: res?.googleId||res?.userID,
     }
