@@ -48,9 +48,9 @@ const Login = () => {
     console.log('response', res)
     var user = {
       type: type,
-      accessToken: res?.signedRequest,
+      accessToken: res?.accessToken,
       email: res?.profileObj?.email || res?.email,
-      uid: res?.googleId||res?.userID,
+      uid: res?.googleId || res?.userID,
     }
     dispatch(socialLogin(user))
   };
