@@ -100,7 +100,7 @@ const Approved = ({ setSubPage = () => {} }) => {
                       }}
                     />
                   </ApproveCardContainer>
-                ))}
+                ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
               </ReservationAccordion>
 
               <ReservationAccordion
@@ -126,13 +126,10 @@ const Approved = ({ setSubPage = () => {} }) => {
                       }}
                     />
                   </ApproveCardContainer>
-                ))}
+                ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
               </ReservationAccordion>
             </ReservationAccordion>
           </AccordionContainer>
-          {!(startOfWeeksArr().length > 0) && (
-            <text>Bu tarihe ilişkin veri bulunamadı</text>
-          )}
         </StyledCol>
         <StyledCol
           style={{

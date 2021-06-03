@@ -78,7 +78,7 @@ const SessionHistory = () => {
                       }}
                     />
                   </ApproveCardContainer>
-                ))}
+                ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
               </ReservationAccordion>
               <ReservationAccordion
                 miniIcon={<Svg.SessionType.Gym />}
@@ -105,7 +105,7 @@ const SessionHistory = () => {
                       }}
                     />
                   </ApproveCardContainer>
-                ))}
+                ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
               </ReservationAccordion>
             </ReservationAccordion>
           </AccordionContainer>

@@ -104,7 +104,7 @@ const Awaitings = ({ setAwaitingCount }) => {
                         }}
                       />
                     </ApproveCardContainer>
-                  ))}
+                  ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
                 </>
               </ReservationAccordion>
               <ReservationAccordion
@@ -137,7 +137,7 @@ const Awaitings = ({ setAwaitingCount }) => {
                       }}
                     />
                   </ApproveCardContainer>
-                ))}
+                ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
               </ReservationAccordion>
               <ReservationAccordion
                 miniIcon={<Svg.SessionType.Online />}
@@ -162,13 +162,11 @@ const Awaitings = ({ setAwaitingCount }) => {
                       }}
                     />
                   </ApproveCardContainer>
-                ))}
+                ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
               </ReservationAccordion>
             </ReservationAccordion>
           </AccordionContainer>
-          {!(startOfWeeksArr().length > 0) && (
-            <text>Bu tarihe ilişkin veri bulunamadı</text>
-          )}
+   
         </StyledCol>
         <StyledCol
           style={{

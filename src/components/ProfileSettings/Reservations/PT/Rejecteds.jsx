@@ -68,8 +68,8 @@ const Rejecteds = () => {
                 ]?.gym?.map((elm, i) => (
                   <ApproveCardContainer key={i}>
                     <ApproveCard
-                        status_bs={elm?.status_bs}
-                        status_st={elm?.status_st}
+                      status_bs={elm?.status_bs}
+                      status_st={elm?.status_st}
                       date={elm?.hour}
                       customerName={elm?.student}
                       type="rejecteds"
@@ -83,7 +83,7 @@ const Rejecteds = () => {
                       }}
                     />
                   </ApproveCardContainer>
-                ))}
+                )) || <text>Bu tarihe ilişkin veri bulunamadı</text>}
               </ReservationAccordion>
               <ReservationAccordion
                 miniIcon={<Svg.SessionType.Park />}
@@ -110,7 +110,7 @@ const Rejecteds = () => {
                       }}
                     />
                   </ApproveCardContainer>
-                ))}
+                )) || <text>Bu tarihe ilişkin veri bulunamadı</text>}
               </ReservationAccordion>
               <ReservationAccordion
                 miniIcon={<Svg.SessionType.Online />}
@@ -137,13 +137,11 @@ const Rejecteds = () => {
                       }}
                     />
                   </ApproveCardContainer>
-                ))}
+                )) || <text>Bu tarihe ilişkin veri bulunamadı</text>}
               </ReservationAccordion>
             </ReservationAccordion>
           </AccordionContainer>
-          {!(startOfWeeksArr().length > 0) && (
-            <text>Bu tarihe ilişkin veri bulunamadı</text>
-          )}
+
         </StyledCol>
         <StyledCol
           style={{

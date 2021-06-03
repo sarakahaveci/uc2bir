@@ -80,7 +80,7 @@ const Rejecteds = () => {
                       }}
                     />
                   </ApproveCardContainer>
-                )) || <></>}
+                ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
               </ReservationAccordion>
 
               <ReservationAccordion
@@ -104,12 +104,10 @@ const Rejecteds = () => {
                       }}
                     />
                   </ApproveCardContainer>
-                ))}
+                ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
               </ReservationAccordion>
             </ReservationAccordion>
-            {!(startOfWeeksArr().length > 0) && (
-              <text>Bu tarihe ilişkin veri bulunamadı</text>
-            )}
+
           </AccordionContainer>
         </StyledCol>
         <StyledCol

@@ -23,15 +23,7 @@ const Rejecteds = () => {
   const [openReject, setOpenReject] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [choosenElm, setChoosenElm] = useState(null);
-  const startOfWeeksArr = () => {
-    if (items?.date) {
-      return Object.keys(items?.date).map(
-        (date) => new Date(moment(date, 'DD.MM.YYYY').toDate())
-      );
-    } else {
-      return [];
-    }
-  };
+ 
   useEffect(() => {
     if (window.innerWidth <= 760) {
       setIsSmallScreen(true);
@@ -92,7 +84,7 @@ const Rejecteds = () => {
                       }}
                     />
                   </ApproveCardContainer>
-                ))}
+                ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
               </ReservationAccordion>
               <ReservationAccordion
                 miniIcon={<Svg.SessionType.Gym />}
@@ -127,13 +119,11 @@ const Rejecteds = () => {
                       }}
                     />
                   </ApproveCardContainer>
-                ))}
+                ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
               </ReservationAccordion>
             </ReservationAccordion>
           </AccordionContainer>
-          {!(startOfWeeksArr().length > 0) && (
-            <text>Bu tarihe ilişkin veri bulunamadı</text>
-          )}
+  
         </StyledCol>
         <StyledCol
           style={{
