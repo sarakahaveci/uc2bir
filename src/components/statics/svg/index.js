@@ -41,7 +41,6 @@ import Heart from './images/heart.svg';
 import Player from './images/player.svg';
 import Fitness from './images/fitness.svg';
 import FitnessMedium from './images/fitnessMedium.svg';
-import GoogleLoginIcon from './images/google-login.svg';
 
 import Yoga from './images/yoga.svg';
 import KickBoks from './images/kick-boks.svg';
@@ -248,7 +247,6 @@ const Svg = {
   Break: (props) => <ReactSVG {...props} src={Break} />,
   Reject: (props) => <ReactSVG {...props} src={Reject} />,
   Approve: (props) => <ReactSVG {...props} src={Approve} />,
-  GoogleLogin: (props) => <ReactSVG {...props} src={GoogleLoginIcon} />,
 
   SessionType: {
     Gym: (props) => <ReactSVG {...props} src={SessionTypeGym} />,
