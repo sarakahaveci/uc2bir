@@ -83,7 +83,7 @@ const StepOne = (props) => {
     }
   }, [getStepOne.error]);
   const manipulateName = (name) => {
-    if (name.search(" ") == -1) {
+    if (name?.search(" ") == -1) {
       const capitalized = name.charAt(0).toUpperCase() + name.slice(1);
 
       return capitalized;
