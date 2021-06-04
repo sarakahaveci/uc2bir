@@ -49,9 +49,9 @@ const Login = () => {
     console.log('responseApple', res)
     var user = {
       type: type,
-      accessToken: res?.accessToken || res?.identityToken,
+      accessToken: res?.accessToken || res?.authorization?.id_token,
       email: res?.profileObj?.email || res?.email,
-      uid: res?.googleId || res?.userID || (type == 'apple' ? res?.user : ''),
+      uid: res?.googleId || res?.userID || res?.code
     }
     dispatch(socialLogin(user, loginSuccessHandler))
   };
