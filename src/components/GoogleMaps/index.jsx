@@ -35,14 +35,15 @@ export default function GoogleMapClusterer({ data, onSelected, isSaloonMap }) {
     else setSelectedMarker(id);
   };
 
+
   if (loadError) return 'Yüklenme Hatası';
   if (!isLoaded) return 'Yükleniyor';
 
   const wrapperClass = 'mx-auto map-wrapper';
   return (
     <div style={{ height: isMapMin ? '25vh' : '55vh', width: '100%' }} className={wrapperClass}>
-      <div className="text-container" > 
-      <span className="map-scale" onClick={()=>{setIsMapMin(!isMapMin)}} >Haritayı {isMapMin ? <span>büyüt</span> : <span>küçült</span>}</span>
+      <div className="text-container" >
+        <span className="map-scale" onClick={() => { setIsMapMin(!isMapMin) }} >Haritayı {isMapMin ? <span>büyüt</span> : <span>küçült</span>}</span>
       </div>
       <GoogleMap
         id="google-map"
@@ -77,7 +78,61 @@ export default function GoogleMapClusterer({ data, onSelected, isSaloonMap }) {
                     </InfoWindow>
                   )}
 
-                  <Marker
+                  {isSaloonMap ?
+                    <Marker
+                      onClick={() => showInfoWindow(id)}
+                      key={professional?.id}
+                      position={{
+                        lat: +lat,
+                        lng: +lng,
+                      }}
+                      clusterer={clusterer}
+                      icon={{
+                        url: SaloonSvg,
+                        origin: new window.google.maps.Point(0, 0),
+                        anchor: new window.google.maps.Point(35, 20),
+                        scaledSize: new window.google.maps.Size(70, 60),
+                        borderRadius: new window.google.maps.point(45, 70),
+                      }}
+                    />
+                    :
+                    professional?.photo ?
+                      <Marker
+                         onClick={() => showInfoWindow(id)}
+                        key={professional?.id}
+                        position={{
+                          lat: +lat,
+                          lng: +lng,
+                        }}
+                        borderRadius={45}
+                        clusterer={clusterer}
+                        labelStyle={{ backgroundColor: "red", padding: 20, borderRadius: '45px' }}
+                        icon={{
+                          url: professional?.photo,
+                          origin: new window.google.maps.Point(0, 0),
+                          anchor: new window.google.maps.Point(35, 20),
+                          scaledSize: new window.google.maps.Size(70, 60),
+                        }}
+                      />
+                      :
+                      <Marker
+                        onClick={() => showInfoWindow(id)}
+                        key={professional?.id}
+                        position={{
+                          lat: +lat,
+                          lng: +lng,
+                        }}
+                        clusterer={clusterer}
+                        icon={{
+                          url: MarkerSvg,
+                          origin: new window.google.maps.Point(0, 0),
+                          anchor: new window.google.maps.Point(35, 20),
+                          scaledSize: new window.google.maps.Size(70, 60),
+                        }}
+                      />
+                  }
+
+                  {/* <Marker
                     onClick={() => showInfoWindow(id)}
                     key={professional?.id}
                     position={{
@@ -107,7 +162,7 @@ export default function GoogleMapClusterer({ data, onSelected, isSaloonMap }) {
                             scaledSize: new window.google.maps.Size(70, 60),
                           }
                     }
-                  />
+                  /> */}
                 </>
               );
             })

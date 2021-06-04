@@ -8,6 +8,7 @@ import {
     Box,
     Svg,
     pulse,
+    GoogleMapClusterer,
 } from 'components';
 import PtPackagesTab from '../../components/HeaderSearchResults/PtPackagesTab'
 import DtPackagesTab from '../../components/HeaderSearchResults/DtPackagesTab'
@@ -17,10 +18,7 @@ import DietitiansTab from '../../components/HeaderSearchResults/DietitiansTab'
 import BlogsTab from '../../components/HeaderSearchResults/BlogsTab'
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
-/* images */
-import img from '../../assets/info/banner/info-img.png';
-import { useHistory, useParams } from 'react-router-dom';
-
+  import { useHistory, useParams } from 'react-router-dom';
 
 const HeaderSearchResults = () => {
     const data = useSelector((state) => state.searchResults.data);
@@ -36,74 +34,74 @@ const HeaderSearchResults = () => {
     const Tabs = [];
 
 
-    if( pts?.length>0){
-        Tabs.push(  {
+    if (pts?.length > 0) {
+        Tabs.push({
             settingsName: 'Eğitmenler (' + pts?.length + ')',
             body: <PTTab pts={pts} />,
-            size:pts?.length,
-            type:'pt'
+            size: pts?.length,
+            type: 'pt'
         })
     }
 
-    if( gyms?.length>0){
-        Tabs.push( {
+    if (gyms?.length > 0) {
+        Tabs.push({
             settingsName: 'Spor Salonları (' + gyms?.length + ')',
             body: <GymTab gyms={gyms} />,
-            size:gyms?.length,
-            type:'gym'
+            size: gyms?.length,
+            type: 'gym'
         })
     }
 
-    if( dts?.length>0){
-        Tabs.push( {
+    if (dts?.length > 0) {
+        Tabs.push({
             settingsName: 'Diyetisyenler (' + dts?.length + ')',
             body: <DietitiansTab dts={dts} />,
-            size:dts?.length,
-            type:'dt'
+            size: dts?.length,
+            type: 'dt'
         })
     }
 
-    if(  ptPackages?.length){
-        Tabs.push( {
+    if (ptPackages?.length) {
+        Tabs.push({
             settingsName: 'Eğitmen Paketleri (' + ptPackages?.length + ')',
             body: <PtPackagesTab packages={ptPackages} />,
-            size:ptPackages?.length,
-            type:'packets'
-        },)
+            size: ptPackages?.length,
+            type: 'packets'
+        })
     }
-    if(   dtPackages?.length>0){
-        Tabs.push( {
+    if (dtPackages?.length > 0) {
+        Tabs.push({
             settingsName: 'Diyetisyen Paketleri (' + dtPackages?.length + ')',
             body: <DtPackagesTab packages={dtPackages} />,
-            size:dtPackages?.length,
-            type:'packets'
-        },)
-    }
-
-    if(  blogs?.length>0){
-        Tabs.push( {
-            settingsName: 'Bloglar (' + blogs?.length + ')',
-            body: <BlogsTab blogs={blogs} />,
-            size:blogs?.length,
-            type:'blog-list'
+            size: dtPackages?.length,
+            type: 'packets'
         })
     }
 
-    Tabs.sort((a,b) => (a.size > b.size) ? -1 : ((b.size > a.size) ? 1 : 0))
+    if (blogs?.length > 0) {
+        Tabs.push({
+            settingsName: 'Bloglar (' + blogs?.length + ')',
+            body: <BlogsTab blogs={blogs} />,
+            size: blogs?.length,
+            type: 'blog-list'
+        })
+    }
+
+    Tabs.sort((a, b) => (a.size > b.size) ? -1 : ((b.size > a.size) ? 1 : 0))
 
     const go = (type) => {
-        if(type==='blog-list'){
-            return  history.push('/blog-list');
-        }else {
-            return history.push('/find?type='+type+'&title='+ keyword);
+        if (type === 'blog-list') {
+            return history.push('/blog-list');
+        } else {
+            return history.push('/find?type=' + type + '&title=' + keyword);
         }
 
     };
 
     const results = Tabs?.map((item, index) => (
-      item.settingsName &&
-      <Wrapper key={'wrapper' + index}>
-            <Accordion.Item defaultOpen={index===0}>
+        item.settingsName &&
+        <Wrapper key={'wrapper' + index}>
+            <Accordion.Item defaultOpen={index === 0}>
                 <Accordion.Toggle>
                     <SettingsRow pulse={item.pulse}>
                         <Box col>
@@ -112,11 +110,11 @@ const HeaderSearchResults = () => {
                             </Text>
                         </Box>
 
-                        <div style={{display:'flex'}}>
-                            {item?.size>5 &&
-                              <LinkText
-                                onClick={() => {go(item.type);}}>
-                                  Tümünü Gör
+                        <div style={{ display: 'flex' }}>
+                            {item?.size > 5 &&
+                                <LinkText
+                                    onClick={() => { go(item.type); }}>
+                                    Tümünü Gör
                               </LinkText>
                             }
                             <Svg.ArrowUpIcon />
@@ -133,9 +131,8 @@ const HeaderSearchResults = () => {
     return (
         <Main>
             <div style={{ marginTop: 0 }} className="basic-info">
-                <div className="starter">
-                    <img src={img} alt="" />
-                </div>
+
+
                 <Container className="content">
                     <Text
                         textAlign="start"
@@ -150,6 +147,8 @@ const HeaderSearchResults = () => {
                     >
                         Arama sonuçlarınız,
             </Text>
+                    {data && <GoogleMapClusterer data={data} />}
+
                     <Accordion>{results}</Accordion>
                 </Container>
             </div>

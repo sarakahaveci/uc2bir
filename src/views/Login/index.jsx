@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
-
 import { login, socialLogin } from 'actions';
+//import Svg from 'components/statics/svg';
+
 import {
   FormPages,
   AwesomeIcon,
@@ -14,10 +15,10 @@ import {
 } from 'components';
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
-import InstagramLogin from 'instagram-login-react';
+//import InstagramLogin from 'instagram-login-react';
 import GoogleIcon from 'assets/google-login.png';
 import FacebookIcon from 'assets/facebook-login.png';
-import InstagramIcon from 'assets/instagram-login.png';
+//import InstagramIcon from 'assets/instagram-login.png'
 import AppleIcon from 'assets/apple-login.png';
 import AppleSignin from 'react-apple-signin-auth';
 
@@ -145,6 +146,14 @@ const Login = () => {
                   className="blue"
                 />
               </form>
+
+              <NoAccountText>
+                Hesabınız yok mu? <Link to="/register">Üye ol</Link>
+              </NoAccountText>
+
+              <div className="identfy">
+                <span>Veya</span>
+              </div>
               <div
                 style={{
                   display: 'flex',
@@ -163,11 +172,7 @@ const Login = () => {
                   render={(renderProps) => (
                     <img
                       onClick={renderProps.onClick}
-                      style={{
-                        width: '40px',
-                        height: '40px',
-                        cursor: 'pointer',
-                      }}
+                      style={{ height: '40px', cursor: 'pointer' }}
                       src={GoogleIcon}
                     ></img>
                   )}
@@ -179,11 +184,7 @@ const Login = () => {
                   render={(renderProps) => (
                     <img
                       onClick={renderProps.onClick}
-                      style={{
-                        width: '40px',
-                        height: '40px',
-                        cursor: 'pointer',
-                      }}
+                      style={{ height: '40px', cursor: 'pointer' }}
                       src={FacebookIcon}
                     ></img>
                   )}
@@ -192,7 +193,7 @@ const Login = () => {
                     responseSocial('facebook', res);
                   }}
                 />
-                <InstagramLogin
+                {/*<InstagramLogin
                   clientId="5fd2f11482844c5eba963747a5f34556"
                   buttonText="Login"
                   //onSuccess={responseInstagram}
@@ -208,7 +209,7 @@ const Login = () => {
                       src={InstagramIcon}
                     ></img>
                   )}
-                />
+                  />*/}
                 <AppleSignin
                   authOptions={{
                     clientId: 'com.ucikibir.web',
@@ -230,24 +231,12 @@ const Login = () => {
                   render={(renderProps) => (
                     <img
                       onClick={renderProps.onClick}
-                      style={{
-                        width: '40px',
-                        height: '40px',
-                        cursor: 'pointer',
-                      }}
+                      style={{ height: '40px', cursor: 'pointer' }}
                       src={AppleIcon}
                     ></img>
                   )}
                 />
               </div>
-              <NoAccountText>
-                Hesabınız yok mu? <Link to="/register">Üye ol</Link>
-              </NoAccountText>
-
-              <div className="identfy">
-                <span>Veya</span>
-              </div>
-
               <Link className="login-footer" to="/profesyonel/register">
                 Sistemimizde hizmet vermek için tıklayın
               </Link>

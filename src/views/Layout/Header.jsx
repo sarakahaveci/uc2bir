@@ -121,18 +121,7 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
             <Row className="nav-element">
               <div className="bar-item left-bar">
                 <ul>
-                  <li>
-                    {/* <div className="menubar-search-wrapper">
-                      <AwesomeIcon.Search />
-                      <input
-                        className="menubar-search-input"
-                        placeholder="Ne Arıyorsun?"
-                        name="search"
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                      />
-                    </div> */}
-
+                  <li>  
                     <Button
                       icon={AwesomeIcon.Search}
                       text="Ne arıyorsun?"
