@@ -55,7 +55,7 @@ const GroupLesson = ({ val }) => {
               <div className="row info">
                 <div className="col">
                   <ul>
-                    <li style={{ fontSize: '10pt' }}>{val.content} sssss</li>
+                    <li style={{ fontSize: '10pt' }}>{val.content}</li>
                     <li style={{ fontSize: '8pt', marginTop: 5 }}>
                       <AwesomeIcon.Map /> {val?.address?.district} /{' '}
                       {val?.address?.city}
@@ -86,7 +86,21 @@ const GroupLesson = ({ val }) => {
               </div>
             </div>
           </div>
-          <div className="back-card">Grup Ders Bilgileri</div>
+          <div className="back-card">
+            <div className="back-card__title">{val?.slot?.branch?.name}</div>
+            <div className="back-card__detail">
+              Eğitmen Adı: {val?.pt?.name}
+            </div>
+            <div className="back-card__detail">Ünvanı: {val?.pt?.title}</div>
+            <div className="back-card__detail">Tarih: {val?.slot?.date}</div>
+            <div className="back-card__detail">Saat: {val?.slot?.hour}</div>
+            <div className="back-card__detail">
+              Maksimum Kapasite: {val?.slot?.max_capacity}
+            </div>
+            <div className="back-card__detail">
+              Yer: {val?.address?.city}/{val?.address?.district}
+            </div>
+          </div>
         </div>
       </div>
     </>
