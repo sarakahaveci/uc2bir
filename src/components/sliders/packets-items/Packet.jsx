@@ -42,7 +42,10 @@ const Packet = ({ val }) => {
               </div>
             </div>
           </div>
-          <div className="back-card">Paket Bilgileri</div>
+          <div className="back-card">
+            <div className="back-card__title">{val.name}</div>
+            <div className="back-card__detail">{val.detail}</div>
+          </div>
         </div>
       </div>
     </>
