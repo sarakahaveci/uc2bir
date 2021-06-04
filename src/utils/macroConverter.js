@@ -1,6 +1,6 @@
 import { Material } from '../components';
-
-const macroConverter = (data, setData, val) => {
+import React from 'react'
+const macroConverter = (data, setData, val,socialMode) => {
   return val.type === 'radio'
     ? Material[val.type]({
         id: val.name,
@@ -27,17 +27,26 @@ const macroConverter = (data, setData, val) => {
         inputProps: val.inputProps,
       })
     : val.type !== 'checkbox'
-    ? Material[val.type]({
-        id: val.name,
-        name: val.name,
-        type: val.type,
-        label: val.text,
-        required: val.required,
-        onChange: (e) => setData({ ...data, [e.target.name]: e.target.value }),
-        autoComplete: 'off',
-        icon: val.icon,
-        inputProps: val.inputProps,
-      })
+    ? (
+      socialMode && (val.name == 'name' || val.name == 'email')&&(
+        <text>
+          {data[val.name]}
+        </text>
+      )||(
+        Material[val.type]({
+          id: val.name,
+          name: val.name,
+          type: val.type,
+          label: val.text,
+          required: val.required,
+          onChange: (e) => setData({ ...data, [e.target.name]: e.target.value }),
+          autoComplete: 'off',
+          icon: val.icon,
+          inputProps: val.inputProps,
+        })
+      )
+
+    )
     : Material[val.type]({
         id: val.name,
         name: val.name,

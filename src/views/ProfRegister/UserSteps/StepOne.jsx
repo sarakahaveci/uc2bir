@@ -6,9 +6,17 @@ import { Modal } from 'react-bootstrap';
 import InputMask from 'react-input-mask';
 import styled from 'styled-components/macro';
 import { TextField } from '@material-ui/core';
+import GoogleLogin from 'react-google-login';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
+import InstagramLogin from 'instagram-login-react';
+import GoogleIcon from 'assets/google-login.png'
+import FacebookIcon from 'assets/facebook-login.png'
+import InstagramIcon from 'assets/instagram-login.png'
+import AppleIcon from 'assets/apple-login.png'
+import AppleSignin from 'react-apple-signin-auth';
 
 import { StepContext } from '../RegisterSteps';
-import { setStepOne, getAuthFiles } from 'actions';
+import { setStepOne, getAuthFiles,setStepOneSocial } from 'actions';
 import {
   Button,
   Text,
@@ -71,7 +79,7 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
   const [openModal, setOpenModal] = useState(false);
 
   const [confirmationType, setConfirmationType] = useState('');
-
+  const [socialMode,setSocialMode] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -90,7 +98,38 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
     setAcceptKvkk(false);
     setAcceptPermissions(false);
   }, [userTypeId]);
+  const responseSocial = async (type, res) => {
+    var user = {
+      type: type,
+      accessToken: res?.accessToken,
+      email: res?.profileObj?.email || res?.email,
+      uid: res?.googleId || res?.userID,
+      name:manipulateName(res?.name || res?.profileObj?.name)
+    }
+    setSocialMode(true)
+    setForm({ ...form, ...user })
 
+    //dispatch(setStepOneSocial(user))
+  };
+  const actionStepOneSocial = () => {
+    dispatch(
+      setStepOneSocial(
+        {
+          ...form,
+          name: manipulateName(form.name),
+          type_id: userTypeId,
+          password,
+          phone,
+          kvkk: acceptKvkk ? 1 : 0,
+          agreement: acceptMemberAgreement ? 1 : 0,
+          health_status: acceptHealthAgreement ? 1 : 0,
+          permission: acceptPermissions ? 1 : 0,
+        },
+        registerSuccessCallback,
+        registerErrorCallback
+      )
+    );
+  };
   const registerSuccessCallback = () => {
     toast.info('Lütfen Bekleyiniz! Yönlendiriliyorsunuz...', {
       position: 'bottom-right',
@@ -174,23 +213,27 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
 
     setErrorMessage('');
 
-    dispatch(
-      setStepOne(
-        {
-          name: manipulateName(form.name),
-          email: form.email,
-          password,
-          type_id: userTypeId,
-          kvkk: acceptKvkk ? 1 : 0,
-          agreement: acceptMemberAgreement ? 1 : 0,
-          health_status: acceptHealthAgreement ? 1 : 0,
-          permission: acceptPermissions ? 1 : 0,
-          phone,
-        },
-        registerSuccessCallback,
-        registerErrorCallback
-      )
-    );
+    if(socialMode){
+      actionStepOneSocial()
+    }else{
+      dispatch(
+        setStepOne(
+          {
+            name: manipulateName(form.name),
+            email: form.email,
+            password,
+            type_id: userTypeId,
+            kvkk: acceptKvkk ? 1 : 0,
+            agreement: acceptMemberAgreement ? 1 : 0,
+            health_status: acceptHealthAgreement ? 1 : 0,
+            permission: acceptPermissions ? 1 : 0,
+            phone,
+          },
+          registerSuccessCallback,
+          registerErrorCallback
+        )
+      );
+    }
   };
 
   let confirmation;
@@ -263,7 +306,7 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
           )}
         />
         {macro.map((item, index) => (
-          <Fragment key={index}>{macroConverter(form, setForm, item)}</Fragment>
+          <Fragment key={index}>{macroConverter(form, setForm, item,socialMode)}</Fragment>
         ))}
         <div className="materials">
           <InputMask
@@ -448,11 +491,63 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
         </Link>
       </Text>
 
-      {/* <div className="identfy">
+      <div className="identfy">
         <span>Veya</span>
-      </div> */}
+      </div> 
 
+      <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between', padding: '10px 20px' }}>
+        <GoogleLogin
+          clientId="197190928694-blqpc6dnsr5lsefk7aptk3iq9tjjna8f.apps.googleusercontent.com"
+          onSuccess={(res) => { responseSocial('google', res) }}
+          //onFailure={() => { alert('Hata ile karşılaşıldı') }}
+          //cookiePolicy={'single_host_origin'}
+          render={renderProps => (
+            <img onClick={renderProps.onClick} style={{ width: '40px', height: '40px', cursor: 'pointer' }} src={GoogleIcon}></img>
+          )}
+        />
+        <FacebookLogin
+          appId="911942052953063"
+          //autoLoad={true}
+          fields="name,email,picture"
+          render={renderProps => (
+            <img onClick={renderProps.onClick} style={{ width: '40px', height: '40px', cursor: 'pointer' }} src={FacebookIcon}></img>
+          )}
 
+          //onClick={componentClicked}
+          callback={(res) => { responseSocial('facebook', res) }}
+        />
+        <InstagramLogin
+          clientId="5fd2f11482844c5eba963747a5f34556"
+          buttonText="Login"
+          //onSuccess={responseInstagram}
+          //onFailure={responseInstagram}
+          render={renderProps => (
+            <img onClick={renderProps.onClick} style={{ width: '40px', height: '40px', cursor: 'pointer' }} src={InstagramIcon}></img>
+          )}
+        />
+        <AppleSignin
+          authOptions={{
+            clientId: 'com.ucikibir.web',
+            scope: 'email name',
+            redirectURI: 'https://321.4alabs.com',
+            state: 'state',
+            nonce: 'nonce',
+            usePopup: true
+          }} // REQUIRED
+          /** General props */
+          uiType="dark"
+          className="apple-auth-btn"
+          noDefaultStyle={false}
+          buttonExtraChildren="Continue with Apple"
+          //onSuccess={(response) => console.log(response)} // default = undefined
+          //onError={(error) => console.error(error)} // default = undefined
+          skipScript={false} // default = undefined
+          iconProp={{ style: { marginTop: '10px' } }} // default = undefined
+          render={renderProps => (
+            <img onClick={renderProps.onClick} style={{ width: '40px', height: '40px', cursor: 'pointer' }} src={AppleIcon}></img>
+          )}
+        />
+      </div>
       {/* STEP TWO  */}
 
       {isOtpModalActive && (

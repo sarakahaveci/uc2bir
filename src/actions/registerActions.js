@@ -62,7 +62,54 @@ export const setStepOne = (
     },
   });
 };
+export const setStepOneSocial = (
+  { type,
+    accessToken,
+    uid,
+    //
+    name,
+    email,
+    phone,
+    password,
+    type_id,
+    kvkk,
+    agreement,
+    health_status,
+    permission,
+  },
+  successCallback,
+  errorCallback
+) => async (dispatch) => {
+  const url = '/social-register';
 
+  const editedPhone = unMaskPhone(phone);
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'POST',
+      url,
+      label: REGISTER_STEP_ONE,
+      body: {
+        type,
+        accessToken,
+        uid,
+        name,
+        email,
+        phone: editedPhone,
+        password,
+        type_id,
+        kvkk,
+        agreement,
+        health_status,
+        permission,
+      },
+      transformData: (data) => data.data,
+      callBack: () => successCallback(),
+      errorHandler: (error) => errorCallback(error.message),
+    },
+  });
+};
 export const setStepTwo = (
   {
     name,

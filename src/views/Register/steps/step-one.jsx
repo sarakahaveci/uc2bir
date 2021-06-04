@@ -17,11 +17,18 @@ import styled from 'styled-components';
 import { device } from 'utils';
 import { stepOne as macro } from '../../../macros/registerMacros';
 import { useSelector, useDispatch } from 'react-redux';
-import { setStepOne, getAuthFiles } from '../../../actions';
+import { setStepOne,setStepOneSocial, getAuthFiles } from '../../../actions';
 import StepTwo from './step-two';
 
 import { Modal } from 'react-bootstrap';
-
+import GoogleLogin from 'react-google-login';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
+import InstagramLogin from 'instagram-login-react';
+import GoogleIcon from 'assets/google-login.png'
+import FacebookIcon from 'assets/facebook-login.png'
+import InstagramIcon from 'assets/instagram-login.png'
+import AppleIcon from 'assets/apple-login.png'
+import AppleSignin from 'react-apple-signin-auth';
 const StepOne = (props) => {
   const { setSteps, registerData } = props;
   const dispatch = useDispatch();
@@ -38,6 +45,7 @@ const StepOne = (props) => {
   const [acceptHealthAgreement, setAcceptHealthAgreement] = useState(false);
   const [acceptKvkk, setAcceptKvkk] = useState(false);
   const [acceptPermissions, setAcceptPermissions] = useState(false);
+  const [socialMode, setSocialMode] = useState(false);
 
   useEffect(() => {
     const userTypeId = 1;
@@ -77,7 +85,7 @@ const StepOne = (props) => {
   const manipulateName = (name) => {
     if (name.search(" ") == -1) {
       const capitalized = name.charAt(0).toUpperCase() + name.slice(1);
- 
+
       return capitalized;
     }
     else {
@@ -97,12 +105,41 @@ const StepOne = (props) => {
           res2 = res2 + element + " "
         }
       });
-       
+
       return res2;
     }
   }
-
-  const actionStepOne = () => { 
+  const responseSocial = async (type, res) => {
+    // eslint-disable-next-line
+    var user = {
+      type: type,
+      accessToken: res?.accessToken,
+      email: res?.profileObj?.email || res?.email,
+      uid: res?.googleId || res?.userID,
+      name:manipulateName(res?.name || res?.profileObj?.name)
+    }
+    setSocialMode(true)
+    setData({ ...data, ...user })
+  };
+  const actionStepOneSocial = () => {
+    dispatch(
+      setStepOneSocial(
+        {
+          ...data,
+          name: manipulateName(data.name),
+          type_id: registerData?.['user-type']?.filter((f) => f.key === 'st')[0]
+            ?.id,
+          kvkk: acceptKvkk ? 1 : 0,
+          agreement: acceptMemberAgreement ? 1 : 0,
+          health_status: acceptHealthAgreement ? 1 : 0,
+          permission: acceptPermissions ? 1 : 0,
+        },
+        isSuccess,
+        isError
+      )
+    );
+  };
+  const actionStepOne = () => {
     dispatch(
       setStepOne(
         {
@@ -135,8 +172,13 @@ const StepOne = (props) => {
         (f) => f.key === 'st'
       );
       setData({ ...data, type_id: user_type?.[0].id });
-      const response = await actionStepOne();
-      return response;
+      if(!socialMode){
+        const response = await actionStepOne();
+        return response;
+      }else{
+        const response = await actionStepOneSocial();
+        return response;
+      }
     } else {
       toast.error('Bir sorun oluştu lütfen daha sonra tekrar deneyiniz.', {
         position: 'bottom-right',
@@ -204,7 +246,7 @@ const StepOne = (props) => {
   return (
     <>
       <form className="step-one-wrapper" onSubmit={onSubmit} autoComplete="off">
-        <MacroCollections macro={macro.macro} data={data} setData={setData} />
+        <MacroCollections social={socialMode} macro={macro.macro} data={data} setData={setData} />
         <div className="step-one-wrapper__checkbox-wrapper">
           <Material.CheckBox
             checked={acceptMemberAgreement}
@@ -318,9 +360,64 @@ const StepOne = (props) => {
       <StyledModal show={openModal} onHide={() => setOpenModal(false)}>
         {confirmation}
       </StyledModal>
-       <div className="identfy">
+      <div className="identfy">
         <span>Veya</span>
-      </div> 
+      </div>
+      <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between', padding: '10px 20px' }}>
+        <GoogleLogin
+          clientId="197190928694-blqpc6dnsr5lsefk7aptk3iq9tjjna8f.apps.googleusercontent.com"
+          onSuccess={(res) => { responseSocial('google', res) }}
+          //onFailure={() => { alert('Hata ile karşılaşıldı') }}
+          //cookiePolicy={'single_host_origin'}
+          render={renderProps => (
+            <img onClick={renderProps.onClick} style={{ width: '40px', height: '40px', cursor: 'pointer' }} src={GoogleIcon}></img>
+          )}
+        />
+        <FacebookLogin
+          appId="911942052953063"
+          //autoLoad={true}
+          fields="name,email,picture"
+          render={renderProps => (
+            <img onClick={renderProps.onClick} style={{ width: '40px', height: '40px', cursor: 'pointer' }} src={FacebookIcon}></img>
+          )}
+
+          //onClick={componentClicked}
+          callback={(res) => { responseSocial('facebook', res) }}
+        />
+        <InstagramLogin
+          clientId="5fd2f11482844c5eba963747a5f34556"
+          buttonText="Login"
+          //onSuccess={responseInstagram}
+          //onFailure={responseInstagram}
+          render={renderProps => (
+            <img onClick={renderProps.onClick} style={{ width: '40px', height: '40px', cursor: 'pointer' }} src={InstagramIcon}></img>
+          )}
+        />
+        <AppleSignin
+          authOptions={{
+            clientId: 'com.ucikibir.web',
+            scope: 'email name',
+            redirectURI: 'https://321.4alabs.com',
+            state: 'state',
+            nonce: 'nonce',
+            usePopup: true
+          }} // REQUIRED
+          /** General props */
+          uiType="dark"
+          className="apple-auth-btn"
+          noDefaultStyle={false}
+          buttonExtraChildren="Continue with Apple"
+          //onSuccess={(response) => console.log(response)} // default = undefined
+          //onError={(error) => console.error(error)} // default = undefined
+          skipScript={false} // default = undefined
+          iconProp={{ style: { marginTop: '10px' } }} // default = undefined
+          render={renderProps => (
+            <img onClick={renderProps.onClick} style={{ width: '40px', height: '40px', cursor: 'pointer' }} src={AppleIcon}></img>
+          )}
+        />
+
+
+      </div>
     </>
   );
 };

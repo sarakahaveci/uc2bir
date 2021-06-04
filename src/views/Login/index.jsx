@@ -44,15 +44,13 @@ const Login = () => {
     dispatch(login({ email: trimmedEmail, password }, loginSuccessHandler));
   };
   const responseSocial = async (type, res) => {
-    // eslint-disable-next-line
-    console.log('response', res)
     var user = {
       type: type,
       accessToken: res?.accessToken,
       email: res?.profileObj?.email || res?.email,
       uid: res?.googleId || res?.userID,
     }
-    dispatch(socialLogin(user))
+    dispatch(socialLogin(user,loginSuccessHandler))
   };
   return (
     <FormPages>
@@ -153,7 +151,7 @@ const Login = () => {
                 <GoogleLogin
                   clientId="197190928694-blqpc6dnsr5lsefk7aptk3iq9tjjna8f.apps.googleusercontent.com"
                   onSuccess={(res) => { responseSocial('google', res) }}
-                  onFailure={() => { alert('Hata ile karşılaşıldı') }}
+                  //onFailure={() => { alert('Hata ile karşılaşıldı') }}
                   //cookiePolicy={'single_host_origin'}
                   render={renderProps => (
                     <img onClick={renderProps.onClick} style={{ width: '40px', height: '40px', cursor: 'pointer' }} src={GoogleIcon}></img>

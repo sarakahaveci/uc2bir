@@ -7,6 +7,7 @@ const MacroCollections = ({
   data = {},
   setData,
   macroSpace = true,
+  social = false,
 }) => {
   return (
     <>
@@ -19,7 +20,9 @@ const MacroCollections = ({
               val.type === 'date' ||
               val.number === 'number' ||
               val.type === 'phone') &&
-              Material[val.type]({
+              (social && (val.name == 'name' || val.name == 'email') &&
+                <text>{data[val.name]}</text>
+              )|| ( Material[val.type]({
                 id: val.name,
                 name: val.name,
                 type: val.type,
@@ -31,9 +34,11 @@ const MacroCollections = ({
                 icon: val.icon,
                 setData: setData,
                 data: data,
-                value: data[val.name],
+                defaultValue: data[val.name],
                 password: val.password,
-              })}
+              }))
+
+            }
           </div>
         );
       })}
