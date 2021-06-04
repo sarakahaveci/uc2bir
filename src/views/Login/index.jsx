@@ -214,7 +214,7 @@ const Login = () => {
                   />*/}
                 <AppleLogin
                   clientId='com.ucikibir.web'
-                  scope='email name'
+                  scope='email'
                   redirectURI='https://321.4alabs.com'
                   state='state'
                   nonce='nonce'
