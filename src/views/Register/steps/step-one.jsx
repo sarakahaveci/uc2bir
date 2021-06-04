@@ -23,10 +23,10 @@ import StepTwo from './step-two';
 import { Modal } from 'react-bootstrap';
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
-import InstagramLogin from 'instagram-login-react';
+//import InstagramLogin from 'instagram-login-react';
 import GoogleIcon from 'assets/google-login.png'
 import FacebookIcon from 'assets/facebook-login.png'
-import InstagramIcon from 'assets/instagram-login.png'
+//import InstagramIcon from 'assets/instagram-login.png'
 import AppleIcon from 'assets/apple-login.png'
 import AppleSignin from 'react-apple-signin-auth';
 const StepOne = (props) => {

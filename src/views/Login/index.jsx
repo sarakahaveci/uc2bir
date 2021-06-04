@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
 import { login, socialLogin } from 'actions';
-import Svg from 'components/statics/svg';
+//import Svg from 'components/statics/svg';
 
 import {
   FormPages,
@@ -16,10 +16,10 @@ import {
 } from 'components';
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
-import InstagramLogin from 'instagram-login-react';
+//import InstagramLogin from 'instagram-login-react';
 import GoogleIcon from 'assets/google-login.png'
 import FacebookIcon from 'assets/facebook-login.png'
-import InstagramIcon from 'assets/instagram-login.png'
+//import InstagramIcon from 'assets/instagram-login.png'
 import AppleIcon from 'assets/apple-login.png'
 import AppleSignin from 'react-apple-signin-auth';
 
