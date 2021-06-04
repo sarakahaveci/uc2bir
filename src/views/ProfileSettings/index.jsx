@@ -117,7 +117,7 @@ const workPlaceTabs = [
   },
   {
     eventKey: 'trainers',
-    title: 'Eğitmen Bul',
+    title: 'Eğitmenler',
     component: <Trainers />,
   },
 
