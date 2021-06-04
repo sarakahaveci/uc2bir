@@ -47,9 +47,9 @@ const Login = () => {
   const responseSocial = async (type, res) => {
     var user = {
       type: type,
-      accessToken: res?.accessToken,
+      accessToken: res?.accessToken || res?.identityToken,
       email: res?.profileObj?.email || res?.email,
-      uid: res?.googleId || res?.userID,
+      uid: res?.googleId || res?.userID || (type == 'apple' ? res?.user:''),
     }
     dispatch(socialLogin(user, loginSuccessHandler))
   };
@@ -200,7 +200,7 @@ const Login = () => {
                   className="apple-auth-btn"
                   noDefaultStyle={false}
                   buttonExtraChildren="Continue with Apple"
-                  //onSuccess={(response) => console.log(response)} // default = undefined
+                  onSuccess={(response) => responseSocial('apple',response)} // default = undefined
                   //onError={(error) => console.error(error)} // default = undefined
                   skipScript={false} // default = undefined
                   iconProp={{ style: { marginTop: '10px' } }} // default = undefined
