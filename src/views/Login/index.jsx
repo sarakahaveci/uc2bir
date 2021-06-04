@@ -21,7 +21,7 @@ import GoogleIcon from 'assets/google-login.png'
 import FacebookIcon from 'assets/facebook-login.png'
 //import InstagramIcon from 'assets/instagram-login.png'
 import AppleIcon from 'assets/apple-login.png'
-import AppleSignin from 'react-apple-signin-auth';
+import AppleLogin from 'react-apple-login'
 
 
 const Login = () => {
@@ -188,24 +188,19 @@ const Login = () => {
                     <img onClick={renderProps.onClick} style={{ width: '40px', height: '40px', cursor: 'pointer' }} src={InstagramIcon}></img>
                   )}
                   />*/}
-                <AppleSignin
-                  authOptions={{
-                    clientId: 'com.ucikibir.web',
-                    scope: 'email name',
-                    redirectURI: 'https://321.4alabs.com',
-                    state: 'state',
-                    nonce: 'nonce',
-                    usePopup: true
-                  }} // REQUIRED
-                  /** General props */
-                  uiType="dark"
-                  className="apple-auth-btn"
-                  noDefaultStyle={false}
-                  buttonExtraChildren="Continue with Apple"
-                  onSuccess={(response) => responseSocial('apple', response)} // default = undefined
+                <AppleLogin
+                  clientId='com.ucikibir.web'
+                  scope='email name'
+                  redirectURI='https://321.4alabs.com'
+                  state='state'
+                  nonce='nonce'
+                  usePopup={true}
+
+                  responseType={"code"} 
+                  responseMode={"query"}  
+                  usePopup={true} 
+                  callback={(response) => responseSocial('apple', response)} // default = undefined
                   //onError={(error) => console.error(error)} // default = undefined
-                  skipScript={false} // default = undefined
-                  iconProp={{ style: { marginTop: '10px' } }} // default = undefined
                   render={renderProps => (
                     <img onClick={renderProps.onClick} style={{ height: '40px', cursor: 'pointer' }} src={AppleIcon}></img>
                   )}
