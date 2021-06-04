@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
-
 import { login, socialLogin } from 'actions';
+import Svg from 'components/statics/svg';
+
 import {
   FormPages,
   AwesomeIcon,
@@ -50,7 +51,7 @@ const Login = () => {
       email: res?.profileObj?.email || res?.email,
       uid: res?.googleId || res?.userID,
     }
-    dispatch(socialLogin(user,loginSuccessHandler))
+    dispatch(socialLogin(user, loginSuccessHandler))
   };
   return (
     <FormPages>
@@ -147,6 +148,14 @@ const Login = () => {
                   className="blue"
                 />
               </form>
+             
+              <NoAccountText>
+                Hesabınız yok mu? <Link to="/register">Üye ol</Link>
+              </NoAccountText>
+
+              <div className="identfy">
+                <span>Veya</span>
+              </div>
               <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between', padding: '10px 20px' }}>
                 <GoogleLogin
                   clientId="197190928694-blqpc6dnsr5lsefk7aptk3iq9tjjna8f.apps.googleusercontent.com"
@@ -154,7 +163,7 @@ const Login = () => {
                   //onFailure={() => { alert('Hata ile karşılaşıldı') }}
                   //cookiePolicy={'single_host_origin'}
                   render={renderProps => (
-                    <img onClick={renderProps.onClick} style={{ width: '40px', height: '40px', cursor: 'pointer' }} src={GoogleIcon}></img>
+                    <img onClick={renderProps.onClick} style={{ height: '40px', cursor: 'pointer' }} src={GoogleIcon}></img>
                   )}
                 />
                 <FacebookLogin
@@ -162,13 +171,13 @@ const Login = () => {
                   //autoLoad={true}
                   fields="name,email,picture"
                   render={renderProps => (
-                    <img onClick={renderProps.onClick} style={{ width: '40px', height: '40px', cursor: 'pointer' }} src={FacebookIcon}></img>
+                    <img onClick={renderProps.onClick} style={{ height: '40px', cursor: 'pointer' }} src={FacebookIcon}></img>
                   )}
 
                   //onClick={componentClicked}
                   callback={(res) => { responseSocial('facebook', res) }}
                 />
-                <InstagramLogin
+                {/*<InstagramLogin
                   clientId="5fd2f11482844c5eba963747a5f34556"
                   buttonText="Login"
                   //onSuccess={responseInstagram}
@@ -176,7 +185,7 @@ const Login = () => {
                   render={renderProps => (
                     <img onClick={renderProps.onClick} style={{ width: '40px', height: '40px', cursor: 'pointer' }} src={InstagramIcon}></img>
                   )}
-                />
+                  />*/}
                 <AppleSignin
                   authOptions={{
                     clientId: 'com.ucikibir.web',
@@ -196,20 +205,12 @@ const Login = () => {
                   skipScript={false} // default = undefined
                   iconProp={{ style: { marginTop: '10px' } }} // default = undefined
                   render={renderProps => (
-                    <img onClick={renderProps.onClick} style={{ width: '40px', height: '40px', cursor: 'pointer' }} src={AppleIcon}></img>
+                    <img onClick={renderProps.onClick} style={{  height: '40px', cursor: 'pointer' }} src={AppleIcon}></img>
                   )}
                 />
 
 
               </div>
-              <NoAccountText>
-                Hesabınız yok mu? <Link to="/register">Üye ol</Link>
-              </NoAccountText>
-
-              <div className="identfy">
-                <span>Veya</span>
-              </div>
-
               <Link className="login-footer" to="/profesyonel/register">
                 Sistemimizde hizmet vermek için tıklayın
               </Link>

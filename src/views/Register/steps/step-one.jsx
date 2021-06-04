@@ -111,12 +111,13 @@ const StepOne = (props) => {
   }
   const responseSocial = async (type, res) => {
     // eslint-disable-next-line
+    
     var user = {
       type: type,
-      accessToken: res?.accessToken,
+      accessToken: res?.accessToken || res?.identityToken,
       email: res?.profileObj?.email || res?.email,
-      uid: res?.googleId || res?.userID,
-      name:manipulateName(res?.name || res?.profileObj?.name)
+      uid: res?.googleId || res?.userID || (type == 'apple' ? res?.user : ''),
+      name:manipulateName(res?.name || res?.profileObj?.name|| (res?.fullName.givenName ? `${res?.fullName?.givenName} ${res?.fullName?.familyName}` : ''))
     }
     setSocialMode(true)
     setData({ ...data, ...user })
@@ -245,6 +246,67 @@ const StepOne = (props) => {
 
   return (
     <>
+     
+      <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between', padding: '10px 20px' }}>
+        <GoogleLogin
+          clientId="197190928694-blqpc6dnsr5lsefk7aptk3iq9tjjna8f.apps.googleusercontent.com"
+          onSuccess={(res) => { responseSocial('google', res) }}
+          //onFailure={() => { alert('Hata ile karşılaşıldı') }}
+          //cookiePolicy={'single_host_origin'}
+          render={renderProps => (
+            <img onClick={renderProps.onClick} style={{ height: '40px', cursor: 'pointer' }} src={GoogleIcon}></img>
+          )}
+        />
+        <FacebookLogin
+          appId="911942052953063"
+          //autoLoad={true}
+          fields="name,email,picture"
+          render={renderProps => (
+            <img onClick={renderProps.onClick} style={{  height: '40px', cursor: 'pointer' }} src={FacebookIcon}></img>
+          )}
+
+          //onClick={componentClicked}
+          callback={(res) => { responseSocial('facebook', res) }}
+        />
+       {/* <InstagramLogin
+          clientId="5fd2f11482844c5eba963747a5f34556"
+          buttonText="Login"
+          //onSuccess={responseInstagram}
+          //onFailure={responseInstagram}
+          render={renderProps => (
+            <img onClick={renderProps.onClick} style={{ width: '40px', height: '40px', cursor: 'pointer' }} src={InstagramIcon}></img>
+          )}
+          />*/}
+        <AppleSignin
+          authOptions={{
+            clientId: 'com.ucikibir.web',
+            scope: 'email name',
+            redirectURI: 'https://321.4alabs.com',
+            state: 'state',
+            nonce: 'nonce',
+            usePopup: true
+          }} // REQUIRED
+          /** General props */
+          uiType="dark"
+          className="apple-auth-btn"
+          noDefaultStyle={false}
+          buttonExtraChildren="Continue with Apple"
+          //onSuccess={(response) => console.log(response)} // default = undefined
+          //onError={(error) => console.error(error)} // default = undefined
+          skipScript={false} // default = undefined
+          onSuccess={(response) => { responseSocial('apple',response)}} // default = undefined
+
+          iconProp={{ style: { marginTop: '10px' } }} // default = undefined
+          render={renderProps => (
+            <img onClick={renderProps.onClick} style={{height: '40px', cursor: 'pointer' }} src={AppleIcon}></img>
+          )}
+        />
+
+
+      </div>
+      <div className="identfy">
+        <span>Veya</span>
+      </div>
       <form className="step-one-wrapper" onSubmit={onSubmit} autoComplete="off">
         <MacroCollections social={socialMode} macro={macro.macro} data={data} setData={setData} />
         <div className="step-one-wrapper__checkbox-wrapper">
@@ -360,64 +422,7 @@ const StepOne = (props) => {
       <StyledModal show={openModal} onHide={() => setOpenModal(false)}>
         {confirmation}
       </StyledModal>
-      <div className="identfy">
-        <span>Veya</span>
-      </div>
-      <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between', padding: '10px 20px' }}>
-        <GoogleLogin
-          clientId="197190928694-blqpc6dnsr5lsefk7aptk3iq9tjjna8f.apps.googleusercontent.com"
-          onSuccess={(res) => { responseSocial('google', res) }}
-          //onFailure={() => { alert('Hata ile karşılaşıldı') }}
-          //cookiePolicy={'single_host_origin'}
-          render={renderProps => (
-            <img onClick={renderProps.onClick} style={{ width: '40px', height: '40px', cursor: 'pointer' }} src={GoogleIcon}></img>
-          )}
-        />
-        <FacebookLogin
-          appId="911942052953063"
-          //autoLoad={true}
-          fields="name,email,picture"
-          render={renderProps => (
-            <img onClick={renderProps.onClick} style={{ width: '40px', height: '40px', cursor: 'pointer' }} src={FacebookIcon}></img>
-          )}
-
-          //onClick={componentClicked}
-          callback={(res) => { responseSocial('facebook', res) }}
-        />
-        <InstagramLogin
-          clientId="5fd2f11482844c5eba963747a5f34556"
-          buttonText="Login"
-          //onSuccess={responseInstagram}
-          //onFailure={responseInstagram}
-          render={renderProps => (
-            <img onClick={renderProps.onClick} style={{ width: '40px', height: '40px', cursor: 'pointer' }} src={InstagramIcon}></img>
-          )}
-        />
-        <AppleSignin
-          authOptions={{
-            clientId: 'com.ucikibir.web',
-            scope: 'email name',
-            redirectURI: 'https://321.4alabs.com',
-            state: 'state',
-            nonce: 'nonce',
-            usePopup: true
-          }} // REQUIRED
-          /** General props */
-          uiType="dark"
-          className="apple-auth-btn"
-          noDefaultStyle={false}
-          buttonExtraChildren="Continue with Apple"
-          //onSuccess={(response) => console.log(response)} // default = undefined
-          //onError={(error) => console.error(error)} // default = undefined
-          skipScript={false} // default = undefined
-          iconProp={{ style: { marginTop: '10px' } }} // default = undefined
-          render={renderProps => (
-            <img onClick={renderProps.onClick} style={{ width: '40px', height: '40px', cursor: 'pointer' }} src={AppleIcon}></img>
-          )}
-        />
-
-
-      </div>
+     
     </>
   );
 };
