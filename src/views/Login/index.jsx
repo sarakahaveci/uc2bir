@@ -8,21 +8,19 @@ import { login, socialLogin } from 'actions';
 import {
   FormPages,
   AwesomeIcon,
-  Title,
   Text,
   Button,
   Material,
   Box,
 } from 'components';
 import GoogleLogin from 'react-google-login';
-import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 //import InstagramLogin from 'instagram-login-react';
-import GoogleIcon from 'assets/google-login.png'
-import FacebookIcon from 'assets/facebook-login.png'
+import GoogleIcon from 'assets/google-login.png';
+import FacebookIcon from 'assets/facebook-login.png';
 //import InstagramIcon from 'assets/instagram-login.png'
 import AppleIcon from 'assets/apple-login.png'
 import AppleLogin from 'react-apple-login'
-
 
 const Login = () => {
   const { isLoading } = useSelector((state) => state.auth);
@@ -46,14 +44,14 @@ const Login = () => {
   };
   const responseSocial = async (type, res) => {
     // eslint-disable-next-line
-    console.log('responseApple', res)
+    console.log('responseApple', res);
     var user = {
       type: type,
       accessToken: res?.accessToken || res?.authorization?.id_token,
       email: res?.profileObj?.email || res?.email,
-      uid: res?.googleId || res?.userID || res?.code
-    }
-    dispatch(socialLogin(user, loginSuccessHandler))
+      uid: res?.googleId || res?.userID || res?.code,
+    };
+    dispatch(socialLogin(user, loginSuccessHandler));
   };
   return (
     <FormPages>
@@ -90,7 +88,7 @@ const Login = () => {
                 bırak
               </Text>
 
-              <Title
+              {/* <Title
                 fontWeight="normal"
                 mb="15px"
                 className="material-title"
@@ -101,7 +99,7 @@ const Login = () => {
                 textLeft
               >
                 Giriş Yap
-              </Title>
+              </Title> */}
 
               <form onSubmit={onSubmit}>
                 <Material.TextField
@@ -158,34 +156,60 @@ const Login = () => {
               <div className="identfy">
                 <span>Veya</span>
               </div>
-              <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between', padding: '10px 20px' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  width: '100%',
+                  justifyContent: 'space-between',
+                  padding: '10px 20px',
+                }}
+              >
                 <GoogleLogin
                   clientId="197190928694-blqpc6dnsr5lsefk7aptk3iq9tjjna8f.apps.googleusercontent.com"
-                  onSuccess={(res) => { responseSocial('google', res) }}
+                  onSuccess={(res) => {
+                    responseSocial('google', res);
+                  }}
                   //onFailure={() => { alert('Hata ile karşılaşıldı') }}
                   //cookiePolicy={'single_host_origin'}
-                  render={renderProps => (
-                    <img onClick={renderProps.onClick} style={{ height: '40px', cursor: 'pointer' }} src={GoogleIcon}></img>
+                  render={(renderProps) => (
+                    <img
+                      onClick={renderProps.onClick}
+                      style={{ height: '40px', cursor: 'pointer' }}
+                      src={GoogleIcon}
+                    ></img>
                   )}
                 />
                 <FacebookLogin
                   appId="911942052953063"
                   //autoLoad={true}
                   fields="name,email,picture"
-                  render={renderProps => (
-                    <img onClick={renderProps.onClick} style={{ height: '40px', cursor: 'pointer' }} src={FacebookIcon}></img>
+                  render={(renderProps) => (
+                    <img
+                      onClick={renderProps.onClick}
+                      style={{ height: '40px', cursor: 'pointer' }}
+                      src={FacebookIcon}
+                    ></img>
                   )}
-
                   //onClick={componentClicked}
-                  callback={(res) => { responseSocial('facebook', res) }}
+                  callback={(res) => {
+                    responseSocial('facebook', res);
+                  }}
                 />
                 {/*<InstagramLogin
                   clientId="5fd2f11482844c5eba963747a5f34556"
                   buttonText="Login"
                   //onSuccess={responseInstagram}
                   //onFailure={responseInstagram}
-                  render={renderProps => (
-                    <img onClick={renderProps.onClick} style={{ width: '40px', height: '40px', cursor: 'pointer' }} src={InstagramIcon}></img>
+                  render={(renderProps) => (
+                    <img
+                      onClick={renderProps.onClick}
+                      style={{
+                        width: '40px',
+                        height: '40px',
+                        cursor: 'pointer',
+                      }}
+                      src={InstagramIcon}
+                    ></img>
                   )}
                   />*/}
                 <AppleLogin
@@ -198,15 +222,12 @@ const Login = () => {
 
                   responseType={"code"} 
                   responseMode={"query"}  
-                  usePopup={true} 
                   callback={(response) => responseSocial('apple', response)} // default = undefined
                   //onError={(error) => console.error(error)} // default = undefined
                   render={renderProps => (
                     <img onClick={renderProps.onClick} style={{ height: '40px', cursor: 'pointer' }} src={AppleIcon}></img>
                   )}
                 />
-
-
               </div>
               <Link className="login-footer" to="/profesyonel/register">
                 Sistemimizde hizmet vermek için tıklayın

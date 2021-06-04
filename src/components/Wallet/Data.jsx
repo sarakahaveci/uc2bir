@@ -5,7 +5,7 @@ import { Pagination, Text } from 'components';
 import { getWalletTransactionsPerPage } from 'actions/userProfileActions/walletActions';
 import moment from 'moment';
 
-const Data = ({ paymentType, date, changed }) => {
+const Data = ({ paymentType, range, changed }) => {
   const { data, totalPage } = useSelector(
     (state) => state?.userProfile?.wallet?.transactionsPerPage
   );
@@ -15,8 +15,8 @@ const Data = ({ paymentType, date, changed }) => {
   };
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getWalletTransactionsPerPage(25, page, paymentType, date));
-  }, [page, paymentType, date]);
+    dispatch(getWalletTransactionsPerPage(25, page, paymentType, range));
+  }, [page, paymentType, range]);
 
   useEffect(() => {
     setPage(1);
@@ -38,10 +38,24 @@ const Data = ({ paymentType, date, changed }) => {
                 {data &&
                   data.map((item, index) => (
                     <tr key={index}>
-                      <td>{moment(item.created_at).format('LLL')}</td>
-                      <td>{item.info}</td>
-                      <td>{item.detail?.payment_type}</td>
-                      <td>{parseFloat(item.detail?.amount).toFixed(2)}₺</td>
+                      <td>
+                        {moment(item.created_at, 'DD.MM.YYYY hh:mm').format(
+                          'LLL'
+                        )}
+                      </td>
+
+                      <td>
+                        {(item?.elaboration?.sub_kind?.title || '') +
+                          '' +
+                          (item?.elaboration?.kind?.title || '') ||
+                          item?.type?.title}
+                      </td>
+
+                      <td>{item.payment_type?.title}</td>
+                      <td>
+                        {item?.amount_type}
+                        {parseFloat(item?.amount).toFixed(2)}₺
+                      </td>
                     </tr>
                   ))}
               </tbody>

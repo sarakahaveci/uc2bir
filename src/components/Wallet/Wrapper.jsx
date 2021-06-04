@@ -25,7 +25,6 @@ const Wrapper = () => {
                 <Box col>
                   <Text color="dark" textAlign="left" fontWeight="800" p="2px">
                     Son Hareket
-                    {transactionsData?.earning}
                   </Text>
                 </Box>
                 <Svg.ArrowUpIcon />
@@ -34,10 +33,10 @@ const Wrapper = () => {
             <Accordion.Collapse>
               <BodyWrapper>
                 <Text textAlign="left" fontWeight="600" p="2px" color="#00b2a9">
-                  {transactionsData[0]?.info}
+                  {transactionsData[0]?.elaboration?.kind?.title}
                 </Text>
                 <Capsule>
-                  {transactionsData[0]?.updated_at && (
+                  {transactionsData[0]?.created_at && (
                     <CapsuleItem>
                       <Text textAlign="left" fontWeight="600">
                         {' '}
@@ -50,28 +49,30 @@ const Wrapper = () => {
                   <CapsuleItem>
                     <table>
                       <tbody>
-                        {transactionsData[0]?.detail?.payment_type && (
+                        {transactionsData[0]?.payment_type && (
                           <tr>
                             <td>Ödeme Şekli</td>
                             <td className="text-right">
-                              {transactionsData[0]?.detail?.payment_type}
+                              {transactionsData[0]?.payment_type?.title}
                             </td>
                           </tr>
                         )}
-                        {transactionsData[0]?.detail?.status && (
+                        {transactionsData[0]?.status && (
                           <tr>
                             <td>Durumu</td>
                             <td className="text-right">
-                              {transactionsData[0]?.detail?.status}
+                              {transactionsData[0]?.status?.title}
                             </td>
                           </tr>
                         )}
-                        {!transactionsData[0]?.detail?.amount == 0 && (
+                        {!transactionsData[0]?.amount == 0 && (
                           <tr>
                             <td>Tutar</td>
                             <td className="text-right">
-                              {parseFloat(transactionsData[0]?.detail?.amount).toFixed(2)
-                              }₺
+                              {parseFloat(transactionsData[0]?.amount).toFixed(
+                                2
+                              )}
+                              ₺
                             </td>
                           </tr>
                         )}

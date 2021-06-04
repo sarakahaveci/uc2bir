@@ -38,9 +38,9 @@ export const getWalletTransactions = () => async (dispatch) => {
 };
 
 export const getWalletTransactionsPerPage =
-  (perPage = 25, page = 1, payment_type = 'all', date = 'all') =>
+  (perPage = 25, page = 1, payment_type = 'all', range = 'all') =>
   async (dispatch) => {
-    const url = `/user/wallet/get-transactions?perPage=${perPage}&page=${page}&payment_type=${payment_type}&date=${date}`;
+    const url = `/user/wallet/get-transactions?perPage=${perPage}&page=${page}&payment_type=${payment_type}&range=${range}`;
 
     await dispatch({
       type: HTTP_REQUEST,

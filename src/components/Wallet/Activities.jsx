@@ -26,7 +26,7 @@ const Activities = ({ setPage }) => {
 
   const [open, setOpen] = useState(false);
   const [paymentType, setPaymentType] = useState('');
-  const [date, setDate] = useState(1);
+  const [range, setRange] = useState(1);
   const [changed, setChanged] = useState(false);
   const fullWidth = true;
 
@@ -83,16 +83,31 @@ const Activities = ({ setPage }) => {
                     <Col>
                       <Material.SimpleSelect
                         onChange={(e) => {
-                          setDate(e.target.value);
+                          setRange(e.target.value);
                           changedTypes();
                         }}
                         label="Dönem"
                         items={[
                           { id: 'all', name: 'Hepsi' },
-                          { id: 1, name: 'Son 7 Gün' },
-                          { id: 2, name: 'Son 15 Gün' },
-                          { id: 3, name: 'Son 1 Ay' },
-                          { id: 4, name: 'Son 3 Ay' },
+                          { id: 'today', name: 'Bugün' },
+                          { id: 'one_week', name: 'Bu Hafta İçinde' },
+                          {
+                            id: 'start_to_fifteen_this_month',
+                            name: 'Bu Ayın Başından 15ine Kadar',
+                          },
+                          {
+                            id: 'sixteen_to_end_this_month',
+                            name: 'Bu Ayın 16sından Sonuna Kadar',
+                          },
+                          { id: 'one_month', name: 'Son 1 Ay' },
+                          {
+                            id: 'three_month',
+                            name: 'Son 3 Ay',
+                          },
+                          {
+                            id: 'one_year',
+                            name: 'Son 1 Yıl',
+                          },
                         ]}
                       />
                     </Col>
@@ -100,7 +115,7 @@ const Activities = ({ setPage }) => {
                   </FilterSelect>
                   <Data
                     paymentType={paymentType}
-                    date={date}
+                    range={range}
                     changed={changed}
                   />
                   <Row className="justify-content-end">
