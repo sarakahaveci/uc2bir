@@ -76,7 +76,9 @@ const Cell = styled.div`
       ${(p) =>
         p.halfActive &&
         css`
-          border: 1px solid ${p.theme.colors.blue};
+          background-color: ${p.theme.colors.blue};
+          border-color: ${p.theme.colors.blue};
+          color: white;
         `}
 
       ${(p) =>
