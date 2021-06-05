@@ -198,7 +198,6 @@ const SearchProfessional = () => {
                   className="search-trainer__select"
                   value={sortBy}
                   onChange={(e) => {
-                    console.log('gelen',e.target.value)
                     setSortBy(e.target.value)
                     linkChangeHandler(page)
                   }}
