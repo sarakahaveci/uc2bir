@@ -32,6 +32,7 @@ const SearchProfessional = () => {
   const [branch, setBranch] = useState('');
   const [page, setPage] = useState(1);
   const [price, setPrice] = useState([0, 1000]);
+  const [sortBy, setSortBy] = useState('asc');
 
   const [ratings, setRatings] = useState([]);
   const [classification, setClassification] = useState('');
@@ -45,7 +46,7 @@ const SearchProfessional = () => {
   const { type } = searchParams || 'pt';
 
   let userTypeText;
-
+  const sortingStates = [{id:'asc',name:'Fiyat Artan'},{id:'desc',name:'Fiyat Azalan'}]
   switch (type) {
     case "gym":
       userTypeText = "Salon"
@@ -92,7 +93,7 @@ const SearchProfessional = () => {
         minPrice: parsedPrice?.[0],
         maxPrice: parsedPrice?.[1],
         // TODO: take it from sorting state
-        sortBy: 'asc',
+        sortBy: sortBy,
         branch,
         location,
         type,
@@ -113,6 +114,7 @@ const SearchProfessional = () => {
       price,
       ratings,
       classification,
+      sortBy
     };
 
     url = Object.keys(formData).reduce((acc, curr) => {
@@ -190,7 +192,25 @@ const SearchProfessional = () => {
                 </Form.Control>
               </SearchCol>
             )}
-
+              <SearchCol>
+                <Form.Control
+                  as="select"
+                  className="search-trainer__select"
+                  value={sortBy}
+                  onChange={(e) => {
+                    console.log('gelen',e.target.value)
+                    setSortBy(e.target.value)
+                    linkChangeHandler(page)
+                  }}
+                >
+                  <option hidden>Sıralama</option>
+                  {sortingStates.map((item, index) => (
+                    <option key={'option' + index} value={item.id}>
+                      {item.name}
+                    </option>
+                  ))}
+                </Form.Control>
+              </SearchCol>
             <SearchCol sm={12}>
               <FilterButton onClick={() => setShowFilters(!showFilters)}>
                 Filtrele
