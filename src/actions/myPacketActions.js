@@ -80,8 +80,8 @@ export const setUserPacketLessonComplete = (id) => async (dispatch) => {
     },
   });
 };
-export const getUserExerciseDetail = (id) => async (dispatch) => {
-  const url = `/mockmockDetailEXERCİSE/${id}`;
+export const getUserExerciseDetail = (id,package_uuid,lesson) => async (dispatch) => {
+  const url = `/user/pt-package/training/${id}?package_uuid=${package_uuid}&lesson=${lesson}`;
 
   await dispatch({
     type: HTTP_REQUEST,

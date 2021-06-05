@@ -329,7 +329,7 @@ const EditLesson = ({ setBannerActive = () => {}, setPage = () => {}, packageDat
                       </div>
                       <Material.TextField
                         required={val.required}
-                        type="number"
+                        type="text"
                         key={key}
                         name={val.name}
                         onChange={(e) => {

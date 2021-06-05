@@ -14,7 +14,7 @@ const ExerciseCard = ({ onClickExercise, type, data, onDeleteExercise}) => {
   };
   return (
     <Container>
-      <ExerciseCardContainer onClick={onClickExercise}>
+      <ExerciseCardContainer onClick={()=>{onClickExercise(data?.training_id)}}>
         <ImagesContainer>
           <Carousel {...settings}>
             <Svg.ExerciseIcon style={{ width: '80px', height: '80px' }} />

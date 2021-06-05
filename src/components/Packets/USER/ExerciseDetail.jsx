@@ -6,19 +6,22 @@ import { device } from 'utils';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Svg from 'components/statics/svg';
 import { getUserExerciseDetail } from 'actions';
-import { useDispatch } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
+import ReactHtmlParser from 'react-html-parser';
+import { decode } from 'html-entities';
 const useStyles = makeStyles({
   barColorPrimary: {
     backgroundColor: '#00B2A9',
   },
 });
-const ExerciseDetail = ({ setPage = () => {} }) => {
+const ExerciseDetail = ({ setPage = () => { }, globalState }) => {
   const dispatch = useDispatch();
-
+  const detailData = useSelector(
+    (state) => state.myPackets?.user?.exerciseDetail?.data
+  );
   const classes = useStyles();
   useEffect(() => {
-    dispatch(getUserExerciseDetail('EXERCİSEDETAİL'));
+    dispatch(getUserExerciseDetail(globalState?.training_id, globalState?.package_uuid, globalState?.lesson_id));
   }, []);
   return (
     <Main>
@@ -38,51 +41,48 @@ const ExerciseDetail = ({ setPage = () => {} }) => {
               value={20}
             />
             <Text>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum. dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.”
+
+              {ReactHtmlParser(
+                decode(detailData?.detail)
+              )}
             </Text>
           </TextContent>
           <Info>
-            <Text bold>Squat</Text>
+            <Text bold>{detailData?.title}</Text>
             <Properties>
               <PropertyContainer>
                 <Svg.Difficulty></Svg.Difficulty>
                 <TextWrapper>
                   <Text>Zorluk</Text>
-                  <Text bold>2</Text>
+                  <Text bold>Mock</Text>
                 </TextWrapper>
               </PropertyContainer>
               <PropertyContainer>
                 <Svg.Weight></Svg.Weight>
                 <TextWrapper>
                   <Text>Ağırlık</Text>
-                  <Text bold>1 kg</Text>
+                  <Text bold>{detailData?.weight} kg</Text>
                 </TextWrapper>
               </PropertyContainer>
               <PropertyContainer>
                 <Svg.Set></Svg.Set>
                 <TextWrapper>
                   <Text>Set</Text>
-                  <Text bold>1</Text>
+                  <Text bold>{detailData?.set}</Text>
                 </TextWrapper>
               </PropertyContainer>
               <PropertyContainer>
                 <Svg.Break></Svg.Break>
                 <TextWrapper>
                   <Text>Mola</Text>
-                  <Text bold>00:30</Text>
+                  <Text bold>{detailData?.break}</Text>
                 </TextWrapper>
               </PropertyContainer>
               <PropertyContainer>
                 <Svg.Repetition></Svg.Repetition>
                 <TextWrapper>
                   <Text>Tekrar</Text>
-                  <Text bold>1</Text>
+                  <Text bold>  {detailData?.repetition}</Text>
                 </TextWrapper>
               </PropertyContainer>
             </Properties>

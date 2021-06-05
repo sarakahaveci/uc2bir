@@ -11,7 +11,7 @@ import {
   getUserPacketLessonDetail,
   setUserPacketLessonComplete,
 } from 'actions';
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 const useStyles = makeStyles({
   barColorPrimary: {
     backgroundColor: '#00B2A9',
@@ -19,11 +19,13 @@ const useStyles = makeStyles({
 });
 const Exercises = ({
   setPage = () => {},
-  /*setGlobalState = () => {},*/
+  setGlobalState = () => {},
   globalState,
 }) => {
   const dispatch = useDispatch();
-
+  const detailData = useSelector(
+    (state) => state.myPackets?.user?.lessonDetail?.data
+  );
   useEffect(() => {
     dispatch(
       getUserPacketLessonDetail(
@@ -33,7 +35,6 @@ const Exercises = ({
     );
   }, []);
   const classes = useStyles();
-  var temp = ['55', '55s5d', '626', 'd', 'sdsd', 'sdasd', 'sdad'];
   function locationSelector(index) {
     if (index % 3 == 0) {
       return 'start';
@@ -43,17 +44,19 @@ const Exercises = ({
       return 'mid';
     }
   }
-  function onClickExercise() {
+  function onClickExercise(training_id) {
+    setGlobalState({ ...globalState, training_id: training_id });
+
     setPage('ExerciseDetail');
   }
   function _renderExercises() {
-    return temp.map((elm, index) => (
+    return detailData?.trainings?.map((elm, index) => (
       <Col key={index} style={{ padding: 0 }} lg="4">
         <CustomProgress
-          location={temp.length - 1 == index ? 'end' : locationSelector(index)}
+          location={detailData?.trainings?.length - 1 == index ? 'end' : locationSelector(index)}
           active="false"
         ></CustomProgress>
-        <ExerciseCard type="user" onClickExercise={onClickExercise} />
+        <ExerciseCard data={elm} type="user" onClickExercise={onClickExercise} />
         <TickContainer
           onClick={() => {
             dispatch(setUserPacketLessonComplete());

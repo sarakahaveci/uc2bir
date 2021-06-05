@@ -109,9 +109,6 @@ const PacketCard = ({
               {status == 'active' ? (
                 <>
                   <Button onClick={onClickReservation}>Rezervasyon Yap</Button>
-                  <ApproveButton onClick={onClickDetail}>
-                    Paket Detayı
-                  </ApproveButton>
                 </>
               ) : (
                 <Button >Tekrar Al</Button>

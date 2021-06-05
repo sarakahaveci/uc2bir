@@ -10,11 +10,13 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { device } from 'utils';
 import image from '../../../assets/session-type.jpg';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserMyPacketDetail, getUserTestDetail } from 'actions';
+import { getUserMyPacketDetail, getUserTestDetail, setPackageSurvey } from 'actions';
 import ReactHtmlParser from 'react-html-parser';
 import { decode } from 'html-entities';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { toast } from 'react-toastify';
+
 import DialogContent from '@material-ui/core/DialogContent';
 const fullWidth = true;
 const maxWidth = 'sm';
@@ -29,12 +31,15 @@ const DetailLesson = ({
   globalState,
   setGlobalState,
 }) => {
+  const [question, _question] = useState([]);
+  const [answer, _answer] = useState({});
   const dispatch = useDispatch();
   const detailData = useSelector(
     (state) => state.myPackets?.user?.detail?.data
   );
   const [modal, setModal] = useState(false);
   const [changeable, setChangeable] = useState(false);
+
   const tests = useSelector((state) => state.myPackets?.user?.lessonDetail?.data);
 
   useEffect(() => {
@@ -43,6 +48,7 @@ const DetailLesson = ({
     setBannerActive(false);
   }, []);
   function onClickLesson(elm) {
+    setChangeable(elm?.is_changeable)
     if (elm?.type == 'lesson') {
       setGlobalState({ ...globalState, lesson_id: elm?.id });
       setPage('Exercises');
@@ -69,9 +75,8 @@ const DetailLesson = ({
     }
   }
   function handleReservationButton() { }
- /* const succsess = () => {
+  const succsess = () => {
     setModal(false);
-    dispatch(getPackageClass({ package_uuid: packageData?.package_uuid, appointment_id: packageData?.appointment_id }));
     toast.success(`Soru cevapları gönderildi.`, {
       position: 'bottom-right',
       autoClose: 2000,
@@ -81,9 +86,9 @@ const DetailLesson = ({
       draggable: true,
       progress: undefined,
     });
-  };*/
+  };
 
-  /*const err = () => {
+  const err = () => {
     setModal(false);
     toast.error(`Soru cevapları gönderilemedi!`, {
       position: 'bottom-right',
@@ -94,13 +99,23 @@ const DetailLesson = ({
       draggable: true,
       progress: undefined,
     });
-  };*/
+  };
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    //ptden alabilirsin
+    return dispatch(
+      setPackageSurvey(
+        {
+          answer: answer,
+          package_uuid: globalState?.package_uuid,
+          appointment_id: globalState?.appointment_id, //çalışmassa kontrol et
+          lesson_id: globalState?.lesson_id
+        },
+        succsess,
+        err
+      )
+    );
   };
-
 
   function _renderLessons() {
     return detailData?.lessons?.map((elm, index) => (
@@ -123,11 +138,15 @@ const DetailLesson = ({
               {elm?.is_completed ? (
                 <Svg.TickLesson />
               ) : (
-                <Number>
-                  <BoldText color={'#C5C4C4'}>{index + 1}</BoldText>
-                </Number>
+                <>
+                  <Number>
+                    <BoldText color={'#C5C4C4'}>{index + 1}</BoldText>
+                  </Number>
+                  <Svg.TickLessonDisable />
+                </>
               )}
-              <BoldText style={{ marginLeft: '9px' }}>{elm?.title}</BoldText>
+              <BoldText style={{ marginLeft: '9px', display: 'block' }}>{elm?.type == 'lesson' ? (elm?.lesson + ' .Ders') : elm?.title}</BoldText>
+
             </HeaderArea>
             <DescArea>
               <IconArea></IconArea>
@@ -219,9 +238,9 @@ const DetailLesson = ({
                 </table>
               </Table>)
               : (<form onSubmit={onSubmit} autoComplete="off">
-                {testQuestion?.survey?.questions?.length &&
-                  testQuestion?.survey?.questions?.map((val, key) => {
-                    if (val.answer_type === 'radio') {
+                {tests?.length &&
+                  tests?.map((val, key) => {
+                    if (val?.answer_type === 'radio') {
                       return (
                         <Material.RadioButtonsGroup
                           required={val.required}
@@ -303,7 +322,7 @@ const DetailLesson = ({
                       );
                     }
                   })}
-                {!isQuestionLoading ? (
+                {true ? (
                   <div style={{ display: 'flex', justifyContent: 'center', flex: '1' }}>
                     <Button type="submit" text={`Testi Tamamla`} className="blue" width={'90%'} />
                   </div>
