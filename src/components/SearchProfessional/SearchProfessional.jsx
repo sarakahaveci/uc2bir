@@ -32,7 +32,7 @@ const SearchProfessional = () => {
   const [branch, setBranch] = useState('');
   const [page, setPage] = useState(1);
   const [price, setPrice] = useState([0, 1000]);
-  const [sortBy, setSortBy] = useState('asc');
+  const [sortBy, setSortBy] = useState(undefined);
 
   const [ratings, setRatings] = useState([]);
   const [classification, setClassification] = useState('');
