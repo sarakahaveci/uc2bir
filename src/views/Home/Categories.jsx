@@ -1,13 +1,23 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import cx from 'classnames';
-
+import { useDispatch } from 'react-redux';
 import { Title, DefBackground, Svg } from 'components';
 import { useHistory } from 'react-router';
+import { getSearchResults } from 'actions';
 
 const Categories = ({ className, background, children }) => {
   const history = useHistory();
+  const dispatch = useDispatch();
 
+  const handleSuccessSearch = (keyword) => {
+    history.push('/search/' + keyword);
+  };
+
+  const handleSearch = (keyword) => {
+    dispatch(getSearchResults(keyword, handleSuccessSearch(keyword)));
+
+  };
 
   return (
     <section className={cx('categories', { [`${className}`]: className })}>
@@ -33,7 +43,7 @@ const Categories = ({ className, background, children }) => {
                 <a
                   title={val.name}
                   onClick={() => {
-                    history.push('/search/' +val.name)
+                    handleSearch(val.name.toLocaleLowerCase());
                   }}
                 >
                   {val.svg({ className: 'category-svg' })}{' '}
