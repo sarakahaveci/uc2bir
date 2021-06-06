@@ -13,7 +13,7 @@ export const getSearchResults = (keyword, successCallback) => async (
       label: SEARCH_RESULTS,
       transformData: (data) => data.data,
       callBack: () => {
-        successCallback;
+        successCallback();
       },
       errorHandler: (error) => {
         toast.error(error.message, {

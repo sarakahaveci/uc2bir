@@ -25,7 +25,7 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
     setMenuActive(false);
   };
   const handleSuccessSearch = () => {
-    history.push('/search/' + keyword);
+     history.push('/search/' + keyword);
     setIsSearchBarOpen(!isSearchBarOpen);
     setKeyword('');
   };

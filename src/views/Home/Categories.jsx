@@ -10,13 +10,12 @@ const Categories = ({ className, background, children }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const handleSuccessSearch = (keyword) => {
-    history.push('/search/' + keyword);
+  const handleSuccessSearch = () => {
   };
 
-  const handleSearch = (keyword) => {
-    dispatch(getSearchResults(keyword, handleSuccessSearch(keyword)));
-
+  const handleSearch = async (val) => {
+    await dispatch(getSearchResults(val.toLocaleLowerCase(), handleSuccessSearch));
+    history.push('/search/' + val.toLocaleLowerCase());
   };
 
   return (
@@ -43,7 +42,7 @@ const Categories = ({ className, background, children }) => {
                 <a
                   title={val.name}
                   onClick={() => {
-                    handleSearch(val.name.toLocaleLowerCase());
+                    handleSearch(val.name);
                   }}
                 >
                   {val.svg({ className: 'category-svg' })}{' '}
