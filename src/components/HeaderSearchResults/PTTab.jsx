@@ -1,22 +1,20 @@
 // @ts-nocheck
 import React from 'react'; 
-
 import styled from 'styled-components/macro';
 import LongUserCard from 'components/UserCards/LongUserCard';
 import { device } from 'utils';
-
 // import {
 //     Pagination,
 // } from 'components';
 const PTTab = ({ pts, }) => {
-
 
     return (
         <div> 
              {pts?.length>0?   <GymListWrapper>
                     {pts?.map((professional) => (
                         <LongUserCard
-                            favoriteId={professional?.user_id}
+                            favoritedUser={professional?.has_favorite_count>0}
+                            favoriteId={professional?.id || professional?.user_id}
                             showHeartBg
                             key={professional?.id || professional?.user_id}
                             data={professional}

@@ -16,6 +16,8 @@ const DietitiansTab = ({dts,}) => {
                {dts?.length>0? <GymListWrapper>
                     {dts?.map((professional) => (
                         <LongUserCard
+                        favoritedUser={professional?.has_favorite_count>0}
+
                             favoriteId={professional?.user_id}
                             showHeartBg
                             key={professional?.id || professional?.user_id}

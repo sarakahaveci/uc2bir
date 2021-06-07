@@ -254,6 +254,8 @@ const SearchProfessional = () => {
             <GymListWrapper>
               {data?.map((professional) => (
                 <LongUserCard
+                favoritedUser={professional?.has_favorite_count>0}
+
                   favoriteId={professional?.user_id}
                   showHeartBg
                   key={professional?.id || professional?.user_id}
