@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import Main from '../../components/Main';
 import {
@@ -10,17 +10,19 @@ import {
     pulse,
     GoogleMapClusterer,
 } from 'components';
+import { getSearchResults } from 'actions'
 import PtPackagesTab from '../../components/HeaderSearchResults/PtPackagesTab'
 import DtPackagesTab from '../../components/HeaderSearchResults/DtPackagesTab'
 import PTTab from '../../components/HeaderSearchResults/PTTab'
 import GymTab from '../../components/HeaderSearchResults/GymTab'
 import DietitiansTab from '../../components/HeaderSearchResults/DietitiansTab'
 import BlogsTab from '../../components/HeaderSearchResults/BlogsTab'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
-  import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 const HeaderSearchResults = () => {
+    const dispatch = useDispatch();
     const data = useSelector((state) => state.searchResults.data);
     const pts = data?.pt;
     const dts = data?.dt;
@@ -32,7 +34,9 @@ const HeaderSearchResults = () => {
     const { keyword } = useParams();
 
     const Tabs = [];
-
+    useEffect(() => {
+        dispatch(getSearchResults(keyword,()=>{}));
+    }, [keyword])
 
     if (pts?.length > 0) {
         Tabs.push({

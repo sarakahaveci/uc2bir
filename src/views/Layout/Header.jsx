@@ -1,12 +1,11 @@
 /* eslint-disable react/display-name */
 import React, { useState, useEffect } from 'react';
 import { Row } from 'react-bootstrap';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { default as NativeHeader } from '../../components/Header';
 import logo from '../../assets/logo.png';
 import { AwesomeIcon, IconLabel, Button, HeaderLogin, Svg } from 'components';
-import { getSearchResults } from 'actions';
 import { toast } from 'react-toastify';
 import { animateScroll as scroll } from 'react-scroll';
 
@@ -19,20 +18,17 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
   const [toggle, setToggle] = useState(false);
   const [keyword, setKeyword] = useState('');
   const history = useHistory();
-  const dispatch = useDispatch();
   const handleSearchWhatClick = () => {
     setIsSearchBarOpen(!isSearchBarOpen);
     setMenuActive(false);
   };
-  const handleSuccessSearch = () => {
-     history.push('/search/' + keyword);
-    setIsSearchBarOpen(!isSearchBarOpen);
-    setKeyword('');
-  };
 
   const handleSearch = () => {
     if (keyword.length >= 3) {
-      dispatch(getSearchResults(keyword, handleSuccessSearch));
+     
+      history.push('/search/' + keyword);
+      setIsSearchBarOpen(!isSearchBarOpen);
+      setKeyword('');
     } else {
       toast.error('3 Harf ve daha fazlasıyla arama yapabilirsiniz.', {
         position: 'bottom-right',
@@ -121,7 +117,7 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
             <Row className="nav-element">
               <div className="bar-item left-bar">
                 <ul>
-                  <li>  
+                  <li>
                     <Button
                       icon={AwesomeIcon.Search}
                       text="Ne arıyorsun?"
@@ -218,10 +214,10 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
         toggle={menuActive}
         setToggle={
           (() => setMenuActive(!menuActive),
-          scroll.scrollToTop({
-            duration: 1000,
-            smooth: true,
-          }))
+            scroll.scrollToTop({
+              duration: 1000,
+              smooth: true,
+            }))
         }
       />
       {isSearchBarOpen && (
@@ -242,7 +238,7 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
               icon={AwesomeIcon.Search}
               className="blue"
               onClick={() => {
-                handleSearch();
+                handleSearch()
               }}
             />
           </div>
