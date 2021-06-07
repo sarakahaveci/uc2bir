@@ -45,8 +45,8 @@ export default (state = initialState, action) => {
     case SOCIAL_LOGIN_SUCCESS:
     case USER_DETAILS_SET_FROM_STORAGE:
       return {
-        ...action.payload,
         accessToken:action.payload?.token,
+        ...action.payload,
         isLoading: false,
         error: null,
         isAuthenticated: true,
