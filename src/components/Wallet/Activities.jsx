@@ -25,8 +25,8 @@ const Activities = ({ setPage }) => {
   }, []);
 
   const [open, setOpen] = useState(false);
-  const [paymentType, setPaymentType] = useState('');
-  const [range, setRange] = useState(1);
+  const [paymentType, setPaymentType] = useState('all');
+  const [range, setRange] = useState('all');
   const [changed, setChanged] = useState(false);
   const fullWidth = true;
 
@@ -78,6 +78,7 @@ const Activities = ({ setPage }) => {
                           { id: 'card', name: 'Kredi Kartı' },
                           { id: 'package', name: 'Paket' },
                         ]}
+                        value={{ id: 'all', name: 'Hepsi' }}
                       />
                     </Col>
                     <Col>
@@ -109,6 +110,7 @@ const Activities = ({ setPage }) => {
                             name: 'Son 1 Yıl',
                           },
                         ]}
+                        value={{ id: 'all', name: 'Hepsi' }}
                       />
                     </Col>
                     {/* <Button className="blue" text="Listele" onClick={handleClick} /> */}

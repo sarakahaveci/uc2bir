@@ -13,21 +13,22 @@ const Data = ({ paymentType, range, changed }) => {
   const pageChangeHandler = (event, pageNumber) => {
     setPage(pageNumber);
   };
+
   const dispatch = useDispatch();
   function getPaymentInfoString(subKindTitle, kindTitle, typeTitle) {
     let string = '';
     if (subKindTitle) string += subKindTitle + ' ';
-    if (kindTitle) { 
-      string += kindTitle 
+    if (kindTitle) {
+      string += kindTitle;
     }
-    if(string?.trim() ==''){
-      string += typeTitle
+    if (string?.trim() == '') {
+      string += typeTitle;
     }
     /*{(item?.elaboration?.sub_kind?.title || '') +
     '' +
     (item?.elaboration?.kind?.title || '') ||
     item?.type?.title}*/
-    return string
+    return string;
   }
   useEffect(() => {
     dispatch(getWalletTransactionsPerPage(25, page, paymentType, range));
@@ -60,8 +61,11 @@ const Data = ({ paymentType, range, changed }) => {
                       </td>
 
                       <td>
-                        {getPaymentInfoString(item?.elaboration?.sub_kind?.title, item?.elaboration?.kind?.title, item?.type?.title)}
-
+                        {getPaymentInfoString(
+                          item?.elaboration?.sub_kind?.title,
+                          item?.elaboration?.kind?.title,
+                          item?.type?.title
+                        )}
                       </td>
 
                       <td>{item.payment_type?.title}</td>
