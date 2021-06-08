@@ -92,7 +92,7 @@ export default function GoogleMapClusterer({ data, onSelected, isSaloonMap }) {
                         origin: new window.google.maps.Point(0, 0),
                         anchor: new window.google.maps.Point(35, 20),
                         scaledSize: new window.google.maps.Size(70, 60),
-                        borderRadius: new window.google.maps.point(45, 70),
+                        borderRadius: new window.google.maps.Point(45, 70),
                       }}
                     />
                     :
