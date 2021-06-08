@@ -27,6 +27,7 @@ const ApplyTemplateModal = forwardRef(
     const [selectedTemplateId, setSelectedTemplateId] = useState();
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
+    const currentDate = new Date();
 
     const templateDays = templateDetails?.slot?.map((slot) => slot.day) || [];
 
@@ -108,7 +109,7 @@ const ApplyTemplateModal = forwardRef(
               'react-datepicker__day--highlighted': startOfWeeksArr,
             },
           ]}
-          minDate={new Date()}
+          minDate={new Date(currentDate.setDate(currentDate.getDate() - currentDate.getDay()))}
         />
 
         <FormControl>

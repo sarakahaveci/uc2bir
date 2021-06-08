@@ -163,7 +163,7 @@ export default function ReservationCreatedTemplate({
                   color={'grey'}
                 >
                   Merhaba {name}, rezervasyon takvimini tamamlamak için
-                  oluşturduğun şablonalardan birini kullanabilirsin
+                  oluşturduğun şablonlardan birini kullanabilirsin
                 </Text>
               </Row>
             </AppointmentDate>
