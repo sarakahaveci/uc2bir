@@ -48,9 +48,9 @@ const AddGym = ({ setSubPage, setBannerActive }) => {
     setShowSearch(true);
   };
 
-  const addGymHandler = (id) => {
+  const addGymHandler = (user) => {
     dispatch(
-      addGymFromPt(id.id, () => {
+      addGymFromPt(user.user_id, () => {
         setSubPage('gym-edit');
       })
     );
@@ -128,27 +128,15 @@ const AddGym = ({ setSubPage, setBannerActive }) => {
         isSaloonMap
         defaultMarkerIcon={<Svg.FitnessIcon />}
         onSelected={(selected) => {
-          setSelectedItem(data.find((item) => item.id == selected));
+          setSelectedItem(data?.find((item) => item.id == selected));
         }}
         data={data}
       />
       <GymListWrapper>
-        {selectedItem && (
-          <LongUserCard
-            key={selectedItem?.id}
-            selected={true}
-            data={selectedItem}
-            city={selectedItem?.address?.city}
-            district={selectedItem?.address?.district}
-            hoverText="+ Salonu Ekle"
-            showHeartBg
-            isGym
-            onClickHover={(id) => addGymHandler(id)}
-          />
-        )}
+        
 
-        {data.map((item, i) => (
-          <LongUserWrapper key={item?.id}>
+        {data?.map((item, i) => (
+          <LongUserWrapper key={item?.user_id}>
             <LongUserCard
               selected={false}
               data={item}
