@@ -46,11 +46,11 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
         // Get latitude and longitude via utility functions
         getGeocode({ address: description })
           .then((results) => getLatLng(results[0]))
-          .then(({ lat, lng }) => {
-            console.log("📍 Coordinates: ", { lat, lng });
+          .then(() => {
+           // console.log("📍 Coordinates: ", { lat, lng });
           })
-          .catch((error) => {
-            console.log("😱 Error: ", error);
+          .catch(() => {
+           // console.log("😱 Error: ", error);
           });
       };
 
