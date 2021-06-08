@@ -80,7 +80,7 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
     if (virtual == 'packets') {
       const formData = {
         title,
-        value,
+        location:value,
         branch,
       };
 
@@ -92,7 +92,7 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
     } else if (virtual == 'group-lessons') {
       const formData = {
         title,
-        value,
+        location:value,
         branch,
       };
 
@@ -104,7 +104,7 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
     } else {
       const formData = {
         title,
-        value,
+        location:value,
         branch,
       };
 
@@ -158,7 +158,7 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
                   icon={Svg.SearchLocation}
                   style={{ paddingBottom: '6px' }}
                 />
-                <div ref={ref}>
+                <div style={{display:'flex'}} ref={ref}>
                   <NakedInput
                     placeholder="Lokasyon"
                     inputProps={{ 'aria-label': 'naked' }}
