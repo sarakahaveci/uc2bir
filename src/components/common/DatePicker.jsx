@@ -82,7 +82,6 @@ const StyledDatePicker = styled.div`
       }
 
       &.disabled-date {
-        pointer-events: none;
         color: #ccc;
       }
 
