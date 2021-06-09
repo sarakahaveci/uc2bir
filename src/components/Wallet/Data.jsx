@@ -15,6 +15,7 @@ const Data = ({ paymentType, range, changed }) => {
   };
 
   const dispatch = useDispatch();
+
   function getPaymentInfoString(subKindTitle, kindTitle, typeTitle) {
     let string = '';
     if (subKindTitle) string += subKindTitle + ' ';
@@ -30,6 +31,7 @@ const Data = ({ paymentType, range, changed }) => {
     item?.type?.title}*/
     return string;
   }
+
   useEffect(() => {
     dispatch(getWalletTransactionsPerPage(25, page, paymentType, range));
   }, [page, paymentType, range]);
