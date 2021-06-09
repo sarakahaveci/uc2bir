@@ -10,6 +10,23 @@ const Wrapper = () => {
   const transactionsData = useSelector(
     (state) => state?.userProfile?.wallet.transactionsData.data
   );
+
+  function getPaymentInfoString(subKindTitle, kindTitle, typeTitle) {
+    let string = '';
+    if (subKindTitle) string += subKindTitle + ' ';
+    if (kindTitle) {
+      string += kindTitle;
+    }
+    if (string?.trim() == '') {
+      string += typeTitle;
+    }
+    /*{(item?.elaboration?.sub_kind?.title || '') +
+    '' +
+    (item?.elaboration?.kind?.title || '') ||
+    item?.type?.title}*/
+    return string;
+  }
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getWalletTransactions());
@@ -33,7 +50,11 @@ const Wrapper = () => {
             <Accordion.Collapse>
               <BodyWrapper>
                 <Text textAlign="left" fontWeight="600" p="2px" color="#00b2a9">
-                  {transactionsData[0]?.elaboration?.kind?.title}
+                  {getPaymentInfoString(
+                    transactionsData[0]?.elaboration?.sub_kind?.title,
+                    transactionsData[0]?.elaboration?.kind?.title,
+                    transactionsData[0]?.type?.title
+                  )}{' '}
                 </Text>
                 <Capsule>
                   {transactionsData[0]?.created_at && (
@@ -41,7 +62,10 @@ const Wrapper = () => {
                       <Text textAlign="left" fontWeight="600">
                         {' '}
                         Oluşturulma Tarihi |{' '}
-                        {moment(transactionsData[0]?.created_at).format('LLL')}
+                        {moment(
+                          transactionsData[0]?.created_at,
+                          'DD.MM.YYYY hh:mm'
+                        ).format('LLL')}
                       </Text>
                     </CapsuleItem>
                   )}
