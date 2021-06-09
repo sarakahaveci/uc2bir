@@ -18,27 +18,26 @@ const UserDetails = ({ userId }) => {
   }, []);
 
   return (
-    <div>
-      <Accordion>
-        {branchList?.branches?.map((item, index) => {
-          return (
-            <StyledRow key={index}>
-              <Order>{index + 1}.</Order>
-              <AccordionItem>
-                <Accordion.Item>
-                  <Accordion.Toggle>
-                    <BranchCardHeader data={item} />
-                  </Accordion.Toggle>
-                  <Accordion.Collapse>
-                    <BranchCardBody speciality={item.speciality} />
-                  </Accordion.Collapse>
-                </Accordion.Item>
-              </AccordionItem>
-            </StyledRow>
-          );
-        })}
-      </Accordion>
-    </div>
+    <Accordion >
+      {branchList?.branches?.map((item, index) => {
+        return (
+
+          <StyledRow enabled={item?.speciality?.length > 0} key={index}>
+            <Order>{index + 1}.</Order>
+            <AccordionItem>
+              <Accordion.Item>
+                <Accordion.Toggle>
+                  <BranchCardHeader data={item} />
+                </Accordion.Toggle>
+                <Accordion.Collapse>
+                  <BranchCardBody speciality={item.speciality} />
+                </Accordion.Collapse>
+              </Accordion.Item>
+            </AccordionItem>
+          </StyledRow>
+        );
+      })}
+    </Accordion>
   );
 };
 
@@ -46,6 +45,7 @@ export default UserDetails;
 
 const StyledRow = styled(Box)`
   display: flex;
+  pointer-events:${(p) => p.enabled ?  'auto':'none' };
 
   &:not(:first-child) {
     margin-top: 30px;

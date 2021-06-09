@@ -26,7 +26,7 @@ export const sendReservation =
           successCallback();
         },
         errorHandler: (error) => {
-          toast.error(error.message, {
+          toast.error(JSON.stringify(error.message), {
             position: 'bottom-right',
             autoClose: 2000,
           });

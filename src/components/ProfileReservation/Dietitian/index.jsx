@@ -135,7 +135,7 @@ const Dietitian = () => {
                   )}
                 </RadioWrapper>
               </div>
-            )) || null}
+            )) || <text style={{padding:'10px 0'}}>Bu kullanıcının uygun klinigi bulunmamaktadır.</text>}
           </RadioGroup>
         </GymWrapper>
       );
