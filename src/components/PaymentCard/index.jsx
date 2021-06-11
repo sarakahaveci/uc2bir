@@ -16,7 +16,7 @@ import {
   clearReservationCalendar,
   setPacketReservation,
   setGroupLessonReservation,
-  sendGroupReservation
+  sendGroupReservation,
 } from 'actions';
 import { getWallet } from 'actions/userProfileActions/walletActions';
 
@@ -67,7 +67,9 @@ export default function PaymentCard({ type, subType, dateOption }) {
     if (reservation?.data?.slot?.length > 0) {
       dispatch(
         setReservation({
-          [`${type}_price`]: reservation?.data?.slot?.length * (userInfo.price || reservationCalendar?.data?.bs?.price),
+          [`${type}_price`]:
+            reservation?.data?.slot?.length *
+            (userInfo.price || reservationCalendar?.data?.bs?.price),
         })
       );
     } else {
@@ -199,16 +201,14 @@ export default function PaymentCard({ type, subType, dateOption }) {
     }
   }
   function selectPaymentTypeGroupLesson(payment_type) {
-   
-      if (buyGroupLesson?.reservation?.totals_amount > 0) {
-        dispatch(setGroupLessonReservation({ payment_type: payment_type }));
-      } else {
-        toast.error('Sepetiniz Boş', {
-          position: 'bottom-right',
-          autoClose: 4000,
-        });
-      }
-    
+    if (buyGroupLesson?.reservation?.totals_amount > 0) {
+      dispatch(setGroupLessonReservation({ payment_type: payment_type }));
+    } else {
+      toast.error('Sepetiniz Boş', {
+        position: 'bottom-right',
+        autoClose: 4000,
+      });
+    }
   }
 
   const removeEmpty = (obj) =>
@@ -249,10 +249,10 @@ export default function PaymentCard({ type, subType, dateOption }) {
       reservation?.data?.expiration_year &&
       reservation?.data?.cvc
     ) {
-      dispatch(sendReservation('pt', removeEmpty(json), () => { }));
+      dispatch(sendReservation('pt', removeEmpty(json), () => {}));
     } else {
       if (reservation?.data?.payment_type == 'wallet') {
-        dispatch(sendReservation('pt', removeEmpty(json), () => { }));
+        dispatch(sendReservation('pt', removeEmpty(json), () => {}));
       } else {
         toast.error('Eksik Kart Bilgilerini Doldurunuz !', {
           position: 'bottom-right',
@@ -287,10 +287,10 @@ export default function PaymentCard({ type, subType, dateOption }) {
       reservation?.data?.expiration_year &&
       reservation?.data?.cvc
     ) {
-      dispatch(sendReservation('bs', removeEmpty(json), () => { }));
+      dispatch(sendReservation('bs', removeEmpty(json), () => {}));
     } else {
       if (reservation?.data?.payment_type == 'wallet') {
-        dispatch(sendReservation('bs', removeEmpty(json), () => { }));
+        dispatch(sendReservation('bs', removeEmpty(json), () => {}));
       } else {
         toast.error('Eksik Kart Bilgilerini Doldurunuz !', {
           position: 'bottom-right',
@@ -322,11 +322,11 @@ export default function PaymentCard({ type, subType, dateOption }) {
       buyPacket?.reservation?.expiration_year &&
       buyPacket?.reservation?.cvc
     ) {
-      dispatch(sendReservation('upgrade_packet', removeEmpty(json), () => { }));
+      dispatch(sendReservation('upgrade_packet', removeEmpty(json), () => {}));
     } else {
       if (buyPacket?.reservation?.payment_type == 'wallet') {
         dispatch(
-          sendReservation('upgrade_packet', removeEmpty(json), () => { })
+          sendReservation('upgrade_packet', removeEmpty(json), () => {})
         );
       } else {
         toast.error('Eksik Kart Bilgilerini Doldurunuz !', {
@@ -343,7 +343,7 @@ export default function PaymentCard({ type, subType, dateOption }) {
       is_contracts_accepted: true,
       payment_type: buyPacket.reservation?.payment_type,
     };
-    dispatch(sendPackageReservation(subType, removeEmpty(json), () => { })); //Burasını değiş
+    dispatch(sendPackageReservation(subType, removeEmpty(json), () => {})); //Burasını değiş
   }
   function sendPaymentPtGroup() {
     var json = {
@@ -351,7 +351,7 @@ export default function PaymentCard({ type, subType, dateOption }) {
       is_contracts_accepted: true,
       payment_type: buyGroupLesson.reservation?.payment_type,
     };
-    dispatch(sendGroupReservation(removeEmpty(json), () => { })); //Burasını değiş
+    dispatch(sendGroupReservation(removeEmpty(json), () => {})); //Burasını değiş
   }
   function sendPaymentDT() {
     var json = {
@@ -377,10 +377,10 @@ export default function PaymentCard({ type, subType, dateOption }) {
       reservation?.data?.expiration_year &&
       reservation?.data?.cvc
     ) {
-      dispatch(sendReservation('dt', removeEmpty(json), () => { }));
+      dispatch(sendReservation('dt', removeEmpty(json), () => {}));
     } else {
       if (reservation?.data?.payment_type == 'wallet') {
-        dispatch(sendReservation('dt', removeEmpty(json), () => { }));
+        dispatch(sendReservation('dt', removeEmpty(json), () => {}));
       } else {
         toast.error('Eksik Kart Bilgilerini Doldurunuz !', {
           position: 'bottom-right',
@@ -414,10 +414,22 @@ export default function PaymentCard({ type, subType, dateOption }) {
       reservation?.data?.expiration_year &&
       reservation?.data?.cvc
     ) {
-      dispatch(sendReservation(reservation?.data?.packetInfo?.type, removeEmpty(json), () => { }));
+      dispatch(
+        sendReservation(
+          reservation?.data?.packetInfo?.type,
+          removeEmpty(json),
+          () => {}
+        )
+      );
     } else {
       if (reservation?.data?.payment_type == 'wallet') {
-        dispatch(sendReservation(reservation?.data?.packetInfo?.type, removeEmpty(json), () => { }));
+        dispatch(
+          sendReservation(
+            reservation?.data?.packetInfo?.type,
+            removeEmpty(json),
+            () => {}
+          )
+        );
       } else {
         toast.error('Eksik Kart Bilgilerini Doldurunuz !', {
           position: 'bottom-right',
@@ -464,7 +476,8 @@ export default function PaymentCard({ type, subType, dateOption }) {
             <>
               <AddHeader>Saat Seçiniz</AddHeader>
               <Hours>
-                {(reservation?.data?.date && reservationCalendar?.data?.slice?.length > 0 &&
+                {(reservation?.data?.date &&
+                  reservationCalendar?.data?.slice?.length > 0 &&
                   reservationCalendar?.data?.slice?.map((item, indx) => (
                     <Hour
                       onClick={() => {
@@ -476,32 +489,34 @@ export default function PaymentCard({ type, subType, dateOption }) {
                       {item.time}
                     </Hour>
                   ))) || (
-                    <text>Seçtiğiniz koşullara uygun boş zaman bulunamadı..</text>
-                  )}
+                  <text>Seçtiğiniz koşullara uygun boş zaman bulunamadı..</text>
+                )}
               </Hours>
             </>
           )}
         </ReservationContainer>
       )}
       <AddTextContainer>
-        {(type === 'pt' || type === 'gym')&& reservation?.data?.session !== 'online' && !reservation?.data?.payment_type && (
-          <>
-            <AddHeader>Misafir Ekle</AddHeader>
-            <AddDesc>
-              Dilersen istediğin bir arkadaşınla beraber derse gelebilirsin.
-            </AddDesc>
-            <Switch
-              checked={reservation?.data?.guest}
-              onChange={() => {
-                dispatch(
-                  setReservation({
-                    guest: !reservation?.data?.guest,
-                  })
-                );
-              }}
-            />
-          </>
-        )}
+        {(type === 'pt' || type === 'gym') &&
+          reservation?.data?.session !== 'online' &&
+          !reservation?.data?.payment_type && (
+            <>
+              <AddHeader>Misafir Ekle</AddHeader>
+              <AddDesc>
+                Dilersen istediğin bir arkadaşınla beraber derse gelebilirsin.
+              </AddDesc>
+              <Switch
+                checked={reservation?.data?.guest}
+                onChange={() => {
+                  dispatch(
+                    setReservation({
+                      guest: !reservation?.data?.guest,
+                    })
+                  );
+                }}
+              />
+            </>
+          )}
       </AddTextContainer>
 
       {type === 'pt' && (
@@ -559,128 +574,134 @@ export default function PaymentCard({ type, subType, dateOption }) {
           </DataContainer>
         </InfoContainer>
       )}
-      {type !== 'buy_packet' && type !== 'upgrade_packet' && type !== 'buy_group_lesson' && (
-        <InfoContainer>
-          <DataContainer>
-            <Info borderDisable>
-              <Accordion>
-                <AccordionItemWrapper>
-                  <Accordion.Item defaultOpen={true}>
-                    <Accordion.Toggle
-                      onToggle={(state) => setToggleState(state)}
-                      className="accordion-toggler"
-                    >
-                      <div style={{ display: 'flex', alignItems: 'center' }}>
-                        {/*miniIcon*/}
-                        <DarkTitle>{'Rezervasyonlarınız'}</DarkTitle>
-                      </div>
-                      {toggleState ? (
-                        <Svg.ArrowDownIcon />
-                      ) : (
-                        <Svg.ArrowUpIcon />
-                      )}
-                    </Accordion.Toggle>
-                    <Accordion.Collapse>
-                      {reservation?.data?.slot?.map((elm, key) => (
-                        <Info key={key}>
-                          <div style={{ display: 'flex' }}>
-                            <Text
-                              style={{
-                                fontWeight: 800,
-                                padding: '0 7px',
-                                borderRightStyle: 'solid',
-                                borderWidth: '1px',
-                                borderColor: 'gray',
-                              }}
-                            >
-                              {key + 1}.
-                              {(type === 'pt' && 'Ders') ||
-                                (type === 'dt' && 'Seans')}
-                            </Text>
-                            <Svg.Date style={{ marginLeft: '5px' }} />
-                            <Text
-                              color="#00B2A9"
-                              style={{
-                                fontWeight: 800,
-                                padding: '0 7px',
-                              }}
-                            >
-                              Tarih:
-                            </Text>
-                            <Text
-                              color="gray"
-                              style={{
-                                fontWeight: 800,
-                                padding: '0 7px',
-                              }}
-                            >
-                              {elm.date}
-                            </Text>
-                            <Text
-                              color="#00B2A9"
-                              style={{
-                                fontWeight: 800,
-                                padding: '0 7px',
-                              }}
-                            >
-                              Saat:
-                            </Text>
-                            <Text
-                              color="gray"
-                              style={{
-                                fontWeight: 800,
-                                padding: '0 7px',
-                              }}
-                            >
-                              {elm.hour}
-                            </Text>
-                          </div>
-                          {!reservation?.data?.payment_type && (
-                            <Svg.TrashIcon
-                              onClick={() => {
-                                dispatch(deleteSlot(elm));
-                              }}
-                            />
-                          )}
-                        </Info>
-                      ))}
-                    </Accordion.Collapse>
-                  </Accordion.Item>
-                </AccordionItemWrapper>
-              </Accordion>
-            </Info>
-          </DataContainer>
-          {(type === 'pt' && (
-            <AddTextContainer>
-              <AddHeader>Ders Ekle</AddHeader>
-              <AddDesc>Aynı eğitmen ve salondan daha fazla ders alın</AddDesc>
-            </AddTextContainer>
-          )) ||
-            (type === 'dt' && (
+      {type !== 'buy_packet' &&
+        type !== 'upgrade_packet' &&
+        type !== 'buy_group_lesson' && (
+          <InfoContainer>
+            <DataContainer>
+              <Info borderDisable>
+                <Accordion>
+                  <AccordionItemWrapper>
+                    <Accordion.Item defaultOpen={true}>
+                      <Accordion.Toggle
+                        onToggle={(state) => setToggleState(state)}
+                        className="accordion-toggler"
+                      >
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                          {/*miniIcon*/}
+                          <DarkTitle>{'Rezervasyonlarınız'}</DarkTitle>
+                        </div>
+                        {toggleState ? (
+                          <Svg.ArrowDownIcon />
+                        ) : (
+                          <Svg.ArrowUpIcon />
+                        )}
+                      </Accordion.Toggle>
+                      <Accordion.Collapse>
+                        {reservation?.data?.slot?.map((elm, key) => (
+                          <Info key={key}>
+                            <div style={{ display: 'flex' }}>
+                              <Text
+                                style={{
+                                  fontWeight: 800,
+                                  padding: '0 7px',
+                                  borderRightStyle: 'solid',
+                                  borderWidth: '1px',
+                                  borderColor: 'gray',
+                                }}
+                              >
+                                {key + 1}.
+                                {(type === 'pt' && 'Ders') ||
+                                  (type === 'dt' && 'Seans')}
+                              </Text>
+                              <Svg.Date style={{ marginLeft: '5px' }} />
+                              <Text
+                                color="#00B2A9"
+                                style={{
+                                  fontWeight: 800,
+                                  padding: '0 7px',
+                                }}
+                              >
+                                Tarih:
+                              </Text>
+                              <Text
+                                color="gray"
+                                style={{
+                                  fontWeight: 800,
+                                  padding: '0 7px',
+                                }}
+                              >
+                                {elm.date}
+                              </Text>
+                              <Text
+                                color="#00B2A9"
+                                style={{
+                                  fontWeight: 800,
+                                  padding: '0 7px',
+                                }}
+                              >
+                                Saat:
+                              </Text>
+                              <Text
+                                color="gray"
+                                style={{
+                                  fontWeight: 800,
+                                  padding: '0 7px',
+                                }}
+                              >
+                                {elm.hour}
+                              </Text>
+                            </div>
+                            {!reservation?.data?.payment_type && (
+                              <Svg.TrashIcon
+                                onClick={() => {
+                                  dispatch(deleteSlot(elm));
+                                }}
+                              />
+                            )}
+                          </Info>
+                        ))}
+                      </Accordion.Collapse>
+                    </Accordion.Item>
+                  </AccordionItemWrapper>
+                </Accordion>
+              </Info>
+            </DataContainer>
+            {(type === 'pt' && (
               <AddTextContainer>
-                <AddHeader>Seans Ekle</AddHeader>
-                <AddDesc>
-                  Aynı diyetisyen ve klinikten daha fazla randevu alın
-                </AddDesc>
+                <AddHeader>Ders Ekle</AddHeader>
+                <AddDesc>Aynı eğitmen ve salondan daha fazla ders alın</AddDesc>
               </AddTextContainer>
-            ))}
-        </InfoContainer>
-      )}
+            )) ||
+              (type === 'dt' && (
+                <AddTextContainer>
+                  <AddHeader>Seans Ekle</AddHeader>
+                  <AddDesc>
+                    Aynı diyetisyen ve klinikten daha fazla randevu alın
+                  </AddDesc>
+                </AddTextContainer>
+              ))}
+          </InfoContainer>
+        )}
       <ConfirmContainer>
         <BottomContainer>
           <Text style={{ fontWeight: 800 }}>Toplam Ücret</Text>
           <Text color="#00B2A9" style={{ fontWeight: 800, fontSize: 30 }}>
-            {(type == 'buy_packet' || type == 'upgrade_packet')
-              && (buyPacket?.reservation?.totals_amount ? buyPacket?.reservation?.totals_amount+'₺': 0 + ' ₺')
-            }
-            {
-              (type == 'pt' || type == 'dt' || type == 'gym' || type == 'packet') &&
-              (reservation?.data?.totals_amount ? reservation?.data?.totals_amount+'₺':0+' ₺' )
-            }
-            {
-              (type == 'buy_group_lesson') &&( buyGroupLesson?.reservation?.totals_amount ?  buyGroupLesson?.reservation?.totals_amount+'₺':0+ ' ₺' )
-            }
-
+            {(type == 'buy_packet' || type == 'upgrade_packet') &&
+              (buyPacket?.reservation?.totals_amount
+                ? buyPacket?.reservation?.totals_amount + '₺'
+                : 0 + ' ₺')}
+            {(type == 'pt' ||
+              type == 'dt' ||
+              type == 'gym' ||
+              type == 'packet') &&
+              (reservation?.data?.totals_amount
+                ? reservation?.data?.totals_amount + '₺'
+                : 0 + ' ₺')}
+            {type == 'buy_group_lesson' &&
+              (buyGroupLesson?.reservation?.totals_amount
+                ? buyGroupLesson?.reservation?.totals_amount + '₺'
+                : 0 + ' ₺')}
           </Text>
         </BottomContainer>
         {(type == 'pt' || type == 'dt' || type == 'gym' || type == 'packet') &&
@@ -728,30 +749,55 @@ export default function PaymentCard({ type, subType, dateOption }) {
                     </text>
                   </div>
                 )) || (
-                  <div
-                    style={{
-                      width: '100%',
-                      display: 'flex',
-                      padding: '40px',
-                    }}
-                  >
-                    <Svg.CencelIcon></Svg.CencelIcon>
-                    <text style={{ marginLeft: '5px' }}>
-                      Seçiminiz Rezervasyon İçin Uygun Değildir
+                <div
+                  style={{
+                    width: '100%',
+                    display: 'flex',
+                    padding: '40px',
+                  }}
+                >
+                  <Svg.CencelIcon></Svg.CencelIcon>
+                  <text style={{ marginLeft: '5px' }}>
+                    Seçiminiz Rezervasyon İçin Uygun Değildir
                   </text>
-                  </div>
-                )}
-              <BottomContainer>
-                <Button
-                  style={{ width: '100%', padding: '20px' }}
-                  className="blue"
-                  text="Cüzdanımdan Öde"
-                  onClick={() => {
-                    if (reservation?.data?.session) {
-                      if (
-                        reservationCalendar?.data?.slice &&
-                        reservationCalendar?.data?.slice?.length > 0
-                      ) {
+                </div>
+              )}
+              {wallet?.data?.balance > 0 ? (
+                <BottomContainer>
+                  <Button
+                    style={{ width: '100%', padding: '20px' }}
+                    className="blue"
+                    text="Cüzdanımdan Öde"
+                    onClick={() => {
+                      if (reservation?.data?.session) {
+                        if (
+                          reservationCalendar?.data?.slice &&
+                          reservationCalendar?.data?.slice?.length > 0
+                        ) {
+                          var wallet_balance = wallet?.data?.balance || 0;
+                          var amount = reservation?.data?.totals_amount || 0;
+                          var diff = wallet_balance - amount;
+                          if (diff < 0) {
+                            selectPaymentType('both');
+                          } else {
+                            selectPaymentType('wallet');
+                          }
+                        } else {
+                          toast.error('Lütfen Seçiminizi Gözden Geçiriniz!', {
+                            position: 'bottom-right',
+                            autoClose: 4000,
+                          });
+                        }
+                      } else if (type == 'gym') {
+                        var wallet_balance = wallet?.data?.balance || 0;
+                        var amount = reservation?.data?.totals_amount || 0;
+                        var diff = wallet_balance - amount;
+                        if (diff < 0) {
+                          selectPaymentType('both');
+                        } else {
+                          selectPaymentType('wallet');
+                        }
+                      } else if (type == 'upgrade_packet') {
                         var wallet_balance = wallet?.data?.balance || 0;
                         var amount = reservation?.data?.totals_amount || 0;
                         var diff = wallet_balance - amount;
@@ -761,38 +807,18 @@ export default function PaymentCard({ type, subType, dateOption }) {
                           selectPaymentType('wallet');
                         }
                       } else {
-                        toast.error('Lütfen Seçiminizi Gözden Geçiriniz!', {
+                        toast.error('Lütfen Oturum Türü Seçiniz!', {
                           position: 'bottom-right',
                           autoClose: 4000,
                         });
                       }
-                    } else if (type == 'gym') {
-                      var wallet_balance = wallet?.data?.balance || 0;
-                      var amount = reservation?.data?.totals_amount || 0;
-                      var diff = wallet_balance - amount;
-                      if (diff < 0) {
-                        selectPaymentType('both');
-                      } else {
-                        selectPaymentType('wallet');
-                      }
-                    } else if (type == 'upgrade_packet') {
-                      var wallet_balance = wallet?.data?.balance || 0;
-                      var amount = reservation?.data?.totals_amount || 0;
-                      var diff = wallet_balance - amount;
-                      if (diff < 0) {
-                        selectPaymentType('both');
-                      } else {
-                        selectPaymentType('wallet');
-                      }
-                    } else {
-                      toast.error('Lütfen Oturum Türü Seçiniz!', {
-                        position: 'bottom-right',
-                        autoClose: 4000,
-                      });
-                    }
-                  }}
-                />
-              </BottomContainer>
+                    }}
+                  />
+                </BottomContainer>
+              ) : (
+                ''
+              )}
+
               <BottomContainer style={{ margin: '5px' }}>
                 <Button
                   style={{ width: '100%', padding: '20px' }}
@@ -840,23 +866,29 @@ export default function PaymentCard({ type, subType, dateOption }) {
             </BottomContainer>
           ) : (
             <>
-              <BottomContainer>
-                <Button
-                  style={{ width: '100%', padding: '20px' }}
-                  className="blue"
-                  text="Cüzdanımdan Öde"
-                  onClick={() => {
-                    var wallet_balance = wallet?.data?.balance || 0;
-                    var amount = buyGroupLesson?.reservation?.totals_amount || 0;
-                    var diff = wallet_balance - amount;
-                    if (diff < 0) {
-                      selectPaymentTypeGroupLesson('both');
-                    } else {
-                      selectPaymentTypeGroupLesson('wallet');
-                    }
-                  }}
-                />
-              </BottomContainer>
+              {wallet?.data?.balance > 0 ? (
+                <BottomContainer>
+                  <Button
+                    style={{ width: '100%', padding: '20px' }}
+                    className="blue"
+                    text="Cüzdanımdan Öde"
+                    onClick={() => {
+                      var wallet_balance = wallet?.data?.balance || 0;
+                      var amount =
+                        buyGroupLesson?.reservation?.totals_amount || 0;
+                      var diff = wallet_balance - amount;
+                      if (diff < 0) {
+                        selectPaymentTypeGroupLesson('both');
+                      } else {
+                        selectPaymentTypeGroupLesson('wallet');
+                      }
+                    }}
+                  />
+                </BottomContainer>
+              ) : (
+                ''
+              )}
+
               <BottomContainer style={{ margin: '5px' }}>
                 <Button
                   style={{ width: '100%', padding: '20px' }}
@@ -895,23 +927,28 @@ export default function PaymentCard({ type, subType, dateOption }) {
             </BottomContainer>
           ) : (
             <>
-              <BottomContainer>
-                <Button
-                  style={{ width: '100%', padding: '20px' }}
-                  className="blue"
-                  text="Cüzdanımdan Öde"
-                  onClick={() => {
-                    var wallet_balance = wallet?.data?.balance || 0;
-                    var amount = buyPacket?.reservation?.totals_amount || 0;
-                    var diff = wallet_balance - amount;
-                    if (diff < 0) {
-                      selectPaymentTypePacket('both');
-                    } else {
-                      selectPaymentTypePacket('wallet');
-                    }
-                  }}
-                />
-              </BottomContainer>
+              {wallet?.data?.balance > 0 ? (
+                <BottomContainer>
+                  <Button
+                    style={{ width: '100%', padding: '20px' }}
+                    className="blue"
+                    text="Cüzdanımdan Öde"
+                    onClick={() => {
+                      var wallet_balance = wallet?.data?.balance || 0;
+                      var amount = buyPacket?.reservation?.totals_amount || 0;
+                      var diff = wallet_balance - amount;
+                      if (diff < 0) {
+                        selectPaymentTypePacket('both');
+                      } else {
+                        selectPaymentTypePacket('wallet');
+                      }
+                    }}
+                  />
+                </BottomContainer>
+              ) : (
+                ''
+              )}
+
               <BottomContainer style={{ margin: '5px' }}>
                 <Button
                   style={{ width: '100%', padding: '20px' }}
@@ -1294,9 +1331,9 @@ const AccordionItemWrapper = styled.div`
   .accordion-toggler {
     display: flex;
     background: ${(p) =>
-    p.parent
-      ? '#EFEFEF'
-      : p.accordionBackground
+      p.parent
+        ? '#EFEFEF'
+        : p.accordionBackground
         ? p.accordionBackground
         : '#F8F8F8'};
     justify-content: space-between;
