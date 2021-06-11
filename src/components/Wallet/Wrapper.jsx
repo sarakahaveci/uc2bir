@@ -89,10 +89,22 @@ const Wrapper = () => {
                             </td>
                           </tr>
                         )}
-                        {!transactionsData[0]?.amount == 0 && (
+                        {transactionsData[0]?.amount ? (
                           <tr>
                             <td>Tutar</td>
                             <td className="text-right">
+                              {transactionsData[0]?.amount_type}
+                              {parseFloat(transactionsData[0]?.amount).toFixed(
+                                2
+                              )}
+                              ₺
+                            </td>
+                          </tr>
+                        ) : (
+                          <tr>
+                            <td>Tutar</td>
+                            <td className="text-right">
+                              {transactionsData[0]?.amount_type}
                               {parseFloat(transactionsData[0]?.amount).toFixed(
                                 2
                               )}
