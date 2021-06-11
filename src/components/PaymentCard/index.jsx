@@ -7,7 +7,7 @@ import { space } from 'styled-system';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { animateScroll as scroll } from 'react-scroll';
-
+import { useHistory } from 'react-router-dom'
 import {
   setReservation,
   deleteSlot,
@@ -25,7 +25,7 @@ import moment from 'moment';
 export default function PaymentCard({ type, subType, dateOption }) {
   const formRef = useRef(null);
   const packetFormRef = useRef(null);
-
+  const history = useHistory();
   const dispatch = useDispatch();
   const reservation = useSelector((state) => state.reservation);
   const buyPacket = useSelector((state) => state.buyPacket);
@@ -250,10 +250,16 @@ export default function PaymentCard({ type, subType, dateOption }) {
       reservation?.data?.expiration_year &&
       reservation?.data?.cvc
     ) {
-      dispatch(sendReservation('pt', removeEmpty(json), () => {}));
+      dispatch(sendReservation('pt', removeEmpty(json), () => {
+        if (json.payment_type == 'wallet') {
+          history.push('/buy/success')
+        }
+      }));
     } else {
       if (reservation?.data?.payment_type == 'wallet') {
-        dispatch(sendReservation('pt', removeEmpty(json), () => {}));
+        dispatch(sendReservation('pt', removeEmpty(json), () => {
+          history.push('/buy/success')
+        }));
       } else {
         toast.error('Eksik Kart Bilgilerini Doldurunuz !', {
           position: 'bottom-right',
@@ -293,10 +299,16 @@ export default function PaymentCard({ type, subType, dateOption }) {
       reservation?.data?.expiration_year &&
       reservation?.data?.cvc
     ) {
-      dispatch(sendReservation('bs', removeEmpty(json), () => {}));
+      dispatch(sendReservation('bs', removeEmpty(json), () => {
+        if (json.payment_type == 'wallet') {
+          history.push('/buy/success')
+        }
+      }));
     } else {
       if (reservation?.data?.payment_type == 'wallet') {
-        dispatch(sendReservation('bs', removeEmpty(json), () => {}));
+        dispatch(sendReservation('bs', removeEmpty(json), () => {
+          history.push('/buy/success')
+        }));
       } else {
         toast.error('Eksik Kart Bilgilerini Doldurunuz !', {
           position: 'bottom-right',
@@ -328,11 +340,17 @@ export default function PaymentCard({ type, subType, dateOption }) {
       buyPacket?.reservation?.expiration_year &&
       buyPacket?.reservation?.cvc
     ) {
-      dispatch(sendReservation('upgrade_packet', removeEmpty(json), () => {}));
+      dispatch(sendReservation('upgrade_packet', removeEmpty(json), () => {
+        if (json.payment_type == 'wallet') {
+          history.push('/buy/success')
+        }
+      }));
     } else {
       if (buyPacket?.reservation?.payment_type == 'wallet') {
         dispatch(
-          sendReservation('upgrade_packet', removeEmpty(json), () => {})
+          sendReservation('upgrade_packet', removeEmpty(json), () => {
+            history.push('/buy/success')
+          })
         );
       } else {
         toast.error('Eksik Kart Bilgilerini Doldurunuz !', {
@@ -349,7 +367,11 @@ export default function PaymentCard({ type, subType, dateOption }) {
       is_contracts_accepted: true,
       payment_type: buyPacket.reservation?.payment_type,
     };
-    dispatch(sendPackageReservation(subType, removeEmpty(json), () => {})); //Burasını değiş
+    dispatch(sendPackageReservation(subType, removeEmpty(json), () => {
+      if (json.payment_type == 'wallet') {
+        history.push('/buy/success')
+      }
+    })); //Burasını değiş
   }
   function sendPaymentPtGroup() {
     var json = {
@@ -357,7 +379,12 @@ export default function PaymentCard({ type, subType, dateOption }) {
       is_contracts_accepted: true,
       payment_type: buyGroupLesson.reservation?.payment_type,
     };
-    dispatch(sendGroupReservation(removeEmpty(json), () => {})); //Burasını değiş
+    dispatch(sendGroupReservation(removeEmpty(json), () => {
+
+      if (json.payment_type == 'wallet') {
+        history.push('/buy/success')
+      }
+     })); //Burasını değiş
   }
   function sendPaymentDT() {
     var json = {
@@ -383,10 +410,17 @@ export default function PaymentCard({ type, subType, dateOption }) {
       reservation?.data?.expiration_year &&
       reservation?.data?.cvc
     ) {
-      dispatch(sendReservation('dt', removeEmpty(json), () => {}));
+      dispatch(sendReservation('dt', removeEmpty(json), () => {
+        if (json.payment_type == 'wallet') {
+          history.push('/buy/success')
+        }
+       }));
     } else {
       if (reservation?.data?.payment_type == 'wallet') {
-        dispatch(sendReservation('dt', removeEmpty(json), () => {}));
+        dispatch(sendReservation('dt', removeEmpty(json), () => {
+          history.push('/buy/success')
+
+         }));
       } else {
         toast.error('Eksik Kart Bilgilerini Doldurunuz !', {
           position: 'bottom-right',
@@ -424,7 +458,11 @@ export default function PaymentCard({ type, subType, dateOption }) {
         sendReservation(
           reservation?.data?.packetInfo?.type,
           removeEmpty(json),
-          () => {}
+          () => {
+            if (json.payment_type == 'wallet') {
+              history.push('/buy/success')
+            }
+          }
         )
       );
     } else {
@@ -433,7 +471,11 @@ export default function PaymentCard({ type, subType, dateOption }) {
           sendReservation(
             reservation?.data?.packetInfo?.type,
             removeEmpty(json),
-            () => {}
+            () => { 
+              history.push('/buy/success')
+
+
+            }
           )
         );
       } else {
@@ -495,8 +537,8 @@ export default function PaymentCard({ type, subType, dateOption }) {
                       {item.time}
                     </Hour>
                   ))) || (
-                  <text>Seçtiğiniz koşullara uygun boş zaman bulunamadı..</text>
-                )}
+                    <text>Seçtiğiniz koşullara uygun boş zaman bulunamadı..</text>
+                  )}
               </Hours>
             </>
           )}
@@ -763,19 +805,19 @@ export default function PaymentCard({ type, subType, dateOption }) {
                     </text>
                   </div>
                 )) || (
-                <div
-                  style={{
-                    width: '100%',
-                    display: 'flex',
-                    padding: '40px',
-                  }}
-                >
-                  <Svg.CencelIcon></Svg.CencelIcon>
-                  <text style={{ marginLeft: '5px' }}>
-                    Seçiminiz Rezervasyon İçin Uygun Değildir
+                  <div
+                    style={{
+                      width: '100%',
+                      display: 'flex',
+                      padding: '40px',
+                    }}
+                  >
+                    <Svg.CencelIcon></Svg.CencelIcon>
+                    <text style={{ marginLeft: '5px' }}>
+                      Seçiminiz Rezervasyon İçin Uygun Değildir
                   </text>
-                </div>
-              )}
+                  </div>
+                )}
               {wallet?.data?.balance > reservation?.data?.totals_amount ? (
                 <BottomContainer>
                   <Button
@@ -881,7 +923,7 @@ export default function PaymentCard({ type, subType, dateOption }) {
           ) : (
             <>
               {wallet?.data?.balance >
-              buyGroupLesson?.reservation?.totals_amount ? (
+                buyGroupLesson?.reservation?.totals_amount ? (
                 <BottomContainer>
                   <Button
                     style={{ width: '100%', padding: '20px' }}
@@ -1346,9 +1388,9 @@ const AccordionItemWrapper = styled.div`
   .accordion-toggler {
     display: flex;
     background: ${(p) =>
-      p.parent
-        ? '#EFEFEF'
-        : p.accordionBackground
+    p.parent
+      ? '#EFEFEF'
+      : p.accordionBackground
         ? p.accordionBackground
         : '#F8F8F8'};
     justify-content: space-between;
