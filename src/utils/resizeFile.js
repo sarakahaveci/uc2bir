@@ -2,9 +2,9 @@ import Resizer from 'react-image-file-resizer';
 
 const resizeFile = (file) =>
   new Promise((resolve) => {
-    if (file.type.includes('image')) {
+    if (file?.type?.includes('image')) {
       //Only İmage Formats
-      Resizer.imageFileResizer(
+      Resizer?.imageFileResizer(
         file,
         800,
         800,

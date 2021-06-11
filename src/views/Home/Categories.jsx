@@ -15,7 +15,7 @@ const Categories = ({ className, background, children }) => {
 
   const handleSearch = async (val) => {
     await dispatch(getSearchResults(val.toLocaleLowerCase(), handleSuccessSearch));
-    history.push('/search/' + val.toLocaleLowerCase());
+    history.push('/search/' + val.toLocaleLowerCase('tr'));
   };
 
   return (
