@@ -6,6 +6,7 @@ import Svg from 'components/statics/svg';
 import { space } from 'styled-system';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
+import { animateScroll as scroll } from 'react-scroll';
 
 import {
   setReservation,
@@ -261,7 +262,12 @@ export default function PaymentCard({ type, subType, dateOption }) {
       }
     }
   }
-
+  function scrollToTop() {
+    scroll.scrollToTop({
+      duration: 1000,
+      smooth: true,
+    });
+  }
   function sendPaymentGYM() {
     var json = {
       bs_id: reservation?.data?.bs_id,
@@ -667,12 +673,20 @@ export default function PaymentCard({ type, subType, dateOption }) {
                 </Accordion>
               </Info>
             </DataContainer>
-            {(type === 'pt' && (
+            {(dateOption && type === 'pt' && (
               <AddTextContainer>
-                <AddHeader>Ders Ekle</AddHeader>
+                <AddHeader onClick={scrollToTop}>Ders Ekle</AddHeader>
                 <AddDesc>Aynı eğitmen ve salondan daha fazla ders alın</AddDesc>
               </AddTextContainer>
             )) ||
+              (dateOption && type === 'dt' && (
+                <AddTextContainer onClick={scrollToTop}>
+                  <AddHeader>Seans Ekle</AddHeader>
+                  <AddDesc>
+                    Aynı diyetisyen ve klinikten daha fazla randevu alın
+                  </AddDesc>
+                </AddTextContainer>
+              )) ||
               (type === 'dt' && (
                 <AddTextContainer>
                   <AddHeader>Seans Ekle</AddHeader>

@@ -32,8 +32,15 @@ const Login = () => {
 
   const dispatch = useDispatch();
 
-  const loginSuccessHandler = () =>
-    history.push('/myprofile/settings/reservation');
+  const loginSuccessHandler = (data) => {
+    if(data?.data?.user?.type_id ==1){
+      history.push('/')
+    }else{
+      history.push('/myprofile/settings/reservation');
+
+    }
+
+  }
 
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -220,8 +227,8 @@ const Login = () => {
                   nonce='nonce'
                   usePopup={true}
 
-                  responseType={"code"} 
-                  responseMode={"query"}  
+                  responseType={"code"}
+                  responseMode={"query"}
                   callback={(response) => responseSocial('apple', response)} // default = undefined
                   //onError={(error) => console.error(error)} // default = undefined
                   render={renderProps => (
