@@ -178,7 +178,7 @@ const Dietitian = () => {
               <div style={{ padding: '10px' }}>
                 <text>
                   Yapacağınız işlem sonrası cüdanınızda kalacak olan toplam
-                  tutar {reservation?.data?.totals_amount} TL’dir
+                  tutar {diff} TL’dir
                 </text>
               </div>
             </InfoContainer>

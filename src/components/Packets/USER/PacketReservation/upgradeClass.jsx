@@ -78,7 +78,7 @@ const UpgradeClass = ({ setField = () => {} /* globalState */ }) => {
               <div style={{ padding: '10px' }}>
                 <text>
                   Yapacağınız işlem sonrası cüdanınızda kalacak olan toplam
-                  tutar {packet?.reservation?.totals_amount} TL’dir
+                  tutar {diff} TL’dir
                 </text>
               </div>
             </InfoContainer_Wallet>
