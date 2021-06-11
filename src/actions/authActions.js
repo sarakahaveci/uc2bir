@@ -30,13 +30,13 @@ export const login = ({ email, password }, successCallback) => async (
         password,
       },
       transformData: (data) => data.data,
-      callBack: () => {
+      callBack: (data) => {
         toast.success('Giriş Başarılı. Hoş geldiniz!', {
           position: 'bottom-right',
           autoClose: 1500,
         });
 
-        successCallback();
+        successCallback(data);
       },
       errorHandler: (error) =>
         toast.error(error.message, {
