@@ -46,6 +46,11 @@ const Home = ({ setPage = () => { }, setGlobalState = () => { } }) => {
 
         ))}
       </Col>
+      {!(myPackets?.data?.data?.length > 0) &&
+        <div style={{padding: '10px',height:'120px'}}>
+          <text>Satın aldığınız her hangi bir paket bulunmamaktadır</text>
+        </div>
+      }
       <Pagination
         className="mx-auto"
         mt="50px"
