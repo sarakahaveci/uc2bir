@@ -31,7 +31,7 @@ export default function WorkPlace({ userId }) {
       ) : (
         <div className="d-flex">
           <strong className="mx-auto">
-            Kullanıcıya ait Ev Park bulunmamaktadır.
+            Kullanıcının bu çalışmaya yerine ait bilgisi bulunmamaktadır.
           </strong>
         </div>
       )}

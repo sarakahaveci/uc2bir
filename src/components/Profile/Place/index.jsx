@@ -16,7 +16,7 @@ const iconMap = {
 };
 const descriptionMap = {
   gym: "Spor yapmak istediğin salonu burada göremedin mi? Eğitmene mesaj göndererek tercih ettiğin spor salonunda ders verip veremeyeceğini sorabilirsin.",
-  online: "Spor yapmak istediğin yeri kendin belirlerim diyorsan..", // dummy 
+  online: "Bu eğitmenden online görüntülü ders alabilirsiniz.",  
   home_park: "Spor yapmak istediğin yeri burada göremedin mi? Eğitmene mesaj göndererek tercih ettiğin yerde ders vermenin uygun olup olmadığını sorabilirsin. ",
 };
 
@@ -41,7 +41,7 @@ const Place = ({ userId }) => {
         break; 
       case 'online':
         newContent = <WorkPlaceList userId={userId} />;
-        newDesc = null; 
+        newDesc = descriptionMap.online;
         break;
 
       default:

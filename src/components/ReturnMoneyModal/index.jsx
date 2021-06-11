@@ -127,9 +127,8 @@ const ReturnMoneyModal = ({
               <WalletContainer>
                 <Header>Cüzdana Transfer</Header>
                 <Info>
-                  <Text>İptal işleminden sonra aktarılacak olan miktar</Text>
-                  <ValueText>500₺</ValueText>
-                </Info>
+                  <Text>Rezervasyon için ödediğiniz tutar cüzdanınıza geri aktarılacak.</Text>
+                 </Info>
                 <Button
                   className="blue mt-3"
                   text="Onayla"
@@ -246,11 +245,7 @@ const Header = styled.text`
   font-size: 20px;
   margin: 10px 0px;
 `;
-const ValueText = styled.text`
-  font-weight: bold;
-  font-size: 18px;
-  color: var(--blue);
-`;
+ 
 // const Data = styled.div`
 //   display: flex;
 //   justify-content: space-between;
