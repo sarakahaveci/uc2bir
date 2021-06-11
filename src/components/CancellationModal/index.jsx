@@ -92,7 +92,7 @@ const CancalletionModal = ({
             </Text>
 
             <Text textAlign="center" fontSize="1rem" color="dark">
-              {stepTwoData?.remaining_hour}
+              {stepTwoData?.remaining_hour} saat sonraki randevunuzu iptal etmek üzeresiniz.
             </Text>
           </ContextContainer>
 
