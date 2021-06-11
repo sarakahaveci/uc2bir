@@ -776,7 +776,7 @@ export default function PaymentCard({ type, subType, dateOption }) {
                   </text>
                 </div>
               )}
-              {wallet?.data?.balance > 0 ? (
+              {wallet?.data?.balance > reservation?.data?.totals_amount ? (
                 <BottomContainer>
                   <Button
                     style={{ width: '100%', padding: '20px' }}
@@ -880,7 +880,8 @@ export default function PaymentCard({ type, subType, dateOption }) {
             </BottomContainer>
           ) : (
             <>
-              {wallet?.data?.balance > 0 ? (
+              {wallet?.data?.balance >
+              buyGroupLesson?.reservation?.totals_amount ? (
                 <BottomContainer>
                   <Button
                     style={{ width: '100%', padding: '20px' }}
@@ -941,7 +942,7 @@ export default function PaymentCard({ type, subType, dateOption }) {
             </BottomContainer>
           ) : (
             <>
-              {wallet?.data?.balance > 0 ? (
+              {wallet?.data?.balance > buyPacket?.reservation?.totals_amount ? (
                 <BottomContainer>
                   <Button
                     style={{ width: '100%', padding: '20px' }}
