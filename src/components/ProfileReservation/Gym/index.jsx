@@ -296,7 +296,7 @@ const Gym = ({ dateOption = true }) => {
                 )}
               </CardGroup>
             </>
-          )) || null}
+          )) || <text>Seçimlerinize uygun eğitmen bulunmamaktadır!</text>}
         </RadioGroup>
         <Pagination
           mt="50px"
