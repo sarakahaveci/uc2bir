@@ -102,9 +102,10 @@ const Blog = () => {
     return history.push('/mine-blog/' + id);
   };
   const updated = () => {
-    if(fileUrl){
+    if (fileUrl) {
       createData.append('files[]', fileUrl);
     }
+
     createData.append('category_id', category_id);
     createData.append('detail', detail || data.blog.detail);
     createData.append('title', title || data.blog.title);
@@ -336,7 +337,10 @@ const Blog = () => {
                             <BlogContent>
                               <div className="text-group">
                                 <div className="title">{val.title}</div>
-                                <div style={{overflow:'hidden'}} className="content">
+                                <div
+                                  style={{ overflow: 'hidden' }}
+                                  className="content"
+                                >
                                   {val.detail}
                                   <LinkText
                                     onClick={() => {
@@ -347,7 +351,10 @@ const Blog = () => {
                                   </LinkText>
                                 </div>
                               </div>
-                              <div style={{ backgroundImage: `url(${val.photo})` }} className='img' />
+                              <div
+                                style={{ backgroundImage: `url(${val.photo})` }}
+                                className="img"
+                              />
                               <Footer>
                                 <div className="footer-title">
                                   Yazar : {user.name}
@@ -567,6 +574,7 @@ const BlogContent = styled.section`
   .title {
     font-size: 17pt;
     font-weight: bold;
+    line-height: 25px;
   }
 
   .content {

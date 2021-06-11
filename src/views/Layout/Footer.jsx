@@ -78,6 +78,7 @@ const Footer = () => {
             <ul className="footer-contact__wrapper">
               <li>
                 <IconLabel
+                href={`tel:${infoData?.phone}`} 
                   className="icon-label"
                   text={infoData?.phone}
                   icon={AwesomeIcon.Phone}

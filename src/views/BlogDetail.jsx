@@ -72,9 +72,9 @@ const BlogDetail = ({ match }) => {
                       </Col>
                     </Col>
                   </Row>{' '}
-                  <div className="blog-detail__text">
+                  <text className="blog-detail__text">
                     {ReactHtmlParser(decode(detail?.data?.blog?.detail))}
-                  </div>
+                  </text>
                   <div className="blog-detail__img">
                     <img src={detail?.data?.blog?.photo} />
                   </div>
