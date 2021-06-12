@@ -153,7 +153,7 @@ const Approved = ({ setSubPage = () => {} }) => {
                 </>
               </ReservationAccordion>
               <ReservationAccordion
-                miniIcon={<Svg.SessionType.Online />}
+                miniIcon={<Svg.SessionType.Clinic />}
                 title="KLİNİK"
                 defaultOpen
               >
