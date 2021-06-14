@@ -9,7 +9,6 @@ import { useHistory } from 'react-router-dom';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import styled from 'styled-components/macro';
 
 import { forgotPassword, resetPassword } from '../../actions';
 
@@ -20,17 +19,13 @@ const ForgotPassword = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [code, setCode] = useState('');
-  const [password, setPassword] = useState('');
-  const [password_retry, setPassword_retry] = useState('');
-
+  const [code, setCode] = useState({
+    code: '',
+    password: '',
+    password_retry: '',
+  });
   const handleClose = () => setOpen(false);
-  const handleClickOpen = () => {
-    setCode('')
-    setPassword('')
-    setPassword_retry('')
-    setOpen(true)
-  };
+  const handleClickOpen = () => setOpen(true);
 
   const [open, setOpen] = useState(false);
   const fullWidth = true;
@@ -81,18 +76,16 @@ const ForgotPassword = () => {
   };
 
   const actionResetPasword = () => {
-    dispatch(resetPassword({ email: email, password: password, password_retry: password_retry, code: code }, rSuccsess, rErr));
+    dispatch(resetPassword({ email: email, ...code }, rSuccsess, rErr));
   };
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    setCode('')
-    setPassword('')
-    setPassword_retry('')
     actionForgotPasword();
   };
 
-  const onClick = async () => {
+  const onClick = async (event) => {
+    event.preventDefault();
     actionResetPasword();
   };
 
@@ -112,8 +105,6 @@ const ForgotPassword = () => {
                       name="email"
                       label="E-mail'inizi giriniz."
                       type="text"
-                      autoComplete="off"
-
                       icon={AwesomeIcon.User}
                     />
                     {getForgotPassword.isLoading ? (
@@ -146,66 +137,87 @@ const ForgotPassword = () => {
                       <DialogTitle className="text-center">
                         Parolanızı Sıfırlayın!
                       </DialogTitle>
-                      <DialogContent>
+                      <DialogContent id="forgot-pass">
                         <div className="d-flex flex-wrap dialog-center">
                           <div
                             className="d-flex flex-wrap"
                             style={{ marginBottom: 35 }}
                           >
-
-                            <Input
-                              required
-                              type="text"
-                              name="code2"
-                              defaultValue={code}
-                              placeholder="Kodu giriniz."
-                              autoComplete="off"
-                              onChange={(e) =>
-                                setCode(
-                                  e.target.value,
-                                )
-                              }
-                            />
-                            <Input
-                              required
-                              type="password"
-                              name="password2"
-                              placeholder="Yeni Password"
-                              defaultValue={password}
-                              autoComplete="off"
-                              onChange={(e) =>
-                                setPassword(
-                                  e.target.value,
-                                )
-                              }
-                            />
-                            <Input
-                              required
-                              type="password"
-                              defaultValue={password_retry}
-                              name="password_retry2"
-                              placeholder="Yeni Password Tekrar"
-                              autoComplete="off"
-                              onChange={(e) => {
-                                setPassword_retry(
-                                  e.target.value,
-                                )
-                              }}
-                            />
-                            {getResetPassword.isLoading ? (
-                              <Button
-                                text={`Yükleniyor...`}
-                                className="blue w-100"
-                                mt="30px"
+                            <form
+                              key="customForm-1"
+                              id={"forgot-pass"}
+                              className="d-flex flex-wrap"
+                              onSubmit={onClick}
+                            >
+                              <Material.TextField
+                                required
+                                type="text"
+                                name="code"
+                                key="customCode1"
+                                inputProps={{
+                                  autoComplete: 'off'
+                                }}
+                                className="forgot-input-custom"
+                                label="Kodu giriniz."
+                                autoComplete="off"
+                                onChange={(e) =>
+                                  setCode({
+                                    ...code,
+                                    [e.target.name]: e.target.value,
+                                  })
+                                }
                               />
-                            ) : (
-                              <Button
-                                onClick={onClick}
-                                text={`Şifremi Güncelle`}
-                                className="blue w-100"
-                                mt="30px"
+                              <Material.TextField
+                                required
+                                key="customInput1"
+                                type="password"
+                                className="forgot-input-custom"
+                                name="password"
+                                label="Yeni Password"
+                                autoComplete="off"
+                                inputProps={{
+                                  autoComplete: 'off'
+                                }}
+                                onChange={(e) =>
+                                  setCode({
+                                    ...code,
+                                    [e.target.name]: e.target.value,
+                                  })
+                                }
                               />
-                            )}
+                              <Material.TextField
+                                required
+                                type="password"
+                                key="customInput2"
+                                inputProps={{
+                                  autoComplete: 'off'
+                                }}
+                                name="password_retry"
+                                className="forgot-input-custom"
+                                label="Yeni Password Tekrar"
+                                autoComplete="off"
+                                onChange={(e) =>
+                                  setCode({
+                                    ...code,
+                                    [e.target.name]: e.target.value,
+                                  })
+                                }
+                              />
+                              {getResetPassword.isLoading ? (
+                                <Button
+                                  text={`Yükleniyor...`}
+                                  className="blue w-100"
+                                  mt="30px"
+                                />
+                              ) : (
+                                <Button
+                                  type="submit"
+                                  text={`Şifremi Güncelle`}
+                                  className="blue w-100"
+                                  mt="30px"
+                                />
+                              )}
+                            </form>
                           </div>
                         </div>
                       </DialogContent>
@@ -220,13 +232,5 @@ const ForgotPassword = () => {
     </>
   );
 };
-
-const Input = styled.input`
-  border: none !important;
-  
-  border-bottom: 1px solid ${(p) => p.theme.colors.blue} !important;
-  margin: 15px !important;
-  background-color: transparent !important;
-`;
 
 export default ForgotPassword;
