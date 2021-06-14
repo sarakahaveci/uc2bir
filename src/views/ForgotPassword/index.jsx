@@ -146,6 +146,7 @@ const ForgotPassword = () => {
                             style={{ marginBottom: 35 }}
                           >
                             <form
+                              name="refreshPassword"
                               className="d-flex flex-wrap"
                               onSubmit={onClick}
                             >
