@@ -155,6 +155,7 @@ const ForgotPassword = () => {
                                 required
                                 type="text"
                                 name="code"
+                                value={code?.code}
                                 label="Kodu giriniz."
                                 autoComplete="off"
                                 onChange={(e) =>
@@ -169,6 +170,8 @@ const ForgotPassword = () => {
                                 type="password"
                                 name="password"
                                 label="Yeni Password"
+                                value={code?.password}
+
                                 autoComplete="off"
                                 onChange={(e) =>
                                   setCode({
@@ -180,6 +183,7 @@ const ForgotPassword = () => {
                               <Material.TextField
                                 required
                                 type="password"
+                                value={code?.password_retry}
                                 name="password_retry"
                                 label="Yeni Password Tekrar"
                                 autoComplete="off"
