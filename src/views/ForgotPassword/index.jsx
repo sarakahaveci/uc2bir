@@ -147,6 +147,7 @@ const ForgotPassword = () => {
                           >
                             <form
                               name="refreshPassword"
+                              autoComplete="off"
                               className="d-flex flex-wrap"
                               onSubmit={onClick}
                             >
