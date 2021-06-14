@@ -20,18 +20,15 @@ const ForgotPassword = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [code, setCode] = useState({
-    code: '',
-    password: '',
-    password_retry: '',
-  });
+  const [code, setCode] = useState('');
+  const [password, setPassword] = useState('');
+  const [password_retry, setPassword_retry] = useState('');
+
   const handleClose = () => setOpen(false);
   const handleClickOpen = () => {
-    setCode({
-      code: '',
-      password: '',
-      password_retry: '',
-    })
+    setCode('')
+    setPassword('')
+    setPassword_retry('')
     setOpen(true)
   };
 
@@ -84,16 +81,14 @@ const ForgotPassword = () => {
   };
 
   const actionResetPasword = () => {
-    dispatch(resetPassword({ email: email, ...code }, rSuccsess, rErr));
+    dispatch(resetPassword({ email: email, password: password, password_retry: password_retry, code: code }, rSuccsess, rErr));
   };
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    setCode({
-      code: '',
-      password: '',
-      password_retry: '',
-    })
+    setCode('')
+    setPassword('')
+    setPassword_retry('')
     actionForgotPasword();
   };
 
@@ -157,63 +152,60 @@ const ForgotPassword = () => {
                             className="d-flex flex-wrap"
                             style={{ marginBottom: 35 }}
                           >
-                           
-                              <Input
-                                required
-                                type="text"
-                                name="code2"
-                                defaultValue={code?.code}
-                                placeholder="Kodu giriniz."
-                                autoComplete="off"
-                                onChange={(e) =>
-                                  setCode({
-                                    ...code,
-                                    code: e.target.value,
-                                  })
-                                }
+
+                            <Input
+                              required
+                              type="text"
+                              name="code2"
+                              defaultValue={code}
+                              placeholder="Kodu giriniz."
+                              autoComplete="off"
+                              onChange={(e) =>
+                                setCode(
+                                  e.target.value,
+                                )
+                              }
+                            />
+                            <Input
+                              required
+                              type="password"
+                              name="password2"
+                              placeholder="Yeni Password"
+                              defaultValue={password}
+                              autoComplete="off"
+                              onChange={(e) =>
+                                setPassword(
+                                  e.target.value,
+                                )
+                              }
+                            />
+                            <Input
+                              required
+                              type="password"
+                              defaultValue={password_retry}
+                              name="password_retry2"
+                              placeholder="Yeni Password Tekrar"
+                              autoComplete="off"
+                              onChange={(e) => {
+                                setPassword_retry(
+                                  e.target.value,
+                                )
+                              }}
+                            />
+                            {getResetPassword.isLoading ? (
+                              <Button
+                                text={`Yükleniyor...`}
+                                className="blue w-100"
+                                mt="30px"
                               />
-                              <Input
-                                required
-                                type="password"
-                                name="password2"
-                                placeholder="Yeni Password"
-                                defaultValue={code?.password}
-                                autoComplete="off"
-                                onChange={(e) =>
-                                  setCode({
-                                    ...code,
-                                    password: e.target.value,
-                                  })
-                                }
+                            ) : (
+                              <Button
+                                onClick={onClick}
+                                text={`Şifremi Güncelle`}
+                                className="blue w-100"
+                                mt="30px"
                               />
-                              <Input
-                                required
-                                type="password"
-                                defaultValue={code?.password_retry}
-                                name="password_retry2"
-                                placeholder="Yeni Password Tekrar"
-                                autoComplete="off"
-                                onChange={(e)=>{
-                                  setCode({
-                                    ...code,
-                                    password_retry: e.target.value,
-                                  })
-                                }}
-                              />
-                              {getResetPassword.isLoading ? (
-                                <Button
-                                  text={`Yükleniyor...`}
-                                  className="blue w-100"
-                                  mt="30px"
-                                />
-                              ) : (
-                                <Button
-                                  onClick={onClick}
-                                  text={`Şifremi Güncelle`}
-                                  className="blue w-100"
-                                  mt="30px"
-                                />
-                              )}
+                            )}
                           </div>
                         </div>
                       </DialogContent>
