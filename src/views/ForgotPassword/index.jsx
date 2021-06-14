@@ -154,9 +154,7 @@ const ForgotPassword = () => {
                                 type="text"
                                 name="code"
                                 key="customCode1"
-                                inputProps={{
-                                  autoComplete: 'off'
-                                }}
+                             
                                 className="forgot-input-custom"
                                 label="Kodu giriniz."
                                 autoComplete="off"
@@ -174,10 +172,8 @@ const ForgotPassword = () => {
                                 className="forgot-input-custom"
                                 name="password"
                                 label="Yeni Password"
-                                autoComplete="off"
-                                inputProps={{
-                                  autoComplete: 'off'
-                                }}
+                                autoComplete="new-password"
+                         
                                 onChange={(e) =>
                                   setCode({
                                     ...code,
@@ -189,13 +185,11 @@ const ForgotPassword = () => {
                                 required
                                 type="password"
                                 key="customInput2"
-                                inputProps={{
-                                  autoComplete: 'off'
-                                }}
+                     
                                 name="password_retry"
                                 className="forgot-input-custom"
                                 label="Yeni Password Tekrar"
-                                autoComplete="off"
+                                autoComplete="new-password"
                                 onChange={(e) =>
                                   setCode({
                                     ...code,
