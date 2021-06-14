@@ -209,7 +209,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
       case 'home_park':
         return (
           <GymWrapper disable={reservation?.data?.slot?.length > 0}>
-            <Text color="#9B9B9B">{'Spor Alanı Seçiniz:'}</Text>
+            <Text color="#9B9B9B">{'Ev Park Seçiniz:'}</Text>
             <RadioGroup
               row
               aria-label="workArea"
@@ -274,7 +274,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
                     />
                   )}
                 </div>
-              )) || null}
+              )) || <text>Uygun Alan bulunmamaktadır</text>}
             </RadioGroup>
           </GymWrapper>
         );

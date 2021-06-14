@@ -256,16 +256,26 @@ export default function PaymentCard({ type, subType, dateOption }) {
         }
       }));
     } else {
-      if (reservation?.data?.payment_type == 'wallet') {
-        dispatch(sendReservation('pt', removeEmpty(json), () => {
-          history.push('/buy/success')
-        }));
-      } else {
-        toast.error('Eksik Kart Bilgilerini Doldurunuz !', {
-          position: 'bottom-right',
-          autoClose: 4000,
-        });
-      }
+        if (reservation?.data?.session == 'gym' || reservation?.data?.session == 'home_park'){
+          if(!reservation?.data?.location_id){
+            toast.error('Lokasyon seçimi yapmadınız!', {
+              position: 'bottom-right',
+              autoClose: 4000,
+            });
+            return;
+          }
+        }
+        
+        if (reservation?.data?.payment_type == 'wallet') {
+          dispatch(sendReservation('pt', removeEmpty(json), () => {
+            history.push('/buy/success')
+          }));
+        } else {
+          toast.error('Eksik Kart Bilgilerini Doldurunuz !', {
+            position: 'bottom-right',
+            autoClose: 4000,
+          });
+        }
     }
   }
   function scrollToTop() {
@@ -305,6 +315,7 @@ export default function PaymentCard({ type, subType, dateOption }) {
         }
       }));
     } else {
+     
       if (reservation?.data?.payment_type == 'wallet') {
         dispatch(sendReservation('bs', removeEmpty(json), () => {
           history.push('/buy/success')
@@ -384,7 +395,7 @@ export default function PaymentCard({ type, subType, dateOption }) {
       if (json.payment_type == 'wallet') {
         history.push('/buy/success')
       }
-     })); //Burasını değiş
+    })); //Burasını değiş
   }
   function sendPaymentDT() {
     var json = {
@@ -414,13 +425,14 @@ export default function PaymentCard({ type, subType, dateOption }) {
         if (json.payment_type == 'wallet') {
           history.push('/buy/success')
         }
-       }));
+      }));
     } else {
+     
       if (reservation?.data?.payment_type == 'wallet') {
         dispatch(sendReservation('dt', removeEmpty(json), () => {
           history.push('/buy/success')
 
-         }));
+        }));
       } else {
         toast.error('Eksik Kart Bilgilerini Doldurunuz !', {
           position: 'bottom-right',
@@ -471,7 +483,7 @@ export default function PaymentCard({ type, subType, dateOption }) {
           sendReservation(
             reservation?.data?.packetInfo?.type,
             removeEmpty(json),
-            () => { 
+            () => {
               history.push('/buy/success')
 
 

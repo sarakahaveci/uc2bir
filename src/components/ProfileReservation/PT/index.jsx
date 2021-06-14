@@ -243,7 +243,7 @@ const PT = () => {
                     )}
                   </CardGroup>
                 </>
-              )) || null}
+              )) || <text>Uygun Spor Alanı bulunmamaktadır</text>}
             </RadioGroup>
           </GymWrapper>
         );
@@ -320,7 +320,7 @@ const PT = () => {
                     />
                   )}
                 </div>
-              )) || null}
+              )) || <text>Uygun Alan bulunmamaktadır</text>}
             </RadioGroup>
           </GymWrapper>
         );
