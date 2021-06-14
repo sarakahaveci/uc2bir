@@ -161,44 +161,44 @@ const ForgotPassword = () => {
                               <Input
                                 required
                                 type="text"
-                                name="code"
-                                value={code?.code}
+                                name="code2"
+                                defaultValue={code?.code}
                                 placeholder="Kodu giriniz."
                                 autoComplete="off"
                                 onChange={(e) =>
                                   setCode({
                                     ...code,
-                                    [e.target.name]: e.target.value,
+                                    code: e.target.value,
                                   })
                                 }
                               />
                               <Input
                                 required
                                 type="password"
-                                name="password"
+                                name="password2"
                                 placeholder="Yeni Password"
-                                value={code?.password}
+                                defaultValue={code?.password}
                                 autoComplete="off"
                                 onChange={(e) =>
                                   setCode({
                                     ...code,
-                                    [e.target.name]: e.target.value,
+                                    password: e.target.value,
                                   })
                                 }
                               />
                               <Input
                                 required
                                 type="password"
-                                value={code?.password_retry}
-                                name="password_retry"
+                                defaultValue={code?.password_retry}
+                                name="password_retry2"
                                 placeholder="Yeni Password Tekrar"
                                 autoComplete="off"
-                                onChange={(e) =>
+                                onChange={(e)=>{
                                   setCode({
                                     ...code,
-                                    [e.target.name]: e.target.value,
+                                    password_retry: e.target.value,
                                   })
-                                }
+                                }}
                               />
                               {getResetPassword.isLoading ? (
                                 <Button
