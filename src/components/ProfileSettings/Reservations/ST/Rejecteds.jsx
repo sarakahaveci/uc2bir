@@ -74,11 +74,9 @@ const Rejecteds = ({ setRejectCount = () => { } }) => {
   useEffect(() => {
     for (const i in items?.date) {
       if (i === moment(selectedDate).format('DD.MM.YYYY')) {
-        console.log('bum')
         setRejectCount(items?.date[i]);
 
       } else {
-        console.log('gum')
         setRejectCount(0);
       }
     }

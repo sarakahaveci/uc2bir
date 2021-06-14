@@ -152,6 +152,7 @@ const ForgotPassword = () => {
                                 type="text"
                                 name="code"
                                 label="Kodu giriniz."
+                                autoComplete={'off'}
                                 onChange={(e) =>
                                   setCode({
                                     ...code,
@@ -164,6 +165,7 @@ const ForgotPassword = () => {
                                 type="password"
                                 name="password"
                                 label="Yeni Password"
+                                autoComplete={'off'}
                                 onChange={(e) =>
                                   setCode({
                                     ...code,
@@ -176,6 +178,7 @@ const ForgotPassword = () => {
                                 type="password"
                                 name="password_retry"
                                 label="Yeni Password Tekrar"
+                                autoComplete={'off'}
                                 onChange={(e) =>
                                   setCode({
                                     ...code,
