@@ -26,7 +26,14 @@ const ForgotPassword = () => {
     password_retry: '',
   });
   const handleClose = () => setOpen(false);
-  const handleClickOpen = () => setOpen(true);
+  const handleClickOpen = () => {
+    setCode({
+      code: '',
+      password: '',
+      password_retry: '',
+    })
+    setOpen(true)
+  };
 
   const [open, setOpen] = useState(false);
   const fullWidth = true;
@@ -82,11 +89,15 @@ const ForgotPassword = () => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
+    setCode({
+      code: '',
+      password: '',
+      password_retry: '',
+    })
     actionForgotPasword();
   };
 
-  const onClick = async (event) => {
-    event.preventDefault();
+  const onClick = async () => {
     actionResetPasword();
   };
 
@@ -146,13 +157,7 @@ const ForgotPassword = () => {
                             className="d-flex flex-wrap"
                             style={{ marginBottom: 35 }}
                           >
-                            <form
-                              name="refreshPassword"
-                              autoComplete="off"
-                              className="d-flex flex-wrap"
-                              onSubmit={onClick}
-                              style={{display: 'flex',flexDirection: 'column',width:'400px',justifyContent:'center',alignItems:'center'}}
-                            >
+                           
                               <Input
                                 required
                                 type="text"
@@ -203,13 +208,12 @@ const ForgotPassword = () => {
                                 />
                               ) : (
                                 <Button
-                                  type="submit"
+                                  onClick={onClick}
                                   text={`Şifremi Güncelle`}
                                   className="blue w-100"
                                   mt="30px"
                                 />
                               )}
-                            </form>
                           </div>
                         </div>
                       </DialogContent>
