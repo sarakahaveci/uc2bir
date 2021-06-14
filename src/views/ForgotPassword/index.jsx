@@ -9,6 +9,7 @@ import { useHistory } from 'react-router-dom';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import styled from 'styled-components/macro';
 
 import { forgotPassword, resetPassword } from '../../actions';
 
@@ -150,13 +151,14 @@ const ForgotPassword = () => {
                               autoComplete="off"
                               className="d-flex flex-wrap"
                               onSubmit={onClick}
+                              style={{display: 'flex',flexDirection: 'column',width:'400px',justifyContent:'center',alignItems:'center'}}
                             >
-                              <Material.TextField
+                              <Input
                                 required
                                 type="text"
                                 name="code"
                                 value={code?.code}
-                                label="Kodu giriniz."
+                                placeholder="Kodu giriniz."
                                 autoComplete="off"
                                 onChange={(e) =>
                                   setCode({
@@ -165,13 +167,12 @@ const ForgotPassword = () => {
                                   })
                                 }
                               />
-                              <Material.TextField
+                              <Input
                                 required
                                 type="password"
                                 name="password"
-                                label="Yeni Password"
+                                placeholder="Yeni Password"
                                 value={code?.password}
-
                                 autoComplete="off"
                                 onChange={(e) =>
                                   setCode({
@@ -180,12 +181,12 @@ const ForgotPassword = () => {
                                   })
                                 }
                               />
-                              <Material.TextField
+                              <Input
                                 required
                                 type="password"
                                 value={code?.password_retry}
                                 name="password_retry"
-                                label="Yeni Password Tekrar"
+                                placeholder="Yeni Password Tekrar"
                                 autoComplete="off"
                                 onChange={(e) =>
                                   setCode({
@@ -223,5 +224,13 @@ const ForgotPassword = () => {
     </>
   );
 };
+
+const Input = styled.input`
+  border: none !important;
+  
+  border-bottom: 1px solid ${(p) => p.theme.colors.blue} !important;
+  margin: 15px !important;
+  background-color: transparent !important;
+`;
 
 export default ForgotPassword;
