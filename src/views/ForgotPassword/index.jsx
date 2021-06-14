@@ -105,6 +105,8 @@ const ForgotPassword = () => {
                       name="email"
                       label="E-mail'inizi giriniz."
                       type="text"
+                      autoComplete="off"
+
                       icon={AwesomeIcon.User}
                     />
                     {getForgotPassword.isLoading ? (
@@ -152,7 +154,7 @@ const ForgotPassword = () => {
                                 type="text"
                                 name="code"
                                 label="Kodu giriniz."
-                                autoComplete={'off'}
+                                autoComplete="off"
                                 onChange={(e) =>
                                   setCode({
                                     ...code,
@@ -165,7 +167,7 @@ const ForgotPassword = () => {
                                 type="password"
                                 name="password"
                                 label="Yeni Password"
-                                autoComplete={'off'}
+                                autoComplete="off"
                                 onChange={(e) =>
                                   setCode({
                                     ...code,
@@ -178,7 +180,7 @@ const ForgotPassword = () => {
                                 type="password"
                                 name="password_retry"
                                 label="Yeni Password Tekrar"
-                                autoComplete={'off'}
+                                autoComplete="off"
                                 onChange={(e) =>
                                   setCode({
                                     ...code,
