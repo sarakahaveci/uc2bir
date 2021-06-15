@@ -7,7 +7,7 @@ import { useLocation, useHistory } from 'react-router-dom';
 import queryString from 'query-string';
 
 import PacketCard from 'components/UserCards/PacketCard';
-import { Button, Svg, Pagination, BackLink, Text } from 'components';
+import { Button,Pagination, BackLink, Text } from 'components';
 import { searchProffesional } from 'actions';
 import Filter from './SearchFilters';
 

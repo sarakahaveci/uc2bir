@@ -59,7 +59,7 @@ const PT = () => {
       name: item.title,
       id: item.type,
     }));
-    if (reservation?.data?.isSelected) {
+    if (false && reservation?.data?.isSelected) { //burası düzeltiflecek
       //if
     } else {
       setSessionTypes(items);
@@ -70,18 +70,19 @@ const PT = () => {
     //dispatch(getTemplates()); HATA VARSA BURAYA Bİ BAK
     dispatch(setReservation({ pt_id: userInfo.id }));
   }, [userInfo]);
-  useEffect(()=>{
-    if(!reservation?.data?.location_id){
+  useEffect(() => {
+    if (!reservation?.data?.location_id) {
       setGymListState(gymList)
     }
-  },[gymList])
-  useEffect(()=>{
-    if(!reservation?.data?.location_id){
+  }, [gymList])
+  useEffect(() => {
+    if (!reservation?.data?.location_id) {
       setHomeParkState(homePlaces)
     }
-  },[homePlaces])
+  }, [homePlaces])
   useEffect(() => {
-    if (reservation?.data?.isSelected && !reservation?.data?.session) {
+
+    /* if (reservation?.data?.isSelected && !reservation?.data?.session) {
       var result = reservationCalendar?.data?.slice
         ?.filter(
           (elm) =>
@@ -89,11 +90,12 @@ const PT = () => {
             elm?.time == reservation.data?.slot[0].hour
         )[0]
         ?.session_types?.map((item) => ({
-          name: item,
+          name: item == 'gym' ? 'Spor Alanı' : item == 'online' ? 'Online' : item == 'home_park' ? 'Ev / Park' : null,
           id: item,
         }));
       setSessionTypes(result);
-    }
+    }*/
+
   }, [reservationCalendar?.data?.slice]);
   useEffect(() => {
     // iF DATE OPTİON TRUE
@@ -114,11 +116,11 @@ const PT = () => {
 
   useEffect(() => {
     if (reservation?.data?.location_id) {
-   
+
       dispatch(
         getPtReservationCalendar(
           userInfo.id,
-          reservation.data?.slot?.[0]?.date || reservation.data?.date ,
+          reservation.data?.slot?.[0]?.date || reservation.data?.date,
           reservation.data?.slot?.[0]?.hour,
           reservation?.data?.branch_id,
           reservation?.data?.session,
@@ -302,7 +304,7 @@ const PT = () => {
                       </Accordion.Item>
                     </AccordionItemWrapper>
                   </Accordion>
-                  {reservation?.data?.location_id  &&(reservation?.data?.location_id === item.location_id) ? (
+                  {reservation?.data?.location_id && (reservation?.data?.location_id === item.location_id) ? (
                     <RadioButtonCheckedIcon
                       style={{ marginLeft: '5px', cursor: 'pointer' }}
                     />
@@ -558,20 +560,24 @@ const PT = () => {
               </InputContainer>
               <InputContainer>
                 <Text color="#9B9B9B">{'Oturum Türü Seçiniz:'}</Text>
-                <Material.SimpleSelect
-                  items={sessionTypes}
-                  name="sessionType"
-                  defaultValue={reservation?.data?.session}
-                  onChange={(e) =>
-                    dispatch(
-                      setReservation({
-                        session: e.target.value,
-                        location_id: undefined,
-                        gym_price: 0,
-                      })
-                    )
-                  }
-                />
+                {
+                  sessionTypes && sessionTypes.length > 0 &&
+                  <Material.SimpleSelect
+                    items={sessionTypes}
+                    name="sessionType"
+                    defaultValue={reservation?.data?.session}
+                    onChange={(e) =>
+                      dispatch(
+                        setReservation({
+                          session: e.target.value,
+                          location_id: undefined,
+                          gym_price: 0,
+                        })
+                      )
+                    }
+                  /> ||
+                  <text>Kullanıcının bu koşullara göre uygun Oturum Türü bulunamadı.</text>
+                }
               </InputContainer>
 
               <WorkAreaSelect />
@@ -684,9 +690,9 @@ const AccordionItemWrapper = styled.div`
   .accordion-toggler {
     display: flex;
     background: ${(p) =>
-      p.parent
-        ? '#EFEFEF'
-        : p.accordionBackground
+    p.parent
+      ? '#EFEFEF'
+      : p.accordionBackground
         ? p.accordionBackground
         : '#F8F8F8'};
     justify-content: space-between;

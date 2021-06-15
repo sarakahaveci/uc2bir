@@ -9,6 +9,7 @@ import { useHistory } from 'react-router-dom';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import styled from 'styled-components/macro';
 
 import { forgotPassword, resetPassword } from '../../actions';
 
@@ -93,11 +94,11 @@ const ForgotPassword = () => {
     <>
       <FormPages>
         <section className="col-12 col-xl-6 page login-page-widget">
-          <div className="row">
-            <div className="page-content">
-              <div className="contain">
+          <div  className="row">
+            <div  className="page-content">
+              <Contain>
                 {!getForgotPassword.isSuccsess && !getResetPassword.isSuccsess && (
-                  <form onSubmit={onSubmit}>
+                  <form style={{display:'flex',justifyContent: 'center',alignItems: 'center',flexDirection: 'column'}} onSubmit={onSubmit}>
                     <Material.TextField
                       required
                       onChange={(e) => setEmail(e.target.value)}
@@ -106,6 +107,7 @@ const ForgotPassword = () => {
                       label="E-mail'inizi giriniz."
                       type="text"
                       icon={AwesomeIcon.User}
+                      style={{marginBottom:'15px'}}
                     />
                     {getForgotPassword.isLoading ? (
                       <Button text={`Yükleniyor...`} className="blue" />
@@ -218,7 +220,7 @@ const ForgotPassword = () => {
                     </Dialog>
                   </React.Fragment>
                 )}
-              </div>
+              </Contain>
             </div>
           </div>
         </section>
@@ -226,5 +228,11 @@ const ForgotPassword = () => {
     </>
   );
 };
-
+const Contain = styled.div`
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  width:100%;
+`
 export default ForgotPassword;
