@@ -36,11 +36,11 @@ const Place = ({ userId }) => {
         newDesc = descriptionMap.gym;
         break;
       case 'home_park':
-        newContent = <WorkPlaceList userId={userId} />;
+        newContent = <WorkPlaceList isOnline={false} userId={userId} />;
         newDesc = descriptionMap.home_park;
         break; 
       case 'online':
-        newContent = <WorkPlaceList userId={userId} />;
+        newContent = <WorkPlaceList isOnline={true} userId={userId} />;
         newDesc = descriptionMap.online;
         break;
 

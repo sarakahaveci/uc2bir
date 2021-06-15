@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { LocationCard } from 'components';
 import { getPtWorkingHomePlace } from 'actions';
 
-export default function WorkPlace({ userId }) {
+export default function WorkPlace({ userId, isOnline }) {
   const dispatch = useDispatch();
 
   const { data } = useSelector(
@@ -30,9 +30,9 @@ export default function WorkPlace({ userId }) {
         ))
       ) : (
         <div className="d-flex">
-          <strong className="mx-auto">
+          {!isOnline && <strong className="mx-auto">
             Kullanıcının bu çalışmaya yerine ait bilgisi bulunmamaktadır.
-          </strong>
+          </strong>}
         </div>
       )}
     </div>
