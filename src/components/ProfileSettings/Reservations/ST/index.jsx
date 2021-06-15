@@ -10,25 +10,27 @@ const ST = () => {
   const [tab, setTab] = useState('Awaitings');
   const [subPage, setSubPage] = useState();
   const [awaitingCount, setAwaitingCount] = useState(0);
+  const [rejectCount, setRejectCount] = useState(0);
+  const [approvedCount, setApprovedCount] = useState(0);
+  const [sessionHistoryCount, setSessionHistoryCount] = useState(0);
 
 
   useEffect(() => {
     getGeocode();
   }, []);
-
   let content;
   switch (tab) {
     case 'Awaitings':
       content = <Awaitings setAwaitingCount={setAwaitingCount}/>;
       break;
     case 'Approved':
-      content = <Approved setSubPage={setSubPage} />;
+      content = <Approved setApprovedCount={setApprovedCount} setSubPage={setSubPage} />;
       break;
     case 'Rejecteds':
-      content = <Rejecteds />;
+      content = <Rejecteds setRejectCount={setRejectCount} />;
       break;
     case 'SessionHistory':
-      content = <SessionHistory />;
+      content = <SessionHistory setSessionHistoryCount={setSessionHistoryCount} />;
       break;
     default:
       return <></>;
@@ -48,9 +50,9 @@ const ST = () => {
             }}
             tabs={[
               { text: 'ONAYDAKİLER', value: 'Awaitings', notify:awaitingCount },
-              { text: 'ONAYLANANLAR', value: 'Approved' },
-              { text: 'REDDEDİLENLER', value: 'Rejecteds' },
-              { text: 'DERS GEÇMİŞİ', value: 'SessionHistory' },
+              { text: 'ONAYLANANLAR', value: 'Approved', notify:approvedCount },
+              { text: 'REDDEDİLENLER', value: 'Rejecteds',notify:rejectCount },
+              { text: 'DERS GEÇMİŞİ', value: 'SessionHistory' ,notify:sessionHistoryCount},
             ]}
           />
           {content}

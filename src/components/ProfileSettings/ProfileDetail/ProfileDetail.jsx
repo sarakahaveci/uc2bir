@@ -180,7 +180,7 @@ export default function Profile() {
                     tabs={[
                       { text: 'OLANAKLAR', value: 'Facility' },
                       { text: 'SERTİFİKALAR', value: 'Certificates' },
-                      { text: 'ÇALIŞTIĞI YERLER', value: 'WorkPlace' },
+                      { text: 'SINIFLAR', value: 'WorkPlace' },
                       { text: 'EĞİTMENLER', value: 'Trainers' },
                       { text: 'TAKVİM', value: 'Calendar' },
                       { text: 'YORUMLAR', value: 'Comments' },

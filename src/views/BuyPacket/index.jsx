@@ -30,7 +30,8 @@ const BuyPacket = ({ match }) => {
   useEffect(() => {
     dispatch(
       setPacketReservation({
-        totals_amount: packet?.data?.price,
+        level:'B',
+        totals_amount: packet?.data?.price_b,
         id: match?.params?.id
       })
     );
@@ -73,7 +74,7 @@ const BuyPacket = ({ match }) => {
               <div style={{ padding: '10px' }}>
                 <text>
                   Yapacağınız işlem sonrası cüdanınızda kalacak olan toplam
-                  tutar {packet?.reservation?.totals_amount} TL’dir
+                  tutar {diff} TL’dir
                 </text>
               </div>
             </InfoContainer_Wallet>
@@ -201,7 +202,7 @@ const BuyPacket = ({ match }) => {
             <TrainerGroupWrapper>
               {match?.params?.type == 'pt' && (
                 <div>
-                  <LabelText>Seviyenizi Seçiniz </LabelText>
+                  <LabelText>Seviye Seçiniz </LabelText>
                   <Seperator></Seperator>
                   <LevelContainer>
                     <LevelCircle

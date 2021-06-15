@@ -137,7 +137,7 @@ const SessionHistory = () => {
                 ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
               </ReservationAccordion>
               <ReservationAccordion
-                miniIcon={<Svg.SessionType.Online />}
+                miniIcon={<Svg.SessionType.Clinic />}
                 title="KLİNİK"
                 defaultOpen
               >

@@ -171,7 +171,7 @@ const Awaitings = ({ setAwaitingCount }) => {
                 ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
               </ReservationAccordion>
               <ReservationAccordion
-                miniIcon={<Svg.SessionType.Park />}
+                miniIcon={<Svg.SessionType.Clinic />}
                 title="KLİNİK"
                 defaultOpen
               >

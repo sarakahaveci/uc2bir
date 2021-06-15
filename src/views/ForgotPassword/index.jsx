@@ -137,13 +137,15 @@ const ForgotPassword = () => {
                       <DialogTitle className="text-center">
                         Parolanızı Sıfırlayın!
                       </DialogTitle>
-                      <DialogContent>
+                      <DialogContent id="forgot-pass">
                         <div className="d-flex flex-wrap dialog-center">
                           <div
                             className="d-flex flex-wrap"
                             style={{ marginBottom: 35 }}
                           >
                             <form
+                              key="customForm-1"
+                              id={"forgot-pass"}
                               className="d-flex flex-wrap"
                               onSubmit={onClick}
                             >
@@ -151,7 +153,11 @@ const ForgotPassword = () => {
                                 required
                                 type="text"
                                 name="code"
+                                key="customCode1"
+                             
+                                className="forgot-input-custom"
                                 label="Kodu giriniz."
+                                autoComplete="off"
                                 onChange={(e) =>
                                   setCode({
                                     ...code,
@@ -161,9 +167,13 @@ const ForgotPassword = () => {
                               />
                               <Material.TextField
                                 required
+                                key="customInput1"
                                 type="password"
+                                className="forgot-input-custom"
                                 name="password"
                                 label="Yeni Password"
+                                autoComplete="new-password"
+                         
                                 onChange={(e) =>
                                   setCode({
                                     ...code,
@@ -174,8 +184,12 @@ const ForgotPassword = () => {
                               <Material.TextField
                                 required
                                 type="password"
+                                key="customInput2"
+                     
                                 name="password_retry"
+                                className="forgot-input-custom"
                                 label="Yeni Password Tekrar"
+                                autoComplete="new-password"
                                 onChange={(e) =>
                                   setCode({
                                     ...code,

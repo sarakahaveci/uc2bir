@@ -48,63 +48,197 @@ const Wrapper = () => {
               </SettingsRow>
             </Accordion.Toggle>
             <Accordion.Collapse>
-              <BodyWrapper>
-                <Text textAlign="left" fontWeight="600" p="2px" color="#00b2a9">
-                  {getPaymentInfoString(
-                    transactionsData[0]?.elaboration?.sub_kind?.title,
-                    transactionsData[0]?.elaboration?.kind?.title,
-                    transactionsData[0]?.type?.title
-                  )}{' '}
-                </Text>
-                <Capsule>
-                  {transactionsData[0]?.created_at && (
-                    <CapsuleItem>
-                      <Text textAlign="left" fontWeight="600">
-                        {' '}
-                        Oluşturulma Tarihi |{' '}
-                        {moment(
-                          transactionsData[0]?.created_at,
-                          'DD.MM.YYYY hh:mm'
-                        ).format('LLL')}
-                      </Text>
-                    </CapsuleItem>
-                  )}
+              {transactionsData[0]?.earning ? (
+                <BodyWrapper>
+                  <Text
+                    textAlign="left"
+                    fontWeight="600"
+                    p="2px"
+                    color="#00b2a9"
+                  >
+                    {getPaymentInfoString(
+                      transactionsData[0]?.elaboration?.sub_kind?.title,
+                      transactionsData[0]?.elaboration?.kind?.title,
+                      transactionsData[0]?.type?.title
+                    )}{' '}
+                  </Text>
+                  <Capsule>
+                    {transactionsData[0]?.created_at && (
+                      <CapsuleItem>
+                        <Text textAlign="left" fontWeight="600">
+                          {' '}
+                          Oluşturulma Tarihi |{' '}
+                          {moment(
+                            transactionsData[0]?.created_at,
+                            'DD.MM.YYYY hh:mm'
+                          ).format('LLL')}
+                        </Text>
+                      </CapsuleItem>
+                    )}
 
-                  <CapsuleItem>
-                    <table>
-                      <tbody>
-                        {transactionsData[0]?.payment_type && (
-                          <tr>
-                            <td>Ödeme Şekli</td>
-                            <td className="text-right">
-                              {transactionsData[0]?.payment_type?.title}
-                            </td>
-                          </tr>
-                        )}
-                        {transactionsData[0]?.status && (
-                          <tr>
-                            <td>Durumu</td>
-                            <td className="text-right">
-                              {transactionsData[0]?.status?.title}
-                            </td>
-                          </tr>
-                        )}
-                        {!transactionsData[0]?.amount == 0 && (
-                          <tr>
-                            <td>Tutar</td>
-                            <td className="text-right">
-                              {parseFloat(transactionsData[0]?.amount).toFixed(
-                                2
-                              )}
-                              ₺
-                            </td>
-                          </tr>
-                        )}
-                      </tbody>
-                    </table>
-                  </CapsuleItem>
-                </Capsule>
-              </BodyWrapper>
+                    <CapsuleItem>
+                      <table>
+                        <tbody>
+                          {transactionsData[0]?.earning?.amount && (
+                            <tr>
+                              <td>Hizmet Bedeli</td>
+                              <td className="text-right">
+                                {parseFloat(
+                                  transactionsData[0]?.earning?.amount
+                                ).toFixed(2)}
+                                ₺
+                              </td>
+                            </tr>
+                          )}
+                          {transactionsData[0]?.earning?.commission_amount && (
+                            <tr>
+                              <td>
+                                Komisyon (%
+                                {
+                                  transactionsData[0]?.earning
+                                    ?.commission_percent
+                                }
+                                )
+                              </td>
+                              <td className="text-right">
+                                {parseFloat(
+                                  transactionsData[0]?.earning
+                                    ?.commission_amount
+                                ).toFixed(2)}
+                                ₺
+                              </td>
+                            </tr>
+                          )}
+                          {transactionsData[0]?.earning?.vat_amount && (
+                            <tr>
+                              <td>
+                                KDV (%
+                                {transactionsData[0]?.earning?.vat_percent})
+                              </td>
+
+                              <td className="text-right">
+                                {parseFloat(
+                                  transactionsData[0]?.earning?.vat_amount
+                                ).toFixed(2)}
+                                ₺
+                              </td>
+                            </tr>
+                          )}
+                          {transactionsData[0]?.earning?.withholding_amount && (
+                            <tr>
+                              <td>
+                                Stopaj (%
+                                {
+                                  transactionsData[0]?.earning
+                                    ?.withholding_percent
+                                }
+                                )
+                              </td>
+                              <td className="text-right">
+                                {parseFloat(
+                                  transactionsData[0]?.earning
+                                    ?.withholding_amount
+                                ).toFixed(2)}
+                                ₺
+                              </td>
+                            </tr>
+                          )}
+                          {transactionsData[0]?.earning?.net_income_amount && (
+                            <tr>
+                              <td>Net Kazanç</td>
+                              <td
+                                className="text-right"
+                                style={{ fontWeight: 'bold' }}
+                              >
+                                {parseFloat(
+                                  transactionsData[0]?.earning
+                                    ?.net_income_amount
+                                ).toFixed(2)}
+                                ₺
+                              </td>
+                            </tr>
+                          )}
+                        </tbody>
+                      </table>
+                    </CapsuleItem>
+                  </Capsule>
+                </BodyWrapper>
+              ) : (
+                <BodyWrapper>
+                  <Text
+                    textAlign="left"
+                    fontWeight="600"
+                    p="2px"
+                    color="#00b2a9"
+                  >
+                    {getPaymentInfoString(
+                      transactionsData[0]?.elaboration?.sub_kind?.title,
+                      transactionsData[0]?.elaboration?.kind?.title,
+                      transactionsData[0]?.type?.title
+                    )}{' '}
+                  </Text>
+                  <Capsule>
+                    {transactionsData[0]?.created_at && (
+                      <CapsuleItem>
+                        <Text textAlign="left" fontWeight="600">
+                          {' '}
+                          Oluşturulma Tarihi |{' '}
+                          {moment(
+                            transactionsData[0]?.created_at,
+                            'DD.MM.YYYY hh:mm'
+                          ).format('LLL')}
+                        </Text>
+                      </CapsuleItem>
+                    )}
+
+                    <CapsuleItem>
+                      <table>
+                        <tbody>
+                          {transactionsData[0]?.payment_type && (
+                            <tr>
+                              <td>Ödeme Şekli</td>
+                              <td className="text-right">
+                                {transactionsData[0]?.payment_type?.title}
+                              </td>
+                            </tr>
+                          )}
+                          {transactionsData[0]?.status && (
+                            <tr>
+                              <td>Durumu</td>
+                              <td className="text-right">
+                                {transactionsData[0]?.status?.title}
+                              </td>
+                            </tr>
+                          )}
+                          {transactionsData[0]?.amount ? (
+                            <tr>
+                              <td>Tutar</td>
+                              <td className="text-right">
+                                {transactionsData[0]?.amount_type}
+                                {parseFloat(
+                                  transactionsData[0]?.amount
+                                ).toFixed(2)}
+                                ₺
+                              </td>
+                            </tr>
+                          ) : (
+                            <tr>
+                              <td>Tutar</td>
+                              <td className="text-right">
+                                {transactionsData[0]?.amount_type}
+                                {parseFloat(
+                                  transactionsData[0]?.amount
+                                ).toFixed(2)}
+                                ₺
+                              </td>
+                            </tr>
+                          )}
+                        </tbody>
+                      </table>
+                    </CapsuleItem>
+                  </Capsule>
+                </BodyWrapper>
+              )}
             </Accordion.Collapse>
           </Accordion.Item>
         </StyledWrapper>

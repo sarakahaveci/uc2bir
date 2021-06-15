@@ -55,7 +55,7 @@ const SessionHistory = () => {
               title={moment(selectedDate).format('DD.MM.YYYY')}
             >
               <ReservationAccordion
-                miniIcon={<Svg.SessionType.Gym />}
+                miniIcon={<Svg.SessionType.Clinic />}
                 title="KLİNİK"
                 defaultOpen
               >
@@ -81,7 +81,7 @@ const SessionHistory = () => {
                 ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
               </ReservationAccordion>
               <ReservationAccordion
-                miniIcon={<Svg.SessionType.Gym />}
+                miniIcon={<Svg.SessionType.Online />}
                 title="ONLİNE"
                 defaultOpen
               >

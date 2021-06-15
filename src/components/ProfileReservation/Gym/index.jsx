@@ -130,7 +130,7 @@ const Gym = ({ dateOption = true }) => {
               <div style={{ padding: '10px' }}>
                 <text>
                   Yapacağınız işlem sonrası cüdanınızda kalacak olan toplam
-                  tutar {reservation?.data?.totals_amount} TL’dir
+                  tutar {diff} TL’dir
                 </text>
               </div>
             </InfoContainer>
@@ -296,7 +296,7 @@ const Gym = ({ dateOption = true }) => {
                 )}
               </CardGroup>
             </>
-          )) || null}
+          )) || <text>Seçimlerinize uygun eğitmen bulunmamaktadır!</text>}
         </RadioGroup>
         <Pagination
           mt="50px"

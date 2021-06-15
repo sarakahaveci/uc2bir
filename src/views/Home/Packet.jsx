@@ -82,6 +82,7 @@ const Packet = (props) => {
       </Container>
       <PacketSlider
         query={query}
+       
         data={dataSelector()}
         handleClickCategory={(id) => {
           setActiveCategory(id)

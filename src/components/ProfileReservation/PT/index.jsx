@@ -243,7 +243,7 @@ const PT = () => {
                     )}
                   </CardGroup>
                 </>
-              )) || null}
+              )) || <text>Uygun Spor Alanı bulunmamaktadır</text>}
             </RadioGroup>
           </GymWrapper>
         );
@@ -320,7 +320,7 @@ const PT = () => {
                     />
                   )}
                 </div>
-              )) || null}
+              )) || <text>Uygun Alan bulunmamaktadır</text>}
             </RadioGroup>
           </GymWrapper>
         );
@@ -452,7 +452,7 @@ const PT = () => {
               <div style={{ padding: '10px' }}>
                 <text>
                   Yapacağınız işlem sonrası cüdanınızda kalacak olan toplam
-                  tutar {reservation?.data?.totals_amount} TL’dir
+                  tutar {diff} TL’dir
                 </text>
               </div>
             </InfoContainer>

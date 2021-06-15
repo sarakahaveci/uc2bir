@@ -16,7 +16,7 @@ import { getUserRejects, transferRefund } from 'actions';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 
-const Rejecteds = () => {
+const Rejecteds = ({ setRejectCount = () => { } }) => {
   const dispatch = useDispatch();
   const items = useSelector(
     (state) => state.professionalReservation?.userReservation?.rejecteds
@@ -71,6 +71,16 @@ const Rejecteds = () => {
     setSelectedDate(new Date());
     dispatch(getUserRejects());
   }, []);
+  useEffect(() => {
+    for (const i in items?.date) {
+      if (i === moment(selectedDate).format('DD.MM.YYYY')) {
+        setRejectCount(items?.date[i]);
+
+      } else {
+        setRejectCount(0);
+      }
+    }
+  }, [selectedDate]);
   return (
     <StyledContainer>
       <StyledRow>
@@ -81,7 +91,7 @@ const Rejecteds = () => {
               parent
               title={moment(selectedDate).format('DD.MM.YYYY')}
             >
-              <ReservationAccordion
+              <div
                 miniIcon={<Svg.SessionType.Gym />}
                 title="SPOR ALANI"
                 defaultOpen
@@ -90,6 +100,7 @@ const Rejecteds = () => {
                   moment(selectedDate).format('DD.MM.YYYY')
                 ]?.gym?.map((elm, i) => (
                   <ApproveCardContainer key={i}>
+                    <Svg.SessionType.Gym />
                     <ApproveCard
                       status_bs={elm?.status_bs}
                       status_pt={elm?.status_pt}
@@ -113,9 +124,9 @@ const Rejecteds = () => {
                       }}
                     />
                   </ApproveCardContainer>
-                ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
-              </ReservationAccordion>
-              <ReservationAccordion
+                ))}
+              </div>
+              <div
                 miniIcon={<Svg.SessionType.Park />}
                 title="EV / PARK"
                 defaultOpen
@@ -124,6 +135,8 @@ const Rejecteds = () => {
                   moment(selectedDate).format('DD.MM.YYYY')
                 ]?.home_park?.map((elm, i) => (
                   <ApproveCardContainer key={i}>
+                    <Svg.SessionType.Park />
+
                     <ApproveCard
                       date={elm?.hour}
                       status_bs={elm?.status_bs}
@@ -147,9 +160,9 @@ const Rejecteds = () => {
                       }}
                     />
                   </ApproveCardContainer>
-                ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
-              </ReservationAccordion>
-              <ReservationAccordion
+                ))}
+              </div>
+              <div
                 miniIcon={<Svg.SessionType.Online />}
                 title="ONLİNE"
                 defaultOpen
@@ -157,7 +170,11 @@ const Rejecteds = () => {
                 {items?.appointment?.[
                   moment(selectedDate).format('DD.MM.YYYY')
                 ]?.online?.map((elm, i) => (
+
                   <ApproveCardContainer key={i}>
+
+                    <Svg.SessionType.Online />
+
                     <ApproveCard
                       date={elm?.hour}
                       transaction_id={
@@ -184,10 +201,10 @@ const Rejecteds = () => {
                       }}
                     />
                   </ApproveCardContainer>
-                ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
-              </ReservationAccordion>
-              <ReservationAccordion
-                miniIcon={<Svg.SessionType.Online />}
+                ))}
+              </div>
+              <div
+                miniIcon={<Svg.SessionType.Clinic />}
                 title="KLİNİK"
                 defaultOpen
               >
@@ -195,6 +212,7 @@ const Rejecteds = () => {
                   moment(selectedDate).format('DD.MM.YYYY')
                 ]?.clinic?.map((elm, i) => (
                   <ApproveCardContainer key={i}>
+                    <Svg.SessionType.Clinic />
                     <ApproveCard
                       date={elm?.hour}
                       status_dt={elm?.status_dt}
@@ -217,13 +235,24 @@ const Rejecteds = () => {
                       }}
                     />
                   </ApproveCardContainer>
-                ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
-              </ReservationAccordion>
+                ))}
+              </div>
             </ReservationAccordion>
           </AccordionContainer>
-          {!(startOfWeeksArr().length > 0) && (
+          {
+            !(items?.appointment?.[
+              moment(selectedDate).format('DD.MM.YYYY')
+            ]?.gym?.length > 0 || items?.appointment?.[
+              moment(selectedDate).format('DD.MM.YYYY')
+            ]?.home_park?.length > 0 ||
+              items?.appointment?.[
+                moment(selectedDate).format('DD.MM.YYYY')
+              ]?.online?.length > 0 ||
+              items?.appointment?.[
+                moment(selectedDate).format('DD.MM.YYYY')
+              ]?.clinic?.length > 0) &&
             <text>Bu tarihe ilişkin veri bulunamadı</text>
-          )}
+          }
         </StyledCol>
         <StyledCol
           style={{
@@ -306,8 +335,10 @@ const AccordionContainer = styled.div`
 `;
 const ApproveCardContainer = styled.div`
   display: flex;
-  justify-content: center;
+  align-items: center;
+  justify-content:space-between;
   margin: 20px 0;
+  padding:5px;
   @media ${device.sm} {
     margin: 0;
   }
