@@ -25,16 +25,14 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
     },
     debounce: 300,
   });
+  
+
+  
   const ref = useOnclickOutside(() => {
     // When user clicks outside of the component, we can dismiss
     // the searched suggestions by calling this method
     clearSuggestions();
   });
-
-  const handleInput = (e) => {
-    // Update the keyword of the input element
-    setValue(e.target.value);
-  };
   const handleSelect =
     ({ description }) =>
       () => {
@@ -62,11 +60,15 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
       } = suggestion;
 
       return (
-        <li key={place_id} onClick={handleSelect(suggestion)}>
-          <strong>{main_text}</strong> <small>{secondary_text}</small>
+        <li style={{backgroundColor:'white',margin:'5px'}} key={place_id} onClick={handleSelect(suggestion)}>
+           <small>{secondary_text}</small>
         </li>
       );
     });
+    const handleInput = (e) => {
+      // Update the keyword of the input element
+      setValue(e.target.value);
+    };
   const history = useHistory();
 
   const allBranchList = useSelector(
@@ -167,7 +169,7 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
 
                     onChange={handleInput}
                     />
-                  {status === "OK" && <ul>{renderSuggestions()}</ul>}
+                  {status === "OK" && <ul style={{position: 'absolute',background:'white',bottom:'-80px',zIndex:'99999999999999'}} >{renderSuggestions()}</ul>}
                 </div>
 
               </li>
