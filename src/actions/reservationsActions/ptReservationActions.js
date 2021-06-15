@@ -86,11 +86,51 @@ export const PtApproveCancelStepOne = (
     },
   });
 };
+
+export const PtApproveCancelStepOneFromST = (
+  id,
+  status,
+  successCallback = () => {}
+) => async (dispatch) => {
+  let url = `/appointment/calendar/update/${id}`;
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'PATCH',
+      body: { type: 'cancel' },
+      url,
+      label: PT_RESERVATION_FUNC,
+      callBack: () => {
+        successCallback();
+      },
+      transformData: (data) => data.data,
+    },
+  });
+};
 export const PtApproveCancelStepTwo = (
   id,
   successCallback = () => {}
 ) => async (dispatch) => {
   let url = `/appointment/pt-calendar/update/${id}`;
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'PATCH',
+      body: { type: 'cancel', accept_cancellation: true },
+      url,
+      label: PT_RESERVATION_FUNC,
+      callBack: () => {
+        successCallback();
+      },
+      transformData: (data) => data.data,
+    },
+  });
+};
+export const PtApproveCancelStepTwoFromST = (
+  id,
+  successCallback = () => {}
+) => async (dispatch) => {
+  let url = `/appointment/calendar/update/${id}`;
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
