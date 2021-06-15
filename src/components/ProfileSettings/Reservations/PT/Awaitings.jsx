@@ -7,10 +7,8 @@ import {
   DatePicker,
   RejectModal,
   ApproveModal,
-  Svg,
 } from 'components';
 import moment from 'moment';
-
 import { device } from 'utils';
 import { getPtAwaitings, PtAwaitingApprove, PtAwaitingReject } from 'actions';
 import { useDispatch, useSelector } from 'react-redux';

@@ -96,7 +96,7 @@ const StyledCard = styled(Col)`
           background-image: url('${(props) => props.img}');
           background-repeat: no-repeat;
    
-          background-size: cover%;
+          background-size: cover;
 
           border-top-left-radius: 30px;
           border-top-right-radius: 30px;
