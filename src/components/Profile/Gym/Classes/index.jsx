@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
-
+import { useHistory } from 'react-router-dom';
 import { Accordion, Box } from 'components';
 import { getGymClassList } from 'actions';
 import BranchCardHeader from '../../../BranchRow/BranchRowToggler';
@@ -14,9 +14,19 @@ const GymClass = ({ userId }) => {
   useEffect(() => {
     dispatch(getGymClassList(userId));
   }, []);
+  const history = useHistory();
 
+  const handleClick = () => {
+    history.push('/myprofile/settings/activity');
+  };
   return (
     <div>
+      <div className="d-flex">
+        <strong className="mx-auto my-2">
+          Sınıf eklemek ve düzenlemek için{' '}
+          <Click onClick={handleClick}>burayı</Click> tıklayınız.
+        </strong>
+      </div>
       {data ? (
         <Accordion>
           {data?.class?.map((item, index) => {
@@ -42,7 +52,7 @@ const GymClass = ({ userId }) => {
       ) : (
         <div className="d-flex">
           <strong className="mx-auto">
-            İş Yerine kayıtlı herhangi bir olanak bulunmamaktadır.
+            İş Yerine kayıtlı herhangi bir sınıf bulunmamaktadır.
           </strong>
         </div>
       )}
@@ -69,4 +79,8 @@ const Order = styled.span`
   font-weight: 600;
   color: ${(p) => p.theme.colors.white2};
   margin: 15px 10px 0 0;
+`;
+const Click = styled.span`
+  color: #00b2a9;
+  cursor: pointer;
 `;

@@ -56,7 +56,7 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
     data.map((suggestion) => {
       const {
         place_id,
-        structured_formatting: { main_text, secondary_text },
+        structured_formatting: { secondary_text },
       } = suggestion;
 
       return (
