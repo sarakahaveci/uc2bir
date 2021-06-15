@@ -51,7 +51,7 @@ const Rejecteds = ({ setRejectCount = () => { } }) => {
   const handleRefund = (type) => {
     dispatch(
       transferRefund(
-        { type: type, transaction_uuid: transactionId },
+        { type: type, transaction_id: transactionId },
         handleRefundSuccess
       )
     );

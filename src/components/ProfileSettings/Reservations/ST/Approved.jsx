@@ -14,8 +14,8 @@ import { device } from 'utils';
 import { getUserApproved, getUserReservationDetail } from 'actions';
 import moment from 'moment';
 
-import { PtApproveCancelStepOne, PtApproveCancelStepTwo } from 'actions';
-const Approved = ({ setSubPage = () => {} }) => {
+import { PtApproveCancelStepOneFromST, PtApproveCancelStepTwoFromST } from 'actions';
+const Approved = ({ setSubPage = () => { } }) => {
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
   const [openCancellation, setOpenCancellation] = useState(undefined);
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -123,7 +123,7 @@ const Approved = ({ setSubPage = () => {} }) => {
                         }}
                       />
                     </ApproveCardContainer>
-                  ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
+                  )) || <text>Bu tarihe ilişkin veri bulunamadı</text>}
                 </>
               </ReservationAccordion>
               <ReservationAccordion
@@ -149,7 +149,7 @@ const Approved = ({ setSubPage = () => {} }) => {
                         }}
                       />
                     </ApproveCardContainer>
-                  ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
+                  )) || <text>Bu tarihe ilişkin veri bulunamadı</text>}
                 </>
               </ReservationAccordion>
               <ReservationAccordion
@@ -174,7 +174,7 @@ const Approved = ({ setSubPage = () => {} }) => {
                         }}
                       />
                     </ApproveCardContainer>
-                  ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
+                  )) || <text>Bu tarihe ilişkin veri bulunamadı</text>}
                 </>
               </ReservationAccordion>
             </ReservationAccordion>
@@ -216,12 +216,12 @@ const Approved = ({ setSubPage = () => {} }) => {
         cancelProcessLabel="Vazgeç"
         open={openCancellation}
         cancelStepOne={(id) => {
-          dispatch(PtApproveCancelStepOne(id));
+          dispatch(PtApproveCancelStepOneFromST(id));
         }}
         stepTwoData={funcStatus}
         cancelStepTwo={(id) => {
           dispatch(
-            PtApproveCancelStepTwo(id, () => {
+            PtApproveCancelStepTwoFromST(id, () => {
               getSelectedDate();
             })
           );
