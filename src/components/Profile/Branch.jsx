@@ -18,10 +18,9 @@ const UserDetails = ({ userId }) => {
   }, []);
 
   return (
-    <Accordion >
+    <Accordion>
       {branchList?.branches?.map((item, index) => {
         return (
-
           <StyledRow enabled={item?.speciality?.length > 0} key={index}>
             <Order>{index + 1}.</Order>
             <AccordionItem>
@@ -45,7 +44,7 @@ export default UserDetails;
 
 const StyledRow = styled(Box)`
   display: flex;
-  pointer-events:${(p) => p.enabled ?  'auto':'none' };
+  pointer-events: ${(p) => (p.enabled ? 'auto' : 'none')};
 
   &:not(:first-child) {
     margin-top: 30px;
