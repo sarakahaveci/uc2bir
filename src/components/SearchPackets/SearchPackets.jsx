@@ -140,7 +140,7 @@ const SearchProfessional = () => {
               />
             </SearchCol>
 
-            <SearchCol>
+           {/* <SearchCol>
               <div className="search-trainer__location-row">
                 <Svg.LocationIcon className="mr-1 mb-1" />
 
@@ -151,7 +151,7 @@ const SearchProfessional = () => {
                   placeholder="Lokasyon..."
                 />
               </div>
-            </SearchCol>
+           </SearchCol>*/}
             <SearchCol>
               <div className="search-trainer__location-row">
                 <select defaultValue={subType} onChange={(e)=>{
