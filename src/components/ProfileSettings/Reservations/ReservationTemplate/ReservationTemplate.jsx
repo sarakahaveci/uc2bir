@@ -20,8 +20,8 @@ import TemplateNamingModal from './TemplateNamingModal';
 import ApplyTemplateModal from './ApplyTemplateModal';
 
 export default function ReservationTemplate({
-  setTab = () => {},
-  setTabPage = () => {},
+  setTab = () => { },
+  setTabPage = () => { },
 }) {
   const { selectedDay, appliedDays } = useSelector(
     (state) => state.profileSettings2.reservationTemplate
@@ -167,7 +167,13 @@ export default function ReservationTemplate({
     }
 
     if (userTypeId === DIETITIAN) {
-      return !sessionSelection.length || !workPlaceSelection;
+      var isExistClinicAddress;
+      sessionSelection.forEach(element => {
+        if (element.type == "clinic") {
+          isExistClinicAddress = true;
+        }
+      });
+      return !sessionSelection.length || (isExistClinicAddress ? !workPlaceSelection.length : false);
     }
   };
 
