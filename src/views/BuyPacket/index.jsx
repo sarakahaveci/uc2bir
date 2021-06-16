@@ -31,7 +31,7 @@ const BuyPacket = ({ match }) => {
     dispatch(
       setPacketReservation({
         level:'B',
-        totals_amount: packet?.data?.price_b,
+        totals_amount: packet?.data?.price_b ||packet?.data?.price ,
         id: match?.params?.id
       })
     );

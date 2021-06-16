@@ -626,7 +626,7 @@ export default function PaymentCard({ type, subType, dateOption }) {
         <InfoContainer>
           <DataContainer>
             <Info>
-              <Text style={{ fontWeight: 800 }}>Dietisyen Ücreti</Text>
+              <Text style={{ fontWeight: 800 }}>Diyetisyen Ücreti</Text>
               <Text style={{ fontWeight: 800 }}>
                 {reservation?.data?.dt_price}
               </Text>
