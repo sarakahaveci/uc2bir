@@ -4,71 +4,14 @@ import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import InputBase from '@material-ui/core/InputBase';
 
-import { Button, IconLabel, AwesomeIcon, Svg, Material } from 'components';
+import { Button, IconLabel, AwesomeIcon, Svg, Material, LocationInput } from 'components';
 import { objectToParamCoverter } from 'utils';
-import usePlacesAutocomplete, {
-  getGeocode,
-  getLatLng,
-} from "use-places-autocomplete";
-import useOnclickOutside from "react-cool-onclickoutside";
+
 
 const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
-  const {
-    ready,
-    value,
-    suggestions: { status, data },
-    setValue,
-    clearSuggestions,
-  } = usePlacesAutocomplete({
-    requestOptions: {
-      /* Define search scope here */
-    },
-    debounce: 300,
-  });
   
-
-  
-  const ref = useOnclickOutside(() => {
-    // When user clicks outside of the component, we can dismiss
-    // the searched suggestions by calling this method
-    clearSuggestions();
-  });
-  const handleSelect =
-    ({ description }) =>
-      () => {
-        // When user selects a place, we can replace the keyword without request data from API
-        // by setting the second parameter to "false"
-        setValue(description, false);
-        clearSuggestions();
-
-        // Get latitude and longitude via utility functions
-        getGeocode({ address: description })
-          .then((results) => getLatLng(results[0]))
-          .then(() => {
-           // console.log("📍 Coordinates: ", { lat, lng });
-          })
-          .catch(() => {
-           // console.log("😱 Error: ", error);
-          });
-      };
-
-  const renderSuggestions = () =>
-    data.map((suggestion) => {
-      const {
-        place_id,
-        structured_formatting: { secondary_text },
-      } = suggestion;
-
-      return (
-        <li style={{backgroundColor:'white',margin:'5px'}} key={place_id} onClick={handleSelect(suggestion)}>
-           <small>{secondary_text}</small>
-        </li>
-      );
-    });
-    const handleInput = (e) => {
-      // Update the keyword of the input element
-      setValue(e.target.value);
-    };
+  const [value,setValue] = useState('')
+ 
   const history = useHistory();
 
   const allBranchList = useSelector(
@@ -82,7 +25,7 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
     if (virtual == 'packets') {
       const formData = {
         title,
-        location:value,
+        location: value,
         branch,
       };
 
@@ -94,7 +37,7 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
     } else if (virtual == 'group-lessons') {
       const formData = {
         title,
-        location:value,
+        location: value,
         branch,
       };
 
@@ -106,7 +49,7 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
     } else {
       const formData = {
         title,
-        location:value,
+        location: value,
         branch,
       };
 
@@ -160,18 +103,13 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
                   icon={Svg.SearchLocation}
                   style={{ paddingBottom: '6px' }}
                 />
-                <div style={{display:'flex'}} ref={ref}>
-                  <NakedInput
-                    placeholder="Lokasyon"
-                    inputProps={{ 'aria-label': 'naked' }}
-                    disabled={!ready}
-                    value={value}
-
-                    onChange={handleInput}
-                    />
-                  {status === "OK" && <ul style={{position: 'absolute',background:'white',bottom:'-80px',zIndex:'99999999999999'}} >{renderSuggestions()}</ul>}
-                </div>
-
+                <LocationInput
+                  defaultValue={value}
+                  onChange={(e) => {
+                    setValue(e)
+                  }}
+                  placeholder="Lokasyon"
+                />
               </li>
             )}
             {

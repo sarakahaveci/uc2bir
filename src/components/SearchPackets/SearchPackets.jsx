@@ -159,7 +159,7 @@ const SearchProfessional = () => {
                   history.push(`/packets?subType=${e.target.value}`
                   )}} name="packet-type" id="packet-type">
                   <option value="pt">Eğitmen Paketleri</option>
-                  <option value="dt">Dietisyen Paketleri</option>
+                  <option value="dt">Diyetisyen Paketleri</option>
                 </select>
         
               </div>

@@ -124,7 +124,7 @@ const Calendar = () => {
     new Date(moment(date, 'DD.MM.YYYY').toDate())
   );
 
-  const deleteHourSuccess = () =>{
+  const deleteHourSuccess = () => {
     dispatch(getDayOfCalendar(moment(startDate).format('DD.MM.YYYY')));
     setActivePage('index')
     toast.success('Saat Silme İşlemi Başarılı Bir Şekilde Tamamlanmıştır', {
@@ -134,7 +134,7 @@ const Calendar = () => {
 
   }
 
-  const addHourSuccess = () =>{
+  const addHourSuccess = () => {
     dispatch(getDayOfCalendar(moment(startDate).format('DD.MM.YYYY')));
     setActivePage('index')
     toast.success('Saat Ekleme İşlemi Başarılı Bir Şekilde Tamamlanmıştır', {
@@ -144,7 +144,7 @@ const Calendar = () => {
 
   }
 
-  const deleteHourFail = () =>{
+  const deleteHourFail = () => {
     toast.error(
       'Seçilen Saat Silinirken Hata Oluştu Hata Oluştu',
       {
@@ -158,7 +158,8 @@ const Calendar = () => {
     sessionSelection.findIndex((session) => session.type === sessionType) !==
     -1;
 
-  const sessionTypeArr = userTypeId ===WORK_PLACE ?({location:classSelection}) : sessionSelection.map((session) => ({ session,
+  const sessionTypeArr = userTypeId === WORK_PLACE ? ({ location: classSelection }) : sessionSelection.map((session) => ({
+    session,
     ...(session.type !== 'online' && {
       location:
         session.type === 'gym' ? (workPlaceSelection || classSelection) : session.type === 'clinic'
@@ -168,10 +169,10 @@ const Calendar = () => {
   }));
 
 
-  const addHourToCalender = ()=>{
-    dispatch(applyHourOfCalendar(startDate,sessionTypeArr,branchSelection,selectedHour.hour,addHourSuccess))
+  const addHourToCalender = () => {
+    dispatch(applyHourOfCalendar(startDate, sessionTypeArr, branchSelection, selectedHour.hour, addHourSuccess))
   }
-  return(
+  return (
     <Container>
       <ApproveModal
         open={openApprove}
@@ -182,33 +183,33 @@ const Calendar = () => {
           setOpenApprove(false);
         }}
       />
-      {activePage ==='create' ?(
+      {activePage === 'create' ? (
         <Row>
           <Col xs={{ order: IsSmallScreen ? 2 : 1 }} lg={6}>
-              <Title
-                style={{ display: 'flex', flexWrap: 'nowrap' }}
-                textAlign="left">
-                <Span
-                  cursor="pointer"
-                  fontSize="1.5rem"
-                  onClick={() => setActivePage('showAvailableHour')}
-                  marginRight="10px"
-                  marginBottom="-15px">
-                  {`<`}
-                </Span>
-                <Span>Rezervasyon Oluştur</Span>
-              </Title>
+            <Title
+              style={{ display: 'flex', flexWrap: 'nowrap' }}
+              textAlign="left">
+              <Span
+                cursor="pointer"
+                fontSize="1.5rem"
+                onClick={() => setActivePage('showAvailableHour')}
+                marginRight="10px"
+                marginBottom="-15px">
+                {`<`}
+              </Span>
+              <Span>Rezervasyon Oluştur</Span>
+            </Title>
 
-              <AppointmentContainer>
-                <Material.TextField
-                  name="appointmentDate"
-                  forHtml="appointmentDate"
-                  label="Tarih & Saat"
-                  defaultValue={moment(startDate).format('DD MMMM dddd')+","+selectedHour?.hour}
-                  disabled={true}
-                />
+            <AppointmentContainer>
+              <Material.TextField
+                name="appointmentDate"
+                forHtml="appointmentDate"
+                label="Tarih & Saat"
+                defaultValue={moment(startDate).format('DD MMMM dddd') + "," + selectedHour?.hour}
+                disabled={true}
+              />
 
-                {userTypeId === PERSONAL_TRAINER && (
+              {userTypeId === PERSONAL_TRAINER && (
                 <FormControl>
                   <InputLabel>Branşları Seçiniz</InputLabel>
 
@@ -225,107 +226,107 @@ const Calendar = () => {
                     ))}
                   </Select>
                 </FormControl>
-                )}
-                {userTypeId === WORK_PLACE && (
-                  <FormControl>
-                    <InputLabel>Sınıfları Seçiniz</InputLabel>
-                    <Select
-                      multiple
-                      value={classSelection}
-                      input={<Input />}
-                      onChange={(e) => setClassSelection(e.target.value)}>
-                      {classifications?.map((classification) => (
-                        <MenuItem key={classification.id} value={classification}>
-                          {classification.title}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                )}
+              )}
+              {userTypeId === WORK_PLACE && (
+                <FormControl>
+                  <InputLabel>Sınıfları Seçiniz</InputLabel>
+                  <Select
+                    multiple
+                    value={classSelection}
+                    input={<Input />}
+                    onChange={(e) => setClassSelection(e.target.value)}>
+                    {classifications?.map((classification) => (
+                      <MenuItem key={classification.id} value={classification}>
+                        {classification.title}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              )}
 
-                {userTypeId !== WORK_PLACE && (
-                  <FormControl>
-                    <InputLabel>Oturum Türlerini Seçiniz</InputLabel>
+              {userTypeId !== WORK_PLACE && (
+                <FormControl>
+                  <InputLabel>Oturum Türlerini Seçiniz</InputLabel>
 
-                    <Select
-                      multiple
-                      value={sessionSelection}
-                      input={<Input />}
-                      onChange={(e) => setSessionSelection(e.target.value)}>
-                      {sessionTypes?.data?.data?.map((sessionType) => (
-                        <MenuItem key={sessionType.id} value={sessionType}>
-                          {sessionType.title}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                )}
+                  <Select
+                    multiple
+                    value={sessionSelection}
+                    input={<Input />}
+                    onChange={(e) => setSessionSelection(e.target.value)}>
+                    {sessionTypes?.data?.data?.map((sessionType) => (
+                      <MenuItem key={sessionType.id} value={sessionType}>
+                        {sessionType.title}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              )}
 
-                {showSessionDependentInputs('gym') && (
-                  <FormControl>
-                    <InputLabel>Spor Alanı Seçiniz</InputLabel>
+              {showSessionDependentInputs('gym') && (
+                <FormControl>
+                  <InputLabel>Spor Alanı Seçiniz</InputLabel>
 
-                    <Select
-                      multiple
-                      value={workPlaceSelection}
-                      input={<Input />}
-                      onChange={((e) => {
-                        setWorkPlaceSelection(e.target.value)
-                      })}
-                    >
-                      {gymList?.gym?.map((item) => (
-                        <MenuItem key={item.id} value={item}>
-                          {item.title}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                )}
+                  <Select
+                    multiple
+                    value={workPlaceSelection}
+                    input={<Input />}
+                    onChange={((e) => {
+                      setWorkPlaceSelection(e.target.value)
+                    })}
+                  >
+                    {gymList?.gym?.map((item) => (
+                      <MenuItem key={item.id} value={item}>
+                        {item.title}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              )}
 
-                {showSessionDependentInputs('clinic') && (
-                  <FormControl>
-                    <InputLabel>Klinik Seçiniz</InputLabel>
+              {showSessionDependentInputs('clinic') && (
+                <FormControl>
+                  <InputLabel>Klinik Seçiniz</InputLabel>
 
-                    <Select
-                      multiple
-                      value={workPlaceSelection}
-                      input={<Input />}
-                      onChange={(e) => setWorkPlaceSelection(e.target.value)}
-                    >
-                      {clinics?.clinic?.map((item) => (
-                        <MenuItem key={item.id} value={item}>
-                          {item.title}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                )}
+                  <Select
+                    multiple
+                    value={workPlaceSelection}
+                    input={<Input />}
+                    onChange={(e) => setWorkPlaceSelection(e.target.value)}
+                  >
+                    {clinics?.clinic?.map((item) => (
+                      <MenuItem key={item.id} value={item}>
+                        {item.title}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              )}
 
-                {showSessionDependentInputs('home_park') && (
-                  <FormControl>
-                    <InputLabel>Ev / Park Seçiniz</InputLabel>
+              {showSessionDependentInputs('home_park') && (
+                <FormControl>
+                  <InputLabel>Ev / Park Seçiniz</InputLabel>
 
-                    <Select
-                      multiple
-                      value={locationSelection}
-                      input={<Input />}
-                      onChange={(e) => setLocationSelection(e.target.value)}
-                    >
-                      {ptHomePlace?.home_park?.map((item) => (
-                        <MenuItem key={item.id} value={item}>
-                          {item.title}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                )}
+                  <Select
+                    multiple
+                    value={locationSelection}
+                    input={<Input />}
+                    onChange={(e) => setLocationSelection(e.target.value)}
+                  >
+                    {ptHomePlace?.home_park?.map((item) => (
+                      <MenuItem key={item.id} value={item}>
+                        {item.title}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              )}
 
-              </AppointmentContainer>
-            </Col>
+            </AppointmentContainer>
+          </Col>
 
-          <Col style={{ display: 'flex', justifyContent: 'center'}}
-               xs={{ order: IsSmallScreen ? 1 : 2 }}
-               lg={6}>
+          <Col style={{ display: 'flex', justifyContent: 'center' }}
+            xs={{ order: IsSmallScreen ? 1 : 2 }}
+            lg={6}>
             <DateContainer>
               <AppointmentDate>
                 <Row>
@@ -334,8 +335,8 @@ const Calendar = () => {
                     title="Rezervasyon Tarihi"
                     accordionBackground={'#ffffff'}
                     accordionRadius={'20px'}>
-                    <hr style={{marginTop:'0px'}}/>
-                    <Row style={{padding:'10px'}}>
+                    <hr style={{ marginTop: '0px' }} />
+                    <Row style={{ padding: '10px' }}>
                       <Col lg={2}>
                         <Text color="dark" fontWeight="500" fontSize="0.9rem">
                           1 Ders
@@ -343,17 +344,17 @@ const Calendar = () => {
 
                       </Col>
                       <Col lg={1}>
-                        <Seperator/>
+                        <Seperator />
                       </Col>
                       <Col lg={8}>
                         <ReservationText>
-                          <Calender/>
+                          <Calender />
                           <Text color="#707070" fontWeight="200" >
-                            {moment(startDate).format('DD MMMM dddd') + ' Saat '+ selectedHour?.hour}
+                            {moment(startDate).format('DD MMMM dddd') + ' Saat ' + selectedHour?.hour}
                           </Text>
                         </ReservationText>
                       </Col>
-                      <Col lg={1}/>
+                      <Col lg={1} />
 
                     </Row>
                   </ReservationAccordion>
@@ -361,7 +362,7 @@ const Calendar = () => {
               </AppointmentDate>
               <AcceptButton src={image}>
                 <Button
-                  onClick={()=>addHourToCalender()}
+                  onClick={() => addHourToCalender()}
                   text="Tamamla"
                   className="blue"
                   width={'496px'}
@@ -373,39 +374,39 @@ const Calendar = () => {
             </DateContainer>
           </Col>
         </Row>
-      ):(
+      ) : (
         <Row>
-          {activePage==='index' && (
+          {activePage === 'index' && (
             <Col xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
-                <AccordionContainer>
-                  <ReservationAccordion
-                    defaultOpen={true}
-                    parent
-                    title={moment(startDate).format('DD MMMM dddd')}>
-                    <Box row flexWrap="wrap" center>
-                      {availableHours?.map((item,index) => ( item.id &&
-                        <ReservationHourButton
-                          onClick={()=> {
-                            setSelectedHour(item);
-                            setActivePage(item.type!=='group' ? 'showHourDetail':'showHourGroup');
-                            dispatch(getDayDetailOfCalendar(item.id))
-                          }}
-                          text={item.hour}
-                          className="blue"
-                          width="342px"
-                          height="52px"
-                          mt="15px"
-                          key={index}
-                        />
-                      ))}
-                      <AvailableButton onClick={()=>setActivePage('showAvailableHour')}>Boş Saatlerimi Gör</AvailableButton>
+              <AccordionContainer>
+                <ReservationAccordion
+                  defaultOpen={true}
+                  parent
+                  title={moment(startDate).format('DD MMMM dddd')}>
+                  <Box row flexWrap="wrap" center>
+                    {availableHours?.map((item, index) => (item.id &&
+                      <ReservationHourButton
+                        onClick={() => {
+                          setSelectedHour(item);
+                          setActivePage(item.type !== 'group' ? 'showHourDetail' : 'showHourGroup');
+                          dispatch(getDayDetailOfCalendar(item.id))
+                        }}
+                        text={item.hour}
+                        className="blue"
+                        width="342px"
+                        height="52px"
+                        mt="15px"
+                        key={index}
+                      />
+                    ))}
+                    <AvailableButton onClick={() => setActivePage('showAvailableHour')}>Boş Saatlerimi Gör</AvailableButton>
 
-                    </Box>
-                  </ReservationAccordion>
-                </AccordionContainer>
+                  </Box>
+                </ReservationAccordion>
+              </AccordionContainer>
             </Col>)}
 
-          {activePage==='showAvailableHour' && (
+          {activePage === 'showAvailableHour' && (
             <Col xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
               <AccordionContainer >
                 <Span
@@ -419,9 +420,9 @@ const Calendar = () => {
                 <ReservationAccordion
                   defaultOpen={true}
                   parent
-                  title={moment(startDate).format('DD MMMM dddd')+' / BOŞ SAATLERİM'}>
+                  title={moment(startDate).format('DD MMMM dddd') + ' / BOŞ SAATLERİM'}>
                   <Box row flexWrap="wrap" center>
-                    {availableHours?.map((item,index) => ( !item.id &&
+                    {availableHours?.map((item, index) => (!item.id &&
                       <ReservationHourButton
                         text={item.hour}
                         className="blue"
@@ -442,7 +443,7 @@ const Calendar = () => {
               </AccordionContainer>
             </Col>)}
 
-          {activePage==='showHourDetail' && (
+          {activePage === 'showHourDetail' && (
             <Col xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
               <AccordionContainer >
                 <Span
@@ -456,69 +457,77 @@ const Calendar = () => {
                 <ReservationAccordion
                   defaultOpen={true}
                   parent
-                  title={moment(startDate).format('DD MMMM dddd') +' / ' + selectedHour?.hour}>
-                 <HourDetailContainer>
-                   {userTypeId=== PERSONAL_TRAINER &&
-                   <Box>
-                     <Span fontWeight="600" mr="15px" fontSize={'20px'}>
-                       Branşlar:
+                  title={moment(startDate).format('DD MMMM dddd') + ' / ' + selectedHour?.hour}>
+                  <HourDetailContainer>
+                    {userTypeId === PERSONAL_TRAINER &&
+                      <Box>
+                        <Span fontWeight="600" mr="15px" fontSize={'20px'}>
+                          Branşlar:
                      </Span>
-                     <Span fontSize={'18px'}>
-                        {selectedHour?.branch}
+                        <Span fontSize={'18px'}>
+                          {selectedHour?.branch}
+                        </Span>
+                      </Box>}
+
+                    {
+                      userTypeId !== WORK_PLACE &&
+                      <Box>
+                        <Span fontWeight="600" mr="15px" fontSize={'20px'}>
+                          Oturum Türleri:
+                     </Span>
+                        {detailHour?.slice?.[0]?.session?.split(',').map((item, index) => (
+                          <Span fontSize={'18px'} key={index}>
+                            {SESSION_KEYS[item.replace(/\s+/g, '')]}
+                            {(selectedHour?.session?.split(',').length !== index + 1) ? ', ' : ''}
+                          </Span>))}
+                        <Seperator />
+                      </Box>
+                    }
+
+
+                    <Box>
+                      <Span fontWeight="600" mr="15px" fontSize={'20px'}>
+                        {userTypeId !== WORK_PLACE ? 'Seçilmiş Yerler': 'Seçilmiş Sınıflar' }
+                     </Span>
+                      <Span fontSize={'18px'}>
+                        {detailHour?.slice?.[0]?.location?.gym?.map((item, index) => (
+                          <Span fontSize={'18px'} key={index}>
+                            {item + ' '}
+                          </Span>))}
+                        {detailHour?.slice?.[0]?.location?.class?.map((item, index) => (
+                          <Span fontSize={'18px'} key={index}>
+                            {item + ' '}
+                            {detailHour?.slice?.[0]?.location?.class?.length !== index + 1 ? ', ' : ''}
+
+                          </Span>))}
+                        {detailHour?.slice?.[0]?.location?.home_park?.map((item, index) => (
+                          <Span fontSize={'18px'} key={index}>
+                            {item}
+                          </Span>))}
+                        {detailHour?.slice?.[0]?.location?.clinic?.map((item, index) => (
+                          <Span fontSize={'18px'} key={index}>
+                            {item}
+                            {detailHour?.slice?.[0]?.location?.clinic?.length !== index + 1 ? ', ' : ''}
+                          </Span>))}
                       </Span>
-                   </Box>}
+                      <Seperator />
+                    </Box>
 
-
-                   <Box>
-                     <Span fontWeight="600" mr="15px" fontSize={'20px'}>
-                       Oturum Türleri:
-                     </Span>
-                     {detailHour?.slice?.[0]?.session?.split(',').map((item, index)=>(
-                       <Span fontSize={'18px'} key={index}>
-                         {SESSION_KEYS[item.replace(/\s+/g, '')] }
-                         {(selectedHour?.session?.split(',').length !== index+1) ? ', ' : ''}
-                       </Span>))}
-                     <Seperator/>
-                   </Box>
-
-
-                   <Box>
-                     <Span fontWeight="600" mr="15px" fontSize={'20px'}>
-                       Seçilmiş Yerler:
-                     </Span>
-                     <Span fontSize={'18px'}>
-                       {detailHour?.slice?.[0]?.location?.gym?.map((item, index)=>(
-                         <Span fontSize={'18px'} key={index}>
-                           {item + ' '}
-                         </Span>))}
-                       {detailHour?.slice?.[0]?.location?.home_park?.map((item, index)=>(
-                         <Span fontSize={'18px'} key={index}>
-                           {item}
-                         </Span>))}
-                       {detailHour?.slice?.[0]?.location?.clinic?.map((item, index)=>(
-                         <Span fontSize={'18px'} key={index}>
-                           {item }
-                           {detailHour?.slice?.[0]?.location?.clinic?.length !== index+1 ? ', ': ''}
-                         </Span>))}
-                       </Span>
-                     <Seperator/>
-                   </Box>
-
-                   <hr/>
-                   <Row  style={{display:'flex', justifyContent:'flex-end'}}>
-                     <Button disableborder text={'Sil'} width={'120px'} height={'35px'} onClick={()=>dispatch(
-                       deleteHourOfCalendar(
-                         selectedHour?.id,
-                         deleteHourSuccess,
-                         deleteHourFail
-                       ))}/>
-                   </Row>
-                 </HourDetailContainer>
+                    <hr />
+                    <Row style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                      <Button disableborder text={'Sil'} width={'120px'} height={'35px'} onClick={() => dispatch(
+                        deleteHourOfCalendar(
+                          selectedHour?.id,
+                          deleteHourSuccess,
+                          deleteHourFail
+                        ))} />
+                    </Row>
+                  </HourDetailContainer>
                 </ReservationAccordion>
               </AccordionContainer>
             </Col>)}
 
-          {activePage==='showHourGroup' && (
+          {activePage === 'showHourGroup' && (
             <Col xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
               <AccordionContainer >
                 <Span
@@ -532,38 +541,38 @@ const Calendar = () => {
                 <ReservationAccordion
                   defaultOpen={true}
                   parent
-                  title={moment(startDate).format('DD MMMM dddd') +' / ' + selectedHour?.hour}>
+                  title={moment(startDate).format('DD MMMM dddd') + ' / ' + selectedHour?.hour}>
                   <HourDetailContainer>
-                    {userTypeId=== PERSONAL_TRAINER &&
-                    <Box>
-                      <Span fontWeight="600" mr="15px" fontSize={'20px'}>
-                        Branş:
+                    {userTypeId === PERSONAL_TRAINER &&
+                      <Box>
+                        <Span fontWeight="600" mr="15px" fontSize={'20px'}>
+                          Branş:
                       </Span>
-                      <Span fontSize={'18px'}>
-                        {selectedHour?.branch}
-                      </Span>
-                    </Box>}
+                        <Span fontSize={'18px'}>
+                          {selectedHour?.branch}
+                        </Span>
+                      </Box>}
 
 
 
-                    <Box row style={{justifyContent:'space-between'}}>
+                    <Box row style={{ justifyContent: 'space-between' }}>
                       <Span>
                         <Span fontWeight="600" mr="15px" fontSize={'20px'}>
                           Salon:
                         </Span>
                         <Span fontSize={'18px'}>
-                          {detailHour?.slice?.[0]?.location?.gym?.map((item, index)=>(
+                          {detailHour?.slice?.[0]?.location?.gym?.map((item, index) => (
                             <Span fontSize={'18px'} key={index} color={'blue'} underline lineWidth={'100%'}>
                               {item + ' '}
                             </Span>))}
-                          {detailHour?.slice?.[0]?.location?.home_park?.map((item, index)=>(
+                          {detailHour?.slice?.[0]?.location?.home_park?.map((item, index) => (
                             <Span fontSize={'18px'} key={index}>
                               {item}
                             </Span>))}
-                          {detailHour?.slice?.[0]?.location?.clinic?.map((item, index)=>(
+                          {detailHour?.slice?.[0]?.location?.clinic?.map((item, index) => (
                             <Span fontSize={'18px'} key={index}>
-                              {item }
-                              {detailHour?.slice?.[0]?.location?.clinic?.length !== index+1 ? ', ': ''}
+                              {item}
+                              {detailHour?.slice?.[0]?.location?.clinic?.length !== index + 1 ? ', ' : ''}
                             </Span>))}
                         </Span>
                       </Span>
@@ -578,37 +587,37 @@ const Calendar = () => {
                       </Span>
                     </Box>
 
-                    <hr/>
-                    <Row  style={{display:'flex', justifyContent:'flex-end'}}>
-                      <Button disableborder text={'Sil'} width={'120px'} height={'35px'} onClick={()=>dispatch(
+                    <hr />
+                    <Row style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                      <Button disableborder text={'Sil'} width={'120px'} height={'35px'} onClick={() => dispatch(
                         deleteHourOfCalendar(
                           selectedHour?.id,
                           deleteHourSuccess,
                           deleteHourFail
-                        ))}/>
+                        ))} />
                     </Row>
                   </HourDetailContainer>
                 </ReservationAccordion>
               </AccordionContainer>
             </Col>)}
 
-          <Col style={{ display: 'flex', justifyContent: 'center'}}
-                 xs={{ order: IsSmallScreen ? 1 : 2 }}
-                 lg={4}>
-              <DateContainer>
-                <DatePicker
-                   selected={startDate}
-                   onSelect={handleSelect}
-                   selectsRange
-                   inline
-                   highlightDates={[
-                     {
-                       'react-datepicker__day--highlighted': startOfWeeksArr,
-                     },
-                   ]}
-                   minDate={new Date()} />
-              </DateContainer>
-            </Col>
+          <Col style={{ display: 'flex', justifyContent: 'center' }}
+            xs={{ order: IsSmallScreen ? 1 : 2 }}
+            lg={4}>
+            <DateContainer>
+              <DatePicker
+                selected={startDate}
+                onSelect={handleSelect}
+                selectsRange
+                inline
+                highlightDates={[
+                  {
+                    'react-datepicker__day--highlighted': startOfWeeksArr,
+                  },
+                ]}
+                minDate={new Date()} />
+            </DateContainer>
+          </Col>
         </Row>
       )}
 

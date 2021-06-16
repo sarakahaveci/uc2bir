@@ -30,8 +30,8 @@ const BuyPacket = ({ match }) => {
   useEffect(() => {
     dispatch(
       setPacketReservation({
-        level:'B',
-        totals_amount: packet?.data?.price_b,
+        level:'C',
+        totals_amount: packet?.data?.price_c ||packet?.data?.price ,
         id: match?.params?.id
       })
     );

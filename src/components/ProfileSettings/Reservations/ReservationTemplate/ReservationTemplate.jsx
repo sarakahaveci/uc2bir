@@ -54,13 +54,13 @@ export default function ReservationTemplate({
   }, []);
 
   useEffect(() => {
-    sessionSelection.map((session)=>{
-        if(session.type === 'online' && sessionSelection.length===1){
-          setIsGuestVisible(false)
-        }else {
-          setIsGuestVisible(true)
-        }
-    })
+    sessionSelection.map((session) => {
+      if (session.type === 'online' && sessionSelection.length === 1) {
+        setIsGuestVisible(false);
+      } else {
+        setIsGuestVisible(true);
+      }
+    });
   }, [sessionSelection]);
 
   const openSuccessTemplateModal = () =>
@@ -102,7 +102,6 @@ export default function ReservationTemplate({
       }),
     }));
 
-
     dispatch(
       addHoursToTemplate(selectedDay.day, {
         id: selectedDay.slice.length,
@@ -128,7 +127,7 @@ export default function ReservationTemplate({
 
     setAcceptGuest(false);
 
-    dispatch(setSelectedDay(selectedDay.day+1))
+    dispatch(setSelectedDay(selectedDay.day + 1));
   };
 
   const complateTemplateHandler = () => {
@@ -144,7 +143,7 @@ export default function ReservationTemplate({
     -1;
 
   const closeSuccessReservationModal = useCallback(() => {
-    successReservationModalRef.current.closeModal()
+    successReservationModalRef.current.closeModal();
     setTabPage('');
     setTab('Calendar');
   }, []);
@@ -217,7 +216,7 @@ export default function ReservationTemplate({
             <InnerWrapper>
               <TemplateSummary />
 
-              {userTypeId === PERSONAL_TRAINER && isGuestVisible &&
+              {userTypeId === PERSONAL_TRAINER && isGuestVisible && (
                 <Box mt="40px" px="20px">
                   <Box row>
                     <Text color="dark" fontWeight="500">
@@ -234,8 +233,7 @@ export default function ReservationTemplate({
                     </Box>
                   </Box>
                 </Box>
-              }
-
+              )}
             </InnerWrapper>
 
             <NextButtonWrapper>
@@ -306,7 +304,10 @@ export default function ReservationTemplate({
           </Text>
         </WeekDetailsInfoModal>
 
-        <SuccessReservationModal activateFooter ref={successReservationModalRef}>
+        <SuccessReservationModal
+          activateFooter
+          ref={successReservationModalRef}
+        >
           <div className="reservation__success-modal">
             <Box center mb="35px">
               <Svg.SuccessIcon />
@@ -329,7 +330,7 @@ export default function ReservationTemplate({
               cursor="pointer"
               onClick={closeSuccessReservationModal}
             >
-              Rezervasyon takvimimi gör
+              REZERVASYON TAKVİMİMİ GÖR
             </Text>
 
             <Link to="/" className="reservation__return-homepage">

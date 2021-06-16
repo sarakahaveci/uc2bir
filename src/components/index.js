@@ -43,6 +43,7 @@ export { default as ReservationHourButton } from './buttons/ReservationHourButto
 export { default as Select } from './Select/Select';
 export { default as SearchInput } from './inputs/SearchInput';
 export { default as HomeUserSlider } from './sliders/HomeUserSlider';
+export { default as LocationInput } from '../components/LocationInput/LocationInput';
 
 
 

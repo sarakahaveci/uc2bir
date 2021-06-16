@@ -107,7 +107,7 @@ export default function ActivityCard({
 
   useEffect(() => {
     const currentList = subBranches
-      ?.filter((branch) => userBranchList.includes(branch.name))
+      ?.filter((branch) => userBranchList?.includes(branch.name))
       .map((elem) => elem.id);
     setSelectedBranch(currentList);
   }, [subBranches]);
@@ -224,26 +224,60 @@ export default function ActivityCard({
                 </MenuItem>
               ))}
             </Select>
-            <Material.TextField
-              label="Kontenjan"
-              type="number"
-              name="capacity"
-              onChange={handleFormOnChange}
-              changeValue={capacity}
-              inputProps={{
-                readOnly: !isAccepted,
-              }}
-            />
-            <Material.TextField
-              label="Alan Kiralama Bedeli (TL)"
-              type="number"
-              name="price"
-              onChange={handleFormOnChange}
-              changeValue={price}
-              inputProps={{
-                readOnly: !isAccepted,
-              }}
-            />
+            {capacity === 0 ? (
+              <div>
+                <Material.TextField
+                  label="Kontenjan"
+                  type="number"
+                  name="capacity"
+                  onChange={handleFormOnChange}
+                  changeValue={''}
+                  inputProps={{
+                    readOnly: !isAccepted,
+                  }}
+                />
+              </div>
+            ) : (
+              <div>
+                <Material.TextField
+                  label="Kontenjan"
+                  type="number"
+                  name="capacity"
+                  onChange={handleFormOnChange}
+                  changeValue={capacity}
+                  inputProps={{
+                    readOnly: !isAccepted,
+                  }}
+                />
+              </div>
+            )}
+            {price === 0 ? (
+              <div>
+                <Material.TextField
+                  label="Alan Kiralama Bedeli (TL)"
+                  type="number"
+                  name="price"
+                  onChange={handleFormOnChange}
+                  changeValue={''}
+                  inputProps={{
+                    readOnly: !isAccepted,
+                  }}
+                />
+              </div>
+            ) : (
+              <div>
+                <Material.TextField
+                  label="Alan Kiralama Bedeli (TL)"
+                  type="number"
+                  name="price"
+                  onChange={handleFormOnChange}
+                  changeValue={price}
+                  inputProps={{
+                    readOnly: !isAccepted,
+                  }}
+                />
+              </div>
+            )}
           </>
         ) : (
           <>
@@ -256,20 +290,43 @@ export default function ActivityCard({
                 readOnly: true,
               }}
             />
-            <HtmlTooltip title={tooltipLabel}>
-              <PriceLabel>
-                ÜCRET <Svg.InfoIcon className="ml-1" />
-              </PriceLabel>
-            </HtmlTooltip>
-            <Material.TextField
-              type="number"
-              name="price"
-              changeValue={price}
-              onChange={handleBranchFormOnChange}
-              inputProps={{
-                readOnly: !isAccepted || waitingPrice,
-              }}
-            />
+            {price === 0 ? (
+              <div>
+                {' '}
+                <HtmlTooltip title={tooltipLabel}>
+                  <PriceLabel>
+                    ÜCRET <Svg.InfoIcon className="ml-1" />
+                  </PriceLabel>
+                </HtmlTooltip>
+                <Material.TextField
+                  type="number"
+                  name="price"
+                  changeValue={''}
+                  onChange={handleBranchFormOnChange}
+                  inputProps={{
+                    readOnly: !isAccepted || waitingPrice,
+                  }}
+                />
+              </div>
+            ) : (
+              <div>
+                {' '}
+                <HtmlTooltip title={tooltipLabel}>
+                  <PriceLabel>
+                    ÜCRET <Svg.InfoIcon className="ml-1" />
+                  </PriceLabel>
+                </HtmlTooltip>
+                <Material.TextField
+                  type="number"
+                  name="price"
+                  changeValue={price}
+                  onChange={handleBranchFormOnChange}
+                  inputProps={{
+                    readOnly: !isAccepted || waitingPrice,
+                  }}
+                />
+              </div>
+            )}
 
             <div style={{ height: 30 }}>
               {waitingPrice && (
