@@ -18,11 +18,9 @@ import {
   setReservation,
   getStaticPage,
   getGymReservationCalendar,
-
 } from 'actions';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import { getWallet } from 'actions/userProfileActions/walletActions';
-
 
 const Gym = ({ dateOption = true }) => {
   const dispatch = useDispatch();
@@ -37,7 +35,9 @@ const Gym = ({ dateOption = true }) => {
   const wallet = useSelector((state) => state.userProfile.wallet);
   const staticPages = useSelector((state) => state.staticPages);
   const reservation = useSelector((state) => state.reservation);
-  const ptList = useSelector((state) => state.reservationCalendar?.data?.location?.with_pt);
+  const ptList = useSelector(
+    (state) => state.reservationCalendar?.data?.location?.with_pt
+  );
 
   //const gymList = useSelector((state) => state.userProfile.ptGymList);
 
@@ -56,27 +56,25 @@ const Gym = ({ dateOption = true }) => {
     setPage(1);
   }, []);
   useEffect(() => {
-    if (!reservation?.data?.pt_id
-    ) {
-      setPtListState(ptList)
-
+    if (!reservation?.data?.pt_id) {
+      setPtListState(ptList);
     }
-  }, [ptList])
+  }, [ptList]);
   useEffect(() => {
-    if(wantPt){
-      setReservation({pt_id:undefined})
+    if (wantPt) {
+      setReservation({ pt_id: undefined });
     }
-  },[reservation?.data?.branch_id])
+  }, [reservation?.data?.branch_id]);
 
   useEffect(() => {
     if (reservation?.data?.branch_id && reservation?.data?.date) {
       dispatch(
         getGymReservationCalendar(
           userInfo.id,
-          reservation.data?.slot?.[0]?.date ||reservation.data?.date,
+          reservation.data?.slot?.[0]?.date || reservation.data?.date,
           reservation.data?.slot?.[0]?.hour,
           reservation?.data?.branch_id,
-          wantPt==1 ? reservation?.data?.pt_id:null
+          wantPt == 1 ? reservation?.data?.pt_id : null
         )
       );
     }
@@ -89,12 +87,11 @@ const Gym = ({ dateOption = true }) => {
           reservation.data?.slot?.[0]?.date,
           reservation.data?.slot?.[0]?.hour,
           reservation?.data?.branch_id,
-          wantPt==1 ? reservation?.data?.pt_id:null
+          wantPt == 1 ? reservation?.data?.pt_id : null
         )
-      )
+      );
     }
   }, [reservation?.data?.pt_id]);
-
 
   function _renderLeftArea() {
     switch (reservation?.data?.payment_type) {
@@ -255,7 +252,7 @@ const Gym = ({ dateOption = true }) => {
                   }}
                 />
               </InputContainer>
-              {(wantPt == 1) && _renderTrainerSelections()}
+              {wantPt == 1 && _renderTrainerSelections()}
             </SelectionContainer>
           </>
         );
@@ -271,13 +268,15 @@ const Gym = ({ dateOption = true }) => {
               <CardGroup style={{ padding: 0 }}>
                 <TrainerCard
                   name={item?.name}
+                  image={item?.photo}
                   stars={item?.rating}
                   category={item?.title}
                   price={item.price}
                   classification={item?.classification}
                 />
 
-                {reservation?.data?.pt_id && (reservation?.data?.pt_id === item.id) ? (
+                {reservation?.data?.pt_id &&
+                reservation?.data?.pt_id === item.id ? (
                   <RadioButtonCheckedIcon
                     style={{ marginLeft: '5px', cursor: 'pointer' }}
                   />
