@@ -202,7 +202,8 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
                     )}
                   </CardGroup>
                 </>
-              )) || null}
+              ))}
+              {!(gymListState?.lenght>0) && <text>Uygun Spor Alanı bulunmamaktadır</text>}
             </RadioGroup>
           </GymWrapper>
         );
