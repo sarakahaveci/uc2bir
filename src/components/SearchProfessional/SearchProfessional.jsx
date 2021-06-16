@@ -55,7 +55,7 @@ const SearchProfessional = () => {
       userTypeText = "Eğitmen"
       break;
     case "dt":
-      userTypeText = "Diyetşisyen"
+      userTypeText = "Diyetisyen"
       break;
     case "map":
       userTypeText = "Harita"
