@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import styled from 'styled-components/macro';
 import { useSelector } from 'react-redux';
 
 import SubTabs from 'components/SubTabs/SubTabs';
@@ -45,25 +44,11 @@ const Place = ({ userId }) => {
         )}
       />
 
-      <Description>
-        Spor alanı ile ilgili detay / bilgi veren yazı alanı. Lorem ipsum dolor
-        sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-        ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-      </Description>
-
       {content}
     </div>
   );
 };
 
-const Description = styled.div`
-  font-size: 0.9rem;
-  text-align: left;
-  color: ${(p) => p.theme.colors.dark};
-  padding: 20px 10px;
-  border-radius: 10px;
-  background: ${(p) => p.theme.colors.white3};
-  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.16);
-`;
+
 
 export default Place;
