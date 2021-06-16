@@ -45,9 +45,15 @@ const CreateCalenderModal = ({
           >
             Merhaba {name}
           </Text>
-          <Text textAlign="center" fontSize="1rem" color="dark">
-            Lütfen Vermek İstediğiniz Ders Tipini Seçiniz
-          </Text>
+          {type[0]?.key == KEYS.GYM ? (
+            <Text textAlign="center" fontSize="1rem" color="dark">
+              Lütfen kullanıma açmak istediğiniz alan bilgilerini giriniz.
+            </Text>
+          ) : (
+            <Text textAlign="center" fontSize="1rem" color="dark">
+              Lütfen Vermek İstediğiniz Ders Tipini Seçiniz
+            </Text>
+          )}
         </ContextContainer>
 
         <div className="modal-footer" closeIcon={false}>
@@ -57,9 +63,9 @@ const CreateCalenderModal = ({
               approve();
             }}
           >
-            {type[0]?.key === KEYS.DIETIAN
-              ? 'SEANS OLUŞTUR'
-              : 'ÖZEL DERS OLUŞTUR'}
+            {type[0]?.key === KEYS.DIETIAN && 'SEANS OLUŞTUR'}
+            {type[0]?.key === KEYS.PT && 'ÖZEL DERS OLUŞTUR'}
+            {type[0]?.key === KEYS.GYM && 'SPOR ALANI KİRALA'}
           </StyledButton>
         </div>
         {type[0]?.key !== KEYS.GYM && (
