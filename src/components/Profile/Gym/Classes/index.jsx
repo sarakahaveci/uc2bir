@@ -10,6 +10,7 @@ import BranchCardBody from '../../../BranchRow/BranchRowCollapser';
 const GymClass = ({ userId }) => {
   const dispatch = useDispatch();
   const { data } = useSelector((state) => state.userProfile.gymClass);
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(getGymClassList(userId));
@@ -21,13 +22,18 @@ const GymClass = ({ userId }) => {
   };
   return (
     <div>
-      <div className="d-flex">
-        <strong className="mx-auto my-2">
-          Sınıf eklemek ve düzenlemek için{' '}
-          <Click onClick={handleClick}>burayı</Click> tıklayınız.
-        </strong>
-      </div>
-      {data ? (
+      {user.type_id === 3 ? (
+        <div className="d-flex">
+          <strong className="mx-auto my-2">
+            Sınıf eklemek ve düzenlemek için{' '}
+            <Click onClick={handleClick}>burayı</Click> tıklayınız.
+          </strong>
+        </div>
+      ) : (
+        ''
+      )}
+
+      {data?.class?.length > 0 ? (
         <Accordion>
           {data?.class?.map((item, index) => {
             return (
