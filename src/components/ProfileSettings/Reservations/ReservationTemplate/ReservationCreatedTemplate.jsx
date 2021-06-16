@@ -73,7 +73,7 @@ export default function ReservationCreatedTemplate({
   };
 
   return subPage === 'create' ? (
-    <ReservationTemplate setTab={setTab} setTabPage={setSubPage} />
+    <ReservationTemplate setTab={setTab} setTabPage={setTabPage} />
   ) : (
     <div>
       <BackLink onClick={() => setTabPage('')}>
@@ -216,13 +216,13 @@ export default function ReservationCreatedTemplate({
 
           <Modal.Footer>
             <Text
-              onClick={closeSuccessReservationModal}
               textAlign="center"
               p="0 0 20px 0"
               color="blue"
               cursor="pointer"
+              onClick={closeSuccessReservationModal}
             >
-              Rezervasyon takvimimi gör
+              REZERVASYON TAKVİMİMİ GÖR
             </Text>
 
             <Link to="/" className="reservation__return-homepage">
