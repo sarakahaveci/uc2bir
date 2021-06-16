@@ -106,6 +106,9 @@ export default function PaymentCard({ type, subType, dateOption }) {
       case 'dt':
         setTotalAmountDT();
         break;
+      case 'packet':
+        setTotalAmountPacketReservation();
+        break;
       default:
         break;
     }
@@ -145,6 +148,16 @@ export default function PaymentCard({ type, subType, dateOption }) {
     dispatch(
       setReservation({
         totals_amount: dtPrice,
+      })
+    );
+  }
+  function setTotalAmountPacketReservation() {
+    var packetPrice = 0;
+    var gymPrice = reservation?.data?.gym_price || 0;
+
+    dispatch(
+      setReservation({
+        totals_amount: packetPrice + gymPrice,
       })
     );
   }
@@ -256,26 +269,26 @@ export default function PaymentCard({ type, subType, dateOption }) {
         }
       }));
     } else {
-        if (reservation?.data?.session == 'gym' || reservation?.data?.session == 'home_park'){
-          if(!reservation?.data?.location_id){
-            toast.error('Lokasyon seçimi yapmadınız!', {
-              position: 'bottom-right',
-              autoClose: 4000,
-            });
-            return;
-          }
-        }
-        
-        if (reservation?.data?.payment_type == 'wallet') {
-          dispatch(sendReservation('pt', removeEmpty(json), () => {
-            history.push('/buy/success')
-          }));
-        } else {
-          toast.error('Eksik Kart Bilgilerini Doldurunuz !', {
+      if (reservation?.data?.session == 'gym' || reservation?.data?.session == 'home_park') {
+        if (!reservation?.data?.location_id) {
+          toast.error('Lokasyon seçimi yapmadınız!', {
             position: 'bottom-right',
             autoClose: 4000,
           });
+          return;
         }
+      }
+
+      if (reservation?.data?.payment_type == 'wallet') {
+        dispatch(sendReservation('pt', removeEmpty(json), () => {
+          history.push('/buy/success')
+        }));
+      } else {
+        toast.error('Eksik Kart Bilgilerini Doldurunuz !', {
+          position: 'bottom-right',
+          autoClose: 4000,
+        });
+      }
     }
   }
   function scrollToTop() {
@@ -315,7 +328,7 @@ export default function PaymentCard({ type, subType, dateOption }) {
         }
       }));
     } else {
-     
+
       if (reservation?.data?.payment_type == 'wallet') {
         dispatch(sendReservation('bs', removeEmpty(json), () => {
           history.push('/buy/success')
@@ -427,7 +440,7 @@ export default function PaymentCard({ type, subType, dateOption }) {
         }
       }));
     } else {
-     
+
       if (reservation?.data?.payment_type == 'wallet') {
         dispatch(sendReservation('dt', removeEmpty(json), () => {
           history.push('/buy/success')
@@ -830,7 +843,7 @@ export default function PaymentCard({ type, subType, dateOption }) {
                   </text>
                   </div>
                 )}
-              {wallet?.data?.balance > reservation?.data?.totals_amount ? (
+              {wallet?.data?.balance >= reservation?.data?.totals_amount ? (
                 <BottomContainer>
                   <Button
                     style={{ width: '100%', padding: '20px' }}
@@ -934,7 +947,7 @@ export default function PaymentCard({ type, subType, dateOption }) {
             </BottomContainer>
           ) : (
             <>
-              {wallet?.data?.balance >
+              {wallet?.data?.balance >=
                 buyGroupLesson?.reservation?.totals_amount ? (
                 <BottomContainer>
                   <Button
@@ -996,7 +1009,7 @@ export default function PaymentCard({ type, subType, dateOption }) {
             </BottomContainer>
           ) : (
             <>
-              {wallet?.data?.balance > buyPacket?.reservation?.totals_amount ? (
+              {wallet?.data?.balance >= buyPacket?.reservation?.totals_amount ? (
                 <BottomContainer>
                   <Button
                     style={{ width: '100%', padding: '20px' }}
