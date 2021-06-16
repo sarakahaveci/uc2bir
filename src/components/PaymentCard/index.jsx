@@ -22,7 +22,7 @@ import {
 import { getWallet } from 'actions/userProfileActions/walletActions';
 
 import moment from 'moment';
-export default function PaymentCard({ type, subType, dateOption }) {
+export default function PaymentCard({ type, subType, dateOption,disabledPayment=false }) {
   const formRef = useRef(null);
   const packetFormRef = useRef(null);
   const history = useHistory();
@@ -173,10 +173,17 @@ export default function PaymentCard({ type, subType, dateOption }) {
           });
         }
       } else {
-        if (reservation?.data?.totals_amount > 0) {
-          dispatch(setReservation({ payment_type: payment_type }));
-        } else {
-          toast.error('Sepetiniz Boş', {
+        if(!disabledPayment){
+          if (reservation?.data?.totals_amount > 0) {
+            dispatch(setReservation({ payment_type: payment_type }));
+          } else {
+            toast.error('Sepetiniz Boş', {
+              position: 'bottom-right',
+              autoClose: 4000,
+            });
+          }
+        }else{
+          toast.error('Lütfen seçimlerinizi eksiksiz yapınız!', {
             position: 'bottom-right',
             autoClose: 4000,
           });
