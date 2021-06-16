@@ -156,11 +156,11 @@ const dietitianTabs = [
     title: 'Rezervasyonlarım',
     component: <Reservations />,
   },
-   {
+  {
     eventKey: 'packets',
     title: 'Paketlerim',
     component: <Packets />,
-  }, 
+  },
   {
     eventKey: 'service',
     title: 'Danışanlar',

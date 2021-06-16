@@ -95,7 +95,7 @@ const Trainers = ({
         branch,
         location,
         type: 'pt',
-        classification:packetLevel || level
+        classification: packetLevel || level,
       })
     );
   };
@@ -197,7 +197,7 @@ const Trainers = ({
                     onClickUpgrageClass('A');
                   }
                 }}
-                enable={packetLevel == 'A' }
+                enable={packetLevel == 'A'}
               >
                 A
               </LevelCircle>
@@ -211,7 +211,7 @@ const Trainers = ({
                     onClickUpgrageClass('B');
                   }
                 }}
-                enable={packetLevel == 'B' || packetLevel=='A'}
+                enable={packetLevel == 'B' || packetLevel == 'A'}
               >
                 B
               </LevelCircle>
@@ -226,8 +226,9 @@ const Trainers = ({
                     onClickUpgrageClass('C');
                   }
                 }}
-                enable={packetLevel == 'A' || packetLevel =='B' ||  packetLevel =='C'}
-              
+                enable={
+                  packetLevel == 'A' || packetLevel == 'B' || packetLevel == 'C'
+                }
               >
                 C
               </LevelCircle>
@@ -252,8 +253,11 @@ const Trainers = ({
                   data={professional}
                   city={professional?.city}
                   district={professional?.district}
-                  onClickHover={levelCompare(level, professional?.classification) ? onClickHover:()=>onClickUpgrageClass(professional?.classification)
- }
+                  onClickHover={
+                    levelCompare(level, professional?.classification)
+                      ? onClickHover
+                      : () => onClickUpgrageClass(professional?.classification)
+                  }
                 />
               ))}
             </GymListWrapper>
