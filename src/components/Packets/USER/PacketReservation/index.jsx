@@ -29,8 +29,7 @@ import {
   getPacketDtReservationCalendar,
   getDietitianClinics,
   deleteAllSlot,
-  getPtGymList,
-  getPtWorkingHomePlace,
+
   clearReservation,
 } from 'actions';
 
@@ -87,7 +86,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
       setClinicState(clinics)
     }
   },[clinics])
-  
+
   useEffect(()=>{
     if(reservation?.data.session =='clinic'){
       dispatch(getDietitianClinics(reservation?.data?.packetInfo?.dt_id));
