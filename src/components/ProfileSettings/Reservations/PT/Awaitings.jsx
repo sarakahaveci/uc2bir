@@ -154,11 +154,13 @@ const Awaitings = ({ setAwaitingCount }) => {
         <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
           <AccordionContainer>
             {
-              startOfWeeksArr().map((date)=>(
+              startOfWeeksArr().map((date) => (
                 _renderTab(date)
               ))
 
             }
+            {!(startOfWeeksArr()?.length > 0) && <text style={{padding:'20px'}}>Onay bekleyen hiçbir rezervasyon talebi yoktur</text>}
+
           </AccordionContainer>
 
         </StyledCol>
