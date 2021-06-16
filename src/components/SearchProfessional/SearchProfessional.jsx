@@ -10,10 +10,10 @@ import LongUserCard from 'components/UserCards/LongUserCard';
 import {
   Button,
   GoogleMapClusterer,
-  Svg,
   Pagination,
   BackLink,
   Text,
+  LocationInput
 } from 'components';
 import { searchProffesional } from 'actions';
 import Filter from './SearchFilters';
@@ -46,7 +46,7 @@ const SearchProfessional = () => {
   const { type } = searchParams || 'pt';
 
   let userTypeText;
-  const sortingStates = [{id:'asc',name:'Fiyat Artan'},{id:'desc',name:'Fiyat Azalan'}]
+  const sortingStates = [{ id: 'asc', name: 'Fiyat Artan' }, { id: 'desc', name: 'Fiyat Azalan' }]
   switch (type) {
     case "gym":
       userTypeText = "Salon"
@@ -163,16 +163,14 @@ const SearchProfessional = () => {
             </SearchCol>
 
             <SearchCol>
-              <div className="search-trainer__location-row">
-                <Svg.LocationIcon className="mr-1 mb-1" />
 
-                <input
-                  className="search-trainer__search-input"
-                  value={location}
-                  onChange={(e) => setLocation(e.target.value)}
-                  placeholder="Lokasyon..."
-                />
-              </div>
+              <LocationInput
+                defaultValue={location}
+                onChange={(e) => {
+                  setLocation(e)
+                }}
+                placeholder="Lokasyon..."
+              />
             </SearchCol>
 
             {type === 'pt' && (
@@ -192,24 +190,24 @@ const SearchProfessional = () => {
                 </Form.Control>
               </SearchCol>
             )}
-              <SearchCol>
-                <Form.Control
-                  as="select"
-                  className="search-trainer__select"
-                  value={sortBy}
-                  onChange={(e) => {
-                    setSortBy(e.target.value)
-                    linkChangeHandler(page)
-                  }}
-                >
-                  <option hidden>Sıralama</option>
-                  {sortingStates.map((item, index) => (
-                    <option key={'option' + index} value={item.id}>
-                      {item.name}
-                    </option>
-                  ))}
-                </Form.Control>
-              </SearchCol>
+            <SearchCol>
+              <Form.Control
+                as="select"
+                className="search-trainer__select"
+                value={sortBy}
+                onChange={(e) => {
+                  setSortBy(e.target.value)
+                  linkChangeHandler(page)
+                }}
+              >
+                <option hidden>Sıralama</option>
+                {sortingStates.map((item, index) => (
+                  <option key={'option' + index} value={item.id}>
+                    {item.name}
+                  </option>
+                ))}
+              </Form.Control>
+            </SearchCol>
             <SearchCol sm={12}>
               <FilterButton onClick={() => setShowFilters(!showFilters)}>
                 Filtrele
@@ -254,7 +252,7 @@ const SearchProfessional = () => {
             <GymListWrapper>
               {data?.map((professional) => (
                 <LongUserCard
-                favoritedUser={professional?.has_favorite_count>0}
+                  favoritedUser={professional?.has_favorite_count > 0}
 
                   favoriteId={professional?.user_id}
                   showHeartBg
