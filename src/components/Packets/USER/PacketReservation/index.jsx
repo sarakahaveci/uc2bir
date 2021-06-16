@@ -87,13 +87,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
       setClinicState(clinics)
     }
   },[clinics])
-  useEffect(() => { }, [userInfo]); //USER İNFO KOMPLE EKSİK
-  useEffect(() => {
-    if (type == 'pt') {
-      dispatch(getPtGymList(reservation?.data?.selectedPt?.user_id));
-      dispatch(getPtWorkingHomePlace(reservation?.data?.selectedPt?.user_id));
-    }
-  }, [reservation?.data?.selectedPt]);
+  
   useEffect(()=>{
     if(reservation?.data.session =='clinic'){
       dispatch(getDietitianClinics(reservation?.data?.packetInfo?.dt_id));
