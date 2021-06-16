@@ -12,7 +12,7 @@ import {
 import MessageRow from './MessageRow';
 import ChatBoxHeader from './ChatBoxHeader';
 import DefaultProfileImg from 'assets/default-profile.jpg';
-import { PlusButton } from 'components';
+import { PlusButton, PreviewImageModal } from 'components';
 import { resizeFile } from 'utils';
 
 export default function MessageArea() {
@@ -20,7 +20,7 @@ export default function MessageArea() {
   const [file, setFile] = useState();
   const [previewImg, setPreviewImg] = useState(null);
   const [message, setMessage] = useState(null);
-
+  const [previewImageModalOpen, setPreviewImageModalOpen] = useState(false);
   const fileInputRef = useRef();
 
   const { data: allMessages } = useSelector(
@@ -92,7 +92,9 @@ export default function MessageArea() {
       <div className="message-page__message__wrapper">
         {previewImg &&
           <StyledPreview>
-            <img className="preview-img" src={previewImg} />
+            <img onClick={() => {
+              setPreviewImageModalOpen(true);
+            }} className="preview-img" src={previewImg} />
 
             {fileSendButtonsEnabled ?
               <StyledPreviewButtons>  <span onClick={() => { handleCancelSubmitPhoto() }} className="button-container left" >Vazgeç</span>
@@ -142,6 +144,14 @@ export default function MessageArea() {
           accept="image/*"
         />
       </div>
+      {previewImageModalOpen}
+      <PreviewImageModal
+        imgSrc={previewImg}
+        open={previewImageModalOpen}
+        closeModal={() => {
+          setPreviewImageModalOpen(false)
+        }}
+      />
     </div>
   );
 }
@@ -177,6 +187,7 @@ height:47%;
 align-items:center;
 justify-content:center; 
 .preview-img{ 
+  cursor:pointer;
 border-top-right-radius:25px;
 border-top-left-radius:25px;
 border-bottom-left-radius:25px;
