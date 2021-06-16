@@ -122,7 +122,7 @@ export default function WorkPlaceActivity() {
               fontWeight="400"
               textAlign="left"
             >
-              Yeni faaliyet alanı Ekle{' '}
+              Yeni faaliyet alanı (Sınıf) Ekle
               <img
                 className="cp"
                 src={BluePlusIcon}
@@ -134,20 +134,31 @@ export default function WorkPlaceActivity() {
 
           <div className={`w-100 ${!showAddActivity ? 'card-wrapper' : ''}`}>
             {!showAddActivity ? (
-              data?.class?.length > 0 &&
-              data?.class?.map((activity) => (
-                <ActivityCard
-                  key={activity.id}
-                  id={activity.id}
-                  isAccepted={activity?.status === 'active'}
-                  status={activity?.status}
-                  name={activity?.name}
-                  isWorkPlace
-                  capacity={activity?.capacity}
-                  userBranchList={activity?.branches}
-                  price={activity?.price}
-                />
-              ))
+              (data?.class?.length > 0 ?
+                data?.class?.map((activity) => (
+                  (<ActivityCard
+                    key={activity.id}
+                    id={activity.id}
+                    isAccepted={activity?.status === 'active'}
+                    status={activity?.status}
+                    name={activity?.name}
+                    isWorkPlace
+                    capacity={activity?.capacity}
+                    userBranchList={activity?.branches}
+                    price={activity?.price}
+                  />)
+                )) :
+                <Title
+                  className="mb-2"
+                  fontSize="14px"
+                  letterSpacing="0.03em"
+                  fontWeight="400"
+                  textAlign="left"
+                  color="red"
+                >
+                  Henüz Faaliyet Alanı (Sınıf) Eklemediniz.
+                </Title>
+              )
             ) : (
               <>
                 {allList?.map((facility) => (
