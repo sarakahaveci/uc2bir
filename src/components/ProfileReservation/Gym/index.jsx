@@ -84,7 +84,7 @@ const Gym = ({ dateOption = true }) => {
       dispatch(
         getGymReservationCalendar(
           userInfo.id,
-          reservation.data?.slot?.[0]?.date,
+          reservation.data?.date,
           reservation.data?.slot?.[0]?.hour,
           reservation?.data?.branch_id,
           wantPt == 1 ? reservation?.data?.pt_id : null
@@ -271,7 +271,7 @@ const Gym = ({ dateOption = true }) => {
                   image={item?.photo}
                   stars={item?.rating}
                   category={item?.title}
-                  price={item.price}
+                  price={item?.price}
                   classification={item?.classification}
                 />
 
@@ -310,7 +310,7 @@ const Gym = ({ dateOption = true }) => {
     <Container>
       <LeftWrapper>{_renderLeftArea()}</LeftWrapper>
       <RightWrapper>
-        <PaymentCard type="gym" dateOption={dateOption} />
+        <PaymentCard disabledPayment={(wantPt && !reservation?.data?.pt_id)} type="gym" dateOption={dateOption} />
       </RightWrapper>
       <StyledModal show={openModal} onHide={() => setOpenModal(false)}>
         <MultiContract
