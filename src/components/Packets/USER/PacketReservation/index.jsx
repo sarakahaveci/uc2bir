@@ -319,7 +319,8 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
                       )}
                     </RadioWrapper>
                   </div>
-                )) || null}
+                )) ||  <text style={{ padding: '10px 0' }}>Bu kullanıcının uygun klinigi bulunmamaktadır.</text>}
+
               </RadioGroup>
             </GymWrapper>
           </>
@@ -538,7 +539,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
           <Container>
             <LeftWrapper>{_renderLeftArea()}</LeftWrapper>
             <RightWrapper>
-              <PaymentCard disabledPayment={((reservation?.data?.session == 'home_park' || reservation?.data?.session == 'gym') && !reservation?.data?.location_id)} type="packet" dateOption={true} />
+              <PaymentCard disabledPayment={((reservation?.data?.session == 'home_park' || reservation?.data?.session == 'gym') && !reservation?.data?.location_id)} type="packet" subType={type} dateOption={true} />
             </RightWrapper>
             <StyledModal show={openModal} onHide={() => setOpenModal(false)}>
               <MultiContract

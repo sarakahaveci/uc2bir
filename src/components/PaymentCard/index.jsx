@@ -466,37 +466,57 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
     //gym ok
     //pt ok
     //dt ok
-    switch (type) {
+    console.log('TYPEEE',type)
+    console.log('SUBTYPE',subType)
+    var tempType = type;
+    if(type == 'packet') tempType = subType;
+    switch (tempType) {
       case 'pt':
-        if (reservationCalendar?.data?.slice &&
-          reservationCalendar?.data?.slice?.length > 0) {
-          if (!reservation?.data?.session) return false;
-          if(disabledPayment == true) return false;
-          if ((reservation?.data.session == 'gym' || reservation?.data.session == 'home_park') && !reservation?.data?.location_id) return false;
-          return true
-        } else {
-          return false
-        }
-      case 'dt':
-        if (reservationCalendar?.data?.slice &&
-          reservationCalendar?.data?.slice?.length > 0) {
-          if (!reservation?.data?.session) return false;
-          if(disabledPayment == true) return false;
+        if (!reservation?.data?.session) {
+          // setIsNotOkReason('Oturum türü seçilmedi.')
 
-          if ((reservation?.data.session == 'clinic') && !reservation?.data?.location_id) return false;
-          return true
-        } else {
-          return false
+          return { reason: 'Oturum türü seçilmedi.' }
+        };
+        if ((reservation?.data.session == 'gym' || reservation?.data.session == 'home_park') && !reservation?.data?.location_id) {
+          // setIsNotOkReason('Seçilen oturum türü lokasyon seçimi gerektirmektedir')
+          return { reason: 'Seçilen oturum türü lokasyon seçimi gerektirmektedir' }
+        };
+        //setIsNotOkReason('')
+        if (!(reservationCalendar?.data?.slice &&
+          reservationCalendar?.data?.slice?.length > 0)) {
+          return { reason: 'Seçimlerinize uygun rezervasyon takvimi bulunamadı.' }
         }
+        return true
+
+      case 'dt':
+        if (!reservation?.data?.session) {
+          // setIsNotOkReason('Oturum türü seçilmedi.')
+
+          return { reason: 'Oturum türü seçilmedi.' }
+        };
+        if ((reservation?.data.session == 'clinic') && !reservation?.data?.location_id) {
+          // setIsNotOkReason('Seçilen oturum türü lokasyon seçimi gerektirmektedir')
+          return { reason: 'Seçilen oturum türü lokasyon seçimi gerektirmektedir' }
+        };
+        //setIsNotOkReason('')
+        if (!(reservationCalendar?.data?.slice &&
+          reservationCalendar?.data?.slice?.length > 0)) {
+          return { reason: 'Seçimlerinize uygun rezervasyon takvimi bulunamadı.' }
+        }
+        return true
       case 'gym':
-        if (reservationCalendar?.data?.slice &&
-          reservationCalendar?.data?.slice?.length > 0) {
-          if(disabledPayment == true) return false;
-          if ((reservation?.data.session == 'clinic' || reservation?.data.session == 'gym' || reservation?.data.session == 'home_park') && !reservation?.data?.location_id) return false;
-          return true
-        } else {
-          return false
+       
+        if(disabledPayment == true) return{reason: 'Eğitmen seçimi yapmadınız'}
+        if ((reservation?.data.session == 'gym' || reservation?.data.session == 'home_park') && !reservation?.data?.location_id) {
+          // setIsNotOkReason('Seçilen oturum türü lokasyon seçimi gerektirmektedir')
+          return { reason: 'Seçilen oturum türü lokasyon seçimi gerektirmektedir' }
+        };
+        //setIsNotOkReason('')
+        if (!(reservationCalendar?.data?.slice &&
+          reservationCalendar?.data?.slice?.length > 0)) {
+          return { reason: 'Seçimlerinize uygun rezervasyon takvimi bulunamadı.' }
         }
+        return true
 
       default:
         break;
@@ -505,7 +525,46 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
 
 
   }
-
+  function _renderReservationState() {
+    var reason = isOkForRes()?.reason
+    return (
+      (!(reason) && (
+        <div
+          style={{
+            width: '100%',
+            display: 'flex',
+            padding: '40px',
+          }}
+        >
+          <Svg.TickLesson></Svg.TickLesson>
+          <text style={{ marginLeft: '5px' }}>
+            Seçiminiz Rezervasyon İçin Uygundur
+            </text>
+        </div>
+      )) || (
+        <div
+          style={{
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Svg.InfoIcon></Svg.InfoIcon>
+          <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '20px' }}>
+            <text style={{ marginLeft: '5px', textAlign: 'center', marginTop: '6px', fontWeight: 'bold' }}>
+              Rezervasyon için uygun değildir.
+            </text>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <Svg.CencelIcon ></Svg.CencelIcon>
+              <text style={{ marginLeft: '5px' }}>{reason}</text>
+            </div>
+          </div>
+        </div>
+      )
+    )
+  }
   function sendPaymentPtPacketReservation() {
     var json = {
       package_uuid: reservation?.data?.package_uuid,
@@ -867,33 +926,9 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
             </BottomContainer>
           ) : (
             <>
-              {(isOkForRes() && (
-                <div
-                  style={{
-                    width: '100%',
-                    display: 'flex',
-                    padding: '40px',
-                  }}
-                >
-                  <Svg.TickLesson></Svg.TickLesson>
-                  <text style={{ marginLeft: '5px' }}>
-                    Seçiminiz Rezervasyon İçin Uygundur
-                    </text>
-                </div>
-              )) || (
-                  <div
-                    style={{
-                      width: '100%',
-                      display: 'flex',
-                      padding: '40px',
-                    }}
-                  >
-                    <Svg.CencelIcon></Svg.CencelIcon>
-                    <text style={{ marginLeft: '5px' }}>
-                      Seçiminiz Rezervasyon İçin Uygun Değildir
-                  </text>
-                  </div>
-                )}
+              {
+                _renderReservationState()
+              }
               {wallet?.data?.balance >= reservation?.data?.totals_amount ? (
                 <BottomContainer>
                   <Button
