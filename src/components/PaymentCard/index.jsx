@@ -466,7 +466,6 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
     //gym ok
     //pt ok
     //dt ok
-
     var tempType = type;
     if(type == 'packet') tempType = subType;
     switch (tempType) {

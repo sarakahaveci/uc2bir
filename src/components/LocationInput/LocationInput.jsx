@@ -22,7 +22,7 @@ const LocationInput = ({
         setValue,
         clearSuggestions,
     } = usePlacesAutocomplete({
-        defaultValue:defaultValue,
+        defaultValue: defaultValue,
         requestOptions: {
             /* Define search scope here */
         },
@@ -68,13 +68,13 @@ const LocationInput = ({
             } = suggestion;
 
             return (
-                <li style={{ backgroundColor: 'white', margin: '5px' }} key={place_id} onClick={handleSelect(suggestion)}>
-                    <small>{secondary_text}</small>
-                </li>
+                <div style={{ margin: '5px' }} key={place_id} onClick={handleSelect(suggestion)}>
+                    <small style={{fontWeight:'bold'}}>{secondary_text}</small>
+                </div>
             );
         });
     return (
-        <div style={{ display: 'flex', }} ref={ref}>
+        <div style={{ display: 'flex' }} ref={ref}>
             <NakedInput
                 placeholder={placeholder}
                 inputProps={{ 'aria-label': 'naked' }}
@@ -82,17 +82,15 @@ const LocationInput = ({
                 value={value}
                 onChange={handleInput}
             />
-            {status === "OK" && <div style={{
-                position: 'absolute',
-                zIndex: '99999999999999',
-                marginTop:'45px'
-            }}>
+            {status === "OK" && <Sugg>
 
-                <ul style={{
+                <div style={{
                     background: 'white',
-                }} >{renderSuggestions()}</ul>
+                    display:'flex',
+                    flexDirection: 'column'
+                }} >{renderSuggestions()}</div>
 
-            </div>}
+            </Sugg>}
         </div>
     );
 };
@@ -104,4 +102,16 @@ const NakedInput = styled(InputBase)`
     color: black;
   }
 `;
+const Sugg = styled.div`
+display:flex;
+position: absolute;
+z-index:999999;
+margin-top: 45px;
+padding: 10px;
+border-radius:5px;
+background:white;
+max-height:100px;
+max-width:370px;
+overflow:scroll;
+`
 export default LocationInput;
