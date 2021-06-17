@@ -1,5 +1,5 @@
 import React from 'react';
-import loading from '../../assets/2.gif';
+//import loading from '../../assets/2.gif';
 
 const Banner = ({ className = '', searchBar, virtual, virtuals }) => {
   return (

@@ -16,9 +16,9 @@ import { GoogleMapsAPI } from 'utils/config';
 
 const center = { lat: 39.925533, lng: 32.866287 };
 
-export default function GoogleMapClusterer({ data, onSelected, isSaloonMap }) {
+export default function GoogleMapClusterer({ data, onSelected, isSaloonMap ,disableMinOption=false}) {
   const [selectedMarker, setSelectedMarker] = useState(null);
-  const [isMapMin, setIsMapMin] = useState(true);
+  const [isMapMin, setIsMapMin] = useState(true && (!disableMinOption));
   const mapContainerStyle = { width: '100%', height: '100%' };
 
   const options = { maxZoom: 15 };
@@ -42,9 +42,9 @@ export default function GoogleMapClusterer({ data, onSelected, isSaloonMap }) {
   const wrapperClass = 'mx-auto map-wrapper';
   return (
     <div style={{ height: isMapMin ? '25vh' : '55vh', width: '100%' }} className={wrapperClass}>
-      <div className="text-container" >
+      {!disableMinOption && <div className="text-container" >
         <span className="map-scale" onClick={() => { setIsMapMin(!isMapMin) }} >Haritayı {isMapMin ? <span>büyüt</span> : <span>küçült</span>}</span>
-      </div>
+      </div>}
       <GoogleMap
         id="google-map"
         mapContainerStyle={mapContainerStyle}

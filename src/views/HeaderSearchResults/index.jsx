@@ -152,7 +152,7 @@ const HeaderSearchResults = () => {
           >
             Arama sonuçlarınız,
           </Text>
-          {data && <GoogleMapClusterer data={data} />}
+          {data && <GoogleMapClusterer  data={data} />}
 
           <Accordion>{results}</Accordion>
         </Container>

@@ -91,7 +91,7 @@ const Banner = () => {
       component: () => {
         return (
           <div className="img">
-            <GoogleApp data={data} />
+            <GoogleApp disableMinOption data={data} />
           </div>
         );
       },
