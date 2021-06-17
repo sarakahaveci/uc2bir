@@ -26,6 +26,7 @@ const Gym = ({ dateOption = true }) => {
   const dispatch = useDispatch();
   //Local States
   const [wantPt, setWantPt] = useState(2);
+  //1 true 2false
   const [page, setPage] = useState(1);
   const [ptListState, setPtListState] = useState([]);
 
@@ -61,7 +62,7 @@ const Gym = ({ dateOption = true }) => {
     }
   }, [ptList]);
   useEffect(() => {
-    if (wantPt) {
+    if (wantPt==1) {
       setReservation({ pt_id: undefined });
     }
   }, [reservation?.data?.branch_id]);
@@ -220,7 +221,7 @@ const Gym = ({ dateOption = true }) => {
                   />
                 </InputContainer>
               )}
-              <InputContainer>
+              <InputContainer disable={reservation?.data?.isSelected}>
                 <Text color="#9B9B9B">{'Branş Seçiniz:'}</Text>
                 <Material.SimpleSelect
                   items={allBranchList}
@@ -310,7 +311,7 @@ const Gym = ({ dateOption = true }) => {
     <Container>
       <LeftWrapper>{_renderLeftArea()}</LeftWrapper>
       <RightWrapper>
-        <PaymentCard disabledPayment={(wantPt && !reservation?.data?.pt_id)} type="gym" dateOption={dateOption} />
+        <PaymentCard disabledPayment={(!(wantPt==2) && !reservation?.data?.pt_id)} type="gym" dateOption={!reservation?.data?.isSelected} />
       </RightWrapper>
       <StyledModal show={openModal} onHide={() => setOpenModal(false)}>
         <MultiContract
@@ -424,5 +425,7 @@ const Info = styled.div`
 
 const InputContainer = styled.div`
   margin-bottom: 20px;
+  pointer-events: ${(p) => (p.disable ? 'none' : 'initial')};
+  opacity: ${(p) => (p.disable ? '0.7' : '1')};
 `;
 export default Gym;

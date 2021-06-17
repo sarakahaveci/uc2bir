@@ -22,7 +22,7 @@ import {
 import { getWallet } from 'actions/userProfileActions/walletActions';
 
 import moment from 'moment';
-export default function PaymentCard({ type, subType, dateOption,disabledPayment=false }) {
+export default function PaymentCard({ type, subType, dateOption, disabledPayment = false }) {
   const formRef = useRef(null);
   const packetFormRef = useRef(null);
   const history = useHistory();
@@ -173,7 +173,7 @@ export default function PaymentCard({ type, subType, dateOption,disabledPayment=
           });
         }
       } else {
-        if(!disabledPayment){
+        if (!disabledPayment) {
           if (reservation?.data?.totals_amount > 0) {
             dispatch(setReservation({ payment_type: payment_type }));
           } else {
@@ -182,7 +182,7 @@ export default function PaymentCard({ type, subType, dateOption,disabledPayment=
               autoClose: 4000,
             });
           }
-        }else{
+        } else {
           toast.error('Lütfen seçimlerinizi eksiksiz yapınız!', {
             position: 'bottom-right',
             autoClose: 4000,
@@ -461,6 +461,52 @@ export default function PaymentCard({ type, subType, dateOption,disabledPayment=
       }
     }
   }
+
+  function isOkForRes() {
+    console.log('TYPPEE:',type)
+    //gym ok
+    //pt ok
+    //dt ok
+    switch (type) {
+      case 'pt':
+        if (reservationCalendar?.data?.slice &&
+          reservationCalendar?.data?.slice?.length > 0) {
+          if (!reservation?.data?.session) return false;
+          if(disabledPayment == true) return false;
+          if ((reservation?.data.session == 'gym' || reservation?.data.session == 'home_park') && !reservation?.data?.location_id) return false;
+          return true
+        } else {
+          return false
+        }
+      case 'dt':
+        if (reservationCalendar?.data?.slice &&
+          reservationCalendar?.data?.slice?.length > 0) {
+          if (!reservation?.data?.session) return false;
+          if(disabledPayment == true) return false;
+
+          if ((reservation?.data.session == 'clinic') && !reservation?.data?.location_id) return false;
+          return true
+        } else {
+          return false
+        }
+      case 'gym':
+        if (reservationCalendar?.data?.slice &&
+          reservationCalendar?.data?.slice?.length > 0) {
+          if(disabledPayment == true) return false;
+          if ((reservation?.data.session == 'clinic' || reservation?.data.session == 'gym' || reservation?.data.session == 'home_park') && !reservation?.data?.location_id) return false;
+          return true
+        } else {
+          return false
+        }
+
+      default:
+        break;
+    }
+
+
+
+  }
+
   function sendPaymentPtPacketReservation() {
     var json = {
       package_uuid: reservation?.data?.package_uuid,
@@ -732,7 +778,7 @@ export default function PaymentCard({ type, subType, dateOption,disabledPayment=
                                 {elm.hour}
                               </Text>
                             </div>
-                            {!reservation?.data?.payment_type && (
+                            {dateOption && !reservation?.data?.payment_type && (
                               <Svg.TrashIcon
                                 onClick={() => {
                                   dispatch(deleteSlot(elm));
@@ -822,21 +868,20 @@ export default function PaymentCard({ type, subType, dateOption,disabledPayment=
             </BottomContainer>
           ) : (
             <>
-              {(reservationCalendar?.data?.slice &&
-                reservationCalendar?.data?.slice?.length > 0 && (
-                  <div
-                    style={{
-                      width: '100%',
-                      display: 'flex',
-                      padding: '40px',
-                    }}
-                  >
-                    <Svg.TickLesson></Svg.TickLesson>
-                    <text style={{ marginLeft: '5px' }}>
-                      Seçiminiz Rezervasyon İçin Uygundur
+              {(isOkForRes() && (
+                <div
+                  style={{
+                    width: '100%',
+                    display: 'flex',
+                    padding: '40px',
+                  }}
+                >
+                  <Svg.TickLesson></Svg.TickLesson>
+                  <text style={{ marginLeft: '5px' }}>
+                    Seçiminiz Rezervasyon İçin Uygundur
                     </text>
-                  </div>
-                )) || (
+                </div>
+              )) || (
                   <div
                     style={{
                       width: '100%',

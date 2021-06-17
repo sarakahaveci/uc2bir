@@ -538,7 +538,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
           <Container>
             <LeftWrapper>{_renderLeftArea()}</LeftWrapper>
             <RightWrapper>
-              <PaymentCard type="packet" dateOption={true} />
+              <PaymentCard disabledPayment={((reservation?.data?.session == 'home_park' || reservation?.data?.session == 'gym') && !reservation?.data?.location_id)} type="packet" dateOption={true} />
             </RightWrapper>
             <StyledModal show={openModal} onHide={() => setOpenModal(false)}>
               <MultiContract

@@ -591,7 +591,7 @@ const PT = () => {
     <Container>
       <LeftWrapper>{_renderLeftArea()}</LeftWrapper>
       <RightWrapper>
-        <PaymentCard type="pt" dateOption={!reservation?.data?.isSelected} />
+        <PaymentCard disabledPayment={((reservation?.data?.session == 'home_park' || reservation?.data?.session == 'gym') && !reservation?.data?.location_id)} type="pt" dateOption={!reservation?.data?.isSelected} />
       </RightWrapper>
     </Container>
   );
