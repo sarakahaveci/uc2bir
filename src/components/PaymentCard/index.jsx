@@ -463,7 +463,6 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
   }
 
   function isOkForRes() {
-    console.log('TYPPEE:',type)
     //gym ok
     //pt ok
     //dt ok
