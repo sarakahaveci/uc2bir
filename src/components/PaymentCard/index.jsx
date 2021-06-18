@@ -679,7 +679,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
         </ReservationContainer>
       )}
       <AddTextContainer>
-        {(type === 'pt' || type === 'gym') &&
+        {(type === 'pt' ) &&
           reservation?.data?.session !== 'online' &&
           !reservation?.data?.payment_type && (
             <>
