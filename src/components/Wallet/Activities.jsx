@@ -15,7 +15,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { DialogActions } from '@material-ui/core';
 import { getWalletTransactions } from 'actions/userProfileActions/walletActions';
 
-const Activities = ({ setPage }) => {
+const Activities = () => {
   const transactionsData = useSelector(
     (state) => state?.userProfile?.wallet.transactionsData.data
   );
