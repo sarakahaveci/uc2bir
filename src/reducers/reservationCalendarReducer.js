@@ -8,6 +8,9 @@ import {
   GET_GYM_RESERVATION_CALENDAR_FAILURE,
   GET_GYM_RESERVATION_CALENDAR_SUCCESS,
   GET_GYM_RESERVATION_CALENDAR_REQUEST,
+  GET_GYM_RESERVATION_DATA_FAILURE,
+  GET_GYM_RESERVATION_DATA_SUCCESS,
+  GET_GYM_RESERVATION_DATA_REQUEST,
   GET_AREA_FOR_PT_REQUEST,
   GET_AREA_FOR_PT_SUCCESS,
   GET_AREA_FOR_PT_FAILURE,
@@ -63,7 +66,25 @@ export default (state = initialState, action) => {
         data: action.payload,
       };
     //For sport area GYM
+    case GET_GYM_RESERVATION_DATA_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
 
+    case GET_GYM_RESERVATION_DATA_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload.message,
+        resData: {},
+      };
+    case GET_GYM_RESERVATION_DATA_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        resData: action.payload,
+      };
     case GET_GYM_RESERVATION_CALENDAR_REQUEST:
       return {
         ...state,

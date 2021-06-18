@@ -18,6 +18,7 @@ import {
   setReservation,
   getStaticPage,
   getGymReservationCalendar,
+  getGymDataForRes
 } from 'actions';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import { getWallet } from 'actions/userProfileActions/walletActions';
@@ -55,6 +56,9 @@ const Gym = ({ dateOption = true }) => {
   }, [userInfo]);
   useEffect(() => {
     setPage(1);
+    dispatch(getGymDataForRes(userInfo.id)) // FOR START DATA --buradan branş gelecek ama daha yok
+    
+ 
   }, []);
   useEffect(() => {
     if (!reservation?.data?.pt_id) {
