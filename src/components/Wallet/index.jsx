@@ -7,7 +7,7 @@ import UserTransfer from './UserTransfer';
 import TransferInfo from './TransferInfo';
 
 const Wallet = () => {
-  const [page, setPage] = useState('home');
+  const [page, setPage] = useState('activities');
   switch (page) {
     case 'home':
       return <Home setPage={setPage} />;

@@ -41,7 +41,7 @@ const Home = ({ setPage }) => {
                 Hesabınızda bulunan tutarı ve hesap hareketlerinizi
                 görüntüleyebilir, bankanıza TL aktarabilirsiniz.
               </Text>
-              <Explanation>
+            <Explanation>
                 <Col>
                   <Title textAlign="left">Cüzdanımdaki Toplam Tutar:</Title>
                 </Col>
@@ -67,7 +67,7 @@ const Home = ({ setPage }) => {
                 text="Hesap Hareketlerime Git >"
                 onClick={() => setPage('activities')}
               />
-              {user.type_id === 1 && (
+              {user.type_id === 1 && ( 
                 <Button
                   style={{ textDecoration: 'underline', display: 'block' }}
                   fontWeight="600"

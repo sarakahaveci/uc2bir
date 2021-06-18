@@ -36,7 +36,7 @@ const User = ({ user_name, user_img = null, logoutHandler }) => {
       link: TABS.packetsPath,
     },
     {
-      name: 'Cüzdanım',
+      name: 'Hesap Hareketleri',
       icon: <Svg.Wallet />,
       link: TABS.walletPath,
     },

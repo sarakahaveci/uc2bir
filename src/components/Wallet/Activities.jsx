@@ -40,7 +40,7 @@ const Activities = ({ setPage }) => {
         <Row>
           <Col lg="12">
             <Title fontSize="13pt" style={{ padding: 15 }} textAlign="left">
-              Cüzdanım
+              Hesap Hareketleri
             </Title>
           </Col>
           <Col lg="4">
@@ -51,9 +51,9 @@ const Activities = ({ setPage }) => {
               style={{ cursor: 'pointer' }}
               fontSize="12pt"
               textAlign="left"
-              onClick={() => setPage('home')}
+             // onClick={() => setPage('home')} ŞİMDİLİK KAPATILDI
             >
-              {`< Hesap Hareketlerim`}
+              {`Hesap Hareketlerim`}
             </Title>
 
             <>
@@ -61,7 +61,7 @@ const Activities = ({ setPage }) => {
                 Bütün hesap hareketlerinizi bu alanda görüntüleyebilirsiniz.
               </Text>
 
-              {transactionsData.length > 0 ? (
+              {transactionsData?.length > 0 ? (
                 <div>
                   {' '}
                   <FilterSelect>

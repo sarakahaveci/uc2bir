@@ -927,7 +927,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
               {
                 _renderReservationState()
               }
-              {wallet?.data?.balance >= reservation?.data?.totals_amount ? (
+              {false &&(wallet?.data?.balance >= reservation?.data?.totals_amount) ? ( //Şimdilik cüzdanım kapatıldı
                 <BottomContainer>
                   <Button
                     style={{ width: '100%', padding: '20px' }}
@@ -1031,8 +1031,8 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
             </BottomContainer>
           ) : (
             <>
-              {wallet?.data?.balance >=
-                buyGroupLesson?.reservation?.totals_amount ? (
+              {false && (wallet?.data?.balance >= //Cüzdanım şimdilik kapatıldı
+                buyGroupLesson?.reservation?.totals_amount) ? (
                 <BottomContainer>
                   <Button
                     style={{ width: '100%', padding: '20px' }}
@@ -1093,7 +1093,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
             </BottomContainer>
           ) : (
             <>
-              {wallet?.data?.balance >= buyPacket?.reservation?.totals_amount ? (
+              {false && (wallet?.data?.balance >= buyPacket?.reservation?.totals_amount) ? ( //Cüzdanım Şimdilik kapatıldı
                 <BottomContainer>
                   <Button
                     style={{ width: '100%', padding: '20px' }}
