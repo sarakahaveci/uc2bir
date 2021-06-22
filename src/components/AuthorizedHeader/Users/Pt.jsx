@@ -5,6 +5,7 @@ import List from '../HeaderList';
 import Item from '../HeaderItem';
 import TABS from 'constants/tabUri';
 import { useSelector } from 'react-redux';
+import defaultImage from '../../../assets/default-profile.jpg'
 
 const Pt = ({ user_name, user_img = null, logoutHandler }) => {
   const { data: allRooms } = useSelector(
@@ -86,8 +87,9 @@ const Pt = ({ user_name, user_img = null, logoutHandler }) => {
       linkPath: TABS.reservationsPath,
     },
     {
+      isUserMenu:true,
       name: user_name,
-      icon: user_img || <Svg.UsernameIcon />,
+      icon: user_img ? <img style={{objectFit:'cover'}} src={user_img}/> : <img style={{objectFit:'cover'}} src={defaultImage}/>,
       menu: userDependentMenu,
       pulse: true,
     },
@@ -104,10 +106,12 @@ const Pt = ({ user_name, user_img = null, logoutHandler }) => {
             linkPath={val?.linkPath}
           >
             <Item
+
               icon={val.icon}
               text={val.name}
               notify={val.notify}
               pulse={val.pulse}
+              isUserMenu={val?.isUserMenu}
             />
           </List>
         );

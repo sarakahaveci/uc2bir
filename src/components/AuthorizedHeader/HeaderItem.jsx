@@ -1,24 +1,32 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
 
-import { pulse } from 'components';
+import { pulse,Svg } from 'components';
 import { device } from 'utils';
 
-const Item = ({ icon, text, pulse, notify = null }) => {
+const Item = ({ isUserMenu=false,icon, text, pulse, notify = null }) => {
   return (
     <ItemWrapper>
-      <IconWrapper pulse={pulse} className="icon">
+     <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
+     <IconWrapper pulse={pulse} className="icon">
         {icon}
       </IconWrapper>
+    {isUserMenu && <Svg.ArrowDownIcon style={{marginTop:'10px',marginLeft:'5px'}}/>}
+     </div>
 
       <Span className="title">{text}</Span>
 
       {notify > 0 && <Notify>{notify}</Notify>}
+      
     </ItemWrapper>
+ 
   );
 };
 
 const IconWrapper = styled.span`
+  display:flex;
+  align-items:center;
+  justify-content:center;
   ${(p) =>
     p.pulse &&
     css`
@@ -32,7 +40,7 @@ const IconWrapper = styled.span`
 const ItemWrapper = styled.div`
   display: flex;
   width: 100%;
-
+  flex-direction:column;
   @media ${device.lg} {
     flex-direction: column;
   }

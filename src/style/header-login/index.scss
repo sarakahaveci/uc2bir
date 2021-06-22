@@ -25,8 +25,8 @@
       border-radius: 10px;
       padding: 5px;
       box-shadow: 6px 4px 6px -5px rgba(0, 0, 0, 0.51);
-      transition: all 0.5s cubic-bezier(1, 0, 0, 0.99);
-      transform: scale(0) rotate(360deg);
+      transition: all 0.1s cubic-bezier(1, 0, 0, 0.99);
+      transform: scale(0) rotate(0deg);
 
       .drop-li {
         & > ul > li > .ul-drop-down {
@@ -71,7 +71,7 @@
         &:hover,
         &.active {
           a {
-            color: #000;
+            color: var(--blue);
           }
           span.item-icon {
             transform: scale(1.2);

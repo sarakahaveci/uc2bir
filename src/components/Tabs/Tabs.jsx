@@ -16,7 +16,7 @@ export default function ProfileTab({ tabData, defaultActiveKey, baseUrl }) {
       onSelect={(key) => history.push(`${baseUrl}${key}`)}
     >
       {tabData?.map((tab) => (
-        <Tab eventKey={tab?.eventKey} title={tab?.title} key={tab?.eventKey}>
+        <Tab  eventKey={tab?.eventKey}  title={tab?.title} key={tab?.eventKey}>
           {tab?.component}
         </Tab>
       ))}
@@ -27,12 +27,15 @@ export default function ProfileTab({ tabData, defaultActiveKey, baseUrl }) {
 const StyledTabs = styled(Tabs)`
   padding: 5px 10px 0;
   margin-bottom: 20px;
-
+ 
   .active {
+
     color: ${(p) => p.theme.colors.blue} !important;
   }
 
   .nav-link {
+    font-size:14px;
+
     &:not(:last-child) {
       border-right: 1px solid #e8f0f8 !important;
       border-radius: unset;

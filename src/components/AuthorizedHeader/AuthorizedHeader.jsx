@@ -38,7 +38,7 @@ const HeaderLogin = ({ type_id, user }) => {
           <User
             user_id={user.id}
             user_name={user.name}
-            user_img={user.img}
+            user_img={user.photo}
             logoutHandler={logoutHandler}
           />
         </Section>
@@ -50,7 +50,7 @@ const HeaderLogin = ({ type_id, user }) => {
           <Pt
             user_id={user.id}
             user_name={user.name}
-            user_img={user.img}
+            user_img={user.photo}
             logoutHandler={logoutHandler}
           />
         </Section>
@@ -62,7 +62,7 @@ const HeaderLogin = ({ type_id, user }) => {
           <Gym
             user_id={user.id}
             user_name={user.name}
-            user_img={user.img}
+            user_img={user.photo}
             logoutHandler={logoutHandler}
           />
         </Section>
@@ -74,7 +74,7 @@ const HeaderLogin = ({ type_id, user }) => {
           <Dietitian
             user_id={user.id}
             user_name={user.name}
-            user_img={user.img}
+            user_img={user.photo}
             logoutHandler={logoutHandler}
           />
         </Section>
