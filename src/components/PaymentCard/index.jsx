@@ -30,13 +30,14 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
   const reservation = useSelector((state) => state.reservation);
   const buyPacket = useSelector((state) => state.buyPacket);
   const buyGroupLesson = useSelector((state) => state.buyGroupLesson);
-
+  const { branches: branchList } = useSelector(
+    (state) => state.userProfile.branch
+  );
   const reservationCalendar = useSelector((state) => state.reservationCalendar);
 
   const payment = useSelector((state) => state.payment);
   const paymentPacket = useSelector((state) => state.paymentPacket);
 
-  const { userInfo } = useSelector((state) => state.userProfile.userInfo);
   const [toggleState, setToggleState] = useState(false);
   const wallet = useSelector((state) => state.userProfile.wallet);
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -70,7 +71,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
         setReservation({
           [`${type}_price`]:
             reservation?.data?.slot?.length *
-            (userInfo.price || reservationCalendar?.data?.bs?.price),
+            (branchList.branches.filter(item => item.id == reservation.data.branch_id)?.[0]?.price || reservationCalendar?.data?.bs?.price),
         })
       );
     } else {
@@ -136,7 +137,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
     var ptPrice = reservation?.data?.pt_price || 0;
     var gymPrice = reservation?.data?.gym_price || 0;
     var guestPrice = reservation?.data?.guest ? gymPrice + ptPrice : 0; // Buraya Çarpan gelecektir
-
+    
     dispatch(
       setReservation({
         totals_amount: ptPrice + gymPrice + guestPrice,
