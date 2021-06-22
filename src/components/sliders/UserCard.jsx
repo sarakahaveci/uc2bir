@@ -44,7 +44,7 @@ const UserCard = ({ top = false, bottom = false, data = {}, className }) => {
                 lineDisable
                 variant="h5"
                 component="h5"
-                children={data.name}
+                children={data.name || data?.title}
               />
             </Link>
 
@@ -76,9 +76,11 @@ const UserCard = ({ top = false, bottom = false, data = {}, className }) => {
 
             <ul className="slick-button-group row">
               {data?.branch?.map((branch, index) => (
-                <li key={index}>
+                index < 3 && (
+                  <li key={index}>
                   <Button text={branch} />
                 </li>
+                )
               ))}
             </ul>
 
