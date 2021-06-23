@@ -20,7 +20,6 @@ import {
   sendGroupReservation,
 } from 'actions';
 import { getWallet } from 'actions/userProfileActions/walletActions';
-
 import moment from 'moment';
 export default function PaymentCard({ type, subType, dateOption, disabledPayment = false }) {
   const formRef = useRef(null);
@@ -30,6 +29,8 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
   const reservation = useSelector((state) => state.reservation);
   const buyPacket = useSelector((state) => state.buyPacket);
   const buyGroupLesson = useSelector((state) => state.buyGroupLesson);
+  const { userInfo } = useSelector((state) => state.userProfile.userInfo);
+
   const { branches: branchList } = useSelector(
     (state) => state.userProfile.branch
   );
@@ -67,13 +68,23 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
   }, [paymentPacket?.request]);
   useEffect(() => {
     if (reservation?.data?.slot?.length > 0) {
-      dispatch(
-        setReservation({
-          [`${type}_price`]:
-            reservation?.data?.slot?.length *
-            (branchList.branches.filter(item => item.id == reservation.data.branch_id)?.[0]?.price || reservationCalendar?.data?.bs?.price),
-        })
-      );
+      if(type !== 'dt'){
+        dispatch(
+          setReservation({
+            [`${type}_price`]:
+              reservation?.data?.slot?.length *
+              (branchList?.branches?.filter(item => item?.id == reservation.data?.branch_id)?.[0]?.price || reservationCalendar?.data?.bs?.price),
+          })
+        );
+      }else{
+        dispatch(
+          setReservation({
+            [`${type}_price`]:
+              reservation?.data?.slot?.length *
+              (userInfo?.price || reservationCalendar?.data?.bs?.price),
+          })
+        );
+      }
     } else {
       dispatch(
         setReservation({
