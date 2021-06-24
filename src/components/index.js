@@ -50,6 +50,8 @@ export { default as LocationInput } from '../components/LocationInput/LocationIn
 export { default as Tab } from './Tabs/Tabs';
 export { default as Certificate } from './Certificate/Certificate';
 export { default as ProfileCard } from './banner/profile-banner/ProfileCard';
+export { default as CircleProfileCard } from './banner/profile-banner/CircleProfileCard';
+
 export { default as MasonaryGallery } from './MasonaryGallery';
 export { default as WorkPlaceRow } from './WorkPlaceRow/WorkPlaceRow';
 export { default as HeaderLogin } from './AuthorizedHeader/AuthorizedHeader';
