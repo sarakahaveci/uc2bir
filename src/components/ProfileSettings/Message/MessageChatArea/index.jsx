@@ -19,6 +19,7 @@ export default function MessageArea() {
   // eslint-disable-next-line
   const [file, setFile] = useState();
   const [previewImg, setPreviewImg] = useState(null);
+  const [showPreviewImg, setShowPreviewImg] = useState(null);
   const [message, setMessage] = useState(null);
   const [previewImageModalOpen, setPreviewImageModalOpen] = useState(false);
   const fileInputRef = useRef();
@@ -49,6 +50,7 @@ export default function MessageArea() {
     dispatch(getRooms());
     setFile();
     setPreviewImg(null);
+    setShowPreviewImg(false);
     setFileSendButtonsEnabled(true)
   };
 
@@ -66,6 +68,7 @@ export default function MessageArea() {
   const handleCancelSubmitPhoto = () => {
     setFileSendButtonsEnabled(false)
     setPreviewImg(null);
+    setShowPreviewImg(false);
   };
 
 
@@ -76,6 +79,7 @@ export default function MessageArea() {
       const resizedFile = await resizeFile(e.target.files[0]);
       setFile(resizedFile);
       setPreviewImg(URL.createObjectURL(e.target.files[0]))
+      setShowPreviewImg(true)
     } else {
       toast.error('Yalnızca fotoğraf gönderebilirsiniz.');
     }
@@ -90,7 +94,7 @@ export default function MessageArea() {
     >
       <ChatBoxHeader />
       <div className="message-page__message__wrapper">
-        {previewImg &&
+        {showPreviewImg &&
           <StyledPreview>
             <img onClick={() => {
               setPreviewImageModalOpen(true);
@@ -112,6 +116,8 @@ export default function MessageArea() {
 
             return (
               <MessageRow
+                setPreviewImg={setPreviewImg}
+                setPreviewImageModalOpen={setPreviewImageModalOpen}
                 key={index}
                 time={time}
                 message={message?.message}
@@ -177,7 +183,7 @@ border-top-right-radius:25px;
 border-top-left-radius:25px;
 border-bottom-left-radius:25px;
 margin-bottom:40px;
-zIndex:999;
+z-index:999;
 position:absolute;
 background-color:#00b2a9;
 display:flex;
@@ -211,14 +217,14 @@ background-color:transparent;
   color:white;
   font-size:0.9rem;
   font-weight:600;    
-  cursor:pointer; !important;
+  cursor:pointer; 
 }
 .left{
   margin-left:10%; 
   text-align:start;
 }
 .right{ 
-  cursor:pointer; !important;
+  cursor:pointer; ;
   margin-right:10%;
   text-align:end;
 }

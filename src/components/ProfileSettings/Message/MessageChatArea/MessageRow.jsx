@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 
-import ChatBox from './ChatBox'; 
+import ChatBox from './ChatBox';
 
 export default function MessageRow({
+  setPreviewImg,
+  setPreviewImageModalOpen,
   time = '20:10',
   isMyMessage = false,
   message,
@@ -20,7 +22,10 @@ export default function MessageRow({
     <div className={wrapperClass}>
       {!isMyMessage && <Avatar src={senderProfileAvatar} alt="" />}
       <div>
-        <ChatBox isMyMessage={isMyMessage} message={message} file={file} />
+        <ChatBox isMyMessage={isMyMessage} message={message} file={file}
+          setPreviewImg={setPreviewImg}
+          setPreviewImageModalOpen={setPreviewImageModalOpen}
+        />
         <Time textAlign={timeAlignClass}>
           <span className="time-text">{time}</span>
         </Time>
