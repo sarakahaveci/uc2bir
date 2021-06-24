@@ -25,13 +25,13 @@ export default function ActivityCard({
   maxPrice,
   minPrice,
   userBranchList,
+  icon
 }) {
   const dispatch = useDispatch();
   const { data: registerData } = useSelector((state) => state.registerData);
   const { isloading, subBranches } = useSelector(
     (state) => state?.profileSettings?.activityList
   );
-
   const tooltipLabel = isAccepted ? (
     maxPrice || minPrice ? (
       <ToolTipLabel>
@@ -189,7 +189,7 @@ export default function ActivityCard({
       <div className="mb-2">
         <div className="d-flex justify-content-between">
           {isWorkPlace
-            ? sportTypeIconGenerator(id)
+            ? <img style={{height:'50px',width:'50px'}} src={icon}></img>
             : sportTypeIconGenerator(name)}
           <span className={`ml-auto ${statusTextClass}`}>
             {isWorkPlace ? statusText : PTstatusText?.name}

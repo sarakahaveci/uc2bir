@@ -23,7 +23,7 @@ const sportTypeIconGenerator = (type, className, style) => {
 
   return (
     <span className={className} style={style}>
-      {icons[type] ?? icons[1]}
+      {icons[type]}
     </span>
   );
 };

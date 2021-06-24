@@ -143,6 +143,7 @@ export default function WorkPlaceActivity() {
                     status={activity?.status}
                     name={activity?.name}
                     isWorkPlace
+                    icon={activity?.icon}
                     capacity={activity?.capacity}
                     userBranchList={activity?.branches}
                     price={activity?.price}
