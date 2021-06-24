@@ -1,7 +1,7 @@
 import React from 'react';
-import styled from 'styled-components/macro'; 
+import styled from 'styled-components/macro';
 
-export default function ChatBox({ message, isMyMessage, file }) {
+export default function ChatBox({ message, isMyMessage, file, setPreviewImg, setPreviewImageModalOpen, }) {
   const boxWrapperClass = isMyMessage
     ? 'message-box__wrapper__home'
     : 'message-box__wrapper__away';
@@ -9,13 +9,13 @@ export default function ChatBox({ message, isMyMessage, file }) {
   const messageColorClass = isMyMessage ? 'white' : 'softDark';
 
   return (
-    <div className={boxWrapperClass}>
+    <div className={boxWrapperClass} onClick={() => { if (file !== 0) { setPreviewImg(message); setPreviewImageModalOpen(true) } }} >
       {file === 0 ? (
         <StyledTitle color={messageColorClass}>
           <span className="text">{message}</span>
-        </StyledTitle> 
+        </StyledTitle>
       ) : (
-        <img style={{objectFit:"cover"}} src={message} width="200px" height="200px" />
+        <img style={{ objectFit: "cover" }} src={message} width="200px" height="200px" />
       )}
     </div>
   );
