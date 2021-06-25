@@ -17,6 +17,7 @@ const SessionHistory = () => {
   const [openRateModal, setOpenRateModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [appointment, setAppointment] = useState(undefined);
+  const [appointmentAll, setAppointmentAll] = useState(undefined);
 
   const startOfWeeksArr = () => {
     if (items?.date) {
@@ -68,8 +69,9 @@ const SessionHistory = () => {
                       date={elm?.hour}
                       customerName={elm?.student}
                       has_comment={elm?.dt?.has_comment}
-                      rateText="Danışanı Puanla"
+                      rateText="Puanla"
                       onApprove={() => {
+                        setAppointmentAll(elm)
                         setAppointment({
                           id: elm?.id,
                           userId: elm?.dt?.id,
@@ -78,7 +80,7 @@ const SessionHistory = () => {
                       }}
                     />
                   </ApproveCardContainer>
-                ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
+                )) || <text>Bu tarihe ilişkin veri bulunamadı</text>}
               </ReservationAccordion>
               <ReservationAccordion
                 miniIcon={<Svg.SessionType.Online />}
@@ -95,8 +97,9 @@ const SessionHistory = () => {
                       customerName={elm?.student}
                       has_comment={elm?.dt?.has_comment}
 
-                      rateText="Danışanı Puanla"
+                      rateText="Puanla"
                       onApprove={() => {
+                        setAppointmentAll(elm)
                         setAppointment({
                           id: elm?.id,
                           userId: elm?.dt?.id,
@@ -105,7 +108,7 @@ const SessionHistory = () => {
                       }}
                     />
                   </ApproveCardContainer>
-                ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
+                )) || <text>Bu tarihe ilişkin veri bulunamadı</text>}
               </ReservationAccordion>
             </ReservationAccordion>
           </AccordionContainer>
@@ -136,19 +139,24 @@ const SessionHistory = () => {
         </StyledCol>
       </StyledRow>
       <RateModal
+        appointmentAll={appointmentAll}
         appointment_id={appointment?.id}
         descText="Danışanızı puanlamak ister misiniz?"
         rateLabel="PUANLA"
         cancelLabel="VAZGEÇ"
         open={openRateModal}
-        rate={({ rate, comment }) => {
+        rate={({ rate, comment,commented_id }) => {
           dispatch(
             rateAndComment(
               {
                 appointment_id: appointment?.id,
                 rating: rate,
                 comment: comment,
-                commented_id: appointment?.userId,
+                commented_id: commented_id,
+               },
+              () => {
+                setAppointment(undefined);
+                setOpenRateModal(false);
               },
               () => {
                 setAppointment(undefined);

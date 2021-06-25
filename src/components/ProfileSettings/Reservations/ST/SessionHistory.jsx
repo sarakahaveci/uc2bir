@@ -13,6 +13,7 @@ const SessionHistory = () => {
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
   const [openRateModal, setOpenRateModal] = useState(false);
   const [appointment, setAppointment] = useState(undefined);
+  const [appointmentAll, setAppointmentAll] = useState(undefined);
 
   const dispatch = useDispatch();
   const items = useSelector(
@@ -62,25 +63,28 @@ const SessionHistory = () => {
               >
                 {items?.appointment?.[
                   moment(selectedDate).format('DD.MM.YYYY')
-                ]?.gym?.map((elm, i) => (
-                  <ApproveCardContainer key={i}>
-                    <ApproveCard
-                      date={elm?.hour}
-                      customerName={elm?.address_title}
-                      has_comment={elm?.pt?.has_comment}
+                ]?.gym?.map((elm, i) => {
+                   return (
+                    <ApproveCardContainer key={i}>
+                      <ApproveCard
+                        date={elm?.hour}
+                        customerName={elm?.address_title}
+                        has_comment={elm?.pt?.has_comment}
 
-                      type="history"
-                      rateText="Eğitmeni Puanla"
-                      onApprove={() => {
-                        setAppointment({
-                          id: elm?.id,
-                          userId: elm?.pt?.id,
-                        });
-                        setOpenRateModal(true);
-                      }}
-                    />
-                  </ApproveCardContainer>
-                ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
+                        type="history"
+                        rateText="Puanla"
+                        onApprove={() => {
+                          setAppointmentAll(elm)
+                          setAppointment({
+                            id: elm?.id,
+                            userId: elm?.pt?.id,
+                          });
+                          setOpenRateModal(true);
+                        }}
+                      />
+                    </ApproveCardContainer>
+                  )
+                }) || <text>Bu tarihe ilişkin veri bulunamadı</text>}
               </ReservationAccordion>
               <ReservationAccordion
                 miniIcon={<Svg.SessionType.Park />}
@@ -95,10 +99,11 @@ const SessionHistory = () => {
                       date={elm?.hour}
                       customerName={elm?.pt?.name}
                       type="history"
-                      rateText="Eğitmeni Puanla"
+                      rateText="Puanla"
                       has_comment={elm?.pt?.has_comment}
 
                       onApprove={() => {
+                        setAppointmentAll(elm)
                         setAppointment({
                           id: elm?.id,
                           userId: elm?.pt?.id,
@@ -107,7 +112,7 @@ const SessionHistory = () => {
                       }}
                     />
                   </ApproveCardContainer>
-                ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
+                )) || <text>Bu tarihe ilişkin veri bulunamadı</text>}
               </ReservationAccordion>
               <ReservationAccordion
                 miniIcon={<Svg.SessionType.Online />}
@@ -116,25 +121,28 @@ const SessionHistory = () => {
               >
                 {items?.appointment?.[
                   moment(selectedDate).format('DD.MM.YYYY')
-                ]?.online?.map((elm, i) => (
-                  <ApproveCardContainer key={i}>
-                    <ApproveCard
-                      date={elm?.hour}
-                      customerName={elm?.pt?.name || elm?.dt?.name}
-                      type="history"
-                      rateText="Eğitmeni / Diyetisyeni Puanla"
-                      has_comment={elm?.dt?.has_comment}
+                ]?.online?.map((elm, i) => {
+                   return (
+                    <ApproveCardContainer key={i}>
+                      <ApproveCard
+                        date={elm?.hour}
+                        customerName={elm?.pt?.name || elm?.dt?.name}
+                        type="history"
+                        rateText="Puanla"
+                        has_comment={elm?.dt?.has_comment}
 
-                      onApprove={() => {
-                        setAppointment({
-                          id: elm?.id,
-                          userId: elm?.dt?.id || elm?.pt?.id,
-                        });
-                        setOpenRateModal(true);
-                      }}
-                    />
-                  </ApproveCardContainer>
-                ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
+                        onApprove={() => {
+                          setAppointmentAll(elm)
+                          setAppointment({
+                            id: elm?.id,
+                            userId: elm?.dt?.id || elm?.pt?.id,
+                          });
+                          setOpenRateModal(true);
+                        }}
+                      />
+                    </ApproveCardContainer>
+                  )
+                }) || <text>Bu tarihe ilişkin veri bulunamadı</text>}
               </ReservationAccordion>
               <ReservationAccordion
                 miniIcon={<Svg.SessionType.Clinic />}
@@ -153,12 +161,13 @@ const SessionHistory = () => {
                       has_comment={elm?.dt?.has_comment}
 
                       onApprove={() => {
+                        setAppointmentAll(elm)
                         setAppointment({ id: elm?.id, userId: elm?.dt?.id });
                         setOpenRateModal(true);
                       }}
                     />
                   </ApproveCardContainer>
-                ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
+                )) || <text>Bu tarihe ilişkin veri bulunamadı</text>}
               </ReservationAccordion>
             </ReservationAccordion>
           </AccordionContainer>
@@ -189,24 +198,29 @@ const SessionHistory = () => {
         </StyledCol>
       </StyledRow>
       <RateModal
+        appointmentAll={appointmentAll}
         appointment_id={appointment?.id}
         descText="Seçili profesyonel puanlamak ister misiniz?"
         rateLabel="PUANLA"
         cancelLabel="VAZGEÇ"
         open={openRateModal}
-        rate={({ rate, comment }) => {
+        rate={({ rate, comment,commented_id }) => {
           dispatch(
             rateAndComment(
               {
                 appointment_id: appointment?.id,
-                rating: rate,
+                commented_id: commented_id,
                 comment: comment,
-                commented_id: appointment?.userId,
-              },
-              () => {
-                setAppointment(undefined);
-                setOpenRateModal(false);
-              }
+                rating: rate,
+               },
+               () => {
+                 setAppointment(undefined);
+                 setOpenRateModal(false);
+               },
+               () => {
+                  setAppointment(undefined);
+                 setOpenRateModal(false);
+               }
             )
           );
         }}
