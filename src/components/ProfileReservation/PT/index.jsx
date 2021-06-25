@@ -217,6 +217,7 @@ const PT = () => {
                 <>
                   <CardGroup style={{ padding: 0 }}>
                     <WorkAreaCard
+                      image={item.photo}
                       stars={item.rating}
                       capacity={item.capacity}
                       title={item.title}
@@ -550,7 +551,7 @@ const PT = () => {
               <InputContainer disable={reservation?.data?.isSelected}>
                 <Text color="#9B9B9B">{'Branş Seçiniz:'}</Text>
                 <Material.SimpleSelect
-                  items={reservation?.data?.session == 'online' ? branchList.branches.filter(item => item.id !== 35):branchList.branches}
+                  items={reservation?.data?.session == 'online' ? branchList.branches.filter(item => item.id !== 35) : branchList.branches}
                   name="branch"
                   defaultValue={reservation?.data?.branch_id}
                   onChange={(e) =>
@@ -563,7 +564,7 @@ const PT = () => {
                 {
                   sessionTypes && sessionTypes.length > 0 &&
                   <Material.SimpleSelect
-                    items={reservation?.data?.branch_id == 35 ? sessionTypes?.filter(item => item.id !== 'online'):sessionTypes}
+                    items={reservation?.data?.branch_id == 35 ? sessionTypes?.filter(item => item.id !== 'online') : sessionTypes}
                     name="sessionType"
                     defaultValue={reservation?.data?.session}
                     onChange={(e) =>

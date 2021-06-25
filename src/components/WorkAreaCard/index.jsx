@@ -2,7 +2,7 @@ import React from 'react';
 import { AwesomeIcon, Title, IconLabel } from 'components';
 import { Col } from 'react-bootstrap';
 import styled from 'styled-components/macro';
-
+import defaultImage from '../../assets/default-profile.jpg'
 const WorkAreaCard = ({
   stars = 0,
   capacity,
@@ -11,6 +11,7 @@ const WorkAreaCard = ({
   city,
   district,
   price,
+  image
 }) => {
   return (
     <>
@@ -33,7 +34,7 @@ const WorkAreaCard = ({
           </Star>
         </Stars>
         <div className="_group">
-          <IMG src="/static/media/session-type.50fd045c.jpg"></IMG>
+          <IMG src={image || defaultImage }></IMG>
         </div>
         <div className="_group">
           <div className="title">

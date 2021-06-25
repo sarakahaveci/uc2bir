@@ -23,7 +23,7 @@ const TemplateNamingModal = forwardRef(
           placeholder="Fotoğraf ara"
           showClearInput
           searchValue={searchValue}
-          setSearchValue={setSearchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
         />
 
         <Masonry gutter="35px" columnsCount={2}>
@@ -36,7 +36,7 @@ const TemplateNamingModal = forwardRef(
                     onClick={() => setSelectedImageId(image)}
                     active={active}
                     src={image.image_url}
-                    style={{ width:'55%'}}
+                    style={{ width: '55%' }}
                   />
                   {active && <TickIcon />}
                 </Box>
@@ -46,7 +46,7 @@ const TemplateNamingModal = forwardRef(
         </Masonry>
 
         <Box center mt="40px">
-          <Button text="İleri" className="blue" width="280px"  onClick={()=>ref.current.closeModal()}/>
+          <Button text="İleri" className="blue" width="280px" onClick={() => ref.current.closeModal()} />
         </Box>
       </SelectPictureModal>
     );

@@ -163,6 +163,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
                 <>
                   <CardGroup style={{ padding: 0 }}>
                     <WorkAreaCard
+                      image={item.photo}
                       stars={item.rating}
                       capacity={item.capacity}
                       title={item.title}
@@ -319,7 +320,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
                       )}
                     </RadioWrapper>
                   </div>
-                )) ||  <text style={{ padding: '10px 0' }}>Bu kullanıcının uygun klinigi bulunmamaktadır.</text>}
+                )) || <text style={{ padding: '10px 0' }}>Bu kullanıcının uygun klinigi bulunmamaktadır.</text>}
 
               </RadioGroup>
             </GymWrapper>
@@ -467,7 +468,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
                       <Material.SimpleSelect
                         name="pt"
                         label={reservation?.data?.selectedPt?.name || 'Seçiniz'}
-                        onClick={() => {}}
+                        onClick={() => { }}
                       />
                     </div>
                   </div>
@@ -498,14 +499,14 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
                   items={
                     type == 'pt'
                       ? [
-                          { id: 'home_park', name: 'Ev / Park' },
-                          { id: 'gym', name: 'Spor Salonu' },
-                          { id: 'online', name: 'Online' },
-                        ]
+                        { id: 'home_park', name: 'Ev / Park' },
+                        { id: 'gym', name: 'Spor Salonu' },
+                        { id: 'online', name: 'Online' },
+                      ]
                       : [
-                          { id: 'clinic', name: 'Klinik' },
-                          { id: 'online', name: 'Online' },
-                        ]
+                        { id: 'clinic', name: 'Klinik' },
+                        { id: 'online', name: 'Online' },
+                      ]
                   }
                   name="sessionType"
                   defaultValue={reservation?.data?.session}
@@ -718,9 +719,9 @@ const AccordionItemWrapper = styled.div`
   .accordion-toggler {
     display: flex;
     background: ${(p) =>
-      p.parent
-        ? '#EFEFEF'
-        : p.accordionBackground
+    p.parent
+      ? '#EFEFEF'
+      : p.accordionBackground
         ? p.accordionBackground
         : '#F8F8F8'};
     justify-content: space-between;

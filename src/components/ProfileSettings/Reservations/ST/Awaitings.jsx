@@ -81,7 +81,10 @@ const Awaitings = ({ setAwaitingCount }) => {
                 title="SPOR ALANI"
                 defaultOpen
               >
-                <>
+               
+               <>
+
+
                   {items?.appointment?.[
                     moment(selectedDate).format('DD.MM.YYYY')
                   ]?.gym?.map((elm, i) => (
@@ -89,7 +92,7 @@ const Awaitings = ({ setAwaitingCount }) => {
                       <ApproveCard
                         cardType="userCard"
                         date={elm?.hour}
-                        customerName={elm?.student}
+                        customerName={elm?.pt?.name}
                         optionalField_1={elm?.branch}
                         optionalField_2={{
                           label: 'SALON',
@@ -110,6 +113,8 @@ const Awaitings = ({ setAwaitingCount }) => {
                       />
                     </ApproveCardContainer>
                   ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
+
+
                 </>
               </ReservationAccordion>
               <ReservationAccordion

@@ -74,7 +74,7 @@ export const searchProffesional =
       const urlWithRating = `&rating=${ratings?.[0]}`;
       const urlWithMinPrice = `&min_price=${minPrice}`;
       const urlWithMaxPrice = `&max_price=${maxPrice}`;
-      const urlWithSortBy = `&sortBy=${sortBy}`;
+      const urlWithSortBy = `&sortBy=${sortBy}&sortKey=price`;
       const urlWithPage = `&page=${page}`;
       const urlWithClassification = `&classification=${classification}`;
 
