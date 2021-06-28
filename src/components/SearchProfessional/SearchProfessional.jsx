@@ -13,7 +13,8 @@ import {
   Pagination,
   BackLink,
   Text,
-  LocationInput
+  LocationInput,
+  ChooseDateModal
 } from 'components';
 import { searchProffesional } from 'actions';
 import Filter from './SearchFilters';
@@ -37,6 +38,12 @@ const SearchProfessional = () => {
   const [ratings, setRatings] = useState([]);
   const [classification, setClassification] = useState('');
   const [showFilters, setShowFilters] = useState(false);
+  const [openDateModal, setOpenDateModal] = useState(false);
+
+  const [dateFilterText, setDateFilterText] = useState('Tarih Seçiniz');
+
+  
+
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -153,6 +160,12 @@ const SearchProfessional = () => {
 
         <SearchWrapper className="d-flex mb-3 mx-auto">
           <Row className="search-trainer__search-area">
+            <SearchCol sm={12}>
+              <FilterButton onClick={() => setOpenDateModal(true)}>
+                {dateFilterText}
+                <div style={{ marginLeft: 20, transform: "rotate(90deg)" }}> {'>'} </div>
+              </FilterButton>
+            </SearchCol>
             <SearchCol>
               <input
                 className="search-trainer__search-input"
@@ -278,6 +291,13 @@ const SearchProfessional = () => {
           <strong className="mt-3">Arama türüne uygun sonuç bulunamadı.</strong>
         )}
       </Container>
+      <ChooseDateModal
+        open={openDateModal}
+        cancel={() => {
+          setOpenDateModal(false);
+        }}
+        setDateFilterText={setDateFilterText}
+      />
     </div>
   );
 };
@@ -329,6 +349,7 @@ const FilterButton = styled.button`
   border: none;
   background-color: white;
   z-index: 2;
-`;
+  display:flex;
+ `;
 
 export default SearchProfessional;
