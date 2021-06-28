@@ -1,13 +1,17 @@
 import React, { useState, forwardRef } from 'react';
 import styled, { css } from 'styled-components/macro';
-
+import { default as MaterialButton } from '@material-ui/core/Button';
 import Masonry from 'react-responsive-masonry';
 import { Svg, Box, Modal, Button, SearchInput, Title } from 'components';
 
 const TemplateNamingModal = forwardRef(
-  ({ selectedImageId, setSelectedImageId, images }, ref) => {
+  ({ selectedImageId, setSelectedImageId, setFile = () => { }, images }, ref) => {
     const [searchValue, setSearchValue] = useState('');
-
+  
+    const handleFileUpload = (event) => {
+      setFile(event.target.files[0])
+      setSelectedImageId(undefined)
+    };
     return (
       <SelectPictureModal ref={ref}>
         <Title variant="h5"> FOTOĞRAF SEÇİNİZ</Title>
@@ -29,7 +33,7 @@ const TemplateNamingModal = forwardRef(
         <Masonry gutter="35px" columnsCount={2}>
           {images?.map(
             (image, index) => {
-              const active = selectedImageId === image.id;
+              const active = selectedImageId?.id === image.id;
               return (
                 <Box position="relative" key={index}>
                   <Image
@@ -43,6 +47,32 @@ const TemplateNamingModal = forwardRef(
               );
             }
           )}
+          <Box position="relative" >
+
+            <MaterialButton
+              style={{
+                border: '1px solid',
+                backgroundColor: 'transparent',
+                color: '#00b2a9',
+                fontSize: '14px',
+                height: '160px',
+                width: '160px',
+                fontWeight: 'bold',
+                display: 'flex',
+                flexDirection: 'column'
+              }}
+              variant="contained"
+              component="label"
+            >
+              <Svg.MockImageIcon style={{ marginBottom: '10px' }} />
+              FOTOĞRAF YÜKLE
+              <input
+                type="file"
+                onChange={handleFileUpload}
+                hidden
+              />
+            </MaterialButton>
+          </Box>
         </Masonry>
 
         <Box center mt="40px">
