@@ -54,7 +54,7 @@ export const createGroupSlot = (slotObj, successCallback, errorCallback) => asyn
   keys.forEach((key) =>{
     createData.append(key,restSlot[key])
   })
-  if(resizedFile)  createData.append('files[]', resizedFile);
+  if(resizedFile)  createData.append('group_slot_image[]', resizedFile);
 
   createData.append('price', +price);
   createData.append('date', format(date, 'dd.MM.uuuu'));
