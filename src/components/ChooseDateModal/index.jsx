@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
-import {  Svg } from 'components';
- import { device } from 'utils';
-import {  DatePicker } from 'components';
-  
+import { Svg } from 'components';
+import { device } from 'utils';
+import { DatePicker } from 'components';
+
 const ChooseDateModal = ({
   open,
   cancel,
@@ -23,7 +23,8 @@ const ChooseDateModal = ({
     setStartDate(start);
     setEndDate(end);
   };
-  const handleChangeSearchType = () => {
+  const handleChangeSearchType = (type) => {
+    setType(type);
     setStartDate(null);
     setEndDate(null);
     setSelectedDate(new Date())
@@ -66,15 +67,15 @@ const ChooseDateModal = ({
             setSelectedDate(new Date())
             cancel();
           }}
-        /> 
+        />
         <ChooseSearchType>
-          <SearchType onClick={() => { setType("oneday"); handleChangeSearchType("oneday") }} isChoosen={isOnOneDaySearch}  >
+          <SearchType onClick={() => { handleChangeSearchType("oneday") }} isChoosen={isOnOneDaySearch}  >
             <div className="checkbox"></div>
             <div className="text">
               Tek gün arama
             </div>
           </SearchType>
-          <SearchType onClick={() => { setType("rangedays"); handleChangeSearchType("rangedays") }} isChoosen={!isOnOneDaySearch} >
+          <SearchType onClick={() => { handleChangeSearchType("rangedays") }} isChoosen={!isOnOneDaySearch} >
             <div className="checkbox"></div>
             <div className="text">
               Aralık Arama
@@ -141,8 +142,9 @@ align-items:center;
   flex-direction:row;
   width:40%;
   border:${(p) => (p.isChoosen ? '2px solid var(--blue)' : '0.5px solid var(--blue)')};;
-  padding : 5px;
-  .checkbox{
+  padding : 20px;
+  border-radius: 18px;
+   .checkbox{
     margin-right: 3px;
     display: flex;
     border-radius: 50%;
@@ -195,7 +197,7 @@ const MainContainer = styled.div`
     height: 95vh;
     overflow: scroll;
   }
-`; 
+`;
 const ModalFooter = styled.div`
   display: flex;
   width: 100%;
@@ -208,5 +210,5 @@ const FooterButton = styled.button`
   width: 100%;
   background:var(--blue);
   padding: 10px;
-`; 
+`;
 export default ChooseDateModal;

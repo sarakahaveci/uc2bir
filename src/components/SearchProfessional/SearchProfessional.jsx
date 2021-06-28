@@ -42,7 +42,7 @@ const SearchProfessional = () => {
 
   const [dateFilterText, setDateFilterText] = useState('Tarih Seçiniz');
 
-  
+
 
 
   const dispatch = useDispatch();
@@ -160,24 +160,25 @@ const SearchProfessional = () => {
 
         <SearchWrapper className="d-flex mb-3 mx-auto">
           <Row className="search-trainer__search-area">
-            <SearchCol sm={12}>
+            <SearchCol sm={12} >
               <FilterButton onClick={() => setOpenDateModal(true)}>
                 {dateFilterText}
                 <div style={{ marginLeft: 20, transform: "rotate(90deg)" }}> {'>'} </div>
               </FilterButton>
             </SearchCol>
-            <SearchCol>
+            <SearchCol sm={12} >
               <input
                 className="search-trainer__search-input"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder={`${userTypeText} Adı...`}
+                placeholder={`${userTypeText}`}
               />
             </SearchCol>
 
-            <SearchCol>
-
+            <SearchCol sm={12} >
               <LocationInput
+                className="search-trainer__search-input"
+                style={{ marginLeft: -20 }}
                 defaultValue={location}
                 onChange={(e) => {
                   setLocation(e)
@@ -187,8 +188,9 @@ const SearchProfessional = () => {
             </SearchCol>
 
             {type === 'pt' && (
-              <SearchCol>
+              <SearchCol sm={12} >
                 <Form.Control
+                  style={{ width: '135%', marginLeft: -20 }}
                   as="select"
                   className="search-trainer__select"
                   value={branch}
@@ -203,8 +205,9 @@ const SearchProfessional = () => {
                 </Form.Control>
               </SearchCol>
             )}
-            <SearchCol>
+            <SearchCol sm={12} >
               <Form.Control
+                style={{ width: '140%', marginLeft: -20 }}
                 as="select"
                 className="search-trainer__select"
                 value={sortBy}
@@ -221,11 +224,10 @@ const SearchProfessional = () => {
                 ))}
               </Form.Control>
             </SearchCol>
-            <SearchCol sm={12}>
-              <FilterButton onClick={() => setShowFilters(!showFilters)}>
+            <SearchCol sm={12} >
+               <FilterButton onClick={() => setShowFilters(!showFilters)}>
                 Filtrele
-              </FilterButton>
-
+              </FilterButton> 
               {showFilters && (
                 <Filter
                   type={type}
@@ -242,7 +244,7 @@ const SearchProfessional = () => {
               )}
             </SearchCol>
 
-            <SearchCol className="pr-0">
+            <SearchCol sm={12}  >
               <Button
                 justifyContent="space-around"
                 display="flex"
@@ -305,9 +307,10 @@ const SearchProfessional = () => {
 const SearchCol = styled(Col)`
   &:not(:last-child) {
     border-right: 1px solid #707070;
-  }
-
-  flex-basis: 20%;
+  } 
+  flex-basis: 12%;
+  align-self: center;
+  //background-color: red;
 `;
 
 const SearchWrapper = styled.div`
