@@ -6,7 +6,6 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
 import { useSelector, useDispatch } from 'react-redux';
-import { resizeFile } from '../../../../utils';
 
 import SelectPictureModal from './SelectPictureModal';
 import { Svg, Text, Box, CalendarCell, PlusButton, Material } from 'components';

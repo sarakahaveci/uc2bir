@@ -5,7 +5,7 @@ import {
   CREATE_GROUP_SLOT, GET_GROUP_IMAGES,
 } from 'constants/index';
 import { format } from 'date-fns';
-import {resizeFile} from '../../utils'
+import { resizeFile } from '../../utils'
 export const getWorkPlaceCapacity = (branchId, locationId, selectedHour, date) => async (
   dispatch
 ) => {
@@ -49,23 +49,22 @@ export const createGroupSlot = (slotObj, successCallback, errorCallback) => asyn
   const createData = new FormData();
 
   const resizedFile = await resizeFile(group_slot_image);
-  
+
   var keys = Object.keys(restSlot)
-  keys.forEach((key) =>{
-    createData.append(key,restSlot[key])
+  keys.forEach((key) => {
+    createData.append(key, restSlot[key])
   })
-  if(resizedFile)  createData.append('group_slot_image[]', resizedFile);
+  if (resizedFile) createData.append('group_slot_image[]', resizedFile);
 
-  createData.append('price', +price);
-  createData.append('date', format(date, 'dd.MM.uuuu'));
-  createData.append('hour',selectedHour);
-  createData.append('branch_id', branchSelection.id);
-  createData.append('session', sessionSelection.type);
-  createData.append('location_id', locationSelection.id);
-
-  createData.append('detail', courseDetails);
-  createData.append('group_slot_image_id', group_slot_image_id);
-  createData.append('class_id', classSelection.id);
+  if (price) createData.append('price', +price);
+  if (date) createData.append('date', format(date, 'dd.MM.uuuu'));
+  if (selectedHour) createData.append('hour', selectedHour);
+  if (branchSelection?.id) createData.append('branch_id', branchSelection.id);
+  if (sessionSelection?.type) createData.append('session', sessionSelection.type);
+  if (locationSelection?.id) createData.append('location_id', locationSelection.id);
+  if (courseDetails) createData.append('detail', courseDetails);
+  if (group_slot_image_id) createData.append('group_slot_image_id', group_slot_image_id);
+  if (classSelection?.id) createData.append('class_id', classSelection.id);
 
 
   await dispatch({
@@ -76,7 +75,7 @@ export const createGroupSlot = (slotObj, successCallback, errorCallback) => asyn
       url,
       body: createData,
       callBack: successCallback,
-      errorHandler:  (error) => errorCallback(error.message),
+      errorHandler: (error) => errorCallback(error.message),
       label: CREATE_GROUP_SLOT,
     },
   });
