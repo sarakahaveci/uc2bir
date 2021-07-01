@@ -7,6 +7,7 @@ import {
   DatePicker,
   RejectModal,
   ApproveModal,
+  Svg
 } from 'components';
 import moment from 'moment';
 import { device } from 'utils';
@@ -79,7 +80,6 @@ const Awaitings = ({ setAwaitingCount }) => {
             ]?.gym?.map((elm, i) => (
               <ApproveCardContainer key={i}>
                 <Svg.SessionType.Gym style={{ marginRight: '10px' }} />
-
                 <ApproveCard
                   date={elm?.hour}
                   customerName={elm?.student}
