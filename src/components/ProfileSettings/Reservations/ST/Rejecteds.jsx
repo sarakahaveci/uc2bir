@@ -24,7 +24,7 @@ const Rejecteds = ({ setRejectCount = () => { } }) => {
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
   const [openApprove, setOpenApprove] = useState(false);
   const [openReject, setOpenReject] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(undefined);
   const [openTransfer, setOpenTransfer] = useState(false);
   const [openCongrats, setOpenCongrats] = useState(false);
   const [choosenElm, setChoosenElm] = useState(null);
@@ -68,7 +68,6 @@ const Rejecteds = ({ setRejectCount = () => { } }) => {
     } else {
       setIsSmallScreen(false);
     }
-    setSelectedDate(new Date());
     dispatch(getUserRejects());
   }, []);
   useEffect(() => {
@@ -81,178 +80,162 @@ const Rejecteds = ({ setRejectCount = () => { } }) => {
       }
     }
   }, [selectedDate]);
+
+  function _renderTab(date){
+    if (items?.appointment?.[
+      moment(date).format('DD.MM.YYYY')
+    ]) {
+    return(
+      <ReservationAccordion
+      defaultOpen={true}
+      parent
+      title={moment(date).format('DD.MM.YYYY')}
+    >
+   
+        {items?.appointment?.[
+          moment(date).format('DD.MM.YYYY')
+        ]?.gym?.map((elm, i) => (
+          <ApproveCardContainer key={i}>
+            <Svg.SessionType.Gym />
+            <ApproveCard
+              status_bs={elm?.status_bs}
+              status_pt={elm?.status_pt}
+              date={elm?.hour}
+              transaction_id={
+                elm?.transaction_id ? elm.transaction_id : null
+              }
+              customerName={elm?.pt?.name}
+              type="rejecteds"
+              userType="user"
+              onTransfer={() => {
+                setOpenTransfer(true);
+              }}
+              onApprove={() => {
+                setChoosenElm(elm);
+                setOpenApprove(true);
+              }}
+              onReject={() => {
+                setChoosenElm(elm);
+                setOpenReject(true);
+              }}
+            />
+          </ApproveCardContainer>
+        ))||<></>}
+      
+        {items?.appointment?.[
+          moment(date).format('DD.MM.YYYY')
+        ]?.home_park?.map((elm, i) => (
+          <ApproveCardContainer key={i}>
+            <Svg.SessionType.Park />
+            <ApproveCard
+              date={elm?.hour}
+              status_bs={elm?.status_bs}
+              status_pt={elm?.status_pt}
+              transaction_id={
+                elm?.transaction_id ? elm.transaction_id : null
+              }
+              customerName={elm?.pt?.name}
+              type="rejecteds"
+              userType="user"
+              onTransfer={() => {
+                setOpenTransfer(true);
+              }}
+              onApprove={() => {
+                setChoosenElm(elm);
+                setOpenApprove(true);
+              }}
+              onReject={() => {
+                setChoosenElm(elm);
+                setOpenReject(true);
+              }}
+            />
+          </ApproveCardContainer>
+        ))||<></>}
+    
+        {items?.appointment?.[
+          moment(date).format('DD.MM.YYYY')
+        ]?.online?.map((elm, i) => (
+
+          <ApproveCardContainer key={i}>
+
+            <Svg.SessionType.Online />
+
+            <ApproveCard
+              date={elm?.hour}
+              transaction_id={
+                elm?.transaction_id ? elm.transaction_id : null
+              }
+              status_bs={elm?.status_bs}
+              status_pt={elm?.status_pt}
+              status_dt={elm?.status_dt}
+
+              customerName={elm?.pt?.name || elm?.dt?.name}
+              type="rejecteds"
+              userType="user"
+              onTransfer={() => {
+                setOpenTransfer(true);
+                setTransactionId(elm?.transaction_id);
+              }}
+              onApprove={() => {
+                setChoosenElm(elm);
+                setOpenApprove(true);
+              }}
+              onReject={() => {
+                setChoosenElm(elm);
+                setOpenReject(true);
+              }}
+            />
+          </ApproveCardContainer>
+        ))||<></>}
+    
+        {items?.appointment?.[
+          moment(date).format('DD.MM.YYYY')
+        ]?.clinic?.map((elm, i) => (
+          <ApproveCardContainer key={i}>
+            <Svg.SessionType.Clinic />
+            <ApproveCard
+              date={elm?.hour}
+              status_dt={elm?.status_dt}
+              transaction_id={
+                elm?.transaction_id ? elm.transaction_id : null
+              }
+              customerName={elm?.dt?.name}
+              type="rejecteds"
+              userType="user"
+              onTransfer={() => {
+                setOpenTransfer(true);
+              }}
+              onApprove={() => {
+                setChoosenElm(elm);
+                setOpenApprove(true);
+              }}
+              onReject={() => {
+                setChoosenElm(elm);
+                setOpenReject(true);
+              }}
+            />
+          </ApproveCardContainer>
+        ))||<></>}
+    </ReservationAccordion>
+    )}else{
+      return(<></>)
+    }
+  }
   return (
     <StyledContainer>
       <StyledRow>
         <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
           <AccordionContainer>
-            <ReservationAccordion
-              defaultOpen={true}
-              parent
-              title={moment(selectedDate).format('DD.MM.YYYY')}
-            >
-              <div
-                miniIcon={<Svg.SessionType.Gym />}
-                title="SPOR ALANI"
-                defaultOpen
-              >
-                {items?.appointment?.[
-                  moment(selectedDate).format('DD.MM.YYYY')
-                ]?.gym?.map((elm, i) => (
-                  <ApproveCardContainer key={i}>
-                    <Svg.SessionType.Gym />
-                    <ApproveCard
-                      status_bs={elm?.status_bs}
-                      status_pt={elm?.status_pt}
-                      date={elm?.hour}
-                      transaction_id={
-                        elm?.transaction_id ? elm.transaction_id : null
-                      }
-                      customerName={elm?.pt?.name}
-                      type="rejecteds"
-                      userType="user"
-                      onTransfer={() => {
-                        setOpenTransfer(true);
-                      }}
-                      onApprove={() => {
-                        setChoosenElm(elm);
-                        setOpenApprove(true);
-                      }}
-                      onReject={() => {
-                        setChoosenElm(elm);
-                        setOpenReject(true);
-                      }}
-                    />
-                  </ApproveCardContainer>
-                ))}
-              </div>
-              <div
-                miniIcon={<Svg.SessionType.Park />}
-                title="EV / PARK"
-                defaultOpen
-              >
-                {items?.appointment?.[
-                  moment(selectedDate).format('DD.MM.YYYY')
-                ]?.home_park?.map((elm, i) => (
-                  <ApproveCardContainer key={i}>
-                    <Svg.SessionType.Park />
-
-                    <ApproveCard
-                      date={elm?.hour}
-                      status_bs={elm?.status_bs}
-                      status_pt={elm?.status_pt}
-                      transaction_id={
-                        elm?.transaction_id ? elm.transaction_id : null
-                      }
-                      customerName={elm?.pt?.name}
-                      type="rejecteds"
-                      userType="user"
-                      onTransfer={() => {
-                        setOpenTransfer(true);
-                      }}
-                      onApprove={() => {
-                        setChoosenElm(elm);
-                        setOpenApprove(true);
-                      }}
-                      onReject={() => {
-                        setChoosenElm(elm);
-                        setOpenReject(true);
-                      }}
-                    />
-                  </ApproveCardContainer>
-                ))}
-              </div>
-              <div
-                miniIcon={<Svg.SessionType.Online />}
-                title="ONLİNE"
-                defaultOpen
-              >
-                {items?.appointment?.[
-                  moment(selectedDate).format('DD.MM.YYYY')
-                ]?.online?.map((elm, i) => (
-
-                  <ApproveCardContainer key={i}>
-
-                    <Svg.SessionType.Online />
-
-                    <ApproveCard
-                      date={elm?.hour}
-                      transaction_id={
-                        elm?.transaction_id ? elm.transaction_id : null
-                      }
-                      status_bs={elm?.status_bs}
-                      status_pt={elm?.status_pt}
-                      status_dt={elm?.status_dt}
-
-                      customerName={elm?.pt?.name || elm?.dt?.name}
-                      type="rejecteds"
-                      userType="user"
-                      onTransfer={() => {
-                        setOpenTransfer(true);
-                        setTransactionId(elm?.transaction_id);
-                      }}
-                      onApprove={() => {
-                        setChoosenElm(elm);
-                        setOpenApprove(true);
-                      }}
-                      onReject={() => {
-                        setChoosenElm(elm);
-                        setOpenReject(true);
-                      }}
-                    />
-                  </ApproveCardContainer>
-                ))}
-              </div>
-              <div
-                miniIcon={<Svg.SessionType.Clinic />}
-                title="KLİNİK"
-                defaultOpen
-              >
-                {items?.appointment?.[
-                  moment(selectedDate).format('DD.MM.YYYY')
-                ]?.clinic?.map((elm, i) => (
-                  <ApproveCardContainer key={i}>
-                    <Svg.SessionType.Clinic />
-                    <ApproveCard
-                      date={elm?.hour}
-                      status_dt={elm?.status_dt}
-                      transaction_id={
-                        elm?.transaction_id ? elm.transaction_id : null
-                      }
-                      customerName={elm?.dt?.name}
-                      type="rejecteds"
-                      userType="user"
-                      onTransfer={() => {
-                        setOpenTransfer(true);
-                      }}
-                      onApprove={() => {
-                        setChoosenElm(elm);
-                        setOpenApprove(true);
-                      }}
-                      onReject={() => {
-                        setChoosenElm(elm);
-                        setOpenReject(true);
-                      }}
-                    />
-                  </ApproveCardContainer>
-                ))}
-              </div>
-            </ReservationAccordion>
-          </AccordionContainer>
           {
-            !(items?.appointment?.[
-              moment(selectedDate).format('DD.MM.YYYY')
-            ]?.gym?.length > 0 || items?.appointment?.[
-              moment(selectedDate).format('DD.MM.YYYY')
-            ]?.home_park?.length > 0 ||
-              items?.appointment?.[
-                moment(selectedDate).format('DD.MM.YYYY')
-              ]?.online?.length > 0 ||
-              items?.appointment?.[
-                moment(selectedDate).format('DD.MM.YYYY')
-              ]?.clinic?.length > 0) &&
-            <text>Bu tarihe ilişkin veri bulunamadı</text>
-          }
+              startOfWeeksArr().map((date) => (
+                _renderTab(date)
+              ))
+
+            }
+            {!(startOfWeeksArr()?.length > 0) && <text style={{ padding: '20px' }}>Onay bekleyen hiçbir rezervasyon talebi yoktur</text>}
+
+          </AccordionContainer>
+         
         </StyledCol>
         <StyledCol
           style={{
@@ -332,6 +315,8 @@ const DateContainer = styled.div`
 
 const AccordionContainer = styled.div`
   display: flex;
+  flex-direction: column;
+
 `;
 const ApproveCardContainer = styled.div`
   display: flex;

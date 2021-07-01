@@ -21,7 +21,7 @@ import { useDispatch, useSelector } from 'react-redux';
 const Approved = ({ setSubPage }) => {
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
   const [openCancellation, setOpenCancellation] = useState(undefined);
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(undefined);
   const dispatch = useDispatch();
 
   const items = useSelector(
@@ -66,83 +66,90 @@ const Approved = ({ setSubPage }) => {
       />
     );
   }
+  function _renderTab(date) {
+    if (items?.appointment?.[
+      moment(date).format('DD.MM.YYYY')
+    ]) {
+      return (
+        <ReservationAccordion
+          defaultOpen={true}
+          parent
+          title={moment(date).format('DD.MM.YYYY')}
+        >
+          {items?.appointment?.[
+            moment(date).format('DD.MM.YYYY')
+          ]?.with_pt?.map((elm, i) => (
+            <ApproveCardContainer key={i}>
+              <Svg.SessionType.Gym style={{ marginRight: '10px' }} />
+              <ApproveCard
+                type="approve"
+                date={elm?.hour}
+                customerName={elm?.student}
+                optionalField_1={elm?.branch}//Sport Type || NULL
+                optionalField_2={{
+                  label: 'EĞİTMEN',
+                  value: elm?.pt?.name,
+                }}
+                optionalField_3={{
+                  label: 'SINIF',
+                  value: elm?.class,
+                  value2: elm?.class_total_appointment + '/' + elm?.class_capacity,
+
+                }}
+                onApprove={() => {
+                  openReservationDetail(elm?.id);
+                }}
+                onReject={() => {
+                  setOpenCancellation(elm?.id);
+                }}
+              />
+            </ApproveCardContainer>
+          )) || <></>}
+
+          {items?.appointment?.[
+            moment(date).format('DD.MM.YYYY')
+          ]?.without_pt?.map((elm, i) => (
+            <ApproveCardContainer key={i}>
+              <Svg.SessionType.Gym style={{ marginRight: '10px' }} />
+              <ApproveCard
+                type="approve"
+                date={elm?.hour}
+                customerName={elm?.student}
+                optionalField_1={elm?.branch}
+
+                optionalField_3={{
+                  label: 'SINIF',
+                  value: elm?.class,
+                  value2: elm?.class_total_appointment + '/' + elm?.class_capacity,
+
+                }}
+                onApprove={() => {
+                  openReservationDetail(elm?.id);
+                }}
+                onReject={() => {
+                  setOpenCancellation(elm?.id);
+                }}
+              />
+            </ApproveCardContainer>
+          )) || <></>}
+        </ReservationAccordion>
+      )
+    } else {
+      return (<></>)
+    }
+  }
   return (
     <StyledContainer>
       <StyledRow>
         <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
           <AccordionContainer>
-            <ReservationAccordion
-              defaultOpen={true}
-              parent
-              title={moment(selectedDate).format('DD.MM.YYYY')}
-            >
-              <ReservationAccordion
-                miniIcon={<Svg.SessionType.Gym />}
-                title="EĞİTMEN İLE"
-                defaultOpen
-              >
-                {items?.appointment?.[
-                  moment(selectedDate).format('DD.MM.YYYY')
-                ]?.with_pt?.map((elm, i) => (
-                  <ApproveCardContainer key={i}>
-                    <ApproveCard
-                      type="approve"
-                      date={elm?.hour}
-                      customerName={elm?.student}
-                      optionalField_1={elm?.branch}//Sport Type || NULL
-                      optionalField_2={{
-                        label: 'EĞİTMEN',
-                        value: elm?.pt?.name,
-                      }}
-                      optionalField_3={{
-                        label: 'SINIF',
-                        value: elm?.class,
-                        value2: elm?.class_total_appointment + '/' + elm?.class_capacity,
+            {
+              startOfWeeksArr().map((date) => (
+                _renderTab(date)
+              ))
 
-                      }}
-                      onApprove={() => {
-                        openReservationDetail(elm?.id);
-                      }}
-                      onReject={() => {
-                        setOpenCancellation(elm?.id);
-                      }}
-                    />
-                  </ApproveCardContainer>
-                ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
-              </ReservationAccordion>
-
-              <ReservationAccordion
-                miniIcon={<Svg.SessionType.Gym />}
-                title="EĞİTMENSİZ"
-                defaultOpen
-              >
-                {items?.appointment?.[
-                  moment(selectedDate).format('DD.MM.YYYY')
-                ]?.without_pt?.map((elm, i) => (
-                  <ApproveCardContainer key={i}>
-                    <ApproveCard
-                      type="approve"
-                      date={elm?.hour}
-                      customerName={elm?.student}
-                      optionalField_1={elm?.branch}
-                      
-                      optionalField_3={{
-                        label: 'SINIF',
-                        value: elm?.class,
-                        value2: elm?.class_total_appointment + '/' + elm?.class_capacity,
-
-                      }}
-                      onApprove={() => {
-                        openReservationDetail(elm?.id);
-                      }}
-                      onReject={() => {
-                        setOpenCancellation(elm?.id);
-                      }}
-                    />
-                  </ApproveCardContainer>
-                ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
-              </ReservationAccordion>
-            </ReservationAccordion>
+            }
+            {!(startOfWeeksArr()?.length > 0) && <text style={{ padding: '20px' }}>Onay bekleyen hiçbir rezervasyon talebi yoktur</text>}
           </AccordionContainer>
         </StyledCol>
         <StyledCol
@@ -167,7 +174,7 @@ const Approved = ({ setSubPage }) => {
                 },
               ]}
               minDate={new Date()}
-            />{' '}
+            />
           </DateContainer>
         </StyledCol>
       </StyledRow>
@@ -203,6 +210,7 @@ const DateContainer = styled.div`
 `;
 const AccordionContainer = styled.div`
   display: flex;
+  flex-direction: column;
 `;
 const ApproveCardContainer = styled.div`
   display: flex;
