@@ -1,17 +1,24 @@
-import React, { useState, forwardRef } from 'react';
+import React, { useState, forwardRef, useEffect } from 'react';
 import styled, { css } from 'styled-components/macro';
-import { default as MaterialButton } from '@material-ui/core/Button';
+//import { default as MaterialButton } from '@material-ui/core/Button';
 import Masonry from 'react-responsive-masonry';
+import {getGroupImages} from 'actions'
+import {useDispatch} from 'react-redux'
 import { Svg, Box, Modal, Button, SearchInput, Title } from 'components';
 
 const TemplateNamingModal = forwardRef(
-  ({ selectedImageId, setSelectedImageId, setFile = () => { }, images }, ref) => {
+  ({ selectedImageId, setSelectedImageId, /*setFile = () => { },*/ images }, ref) => {
+    const dispatch = useDispatch();
     const [searchValue, setSearchValue] = useState('');
   
-    const handleFileUpload = (event) => {
+    useEffect(()=>{
+      dispatch(getGroupImages(searchValue));
+
+    },[searchValue])
+    /*const handleFileUpload = (event) => {
       setFile(event.target.files[0])
       setSelectedImageId(undefined)
-    };
+    };*/
     return (
       <SelectPictureModal ref={ref}>
         <Title variant="h5"> FOTOĞRAF SEÇİNİZ</Title>
@@ -47,7 +54,7 @@ const TemplateNamingModal = forwardRef(
               );
             }
           )}
-          <Box position="relative" >
+         { /*<Box position="relative" > //Bilgisayaryarden yukleme özlligi deaktif edildi
 
             <MaterialButton
               style={{
@@ -72,7 +79,7 @@ const TemplateNamingModal = forwardRef(
                 hidden
               />
             </MaterialButton>
-          </Box>
+            </Box>*/}
         </Masonry>
 
         <Box center mt="40px">
@@ -88,6 +95,7 @@ export default React.memo(TemplateNamingModal);
 const SelectPictureModal = styled(Modal)`
   .modal-content {
     width: 700px;
+    height:600px;
   }
 `;
 

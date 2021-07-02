@@ -81,9 +81,13 @@ export const createGroupSlot = (slotObj, successCallback, errorCallback) => asyn
   });
 };
 
-export const getGroupImages = () => async (dispatch) => {
-  const url = `/appointment/pt/group-slot`;
+export const getGroupImages = (search) => async (dispatch) => {
+  let url = `/appointment/pt/group-slot`;
+  let extras = '?';
 
+  if (search) extras += `keywords=${search}&`;
+  url += extras;
+  
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
