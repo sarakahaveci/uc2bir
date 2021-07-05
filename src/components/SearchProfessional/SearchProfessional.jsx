@@ -41,6 +41,8 @@ const SearchProfessional = () => {
   const [openDateModal, setOpenDateModal] = useState(false);
 
   const [dateFilterText, setDateFilterText] = useState('Tarih Seçiniz');
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
 
 
 
@@ -121,7 +123,9 @@ const SearchProfessional = () => {
       price,
       ratings,
       classification,
-      sortBy
+      sortBy,
+      startDate,
+      endDate
     };
 
     url = Object.keys(formData).reduce((acc, curr) => {
@@ -225,9 +229,9 @@ const SearchProfessional = () => {
               </Form.Control>
             </SearchCol>
             <SearchCol sm={12} >
-               <FilterButton onClick={() => setShowFilters(!showFilters)}>
+              <FilterButton onClick={() => setShowFilters(!showFilters)}>
                 Filtrele
-              </FilterButton> 
+              </FilterButton>
               {showFilters && (
                 <Filter
                   type={type}
@@ -299,6 +303,8 @@ const SearchProfessional = () => {
           setOpenDateModal(false);
         }}
         setDateFilterText={setDateFilterText}
+        setEndDateToApi={setEndDate}
+        setStartDateToApi={setStartDate}
       />
     </div>
   );

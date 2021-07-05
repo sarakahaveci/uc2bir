@@ -8,6 +8,8 @@ const ChooseDateModal = ({
   open,
   cancel,
   setDateFilterText,
+  setStartDateToApi,
+  setEndDateToApi,
 }) => {
   useEffect(() => {
 
@@ -44,9 +46,13 @@ const ChooseDateModal = ({
   const handleSubmit = () => {
     if (type == "oneday") {
       setDateFilterText(formatDate(selectedDate))
+      setStartDateToApi(selectedDate)
+
     }
     if (type == "rangedays") {
       setDateFilterText(formatDate(startDate) + "-" + formatDate(endDate))
+      setStartDateToApi(startDate)
+      setEndDateToApi(endDate)
     }
     cancel();
     setStartDate(null);
