@@ -163,10 +163,17 @@ export const getUserSessionHistorys = (date) => async (dispatch) => {
 };
 
 export const rateAndComment = (
-  { appointment_id, commented_id, comment, rating },
-  successCallback = () => { }, errorCallBack = () => { }
-) => async (dispatch) => {
-   let url = `/appointment/calendar/comment`;
+  { appointment_id, commented_id, comment, rating }
+  , successCallback = () => { }, errorCallBack = () => { }
+) => async (dispatch, getState) => {
+  let url;
+  const userType = getState().auth.user.type_id;
+  if (userType == 1) url = `/appointment/calendar/comment`;   // user
+  if (userType == 2) url = `/appointment/pt-calendar/comment`;  // pt
+  if (userType == 3) url = `/appointment/bs-calendar/comment`; // gym
+  if (userType == 4) url = `/appointment/dt-calendar/comment`; // dietitian
+
+
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
