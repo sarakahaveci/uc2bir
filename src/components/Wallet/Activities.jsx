@@ -14,11 +14,13 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { DialogActions } from '@material-ui/core';
 import { getWalletTransactions } from 'actions/userProfileActions/walletActions';
-
-const Activities = () => {
+import { USER } from '../../constants'
+const Activities = ({setPage}) => {
   const transactionsData = useSelector(
     (state) => state?.userProfile?.wallet.transactionsData.data
   );
+  const user = useSelector((state) => state.auth.user);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getWalletTransactions());
@@ -47,15 +49,25 @@ const Activities = () => {
             <ImageBanner src={image} />
           </Col>
           <Col lg="7">
-            <Title
-              style={{ cursor: 'pointer' }}
-              fontSize="12pt"
-              textAlign="left"
-             // onClick={() => setPage('home')} ŞİMDİLİK KAPATILDI
-            >
-              {`Hesap Hareketlerim`}
-            </Title>
 
+            {user?.type_id == USER &&
+
+              <Title
+                style={{ cursor: 'pointer' }}
+                fontSize="12pt"
+                textAlign="left"
+              // onClick={() => setPage('home')} ŞİMDİLİK KAPATILDI
+              >
+                {`Hesap Hareketlerim`}
+              </Title> || <Title
+                style={{ cursor: 'pointer' }}
+                fontSize="12pt"
+                textAlign="left"
+                onClick={() => setPage('home')}
+              >
+                {`< Hesap Hareketlerim`}
+              </Title>
+            }
             <>
               <Text fontSize="10pt">
                 Bütün hesap hareketlerinizi bu alanda görüntüleyebilirsiniz.
