@@ -184,7 +184,7 @@ const dietitianTabs = [
   // TODO: Tab will active after BE ready
   {
     eventKey: 'wallet',
-    title: 'Hesap Hareketleri',
+    title: 'Cüzdan',
     component: <Wallet />,
   },
   {
@@ -246,7 +246,7 @@ const trainerTabs = [
   },
   {
     eventKey: 'wallet',
-    title: 'Hesap Hareketleri',
+    title: 'Cüzdan',
     component: <Wallet />,
   },
   {

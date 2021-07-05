@@ -45,7 +45,7 @@ const Pt = ({ user_name, user_img = null, logoutHandler }) => {
       link: TABS.specialtiesPath,
     },
    {
-      name: 'Hesap Hareketleri',
+      name: 'Cüzdan',
       icon: <Svg.Wallet />,
       link: TABS.walletPath,
     },
