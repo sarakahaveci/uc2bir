@@ -74,8 +74,11 @@ const EditFiles = ({
             }}
             onEditComplete={(value) => {
               dispatch(
-                updateFile(file.id, value, () => dispatch(getMyProfileFiles()))
+                updateFile(file.id, value)
+
               );
+              dispatch(getMyProfileFiles())
+
             }}
             value={file.name}
           />
