@@ -50,8 +50,7 @@ const Login = () => {
     dispatch(login({ email: trimmedEmail, password }, loginSuccessHandler));
   };
   const responseSocial = async (type, res) => {
-    // eslint-disable-next-line
-    console.log('responseApple', res);
+
     var user = {
       type: type,
       accessToken: res?.accessToken || res?.authorization?.id_token,

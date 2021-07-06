@@ -157,7 +157,8 @@ export const saveTemplate = (templateName, callBack) => async (
 
   const { appliedDays } = getState().profileSettings2.reservationTemplate;
 
-  const formatedAppliedDays = appliedDays.map((day) => ({
+  const formatedAppliedDays = appliedDays.map((day) => (
+    {
     day: day.day + 1,
     accept_guest: day.slice?.[day.slice.length - 1]?.accept_guest,
     slice: day.slice.map((slice) => ({
@@ -166,10 +167,11 @@ export const saveTemplate = (templateName, callBack) => async (
         branch: slice.branch.map((branch) => branch.id),
       }),
       ...(userTypeId === PERSONAL_TRAINER && {
-        session_type: slice.session_type.map((sessionType) => ({
+        session_type: slice.session_type.map((sessionType) => (
+          {
           session: sessionType.session.type,
           ...(sessionType.location && {
-            location: [sessionType?.location?.id],
+            location: sessionType?.location?.map((item)=>item.id),
           }),
         })),
       }),

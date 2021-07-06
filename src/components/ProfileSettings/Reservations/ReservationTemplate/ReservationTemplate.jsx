@@ -154,6 +154,7 @@ export default function ReservationTemplate({
     }
 
     if (userTypeId === WORK_PLACE) {
+
       return !classSelection.length;
     }
 
@@ -161,7 +162,7 @@ export default function ReservationTemplate({
       return (
         !sessionSelection.length ||
         // If gym or home_park selected, check their selections are fulfilled.
-        (checkSessionSelection('gym') && !workPlaceSelection?.id) ||
+        (checkSessionSelection('gym') && !workPlaceSelection?.length) ||
         (checkSessionSelection('home_park') && !locationSelection.length)
       );
     }
