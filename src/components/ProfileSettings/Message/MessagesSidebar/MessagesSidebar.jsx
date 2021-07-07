@@ -36,6 +36,7 @@ const MessageSidebar = () => {
             userData={userInfo}
             unreadMessages={false}
             isNewMessage={true}
+            isDefaultSelected
           />
         )}
         {rooms?.map((data, index) => (

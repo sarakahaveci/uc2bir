@@ -121,7 +121,7 @@ const ReservationDetail = ({ type, goBack = () => { }, isOnline }) => {
             </DescTextWrapper>
             <MessageButtonContainer>
               <Link
-                to={'/messages'}
+                to={'/myprofile/settings/message'}
                 onClick={() =>
                   dispatch(
                     setNewMessageRoom(

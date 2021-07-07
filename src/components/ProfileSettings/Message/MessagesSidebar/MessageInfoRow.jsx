@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import styled, { css } from 'styled-components/macro';
 import { useSelector, useDispatch } from 'react-redux';
 import { differenceInDays } from 'date-fns';
@@ -13,6 +13,7 @@ const MessageInfoRow = ({
   userData,
   unreadMessages,
   isNewMessage,
+  isDefaultSelected
 }) => {
   const { id: myProfileId, photo: profile_image } = useSelector(
     (state) => state.auth.user
@@ -32,7 +33,13 @@ const MessageInfoRow = ({
     dispatch(setRoomName(messageData.room_name, userData));
     dispatch(setMessageSideBarOpen(false));
   };
-
+  useEffect(() => {
+   setTimeout(() => {
+    if (isDefaultSelected) {
+      setRoomNameHandler();
+    }
+   }, 500);
+  }, [messageData])
   const messageDate = useMemo(() => {
     if (differenceInDays(new Date(), new Date(messageData.created_at)) === 0) {
       return ISOToTimeConverter(messageData.created_at);
@@ -47,7 +54,7 @@ const MessageInfoRow = ({
       p="15px 25px 15px 15px"
       alignItems="center"
       isActive={isCardActive}
-      onClick={setRoomNameHandler}
+      onClick={()=>{setRoomNameHandler()}}
     >
       <AvatarWrapper>
         <Avatar
@@ -65,7 +72,7 @@ const MessageInfoRow = ({
       <Box col flex={1}>
         <Box row justifyContent="space-between" mb="8px" alignItems="center">
           <Text p="0" color="blue" fontSize="0.9rem" fontWeight="600">
-            {userData?.name ?? 'Müşteri Temsilcisi'}
+            {userData?.name ?? 'Sistem'}
           </Text>
 
           <MessageDate fontSize="0.9rem" color="dark">

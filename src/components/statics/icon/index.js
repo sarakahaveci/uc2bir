@@ -40,6 +40,7 @@ import {
   faEnvelopeOpen,
   faKeyboard,
   faBars,
+  faInfoCircle
 } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
@@ -54,6 +55,7 @@ export default {
   Linkedin: (props) => <FontAwesomeIcon icon={faLinkedin} {...props} />,
   FaHistory: (props) => <FontAwesomeIcon icon={faHistory} {...props} />,
   FaExcel: (props) => <FontAwesomeIcon icon={faFileExcel} {...props} />,
+  FaInfoCircele: (props) => <FontAwesomeIcon icon={faInfoCircle} {...props} />,
   FaPlus: (props) => <FontAwesomeIcon icon={faPlus} {...props} />,
   FaChevronRight: (props) => (
     <FontAwesomeIcon icon={faChevronRight} {...props} />

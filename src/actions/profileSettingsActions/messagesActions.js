@@ -46,6 +46,7 @@ export const setMessageSideBarOpen = (open) => async (dispatch) => {
 };
 
 export const setNewMessageRoom = (userInfo) => async (dispatch, getState) => {
+  console.log('HUUUUUU',userInfo)
   const id = getState().auth.user.id;
   dispatch({
     type: SEND_NEW_MESSAGE,
