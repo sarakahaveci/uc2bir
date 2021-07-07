@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import styled, { css } from 'styled-components/macro';
 import { useSelector, useDispatch } from 'react-redux';
 import { differenceInDays } from 'date-fns';
@@ -13,7 +13,6 @@ const MessageInfoRow = ({
   userData,
   unreadMessages,
   isNewMessage,
-  isDefaultSelected
 }) => {
   const { id: myProfileId, photo: profile_image } = useSelector(
     (state) => state.auth.user
