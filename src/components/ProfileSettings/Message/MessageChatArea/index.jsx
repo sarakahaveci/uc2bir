@@ -8,6 +8,7 @@ import {
   sendMessageToRoom,
   getRooms,
   sendFileToRoom,
+  setRoomName, updateUserRead
 } from 'actions';
 import MessageRow from './MessageRow';
 import ChatBoxHeader from './ChatBoxHeader';
@@ -37,17 +38,77 @@ export default function MessageArea() {
   );
   const [fileSendButtonsEnabled, setFileSendButtonsEnabled] = useState(true);
   const dispatch = useDispatch();
-
+  const { userInfo } = useSelector((state) => state.userProfile.userInfo);
+  const [isFirstTime, setIsFirstTime] = useState(true);
+  const rooms = useSelector(state => state.profileSettings2.messages.rooms.data)
+  useEffect(()=>{
+    setIsFirstTime(true)
+  },[])
   useEffect(() => {
     if (selectedRoomName) {
-      dispatch(getRoomMessages(selectedRoomName));
+
+      dispatch(getRoomMessages(selectedRoomName, () => {
+        dispatch(updateUserRead(() => {
+          dispatch(getRooms((data) => {
+            const allRooms = data.data;
+
+            if(isFirstTime){
+              if (userInfo) {
+                var temparr = rooms?.filter(item=>item?.user_meta?.id == userInfo.id)
+                if(temparr?.length>0){
+                
+                }else{
+                  dispatch(
+                    setRoomName(userInfo.id + 'tempRoom', userInfo)
+                  );
+                }
+                
+              } else {
+
+                dispatch(
+                  setRoomName(allRooms?.[0]?.room_name, data.data?.[0]?.user_meta)
+                );
+              }
+              setIsFirstTime(false)
+            }
+
+          }))
+        }))
+      }));
     }
   }, [selectedRoomName]);
 
   const successMessageCallback = () => {
     setMessage('');
-    dispatch(getRoomMessages(selectedRoomName));
-    dispatch(getRooms());
+    dispatch(getRoomMessages(selectedRoomName, () => {
+      dispatch(updateUserRead(() => {
+        dispatch(getRooms((data) => {
+          if (isFirstTime) {
+            const allRooms = data.data;
+
+            if (userInfo) {
+              dispatch(
+                setRoomName(userInfo.id + 'tempRoom', data.data?.[0]?.user_meta)
+              );
+            } else {
+
+              dispatch(
+                setRoomName(allRooms?.[0]?.room_name, data.data?.[0]?.user_meta)
+              );
+            }
+            setIsFirstTime(false)
+          }
+        }))
+      }))
+    }));
+    dispatch(getRooms((data) => {
+      if (isFirstTime) {
+        const allRooms = data.data;
+        dispatch(
+          setRoomName(allRooms?.[0]?.room_name, data.data?.[0]?.user_meta)
+        );
+      }
+    }));
     setFile();
     setPreviewImg(null);
     setShowPreviewImg(false);

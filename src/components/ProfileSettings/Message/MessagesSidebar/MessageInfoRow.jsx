@@ -29,18 +29,10 @@ const MessageInfoRow = ({
 
   const isCardActive = selectedRoomName === messageData.room_name;
 
-  const setRoomNameHandler = () => {
-
-    dispatch(setRoomName(messageData.room_name, userData));
+  const setRoomNameHandler = () => {    dispatch(setRoomName(messageData.room_name, userData));
     dispatch(setMessageSideBarOpen(false));
   };
-  useEffect(() => {
-   setTimeout(() => {
-    if (isDefaultSelected) {
-      setRoomNameHandler();
-    }
-   }, 500);
-  }, [messageData])
+
 
   const messageDate = useMemo(() => {
     if (differenceInDays(new Date(), new Date(messageData.created_at)) === 0) {
