@@ -30,6 +30,7 @@ const MessageInfoRow = ({
   const isCardActive = selectedRoomName === messageData.room_name;
 
   const setRoomNameHandler = () => {
+
     dispatch(setRoomName(messageData.room_name, userData));
     dispatch(setMessageSideBarOpen(false));
   };
@@ -40,6 +41,7 @@ const MessageInfoRow = ({
     }
    }, 500);
   }, [messageData])
+
   const messageDate = useMemo(() => {
     if (differenceInDays(new Date(), new Date(messageData.created_at)) === 0) {
       return ISOToTimeConverter(messageData.created_at);

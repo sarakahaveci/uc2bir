@@ -46,21 +46,20 @@ export const setMessageSideBarOpen = (open) => async (dispatch) => {
 };
 
 export const setNewMessageRoom = (userInfo) => async (dispatch, getState) => {
-  console.log('HUUUUUU',userInfo)
   const id = getState().auth.user.id;
   dispatch({
     type: SEND_NEW_MESSAGE,
     payload: {
-      userInfo: { ...userInfo},
-      messageInfo:{
-        created_at:new Date(),
-        file:0,
+      userInfo: { ...userInfo },
+      messageInfo: {
+        created_at: new Date(),
+        file: 0,
         sender_id: id,
-        room_name: userInfo.id+'tempRoom',
-        receiver_id : userInfo.id,
-        message:''
+        room_name: userInfo.id + 'tempRoom',
+        receiver_id: userInfo.id,
+        message: ''
       }
-    },
+    }
   });
 };
 
@@ -132,7 +131,11 @@ export const sendMessageToRoom = (message, successCallback) => async (
       url,
       label: SEND_MESSAGE,
       body: { message, receiver_id: selectedRoomUser?.id || 0 },
-      callBack: successCallback,
+      callBack: (e) => {
+        successCallback(e)
+        dispatch(setRoomName(e?.data?.room_name, selectedRoomUser));
+        dispatch(setMessageSideBarOpen(false));
+      },
       errorHandler: (message) => toast.error(message),
     },
   });

@@ -9,12 +9,12 @@ import profileImg from '../../assets/banner/slider-item-1.png';
 const Info = ({ match }) => {
   return (
     <Main>
-      <div  style={{ marginTop: '0px',minHeight:'121vh'}} className="basic-info">
-      <img  src={profileImg} alt="" className="banner-image" />
+      <div style={{ marginTop: '0px', minHeight: '121vh' }} className="basic-info">
+        <img src={profileImg} alt="" className="banner-image" />
 
         <Container>
           <Wrapper>
-          <Message id={match?.params?.id} />
+            <Message id={match?.params?.id} />
           </Wrapper>
         </Container>
       </div>

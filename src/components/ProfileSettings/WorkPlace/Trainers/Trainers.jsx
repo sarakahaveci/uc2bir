@@ -140,7 +140,7 @@ const Trainers = ({
                   onChange={(e) => setBranch(e.target.value)}
                 >
                   <option hidden>Branşlar</option>
-                  {allBranchList.map((item, index) => (
+                  {allBranchList?.map((item, index) => (
                     <option key={'option' + index} value={item.id}>
                       {item.name}
                     </option>
