@@ -116,7 +116,7 @@ export default function MessageArea() {
   };
 
   const handleSubmitMessage = (event) => {
-    if (event.key === 'Enter' && !!message) {
+    if (event.key === 'Enter' && message) {
       dispatch(sendMessageToRoom(message, successMessageCallback));
     }
   };
