@@ -9,7 +9,7 @@ import { device } from 'utils';
 import Svg from 'components/statics/svg';
 import {
   getUserPacketLessonDetail,
-  setUserPacketLessonComplete,
+  // setUserPacketLessonComplete,
 } from 'actions';
 import { useDispatch, useSelector } from 'react-redux';
 const useStyles = makeStyles({
