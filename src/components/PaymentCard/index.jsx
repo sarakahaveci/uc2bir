@@ -68,7 +68,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
   }, [paymentPacket?.request]);
   useEffect(() => {
     if (reservation?.data?.slot?.length > 0) {
-      if(type !== 'dt'){
+      if (type !== 'dt') {
         dispatch(
           setReservation({
             [`${type}_price`]:
@@ -76,7 +76,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
               (branchList?.branches?.filter(item => item?.id == reservation.data?.branch_id)?.[0]?.price || reservationCalendar?.data?.bs?.price),
           })
         );
-      }else{
+      } else {
         dispatch(
           setReservation({
             [`${type}_price`]:
@@ -148,7 +148,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
     var ptPrice = reservation?.data?.pt_price || 0;
     var gymPrice = reservation?.data?.gym_price || 0;
     var guestPrice = reservation?.data?.guest ? gymPrice + ptPrice : 0; // Buraya Çarpan gelecektir
-    
+
     dispatch(
       setReservation({
         totals_amount: ptPrice + gymPrice + guestPrice,
@@ -479,7 +479,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
     //pt ok
     //dt ok
     var tempType = type;
-    if(type == 'packet') tempType = subType;
+    if (type == 'packet') tempType = subType;
     switch (tempType) {
       case 'pt':
         if (!reservation?.data?.session) {
@@ -515,8 +515,8 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
         }
         return true
       case 'gym':
-       
-        if(disabledPayment == true) return{reason: 'Eğitmen seçimi yapmadınız'}
+
+        if (disabledPayment == true) return { reason: 'Eğitmen seçimi yapmadınız' }
         if ((reservation?.data.session == 'gym' || reservation?.data.session == 'home_park') && !reservation?.data?.location_id) {
           // setIsNotOkReason('Seçilen oturum türü lokasyon seçimi gerektirmektedir')
           return { reason: 'Seçilen oturum türü lokasyon seçimi gerektirmektedir' }
@@ -549,7 +549,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
           <Svg.TickLesson></Svg.TickLesson>
           <text style={{ marginLeft: '5px' }}>
             Seçiminiz Rezervasyon İçin Uygundur
-            </text>
+          </text>
         </div>
       )) || (
         <div
@@ -579,7 +579,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
     var json = {
       package_uuid: reservation?.data?.package_uuid,
       pt_id: reservation?.data?.selectedPt?.user_id,
-      payment_type: 'package', // burasını dÜZELT dinamik hale getir
+      payment_type: reservation?.data?.payment_type =='credit_card' ? 'credit_card':'package', 
       is_contracts_accepted: true,
       session: reservation?.data?.session,
       location_id: reservation?.data?.location_id,
@@ -612,7 +612,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
         )
       );
     } else {
-      if (reservation?.data?.payment_type == 'wallet') {
+      if (reservation?.data?.payment_type == 'wallet' || reservation?.data?.payment_type =='no_money') {
         dispatch(
           sendReservation(
             reservation?.data?.packetInfo?.type,
@@ -691,7 +691,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
         </ReservationContainer>
       )}
       <AddTextContainer>
-        {(type === 'pt' ) &&
+        {(type === 'pt') &&
           reservation?.data?.session !== 'online' &&
           !reservation?.data?.payment_type && (
             <>
@@ -939,7 +939,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
               {
                 _renderReservationState()
               }
-              {false &&(wallet?.data?.balance >= reservation?.data?.totals_amount) ? ( //Şimdilik cüzdanım kapatıldı
+              {false && (wallet?.data?.balance >= reservation?.data?.totals_amount) ? ( //Şimdilik cüzdanım kapatıldı
                 <BottomContainer>
                   <Button
                     style={{ width: '100%', padding: '20px' }}
@@ -995,12 +995,40 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
               ) : (
                 ''
               )}
-
-              <BottomContainer style={{ margin: '5px' }}>
+              {type == 'packet' && reservation?.data?.totals_amount == 0 && (
+                <BottomContainer style={{ margin: '5px' }}>
+                  <Button
+                    style={{ width: '100%', padding: '20px' }}
+                    className="blue"
+                    text={"Rezervasyon Oluştur"}
+                    onClick={() => {
+                      if (reservation?.data?.session) {
+                        if (
+                          reservationCalendar?.data?.slice &&
+                          reservationCalendar?.data?.slice?.length > 0
+                        ) {
+                          selectPaymentType('no_money');
+                        } else {
+                          toast.error('Lütfen Seçiminizi Gözden Geçiriniz!', {
+                            position: 'bottom-right',
+                            autoClose: 4000,
+                          });
+                        }
+                      } else {
+                        toast.error('Lütfen Oturum Türü Seçiniz!', {
+                          position: 'bottom-right',
+                          autoClose: 4000,
+                        });
+                      }
+                    }}
+                  />
+                </BottomContainer>
+              )}
+              {!(type == 'packet' && reservation?.data?.totals_amount == 0) && <BottomContainer style={{ margin: '5px' }}>
                 <Button
                   style={{ width: '100%', padding: '20px' }}
                   className="blue"
-                  text="Kredi Kartından Öde"
+                  text={"Kredi Kartından Öde"}
                   onClick={() => {
                     if (reservation?.data?.session) {
                       if (
@@ -1026,7 +1054,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
                     }
                   }}
                 />
-              </BottomContainer>
+              </BottomContainer>}
             </>
           ))}
         {type == 'buy_group_lesson' &&

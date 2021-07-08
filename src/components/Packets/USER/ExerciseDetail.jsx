@@ -54,7 +54,7 @@ const ExerciseDetail = ({ setPage = () => { }, globalState }) => {
                 <Svg.Difficulty></Svg.Difficulty>
                 <TextWrapper>
                   <Text>Zorluk</Text>
-                  <Text bold>Mock</Text>
+                  <Text bold>{detailData?.level}</Text>
                 </TextWrapper>
               </PropertyContainer>
               <PropertyContainer>

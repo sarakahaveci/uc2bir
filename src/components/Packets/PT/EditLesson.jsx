@@ -166,7 +166,9 @@ const EditLesson = ({ setBannerActive = () => {}, setPage = () => {}, packageDat
   }
   return (
     <Row>
-      <Containers>
+      {classDetail?.package && (
+        <>
+        <Containers>
         <Rows>
           <Col lg={4}>
             <Card img={classDetail?.package?.photo}>
@@ -241,6 +243,8 @@ const EditLesson = ({ setBannerActive = () => {}, setPage = () => {}, packageDat
         </StyledRow>
         <StyledRow style={{}}>{_renderLessons()}</StyledRow>
       </Wrapper>
+        </>
+      ) || <>Bu alan şuan için gösterime uygun değildir.</>}
       <React.Fragment>
         <Dialog
           className="material-dialog"

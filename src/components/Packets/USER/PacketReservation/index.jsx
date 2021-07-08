@@ -193,7 +193,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
                   </CardGroup>
                 </>
               ))}
-              {!(gymListState?.lenght > 0) && (
+              {!(gymListState?.length > 0) && (
                 <text>Uygun Spor Alanı bulunmamaktadır</text>
               )}
             </RadioGroup>
@@ -430,7 +430,10 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
             }}
           />
         );
-
+      case 'no_money':
+        return (
+          <></>
+        )
       default:
         return (
           <>
