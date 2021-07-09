@@ -24,6 +24,7 @@ export const UserAwaitingApprove = (id, successCallback = () => { }) => async (
   dispatch
 ) => {
   let url = `/appointment/calendar/update/${id}`;
+
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
@@ -44,6 +45,7 @@ export const UserAwaitingReject = (
   successCallback = () => { }
 ) => async (dispatch) => {
   let url = `/appointment/calendar/update/${id}`;
+
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
@@ -64,6 +66,7 @@ export const UserApproveCancelStepOne = (
   successCallback = () => { }
 ) => async (dispatch) => {
   let url = `/appointment/calendar/update/${id}`;
+
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
@@ -83,6 +86,7 @@ export const UserApproveCancelStepTwo = (
   successCallback = () => { }
 ) => async (dispatch) => {
   let url = `/appointment/calendar/update/${id}`;
+
   await dispatch({
     type: HTTP_REQUEST,
     payload: {

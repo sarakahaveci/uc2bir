@@ -35,7 +35,9 @@ const Exercises = ({ setPage = () => {} , packageData}) => {
   function onClickExercise() {
     setPage('ExerciseDetail');
   }
-
+  function onClickExerciseEdit() {
+    setPage('ExerciseEdit');
+  }
   const onDeleteExercise =(data)=>{
     dispatch(deletePackageExerciseList({lesson_id:data?.lesson, training_id:data?.training_id},
       ()=> toast.success(`Egzersiz Başarılı Bir Şekilde Silindi`, {
@@ -50,7 +52,7 @@ const Exercises = ({ setPage = () => {} , packageData}) => {
     return classDetailItem?.trainings?.map((elm, index) => (
       <Col key={index} style={{ padding: 0 }} lg="4">
         <CustomProgress location={classDetailItem?.trainings.length - 1 === index ? 'end' : locationSelector(index)} active='false' />
-        <ExerciseCard data={elm} onClickExercise={onClickExercise} onDeleteExercise={(data)=> {onDeleteExercise(data);}}/>
+        <ExerciseCard data={elm} onClickExercise={onClickExerciseEdit} onDeleteExercise={(data)=> {onDeleteExercise(data);}}/>
       </Col>
     ));
   }
