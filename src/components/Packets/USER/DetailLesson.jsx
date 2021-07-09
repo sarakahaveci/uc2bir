@@ -200,7 +200,7 @@ const DetailLesson = ({
           open={modal}>
           <DialogTitle className="text-center">
             <Title textAlign="left" variant="h5" component="h5">
-              {'testName'}
+              {'Test'}
             </Title>
             <span
               style={{
