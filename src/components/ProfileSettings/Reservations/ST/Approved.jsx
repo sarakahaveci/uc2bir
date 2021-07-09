@@ -88,7 +88,7 @@ const Approved = ({ setSubPage = () => { } }) => {
                 onApprove={() => {
                   openReservationDetail(elm?.id);
                 }}
-                onReject={(id) => {
+                onReject={() => {
                   setOpenCancellation(elm?.id);
                 }}
               />
