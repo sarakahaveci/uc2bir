@@ -126,6 +126,8 @@ const Login = () => {
                   label="Şifre"
                   type="password"
                   icon={Svg.PasswordIcon}
+                  password={Svg.EyeIcon}
+
                 />
 
                 <Box

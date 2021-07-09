@@ -20,6 +20,20 @@ const CancalletionModal = ({
   useEffect(() => {
     setSelectedPage('start');
   }, [open]);
+
+  function hourFormatter(hour){
+    if(hour){
+      if(hour > 24 ){
+        var day = Math.floor(hour / 24)
+        var remaining = hour - day*24;
+        return (day + ' gün ' + remaining + ' saat' )
+      }else{
+        return (hour + ' saat')
+      }
+    }else{
+      return null
+    }
+  }
   switch (selectedPage) {
     case 'start':
       content = (
@@ -92,10 +106,18 @@ const CancalletionModal = ({
             </Text>
 
             <Text textAlign="center" fontSize="1rem" color="dark">
-              {stepTwoData?.remaining_hour} saat sonraki randevunuzu iptal etmek üzeresiniz.
+              {hourFormatter(stepTwoData?.remaining_hour)}  sonraki randevunuzu iptal etmek üzeresiniz.
             </Text>
           </ContextContainer>
-
+          <div style={{display: 'flex',width:'100%'}}>
+          <StyledButton
+          style={{marginRight:'10px'}}
+            onClick={() => {
+              cancelProcess();
+            }}
+          >
+            İPTAL
+          </StyledButton>
           <StyledButton
             onClick={() => {
               cancelStepTwo(open);
@@ -103,6 +125,7 @@ const CancalletionModal = ({
           >
             GÖNDER
           </StyledButton>
+          </div>
         </MainContainer>
       );
       break;
@@ -159,6 +182,7 @@ const IconContainer = styled.div`
 const StyledButton = styled(Link)`
   font-size: 1.2rem;
   color: ${(p) => (p.cancel ? '#F01C62' : 'black')};
+
   text-align: center;
   display: block;
   width: 100%;

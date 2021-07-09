@@ -250,7 +250,7 @@ const BuyPacket = ({ match }) => {
                   <PtIcon src={avatar3} />
                   <PtIcon src={avatar4} />
                   <PtIcon src={avatar5} />
-                  <MoreIcon>68+</MoreIcon>
+                  <MoreIcon >●●●</MoreIcon>
                 </PtIconsContainer>
                 <Button
                   blueborder
@@ -402,6 +402,7 @@ const MoreIcon = styled.div`
   margin: 0 -8px;
   border-radius: 45px;
   background: var(--blue);
+  padding-top:0px;
 `;
 
 const BigSeperator = styled(Seperator)`

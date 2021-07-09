@@ -25,7 +25,7 @@ const Approved = ({ setSubPage = () => { } }) => {
     (state) => state.professionalReservation?.userReservation?.approved
   );
   const funcStatus = useSelector(
-    (state) => state.professionalReservation?.userReservation?.funcStatus
+    (state) => state.professionalReservation?.ptReservation?.funcStatus
   );
   const startOfWeeksArr = () => {
     if (items?.date) {
