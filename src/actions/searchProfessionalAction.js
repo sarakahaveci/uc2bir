@@ -28,6 +28,8 @@ export const searchProffesional =
       subType,
       page,
       classification,
+      startDate,
+      endDate
     },
     successCallback = () => { }
   ) =>
@@ -77,11 +79,15 @@ export const searchProffesional =
       const urlWithSortBy = `&sortBy=${sortBy}&sortKey=price`;
       const urlWithPage = `&page=${page}`;
       const urlWithClassification = `&classification=${classification}`;
+      const urlWithStartDate = `&startDate=${startDate}`;
+      const urlWithEndDate = `&endDate=${endDate}`;
+
+
 
       const finalUrls = `${url}${location ? urlWithLocation : ''}${title ? urlWithTitle : ''
         }${ratings?.length > 0 ? urlWithRating : ''}${urlWithMinPrice}${maxPrice ? urlWithMaxPrice : ''
         }${sortBy ? urlWithSortBy : ''}${classification ? urlWithClassification : ''
-        }${page ? urlWithPage : ''}${branch ? urlWithBranch : ''}`.trim();
+        }${page ? urlWithPage : ''}${startDate ? urlWithStartDate : ''}${endDate ? urlWithEndDate : ''}${branch ? urlWithBranch : ''}`.trim();
 
       await dispatch({
         type: HTTP_REQUEST,

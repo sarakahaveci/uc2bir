@@ -81,6 +81,8 @@ const SearchProfessional = () => {
       price = '[0, 1000]',
       ratings = '[]',
       classification,
+      startDate,
+      endDate
     } = searchParams;
 
     // Parsing this because it is coming string from url such as '[0, 1000]'
@@ -94,6 +96,8 @@ const SearchProfessional = () => {
     setPrice(parsedPrice);
     setRatings(parsedRatings);
     setClassification(classification);
+    setStartDate(startDate);
+    setEndDate(endDate);
 
     dispatch(
       searchProffesional({
@@ -108,6 +112,8 @@ const SearchProfessional = () => {
         type,
         page,
         classification,
+        startDate,
+        endDate,
       })
     );
   }, [window.location.href]);

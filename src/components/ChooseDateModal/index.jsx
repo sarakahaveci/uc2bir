@@ -3,6 +3,7 @@ import styled from 'styled-components/macro';
 import { Svg } from 'components';
 import { device } from 'utils';
 import { DatePicker } from 'components';
+import moment from 'moment';
 
 const ChooseDateModal = ({
   open,
@@ -30,6 +31,8 @@ const ChooseDateModal = ({
     setStartDate(null);
     setEndDate(null);
     setSelectedDate(new Date())
+    setStartDateToApi(null)
+    setEndDateToApi(null)
     if (type == "oneday") {
       setIsOnOneDaySearch(true)
     }
@@ -46,13 +49,13 @@ const ChooseDateModal = ({
   const handleSubmit = () => {
     if (type == "oneday") {
       setDateFilterText(formatDate(selectedDate))
-      setStartDateToApi(selectedDate)
+      setStartDateToApi(moment(selectedDate).format('DD.MM.YYYY'))
 
     }
     if (type == "rangedays") {
       setDateFilterText(formatDate(startDate) + "-" + formatDate(endDate))
-      setStartDateToApi(startDate)
-      setEndDateToApi(endDate)
+      setStartDateToApi(moment(startDate).format('DD.MM.YYYY'))
+      setEndDateToApi(moment(endDate).format('DD.MM.YYYY'))
     }
     cancel();
     setStartDate(null);
