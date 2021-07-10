@@ -30,6 +30,7 @@ const ReservationDetail = ({ type, goBack = () => { }, isOnline }) => {
         setDetailData(professionalReservation?.dtReservation?.res_detail);
         break;
       case 'st':
+
         setDetailData(professionalReservation?.userReservation?.res_detail);
         break;
       default:
@@ -51,12 +52,16 @@ const ReservationDetail = ({ type, goBack = () => { }, isOnline }) => {
           }}
           style={{ cursor: 'pointer' }}
         >
-          {'<  Randevu Detaylarınız'}
+          {'<  Randevu Detayı'}
         </BoldText>
       </Header>
       <Sections>
         <Left>
-          <InfoItem onClick={()=>{history.push(`/user/${detailData.student.id}`)}}>
+          <InfoItem clickDisable={!(type =='st')} onClick={() => {
+            if (type == 'st') {
+              history.push(`/user/${detailData.pt?.id}`)
+            }
+          }}>
             <InfoMain>
               <CustomerImage
                 src={
@@ -69,11 +74,11 @@ const ReservationDetail = ({ type, goBack = () => { }, isOnline }) => {
               <BoldText>
                 {detailData?.student?.name ||
                   detailData?.pt?.name ||
-                  detailData?.bs?.title 
-                  }
+                  detailData?.bs?.title
+                }
               </BoldText>
             </InfoMain>
-            <text style={{ fontSize: '30px' }}> {'>'} </text>
+            {type == 'st' && <text style={{ fontSize: '30px' }}> {'>'} </text>}
           </InfoItem>
           {detailData?.branch && <InfoItem>
             <InfoMain>
@@ -232,7 +237,7 @@ const InfoItem = styled.div`
   justify-content: space-between;
   padding: 7px;
   border-radius: 10px;
-  cursor: pointer;
+  cursor:${p => p.clickDisable ? 'default' : 'pointer'};
   margin-top: 10px;
 `;
 const InfoMain = styled.div`
