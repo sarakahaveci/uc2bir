@@ -26,6 +26,7 @@ const useStyles = makeStyles({
 
 const EditLesson = ({ setBannerActive = () => {}, setPage = () => {}, packageData, lessonId,  setLessonId}) => {
   const dispatch = useDispatch();
+  // eslint-disable-next-line 
   const [testName, setTestName] = useState('');
   const [changeable, setChangeable] = useState(false);
   const [question, _question] = useState([]);
