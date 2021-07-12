@@ -37,6 +37,8 @@ const Gym = ({ dateOption = true }) => {
   const wallet = useSelector((state) => state.userProfile.wallet);
   const staticPages = useSelector((state) => state.staticPages);
   const reservation = useSelector((state) => state.reservation);
+  const reservationCalendar = useSelector((state) => state.reservationCalendar);
+
   const ptList = useSelector(
     (state) => state.reservationCalendar?.data?.location?.with_pt
   );
@@ -228,7 +230,7 @@ const Gym = ({ dateOption = true }) => {
               <InputContainer disable={reservation?.data?.isSelected}>
                 <Text color="#9B9B9B">{'Branş Seçiniz:'}</Text>
                 <Material.SimpleSelect
-                  items={allBranchList}
+                  items={reservationCalendar?.resData?.branches}
                   name="branch"
                   defaultValue={reservation?.data?.branch_id}
                   onChange={(e) =>
