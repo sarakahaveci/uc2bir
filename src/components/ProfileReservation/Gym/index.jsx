@@ -45,9 +45,9 @@ const Gym = ({ dateOption = true }) => {
 
   //const gymList = useSelector((state) => state.userProfile.ptGymList);
 
-  const allBranchList = useSelector(
-    (state) => state.profileSettings.ptBranchList.allList
-  );
+  // const allBranchList = useSelector(
+  //   (state) => state.profileSettings.ptBranchList.allList
+  // );
   const pageChangeHandler = (event, value) => setPage(value);
 
   useEffect(() => {
