@@ -9,7 +9,6 @@ import {
 import styled from 'styled-components/macro';
 import { device } from 'utils';
 
-import MarkerSvg from './markerSvg.svg';
 import SaloonSvg from './fitness.svg';
 import TrainerSvg from './trainer.svg';
 import DietSvg from './diet.svg';
