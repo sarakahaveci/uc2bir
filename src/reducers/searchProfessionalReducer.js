@@ -27,10 +27,12 @@ export default (state = initialState, action) => {
       };
 
     case SEARCH_PROFESSIONAL_SUCCESS:
+      
+      var dataArr= action.payload?.data.map(obj=> ({ ...obj, user_type: action.payload?.user_type}))
       return {
         ...state,
         isLoading: false,
-        listInfo: action.payload,
+        listInfo: {...action.payload,data:dataArr},
       };
 
     case SEARCH_PROFESSIONAL_FAILURE:

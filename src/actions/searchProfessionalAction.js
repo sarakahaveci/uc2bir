@@ -97,6 +97,12 @@ export const searchProffesional =
           label: SEARCH_PROFESSIONAL,
           transformData: (data) => data,
           callBack: () => successCallback(),
+          transformData: (data) => {
+            return {
+              data: data?.data,
+              user_type:type
+            };
+          },
         },
       });
     };

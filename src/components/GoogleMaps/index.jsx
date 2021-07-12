@@ -11,6 +11,8 @@ import { device } from 'utils';
 
 import MarkerSvg from './markerSvg.svg';
 import SaloonSvg from './fitness.svg';
+import TrainerSvg from './trainer.svg';
+import DietSvg from './diet.svg';
 
 import { GoogleMapsAPI } from 'utils/config';
 
@@ -96,25 +98,7 @@ export default function GoogleMapClusterer({ data, onSelected, isSaloonMap ,disa
                       }}
                     />
                     :
-                    professional?.photo ?
-                      <Marker
-                         onClick={() => showInfoWindow(id)}
-                        key={professional?.id}
-                        position={{
-                          lat: +lat,
-                          lng: +lng,
-                        }}
-                        borderRadius={45}
-                        clusterer={clusterer}
-                        labelStyle={{ backgroundColor: "red", padding: 20, borderRadius: '45px' }}
-                        icon={{
-                          url: professional?.photo,
-                          origin: new window.google.maps.Point(0, 0),
-                          anchor: new window.google.maps.Point(35, 20),
-                          scaledSize: new window.google.maps.Size(70, 60),
-                        }}
-                      />
-                      :
+                    
                       <Marker
                         onClick={() => showInfoWindow(id)}
                         key={professional?.id}
@@ -124,7 +108,7 @@ export default function GoogleMapClusterer({ data, onSelected, isSaloonMap ,disa
                         }}
                         clusterer={clusterer}
                         icon={{
-                          url: MarkerSvg,
+                          url: professional?.user_type == 'pt' ? TrainerSvg : professional?.user_type == 'dt' ? DietSvg :professional?.user_type=='gym' ? DietSvg:null,
                           origin: new window.google.maps.Point(0, 0),
                           anchor: new window.google.maps.Point(35, 20),
                           scaledSize: new window.google.maps.Size(70, 60),
