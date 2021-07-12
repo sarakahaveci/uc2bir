@@ -73,7 +73,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
           setReservation({
             [`${type}_price`]:
               reservation?.data?.slot?.length *
-              (branchList?.branches?.filter(item => item?.id == reservation.data?.branch_id)?.[0]?.price || reservationCalendar?.data?.bs?.price),
+              (branchList?.branches?.filter(item => item?.id == reservation.data?.branch_id)?.[0]?.price || reservationCalendar?.resData?.branches.filter(item => item?.id == reservation.data?.branch_id)?.[0]?.price),
           })
         );
       } else {
