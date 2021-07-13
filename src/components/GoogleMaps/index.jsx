@@ -107,7 +107,7 @@ export default function GoogleMapClusterer({ data, onSelected, isSaloonMap ,disa
                         }}
                         clusterer={clusterer}
                         icon={{
-                          url: professional?.user_type == 'pt' ? TrainerSvg : professional?.user_type == 'dt' ? DietSvg :professional?.user_type=='gym' ? DietSvg:null,
+                          url: professional?.user_type == 'pt' ? TrainerSvg : professional?.user_type == 'dt' ? DietSvg :professional?.user_type=='gym' ? SaloonSvg:null,
                           origin: new window.google.maps.Point(0, 0),
                           anchor: new window.google.maps.Point(35, 20),
                           scaledSize: new window.google.maps.Size(70, 60),
