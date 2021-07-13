@@ -74,7 +74,7 @@ export default function GoogleMapClusterer({ data, onSelected, isSaloonMap, disa
                       }}
                     >
                       <InfoContainer style={{ cursor: 'pointer' }} onClick={() => {
-                        history.push('/user/' + professional?.id)
+                        history.push('/user/' + professional?.user_id || professional?.id)
                       }}>
                         <BoldText>{professional?.name || professional?.title}</BoldText>
                         <DetailText>{addressDetail}</DetailText>
