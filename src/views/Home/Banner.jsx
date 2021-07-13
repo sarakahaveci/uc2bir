@@ -87,7 +87,7 @@ const Banner = () => {
     },
     map: {
       className: 'have-map',
-      text: 'Konum Ara',
+      text: 'Kelime Ara',
       component: () => {
         return (
           <div className="img">
