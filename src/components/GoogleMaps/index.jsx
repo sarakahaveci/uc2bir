@@ -12,16 +12,16 @@ import { device } from 'utils';
 import SaloonSvg from './fitness.svg';
 import TrainerSvg from './trainer.svg';
 import DietSvg from './diet.svg';
-
+import { useHistory } from 'react-router-dom';
 import { GoogleMapsAPI } from 'utils/config';
 
 const center = { lat: 39.925533, lng: 32.866287 };
 
-export default function GoogleMapClusterer({ data, onSelected, isSaloonMap ,disableMinOption=false}) {
+export default function GoogleMapClusterer({ data, onSelected, isSaloonMap, disableMinOption = false }) {
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [isMapMin, setIsMapMin] = useState(true && (!disableMinOption));
   const mapContainerStyle = { width: '100%', height: '100%' };
-
+  const history = useHistory();
   const options = { maxZoom: 15 };
   useEffect(() => {
     onSelected && onSelected(selectedMarker);
@@ -67,12 +67,15 @@ export default function GoogleMapClusterer({ data, onSelected, isSaloonMap ,disa
                 <>
                   {selectedMarker === id && (
                     <InfoWindow
+
                       position={{
                         lat: +lat,
                         lng: +lng,
                       }}
                     >
-                      <InfoContainer>
+                      <InfoContainer style={{ cursor: 'pointer' }} onClick={() => {
+                        history.push('/user/' + professional?.id)
+                      }}>
                         <BoldText>{professional?.name || professional?.title}</BoldText>
                         <DetailText>{addressDetail}</DetailText>
                       </InfoContainer>
@@ -97,22 +100,22 @@ export default function GoogleMapClusterer({ data, onSelected, isSaloonMap ,disa
                       }}
                     />
                     :
-                    
-                      <Marker
-                        onClick={() => showInfoWindow(id)}
-                        key={professional?.id}
-                        position={{
-                          lat: +lat,
-                          lng: +lng,
-                        }}
-                        clusterer={clusterer}
-                        icon={{
-                          url: professional?.user_type == 'pt' ? TrainerSvg : professional?.user_type == 'dt' ? DietSvg :professional?.user_type=='gym' ? SaloonSvg:null,
-                          origin: new window.google.maps.Point(0, 0),
-                          anchor: new window.google.maps.Point(35, 20),
-                          scaledSize: new window.google.maps.Size(70, 60),
-                        }}
-                      />
+
+                    <Marker
+                      onClick={() => showInfoWindow(id)}
+                      key={professional?.id}
+                      position={{
+                        lat: +lat,
+                        lng: +lng,
+                      }}
+                      clusterer={clusterer}
+                      icon={{
+                        url: professional?.user_type == 'pt' ? TrainerSvg : professional?.user_type == 'dt' ? DietSvg : professional?.user_type == 'gym' ? SaloonSvg : null,
+                        origin: new window.google.maps.Point(0, 0),
+                        anchor: new window.google.maps.Point(35, 20),
+                        scaledSize: new window.google.maps.Size(70, 60),
+                      }}
+                    />
                   }
 
                   {/* <Marker
