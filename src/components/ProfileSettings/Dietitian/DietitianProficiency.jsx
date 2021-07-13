@@ -146,7 +146,7 @@ export default function DietitianProficiency() {
       case 3:
         newList = userProficiencyList.filter((proficiency) =>
           proficiency.speciality.every(
-            (speciality) => speciality.status === 'success'
+            (speciality) => speciality.status === 'active'
           )
         );
         setModifiedUserProficiencyList(newList);
