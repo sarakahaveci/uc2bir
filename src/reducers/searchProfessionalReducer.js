@@ -27,7 +27,7 @@ export default (state = initialState, action) => {
       };
 
     case SEARCH_PROFESSIONAL_SUCCESS:
-      var dataArr;
+      var dataArr; 
 
       if (action?.payload?.data?.length > 0) {
         dataArr = action.payload?.data?.map(obj => ({ ...obj, user_type: action.payload?.user_type }))
