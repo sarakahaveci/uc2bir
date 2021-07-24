@@ -57,18 +57,22 @@ const ReservationDetail = ({ type, goBack = () => { }, isOnline }) => {
       </Header>
       <Sections>
         <Left>
-          <InfoItem clickDisable={!(type =='st')} onClick={() => {
+          <InfoItem onClick={() => {
             if (type == 'st') {
               history.push(`/user/${detailData.pt?.id}`)
+            } else if (type == 'pt') {
+              history.push(`/user/${detailData.student?.id}`)
+
             }
           }}>
             <InfoMain>
               <CustomerImage
                 src={
-                  detailData?.pt?.photo ||
-                  detailData?.dt?.photo ||
-                  detailData?.student?.photo ||
-                  DefaultProfileImg
+                  type == 'pt' ?
+                    (detailData?.student?.photo ||
+                      DefaultProfileImg) : type == 'st' ? (detailData?.pt?.photo ||
+                        detailData?.dt?.photo || DefaultProfileImg) : type == 'dt' ? (detailData?.student?.photo ||
+                          DefaultProfileImg) : null
                 }
               />
               <BoldText>

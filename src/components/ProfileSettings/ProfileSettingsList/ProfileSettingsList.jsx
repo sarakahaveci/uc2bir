@@ -10,6 +10,8 @@ import Phone from 'components/ProfileSettings/Forms/tabs/Phone';
 import ComputedTest from 'components/ProfileSettings/Forms/tabs/ComputedTest';
 import Address from 'components/ProfileSettings/Address';
 import About from 'components/ProfileSettings/About';
+import ShowPersonalInfo from 'components/ProfileSettings/ShowPersonalInfo';
+
 import VKI from 'components/ProfileSettings/Forms/VKI';
 import {
   Accordion,
@@ -86,6 +88,10 @@ const regularUserTabs = [
   {
     settingsName: 'Adresim',
     body: <Address locationDisable />,
+  },
+  {
+    settingsName: 'Kişisel Bilgilerim Gösterilsin mi ?',
+    body: <ShowPersonalInfo />,
   },
 ];
 

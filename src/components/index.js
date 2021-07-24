@@ -64,6 +64,8 @@ export { default as AddExercise } from './AddExercise';
 export { default as ApproveCard } from './ApproveCard';
 export { default as PreviewImageModal } from './PreviewImageModal';
 export { default as ApproveModal } from './ApproveModal';
+export { default as BlockUserModal } from './BlockUserModal';
+
 export { default as CancellationModal } from './CancellationModal';
 export { default as ReturnMoneyModal } from './ReturnMoneyModal';
 export { default as CookiePolicyModal } from './CookiePolicyModal';

@@ -166,6 +166,7 @@ export default function Profile({ match }) {
             <Row>
               <ProfileBanner
                 setPage={setPage}
+                onBlockUser={()=>{}}
                 info={{
                   team: userInfo?.classification,
                   img: userInfo?.photo || profileImg,

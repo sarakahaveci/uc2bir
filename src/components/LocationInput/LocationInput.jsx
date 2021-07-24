@@ -24,6 +24,7 @@ const LocationInput = ({
     } = usePlacesAutocomplete({
         defaultValue: defaultValue,
         requestOptions: {
+
             /* Define search scope here */
         },
         debounce: 300,
@@ -64,12 +65,11 @@ const LocationInput = ({
         data.map((suggestion) => {
             const {
                 place_id,
-                structured_formatting: { secondary_text },
+                description,
             } = suggestion;
-
             return (
                 <div style={{ margin: '5px' }} key={place_id} onClick={handleSelect(suggestion)}>
-                    <small style={{fontWeight:'bold'}}>{secondary_text}</small>
+                    <small style={{fontWeight:'bold'}}>{description}</small>
                 </div>
             );
         });
