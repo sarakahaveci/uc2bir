@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 import { Text, Svg } from 'components';
 import { Link } from 'react-router-dom';
 import { device } from 'utils';
-const BlockUserModal = ({open, approve = () => {}, cancel = () => {} }) => {
+const BlockUserModal = ({isBlocked,open, approve = () => {}, cancel = () => {} }) => {
   return (
     <Root style={{ display: open ? 'flex' : 'none' }}>
       <MainContainer>
@@ -22,7 +22,7 @@ const BlockUserModal = ({open, approve = () => {}, cancel = () => {} }) => {
             fontWeight="500"
             textAlign="center"
           >
-            Kullanıcıyı engellemek istediginden emin misin ? 
+            {isBlocked ? "Kullanıcının engelini kaldırmak istediginizden emin misin ?": "Kullanıcıyı engellemek istediginden emin misin ?" }
           </Text>
 
           

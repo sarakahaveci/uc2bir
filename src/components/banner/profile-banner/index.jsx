@@ -37,10 +37,14 @@ const ProfileBanner = ({
       setIsFavorited(true);
     }
   };
+  function openBlockModal() {
 
+    setOpenApprove(true)
+  }
   return (
     <Containers className={className}>
       <BlockUserModal
+        isBlocked={info?.isBlocked} //Burası değişcek
         open={openApprove}
         approve={() => {
           setOpenApprove(false);
@@ -136,10 +140,10 @@ const ProfileBanner = ({
         </Cols>
 
       </Rows>
-      <BlockContainer>
-        <BlockUser onClick={() => { setOpenApprove(true) }}>Kullanıcıyı Engelle</BlockUser>
+      {!isUserDetail && <BlockContainer>
+        <BlockUser onClick={() => { openBlockModal() }}>{info?.isBlocked ? "Engeli kaldır" : "Kullanıcıyı Engelle"}</BlockUser>
 
-      </BlockContainer>
+      </BlockContainer>}
     </Containers>
   );
 };

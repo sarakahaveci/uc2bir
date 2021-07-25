@@ -1,56 +1,41 @@
 /* eslint-disable react/jsx-pascal-case */
 
 import React from 'react';
-// import { useSelector, useDispatch } from 'react-redux';
-// import { toast } from 'react-toastify';
-
-import { Material } from 'components';
+import { useSelector, useDispatch } from 'react-redux';
+ import { toast } from 'react-toastify';
+import { setProfile } from 'actions'
+import {Switch } from 'components';
 
 export default function ShowPersonalInfo() {
-  // const dispatch = useDispatch();
-
-  // const { cities, distict, town, cityId, districtId, townId, isSuccessGetId } =
-  //   useSelector((state) => state.registerData);
-
-  // const { userInfo, isLoading, isSuccessGetDetail } = useSelector(
-  //   (state) => state.profile
-  // );
-
-
-
-
-
-
-
-  // const updateAddressFail = () => {
-  //   toast.error(
-  //     'Adres güncellenirken hata ile karşılaşıldı. Bilgileri kontrol ediniz',
-  //     {
-  //       position: 'bottom-right',
-  //       autoClose: 3000,
-  //     }
-  //   );
-  // };
-
-  // const updateAddressSuccess = () => {
-  //   toast.success('Haritadan adres başarı ile eklendi', {
-  //     position: 'bottom-right',
-  //     autoClose: 3000,
-  //   });
-  // };
-
-
-
-
-
-
+  const dispatch = useDispatch();
+  const { share_data } = useSelector(state => state.profileSettings2.profileDetail?.detail?.data)
   return (
 
     <div className="w-100 h-100">
       <div className="w-100">
         Kişisel bilgilerimin 3.kişilere (Eğitmen, Diyetisyen) gösterilebilir.
       </div>
-      <Material.IOSSwitch></Material.IOSSwitch>
+      <Switch
+        checked={share_data == 'yes'}
+        onChange={() => {
+          dispatch(
+            setProfile({
+              share_data: share_data == 'yes' ? 'no' : 'yes',
+            }, () => {
+              toast.success('Bilgileriniz güncellendi.', {
+                position: 'bottom-right',
+                autoClose: 2000,
+              });
+            },
+              () => {
+                toast.error('Güncelleme işlemi yapılamadı.', {
+                  position: 'bottom-right',
+                  autoClose: 2000,
+                });
+              })
+          );
+        }}
+      />
     </div>
   );
 }
