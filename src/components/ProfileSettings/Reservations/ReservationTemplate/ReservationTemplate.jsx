@@ -101,7 +101,7 @@ export default function ReservationTemplate({
             : locationSelection,
       }),
     }));
-
+    console.log('BUMM',sessionTypeArr)
     dispatch(
       addHoursToTemplate(selectedDay.day, {
         id: selectedDay.slice.length,

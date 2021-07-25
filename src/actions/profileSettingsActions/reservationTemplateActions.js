@@ -179,7 +179,7 @@ export const saveTemplate = (templateName, callBack) => async (
         session_type: slice.session_type.map((sessionType) => ({
           session: sessionType.session.type,
           ...(sessionType.location && {
-            location: [sessionType?.session?.id],
+            location: sessionType?.location?.map((item)=>item.id),
           }),
         })),
       }),
