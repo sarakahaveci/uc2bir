@@ -15,7 +15,6 @@ import {
 } from '../../../actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { USER } from '../../../constants';
-
 const ProfileBanner = ({
   className = null,
   info,
@@ -190,6 +189,8 @@ const Comment = styled(Link)`
   }
 `;
 const BlockContainer = styled.div`
+  display:flex;
+  align-items:center;
   padding: 0 60px;
 `
 const BlockUser = styled.text`

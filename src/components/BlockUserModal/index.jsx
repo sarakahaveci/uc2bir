@@ -3,6 +3,8 @@ import styled from 'styled-components/macro';
 import { Text, Svg } from 'components';
 import { Link } from 'react-router-dom';
 import { device } from 'utils';
+import BlockedIcon from 'assets/blocked.png';
+
 const BlockUserModal = ({isBlocked,open, approve = () => {}, cancel = () => {} }) => {
   return (
     <Root style={{ display: open ? 'flex' : 'none' }}>
@@ -14,7 +16,7 @@ const BlockUserModal = ({isBlocked,open, approve = () => {}, cancel = () => {} }
           }}
         />
         <ContextContainer>
-          <Svg.SadFaceIcon />
+          <Icon src={BlockedIcon}></Icon>
           <Text
             variant="h2"
             fontSize="1.2rem"
@@ -97,7 +99,11 @@ const StyledButton = styled(Link)`
     color: #F01C62;
   }
 `;
-
+const Icon = styled.img`
+  width:70px;
+  height:70px;
+  margin-bottom:10px;
+`
 const ContextContainer = styled.div`
   display: flex;
   flex-direction: column;
