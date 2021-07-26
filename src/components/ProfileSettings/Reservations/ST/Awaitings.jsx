@@ -171,7 +171,7 @@ const Awaitings = ({ setAwaitingCount }) => {
 
             <ApproveCard
               date={elm?.hour}
-              customerName={elm?.student}
+              customerName={elm?.dt?.name}
               optionalField_1={elm?.branch}
               cardType="userCard"
               optionalField_2={{
