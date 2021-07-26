@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import styled, { css } from 'styled-components/macro';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -35,10 +35,9 @@ const GroupLessonCard = ({
       setIsFavorited(true);
     }
   };
-
   const navigateToUser = () => {
     //const userId = data?.id || data?.user_id || favoriteId; Şimdilik el ile verildi
-    history.push('/group-lessons/detail/' + 2015);
+    history.push('/group-lessons/detail/' + data?.id);
   };
 
   return (
@@ -57,7 +56,7 @@ const GroupLessonCard = ({
 
         <img
           className="long-user-card__img"
-          src={data?.slot?.image?.path || MockImage}
+          src={data?.photo || MockImage}
         />
 
         <div className="long-user-card__navigator-wrapper">
@@ -89,17 +88,17 @@ const GroupLessonCard = ({
         <Span underline>{data?.title}</Span>
         <div style={{ display: 'flex', justifyContent: 'space-between',paddingTop:'10px' }}>
           <Title textAlign="left" component="h6">
-            {data?.slot?.branch?.name} Dersi
+            {data?.branch_name} Dersi
         </Title>
           <Title textAlign="left" component="h6">
-            {data?.slot?.min_capacity} / {data?.slot?.max_capacity}
+            {data?.min_capacity} / {data?.max_capacity}
         </Title>
         </div>
 
         <div className="long-user-card__location-wrapper">
           <div className="long-user-card__location-text">
-            <Svg.LocationIcon /> {data?.city || city},{' '}
-            {data?.district || district}
+            <Svg.LocationIcon /> {data?.location?.city || city},{' '}
+            {data?.location?.district || district}
           </div>
 
           <div className="long-user-card__fee">
