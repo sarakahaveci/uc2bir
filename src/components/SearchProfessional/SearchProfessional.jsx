@@ -160,8 +160,8 @@ const SearchProfessional = () => {
   };
 
   return (
-    <div style={{ margin: '40px 0' }} className="mb-5 p-3">
-      <Container className="mb-5 d-flex flex-column">
+    <div className="mb-5 p-3">
+      <Container className="mb-5  mt-4 d-flex flex-column">
         <BackLink path="/" text={`${userTypeText} Arayın`} />
 
         <Text mb="15px">
@@ -191,19 +191,19 @@ const SearchProfessional = () => {
             <SearchCol>
               <LocationInput
                 className="search-trainer__search-input"
-                style={{ marginLeft: -20 }}
+                style={{ width: '50px' }}
                 defaultValue={location}
                 onChange={(e) => {
                   setLocation(e);
                 }}
-                placeholder="Lokasyon..."
+                placeholder="Lokasyon"
               />
             </SearchCol>
 
             {type === 'pt' && (
               <SearchCol sm={12}>
                 <Form.Control
-                  style={{ width: '135%', marginLeft: -20 }}
+                  style={{ width: '100%' }}
                   as="select"
                   className="search-trainer__select"
                   value={branch}
@@ -220,7 +220,7 @@ const SearchProfessional = () => {
             )}
             <SearchCol sm={12}>
               <Form.Control
-                style={{ width: '140%', marginLeft: -20 }}
+                style={{ width: '100%' }}
                 as="select"
                 className="search-trainer__select"
                 value={sortBy}
@@ -322,7 +322,7 @@ const SearchCol = styled(Col)`
   &:not(:last-child) {
     border-right: 1px solid #707070;
   }
-  flex-basis: 10%;
+  flex-basis: 14%;
   align-self: center;
 `;
 

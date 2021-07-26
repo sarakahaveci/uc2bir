@@ -11,9 +11,9 @@ import SearchFilters from 'components/SearchProfessional/SearchFilters';
 
 const Trainers = ({
   type,
-  onClickHover = () => { },
+  onClickHover = () => {},
   level = 'A',
-  onClickUpgrageClass = () => { },
+  onClickUpgrageClass = () => {},
 }) => {
   const dispatch = useDispatch();
   const [packetLevel, setPacketLevel] = useState(level);
@@ -56,7 +56,7 @@ const Trainers = ({
         lng: 0,
         classification: packetLevel || level,
         startDate,
-        endDate
+        endDate,
       })
     );
   }, [packetLevel]);
@@ -354,7 +354,6 @@ const LabelText = styled.text`
   font-weight: bold;
   color: var(--blue);
 `;
-
 
 const Seperator = styled.div`
   width: 60px;

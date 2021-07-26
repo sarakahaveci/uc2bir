@@ -36,7 +36,7 @@ const StarsList = styled.ul`
   position: absolute;
   left: 0px;
   padding: 5px 15px 10px 10px;
-  z-index: 2;
+  z-index: 1;
   background-color: rgba(255, 255, 255, 0.7);
 
   ${(p) =>

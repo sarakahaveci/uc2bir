@@ -109,7 +109,7 @@ const FiltersWrapper = styled.div`
   display: flex;
   flex-direction: column;
   background-color: white;
-  padding: 20px 13px;
+  padding: 20px 20px;
   position: absolute;
   width: 250px;
   border-radius: 10px;
