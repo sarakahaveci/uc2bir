@@ -10,6 +10,9 @@ import { ReactComponent as Search } from './images/search.svg';
 //import resct svg
 import InfoHome from './images/info-home.svg';
 import InfoOnline from './images/info-online.svg';
+import BlackMessage from './images/blackmessage.svg';
+import BlackBlock from './images/block-black.svg';
+
 import CencelIcon from './images/cancel-icon.svg';
 import InfoSport from './images/info-sport.svg';
 import Upload from './images/upload.svg';
@@ -172,6 +175,9 @@ const Svg = {
   LocationIcon: (props) => <ReactSVG {...props} src={Location} />,
   ArrowUpIcon: (props) => <ReactSVG {...props} src={ArrowUp} />,
   AddClassIcon: (props) => <ReactSVG {...props} src={AddClass} />,
+  BlackMessage: (props) => <ReactSVG {...props} src={BlackMessage} />,
+  BlackBlock: (props) => <ReactSVG {...props} src={BlackBlock} />,
+
   Notification: (props) => <ReactSVG {...props} src={Notification} />,
   Date: (props) => <ReactSVG {...props} src={Date} />,
   Packet: (props) => <ReactSVG {...props} src={Packet} />,

@@ -184,7 +184,7 @@ const SearchProfessional = () => {
                 className="search-trainer__search-input"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder={`${userTypeText}`}
+                placeholder={`Ara ...`}
               />
             </SearchCol>
 

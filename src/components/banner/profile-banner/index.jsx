@@ -27,6 +27,8 @@ const ProfileBanner = ({
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
   const [openApprove, setOpenApprove] = useState(false)
+  const [showOthers, setShowOthers] = useState(false)
+
   const favoriteClickHandler = () => {
     if (isFavorited) {
       dispatch(removeFavoriteUser(info.id));
@@ -41,7 +43,10 @@ const ProfileBanner = ({
     setOpenApprove(true)
   }
   return (
-    <Containers className={className}>
+    <Containers onClick={()=>{
+      if(showOthers)
+       setShowOthers(false)
+    }} className={className}>
       <BlockUserModal
         isBlocked={info?.isBlocked} //Burası değişcek
         open={openApprove}
@@ -82,13 +87,33 @@ const ProfileBanner = ({
             {!isUserDetail ? (
               user?.type_id === USER && (
                 <CardFooter>
-                  <Comment
-                    to={'/myprofile/settings/message'}
-                    className="list"
-                    onClick={() => dispatch(setNewMessageRoom(info))}
-                  >
-                    <Svg.Comment />
-                  </Comment>
+                  <Dropdown>
+                    <DropdownButton
+                      className="list"
+                      onClick={() => { setShowOthers(!showOthers) }}
+                    >
+                      <text style={{ color: 'black' }}>○○○</text>
+                    </DropdownButton>
+                    <DropdownContent show={showOthers}>
+                      <Wrapper style={{ borderBottomColor: '#DEDEDE', borderBottomStyle: 'solid', borderBottomWidth: '1px' }}>
+                        <BlockContainer>
+                          <Svg.BlackBlock style={{ marginRight: '10px' }}></Svg.BlackBlock>
+                          <BlockUser onClick={() => { openBlockModal() }}>{info?.isBlocked ? "Engeli kaldır" : "Kullanıcıyı Engelle"}</BlockUser>
+
+                        </BlockContainer>
+                      </Wrapper>
+                      <Wrapper>
+                        <Comment
+                          to={'/myprofile/settings/message'}
+                          onClick={() => dispatch(setNewMessageRoom(info))}
+                        >
+                          <Svg.BlackMessage style={{ marginRight: '10px' }} ></Svg.BlackMessage>
+                          <text style={{ color: 'black' }}>Mesaj Gönder</text>
+                        </Comment>
+                      </Wrapper>
+                    </DropdownContent>
+                  </Dropdown>
+
                   <Button
                     onClick={() => {
                       dispatch(setReservation({ isSelected: false }));
@@ -139,11 +164,8 @@ const ProfileBanner = ({
         </Cols>
 
       </Rows>
-      {!isUserDetail && <BlockContainer>
-        <BlockUser onClick={() => { openBlockModal() }}>{info?.isBlocked ? "Engeli kaldır" : "Kullanıcıyı Engelle"}</BlockUser>
 
-      </BlockContainer>}
-    </Containers>
+    </Containers >
   );
 };
 const TextWrapper = styled.div`
@@ -176,25 +198,51 @@ const Cols = styled(Col)`
 // `;
 
 const Comment = styled(Link)`
+  display: flex;
+  align-items: center;
+  svg {
+    width: 25px;
+    height: 25px;
+  }
+`;
+
+const Dropdown = styled.div`
+  position:relative;
+`
+const DropdownContent = styled.div`
+
+  display:${p => p.show ? 'flex' : 'none'};
+
+  flex-direction: column;
+  background:white;
+  width:231px;
+  position:absolute;
+  margin-left:5px;
+  padding:10px;
+  border-radius:10px;
+  margin-top:10px; 
+  -webkit-box-shadow: 0px 0px 4px 3px rgba(197, 196, 196, 0.28);
+  box-shadow: 0px 0px 4px 3px rgba(197, 196, 196, 0.28);
+`
+const Wrapper = styled.div`
+  display:flex;
+  align-items: center;
+  height:48px;
+`
+const DropdownButton = styled(Link)`
   background: #fff;
   display: flex;
   min-width: 50px;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-
-  svg {
-    width: 25px;
-    height: 25px;
-  }
+  padding: 16px;
 `;
 const BlockContainer = styled.div`
   display:flex;
   align-items:center;
-  padding: 0 60px;
 `
 const BlockUser = styled.text`
-  color:red;
   cursor:pointer;
 
 `
