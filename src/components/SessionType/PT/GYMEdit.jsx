@@ -36,6 +36,7 @@ const GYMEdit = ({ setSubPage, setBannerActive }) => {
           <>
             <CardGroup key={data.id}>
               <WorkAreaCard
+                image={data.photo}
                 stars={stars}
                 capacity={data?.capacity}
                 title={data?.title}

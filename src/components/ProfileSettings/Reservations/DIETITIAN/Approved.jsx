@@ -19,7 +19,7 @@ import {
 } from 'actions';
 import moment from 'moment';
 
-const Approved = ({ setSubPage = () => {} }) => {
+const Approved = ({ setSubPage = () => { } }) => {
   const dispatch = useDispatch();
   const items = useSelector(
     (state) => state.professionalReservation?.dtReservation?.approved
@@ -30,7 +30,7 @@ const Approved = ({ setSubPage = () => {} }) => {
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
   const [openCancellation, setOpenCancellation] = useState(undefined);
 
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState();
   const startOfWeeksArr = () => {
     if (items?.date) {
       return Object.keys(items?.date).map(
@@ -46,7 +46,6 @@ const Approved = ({ setSubPage = () => {} }) => {
     } else {
       setIsSmallScreen(false);
     }
-    setSelectedDate(new Date());
     dispatch(getDtApproved());
   }, []);
   useEffect(() => {
@@ -69,66 +68,76 @@ const Approved = ({ setSubPage = () => {} }) => {
       />
     );
   }
+  function _renderTab(date) {
+    if(items?.appointment?.[
+      moment(date).format('DD.MM.YYYY')
+    ]){
+    return (
+      <ReservationAccordion
+        defaultOpen={true}
+        parent
+        title={moment(date).format('DD.MM.YYYY')}
+      >
+
+        {items?.appointment?.[
+          moment(date).format('DD.MM.YYYY')
+        ]?.clinic?.map((elm, i) => (
+          <ApproveCardContainer key={i}>
+            <Svg.SessionType.Clinic style={{ marginRight: '10px' }} />
+
+            <ApproveCard
+              date={elm?.hour}
+              type="approve"
+              customerName={elm?.student}
+              onApprove={() => {
+                openReservationDetail(elm?.id);
+              }}
+              onReject={() => {
+                setOpenCancellation(elm?.id);
+              }}
+            />
+          </ApproveCardContainer>
+        )) || <></>}
+
+
+        {items?.appointment?.[
+          moment(date).format('DD.MM.YYYY')
+        ]?.online?.map((elm, i) => (
+          <ApproveCardContainer key={i}>
+            <Svg.SessionType.Online style={{ marginRight: '10px' }} />
+
+            <ApproveCard
+              date={elm?.hour}
+
+              type="approve"
+              customerName={elm?.student}
+              onApprove={() => {
+
+                openReservationDetail(elm?.id, true);
+              }}
+              onReject={() => {
+                setOpenCancellation(elm?.id);
+              }}
+            />
+          </ApproveCardContainer>
+        )) || <></>}
+      </ReservationAccordion>
+    )}else{
+      return(<></>)
+    }
+  }
   return (
     <StyledContainer>
       <StyledRow>
         <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
           <AccordionContainer>
-            <ReservationAccordion
-              defaultOpen={true}
-              parent
-              title={moment(selectedDate).format('DD.MM.YYYY')}
-            >
-              <ReservationAccordion
-                miniIcon={<Svg.SessionType.Gym />}
-                title="Klinik"
-                defaultOpen
-              >
-                {items?.appointment?.[
-                  moment(selectedDate).format('DD.MM.YYYY')
-                ]?.clinic?.map((elm, i) => (
-                  <ApproveCardContainer key={i}>
-                    <ApproveCard
-                      date={elm?.hour}
-                      type="approve"
-                      customerName={elm?.student}
-                      onApprove={() => {
-                        openReservationDetail(elm?.id);
-                      }}
-                      onReject={() => {
-                        setOpenCancellation(elm?.id);
-                      }}
-                    />
-                  </ApproveCardContainer>
-                ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
-              </ReservationAccordion>
+            {
+              startOfWeeksArr().map((date) => (
+                _renderTab(date)
+              ))
 
-              <ReservationAccordion
-                miniIcon={<Svg.SessionType.Online />}
-                title="ONLİNE"
-                defaultOpen
-              >
-                {items?.appointment?.[
-                  moment(selectedDate).format('DD.MM.YYYY')
-                ]?.online?.map((elm, i) => (
-                  <ApproveCardContainer key={i}>
-                    <ApproveCard
-                      date={elm?.hour}
-            
-                      type="approve"
-                      customerName={elm?.student}
-                      onApprove={() => {
-
-                        openReservationDetail(elm?.id, true);
-                      }}
-                      onReject={() => {
-                        setOpenCancellation(elm?.id);
-                      }}
-                    />
-                  </ApproveCardContainer>
-                ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
-              </ReservationAccordion>
-            </ReservationAccordion>
+            }
+            {!(startOfWeeksArr()?.length > 0) && <text style={{ padding: '20px' }}>Onay bekleyen hiçbir rezervasyon talebi yoktur</text>}
           </AccordionContainer>
         </StyledCol>
         <StyledCol

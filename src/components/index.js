@@ -24,6 +24,7 @@ export { default as DefBackground } from './statics/background';
 export { default as Agreement } from './Confirmations/Agreement';
 export { default as Privacy } from './Confirmations/Privacy';
 export { default as MultiContract } from './Confirmations/MultiContract';
+export { default as PriceInfo } from './PriceInfo';
 
 export { default as Permission } from './Confirmations/Permission';
 export { default as Information } from './Confirmations/Information';
@@ -50,6 +51,8 @@ export { default as LocationInput } from '../components/LocationInput/LocationIn
 export { default as Tab } from './Tabs/Tabs';
 export { default as Certificate } from './Certificate/Certificate';
 export { default as ProfileCard } from './banner/profile-banner/ProfileCard';
+export { default as CircleProfileCard } from './banner/profile-banner/CircleProfileCard';
+
 export { default as MasonaryGallery } from './MasonaryGallery';
 export { default as WorkPlaceRow } from './WorkPlaceRow/WorkPlaceRow';
 export { default as HeaderLogin } from './AuthorizedHeader/AuthorizedHeader';
@@ -61,12 +64,15 @@ export { default as AddExercise } from './AddExercise';
 export { default as ApproveCard } from './ApproveCard';
 export { default as PreviewImageModal } from './PreviewImageModal';
 export { default as ApproveModal } from './ApproveModal';
+export { default as BlockUserModal } from './BlockUserModal';
+
 export { default as CancellationModal } from './CancellationModal';
 export { default as ReturnMoneyModal } from './ReturnMoneyModal';
 export { default as CookiePolicyModal } from './CookiePolicyModal';
 export { default as CreateCalenderModal } from './CreateCalenderModal';
 export { default as RejectModal } from './RejectModal';
 export { default as RateModal } from './RateModal';
+export { default as ChooseDateModal } from './ChooseDateModal';
 export { default as CongratsModal } from './CongratsModal';
 export { default as MiniProfileCard } from './MiniProfileCard';
 export { default as CustomProgress } from './CustomProgress';

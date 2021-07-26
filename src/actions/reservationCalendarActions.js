@@ -2,6 +2,7 @@ import {
   HTTP_REQUEST,
   GET_PT_RESERVATION_CALENDAR,
   GET_GYM_RESERVATION_CALENDAR,
+  GET_GYM_RESERVATION_DATA,
   GET_PT_FOR_GYM,
   GET_AREA_FOR_PT,
   CLEAR_RESERVATIONCALENDAR,
@@ -159,6 +160,26 @@ export const getGymReservationCalendar =
         method: 'GET',
         url,
         label: GET_GYM_RESERVATION_CALENDAR,
+        transformData: (data) => data.data,
+      },
+    });
+  };
+  export const getGymDataForRes =
+  (id, date, hour, branch_id, pt_id) => async (dispatch) => {
+    let url = `https://gateway.321.4alabs.com/appointment/bs-calendar/${id}`;
+    let extras = '?';
+
+    if (date) extras += `date=${date}&`;
+    if (hour) extras += `hour=${hour}&`;
+    if (branch_id) extras += `branch_id=${branch_id}&`;
+    if (pt_id) extras += `pt_id=${pt_id}&`;
+    url += extras;
+    await dispatch({
+      type: HTTP_REQUEST,
+      payload: {
+        method: 'GET',
+        url,
+        label: GET_GYM_RESERVATION_DATA,
         transformData: (data) => data.data,
       },
     });

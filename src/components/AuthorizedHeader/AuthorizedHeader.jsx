@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import { getRooms, getUserKeys, logout } from 'actions';
+import { getRooms, getUserKeys, logout ,setRoomName} from 'actions';
 import User from './Users/User';
 import Pt from './Users/Pt';
 import Gym from './Users/Gym';
@@ -21,7 +21,14 @@ const HeaderLogin = ({ type_id, user }) => {
   useEffect(() => {
     const isFirstTime = true;
 
-    dispatch(getRooms(isFirstTime));
+    dispatch(getRooms((data) => {
+      if (isFirstTime) {
+        const allRooms = data.data;
+        dispatch(
+          setRoomName(allRooms?.[0]?.room_name, data.data?.[0]?.user_meta)
+        );
+      }
+    }));
     actionRegisterData();
   }, []);
 
@@ -38,7 +45,7 @@ const HeaderLogin = ({ type_id, user }) => {
           <User
             user_id={user.id}
             user_name={user.name}
-            user_img={user.img}
+            user_img={user.photo}
             logoutHandler={logoutHandler}
           />
         </Section>
@@ -50,7 +57,7 @@ const HeaderLogin = ({ type_id, user }) => {
           <Pt
             user_id={user.id}
             user_name={user.name}
-            user_img={user.img}
+            user_img={user.photo}
             logoutHandler={logoutHandler}
           />
         </Section>
@@ -62,7 +69,7 @@ const HeaderLogin = ({ type_id, user }) => {
           <Gym
             user_id={user.id}
             user_name={user.name}
-            user_img={user.img}
+            user_img={user.photo}
             logoutHandler={logoutHandler}
           />
         </Section>
@@ -74,7 +81,7 @@ const HeaderLogin = ({ type_id, user }) => {
           <Dietitian
             user_id={user.id}
             user_name={user.name}
-            user_img={user.img}
+            user_img={user.photo}
             logoutHandler={logoutHandler}
           />
         </Section>

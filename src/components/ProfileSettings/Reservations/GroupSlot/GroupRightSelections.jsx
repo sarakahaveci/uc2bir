@@ -35,7 +35,8 @@ export default function GroupRightSelections({ setTab = () => {}, setTabPage = (
     branchSelection,
     sessionSelection,
     locationSelection,
-    courseDetails
+    courseDetails,
+    group_slot_image_id
   } = useSelector((state) => state.profileSettings2.reservationGroupSlot);
 
   const dispatch = useDispatch();
@@ -104,6 +105,14 @@ export default function GroupRightSelections({ setTab = () => {}, setTabPage = (
         break;
 
       default:
+        if(!group_slot_image_id){
+          toast.error('Lütfen fotoğraf seçiniz! ', {
+            position: 'bottom-right',
+            autoClose: 1500,
+          });
+  
+          return;
+        }
         if (
           +price > branchSelection.price ||
           [
@@ -113,6 +122,11 @@ export default function GroupRightSelections({ setTab = () => {}, setTabPage = (
             courseDetails,
           ].some((item) => !item)
         ) {
+          toast.error('Lütfen eksik veya yanlış şeçimlerinizi kontrol ediniz! ', {
+            position: 'bottom-right',
+            autoClose: 1500,
+          });
+  
           return;
         }
 

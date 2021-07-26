@@ -48,7 +48,7 @@ export default function TemplateSelections({
   const { type_id: userTypeId } = useSelector((state) => state.auth.user);
 
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
     if (userTypeId !== WORK_PLACE) {
       dispatch(getSessionTypes());
@@ -106,11 +106,18 @@ export default function TemplateSelections({
             input={<Input />}
             onChange={(e) => setBranchSelection(e.target.value)}
           >
-            {myBranches.map((branch) => (
-              <MenuItem key={branch.id} value={branch}>
-                {branch.name}
-              </MenuItem>
-            ))}
+            {
+              sessionSelection.filter(item => item.type == 'online').length > 0 &&
+              (myBranches.filter(item => item.id !== 35).map((branch) => (
+                <MenuItem key={branch.id} value={branch}>
+                  {branch.name}
+                </MenuItem>
+              ))) || (myBranches.map((branch) => (
+                <MenuItem key={branch.id} value={branch}>
+                  {branch.name}
+                </MenuItem>
+              )))
+            }
           </Select>
         </FormControl>
       )}
@@ -123,13 +130,21 @@ export default function TemplateSelections({
             multiple
             value={sessionSelection}
             input={<Input />}
-            onChange={(e) => setSessionSelection(e.target.value)}
+            onChange={(e) => {
+                setSessionSelection(e.target.value)
+            }}
           >
-            {sessionTypes?.data?.data?.map((sessionType) => (
+            {branchSelection.filter((item)=>item.id == 35).length > 0 &&
+            (sessionTypes?.data?.data?.filter((item)=>item.type !== 'online').map((sessionType) => (
               <MenuItem key={sessionType.id} value={sessionType}>
                 {sessionType.title}
               </MenuItem>
-            ))}
+            )))||(sessionTypes?.data?.data?.map((sessionType) => (
+              <MenuItem key={sessionType.id} value={sessionType}>
+                {sessionType.title}
+              </MenuItem>
+            )))
+            }
           </Select>
         </FormControl>
       )}
@@ -158,6 +173,7 @@ export default function TemplateSelections({
           <InputLabel>Spor Alanı Seçiniz</InputLabel>
 
           <Select
+            multiple
             value={workPlaceSelection}
             input={<Input />}
             onChange={(e) => setWorkPlaceSelection(e.target.value)}

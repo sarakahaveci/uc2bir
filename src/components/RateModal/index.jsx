@@ -4,11 +4,13 @@ import { Text, Svg } from 'components';
 import { Link } from 'react-router-dom';
 import { device } from 'utils';
 import { Material } from 'components';
+import { useSelector } from 'react-redux';
 
 import Rating from '@material-ui/lab/Rating';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 
 const RateModal = ({
+  appointmentAll,
   open,
   rate,
   cancel,
@@ -18,8 +20,11 @@ const RateModal = ({
   rateLabel = '',
 }) => {
   const [selectedPage, setSelectedPage] = useState('start');
+  const [toBeRatedUserType, setToBeRatedUserType] = useState(null);
   const [star, setStar] = useState(undefined);
   const [comment, setComment] = useState(undefined);
+  const auth = useSelector((state) => state.auth)
+
   useEffect(() => {
     if (open == false) {
       setStar(undefined);
@@ -29,6 +34,14 @@ const RateModal = ({
   }, [open]);
   let content;
 
+
+  const getCommentedId = () => {
+    if (toBeRatedUserType == 'pt') return appointmentAll.pt.id;
+    if (toBeRatedUserType == 'dt') return appointmentAll.dt.id;
+    if (toBeRatedUserType == 'st') return appointmentAll.student_id;
+    if (toBeRatedUserType == 'bs') return appointmentAll.bs.id;
+
+  }
   switch (selectedPage) {
     case 'start':
       content = (
@@ -36,6 +49,7 @@ const RateModal = ({
           <Svg.CloseIcon
             className="close-icon"
             onClick={() => {
+              setToBeRatedUserType(null)
               cancel();
             }}
           />
@@ -72,6 +86,7 @@ const RateModal = ({
           <div className="modal-footer" closeIcon={false}>
             <StyledButton
               onClick={() => {
+                setToBeRatedUserType(null)
                 cancel();
               }}
             >
@@ -84,51 +99,68 @@ const RateModal = ({
     case 'second':
       content = (
         <MainContainer>
-          <ReasonContextContainer>
-            <TextContainer>
-              <StyledText>Puan & Yorum</StyledText>
-            </TextContainer>
-            <StarContainer>
-              Yıldız Veriniz :{' '}
-              <Rating
-                name="customized-empty"
-                precision={0.5}
-                onChange={(event, newValue) => {
-                  setStar(newValue);
+          <>
+            <ReasonContextContainer>
+              <TextContainer>
+                <StyledText>{toBeRatedUserType ? "Puan & Yorum" : "Bu rezervasyon ile ilgili kimi puanlamak istersiniz?"}</StyledText>
+              </TextContainer>
+              {!toBeRatedUserType &&
+                <>
+                  {(appointmentAll?.pt && appointmentAll?.pt.id !== auth.user?.id) ? <span className="choose-type-span" onClick={() => { setToBeRatedUserType('pt') }} >  Eğitmeni Puanla</span> : null}
+                  {(appointmentAll?.dt && appointmentAll?.dt.id !== auth.user?.id) ? <span className="choose-type-span" onClick={() => { setToBeRatedUserType('dt') }}>Diyetisyeni Puanla</span> : null}
+                  {(appointmentAll?.student_id && appointmentAll?.student_id !== auth.user?.id) ? <span className="choose-type-span" onClick={() => { setToBeRatedUserType('st') }} >Öğrenciyi Puanla</span> : null}
+                  {(appointmentAll?.bs && appointmentAll?.bs.id !== auth.user?.id) ? <span className="choose-type-span" onClick={() => { setToBeRatedUserType('bs') }} >Spor Salonunu Puanla</span> : null}
+                </>
+              }
+              {toBeRatedUserType &&
+                <>
+                  <StarContainer>
+                    Yıldız Veriniz :{' '}
+                    <Rating
+                      name="customized-empty"
+                      precision={0.5}
+                      onChange={(event, newValue) => {
+                        setStar(newValue);
+                      }}
+                      emptyIcon={<StarBorderIcon fontSize="inherit" />}
+                    />
+                  </StarContainer>
+
+                  <Material.TextField
+                    style={{ margin: '20px 0' }}
+                    label="Yorumnuzu giriniz..."
+                    type="text"
+                    name="comment"
+                    onChange={(e) => {
+                      setComment(e.target.value);
+                    }}
+                  />
+                </>
+              }
+            </ReasonContextContainer>
+
+
+            <ModalFooter>
+              <FooterButton
+                onClick={() => {
+                  cancel();
+                  setToBeRatedUserType(null)
                 }}
-                emptyIcon={<StarBorderIcon fontSize="inherit" />}
-              />
-            </StarContainer>
-
-            <Material.TextField
-              style={{ margin: '20px 0' }}
-              label="Yorumnuzu giriniz..."
-              type="text"
-              name="comment"
-              onChange={(e) => {
-                setComment(e.target.value);
-              }}
-            />
-          </ReasonContextContainer>
-
-          <ModalFooter>
-            <FooterButton
-              onClick={() => {
-                cancel();
-              }}
-            >
-              VAZGEÇ
-            </FooterButton>
-            <FooterButton
-              rate
-              onClick={() => {
-                rate({ rate: star, comment: comment });
-              }}
-            >
-              GÖNDER
-            </FooterButton>
-          </ModalFooter>
-        </MainContainer>
+              >
+                VAZGEÇ
+              </FooterButton>
+              {toBeRatedUserType && <FooterButton
+                rate
+                onClick={() => {
+                  setToBeRatedUserType(null)
+                  rate({ rate: star, comment: comment, commented_id: getCommentedId() });
+                }}
+              >
+                GÖNDER
+              </FooterButton>}
+            </ModalFooter>
+          </>
+        </MainContainer >
       );
       break;
     default:
@@ -213,6 +245,19 @@ const ReasonContextContainer = styled.div`
   @media ${device.sm} {
     width: 90vw;
   }
+
+  .choose-type-span{
+    cursor:pointer;
+    margin: 5px auto 5px auto;
+    padding:10px;
+    line-height: 25px;
+    font-weight: 300;
+    font-size: 20px;
+    color:black;
+    border:1px solid var(--blue);
+    border-radius:9px;
+    text-align: center;
+  }
 `;
 
 const TextContainer = styled.div`
@@ -233,7 +278,7 @@ const FooterButton = styled.button`
   color: ${(p) => (p.rate ? 'white' : 'black')};
   text-align: center;
   display: block;
-  width: 50%;
+  width: 100%;
   background: ${(p) => (p.rate ? 'var(--blue)' : 'white')};
   padding: 10px;
 `;

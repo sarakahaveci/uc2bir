@@ -121,6 +121,7 @@ const SearchGroupLesson = () => {
     <div
       style={{
         minHeight: '70vh',
+        margin:'40px'
       }}
     >
       <Container className="mb-5 mt-3 d-flex flex-column">

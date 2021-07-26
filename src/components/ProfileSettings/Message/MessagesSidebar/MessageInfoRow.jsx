@@ -28,10 +28,10 @@ const MessageInfoRow = ({
 
   const isCardActive = selectedRoomName === messageData.room_name;
 
-  const setRoomNameHandler = () => {
-    dispatch(setRoomName(messageData.room_name, userData));
+  const setRoomNameHandler = () => {    dispatch(setRoomName(messageData.room_name, userData));
     dispatch(setMessageSideBarOpen(false));
   };
+
 
   const messageDate = useMemo(() => {
     if (differenceInDays(new Date(), new Date(messageData.created_at)) === 0) {
@@ -47,7 +47,7 @@ const MessageInfoRow = ({
       p="15px 25px 15px 15px"
       alignItems="center"
       isActive={isCardActive}
-      onClick={setRoomNameHandler}
+      onClick={()=>{setRoomNameHandler()}}
     >
       <AvatarWrapper>
         <Avatar
@@ -65,7 +65,7 @@ const MessageInfoRow = ({
       <Box col flex={1}>
         <Box row justifyContent="space-between" mb="8px" alignItems="center">
           <Text p="0" color="blue" fontSize="0.9rem" fontWeight="600">
-            {userData?.name ?? 'Müşteri Temsilcisi'}
+            {userData?.name ?? 'Sistem'}
           </Text>
 
           <MessageDate fontSize="0.9rem" color="dark">

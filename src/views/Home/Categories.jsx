@@ -26,7 +26,7 @@ const Categories = ({ className, background, children }) => {
           style={{ backgroundImage: `url(${DefBackground.elementBackground})` }}
         ></div>
       )}
-      <Container>
+      <Container >
         <Title
           variant="h5"
           component="h5"

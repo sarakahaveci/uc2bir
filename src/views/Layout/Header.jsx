@@ -317,4 +317,5 @@ const StyledInput = styled.input`
     height: 30px;
   }
 `;
+
 export default Header;

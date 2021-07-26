@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components/macro';
 import { layout } from 'styled-system';
 
 import { Material } from './';
-import { Svg, Box } from 'components';
+import { Svg, Box, Button } from 'components';
 
 const EditWithClearInput = ({
   value,
@@ -19,54 +19,58 @@ const EditWithClearInput = ({
   const valueCopy = useRef(value);
 
   return (
-    <InputWrapper {...rest}>
-      {showTickIcon && (
-        <TickIcon
-          onClick={() => {
-            setReadOnly(true);
+    <Container>
+      <InputWrapper {...rest}>
+        {showTickIcon && (
+          <TickIcon
+            onClick={() => {
+              setReadOnly(true);
 
-            if (valueCopy.current !== inputValue) {
-              onEditComplete(inputValue);
+              if (valueCopy.current !== inputValue) {
+                onEditComplete(inputValue);
 
-              valueCopy.current = inputValue;
-            }
+                valueCopy.current = inputValue;
+              }
+            }}
+          />
+        )}
+
+        <Material.TextField
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          defaultValue={value}
+          inputProps={{
+            readOnly,
+          }}
+          onBlur={() => {
           }}
         />
-      )}
+        {showEditButtons && (
+          <>
+            {readOnly && <EditIcon onClick={() => setReadOnly(false)} />}
+            <InputClearIcon onClick={onClear} />
+          </>
+        )}
 
-      <Material.TextField
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-        defaultValue={value}
-        inputProps={{
-          readOnly,
-        }}
-        onBlur={() => {
+      </InputWrapper>
+      {showEditButtons && !readOnly && (
+        <StyledButton disabled={valueCopy.current == inputValue} text="Kaydet" onClick={()=>{
           setReadOnly(true);
-
-          if (valueCopy.current !== inputValue) {
-            onEditComplete(inputValue);
-
-            valueCopy.current = inputValue;
-          }
-        }}
-      />
-      {showEditButtons && (
-        <>
-          {readOnly && <EditIcon onClick={() => setReadOnly(false)} />}
-          <InputClearIcon onClick={onClear} />
-        </>
+          onEditComplete(inputValue);
+          valueCopy.current = inputValue;
+        }} />
       )}
-    </InputWrapper>
+    </Container>
+
   );
 };
 
 export default EditWithClearInput;
 
 EditWithClearInput.defaultProps = {
-  onEditComplete: () => {},
+  onEditComplete: () => { },
   data: {},
-  onClear: () => {},
+  onClear: () => { },
 };
 
 const InputWrapper = styled(Box)`
@@ -113,3 +117,14 @@ const EditIcon = styled(Svg.EditIcon)`
     right: 30px;
   }
 `;
+const Container = styled.div`
+  display:flex;
+  width:100%;
+  margin-top:20px;
+`
+const StyledButton = styled(Button)`
+  color:var(--blue);
+  background: white !important;
+  width:80px;
+  margin-left:3px;
+`

@@ -30,6 +30,7 @@ const ReservationDetail = ({ type, goBack = () => { }, isOnline }) => {
         setDetailData(professionalReservation?.dtReservation?.res_detail);
         break;
       case 'st':
+
         setDetailData(professionalReservation?.userReservation?.res_detail);
         break;
       default:
@@ -51,29 +52,37 @@ const ReservationDetail = ({ type, goBack = () => { }, isOnline }) => {
           }}
           style={{ cursor: 'pointer' }}
         >
-          {'<  Randevu Detaylarınız'}
+          {'<  Randevu Detayı'}
         </BoldText>
       </Header>
       <Sections>
         <Left>
-          <InfoItem onClick={()=>{history.push(`/user/${detailData.student.id}`)}}>
+          <InfoItem onClick={() => {
+            if (type == 'st') {
+              history.push(`/user/${detailData.pt?.id}`)
+            } else if (type == 'pt') {
+              history.push(`/user/${detailData.student?.id}`)
+
+            }
+          }}>
             <InfoMain>
               <CustomerImage
                 src={
-                  detailData?.pt?.photo ||
-                  detailData?.dt?.photo ||
-                  detailData?.student?.photo ||
-                  DefaultProfileImg
+                  type == 'pt' ?
+                    (detailData?.student?.photo ||
+                      DefaultProfileImg) : type == 'st' ? (detailData?.pt?.photo ||
+                        detailData?.dt?.photo || DefaultProfileImg) : type == 'dt' ? (detailData?.student?.photo ||
+                          DefaultProfileImg) : null
                 }
               />
               <BoldText>
                 {detailData?.student?.name ||
                   detailData?.pt?.name ||
-                  detailData?.bs?.title 
-                  }
+                  detailData?.bs?.title
+                }
               </BoldText>
             </InfoMain>
-            <text style={{ fontSize: '30px' }}> {'>'} </text>
+            {type == 'st' && <text style={{ fontSize: '30px' }}> {'>'} </text>}
           </InfoItem>
           {detailData?.branch && <InfoItem>
             <InfoMain>
@@ -121,7 +130,7 @@ const ReservationDetail = ({ type, goBack = () => { }, isOnline }) => {
             </DescTextWrapper>
             <MessageButtonContainer>
               <Link
-                to={'/messages'}
+                to={'/myprofile/settings/message'}
                 onClick={() =>
                   dispatch(
                     setNewMessageRoom(
@@ -232,7 +241,7 @@ const InfoItem = styled.div`
   justify-content: space-between;
   padding: 7px;
   border-radius: 10px;
-  cursor: pointer;
+  cursor:${p => p.clickDisable ? 'default' : 'pointer'};
   margin-top: 10px;
 `;
 const InfoMain = styled.div`

@@ -97,11 +97,11 @@ export default function Profile({ match }) {
       title: 'OLANAKLAR',
       component: <FacilityList userId={match?.params?.id} />,
     },
-    {
+    /*{
       eventKey: 'certificate',
       title: 'SERTİFİKALAR',
       component: <ProfileCertificate userId={match?.params?.id} />,
-    },
+    },*/
     {
       eventKey: 'workplace',
       title: 'SINIFLAR',
@@ -166,6 +166,7 @@ export default function Profile({ match }) {
             <Row>
               <ProfileBanner
                 setPage={setPage}
+                onBlockUser={()=>{}}
                 info={{
                   team: userInfo?.classification,
                   img: userInfo?.photo || profileImg,

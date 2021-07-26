@@ -20,10 +20,11 @@ export const getUserAwaitings = (date) => async (dispatch) => {
     },
   });
 };
-export const UserAwaitingApprove = (id, successCallback = () => {}) => async (
+export const UserAwaitingApprove = (id, successCallback = () => { }) => async (
   dispatch
 ) => {
   let url = `/appointment/calendar/update/${id}`;
+
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
@@ -41,9 +42,10 @@ export const UserAwaitingApprove = (id, successCallback = () => {}) => async (
 export const UserAwaitingReject = (
   id,
   status,
-  successCallback = () => {}
+  successCallback = () => { }
 ) => async (dispatch) => {
   let url = `/appointment/calendar/update/${id}`;
+
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
@@ -61,9 +63,10 @@ export const UserAwaitingReject = (
 export const UserApproveCancelStepOne = (
   id,
   status,
-  successCallback = () => {}
+  successCallback = () => { }
 ) => async (dispatch) => {
   let url = `/appointment/calendar/update/${id}`;
+
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
@@ -80,9 +83,10 @@ export const UserApproveCancelStepOne = (
 };
 export const UserApproveCancelStepTwo = (
   id,
-  successCallback = () => {}
+  successCallback = () => { }
 ) => async (dispatch) => {
   let url = `/appointment/calendar/update/${id}`;
+
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
@@ -163,10 +167,17 @@ export const getUserSessionHistorys = (date) => async (dispatch) => {
 };
 
 export const rateAndComment = (
-  { appointment_id, commented_id, comment, rating },
-  successCallback = () => {}
-) => async (dispatch) => {
-  let url = `/appointment/calendar/comment`;
+  { appointment_id, commented_id, comment, rating }
+  , successCallback = () => { }, errorCallBack = () => { }
+) => async (dispatch, getState) => {
+  let url;
+  const userType = getState().auth.user.type_id;
+  if (userType == 1) url = `/appointment/calendar/comment`;   // user
+  if (userType == 2) url = `/appointment/pt-calendar/comment`;  // pt
+  if (userType == 3) url = `/appointment/bs-calendar/comment`; // gym
+  if (userType == 4) url = `/appointment/dt-calendar/comment`; // dietitian
+
+
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
@@ -187,6 +198,7 @@ export const rateAndComment = (
         });
       },
       errorHandler: (res) => {
+        errorCallBack();
         toast.error(
           res?.message || 'Yorum ve Puanlama Yaparken Hata ile karşılaşıldı',
           {

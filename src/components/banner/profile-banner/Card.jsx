@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components/macro';
 import { Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-import { Title, AwesomeIcon, IconLabel } from 'components';
+import { Title, AwesomeIcon, IconLabel, PriceInfo } from 'components';
 
 export const CardInfo = ({
   name,
@@ -54,7 +54,9 @@ export const CardInfo = ({
         <Title textAlign="left" variant="h5" component="h5">
           {price && (
             <>
-              {price} <AwesomeIcon.Tl />
+              {price}
+              <AwesomeIcon.Tl style={{ marginRight: '5px' }} />
+              <PriceInfo price={price} />
             </>
           )}
         </Title>

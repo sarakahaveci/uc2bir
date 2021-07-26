@@ -127,6 +127,7 @@ import Ql from './images/quote-left.svg';
 import Qr from './images/quote-right.svg';
 import PhoneMissed from './images/phone-missed.svg';
 import DotsIcon from './images/dots.svg';
+import InfoIcon from './images/infoIcon.svg';
 
 import WhitePencil from './images/white-pencil.svg';
 
@@ -153,6 +154,7 @@ const Svg = {
   ArrowRightIcon: (props) => <ReactSVG {...props} src={ArrowRight} />,
   WaveBackgroundIcon: (props) => <ReactSVG {...props} src={WaveBackground} />,
   YogaIcon: (props) => <ReactSVG {...props} src={Yoga} />,
+  InfoIcon: (props) => <ReactSVG {...props} src={InfoIcon} />,
   FitnessIcon: (props) => <ReactSVG {...props} src={Fitness} />,
   Mic: (props) => <ReactSVG {...props} src={Mic} />,
   MicQuiet: (props) => <ReactSVG {...props} src={MicQuiet} />,

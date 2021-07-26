@@ -65,7 +65,7 @@ export const getUserPacketLessonDetail =
     });
   };
 export const setUserPacketLessonComplete = (id) => async (dispatch) => {
-  const url = `/packetCompolate/${id}`;
+  const url = `/packetComplete/${id}`;
 
   await dispatch({
     type: HTTP_REQUEST,

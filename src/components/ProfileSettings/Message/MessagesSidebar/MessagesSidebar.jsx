@@ -24,18 +24,19 @@ const MessageSidebar = () => {
   );
 
   const rooms = searched ? foundRooms : allRooms;
-
+ 
   return (
     <Sidebar open={messageSideBarOpen}>
       <MessageSearch />
 
       <MessagesInfoWrapper>
-        {userInfo && (
+        {userInfo && !(rooms?.filter((item)=>item?.user_meta?.id == userInfo?.id).length>0) && (
           <MessageInfoRow
             messageData={messageInfo}
             userData={userInfo}
             unreadMessages={false}
             isNewMessage={true}
+            isDefaultSelected
           />
         )}
         {rooms?.map((data, index) => (

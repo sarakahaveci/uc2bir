@@ -10,6 +10,8 @@ import Phone from 'components/ProfileSettings/Forms/tabs/Phone';
 import ComputedTest from 'components/ProfileSettings/Forms/tabs/ComputedTest';
 import Address from 'components/ProfileSettings/Address';
 import About from 'components/ProfileSettings/About';
+import ShowPersonalInfo from 'components/ProfileSettings/ShowPersonalInfo';
+import { Link } from 'react-router-dom'
 import VKI from 'components/ProfileSettings/Forms/VKI';
 import {
   Accordion,
@@ -84,8 +86,17 @@ const regularUserTabs = [
     body: <ComputedTest />,
   },
   {
+    settingsName: 'Engellenen Kullanıcılar ',
+    route: "/myprofile/settings/blocked"
+
+  },
+  {
     settingsName: 'Adresim',
     body: <Address locationDisable />,
+  },
+  {
+    settingsName: 'Gizlilik',
+    body: <ShowPersonalInfo />,
   },
 ];
 
@@ -149,24 +160,36 @@ const ProfileSettingsList = () => {
   }
 
   const settings = tabData?.map((item, index) => (
-    <Wrapper key={'wrapper' + index}>
-      <Accordion.Item>
-        <Accordion.Toggle>
-          <SettingsRow pulse={item.pulse}>
-            <Box col>
-              <Text color="dark" textAlign="left" fontWeight="500" p="2px">
-                {item.settingsName}
-              </Text>
-            </Box>
+    item.route ? <Link style={{ color: 'black' }} to={item?.route}>
+      <ButtonWrapper>
+        <SettingsRow pulse={item.pulse}>
+          <Box col>
+            <Text color="dark" textAlign="left" fontWeight="500" p="2px">
+              {item.settingsName}
+            </Text>
+          </Box>
 
-            <Svg.ArrowUpIcon />
-          </SettingsRow>
-        </Accordion.Toggle>
-        <Accordion.Collapse>
-          <BodyWrapper>{item.body}</BodyWrapper>
-        </Accordion.Collapse>
-      </Accordion.Item>
-    </Wrapper>
+          <Svg.ArrowRightIcon />
+        </SettingsRow>
+      </ButtonWrapper>             </Link>
+      : <Wrapper key={'wrapper' + index}>
+        <Accordion.Item>
+          <Accordion.Toggle>
+            <SettingsRow pulse={item.pulse}>
+              <Box col>
+                <Text color="dark" textAlign="left" fontWeight="500" p="2px">
+                  {item.settingsName}
+                </Text>
+              </Box>
+
+              <Svg.ArrowUpIcon />
+            </SettingsRow>
+          </Accordion.Toggle>
+          <Accordion.Collapse>
+            <BodyWrapper>{item.body}</BodyWrapper>
+          </Accordion.Collapse>
+        </Accordion.Item>
+      </Wrapper>
   ));
 
   return (
@@ -231,4 +254,12 @@ const SettingsRow = styled.div`
 
 const BodyWrapper = styled.div`
   padding: 10px 15px;
+`;
+const ButtonWrapper = styled.div`
+border-radius: 15px;
+background: #fff;
+box-shadow: 2px 3px 18px rgb(0 0 0 / 9%);
+margin-bottom: 25px;
+width: 622px;
+cursor:pointer;
 `;

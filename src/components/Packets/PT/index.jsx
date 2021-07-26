@@ -4,6 +4,7 @@ import Home from './Home';
 import EditLesson from './EditLesson';
 import Exercises from './Exercises';
 import ExerciseDetail from './ExerciseDetail';
+import ExerciseEdit from './ExerciseEdit';
 
 const PT = ({ icons, setBannerActive }) => {
   const [page, setPage] = useState('Home');
@@ -55,7 +56,18 @@ const PT = ({ icons, setBannerActive }) => {
           />
         </div>
       );
-
+      case 'ExerciseEdit':
+        return (
+          <div>
+            <ExerciseEdit
+              setPage={setPage}
+              icons={icons}
+              setBannerActive={setBannerActive}
+              packageData={packageData}
+              lessonId={lessonId}
+            />
+          </div>
+        );
     default:
       return <></>;
   }

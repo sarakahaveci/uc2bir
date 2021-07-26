@@ -14,6 +14,7 @@ import {
   BackLink,
   Text,
   LocationInput,
+  ChooseDateModal,
 } from 'components';
 import { searchProffesional } from 'actions';
 import Filter from './SearchFilters';
@@ -37,6 +38,11 @@ const SearchProfessional = () => {
   const [ratings, setRatings] = useState([]);
   const [classification, setClassification] = useState('');
   const [showFilters, setShowFilters] = useState(false);
+  const [openDateModal, setOpenDateModal] = useState(false);
+
+  const [dateFilterText, setDateFilterText] = useState('Tarih Seçiniz');
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -75,6 +81,8 @@ const SearchProfessional = () => {
       price = '[0, 1000]',
       ratings = '[]',
       classification,
+      startDate,
+      endDate,
     } = searchParams;
 
     // Parsing this because it is coming string from url such as '[0, 1000]'
@@ -88,6 +96,8 @@ const SearchProfessional = () => {
     setPrice(parsedPrice);
     setRatings(parsedRatings);
     setClassification(classification);
+    setStartDate(startDate);
+    setEndDate(endDate);
 
     dispatch(
       searchProffesional({
@@ -102,6 +112,8 @@ const SearchProfessional = () => {
         type,
         page,
         classification,
+        startDate,
+        endDate,
       })
     );
   }, [window.location.href]);
@@ -118,6 +130,8 @@ const SearchProfessional = () => {
       ratings,
       classification,
       sortBy,
+      startDate,
+      endDate,
     };
 
     url = Object.keys(formData).reduce((acc, curr) => {
@@ -146,7 +160,7 @@ const SearchProfessional = () => {
   };
 
   return (
-    <div className="mb-5 p-3">
+    <div style={{ margin: '40px 0' }} className="mb-5 p-3">
       <Container className="mb-5 d-flex flex-column">
         <BackLink path="/" text={`${userTypeText} Arayın`} />
 
@@ -156,17 +170,28 @@ const SearchProfessional = () => {
 
         <SearchWrapper className="d-flex mb-3 mx-auto">
           <Row className="search-trainer__search-area">
-            <SearchCol>
+            <SearchCol sm={12}>
+              <FilterButton onClick={() => setOpenDateModal(true)}>
+                {dateFilterText}
+                <div style={{ marginLeft: 20, transform: 'rotate(90deg)' }}>
+                  {' '}
+                  {'>'}{' '}
+                </div>
+              </FilterButton>
+            </SearchCol>
+            <SearchCol sm={12}>
               <input
                 className="search-trainer__search-input"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder={`${userTypeText} Adı...`}
+                placeholder={`${userTypeText}`}
               />
             </SearchCol>
 
             <SearchCol>
               <LocationInput
+                className="search-trainer__search-input"
+                style={{ marginLeft: -20 }}
                 defaultValue={location}
                 onChange={(e) => {
                   setLocation(e);
@@ -176,15 +201,16 @@ const SearchProfessional = () => {
             </SearchCol>
 
             {type === 'pt' && (
-              <SearchCol>
+              <SearchCol sm={12}>
                 <Form.Control
+                  style={{ width: '135%', marginLeft: -20 }}
                   as="select"
                   className="search-trainer__select"
                   value={branch}
                   onChange={(e) => setBranch(e.target.value)}
                 >
                   <option hidden>Branşlar</option>
-                  {allBranchList.map((item, index) => (
+                  {allBranchList?.map((item, index) => (
                     <option key={'option' + index} value={item.id}>
                       {item.name}
                     </option>
@@ -192,8 +218,9 @@ const SearchProfessional = () => {
                 </Form.Control>
               </SearchCol>
             )}
-            <SearchCol>
+            <SearchCol sm={12}>
               <Form.Control
+                style={{ width: '140%', marginLeft: -20 }}
                 as="select"
                 className="search-trainer__select"
                 value={sortBy}
@@ -214,7 +241,6 @@ const SearchProfessional = () => {
               <FilterButton onClick={() => setShowFilters(!showFilters)}>
                 Filtrele
               </FilterButton>
-
               {showFilters && (
                 <Filter
                   type={type}
@@ -231,7 +257,7 @@ const SearchProfessional = () => {
               )}
             </SearchCol>
 
-            <SearchCol className="pr-0">
+            <SearchCol sm={12}>
               <Button
                 justifyContent="space-around"
                 display="flex"
@@ -279,6 +305,15 @@ const SearchProfessional = () => {
           <strong className="mt-3">Arama türüne uygun sonuç bulunamadı.</strong>
         )}
       </Container>
+      <ChooseDateModal
+        open={openDateModal}
+        cancel={() => {
+          setOpenDateModal(false);
+        }}
+        setDateFilterText={setDateFilterText}
+        setEndDateToApi={setEndDate}
+        setStartDateToApi={setStartDate}
+      />
     </div>
   );
 };
@@ -287,8 +322,8 @@ const SearchCol = styled(Col)`
   &:not(:last-child) {
     border-right: 1px solid #707070;
   }
-
   flex-basis: 10%;
+  align-self: center;
 `;
 
 const SearchWrapper = styled.div`
@@ -330,7 +365,7 @@ const FilterButton = styled.button`
   border: none;
   background-color: white;
   z-index: 2;
-  width: 40px;
+  display: flex;
 `;
 
 export default SearchProfessional;

@@ -5,7 +5,7 @@ import { device } from 'utils';
 
 const ApproveCard = ({
   customerName = '',
-  has_comment=0,
+  has_comment = 0,
   date = '',
   cardType,
   status_bs,
@@ -17,30 +17,30 @@ const ApproveCard = ({
   optionalField_3 = null,
   transaction_id,
   userType,
-  onApprove = () => {},
-  onReject = () => {},
-  onTransfer = () => {},
+  onApprove = () => { },
+  onReject = () => { },
+  onTransfer = () => { },
   type = 'await',
   rateText = '',
 }) => {
-  useEffect(() => {}, []);
- function getRejectReason(){
-    if(status_bs){
+  useEffect(() => { }, []);
+  function getRejectReason() {
+    if (status_bs) {
       return 'Spor Salonu Tarafından '
-    }else if(status_pt){
+    } else if (status_pt) {
       return 'Eğitmen Tarafından '
 
-    }else if(status_st){
+    } else if (status_st) {
       return 'Kullanıcı  Tarafından '
 
     }
-    else if(status_dt){
+    else if (status_dt) {
       return 'Diyetisyen Tarafından '
 
-    }else{
+    } else {
       return ''
     }
-    
+
   }
   let buttonGroup;
   switch (type) {
@@ -79,21 +79,24 @@ const ApproveCard = ({
       buttonGroup =
         userType == 'user' ? (
           <>
+
             {transaction_id && (
               <ButtonText onClick={onTransfer}>Para Iadesi</ButtonText>
             )}{' '}
-           {getRejectReason()} Reddedildi
+            {getRejectReason()} Reddedildi
           </>
         ) : (
-          getRejectReason()+ 'Reddedildi' 
+          <>            {getRejectReason() + 'Reddedildi'
+          }
+          </>
         );
       break;
     case 'history':
-      if(has_comment > 0){
+      if (has_comment > 0) {
         buttonGroup = (
           <>Puanlandı</>
         );
-      }else{
+      } else {
 
         buttonGroup = (
           <HistoryButton onClick={onApprove}>{rateText}</HistoryButton>
@@ -160,7 +163,6 @@ const ApproveCard = ({
       )}
       <Row borderDisable>
         <FlexSpace>{_renderField_3()}</FlexSpace>
-        <Seperator></Seperator>
 
         <Column>{buttonGroup}</Column>
       </Row>
@@ -305,4 +307,5 @@ const ButtonText = styled.text`
   color: var(--blue);
   margin-right: 10px;
 `;
+
 export default ApproveCard;

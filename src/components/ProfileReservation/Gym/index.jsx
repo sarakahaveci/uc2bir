@@ -18,6 +18,7 @@ import {
   setReservation,
   getStaticPage,
   getGymReservationCalendar,
+  getGymDataForRes
 } from 'actions';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import { getWallet } from 'actions/userProfileActions/walletActions';
@@ -26,6 +27,7 @@ const Gym = ({ dateOption = true }) => {
   const dispatch = useDispatch();
   //Local States
   const [wantPt, setWantPt] = useState(2);
+  //1 true 2false
   const [page, setPage] = useState(1);
   const [ptListState, setPtListState] = useState([]);
 
@@ -35,15 +37,17 @@ const Gym = ({ dateOption = true }) => {
   const wallet = useSelector((state) => state.userProfile.wallet);
   const staticPages = useSelector((state) => state.staticPages);
   const reservation = useSelector((state) => state.reservation);
+  const reservationCalendar = useSelector((state) => state.reservationCalendar);
+
   const ptList = useSelector(
     (state) => state.reservationCalendar?.data?.location?.with_pt
   );
 
   //const gymList = useSelector((state) => state.userProfile.ptGymList);
 
-  const allBranchList = useSelector(
-    (state) => state.profileSettings.ptBranchList.allList
-  );
+  // const allBranchList = useSelector(
+  //   (state) => state.profileSettings.ptBranchList.allList
+  // );
   const pageChangeHandler = (event, value) => setPage(value);
 
   useEffect(() => {
@@ -54,6 +58,9 @@ const Gym = ({ dateOption = true }) => {
   }, [userInfo]);
   useEffect(() => {
     setPage(1);
+    dispatch(getGymDataForRes(userInfo.id)) // FOR START DATA --buradan branş gelecek ama daha yok
+    
+ 
   }, []);
   useEffect(() => {
     if (!reservation?.data?.pt_id) {
@@ -61,7 +68,7 @@ const Gym = ({ dateOption = true }) => {
     }
   }, [ptList]);
   useEffect(() => {
-    if (wantPt) {
+    if (wantPt==1) {
       setReservation({ pt_id: undefined });
     }
   }, [reservation?.data?.branch_id]);
@@ -220,10 +227,10 @@ const Gym = ({ dateOption = true }) => {
                   />
                 </InputContainer>
               )}
-              <InputContainer>
+              <InputContainer disable={reservation?.data?.isSelected}>
                 <Text color="#9B9B9B">{'Branş Seçiniz:'}</Text>
                 <Material.SimpleSelect
-                  items={allBranchList}
+                  items={reservationCalendar?.resData?.branches}
                   name="branch"
                   defaultValue={reservation?.data?.branch_id}
                   onChange={(e) =>
@@ -310,7 +317,7 @@ const Gym = ({ dateOption = true }) => {
     <Container>
       <LeftWrapper>{_renderLeftArea()}</LeftWrapper>
       <RightWrapper>
-        <PaymentCard disabledPayment={(wantPt && !reservation?.data?.pt_id)} type="gym" dateOption={dateOption} />
+        <PaymentCard disabledPayment={(!(wantPt==2) && !reservation?.data?.pt_id)} type="gym" dateOption={!reservation?.data?.isSelected} />
       </RightWrapper>
       <StyledModal show={openModal} onHide={() => setOpenModal(false)}>
         <MultiContract
@@ -424,5 +431,7 @@ const Info = styled.div`
 
 const InputContainer = styled.div`
   margin-bottom: 20px;
+  pointer-events: ${(p) => (p.disable ? 'none' : 'initial')};
+  opacity: ${(p) => (p.disable ? '0.7' : '1')};
 `;
 export default Gym;

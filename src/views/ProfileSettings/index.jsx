@@ -32,6 +32,7 @@ import GroupSlot from 'components/ProfileSettings/Reservations/GroupSlot/GroupSl
 import Reservations from 'components/ProfileSettings/Reservations';
 import ProfileDetail from 'components/ProfileSettings/ProfileDetail/ProfileDetail';
 import Services from 'components/ProfileSettings/Services';
+import Blocked from 'components/ProfileSettings/Blocked';
 
 const regularUserTabs = [
   {
@@ -52,7 +53,7 @@ const regularUserTabs = [
   },
   {
     eventKey: 'wallet',
-    title: 'Cüzdanım',
+    title: 'Hesap Hareketleri',
     component: <Wallet />,
   },
   {
@@ -73,6 +74,12 @@ const regularUserTabs = [
   {
     eventKey: 'cancel',
     component: <CancellationReason />,
+  },
+  {
+    eventKey: 'blocked',
+    title: 'Engellenenler',
+    component: <Blocked />,
+    hidden:true
   },
 ];
 
@@ -131,6 +138,13 @@ const workPlaceTabs = [
     title: 'Galeri',
     component: <MasonaryGallery />,
   },
+  {
+    eventKey: 'blocked',
+    title: 'Engellenenler',
+    component: <Blocked />,
+    hidden:true
+
+  },
 ];
 
 const dietitianTabs = [
@@ -184,7 +198,7 @@ const dietitianTabs = [
   // TODO: Tab will active after BE ready
   {
     eventKey: 'wallet',
-    title: 'Cüzdanım',
+    title: 'Cüzdan',
     component: <Wallet />,
   },
   {
@@ -196,6 +210,13 @@ const dietitianTabs = [
     eventKey: 'blog',
     title: 'Blog',
     component: <Blog />,
+  },
+  {
+    eventKey: 'blocked',
+    title: 'Engellenenler',
+    component: <Blocked />,
+    hidden:true
+
   },
 ];
 
@@ -246,7 +267,7 @@ const trainerTabs = [
   },
   {
     eventKey: 'wallet',
-    title: 'Cüzdanım',
+    title: 'Cüzdan',
     component: <Wallet />,
   },
   {
@@ -258,6 +279,13 @@ const trainerTabs = [
     eventKey: 'blog',
     title: 'Blog',
     component: <Blog />,
+  },
+  {
+    eventKey: 'blocked',
+    title: 'Engellenenler',
+    component: <Blocked />,
+    hidden:true
+
   },
 ];
 

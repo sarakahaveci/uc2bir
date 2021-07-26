@@ -66,145 +66,150 @@ const Awaitings = ({ setAwaitingCount }) => {
   function getSelectedDate() {
     dispatch(getUserAwaitings(moment(selectedDate).format('DD.MM.YYYY')));
   }
+  function _renderTab(date) {
+    if (items?.appointment?.[
+      moment(date).format('DD.MM.YYYY')
+    ]) {
+    return (
+      <ReservationAccordion
+        defaultOpen={true}
+        parent
+        title={moment(date).format('DD.MM.YYYY')}
+      >
+
+        {items?.appointment?.[
+          moment(date).format('DD.MM.YYYY')
+        ]?.gym?.map((elm, i) => (
+          <ApproveCardContainer key={i}>
+            <Svg.SessionType.Gym style={{ marginRight: '10px' }} />
+
+            <ApproveCard
+              cardType="userCard"
+              date={elm?.hour}
+              customerName={elm?.pt?.name}
+              optionalField_1={elm?.branch}
+              optionalField_2={{
+                label: 'SALON',
+                value: elm?.bs?.name,
+              }}
+              optionalField_3={{
+                value:
+                  elm?.town + '  ' + elm?.district + ' ' + elm?.city,
+              }}
+              onApprove={() => {
+                setChoosenElm(elm);
+                setOpenApprove(elm?.id);
+              }}
+              onReject={() => {
+                setChoosenElm(elm);
+                setOpenReject(elm?.id);
+              }}
+            />
+          </ApproveCardContainer>
+        )) || <></>}
+
+
+        {items?.appointment?.[
+          moment(date).format('DD.MM.YYYY')
+        ]?.home_park?.map((elm, i) => (
+
+          <ApproveCardContainer key={i}>
+            <Svg.SessionType.Park style={{ marginRight: '10px' }} />
+
+            <ApproveCard
+              date={elm?.hour}
+              customerName={elm?.student}
+              optionalField_1={elm?.branch}
+              cardType="userCard"
+              optionalField_2={{
+                label: 'YER',
+                value: elm?.district,
+              }}
+              optionalField_3={{
+                value: elm?.address_detail
+              }}
+              onApprove={() => {
+                //setOpenApprove(elm.id);
+              }}
+              onReject={() => {
+                setChoosenElm(elm);
+                setOpenReject(elm.id);
+              }}
+            />
+          </ApproveCardContainer>
+        )) || <></>}
+
+
+        {items?.appointment?.[
+          moment(date).format('DD.MM.YYYY')
+        ]?.online?.map((elm, i) => (
+          <ApproveCardContainer key={i}>
+            <Svg.SessionType.Online style={{ marginRight: '10px' }} />
+
+            <ApproveCard
+              cardType="userCard"
+              date={elm?.hour}
+              customerName={elm?.pt?.name ? elm?.pt?.name : elm?.dt?.name}
+              optionalField_1={elm?.branch}
+              onApprove={() => {
+                setChoosenElm(elm);
+                setOpenApprove(elm?.id);
+              }}
+              onReject={() => {
+                setChoosenElm(elm);
+                setOpenReject(elm?.id);
+              }}
+            />
+          </ApproveCardContainer>
+        )) || <></>}
+
+        {items?.appointment?.[
+          moment(date).format('DD.MM.YYYY')
+        ]?.clinic?.map((elm, i) => (
+          <ApproveCardContainer key={i}>
+            <Svg.SessionType.Clinic style={{ marginRight: '10px' }} />
+
+            <ApproveCard
+              date={elm?.hour}
+              customerName={elm?.student}
+              optionalField_1={elm?.branch}
+              cardType="userCard"
+              optionalField_2={{
+                label: 'KLİNİK',
+                value: elm?.address_title,
+              }}
+              optionalField_3={{
+                value: elm?.address_detail,
+              }}
+              onApprove={() => {
+                //setOpenApprove(elm.id);
+              }}
+              onReject={() => {
+                setChoosenElm(elm);
+                setOpenReject(elm.id);
+              }}
+            />
+          </ApproveCardContainer>
+        )) || <></>}
+      </ReservationAccordion>
+    )}else{
+      return(<></>)
+    }
+  }
   return (
     <StyledContainer>
       <StyledRow>
         <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
           <AccordionContainer>
-            <ReservationAccordion
-              defaultOpen={true}
-              parent
-              title={moment(selectedDate).format('DD.MM.YYYY')}
-            >
-              <ReservationAccordion
-                miniIcon={<Svg.SessionType.Gym />}
-                title="SPOR ALANI"
-                defaultOpen
-              >
-                <>
-                  {items?.appointment?.[
-                    moment(selectedDate).format('DD.MM.YYYY')
-                  ]?.gym?.map((elm, i) => (
-                    <ApproveCardContainer key={i}>
-                      <ApproveCard
-                        cardType="userCard"
-                        date={elm?.hour}
-                        customerName={elm?.student}
-                        optionalField_1={elm?.branch}
-                        optionalField_2={{
-                          label: 'SALON',
-                          value: elm?.bs?.name,
-                        }}
-                        optionalField_3={{
-                          value:
-                            elm?.town + '  ' + elm?.district + ' ' + elm?.city,
-                        }}
-                        onApprove={() => {
-                          setChoosenElm(elm);
-                          setOpenApprove(elm?.id);
-                        }}
-                        onReject={() => {
-                          setChoosenElm(elm);
-                          setOpenReject(elm?.id);
-                        }}
-                      />
-                    </ApproveCardContainer>
-                  ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
-                </>
-              </ReservationAccordion>
-              <ReservationAccordion
-                miniIcon={<Svg.SessionType.Park />}
-                title="EV / PARK"
-                defaultOpen
-              >
-                {items?.appointment?.[
-                  moment(selectedDate).format('DD.MM.YYYY')
-                ]?.home_park?.map((elm, i) => (
-                  <ApproveCardContainer key={i}>
-                    <ApproveCard
-                      date={elm?.hour}
-                      customerName={elm?.student}
-                      optionalField_1={elm?.branch}
-                      cardType="userCard"
-                      optionalField_2={{
-                        label: 'YER',
-                        value: elm?.district,
-                      }}
-                      optionalField_3={{
-                        value: elm?.address_detail
-                      }}
-                      onApprove={() => {
-                        //setOpenApprove(elm.id);
-                      }}
-                      onReject={() => {
-                        setChoosenElm(elm);
-                        setOpenReject(elm.id);
-                      }}
-                    />
-                  </ApproveCardContainer>
-                ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
-              </ReservationAccordion>
-              <ReservationAccordion
-                miniIcon={<Svg.SessionType.Online />}
-                title="ONLİNE"
-                defaultOpen
-              >
-                {items?.appointment?.[
-                  moment(selectedDate).format('DD.MM.YYYY')
-                ]?.online?.map((elm, i) => (
-                  <ApproveCardContainer key={i}>
-                    <ApproveCard
-                      cardType="userCard"
-                      date={elm?.hour}
-                      customerName={elm?.pt?.name ? elm?.pt?.name : elm?.dt?.name}
-                      optionalField_1={elm?.branch}
-                      onApprove={() => {
-                        setChoosenElm(elm);
-                        setOpenApprove(elm?.id);
-                      }}
-                      onReject={() => {
-                        setChoosenElm(elm);
-                        setOpenReject(elm?.id);
-                      }}
-                    />
-                  </ApproveCardContainer>
-                ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
-              </ReservationAccordion>
-              <ReservationAccordion
-                miniIcon={<Svg.SessionType.Clinic />}
-                title="KLİNİK"
-                defaultOpen
-              >
-                {items?.appointment?.[
-                  moment(selectedDate).format('DD.MM.YYYY')
-                ]?.clinic?.map((elm, i) => (
-                  <ApproveCardContainer key={i}>
-                    <ApproveCard
-                      date={elm?.hour}
-                      customerName={elm?.student}
-                      optionalField_1={elm?.branch}
-                      cardType="userCard"
-                      optionalField_2={{
-                        label: 'KLİNİK',
-                        value: elm?.address_title,
-                      }}
-                      optionalField_3={{
-                        value: elm?.address_detail,
-                      }}
-                      onApprove={() => {
-                        //setOpenApprove(elm.id);
-                      }}
-                      onReject={() => {
-                        setChoosenElm(elm);
-                        setOpenReject(elm.id);
-                      }}
-                    />
-                  </ApproveCardContainer>
-                ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
-              </ReservationAccordion>
-            </ReservationAccordion>
+          {
+              startOfWeeksArr().map((date) => (
+                _renderTab(date)
+              ))
+
+            }
+            {!(startOfWeeksArr()?.length > 0) && <text style={{ padding: '20px' }}>Onay bekleyen hiçbir rezervasyon talebi yoktur</text>}
           </AccordionContainer>
- 
+
         </StyledCol>
         <StyledCol
           style={{
@@ -267,6 +272,8 @@ const DateContainer = styled.div`
 `;
 const AccordionContainer = styled.div`
   display: flex;
+  flex-direction: column;
+
 `;
 const ApproveCardContainer = styled.div`
   display: flex;

@@ -6,7 +6,7 @@ import { space } from 'styled-system';
 
 export default function SearchInput({
   searchValue,
-  setSearchValue,
+  setSearchValue=()=>{},
   placeholder,
   showClearInput,
   onChange,

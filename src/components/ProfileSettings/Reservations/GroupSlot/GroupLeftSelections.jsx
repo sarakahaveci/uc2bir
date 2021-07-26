@@ -49,6 +49,7 @@ export default function GroupLeftSelections() {
   } = useSelector((state) => state.userProfile.workPlace);
 
   const [selectedImageId, setSelectedImageId] = useState();
+  const [file, setFile] = useState();
 
   const selectPicModalRef = useRef();
 
@@ -75,9 +76,15 @@ export default function GroupLeftSelections() {
     }
   }, []);
 
-  useEffect(() => {
-    selectDataHandler('group_slot_image_id', selectedImageId?.id);
-  }, [selectedImageId]);
+  useEffect( () => {
+    if(selectedImageId){
+      selectDataHandler('group_slot_image_id', selectedImageId?.id);
+    }else if(file){
+     // const resizedFile = await resizeFile(file);
+
+      selectDataHandler('group_slot_image', file)
+    }
+  }, [selectedImageId,file]);
 
   useEffect(() => {
     if (branchSelection && locationSelection && userTypeId === PERSONAL_TRAINER) {
@@ -335,6 +342,8 @@ export default function GroupLeftSelections() {
         ref={selectPicModalRef}
         selectedImageId={selectedImageId}
         setSelectedImageId={setSelectedImageId}
+        file={file}
+        setFile={setFile}
         images={groupImages}
       />
     </div>

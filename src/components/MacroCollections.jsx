@@ -15,14 +15,23 @@ const MacroCollections = ({
         return (
           <div style={{ width: '100%' }} key={key}>
             {(val.type === 'text' ||
+              val.number === 'number' ||
+              val.type === 'date' ||
               val.type === 'email' ||
               val.type === 'password' ||
-              val.type === 'date' ||
-              val.number === 'number' ||
               val.type === 'phone') &&
               (social && (val.name == 'name' || val.name == 'email') &&
-                <text>{data[val.name]}</text>
-              )|| ( Material[val.type]({
+                <div style={{ display: 'flex', borderColor: 'var(--blue)', opacity: '0.7', borderBottomStyle: 'solid', borderWidth: '1px', padding: '4px 0', height: '45px', marginBottom: '10px' }}>
+                  {
+                    val.icon && val.icon({
+                      style: { marginRight: '5px' },
+                      className: 'material-inputs-icon',
+                      // onClick: () => iconCallback(),
+                    })
+                  }
+                  <text style={{ color: '#909090' }}>{data[val.name]}</text>
+                </div>
+              ) || (Material[val.type]({
                 id: val.name,
                 name: val.name,
                 type: val.type,
@@ -84,10 +93,12 @@ const MacroCollections = ({
         })}
       </div>
       <MacroWrapper macroSpace={macroSpace}>
-        {macro.map((val, key) => {
+        {
+        macro.map((val, key) => {
           return (
             <div style={{ width: '100%' }} key={`check-${key}`}>
-              {val.type === 'checkbox' &&
+              {
+              val.type === 'checkbox' &&
                 Material[val.type]({
                   id: val.name,
                   name: val.name,
@@ -100,10 +111,12 @@ const MacroCollections = ({
                       [val.name]: e.target.checked ? 1 : 0,
                     }),
                   checked: data[val.name] ? true : false,
-                })}
+                })
+              }
             </div>
           );
-        })}
+        })
+        }
       </MacroWrapper>
     </>
   );

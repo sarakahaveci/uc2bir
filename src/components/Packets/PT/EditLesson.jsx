@@ -26,6 +26,7 @@ const useStyles = makeStyles({
 
 const EditLesson = ({ setBannerActive = () => {}, setPage = () => {}, packageData, lessonId,  setLessonId}) => {
   const dispatch = useDispatch();
+  // eslint-disable-next-line 
   const [testName, setTestName] = useState('');
   const [changeable, setChangeable] = useState(false);
   const [question, _question] = useState([]);
@@ -166,7 +167,9 @@ const EditLesson = ({ setBannerActive = () => {}, setPage = () => {}, packageDat
   }
   return (
     <Row>
-      <Containers>
+      {classDetail?.package && (
+        <>
+        <Containers>
         <Rows>
           <Col lg={4}>
             <Card img={classDetail?.package?.photo}>
@@ -241,6 +244,8 @@ const EditLesson = ({ setBannerActive = () => {}, setPage = () => {}, packageDat
         </StyledRow>
         <StyledRow style={{}}>{_renderLessons()}</StyledRow>
       </Wrapper>
+        </>
+      ) || <>Bu alan şuan için gösterime uygun değildir.</>}
       <React.Fragment>
         <Dialog
           className="material-dialog"
@@ -249,7 +254,7 @@ const EditLesson = ({ setBannerActive = () => {}, setPage = () => {}, packageDat
           open={modal}>
           <DialogTitle className="text-center">
             <Title textAlign="left" variant="h5" component="h5">
-              {testName}
+              {'Test'}
             </Title>
             <span
               style={{

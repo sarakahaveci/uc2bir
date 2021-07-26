@@ -5,16 +5,15 @@ import { Row, Col, Form, Container } from 'react-bootstrap';
 
 import { searchProffesional } from 'actions';
 import { device } from 'utils';
-import { Button, Pagination, Svg } from 'components';
+import { Button, Pagination, Svg, ChooseDateModal } from 'components';
 import LongUserCard from 'components/UserCards/LongUserCard';
 import SearchFilters from 'components/SearchProfessional/SearchFilters';
 
 const Trainers = ({
   type,
-  onClickHover = () => {},
-  branch,
+  onClickHover = () => { },
   level = 'A',
-  onClickUpgrageClass = () => {},
+  onClickUpgrageClass = () => { },
 }) => {
   const dispatch = useDispatch();
   const [packetLevel, setPacketLevel] = useState(level);
@@ -28,10 +27,13 @@ const Trainers = ({
 
   const [title, setTitle] = useState('');
   const [location, setLocation] = useState('');
-  //const [branch, setBranch] = useState('');
+  const [branch, setBranch] = useState('');
   const [page, setPage] = useState(1);
   const [price, setPrice] = useState('[0, 1000]');
-
+  const [openDateModal, setOpenDateModal] = useState(false);
+  const [dateFilterText, setDateFilterText] = useState('Tarih Seçiniz');
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [ratings, setRatings] = useState('[]');
   const [classification, setClassification] = useState('');
   const [showFilters, setShowFilters] = useState(false);
@@ -53,6 +55,8 @@ const Trainers = ({
         lat: 0,
         lng: 0,
         classification: packetLevel || level,
+        startDate,
+        endDate
       })
     );
   }, [packetLevel]);
@@ -94,6 +98,8 @@ const Trainers = ({
         sortBy: 'asc',
         branch,
         location,
+        startDate,
+        endDate,
         type: 'pt',
         classification: packetLevel || level,
       })
@@ -118,7 +124,11 @@ const Trainers = ({
                 placeholder="Eğitmen Ara"
               />
             </SearchCol>
-
+            <SearchCol>
+              <FilterButton onClick={() => setOpenDateModal(true)}>
+                {dateFilterText}
+              </FilterButton>
+            </SearchCol>
             <SearchCol>
               <div className="search-trainer__location-row">
                 <Svg.LocationIcon className="mr-1 mb-1" />
@@ -140,7 +150,7 @@ const Trainers = ({
                   onChange={(e) => setBranch(e.target.value)}
                 >
                   <option hidden>Branşlar</option>
-                  {allBranchList.map((item, index) => (
+                  {allBranchList?.map((item, index) => (
                     <option key={'option' + index} value={item.id}>
                       {item.name}
                     </option>
@@ -235,7 +245,7 @@ const Trainers = ({
             </LevelContainer>
           </div>
         )}
-        {data.length > 0 ? (
+        {data?.length > 0 ? (
           <>
             <GymListWrapper>
               {data?.map((professional) => (
@@ -276,6 +286,15 @@ const Trainers = ({
           <strong className="mt-3">Arama türüne uygun sonuç bulunamadı.</strong>
         )}
       </Container>
+      <ChooseDateModal
+        open={openDateModal}
+        cancel={() => {
+          setOpenDateModal(false);
+        }}
+        setDateFilterText={setDateFilterText}
+        setEndDateToApi={setEndDate}
+        setStartDateToApi={setStartDate}
+      />
     </div>
   );
 };
@@ -335,6 +354,7 @@ const LabelText = styled.text`
   font-weight: bold;
   color: var(--blue);
 `;
+
 
 const Seperator = styled.div`
   width: 60px;

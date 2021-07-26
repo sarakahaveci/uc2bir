@@ -5,7 +5,7 @@ import {
   CREATE_GROUP_SLOT, GET_GROUP_IMAGES,
 } from 'constants/index';
 import { format } from 'date-fns';
-
+import { resizeFile } from '../../utils'
 export const getWorkPlaceCapacity = (branchId, locationId, selectedHour, date) => async (
   dispatch
 ) => {
@@ -43,8 +43,29 @@ export const createGroupSlot = (slotObj, successCallback, errorCallback) => asyn
     locationSelection,
     courseDetails,
     group_slot_image_id,
+    group_slot_image,
     classSelection,
   } = getState().profileSettings2.reservationGroupSlot;
+  const createData = new FormData();
+
+  const resizedFile = await resizeFile(group_slot_image);
+
+  var keys = Object.keys(restSlot)
+  keys.forEach((key) => {
+    createData.append(key, restSlot[key])
+  })
+  if (resizedFile) createData.append('group_slot_image[]', resizedFile);
+
+  if (price) createData.append('price', +price);
+  if (date) createData.append('date', format(date, 'dd.MM.uuuu'));
+  if (selectedHour) createData.append('hour', selectedHour);
+  if (branchSelection?.id) createData.append('branch_id', branchSelection.id);
+  if (sessionSelection?.type) createData.append('session', sessionSelection.type);
+  if (locationSelection?.id) createData.append('location_id', locationSelection.id);
+  if (courseDetails) createData.append('detail', courseDetails);
+  if (group_slot_image_id) createData.append('group_slot_image_id', group_slot_image_id);
+  if (classSelection?.id) createData.append('class_id', classSelection.id);
+
 
   await dispatch({
     type: HTTP_REQUEST,
@@ -52,28 +73,21 @@ export const createGroupSlot = (slotObj, successCallback, errorCallback) => asyn
       method: 'POST',
       transformData: (data) => data.data,
       url,
-      body: {
-        ...restSlot,
-        price: +price,
-        date: format(date, 'dd.MM.uuuu'),
-        hour: selectedHour,
-        branch_id: branchSelection.id,
-        session: sessionSelection.type,
-        location_id: locationSelection.id,
-        detail: courseDetails,
-        group_slot_image_id,
-        class_id:classSelection.id,
-      },
+      body: createData,
       callBack: successCallback,
-      errorHandler:  (error) => errorCallback(error.message),
+      errorHandler: (error) => errorCallback(error.message),
       label: CREATE_GROUP_SLOT,
     },
   });
 };
 
-export const getGroupImages = () => async (dispatch) => {
-  const url = `/appointment/pt/group-slot`;
+export const getGroupImages = (search) => async (dispatch) => {
+  let url = `/appointment/pt/group-slot`;
+  let extras = '?';
 
+  if (search) extras += `keywords=${search}&`;
+  url += extras;
+  
   await dispatch({
     type: HTTP_REQUEST,
     payload: {

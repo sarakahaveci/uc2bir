@@ -12,10 +12,8 @@ import {
   SEND_NEW_MESSAGE
 } from '../../constants';
 import { toast } from 'react-toastify';
-
-export const getRooms = (isFirstTime) => async (dispatch) => {
+export const getRooms = (successCallback) => async (dispatch) => {
   const url = `/user/message/rooms`;
-
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
@@ -23,15 +21,7 @@ export const getRooms = (isFirstTime) => async (dispatch) => {
       url,
       label: GET_ROOMS,
       transformData: (data) => data.data,
-      callBack: (data) => {
-        if (isFirstTime) {
-          const allRooms = data.data;
-
-          dispatch(
-            setRoomName(allRooms?.[0]?.room_name, data.data?.[0]?.user_meta)
-          );
-        }
-      },
+      callBack: successCallback
     },
   });
 };
@@ -50,16 +40,16 @@ export const setNewMessageRoom = (userInfo) => async (dispatch, getState) => {
   dispatch({
     type: SEND_NEW_MESSAGE,
     payload: {
-      userInfo: { ...userInfo},
-      messageInfo:{
-        created_at:new Date(),
-        file:0,
+      userInfo: { ...userInfo },
+      messageInfo: {
+        created_at: new Date(),
+        file: 0,
         sender_id: id,
-        room_name: userInfo.id+'tempRoom',
-        receiver_id : userInfo.id,
-        message:''
+        room_name: userInfo.id + 'tempRoom',
+        receiver_id: userInfo.id,
+        message: ''
       }
-    },
+    }
   });
 };
 
@@ -79,7 +69,7 @@ export const searchMessage = (searchValue) => async (dispatch, getState) => {
   });
 };
 
-export const updateUserRead = () => async (dispatch, getState) => {
+export const updateUserRead = (successCallback) => async (dispatch, getState) => {
   const url = `/user/message/update-unread`;
 
   const {
@@ -93,12 +83,12 @@ export const updateUserRead = () => async (dispatch, getState) => {
       url,
       label: READ_MESSAGE,
       body: { room_name: selectedRoomName },
-      callBack: () => dispatch(getRooms()),
+      callBack: successCallback
     },
   });
 };
 
-export const getRoomMessages = (roomName) => async (dispatch) => {
+export const getRoomMessages = (roomName,successCallback) => async (dispatch) => {
   const url = `/user/message/messages`;
 
   await dispatch({
@@ -109,7 +99,7 @@ export const getRoomMessages = (roomName) => async (dispatch) => {
       label: GET_ROOM_MESSAGES,
       body: { room_name: roomName },
       transformData: (data) => data.data,
-      callBack: () => dispatch(updateUserRead()),
+      callBack: successCallback
     },
   });
 };
@@ -131,7 +121,11 @@ export const sendMessageToRoom = (message, successCallback) => async (
       url,
       label: SEND_MESSAGE,
       body: { message, receiver_id: selectedRoomUser?.id || 0 },
-      callBack: successCallback,
+      callBack: (e) => {
+        successCallback(e)
+        dispatch(setRoomName(e?.data?.room_name, selectedRoomUser));
+        dispatch(setMessageSideBarOpen(false));
+      },
       errorHandler: (message) => toast.error(message),
     },
   });

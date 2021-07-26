@@ -11,6 +11,7 @@ const SessionHistory = () => {
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
   const [openRateModal, setOpenRateModal] = useState(false);
   const [appointment, setAppointment] = useState(undefined);
+  const [appointmentAll, setAppointmentAll] = useState(undefined);
 
   const dispatch = useDispatch();
   const items = useSelector(
@@ -66,10 +67,11 @@ const SessionHistory = () => {
                       date={elm?.hour}
                       customerName={elm?.student}
                       type="history"
-                      rateText="Öğrenciyi Puanla"
+                      rateText="Puanla"
                       has_comment={elm?.pt?.has_comment}
 
                       onApprove={() => {
+                        setAppointmentAll(elm)
                         setAppointment({
                           id: elm?.id,
                           userId: elm?.pt?.id,
@@ -93,10 +95,11 @@ const SessionHistory = () => {
                       date={elm?.hour}
                       customerName={elm?.student}
                       type="history"
-                      rateText="Öğrenciyi Puanla"
+                      rateText="Puanla"
                       has_comment={elm?.pt?.has_comment}
 
                       onApprove={() => {
+                        setAppointmentAll(elm)
                         setAppointment({
                           id: elm?.id,
                           userId: elm?.pt?.id,
@@ -120,10 +123,11 @@ const SessionHistory = () => {
                       date={elm?.hour}
                       customerName={elm?.student}
                       type="history"
-                      rateText="Öğrenciyi Puanla"
+                      rateText="Puanla"
                       has_comment={elm?.pt?.has_comment}
 
                       onApprove={() => {
+                        setAppointmentAll(elm)
                         setAppointment({
                           id: elm?.id,
                           userId: elm?.pt?.id,
@@ -163,19 +167,24 @@ const SessionHistory = () => {
         </StyledCol>
       </StyledRow>
       <RateModal
+        appointmentAll={appointmentAll}
         appointment_id={appointment?.id}
         descText="Öğrencinizi puanlamak ister misiniz?"
         rateLabel="PUANLA"
         cancelLabel="VAZGEÇ"
         open={openRateModal}
-        rate={({ rate, comment }) => {
+        rate={({ rate, comment, commented_id }) => {
           dispatch(
             rateAndComment(
               {
                 appointment_id: appointment?.id,
                 rating: rate,
                 comment: comment,
-                commented_id: appointment?.userId,
+                commented_id: commented_id,
+              },
+              () => {
+                setAppointment(undefined);
+                setOpenRateModal(false);
               },
               () => {
                 setAppointment(undefined);

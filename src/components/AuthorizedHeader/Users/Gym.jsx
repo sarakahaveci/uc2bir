@@ -5,6 +5,7 @@ import List from '../HeaderList';
 import Item from '../HeaderItem';
 import TABS from 'constants/tabUri';
 import { useSelector } from 'react-redux';
+import defaultImage from '../../../assets/default-profile.jpg'
 
 const Gym = ({ user_name, user_img = null, logoutHandler }) => {
   const { data: allRooms } = useSelector(
@@ -38,11 +39,11 @@ const Gym = ({ user_name, user_img = null, logoutHandler }) => {
       icon: <Svg.PeopleGroups />,
       link: TABS.trainersPath,
     },
-    /*   {
+    {
       name: 'Cüzdanım',
       icon: <Svg.Wallet />,
       link: TABS.walletPath,
-    }, */
+    },
     {
       name: 'Galeri',
       icon: <Svg.Gallery />,
@@ -69,7 +70,7 @@ const Gym = ({ user_name, user_img = null, logoutHandler }) => {
       notify: count,
       linkPath: TABS.proMessagesPath,
     },
-       {
+    {
       name: 'Rezervasyonlarım',
       icon: <Svg.Date />,
       notify: [],
@@ -77,9 +78,11 @@ const Gym = ({ user_name, user_img = null, logoutHandler }) => {
     },
     {
       name: user_name,
-      icon: user_img || <Svg.UsernameIcon />,
+      icon: user_img ? <img style={{ objectFit: 'cover' }} src={user_img} /> : <img style={{ objectFit: 'cover' }} src={defaultImage} />,
       menu: userDependentMenu,
       pulse: true,
+      isUserMenu: true
+
     },
   ];
 
@@ -98,6 +101,8 @@ const Gym = ({ user_name, user_img = null, logoutHandler }) => {
               text={val.name}
               notify={val.notify}
               pulse={val.pulse}
+              isUserMenu={val?.isUserMenu}
+
             />
           </List>
         );

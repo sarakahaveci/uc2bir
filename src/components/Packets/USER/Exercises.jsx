@@ -9,17 +9,17 @@ import { device } from 'utils';
 import Svg from 'components/statics/svg';
 import {
   getUserPacketLessonDetail,
-  setUserPacketLessonComplete,
+  // setUserPacketLessonComplete,
 } from 'actions';
-import { useDispatch,useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 const useStyles = makeStyles({
   barColorPrimary: {
     backgroundColor: '#00B2A9',
   },
 });
 const Exercises = ({
-  setPage = () => {},
-  setGlobalState = () => {},
+  setPage = () => { },
+  setGlobalState = () => { },
   globalState,
 }) => {
   const dispatch = useDispatch();
@@ -50,23 +50,30 @@ const Exercises = ({
     setPage('ExerciseDetail');
   }
   function _renderExercises() {
-    return detailData?.trainings?.map((elm, index) => (
-      <Col key={index} style={{ padding: 0 }} lg="4">
-        <CustomProgress
-          location={detailData?.trainings?.length - 1 == index ? 'end' : locationSelector(index)}
-          active="false"
-        ></CustomProgress>
-        <ExerciseCard data={elm} type="user" onClickExercise={onClickExercise} />
-        <TickContainer
-          onClick={() => {
-            dispatch(setUserPacketLessonComplete());
-          }}
-        >
-          {true ? <Svg.TickLesson /> : <Svg.TickLessonDisable />}
-          <TickLabel enable>Tamamlandı</TickLabel>
-        </TickContainer>
-      </Col>
-    ));
+    if (detailData?.trainings?.length > 0) {
+      return detailData?.trainings?.map((elm, index) => (
+        <Col key={index} style={{ padding: 0 }} lg="4">
+          <CustomProgress
+            location={detailData?.trainings?.length - 1 == index ? 'end' : locationSelector(index)}
+            active="false"
+          ></CustomProgress>
+          <ExerciseCard data={elm} type="user" onClickExercise={onClickExercise} />
+          <TickContainer
+            // onClick={() => {
+            //   if(!(elm?.is_completed)){
+            //     dispatch(setUserPacketLessonComplete(elm?.training_id));
+            //   }
+            // }}
+          >
+            {elm?.is_completed ? <Svg.TickLesson /> : <Svg.TickLessonDisable />}
+            <TickLabel enable>Tamamlandı</TickLabel>
+          </TickContainer>
+        </Col>
+      ))
+    } else {
+      return (<>Eğitmeniniz henüz çalışmanızı hazırlamamıştır.</>
+      )
+    }
   }
   return (
     <Main>
@@ -118,7 +125,6 @@ const TickContainer = styled.div`
   align-items: center;
   justify-content: center;
   margin: 5px;
-  cursor: pointer;
 `;
 const TickLabel = styled.text`
   color: ${(p) => (p.enable ? 'var(--blue)' : 'gray')};

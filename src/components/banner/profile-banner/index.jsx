@@ -5,7 +5,7 @@ import { Button, Svg, Stars } from 'components';
 
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-
+import { BlockUserModal } from 'components'
 import Card, { CardFooter, CardInfo } from './Card';
 import {
   addFavoriteUser,
@@ -15,19 +15,18 @@ import {
 } from '../../../actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { USER } from '../../../constants';
-
 const ProfileBanner = ({
   className = null,
   info,
   categories = [],
   about,
-  setPage = () => {},
+  setPage = () => { },
   isUserDetail = false,
 }) => {
   const [isFavorited, setIsFavorited] = useState(info.has_favorite === 1);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
-
+  const [openApprove, setOpenApprove] = useState(false)
   const favoriteClickHandler = () => {
     if (isFavorited) {
       dispatch(removeFavoriteUser(info.id));
@@ -37,9 +36,22 @@ const ProfileBanner = ({
       setIsFavorited(true);
     }
   };
+  function openBlockModal() {
 
+    setOpenApprove(true)
+  }
   return (
     <Containers className={className}>
+      <BlockUserModal
+        isBlocked={info?.isBlocked} //Burası değişcek
+        open={openApprove}
+        approve={() => {
+          setOpenApprove(false);
+        }}
+        cancel={() => {
+          setOpenApprove(false);
+        }}
+      />
       <Rows>
         <Cols lg={4}>
           <Card img={info.img}>
@@ -114,15 +126,23 @@ const ProfileBanner = ({
             jobType={info.category}
             location={info.location}
           />
+
         </Cols>
         {/* <Cols lg={1}>
           <Line />
         </Cols> */}
+
         <Cols lg={4} style={{ borderLeft: 'ridge' }}>
           {about && <TitleWrapper>Hakkımda</TitleWrapper>}
           <TextWrapper>{about}</TextWrapper>
+
         </Cols>
+
       </Rows>
+      {!isUserDetail && <BlockContainer>
+        <BlockUser onClick={() => { openBlockModal() }}>{info?.isBlocked ? "Engeli kaldır" : "Kullanıcıyı Engelle"}</BlockUser>
+
+      </BlockContainer>}
     </Containers>
   );
 };
@@ -168,7 +188,16 @@ const Comment = styled(Link)`
     height: 25px;
   }
 `;
+const BlockContainer = styled.div`
+  display:flex;
+  align-items:center;
+  padding: 0 60px;
+`
+const BlockUser = styled.text`
+  color:red;
+  cursor:pointer;
 
+`
 const heart = css`
   padding: 8px;
   background-color: white;

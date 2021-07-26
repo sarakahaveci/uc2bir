@@ -7,11 +7,11 @@ import { login, socialLogin } from 'actions';
 
 import {
   FormPages,
-  AwesomeIcon,
   Text,
   Button,
   Material,
   Box,
+  Svg,
 } from 'components';
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
@@ -50,8 +50,7 @@ const Login = () => {
     dispatch(login({ email: trimmedEmail, password }, loginSuccessHandler));
   };
   const responseSocial = async (type, res) => {
-    // eslint-disable-next-line
-    console.log('responseApple', res);
+
     var user = {
       type: type,
       accessToken: res?.accessToken || res?.authorization?.id_token,
@@ -116,7 +115,7 @@ const Login = () => {
                   name="login-email"
                   label="E-mail"
                   type="text"
-                  icon={AwesomeIcon.User}
+                  icon={Svg.UsernameIcon}
                 />
 
                 <Material.TextField
@@ -126,7 +125,9 @@ const Login = () => {
                   name="login-password"
                   label="Şifre"
                   type="password"
-                  icon={AwesomeIcon.Lock}
+                  icon={Svg.PasswordIcon}
+                  password={Svg.EyeIcon}
+
                 />
 
                 <Box

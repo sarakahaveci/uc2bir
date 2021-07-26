@@ -25,13 +25,13 @@ export default function ActivityCard({
   maxPrice,
   minPrice,
   userBranchList,
+  icon
 }) {
   const dispatch = useDispatch();
   const { data: registerData } = useSelector((state) => state.registerData);
   const { isloading, subBranches } = useSelector(
     (state) => state?.profileSettings?.activityList
   );
-
   const tooltipLabel = isAccepted ? (
     maxPrice || minPrice ? (
       <ToolTipLabel>
@@ -189,7 +189,7 @@ export default function ActivityCard({
       <div className="mb-2">
         <div className="d-flex justify-content-between">
           {isWorkPlace
-            ? sportTypeIconGenerator(id)
+            ? <img style={{ height: '50px', width: '50px' }} src={icon}></img>
             : sportTypeIconGenerator(name)}
           <span className={`ml-auto ${statusTextClass}`}>
             {isWorkPlace ? statusText : PTstatusText?.name}
@@ -344,13 +344,15 @@ export default function ActivityCard({
           </>
         )}
       </div>
-      <Button
-        className="blue mt-3"
-        text="Kaydet"
-        fontWeight="500"
-        onClick={submitChange}
-        disabled={!isAccepted || waitingPrice || isInitialForm}
-      />
+      <div style={{display:'flex',width:'100%',justifyContent:'flex-end'}} >
+
+        <StyledButton
+          text="Kaydet"
+          fontWeight="500"
+          onClick={submitChange}
+          disabled={!isAccepted || waitingPrice || isInitialForm}
+        />
+      </div>
     </div>
   );
 }
@@ -381,3 +383,10 @@ const HtmlTooltip = withStyles((theme) => ({
     border: '1px solid #dadde9',
   },
 }))(Tooltip);
+
+const StyledButton = styled(Button)`
+  color:var(--blue);
+  background: white !important;
+  width:80px;
+  margin-top:7px;
+`

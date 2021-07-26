@@ -1,10 +1,10 @@
 import React, { useLayoutEffect, useState } from 'react';
 import Slider from 'react-slick';
 import cx from 'classnames';
+import styled from 'styled-components/macro';
 
 
-
-export default function AsNavFor({ onChangeSlideHandler,className, sliderItems = [] }) {
+export default function AsNavFor({ onChangeSlideHandler, className, sliderItems = [] }) {
   const [nav1, setNav1] = useState(null);
   const [nav2, setNav2] = useState(null);
 
@@ -27,7 +27,17 @@ export default function AsNavFor({ onChangeSlideHandler,className, sliderItems =
       >
         {sliderItems?.length && sliderItems?.map((item, i) => (
           <div key={i} className="as-nav-for__main__item">
-            <img src={item?.src} alt={`slider-img-${i}`} />
+            {item?.file?.type == 'image' && <img src={item?.file?.path} alt={`slider-img-${i}`} />
+            }
+            {item?.file?.type == 'video' && 
+                <Video
+                controls="controls"
+                class="video-stream"
+                x-webkit-airplay="allow"
+                data-youtube-id="N9oxmRT2YWw"
+                src={item?.file?.path}
+              ></Video>
+            }
           </div>
         ))}
       </Slider>
@@ -45,10 +55,22 @@ export default function AsNavFor({ onChangeSlideHandler,className, sliderItems =
       >
         {sliderItems?.length && sliderItems?.map((item, i) => (
           <div key={i} className="as-nav-for__thump__item">
-            <img src={item?.src} alt={`slider-img-${i}`} />
+            {
+              item?.file?.type == 'image' && <img src={item?.file?.path} alt={`slider-img-${i}`} />
+            }
+            {
+              item?.file?.type == 'video' && <Video src={item?.file?.path} />
+            }
           </div>
         ))}
       </Slider>
     </div>
   );
 }
+const Video = styled.video`
+  display:flex;
+  width: 100%;
+  height:100%;
+  z-index:99;
+
+`;

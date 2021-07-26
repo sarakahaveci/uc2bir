@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { getRooms, resetSelectedRoom } from 'actions';
+import { getRooms, resetSelectedRoom,setRoomName } from 'actions';
 import MessagesSidebar from './MessagesSidebar/MessagesSidebar';
 import MessageChatArea from './MessageChatArea';
 
@@ -10,7 +10,14 @@ export default function Message() {
   useEffect(() => {
     const isFirstTime = true;
 
-    dispatch(getRooms(isFirstTime));
+    dispatch(getRooms((data) => {
+      if (isFirstTime) {
+        const allRooms = data.data;
+        dispatch(
+          setRoomName(allRooms?.[0]?.room_name, data.data?.[0]?.user_meta)
+        );
+      }
+    },));
 
     return () => dispatch(resetSelectedRoom());
   }, []);

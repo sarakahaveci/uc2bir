@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { FormPages, AwesomeIcon, Button, Material } from 'components';
+import { AwesomeIcon, Button, Material } from 'components';
 import { RESET_FORGOT_PASSWORD_STORE } from 'constants/actionTypes';
 import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
@@ -10,6 +10,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import styled from 'styled-components/macro';
+import background from '../../components/statics/background/images/login.jpg';
 
 import { forgotPassword, resetPassword } from '../../actions';
 
@@ -91,14 +92,19 @@ const ForgotPassword = () => {
   };
 
   return (
-    <>
-      <FormPages>
-        <section className="col-12 col-xl-6 page login-page-widget">
-          <div  className="row">
+    <> 
+     <div style={{width:'100%',minHeight:'110vh',backgroundSize:'cover',backgroundImage: `url(${background})`,justifyContent:'center',alignItems:'center',display:'flex'}}>
+         
+         
+         
+     <div  className="row">
             <div  className="page-content">
               <Contain>
-                {!getForgotPassword.isSuccsess && !getResetPassword.isSuccsess && (
-                  <form style={{display:'flex',justifyContent: 'center',alignItems: 'center',flexDirection: 'column'}} onSubmit={onSubmit}>
+              <div style={{display:'flex',flexDirection:'column',width:'671px',height:'601px',background:'white',borderRadius:'30px',padding:'80px',alignItems:'center' }}>
+            <text style={{fontFamily:'Bebas Neue',fontSize:'40px',fontWeight:'bold'}}>HESABINIZI BULMAMIZ İÇİN EPOSTA ADRESİNİZİ GİRİN</text>
+            <text style={{fontFamily: 'Poppins',fontSize:'20px'}}>Öncelikle size ait hesabı bulmamız gerekiyor. Lütfen e-posta adresinizi yazın ve devam edin.</text>
+            {!getForgotPassword.isSuccsess && !getResetPassword.isSuccsess && (
+                  <form style={{display:'flex',justifyContent: 'center',alignItems: 'center',flexDirection: 'column',marginTop:'50px'}} onSubmit={onSubmit}>
                     <Material.TextField
                       required
                       onChange={(e) => setEmail(e.target.value)}
@@ -107,12 +113,14 @@ const ForgotPassword = () => {
                       label="E-mail'inizi giriniz."
                       type="text"
                       icon={AwesomeIcon.User}
-                      style={{marginBottom:'15px'}}
+                      style={{marginBottom:'15px',width:'500px'}}
                     />
                     {getForgotPassword.isLoading ? (
-                      <Button text={`Yükleniyor...`} className="blue" />
+                      <Button style={{marginBottom:'15px',width:'500px'}}
+                      text={`Yükleniyor...`} className="blue" />
                     ) : (
                       <Button
+                        style={{marginBottom:'15px',width:'500px'}}
                         type="submit"
                         text={`Kod Gönder`}
                         className="blue"
@@ -120,9 +128,11 @@ const ForgotPassword = () => {
                     )}
                   </form>
                 )}
-                {getForgotPassword.isSuccsess && !getResetPassword.isSuccsess && (
+                 
+                 {getForgotPassword.isSuccsess && !getResetPassword.isSuccsess && (
                   <React.Fragment>
                     <Button
+                      style={{marginTop:'30px',width:'500px'}}
                       className="blue"
                       mb="15px"
                       onClick={handleClickOpen}
@@ -220,11 +230,20 @@ const ForgotPassword = () => {
                     </Dialog>
                   </React.Fragment>
                 )}
+         </div>
+             
               </Contain>
             </div>
           </div>
-        </section>
-      </FormPages>
+         
+         
+         
+         
+         
+    
+       </div>
+        
+     
     </>
   );
 };

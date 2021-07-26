@@ -4,14 +4,19 @@ import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import InputBase from '@material-ui/core/InputBase';
 
-import { Button, IconLabel, AwesomeIcon, Svg, Material, LocationInput } from 'components';
+import {
+  Button, IconLabel, AwesomeIcon, Svg, Material, LocationInput, ChooseDateModal
+} from 'components';
 import { objectToParamCoverter } from 'utils';
 
 
 const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
-  
-  const [value,setValue] = useState('')
- 
+
+  const [value, setValue] = useState('')
+  const [dateFilterText, setDateFilterText] = useState('Tarih Seçiniz');
+  const [openDateModal, setOpenDateModal] = useState(false);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const history = useHistory();
 
   const allBranchList = useSelector(
@@ -26,7 +31,8 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
       const formData = {
         title,
         location: value,
-        branch,
+        branch
+       
       };
 
       let baseUrl = `/packets?type=${virtual}`;
@@ -51,6 +57,8 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
         title,
         location: value,
         branch,
+        startDate,
+        endDate
       };
 
       let baseUrl = `/find?type=${virtual}`;
@@ -127,6 +135,16 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
                 </li>
               )
             }
+            {
+              virtual !== 'packets' && virtual !== 'group_lessons'  && (
+                <li style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
+                  <FilterButton onClick={() => setOpenDateModal(true)}>
+                    {dateFilterText}
+                    <div style={{ marginLeft: 20, transform: "rotate(90deg)" }}> {'>'} </div>
+                  </FilterButton>
+                </li>
+              )
+            }
             <li className="buttons">
               <Button
                 className="col blue"
@@ -138,6 +156,15 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
           </ul>
         </div>
       </div>
+      <ChooseDateModal
+        open={openDateModal}
+        cancel={() => {
+          setOpenDateModal(false);
+        }}
+        setDateFilterText={setDateFilterText}
+        setEndDateToApi={setEndDate}
+        setStartDateToApi={setStartDate}
+      />
     </div>
   );
 };
@@ -150,5 +177,17 @@ const NakedInput = styled(InputBase)`
     color: black;
   }
 `;
+
+const FilterButton = styled.button`
+  cursor: pointer;
+  border: none;
+  z-index: 2;
+  display:flex;
+  background: transparent;
+  font-size: 18px;
+  color: black;
+  justift-content:center;
+  align-items:center;
+ `;
 
 export default SearchBar;

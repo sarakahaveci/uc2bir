@@ -72,15 +72,15 @@ const Transfer = ({ setPage }) => {
                 style={{ cursor: 'pointer' }}
                 fontSize="12pt"
                 textAlign="left"
-                onClick={() => setPage('TransferInfo')}
+                onClick={() => setPage('TransferInfo')} ŞİMDİLİK KAPATILDI
               >
                 {`< Hesap Hareketlerim`}
               </Title>
               <Text fontSize="10pt" fontWeight="400">
                 Lütfen hesap bilgilerini doğru ve eksiksiz bir biçimde giriniz.
               </Text>
-              <Explanation>
-                <Col>
+           <Explanation>
+                  <Col> 
                   <Title textAlign="left">Cüzdanımdaki Toplam Tutar: </Title>
                 </Col>
                 <Col>

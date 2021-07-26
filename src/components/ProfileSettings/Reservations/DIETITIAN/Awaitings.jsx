@@ -22,7 +22,7 @@ const Awaitings = ({ setAwaitingCount }) => {
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
   const [openApprove, setOpenApprove] = useState(false);
   const [openReject, setOpenReject] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState();
   const [choosenElm, setChoosenElm] = useState(null);
 
   const startOfWeeksArr = () => {
@@ -51,7 +51,6 @@ const Awaitings = ({ setAwaitingCount }) => {
     } else {
       setIsSmallScreen(false);
     }
-    setSelectedDate(new Date());
     dispatch(getDtAwaitings());
   }, []);
   useEffect(() => {
@@ -62,66 +61,76 @@ const Awaitings = ({ setAwaitingCount }) => {
   function getSelectedDate() {
     dispatch(getDtAwaitings(moment(selectedDate).format('DD.MM.YYYY')));
   }
+  function _renderTab(date) {
+    if(items?.appointment?.[
+      moment(date).format('DD.MM.YYYY')
+    ]){
+    return (
+      <ReservationAccordion
+        defaultOpen={true}
+        parent
+        title={moment(date).format('DD.MM.YYYY')}
+      >
+
+        {items?.appointment?.[
+          moment(date).format('DD.MM.YYYY')
+        ]?.clinic?.map((elm, i) => (
+          <ApproveCardContainer key={i}>
+            <Svg.SessionType.Clinic style={{ marginRight: '10px' }} />
+
+            <ApproveCard
+              date={elm?.hour}
+              customerName={elm?.student}
+              onApprove={() => {
+                setChoosenElm(elm);
+                setOpenApprove(elm?.id);
+              }}
+              onReject={() => {
+                setChoosenElm(elm);
+                setOpenReject(elm?.id);
+              }}
+            />
+          </ApproveCardContainer>
+        )) || <></>}
+
+
+        {items?.appointment?.[
+          moment(date).format('DD.MM.YYYY')
+        ]?.online?.map((elm, i) => (
+          <ApproveCardContainer key={i}>
+            <Svg.SessionType.Online style={{ marginRight: '10px' }} />
+
+            <ApproveCard
+              date={elm?.hour}
+              customerName={elm?.student}
+              onApprove={() => {
+                setChoosenElm(elm);
+                setOpenApprove(elm?.id);
+              }}
+              onReject={() => {
+                setChoosenElm(elm);
+                setOpenReject(elm?.id);
+              }}
+            />
+          </ApproveCardContainer>
+        )) || <></>}
+      </ReservationAccordion>
+    )}else{
+      return(<></>)
+    }
+  }
   return (
     <StyledContainer>
       <StyledRow>
         <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
           <AccordionContainer>
-            <ReservationAccordion
-              defaultOpen={true}
-              parent
-              title={moment(selectedDate).format('DD.MM.YYYY')}
-            >
-              <ReservationAccordion
-                miniIcon={<Svg.SessionType.Clinic />}
-                title="KLİNİK"
-                defaultOpen
-              >
-                {items?.appointment?.[
-                  moment(selectedDate).format('DD.MM.YYYY')
-                ]?.clinic?.map((elm, i) => (
-                  <ApproveCardContainer key={i}>
-                    <ApproveCard
-                      date={elm?.hour}
-                      customerName={elm?.student}
-                      onApprove={() => {
-                        setChoosenElm(elm);
-                        setOpenApprove(elm?.id);
-                      }}
-                      onReject={() => {
-                        setChoosenElm(elm);
-                        setOpenReject(elm?.id);
-                      }}
-                    />
-                  </ApproveCardContainer>
-                ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
-              </ReservationAccordion>
+            {
+              startOfWeeksArr().map((date) => (
+                _renderTab(date)
+              ))
 
-              <ReservationAccordion
-                miniIcon={<Svg.SessionType.Online />}
-                title="ONLİNE"
-                defaultOpen
-              >
-                {items?.appointment?.[
-                  moment(selectedDate).format('DD.MM.YYYY')
-                ]?.online?.map((elm, i) => (
-                  <ApproveCardContainer key={i}>
-                    <ApproveCard
-                      date={elm?.hour}
-                      customerName={elm?.student}
-                      onApprove={() => {
-                        setChoosenElm(elm);
-                        setOpenApprove(elm?.id);
-                      }}
-                      onReject={() => {
-                        setChoosenElm(elm);
-                        setOpenReject(elm?.id);
-                      }}
-                    />
-                  </ApproveCardContainer>
-                ))|| <text>Bu tarihe ilişkin veri bulunamadı</text>}
-              </ReservationAccordion>
-            </ReservationAccordion>
+            }
+            {!(startOfWeeksArr()?.length > 0) && <text style={{ padding: '20px' }}>Onay bekleyen hiçbir rezervasyon talebi yoktur</text>}
           </AccordionContainer>
 
         </StyledCol>

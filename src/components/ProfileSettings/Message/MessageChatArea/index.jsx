@@ -8,6 +8,7 @@ import {
   sendMessageToRoom,
   getRooms,
   sendFileToRoom,
+  setRoomName, updateUserRead
 } from 'actions';
 import MessageRow from './MessageRow';
 import ChatBoxHeader from './ChatBoxHeader';
@@ -19,6 +20,7 @@ export default function MessageArea() {
   // eslint-disable-next-line
   const [file, setFile] = useState();
   const [previewImg, setPreviewImg] = useState(null);
+  const [showPreviewImg, setShowPreviewImg] = useState(null);
   const [message, setMessage] = useState(null);
   const [previewImageModalOpen, setPreviewImageModalOpen] = useState(false);
   const fileInputRef = useRef();
@@ -36,24 +38,85 @@ export default function MessageArea() {
   );
   const [fileSendButtonsEnabled, setFileSendButtonsEnabled] = useState(true);
   const dispatch = useDispatch();
-
+  const { userInfo } = useSelector((state) => state.userProfile.userInfo);
+  const [isFirstTime, setIsFirstTime] = useState(true);
+  const rooms = useSelector(state => state.profileSettings2.messages.rooms.data)
+  useEffect(()=>{
+    setIsFirstTime(true)
+  },[])
   useEffect(() => {
     if (selectedRoomName) {
-      dispatch(getRoomMessages(selectedRoomName));
+
+      dispatch(getRoomMessages(selectedRoomName, () => {
+        dispatch(updateUserRead(() => {
+          dispatch(getRooms((data) => {
+            const allRooms = data.data;
+
+            if(isFirstTime){
+              if (userInfo) {
+                var temparr = rooms?.filter(item=>item?.user_meta?.id == userInfo.id)
+                if(temparr?.length>0){
+                
+                }else{
+                  dispatch(
+                    setRoomName(userInfo.id + 'tempRoom', userInfo)
+                  );
+                }
+                
+              } else {
+
+                dispatch(
+                  setRoomName(allRooms?.[0]?.room_name, data.data?.[0]?.user_meta)
+                );
+              }
+              setIsFirstTime(false)
+            }
+
+          }))
+        }))
+      }));
     }
   }, [selectedRoomName]);
 
   const successMessageCallback = () => {
     setMessage('');
-    dispatch(getRoomMessages(selectedRoomName));
-    dispatch(getRooms());
+    dispatch(getRoomMessages(selectedRoomName, () => {
+      dispatch(updateUserRead(() => {
+        dispatch(getRooms((data) => {
+          if (isFirstTime) {
+            const allRooms = data.data;
+
+            if (userInfo) {
+              dispatch(
+                setRoomName(userInfo.id + 'tempRoom', data.data?.[0]?.user_meta)
+              );
+            } else {
+
+              dispatch(
+                setRoomName(allRooms?.[0]?.room_name, data.data?.[0]?.user_meta)
+              );
+            }
+            setIsFirstTime(false)
+          }
+        }))
+      }))
+    }));
+    dispatch(getRooms((data) => {
+      if (isFirstTime) {
+        const allRooms = data.data;
+        dispatch(
+          setRoomName(allRooms?.[0]?.room_name, data.data?.[0]?.user_meta)
+        );
+      }
+    }));
     setFile();
     setPreviewImg(null);
+    setShowPreviewImg(false);
     setFileSendButtonsEnabled(true)
   };
 
   const handleSubmitMessage = (event) => {
-    if (event.key === 'Enter' && !!message) {
+    if (event.key === 'Enter' && message) {
       dispatch(sendMessageToRoom(message, successMessageCallback));
     }
   };
@@ -66,6 +129,7 @@ export default function MessageArea() {
   const handleCancelSubmitPhoto = () => {
     setFileSendButtonsEnabled(false)
     setPreviewImg(null);
+    setShowPreviewImg(false);
   };
 
 
@@ -76,6 +140,7 @@ export default function MessageArea() {
       const resizedFile = await resizeFile(e.target.files[0]);
       setFile(resizedFile);
       setPreviewImg(URL.createObjectURL(e.target.files[0]))
+      setShowPreviewImg(true)
     } else {
       toast.error('Yalnızca fotoğraf gönderebilirsiniz.');
     }
@@ -90,7 +155,7 @@ export default function MessageArea() {
     >
       <ChatBoxHeader />
       <div className="message-page__message__wrapper">
-        {previewImg &&
+        {showPreviewImg &&
           <StyledPreview>
             <img onClick={() => {
               setPreviewImageModalOpen(true);
@@ -112,6 +177,8 @@ export default function MessageArea() {
 
             return (
               <MessageRow
+                setPreviewImg={setPreviewImg}
+                setPreviewImageModalOpen={setPreviewImageModalOpen}
                 key={index}
                 time={time}
                 message={message?.message}
@@ -177,7 +244,7 @@ border-top-right-radius:25px;
 border-top-left-radius:25px;
 border-bottom-left-radius:25px;
 margin-bottom:40px;
-zIndex:999;
+z-index:999;
 position:absolute;
 background-color:#00b2a9;
 display:flex;
@@ -211,14 +278,14 @@ background-color:transparent;
   color:white;
   font-size:0.9rem;
   font-weight:600;    
-  cursor:pointer; !important;
+  cursor:pointer; 
 }
 .left{
   margin-left:10%; 
   text-align:start;
 }
 .right{ 
-  cursor:pointer; !important;
+  cursor:pointer; ;
   margin-right:10%;
   text-align:end;
 }
