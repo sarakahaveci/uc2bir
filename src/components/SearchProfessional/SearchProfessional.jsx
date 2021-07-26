@@ -322,7 +322,7 @@ const SearchCol = styled(Col)`
   &:not(:last-child) {
     border-right: 1px solid #707070;
   }
-  flex-basis: 14%;
+  flex-basis: 13.2%;
   align-self: center;
 `;
 
