@@ -38,8 +38,8 @@ export const searchProffesional =
       const mapUrl = '/user/search?';
       const dietitionUrl = '/user/search?type=dt';
       const ptUrl = '/user/search?type=pt';
-      const packetUrl_pt = '/user/search?type=package_pt';
-      const packetUrl_dt = '/user/search?type=package_dt';
+      const packetUrl_pt = '/user/search?type=pt-package';
+      const packetUrl_dt = '/user/search?type=dt-package';
       const groupLessonUrl = '/user/search?type=group';
 
       let url;
@@ -82,13 +82,10 @@ export const searchProffesional =
       const urlWithStartDate = `&startDate=${startDate}`;
       const urlWithEndDate = `&endDate=${endDate}`;
 
-
-
       const finalUrls = `${url}${location ? urlWithLocation : ''}${title ? urlWithTitle : ''
         }${ratings?.length > 0 ? urlWithRating : ''}${urlWithMinPrice}${maxPrice ? urlWithMaxPrice : ''
         }${sortBy ? urlWithSortBy : ''}${classification ? urlWithClassification : ''
         }${page ? urlWithPage : ''}${startDate ? urlWithStartDate : ''}${endDate ? urlWithEndDate : ''}${branch ? urlWithBranch : ''}&per_page=200`.trim();
-
       await dispatch({
         type: HTTP_REQUEST,
         payload: {
@@ -99,8 +96,8 @@ export const searchProffesional =
           callBack: () => successCallback(),
           transformData: (data) => {
             return {
-              data: data?.users?.data,
-              user_type:type
+              data: type == 'group-lessons' ? data?.group_lessons?.data : type == 'packets ' ? data?.packages?.data : data?.users?.data,
+              user_type: type
             };
           },
         },

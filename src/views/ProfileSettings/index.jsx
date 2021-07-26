@@ -142,6 +142,8 @@ const workPlaceTabs = [
     eventKey: 'blocked',
     title: 'Engellenenler',
     component: <Blocked />,
+    hidden:true
+
   },
 ];
 
@@ -213,6 +215,8 @@ const dietitianTabs = [
     eventKey: 'blocked',
     title: 'Engellenenler',
     component: <Blocked />,
+    hidden:true
+
   },
 ];
 
@@ -280,6 +284,8 @@ const trainerTabs = [
     eventKey: 'blocked',
     title: 'Engellenenler',
     component: <Blocked />,
+    hidden:true
+
   },
 ];
 
