@@ -13,7 +13,7 @@ import {
   Pagination,
   BackLink,
   Text,
-  LocationInput
+  LocationInput,
 } from 'components';
 import { searchProffesional } from 'actions';
 import Filter from './SearchFilters';
@@ -46,19 +46,22 @@ const SearchProfessional = () => {
   const { type } = searchParams || 'pt';
 
   let userTypeText;
-  const sortingStates = [{ id: 'asc', name: 'Fiyat Artan' }, { id: 'desc', name: 'Fiyat Azalan' }]
+  const sortingStates = [
+    { id: 'asc', name: 'Fiyat Artan' },
+    { id: 'desc', name: 'Fiyat Azalan' },
+  ];
   switch (type) {
-    case "gym":
-      userTypeText = "Salon"
+    case 'gym':
+      userTypeText = 'Salon';
       break;
-    case "pt":
-      userTypeText = "Eğitmen"
+    case 'pt':
+      userTypeText = 'Eğitmen';
       break;
-    case "dt":
-      userTypeText = "Diyetisyen"
+    case 'dt':
+      userTypeText = 'Diyetisyen';
       break;
-    case "map":
-      userTypeText = "Harita"
+    case 'map':
+      userTypeText = 'Harita';
     default:
       break;
   }
@@ -114,7 +117,7 @@ const SearchProfessional = () => {
       price,
       ratings,
       classification,
-      sortBy
+      sortBy,
     };
 
     url = Object.keys(formData).reduce((acc, curr) => {
@@ -163,11 +166,10 @@ const SearchProfessional = () => {
             </SearchCol>
 
             <SearchCol>
-
               <LocationInput
                 defaultValue={location}
                 onChange={(e) => {
-                  setLocation(e)
+                  setLocation(e);
                 }}
                 placeholder="Lokasyon..."
               />
@@ -196,8 +198,8 @@ const SearchProfessional = () => {
                 className="search-trainer__select"
                 value={sortBy}
                 onChange={(e) => {
-                  setSortBy(e.target.value)
-                  linkChangeHandler(page)
+                  setSortBy(e.target.value);
+                  linkChangeHandler(page);
                 }}
               >
                 <option hidden>Sıralama</option>
@@ -208,7 +210,7 @@ const SearchProfessional = () => {
                 ))}
               </Form.Control>
             </SearchCol>
-            <SearchCol sm={12}>
+            <SearchCol>
               <FilterButton onClick={() => setShowFilters(!showFilters)}>
                 Filtrele
               </FilterButton>
@@ -238,7 +240,7 @@ const SearchProfessional = () => {
                 text="Ara"
                 search
                 width="100%"
-                maxWidth="150px"
+                maxWidth="200px"
                 onClick={() => linkChangeHandler(page)}
               />
             </SearchCol>
@@ -253,7 +255,6 @@ const SearchProfessional = () => {
               {data?.map((professional) => (
                 <LongUserCard
                   favoritedUser={professional?.has_favorite_count > 0}
-
                   favoriteId={professional?.user_id}
                   showHeartBg
                   key={professional?.id || professional?.user_id}
@@ -287,11 +288,11 @@ const SearchCol = styled(Col)`
     border-right: 1px solid #707070;
   }
 
-  flex-basis: 20%;
+  flex-basis: 10%;
 `;
 
 const SearchWrapper = styled.div`
-  width: 75%;
+  width: 100%;
 
   @media ${device.sm} {
     width: 100%;
@@ -329,6 +330,7 @@ const FilterButton = styled.button`
   border: none;
   background-color: white;
   z-index: 2;
+  width: 40px;
 `;
 
 export default SearchProfessional;

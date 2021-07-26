@@ -25,7 +25,7 @@ const SearchGroupLesson = () => {
 
   const [ratings, setRatings] = useState([]);
   const [classification, setClassification] = useState('');
-  const [showFilters, setShowFilters] = useState(false); 
+  const [showFilters, setShowFilters] = useState(false);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -33,7 +33,7 @@ const SearchGroupLesson = () => {
   const searchParams = queryString.parse(useLocation().search);
 
   const { type } = searchParams || 'group-lessons';
-  const { subType } = searchParams
+  const { subType } = searchParams;
 
   const userTypeText = 'Grup Ders';
 
@@ -47,7 +47,7 @@ const SearchGroupLesson = () => {
       ratings = '[]',
       classification,
       type = 'group-lessons',
-      subType = 'pt' //hata olabilir  //BURASINI DİNAMİK YAPPPPPPPPPP
+      subType = 'pt', //hata olabilir  //BURASINI DİNAMİK YAPPPPPPPPPP
     } = searchParams;
     // Parsing this because it is coming string from url such as '[0, 1000]'
     const parsedPrice = JSON.parse(price);
@@ -123,7 +123,7 @@ const SearchGroupLesson = () => {
         minHeight: '70vh',
       }}
     >
-      <Container className="mb-5 d-flex flex-column">
+      <Container className="mb-5 mt-3 d-flex flex-column">
         <BackLink path="/" text={`${userTypeText} Arayın`} />
 
         <Text mb="15px">
@@ -153,7 +153,7 @@ const SearchGroupLesson = () => {
                 />
               </div>
             </SearchCol>
-           
+
             <SearchCol sm={12}>
               <FilterButton onClick={() => setShowFilters(!showFilters)}>
                 Filtrele
@@ -183,7 +183,7 @@ const SearchGroupLesson = () => {
                 text="Ara"
                 search
                 width="100%"
-                maxWidth="150px"
+                maxWidth="200px"
                 onClick={() => linkChangeHandler(page)}
               />
             </SearchCol>
@@ -233,7 +233,7 @@ const SearchCol = styled(Col)`
 `;
 
 const SearchWrapper = styled.div`
-  width: 75%;
+  width: 100%;
 
   @media ${device.sm} {
     width: 100%;

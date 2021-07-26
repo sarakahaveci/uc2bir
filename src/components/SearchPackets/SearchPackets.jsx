@@ -7,7 +7,7 @@ import { useLocation, useHistory } from 'react-router-dom';
 import queryString from 'query-string';
 
 import PacketCard from 'components/UserCards/PacketCard';
-import { Button,Pagination, BackLink, Text } from 'components';
+import { Button, Pagination, BackLink, Text } from 'components';
 import { searchProffesional } from 'actions';
 import Filter from './SearchFilters';
 
@@ -24,7 +24,7 @@ const SearchProfessional = () => {
 
   const [ratings, setRatings] = useState([]);
   const [classification, setClassification] = useState('');
-  const [showFilters, setShowFilters] = useState(false); 
+  const [showFilters, setShowFilters] = useState(false);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -32,7 +32,7 @@ const SearchProfessional = () => {
   const searchParams = queryString.parse(useLocation().search);
 
   const { type } = searchParams || 'packets';
-  const { subType } = searchParams
+  const { subType } = searchParams;
 
   const userTypeText = 'Paket';
 
@@ -46,7 +46,7 @@ const SearchProfessional = () => {
       ratings = '[]',
       classification,
       type = 'packets',
-      subType = 'pt' //hata olabilir  //BURASINI DİNAMİK YAPPPPPPPPPP
+      subType = 'pt', //hata olabilir  //BURASINI DİNAMİK YAPPPPPPPPPP
     } = searchParams;
     // Parsing this because it is coming string from url such as '[0, 1000]'
     const parsedPrice = JSON.parse(price);
@@ -122,7 +122,7 @@ const SearchProfessional = () => {
         minHeight: '70vh',
       }}
     >
-      <Container className="mb-5 d-flex flex-column">
+      <Container className="mb-5 mt-3 d-flex flex-column">
         <BackLink path="/" text={`${userTypeText} Arayın`} />
 
         <Text mb="15px">
@@ -140,7 +140,7 @@ const SearchProfessional = () => {
               />
             </SearchCol>
 
-           {/* <SearchCol>
+            {/* <SearchCol>
               <div className="search-trainer__location-row">
                 <Svg.LocationIcon className="mr-1 mb-1" />
 
@@ -154,14 +154,17 @@ const SearchProfessional = () => {
            </SearchCol>*/}
             <SearchCol>
               <div className="search-trainer__location-row">
-                <select defaultValue={subType} onChange={(e)=>{
-                  
-                  history.push(`/packets?subType=${e.target.value}`
-                  )}} name="packet-type" id="packet-type">
+                <select
+                  defaultValue={subType}
+                  onChange={(e) => {
+                    history.push(`/packets?subType=${e.target.value}`);
+                  }}
+                  name="packet-type"
+                  id="packet-type"
+                >
                   <option value="pt">Eğitmen Paketleri</option>
                   <option value="dt">Diyetisyen Paketleri</option>
                 </select>
-        
               </div>
             </SearchCol>
             <SearchCol sm={12}>
@@ -193,7 +196,7 @@ const SearchProfessional = () => {
                 text="Ara"
                 search
                 width="100%"
-                maxWidth="150px"
+                maxWidth="200px"
                 onClick={() => linkChangeHandler(page)}
               />
             </SearchCol>
@@ -242,8 +245,7 @@ const SearchCol = styled(Col)`
 `;
 
 const SearchWrapper = styled.div`
-  width: 75%;
-
+  width: 100%;
   @media ${device.sm} {
     width: 100%;
 

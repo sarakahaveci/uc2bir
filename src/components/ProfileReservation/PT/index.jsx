@@ -50,7 +50,9 @@ const PT = () => {
   const { branches: branchList } = useSelector(
     (state) => state.userProfile.branch
   );
-  const gymList = useSelector((state) => state?.reservationCalendar?.data?.location?.gym);
+  const gymList = useSelector(
+    (state) => state?.reservationCalendar?.data?.location?.gym
+  );
   const homePlaces = useSelector(
     (state) => state?.reservationCalendar?.data?.location?.home_park
   );
@@ -59,7 +61,8 @@ const PT = () => {
       name: item.title,
       id: item.type,
     }));
-    if (false && reservation?.data?.isSelected) { //burası düzeltiflecek
+    if (false && reservation?.data?.isSelected) {
+      //burası düzeltiflecek
       //if
     } else {
       setSessionTypes(items);
@@ -72,16 +75,15 @@ const PT = () => {
   }, [userInfo]);
   useEffect(() => {
     if (!reservation?.data?.location_id) {
-      setGymListState(gymList)
+      setGymListState(gymList);
     }
-  }, [gymList])
+  }, [gymList]);
   useEffect(() => {
     if (!reservation?.data?.location_id) {
-      setHomeParkState(homePlaces)
+      setHomeParkState(homePlaces);
     }
-  }, [homePlaces])
+  }, [homePlaces]);
   useEffect(() => {
-
     /* if (reservation?.data?.isSelected && !reservation?.data?.session) {
       var result = reservationCalendar?.data?.slice
         ?.filter(
@@ -95,7 +97,6 @@ const PT = () => {
         }));
       setSessionTypes(result);
     }*/
-
   }, [reservationCalendar?.data?.slice]);
   useEffect(() => {
     // iF DATE OPTİON TRUE
@@ -116,7 +117,6 @@ const PT = () => {
 
   useEffect(() => {
     if (reservation?.data?.location_id) {
-
       dispatch(
         getPtReservationCalendar(
           userInfo.id,
@@ -304,7 +304,8 @@ const PT = () => {
                       </Accordion.Item>
                     </AccordionItemWrapper>
                   </Accordion>
-                  {reservation?.data?.location_id && (reservation?.data?.location_id === item.location_id) ? (
+                  {reservation?.data?.location_id &&
+                  reservation?.data?.location_id === item.location_id ? (
                     <RadioButtonCheckedIcon
                       style={{ marginLeft: '5px', cursor: 'pointer' }}
                     />
@@ -560,8 +561,7 @@ const PT = () => {
               </InputContainer>
               <InputContainer>
                 <Text color="#9B9B9B">{'Oturum Türü Seçiniz:'}</Text>
-                {
-                  sessionTypes && sessionTypes.length > 0 &&
+                {(sessionTypes && sessionTypes.length > 0 && (
                   <Material.SimpleSelect
                     items={sessionTypes}
                     name="sessionType"
@@ -575,9 +575,12 @@ const PT = () => {
                         })
                       )
                     }
-                  /> ||
-                  <text>Kullanıcının bu koşullara göre uygun Oturum Türü bulunamadı.</text>
-                }
+                  />
+                )) || (
+                  <text>
+                    Kullanıcının bu koşullara göre uygun Oturum Türü bulunamadı.
+                  </text>
+                )}
               </InputContainer>
 
               <WorkAreaSelect />
@@ -690,9 +693,9 @@ const AccordionItemWrapper = styled.div`
   .accordion-toggler {
     display: flex;
     background: ${(p) =>
-    p.parent
-      ? '#EFEFEF'
-      : p.accordionBackground
+      p.parent
+        ? '#EFEFEF'
+        : p.accordionBackground
         ? p.accordionBackground
         : '#F8F8F8'};
     justify-content: space-between;

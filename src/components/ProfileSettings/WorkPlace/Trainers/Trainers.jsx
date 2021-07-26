@@ -177,7 +177,7 @@ const Trainers = ({
                 text="Ara"
                 search
                 width="100%"
-                maxWidth="150px"
+                maxWidth="200px"
                 onClick={() => linkChangeHandler(page)}
               />
             </SearchCol>
@@ -289,7 +289,7 @@ const SearchCol = styled(Col)`
 `;
 
 const SearchWrapper = styled.div`
-  width: 75%;
+  width: 100%;
 
   @media ${device?.sm} {
     width: 100%;
