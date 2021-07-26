@@ -117,6 +117,7 @@ const Calendar = () => {
   }, []);
 
   const handleSelect = (date) => {
+    setActivePage('index')
     setStartDate(date);
   };
 
