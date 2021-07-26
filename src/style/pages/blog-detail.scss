@@ -43,6 +43,9 @@
     margin-bottom: 10px;
     display: flex;
     justify-content: center;
+    @media (max-width: 576px) {
+      width: 250px;
+    }
     button {
       margin-right: 10px;
       width: 32px;

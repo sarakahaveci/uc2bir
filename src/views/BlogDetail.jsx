@@ -29,18 +29,34 @@ const BlogDetail = ({ match }) => {
           <div className="blog-top__banner" />
         </section>
         <div className="blog-detail">
-
           <Container>
-
             {!detail.isLoading ? (
               <div className="blog-detail__wrapper">
                 <BlogWrapper>
-                  <div style={{ alignItems: 'center', position: 'absolute', left: '10px', marginLeft: '10px', marginTop: '10px' }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }} className="blog-detail__share-buttons">
-                      <span style={{ marginBottom: '10px' }}
-                        className="blog-detail__share-title">
+                  <div
+                    style={{
+                      alignItems: 'center',
+                      position: 'absolute',
+                      left: '10px',
+                      marginLeft: '10px',
+                      marginTop: '10px',
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}
+                      className="blog-detail__share-buttons"
+                    >
+                      <span
+                        style={{ marginBottom: '10px' }}
+                        className="blog-detail__share-title"
+                      >
                         Paylaş
-                          </span>
+                      </span>
                       <FacebookShareButton
                         style={{ marginBottom: '10px' }}
                         url={`${window?.location?.origin}/${match?.url}`}
@@ -53,7 +69,6 @@ const BlogDetail = ({ match }) => {
 
                       <TwitterShareButton
                         style={{ marginBottom: '10px' }}
-
                         url={`${window?.location?.origin}/${match?.url}`}
                         media={detail?.data?.blog?.photo}
                         windowWidth={1000}
@@ -63,7 +78,6 @@ const BlogDetail = ({ match }) => {
                       </TwitterShareButton>
                       <LinkedinShareButton
                         style={{ marginBottom: '10px' }}
-
                         url={`${window?.location?.origin}/${match?.url}`}
                         media={detail?.data?.blog?.photo}
                         windowWidth={1000}
@@ -73,14 +87,10 @@ const BlogDetail = ({ match }) => {
                       </LinkedinShareButton>
                     </div>
                   </div>
-
                   <Row>
-                    <Col className="blog-detail__content">
-                      <Title >
-                        {detail?.data?.blog?.title}
-                      </Title>
-                      <Seperator/>
-
+                    <Col>
+                      <Title>{detail?.data?.blog?.title}</Title>
+                      <Seperator />
                     </Col>
                   </Row>{' '}
                   <Desc className="blog-detail__text">
@@ -89,7 +99,6 @@ const BlogDetail = ({ match }) => {
                   <div className="blog-detail__img">
                     <img src={detail?.data?.blog?.photo} />
                   </div>
-
                 </BlogWrapper>
               </div>
             ) : (
@@ -120,11 +129,11 @@ const BlogWrapper = styled.div`
 
   @media (max-width: 1250px) {
     width: 900px;
-    padding: 80px;
+    padding: 100px;
   }
   @media (max-width: 769px) {
-    width: 600px;
-    padding: 50px;
+    width: 650px;
+    padding: 90px;
   }
   @media (max-width: 576px) {
     width: 300px;
@@ -132,17 +141,26 @@ const BlogWrapper = styled.div`
   }
 `;
 const Title = styled.p`
-  width:500px;
+  width: 500px;
   font-family: 'Poppins', sans-serif;
-  text-align:left;
-  font-size:60px;
-  font-weight:bold;
-  color:white;
+  text-align: left;
+  font-size: 60px;
+  font-weight: bold;
+  color: white;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: black;
-  &:first-line{
-    font-size:45px;
-    color:black;
+
+  @media (max-width: 769px) {
+    font-size: 30px;
+  }
+  @media (max-width: 576px) {
+    font-size: 20px;
+    margin-top: 200px;
+    align-self: center;
+  }
+
+  &:first-line {
+    color: black;
   }
 `;
 const Seperator = styled.div`
@@ -151,12 +169,11 @@ const Seperator = styled.div`
   border-color: var(--blue);
   border-width: 3px;
   margin-bottom: 15px;
-  margin-top:15px;
+  margin-top: 15px;
 `;
 const Desc = styled.p`
-  font-size:16px;
-  text-align:left;
-  font-weight:normal;
-  margin-top:30px;
-
-`
+  font-size: 16px;
+  text-align: left;
+  font-weight: normal;
+  margin-top: 30px;
+`;

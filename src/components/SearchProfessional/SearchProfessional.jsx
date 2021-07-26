@@ -349,7 +349,7 @@ const GymListWrapper = styled.div`
   grid-column-gap: 10px;
   grid-template-columns: 300px 300px 300px 300px;
   grid-row-gap: 20px;
-  padding: 10px;
+  padding: 30px;
   margin-top: 15px;
 
   @media (max-width: 1200px) {
