@@ -464,7 +464,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
       if (reservation?.data?.payment_type == 'wallet') {
 
         dispatch(sendReservation('dt', removeEmpty(json), () => {
-          
+
           history.push('/buy/success')
 
         }));
@@ -584,7 +584,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
       pt_id: reservation?.data?.selectedPt?.user_id,
       dt_id: reservationCalendar?.data?.dt?.id,
 
-      payment_type: reservation?.data?.payment_type =='credit_card' ? 'credit_card':'package', 
+      payment_type: reservation?.data?.payment_type == 'credit_card' ? 'credit_card' : 'package',
       is_contracts_accepted: true,
       session: reservation?.data?.session,
       location_id: reservation?.data?.location_id,
@@ -606,7 +606,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
       reservation?.data?.cvc
     ) {
       dispatch(
-        
+
         sendReservation(
           reservation?.data?.packetInfo?.type,
           removeEmpty(json),
@@ -618,7 +618,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
         )
       );
     } else {
-      if (reservation?.data?.payment_type == 'wallet' || reservation?.data?.payment_type =='no_money') {
+      if (reservation?.data?.payment_type == 'wallet' || reservation?.data?.payment_type == 'no_money') {
         alert('bumbesss')
 
         dispatch(
@@ -764,7 +764,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
           </DataContainer>
         </InfoContainer>
       )}
-      {type === 'dt' && (
+      {type === 'dt' && reservation?.data?.dt_price > -1 && (
         <InfoContainer>
           <DataContainer>
             <Info>
