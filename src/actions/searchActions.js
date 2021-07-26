@@ -11,7 +11,7 @@ export const getSearchResults = (keyword, successCallback) => async (
       method: 'GET',
       url,
       label: SEARCH_RESULTS,
-      transformData: (data) => data.data,
+      transformData: (data) => data,
       callBack: () => {
         successCallback();
       },

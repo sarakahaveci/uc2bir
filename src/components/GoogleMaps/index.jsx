@@ -55,102 +55,103 @@ export default function GoogleMapClusterer({ data, onSelected, isSaloonMap, disa
         <MarkerClusterer options={options}>
           {(clusterer) =>
             data?.length > 0 &&
-            data?.map((professional) => {
-              const lat = +professional?.address?.lat || professional?.lat;
-              const lng = +professional?.address?.lng || professional?.lng;
-              const addressDetail =
-                professional?.address?.address_detail ||
-                professional?.address_detail;
-              const id = professional?.id || professional?.user_id;
+            data?.map((prof) => {
+             return prof?.addresses?.map((adress) => {
+                const lat = +adress?.lat
+                const lng = +adress.lng
+                const addressDetail =
+                  adress?.address_detail
+                const id = prof?.id || prof?.user_id;
+   
+                return (
+                  <>
+                    {selectedMarker === adress?.id && (
+                      <InfoWindow
 
-              return (
-                <>
-                  {selectedMarker === id && (
-                    <InfoWindow
+                        position={{
+                          lat: +lat,
+                          lng: +lng,
+                        }}
+                      >
+                        <InfoContainer style={{ cursor: 'pointer' }} onClick={() => {
+                          history.push('/user/' + id)
+                        }}>
+                          <BoldText>{prof?.name || prof?.title}</BoldText>
+                          <DetailText>{addressDetail}</DetailText>
+                        </InfoContainer>
+                      </InfoWindow>
+                    )}
 
-                      position={{
-                        lat: +lat,
-                        lng: +lng,
-                      }}
-                    >
-                      <InfoContainer style={{ cursor: 'pointer' }} onClick={() => {
-                        history.push('/user/' + professional?.user_id || professional?.id)
-                      }}>
-                        <BoldText>{professional?.name || professional?.title}</BoldText>
-                        <DetailText>{addressDetail}</DetailText>
-                      </InfoContainer>
-                    </InfoWindow>
-                  )}
-
-                  {isSaloonMap ?
-                    <Marker
-                      onClick={() => showInfoWindow(id)}
-                      key={professional?.id}
-                      position={{
-                        lat: +lat,
-                        lng: +lng,
-                      }}
-                      clusterer={clusterer}
-                      icon={{
-                        url: SaloonSvg,
-                        origin: new window.google.maps.Point(0, 0),
-                        anchor: new window.google.maps.Point(35, 20),
-                        scaledSize: new window.google.maps.Size(70, 60),
-                        borderRadius: new window.google.maps.Point(45, 70),
-                      }}
-                    />
-                    :
-
-                    <Marker
-                      onClick={() => showInfoWindow(id)}
-                      key={professional?.id}
-                      position={{
-                        lat: +lat,
-                        lng: +lng,
-                      }}
-                      clusterer={clusterer}
-                      icon={{
-                        url: professional?.user_type == 'pt' ? TrainerSvg : professional?.user_type == 'dt' ? DietSvg : professional?.user_type == 'gym' ? SaloonSvg : null,
-                        origin: new window.google.maps.Point(0, 0),
-                        anchor: new window.google.maps.Point(35, 20),
-                        scaledSize: new window.google.maps.Size(70, 60),
-                      }}
-                    />
-                  }
-
-                  {/* <Marker
-                    onClick={() => showInfoWindow(id)}
-                    key={professional?.id}
-                    position={{
-                      lat: +lat,
-                      lng: +lng,
-                    }}
-                    clusterer={clusterer}
-                    icon={
-                      isSaloonMap
-                        ? {
+                    {isSaloonMap ?
+                      <Marker
+                        onClick={() => showInfoWindow(adress?.id)}
+                        key={prof?.id}
+                        position={{
+                          lat: +lat,
+                          lng: +lng,
+                        }}
+                        clusterer={clusterer}
+                        icon={{
                           url: SaloonSvg,
                           origin: new window.google.maps.Point(0, 0),
                           anchor: new window.google.maps.Point(35, 20),
                           scaledSize: new window.google.maps.Size(70, 60),
-                        }
-                        : professional?.photo
-                          ? {
-                            url: professional?.photo,
-                            origin: new window.google.maps.Point(0, 0),
-                            anchor: new window.google.maps.Point(35, 20),
-                            scaledSize: new window.google.maps.Size(70, 60),
-                          }
-                          : {
-                            url: MarkerSvg,
-                            origin: new window.google.maps.Point(0, 0),
-                            anchor: new window.google.maps.Point(35, 20),
-                            scaledSize: new window.google.maps.Size(70, 60),
-                          }
+                          borderRadius: new window.google.maps.Point(45, 70),
+                        }}
+                      />
+                      :
+
+                      <Marker
+                        onClick={() => showInfoWindow(adress?.id)}
+                        key={prof?.id}
+                        position={{
+                          lat: +lat,
+                          lng: +lng,
+                        }}
+                        clusterer={clusterer}
+                        icon={{
+                          url: prof?.type == 'pt' ? TrainerSvg : prof?.type == 'dt' ? DietSvg : prof?.type == 'gym' ? SaloonSvg : null,
+                          origin: new window.google.maps.Point(0, 0),
+                          anchor: new window.google.maps.Point(35, 20),
+                          scaledSize: new window.google.maps.Size(70, 60),
+                        }}
+                      />
                     }
-                  /> */}
-                </>
-              );
+
+                    {/* <Marker
+                      onClick={() => showInfoWindow(id)}
+                      key={professional?.id}
+                      position={{
+                        lat: +lat,
+                        lng: +lng,
+                      }}
+                      clusterer={clusterer}
+                      icon={
+                        isSaloonMap
+                          ? {
+                            url: SaloonSvg,
+                            origin: new window.google.maps.Point(0, 0),
+                            anchor: new window.google.maps.Point(35, 20),
+                            scaledSize: new window.google.maps.Size(70, 60),
+                          }
+                          : professional?.photo
+                            ? {
+                              url: professional?.photo,
+                              origin: new window.google.maps.Point(0, 0),
+                              anchor: new window.google.maps.Point(35, 20),
+                              scaledSize: new window.google.maps.Size(70, 60),
+                            }
+                            : {
+                              url: MarkerSvg,
+                              origin: new window.google.maps.Point(0, 0),
+                              anchor: new window.google.maps.Point(35, 20),
+                              scaledSize: new window.google.maps.Size(70, 60),
+                            }
+                      }
+                    /> */}
+                  </>
+                );
+              })
             })
           }
         </MarkerClusterer>

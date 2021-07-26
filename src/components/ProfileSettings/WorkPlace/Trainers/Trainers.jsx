@@ -245,7 +245,7 @@ const Trainers = ({
             </LevelContainer>
           </div>
         )}
-        {data.length > 0 ? (
+        {data?.length > 0 ? (
           <>
             <GymListWrapper>
               {data?.map((professional) => (

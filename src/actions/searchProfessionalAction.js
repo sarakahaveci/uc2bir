@@ -34,13 +34,13 @@ export const searchProffesional =
     successCallback = () => { }
   ) =>
     async (dispatch) => {
-      const gymUrl = '/user/search/detail-search-gym?';
+      const gymUrl = '/user/search?type=bs';
       const mapUrl = '/user/search?';
-      const dietitionUrl = '/user/search/detail-search-dt?';
-      const ptUrl = '/user/search/detail-search-pt?';
-      const packetUrl_pt = '/cms/package/list?';
-      const packetUrl_dt = '/user/package/list?';
-      const groupLessonUrl = '/user/search/group?';
+      const dietitionUrl = '/user/search?type=dt';
+      const ptUrl = '/user/search?type=pt';
+      const packetUrl_pt = '/user/search?type=package_pt';
+      const packetUrl_dt = '/user/search?type=package_dt';
+      const groupLessonUrl = '/user/search?type=group';
 
       let url;
       switch (type) {
@@ -70,7 +70,7 @@ export const searchProffesional =
           break;
       }
 
-      const urlWithTitle = type === 'pt' ? `&name=${title}` : `&title=${title}`;
+      const urlWithTitle = `&keyword=${title}`;
       const urlWithLocation = `&location_key=${location}`;
       const urlWithBranch = `&branch_id=${branch}`;
       const urlWithRating = `&rating=${ratings?.[0]}`;
@@ -78,7 +78,7 @@ export const searchProffesional =
       const urlWithMaxPrice = `&max_price=${maxPrice}`;
       const urlWithSortBy = `&sortBy=${sortBy}&sortKey=price`;
       const urlWithPage = `&page=${page}`;
-      const urlWithClassification = `&classification=${classification}`;
+      const urlWithClassification = `&classification=${classification?.toLowerCase()}`;
       const urlWithStartDate = `&startDate=${startDate}`;
       const urlWithEndDate = `&endDate=${endDate}`;
 
@@ -87,7 +87,7 @@ export const searchProffesional =
       const finalUrls = `${url}${location ? urlWithLocation : ''}${title ? urlWithTitle : ''
         }${ratings?.length > 0 ? urlWithRating : ''}${urlWithMinPrice}${maxPrice ? urlWithMaxPrice : ''
         }${sortBy ? urlWithSortBy : ''}${classification ? urlWithClassification : ''
-        }${page ? urlWithPage : ''}${startDate ? urlWithStartDate : ''}${endDate ? urlWithEndDate : ''}${branch ? urlWithBranch : ''}`.trim();
+        }${page ? urlWithPage : ''}${startDate ? urlWithStartDate : ''}${endDate ? urlWithEndDate : ''}${branch ? urlWithBranch : ''}&per_page=200`.trim();
 
       await dispatch({
         type: HTTP_REQUEST,
@@ -99,7 +99,7 @@ export const searchProffesional =
           callBack: () => successCallback(),
           transformData: (data) => {
             return {
-              data: data?.data,
+              data: data?.users?.data,
               user_type:type
             };
           },

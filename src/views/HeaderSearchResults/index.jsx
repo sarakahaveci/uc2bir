@@ -24,12 +24,13 @@ import { useHistory, useParams } from 'react-router-dom';
 const HeaderSearchResults = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.searchResults.data);
-  const pts = data?.pt;
-  const dts = data?.dt;
-  const gyms = data?.gym;
-  const ptPackages = data?.pt_package;
-  const dtPackages = data?.dt_package;
-  const blogs = data?.blog;
+  const pts = data?.users?.data?.filter(item=>item.type == 'pt');
+  const dts =  data?.users?.data?.filter(item=>item.type == 'dt');
+  const gyms =  data?.users?.data?.filter(item=>item.type == 'bs');
+  
+  const ptPackages = data?.packages?.data?.filter(item=>item.type == 'pt-package');
+  const dtPackages = data?.packages?.data?.filter(item=>item.type == 'dt-package');
+  const blogs = data?.blogs?.data;
   const history = useHistory();
   const { keyword } = useParams();
 
@@ -152,7 +153,7 @@ const HeaderSearchResults = () => {
           >
             Arama sonuçlarınız,
           </Text>
-          {data && <GoogleMapClusterer  data={data} />}
+          {data && <GoogleMapClusterer  data={data?.users?.data} />}
 
           <Accordion>{results}</Accordion>
         </Container>
