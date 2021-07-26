@@ -195,12 +195,12 @@ export const addGymFromPt = (id, successCallback) => async (
 };
 
 export const searchGymForPt = (title = false, page,location,branch) => async (dispatch) => {
-  let url = `/user/search/detail-search-gym`;
-  let extras = '?';
-  if (title) extras += `title=${title}&`;
-  if (page) extras += `page=${page}&`;
-  if (location) extras += `location_key=${location}&`;
-  if (branch) extras += `branch=${branch}&`;
+  let url = `/user/search?type=bs`;
+  let extras = '';
+  if (title) extras += `&keyword=${title}`;
+  if (page) extras += `&page=${page}`;
+  if (location) extras += `&location_key=${location}`;
+  if (branch) extras += `&branch=${branch}`;
 
   url += extras;
 
@@ -210,7 +210,7 @@ export const searchGymForPt = (title = false, page,location,branch) => async (di
       method: 'GET',
       url: url,
       label: SEARCH_GYM_FOR_PT,
-      transformData: (data) => data,
+      transformData: (data) => data?.users,
       errorHandler: (error) =>
         toast.error(error.message, { position: 'bottom-right', delay: 2500 }),
     },
