@@ -453,6 +453,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
       reservation?.data?.expiration_year &&
       reservation?.data?.cvc
     ) {
+
       dispatch(sendReservation('dt', removeEmpty(json), () => {
         if (json.payment_type == 'wallet') {
           history.push('/buy/success')
@@ -461,7 +462,9 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
     } else {
 
       if (reservation?.data?.payment_type == 'wallet') {
+
         dispatch(sendReservation('dt', removeEmpty(json), () => {
+          
           history.push('/buy/success')
 
         }));
@@ -579,6 +582,8 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
     var json = {
       package_uuid: reservation?.data?.package_uuid,
       pt_id: reservation?.data?.selectedPt?.user_id,
+      dt_id: reservationCalendar?.data?.dt?.id,
+
       payment_type: reservation?.data?.payment_type =='credit_card' ? 'credit_card':'package', 
       is_contracts_accepted: true,
       session: reservation?.data?.session,
@@ -601,6 +606,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
       reservation?.data?.cvc
     ) {
       dispatch(
+        
         sendReservation(
           reservation?.data?.packetInfo?.type,
           removeEmpty(json),
@@ -613,6 +619,8 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
       );
     } else {
       if (reservation?.data?.payment_type == 'wallet' || reservation?.data?.payment_type =='no_money') {
+        alert('bumbesss')
+
         dispatch(
           sendReservation(
             reservation?.data?.packetInfo?.type,
@@ -672,7 +680,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
               <Hours>
                 {(reservation?.data?.date &&
                   reservationCalendar?.data?.slice?.length > 0 &&
-                  reservationCalendar?.data?.slice?.map((item, indx) => (
+                  reservationCalendar?.data?.slice?.filter(item => item.date == reservation?.data?.date)?.map((item, indx) => (
                     <Hour
                       onClick={() => {
                         handleHourClick(item);

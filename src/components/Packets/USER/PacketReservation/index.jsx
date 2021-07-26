@@ -82,7 +82,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
     }
   }, [homePlaces]);
   useEffect(() => {
-    if (!reservation?.data?.location_id) {
+    if (!reservation?.data?.location_id && clinics !== undefined) {
       setClinicState(clinics);
     }
   }, [clinics]);
@@ -301,7 +301,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
                       }
                     />
                     <RadioWrapper>
-                      {reservation?.data?.location_id === item.id ? (
+                      {reservation?.data?.location_id && (reservation?.data?.location_id === item.location_id) ? (
                         <RadioButtonCheckedIcon
                           style={{ marginLeft: '5px', cursor: 'pointer' }}
                         />
@@ -310,8 +310,8 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
                           onClick={() => {
                             dispatch(
                               setReservation({
-                                location_id: item.id,
-                                gym_price: item.price,
+                                location_id: item.location_id,
+                                clinic_price: item.price,
                               })
                             );
                           }}

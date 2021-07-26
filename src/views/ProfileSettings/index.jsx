@@ -32,6 +32,7 @@ import GroupSlot from 'components/ProfileSettings/Reservations/GroupSlot/GroupSl
 import Reservations from 'components/ProfileSettings/Reservations';
 import ProfileDetail from 'components/ProfileSettings/ProfileDetail/ProfileDetail';
 import Services from 'components/ProfileSettings/Services';
+import Blocked from 'components/ProfileSettings/Blocked';
 
 const regularUserTabs = [
   {
@@ -73,6 +74,12 @@ const regularUserTabs = [
   {
     eventKey: 'cancel',
     component: <CancellationReason />,
+  },
+  {
+    eventKey: 'blocked',
+    title: 'Engellenenler',
+    component: <Blocked />,
+    hidden:true
   },
 ];
 
@@ -130,6 +137,11 @@ const workPlaceTabs = [
     eventKey: 'gallery',
     title: 'Galeri',
     component: <MasonaryGallery />,
+  },
+  {
+    eventKey: 'blocked',
+    title: 'Engellenenler',
+    component: <Blocked />,
   },
 ];
 
@@ -197,6 +209,11 @@ const dietitianTabs = [
     title: 'Blog',
     component: <Blog />,
   },
+  {
+    eventKey: 'blocked',
+    title: 'Engellenenler',
+    component: <Blocked />,
+  },
 ];
 
 const trainerTabs = [
@@ -258,6 +275,11 @@ const trainerTabs = [
     eventKey: 'blog',
     title: 'Blog',
     component: <Blog />,
+  },
+  {
+    eventKey: 'blocked',
+    title: 'Engellenenler',
+    component: <Blocked />,
   },
 ];
 

@@ -16,7 +16,7 @@ export default function ProfileTab({ tabData, defaultActiveKey, baseUrl }) {
       onSelect={(key) => history.push(`${baseUrl}${key}`)}
     >
       {tabData?.map((tab) => (
-        <Tab  eventKey={tab?.eventKey}  title={tab?.title} key={tab?.eventKey}>
+        <Tab eventKey={tab?.eventKey} title={tab?.hidden ? null : tab?.title} key={tab?.eventKey}>
           {tab?.component}
         </Tab>
       ))}
