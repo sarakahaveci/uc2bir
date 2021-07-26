@@ -160,8 +160,8 @@ const SearchProfessional = () => {
   };
 
   return (
-    <div className="mb-5 p-3">
-      <Container className="mb-5 d-flex flex-column">
+    <div style={{margin:'40px 0'}} className="mb-5 p-3">
+      <Container  className="mb-5 d-flex flex-column">
         <BackLink path="/" text={`${userTypeText} Arayın`} />
 
         <Text mb="15px">

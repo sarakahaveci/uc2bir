@@ -120,6 +120,7 @@ const SearchProfessional = () => {
     <div
       style={{
         minHeight: '70vh',
+        margin:'40px 0'
       }}
     >
       <Container className="mb-5 d-flex flex-column">
