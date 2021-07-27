@@ -149,7 +149,7 @@ const ApproveCard = ({
             <Seperator></Seperator>
           </>
         )}
-        <FlexSpace onClick={()=>{history.push('/user/'+user_id)}} style={{cursor:'pointer'}} position={'END'}>
+        <FlexSpace onClick={()=>{user_id && history.push('/user/'+user_id)}} style={{cursor:user_id ? 'pointer':'initial'}} position={'END'}>
           <Dot />
           <BoldText>{customerName}</BoldText>
         </FlexSpace>
