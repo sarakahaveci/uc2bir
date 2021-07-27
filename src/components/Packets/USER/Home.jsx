@@ -6,16 +6,16 @@ import { useSelector } from 'react-redux';
 import { clearReservation, setReservation, getUserMyPacket } from 'actions';
 import { useDispatch } from 'react-redux';
 import UserPacketCard from '../UserPacketCard';
-import { Pagination } from 'components'
-const Home = ({ setPage = () => { }, setGlobalState = () => { } }) => {
+import { Pagination } from 'components';
+const Home = ({ setPage = () => {}, setGlobalState = () => {} }) => {
   const dispatch = useDispatch();
   const myPackets = useSelector((state) => state.myPackets.user?.data);
   const [listPage, setListPage] = useState(1);
 
   useEffect(() => {
     dispatch(getUserMyPacket(listPage));
-  }, [listPage])
-  useEffect(() => { }, [myPackets]);
+  }, [listPage]);
+  useEffect(() => {}, [myPackets]);
   return (
     <>
       <Col style={{ padding: 0 }} lg="4">
@@ -43,24 +43,24 @@ const Home = ({ setPage = () => { }, setGlobalState = () => { } }) => {
               }}
             />
           </CardContainer>
-
         ))}
       </Col>
-      {!(myPackets?.data?.data?.length > 0) &&
-        <div style={{padding: '10px',height:'120px'}}>
+      {!(myPackets?.data?.data?.length > 0) && (
+        <div style={{ padding: '10px', height: '120px' }}>
           <text>Satın aldığınız her hangi bir paket bulunmamaktadır</text>
         </div>
-      }
-      <Pagination
-        className="mx-auto"
-        mt="50px"
-        count={myPackets?.data?.totalPage}
-        page={listPage}
-        onChange={(e, value) => {
-          setListPage(value)
-        }}
-      />
-
+      )}
+      {myPackets?.data?.data?.length > 0 && (
+        <Pagination
+          className="mx-auto"
+          mt="50px"
+          count={myPackets?.data?.totalPage}
+          page={listPage}
+          onChange={(e, value) => {
+            setListPage(value);
+          }}
+        />
+      )}
     </>
   );
 };

@@ -14,8 +14,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { DialogActions } from '@material-ui/core';
 import { getWalletTransactions } from 'actions/userProfileActions/walletActions';
-import { USER } from '../../constants'
-const Activities = ({setPage}) => {
+import { USER } from '../../constants';
+const Activities = ({ setPage }) => {
   const transactionsData = useSelector(
     (state) => state?.userProfile?.wallet.transactionsData.data
   );
@@ -49,17 +49,17 @@ const Activities = ({setPage}) => {
             <ImageBanner src={image} />
           </Col>
           <Col lg="7">
-
-            {user?.type_id == USER &&
-
+            {(user?.type_id == USER && (
               <Title
                 style={{ cursor: 'pointer' }}
                 fontSize="12pt"
                 textAlign="left"
-              // onClick={() => setPage('home')} ŞİMDİLİK KAPATILDI
+                // onClick={() => setPage('home')} ŞİMDİLİK KAPATILDI
               >
                 {`Hesap Hareketlerim`}
-              </Title> || <Title
+              </Title>
+            )) || (
+              <Title
                 style={{ cursor: 'pointer' }}
                 fontSize="12pt"
                 textAlign="left"
@@ -67,7 +67,7 @@ const Activities = ({setPage}) => {
               >
                 {`< Hesap Hareketlerim`}
               </Title>
-            }
+            )}
             <>
               <Text fontSize="10pt">
                 Bütün hesap hareketlerinizi bu alanda görüntüleyebilirsiniz.
@@ -86,7 +86,7 @@ const Activities = ({setPage}) => {
                         label="Ödeme Şekli"
                         items={[
                           { id: 'all', name: 'Hepsi' },
-                          { id: 'wallet', name: 'Cüzdan' },
+                          // { id: 'wallet', name: 'Cüzdan' },
                           { id: 'card', name: 'Kredi Kartı' },
                           { id: 'package', name: 'Paket' },
                         ]}
