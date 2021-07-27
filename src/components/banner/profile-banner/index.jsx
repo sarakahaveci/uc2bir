@@ -146,7 +146,6 @@ const ProfileBanner = ({
                         <Comment
                           to={'/myprofile/settings/message'}
                           onClick={() => {
-                            console.log(info)
                             dispatch(setNewMessageRoom(info))
                           }}
                         >
