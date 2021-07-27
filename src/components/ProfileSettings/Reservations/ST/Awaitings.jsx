@@ -55,7 +55,6 @@ const Awaitings = ({ setAwaitingCount }) => {
     } else {
       setIsSmallScreen(false);
     }
-    setSelectedDate(new Date());
     dispatch(getUserAwaitings());
   }, []);
   useEffect(() => {
