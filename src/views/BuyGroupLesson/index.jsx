@@ -11,7 +11,7 @@ import { getGroupLessonDetail, setGroupLessonReservation } from 'actions';
 import { getWallet } from 'actions/userProfileActions/walletActions';
 import { device } from 'utils';
 import { useHistory } from 'react-router-dom';
-import { USER } from '../../constants/userTypes'
+import { USER } from '../../constants/userTypes';
 
 const BuyGroupLesson = ({ match }) => {
   const dispatch = useDispatch();
@@ -24,17 +24,15 @@ const BuyGroupLesson = ({ match }) => {
   useEffect(() => {
     dispatch(getWallet());
     dispatch(getGroupLessonDetail(match?.params?.id));
-
   }, []);
   useEffect(() => {
     dispatch(
       setGroupLessonReservation({
         totals_amount: group?.data?.slot?.price,
-        id: match?.params?.id
+        id: match?.params?.id,
       })
     );
   }, [group?.data]);
-
 
   function _renderLeftArea() {
     switch (group?.reservation?.payment_type) {
@@ -155,12 +153,13 @@ const BuyGroupLesson = ({ match }) => {
                     </text>
                     <Svg.UsersGym></Svg.UsersGym>
                     <text style={{ margin: '0 5px' }}>
-                      {group?.data?.slot?.min_capacity} / {group?.data?.slot?.max_capacity} Kişilik
-                  </text>
+                      {group?.data?.slot?.min_capacity} /{' '}
+                      {group?.data?.slot?.max_capacity} Kişilik
+                    </text>
 
                     <text style={{ margin: '0 5px' }}>
                       {group?.data?.pt?.classification} Sınıf Eğitmen
-                  </text>
+                    </text>
                   </SubInfo>
                 </PtInfoContainer>
               </PtCardContainer>
@@ -169,23 +168,50 @@ const BuyGroupLesson = ({ match }) => {
                 <BigSeperator />
                 {
                   {
-                    "gym": <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
-                      <Svg.SessionType.Gym style={{ marginRight: '10px' }} /> Spor Alanı
-                  </div>,
-                    "home_park": <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
-                      <Svg.SessionType.Park style={{ marginRight: '10px' }} /> Ev / Park
-                </div>,
-                    "online": <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
-                      <Svg.SessionType.Online style={{ marginRight: '10px' }} /> Online
-              </div>
+                    gym: (
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          marginBottom: '20px',
+                        }}
+                      >
+                        <Svg.SessionType.Gym style={{ marginRight: '10px' }} />{' '}
+                        Spor Alanı
+                      </div>
+                    ),
+                    home_park: (
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          marginBottom: '20px',
+                        }}
+                      >
+                        <Svg.SessionType.Park style={{ marginRight: '10px' }} />{' '}
+                        Ev / Park
+                      </div>
+                    ),
+                    online: (
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          marginBottom: '20px',
+                        }}
+                      >
+                        <Svg.SessionType.Online
+                          style={{ marginRight: '10px' }}
+                        />{' '}
+                        Online
+                      </div>
+                    ),
                   }[group?.data?.slot?.session]
                 }
                 <LabelText>İçerik</LabelText>
                 <Seperator />
 
-                <DescText>
-                  {group?.data?.slot?.detail}
-                </DescText>
+                <DescText>{group?.data?.slot?.detail}</DescText>
               </InfoContainer>
             </SideContainer>
           </>
@@ -218,37 +244,60 @@ const BuyGroupLesson = ({ match }) => {
         {_renderLeftArea()}
         <SideContainer>
           <TrainerGroupContainer>
-            <div style={{ padding: '8px', display: 'flex', flexDirection: 'column' }}>
-              <text style={{ fontSize: 19 }}>{group?.data?.bs?.title + " >"}</text>
+            <div
+              style={{
+                padding: '8px',
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+            >
+              <text style={{ fontSize: 19 }}>
+                {group?.data?.bs?.title
+                  ? group?.data?.bs?.title + ' >'
+                  : 'Ev / Park'}
+              </text>
               <Seperator />
             </div>
             <MapWrapper>
-              {
-                group?.data?.bs?.lat && group?.data?.bs?.lng && <GoogleMap
+              {group?.data?.bs?.lat && group?.data?.bs?.lng && (
+                <GoogleMap
                   locationFromUser={{
                     lat: group?.data?.bs?.lat,
                     lng: group?.data?.bs?.lng,
                   }}
                   disabled
                 />
-              }
+              )}
             </MapWrapper>
             <ResDetailContainer>
               <text>Grup Ders Tarih ve Saati</text>
               <Line />
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 Ders
-                    <div style={{ height: '18px', width: '1px', backgroundColor: 'rgba(0,0,0,0.17)', margin: '5px' }}></div>
+                <div
+                  style={{
+                    height: '18px',
+                    width: '1px',
+                    backgroundColor: 'rgba(0,0,0,0.17)',
+                    margin: '5px',
+                  }}
+                ></div>
                 <Svg.Date style={{ marginRight: '5px' }} />
-                <text style={{ marginRight: '10px' }}>{group?.data?.slot?.date}</text>
-                <text style={{ marginRight: '5px', color: '#00b2a9' }}>Saat</text>
-                <text style={{ color: '#00b2a9' }} >{group?.data?.slot?.hour}</text>
-
+                <text style={{ marginRight: '10px' }}>
+                  {group?.data?.slot?.date}
+                </text>
+                <text style={{ marginRight: '5px', color: '#00b2a9' }}>
+                  Saat
+                </text>
+                <text style={{ color: '#00b2a9' }}>
+                  {group?.data?.slot?.hour}
+                </text>
               </div>
             </ResDetailContainer>
           </TrainerGroupContainer>
-          {userTypeId === USER && <PaymentCard type="buy_group_lesson"></PaymentCard>
-          }
+          {userTypeId === USER && (
+            <PaymentCard type="buy_group_lesson"></PaymentCard>
+          )}
         </SideContainer>
       </Container>
     </Main>
@@ -263,17 +312,16 @@ const Container = styled.div`
 `;
 const SideContainer = styled.div`
   margin-top: 30px;
-  display:flex;
-  flex-direction:column;
+  display: flex;
+  flex-direction: column;
   width: 48%;
 `;
 const PtCardContainer = styled.div`
-  display:flex;
-  width:100%;
-  z-index:4;
+  display: flex;
+  width: 100%;
+  z-index: 4;
   padding: 20px 0;
-
-`
+`;
 
 const InfoContainer = styled.div`
   position: relative;
@@ -290,12 +338,11 @@ const PtInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   background: white;
-
 `;
 
 const HeaderText = styled.text`
   font-size: 18px;
-  color:var(--blue);
+  color: var(--blue);
   font-weight: bold;
 `;
 
@@ -323,16 +370,15 @@ const TrainerGroupContainer = styled.div`
 `;
 const ResDetailContainer = styled.div`
   width: 100%;
-  display:flex;
-  flex-direction:column;
+  display: flex;
+  flex-direction: column;
   background: white;
   min-height: 100px;
   border-radius: 20px;
   padding: 20px;
-  margin-top:5px;
-  justify-content:center;
+  margin-top: 5px;
+  justify-content: center;
 `;
-
 
 const Line = styled.div`
   flex-grow: 1;
@@ -341,13 +387,12 @@ const Line = styled.div`
   margin: 7px;
 `;
 
-
 const PtIcon = styled.img`
   width: 100px;
   height: 100px;
   border-radius: 100px;
   object-fit: cover;
-  margin-right:10px;
+  margin-right: 10px;
 `;
 
 const BigSeperator = styled(Seperator)`
@@ -419,4 +464,3 @@ const MapWrapper = styled.div`
 `;
 
 export default BuyGroupLesson;
-
