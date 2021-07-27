@@ -32,7 +32,6 @@ const SearchGroupLesson = () => {
 
   const searchParams = queryString.parse(useLocation().search);
 
-  const { type } = searchParams || 'group-lessons';
   const { subType } = searchParams;
 
   const userTypeText = 'Grup Ders';

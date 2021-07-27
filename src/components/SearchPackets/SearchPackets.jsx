@@ -31,7 +31,6 @@ const SearchProfessional = () => {
 
   const searchParams = queryString.parse(useLocation().search);
 
-  const { type } = searchParams || 'packets';
   const { subType } = searchParams;
 
   const userTypeText = 'Paket';
