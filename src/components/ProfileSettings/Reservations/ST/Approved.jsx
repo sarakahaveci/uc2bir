@@ -83,6 +83,8 @@ const Approved = ({ setSubPage = () => { } }) => {
               <ApproveCard
                 date={elm.hour}
                 customerName={elm?.pt?.name}
+                user_id={elm?.pt?.id}
+
                 optionalField_1={elm?.branch}
                 type="approve"
                 onApprove={() => {
@@ -105,6 +107,8 @@ const Approved = ({ setSubPage = () => { } }) => {
                 optionalField_1={elm?.branch}
                 date={elm.hour}
                 customerName={elm?.pt?.name}
+                user_id={elm?.pt?.id}
+
                 type="approve"
                 onApprove={() => {
                   openReservationDetail(elm?.id);
@@ -126,6 +130,8 @@ const Approved = ({ setSubPage = () => { } }) => {
                 optionalField_1={elm?.branch}
                 date={elm.hour}
                 customerName={elm?.pt?.name || elm?.dt?.name}
+                user_id={elm?.pt?.id || elm?.dt?.id}
+
                 type="approve"
                 onApprove={() => {
                   openReservationDetail(elm?.id, true);
@@ -146,6 +152,8 @@ const Approved = ({ setSubPage = () => { } }) => {
               <ApproveCard
                 date={elm.hour}
                 customerName={elm?.dt?.name}
+                user_id={elm?.dt?.id}
+
                 type="approve"
                 onApprove={() => {
                   openReservationDetail(elm?.id);

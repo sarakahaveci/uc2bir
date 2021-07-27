@@ -65,6 +65,8 @@ const SessionHistory = () => {
             <ApproveCard
                         date={elm?.hour}
                         customerName={elm?.address_title}
+                        user_id={elm?.bs?.id}
+
                         has_comment={elm?.pt?.has_comment}
 
                         type="history"
@@ -92,6 +94,8 @@ const SessionHistory = () => {
             <ApproveCard
                       date={elm?.hour}
                       customerName={elm?.pt?.name}
+                      user_id={elm?.pt?.id}
+
                       type="history"
                       rateText="Puanla"
                       has_comment={elm?.pt?.has_comment}
@@ -118,6 +122,8 @@ const SessionHistory = () => {
             <ApproveCard
                         date={elm?.hour}
                         customerName={elm?.pt?.name || elm?.dt?.name}
+                        user_id={elm?.pt?.id || elm?.dt?.id}
+
                         type="history"
                         rateText="Puanla"
                         has_comment={elm?.dt?.has_comment}
@@ -143,6 +149,8 @@ const SessionHistory = () => {
             <ApproveCard
                       date={elm?.hour}
                       customerName={elm?.dt?.name}
+                      user_id={elm?.dt?.id}
+
                       type="history"
                       rateText="Diyetisyeni Puanla"
                       has_comment={elm?.dt?.has_comment}
