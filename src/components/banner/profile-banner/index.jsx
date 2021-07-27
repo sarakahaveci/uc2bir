@@ -12,6 +12,7 @@ import {
   removeFavoriteUser,
   setReservation,
   setNewMessageRoom,
+  blockUser
 } from '../../../actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { USER } from '../../../constants';
@@ -52,8 +53,10 @@ const ProfileBanner = ({
         open={openApprove}
         approve={() => {
           setOpenApprove(false);
+          dispatch(blockUser(info?.id))
         }}
         cancel={() => {
+
           setOpenApprove(false);
         }}
       />

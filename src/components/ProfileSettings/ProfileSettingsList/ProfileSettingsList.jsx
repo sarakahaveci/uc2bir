@@ -59,6 +59,11 @@ const trainerAndDietitanData = [
     body: <Address />,
   },
   {
+    settingsName: 'Engellenen Kullanıcılar ',
+    route: "/myprofile/settings/blocked"
+
+  },
+  {
     settingsName: 'Şirket Bilgileri',
     body: <CompanyInf />,
   },
@@ -125,6 +130,11 @@ const workPlaceData = [
     settingsName: 'İş Yeri Belgeler',
     body: <Files />,
     pulse: true,
+  },
+  {
+    settingsName: 'Engellenen Kullanıcılar ',
+    route: "/myprofile/settings/blocked"
+
   },
   {
     settingsName: 'İş Yeri Adres',

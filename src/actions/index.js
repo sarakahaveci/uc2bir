@@ -13,6 +13,7 @@ export * from './reservationActions';
 export * from './reservationCalendarActions';
 export * from './staticPagesActions';
 export * from './reservationsActions';
+export * from './blockUserActions';
 export * from './buyPacketActions';
 export * from './paymentActions';
 export * from './onlineActions';

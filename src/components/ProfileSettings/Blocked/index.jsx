@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import styled from 'styled-components/macro';
 import { Link } from 'react-router-dom'
-import { dtGetServices } from 'actions';
+import { getBlockedUsers,unblockUser } from 'actions';
 import { Pagination, Svg } from 'components';
 import Card from './Card';
 import { BlockUserModal } from 'components'
@@ -15,10 +15,10 @@ export default function Services() {
   const { services } = useSelector((state) => state.profileSettings2.services);
   const [page, setPage] = useState(1);
   const [selectedUser, setSelectedUser] = useState(undefined);
+  const blockeds = useSelector((state) => state.blockUserReducer?.blockeds);
 
-  useEffect(() => { }, []);
   useEffect(() => {
-    dispatch(dtGetServices(page));
+    dispatch(getBlockedUsers());
   }, [page]);
 
   function pageChangeHandler(event, value) {
@@ -31,6 +31,9 @@ export default function Services() {
         isBlocked={true}
         open={selectedUser}
         approve={() => {
+          dispatch(unblockUser(selectedUser))
+          dispatch(getBlockedUsers());
+
           setSelectedUser(undefined);
         }}
         cancel={() => {
@@ -44,14 +47,10 @@ export default function Services() {
         </Header>
       </Link>
       <CardContainer>
-        <Card onClickButton={()=>{setSelectedUser('1')}} image={null} name={'TESTNAME'} data={null} desc="Öğrenci" />
-        <Card onClickButton={()=>{setSelectedUser('1')}}  image={null} name={'TESTNAME'} data={null} desc="Öğrenci" />
-        <Card onClickButton={()=>{setSelectedUser('1')}}  image={null} name={'TESTNAME'} data={null} desc="Öğrenci" />
-        <Card onClickButton={()=>{setSelectedUser('1')}}  image={null} name={'TESTNAME'} data={null} desc="Öğrenci" />
-        <Card onClickButton={()=>{setSelectedUser('1')}}  image={null} name={'TESTNAME'} data={null} desc="Öğrenci" />
-        <Card onClickButton={()=>{setSelectedUser('1')}}  image={null} name={'TESTNAME'} data={null} desc="Öğrenci" />
-        <Card onClickButton={()=>{setSelectedUser('1')}}  image={null} name={'TESTNAME'} data={null} desc="Öğrenci" />
+        {blockeds?.length > 0 && blockeds?.map((elm,ind) => (
+          <Card key={ind} onClickButton={() => { setSelectedUser(elm?.id) }} image={elm?.photo} name={elm?.name} data={elm} desc={elm?.type =='pt'? 'Eğitmen':elm?.type =='dt'?'Diyetisyen':elm?.type == 'st' ? 'Bireysel Üye': elm?.type =='gym' ? 'Spor Alanı':null} />
 
+        )) || <div style={{padding:'40px'}}>Engellendiğin kullanıcı bulunmamaktadır.</div>}
       </CardContainer>
       <Pagination
         mt="50px"

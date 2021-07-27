@@ -11,6 +11,8 @@ import forgotPassword from '../reducers/forgotPaswword';
 import resetPassword from '../reducers/resetPassword';
 import quizGet from '../reducers/quizGetReducer';
 import profileSettings from '../reducers/profileSettingsReducer';
+import blockUserReducer from '../reducers/blockUserReducer';
+
 import online from '../reducers/onlineReducer';
 // TODO: profileSettings değiştirildiğinde bu da düzeltilebilir.
 import profileSettings2 from '../reducers/profileSettingsReducer/index';
@@ -65,7 +67,8 @@ const reducers = combineReducers({
   transferRefund,
   searchResults,
   systemComments,
-  buyGroupLesson
+  buyGroupLesson,
+  blockUserReducer
 });
 
 export default reducers;
