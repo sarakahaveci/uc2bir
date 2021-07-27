@@ -19,7 +19,7 @@ const SessionHistory = () => {
   const items = useSelector(
     (state) => state.professionalReservation?.userReservation?.session_historys
   );
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState();
   const startOfWeeksArr = () => {
     if (items?.date) {
       return Object.keys(items?.date).map(
@@ -35,7 +35,6 @@ const SessionHistory = () => {
     } else {
       setIsSmallScreen(false);
     }
-    setSelectedDate(new Date());
     dispatch(getUserSessionHistorys());
   }, []);
   useEffect(() => {
@@ -46,27 +45,24 @@ const SessionHistory = () => {
   function getSelectedDate() {
     dispatch(getUserSessionHistorys(moment(selectedDate).format('DD.MM.YYYY')));
   }
-  return (
-    <StyledContainer>
-      <StyledRow>
-        <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
-          <AccordionContainer>
-            <ReservationAccordion
-              defaultOpen={true}
-              parent
-              title={moment(selectedDate).format('DD.MM.YYYY')}
-            >
-              <ReservationAccordion
-                miniIcon={<Svg.SessionType.Gym />}
-                title="SPOR ALANI"
-                defaultOpen
-              >
-                {items?.appointment?.[
-                  moment(selectedDate).format('DD.MM.YYYY')
-                ]?.gym?.map((elm, i) => {
-                   return (
-                    <ApproveCardContainer key={i}>
-                      <ApproveCard
+  function _renderTab(date) {
+    if (items?.appointment?.[
+      moment(date).format('DD.MM.YYYY')
+    ]) {
+    return (
+      <ReservationAccordion
+        defaultOpen={true}
+        parent
+        title={moment(date).format('DD.MM.YYYY')}
+      >
+
+        {items?.appointment?.[
+          moment(date).format('DD.MM.YYYY')
+        ]?.gym?.map((elm, i) => (
+          <ApproveCardContainer key={i}>
+            <Svg.SessionType.Gym style={{ marginRight: '10px' }} />
+
+            <ApproveCard
                         date={elm?.hour}
                         customerName={elm?.address_title}
                         has_comment={elm?.pt?.has_comment}
@@ -82,20 +78,18 @@ const SessionHistory = () => {
                           setOpenRateModal(true);
                         }}
                       />
-                    </ApproveCardContainer>
-                  )
-                }) || <text>Bu tarihe ilişkin veri bulunamadı</text>}
-              </ReservationAccordion>
-              <ReservationAccordion
-                miniIcon={<Svg.SessionType.Park />}
-                title="EV / PARK"
-                defaultOpen
-              >
-                {items?.appointment?.[
-                  moment(selectedDate).format('DD.MM.YYYY')
-                ]?.home_park?.map((elm, i) => (
-                  <ApproveCardContainer key={i}>
-                    <ApproveCard
+          </ApproveCardContainer>
+        )) || <></>}
+
+
+        {items?.appointment?.[
+          moment(date).format('DD.MM.YYYY')
+        ]?.home_park?.map((elm, i) => (
+
+          <ApproveCardContainer key={i}>
+            <Svg.SessionType.Park style={{ marginRight: '10px' }} />
+
+            <ApproveCard
                       date={elm?.hour}
                       customerName={elm?.pt?.name}
                       type="history"
@@ -111,20 +105,17 @@ const SessionHistory = () => {
                         setOpenRateModal(true);
                       }}
                     />
-                  </ApproveCardContainer>
-                )) || <text>Bu tarihe ilişkin veri bulunamadı</text>}
-              </ReservationAccordion>
-              <ReservationAccordion
-                miniIcon={<Svg.SessionType.Online />}
-                title="ONLİNE"
-                defaultOpen
-              >
-                {items?.appointment?.[
-                  moment(selectedDate).format('DD.MM.YYYY')
-                ]?.online?.map((elm, i) => {
-                   return (
-                    <ApproveCardContainer key={i}>
-                      <ApproveCard
+          </ApproveCardContainer>
+        )) || <></>}
+
+
+        {items?.appointment?.[
+          moment(date).format('DD.MM.YYYY')
+        ]?.online?.map((elm, i) => (
+          <ApproveCardContainer key={i}>
+            <Svg.SessionType.Online style={{ marginRight: '10px' }} />
+
+            <ApproveCard
                         date={elm?.hour}
                         customerName={elm?.pt?.name || elm?.dt?.name}
                         type="history"
@@ -140,20 +131,16 @@ const SessionHistory = () => {
                           setOpenRateModal(true);
                         }}
                       />
-                    </ApproveCardContainer>
-                  )
-                }) || <text>Bu tarihe ilişkin veri bulunamadı</text>}
-              </ReservationAccordion>
-              <ReservationAccordion
-                miniIcon={<Svg.SessionType.Clinic />}
-                title="KLİNİK"
-                defaultOpen
-              >
-                {items?.appointment?.[
-                  moment(selectedDate).format('DD.MM.YYYY')
-                ]?.clinic?.map((elm, i) => (
-                  <ApproveCardContainer key={i}>
-                    <ApproveCard
+          </ApproveCardContainer>
+        )) || <></>}
+
+        {items?.appointment?.[
+          moment(date).format('DD.MM.YYYY')
+        ]?.clinic?.map((elm, i) => (
+          <ApproveCardContainer key={i}>
+            <Svg.SessionType.Clinic style={{ marginRight: '10px' }} />
+
+            <ApproveCard
                       date={elm?.hour}
                       customerName={elm?.dt?.name}
                       type="history"
@@ -166,10 +153,25 @@ const SessionHistory = () => {
                         setOpenRateModal(true);
                       }}
                     />
-                  </ApproveCardContainer>
-                )) || <text>Bu tarihe ilişkin veri bulunamadı</text>}
-              </ReservationAccordion>
-            </ReservationAccordion>
+          </ApproveCardContainer>
+        )) || <></>}
+      </ReservationAccordion>
+    )}else{
+      return(<></>)
+    }
+  }
+  return (
+    <StyledContainer>
+      <StyledRow>
+        <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
+          <AccordionContainer>
+          {
+              startOfWeeksArr().map((date) => (
+                _renderTab(date)
+              ))
+
+            }
+            {!(startOfWeeksArr()?.length > 0) && <text style={{ padding: '20px' }}>Onay bekleyen hiçbir rezervasyon talebi yoktur</text>}
           </AccordionContainer>
         </StyledCol>
         <StyledCol
@@ -238,6 +240,7 @@ const DateContainer = styled.div`
 `;
 const AccordionContainer = styled.div`
   display: flex;
+  flex-direction: column;
 `;
 const ApproveCardContainer = styled.div`
   display: flex;

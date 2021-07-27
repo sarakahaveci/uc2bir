@@ -166,6 +166,7 @@ const DateContainer = styled.div`
 `;
 const AccordionContainer = styled.div`
   display: flex;
+  flex-direction: column;
 `;
 const ApproveCardContainer = styled.div`
   display: flex;
