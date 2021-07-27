@@ -2,8 +2,10 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
 import Svg from '../statics/svg';
 import { device } from 'utils';
+import { useHistory } from 'react-router-dom'
 
 const ApproveCard = ({
+  user_id,
   customerName = '',
   has_comment = 0,
   date = '',
@@ -23,6 +25,7 @@ const ApproveCard = ({
   type = 'await',
   rateText = '',
 }) => {
+  const history = useHistory();
   useEffect(() => { }, []);
   function getRejectReason() {
     if (status_bs) {
@@ -146,7 +149,7 @@ const ApproveCard = ({
             <Seperator></Seperator>
           </>
         )}
-        <FlexSpace position={'END'}>
+        <FlexSpace onClick={()=>{history.push('/user/'+user_id)}} style={{cursor:'pointer'}} position={'END'}>
           <Dot />
           <BoldText>{customerName}</BoldText>
         </FlexSpace>

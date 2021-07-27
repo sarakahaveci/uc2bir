@@ -79,9 +79,11 @@ const Awaitings = ({ setAwaitingCount }) => {
             moment(date).format('DD.MM.YYYY')
           ]?.with_pt?.map((elm, i) => (
             <ApproveCardContainer key={i}>
-            <Svg.SessionType.Gym style={{ marginRight: '10px' }} />
+              <Svg.SessionType.Gym style={{ marginRight: '10px' }} />
 
               <ApproveCard
+                user_id={elm?.student_id}
+
                 date={elm?.hour}
                 customerName={elm?.student}
                 optionalField_1={elm?.branch} //Sport Type || NULL
@@ -114,9 +116,11 @@ const Awaitings = ({ setAwaitingCount }) => {
             moment(date).format('DD.MM.YYYY')
           ]?.without_pt?.map((elm, i) => (
             <ApproveCardContainer key={i}>
-            <Svg.SessionType.Gym style={{ marginRight: '10px' }} />
+              <Svg.SessionType.Gym style={{ marginRight: '10px' }} />
 
               <ApproveCard
+                user_id={elm?.student_id}
+
                 date={elm?.hour}
                 customerName={elm?.student}
                 optionalField_1={elm?.branch}//Sport Type || NULL
@@ -150,7 +154,7 @@ const Awaitings = ({ setAwaitingCount }) => {
       <StyledRow>
         <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
           <AccordionContainer>
-          {
+            {
               startOfWeeksArr().map((date) => (
                 _renderTab(date)
               ))

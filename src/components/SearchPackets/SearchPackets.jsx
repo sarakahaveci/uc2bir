@@ -78,7 +78,7 @@ const SearchProfessional = () => {
   }, [window.location.href]);
 
   const linkChangeHandler = (pageNumber) => {
-    let url = `/packets?subType=${subType}`;
+    let url = `/packets?subType=${subType || 'pt'}`;
 
     const formData = {
       title,

@@ -92,13 +92,29 @@ export const searchProffesional =
           method: 'GET',
           url: finalUrls,
           label: SEARCH_PROFESSIONAL,
-          transformData: (data) => data,
           callBack: () => successCallback(),
           transformData: (data) => {
-            return {
-              data: type == 'group-lessons' ? data?.group_lessons?.data : type == 'packets ' ? data?.packages?.data : data?.users?.data,
-              user_type: type
-            };
+            console.log(data)
+            if(type == 'group-lessons'){
+              return {
+                data:data?.group_lessons?.data,
+                user_type: type
+              };
+            }else if(type == 'packets'){
+              return{
+                data:data?.packages ,
+                user_type: type
+
+              }
+         
+            }else{
+              return { 
+                data:data?.users?.data,
+                user_type: type
+
+              }
+            }
+            
           },
         },
       });
