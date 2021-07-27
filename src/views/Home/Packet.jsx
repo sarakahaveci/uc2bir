@@ -1,9 +1,9 @@
-import React, {  useState } from 'react';
+import React, { useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import Title from '../../components/typography/Titles';
 import PacketSlider from '../../components/sliders/PacketSlider';
-import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux';
 //mocdata
 
 const Packet = (props) => {
@@ -26,7 +26,6 @@ const Packet = (props) => {
       name: 'Tümü',
       activeClass: activeCategory == 1 ? 'active' : '',
       //link: '#all',
-
     },
     {
       id: 2,
@@ -44,21 +43,11 @@ const Packet = (props) => {
   function dataSelector() {
     switch (activeCategory) {
       case 1:
-        return (
-          content?.package_pt?.concat(content?.package_pt)
-
-
-        )
+        return content?.package_pt?.concat(content?.package_pt);
       case 2:
-        return (
-          content?.package_pt
-
-        )
+        return content?.package_pt;
       case 3:
-        return (
-          content?.package_dt
-
-        )
+        return content?.package_dt;
 
       default:
         break;
@@ -82,10 +71,9 @@ const Packet = (props) => {
       </Container>
       <PacketSlider
         query={query}
-       
         data={dataSelector()}
         handleClickCategory={(id) => {
-          setActiveCategory(id)
+          setActiveCategory(id);
         }}
         groups={groups}
         categories={categories}
