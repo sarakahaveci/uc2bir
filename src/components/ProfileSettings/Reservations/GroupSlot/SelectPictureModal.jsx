@@ -2,19 +2,21 @@ import React, { useState, forwardRef, useEffect } from 'react';
 import styled, { css } from 'styled-components/macro';
 //import { default as MaterialButton } from '@material-ui/core/Button';
 import Masonry from 'react-responsive-masonry';
-import {getGroupImages} from 'actions'
-import {useDispatch} from 'react-redux'
+import { getGroupImages } from 'actions';
+import { useDispatch } from 'react-redux';
 import { Svg, Box, Modal, Button, SearchInput, Title } from 'components';
 
 const TemplateNamingModal = forwardRef(
-  ({ selectedImageId, setSelectedImageId, /*setFile = () => { },*/ images }, ref) => {
+  (
+    { selectedImageId, setSelectedImageId, /*setFile = () => { },*/ images },
+    ref
+  ) => {
     const dispatch = useDispatch();
     const [searchValue, setSearchValue] = useState('');
-  
-    useEffect(()=>{
-      dispatch(getGroupImages(searchValue));
 
-    },[searchValue])
+    useEffect(() => {
+      dispatch(getGroupImages(searchValue));
+    }, [searchValue]);
     /*const handleFileUpload = (event) => {
       setFile(event.target.files[0])
       setSelectedImageId(undefined)
@@ -37,9 +39,9 @@ const TemplateNamingModal = forwardRef(
           onChange={(e) => setSearchValue(e.target.value)}
         />
 
-        <Masonry gutter="35px" columnsCount={2}>
-          {images?.map(
-            (image, index) => {
+        {images?.length > 0 ? (
+          <Masonry gutter="35px" columnsCount={2}>
+            {images?.map((image, index) => {
               const active = selectedImageId?.id === image.id;
               return (
                 <Box position="relative" key={index}>
@@ -52,9 +54,8 @@ const TemplateNamingModal = forwardRef(
                   {active && <TickIcon />}
                 </Box>
               );
-            }
-          )}
-         { /*<Box position="relative" > //Bilgisayaryarden yukleme özlligi deaktif edildi
+            })}
+            {/*<Box position="relative" > //Bilgisayaryarden yukleme özlligi deaktif edildi
 
             <MaterialButton
               style={{
@@ -80,10 +81,21 @@ const TemplateNamingModal = forwardRef(
               />
             </MaterialButton>
             </Box>*/}
-        </Masonry>
+          </Masonry>
+        ) : (
+          <div style={{ alignSelf: 'center' }}>
+            "Fotoğraf eklemek için profilim &gt; galeri sekmesine gitmeniz
+            gerekmektedir"
+          </div>
+        )}
 
         <Box center mt="40px">
-          <Button text="İleri" className="blue" width="280px" onClick={() => ref.current.closeModal()} />
+          <Button
+            text={images?.length > 0 ? 'İleri' : 'Kapat'}
+            className="blue"
+            width="280px"
+            onClick={() => ref.current.closeModal()}
+          />
         </Box>
       </SelectPictureModal>
     );
@@ -95,7 +107,7 @@ export default React.memo(TemplateNamingModal);
 const SelectPictureModal = styled(Modal)`
   .modal-content {
     width: 700px;
-    height:600px;
+    height: 600px;
   }
 `;
 

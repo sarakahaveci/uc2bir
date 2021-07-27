@@ -32,7 +32,6 @@ const SearchGroupLesson = () => {
 
   const searchParams = queryString.parse(useLocation().search);
 
-  const { type } = searchParams || 'group-lessons';
   const { subType } = searchParams;
 
   const userTypeText = 'Grup Ders';
@@ -80,7 +79,7 @@ const SearchGroupLesson = () => {
   }, [window.location.href]);
 
   const linkChangeHandler = (pageNumber) => {
-    let url = `/group-lessons?type=${type}`;
+    let url = `/group-lessons?type=group-lessons`;
 
     const formData = {
       title,

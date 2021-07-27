@@ -127,6 +127,11 @@ const workPlaceTabs = [
     title: 'Eğitmenler',
     component: <Trainers />,
   },
+  {
+    eventKey: 'message',
+    title: 'Mesajlarım',
+    component: <Message />,
+  },
 
   {
     eventKey: 'wallet',
@@ -218,6 +223,11 @@ const dietitianTabs = [
     hidden:true
 
   },
+  {
+    eventKey: 'message',
+    title: 'Mesajlarım',
+    component: <Message />,
+  },
 ];
 
 const trainerTabs = [
@@ -286,6 +296,11 @@ const trainerTabs = [
     component: <Blocked />,
     hidden:true
 
+  },
+  {
+    eventKey: 'message',
+    title: 'Mesajlarım',
+    component: <Message />,
   },
 ];
 

@@ -619,7 +619,6 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
       );
     } else {
       if (reservation?.data?.payment_type == 'wallet' || reservation?.data?.payment_type == 'no_money') {
-        alert('bumbesss')
 
         dispatch(
           sendReservation(

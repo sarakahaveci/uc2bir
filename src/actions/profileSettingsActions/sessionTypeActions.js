@@ -130,7 +130,6 @@ export const addGym = ({ ...data }, successCallback, errorCallback) => async (
   getState
 ) => {
   const url = `/user/address/add-working-gym`;
-
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
@@ -173,7 +172,6 @@ export const addGymFromPt = (id, successCallback) => async (
   getState
 ) => {
   const url = `/user/address/add-working-gym`;
-
   await dispatch({
     type: HTTP_REQUEST,
     payload: {

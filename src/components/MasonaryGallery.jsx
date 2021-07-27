@@ -496,22 +496,21 @@ const MasonaryGallery = ({
 };
 
 const GridWrapper = styled.div`
-  display: grid; 
+  display: grid;
   grid-column-gap: 20px;
-   justify-content:center;
-  grid-template-columns: 400px 400px 400px ;
+  justify-content: center;
+  grid-template-columns: 400px 400px 400px;
   grid-row-gap: 10px;
   padding: 10px;
   margin-top: 15px;
 
   @media (max-width: 1200px) {
-    grid-template-columns: 400px 400px; 
+    grid-template-columns: 400px 400px;
   }
   @media ${device.sm} {
     grid-template-columns: auto;
   }
 `;
-
 
 const Section = styled.section`
   height: auto;

@@ -26,7 +26,7 @@ const Awaitings = ({ setAwaitingCount }) => {
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
   const [openApprove, setOpenApprove] = useState(undefined);
   const [openReject, setOpenReject] = useState(undefined);
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(undefined);
   const [choosenElm, setChoosenElm] = useState(null);
 
   const startOfWeeksArr = () => {
@@ -55,7 +55,6 @@ const Awaitings = ({ setAwaitingCount }) => {
     } else {
       setIsSmallScreen(false);
     }
-    setSelectedDate(new Date());
     dispatch(getUserAwaitings());
   }, []);
   useEffect(() => {

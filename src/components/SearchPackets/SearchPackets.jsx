@@ -31,7 +31,6 @@ const SearchProfessional = () => {
 
   const searchParams = queryString.parse(useLocation().search);
 
-  const { type } = searchParams || 'packets';
   const { subType } = searchParams;
 
   const userTypeText = 'Paket';
@@ -79,7 +78,7 @@ const SearchProfessional = () => {
   }, [window.location.href]);
 
   const linkChangeHandler = (pageNumber) => {
-    let url = `/packets?type=${type}`;
+    let url = `/packets?subType=${subType}`;
 
     const formData = {
       title,
@@ -106,7 +105,6 @@ const SearchProfessional = () => {
 
       return acc;
     }, url);
-
     history.push(url);
   };
 

@@ -197,7 +197,7 @@ const BuyGroupLesson = ({ match }) => {
     <Main>
       <img src={profileImg} alt="" className="banner-image" />
 
-      <div style={{ padding: '20px 17%' }}>
+      <div style={{ padding: '40px 13%' }}>
         <BackLink
           onClick={() => {
             group?.reservation?.payment_type

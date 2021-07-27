@@ -43,9 +43,9 @@ const ProfileBanner = ({
     setOpenApprove(true)
   }
   return (
-    <Containers onClick={()=>{
-      if(showOthers)
-       setShowOthers(false)
+    <Containers onClick={() => {
+      if (showOthers)
+        setShowOthers(false)
     }} className={className}>
       <BlockUserModal
         isBlocked={info?.isBlocked} //Burası değişcek
@@ -123,6 +123,38 @@ const ProfileBanner = ({
                     className="blue list"
                     style={{ fontSize: '9pt' }}
                   />
+                </CardFooter>
+              ) || (
+
+                <CardFooter>
+                  <Dropdown>
+                    <DropdownButton
+                      className="list"
+                      onClick={() => { setShowOthers(!showOthers) }}
+                    >
+                      <text style={{ color: 'black' }}>○○○</text>
+                    </DropdownButton>
+                    <DropdownContent show={showOthers}>
+                      <Wrapper style={{ borderBottomColor: '#DEDEDE', borderBottomStyle: 'solid', borderBottomWidth: '1px' }}>
+                        <BlockContainer>
+                          <Svg.BlackBlock style={{ marginRight: '10px' }}></Svg.BlackBlock>
+                          <BlockUser onClick={() => { openBlockModal() }}>{info?.isBlocked ? "Engeli kaldır" : "Kullanıcıyı Engelle"}</BlockUser>
+
+                        </BlockContainer>
+                      </Wrapper>
+                      <Wrapper>
+                        <Comment
+                          to={'/myprofile/settings/message'}
+                          onClick={() => {
+                            dispatch(setNewMessageRoom(info))
+                          }}
+                        >
+                          <Svg.BlackMessage style={{ marginRight: '10px' }} ></Svg.BlackMessage>
+                          <text style={{ color: 'black' }}>Mesaj Gönder</text>
+                        </Comment>
+                      </Wrapper>
+                    </DropdownContent>
+                  </Dropdown>
                 </CardFooter>
               )
             ) : (
