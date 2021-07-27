@@ -67,6 +67,8 @@ const Rejecteds = () => {
               <ApproveCard
                 type="rejecteds"
                 date={elm?.hour}
+                user_id={elm?.student_id}
+
                 status_bs={elm?.status_bs}
                 status_pt={elm?.status_pt}
                 customerName={elm?.student}
@@ -100,6 +102,8 @@ const Rejecteds = () => {
               <Svg.SessionType.Gym style={{ marginRight: '10px' }} />
 
               <ApproveCard
+                              user_id={elm?.student_id}
+
                 type="rejecteds"
                 date={elm?.hour}
                 status_bs={elm?.status_bs}
