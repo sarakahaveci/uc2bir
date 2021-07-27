@@ -70,7 +70,10 @@ export const CardInfo = ({
           ))}
         </Categories>
       )}
-      {location && <IconLabel text={location} icon={AwesomeIcon.Map} />}
+      {(location && location !== "null,null") ? <IconLabel text={location} icon={AwesomeIcon.Map} />
+        :
+        <IconLabel text={"Adres bilgileri henüz girilmedi."} icon={AwesomeIcon.Map} />
+      }
     </>
   );
 };
