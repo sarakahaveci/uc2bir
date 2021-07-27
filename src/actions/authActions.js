@@ -93,7 +93,7 @@ export const resetPassword = (
       },
       transformData: (data) => data.data,
       callBack: () => successCallback(),
-      errorHandler: () => errorCallback(),
+      errorHandler: (e) => errorCallback(e.message),
     },
   });
 };

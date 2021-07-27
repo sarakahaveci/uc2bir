@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { AwesomeIcon, Button, Material } from 'components';
+import { AwesomeIcon, Button, Material, Svg } from 'components';
 import { RESET_FORGOT_PASSWORD_STORE } from 'constants/actionTypes';
 import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
@@ -54,14 +54,26 @@ const ForgotPassword = () => {
     }, 1000);
   };
 
-  const rErr = () =>
-    toast.error(getResetPassword.error, {
-      position: 'bottom-right',
-      autoClose: 4500,
-    });
+  const rErr = (e) => {
+
+     if (e?.password?.length > 0) {
+      toast.error(e?.password[0], {
+        position: 'bottom-right',
+        autoClose: 4500,
+      });
+    }
+    else
+      if (e) {
+        toast.error("Kodu kontrol ediniz, şifrelerin eş olduğundan emin olunuz.", {
+          position: 'bottom-right',
+          autoClose: 4500,
+        });
+      }
+
+  }
 
   const succsess = () =>
-    toast.success('Mesaj gönderildi', {
+    toast.success('Mail gönderildi', {
       position: 'bottom-right',
       autoClose: 4500,
       onClose: setOpen(true),
@@ -92,19 +104,19 @@ const ForgotPassword = () => {
   };
 
   return (
-    <> 
-     <div style={{width:'100%',minHeight:'110vh',backgroundSize:'cover',backgroundImage: `url(${background})`,justifyContent:'center',alignItems:'center',display:'flex'}}>
-         
-         
-         
-     <div  className="row">
-            <div  className="page-content">
-              <Contain>
-              <div style={{display:'flex',flexDirection:'column',width:'671px',height:'601px',background:'white',borderRadius:'30px',padding:'80px',alignItems:'center' }}>
-            <text style={{fontFamily:'Bebas Neue',fontSize:'40px',fontWeight:'bold'}}>HESABINIZI BULMAMIZ İÇİN EPOSTA ADRESİNİZİ GİRİN</text>
-            <text style={{fontFamily: 'Poppins',fontSize:'20px'}}>Öncelikle size ait hesabı bulmamız gerekiyor. Lütfen e-posta adresinizi yazın ve devam edin.</text>
-            {!getForgotPassword.isSuccsess && !getResetPassword.isSuccsess && (
-                  <form style={{display:'flex',justifyContent: 'center',alignItems: 'center',flexDirection: 'column',marginTop:'50px'}} onSubmit={onSubmit}>
+    <>
+      <div style={{ width: '100%', minHeight: '110vh', backgroundSize: 'cover', backgroundImage: `url(${background})`, justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+
+
+
+        <div className="row">
+          <div className="page-content">
+            <Contain>
+              <div style={{ display: 'flex', flexDirection: 'column', width: '671px', height: '601px', background: 'white', borderRadius: '30px', padding: '80px', alignItems: 'center' }}>
+                <text style={{ fontFamily: 'Bebas Neue', fontSize: '40px', fontWeight: 'bold' }}>HESABINIZI BULMAMIZ İÇİN EPOSTA ADRESİNİZİ GİRİN</text>
+                <text style={{ fontFamily: 'Poppins', fontSize: '20px' }}>Öncelikle size ait hesabı bulmamız gerekiyor. Lütfen e-posta adresinizi yazın ve devam edin.</text>
+                {!getForgotPassword.isSuccsess && !getResetPassword.isSuccsess && (
+                  <form style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', marginTop: '50px' }} onSubmit={onSubmit}>
                     <Material.TextField
                       required
                       onChange={(e) => setEmail(e.target.value)}
@@ -113,14 +125,14 @@ const ForgotPassword = () => {
                       label="E-mail'inizi giriniz."
                       type="text"
                       icon={AwesomeIcon.User}
-                      style={{marginBottom:'15px',width:'500px'}}
+                      style={{ marginBottom: '15px', width: '500px' }}
                     />
                     {getForgotPassword.isLoading ? (
-                      <Button style={{marginBottom:'15px',width:'500px'}}
-                      text={`Yükleniyor...`} className="blue" />
+                      <Button style={{ marginBottom: '15px', width: '500px' }}
+                        text={`Yükleniyor...`} className="blue" />
                     ) : (
                       <Button
-                        style={{marginBottom:'15px',width:'500px'}}
+                        style={{ marginBottom: '15px', width: '500px' }}
                         type="submit"
                         text={`Kod Gönder`}
                         className="blue"
@@ -128,11 +140,11 @@ const ForgotPassword = () => {
                     )}
                   </form>
                 )}
-                 
-                 {getForgotPassword.isSuccsess && !getResetPassword.isSuccsess && (
+
+                {getForgotPassword.isSuccsess && !getResetPassword.isSuccsess && (
                   <React.Fragment>
                     <Button
-                      style={{marginTop:'30px',width:'500px'}}
+                      style={{ marginTop: '30px', width: '500px' }}
                       className="blue"
                       mb="15px"
                       onClick={handleClickOpen}
@@ -166,7 +178,7 @@ const ForgotPassword = () => {
                                 type="text"
                                 name="code"
                                 key="customCode1"
-                             
+
                                 className="forgot-input-custom"
                                 label="Kodu giriniz."
                                 autoComplete="off"
@@ -177,15 +189,16 @@ const ForgotPassword = () => {
                                   })
                                 }
                               />
+
                               <Material.TextField
                                 required
                                 key="customInput1"
-                                type="password"
                                 className="forgot-input-custom"
                                 name="password"
-                                label="Yeni Password"
-                                autoComplete="new-password"
-                         
+                                label="Yeni Şifre"
+                                type="password"
+                                icon={Svg.PasswordIcon}
+                                password={Svg.EyeIcon}
                                 onChange={(e) =>
                                   setCode({
                                     ...code,
@@ -193,14 +206,18 @@ const ForgotPassword = () => {
                                   })
                                 }
                               />
+
+
+
+
                               <Material.TextField
                                 required
                                 type="password"
                                 key="customInput2"
-                     
+
                                 name="password_retry"
                                 className="forgot-input-custom"
-                                label="Yeni Password Tekrar"
+                                label="Yeni Şifre Tekrar"
                                 autoComplete="new-password"
                                 onChange={(e) =>
                                   setCode({
@@ -208,7 +225,11 @@ const ForgotPassword = () => {
                                     [e.target.name]: e.target.value,
                                   })
                                 }
+                                icon={Svg.PasswordIcon}
+                                password={Svg.EyeIcon}
+
                               />
+                              <span style={{ fontWeight: 300, fontSize: 14 }} >Şifreniz en az 6 karakter olmalı. Büyük harf, küçük harf ve rakam içermelidir.</span>
                               {getResetPassword.isLoading ? (
                                 <Button
                                   text={`Yükleniyor...`}
@@ -230,20 +251,20 @@ const ForgotPassword = () => {
                     </Dialog>
                   </React.Fragment>
                 )}
-         </div>
-             
-              </Contain>
-            </div>
+              </div>
+
+            </Contain>
           </div>
-         
-         
-         
-         
-         
-    
-       </div>
-        
-     
+        </div>
+
+
+
+
+
+
+      </div>
+
+
     </>
   );
 };
