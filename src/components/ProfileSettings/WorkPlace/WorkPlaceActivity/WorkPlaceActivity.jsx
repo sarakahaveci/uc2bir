@@ -122,21 +122,37 @@ export default function WorkPlaceActivity() {
               fontWeight="400"
               textAlign="left"
             >
-              Yeni faaliyet alanı (Sınıf) Ekle
-              <img
-                className="cp"
-                src={BluePlusIcon}
-                alt=""
-                onClick={() => setShowAddActivity(true)}
-              />
+              <div>
+                Yeni faaliyet alanı (Sınıf) Ekle
+                <img
+                  className="cp ml-2"
+                  src={BluePlusIcon}
+                  alt=""
+                  onClick={() => setShowAddActivity(true)}
+                />
+              </div>
+              <div
+                style={{
+                  fontSize: '12px',
+                  color: '#00b2a9',
+                  fontStyle: 'italic',
+                  width: '100%',
+                  marginTop: '5px',
+                  marginBottom: '10px',
+                }}
+              >
+                "Lütfen spor salonunuzda kullanıma açmak istediğiniz sınıflar ve
+                kontenjan sayılarını belirtiniz. Grup ders kullanımları için
+                sınıfın saatlik kiralama fiyatını yazınız."
+              </div>
             </Title>
           )}
 
           <div className={`w-100 ${!showAddActivity ? 'card-wrapper' : ''}`}>
             {!showAddActivity ? (
-              (data?.class?.length > 0 ?
+              data?.class?.length > 0 ? (
                 data?.class?.map((activity) => (
-                  (<ActivityCard
+                  <ActivityCard
                     key={activity.id}
                     id={activity.id}
                     isAccepted={activity?.status === 'active'}
@@ -147,8 +163,9 @@ export default function WorkPlaceActivity() {
                     capacity={activity?.capacity}
                     userBranchList={activity?.branches}
                     price={activity?.price}
-                  />)
-                )) :
+                  />
+                ))
+              ) : (
                 <Title
                   className="mb-2"
                   fontSize="14px"
