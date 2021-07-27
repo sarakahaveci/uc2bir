@@ -79,7 +79,7 @@ const SearchProfessional = () => {
   }, [window.location.href]);
 
   const linkChangeHandler = (pageNumber) => {
-    let url = `/packets?type=${type}`;
+    let url = `/packets?subType=${subType}`;
 
     const formData = {
       title,
@@ -106,7 +106,6 @@ const SearchProfessional = () => {
 
       return acc;
     }, url);
-
     history.push(url);
   };
 
