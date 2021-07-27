@@ -5,6 +5,7 @@ import {
     GET_BLOCKED_USERS,
     HTTP_REQUEST
 } from '../constants';
+import {toast} from 'react-toastify'
 export const blockUser = (id) => async (
     dispatch
 ) => {
@@ -18,8 +19,19 @@ export const blockUser = (id) => async (
             label: BLOCK_USER,
             body: { block_id: id },
             transformData: (data) => data.data,
-            // callBack: (callBack) => console.log(callBack),
-            // errorHandler: (error) =>console.log(error),
+            callBack: () => {
+                toast.success('İşleminiz başarılı.', {
+                    position: 'bottom-right',
+                    autoClose: 4000,
+                });
+                // successCallback();
+            },
+            errorHandler: (err) => {
+                toast.error(err?.message || 'İşlem başarısız', {
+                    position: 'bottom-right',
+                    autoClose: 4000,
+                });
+            },
         },
     });
 };
@@ -36,8 +48,19 @@ export const unblockUser = (id) => async (
             label: UNBLOCK_USER,
             body: { block_id: id },
             transformData: (data) => data.data,
-            // callBack: (callBack) => console.log(callBack),
-            // errorHandler: (error) =>console.log(error),
+            callBack: () => {
+                toast.success('İşleminiz başarılı.', {
+                    position: 'bottom-right',
+                    autoClose: 4000,
+                });
+                // successCallback();
+            },
+            errorHandler: (err) => {
+                toast.error(err?.message || 'İşlem başarısız', {
+                    position: 'bottom-right',
+                    autoClose: 4000,
+                });
+            },
         },
     });
 };
