@@ -928,7 +928,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
               <Button
                 style={{ width: '100%', padding: '20px' }}
                 className="blue"
-                text="Ödeme Yap"
+                text="Rezervasyonu Onayla"
                 onClick={() => {
                   switch (type) {
                     case 'pt':

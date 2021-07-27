@@ -432,7 +432,10 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
         );
       case 'no_money':
         return (
-          <></>
+          <div style={{display:'flex',opacity:'.8',alignItems: 'center',marginTop:'63px',padding:'20px' ,borderStyle:'solid',borderColor:'var(--blue)',borderRadius:'5px',borderWidth:'1px'}}>
+            <Svg.SmileyFaceIcon style={{marginRight:'20px'}}/>
+            <text>Paketten rezervasyon yaparken extra hizmetler dışında ücret ödemezsin.</text>
+          </div>
         )
       default:
         return (

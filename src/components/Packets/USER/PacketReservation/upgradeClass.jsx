@@ -191,7 +191,7 @@ const UpgradeClass = ({ setField = () => {} /* globalState */ }) => {
             <Svg.ArrowLeftIcon />
 
             {packet?.reservation?.payment_type ? (
-              <span>Ödeme Yap</span>
+              <span>Onayla</span>
             ) : (
               <span>Paket Detayı</span>
             )}

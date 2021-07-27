@@ -84,7 +84,7 @@ const PacketCard = ({
         <>
           <Column>
             <Row>
-              <BoldText>DİETİSYEN:</BoldText>
+              <BoldText>DİYETİSYEN:</BoldText>
 
               <BoldText style={{ marginLeft: '5px' }}>
                 {packetName}
