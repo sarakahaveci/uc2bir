@@ -1,56 +1,54 @@
 #pt-point-page {
-    @media (max-width: 1200px) {
-
-        .categories,
-        .top-promotion,
-        .pt,
-        .blog {
-            padding-bottom: 0;
-            padding-top: 5px;
-        }
-
-        .slider-focus {
-            margin-bottom: 30px;
-        }
-
-        .fluid-banner {
-            .MuiTypography-h5 {
-                min-width: 100%;
-            }
-        }
+  @media (max-width: 1200px) {
+    .categories,
+    .top-promotion,
+    .pt,
+    .blog {
+      padding-bottom: 0;
+      padding-top: 5px;
     }
 
-    @media (max-width: 768px) {
-
-        .categories,
-        .top-promotion,
-        .pt,
-        .blog {
-            padding-bottom: 0;
-            padding-top: 5px;
-        }
-
-        .slider-focus {
-            margin-bottom: 30px;
-        }
-
-        .fluid-banner {
-            .MuiTypography-h5 {
-                min-width: 100%;
-            }
-        }
-
-        .packet-slider .packet-category ul li a,
-        .footer .footer-left .item-lists .list ul li a,
-        .footer .footer-right .item-lists ul li a {
-            font-size: 10pt;
-        }
-
-        .comment-slider .slider-item .text {
-            font-size: .8em;
-        }
+    .slider-focus {
+      margin-bottom: 30px;
     }
+
+    .fluid-banner {
+      .MuiTypography-h5 {
+        min-width: 100%;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .categories,
+    .top-promotion,
+    .pt,
+    .blog {
+      padding-bottom: 0;
+      padding-top: 5px;
+    }
+
+    .slider-focus {
+      margin-bottom: 30px;
+    }
+
+    .fluid-banner {
+      .MuiTypography-h5 {
+        min-width: 100%;
+      }
+    }
+
+    .packet-slider .packet-category ul li a,
+    .footer .footer-left .item-lists .list ul li a,
+    .footer .footer-right .item-lists ul li a {
+      font-size: 10pt;
+    }
+
+    .comment-slider .slider-item .text {
+      font-size: 0.8em;
+    }
+  }
 }
 
-@import "./typography";
-@import "./button";
+@import './typography';
+@import './button';
