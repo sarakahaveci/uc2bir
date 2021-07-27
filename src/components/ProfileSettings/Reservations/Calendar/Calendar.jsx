@@ -38,9 +38,14 @@ import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
-import { DIETITIAN, PERSONAL_TRAINER, SESSION_KEYS, WORK_PLACE } from 'constants/index';
+import {
+  DIETITIAN,
+  PERSONAL_TRAINER,
+  SESSION_KEYS,
+  WORK_PLACE,
+} from 'constants/index';
 
-moment.locale('tr')
+moment.locale('tr');
 
 const Calendar = () => {
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
@@ -78,8 +83,6 @@ const Calendar = () => {
     gymList: { data: gymList },
   } = useSelector((state) => state.profileSettings2.sessionType);
 
-
-
   useEffect(() => {
     dispatch(getTemplateFromCalender());
     setStartDate(new Date());
@@ -88,7 +91,6 @@ const Calendar = () => {
   useEffect(() => {
     dispatch(getDayOfCalendar(moment(startDate).format('DD.MM.YYYY')));
   }, [startDate]);
-
 
   useEffect(() => {
     if (window.innerWidth <= 760) {
@@ -113,66 +115,72 @@ const Calendar = () => {
     if (userTypeId === WORK_PLACE) {
       dispatch(getMyClassifications());
     }
-
   }, []);
 
   const handleSelect = (date) => {
-    setActivePage('index')
+    setActivePage('index');
     setStartDate(date);
   };
 
-  const startOfWeeksArr = availableDates?.map((date) =>
-    new Date(moment(date, 'DD.MM.YYYY').toDate())
+  const startOfWeeksArr = availableDates?.map(
+    (date) => new Date(moment(date, 'DD.MM.YYYY').toDate())
   );
 
   const deleteHourSuccess = () => {
     dispatch(getDayOfCalendar(moment(startDate).format('DD.MM.YYYY')));
-    setActivePage('index')
+    setActivePage('index');
     toast.success('Saat Silme İşlemi Başarılı Bir Şekilde Tamamlanmıştır', {
       position: 'bottom-right',
       autoClose: 3000,
     });
-
-  }
+  };
 
   const addHourSuccess = () => {
     dispatch(getDayOfCalendar(moment(startDate).format('DD.MM.YYYY')));
-    setActivePage('index')
+    setActivePage('index');
     toast.success('Saat Ekleme İşlemi Başarılı Bir Şekilde Tamamlanmıştır', {
       position: 'bottom-right',
       autoClose: 3000,
     });
-
-  }
+  };
 
   const deleteHourFail = () => {
-    toast.error(
-      'Seçilen Saat Silinirken Hata Oluştu Hata Oluştu',
-      {
-        position: 'bottom-right',
-        autoClose: 3000,
-      }
-    );
-  }
+    toast.error('Seçilen Saat Silinirken Hata Oluştu Hata Oluştu', {
+      position: 'bottom-right',
+      autoClose: 3000,
+    });
+  };
 
   const showSessionDependentInputs = (sessionType) =>
     sessionSelection.findIndex((session) => session.type === sessionType) !==
     -1;
 
-  const sessionTypeArr = userTypeId === WORK_PLACE ? ({ location: classSelection }) : sessionSelection.map((session) => ({
-    session,
-    ...(session.type !== 'online' && {
-      location:
-        session.type === 'gym' ? (workPlaceSelection || classSelection) : session.type === 'clinic'
-          ? workPlaceSelection
-          : locationSelection,
-    }),
-  }));
-
+  const sessionTypeArr =
+    userTypeId === WORK_PLACE
+      ? { location: classSelection }
+      : sessionSelection.map((session) => ({
+          session,
+          ...(session.type !== 'online' && {
+            location:
+              session.type === 'gym'
+                ? workPlaceSelection || classSelection
+                : session.type === 'clinic'
+                ? workPlaceSelection
+                : locationSelection,
+          }),
+        }));
 
   const addHourToCalender = () => {
-    dispatch(applyHourOfCalendar(startDate, sessionTypeArr, branchSelection, selectedHour.hour, addHourSuccess))
-  }
+    dispatch(
+      applyHourOfCalendar(
+        startDate,
+        sessionTypeArr,
+        branchSelection,
+        selectedHour.hour,
+        addHourSuccess
+      )
+    );
+  };
   return (
     <Container>
       <ApproveModal
@@ -189,13 +197,15 @@ const Calendar = () => {
           <Col xs={{ order: IsSmallScreen ? 2 : 1 }} lg={6}>
             <Title
               style={{ display: 'flex', flexWrap: 'nowrap' }}
-              textAlign="left">
+              textAlign="left"
+            >
               <Span
                 cursor="pointer"
                 fontSize="1.5rem"
                 onClick={() => setActivePage('showAvailableHour')}
                 marginRight="10px"
-                marginBottom="-15px">
+                marginBottom="-15px"
+              >
                 {`<`}
               </Span>
               <Span>Rezervasyon Oluştur</Span>
@@ -206,7 +216,11 @@ const Calendar = () => {
                 name="appointmentDate"
                 forHtml="appointmentDate"
                 label="Tarih & Saat"
-                defaultValue={moment(startDate).format('DD MMMM dddd') + "," + selectedHour?.hour}
+                defaultValue={
+                  moment(startDate).format('DD MMMM dddd') +
+                  ',' +
+                  selectedHour?.hour
+                }
                 disabled={true}
               />
 
@@ -235,7 +249,8 @@ const Calendar = () => {
                     multiple
                     value={classSelection}
                     input={<Input />}
-                    onChange={(e) => setClassSelection(e.target.value)}>
+                    onChange={(e) => setClassSelection(e.target.value)}
+                  >
                     {classifications?.map((classification) => (
                       <MenuItem key={classification.id} value={classification}>
                         {classification.title}
@@ -253,7 +268,8 @@ const Calendar = () => {
                     multiple
                     value={sessionSelection}
                     input={<Input />}
-                    onChange={(e) => setSessionSelection(e.target.value)}>
+                    onChange={(e) => setSessionSelection(e.target.value)}
+                  >
                     {sessionTypes?.data?.data?.map((sessionType) => (
                       <MenuItem key={sessionType.id} value={sessionType}>
                         {sessionType.title}
@@ -271,9 +287,9 @@ const Calendar = () => {
                     multiple
                     value={workPlaceSelection}
                     input={<Input />}
-                    onChange={((e) => {
-                      setWorkPlaceSelection(e.target.value)
-                    })}
+                    onChange={(e) => {
+                      setWorkPlaceSelection(e.target.value);
+                    }}
                   >
                     {gymList?.gym?.map((item) => (
                       <MenuItem key={item.id} value={item}>
@@ -321,13 +337,14 @@ const Calendar = () => {
                   </Select>
                 </FormControl>
               )}
-
             </AppointmentContainer>
           </Col>
 
-          <Col style={{ display: 'flex', justifyContent: 'center' }}
+          <Col
+            style={{ display: 'flex', justifyContent: 'center' }}
             xs={{ order: IsSmallScreen ? 1 : 2 }}
-            lg={6}>
+            lg={6}
+          >
             <DateContainer>
               <AppointmentDate>
                 <Row>
@@ -335,14 +352,14 @@ const Calendar = () => {
                     defaultOpen={true}
                     title="Rezervasyon Tarihi"
                     accordionBackground={'#ffffff'}
-                    accordionRadius={'20px'}>
+                    accordionRadius={'20px'}
+                  >
                     <hr style={{ marginTop: '0px' }} />
                     <Row style={{ padding: '10px' }}>
                       <Col lg={2}>
                         <Text color="dark" fontWeight="500" fontSize="0.9rem">
                           1 Ders
                         </Text>
-
                       </Col>
                       <Col lg={1}>
                         <Seperator />
@@ -350,13 +367,14 @@ const Calendar = () => {
                       <Col lg={8}>
                         <ReservationText>
                           <Calender />
-                          <Text color="#707070" fontWeight="200" >
-                            {moment(startDate).format('DD MMMM dddd') + ' Saat ' + selectedHour?.hour}
+                          <Text color="#707070" fontWeight="200">
+                            {moment(startDate).format('DD MMMM dddd') +
+                              ' Saat ' +
+                              selectedHour?.hour}
                           </Text>
                         </ReservationText>
                       </Col>
                       <Col lg={1} />
-
                     </Row>
                   </ReservationAccordion>
                 </Row>
@@ -369,9 +387,7 @@ const Calendar = () => {
                   width={'496px'}
                   height={'66px'}
                 />
-
               </AcceptButton>
-
             </DateContainer>
           </Col>
         </Row>
@@ -383,178 +399,243 @@ const Calendar = () => {
                 <ReservationAccordion
                   defaultOpen={true}
                   parent
-                  title={moment(startDate).format('DD MMMM dddd')}>
+                  title={moment(startDate).format('DD MMMM dddd')}
+                >
                   <Box row flexWrap="wrap" center>
-                    {availableHours?.map((item, index) => (item.id &&
-                      <ReservationHourButton
-                        onClick={() => {
-                          setSelectedHour(item);
-                          setActivePage(item.type !== 'group' ? 'showHourDetail' : 'showHourGroup');
-                          dispatch(getDayDetailOfCalendar(item.id))
-                        }}
-                        text={item.hour}
-                        className="blue"
-                        width="342px"
-                        height="52px"
-                        mt="15px"
-                        key={index}
-                      />
-                    ))}
-                    <AvailableButton onClick={() => setActivePage('showAvailableHour')}>Boş Saatlerimi Gör</AvailableButton>
-
+                    {availableHours?.map(
+                      (item, index) =>
+                        item.id && (
+                          <ReservationHourButton
+                            onClick={() => {
+                              setSelectedHour(item);
+                              setActivePage(
+                                item.type !== 'group'
+                                  ? 'showHourDetail'
+                                  : 'showHourGroup'
+                              );
+                              dispatch(getDayDetailOfCalendar(item.id));
+                            }}
+                            text={item.hour}
+                            className="blue"
+                            width="342px"
+                            height="52px"
+                            mt="15px"
+                            key={index}
+                          />
+                        )
+                    )}
+                    <AvailableButton
+                      onClick={() => setActivePage('showAvailableHour')}
+                    >
+                      Boş Saatlerimi Gör
+                    </AvailableButton>
                   </Box>
                 </ReservationAccordion>
               </AccordionContainer>
-            </Col>)}
+            </Col>
+          )}
 
           {activePage === 'showAvailableHour' && (
             <Col xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
-              <AccordionContainer >
+              <AccordionContainer>
                 <Span
                   cursor="pointer"
                   fontSize="1.5rem"
                   onClick={() => setActivePage('index')}
                   marginRight="10px"
-                  marginTop="10px">
+                  marginTop="10px"
+                >
                   {`<`}
                 </Span>
                 <ReservationAccordion
                   defaultOpen={true}
                   parent
-                  title={moment(startDate).format('DD MMMM dddd') + ' / BOŞ SAATLERİM'}>
+                  title={
+                    moment(startDate).format('DD MMMM dddd') +
+                    ' / BOŞ SAATLERİM'
+                  }
+                >
                   <Box row flexWrap="wrap" center>
-                    {availableHours?.map((item, index) => (!item.id &&
-                      <ReservationHourButton
-                        text={item.hour}
-                        className="blue"
-                        width="342px"
-                        height="52px"
-                        mt="15px"
-                        key={index}
-                        onClick={() => {
-                          setSelectedHour(item);
-                          setActivePage('create');
-                        }}
-                        isAvailableHour={true}
-                      />
-                    ))}
-
+                    {availableHours?.map(
+                      (item, index) =>
+                        !item.id && (
+                          <ReservationHourButton
+                            text={item.hour}
+                            className="blue"
+                            width="342px"
+                            height="52px"
+                            mt="15px"
+                            key={index}
+                            onClick={() => {
+                              setSelectedHour(item);
+                              setActivePage('create');
+                            }}
+                            isAvailableHour={true}
+                          />
+                        )
+                    )}
                   </Box>
                 </ReservationAccordion>
               </AccordionContainer>
-            </Col>)}
+            </Col>
+          )}
 
           {activePage === 'showHourDetail' && (
             <Col xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
-              <AccordionContainer >
+              <AccordionContainer>
                 <Span
                   cursor="pointer"
                   fontSize="1.5rem"
                   onClick={() => setActivePage('index')}
                   marginRight="10px"
-                  marginTop="10px">
+                  marginTop="10px"
+                >
                   {`<`}
                 </Span>
                 <ReservationAccordion
                   defaultOpen={true}
                   parent
-                  title={moment(startDate).format('DD MMMM dddd') + ' / ' + selectedHour?.hour}>
+                  title={
+                    moment(startDate).format('DD MMMM dddd') +
+                    ' / ' +
+                    selectedHour?.hour
+                  }
+                >
                   <HourDetailContainer>
-                    {userTypeId === PERSONAL_TRAINER &&
+                    {userTypeId === PERSONAL_TRAINER && (
                       <Box>
                         <Span fontWeight="600" mr="15px" fontSize={'20px'}>
                           Branşlar:
-                     </Span>
-                        <Span fontSize={'18px'}>
-                          {selectedHour?.branch}
                         </Span>
-                      </Box>}
+                        <Span fontSize={'18px'}>{selectedHour?.branch}</Span>
+                      </Box>
+                    )}
 
-                    {
-                      userTypeId !== WORK_PLACE &&
+                    {userTypeId !== WORK_PLACE && (
                       <Box>
                         <Span fontWeight="600" mr="15px" fontSize={'20px'}>
                           Oturum Türleri:
-                     </Span>
-                        {detailHour?.slice?.[0]?.session?.split(',').map((item, index) => (
-                          <Span fontSize={'18px'} key={index}>
-                            {SESSION_KEYS[item.replace(/\s+/g, '')]}
-                            {(selectedHour?.session?.split(',').length !== index + 1) ? ', ' : ''}
-                          </Span>))}
+                        </Span>
+                        {detailHour?.slice?.[0]?.session
+                          ?.split(',')
+                          .map((item, index) => (
+                            <Span fontSize={'18px'} key={index}>
+                              {SESSION_KEYS[item.replace(/\s+/g, '')]}
+                              {selectedHour?.session?.split(',').length !==
+                              index + 1
+                                ? ', '
+                                : ''}
+                            </Span>
+                          ))}
                         <Seperator />
                       </Box>
-                    }
-
+                    )}
 
                     <Box>
                       <Span fontWeight="600" mr="15px" fontSize={'20px'}>
-                        {userTypeId !== WORK_PLACE ? 'Seçilmiş Yerler': 'Seçilmiş Sınıflar' }
-                     </Span>
+                        {userTypeId !== WORK_PLACE
+                          ? 'Seçilmiş Yerler'
+                          : 'Seçilmiş Sınıflar'}
+                      </Span>
                       <Span fontSize={'18px'}>
-                        {detailHour?.slice?.[0]?.location?.gym?.map((item, index) => (
-                          <Span fontSize={'18px'} key={index}>
-                            {item + ' '}
-                          </Span>))}
-                        {detailHour?.slice?.[0]?.location?.class?.map((item, index) => (
-                          <Span fontSize={'18px'} key={index}>
-                            {item + ' '}
-                            {detailHour?.slice?.[0]?.location?.class?.length !== index + 1 ? ', ' : ''}
-
-                          </Span>))}
-                        {detailHour?.slice?.[0]?.location?.home_park?.map((item, index) => (
-                          <Span fontSize={'18px'} key={index}>
-                            {item}
-                          </Span>))}
-                        {detailHour?.slice?.[0]?.location?.clinic?.map((item, index) => (
-                          <Span fontSize={'18px'} key={index}>
-                            {item}
-                            {detailHour?.slice?.[0]?.location?.clinic?.length !== index + 1 ? ', ' : ''}
-                          </Span>))}
+                        {detailHour?.slice?.[0]?.location?.gym?.map(
+                          (item, index) => (
+                            <Span fontSize={'18px'} key={index}>
+                              {item + ' '}
+                            </Span>
+                          )
+                        )}
+                        {detailHour?.slice?.[0]?.location?.class?.map(
+                          (item, index) => (
+                            <Span fontSize={'18px'} key={index}>
+                              {item + ' '}
+                              {detailHour?.slice?.[0]?.location?.class
+                                ?.length !==
+                              index + 1
+                                ? ', '
+                                : ''}
+                            </Span>
+                          )
+                        )}
+                        {detailHour?.slice?.[0]?.location?.home_park?.map(
+                          (item, index) => (
+                            <Span fontSize={'18px'} key={index}>
+                              {item}
+                            </Span>
+                          )
+                        )}
+                        {detailHour?.slice?.[0]?.location?.clinic?.map(
+                          (item, index) => (
+                            <Span fontSize={'18px'} key={index}>
+                              {item}
+                              {detailHour?.slice?.[0]?.location?.clinic
+                                ?.length !==
+                              index + 1
+                                ? ', '
+                                : ''}
+                            </Span>
+                          )
+                        )}
                       </Span>
                       <Seperator />
                     </Box>
 
                     <hr />
-                    <Row style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                      <Button disableborder text={'Sil'} width={'120px'} height={'35px'} onClick={() => dispatch(
-                        deleteHourOfCalendar(
-                          selectedHour?.id,
-                          deleteHourSuccess,
-                          deleteHourFail
-                        ))} />
+                    <Row
+                      style={{ display: 'flex', justifyContent: 'flex-end' }}
+                    >
+                      <Button
+                        disableborder
+                        text={'Sil'}
+                        width={'120px'}
+                        height={'35px'}
+                        onClick={() =>
+                          dispatch(
+                            deleteHourOfCalendar(
+                              selectedHour?.id,
+                              deleteHourSuccess,
+                              deleteHourFail
+                            )
+                          )
+                        }
+                      />
                     </Row>
                   </HourDetailContainer>
                 </ReservationAccordion>
               </AccordionContainer>
-            </Col>)}
+            </Col>
+          )}
 
           {activePage === 'showHourGroup' && (
             <Col xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
-              <AccordionContainer >
+              <AccordionContainer>
                 <Span
                   cursor="pointer"
                   fontSize="1.5rem"
                   onClick={() => setActivePage('index')}
                   marginRight="10px"
-                  marginTop="10px">
+                  marginTop="10px"
+                >
                   {`<`}
                 </Span>
                 <ReservationAccordion
                   defaultOpen={true}
                   parent
-                  title={moment(startDate).format('DD MMMM dddd') + ' / ' + selectedHour?.hour}>
+                  title={
+                    moment(startDate).format('DD MMMM dddd') +
+                    ' / ' +
+                    selectedHour?.hour
+                  }
+                >
                   <HourDetailContainer>
-                    {userTypeId === PERSONAL_TRAINER &&
+                    {userTypeId === PERSONAL_TRAINER && (
                       <Box>
                         <Span fontWeight="600" mr="15px" fontSize={'20px'}>
                           Branş:
-                      </Span>
-                        <Span fontSize={'18px'}>
-                          {selectedHour?.branch}
                         </Span>
-                      </Box>}
-
-
+                        <Span fontSize={'18px'}>{selectedHour?.branch}</Span>
+                      </Box>
+                    )}
 
                     <Box row style={{ justifyContent: 'space-between' }}>
                       <Span>
@@ -562,49 +643,88 @@ const Calendar = () => {
                           Salon:
                         </Span>
                         <Span fontSize={'18px'}>
-                          {detailHour?.slice?.[0]?.location?.gym?.map((item, index) => (
-                            <Span fontSize={'18px'} key={index} color={'blue'} underline lineWidth={'100%'}>
-                              {item + ' '}
-                            </Span>))}
-                          {detailHour?.slice?.[0]?.location?.home_park?.map((item, index) => (
-                            <Span fontSize={'18px'} key={index}>
-                              {item}
-                            </Span>))}
-                          {detailHour?.slice?.[0]?.location?.clinic?.map((item, index) => (
-                            <Span fontSize={'18px'} key={index}>
-                              {item}
-                              {detailHour?.slice?.[0]?.location?.clinic?.length !== index + 1 ? ', ' : ''}
-                            </Span>))}
+                          {detailHour?.slice?.[0]?.location?.gym?.map(
+                            (item, index) => (
+                              <Span
+                                fontSize={'18px'}
+                                key={index}
+                                color={'blue'}
+                                underline
+                                lineWidth={'100%'}
+                              >
+                                {item + ' '}
+                              </Span>
+                            )
+                          )}
+                          {detailHour?.slice?.[0]?.location?.home_park?.map(
+                            (item, index) => (
+                              <Span fontSize={'18px'} key={index}>
+                                {item}
+                              </Span>
+                            )
+                          )}
+                          {detailHour?.slice?.[0]?.location?.clinic?.map(
+                            (item, index) => (
+                              <Span fontSize={'18px'} key={index}>
+                                {item}
+                                {detailHour?.slice?.[0]?.location?.clinic
+                                  ?.length !==
+                                index + 1
+                                  ? ', '
+                                  : ''}
+                              </Span>
+                            )
+                          )}
                         </Span>
                       </Span>
 
                       <Span>
-                        <Span fontWeight="600" mr="15px" fontSize={'20px'} color={'blue'}>
+                        <Span
+                          fontWeight="600"
+                          mr="15px"
+                          fontSize={'20px'}
+                          color={'blue'}
+                        >
                           Grup Ders:
                         </Span>
                         <Span fontSize={'18px'} color={'blue'}>
-                          {detailHour?.min_capacity} / {detailHour?.max_capacity} Kontenjan
+                          {detailHour?.min_capacity} /{' '}
+                          {detailHour?.max_capacity} Kontenjan
                         </Span>
                       </Span>
                     </Box>
 
                     <hr />
-                    <Row style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                      <Button disableborder text={'Sil'} width={'120px'} height={'35px'} onClick={() => dispatch(
-                        deleteHourOfCalendar(
-                          selectedHour?.id,
-                          deleteHourSuccess,
-                          deleteHourFail
-                        ))} />
+                    <Row
+                      style={{ display: 'flex', justifyContent: 'flex-end' }}
+                    >
+                      <Button
+                        disableborder
+                        text={'Sil'}
+                        width={'120px'}
+                        height={'35px'}
+                        onClick={() =>
+                          dispatch(
+                            deleteHourOfCalendar(
+                              selectedHour?.id,
+                              deleteHourSuccess,
+                              deleteHourFail
+                            )
+                          )
+                        }
+                      />
                     </Row>
                   </HourDetailContainer>
                 </ReservationAccordion>
               </AccordionContainer>
-            </Col>)}
+            </Col>
+          )}
 
-          <Col style={{ display: 'flex', justifyContent: 'center' }}
+          <Col
+            style={{ display: 'flex', justifyContent: 'center' }}
             xs={{ order: IsSmallScreen ? 1 : 2 }}
-            lg={4}>
+            lg={4}
+          >
             <DateContainer>
               <DatePicker
                 selected={startDate}
@@ -616,12 +736,12 @@ const Calendar = () => {
                     'react-datepicker__day--highlighted': startOfWeeksArr,
                   },
                 ]}
-                minDate={new Date()} />
+                minDate={new Date()}
+              />
             </DateContainer>
           </Col>
         </Row>
       )}
-
     </Container>
   );
 };
@@ -629,35 +749,34 @@ const Calendar = () => {
 const DateContainer = styled.div`
   width: 586px;
   height: 326px;
-  background: #F8F8F8;
+  background: #f8f8f8;
   border-radius: 20px;
   margin-top: 10px;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
-  @media ${device.sm}  {
+  @media ${device.sm} {
     height: 190px;
     width: 310px;
   }
 `;
 
-
 const HourDetailContainer = styled.div`
-  background-color: #F8F8F8;
+  background-color: #f8f8f8;
   border-radius: 10px;
   padding: 20px;
 `;
 
 const AppointmentDate = styled.div`
-  background: #FFFFFF;
-  border: 2px solid #C6C6C6;
+  background: #ffffff;
+  border: 2px solid #c6c6c6;
   border-radius: 20px;
   margin: 17px;
   padding-left: 15px;
   padding-right: 15px;
   flex-direction: column;
-  @media ${device.sm}  {
+  @media ${device.sm} {
     height: 95px;
     width: 290px;
   }
@@ -674,10 +793,10 @@ const AcceptButton = styled.div`
   justify-content: center;
   align-items: center;
   display: flex;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-bottom-right-radius: 20px;
   border-bottom-left-radius: 20px;
-  @media ${device.sm}  {
+  @media ${device.sm} {
     height: 95px;
     width: 310px;
   }
@@ -706,7 +825,7 @@ const AppointmentContainer = styled.div`
   .materials {
     margin-bottom: 15px;
 
-    label{
+    label {
       font-size: 15px !important;
     }
   }
@@ -723,7 +842,7 @@ const AvailableButton = styled.button`
   border-radius: 20px;
   margin-right: 80px;
   margin-left: 80px;
-  margin-top: 5px;
+  margin-top: 20px;
   font-size: 14px;
   @media ${device.sm} {
     width: 90px;
