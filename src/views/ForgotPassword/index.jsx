@@ -181,7 +181,7 @@ const ForgotPassword = () => {
 
                                 className="forgot-input-custom"
                                 label="Kodu giriniz."
-                                autoComplete="off"
+                                autocomplete="new-password"
                                 onChange={(e) =>
                                   setCode({
                                     ...code,

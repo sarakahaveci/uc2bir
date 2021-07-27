@@ -85,7 +85,9 @@ const Awaitings = ({ setAwaitingCount }) => {
             <ApproveCard
               cardType="userCard"
               date={elm?.hour}
+              user_id={elm?.pt?.id}
               customerName={elm?.pt?.name}
+
               optionalField_1={elm?.branch}
               optionalField_2={{
                 label: 'SALON',
@@ -117,6 +119,8 @@ const Awaitings = ({ setAwaitingCount }) => {
 
             <ApproveCard
               date={elm?.hour}
+              user_id={elm?.student_id}
+
               customerName={elm?.student}
               optionalField_1={elm?.branch}
               cardType="userCard"
@@ -148,6 +152,8 @@ const Awaitings = ({ setAwaitingCount }) => {
             <ApproveCard
               cardType="userCard"
               date={elm?.hour}
+              user_id={elm?.pt?.id || elm?.dt?.id}
+
               customerName={elm?.pt?.name ? elm?.pt?.name : elm?.dt?.name}
               optionalField_1={elm?.branch}
               onApprove={() => {
@@ -170,6 +176,8 @@ const Awaitings = ({ setAwaitingCount }) => {
 
             <ApproveCard
               date={elm?.hour}
+              user_id={elm?.dt?.id}
+
               customerName={elm?.dt?.name}
               optionalField_1={elm?.branch}
               cardType="userCard"

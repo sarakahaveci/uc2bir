@@ -81,144 +81,151 @@ const Rejecteds = ({ setRejectCount = () => { } }) => {
     }
   }, [selectedDate]);
 
-  function _renderTab(date){
+  function _renderTab(date) {
     if (items?.appointment?.[
       moment(date).format('DD.MM.YYYY')
     ]) {
-    return(
-      <ReservationAccordion
-      defaultOpen={true}
-      parent
-      title={moment(date).format('DD.MM.YYYY')}
-    >
-   
-        {items?.appointment?.[
-          moment(date).format('DD.MM.YYYY')
-        ]?.gym?.map((elm, i) => (
-          <ApproveCardContainer key={i}>
-            <Svg.SessionType.Gym />
-            <ApproveCard
-              status_bs={elm?.status_bs}
-              status_pt={elm?.status_pt}
-              date={elm?.hour}
-              transaction_id={
-                elm?.transaction_id ? elm.transaction_id : null
-              }
-              customerName={elm?.pt?.name}
-              type="rejecteds"
-              userType="user"
-              onTransfer={() => {
-                setOpenTransfer(true);
-              }}
-              onApprove={() => {
-                setChoosenElm(elm);
-                setOpenApprove(true);
-              }}
-              onReject={() => {
-                setChoosenElm(elm);
-                setOpenReject(true);
-              }}
-            />
-          </ApproveCardContainer>
-        ))||<></>}
-      
-        {items?.appointment?.[
-          moment(date).format('DD.MM.YYYY')
-        ]?.home_park?.map((elm, i) => (
-          <ApproveCardContainer key={i}>
-            <Svg.SessionType.Park />
-            <ApproveCard
-              date={elm?.hour}
-              status_bs={elm?.status_bs}
-              status_pt={elm?.status_pt}
-              transaction_id={
-                elm?.transaction_id ? elm.transaction_id : null
-              }
-              customerName={elm?.pt?.name}
-              type="rejecteds"
-              userType="user"
-              onTransfer={() => {
-                setOpenTransfer(true);
-              }}
-              onApprove={() => {
-                setChoosenElm(elm);
-                setOpenApprove(true);
-              }}
-              onReject={() => {
-                setChoosenElm(elm);
-                setOpenReject(true);
-              }}
-            />
-          </ApproveCardContainer>
-        ))||<></>}
-    
-        {items?.appointment?.[
-          moment(date).format('DD.MM.YYYY')
-        ]?.online?.map((elm, i) => (
+      return (
+        <ReservationAccordion
+          defaultOpen={true}
+          parent
+          title={moment(date).format('DD.MM.YYYY')}
+        >
 
-          <ApproveCardContainer key={i}>
+          {items?.appointment?.[
+            moment(date).format('DD.MM.YYYY')
+          ]?.gym?.map((elm, i) => (
+            <ApproveCardContainer key={i}>
+              <Svg.SessionType.Gym />
+              <ApproveCard
+                user_id={elm?.pt?.id}
 
-            <Svg.SessionType.Online />
+                status_bs={elm?.status_bs}
+                status_pt={elm?.status_pt}
+                date={elm?.hour}
+                transaction_id={
+                  elm?.transaction_id ? elm.transaction_id : null
+                }
+                customerName={elm?.pt?.name}
+                type="rejecteds"
+                userType="user"
+                onTransfer={() => {
+                  setOpenTransfer(true);
+                }}
+                onApprove={() => {
+                  setChoosenElm(elm);
+                  setOpenApprove(true);
+                }}
+                onReject={() => {
+                  setChoosenElm(elm);
+                  setOpenReject(true);
+                }}
+              />
+            </ApproveCardContainer>
+          )) || <></>}
 
-            <ApproveCard
-              date={elm?.hour}
-              transaction_id={
-                elm?.transaction_id ? elm.transaction_id : null
-              }
-              status_bs={elm?.status_bs}
-              status_pt={elm?.status_pt}
-              status_dt={elm?.status_dt}
+          {items?.appointment?.[
+            moment(date).format('DD.MM.YYYY')
+          ]?.home_park?.map((elm, i) => (
+            <ApproveCardContainer key={i}>
+              <Svg.SessionType.Park />
+              <ApproveCard
+                date={elm?.hour}
+                status_bs={elm?.status_bs}
+                status_pt={elm?.status_pt}
+                transaction_id={
+                  elm?.transaction_id ? elm.transaction_id : null
+                }
+                customerName={elm?.pt?.name}
+                user_id={elm?.pt?.id}
 
-              customerName={elm?.pt?.name || elm?.dt?.name}
-              type="rejecteds"
-              userType="user"
-              onTransfer={() => {
-                setOpenTransfer(true);
-                setTransactionId(elm?.transaction_id);
-              }}
-              onApprove={() => {
-                setChoosenElm(elm);
-                setOpenApprove(true);
-              }}
-              onReject={() => {
-                setChoosenElm(elm);
-                setOpenReject(true);
-              }}
-            />
-          </ApproveCardContainer>
-        ))||<></>}
-    
-        {items?.appointment?.[
-          moment(date).format('DD.MM.YYYY')
-        ]?.clinic?.map((elm, i) => (
-          <ApproveCardContainer key={i}>
-            <Svg.SessionType.Clinic />
-            <ApproveCard
-              date={elm?.hour}
-              status_dt={elm?.status_dt}
-              transaction_id={
-                elm?.transaction_id ? elm.transaction_id : null
-              }
-              customerName={elm?.dt?.name}
-              type="rejecteds"
-              userType="user"
-              onTransfer={() => {
-                setOpenTransfer(true);
-              }}
-              onApprove={() => {
-                setChoosenElm(elm);
-                setOpenApprove(true);
-              }}
-              onReject={() => {
-                setChoosenElm(elm);
-                setOpenReject(true);
-              }}
-            />
-          </ApproveCardContainer>
-        ))||<></>}
-    </ReservationAccordion>
-    )}else{
-      return(<></>)
+                type="rejecteds"
+                userType="user"
+                onTransfer={() => {
+                  setOpenTransfer(true);
+                }}
+                onApprove={() => {
+                  setChoosenElm(elm);
+                  setOpenApprove(true);
+                }}
+                onReject={() => {
+                  setChoosenElm(elm);
+                  setOpenReject(true);
+                }}
+              />
+            </ApproveCardContainer>
+          )) || <></>}
+
+          {items?.appointment?.[
+            moment(date).format('DD.MM.YYYY')
+          ]?.online?.map((elm, i) => (
+
+            <ApproveCardContainer key={i}>
+
+              <Svg.SessionType.Online />
+
+              <ApproveCard
+                date={elm?.hour}
+                transaction_id={
+                  elm?.transaction_id ? elm.transaction_id : null
+                }
+                status_bs={elm?.status_bs}
+                status_pt={elm?.status_pt}
+                status_dt={elm?.status_dt}
+
+                customerName={elm?.pt?.name || elm?.dt?.name}
+                user_id={elm?.pt?.id || elm?.dt?.id}
+
+                type="rejecteds"
+                userType="user"
+                onTransfer={() => {
+                  setOpenTransfer(true);
+                  setTransactionId(elm?.transaction_id);
+                }}
+                onApprove={() => {
+                  setChoosenElm(elm);
+                  setOpenApprove(true);
+                }}
+                onReject={() => {
+                  setChoosenElm(elm);
+                  setOpenReject(true);
+                }}
+              />
+            </ApproveCardContainer>
+          )) || <></>}
+
+          {items?.appointment?.[
+            moment(date).format('DD.MM.YYYY')
+          ]?.clinic?.map((elm, i) => (
+            <ApproveCardContainer key={i}>
+              <Svg.SessionType.Clinic />
+              <ApproveCard
+                date={elm?.hour}
+                status_dt={elm?.status_dt}
+                transaction_id={
+                  elm?.transaction_id ? elm.transaction_id : null
+                }
+                customerName={elm?.dt?.name}
+                type="rejecteds"
+                userType="user"
+                onTransfer={() => {
+                  setOpenTransfer(true);
+                }}
+                onApprove={() => {
+                  setChoosenElm(elm);
+                  setOpenApprove(true);
+                }}
+                onReject={() => {
+                  setChoosenElm(elm);
+                  setOpenReject(true);
+                }}
+              />
+            </ApproveCardContainer>
+          )) || <></>}
+        </ReservationAccordion>
+      )
+    } else {
+      return (<></>)
     }
   }
   return (
@@ -226,7 +233,7 @@ const Rejecteds = ({ setRejectCount = () => { } }) => {
       <StyledRow>
         <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
           <AccordionContainer>
-          {
+            {
               startOfWeeksArr().map((date) => (
                 _renderTab(date)
               ))
@@ -235,7 +242,7 @@ const Rejecteds = ({ setRejectCount = () => { } }) => {
             {!(startOfWeeksArr()?.length > 0) && <text style={{ padding: '20px' }}>Onay bekleyen hiçbir rezervasyon talebi yoktur</text>}
 
           </AccordionContainer>
-         
+
         </StyledCol>
         <StyledCol
           style={{
