@@ -30,8 +30,8 @@ const BuyPacket = ({ match }) => {
   useEffect(() => {
     dispatch(
       setPacketReservation({
-        level:'C',
-        totals_amount: packet?.data?.price_c ||packet?.data?.price ,
+        level: 'C',
+        totals_amount: packet?.data?.price_c || packet?.data?.price,
         id: match?.params?.id
       })
     );
@@ -215,7 +215,7 @@ const BuyPacket = ({ match }) => {
                       enable={packet?.reservation?.level == 'A'}
                     >
                       A
-                  </LevelCircle>
+                    </LevelCircle>
                     <Line />
                     <LevelCircle
                       onClick={() => {
@@ -227,7 +227,7 @@ const BuyPacket = ({ match }) => {
                       enable={packet?.reservation?.level == 'B' || packet?.reservation?.level == 'A'}
                     >
                       B
-                  </LevelCircle>
+                    </LevelCircle>
                     <Line />
 
                     <LevelCircle
@@ -240,11 +240,11 @@ const BuyPacket = ({ match }) => {
                       enable={packet?.reservation?.level == 'C' || packet?.reservation?.level == 'A' || packet?.reservation?.level == 'B'}
                     >
                       C
-                  </LevelCircle>
+                    </LevelCircle>
                   </LevelContainer>
                 </div>
               )}
-              <BottomContainer>
+              {match?.params?.type == 'pt' && <BottomContainer>
                 <PtIconsContainer>
                   <PtIcon src={avatar1} />
                   <PtIcon src={avatar3} />
@@ -261,7 +261,21 @@ const BuyPacket = ({ match }) => {
                     history.push('/find?type=' + match?.params?.type);
                   }}
                 />
-              </BottomContainer>
+              </BottomContainer> || <BottomContainer>
+                  <div>
+                    <PtIcon style={{ margin: '0' }} src={packet?.data?.dt?.photo} />
+                    {packet?.data?.dt?.name}
+                  </div>
+                  <Button
+                    blueborder
+                    text={"Profili Gör"}
+                    fontSize="11pt"
+                    color="blue"
+                    onClick={() => {
+                      history.push('/user/' + packet?.data?.dt?.id);
+                    }}
+                  />
+                </BottomContainer>}
             </TrainerGroupWrapper>
           </TrainerGroupContainer>
           {userTypeId === USER && <PaymentCard subType={match?.params?.type} type="buy_packet"></PaymentCard>
