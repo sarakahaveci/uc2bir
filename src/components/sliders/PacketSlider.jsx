@@ -96,8 +96,19 @@ function PacketSlider(props) {
         </div>
       </Container>
       <Container fluid>
-        <div style={{display:'flex',alignItems:'center',justifyContent:'center'}} className="sliders">
-          <SlickSlider style={{width:'1200px'}} ref={(c) => (slider = c)} {...settings}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+          className="sliders"
+        >
+          <SlickSlider
+            style={{ width: '1200px' }}
+            ref={(c) => (slider = c)}
+            {...settings}
+          >
             {query &&
               data?.map((val, key) => Packet[props.groups]({ key, val }))}
           </SlickSlider>

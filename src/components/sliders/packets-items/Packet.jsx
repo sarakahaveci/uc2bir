@@ -2,14 +2,17 @@ import React from 'react';
 
 import Title from '../../typography/Titles';
 import AwesomeIcon from '../../statics/icon';
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
 const Packet = ({ val }) => {
   const history = useHistory();
   return (
     <>
-      <div onClick={() =>{
-          history.push('/packets/pt/detail/'+val?.id)
-        }} className="slider-item">
+      <div
+        onClick={() => {
+          history.push('/packets/pt/detail/' + val?.id);
+        }}
+        className="slider-item"
+      >
         <div className="slider-item-content">
           <div className="front-card">
             <div className="img-item">
