@@ -48,7 +48,7 @@ const ProfileBanner = ({
       if (showOthers)
         setShowOthers(false)
     }} className={className}>
-      <BlockUserModal
+      {info?.type_id && <><BlockUserModal
         isBlocked={info?.isBlocked} //Burası değişcek
         open={openApprove}
         approve={() => {
@@ -60,145 +60,145 @@ const ProfileBanner = ({
           setOpenApprove(false);
         }}
       />
-      <Rows>
-        <Cols lg={4}>
-          <Card img={info.img}>
-            <span className="team">{info.team}</span>
-            <span className="span">
-              {user?.type_id === USER &&
-                (isFavorited ? (
-                  <ActiveHeart
-                    onClick={favoriteClickHandler}
-                    showHeartBg={false}
-                  />
-                ) : (
-                  <Heart onClick={favoriteClickHandler} showHeartBg={true} />
-                ))}
-              {isUserDetail && (
-                <Link to="/myprofile/settings/profile">
-                  {' '}
-                  <Setting
-                    onClick={favoriteClickHandler}
-                    showHeartBg={true}
-                  />{' '}
-                </Link>
+        <Rows>
+          <Cols lg={4}>
+            <Card img={info.img}>
+              <span className="team">{info.team}</span>
+              <span className="span">
+                {user?.type_id === USER &&
+                  (isFavorited ? (
+                    <ActiveHeart
+                      onClick={favoriteClickHandler}
+                      showHeartBg={false}
+                    />
+                  ) : (
+                    <Heart onClick={favoriteClickHandler} showHeartBg={true} />
+                  ))}
+                {isUserDetail && (
+                  <Link to="/myprofile/settings/profile">
+                    {' '}
+                    <Setting
+                      onClick={favoriteClickHandler}
+                      showHeartBg={true}
+                    />{' '}
+                  </Link>
+                )}
+              </span>
+
+              <Stars rating={info.stars} position="bottom" />
+
+              {!isUserDetail ? (
+                user?.type_id === USER && (
+                  <CardFooter>
+                    <Dropdown>
+                      <DropdownButton
+                        className="list"
+                        onClick={() => { setShowOthers(!showOthers) }}
+                      >
+                        <text style={{ color: 'black' }}>○○○</text>
+                      </DropdownButton>
+                      <DropdownContent show={showOthers}>
+                        <Wrapper style={{ borderBottomColor: '#DEDEDE', borderBottomStyle: 'solid', borderBottomWidth: '1px' }}>
+                          <BlockContainer>
+                            <Svg.BlackBlock style={{ marginRight: '10px' }}></Svg.BlackBlock>
+                            <BlockUser onClick={() => { openBlockModal() }}>{info?.isBlocked ? "Engeli kaldır" : "Kullanıcıyı Engelle"}</BlockUser>
+
+                          </BlockContainer>
+                        </Wrapper>
+                        <Wrapper>
+                          <Comment
+                            to={'/myprofile/settings/message'}
+                            onClick={() => dispatch(setNewMessageRoom(info))}
+                          >
+                            <Svg.BlackMessage style={{ marginRight: '10px' }} ></Svg.BlackMessage>
+                            <text style={{ color: 'black' }}>Mesaj Gönder</text>
+                          </Comment>
+                        </Wrapper>
+                      </DropdownContent>
+                    </Dropdown>
+
+                    <Button
+                      onClick={() => {
+                        dispatch(setReservation({ isSelected: false }));
+                        setPage('Reservation');
+                      }}
+                      text="Rezervasyon Yap"
+                      className="blue list"
+                      style={{ fontSize: '9pt' }}
+                    />
+                  </CardFooter>
+                ) || (
+
+                  <CardFooter>
+                    <Dropdown>
+                      <DropdownButton
+                        className="list"
+                        onClick={() => { setShowOthers(!showOthers) }}
+                      >
+                        <text style={{ color: 'black' }}>○○○</text>
+                      </DropdownButton>
+                      <DropdownContent show={showOthers}>
+                        <Wrapper style={{ borderBottomColor: '#DEDEDE', borderBottomStyle: 'solid', borderBottomWidth: '1px' }}>
+                          <BlockContainer>
+                            <Svg.BlackBlock style={{ marginRight: '10px' }}></Svg.BlackBlock>
+                            <BlockUser onClick={() => { openBlockModal() }}>{info?.isBlocked ? "Engeli kaldır" : "Kullanıcıyı Engelle"}</BlockUser>
+
+                          </BlockContainer>
+                        </Wrapper>
+                        <Wrapper>
+                          <Comment
+                            to={'/myprofile/settings/message'}
+                            onClick={() => {
+                              dispatch(setNewMessageRoom(info))
+                            }}
+                          >
+                            <Svg.BlackMessage style={{ marginRight: '10px' }} ></Svg.BlackMessage>
+                            <text style={{ color: 'black' }}>Mesaj Gönder</text>
+                          </Comment>
+                        </Wrapper>
+                      </DropdownContent>
+                    </Dropdown>
+                  </CardFooter>
+                )
+              ) : (
+                <CardFooter>
+                  <Link to={'/myprofile/settings/reservation'}>
+                    <Button
+                      onClick={() => {
+                        dispatch(setReservation({ isSelected: false }));
+                        setPage('Reservation');
+                      }}
+                      text="Takvim Oluştur"
+                      className="blue list"
+                      style={{ fontSize: '9pt' }}
+                    />
+                  </Link>
+                </CardFooter>
               )}
-            </span>
+            </Card>
+          </Cols>
 
-            <Stars rating={info.stars} position="bottom" />
+          <Cols lg={3}>
+            <CardInfo
+              name={info.name}
+              price={info.price}
+              categories={categories}
+              jobType={info.category}
+              location={info.location}
+            />
 
-            {!isUserDetail ? (
-              user?.type_id === USER && (
-                <CardFooter>
-                  <Dropdown>
-                    <DropdownButton
-                      className="list"
-                      onClick={() => { setShowOthers(!showOthers) }}
-                    >
-                      <text style={{ color: 'black' }}>○○○</text>
-                    </DropdownButton>
-                    <DropdownContent show={showOthers}>
-                      <Wrapper style={{ borderBottomColor: '#DEDEDE', borderBottomStyle: 'solid', borderBottomWidth: '1px' }}>
-                        <BlockContainer>
-                          <Svg.BlackBlock style={{ marginRight: '10px' }}></Svg.BlackBlock>
-                          <BlockUser onClick={() => { openBlockModal() }}>{info?.isBlocked ? "Engeli kaldır" : "Kullanıcıyı Engelle"}</BlockUser>
-
-                        </BlockContainer>
-                      </Wrapper>
-                      <Wrapper>
-                        <Comment
-                          to={'/myprofile/settings/message'}
-                          onClick={() => dispatch(setNewMessageRoom(info))}
-                        >
-                          <Svg.BlackMessage style={{ marginRight: '10px' }} ></Svg.BlackMessage>
-                          <text style={{ color: 'black' }}>Mesaj Gönder</text>
-                        </Comment>
-                      </Wrapper>
-                    </DropdownContent>
-                  </Dropdown>
-
-                  <Button
-                    onClick={() => {
-                      dispatch(setReservation({ isSelected: false }));
-                      setPage('Reservation');
-                    }}
-                    text="Rezervasyon Yap"
-                    className="blue list"
-                    style={{ fontSize: '9pt' }}
-                  />
-                </CardFooter>
-              ) || (
-
-                <CardFooter>
-                  <Dropdown>
-                    <DropdownButton
-                      className="list"
-                      onClick={() => { setShowOthers(!showOthers) }}
-                    >
-                      <text style={{ color: 'black' }}>○○○</text>
-                    </DropdownButton>
-                    <DropdownContent show={showOthers}>
-                      <Wrapper style={{ borderBottomColor: '#DEDEDE', borderBottomStyle: 'solid', borderBottomWidth: '1px' }}>
-                        <BlockContainer>
-                          <Svg.BlackBlock style={{ marginRight: '10px' }}></Svg.BlackBlock>
-                          <BlockUser onClick={() => { openBlockModal() }}>{info?.isBlocked ? "Engeli kaldır" : "Kullanıcıyı Engelle"}</BlockUser>
-
-                        </BlockContainer>
-                      </Wrapper>
-                      <Wrapper>
-                        <Comment
-                          to={'/myprofile/settings/message'}
-                          onClick={() => {
-                            dispatch(setNewMessageRoom(info))
-                          }}
-                        >
-                          <Svg.BlackMessage style={{ marginRight: '10px' }} ></Svg.BlackMessage>
-                          <text style={{ color: 'black' }}>Mesaj Gönder</text>
-                        </Comment>
-                      </Wrapper>
-                    </DropdownContent>
-                  </Dropdown>
-                </CardFooter>
-              )
-            ) : (
-              <CardFooter>
-                <Link to={'/myprofile/settings/reservation'}>
-                  <Button
-                    onClick={() => {
-                      dispatch(setReservation({ isSelected: false }));
-                      setPage('Reservation');
-                    }}
-                    text="Takvim Oluştur"
-                    className="blue list"
-                    style={{ fontSize: '9pt' }}
-                  />
-                </Link>
-              </CardFooter>
-            )}
-          </Card>
-        </Cols>
-
-        <Cols lg={3}>
-          <CardInfo
-            name={info.name}
-            price={info.price}
-            categories={categories}
-            jobType={info.category}
-            location={info.location}
-          />
-
-        </Cols>
-        {/* <Cols lg={1}>
+          </Cols>
+          {/* <Cols lg={1}>
           <Line />
         </Cols> */}
 
-        <Cols lg={4} style={{ borderLeft: 'ridge' }}>
-          {about && <TitleWrapper>Hakkımda</TitleWrapper>}
-          <TextWrapper>{about}</TextWrapper>
+          <Cols lg={4} style={{ borderLeft: 'ridge' }}>
+            {about && <TitleWrapper>Hakkımda</TitleWrapper>}
+            <TextWrapper>{about}</TextWrapper>
 
-        </Cols>
+          </Cols>
 
-      </Rows>
+        </Rows></> || <div style={{ margin: '50px' }}><text style={{ fontSize: '25px', fontWeight: 'bold' }}>Profil bulunamamaktadır</text></div>}
 
     </Containers >
   );
