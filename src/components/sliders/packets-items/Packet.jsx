@@ -22,7 +22,9 @@ const Packet = ({ val }) => {
                   backgroundImage: `url(${val.photo})`,
                 }}
               >
-                {val?.type == 'pt' && <div className="team">{val.class}</div> || <div style={{ width: '50px', height: '50px' }}></div>}
+                {/* {(val?.type == 'pt' && (
+                  <div className="team">{val.class}</div>
+                )) || <div style={{ width: '50px', height: '50px' }}></div>} */}
               </div>
               <div className="info d-flex">
                 <Title lineDisable fontWeight="bold">
@@ -37,7 +39,8 @@ const Packet = ({ val }) => {
               <div className="row info">
                 <div className="col">
                   <ul>
-                    <li>{val.content}</li>
+                    {val?.type === 'pt' && <li>{val.branch} Branşı</li>}
+                    {val?.type === 'dt' && <li>Diyet Programı</li>}
                   </ul>
                 </div>
                 <div className="col-auto">
