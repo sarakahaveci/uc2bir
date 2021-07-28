@@ -13,7 +13,7 @@ import { Button } from 'components';
 import Packet from './packets-items';
 
 function PacketSlider(props) {
-  const { data, query, categories, handleSeeMoreClick, handleClickCategory } =
+  const { data, query, categories,handleSeeMoreClick, handleClickCategory } =
     props;
   let slider;
 

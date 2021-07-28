@@ -9,7 +9,7 @@ const Packet = ({ val }) => {
     <>
       <div
         onClick={() => {
-          history.push('/packets/pt/detail/' + val?.id);
+          history.push(`/packets/${val?.type}/detail/` + val?.id);
         }}
         className="slider-item"
       >
@@ -22,7 +22,7 @@ const Packet = ({ val }) => {
                   backgroundImage: `url(${val.photo})`,
                 }}
               >
-                <div className="team">{val.class}</div>
+                {val?.type == 'pt' && <div className="team">{val.class}</div> || <div style={{ width: '50px', height: '50px' }}></div>}
               </div>
               <div className="info d-flex">
                 <Title lineDisable fontWeight="bold">
