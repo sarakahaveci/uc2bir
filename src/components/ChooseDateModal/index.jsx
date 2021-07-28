@@ -149,18 +149,18 @@ justify-content:center;
 align-items:center;
   display:flex;
   flex-direction:row;
-  width:40%;
+  width:45%;
   border:${(p) => (p.isChoosen ? '2px solid var(--blue)' : '0.5px solid var(--blue)')};;
   padding : 20px;
   border-radius: 18px;
    .checkbox{
-    margin-right: 3px;
+     padding-right: 5px;
     display: flex;
-    border-radius: 50%;
+    border-radius: 100%;
     padding:5px;
     background-color:${(p) => (p.isChoosen ? 'var(--blue)' : 'white')};
-    width:20px;
-    height:20px;
+    width:25px;
+    height:25px;
   }
   .text{
     font-size : 14px;
@@ -212,6 +212,7 @@ const ModalFooter = styled.div`
   width: 100%;
 `;
 const FooterButton = styled.button`
+border-radius: 5px;
   font-size: 1.2rem;
   color: white;
   text-align: center;
