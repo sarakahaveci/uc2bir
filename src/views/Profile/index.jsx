@@ -23,6 +23,7 @@ import Classes from 'components/Profile/Gym/Classes/index';
 import FindPt from 'components/Profile/Gym/FindPt';
 import Galery from 'components/Profile/Galery';
 import ProfileReservation from 'components/ProfileReservation';
+import IndividualImprint from 'components/IndividualImprint';
 
 import MyCalendar from 'components/Profile/MyCalendar/MyCalendar';
 
@@ -166,7 +167,7 @@ export default function Profile({ match }) {
             <Row>
               <ProfileBanner
                 setPage={setPage}
-                onBlockUser={()=>{}}
+                onBlockUser={() => { }}
                 info={{
                   team: userInfo?.classification,
                   img: userInfo?.photo || profileImg,
@@ -195,6 +196,8 @@ export default function Profile({ match }) {
                   match?.params?.activeTabKey || tabData?.[0]?.eventKey
                 }
               />
+              <IndividualImprint userInfo={userInfo} />
+
             </TabContainers>
           </Container>
         </>
