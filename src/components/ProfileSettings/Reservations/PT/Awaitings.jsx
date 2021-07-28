@@ -83,6 +83,8 @@ const Awaitings = ({ setAwaitingCount }) => {
                 <ApproveCard
                   date={elm?.hour}
                   customerName={elm?.student}
+                  user_id={elm?.student_id}
+
                   optionalField_1={elm?.branch}
                   optionalField_2={{
                     label: 'SALON',
@@ -113,6 +115,8 @@ const Awaitings = ({ setAwaitingCount }) => {
               <ApproveCard
                 date={elm?.hour}
                 customerName={elm?.student}
+                user_id={elm?.student_id}
+
                 optionalField_1={elm?.branch}
                 optionalField_2={{
                   label: 'EV / PARK',
@@ -142,6 +146,8 @@ const Awaitings = ({ setAwaitingCount }) => {
               <ApproveCard
                 date={elm?.hour}
                 customerName={elm?.student}
+                user_id={elm?.student_id}
+
                 optionalField_1={elm?.branch}
                 onApprove={() => {
                   setChoosenElm(elm);
