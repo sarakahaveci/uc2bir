@@ -15,7 +15,7 @@ export default function GroupSlot({
       <BackLink onClick={() => setTabPage('')}>
         <Svg.ArrowLeftIcon />
 
-        <span>Haftalık Şablon Oluştur</span>
+        <span>Grup Ders Oluştur</span>
       </BackLink>
 
       <Row>
