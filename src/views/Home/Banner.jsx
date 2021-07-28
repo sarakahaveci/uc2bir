@@ -1,10 +1,11 @@
 /* eslint-disable react/display-name */
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { default as NativeBanner } from '../../components/sliders/Banner';
 import SearchBar from '../../components/sliders/SearchBar';
 import GoogleApp from 'components/GoogleMaps';
+import { searchProffesional } from 'actions'
 import { SET_SEARCH_PROFESSIONAL_TYPE } from 'constants/actionTypes';
 //bunları şimdilik ekliyoruz
 import s2 from '../../assets/banner/download.jpg';
@@ -15,15 +16,17 @@ import vid from '../../assets/girisvideo1920x660.mp4';
 const Banner = () => {
   const dispatch = useDispatch();
   const [virtual, setVirtual] = useState('pt');
+  const mapData = useSelector((state) => state.searchProfessional?.listInfo?.data)
   const handleChangeVirtual = (value) => {
     dispatch({ type: SET_SEARCH_PROFESSIONAL_TYPE, payload: value });
     setVirtual(value);
-    //dispatch(searchGymForPt()); //DEĞİŞECEK
-  };
-  const { data } = useSelector(
-    (state) => state.profileSettings2.sessionType.searchGym
-  );
 
+  };
+  useEffect(() => {
+    dispatch(
+      searchProffesional({ title: '', type: 'map', minPrice: 0, maxPrice: 1000 })
+    );
+  }, [])
   useLayoutEffect(() => {
     const player = document.getElementById('vd-io');
     if (player) {
@@ -91,7 +94,7 @@ const Banner = () => {
       component: () => {
         return (
           <div className="img">
-            <GoogleApp disableMinOption data={data} />
+            <GoogleApp disableMinOption data={mapData} />
           </div>
         );
       },
