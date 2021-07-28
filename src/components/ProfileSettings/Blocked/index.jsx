@@ -31,8 +31,10 @@ export default function Services() {
         isBlocked={true}
         open={selectedUser}
         approve={() => {
-          dispatch(unblockUser(selectedUser))
-          dispatch(getBlockedUsers());
+          dispatch(unblockUser(selectedUser,()=>{
+            dispatch(getBlockedUsers());
+          }))
+          
 
           setSelectedUser(undefined);
         }}
@@ -43,7 +45,7 @@ export default function Services() {
       <Link style={{ color: 'black' }} to="/myprofile/settings/profile">
         <Header >
           <Svg.ArrowLeftIcon />
-          <text style={{ marginLeft: '5px', fontWeight: 'bold' }}>Engellediğim Üyeler</text>
+          <text style={{ marginLeft: '5px', fontWeight: 'bold' }}>Engellediğim Kullanıcılar</text>
         </Header>
       </Link>
       <CardContainer>

@@ -5,7 +5,7 @@ import {
     GET_BLOCKED_USERS,
     HTTP_REQUEST
 } from '../constants';
-import {toast} from 'react-toastify'
+import { toast } from 'react-toastify'
 export const blockUser = (id) => async (
     dispatch
 ) => {
@@ -35,7 +35,7 @@ export const blockUser = (id) => async (
         },
     });
 };
-export const unblockUser = (id) => async (
+export const unblockUser = (id, successCallback) => async (
     dispatch
 ) => {
     const url = '/user/block/remove';
@@ -53,7 +53,7 @@ export const unblockUser = (id) => async (
                     position: 'bottom-right',
                     autoClose: 4000,
                 });
-                // successCallback();
+                successCallback();
             },
             errorHandler: (err) => {
                 toast.error(err?.message || 'İşlem başarısız', {

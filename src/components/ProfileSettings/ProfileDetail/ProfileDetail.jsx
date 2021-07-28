@@ -40,7 +40,7 @@ export default function Profile() {
   }, [id]);
 
   useEffect(() => {
-    setTab(userInfo.type_id !== WORK_PLACE ? 'Branches' : 'Facility');
+    setTab(userInfo?.type_id !== WORK_PLACE ? 'Branches' : 'Facility');
   }, [userInfo]);
 
   let content;
@@ -155,7 +155,7 @@ export default function Profile() {
             </Row>
             <TabContainers>
               <>
-                {userInfo.type_id !== WORK_PLACE ? (
+                {userInfo?.type_id !== WORK_PLACE ? (
                   <Tabbar
                     defaultSelected="Branches"
                     onSelect={(value) => {
