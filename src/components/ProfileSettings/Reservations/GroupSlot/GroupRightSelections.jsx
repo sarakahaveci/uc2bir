@@ -20,7 +20,8 @@ import ReservationAccordion from '../ReservationAccordion';
 import {
   createGroupSlot,
   setGroupSelectionData,
-  dtCreateSeance, getProfessionalCalendar,
+  dtCreateSeance,
+  getProfessionalCalendar,
 } from 'actions';
 import { format } from 'date-fns';
 import tr from 'date-fns/locale/tr';
@@ -28,7 +29,10 @@ import { DIETITIAN } from 'constants/index';
 import moment from 'moment';
 import { toast } from 'react-toastify';
 
-export default function GroupRightSelections({ setTab = () => {}, setTabPage = () => {} }) {
+export default function GroupRightSelections({
+  setTab = () => {},
+  setTabPage = () => {},
+}) {
   const {
     classSelection,
     selectedHour,
@@ -36,7 +40,7 @@ export default function GroupRightSelections({ setTab = () => {}, setTabPage = (
     sessionSelection,
     locationSelection,
     courseDetails,
-    group_slot_image_id
+    group_slot_image_id,
   } = useSelector((state) => state.profileSettings2.reservationGroupSlot);
 
   const dispatch = useDispatch();
@@ -57,17 +61,18 @@ export default function GroupRightSelections({ setTab = () => {}, setTabPage = (
   // }, [classSelection]);
 
   useEffect(() => {
-    locationSelection?.id && dispatch(getProfessionalCalendar(locationSelection.id, 3, selectedDate));
+    locationSelection?.id &&
+      dispatch(getProfessionalCalendar(locationSelection.id, 3, selectedDate));
   }, [locationSelection, selectedDate]);
 
   useEffect(() => {
-    selectDataHandler('selectedDate', selectedDate)
+    selectDataHandler('selectedDate', selectedDate);
   }, [selectedDate]);
 
   const closeSuccessReservationModal = useCallback(() => {
-    reservationSuccessModalRef.current.closeModal()
-    setTabPage('')
-    setTab('Calendar')
+    reservationSuccessModalRef.current.closeModal();
+    setTabPage('');
+    setTab('Calendar');
   }, []);
 
   const { working_days: working_days } = useSelector(
@@ -79,13 +84,10 @@ export default function GroupRightSelections({ setTab = () => {}, setTabPage = (
   );
 
   const addGroupSlotFail = (error) => {
-    toast.error(
-      error,
-      {
-        position: 'bottom-right',
-        autoClose: 3000,
-      }
-    );
+    toast.error(error, {
+      position: 'bottom-right',
+      autoClose: 3000,
+    });
   };
 
   const createGroupSlotHandler = () => {
@@ -105,12 +107,12 @@ export default function GroupRightSelections({ setTab = () => {}, setTabPage = (
         break;
 
       default:
-        if(!group_slot_image_id){
+        if (!group_slot_image_id) {
           toast.error('Lütfen fotoğraf seçiniz! ', {
             position: 'bottom-right',
             autoClose: 1500,
           });
-  
+
           return;
         }
         if (
@@ -122,11 +124,14 @@ export default function GroupRightSelections({ setTab = () => {}, setTabPage = (
             courseDetails,
           ].some((item) => !item)
         ) {
-          toast.error('Lütfen eksik veya yanlış şeçimlerinizi kontrol ediniz! ', {
-            position: 'bottom-right',
-            autoClose: 1500,
-          });
-  
+          toast.error(
+            'Lütfen eksik veya yanlış şeçimlerinizi kontrol ediniz! ',
+            {
+              position: 'bottom-right',
+              autoClose: 1500,
+            }
+          );
+
           return;
         }
 
@@ -310,7 +315,6 @@ export default function GroupRightSelections({ setTab = () => {}, setTabPage = (
           </>
         )}
 
-
         {/*<Text color="red" fontSize="0.9rem">*/}
         {/*  *Max 50 TL fiyat giriniz*/}
         {/*</Text>*/}
@@ -334,14 +338,15 @@ export default function GroupRightSelections({ setTab = () => {}, setTabPage = (
             <Material.TextField
               changeValue={price}
               onChange={(e) => setPrice(e.target.value)}
-              error={price > branchSelection.price}
+              error={price > branchSelection.max_request_price}
               label="Giriniz"
               type="number"
             />
-
-            <Text color="red" fontSize="0.9rem">
-              *Max {branchSelection.price} TL fiyat giriniz
-            </Text>
+            {branchSelection.max_request_price && (
+              <Text color="red" fontSize="0.9rem">
+                *Max {branchSelection.max_request_price} TL fiyat giriniz
+              </Text>
+            )}
           </>
         )}
         <Button
@@ -368,7 +373,13 @@ export default function GroupRightSelections({ setTab = () => {}, setTabPage = (
         </Text>
 
         <Modal.Footer>
-          <Text textAlign="center" color="blue" p="0" cursor="pointer" onClick={closeSuccessReservationModal}>
+          <Text
+            textAlign="center"
+            color="blue"
+            p="0"
+            cursor="pointer"
+            onClick={closeSuccessReservationModal}
+          >
             REZERVASYON TAKVİMİMİ GÖR
           </Text>
 
