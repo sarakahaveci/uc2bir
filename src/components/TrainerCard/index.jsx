@@ -48,8 +48,10 @@ const TrainerCard = ({
           <Seperator />
           <AddressText>{address}</AddressText>
           <div>
-          <AddressText>{price}</AddressText>
-          <AwesomeIcon.Tl style={{marginLeft:'5px',color:'var(--blue)'}}></AwesomeIcon.Tl>
+            <AddressText>{price}</AddressText>
+            <AwesomeIcon.Tl
+              style={{ marginLeft: '5px', color: 'var(--blue)' }}
+            ></AwesomeIcon.Tl>
           </div>
         </InfoContainer>
       </Card>
