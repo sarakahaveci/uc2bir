@@ -301,7 +301,8 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
                       }
                     />
                     <RadioWrapper>
-                      {reservation?.data?.location_id && (reservation?.data?.location_id === item.location_id) ? (
+                      {reservation?.data?.location_id &&
+                      reservation?.data?.location_id === item.location_id ? (
                         <RadioButtonCheckedIcon
                           style={{ marginLeft: '5px', cursor: 'pointer' }}
                         />
@@ -320,8 +321,11 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
                       )}
                     </RadioWrapper>
                   </div>
-                )) || <text style={{ padding: '10px 0' }}>Bu kullanıcının uygun klinigi bulunmamaktadır.</text>}
-
+                )) || (
+                  <text style={{ padding: '10px 0' }}>
+                    Bu kullanıcının uygun klinigi bulunmamaktadır.
+                  </text>
+                )}
               </RadioGroup>
             </GymWrapper>
           </>
@@ -432,11 +436,26 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
         );
       case 'no_money':
         return (
-          <div style={{display:'flex',opacity:'.8',alignItems: 'center',marginTop:'63px',padding:'20px' ,borderStyle:'solid',borderColor:'var(--blue)',borderRadius:'5px',borderWidth:'1px'}}>
-            <Svg.SmileyFaceIcon style={{marginRight:'20px'}}/>
-            <text>Paketten rezervasyon yaparken extra hizmetler dışında ücret ödemezsin.</text>
+          <div
+            style={{
+              display: 'flex',
+              opacity: '.8',
+              alignItems: 'center',
+              marginTop: '63px',
+              padding: '20px',
+              borderStyle: 'solid',
+              borderColor: 'var(--blue)',
+              borderRadius: '5px',
+              borderWidth: '1px',
+            }}
+          >
+            <Svg.SmileyFaceIcon style={{ marginRight: '20px' }} />
+            <text>
+              Paketten rezervasyon yaparken extra hizmetler dışında ücret
+              ödemezsin.
+            </text>
           </div>
-        )
+        );
       default:
         return (
           <>
@@ -474,7 +493,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
                       <Material.SimpleSelect
                         name="pt"
                         label={reservation?.data?.selectedPt?.name || 'Seçiniz'}
-                        onClick={() => { }}
+                        onClick={() => {}}
                       />
                     </div>
                   </div>
@@ -488,11 +507,11 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
                     stars={reservation?.data?.rating}
                     category={reservation?.data?.selectedPt?.title}
                     address={
-                      reservation?.data?.selectedPt?.district +
+                      reservation?.data?.selectedPt?.addresses[0]?.district +
                       ' / ' +
-                      reservation?.data?.selectedPt?.city
+                      reservation?.data?.selectedPt?.addresses[0]?.city
                     }
-                    price={reservation?.data?.price}
+                    price={reservation?.data?.selectedPt?.price}
                     classification={
                       reservation?.data?.selectedPt?.classification
                     }
@@ -505,14 +524,14 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
                   items={
                     type == 'pt'
                       ? [
-                        { id: 'home_park', name: 'Ev / Park' },
-                        { id: 'gym', name: 'Spor Salonu' },
-                        { id: 'online', name: 'Online' },
-                      ]
+                          { id: 'home_park', name: 'Ev / Park' },
+                          { id: 'gym', name: 'Spor Salonu' },
+                          { id: 'online', name: 'Online' },
+                        ]
                       : [
-                        { id: 'clinic', name: 'Klinik' },
-                        { id: 'online', name: 'Online' },
-                      ]
+                          { id: 'clinic', name: 'Klinik' },
+                          { id: 'online', name: 'Online' },
+                        ]
                   }
                   name="sessionType"
                   defaultValue={reservation?.data?.session}
@@ -546,7 +565,16 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
           <Container>
             <LeftWrapper>{_renderLeftArea()}</LeftWrapper>
             <RightWrapper>
-              <PaymentCard disabledPayment={((reservation?.data?.session == 'home_park' || reservation?.data?.session == 'gym') && !reservation?.data?.location_id)} type="packet" subType={type} dateOption={true} />
+              <PaymentCard
+                disabledPayment={
+                  (reservation?.data?.session == 'home_park' ||
+                    reservation?.data?.session == 'gym') &&
+                  !reservation?.data?.location_id
+                }
+                type="packet"
+                subType={type}
+                dateOption={true}
+              />
             </RightWrapper>
             <StyledModal show={openModal} onHide={() => setOpenModal(false)}>
               <MultiContract
@@ -725,9 +753,9 @@ const AccordionItemWrapper = styled.div`
   .accordion-toggler {
     display: flex;
     background: ${(p) =>
-    p.parent
-      ? '#EFEFEF'
-      : p.accordionBackground
+      p.parent
+        ? '#EFEFEF'
+        : p.accordionBackground
         ? p.accordionBackground
         : '#F8F8F8'};
     justify-content: space-between;

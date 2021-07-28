@@ -304,7 +304,7 @@ const SearchCol = styled(Col)`
     border-right: 1px solid #707070;
   }
 
-  flex-basis: 20%;
+  flex-basis: 15%;
 `;
 
 const SearchWrapper = styled.div`
