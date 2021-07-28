@@ -17,6 +17,7 @@ import {
   setGroupSelectionData,
   getGroupImages,
   getUserPTBranchList, getDietitianClinics,
+  getPtWorkingHomePlace
 } from 'actions';
 
 export default function GroupLeftSelections() {
@@ -62,6 +63,7 @@ export default function GroupLeftSelections() {
       dispatch(getSessionTypes());
 
       // dispatch(getMyBranches());
+      dispatch(getPtWorkingHomePlace());
 
       dispatch(getUserPTBranchList());
 
