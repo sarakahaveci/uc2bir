@@ -184,7 +184,7 @@ export const saveTemplate = (templateName, callBack) => async (
         })),
       }),
       ...(userTypeId === WORK_PLACE && {
-        location: slice.location.map((location) => location.id),
+        location: slice?.location?.map((location) => location.id),
       }),
     })),
   }));

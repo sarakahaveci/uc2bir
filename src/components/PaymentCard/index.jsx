@@ -590,7 +590,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
   function sendPaymentPtPacketReservation() {
     var json = {
       package_uuid: reservation?.data?.package_uuid,
-      pt_id: reservation?.data?.selectedPt?.user_id,
+      pt_id: reservation?.data?.selectedPt?.id,
       dt_id: reservationCalendar?.data?.dt?.id,
 
       payment_type: reservation?.data?.payment_type == 'credit_card' ? 'credit_card' : 'package',

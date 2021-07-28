@@ -120,7 +120,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
         dispatch(
           getPacketPtReservationCalendar(
             reservation.data.package_uuid,
-            reservation?.data?.selectedPt?.user_id,
+            reservation?.data?.selectedPt?.id,
             reservation.data?.date,
             null,
             reservation.data?.session,
@@ -249,7 +249,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
                       </Accordion.Item>
                     </AccordionItemWrapper>
                   </Accordion>
-                  {reservation?.data?.location_id === item.id ? (
+                  {reservation?.data?.location_id && reservation?.data?.location_id === item.location_id ? (
                     <RadioButtonCheckedIcon
                       style={{ marginLeft: '5px', cursor: 'pointer' }}
                     />
@@ -258,7 +258,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
                       onClick={() => {
                         dispatch(
                           setReservation({
-                            location_id: item.id,
+                            location_id: item?.location_id,
                             gym_price: item.price,
                           })
                         );

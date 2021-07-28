@@ -15,7 +15,6 @@ const Home = ({ setPage = () => {}, setGlobalState = () => {} }) => {
   useEffect(() => {
     dispatch(getUserMyPacket(listPage));
   }, [listPage]);
-  useEffect(() => {}, [myPackets]);
   return (
     <>
       <Col style={{ padding: 0 }} lg="4">

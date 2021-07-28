@@ -10,7 +10,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { device } from 'utils';
 import image from '../../../assets/session-type.jpg';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserMyPacketDetail, getUserTestDetail, setPackageSurvey } from 'actions';
+import { getUserMyPacketDetail, getUserTestDetail, setPackageSurvey ,clearReservation,setReservation} from 'actions';
 import ReactHtmlParser from 'react-html-parser';
 import { decode } from 'html-entities';
 import Dialog from '@material-ui/core/Dialog';
@@ -74,7 +74,13 @@ const DetailLesson = ({
       return 'mid';
     }
   }
-  function handleReservationButton() { }
+  function handleReservationButton() {
+    dispatch(clearReservation());
+    dispatch(setReservation({ package_uuid: globalState?.package_uuid }));
+    dispatch(setReservation({ packetInfo: globalState }));
+    setPage('PacketReservation');
+   
+  }
   const succsess = () => {
     setModal(false);
     toast.success(`Soru cevapları gönderildi.`, {
