@@ -6,10 +6,10 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
 import { useSelector, useDispatch } from 'react-redux';
-
+import moment from 'moment'
 import SelectPictureModal from './SelectPictureModal';
 import { Svg, Text, Box, CalendarCell, PlusButton, Material } from 'components';
-import { PAIR_HOURS, PERSONAL_TRAINER, DIETITIAN } from 'constants/index';
+import { PERSONAL_TRAINER, DIETITIAN } from 'constants/index';
 import {
   getGymList,
   getSessionTypes,
@@ -17,11 +17,13 @@ import {
   setGroupSelectionData,
   getGroupImages,
   getUserPTBranchList, getDietitianClinics,
-  getPtWorkingHomePlace
+  getPtWorkingHomePlace,
+  getDayOfCalendar
 } from 'actions';
 
 export default function GroupLeftSelections() {
   const { type_id: userTypeId } = useSelector((state) => state.auth.user);
+  const availableHours = useSelector((state) => state.profileSettings2?.reservationTemplate?.availableHours?.data);
 
   const {
     workPlaceCapacity: { data: workPlaceCapacity },
@@ -40,7 +42,10 @@ export default function GroupLeftSelections() {
     get: sessionTypes,
     gymList: { data: gymList },
   } = useSelector((state) => state.profileSettings2.sessionType);
+  useEffect(() => {
+    dispatch(getDayOfCalendar(moment(selectedDate).format('DD.MM.YYYY')))
 
+  }, [selectedDate])
   const { data } = useSelector(
     (state) => state?.profileSettings?.ptBranchList
   );
@@ -77,16 +82,23 @@ export default function GroupLeftSelections() {
       dispatch(getGroupImages());
     }
   }, []);
+  useEffect(() => {
+    dispatch(getGymList(
+      moment(selectedDate).format('DD.MM.YYYY'),
+      selectedHour,
+      branchSelection?.id
+    ));
 
-  useEffect( () => {
-    if(selectedImageId){
+  }, [branchSelection, selectedHour, selectedDate])
+  useEffect(() => {
+    if (selectedImageId) {
       selectDataHandler('group_slot_image_id', selectedImageId?.id);
-    }else if(file){
-     // const resizedFile = await resizeFile(file);
+    } else if (file) {
+      // const resizedFile = await resizeFile(file);
 
       selectDataHandler('group_slot_image', file)
     }
-  }, [selectedImageId,file]);
+  }, [selectedImageId, file]);
 
   useEffect(() => {
     if (branchSelection && locationSelection && userTypeId === PERSONAL_TRAINER) {
@@ -135,15 +147,15 @@ export default function GroupLeftSelections() {
           </Text>
 
           <Box row flexWrap="wrap">
-            {PAIR_HOURS.map((item) => (
+            {availableHours?.length > 0 && availableHours?.filter(item => !item.id).map((item) => (
               <CalendarCell
                 key={item}
-                onClick={() => selectDataHandler('selectedHour', item)}
+                onClick={() => selectDataHandler('selectedHour', item?.hour)}
                 type="time"
                 size="large"
-                isActive={selectedHour === item}
+                isActive={selectedHour === item?.hour}
               >
-                {item}
+                {item?.hour}
               </CalendarCell>
             ))}
           </Box>

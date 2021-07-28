@@ -52,7 +52,6 @@ export default function GroupRightSelections({
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const reservationSuccessModalRef = useRef();
-
   const selectDataHandler = (name, value) =>
     dispatch(setGroupSelectionData(name, value));
 

@@ -110,9 +110,16 @@ export const deleteAddressList = (id, successCallback, errorCallback) => async (
   });
 };
 
-export const getGymList = () => async (dispatch, getState) => {
-  const url = `/user/working-area/gym`;
+export const getGymList = (date,hour,branch) => async (dispatch, getState) => {
+  let url = `/user/working-area/gym`;
+  let extras = '?';
 
+  if (date) extras += `date=${date}&`;
+  if (hour) extras += `hour=${hour}&`;
+  if (branch) extras += `branch=${branch}&`;
+
+
+  url += extras;
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
