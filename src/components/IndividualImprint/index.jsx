@@ -11,7 +11,7 @@ export default function IndividualImprint({ userInfo }) {
 
     const changeHead = (id) => {
 
-        setChoosenHead(id) 
+        setChoosenHead(id)
     }
 
     return (
@@ -78,10 +78,10 @@ const SomeInfoContainer = styled.div`
    width: 100%;
    height: auto;  
     .some-info{
-        display: flex;
-   flex-direction: column;
-   justify-content: space-between;
-   align-items: flex-start; 
+        display: flex; 
+   justify-content: space-evenly;
+   align-items: center; 
+   width: 100%;
    height: auto;  
    padding: 10px;
    border:1px solid var(--blue);

@@ -196,7 +196,7 @@ export default function Profile({ match }) {
                   match?.params?.activeTabKey || tabData?.[0]?.eventKey
                 }
               />
-              <IndividualImprint userInfo={userInfo} />
+              {userInfo?.type_id == 1 && <IndividualImprint userInfo={userInfo} />}
 
             </TabContainers>
           </Container>
@@ -212,7 +212,6 @@ export default function Profile({ match }) {
   ) : (
     <Main>
       <img src={profileBannerImg} alt="" className="banner-image" />
-
       {content}
     </Main>
   );
