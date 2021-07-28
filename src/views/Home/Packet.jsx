@@ -43,7 +43,7 @@ const Packet = (props) => {
   function dataSelector() {
     switch (activeCategory) {
       case 1:
-        return content?.package_pt?.concat(content?.package_pt);
+        return content?.package_pt?.concat(content?.package_dt);
       case 2:
         return content?.package_pt;
       case 3:
