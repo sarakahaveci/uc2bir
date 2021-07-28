@@ -62,6 +62,8 @@ const SessionHistory = () => {
                 <ApproveCard
                   date={elm?.hour}
                   customerName={elm?.student}
+                  user_id={elm?.student_id}
+
                   type="history"
                   rateText="Puanla"
                   has_comment={elm?.pt?.has_comment}
@@ -88,6 +90,8 @@ const SessionHistory = () => {
               <ApproveCard
                 date={elm?.hour}
                 customerName={elm?.student}
+                user_id={elm?.student_id}
+
                 type="history"
                 rateText="Puanla"
                 has_comment={elm?.pt?.has_comment}
@@ -113,6 +117,8 @@ const SessionHistory = () => {
               <ApproveCard
                 date={elm?.hour}
                 customerName={elm?.student}
+                user_id={elm?.student_id}
+
                 type="history"
                 rateText="Puanla"
                 has_comment={elm?.pt?.has_comment}

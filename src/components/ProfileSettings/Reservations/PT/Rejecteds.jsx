@@ -68,6 +68,8 @@ const Rejecteds = () => {
                 status_st={elm?.status_st}
                 date={elm?.hour}
                 customerName={elm?.student}
+                user_id={elm?.student_id}
+
                 type="rejecteds"
                 onApprove={() => {
                   setChoosenElm(elm);
@@ -89,6 +91,8 @@ const Rejecteds = () => {
               <ApproveCard
                 date={elm?.hour}
                 customerName={elm?.student}
+                user_id={elm?.student_id}
+
                 status_bs={elm?.status_bs}
                 status_st={elm?.status_st}
                 type="rejecteds"
@@ -114,6 +118,8 @@ const Rejecteds = () => {
                 status_bs={elm?.status_bs}
                 status_st={elm?.status_st}
                 customerName={elm?.student}
+                user_id={elm?.student_id}
+
                 type="rejecteds"
                 onApprove={() => {
                   setChoosenElm(elm);
