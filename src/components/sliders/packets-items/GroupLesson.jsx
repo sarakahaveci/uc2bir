@@ -3,17 +3,19 @@ import React from 'react';
 
 import Title from '../../typography/Titles';
 import AwesomeIcon from '../../statics/icon';
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
 
 const GroupLesson = ({ val }) => {
-
   const history = useHistory();
 
-   return (
+  return (
     <>
-      <div onClick={() => {
-        history.push('/group-lessons/detail/' + val?.slot?.id)
-      }} className="slider-item">
+      <div
+        onClick={() => {
+          history.push('/group-lessons/detail/' + val?.slot?.id);
+        }}
+        className="slider-item"
+      >
         <div className="slider-item-content">
           <div className="front-card">
             <div className="img-item">

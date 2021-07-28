@@ -26,8 +26,8 @@ const useStyles = makeStyles({
   },
 });
 const DetailLesson = ({
-  setBannerActive = () => { },
-  setPage = () => { },
+  setBannerActive = () => {},
+  setPage = () => {},
   globalState,
   setGlobalState,
 }) => {
@@ -40,28 +40,23 @@ const DetailLesson = ({
   const [modal, setModal] = useState(false);
   const [changeable, setChangeable] = useState(false);
 
-  const tests = useSelector((state) => state.myPackets?.user?.lessonDetail?.data);
+  const tests = useSelector(
+    (state) => state.myPackets?.user?.lessonDetail?.data
+  );
 
   useEffect(() => {
-    setChangeable(false) // for eslint
+    setChangeable(false); // for eslint
     dispatch(getUserMyPacketDetail(globalState?.package_uuid));
     setBannerActive(false);
   }, []);
   function onClickLesson(elm) {
-    setChangeable(elm?.is_changeable)
+    setChangeable(elm?.is_changeable);
     if (elm?.type == 'lesson') {
       setGlobalState({ ...globalState, lesson_id: elm?.id });
       setPage('Exercises');
     } else {
-      dispatch(
-        getUserTestDetail(
-          elm?.id,
-          globalState?.package_uuid
-        )
-
-      );
-      setModal(true)
-
+      dispatch(getUserTestDetail(elm?.id, globalState?.package_uuid));
+      setModal(true);
     }
   }
   const classes = useStyles();
@@ -115,7 +110,7 @@ const DetailLesson = ({
           answer: answer,
           package_uuid: globalState?.package_uuid,
           appointment_id: globalState?.appointment_id, //çalışmassa kontrol et
-          lesson_id: globalState?.lesson_id
+          lesson_id: globalState?.lesson_id,
         },
         succsess,
         err
@@ -151,8 +146,9 @@ const DetailLesson = ({
                   <Svg.TickLessonDisable />
                 </>
               )}
-              <BoldText style={{ marginLeft: '9px', display: 'block' }}>{elm?.type == 'lesson' ? (elm?.lesson + ' .Ders') : elm?.title}</BoldText>
-
+              <BoldText style={{ marginLeft: '9px', display: 'block' }}>
+                {elm?.type == 'lesson' ? elm?.lesson + ' .Ders' : elm?.title}
+              </BoldText>
             </HeaderArea>
             <DescArea>
               <IconArea></IconArea>
@@ -180,9 +176,12 @@ const DetailLesson = ({
             <Title>{detailData?.package?.title}</Title>
           </TextContainer>
         </Right>
-        <RichText>
-          {ReactHtmlParser(decode(detailData?.package?.detail))}
-        </RichText>
+        <RichTextContainer>
+          {' '}
+          <RichText>
+            {ReactHtmlParser(decode(detailData?.package?.detail))}
+          </RichText>
+        </RichTextContainer>
       </InfoContainer>
       <Wrapper>
         <StyledRow header style={{}}>
@@ -203,7 +202,8 @@ const DetailLesson = ({
           className="material-dialog"
           fullWidth={fullWidth}
           maxWidth={maxWidth}
-          open={modal}>
+          open={modal}
+        >
           <DialogTitle className="text-center">
             <Title textAlign="left" variant="h5" component="h5">
               {'Test'}
@@ -217,7 +217,8 @@ const DetailLesson = ({
                 fontWeight: 'bold',
                 padding: '5px 15px',
               }}
-              onClick={() => setModal(false)}>
+              onClick={() => setModal(false)}
+            >
               x
             </span>
           </DialogTitle>
@@ -226,24 +227,24 @@ const DetailLesson = ({
               <Table>
                 <table>
                   <tbody>
-                    {tests?.length > 0 && tests?.map((val) => {
-                      return (
-                        <>
-                          <tr>
-                            <th>{val.title}</th>
-                          </tr>
-                          <tr>
-                            <td>
-                              {val.answer}
-                            </td>
-                          </tr>
-                        </>
-                      );
-                    })}
+                    {tests?.length > 0 &&
+                      tests?.map((val) => {
+                        return (
+                          <>
+                            <tr>
+                              <th>{val.title}</th>
+                            </tr>
+                            <tr>
+                              <td>{val.answer}</td>
+                            </tr>
+                          </>
+                        );
+                      })}
                   </tbody>
                 </table>
-              </Table>)
-              : (<form onSubmit={onSubmit} autoComplete="off">
+              </Table>
+            ) : (
+              <form onSubmit={onSubmit} autoComplete="off">
                 {tests?.length &&
                   tests?.map((val, key) => {
                     if (val?.answer_type === 'radio') {
@@ -273,7 +274,10 @@ const DetailLesson = ({
                             name={val.name}
                             onChange={(e) => {
                               _question([...question, val.id]);
-                              _answer({ ...answer, [e.target.name]: [e.target.value] });
+                              _answer({
+                                ...answer,
+                                [e.target.name]: [e.target.value],
+                              });
                             }}
                           />
                         </div>
@@ -291,13 +295,15 @@ const DetailLesson = ({
                             name={val.name}
                             onChange={(e) => {
                               _question([...question, val.id]);
-                              _answer({ ...answer, [val.id]: [e.target.value] });
+                              _answer({
+                                ...answer,
+                                [val.id]: [e.target.value],
+                              });
                             }}
                           />
                         </div>
                       );
-                    }
-                    else if (val.answer_type === 'checkbox') {
+                    } else if (val.answer_type === 'checkbox') {
                       return (
                         <div style={{ marginTop: 15, marginBottom: 30 }}>
                           <div style={{ fontSize: '11pt' }} className="label">
@@ -329,15 +335,37 @@ const DetailLesson = ({
                     }
                   })}
                 {true ? (
-                  <div style={{ display: 'flex', justifyContent: 'center', flex: '1' }}>
-                    <Button type="submit" text={`Testi Tamamla`} className="blue" width={'90%'} />
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      flex: '1',
+                    }}
+                  >
+                    <Button
+                      type="submit"
+                      text={`Testi Tamamla`}
+                      className="blue"
+                      width={'90%'}
+                    />
                   </div>
                 ) : (
-                  <div style={{ display: 'flex', justifyContent: 'center', flex: '1' }}>
-                    <Button text={`Yükleniyor...`} className="blue" width={'90%'} />
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      flex: '1',
+                    }}
+                  >
+                    <Button
+                      text={`Yükleniyor...`}
+                      className="blue"
+                      width={'90%'}
+                    />
                   </div>
                 )}
-              </form>)}
+              </form>
+            )}
           </DialogContent>
         </Dialog>
       </React.Fragment>
@@ -453,19 +481,27 @@ const Right = styled.div`
 `;
 const TextContainer = styled.div`
   display: flex;
+  justify-content: space-evenly;
   flex-direction: column;
   width: 300px;
   height: 285px;
   align-items: center;
   padding: 20px;
+  @media ${device.sm} {
+    width: 150px;
+  }
 `;
 const Title = styled.text`
   font-size: 26px;
 `;
 const RichText = styled.text`
   font-size: 16px;
-  height: 285px;
-  width: 543px;
+  margin-left: 10px;
+`;
+const RichTextContainer = styled.div`
+  display: flex;
+  align-self: center;
+  border-left: 3px solid #00b2a9;
 `;
 const ImageContainer = styled.div`
   position: relative;
