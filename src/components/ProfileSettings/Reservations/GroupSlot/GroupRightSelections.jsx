@@ -168,7 +168,7 @@ export default function GroupRightSelections({
           />
         )}
         {userTypeId !== DIETITIAN && (
-          <ReservationAccordion title="Rezervasyon Tarihi & Saati" mt="10px">
+          <ReservationAccordion defaultOpen title="Rezervasyon Tarihi & Saati" mt="10px">
             <CollapseItem>
               <Span pr="10px" mr="10px" fontWeight="500" color="dark">
                 Ders
@@ -190,7 +190,7 @@ export default function GroupRightSelections({
         )}
 
         {userTypeId !== DIETITIAN && (
-          <ReservationAccordion title="Seçili Spor Alanı Grup Ders Kontenjanları">
+          <ReservationAccordion defaultOpen title="Seçili Spor Alanı Grup Ders Kontenjanları">
             {classSelection ? (
               <>
                 <CollapseItem>
