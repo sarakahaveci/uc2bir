@@ -18,6 +18,7 @@ import {
 import { DIETITIAN, PERSONAL_TRAINER, WORK_PLACE } from 'constants/index';
 
 export default function TemplateSelections({
+  enable,
   branchSelection,
   setBranchSelection,
   sessionSelection,
@@ -48,7 +49,7 @@ export default function TemplateSelections({
   const { type_id: userTypeId } = useSelector((state) => state.auth.user);
 
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     if (userTypeId !== WORK_PLACE) {
       dispatch(getSessionTypes());
@@ -82,6 +83,7 @@ export default function TemplateSelections({
           <InputLabel>Sınıfları Seçiniz</InputLabel>
 
           <Select
+            disabled={!enable}
             multiple
             value={classSelection}
             input={<Input />}
@@ -101,6 +103,8 @@ export default function TemplateSelections({
           <InputLabel>Branşları Seçiniz</InputLabel>
 
           <Select
+            disabled={!enable}
+
             multiple
             value={branchSelection}
             input={<Input />}
@@ -127,23 +131,25 @@ export default function TemplateSelections({
           <InputLabel>Oturum Türlerini Seçiniz</InputLabel>
 
           <Select
+            disabled={!enable}
+
             multiple
             value={sessionSelection}
             input={<Input />}
             onChange={(e) => {
-                setSessionSelection(e.target.value)
+              setSessionSelection(e.target.value)
             }}
           >
-            {branchSelection.filter((item)=>item.id == 35).length > 0 &&
-            (sessionTypes?.data?.data?.filter((item)=>item.type !== 'online').map((sessionType) => (
-              <MenuItem key={sessionType.id} value={sessionType}>
-                {sessionType.title}
-              </MenuItem>
-            )))||(sessionTypes?.data?.data?.map((sessionType) => (
-              <MenuItem key={sessionType.id} value={sessionType}>
-                {sessionType.title}
-              </MenuItem>
-            )))
+            {branchSelection.filter((item) => item.id == 35).length > 0 &&
+              (sessionTypes?.data?.data?.filter((item) => item.type !== 'online').map((sessionType) => (
+                <MenuItem key={sessionType.id} value={sessionType}>
+                  {sessionType.title}
+                </MenuItem>
+              ))) || (sessionTypes?.data?.data?.map((sessionType) => (
+                <MenuItem key={sessionType.id} value={sessionType}>
+                  {sessionType.title}
+                </MenuItem>
+              )))
             }
           </Select>
         </FormControl>
@@ -154,6 +160,8 @@ export default function TemplateSelections({
           <InputLabel>Klinik Seçiniz</InputLabel>
 
           <Select
+            disabled={!enable}
+
             multiple
             value={workPlaceSelection}
             input={<Input />}
@@ -173,6 +181,8 @@ export default function TemplateSelections({
           <InputLabel>Spor Alanı Seçiniz</InputLabel>
 
           <Select
+            disabled={!enable}
+
             multiple
             value={workPlaceSelection}
             input={<Input />}
@@ -192,6 +202,8 @@ export default function TemplateSelections({
           <InputLabel>Ev / Park Seçiniz</InputLabel>
 
           <Select
+            disabled={!enable}
+
             multiple
             value={locationSelection}
             input={<Input />}

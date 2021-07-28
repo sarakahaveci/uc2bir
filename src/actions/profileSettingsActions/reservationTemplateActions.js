@@ -21,6 +21,7 @@ import {
   GET_DAY_DETAIL_OF_CALENDER,
   DELETE_TEMPLATE,
   DIETITIAN,
+  CLEAR_TEMPLATE,
 } from '../../constants';
 
 export const setSelectedDay = (dayIndex) => async (dispatch, getState) => {
@@ -34,6 +35,11 @@ export const setSelectedDay = (dayIndex) => async (dispatch, getState) => {
   dispatch({
     type: SET_SELECTED_DAY,
     payload: foundDate,
+  });
+};
+export const clearTemplate = () => async (dispatch) => {
+  dispatch({
+    type:CLEAR_TEMPLATE
   });
 };
 
@@ -141,8 +147,12 @@ export const applyTemplateToCalendar = (date, templateId, callBack) => async (
       url,
       label: APPLY_TEMPLATE_TO_CALENDAR,
       callBack,
-      errorHandler: (errorMsg) =>
-        toast.error(errorMsg, { position: 'bottom-right' }),
+      errorHandler: (err)=>{
+        toast.error( err?.message, { position: 'bottom-right' })
+
+      }
+
+        
     },
   });
 };

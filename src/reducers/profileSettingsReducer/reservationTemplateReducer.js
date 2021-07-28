@@ -5,6 +5,7 @@ import {
   GET_TEMPLATES_REQUEST,
   GET_TEMPLATES_SUCCESS,
   GET_TEMPLATES_FAILURE,
+  CLEAR_TEMPLATE,
   GET_TEMPLATE_DETAILS_REQUEST,
   GET_TEMPLATE_DETAILS_SUCCESS,
   GET_TEMPLATE_DETAILS_FAILURE,
@@ -61,7 +62,12 @@ export default (state = initialState, action) => {
         appliedDays: action.payload.appliedDays,
         selectedDay: action.payload.selectedDay,
       };
-
+    case CLEAR_TEMPLATE:
+      return{
+        ...state,
+        appliedDays: [],
+        selectedDay: {},
+      };
     case GET_TEMPLATE_DETAILS_REQUEST:
       return {
         ...state,

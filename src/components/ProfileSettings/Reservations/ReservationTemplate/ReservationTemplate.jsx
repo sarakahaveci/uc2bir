@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
 import { Link } from 'react-router-dom';
 
-import { addHoursToTemplate, setSelectedDay } from 'actions';
+import { addHoursToTemplate, setSelectedDay,clearTemplate } from 'actions';
 import {
   DIETITIAN,
   HOURS,
@@ -50,9 +50,10 @@ export default function ReservationTemplate({
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(clearTemplate())
     dispatch(setSelectedDay(0));
   }, []);
-
+ 
   useEffect(() => {
     sessionSelection.map((session) => {
       if (session.type === 'online' && sessionSelection.length === 1) {
@@ -193,6 +194,7 @@ export default function ReservationTemplate({
           />
 
           <TemplateSelections
+            enable={selectedDayHours && selectedDayHours?.length > 0}
             branchSelection={branchSelection}
             setBranchSelection={setBranchSelection}
             sessionSelection={sessionSelection}
