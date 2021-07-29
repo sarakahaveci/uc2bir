@@ -15,6 +15,8 @@ import { getWallet } from 'actions/userProfileActions/walletActions';
 import { USER } from '../../constants/userTypes';
 import { device } from 'utils';
 import { useHistory } from 'react-router-dom';
+import DefaultProfileImg from 'assets/default-profile.jpg';
+
 const BuyPacket = ({ match }) => {
   const dispatch = useDispatch();
   const packet = useSelector((state) => state.buyPacket);
@@ -310,7 +312,7 @@ const BuyPacket = ({ match }) => {
                   <div>
                     <PtIcon
                       style={{ margin: '0', marginRight: '5px' }}
-                      src={packet?.data?.dt?.photo}
+                      src={packet?.data?.dt?.photo || DefaultProfileImg}
                     />
                     {packet?.data?.dt?.name}
                   </div>
