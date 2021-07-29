@@ -72,7 +72,6 @@ const PacketCard = ({
             </div>
 
             <div>
-              {' '}
               {data?.price || 0} <AwesomeIcon.Tl />
             </div>
           </div>
