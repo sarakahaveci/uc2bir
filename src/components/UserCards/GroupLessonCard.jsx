@@ -15,7 +15,7 @@ const GroupLessonCard = ({
   district,
   hoverText = 'Grup Dersine Git',
   isGym,
-  onClickHover = () => { },
+  onClickHover = () => {},
   selected = false,
   type,
   favoriteId,
@@ -93,19 +93,19 @@ const GroupLessonCard = ({
           <Title textAlign="left" component="h6">
             {data?.branch_name} Dersi
           </Title>
-          <Title textAlign="left" component="h6">
+          <Title textAlign="end" component="h6">
             {data?.min_capacity} / {data?.max_capacity}
           </Title>
         </div>
 
         <div className="long-user-card__location-wrapper">
           <div className="long-user-card__location-text">
-            {(data?.location?.district || district) &&
+            {(data?.location?.district || district) && (
               <>
                 <Svg.LocationIcon /> {data?.location?.city || city},{' '}
                 {data?.location?.district || district}
               </>
-            }
+            )}
           </div>
 
           <div className="long-user-card__fee">

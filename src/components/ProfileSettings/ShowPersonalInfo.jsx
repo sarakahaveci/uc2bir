@@ -8,7 +8,7 @@ import {Switch } from 'components';
 
 export default function ShowPersonalInfo() {
   const dispatch = useDispatch();
-  const { share_data } = useSelector(state => state.profileSettings2.profileDetail?.detail?.data)
+  const share_data = useSelector(state => state.profileSettings2.profileDetail?.detail?.data?.share_data)
   return (
 
     <div className="w-100 h-100">

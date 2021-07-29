@@ -67,7 +67,7 @@ const Home = ({ setPage }) => {
                 text="Hesap Hareketlerime Git >"
                 onClick={() => setPage('activities')}
               />
-              {user.type_id === 1 && ( 
+              {user?.type_id === 1 && ( 
                 <Button
                   style={{ textDecoration: 'underline', display: 'block' }}
                   fontWeight="600"
@@ -79,7 +79,7 @@ const Home = ({ setPage }) => {
 
               <Col>
                 <Row>
-                  {user.type_id !== 1 && (
+                  {user?.type_id !== 1 && (
                     <Button
                       style={{
                         textDecoration: 'underline',
