@@ -157,7 +157,7 @@ const ReservationDetail = ({ type, goBack = () => { }, isOnline }) => {
               )}
             </MessageButtonContainer>
             <TextWrapper>
-              <DescText> {startDate.fromNow()} </DescText>
+              <DescText> Ders {startDate.fromNow()} başlayacaktır.</DescText>
             </TextWrapper>
           </RightAreaWrapper>
         </Right>

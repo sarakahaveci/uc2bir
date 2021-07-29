@@ -41,12 +41,12 @@ const Packet = ({ val }) => {
                   <ul>
                     {val?.type === 'pt' && <li>{val.branch} Branşı</li>}
                     {val?.type === 'dt' && <li>Diyet Programı</li>}
-                    <li>{val.lesson_amount} Ders/Seans</li>
                   </ul>
                 </div>
                 <div className="col-auto">
                   <span>
-                    {val.price} <AwesomeIcon.Tl /> / {val.package_included} Ders
+                    {val.price} <AwesomeIcon.Tl /> / {val.lesson_amount}{' '}
+                    {val?.type === 'dt' ? 'Seans' : 'Ders'}
                   </span>
                 </div>
               </div>

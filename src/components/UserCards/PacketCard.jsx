@@ -66,13 +66,13 @@ const PacketCard = ({
               {data?.branch_name ? (
                 <div> {data?.branch_name} Branşı</div>
               ) : (
-                'Diyet Programı'
+                <div>Diyet Programı</div>
               )}
-              <div> {data?.lesson_amount} Ders/Seans</div>
             </div>
 
             <div>
-              {data?.price || 0} <AwesomeIcon.Tl />
+              {data?.price || 0} <AwesomeIcon.Tl /> / {data?.lesson_amount}{' '}
+              {data?.type === 'pt' ? 'Ders' : 'Seans'}
             </div>
           </div>
         </div>
