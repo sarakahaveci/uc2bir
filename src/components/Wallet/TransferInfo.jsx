@@ -132,7 +132,7 @@ const TransferInfo = ({ setPage }) => {
                 style={{ marginTop: 50, marginBottom: 40 }}
                 className="justify-content-end"
               >
-                {user.type_id !== 1 && (
+                {user?.type_id !== 1 && (
                   <Button
                     style={{ width: '100%', padding: '20px' }}
                     className="blue"
