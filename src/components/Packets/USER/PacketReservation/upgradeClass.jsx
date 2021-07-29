@@ -8,12 +8,12 @@ import ReactHtmlParser from 'react-html-parser';
 import { decode } from 'html-entities';
 import { Button, Svg, PaymentCard, CreditCard } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPacketDetail, setPacketReservation } from 'actions';
+import { getUpdatePackage, setPacketReservation } from 'actions';
 import { getWallet } from 'actions/userProfileActions/walletActions';
 import { useHistory } from 'react-router-dom';
 
 import { device } from 'utils';
-const UpgradeClass = ({ setField = () => {} /* globalState */ }) => {
+const UpgradeClass = ({ setField = () => { } /* globalState */ }) => {
   const dispatch = useDispatch();
   const packet = useSelector((state) => state.buyPacket);
   const wallet = useSelector((state) => state.userProfile.wallet);
@@ -22,20 +22,21 @@ const UpgradeClass = ({ setField = () => {} /* globalState */ }) => {
 
   useEffect(() => {
     dispatch(getWallet());
-    dispatch(getPacketDetail('pt',reservation?.data?.packetInfo?.package_id));
-  
+    dispatch(getUpdatePackage(reservation?.data?.packetInfo?.package_id, packet?.reservation?.level));
+
   }, []);
   useEffect(() => {
-    if (reservation?.data?.packetInfo?.package_uuid) {
-      dispatch(
-        setPacketReservation({
-          package_uuid: reservation?.data?.packetInfo?.package_uuid,
-          totals_amount: packet?.data?.[`price_${packet?.reservation?.level?.toLowerCase()}`],
-        })
-      );
-    }
-  }, [reservation?.data?.packetInfo?.package_uuid]);
-
+    dispatch(
+      setPacketReservation({
+        package_uuid: reservation?.data?.packetInfo?.package_uuid,
+        totals_amount:(packet?.data?.package?.price || 0) - (packet?.data?.purchased_package?.price || 0)
+      })
+    );
+  }, [packet?.data?.package?.price]);
+  useEffect(() => {
+    dispatch(getUpdatePackage(reservation?.data?.packetInfo?.package_id, packet?.reservation?.level));
+    
+  }, [packet?.reservation?.level])
   function onChangeLevel(level) {
     dispatch(
       setPacketReservation({
@@ -150,25 +151,25 @@ const UpgradeClass = ({ setField = () => {} /* globalState */ }) => {
         return (
           <>
             <SideContainer>
-              <Image src={packet?.data?.srcset?.split(',')[0]?.split(' ')?.[0]}></Image>
+              <Image src={packet?.data?.package?.photo}></Image>
               <InfoContainer>
-                <HeaderText>{packet?.data?.name}</HeaderText>
+                <HeaderText>{packet?.data?.package?.name}</HeaderText>
                 <BigSeperator />
                 <SubInfo>
                   <Svg.FitnessMediumIcon></Svg.FitnessMediumIcon>
                   <text style={{ margin: '0 5px' }}>
-                    {packet?.data?.branch}
+                    {packet?.data?.package?.branch}
                   </text>
                   <Svg.ClockMediumIcon></Svg.ClockMediumIcon>
                   <text style={{ margin: '0 5px' }}>
-                    {packet?.data?.lesson_amount} Ders
+                    {packet?.data?.package?.lesson_amount} Ders
                   </text>
                 </SubInfo>
                 <LabelText>İçerik</LabelText>
                 <Seperator />
 
                 <DescText>
-                  {ReactHtmlParser(decode(packet?.data?.detail))}
+                  {ReactHtmlParser(decode(packet?.data?.package?.detail))}
                 </DescText>
               </InfoContainer>
             </SideContainer>
@@ -210,7 +211,7 @@ const UpgradeClass = ({ setField = () => {} /* globalState */ }) => {
                       onClick={() => {
                         onChangeLevel('A');
                       }}
-                      enable={packet?.reservation?.level == 'A' }
+                      enable={packet?.reservation?.level == 'A'}
                     >
                       A
                     </LevelCircle>

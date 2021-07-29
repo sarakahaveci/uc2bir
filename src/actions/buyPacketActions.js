@@ -27,6 +27,21 @@ export const getPacketDetail = (type, id) => async (dispatch) => {
     },
   });
 };
+export const getUpdatePackage = (id,level) => async (dispatch) => {
+  let url=`https://gateway.321.4alabs.com/cms/package/upgrade/${id}`
+  let extras='?'
+  if (level) extras += `level=${level}&`;
+  url += extras;
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'GET',
+      url,
+      label: GET_PACKET_DETAIL,
+      transformData: (data) => data.data,
+    },
+  });
+};
 export const setPacketReservation = (data) => async (dispatch) => {
   dispatch({
     type: SET_PACKET_RESERVATION,
