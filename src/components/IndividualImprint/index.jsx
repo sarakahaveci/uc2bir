@@ -38,32 +38,41 @@ export default function IndividualImprint({ userInfo }) {
             </HeadContainer>
             {choosenHead == 0 &&
                 <Appointments>
-                    {/* <span >Toplam Bitirilen ders sayısı: <span style={{ color: "var(--blue)" }}>125</span></span> */}
-                    <div className="static-heads">
-                        <span className="head">Branş</span>
-                        <span className="head">Tamamlanan Ders Sayısı</span>
-                    </div>
-                    {userInfo?.appointments?.counts?.branches?.map((item, key) => {
-                        return (
-                            <AppointCard key={key}>
-                                <span className="name" >{item?.name}</span>
-                                <span className="count" >{item?.count}</span>
-                            </AppointCard>
-                        )
-                    })}
+                    {userInfo?.appointments?.counts?.branches?.length > 0 ?
+                        <>
+                            <div className="static-heads">
+                                <span className="head">Branş</span>
+                                <span className="head">Tamamlanan Ders Sayısı</span>
+                            </div>
+                            {userInfo?.appointments?.counts?.branches?.map((item, key) => {
+                                return (
+                                    <AppointCard key={key}>
+                                        <span className="name" >{item?.name}</span>
+                                        <span className="count" >{item?.count}</span>
+                                    </AppointCard>
+                                )
+                            })}
+                        </>
+                        :
+                        <span style={{ width: "100%", textAlign: "center", margin: 10, backgroundColor: "red", color: "var(--blue)", fontWeight: 500 }} >Henüz bu kullanıcı 321 sisteminde hiç ders tamamlamamıştır.</span>
+                    }
                 </Appointments>
             }
 
             {choosenHead == 1 &&
                 <PARQContainer>
-                    {userInfo?.parq?.map((item, key) => {
-                        return (
-                            <PARQCard key={key}>
-                                <span className="name" >{item?.title}</span>
-                                <span className="count" >{item?.answer}</span>
-                            </PARQCard>
-                        )
-                    })}
+                    {userInfo?.parq?.length > 0 ?
+                        (userInfo?.parq?.map((item, key) => {
+                            return (
+                                <PARQCard key={key}>
+                                    <span className="name" >{item?.title}</span>
+                                    <span className="count" >{item?.answer}</span>
+                                </PARQCard>
+                            )
+                        }))
+                        :
+                        <span >Henüz bu kullanıcı PARQ testini çözmemiş durumdadır.</span>
+                    }
                 </PARQContainer>
             }
         </div>
