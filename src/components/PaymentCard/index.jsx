@@ -25,6 +25,8 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
   const formRef = useRef(null);
   const groupFormRef = useRef(null);
   const packetFormRef = useRef(null);
+  const upgradeForm = useRef(null);
+
   const history = useHistory();
   const dispatch = useDispatch();
   const reservation = useSelector((state) => state.reservation);
@@ -58,18 +60,23 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
   }, [reservation?.data?.isSelectedDate]);
   useEffect(() => {
     if (payment?.request?.data?.merchant_id) {
-      formRef.current.submit();
+      if (type == 'upgrade_packet') {
+        upgradeForm.current.submit();
+
+      } else {
+        formRef.current.submit();
+      }
     }
   }, [payment?.request]);
 
   useEffect(() => {
     if (paymentPacket?.request?.data?.merchant_id) {
       if (type == 'buy_group_lesson') {
+
         groupFormRef.current.submit();
 
       } else {
         packetFormRef.current.submit();
-
       }
 
 
@@ -233,6 +240,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
       }
     } else {
       if (buyPacket?.reservation?.totals_amount > 0) {
+
         dispatch(setPacketReservation({ payment_type: payment_type }));
       } else {
         toast.error('Sepetiniz Boş', {
@@ -371,7 +379,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
   }
   function sendPaymentPtPacketUpgrade() {
     var json = {
-      package_id: buyPacket?.data?.id,
+      package_id: buyPacket?.data?.package?.id,
       classification: buyPacket?.reservation?.level,
       holder_name: buyPacket?.reservation?.holder_name,
       is_contracts_accepted:
@@ -1192,25 +1200,194 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
                 <input type="hidden" name="cvv" value="000" />*/}
         <input
           type="hidden"
+
           name="cc_owner"
           value={reservation?.data?.holder_name}
         />
         <input
           type="hidden"
+
           name="card_number"
           value={reservation?.data?.card_number?.replace(/\s/g, '')}
         />
         <input
           type="hidden"
+
           name="expiry_month"
           value={reservation?.data?.expiration_month}
         />
         <input
           type="hidden"
+
           name="expiry_year"
           value={reservation?.data?.expiration_year}
         />
-        <input type="hidden" name="cvv" value={reservation?.data?.cvc} />
+        <input type="hidden"
+         name="cvv" value={reservation?.data?.cvc} />
+
+        <input
+          type="hidden"
+
+          name="card_type"
+          value={payment?.request?.data?.card_type}
+        />
+        <input
+          type="hidden"
+
+          name="currency"
+          value={payment?.request?.data?.currency}
+        />
+        <input
+          type="hidden"
+
+          name="debug_on"
+          value={payment?.request?.data?.debug_on}
+        />
+        <input
+          type="hidden"
+
+          name="email"
+          value={payment?.request?.data?.email}
+        />
+        <input
+          type="hidden"
+
+          name="installment_count"
+          value={payment?.request?.data?.installment_count}
+        />
+        <input type="hidden"
+          name="lang" value={payment?.request?.data?.lang} />
+        <input
+          type="hidden"
+
+          name="max_installment"
+          value={payment?.request?.data?.max_installment}
+        />
+        <input
+          type="hidden"
+
+          name="merchant_fail_url"
+          value={payment?.request?.data?.merchant_fail_url}
+        />
+        <input
+          type="hidden"
+
+          name="merchant_id"
+          value={payment?.request?.data?.merchant_id}
+        />
+        <input
+          type="hidden"
+
+          name="merchant_oid"
+          value={payment?.request?.data?.merchant_oid}
+        />
+        <input
+          type="hidden"
+
+          name="merchant_ok_url"
+          value={payment?.request?.data?.merchant_ok_url}
+        />
+        <input
+          type="hidden"
+
+          name="no_installment"
+          value={payment?.request?.data?.no_installment}
+        />
+        <input
+          type="hidden"
+
+          name="non3d_test_failed"
+          value={payment?.request?.data?.non3d_test_failed}
+        />
+        <input
+          type="hidden"
+
+          name="non_3d"
+          value={payment?.request?.data?.non_3d}
+        />
+        <input
+          type="hidden"
+
+          name="payment_amount"
+          value={payment?.request?.data?.payment_amount}
+        />
+        <input
+          type="hidden"
+
+          name="payment_type"
+          value={payment?.request?.data?.payment_type}
+        />
+        <input
+          type="hidden"
+
+          name="paytr_token"
+          value={payment?.request?.data?.paytr_token}
+        />
+
+        <input
+          type="hidden"
+
+          name="test_mode"
+          value={payment?.request?.data?.test_mode}
+        />
+        <input
+
+          type="hidden"
+          name="user_address"
+          value={payment?.request?.data?.user_address}
+        />
+        <input
+          type="hidden"
+
+          name="user_basket"
+          value={payment?.request?.data?.user_basket}
+        />
+        <input
+          type="hidden"
+
+          name="user_ip"
+          value={payment?.request?.data?.user_ip}
+        />
+        <input
+          type="hidden"
+
+          name="user_name"
+          value={payment?.request?.data?.user_name}
+        />
+        <input
+          type="hidden"
+
+          name="user_phone"
+          value={payment?.request?.data?.user_phone}
+        />
+      </form>
+      <form ref={upgradeForm} action="https://www.paytr.com/odeme" method="POST">
+        {/*<input type="text" name="cc_owner" value="PAYTR TEST" />
+        <input type="hidden" name="card_number" value="9792030394440796" />
+        <input type="hidden" name="expiry_month" value="12" />
+        <input type="hidden" name="expiry_year" value="24" />
+                <input type="hidden" name="cvv" value="000" />*/}
+        <input
+          type="hidden"
+          name="cc_owner"
+          value={buyPacket?.reservation?.holder_name}
+        />
+        <input
+          type="hidden"
+          name="card_number"
+          value={buyPacket?.reservation?.card_number?.replace(/\s/g, '')}
+        />
+        <input
+          type="hidden"
+          name="expiry_month"
+          value={buyPacket?.reservation?.expiration_month}
+        />
+        <input
+          type="hidden"
+          name="expiry_year"
+          value={buyPacket?.reservation?.expiration_year}
+        />
+        <input type="hidden" name="cvv" value={buyPacket?.reservation?.cvc} />
 
         <input
           type="hidden"
@@ -1325,7 +1502,6 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
           value={payment?.request?.data?.user_phone}
         />
       </form>
-
       <form
         ref={packetFormRef}
         action="https://www.paytr.com/odeme"
@@ -1356,7 +1532,8 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
           name="expiry_year"
           value={buyPacket?.reservation?.expiration_year}
         />
-        <input type="hidden" name="cvv" value={buyPacket?.reservation?.cvc} />
+        <input type="hidden"
+          name="cvv" value={buyPacket?.reservation?.cvc} />
 
         <input
           type="hidden"
@@ -1398,6 +1575,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
           name="merchant_fail_url"
           value={paymentPacket?.request?.data?.merchant_fail_url}
         />
+
         <input
           type="hidden"
           name="merchant_id"
