@@ -45,6 +45,8 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
         title,
         location: value,
         branch,
+        startDate,
+        endDate
       };
 
       let baseUrl = `/group-lessons?type=${virtual}`;

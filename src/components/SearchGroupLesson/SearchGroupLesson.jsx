@@ -8,7 +8,7 @@ import queryString from 'query-string';
 
 import GroupLessonCard from 'components/UserCards/GroupLessonCard';
 
-import { Button, Svg, Pagination, BackLink, Text } from 'components';
+import { Button, Svg, Pagination, BackLink, Text,ChooseDateModal } from 'components';
 import { searchProffesional } from 'actions';
 import Filter from './SearchFilters';
 
@@ -16,7 +16,11 @@ const SearchGroupLesson = () => {
   const { totalPage, data, totalData } = useSelector(
     (state) => state.searchProfessional.listInfo
   );
+  const [openDateModal, setOpenDateModal] = useState(false);
 
+  const [dateFilterText, setDateFilterText] = useState('Tarih Seçiniz');
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [title, setTitle] = useState('');
   const [location, setLocation] = useState('');
   const [branch, setBranch] = useState('');
@@ -47,6 +51,8 @@ const SearchGroupLesson = () => {
       classification,
       type = 'group-lessons',
       subType = 'pt', //hata olabilir  //BURASINI DİNAMİK YAPPPPPPPPPP
+      startDate,
+      endDate,
     } = searchParams;
     // Parsing this because it is coming string from url such as '[0, 1000]'
     const parsedPrice = JSON.parse(price);
@@ -59,7 +65,8 @@ const SearchGroupLesson = () => {
     setPrice(parsedPrice);
     setRatings(parsedRatings);
     setClassification(classification);
-
+    setStartDate(startDate);
+    setEndDate(endDate);
     dispatch(
       searchProffesional({
         title,
@@ -74,6 +81,8 @@ const SearchGroupLesson = () => {
         subType,
         page,
         classification,
+        startDate,
+        endDate,
       })
     );
   }, [window.location.href]);
@@ -89,6 +98,8 @@ const SearchGroupLesson = () => {
       price,
       ratings,
       classification,
+      startDate,
+      endDate,
     };
 
     url = Object.keys(formData).reduce((acc, curr) => {
@@ -139,7 +150,15 @@ const SearchGroupLesson = () => {
                 placeholder={`${userTypeText} Adı...`}
               />
             </SearchCol>
-
+            <SearchCol sm={12}>
+              <FilterButton onClick={() => setOpenDateModal(true)}>
+                {dateFilterText}
+                <div style={{ marginLeft: 20, transform: 'rotate(90deg)' }}>
+                  {' '}
+                  {'>'}{' '}
+                </div>
+              </FilterButton>
+            </SearchCol>
             <SearchCol>
               <div className="search-trainer__location-row">
                 <Svg.LocationIcon className="mr-1 mb-1" />
@@ -219,6 +238,15 @@ const SearchGroupLesson = () => {
           <strong className="mt-3">Arama türüne uygun sonuç bulunamadı.</strong>
         )}
       </Container>
+      <ChooseDateModal
+        open={openDateModal}
+        cancel={() => {
+          setOpenDateModal(false);
+        }}
+        setDateFilterText={setDateFilterText}
+        setEndDateToApi={setEndDate}
+        setStartDateToApi={setStartDate}
+      />
     </div>
   );
 };
@@ -270,6 +298,7 @@ const FilterButton = styled.button`
   border: none;
   background-color: white;
   z-index: 2;
+  display:flex;
 `;
 
 export default SearchGroupLesson;
