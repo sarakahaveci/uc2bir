@@ -289,7 +289,7 @@ const Svg = {
     //   svg: (props) => <ReactSVG {...props} src={AthleticPerformance} />,
     // },
     {
-      name: 'JİMNASTİK',
+      name: 'CİMNASTİK',
       svg: (props) => <ReactSVG {...props} src={Athlete} />,
     },
     {

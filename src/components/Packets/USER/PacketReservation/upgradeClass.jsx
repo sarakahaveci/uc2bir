@@ -29,13 +29,13 @@ const UpgradeClass = ({ setField = () => { } /* globalState */ }) => {
     dispatch(
       setPacketReservation({
         package_uuid: reservation?.data?.packetInfo?.package_uuid,
-        totals_amount:(packet?.data?.package?.price || 0) - (packet?.data?.purchased_package?.price || 0)
+        totals_amount: (packet?.data?.package?.price || 0)
       })
     );
   }, [packet?.data?.package?.price]);
   useEffect(() => {
     dispatch(getUpdatePackage(reservation?.data?.packetInfo?.package_id, packet?.reservation?.level));
-    
+
   }, [packet?.reservation?.level])
   function onChangeLevel(level) {
     dispatch(

@@ -82,7 +82,7 @@ const Approved = ({ setSubPage = () => { } }) => {
 
               <ApproveCard
                 date={elm.hour}
-                customerName={elm?.pt?.name}
+                customerName={elm?.pt?.name || elm?.bs?.name}
                 user_id={elm?.pt?.id}
 
                 optionalField_1={elm?.branch}

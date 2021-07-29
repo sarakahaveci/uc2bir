@@ -144,32 +144,57 @@ const BuyPacket = ({ match }) => {
 
       default:
         return (
-          <>
-            <SideContainer>
-              <Image src={packet?.data?.photo}></Image>
-              <InfoContainer>
-                <HeaderText>{packet?.data?.name}</HeaderText>
-                <TitleText>12 Günde 8 Kilo Verin!</TitleText>
-                <BigSeperator />
-                <SubInfo>
-                  <Svg.FitnessMediumIcon></Svg.FitnessMediumIcon>
-                  <text style={{ margin: '0 5px' }}>
-                    {packet?.data?.branch}
-                  </text>
-                  <Svg.ClockMediumIcon></Svg.ClockMediumIcon>
-                  <text style={{ margin: '0 5px' }}>
-                    {packet?.data?.lesson_amount} Ders
-                  </text>
-                </SubInfo>
-                <LabelText>İçerik</LabelText>
-                <Seperator />
+          (match?.params?.type == 'dt' && (
+            <>
+              <SideContainer>
+                <Image src={packet?.data?.photo}></Image>
+                <InfoContainer>
+                  <HeaderText>{packet?.data?.title}</HeaderText>
+                  <TitleText>{packet?.data?.detail}</TitleText>
+                  <BigSeperator />
+                  <SubInfo>
+                    <Svg.ClockMediumIcon></Svg.ClockMediumIcon>
+                    <text style={{ margin: '0 5px' }}>
+                      {packet?.data?.quantity} Seans
+                    </text>
+                  </SubInfo>
+                  <LabelText>İçerik</LabelText>
+                  <Seperator />
 
-                <DescText>
-                  {ReactHtmlParser(decode(packet?.data?.detail))}
-                </DescText>
-              </InfoContainer>
-            </SideContainer>
-          </>
+                  <DescText>
+                    {ReactHtmlParser(decode(packet?.data?.detail))}
+                  </DescText>
+                </InfoContainer>
+              </SideContainer>
+            </>
+          )) || (
+            <>
+              <SideContainer>
+                <Image src={packet?.data?.photo}></Image>
+                <InfoContainer>
+                  <HeaderText>{packet?.data?.name}</HeaderText>
+                  <TitleText>12 Günde 8 Kilo Verin!</TitleText>
+                  <BigSeperator />
+                  <SubInfo>
+                    <Svg.FitnessMediumIcon></Svg.FitnessMediumIcon>
+                    <text style={{ margin: '0 5px' }}>
+                      {packet?.data?.branch}
+                    </text>
+                    <Svg.ClockMediumIcon></Svg.ClockMediumIcon>
+                    <text style={{ margin: '0 5px' }}>
+                      {packet?.data?.lesson_amount} Ders
+                    </text>
+                  </SubInfo>
+                  <LabelText>İçerik</LabelText>
+                  <Seperator />
+
+                  <DescText>
+                    {ReactHtmlParser(decode(packet?.data?.detail))}
+                  </DescText>
+                </InfoContainer>
+              </SideContainer>
+            </>
+          )
         );
     }
   }
@@ -284,7 +309,7 @@ const BuyPacket = ({ match }) => {
                 <BottomContainer>
                   <div>
                     <PtIcon
-                      style={{ margin: '0' }}
+                      style={{ margin: '0', marginRight: '5px' }}
                       src={packet?.data?.dt?.photo}
                     />
                     {packet?.data?.dt?.name}
