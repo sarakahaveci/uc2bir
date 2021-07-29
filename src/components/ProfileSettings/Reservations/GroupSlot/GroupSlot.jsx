@@ -7,6 +7,7 @@ import GroupRightSelections from './GroupRightSelections';
 import styled from 'styled-components/macro';
 
 export default function GroupSlot({
+  type,
   setTabPage,
   setTab,
 }) {
@@ -15,7 +16,7 @@ export default function GroupSlot({
       <BackLink onClick={() => setTabPage('')}>
         <Svg.ArrowLeftIcon />
 
-        <span>Grup Ders Oluştur</span>
+        <span>{type == 'dt' && "Paket Oluştur "|| "Grup Ders Oluştur"}</span>
       </BackLink>
 
       <Row>
@@ -24,7 +25,7 @@ export default function GroupSlot({
         </Col>
 
         <Col lg={6}>
-          <GroupRightSelections setTabPage={setTabPage} setTab={setTab} />
+          <GroupRightSelections type={type} setTabPage={setTabPage} setTab={setTab} />
         </Col>
       </Row>
     </>

@@ -317,19 +317,17 @@ export default function GroupRightSelections({
         {/*<Text color="red" fontSize="0.9rem">*/}
         {/*  *Max 50 TL fiyat giriniz*/}
         {/*</Text>*/}
-        <DarkTitle>Fiyat Belirleyiniz</DarkTitle>
+        <DarkTitle  style={{marginTop:'5px'}}>Fiyat Belirleyiniz</DarkTitle>
         {userTypeId == DIETITIAN && (
           <>
             <Material.TextField
+             
               onChange={(e) => selectDataHandler('seancePrice', e.target.value)}
               error={price > 50}
               label="Giriniz"
               type="number"
             />
 
-            <Text color="red" fontSize="0.9rem">
-              *Max 50 TL fiyat giriniz
-            </Text>
           </>
         )}
         {userTypeId !== DIETITIAN && (
