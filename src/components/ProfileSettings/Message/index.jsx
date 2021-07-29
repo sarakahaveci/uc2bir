@@ -11,6 +11,7 @@ export default function Message() {
     const isFirstTime = true;
 
     dispatch(getRooms((data) => {
+
       if (isFirstTime) {
         const allRooms = data.data;
         dispatch(

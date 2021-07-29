@@ -82,6 +82,7 @@ export default function MessageArea() {
     setMessage('');
     dispatch(getRoomMessages(selectedRoomName, () => {
       dispatch(updateUserRead(() => {
+
         dispatch(getRooms((data) => {
           if (isFirstTime) {
             const allRooms = data.data;
@@ -101,14 +102,8 @@ export default function MessageArea() {
         }))
       }))
     }));
-    dispatch(getRooms((data) => {
-      if (isFirstTime) {
-        const allRooms = data.data;
-        dispatch(
-          setRoomName(allRooms?.[0]?.room_name, data.data?.[0]?.user_meta)
-        );
-      }
-    }));
+
+   
     setFile();
     setPreviewImg(null);
     setShowPreviewImg(false);

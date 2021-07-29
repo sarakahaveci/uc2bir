@@ -75,20 +75,22 @@ export const updateUserRead = (successCallback) => async (dispatch, getState) =>
   const {
     selectedRoomName,
   } = getState().profileSettings2.messages.selectedRoom;
+  if (!selectedRoomName?.includes('tempRoom')) {
+    await dispatch({
+      type: HTTP_REQUEST,
+      payload: {
+        method: 'POST',
+        url,
+        label: READ_MESSAGE,
+        body: { room_name: selectedRoomName },
+        callBack: successCallback
+      },
+    });
+  }
 
-  await dispatch({
-    type: HTTP_REQUEST,
-    payload: {
-      method: 'POST',
-      url,
-      label: READ_MESSAGE,
-      body: { room_name: selectedRoomName },
-      callBack: successCallback
-    },
-  });
 };
 
-export const getRoomMessages = (roomName,successCallback) => async (dispatch) => {
+export const getRoomMessages = (roomName, successCallback) => async (dispatch) => {
   const url = `/user/message/messages`;
 
   await dispatch({

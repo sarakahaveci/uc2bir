@@ -47,7 +47,7 @@ const Comments = (props) => {
                 <div className="slider-item">
                   <div className="avatar">
                     <div className="img">
-                      <img src={item.file.path} />
+                      <img src={item?.file?.path || item?.photo} />
                     </div>
                   </div>
                   <QuoteWrapper>

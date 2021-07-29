@@ -20,7 +20,6 @@ const HeaderLogin = ({ type_id, user }) => {
 
   useEffect(() => {
     const isFirstTime = true;
-
     dispatch(getRooms((data) => {
       if (isFirstTime) {
         const allRooms = data.data;
