@@ -61,7 +61,20 @@ const PacketCard = ({
           </div>
 
           <div className="long-user-card__fee">
-            {data?.price || 0} <AwesomeIcon.Tl />
+            <div>
+              {' '}
+              {data?.branch_name ? (
+                <div> {data?.branch_name} Branşı</div>
+              ) : (
+                'Diyet Programı'
+              )}
+              <div> {data?.lesson_amount} Ders/Seans</div>
+            </div>
+
+            <div>
+              {' '}
+              {data?.price || 0} <AwesomeIcon.Tl />
+            </div>
           </div>
         </div>
       </div>

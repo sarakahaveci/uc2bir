@@ -41,10 +41,15 @@ const Packet = (props) => {
     },
   ];
   function dataSelector() {
-    var package_pt = content?.package_pt?.map(item => ({ ...item, type: 'pt' }))
-    var package_dt = content?.package_dt?.map(item => ({ ...item, type: 'dt' }))
+    var package_pt = content?.package_pt?.map((item) => ({
+      ...item,
+      type: 'pt',
+    }));
+    var package_dt = content?.package_dt?.map((item) => ({
+      ...item,
+      type: 'dt',
+    }));
     switch (activeCategory) {
-
       case 1:
         return package_pt?.concat(package_dt);
       case 2:

@@ -18,7 +18,7 @@ import {
   setReservation,
   getStaticPage,
   getGymReservationCalendar,
-  getGymDataForRes
+  getGymDataForRes,
 } from 'actions';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import { getWallet } from 'actions/userProfileActions/walletActions';
@@ -58,9 +58,7 @@ const Gym = ({ dateOption = true }) => {
   }, [userInfo]);
   useEffect(() => {
     setPage(1);
-    dispatch(getGymDataForRes(userInfo.id)) // FOR START DATA --buradan branş gelecek ama daha yok
-    
- 
+    dispatch(getGymDataForRes(userInfo.id)); // FOR START DATA --buradan branş gelecek ama daha yok
   }, []);
   useEffect(() => {
     if (!reservation?.data?.pt_id) {
@@ -68,7 +66,7 @@ const Gym = ({ dateOption = true }) => {
     }
   }, [ptList]);
   useEffect(() => {
-    if (wantPt==1) {
+    if (wantPt == 1) {
       setReservation({ pt_id: undefined });
     }
   }, [reservation?.data?.branch_id]);
@@ -270,46 +268,52 @@ const Gym = ({ dateOption = true }) => {
       <>
         <Text color="#9B9B9B">{'Egitmen Seçiniz:'}</Text>
         <RadioGroup row aria-label="workArea" name="workArea" defaultValue="0l">
-          {ptListState?.map((item) => (
-            <>
-              <CardGroup style={{ padding: 0 }}>
-                <TrainerCard
-                  name={item?.name}
-                  image={item?.photo}
-                  stars={item?.rating}
-                  category={item?.title}
-                  price={item?.price}
-                  classification={item?.classification}
-                />
+          {ptListState ? (
+            ptListState?.map((item) => (
+              <>
+                <CardGroup style={{ padding: 0 }}>
+                  <TrainerCard
+                    name={item?.name}
+                    image={item?.photo}
+                    stars={item?.rating}
+                    category={item?.title}
+                    price={item?.price}
+                    classification={item?.classification}
+                  />
 
-                {reservation?.data?.pt_id &&
-                reservation?.data?.pt_id === item.id ? (
-                  <RadioButtonCheckedIcon
-                    style={{ marginLeft: '5px', cursor: 'pointer' }}
-                  />
-                ) : (
-                  <RadioButtonUncheckedIcon
-                    onClick={() => {
-                      dispatch(
-                        setReservation({
-                          pt_id: item.id,
-                          pt_price: item.price,
-                        })
-                      );
-                    }}
-                    style={{ marginLeft: '5px', cursor: 'pointer' }}
-                  />
-                )}
-              </CardGroup>
-            </>
-          )) || <text>Seçimlerinize uygun eğitmen bulunmamaktadır!</text>}
+                  {reservation?.data?.pt_id &&
+                  reservation?.data?.pt_id === item.id ? (
+                    <RadioButtonCheckedIcon
+                      style={{ marginLeft: '5px', cursor: 'pointer' }}
+                    />
+                  ) : (
+                    <RadioButtonUncheckedIcon
+                      onClick={() => {
+                        dispatch(
+                          setReservation({
+                            pt_id: item.id,
+                            pt_price: item.price,
+                          })
+                        );
+                      }}
+                      style={{ marginLeft: '5px', cursor: 'pointer' }}
+                    />
+                  )}
+                </CardGroup>
+              </>
+            ))
+          ) : (
+            <text>Seçimlerinize uygun eğitmen bulunmamaktadır!</text>
+          )}
         </RadioGroup>
-        <Pagination
-          mt="50px"
-          count={ptListState?.totalPage}
-          page={page}
-          onChange={pageChangeHandler}
-        />
+        {ptListState && (
+          <Pagination
+            mt="50px"
+            count={ptListState?.totalPage}
+            page={page}
+            onChange={pageChangeHandler}
+          />
+        )}
       </>
     );
   }
@@ -317,7 +321,11 @@ const Gym = ({ dateOption = true }) => {
     <Container>
       <LeftWrapper>{_renderLeftArea()}</LeftWrapper>
       <RightWrapper>
-        <PaymentCard disabledPayment={(!(wantPt==2) && !reservation?.data?.pt_id)} type="gym" dateOption={!reservation?.data?.isSelected} />
+        <PaymentCard
+          disabledPayment={!(wantPt == 2) && !reservation?.data?.pt_id}
+          type="gym"
+          dateOption={!reservation?.data?.isSelected}
+        />
       </RightWrapper>
       <StyledModal show={openModal} onHide={() => setOpenModal(false)}>
         <MultiContract

@@ -12,7 +12,7 @@ import { Main } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPacketDetail, setPacketReservation } from 'actions';
 import { getWallet } from 'actions/userProfileActions/walletActions';
-import { USER } from '../../constants/userTypes'
+import { USER } from '../../constants/userTypes';
 import { device } from 'utils';
 import { useHistory } from 'react-router-dom';
 const BuyPacket = ({ match }) => {
@@ -32,7 +32,7 @@ const BuyPacket = ({ match }) => {
       setPacketReservation({
         level: 'C',
         totals_amount: packet?.data?.price_c || packet?.data?.price,
-        id: match?.params?.id
+        id: match?.params?.id,
       })
     );
   }, [packet?.data]);
@@ -208,9 +208,11 @@ const BuyPacket = ({ match }) => {
                     <LevelCircle
                       onClick={() => {
                         onChangeLevel('A');
-                        dispatch(setPacketReservation({
-                          totals_amount: packet?.data?.price_a,
-                        }))
+                        dispatch(
+                          setPacketReservation({
+                            totals_amount: packet?.data?.price_a,
+                          })
+                        );
                       }}
                       enable={packet?.reservation?.level == 'A'}
                     >
@@ -220,11 +222,16 @@ const BuyPacket = ({ match }) => {
                     <LevelCircle
                       onClick={() => {
                         onChangeLevel('B');
-                        dispatch(setPacketReservation({
-                          totals_amount: packet?.data?.price_b,
-                        }))
+                        dispatch(
+                          setPacketReservation({
+                            totals_amount: packet?.data?.price_b,
+                          })
+                        );
                       }}
-                      enable={packet?.reservation?.level == 'B' || packet?.reservation?.level == 'A'}
+                      enable={
+                        packet?.reservation?.level == 'B' ||
+                        packet?.reservation?.level == 'A'
+                      }
                     >
                       B
                     </LevelCircle>
@@ -233,53 +240,74 @@ const BuyPacket = ({ match }) => {
                     <LevelCircle
                       onClick={() => {
                         onChangeLevel('C');
-                        dispatch(setPacketReservation({
-                          totals_amount: packet?.data?.price_c,
-                        }))
+                        dispatch(
+                          setPacketReservation({
+                            totals_amount: packet?.data?.price_c,
+                          })
+                        );
                       }}
-                      enable={packet?.reservation?.level == 'C' || packet?.reservation?.level == 'A' || packet?.reservation?.level == 'B'}
+                      enable={
+                        packet?.reservation?.level == 'C' ||
+                        packet?.reservation?.level == 'A' ||
+                        packet?.reservation?.level == 'B'
+                      }
                     >
                       C
                     </LevelCircle>
                   </LevelContainer>
                 </div>
               )}
-              {match?.params?.type == 'pt' && <BottomContainer>
-                <PtIconsContainer>
-                  <PtIcon src={avatar1} />
-                  <PtIcon src={avatar3} />
-                  <PtIcon src={avatar4} />
-                  <PtIcon src={avatar5} />
-                  <MoreIcon >●●●</MoreIcon>
-                </PtIconsContainer>
-                <Button
-                  blueborder
-                  text={match?.params?.type == 'pt' ? "Eğitmenleri Gör" : "Diyetisyenleri Gör"}
-                  fontSize="11pt"
-                  color="blue"
-                  onClick={() => {
-                    history.push('/find?type=' + match?.params?.type);
-                  }}
-                />
-              </BottomContainer> || <BottomContainer>
+              {(match?.params?.type == 'pt' && (
+                <BottomContainer>
+                  <PtIconsContainer>
+                    <PtIcon src={avatar1} />
+                    <PtIcon src={avatar3} />
+                    <PtIcon src={avatar4} />
+                    <PtIcon src={avatar5} />
+                    <MoreIcon>●●●</MoreIcon>
+                  </PtIconsContainer>
+                  <Button
+                    blueborder
+                    text={
+                      match?.params?.type == 'pt'
+                        ? 'Eğitmenleri Gör'
+                        : 'Diyetisyenleri Gör'
+                    }
+                    fontSize="11pt"
+                    color="blue"
+                    onClick={() => {
+                      history.push('/find?type=' + match?.params?.type);
+                    }}
+                  />
+                </BottomContainer>
+              )) || (
+                <BottomContainer>
                   <div>
-                    <PtIcon style={{ margin: '0' }} src={packet?.data?.dt?.photo} />
+                    <PtIcon
+                      style={{ margin: '0' }}
+                      src={packet?.data?.dt?.photo}
+                    />
                     {packet?.data?.dt?.name}
                   </div>
                   <Button
                     blueborder
-                    text={"Profili Gör"}
+                    text={'Profili Gör'}
                     fontSize="11pt"
                     color="blue"
                     onClick={() => {
                       history.push('/user/' + packet?.data?.dt?.id);
                     }}
                   />
-                </BottomContainer>}
+                </BottomContainer>
+              )}
             </TrainerGroupWrapper>
           </TrainerGroupContainer>
-          {userTypeId === USER && <PaymentCard subType={match?.params?.type} type="buy_packet"></PaymentCard>
-          }
+          {userTypeId === USER && (
+            <PaymentCard
+              subType={match?.params?.type}
+              type="buy_packet"
+            ></PaymentCard>
+          )}
         </SideContainer>
       </Container>
     </Main>
@@ -311,6 +339,7 @@ const InfoContainer = styled.div`
   background: white;
   margin: -50px 0;
   padding: 40px;
+  margin-bottom: 100px;
 `;
 
 const HeaderText = styled.text`
@@ -416,7 +445,7 @@ const MoreIcon = styled.div`
   margin: 0 -8px;
   border-radius: 45px;
   background: var(--blue);
-  padding-top:0px;
+  padding-top: 0px;
 `;
 
 const BigSeperator = styled(Seperator)`

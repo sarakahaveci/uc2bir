@@ -41,6 +41,7 @@ const Packet = ({ val }) => {
                   <ul>
                     {val?.type === 'pt' && <li>{val.branch} Branşı</li>}
                     {val?.type === 'dt' && <li>Diyet Programı</li>}
+                    <li>{val.lesson_amount} Ders/Seans</li>
                   </ul>
                 </div>
                 <div className="col-auto">

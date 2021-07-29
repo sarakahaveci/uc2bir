@@ -21,11 +21,13 @@
   }
 
   &__fee {
-    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    width: 1000%;
+    font-weight: normal;
     font-size: 0.9rem;
     color: var(--dark);
     border-left: var(--gray3);
-    padding-left: 20px;
   }
 
   &__navigator-wrapper {
@@ -47,10 +49,10 @@
     padding: 12px 45px;
   }
 
-  &__detail { 
+  &__detail {
     flex: 1;
     font-size: 0.9rem;
-    display: flex;  
+    display: flex;
     color: var(--gray10);
     max-height: 120px;
     overflow: hidden;
