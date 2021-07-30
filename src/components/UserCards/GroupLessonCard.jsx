@@ -90,10 +90,17 @@ const GroupLessonCard = ({
             paddingTop: '10px',
           }}
         >
-          <Title textAlign="left" component="h6">
-            {data?.branch_name} Dersi
-          </Title>
-          <Title textAlign="end" component="h6">
+          <div>
+            {' '}
+            <Title textAlign="left" component="h6">
+              {data?.branch_name} Dersi
+            </Title>
+            <SubTitle textAlign="left" component="h6">
+              {data?.date} / {data?.hour}
+            </SubTitle>
+          </div>
+
+          <Title textAlign="end" component="h6" style={{ width: 'auto' }}>
             {data?.min_capacity} / {data?.max_capacity}
           </Title>
         </div>
@@ -145,4 +152,11 @@ const ActiveHeart = styled(Svg.ActiveHeartIcon)`
 
 const Heart = styled(Svg.Heart)`
   ${heart}
+`;
+
+const SubTitle = styled.div`
+  color: #00b2a9;
+  font-size: 12px;
+  font-weight: 400;
+  font-style: italic;
 `;
