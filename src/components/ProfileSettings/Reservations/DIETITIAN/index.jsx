@@ -32,7 +32,7 @@ const DIETITIAN = () => {
   let content;
   switch (tab) {
     case 'Awaitings':
-      content = <Awaitings setAwaitingCount={setAwaitingCount}/>;
+      content = <Awaitings setAwaitingCount={setAwaitingCount} />;
       break;
     case 'Calendar':
       content = <Calendar />;
@@ -63,11 +63,15 @@ const DIETITIAN = () => {
               setTab(value);
             }}
             tabs={[
-              { text: 'ONAYDAKİLER', value: 'Awaitings', notify:awaitingCount },
+              {
+                text: 'ONAYDAKİLER',
+                value: 'Awaitings',
+                notify: awaitingCount,
+              },
               { text: 'TAKVİMİM', value: 'Calendar' },
               { text: 'ONAYLANANLAR', value: 'Approved' },
               { text: 'REDDEDİLENLER', value: 'Rejecteds' },
-              { text: 'DERS GEÇMİŞİ', value: 'SessionHistory' },
+              { text: 'SEANS GEÇMİŞİ', value: 'SessionHistory' },
             ]}
             rightButton={
               <DateCreateButton
