@@ -50,6 +50,7 @@ const ChooseDateModal = ({
     if (type == "oneday") {
       setDateFilterText(formatDate(selectedDate))
       setStartDateToApi(moment(selectedDate).format('DD.MM.YYYY'))
+      setEndDateToApi(moment(selectedDate).format('DD.MM.YYYY'))
 
     }
     if (type == "rangedays") {
