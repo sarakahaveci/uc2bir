@@ -30,6 +30,7 @@ export const searchProffesional =
       classification,
       startDate,
       endDate,
+      bs_id
     },
     successCallback = () => {}
   ) =>
@@ -81,6 +82,7 @@ export const searchProffesional =
     const urlWithClassification = `&classification=${classification?.toLowerCase()}`;
     const urlWithStartDate = `&startDate=${startDate}`;
     const urlWithEndDate = `&endDate=${endDate}`;
+    const urlWithBsId = `&bs_id=${bs_id}`;
 
     const finalUrls = `${url}${location ? urlWithLocation : ''}${
       title ? urlWithTitle : ''
@@ -88,7 +90,7 @@ export const searchProffesional =
       maxPrice ? urlWithMaxPrice : ''
     }${sortBy ? urlWithSortBy : ''}${
       classification ? urlWithClassification : ''
-    }${page ? urlWithPage : ''}${startDate ? urlWithStartDate : ''}${
+    }${page ? urlWithPage : ''}${bs_id ? urlWithBsId : ''}${startDate ? urlWithStartDate : ''}${
       endDate ? urlWithEndDate : ''
     }${branch ? urlWithBranch : ''}&per_page=200`.trim();
     await dispatch({

@@ -17,6 +17,8 @@ import {
 import { getProfileDetails } from 'actions';
 import { USER, PERSONAL_TRAINER, WORK_PLACE, DIETITIAN } from '../../constants';
 import Trainers from 'components/ProfileSettings/WorkPlace/Trainers/Trainers';
+import MyTrainers from 'components/ProfileSettings/WorkPlace/Trainers/MyTrainers';
+
 import profileImg from '../../assets/banner/slider-item-1.png';
 import ProfileSettingsList from '../../components/ProfileSettings/ProfileSettingsList';
 import WorkPlaceFacility from 'components/ProfileSettings/WorkPlace/WorkPlaceFacility/WorkPlaceFacility';
@@ -125,7 +127,7 @@ const workPlaceTabs = [
   {
     eventKey: 'trainers',
     title: 'Eğitmenler',
-    component: <Trainers />,
+    component: <MyTrainers />,
   },
   {
     eventKey: 'message',
