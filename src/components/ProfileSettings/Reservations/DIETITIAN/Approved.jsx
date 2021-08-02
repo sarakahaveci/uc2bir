@@ -19,7 +19,7 @@ import {
 } from 'actions';
 import moment from 'moment';
 
-const Approved = ({ setSubPage = () => { } }) => {
+const Approved = ({ setSubPage = () => {} }) => {
   const dispatch = useDispatch();
   const items = useSelector(
     (state) => state.professionalReservation?.dtReservation?.approved
@@ -69,61 +69,56 @@ const Approved = ({ setSubPage = () => { } }) => {
     );
   }
   function _renderTab(date) {
-    if(items?.appointment?.[
-      moment(date).format('DD.MM.YYYY')
-    ]){
-    return (
-      <ReservationAccordion
-        defaultOpen={true}
-        parent
-        title={moment(date).format('DD.MM.YYYY')}
-      >
+    if (items?.appointment?.[moment(date).format('DD.MM.YYYY')]) {
+      return (
+        <ReservationAccordion
+          defaultOpen={true}
+          parent
+          title={moment(date).format('DD.MM.YYYY')}
+        >
+          {items?.appointment?.[moment(date).format('DD.MM.YYYY')]?.clinic?.map(
+            (elm, i) => (
+              <ApproveCardContainer key={i}>
+                <Svg.SessionType.Clinic style={{ marginRight: '10px' }} />
 
-        {items?.appointment?.[
-          moment(date).format('DD.MM.YYYY')
-        ]?.clinic?.map((elm, i) => (
-          <ApproveCardContainer key={i}>
-            <Svg.SessionType.Clinic style={{ marginRight: '10px' }} />
+                <ApproveCard
+                  date={elm?.hour}
+                  type="approve"
+                  customerName={elm?.student}
+                  onApprove={() => {
+                    openReservationDetail(elm?.id);
+                  }}
+                  onReject={() => {
+                    setOpenCancellation(elm?.id);
+                  }}
+                />
+              </ApproveCardContainer>
+            )
+          ) || <></>}
 
-            <ApproveCard
-              date={elm?.hour}
-              type="approve"
-              customerName={elm?.student}
-              onApprove={() => {
-                openReservationDetail(elm?.id);
-              }}
-              onReject={() => {
-                setOpenCancellation(elm?.id);
-              }}
-            />
-          </ApproveCardContainer>
-        )) || <></>}
+          {items?.appointment?.[moment(date).format('DD.MM.YYYY')]?.online?.map(
+            (elm, i) => (
+              <ApproveCardContainer key={i}>
+                <Svg.SessionType.Online style={{ marginRight: '10px' }} />
 
-
-        {items?.appointment?.[
-          moment(date).format('DD.MM.YYYY')
-        ]?.online?.map((elm, i) => (
-          <ApproveCardContainer key={i}>
-            <Svg.SessionType.Online style={{ marginRight: '10px' }} />
-
-            <ApproveCard
-              date={elm?.hour}
-
-              type="approve"
-              customerName={elm?.student}
-              onApprove={() => {
-
-                openReservationDetail(elm?.id, true);
-              }}
-              onReject={() => {
-                setOpenCancellation(elm?.id);
-              }}
-            />
-          </ApproveCardContainer>
-        )) || <></>}
-      </ReservationAccordion>
-    )}else{
-      return(<></>)
+                <ApproveCard
+                  date={elm?.hour}
+                  type="approve"
+                  customerName={elm?.student}
+                  onApprove={() => {
+                    openReservationDetail(elm?.id, true);
+                  }}
+                  onReject={() => {
+                    setOpenCancellation(elm?.id);
+                  }}
+                />
+              </ApproveCardContainer>
+            )
+          ) || <></>}
+        </ReservationAccordion>
+      );
+    } else {
+      return <></>;
     }
   }
   return (
@@ -131,13 +126,12 @@ const Approved = ({ setSubPage = () => { } }) => {
       <StyledRow>
         <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
           <AccordionContainer>
-            {
-              startOfWeeksArr().map((date) => (
-                _renderTab(date)
-              ))
-
-            }
-            {!(startOfWeeksArr()?.length > 0) && <text style={{ padding: '20px' }}>Onay bekleyen hiçbir rezervasyon talebi yoktur</text>}
+            {startOfWeeksArr().map((date) => _renderTab(date))}
+            {!(startOfWeeksArr()?.length > 0) && (
+              <text style={{ padding: '20px' }}>
+                Onay bekleyen hiçbir rezervasyon talebi yoktur
+              </text>
+            )}
           </AccordionContainer>
         </StyledCol>
         <StyledCol
@@ -199,7 +193,6 @@ const DateContainer = styled.div`
 const AccordionContainer = styled.div`
   display: flex;
   flex-direction: column;
-
 `;
 const ApproveCardContainer = styled.div`
   display: flex;
