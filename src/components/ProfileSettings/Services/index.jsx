@@ -12,7 +12,7 @@ export default function Services() {
   const dispatch = useDispatch();
   const { services } = useSelector((state) => state.profileSettings2.services);
   const [page, setPage] = useState(1);
-  useEffect(() => { }, []);
+  useEffect(() => {}, []);
   useEffect(() => {
     dispatch(dtGetServices(page));
   }, [page]);
@@ -27,17 +27,25 @@ export default function Services() {
         {'Danışanlar'}
       </Title>
       <CardContainer>
-        {services?.data?.data?.map((service,index) => (
-          <Card key={index} image={service?.photo} name={service?.name} data={service} desc="Danışan" />
+        {services?.data?.data?.map((service, index) => (
+          <Card
+            key={index}
+            image={service?.photo}
+            name={service?.name}
+            data={service}
+            desc="Danışan"
+          />
         ))}
       </CardContainer>
-      <Pagination
-        mt="50px"
-        count={services?.data?.totalPage}
-        style={{ background: 'white' }}
-        page={page}
-        onChange={pageChangeHandler}
-      />
+      {services?.data?.totalPage > 1 && (
+        <Pagination
+          mt="50px"
+          count={services?.data?.totalPage}
+          style={{ background: 'white' }}
+          page={page}
+          onChange={pageChangeHandler}
+        />
+      )}
     </div>
   );
 }

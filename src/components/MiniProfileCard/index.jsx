@@ -3,11 +3,13 @@ import styled from 'styled-components/macro';
 import { Title, AwesomeIcon } from 'components';
 import Rating from '@material-ui/lab/Rating';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
+import defaultImage from '../../assets/default-profile.jpg';
+
 const MiniProfileCard = ({ photo, name, rating, type_id, price }) => {
   return (
     <Container>
       <ImageContainer>
-        <Image src={photo} />
+        <Image src={photo || defaultImage} />
       </ImageContainer>
       <InfoContainer>
         <Title
