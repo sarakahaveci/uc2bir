@@ -57,14 +57,17 @@ const Notify = styled.div`
 
 const Tab = styled.button`
   display: flex;
-  padding: 20px;
+  margin: 20px;
   background: white;
 `;
+
 const BoldText = styled.text`
+  padding-bottom: 5px;
   font-size: 1rem;
   font-weight: bold;
   font-family: 'Poppins', sans-serif;
   color: ${(props) => (props.selected ? '#00B2A9' : '#909090')};
+  border-bottom: ${(props) => (props.selected ? '3px solid #00B2A9' : 'none')};
   @media ${device.sm} {
     font-size: 0.7rem;
   }
