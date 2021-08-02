@@ -1059,6 +1059,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
                         reservationCalendar?.data?.slice &&
                         reservationCalendar?.data?.slice?.length > 0
                       ) {
+                        scrollToTop();
                         selectPaymentType('credit_card');
                       } else {
                         toast.error('Lütfen Seçiminizi Gözden Geçiriniz!', {
@@ -1125,6 +1126,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
                   className="blue"
                   text="Kredi Kartından Öde"
                   onClick={() => {
+                    scrollToTop();
                     selectPaymentTypeGroupLesson('credit_card');
                   }}
                 />
@@ -1185,6 +1187,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
                   className="blue"
                   text="Kredi Kartından Öde"
                   onClick={() => {
+                    scrollToTop();
                     selectPaymentTypePacket('credit_card');
                   }}
                 />
@@ -1223,7 +1226,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
           value={reservation?.data?.expiration_year}
         />
         <input type="hidden"
-         name="cvv" value={reservation?.data?.cvc} />
+          name="cvv" value={reservation?.data?.cvc} />
 
         <input
           type="hidden"
