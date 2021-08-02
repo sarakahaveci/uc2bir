@@ -7,6 +7,7 @@ import DefaultProfileImg from 'assets/default-profile.jpg';
 import { setMessageSideBarOpen } from 'actions';
 import Svg from 'components/statics/svg';
 import { device } from 'utils';
+ import { useHistory } from 'react-router-dom';
 
 const ChatBoxHeader = () => {
   const dispatch = useDispatch();
@@ -19,6 +20,8 @@ const ChatBoxHeader = () => {
   );
   const photo = selectedRoomUser?.profile_image?.path || DefaultProfileImg;
 
+
+  let history = useHistory();
   return (
     <Wrapper>
       <InnerWrapper>
@@ -41,16 +44,23 @@ const ChatBoxHeader = () => {
             )}
           </IconWrapper>
 
-          <Avatar src={photo} />
-          <Title
-            className="ml-2 mt-auto mb-auto"
-            fontSize="15px"
-            fontWeight="400"
-            textAlign="left"
-            color="gray3"
-          >
-            {selectedRoomUser?.name ?? 'Müşteri temsilcisi'}
-          </Title>
+          <div style={{ width: '100%', display: "flex", cursor: selectedRoomUser?.name ? "pointer" : "unset" }} onClick={() => {
+            if (selectedRoomUser?.name) {
+
+              history.push('/user/' + selectedRoomUser?.profile_image?.user_id);
+            }
+          }} >
+            <Avatar src={photo} />
+            <Title
+              className="ml-2 mt-auto mb-auto"
+              fontSize="15px"
+              fontWeight="400"
+              textAlign="left"
+              color="gray3"
+            >
+              {selectedRoomUser?.name ?? 'Müşteri temsilcisi'}
+            </Title>
+          </div>
         </Box>
       </InnerWrapper>
     </Wrapper>
