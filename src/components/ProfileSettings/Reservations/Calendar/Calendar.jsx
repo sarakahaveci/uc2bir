@@ -812,6 +812,8 @@ const Seperator = styled.div`
 
 const AccordionContainer = styled.div`
   display: flex;
+  flex-direction: column;
+
 `;
 
 const AppointmentContainer = styled.div`
