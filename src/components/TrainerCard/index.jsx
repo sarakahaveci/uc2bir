@@ -3,6 +3,8 @@ import { AwesomeIcon } from 'components';
 import { Col } from 'react-bootstrap';
 import styled from 'styled-components/macro';
 import { device } from 'utils';
+import defaultImage from '../../assets/default-profile.jpg';
+
 const TrainerCard = ({
   name,
   image,
@@ -33,7 +35,7 @@ const TrainerCard = ({
           </Star>
         </Stars>
         <ImageContainer>
-          <IMG src={image}></IMG>
+          <IMG src={image || defaultImage}></IMG>
           <Class>
             {classification && (
               <div className="long-user-card__classification">
