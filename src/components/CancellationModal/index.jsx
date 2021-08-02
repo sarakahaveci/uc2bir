@@ -21,16 +21,16 @@ const CancalletionModal = ({
     setSelectedPage('start');
   }, [open]);
 
-  function hourFormatter(hour){
-    if(hour){
-      if(hour > 24 ){
+  function hourFormatter(hour) {
+    if (hour) {
+      if (hour > 24) {
         var day = Math.floor(hour / 24)
-        var remaining = hour - day*24;
-        return (day + ' gün ' + remaining + ' saat' )
-      }else{
+        var remaining = hour - day * 24;
+        return (day + ' gün ' + remaining + ' saat')
+      } else {
         return (hour + ' saat')
       }
-    }else{
+    } else {
       return null
     }
   }
@@ -108,23 +108,28 @@ const CancalletionModal = ({
             <Text textAlign="center" fontSize="1rem" color="dark">
               {hourFormatter(stepTwoData?.remaining_hour)}  sonraki randevunuzu iptal etmek üzeresiniz.
             </Text>
+            {
+              stepTwoData?.penalty_fee && stepTwoData?.penalty_fee > 0 && <Text textAlign="center" fontSize="1rem" color="dark">
+                İşlemi onaylamanız halinde {stepTwoData?.penalty_fee} tl ceza ücreti hesabınıza yansıyacaktır.
+              </Text>
+            }
           </ContextContainer>
-          <div style={{display: 'flex',width:'100%'}}>
-          <StyledButton
-          style={{marginRight:'10px'}}
-            onClick={() => {
-              cancelProcess();
-            }}
-          >
-            İPTAL
-          </StyledButton>
-          <StyledButton
-            onClick={() => {
-              cancelStepTwo(open);
-            }}
-          >
-            GÖNDER
-          </StyledButton>
+          <div style={{ display: 'flex', width: '100%' }}>
+            <StyledButton
+              style={{ marginRight: '10px' }}
+              onClick={() => {
+                cancelProcess();
+              }}
+            >
+              İPTAL
+            </StyledButton>
+            <StyledButton
+              onClick={() => {
+                cancelStepTwo(open);
+              }}
+            >
+              GÖNDER
+            </StyledButton>
           </div>
         </MainContainer>
       );
