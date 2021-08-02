@@ -25,7 +25,7 @@ export default function ActivityCard({
   maxPrice,
   minPrice,
   userBranchList,
-  icon
+  icon,
 }) {
   const dispatch = useDispatch();
   const { data: registerData } = useSelector((state) => state.registerData);
@@ -188,9 +188,11 @@ export default function ActivityCard({
     <div className={`d-flex mb-3 mr-2 p-4 flex-column  ${cardClass}`}>
       <div className="mb-2">
         <div className="d-flex justify-content-between">
-          {isWorkPlace
-            ? <img style={{ height: '50px', width: '50px' }} src={icon}></img>
-            : sportTypeIconGenerator(name)}
+          {isWorkPlace ? (
+            <img style={{ height: '50px', width: '50px' }} src={icon}></img>
+          ) : (
+            sportTypeIconGenerator(name)
+          )}
           <span className={`ml-auto ${statusTextClass}`}>
             {isWorkPlace ? statusText : PTstatusText?.name}
           </span>
@@ -344,8 +346,9 @@ export default function ActivityCard({
           </>
         )}
       </div>
-      <div style={{display:'flex',width:'100%',justifyContent:'flex-end'}} >
-
+      <div
+        style={{ display: 'flex', width: '100%', justifyContent: 'flex-end' }}
+      >
         <StyledButton
           text="Kaydet"
           fontWeight="500"
@@ -385,8 +388,8 @@ const HtmlTooltip = withStyles((theme) => ({
 }))(Tooltip);
 
 const StyledButton = styled(Button)`
-  color:var(--blue);
+  color: var(--blue);
   background: white !important;
-  width:80px;
-  margin-top:7px;
-`
+  width: 80px;
+  margin-top: 7px;
+`;

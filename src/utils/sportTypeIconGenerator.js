@@ -17,7 +17,7 @@ const sportTypeIconGenerator = (type, className, style) => {
     6: <Svg.SwimSportIcon />,
     Yüzme: <Svg.SwimSportIcon />,
     7: <Svg.CimnastikSportIcon />,
-    Jimnastik: <Svg.CimnastikSportIcon />,
+    Cimnastik: <Svg.CimnastikSportIcon />,
     8: <Svg.AthleticSportIcon />,
   };
 
