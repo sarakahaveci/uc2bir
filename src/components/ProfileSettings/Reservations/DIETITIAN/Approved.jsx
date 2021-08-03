@@ -19,7 +19,7 @@ import {
 } from 'actions';
 import moment from 'moment';
 
-const Approved = ({ setSubPage = () => {} }) => {
+const Approved = ({ setSubPage = () => { } }) => {
   const dispatch = useDispatch();
   const items = useSelector(
     (state) => state.professionalReservation?.dtReservation?.approved
@@ -195,12 +195,14 @@ const AccordionContainer = styled.div`
   flex-direction: column;
 `;
 const ApproveCardContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin: 20px 0;
-  @media ${device.sm} {
-    margin: 0;
-  }
+display: flex;
+align-items: center;
+justify-content:space-between;
+margin: 20px 0;
+padding:5px;
+@media ${device.sm} {
+  margin: 0;
+}
 `;
 
 const StyledCol = styled(Col)`
