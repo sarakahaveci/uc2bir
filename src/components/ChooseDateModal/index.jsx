@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components/macro';
-import { Svg } from 'components';
+import React, { useEffect, useState, useRef } from 'react';
+import styled from 'styled-components/macro'; 
 import { device } from 'utils';
-import { DatePicker } from 'components';
+import { DatePicker, Modal } from 'components';
 import moment from 'moment';
 
 const ChooseDateModal = ({
@@ -65,19 +64,21 @@ const ChooseDateModal = ({
 
   }
 
-  return <Root style={{ display: open ? 'flex' : 'none' }}>
+
+  useEffect(() => {
+    if (open) openChooseDateModal();
+    if (!open) chooseDateModalRef.current.closeModal();
+  }, [open]);
+  const chooseDateModalRef = useRef();
+
+  const openChooseDateModal = () =>
+    chooseDateModalRef.current.openModal();
+
+  return <ChooseDateModalContainer ref={chooseDateModalRef}>
 
     <MainContainer>
       <>
-        <Svg.CloseIcon
-          className="close-icon"
-          onClick={() => {
-            setStartDate(null);
-            setEndDate(null);
-            setSelectedDate(new Date())
-            cancel();
-          }}
-        />
+
         <ChooseSearchType>
           <SearchType onClick={() => { handleChangeSearchType("oneday") }} isChoosen={isOnOneDaySearch}  >
             <div className="checkbox"></div>
@@ -130,11 +131,18 @@ const ChooseDateModal = ({
 
       </ModalFooter>
     </MainContainer >
-  </Root>;
+  </ChooseDateModalContainer>
+
+
 };
 
 
 
+const ChooseDateModalContainer = styled(Modal)`
+  .modal-content {
+    width: 500px;
+  }
+`;
 
 const ChooseSearchType = styled.div`
 display:flex;
@@ -173,20 +181,7 @@ align-items:center;
 const DateContainer = styled.div`
   width: 100%;
 `;
-
-/////
-const Root = styled.div`
-  display: flex;
-  position: fixed;
-  background: rgba(0, 0, 0, 0.5);
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: 99999;
-`;
+ 
 const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -194,7 +189,7 @@ const MainContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding: 20px;
-  background: white;
+  background: transparent;
   .close-icon {
     align-self: flex-end;
 
