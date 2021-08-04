@@ -30,8 +30,8 @@ const TopPromotion = ({ className, background, children }) => {
   }
 
   useEffect(() => {
-    var tempArr = sliders?.map((element)=>(
-      { title: element?.name, desc: element?.description,file:element?.file }
+    var tempArr = sliders?.filter((elm) => elm?.web == 'active').map((element) => (
+      { title: element?.name, desc: element?.description, file: element?.file }
     ));
     setDesc(tempArr[0]?.desc)
     setTitle(tempArr[0]?.title)
