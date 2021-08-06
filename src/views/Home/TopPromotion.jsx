@@ -35,7 +35,6 @@ const TopPromotion = ({ className, background, children }) => {
     ));
     setDesc(tempArr[0]?.desc)
     setTitle(tempArr[0]?.title)
-
     setSliderItems(tempArr)
   }, [sliders])
   return (

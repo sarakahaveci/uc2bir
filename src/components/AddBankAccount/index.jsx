@@ -21,7 +21,7 @@ export default function AddBankAccount({
           }}
         />
         <Material.TextField
-          mask="9999 9999 9999 9999"
+          mask="99 9999 9999 9999 9999 9999 99"
           label="IBAN Numarası Giriniz"
           type="text"
           name="card_number"
