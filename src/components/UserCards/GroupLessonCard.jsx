@@ -79,7 +79,7 @@ const GroupLessonCard = ({
 
       <div className="long-user-card__body">
         <Title textAlign="left" component="h5">
-          {data?.name}
+          {data?.title || data?.name}
         </Title>
 
         <Span underline>{data?.title}</Span>

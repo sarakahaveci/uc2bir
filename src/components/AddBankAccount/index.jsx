@@ -21,12 +21,14 @@ export default function AddBankAccount({
           }}
         />
         <Material.TextField
-          mask="99 9999 9999 9999 9999 9999 99"
+          mask="TR 99 9999 9999 9999 9999 9999 99"
           label="IBAN Numarası Giriniz"
           type="text"
           name="card_number"
           onBlur={(e) => {
-            setCardNo(e.target.value.replace(/ /g, ''));
+            var temp = e.target.value.replace(/ /g, '')
+
+            setCardNo(temp.replace('TR', ''));
           }}
         />
         <Material.TextField

@@ -161,7 +161,17 @@ export default function GroupLeftSelections() {
           </Box>
         </>
       )}
-
+      {userTypeId === PERSONAL_TRAINER &&
+        <>
+          <Text color="gray10" fontWeight="600" fontSize="1.1rem" mt="20px">
+            Ders başlığı giriniz ...
+          </Text>
+          <TextArea
+            rows={1}
+            onBlur={(e) => selectDataHandler('title', e.target.value)}
+          />
+        </>
+      }
       {userTypeId !== DIETITIAN && (
         <>
           <FormControl className="w-100 mt-2">

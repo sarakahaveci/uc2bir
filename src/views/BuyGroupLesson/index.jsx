@@ -210,8 +210,8 @@ const BuyGroupLesson = ({ match }) => {
                 }
                 <LabelText>İçerik</LabelText>
                 <Seperator />
-
-                <DescText>{group?.data?.slot?.detail}</DescText>
+                <h5>{group?.data?.title}</h5>
+                <DescText style={{ marginTop: '6px' }}>{group?.data?.slot?.detail}</DescText>
               </InfoContainer>
             </SideContainer>
           </>

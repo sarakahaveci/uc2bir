@@ -11,6 +11,8 @@ import ComputedTest from 'components/ProfileSettings/Forms/tabs/ComputedTest';
 import Address from 'components/ProfileSettings/Address';
 import About from 'components/ProfileSettings/About';
 import ShowPersonalInfo from 'components/ProfileSettings/ShowPersonalInfo';
+import AllowPackage from 'components/ProfileSettings/AllowPackage';
+
 import { Link } from 'react-router-dom'
 import VKI from 'components/ProfileSettings/Forms/VKI';
 import {
@@ -67,6 +69,10 @@ const trainerAndDietitanData = [
     settingsName: 'Şirket Bilgileri',
     body: <CompanyInf />,
   },
+  {
+    settingsName: 'Paketten Rezervasyon',
+    body: <AllowPackage />,
+  },
 ];
 
 const regularUserTabs = [
@@ -102,7 +108,7 @@ const regularUserTabs = [
   {
     settingsName: 'Gizlilik',
     body: <ShowPersonalInfo />,
-  },
+  }
 ];
 
 const workPlaceData = [
