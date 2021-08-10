@@ -11,7 +11,6 @@ import SelectPictureModal from './SelectPictureModal';
 import { Svg, Text, Box, CalendarCell, PlusButton, Material } from 'components';
 import { PERSONAL_TRAINER, DIETITIAN } from 'constants/index';
 import {
-  getGymList,
   getSessionTypes,
   getWorkPlaceCapacity,
   setGroupSelectionData,
