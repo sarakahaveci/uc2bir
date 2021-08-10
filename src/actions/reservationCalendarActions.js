@@ -9,7 +9,7 @@ import {
 } from '../constants';
 export const getAreaForPT =
   (id, date, hour, branch_id, session) => async (dispatch) => {
-    let url = `https://gateway.321.4alabs.com/appointment/pt-calendar/${id}`;
+    let url = `/appointment/pt-calendar/${id}`;
     let extras = '?';
 
     if (date) extras += `date=${date}&`;
@@ -56,7 +56,7 @@ export const getAreaForPT =
 };*/
 export const getPtReservationCalendar =
   (id, date, hour, branch_id, session, location_id) => async (dispatch) => {
-    let url = `https://gateway.321.4alabs.com/appointment/pt-calendar/step-x/${id}`;
+    let url = `/appointment/pt-calendar/step-x/${id}`;
     let extras = '?';
 
     if (date) extras += `date=${date}&`;
@@ -78,7 +78,7 @@ export const getPtReservationCalendar =
   };
 export const getDtReservationCalendar =
   (id, date, hour, session, location_id) => async (dispatch) => {
-    let url = `https://gateway.321.4alabs.com/appointment/dt-calendar/step-x/${id}`;
+    let url = `/appointment/dt-calendar/step-x/${id}`;
     let extras = '?';
 
     if (date) extras += `date=${date}&`;
@@ -100,7 +100,7 @@ export const getDtReservationCalendar =
 export const getPacketPtReservationCalendar =
   (package_uuid, pt_id, date, hour, session, location_id) =>
   async (dispatch) => {
-    let url = `https://gateway.321.4alabs.com/appointment/pt-calendar/package`;
+    let url = `/appointment/pt-calendar/package`;
     let extras = '?';
     if (package_uuid) extras += `package_uuid=${package_uuid}&`;
     if (pt_id) extras += `pt_id=${pt_id}&`;
@@ -125,7 +125,7 @@ export const getPacketPtReservationCalendar =
   export const getPacketDtReservationCalendar =
   (package_uuid, date, hour, session, location_id) =>
   async (dispatch) => {
-    let url = `https://gateway.321.4alabs.com/appointment/dt-calendar/package`;
+    let url = `/appointment/dt-calendar/package`;
     let extras = '?';
     if (package_uuid) extras += `package_uuid=${package_uuid}&`;
     if (date) extras += `date=${date}&`;
@@ -146,7 +146,7 @@ export const getPacketPtReservationCalendar =
   };
 export const getGymReservationCalendar =
   (id, date, hour, branch_id, pt_id) => async (dispatch) => {
-    let url = `https://gateway.321.4alabs.com/appointment/bs-calendar/step-x/${id}`;
+    let url = `/appointment/bs-calendar/step-x/${id}`;
     let extras = '?';
 
     if (date) extras += `date=${date}&`;
@@ -166,7 +166,7 @@ export const getGymReservationCalendar =
   };
   export const getGymDataForRes =
   (id, date, hour, branch_id, pt_id) => async (dispatch) => {
-    let url = `https://gateway.321.4alabs.com/appointment/bs-calendar/${id}`;
+    let url = `/appointment/bs-calendar/${id}`;
     let extras = '?';
 
     if (date) extras += `date=${date}&`;
@@ -185,7 +185,7 @@ export const getGymReservationCalendar =
     });
   };
 export const getPtforGym = (id, date, hour, branch_id) => async (dispatch) => {
-  let url = `https://gateway.321.4alabs.com/appointment/bs-calendar/step-2/${id}`;
+  let url = `/appointment/bs-calendar/step-2/${id}`;
   let extras = '?';
 
   if (date) extras += `date=${date}&`;

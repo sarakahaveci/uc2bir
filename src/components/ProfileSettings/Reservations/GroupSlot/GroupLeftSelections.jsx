@@ -102,9 +102,6 @@ export default function GroupLeftSelections() {
 
   useEffect(() => {
     if (branchSelection && locationSelection && userTypeId === PERSONAL_TRAINER) {
-      console.log('branchSelection',branchSelection.id)
-      console.log('locationSelection',locationSelection.id)
-
       dispatch(
         getWorkPlaceCapacity(
           branchSelection.id,

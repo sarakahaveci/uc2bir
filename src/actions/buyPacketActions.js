@@ -9,10 +9,10 @@ export const getPacketDetail = (type, id) => async (dispatch) => {
   let url;
   switch (type) {
     case 'pt':
-      url = `https://gateway.321.4alabs.com/cms/package/detail/${id}`;
+      url = `/cms/package/detail/${id}`;
       break;
     case 'dt':
-      url = `https://gateway.321.4alabs.com/user/package/detail/${id}`;
+      url = `/user/package/detail/${id}`;
       break;
     default:
       break;
@@ -28,7 +28,7 @@ export const getPacketDetail = (type, id) => async (dispatch) => {
   });
 };
 export const getUpdatePackage = (id,level) => async (dispatch) => {
-  let url=`https://gateway.321.4alabs.com/cms/package/upgrade/${id}`
+  let url=`/cms/package/upgrade/${id}`
   let extras='?'
   if (level) extras += `level=${level}&`;
   url += extras;
