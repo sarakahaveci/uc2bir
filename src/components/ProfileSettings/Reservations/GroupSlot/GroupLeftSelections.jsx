@@ -18,7 +18,8 @@ import {
   getGroupImages,
   getUserPTBranchList, getDietitianClinics,
   getPtWorkingHomePlace,
-  getDayOfCalendar
+  getDayOfCalendar,
+  getFilteredGymList
 } from 'actions';
 
 export default function GroupLeftSelections() {
@@ -74,7 +75,7 @@ export default function GroupLeftSelections() {
 
       dispatch(getGroupImages());
 
-      dispatch(getGymList());
+      dispatch(getFilteredGymList());
     }
     if (userTypeId === DIETITIAN) {
       dispatch(getSessionTypes());
@@ -83,7 +84,7 @@ export default function GroupLeftSelections() {
     }
   }, []);
   useEffect(() => {
-    dispatch(getGymList(
+    dispatch(getFilteredGymList(
       moment(selectedDate).format('DD.MM.YYYY'),
       selectedHour,
       branchSelection?.id
@@ -102,6 +103,9 @@ export default function GroupLeftSelections() {
 
   useEffect(() => {
     if (branchSelection && locationSelection && userTypeId === PERSONAL_TRAINER) {
+      console.log('branchSelection',branchSelection.id)
+      console.log('locationSelection',locationSelection.id)
+
       dispatch(
         getWorkPlaceCapacity(
           branchSelection.id,
@@ -291,7 +295,7 @@ export default function GroupLeftSelections() {
               selectDataHandler('locationSelection', e.target.value)
             }
           >
-            {gymList?.gym?.map((item) => (
+            {gymList?.map((item) => (
               <MenuItem key={item.id} value={item}>
                 {item.title}
               </MenuItem>

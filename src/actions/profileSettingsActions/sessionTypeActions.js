@@ -131,7 +131,27 @@ export const getGymList = (date,hour,branch) => async (dispatch, getState) => {
     },
   });
 };
+export const getFilteredGymList = (date,hour,branch) => async (dispatch, getState) => {
+  let url = `/appointment/pt/step-x`;
+  let extras = '?';
 
+  if (date) extras += `date=${date}&`;
+  if (hour) extras += `hour=${hour}&`;
+  if (branch) extras += `branch=${branch}&`;
+
+
+  url += extras;
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'GET',
+      url,
+      label: SESSIONTYPE_GET_GYM_LIST,
+
+      transformData: (data) => data.data,
+    },
+  });
+};
 export const addGym = ({ ...data }, successCallback, errorCallback) => async (
   dispatch,
   getState

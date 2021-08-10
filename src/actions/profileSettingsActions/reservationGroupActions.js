@@ -45,6 +45,7 @@ export const createGroupSlot = (slotObj, successCallback, errorCallback) => asyn
     group_slot_image_id,
     group_slot_image,
     classSelection,
+    title
   } = getState().profileSettings2.reservationGroupSlot;
   const createData = new FormData();
 
@@ -64,6 +65,7 @@ export const createGroupSlot = (slotObj, successCallback, errorCallback) => asyn
   if (locationSelection?.id) createData.append('location_id', locationSelection.id);
   if (courseDetails) createData.append('detail', courseDetails);
   if (group_slot_image_id) createData.append('group_slot_image_id', group_slot_image_id);
+  if (title) createData.append('title', title);
   if (classSelection?.id) createData.append('class_id', classSelection.id);
 
 
