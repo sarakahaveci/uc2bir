@@ -64,7 +64,7 @@ const ProfileBanner = ({
           <Cols lg={4}>
             <Card img={info.img}>
               <span className="team">{info.team}</span>
-              <span className="span">
+              <span style={{ display: 'flex', alignItems: 'center' }} className="span">
                 {user?.type_id === USER &&
                   (isFavorited ? (
                     <ActiveHeart
@@ -72,7 +72,9 @@ const ProfileBanner = ({
                       showHeartBg={false}
                     />
                   ) : (
+
                     <Heart onClick={favoriteClickHandler} showHeartBg={true} />
+
                   ))}
                 {isUserDetail && (
                   <Link to="/myprofile/settings/profile">
@@ -83,6 +85,32 @@ const ProfileBanner = ({
                     />{' '}
                   </Link>
                 )}
+                <Dropdown>
+                  <DropdownButton
+                    className="list"
+                    onClick={() => { setShowOthers(!showOthers) }}
+                  >
+                    <text style={{ color: 'white',fontSize:'7px' }}>⬤⬤⬤</text>
+                  </DropdownButton>
+                  <DropdownContent show={showOthers}>
+                    <Wrapper style={{ borderBottomColor: '#DEDEDE', borderBottomStyle: 'solid', borderBottomWidth: '1px' }}>
+                      <BlockContainer>
+                        <Svg.BlackBlock style={{ marginRight: '10px' }}></Svg.BlackBlock>
+                        <BlockUser onClick={() => { openBlockModal() }}>{info?.isBlocked ? "Engeli kaldır" : "Kullanıcıyı Engelle"}</BlockUser>
+
+                      </BlockContainer>
+                    </Wrapper>
+                    <Wrapper>
+                      <Comment
+                        to={'/myprofile/settings/message'}
+                        onClick={() => dispatch(setNewMessageRoom(info))}
+                      >
+                        <Svg.BlackMessage style={{ marginRight: '10px' }} ></Svg.BlackMessage>
+                        <text style={{ color: 'black' }}>Mesaj Gönder</text>
+                      </Comment>
+                    </Wrapper>
+                  </DropdownContent>
+                </Dropdown>
               </span>
 
               <Stars rating={info.stars} position="bottom" />
@@ -90,32 +118,7 @@ const ProfileBanner = ({
               {!isUserDetail ? (
                 user?.type_id === USER && (
                   <CardFooter>
-                    <Dropdown>
-                      <DropdownButton
-                        className="list"
-                        onClick={() => { setShowOthers(!showOthers) }}
-                      >
-                        <text style={{ color: 'black' }}>○○○</text>
-                      </DropdownButton>
-                      <DropdownContent show={showOthers}>
-                        <Wrapper style={{ borderBottomColor: '#DEDEDE', borderBottomStyle: 'solid', borderBottomWidth: '1px' }}>
-                          <BlockContainer>
-                            <Svg.BlackBlock style={{ marginRight: '10px' }}></Svg.BlackBlock>
-                            <BlockUser onClick={() => { openBlockModal() }}>{info?.isBlocked ? "Engeli kaldır" : "Kullanıcıyı Engelle"}</BlockUser>
 
-                          </BlockContainer>
-                        </Wrapper>
-                        <Wrapper>
-                          <Comment
-                            to={'/myprofile/settings/message'}
-                            onClick={() => dispatch(setNewMessageRoom(info))}
-                          >
-                            <Svg.BlackMessage style={{ marginRight: '10px' }} ></Svg.BlackMessage>
-                            <text style={{ color: 'black' }}>Mesaj Gönder</text>
-                          </Comment>
-                        </Wrapper>
-                      </DropdownContent>
-                    </Dropdown>
 
                     <Button
                       onClick={() => {
@@ -130,34 +133,7 @@ const ProfileBanner = ({
                 ) || (
 
                   <CardFooter>
-                    <Dropdown>
-                      <DropdownButton
-                        className="list"
-                        onClick={() => { setShowOthers(!showOthers) }}
-                      >
-                        <text style={{ color: 'black' }}>○○○</text>
-                      </DropdownButton>
-                      <DropdownContent show={showOthers}>
-                        <Wrapper style={{ borderBottomColor: '#DEDEDE', borderBottomStyle: 'solid', borderBottomWidth: '1px' }}>
-                          <BlockContainer>
-                            <Svg.BlackBlock style={{ marginRight: '10px' }}></Svg.BlackBlock>
-                            <BlockUser onClick={() => { openBlockModal() }}>{info?.isBlocked ? "Engeli kaldır" : "Kullanıcıyı Engelle"}</BlockUser>
-
-                          </BlockContainer>
-                        </Wrapper>
-                        <Wrapper>
-                          <Comment
-                            to={'/myprofile/settings/message'}
-                            onClick={() => {
-                              dispatch(setNewMessageRoom(info))
-                            }}
-                          >
-                            <Svg.BlackMessage style={{ marginRight: '10px' }} ></Svg.BlackMessage>
-                            <text style={{ color: 'black' }}>Mesaj Gönder</text>
-                          </Comment>
-                        </Wrapper>
-                      </DropdownContent>
-                    </Dropdown>
+                    
                   </CardFooter>
                 )
               ) : (
@@ -258,6 +234,7 @@ const DropdownContent = styled.div`
   margin-top:10px; 
   -webkit-box-shadow: 0px 0px 4px 3px rgba(197, 196, 196, 0.28);
   box-shadow: 0px 0px 4px 3px rgba(197, 196, 196, 0.28);
+  z-index: 99999999999999;
 `
 const Wrapper = styled.div`
   display:flex;
@@ -265,13 +242,13 @@ const Wrapper = styled.div`
   height:48px;
 `
 const DropdownButton = styled(Link)`
-  background: #fff;
   display: flex;
   min-width: 50px;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
   padding: 16px;
+
 `;
 const BlockContainer = styled.div`
   display:flex;
@@ -282,13 +259,16 @@ const BlockUser = styled.text`
 
 `
 const heart = css`
+display:flex;
   padding: 8px;
   background-color: white;
   border-radius: 50%;
   cursor: pointer;
-  position: absolute;
-  right: 17px;
-  top: 15px;
+  width:40px;
+  height:40px;
+  align-items: center;
+  justify-content: center;
+  
 `;
 
 const ActiveHeart = styled(Svg.ActiveHeartIcon)`
