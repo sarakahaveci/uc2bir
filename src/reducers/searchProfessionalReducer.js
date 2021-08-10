@@ -44,6 +44,13 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
+        listInfo: {
+          totalPage: 0,
+          currentPage: 0,
+          perPage: 0,
+          totalData: 0,
+          data: [],
+        },
         error: action.payload.message,
       };
 
