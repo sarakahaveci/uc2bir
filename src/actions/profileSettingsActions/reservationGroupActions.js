@@ -113,6 +113,7 @@ export const dtCreateSeance = (successCallback) => async (
     title,
     seanceCount,
     dtSessionSelection,
+    group_slot_image_id
   } = getState().profileSettings2.reservationGroupSlot;
 
   await dispatch({
@@ -127,7 +128,7 @@ export const dtCreateSeance = (successCallback) => async (
         description: courseDetails,
         title: title,
         session_types: dtSessionSelection.map((item) => item.id),
-        image_id: 1,
+        image_id: group_slot_image_id,
       },
       callBack: successCallback,
       label: CREATE_GROUP_SLOT,
