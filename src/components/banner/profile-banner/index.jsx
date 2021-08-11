@@ -90,25 +90,17 @@ const ProfileBanner = ({
                     className="list"
                     onClick={() => { setShowOthers(!showOthers) }}
                   >
-                    <text style={{ color: 'white',fontSize:'7px' }}>⬤⬤⬤</text>
+                    <text style={{ color: 'white', fontSize: '7px' }}>⬤⬤⬤</text>
                   </DropdownButton>
                   <DropdownContent show={showOthers}>
-                    <Wrapper style={{ borderBottomColor: '#DEDEDE', borderBottomStyle: 'solid', borderBottomWidth: '1px' }}>
+                    <Wrapper >
                       <BlockContainer>
                         <Svg.BlackBlock style={{ marginRight: '10px' }}></Svg.BlackBlock>
                         <BlockUser onClick={() => { openBlockModal() }}>{info?.isBlocked ? "Engeli kaldır" : "Kullanıcıyı Engelle"}</BlockUser>
 
                       </BlockContainer>
                     </Wrapper>
-                    <Wrapper>
-                      <Comment
-                        to={'/myprofile/settings/message'}
-                        onClick={() => dispatch(setNewMessageRoom(info))}
-                      >
-                        <Svg.BlackMessage style={{ marginRight: '10px' }} ></Svg.BlackMessage>
-                        <text style={{ color: 'black' }}>Mesaj Gönder</text>
-                      </Comment>
-                    </Wrapper>
+
                   </DropdownContent>
                 </Dropdown>
               </span>
@@ -118,7 +110,14 @@ const ProfileBanner = ({
               {!isUserDetail ? (
                 user?.type_id === USER && (
                   <CardFooter>
-
+                    <Wrapper >
+                      <Comment
+                        to={'/myprofile/settings/message'}
+                        onClick={() => dispatch(setNewMessageRoom(info))}
+                      >
+                        <Svg.Comment ></Svg.Comment>
+                      </Comment>
+                    </Wrapper>
 
                     <Button
                       onClick={() => {
@@ -133,7 +132,15 @@ const ProfileBanner = ({
                 ) || (
 
                   <CardFooter>
-                    
+                    <Wrapper>
+                      <Comment
+                        to={'/myprofile/settings/message'}
+                        onClick={() => dispatch(setNewMessageRoom(info))}
+                      >
+                        <Svg.BlackMessage style={{ marginRight: '10px' }} ></Svg.BlackMessage>
+                        <text style={{ color: 'black' }}>Mesaj Gönder</text>
+                      </Comment>
+                    </Wrapper>
                   </CardFooter>
                 )
               ) : (
@@ -211,6 +218,13 @@ const Cols = styled(Col)`
 const Comment = styled(Link)`
   display: flex;
   align-items: center;
+  background:white;
+  height:50px;
+  width:50px;
+  border-radius:3px;
+  justify-content: center;
+  -webkit-box-shadow: 0px 0px 4px 3px rgba(197, 196, 196, 0.28);
+  box-shadow: 0px 0px 4px 3px rgba(197, 196, 196, 0.28);
   svg {
     width: 25px;
     height: 25px;
