@@ -132,13 +132,12 @@ const ProfileBanner = ({
                 ) || (
 
                   <CardFooter>
-                    <Wrapper>
+                    <Wrapper >
                       <Comment
                         to={'/myprofile/settings/message'}
                         onClick={() => dispatch(setNewMessageRoom(info))}
                       >
-                        <Svg.BlackMessage style={{ marginRight: '10px' }} ></Svg.BlackMessage>
-                        <text style={{ color: 'black' }}>Mesaj Gönder</text>
+                        <Svg.Comment ></Svg.Comment>
                       </Comment>
                     </Wrapper>
                   </CardFooter>
