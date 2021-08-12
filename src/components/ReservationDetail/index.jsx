@@ -123,11 +123,12 @@ const ReservationDetail = ({ type, goBack = () => { }, isOnline }) => {
           </MapWrapper>
         </Left>
         <Right>
-          <RightAreaWrapper>
-            <DescTextWrapper>
+          <RightAreaWrapper style={{ padding: '20px 0 20px 0' }}>
+            {!(detailData?.dt) && <DescTextWrapper>
               <DescHeader>Ders Hakkında</DescHeader>
               <DescText>{ReactHtmlParser(decode(detailData?.detail))}</DescText>
             </DescTextWrapper>
+            }
             <MessageButtonContainer>
               <Link
                 to={'/myprofile/settings/message'}
