@@ -254,11 +254,11 @@ export default function GroupLeftSelections() {
           >
             {sessionTypes?.data?.data?.map(
               (sessionType) =>
-                sessionType.type !== 'online' && (
-                  <MenuItem key={sessionType.id} value={sessionType}>
-                    {sessionType.title}
-                  </MenuItem>
-                )
+              (
+                <MenuItem key={sessionType.id} value={sessionType}>
+                  {sessionType.title}
+                </MenuItem>
+              )
             )}
           </Select>
         </FormControl>
