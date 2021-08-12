@@ -89,7 +89,7 @@ export const getGroupImages = (search) => async (dispatch) => {
 
   if (search) extras += `keywords=${search}&`;
   url += extras;
-  
+
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
@@ -115,7 +115,12 @@ export const dtCreateSeance = (successCallback) => async (
     dtSessionSelection,
     group_slot_image_id
   } = getState().profileSettings2.reservationGroupSlot;
-
+  var sessionTypes =[];
+  dtSessionSelection?.forEach((item)=>{
+    if(!sessionTypes.includes(item?.id)){
+      sessionTypes?.push(item?.id)
+    }
+  })
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
@@ -127,7 +132,7 @@ export const dtCreateSeance = (successCallback) => async (
         quantity: seanceCount,
         description: courseDetails,
         title: title,
-        session_types: dtSessionSelection.map((item) => item.id),
+        session_types: sessionTypes,
         image_id: group_slot_image_id,
       },
       callBack: successCallback,
