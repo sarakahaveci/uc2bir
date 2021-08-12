@@ -234,7 +234,6 @@ const AddAdress = ({ setSubPage, type }) => {
               <div className="d-flex w-100 justify-content-between">
                 <div className="col-5 p-0">
                   <Material.TextField
-                    required
                     label="Bina"
                     name="build_no"
                     onChange={(e) =>
@@ -248,7 +247,6 @@ const AddAdress = ({ setSubPage, type }) => {
                 </div>
                 <div className="col-5 p-0">
                   <Material.TextField
-                    required
                     label="Daire"
                     name="apt_no"
                     onChange={(e) =>
