@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import styled, { css } from 'styled-components/macro';
 import { Svg, AwesomeIcon, Box } from 'components';
-import { DIETITIAN } from '../../constants';
+import { DIETITIAN,WORK_PLACE } from '../../constants';
 import moment from 'moment';
 
 const BranchRowToggler = ({ isActive, data, typeId }) => {
@@ -23,7 +23,7 @@ const BranchRowToggler = ({ isActive, data, typeId }) => {
         </StyledRow>
       )}
 
-      {userInfo?.type_id !== DIETITIAN ? (
+      {userInfo?.type_id !== DIETITIAN  &&  userInfo?.type_id !== WORK_PLACE ?  (
         <Box row>
           <RightCell>{data.classification} Seviye</RightCell>
           <RightCell className="mid">
