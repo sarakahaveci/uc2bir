@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import { getRooms, getUserKeys, logout ,setRoomName} from 'actions';
+import { getRooms, getUserKeys, logout, setRoomName } from 'actions';
 import User from './Users/User';
 import Pt from './Users/Pt';
 import Gym from './Users/Gym';
@@ -20,14 +20,16 @@ const HeaderLogin = ({ type_id, user }) => {
 
   useEffect(() => {
     const isFirstTime = true;
-    dispatch(getRooms((data) => {
-      if (isFirstTime) {
-        const allRooms = data.data;
-        dispatch(
-          setRoomName(allRooms?.[0]?.room_name, data.data?.[0]?.user_meta)
-        );
-      }
-    }));
+    if (user?.id) {
+      dispatch(getRooms((data) => {
+        if (isFirstTime) {
+          const allRooms = data.data;
+          dispatch(
+            setRoomName(allRooms?.[0]?.room_name, data.data?.[0]?.user_meta)
+          );
+        }
+      }));
+    }
     actionRegisterData();
   }, []);
 

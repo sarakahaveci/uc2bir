@@ -9,6 +9,7 @@ import {
   REGISTER_STEP_TWO_REQUEST,
   REGISTER_STEP_TWO_SUCCESS,
   REGISTER_STEP_TWO_FAILURE,
+  REGISTER_STEP_ONE_SUCCESS,
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAILURE,
@@ -45,13 +46,24 @@ export default (state = initialState, action) => {
     case SOCIAL_LOGIN_SUCCESS:
     case USER_DETAILS_SET_FROM_STORAGE:
       return {
-        accessToken:action.payload?.token,
+        accessToken: action.payload?.token,
         ...action.payload,
         isLoading: false,
         error: null,
         isAuthenticated: true,
       };
-
+    case REGISTER_STEP_ONE_SUCCESS:
+      if (action.payload?.token) {
+        return {
+          ...state,
+          user: action.payload?.user,
+          accessToken: action?.payload?.token,
+          refreshToken: action?.payload?.refresh_token,
+          isAuthenticated: true,
+          isLoading: false,
+          error: null,
+        };
+      }
     case LOGIN_SUCCESS:
     case REGISTER_STEP_TWO_SUCCESS:
     case RESET_PASSWORD_SUCCESS:

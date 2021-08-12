@@ -17,7 +17,7 @@ import styled from 'styled-components';
 import { device } from 'utils';
 import { stepOne as macro } from '../../../macros/registerMacros';
 import { useSelector, useDispatch } from 'react-redux';
-import { setStepOne,setStepOneSocial, getAuthFiles } from '../../../actions';
+import { setStepOne, setStepOneSocial, getAuthFiles } from '../../../actions';
 import StepTwo from './step-two';
 
 import { Modal } from 'react-bootstrap';
@@ -53,8 +53,14 @@ const StepOne = (props) => {
     dispatch(getAuthFiles(userTypeId));
   }, []);
 
-  const isSuccess = () => {
-    return setModal(true);
+  const isSuccess = (response) => {
+    if (response?.data?.token) {
+      setSteps('step3')
+
+    } else {
+      return setModal(true);
+    }
+
   };
   const isError = () => {
     toast.error('Hatalı Giriş', {
@@ -111,13 +117,13 @@ const StepOne = (props) => {
   }
   const responseSocial = async (type, res) => {
     // eslint-disable-next-line
-    
+
     var user = {
       type: type,
       accessToken: res?.accessToken || res?.identityToken,
       email: res?.profileObj?.email || res?.email,
       uid: res?.googleId || res?.userID || (type == 'apple' ? res?.user : ''),
-      name:manipulateName(res?.name || res?.profileObj?.name|| (res?.fullName.givenName ? `${res?.fullName?.givenName} ${res?.fullName?.familyName}` : ''))
+      name: manipulateName(res?.name || res?.profileObj?.name || (res?.fullName.givenName ? `${res?.fullName?.givenName} ${res?.fullName?.familyName}` : ''))
     }
     setSocialMode(true)
     setData({ ...data, ...user })
@@ -173,10 +179,10 @@ const StepOne = (props) => {
         (f) => f.key === 'st'
       );
       setData({ ...data, type_id: user_type?.[0].id });
-      if(!socialMode){
+      if (!socialMode) {
         const response = await actionStepOne();
         return response;
-      }else{
+      } else {
         const response = await actionStepOneSocial();
         return response;
       }
@@ -246,7 +252,7 @@ const StepOne = (props) => {
 
   return (
     <>
-     
+
       <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between', padding: '10px 20px' }}>
         <GoogleLogin
           clientId="197190928694-blqpc6dnsr5lsefk7aptk3iq9tjjna8f.apps.googleusercontent.com"
@@ -262,13 +268,13 @@ const StepOne = (props) => {
           //autoLoad={true}
           fields="name,email,picture"
           render={renderProps => (
-            <img onClick={renderProps.onClick} style={{  height: '40px', cursor: 'pointer' }} src={FacebookIcon}></img>
+            <img onClick={renderProps.onClick} style={{ height: '40px', cursor: 'pointer' }} src={FacebookIcon}></img>
           )}
 
           //onClick={componentClicked}
           callback={(res) => { responseSocial('facebook', res) }}
         />
-       {/* <InstagramLogin
+        {/* <InstagramLogin
           clientId="5fd2f11482844c5eba963747a5f34556"
           buttonText="Login"
           //onSuccess={responseInstagram}
@@ -294,11 +300,11 @@ const StepOne = (props) => {
           //onSuccess={(response) => console.log(response)} // default = undefined
           //onError={(error) => console.error(error)} // default = undefined
           skipScript={false} // default = undefined
-          onSuccess={(response) => { responseSocial('apple',response)}} // default = undefined
+          onSuccess={(response) => { responseSocial('apple', response) }} // default = undefined
 
           iconProp={{ style: { marginTop: '10px' } }} // default = undefined
           render={renderProps => (
-            <img onClick={renderProps.onClick} style={{height: '40px', cursor: 'pointer' }} src={AppleIcon}></img>
+            <img onClick={renderProps.onClick} style={{ height: '40px', cursor: 'pointer' }} src={AppleIcon}></img>
           )}
         />
 
@@ -422,7 +428,7 @@ const StepOne = (props) => {
       <StyledModal show={openModal} onHide={() => setOpenModal(false)}>
         {confirmation}
       </StyledModal>
-     
+
     </>
   );
 };

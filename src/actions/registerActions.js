@@ -57,7 +57,7 @@ export const setStepOne = (
         permission,
       },
       transformData: (data) => data.data,
-      callBack: () => successCallback(),
+      callBack: (res) => successCallback(res),
       errorHandler: (error) => errorCallback(error.message),
     },
   });
@@ -105,7 +105,7 @@ export const setStepOneSocial = (
         permission,
       },
       transformData: (data) => data.data,
-      callBack: () => successCallback(),
+      callBack: (res) => successCallback(res),
       errorHandler: (error) => errorCallback(error.message),
     },
   });
@@ -154,6 +154,20 @@ export const setStepTwo = (
     },
   });
 };
+export const stepOneNoOTP = (
+  data,
+
+) => async (dispatch) => {
+
+
+  await dispatch({
+    type: 'STEP_ONE_NO_OTP',
+    payload: {
+      data
+    },
+  });
+};
+
 
 export const setStepThree = (data, successCallback, errorCallback) => async (
   dispatch
@@ -197,7 +211,7 @@ export const setStepFour = (
   });
 };
 
-export const getRegisterData = (errorCallback = () => {}) => async (
+export const getRegisterData = (errorCallback = () => { }) => async (
   dispatch
 ) => {
   const url = '/user/registration-data';

@@ -12,7 +12,7 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
-   switch (action.type) {
+  switch (action.type) {
     case REGISTER_STEP_ONE_REQUEST:
       return {
         ...state,
@@ -27,6 +27,7 @@ export default (state = initialState, action) => {
         isSuccess: true,
         error: null,
       };
+
 
     case REGISTER_STEP_ONE_FAILURE:
       return {
