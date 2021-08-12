@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+
 import styled, { css } from 'styled-components/macro';
 import { Svg, AwesomeIcon, Box } from 'components';
 import { DIETITIAN } from '../../constants';
 import moment from 'moment';
 
 const BranchRowToggler = ({ isActive, data, typeId }) => {
+  const { userInfo } = useSelector(
+    (state) => state.userProfile.userInfo
+  );
   return (
     <StyledCardHeader isActive={isActive}>
       {typeId === DIETITIAN ? (
@@ -18,7 +23,7 @@ const BranchRowToggler = ({ isActive, data, typeId }) => {
         </StyledRow>
       )}
 
-      {typeId !== DIETITIAN ? (
+      {userInfo?.type_id !== DIETITIAN ? (
         <Box row>
           <RightCell>{data.classification} Seviye</RightCell>
           <RightCell className="mid">
