@@ -135,7 +135,7 @@ export const setUserDetailsFromStorage = () => (dispatch) => {
   }
 };
 
-export const socialLogin = (user, successCallback=()=>{}) => async (dispatch) => {
+export const socialLogin = (user, successCallback = () => { }) => async (dispatch) => {
   const url = '/social-login';
   await dispatch({
     type: HTTP_REQUEST,
@@ -145,12 +145,18 @@ export const socialLogin = (user, successCallback=()=>{}) => async (dispatch) =>
       label: SOCIAL_LOGIN,
       transformData: (data) => data.data,
       callBack: () => successCallback(),
+      errorHandler: (error) => {
+        toast.error('Giriş Başarısız, Lütfen hesabınızın kayıtlı olduğundan emin olun.', {
+          position: 'bottom-right',
+          autoClose: 2000,
+        })
+      },
       body: user,
     },
   });
 };
 
-export const refreshLogin = (redirectToLogin = () => {}) => async (
+export const refreshLogin = (redirectToLogin = () => { }) => async (
   dispatch,
   getState
 ) => {
