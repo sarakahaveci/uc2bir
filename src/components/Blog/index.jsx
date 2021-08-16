@@ -122,7 +122,7 @@ const Blog = () => {
       .catch((err) => {
         toast.error(
           err.response?.data?.message?.detail?.[0] ||
-            'Blog güncellenirken hata oluştu',
+          'Blog güncellenirken hata oluştu',
           {
             position: 'bottom-right',
             autoClose: 2000,
@@ -208,6 +208,10 @@ const Blog = () => {
                       <>
                         Blog ekleyebilir, profilinizi güncel ve önde
                         tutabilirsiniz
+                      </>
+                      <br />
+                      <>
+                        Blog yazılarınız ile ilgili güncelleme yapmak için blog@uc2bir.com ihtiyacınızınızı iletebilirsiniz.
                       </>
                     </Col>
                     <Col>
@@ -311,6 +315,10 @@ const Blog = () => {
                       Blog ekleyebilir, profilinizi güncel ve önde
                       tutabilirsiniz
                     </>
+                    <br />
+                    <>
+                      Blog yazılarınız ile ilgili güncelleme yapmak için blog@uc2bir.com ihtiyacınızınızı iletebilirsiniz.
+                    </>
                   </Col>
                   <Col>
                     <div
@@ -411,6 +419,10 @@ const Blog = () => {
                     <>
                       Blog ekleyebilir, profilinizi güncel ve önde
                       tutabilirsiniz
+                    </>
+                    <br />
+                    <>
+                      Blog yazılarınız ile ilgili güncelleme yapmak için blog@uc2bir.com ihtiyacınızınızı iletebilirsiniz.
                     </>
                   </Col>
                   <Col>
