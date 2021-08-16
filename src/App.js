@@ -50,11 +50,11 @@ import ReactGA from 'react-ga';
 // import UyeMesafeliHizmetSozlesmesi from './views/Footer/UyeMesafeliHizmetSozlesmesi';
 
 import BuyStatus from './views/BuyStatus';
-ReactGA.initialize('G-RG1WMQBY0S');
 const App = () => {
   const [loading, setLoading] = useState(true);
   const auth = useSelector((state) => state.auth)
   const dispatch = useDispatch();
+  ReactGA.initialize('G-RG1WMQBY0S');
 
   useLayoutEffect(() => {
     setTimeout(() => {
