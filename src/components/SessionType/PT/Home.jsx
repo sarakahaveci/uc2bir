@@ -20,13 +20,10 @@ const Home = ({
           name={val.name}
           selectButtonHandler={select}
           indelible={
-            get?.data?.data?.filter((f) => f.type === val.id)[0]?.status ===
-            'active'
+           false
           }
           isActive={
-            selected.includes(val.id) ||
-            get?.data?.data?.filter((f) => f.type === val.id)[0]?.status ===
-              'active'
+            selected.includes(val.id) 
           }
         />
       ))}

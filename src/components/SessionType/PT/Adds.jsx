@@ -26,7 +26,7 @@ const Adds = ({ icons, setBannerActive, setPage, get, selected }) => {
               style={{ marginLeft: '5px' }}
               onClick={() => setPage('Home')}
             >
-              Oturum Türü Ekle
+              Oturum Türü Ekle / Kaldır
             </BoldText>
           </div>
 

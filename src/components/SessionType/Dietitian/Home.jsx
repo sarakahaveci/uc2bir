@@ -20,9 +20,8 @@ const Home = ({
           name={val.name}
           selectButtonHandler={select}
           isActive={
-            selected.includes(val.id) ||
-            get?.data?.data?.filter((f) => f.type === val.id)[0]?.status ===
-              'active'
+            selected.includes(val.id)
+            
           }
         />
       ))}

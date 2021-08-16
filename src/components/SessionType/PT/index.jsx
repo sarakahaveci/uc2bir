@@ -27,11 +27,22 @@ const PT = ({ icons, setBannerActive }) => {
     if (get?.data?.data?.length > 0) {
       setPage('Adds');
     }
+    if(get?.data?.data?.length > 0) {
+      get?.data?.data?.forEach(item => {
+        if (item?.status == "active") {
+          if (!selected?.includes(item?.type)) {
+            var temp = selected;
+            temp.push(item.type)
+            setSelected(temp)
+          }
+        }
+      });
+    
+    }
   }, [get]);
   const select = (key) => {
     if (selected.includes(key)) {
       var filtered = selected.filter((item) => item !== key);
-
       setSelected(filtered);
       setTypes([...filtered]);
     } else {
@@ -41,17 +52,12 @@ const PT = ({ icons, setBannerActive }) => {
   };
 
   const submit = async () => {
-    const new_types = [...types];
-    if (get?.data?.data?.length > 0) {
-      get.data.data.map((val) => new_types.push(val.type));
-    }
-
     await dispatch(
       createTypes(
-        { types: new_types },
+        { types: selected },
         () => {
-          setPage('Adds');
           dispatch(getSessionTypes());
+          setPage('Adds');
         },
         () =>
           toast.error('Bir sorun oluştu lütfen daha sonra tekrar deneyiniz.', {

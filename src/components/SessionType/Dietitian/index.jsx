@@ -26,6 +26,19 @@ const PT = ({ icons, setBannerActive }) => {
   useEffect(() => {
     if (get?.data?.data?.length > 0) {
       setPage('Adds');
+      
+    }
+    if(get?.data?.data?.length > 0) {
+      get?.data?.data?.forEach(item => {
+        if (item?.status == "active") {
+          if (!selected?.includes(item?.type)) {
+            var temp = selected;
+            temp.push(item.type)
+            setSelected(temp)
+          }
+        }
+      });
+    
     }
   }, [get]);
   const select = (key) => {
@@ -38,14 +51,16 @@ const PT = ({ icons, setBannerActive }) => {
   };
 
   const submit = async () => {
-    const new_types = [...types];
-    if (get?.data?.data?.length > 0) {
-      get.data.data.map((val) => new_types.push(val.type));
-    }
+   
     await dispatch(
       createTypes(
-        { types: new_types },
-        () => setPage('Adds'),
+        { types: selected },
+        () => {
+          dispatch(getSessionTypes(()=>{
+            setPage('Adds');
+
+          }));
+        },
         () =>
           toast.error('Bir sorun oluştu lütfen daha sonra tekrar deneyiniz.', {
             position: 'bottom-right',

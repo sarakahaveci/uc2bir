@@ -116,6 +116,19 @@ const ProfileForms = ({ type }) => {
               readOnly: true,
             }}
           />
+          {type == 'WORK_PLACE' && (
+            <Material.number
+              label="Kapasite (m2)"
+              type="number"
+              name="capacity"
+              defaultValue={detail?.data?.capacity}
+              onChange={(e) => {
+                setData({ ...data, [e.target.name]: e.target.value });
+                diffHandler();
+              }}
+              settings="current"
+            />
+          )}
           {type !== 'WORK_PLACE' && (
             <Material.SimpleSelect
               label="Cinsiyetiniz"
@@ -129,6 +142,7 @@ const ProfileForms = ({ type }) => {
               settings="current"
             />
           )}
+
           {user?.type_id === WORK_PLACE ? (
             <Material.MaterialDateField
               label="Şirket Kuruluş Tarihi"
