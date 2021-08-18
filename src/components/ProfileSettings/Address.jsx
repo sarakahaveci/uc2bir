@@ -140,6 +140,7 @@ export default function Address({ locationDisable = false }) {
       position: 'bottom-right',
       autoClose: 3000,
     });
+    dispatch(getProfileInformation());
   };
 
   const updateAddress = async (e) => {

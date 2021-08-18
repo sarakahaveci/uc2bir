@@ -78,7 +78,7 @@ const Footer = () => {
             <ul className="footer-contact__wrapper">
               <li>
                 <IconLabel
-                href={`tel:${infoData?.phone}`} 
+                  href={`tel:${infoData?.phone}`}
                   className="icon-label"
                   text={infoData?.phone}
                   icon={AwesomeIcon.Phone}
@@ -118,17 +118,17 @@ const Footer = () => {
             </ul>
             <ul className="social">
               <li>
-                <a>
+                <a href={infoData?.facebook} target="_blank">
                   <AwesomeIcon.Facebook />
                 </a>
               </li>
               <li>
-                <a>
+                <a href={infoData?.youtube} target="_blank">
                   <AwesomeIcon.Youtube />
                 </a>
               </li>
               <li>
-                <a href={infoData.instagram} target="_blank">
+                <a href={infoData?.instagram} target="_blank">
                   <AwesomeIcon.Instagram />
                 </a>
               </li>
@@ -167,13 +167,13 @@ const Footer = () => {
         <DownloadButtonRowWrapper>
           <DownloadButtonRow>
             <li>
-              <a href="/" target="_blank">
+              <a href={infoData?.android_app_link} target="_blank">
                 <img src={GooglePlay} className="google-play" />
               </a>
             </li>
 
             <li>
-              <a href="/" target="_blank">
+              <a href={infoData?.ios_app_link} target="_blank">
                 <img src={AppStore} className="app-store" />
               </a>
             </li>
