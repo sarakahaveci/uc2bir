@@ -123,7 +123,7 @@ const BlogWrapper = styled.div`
   border-radius: 50px;
   padding: 100px;
   position: relative;
-  top: -400px;
+  top: 0px;
   left: 0px;
   right: 0px;
 
