@@ -26,7 +26,6 @@ const RateModal = ({
   const [comment, setComment] = useState(undefined);
   const auth = useSelector((state) => state.auth)
   const [uploadedFiles, setUploadedFiles] = useState({});
-  const [fileTypeId, setFileTypeId] = useState(null);
 
   useEffect(() => {
     if (open == false) {
@@ -36,7 +35,6 @@ const RateModal = ({
     }
   }, [open]);
   let content;
-useEffect(()=>{console.log('uploaded',uploadedFiles)},[uploadedFiles])
 
   const getCommentedId = () => {
     if (toBeRatedUserType == 'pt') return appointmentAll.pt.id;
@@ -176,7 +174,6 @@ useEffect(()=>{console.log('uploaded',uploadedFiles)},[uploadedFiles])
                     component="label"
                     startIcon={<Svg.Pencil />}
                   >
-                   {/** Dosya Yükle
                     <FileUpload
                       style={{display:'none'}}
                       showRegisterInfo={false}
@@ -184,7 +181,7 @@ useEffect(()=>{console.log('uploaded',uploadedFiles)},[uploadedFiles])
                       setUploadedFiles={setUploadedFiles}
                       fileTypeId={10}
                       
-                    /> */}
+                    /> 
                   </MaterialButton>
 
                 </>

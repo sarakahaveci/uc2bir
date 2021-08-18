@@ -186,10 +186,8 @@ const SessionHistory = () => {
         cancelLabel="VAZGEÇ"
         open={openRateModal}
         rate={({ rate, comment, commented_id,rateType }) => {
-          alert(rateType)
 
           if(rateType == 'session'){
-            alert('dskd')
             dispatch(
               rateAndCommentSession(
                 {
@@ -209,7 +207,6 @@ const SessionHistory = () => {
               )
             );
           }else{
-            alert('sadsd')
 
             dispatch(
               rateAndComment(
