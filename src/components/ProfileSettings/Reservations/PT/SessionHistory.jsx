@@ -4,7 +4,7 @@ import ReservationAccordion from '../ReservationAccordion';
 import styled from 'styled-components/macro';
 import { ApproveCard, DatePicker, RateModal, Svg } from 'components';
 import { device } from 'utils';
-import { getSessionHistorys, rateAndComment } from 'actions';
+import { getSessionHistorys, rateAndComment,rateAndCommentSession } from 'actions';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 const SessionHistory = () => {
@@ -185,25 +185,51 @@ const SessionHistory = () => {
         rateLabel="PUANLA"
         cancelLabel="VAZGEÇ"
         open={openRateModal}
-        rate={({ rate, comment, commented_id }) => {
-          dispatch(
-            rateAndComment(
-              {
-                appointment_id: appointment?.id,
-                rating: rate,
-                comment: comment,
-                commented_id: commented_id,
-              },
-              () => {
-                setAppointment(undefined);
-                setOpenRateModal(false);
-              },
-              () => {
-                setAppointment(undefined);
-                setOpenRateModal(false);
-              }
-            )
-          );
+        rate={({ rate, comment, commented_id,rateType }) => {
+          alert(rateType)
+
+          if(rateType == 'session'){
+            alert('dskd')
+            dispatch(
+              rateAndCommentSession(
+                {
+                  appointment_id: appointment?.id,
+                  rating: rate,
+                  comment: comment,
+                  commented_id: commented_id,
+                },
+                () => {
+                  setAppointment(undefined);
+                  setOpenRateModal(false);
+                },
+                () => {
+                  setAppointment(undefined);
+                  setOpenRateModal(false);
+                }
+              )
+            );
+          }else{
+            alert('sadsd')
+
+            dispatch(
+              rateAndComment(
+                {
+                  appointment_id: appointment?.id,
+                  rating: rate,
+                  comment: comment,
+                  commented_id: commented_id,
+                },
+                () => {
+                  setAppointment(undefined);
+                  setOpenRateModal(false);
+                },
+                () => {
+                  setAppointment(undefined);
+                  setOpenRateModal(false);
+                }
+              )
+            );
+          }
         }}
         cancel={() => {
           setAppointment(undefined);

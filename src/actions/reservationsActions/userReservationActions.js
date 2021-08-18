@@ -212,3 +212,46 @@ export const rateAndComment = (
     },
   });
 };
+export const rateAndCommentSession = (
+  { appointment_id, commented_id, comment, rating }
+  , successCallback = () => { }, errorCallBack = () => { }
+) => async (dispatch, getState) => {
+  let url;
+  url = `/appointment/sess-calendar/comment`;  // pt
+
+
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'POST',
+      body: {
+        appointment_id: appointment_id,
+        commented_id: commented_id,
+        comment: comment,
+        rating: rating,
+      },
+      url,
+      label: USER_RESERVATION_FUNC,
+      callBack: () => {
+        successCallback();
+        toast.success('Puanınız ve yorumunuz başarıyla gönderildi', {
+          position: 'bottom-right',
+          autoClose: 7000,
+        });
+      },
+      errorHandler: (res) => {
+        errorCallBack();
+        toast.error(
+          res?.message || 'Yorum ve Puanlama Yaparken Hata ile karşılaşıldı',
+          {
+            position: 'bottom-right',
+            autoClose: 4000,
+          }
+        );
+      },
+
+      transformData: (data) => data.data,
+    },
+  });
+};

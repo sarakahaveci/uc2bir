@@ -3,8 +3,9 @@ import styled from 'styled-components/macro';
 import { Text, Svg } from 'components';
 import { Link } from 'react-router-dom';
 import { device } from 'utils';
-import { Material } from 'components';
+import { Material, FileUpload } from 'components';
 import { useSelector } from 'react-redux';
+import { default as MaterialButton } from '@material-ui/core/Button';
 
 import Rating from '@material-ui/lab/Rating';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
@@ -24,6 +25,8 @@ const RateModal = ({
   const [star, setStar] = useState(undefined);
   const [comment, setComment] = useState(undefined);
   const auth = useSelector((state) => state.auth)
+  const [uploadedFiles, setUploadedFiles] = useState({});
+  const [fileTypeId, setFileTypeId] = useState(null);
 
   useEffect(() => {
     if (open == false) {
@@ -33,7 +36,7 @@ const RateModal = ({
     }
   }, [open]);
   let content;
-
+useEffect(()=>{console.log('uploaded',uploadedFiles)},[uploadedFiles])
 
   const getCommentedId = () => {
     if (toBeRatedUserType == 'pt') return appointmentAll.pt.id;
@@ -110,9 +113,11 @@ const RateModal = ({
                   {(appointmentAll?.dt && appointmentAll?.dt.id !== auth.user?.id) ? <span className="choose-type-span" onClick={() => { setToBeRatedUserType('dt') }}>Diyetisyeni Puanla</span> : null}
                   {(appointmentAll?.student_id && appointmentAll?.student_id !== auth.user?.id) ? <span className="choose-type-span" onClick={() => { setToBeRatedUserType('st') }} >Öğrenciyi Puanla</span> : null}
                   {(appointmentAll?.bs && appointmentAll?.bs.id !== auth.user?.id) ? <span className="choose-type-span" onClick={() => { setToBeRatedUserType('bs') }} >Spor Salonunu Puanla</span> : null}
+                  <span className="choose-type-span" onClick={() => { setToBeRatedUserType('session') }}>Dersi Puanla</span>
+
                 </>
               }
-              {toBeRatedUserType &&
+              {toBeRatedUserType && toBeRatedUserType !== 'session' &&
                 <>
                   <StarContainer>
                     Yıldız Veriniz :{' '}
@@ -137,6 +142,53 @@ const RateModal = ({
                   />
                 </>
               }
+              {toBeRatedUserType && toBeRatedUserType == 'session' &&
+                <>
+                  <StarContainer>
+                    Yıldız Veriniz :{' '}
+                    <Rating
+                      name="customized-empty"
+                      precision={0.5}
+                      onChange={(event, newValue) => {
+                        setStar(newValue);
+                      }}
+                      emptyIcon={<StarBorderIcon fontSize="inherit" />}
+                    />
+                  </StarContainer>
+
+                  <Material.TextField
+                    style={{ margin: '20px 0' }}
+                    label="Yorumnuzu giriniz..."
+                    type="text"
+                    name="comment"
+                    onChange={(e) => {
+                      setComment(e.target.value);
+                    }}
+                  />
+                  <MaterialButton
+                    style={{
+                      marginRight: 15,
+                      width: 192,
+                      height: 120,
+                    }}
+                    variant="contained"
+                    color="default"
+                    component="label"
+                    startIcon={<Svg.Pencil />}
+                  >
+                   {/** Dosya Yükle
+                    <FileUpload
+                      style={{display:'none'}}
+                      showRegisterInfo={false}
+                      uploadedFiles={uploadedFiles}
+                      setUploadedFiles={setUploadedFiles}
+                      fileTypeId={10}
+                      
+                    /> */}
+                  </MaterialButton>
+
+                </>
+              }
             </ReasonContextContainer>
 
 
@@ -153,7 +205,7 @@ const RateModal = ({
                 rate
                 onClick={() => {
                   setToBeRatedUserType(null)
-                  rate({ rate: star, comment: comment, commented_id: getCommentedId() });
+                  rate({ rate: star, comment: comment, commented_id: getCommentedId(), rateType: toBeRatedUserType });
                 }}
               >
                 GÖNDER

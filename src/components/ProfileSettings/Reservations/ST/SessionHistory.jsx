@@ -7,7 +7,7 @@ import { device } from 'utils';
 import { getUserSessionHistorys } from 'actions';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
-import { rateAndComment } from 'actions';
+import { rateAndComment,rateAndCommentSession } from 'actions';
 
 const SessionHistory = () => {
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
@@ -214,7 +214,8 @@ const SessionHistory = () => {
         rateLabel="PUANLA"
         cancelLabel="VAZGEÇ"
         open={openRateModal}
-        rate={({ rate, comment,commented_id }) => {
+        rate={({ rate, comment,commented_id,rateType }) => {
+         if(rateType !== 'session'){
           dispatch(
             rateAndComment(
               {
@@ -233,6 +234,26 @@ const SessionHistory = () => {
                }
             )
           );
+         }else{
+          dispatch(
+            rateAndCommentSession(
+              {
+                appointment_id: appointment?.id,
+                commented_id: commented_id,
+                comment: comment,
+                rating: rate,
+               },
+               () => {
+                 setAppointment(undefined);
+                 setOpenRateModal(false);
+               },
+               () => {
+                  setAppointment(undefined);
+                 setOpenRateModal(false);
+               }
+            )
+          );
+         }
         }}
         cancel={() => {
           setAppointment(undefined);

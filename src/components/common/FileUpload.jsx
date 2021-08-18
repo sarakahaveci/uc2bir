@@ -86,6 +86,7 @@ const FileUpload = ({
           ...acc,
           [files[index].name]: {
             fileId: curr.id,
+            fileUrl:curr.path,
             progressPercentage: 100,
           },
         };
@@ -178,7 +179,7 @@ const FileUpload = ({
   });
 
   return (
-    <div className="file-upload">
+    <div  className="file-upload">
       <div className="file-upload__text-wrapper">
         {showRegisterInfo && (
           <Text color="dark" fontSize="1.2rem" fontWeight="300">
@@ -225,7 +226,7 @@ const FileUpload = ({
 FileUpload.defaultProps = {
   fileTypeId: null,
   uploadedFiles: {},
-  setUploadedFiles: () => {},
+  setUploadedFiles: () => { },
   title: '',
   showRegisterInfo: true,
 };
