@@ -55,7 +55,7 @@ const RejectModal = ({
                 ? elm?.date +
                   ' Tarihinde saat ' +
                   elm?.hour +
-                  ' için gelen rezervasyon talebiniz reddedilecektir. '
+                  ' için gelen rezervasyon talebiniz iptal edilecektir. '
                 : descText}
             </Text>
           </ContextContainer>

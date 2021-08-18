@@ -41,9 +41,9 @@ const Awaitings = ({ setAwaitingCount }) => {
   useEffect(() => {
     for (const i in items?.date) {
       if (i === moment(selectedDate).format('DD.MM.YYYY')) {
-        setAwaitingCount(items?.date[i])
+        setAwaitingCount(items?.date[i]);
       } else {
-        setAwaitingCount(0)
+        setAwaitingCount(0);
       }
     }
   }, [selectedDate]);
@@ -66,9 +66,7 @@ const Awaitings = ({ setAwaitingCount }) => {
     dispatch(getGymAwaitings(moment(selectedDate).format('DD.MM.YYYY')));
   }
   function _renderTab(date) {
-    if (items?.appointment?.[
-      moment(date).format('DD.MM.YYYY')
-    ]) {
+    if (items?.appointment?.[moment(date).format('DD.MM.YYYY')]) {
       return (
         <ReservationAccordion
           defaultOpen={true}
@@ -83,16 +81,15 @@ const Awaitings = ({ setAwaitingCount }) => {
 
               <ApproveCard
                 user_id={elm?.student_id}
-
                 date={elm?.hour}
                 customerName={elm?.student}
                 optionalField_1={elm?.branch} //Sport Type || NULL
                 optionalField_2={
                   elm?.pt
                     ? {
-                      label: 'EĞİTMEN',
-                      value: elm?.pt?.name,
-                    }
+                        label: 'EĞİTMEN',
+                        value: elm?.pt?.name,
+                      }
                     : undefined
                 }
                 optionalField_3={{
@@ -120,10 +117,9 @@ const Awaitings = ({ setAwaitingCount }) => {
 
               <ApproveCard
                 user_id={elm?.student_id}
-
                 date={elm?.hour}
                 customerName={elm?.student}
-                optionalField_1={elm?.branch}//Sport Type || NULL
+                optionalField_1={elm?.branch} //Sport Type || NULL
                 optionalField_2={{
                   label: 'EĞİTMEN',
                   value: elm?.pt?.name,
@@ -131,8 +127,8 @@ const Awaitings = ({ setAwaitingCount }) => {
                 optionalField_3={{
                   label: 'SINIF',
                   value: elm?.class,
-                  value2: elm?.class_total_appointment + '/' + elm?.class_capacity,
-
+                  value2:
+                    elm?.class_total_appointment + '/' + elm?.class_capacity,
                 }}
                 onApprove={() => {
                   setChoosenElm(elm);
@@ -146,23 +142,23 @@ const Awaitings = ({ setAwaitingCount }) => {
             </ApproveCardContainer>
           )) || <></>}
         </ReservationAccordion>
-      )
-    } else { return (<></>) }
+      );
+    } else {
+      return <></>;
+    }
   }
   return (
     <StyledContainer>
       <StyledRow>
         <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
           <AccordionContainer>
-            {
-              startOfWeeksArr().map((date) => (
-                _renderTab(date)
-              ))
-
-            }
-            {!(startOfWeeksArr()?.length > 0) && <text style={{ padding: '20px' }}>Onay bekleyen hiçbir rezervasyon talebi yoktur</text>}
+            {startOfWeeksArr().map((date) => _renderTab(date))}
+            {!(startOfWeeksArr()?.length > 0) && (
+              <text style={{ padding: '20px' }}>
+                Onay bekleyen hiçbir rezervasyon talebi yoktur
+              </text>
+            )}
           </AccordionContainer>
-
         </StyledCol>
         <StyledCol
           style={{
@@ -192,10 +188,10 @@ const Awaitings = ({ setAwaitingCount }) => {
       </StyledRow>
       <RejectModal
         elm={choosenElm}
-        headerText="Rezervasyonu reddetmek istediğinize emin misiniz?"
+        headerText="Rezervasyonu iptal etmek istediğinize emin misiniz?"
         descText=""
         cancelLabel="VAZGEÇ"
-        rejectLabel="REDDET"
+        rejectLabel="İPTAL ET"
         open={openReject}
         reject={(id, status) => {
           dispatch(GymAwaitingReject(id, status, getSelectedDate));
@@ -228,14 +224,14 @@ const AccordionContainer = styled.div`
   flex-direction: column;
 `;
 const ApproveCardContainer = styled.div`
-display: flex;
-align-items: center;
-justify-content:space-between;
-margin: 20px 0;
-padding:5px;
-@media ${device.sm} {
-  margin: 0;
-}
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 0;
+  padding: 5px;
+  @media ${device.sm} {
+    margin: 0;
+  }
 `;
 
 const StyledCol = styled(Col)`

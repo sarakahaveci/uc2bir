@@ -7,7 +7,7 @@ import {
   DatePicker,
   RejectModal,
   ApproveModal,
-  Svg
+  Svg,
 } from 'components';
 import moment from 'moment';
 import { device } from 'utils';
@@ -37,9 +37,9 @@ const Awaitings = ({ setAwaitingCount }) => {
   useEffect(() => {
     for (const i in items?.date) {
       if (i === moment(selectedDate).format('DD.MM.YYYY')) {
-        setAwaitingCount(items?.date[i])
+        setAwaitingCount(items?.date[i]);
       } else {
-        setAwaitingCount(0)
+        setAwaitingCount(0);
       }
     }
   }, [selectedDate]);
@@ -47,7 +47,6 @@ const Awaitings = ({ setAwaitingCount }) => {
   useEffect(() => {
     if (selectedDate) {
       dispatch(getPtAwaitings(moment(selectedDate).format('DD.MM.YYYY')));
-
     }
   }, [selectedDate]);
   useEffect(() => {
@@ -62,12 +61,8 @@ const Awaitings = ({ setAwaitingCount }) => {
     dispatch(getPtAwaitings(moment(selectedDate).format('DD.MM.YYYY')));
   }
 
-
-
   function _renderTab(date) {
-    if (items?.appointment?.[
-      moment(date).format('DD.MM.YYYY')
-    ]) {
+    if (items?.appointment?.[moment(date).format('DD.MM.YYYY')]) {
       return (
         <ReservationAccordion
           defaultOpen={true}
@@ -75,35 +70,34 @@ const Awaitings = ({ setAwaitingCount }) => {
           title={moment(date).format('DD.MM.YYYY')}
         >
           <>
-            {items?.appointment?.[
-              moment(date).format('DD.MM.YYYY')
-            ]?.gym?.map((elm, i) => (
-              <ApproveCardContainer key={i}>
-                <Svg.SessionType.Gym style={{ marginRight: '10px' }} />
-                <ApproveCard
-                  date={elm?.hour}
-                  customerName={elm?.student}
-                  user_id={elm?.student_id}
-
-                  optionalField_1={elm?.branch}
-                  optionalField_2={{
-                    label: 'SALON',
-                    value: elm?.bs?.name,
-                  }}
-                  optionalField_3={{
-                    value: elm?.address_detail,
-                  }}
-                  onApprove={() => {
-                    setChoosenElm(elm);
-                    setOpenApprove(elm?.id);
-                  }}
-                  onReject={() => {
-                    setChoosenElm(elm);
-                    setOpenReject(elm?.id);
-                  }}
-                />
-              </ApproveCardContainer>
-            )) || <></>}
+            {items?.appointment?.[moment(date).format('DD.MM.YYYY')]?.gym?.map(
+              (elm, i) => (
+                <ApproveCardContainer key={i}>
+                  <Svg.SessionType.Gym style={{ marginRight: '10px' }} />
+                  <ApproveCard
+                    date={elm?.hour}
+                    customerName={elm?.student}
+                    user_id={elm?.student_id}
+                    optionalField_1={elm?.branch}
+                    optionalField_2={{
+                      label: 'SALON',
+                      value: elm?.bs?.name,
+                    }}
+                    optionalField_3={{
+                      value: elm?.address_detail,
+                    }}
+                    onApprove={() => {
+                      setChoosenElm(elm);
+                      setOpenApprove(elm?.id);
+                    }}
+                    onReject={() => {
+                      setChoosenElm(elm);
+                      setOpenReject(elm?.id);
+                    }}
+                  />
+                </ApproveCardContainer>
+              )
+            ) || <></>}
           </>
 
           {items?.appointment?.[
@@ -116,7 +110,6 @@ const Awaitings = ({ setAwaitingCount }) => {
                 date={elm?.hour}
                 customerName={elm?.student}
                 user_id={elm?.student_id}
-
                 optionalField_1={elm?.branch}
                 optionalField_2={{
                   label: 'EV / PARK',
@@ -137,33 +130,32 @@ const Awaitings = ({ setAwaitingCount }) => {
             </ApproveCardContainer>
           )) || <></>}
 
-          {items?.appointment?.[
-            moment(date).format('DD.MM.YYYY')
-          ]?.online?.map((elm, i) => (
-            <ApproveCardContainer key={i}>
-              <Svg.SessionType.Online style={{ marginRight: '10px' }} />
+          {items?.appointment?.[moment(date).format('DD.MM.YYYY')]?.online?.map(
+            (elm, i) => (
+              <ApproveCardContainer key={i}>
+                <Svg.SessionType.Online style={{ marginRight: '10px' }} />
 
-              <ApproveCard
-                date={elm?.hour}
-                customerName={elm?.student}
-                user_id={elm?.student_id}
-
-                optionalField_1={elm?.branch}
-                onApprove={() => {
-                  setChoosenElm(elm);
-                  setOpenApprove(elm?.id);
-                }}
-                onReject={() => {
-                  setChoosenElm(elm);
-                  setOpenReject(elm?.id);
-                }}
-              />
-            </ApproveCardContainer>
-          )) || <></>}
+                <ApproveCard
+                  date={elm?.hour}
+                  customerName={elm?.student}
+                  user_id={elm?.student_id}
+                  optionalField_1={elm?.branch}
+                  onApprove={() => {
+                    setChoosenElm(elm);
+                    setOpenApprove(elm?.id);
+                  }}
+                  onReject={() => {
+                    setChoosenElm(elm);
+                    setOpenReject(elm?.id);
+                  }}
+                />
+              </ApproveCardContainer>
+            )
+          ) || <></>}
         </ReservationAccordion>
-      )
+      );
     } else {
-      return (<></>)
+      return <></>;
     }
   }
   return (
@@ -171,16 +163,13 @@ const Awaitings = ({ setAwaitingCount }) => {
       <StyledRow>
         <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
           <AccordionContainer>
-            {
-              startOfWeeksArr().map((date) => (
-                _renderTab(date)
-              ))
-
-            }
-            {!(startOfWeeksArr()?.length > 0) && <text style={{ padding: '20px' }}>Onay bekleyen hiçbir rezervasyon talebi yoktur</text>}
-
+            {startOfWeeksArr().map((date) => _renderTab(date))}
+            {!(startOfWeeksArr()?.length > 0) && (
+              <text style={{ padding: '20px' }}>
+                Onay bekleyen hiçbir rezervasyon talebi yoktur
+              </text>
+            )}
           </AccordionContainer>
-
         </StyledCol>
         <StyledCol
           style={{
@@ -210,10 +199,10 @@ const Awaitings = ({ setAwaitingCount }) => {
       </StyledRow>
       <RejectModal
         elm={choosenElm}
-        headerText="Rezervasyonu reddetmek istediğinize emin misiniz?"
+        headerText="Rezervasyonu iptal etmek istediğinize emin misiniz?"
         descText=""
         cancelLabel="VAZGEÇ"
-        rejectLabel="REDDET"
+        rejectLabel="İPTAL ET"
         open={openReject}
         reject={(id, status) => {
           dispatch(PtAwaitingReject(id, status, getSelectedDate));
@@ -246,14 +235,14 @@ const AccordionContainer = styled.div`
   flex-direction: column;
 `;
 const ApproveCardContainer = styled.div`
-display: flex;
-align-items: center;
-justify-content:space-between;
-margin: 20px 0;
-padding:5px;
-@media ${device.sm} {
-  margin: 0;
-}
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 0;
+  padding: 5px;
+  @media ${device.sm} {
+    margin: 0;
+  }
 `;
 
 const StyledCol = styled(Col)`
