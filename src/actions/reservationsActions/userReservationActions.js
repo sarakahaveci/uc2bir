@@ -213,23 +213,27 @@ export const rateAndComment = (
   });
 };
 export const rateAndCommentSession = (
-  { appointment_id, commented_id, comment, rating }
+  { appointment_id, session_file, comment, rating }
   , successCallback = () => { }, errorCallBack = () => { }
 ) => async (dispatch, getState) => {
   let url;
   url = `/appointment/sess-calendar/comment`;  // pt
-
-
-
+  var myId = getState().auth?.user?.id
+  const urls = Object.keys(session_file).map(function (key) {
+    return (session_file[key]?.fileUrl?.split(".com")?.[1])
+  });
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
       method: 'POST',
       body: {
         appointment_id: appointment_id,
-        commented_id: commented_id,
+        session_id: appointment_id,
+        commented_id: myId,
+        commenter_id: myId,
         comment: comment,
         rating: rating,
+        session_file: urls
       },
       url,
       label: USER_RESERVATION_FUNC,

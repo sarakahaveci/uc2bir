@@ -185,7 +185,7 @@ const SessionHistory = () => {
         rateLabel="PUANLA"
         cancelLabel="VAZGEÇ"
         open={openRateModal}
-        rate={({ rate, comment, commented_id,rateType }) => {
+        rate={({ rate, comment, commented_id,rateType,session_file }) => {
 
           if(rateType == 'session'){
             dispatch(
@@ -194,7 +194,7 @@ const SessionHistory = () => {
                   appointment_id: appointment?.id,
                   rating: rate,
                   comment: comment,
-                  commented_id: commented_id,
+                  session_file:session_file
                 },
                 () => {
                   setAppointment(undefined);

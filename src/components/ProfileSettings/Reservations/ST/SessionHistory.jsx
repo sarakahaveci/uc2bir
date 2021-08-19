@@ -214,46 +214,48 @@ const SessionHistory = () => {
         rateLabel="PUANLA"
         cancelLabel="VAZGEÇ"
         open={openRateModal}
-        rate={({ rate, comment,commented_id,rateType }) => {
-         if(rateType !== 'session'){
-          dispatch(
-            rateAndComment(
-              {
-                appointment_id: appointment?.id,
-                commented_id: commented_id,
-                comment: comment,
-                rating: rate,
-               },
-               () => {
-                 setAppointment(undefined);
-                 setOpenRateModal(false);
-               },
-               () => {
+        rate={({ rate, comment, commented_id,rateType,session_file }) => {
+
+          if(rateType == 'session'){
+            dispatch(
+              rateAndCommentSession(
+                {
+                  appointment_id: appointment?.id,
+                  rating: rate,
+                  comment: comment,
+                  session_file:session_file
+                },
+                () => {
                   setAppointment(undefined);
-                 setOpenRateModal(false);
-               }
-            )
-          );
-         }else{
-          dispatch(
-            rateAndCommentSession(
-              {
-                appointment_id: appointment?.id,
-                commented_id: commented_id,
-                comment: comment,
-                rating: rate,
-               },
-               () => {
-                 setAppointment(undefined);
-                 setOpenRateModal(false);
-               },
-               () => {
+                  setOpenRateModal(false);
+                },
+                () => {
                   setAppointment(undefined);
-                 setOpenRateModal(false);
-               }
-            )
-          );
-         }
+                  setOpenRateModal(false);
+                }
+              )
+            );
+          }else{
+
+            dispatch(
+              rateAndComment(
+                {
+                  appointment_id: appointment?.id,
+                  rating: rate,
+                  comment: comment,
+                  commented_id: commented_id,
+                },
+                () => {
+                  setAppointment(undefined);
+                  setOpenRateModal(false);
+                },
+                () => {
+                  setAppointment(undefined);
+                  setOpenRateModal(false);
+                }
+              )
+            );
+          }
         }}
         cancel={() => {
           setAppointment(undefined);

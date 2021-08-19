@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { device } from 'utils';
 import { Material, FileUpload } from 'components';
 import { useSelector } from 'react-redux';
-import { default as MaterialButton } from '@material-ui/core/Button';
 
 import Rating from '@material-ui/lab/Rating';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
@@ -111,7 +110,7 @@ const RateModal = ({
                   {(appointmentAll?.dt && appointmentAll?.dt.id !== auth.user?.id) ? <span className="choose-type-span" onClick={() => { setToBeRatedUserType('dt') }}>Diyetisyeni Puanla</span> : null}
                   {(appointmentAll?.student_id && appointmentAll?.student_id !== auth.user?.id) ? <span className="choose-type-span" onClick={() => { setToBeRatedUserType('st') }} >Öğrenciyi Puanla</span> : null}
                   {(appointmentAll?.bs && appointmentAll?.bs.id !== auth.user?.id) ? <span className="choose-type-span" onClick={() => { setToBeRatedUserType('bs') }} >Spor Salonunu Puanla</span> : null}
-                  <span className="choose-type-span" onClick={() => { setToBeRatedUserType('session') }}>Dersi Puanla</span>
+                  <span className="choose-type-span" onClick={() => { setToBeRatedUserType('session') }}>Dersi Değerlendir</span>
 
                 </>
               }
@@ -163,27 +162,17 @@ const RateModal = ({
                       setComment(e.target.value);
                     }}
                   />
-                  <MaterialButton
-                    style={{
-                      marginRight: 15,
-                      width: 192,
-                      height: 120,
-                    }}
-                    variant="contained"
-                    color="default"
-                    component="label"
-                    startIcon={<Svg.Pencil />}
-                  >
-                    <FileUpload
-                      style={{display:'none'}}
-                      showRegisterInfo={false}
-                      uploadedFiles={uploadedFiles}
-                      setUploadedFiles={setUploadedFiles}
-                      fileTypeId={10}
-                      
-                    /> 
-                  </MaterialButton>
 
+                  <div >
+                  <FileUpload
+                    style={{ display: 'none' }}
+                    showRegisterInfo={false}
+                    uploadedFiles={uploadedFiles}
+                    setUploadedFiles={setUploadedFiles}
+                    fileTypeId={10}
+
+                  />
+                  </div>
                 </>
               }
             </ReasonContextContainer>
@@ -202,7 +191,7 @@ const RateModal = ({
                 rate
                 onClick={() => {
                   setToBeRatedUserType(null)
-                  rate({ rate: star, comment: comment, commented_id: getCommentedId(), rateType: toBeRatedUserType });
+                  rate({ rate: star, comment: comment, commented_id: getCommentedId(), rateType: toBeRatedUserType, session_file: uploadedFiles });
                 }}
               >
                 GÖNDER
@@ -230,6 +219,8 @@ const Root = styled.div`
   top: 0;
   left: 0;
   z-index: 99999;
+  overflow-y:scroll;
+
 `;
 const MainContainer = styled.div`
   display: flex;
