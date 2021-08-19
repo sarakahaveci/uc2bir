@@ -2,19 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import ReservationAccordion from '../ReservationAccordion';
 import styled from 'styled-components/macro';
-import { ApproveCard, DatePicker, RateModal, Svg } from 'components';
+import { ApproveCard, DatePicker, RateModal, Svg,SessionComment } from 'components';
 import { device } from 'utils';
 import { useSelector, useDispatch } from 'react-redux';
 import { getGymSessionHistorys, rateAndComment } from 'actions';
 import moment from 'moment';
 
-const SessionHistory = () => {
+const SessionHistory = ({setSubPage = () => { }}) => {
   const dispatch = useDispatch();
   const items = useSelector(
     (state) => state.professionalReservation?.dtReservation?.session_historys
   );
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
-  const [openRateModal, setOpenRateModal] = useState(false);
+  const [openRateModal, setOpenRateModal] = useState(null);
   const [selectedDate, setSelectedDate] = useState(undefined);
   const [appointment, setAppointment] = useState(undefined);
   const [appointmentAll, setAppointmentAll] = useState(undefined);
@@ -28,6 +28,11 @@ const SessionHistory = () => {
       return [];
     }
   };
+  function openSessionComment(id) {
+    setSubPage(
+      <SessionComment session_id={id} goBack={() => { setSubPage() }}></SessionComment>
+    );
+  }
   function _renderTab(date) {
     if (items?.appointment?.[
       moment(date).format('DD.MM.YYYY')
@@ -46,6 +51,7 @@ const SessionHistory = () => {
 
               <ApproveCard
                 user_id={elm?.student_id}
+                onSessionComment={() => { openSessionComment(elm?.id) }}
 
                 type="history"
                 date={elm?.hour}
@@ -58,7 +64,7 @@ const SessionHistory = () => {
                     id: elm?.id,
                     userId: elm?.bs?.id,
                   });
-                  setOpenRateModal(true);
+                  setOpenRateModal('index');
                 }}
               />
             </ApproveCardContainer>
@@ -72,6 +78,7 @@ const SessionHistory = () => {
 
               <ApproveCard
                 user_id={elm?.student_id}
+                onSessionComment={() => { openSessionComment(elm?.id) }}
 
                 type="history"
                 date={elm?.hour}
@@ -85,7 +92,7 @@ const SessionHistory = () => {
                     id: elm?.id,
                     userId: elm?.bs?.id,
                   });
-                  setOpenRateModal(true);
+                  setOpenRateModal('index');
                 }}
               />
             </ApproveCardContainer>
@@ -169,11 +176,11 @@ const SessionHistory = () => {
                 },
                 () => {
                   setAppointment(undefined);
-                  setOpenRateModal(false);
+                  setOpenRateModal(null);
                 },
                 () => {
                   setAppointment(undefined);
-                  setOpenRateModal(false);
+                  setOpenRateModal(null);
                 }
               )
             );
@@ -189,11 +196,11 @@ const SessionHistory = () => {
                 },
                 () => {
                   setAppointment(undefined);
-                  setOpenRateModal(false);
+                  setOpenRateModal(null);
                 },
                 () => {
                   setAppointment(undefined);
-                  setOpenRateModal(false);
+                  setOpenRateModal(null);
                 }
               )
             );
@@ -201,7 +208,7 @@ const SessionHistory = () => {
         }}
         cancel={() => {
           setAppointment(undefined);
-          setOpenRateModal(false);
+          setOpenRateModal(null);
         }}
       />
     </StyledContainer>

@@ -2,19 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import ReservationAccordion from '../ReservationAccordion';
 import styled from 'styled-components/macro';
-import { ApproveCard, DatePicker, RateModal, Svg } from 'components';
+import { ApproveCard, DatePicker, RateModal, Svg, SessionComment } from 'components';
 import { device } from 'utils';
 import { useSelector, useDispatch } from 'react-redux';
 import { getDtSessionHistorys, rateAndComment } from 'actions';
 import moment from 'moment';
 
-const SessionHistory = () => {
+const SessionHistory = ({ setSubPage = () => { } }) => {
   const dispatch = useDispatch();
   const items = useSelector(
     (state) => state.professionalReservation?.dtReservation?.session_historys
   );
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
-  const [openRateModal, setOpenRateModal] = useState(false);
+  const [openRateModal, setOpenRateModal] = useState(null);
   const [selectedDate, setSelectedDate] = useState();
   const [appointment, setAppointment] = useState(undefined);
   const [appointmentAll, setAppointmentAll] = useState(undefined);
@@ -28,6 +28,11 @@ const SessionHistory = () => {
       return [];
     }
   };
+  function openSessionComment(id) {
+    setSubPage(
+      <SessionComment session_id={id} goBack={() => { setSubPage() }}></SessionComment>
+    );
+  }
   useEffect(() => {
     if (window.innerWidth <= 760) {
       setIsSmallScreen(true);
@@ -67,13 +72,15 @@ const SessionHistory = () => {
                 customerName={elm?.student}
                 has_comment={elm?.dt?.has_comment}
                 rateText="Puanla"
+                onSessionComment={() => { openSessionComment(elm?.id) }}
+
                 onApprove={() => {
                   setAppointmentAll(elm)
                   setAppointment({
                     id: elm?.id,
                     userId: elm?.dt?.id,
                   });
-                  setOpenRateModal(true);
+                  setOpenRateModal('index');
                 }}
               />
             </ApproveCardContainer>
@@ -91,6 +98,7 @@ const SessionHistory = () => {
                 date={elm?.hour}
                 customerName={elm?.student}
                 has_comment={elm?.dt?.has_comment}
+                onSessionComment={() => { openSessionComment(elm?.id) }}
 
                 rateText="Puanla"
                 onApprove={() => {
@@ -99,7 +107,7 @@ const SessionHistory = () => {
                     id: elm?.id,
                     userId: elm?.dt?.id,
                   });
-                  setOpenRateModal(true);
+                  setOpenRateModal('index');
                 }}
               />
             </ApproveCardContainer>
@@ -156,28 +164,28 @@ const SessionHistory = () => {
         rateLabel="PUANLA"
         cancelLabel="VAZGEÇ"
         open={openRateModal}
-        rate={({ rate, comment, commented_id,rateType,session_file }) => {
+        rate={({ rate, comment, commented_id, rateType, session_file }) => {
 
-          if(rateType == 'session'){
+          if (rateType == 'session') {
             dispatch(
               rateAndCommentSession(
                 {
                   appointment_id: appointment?.id,
                   rating: rate,
                   comment: comment,
-                  session_file:session_file
+                  session_file: session_file
                 },
                 () => {
                   setAppointment(undefined);
-                  setOpenRateModal(false);
+                  setOpenRateModal(null);
                 },
                 () => {
                   setAppointment(undefined);
-                  setOpenRateModal(false);
+                  setOpenRateModal(null);
                 }
               )
             );
-          }else{
+          } else {
 
             dispatch(
               rateAndComment(
@@ -189,11 +197,11 @@ const SessionHistory = () => {
                 },
                 () => {
                   setAppointment(undefined);
-                  setOpenRateModal(false);
+                  setOpenRateModal(null);
                 },
                 () => {
                   setAppointment(undefined);
-                  setOpenRateModal(false);
+                  setOpenRateModal(null);
                 }
               )
             );
@@ -201,7 +209,7 @@ const SessionHistory = () => {
         }}
         cancel={() => {
           setAppointment(undefined);
-          setOpenRateModal(false);
+          setOpenRateModal(null);
         }}
       />
     </StyledContainer>

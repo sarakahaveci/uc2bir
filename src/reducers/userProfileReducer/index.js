@@ -15,6 +15,8 @@ import gymClass from './gymClassReducer';
 import comment from './commentReducer';
 import wallet from './walletReducer';
 import calendar from './calendarReducer';
+import sessionComment from './sessionCommentReducer';
+
 
 const reducers = combineReducers({
   certificate,
@@ -30,6 +32,7 @@ const reducers = combineReducers({
   galery,
   gymClass,
   comment,
+  sessionComment,
   wallet,
   calendar
 });

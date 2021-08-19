@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import ReservationAccordion from '../ReservationAccordion';
 import styled from 'styled-components/macro';
-import { ApproveCard, DatePicker, RateModal, Svg } from 'components';
+import { ApproveCard, DatePicker, RateModal, Svg , SessionComment} from 'components';
 import { device } from 'utils';
 import { getSessionHistorys, rateAndComment,rateAndCommentSession } from 'actions';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
-const SessionHistory = () => {
+const SessionHistory = ({setSubPage = () => { }}) => {
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
-  const [openRateModal, setOpenRateModal] = useState(false);
+  const [openRateModal, setOpenRateModal] = useState(null);
   const [appointment, setAppointment] = useState(undefined);
   const [appointmentAll, setAppointmentAll] = useState(undefined);
 
@@ -27,6 +27,11 @@ const SessionHistory = () => {
       return [];
     }
   };
+  function openSessionComment(id) {
+    setSubPage(
+      <SessionComment openRateModal={setOpenRateModal} setOpenRateModal={setOpenRateModal} session_id={id} goBack={() => { setSubPage() }}></SessionComment>
+    );
+  }
   useEffect(() => {
     if (window.innerWidth <= 760) {
       setIsSmallScreen(true);
@@ -63,6 +68,7 @@ const SessionHistory = () => {
                   date={elm?.hour}
                   customerName={elm?.student}
                   user_id={elm?.student_id}
+                  onSessionComment={() => { openSessionComment(elm?.id) }}
 
                   type="history"
                   rateText="Puanla"
@@ -74,7 +80,7 @@ const SessionHistory = () => {
                       id: elm?.id,
                       userId: elm?.pt?.id,
                     });
-                    setOpenRateModal(true);
+                    setOpenRateModal('index');
                   }}
                 />
               </ApproveCardContainer>
@@ -91,6 +97,7 @@ const SessionHistory = () => {
                 date={elm?.hour}
                 customerName={elm?.student}
                 user_id={elm?.student_id}
+                onSessionComment={() => { openSessionComment(elm?.id) }}
 
                 type="history"
                 rateText="Puanla"
@@ -102,7 +109,7 @@ const SessionHistory = () => {
                     id: elm?.id,
                     userId: elm?.pt?.id,
                   });
-                  setOpenRateModal(true);
+                  setOpenRateModal('index');
                 }}
               />
             </ApproveCardContainer>
@@ -118,6 +125,7 @@ const SessionHistory = () => {
                 date={elm?.hour}
                 customerName={elm?.student}
                 user_id={elm?.student_id}
+                onSessionComment={() => { openSessionComment(elm?.id) }}
 
                 type="history"
                 rateText="Puanla"
@@ -129,7 +137,7 @@ const SessionHistory = () => {
                     id: elm?.id,
                     userId: elm?.pt?.id,
                   });
-                  setOpenRateModal(true);
+                  setOpenRateModal('index');
                 }}
               />
             </ApproveCardContainer>
@@ -198,11 +206,11 @@ const SessionHistory = () => {
                 },
                 () => {
                   setAppointment(undefined);
-                  setOpenRateModal(false);
+                  setOpenRateModal(null);
                 },
                 () => {
                   setAppointment(undefined);
-                  setOpenRateModal(false);
+                  setOpenRateModal(null);
                 }
               )
             );
@@ -218,11 +226,11 @@ const SessionHistory = () => {
                 },
                 () => {
                   setAppointment(undefined);
-                  setOpenRateModal(false);
+                  setOpenRateModal(null);
                 },
                 () => {
                   setAppointment(undefined);
-                  setOpenRateModal(false);
+                  setOpenRateModal(null);
                 }
               )
             );
@@ -230,7 +238,7 @@ const SessionHistory = () => {
         }}
         cancel={() => {
           setAppointment(undefined);
-          setOpenRateModal(false);
+          setOpenRateModal(null);
         }}
       />
     </StyledContainer>

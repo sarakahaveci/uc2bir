@@ -43,7 +43,7 @@ const PT = () => {
       content = <Rejecteds />;
       break;
     case 'SessionHistory':
-      content = <SessionHistory />;
+      content = <SessionHistory  setSubPage={setSubPage} />;
       break;
     default:
       return <></>;

@@ -2,16 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import ReservationAccordion from '../ReservationAccordion';
 import styled from 'styled-components/macro';
-import { ApproveCard, DatePicker, RateModal, Svg } from 'components';
+import { ApproveCard, DatePicker, RateModal, Svg, SessionComment } from 'components';
 import { device } from 'utils';
 import { getUserSessionHistorys } from 'actions';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
-import { rateAndComment,rateAndCommentSession } from 'actions';
+import { rateAndComment, rateAndCommentSession } from 'actions';
 
-const SessionHistory = () => {
+const SessionHistory = ({ setSubPage = () => { } }) => {
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
-  const [openRateModal, setOpenRateModal] = useState(false);
+  const [openRateModal, setOpenRateModal] = useState(null);
   const [appointment, setAppointment] = useState(undefined);
   const [appointmentAll, setAppointmentAll] = useState(undefined);
 
@@ -37,6 +37,11 @@ const SessionHistory = () => {
     }
     dispatch(getUserSessionHistorys());
   }, []);
+  function openSessionComment(id) {
+    setSubPage(
+      <SessionComment session_id={id} goBack={() => { setSubPage() }}></SessionComment>
+    );
+  }
   useEffect(() => {
     if (selectedDate) {
       getSelectedDate();
@@ -49,123 +54,131 @@ const SessionHistory = () => {
     if (items?.appointment?.[
       moment(date).format('DD.MM.YYYY')
     ]) {
-    return (
-      <ReservationAccordion
-        defaultOpen={true}
-        parent
-        title={moment(date).format('DD.MM.YYYY')}
-      >
+      return (
+        <ReservationAccordion
+          defaultOpen={true}
+          parent
+          title={moment(date).format('DD.MM.YYYY')}
+        >
 
-        {items?.appointment?.[
-          moment(date).format('DD.MM.YYYY')
-        ]?.gym?.map((elm, i) => (
-          <ApproveCardContainer key={i}>
-            <Svg.SessionType.Gym style={{ marginRight: '10px' }} />
+          {items?.appointment?.[
+            moment(date).format('DD.MM.YYYY')
+          ]?.gym?.map((elm, i) => (
+            <ApproveCardContainer key={i}>
+              <Svg.SessionType.Gym style={{ marginRight: '10px' }} />
 
-            <ApproveCard
-                        date={elm?.hour}
-                        customerName={elm?.address_title}
-                        user_id={elm?.bs?.id}
+              <ApproveCard
+                date={elm?.hour}
+                customerName={elm?.address_title}
+                user_id={elm?.bs?.id}
 
-                        has_comment={elm?.pt?.has_comment}
+                has_comment={elm?.pt?.has_comment}
 
-                        type="history"
-                        rateText="Puanla"
-                        onApprove={() => {
-                          setAppointmentAll(elm)
-                          setAppointment({
-                            id: elm?.id,
-                            userId: elm?.pt?.id,
-                          });
-                          setOpenRateModal(true);
-                        }}
-                      />
-          </ApproveCardContainer>
-        )) || <></>}
-
-
-        {items?.appointment?.[
-          moment(date).format('DD.MM.YYYY')
-        ]?.home_park?.map((elm, i) => (
-
-          <ApproveCardContainer key={i}>
-            <Svg.SessionType.Park style={{ marginRight: '10px' }} />
-
-            <ApproveCard
-                      date={elm?.hour}
-                      customerName={elm?.pt?.name}
-                      user_id={elm?.pt?.id}
-
-                      type="history"
-                      rateText="Puanla"
-                      has_comment={elm?.pt?.has_comment}
-
-                      onApprove={() => {
-                        setAppointmentAll(elm)
-                        setAppointment({
-                          id: elm?.id,
-                          userId: elm?.pt?.id,
-                        });
-                        setOpenRateModal(true);
-                      }}
-                    />
-          </ApproveCardContainer>
-        )) || <></>}
+                type="history"
+                rateText="Puanla"
+                onSessionComment={() => { openSessionComment(elm?.id) }}
+                onApprove={() => {
+                  setAppointmentAll(elm)
+                  setAppointment({
+                    id: elm?.id,
+                    userId: elm?.pt?.id,
+                  });
+                  setOpenRateModal('index');
+                }}
+              />
+            </ApproveCardContainer>
+          )) || <></>}
 
 
-        {items?.appointment?.[
-          moment(date).format('DD.MM.YYYY')
-        ]?.online?.map((elm, i) => (
-          <ApproveCardContainer key={i}>
-            <Svg.SessionType.Online style={{ marginRight: '10px' }} />
+          {items?.appointment?.[
+            moment(date).format('DD.MM.YYYY')
+          ]?.home_park?.map((elm, i) => (
 
-            <ApproveCard
-                        date={elm?.hour}
-                        customerName={elm?.pt?.name || elm?.dt?.name}
-                        user_id={elm?.pt?.id || elm?.dt?.id}
+            <ApproveCardContainer key={i}>
+              <Svg.SessionType.Park style={{ marginRight: '10px' }} />
 
-                        type="history"
-                        rateText="Puanla"
-                        has_comment={elm?.dt?.has_comment}
+              <ApproveCard
+                date={elm?.hour}
+                customerName={elm?.pt?.name}
+                user_id={elm?.pt?.id}
+                onSessionComment={() => { openSessionComment(elm?.id) }}
 
-                        onApprove={() => {
-                          setAppointmentAll(elm)
-                          setAppointment({
-                            id: elm?.id,
-                            userId: elm?.dt?.id || elm?.pt?.id,
-                          });
-                          setOpenRateModal(true);
-                        }}
-                      />
-          </ApproveCardContainer>
-        )) || <></>}
+                type="history"
+                rateText="Puanla"
+                has_comment={elm?.pt?.has_comment}
 
-        {items?.appointment?.[
-          moment(date).format('DD.MM.YYYY')
-        ]?.clinic?.map((elm, i) => (
-          <ApproveCardContainer key={i}>
-            <Svg.SessionType.Clinic style={{ marginRight: '10px' }} />
+                onApprove={() => {
+                  setAppointmentAll(elm)
+                  setAppointment({
+                    id: elm?.id,
+                    userId: elm?.pt?.id,
+                  });
+                  setOpenRateModal('index');
+                }}
+              />
+            </ApproveCardContainer>
+          )) || <></>}
 
-            <ApproveCard
-                      date={elm?.hour}
-                      customerName={elm?.dt?.name}
-                      user_id={elm?.dt?.id}
 
-                      type="history"
-                      rateText="Diyetisyeni Puanla"
-                      has_comment={elm?.dt?.has_comment}
+          {items?.appointment?.[
+            moment(date).format('DD.MM.YYYY')
+          ]?.online?.map((elm, i) => (
+            <ApproveCardContainer key={i}>
+              <Svg.SessionType.Online style={{ marginRight: '10px' }} />
 
-                      onApprove={() => {
-                        setAppointmentAll(elm)
-                        setAppointment({ id: elm?.id, userId: elm?.dt?.id });
-                        setOpenRateModal(true);
-                      }}
-                    />
-          </ApproveCardContainer>
-        )) || <></>}
-      </ReservationAccordion>
-    )}else{
-      return(<></>)
+              <ApproveCard
+                date={elm?.hour}
+                customerName={elm?.pt?.name || elm?.dt?.name}
+                user_id={elm?.pt?.id || elm?.dt?.id}
+
+                type="history"
+                rateText="Puanla"
+                has_comment={elm?.dt?.has_comment}
+                onSessionComment={() => {
+
+                  openSessionComment(elm?.id)
+                }}
+
+                onApprove={() => {
+                  setAppointmentAll(elm)
+                  setAppointment({
+                    id: elm?.id,
+                    userId: elm?.dt?.id || elm?.pt?.id,
+                  });
+                  setOpenRateModal('index');
+                }}
+              />
+            </ApproveCardContainer>
+          )) || <></>}
+
+          {items?.appointment?.[
+            moment(date).format('DD.MM.YYYY')
+          ]?.clinic?.map((elm, i) => (
+            <ApproveCardContainer key={i}>
+              <Svg.SessionType.Clinic style={{ marginRight: '10px' }} />
+
+              <ApproveCard
+                date={elm?.hour}
+                customerName={elm?.dt?.name}
+                user_id={elm?.dt?.id}
+                onSessionComment={() => { openSessionComment(elm?.id) }}
+
+                type="history"
+                rateText="Diyetisyeni Puanla"
+                has_comment={elm?.dt?.has_comment}
+
+                onApprove={() => {
+                  setAppointmentAll(elm)
+                  setAppointment({ id: elm?.id, userId: elm?.dt?.id });
+                  setOpenRateModal('index');
+                }}
+              />
+            </ApproveCardContainer>
+          )) || <></>}
+        </ReservationAccordion>
+      )
+    } else {
+      return (<></>)
     }
   }
   return (
@@ -173,7 +186,7 @@ const SessionHistory = () => {
       <StyledRow>
         <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
           <AccordionContainer>
-          {
+            {
               startOfWeeksArr().map((date) => (
                 _renderTab(date)
               ))
@@ -214,28 +227,28 @@ const SessionHistory = () => {
         rateLabel="PUANLA"
         cancelLabel="VAZGEÇ"
         open={openRateModal}
-        rate={({ rate, comment, commented_id,rateType,session_file }) => {
+        rate={({ rate, comment, commented_id, rateType, session_file }) => {
 
-          if(rateType == 'session'){
+          if (rateType == 'session') {
             dispatch(
               rateAndCommentSession(
                 {
                   appointment_id: appointment?.id,
                   rating: rate,
                   comment: comment,
-                  session_file:session_file
+                  session_file: session_file
                 },
                 () => {
                   setAppointment(undefined);
-                  setOpenRateModal(false);
+                  setOpenRateModal(null);
                 },
                 () => {
                   setAppointment(undefined);
-                  setOpenRateModal(false);
+                  setOpenRateModal(null);
                 }
               )
             );
-          }else{
+          } else {
 
             dispatch(
               rateAndComment(
@@ -247,11 +260,11 @@ const SessionHistory = () => {
                 },
                 () => {
                   setAppointment(undefined);
-                  setOpenRateModal(false);
+                  setOpenRateModal(null);
                 },
                 () => {
                   setAppointment(undefined);
-                  setOpenRateModal(false);
+                  setOpenRateModal(null);
                 }
               )
             );
@@ -259,7 +272,7 @@ const SessionHistory = () => {
         }}
         cancel={() => {
           setAppointment(undefined);
-          setOpenRateModal(false);
+          setOpenRateModal(null);
         }}
       />
     </StyledContainer>

@@ -19,6 +19,7 @@ const ApproveCard = ({
   optionalField_3 = null,
   transaction_id,
   userType,
+  onSessionComment = () => { },
   onApprove = () => { },
   onReject = () => { },
   onTransfer = () => { },
@@ -102,7 +103,10 @@ const ApproveCard = ({
       } else {
 
         buttonGroup = (
-          <HistoryButton onClick={onApprove}>{rateText}</HistoryButton>
+          <>
+            <HistoryButton onClick={onApprove}>{rateText}</HistoryButton>
+            <HistoryButton onClick={onSessionComment}>Değerlendirme</HistoryButton>
+          </>
         );
       }
       break;
@@ -149,7 +153,7 @@ const ApproveCard = ({
             <Seperator></Seperator>
           </>
         )}
-        <FlexSpace onClick={()=>{user_id && history.push('/user/'+user_id)}} style={{cursor:user_id ? 'pointer':'initial'}} position={'END'}>
+        <FlexSpace onClick={() => { user_id && history.push('/user/' + user_id) }} style={{ cursor: user_id ? 'pointer' : 'initial' }} position={'END'}>
           <Dot />
           <BoldText>{customerName}</BoldText>
         </FlexSpace>

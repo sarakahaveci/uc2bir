@@ -129,6 +129,9 @@ import Approve from './images/approve.svg';
 import Ql from './images/quote-left.svg';
 import Qr from './images/quote-right.svg';
 import PhoneMissed from './images/phone-missed.svg';
+import PaperClip from './images/paperclip.svg';
+
+
 import DotsIcon from './images/dots.svg';
 import InfoIcon from './images/infoIcon.svg';
 
@@ -145,6 +148,8 @@ const Svg = {
   TickWithBgIcon: (props) => <ReactSVG {...props} src={TickWithBg} />,
   ErrorIcon: (props) => <ReactSVG {...props} src={Error} />,
   CloseIcon: (props) => <ReactSVG {...props} src={Close} />,
+  PaperClip: (props) => <ReactSVG {...props} src={PaperClip} />,
+
   UsernameIcon: (props) => <ReactSVG {...props} src={Username} />,
   EmailIcon: (props) => <ReactSVG {...props} src={Email} />,
   PhoneIcon: (props) => <ReactSVG {...props} src={Phone} />,

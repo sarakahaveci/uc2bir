@@ -27,7 +27,7 @@ const RateModal = ({
   const [uploadedFiles, setUploadedFiles] = useState({});
 
   useEffect(() => {
-    if (open == false) {
+    if (!open) {
       setStar(undefined);
       setComment(undefined);
       setSelectedPage('start');
@@ -164,14 +164,14 @@ const RateModal = ({
                   />
 
                   <div >
-                  <FileUpload
-                    style={{ display: 'none' }}
-                    showRegisterInfo={false}
-                    uploadedFiles={uploadedFiles}
-                    setUploadedFiles={setUploadedFiles}
-                    fileTypeId={10}
+                    <FileUpload
+                      style={{ display: 'none' }}
+                      showRegisterInfo={false}
+                      uploadedFiles={uploadedFiles}
+                      setUploadedFiles={setUploadedFiles}
+                      fileTypeId={10}
 
-                  />
+                    />
                   </div>
                 </>
               }
@@ -205,7 +205,7 @@ const RateModal = ({
       break;
   }
 
-  return <Root style={{ display: open ? 'flex' : 'none' }}>{content}</Root>;
+  return <Root style={{ display: open !==null ? 'flex' : 'none' }}>{content}</Root>;
 };
 
 const Root = styled.div`

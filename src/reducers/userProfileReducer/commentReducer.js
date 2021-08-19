@@ -2,6 +2,7 @@ import {
   GET_USER_COMMENT_REQUEST,
   GET_USER_COMMENT_SUCCESS,
   GET_USER_COMMENT_FAILURE,
+
 } from '../../constants';
 
 const initialState = {
@@ -31,7 +32,7 @@ export default (state = initialState, action) => {
         isLoading: false,
         comments: action.payload,
       };
-
+    
     default:
       return state;
   }

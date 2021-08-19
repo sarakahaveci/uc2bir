@@ -86,5 +86,7 @@ export { default as PaymentCard } from './PaymentCard';
 export { default as TrainerCard } from './TrainerCard';
 export { default as ClinicAccordion } from './ClinicAccordion';
 export { default as ReservationDetail } from './ReservationDetail';
+export { default as SessionComment } from './SessionComment';
+
 export { default as CreditCard } from './CreditCard';
 export { default as IndividualImprint } from './IndividualImprint';

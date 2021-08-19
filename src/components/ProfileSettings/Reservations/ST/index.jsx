@@ -30,7 +30,7 @@ const ST = () => {
       content = <Rejecteds setRejectCount={setRejectCount} />;
       break;
     case 'SessionHistory':
-      content = <SessionHistory setSessionHistoryCount={setSessionHistoryCount} />;
+      content = <SessionHistory setSubPage={setSubPage}  setSessionHistoryCount={setSessionHistoryCount} />;
       break;
     default:
       return <></>;
