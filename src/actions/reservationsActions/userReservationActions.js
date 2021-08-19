@@ -220,7 +220,7 @@ export const rateAndCommentSession = (
   url = `/appointment/sess-calendar/comment`;  // pt
   var myId = getState().auth?.user?.id
   const urls = Object.keys(session_file).map(function (key) {
-    return (session_file[key]?.fileUrl?.split(".com")?.[1])
+    return (session_file[key]?.fileUrl)
   });
   await dispatch({
     type: HTTP_REQUEST,
