@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getSessionComment } from 'actions'
 import Rating from '@material-ui/lab/Rating';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
-const SessionComment = ({ onSessionComment = () => { }, session_id, goBack = () => { } }) => {
+const SessionComment = ({ session_id, goBack = () => { } }) => {
   const [selectedItem, setSelectedItem] = useState(undefined);
   const sessionComment = useSelector(
     (state) => state.userProfile?.sessionComment
@@ -30,10 +30,8 @@ const SessionComment = ({ onSessionComment = () => { }, session_id, goBack = () 
         >
           {'< Oturum Değerlendirme'}
         </BoldText>
-      </Header>
-      <button onClick={onSessionComment}>Değerlendir</button>
-      <Sections>
-        {sessionComment?.data?.length > 0 && sessionComment?.data?.map((comment,key) => (
+      </Header>      <Sections>
+        {sessionComment?.data?.length > 0 && sessionComment?.data?.map((comment, key) => (
           <CommentCard key={key}>
             <CommenterPhoto src={comment?.commenter?.photo}></CommenterPhoto>
             <CommentBody>
@@ -51,7 +49,7 @@ const SessionComment = ({ onSessionComment = () => { }, session_id, goBack = () 
 
               </CommentText>
               <AttachList>
-                {comment?.session_file?.length > 0 && comment?.session_file?.map((file,key) => (
+                {comment?.session_file?.length > 0 && comment?.session_file?.map((file, key) => (
                   <Attach key={key} onClick={() => { setSelectedItem(file) }}>
                     <div style={{ height: '20px', width: '20px', marginRight: '5px' }}>
                       <Svg.PaperClip />
