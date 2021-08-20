@@ -82,6 +82,7 @@ export default function GroupLeftSelections() {
       dispatch(getGroupImages());
     }
   }, []);
+
   useEffect(() => {
     dispatch(getFilteredGymList(
       moment(selectedDate).format('DD.MM.YYYY'),
@@ -263,7 +264,7 @@ export default function GroupLeftSelections() {
           </Select>
         </FormControl>
       )}
-      {userTypeId === DIETITIAN && (
+      {false && userTypeId === DIETITIAN && dtSessionSelection?.filter(item => item.type == 'clinic').length > 0 && (
         <FormControl className="w-100 mt-2">
           <InputLabel>Klinik Seçiniz</InputLabel>
 

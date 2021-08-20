@@ -366,7 +366,9 @@ export default function GroupRightSelections({
         </Text>
 
         <Text textAlign="center" mb="30px">
-          Grup Dersi etkinliğiniz oluşturuldu.
+          {userTypeId == DIETITIAN ? "Paket Seansınız oluşturuldu.":"Grup Dersi etkinliğiniz oluşturuldu."}
+          
+
         </Text>
 
         <Modal.Footer>
