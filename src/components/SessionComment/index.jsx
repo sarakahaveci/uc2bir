@@ -11,14 +11,10 @@ const SessionComment = ({ session_id, goBack = () => { } }) => {
   const sessionComment = useSelector(
     (state) => state.userProfile?.sessionComment
   );
-
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(getSessionComment(session_id))
   }, [session_id])
-
-
   return (
     <Container>
       <Header>
@@ -42,11 +38,8 @@ const SessionComment = ({ session_id, goBack = () => { } }) => {
                 emptyIcon={<StarBorderIcon fontSize="inherit" />}
                 readOnly
               />
-
-
               <CommentText>
                 {comment?.comment}
-
               </CommentText>
               <AttachList>
                 {comment?.session_file?.length > 0 && comment?.session_file?.map((file, key) => (
@@ -57,7 +50,6 @@ const SessionComment = ({ session_id, goBack = () => { } }) => {
                     {file?.file?.slice(-15)}
                   </Attach>
                 ))}
-
               </AttachList>
             </CommentBody>
           </CommentCard>
@@ -68,7 +60,6 @@ const SessionComment = ({ session_id, goBack = () => { } }) => {
       </ModalRoot>
       }
     </Container>
-
   );
 };
 
@@ -77,7 +68,6 @@ const Container = styled.section`
   flex-direction: column;
   width: 100%;
   border-radius: 10px;
-
   @media ${device.sm} {
     width: 100%;
   }
@@ -91,8 +81,6 @@ const Sections = styled.div`
   }
   padding:80px;
 `;
-
-
 const Header = styled.div`
   width: 100%;
 `;

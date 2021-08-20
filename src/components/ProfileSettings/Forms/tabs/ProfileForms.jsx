@@ -116,12 +116,26 @@ const ProfileForms = ({ type }) => {
               readOnly: true,
             }}
           />
+          
           {type == 'WORK_PLACE' && (
             <Material.number
-              label="Kapasite (m2)"
+              label="Kapasite"
               type="number"
               name="capacity"
               defaultValue={detail?.data?.capacity}
+              onChange={(e) => {
+                setData({ ...data, [e.target.name]: e.target.value });
+                diffHandler();
+              }}
+              settings="current"
+            />
+          )}
+          {type == 'WORK_PLACE' && (
+            <Material.number
+              label="İş Yeri Alanı (m2)"
+              type="number"
+              name="area_measure"
+              defaultValue={detail?.data?.area_measure}
               onChange={(e) => {
                 setData({ ...data, [e.target.name]: e.target.value });
                 diffHandler();
