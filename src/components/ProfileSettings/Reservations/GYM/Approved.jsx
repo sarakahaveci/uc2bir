@@ -67,9 +67,7 @@ const Approved = ({ setSubPage }) => {
     );
   }
   function _renderTab(date) {
-    if (items?.appointment?.[
-      moment(date).format('DD.MM.YYYY')
-    ]) {
+    if (items?.appointment?.[moment(date).format('DD.MM.YYYY')]) {
       return (
         <ReservationAccordion
           defaultOpen={true}
@@ -85,7 +83,7 @@ const Approved = ({ setSubPage }) => {
                 type="approve"
                 date={elm?.hour}
                 customerName={elm?.student}
-                optionalField_1={elm?.branch}//Sport Type || NULL
+                optionalField_1={elm?.branch} //Sport Type || NULL
                 optionalField_2={{
                   label: 'EĞİTMEN',
                   value: elm?.pt?.name,
@@ -93,8 +91,8 @@ const Approved = ({ setSubPage }) => {
                 optionalField_3={{
                   label: 'SINIF',
                   value: elm?.class,
-                  value2: elm?.class_total_appointment + '/' + elm?.class_capacity,
-
+                  value2:
+                    elm?.class_total_appointment + '/' + elm?.class_capacity,
                 }}
                 onApprove={() => {
                   openReservationDetail(elm?.id);
@@ -116,12 +114,11 @@ const Approved = ({ setSubPage }) => {
                 date={elm?.hour}
                 customerName={elm?.student}
                 optionalField_1={elm?.branch}
-
                 optionalField_3={{
                   label: 'SINIF',
                   value: elm?.class,
-                  value2: elm?.class_total_appointment + '/' + elm?.class_capacity,
-
+                  value2:
+                    elm?.class_total_appointment + '/' + elm?.class_capacity,
                 }}
                 onApprove={() => {
                   openReservationDetail(elm?.id);
@@ -133,9 +130,9 @@ const Approved = ({ setSubPage }) => {
             </ApproveCardContainer>
           )) || <></>}
         </ReservationAccordion>
-      )
+      );
     } else {
-      return (<></>)
+      return <></>;
     }
   }
   return (
@@ -143,13 +140,12 @@ const Approved = ({ setSubPage }) => {
       <StyledRow>
         <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
           <AccordionContainer>
-            {
-              startOfWeeksArr().map((date) => (
-                _renderTab(date)
-              ))
-
-            }
-            {!(startOfWeeksArr()?.length > 0) && <text style={{ padding: '20px' }}>Onay bekleyen hiçbir rezervasyon talebi yoktur</text>}
+            {startOfWeeksArr().map((date) => _renderTab(date))}
+            {!(startOfWeeksArr()?.length > 0) && (
+              <text style={{ padding: '20px' }}>
+                Onay bekleyen hiçbir rezervasyon talebi yoktur
+              </text>
+            )}
           </AccordionContainer>
         </StyledCol>
         <StyledCol
@@ -213,14 +209,14 @@ const AccordionContainer = styled.div`
   flex-direction: column;
 `;
 const ApproveCardContainer = styled.div`
-display: flex;
-align-items: center;
-justify-content:space-between;
-margin: 20px 0;
-padding:5px;
-@media ${device.sm} {
-  margin: 0;
-}
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 0;
+  padding: 5px;
+  @media ${device.sm} {
+    margin: 0;
+  }
 `;
 
 const StyledCol = styled(Col)`
