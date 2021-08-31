@@ -12,7 +12,7 @@ import { decode } from 'html-entities';
 import DefaultProfileImg from 'assets/default-profile.jpg';
 import { useHistory } from 'react-router-dom';
 
-const ReservationDetail = ({ type, goBack = () => { }, isOnline }) => {
+const ReservationDetail = ({ type, goBack = () => {}, isOnline }) => {
   const [detailData, setDetailData] = useState({});
   const professionalReservation = useSelector(
     (state) => state.professionalReservation
@@ -30,7 +30,6 @@ const ReservationDetail = ({ type, goBack = () => { }, isOnline }) => {
         setDetailData(professionalReservation?.dtReservation?.res_detail);
         break;
       case 'st':
-
         setDetailData(professionalReservation?.userReservation?.res_detail);
         break;
       default:
@@ -43,6 +42,7 @@ const ReservationDetail = ({ type, goBack = () => { }, isOnline }) => {
     `${detailData?.date} ${hour[0].trim()}`,
     'DD.MM.YYYY hh:mm'
   );
+
   return (
     <Container>
       <Header>
@@ -57,42 +57,48 @@ const ReservationDetail = ({ type, goBack = () => { }, isOnline }) => {
       </Header>
       <Sections>
         <Left>
-          <InfoItem onClick={() => {
-            if (type == 'st') {
-              history.push(`/user/${detailData.pt?.id}`)
-            } else if (type == 'pt') {
-              history.push(`/user/${detailData.student?.id}`)
-
-            }
-          }}>
+          <InfoItem
+            onClick={() => {
+              if (type == 'st') {
+                history.push(`/user/${detailData.pt?.id}`);
+              } else if (type == 'pt') {
+                history.push(`/user/${detailData.student?.id}`);
+              }
+            }}
+          >
             <InfoMain>
               <CustomerImage
                 src={
-                  type == 'pt' ?
-                    (detailData?.student?.photo ||
-                      DefaultProfileImg) : type == 'st' ? (detailData?.pt?.photo ||
-                        detailData?.dt?.photo || DefaultProfileImg) : type == 'dt' ? (detailData?.student?.photo ||
-                          DefaultProfileImg) : null
+                  type == 'pt'
+                    ? detailData?.student?.photo || DefaultProfileImg
+                    : type == 'st'
+                    ? detailData?.pt?.photo ||
+                      detailData?.dt?.photo ||
+                      DefaultProfileImg
+                    : type == 'dt'
+                    ? detailData?.student?.photo || DefaultProfileImg
+                    : null
                 }
               />
               <BoldText>
                 {detailData?.student?.name ||
                   detailData?.pt?.name ||
-                  detailData?.bs?.title
-                }
+                  detailData?.bs?.title}
               </BoldText>
             </InfoMain>
             {type == 'st' && <text style={{ fontSize: '30px' }}> {'>'} </text>}
           </InfoItem>
-          {detailData?.branch && <InfoItem>
-            <InfoMain>
-              <Icon>
-                <Svg.SessionType.Gym />
-              </Icon>
-              <BoldText>{detailData?.branch}</BoldText>
-            </InfoMain>
-            <text style={{ fontSize: '30px' }}> {'>'} </text>
-          </InfoItem>}
+          {detailData?.branch && (
+            <InfoItem>
+              <InfoMain>
+                <Icon>
+                  <Svg.SessionType.Gym />
+                </Icon>
+                <BoldText>{detailData?.branch}</BoldText>
+              </InfoMain>
+              <text style={{ fontSize: '30px' }}> {'>'} </text>
+            </InfoItem>
+          )}
           <InfoItem>
             <InfoMain>
               <Icon>
@@ -124,11 +130,14 @@ const ReservationDetail = ({ type, goBack = () => { }, isOnline }) => {
         </Left>
         <Right>
           <RightAreaWrapper style={{ padding: '20px 0 20px 0' }}>
-            {!(detailData?.dt) && <DescTextWrapper>
-              <DescHeader>Ders Hakkında</DescHeader>
-              <DescText>{ReactHtmlParser(decode(detailData?.detail))}</DescText>
-            </DescTextWrapper>
-            }
+            {!detailData?.dt && (
+              <DescTextWrapper>
+                <DescHeader>Ders Hakkında</DescHeader>
+                <DescText>
+                  {ReactHtmlParser(decode(detailData?.detail))}
+                </DescText>
+              </DescTextWrapper>
+            )}
             <MessageButtonContainer>
               <Link
                 to={'/myprofile/settings/message'}
@@ -143,14 +152,10 @@ const ReservationDetail = ({ type, goBack = () => { }, isOnline }) => {
                 <MessageButton>Mesaj Gönder</MessageButton>
               </Link>
               {isOnline && (
-                <Link to={'/myprofile/online'}
-                  onClick={() =>
-                    dispatch(
-                      setReservationDetail(
-                        detailData
-                      )
-                    )
-                  }>
+                <Link
+                  to={'/myprofile/online'}
+                  onClick={() => dispatch(setReservationDetail(detailData))}
+                >
                   <OnlineClassButton color={'blue2'}>
                     Derse Gir
                   </OnlineClassButton>
@@ -158,7 +163,15 @@ const ReservationDetail = ({ type, goBack = () => { }, isOnline }) => {
               )}
             </MessageButtonContainer>
             <TextWrapper>
-              <DescText> Ders {startDate.fromNow()} başlayacaktır.</DescText>
+              <DescText>
+                {' '}
+                {professionalReservation?.dtReservation?.res_detail ||
+                professionalReservation?.userReservation?.res_detail?.dt
+                  ? 'Seans'
+                  : 'Ders'}{' '}
+                {startDate.fromNow()}{' '}
+                {startDate > moment() ? 'başlayacaktır.' : 'sonlanmıştır.'}
+              </DescText>
             </TextWrapper>
           </RightAreaWrapper>
         </Right>
@@ -242,7 +255,7 @@ const InfoItem = styled.div`
   justify-content: space-between;
   padding: 7px;
   border-radius: 10px;
-  cursor:${p => p.clickDisable ? 'default' : 'pointer'};
+  cursor: ${(p) => (p.clickDisable ? 'default' : 'pointer')};
   margin-top: 10px;
 `;
 const InfoMain = styled.div`

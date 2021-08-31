@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
 import Svg from '../statics/svg';
 import { device } from 'utils';
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
 
 const ApproveCard = ({
   user_id,
@@ -21,32 +21,27 @@ const ApproveCard = ({
   optionalField_3 = null,
   transaction_id,
   userType,
-  onSessionComment = () => { },
-  onApprove = () => { },
-  onReject = () => { },
-  onTransfer = () => { },
+  onSessionComment = () => {},
+  onApprove = () => {},
+  onReject = () => {},
+  onTransfer = () => {},
   type = 'await',
   rateText = '',
 }) => {
   const history = useHistory();
-  useEffect(() => { }, []);
+  useEffect(() => {}, []);
   function getRejectReason() {
     if (status_bs) {
-      return 'Spor Salonu Tarafından '
+      return 'Spor Salonu Tarafından ';
     } else if (status_pt) {
-      return 'Eğitmen Tarafından '
-
+      return 'Eğitmen Tarafından ';
     } else if (status_st) {
-      return 'Kullanıcı  Tarafından '
-
-    }
-    else if (status_dt) {
-      return 'Diyetisyen Tarafından '
-
+      return 'Kullanıcı  Tarafından ';
+    } else if (status_dt) {
+      return 'Diyetisyen Tarafından ';
     } else {
-      return ''
+      return '';
     }
-
   }
   let buttonGroup;
   switch (type) {
@@ -85,16 +80,13 @@ const ApproveCard = ({
       buttonGroup =
         userType == 'user' ? (
           <>
-
             {transaction_id && (
               <ButtonText onClick={onTransfer}>Para Iadesi</ButtonText>
             )}{' '}
             {getRejectReason()} Reddedildi
           </>
         ) : (
-          <>            {getRejectReason() + 'Reddedildi'
-          }
-          </>
+          <> {getRejectReason() + 'Reddedildi'}</>
         );
       break;
     case 'history':
@@ -168,7 +160,13 @@ const ApproveCard = ({
             <Seperator></Seperator>
           </>
         )}
-        <FlexSpace onClick={() => { user_id && history.push('/user/' + user_id) }} style={{ cursor: user_id ? 'pointer' : 'initial' }} position={'END'}>
+        <FlexSpace
+          onClick={() => {
+            user_id && history.push('/user/' + user_id);
+          }}
+          style={{ cursor: user_id ? 'pointer' : 'initial' }}
+          position={'END'}
+        >
           <Dot />
           <BoldText>{customerName}</BoldText>
         </FlexSpace>
@@ -177,9 +175,8 @@ const ApproveCard = ({
       {optionalField_2 && (
         <Row>
           <Column>
-            <BoldText>
-              {optionalField_2.label}: {optionalField_2.value}
-            </BoldText>
+            <BoldText>{optionalField_2.label}: </BoldText>
+            <NormalText>{optionalField_2.value}</NormalText>
           </Column>
         </Row>
       )}
@@ -328,6 +325,11 @@ const ButtonText = styled.text`
   cursor: pointer;
   color: var(--blue);
   margin-right: 10px;
+`;
+
+const NormalText = styled.text`
+  color: gray;
+  margin-left: 5px;
 `;
 
 export default ApproveCard;

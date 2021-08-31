@@ -58,7 +58,7 @@ const GroupLesson = ({ val }) => {
             </div>
             <div className="text-item">
               <Title lineDisable fontWeight="bold">
-                {val?.pt?.name}
+                {val?.slot?.title || val?.pt?.name}
               </Title>
               <div className="row info">
                 <div className="col">

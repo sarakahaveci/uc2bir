@@ -122,7 +122,7 @@ const Awaitings = ({ setAwaitingCount }) => {
                 optionalField_1={elm?.branch} //Sport Type || NULL
                 optionalField_2={{
                   label: 'EĞİTMEN',
-                  value: elm?.pt?.name,
+                  value: elm?.pt?.name || ' (Eğitmen seçimi yapılmadı)',
                 }}
                 optionalField_3={{
                   label: 'SINIF',
