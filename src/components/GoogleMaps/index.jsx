@@ -17,9 +17,14 @@ import { GoogleMapsAPI } from 'utils/config';
 
 const center = { lat: 39.925533, lng: 32.866287 };
 
-export default function GoogleMapClusterer({ data, onSelected, isSaloonMap, disableMinOption = false }) {
+export default function GoogleMapClusterer({
+  data,
+  onSelected,
+  isSaloonMap,
+  disableMinOption = false,
+}) {
   const [selectedMarker, setSelectedMarker] = useState(null);
-  const [isMapMin, setIsMapMin] = useState(true && (!disableMinOption));
+  const [isMapMin, setIsMapMin] = useState(true && !disableMinOption);
   const mapContainerStyle = { width: '100%', height: '100%' };
   const history = useHistory();
   const options = { maxZoom: 15 };
@@ -36,16 +41,27 @@ export default function GoogleMapClusterer({ data, onSelected, isSaloonMap, disa
     else setSelectedMarker(id);
   };
 
-
   if (loadError) return 'Yüklenme Hatası';
   if (!isLoaded) return 'Yükleniyor';
 
   const wrapperClass = 'mx-auto map-wrapper';
   return (
-    <div style={{ height: isMapMin ? '25vh' : '55vh', width: '100%' }} className={wrapperClass}>
-      {!disableMinOption && <div className="text-container" >
-        <span className="map-scale" onClick={() => { setIsMapMin(!isMapMin) }} >Haritayı {isMapMin ? <span>büyüt</span> : <span>küçült</span>}</span>
-      </div>}
+    <div
+      style={{ height: isMapMin ? '25vh' : '55vh', width: '100%' }}
+      className={wrapperClass}
+    >
+      {!disableMinOption && (
+        <div className="text-container">
+          <span
+            className="map-scale"
+            onClick={() => {
+              setIsMapMin(!isMapMin);
+            }}
+          >
+            Haritayı {isMapMin ? <span>büyüt</span> : <span>küçült</span>}
+          </span>
+        </div>
+      )}
       <GoogleMap
         id="google-map"
         mapContainerStyle={mapContainerStyle}
@@ -56,33 +72,34 @@ export default function GoogleMapClusterer({ data, onSelected, isSaloonMap, disa
           {(clusterer) =>
             data?.length > 0 &&
             data?.map((prof) => {
-             return prof?.addresses?.map((adress) => {
-                const lat = +adress?.lat
-                const lng = +adress.lng
-                const addressDetail =
-                  adress?.address_detail
+              return prof?.addresses?.map((adress) => {
+                const lat = +adress?.lat;
+                const lng = +adress.lng;
+                const addressDetail = adress?.address_detail;
                 const id = prof?.id || prof?.user_id;
-   
+
                 return (
                   <>
                     {selectedMarker === adress?.id && (
                       <InfoWindow
-
                         position={{
                           lat: +lat,
                           lng: +lng,
                         }}
                       >
-                        <InfoContainer style={{ cursor: 'pointer' }} onClick={() => {
-                          history.push('/user/' + id)
-                        }}>
+                        <InfoContainer
+                          style={{ cursor: 'pointer' }}
+                          onClick={() => {
+                            history.push('/user/' + id);
+                          }}
+                        >
                           <BoldText>{prof?.name || prof?.title}</BoldText>
                           <DetailText>{addressDetail}</DetailText>
                         </InfoContainer>
                       </InfoWindow>
                     )}
 
-                    {isSaloonMap ?
+                    {isSaloonMap ? (
                       <Marker
                         onClick={() => showInfoWindow(adress?.id)}
                         key={prof?.id}
@@ -99,8 +116,7 @@ export default function GoogleMapClusterer({ data, onSelected, isSaloonMap, disa
                           borderRadius: new window.google.maps.Point(45, 70),
                         }}
                       />
-                      :
-
+                    ) : (
                       <Marker
                         onClick={() => showInfoWindow(adress?.id)}
                         key={prof?.id}
@@ -110,13 +126,20 @@ export default function GoogleMapClusterer({ data, onSelected, isSaloonMap, disa
                         }}
                         clusterer={clusterer}
                         icon={{
-                          url: prof?.type == 'pt' ? TrainerSvg : prof?.type == 'dt' ? DietSvg : prof?.type == 'gym' ? SaloonSvg : null,
+                          url:
+                            prof?.type == 'pt'
+                              ? TrainerSvg
+                              : prof?.type == 'dt'
+                              ? DietSvg
+                              : prof?.type == 'gym'
+                              ? SaloonSvg
+                              : null,
                           origin: new window.google.maps.Point(0, 0),
                           anchor: new window.google.maps.Point(35, 20),
                           scaledSize: new window.google.maps.Size(70, 60),
                         }}
                       />
-                    }
+                    )}
 
                     {/* <Marker
                       onClick={() => showInfoWindow(id)}
@@ -151,7 +174,7 @@ export default function GoogleMapClusterer({ data, onSelected, isSaloonMap, disa
                     /> */}
                   </>
                 );
-              })
+              });
             })
           }
         </MarkerClusterer>
