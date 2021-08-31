@@ -33,6 +33,9 @@ const SessionHistory = ({setSubPage = () => { }}) => {
       <SessionComment session_id={id} goBack={() => { setSubPage() }}></SessionComment>
     );
   }
+  function onStatusChange(){
+    
+  }
   function _renderTab(date) {
     if (items?.appointment?.[
       moment(date).format('DD.MM.YYYY')
@@ -52,6 +55,8 @@ const SessionHistory = ({setSubPage = () => { }}) => {
               <ApproveCard
                 user_id={elm?.student_id}
                 onSessionComment={() => { openSessionComment(elm?.id) }}
+                session_status={elm?.session_status}
+                onStatusChange={onStatusChange}
 
                 type="history"
                 date={elm?.hour}
@@ -79,6 +84,8 @@ const SessionHistory = ({setSubPage = () => { }}) => {
               <ApproveCard
                 user_id={elm?.student_id}
                 onSessionComment={() => { openSessionComment(elm?.id) }}
+                session_status={elm?.session_status}
+                onStatusChange={onStatusChange}
 
                 type="history"
                 date={elm?.hour}

@@ -29,6 +29,9 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
       return [];
     }
   };
+  function onStatusChange() {
+
+  }
   useEffect(() => {
     if (window.innerWidth <= 760) {
       setIsSmallScreen(true);
@@ -71,6 +74,7 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
                 date={elm?.hour}
                 customerName={elm?.address_title}
                 user_id={elm?.bs?.id}
+                session_status={elm?.session_status}
 
                 has_comment={elm?.pt?.has_comment}
 
@@ -102,6 +106,7 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
                 customerName={elm?.pt?.name}
                 user_id={elm?.pt?.id}
                 onSessionComment={() => { openSessionComment(elm?.id) }}
+                session_status={elm?.session_status}
 
                 type="history"
                 rateText="Puanla"
@@ -130,10 +135,12 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
                 date={elm?.hour}
                 customerName={elm?.pt?.name || elm?.dt?.name}
                 user_id={elm?.pt?.id || elm?.dt?.id}
+                session_status={elm?.session_status}
 
                 type="history"
                 rateText="Puanla"
                 has_comment={elm?.dt?.has_comment}
+                onStatusChange={onStatusChange}
                 onSessionComment={() => {
 
                   openSessionComment(elm?.id)
@@ -162,6 +169,8 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
                 customerName={elm?.dt?.name}
                 user_id={elm?.dt?.id}
                 onSessionComment={() => { openSessionComment(elm?.id) }}
+                session_status={elm?.session_status}
+                onStatusChange={onStatusChange}
 
                 type="history"
                 rateText="Diyetisyeni Puanla"

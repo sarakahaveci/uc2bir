@@ -7,8 +7,10 @@ import { useHistory } from 'react-router-dom'
 const ApproveCard = ({
   user_id,
   customerName = '',
-  has_comment = 0,
+ // has_comment = 0,
+  onStatusChange = () => { },
   date = '',
+  session_status = null,
   cardType,
   status_bs,
   status_pt,
@@ -96,17 +98,30 @@ const ApproveCard = ({
         );
       break;
     case 'history':
-      if (has_comment > 0) {
-        buttonGroup = (
-          <>Puanlandı</>
-        );
+      if (session_status) {
+        if (session_status == 0) {
+          buttonGroup = (
+            <>Ders Yapılmadı</>
+          );
+        } else if (session_status == 1) {
+          buttonGroup = (
+            <>
+              <HistoryButton onClick={onApprove}>{rateText}</HistoryButton>
+              <HistoryButton onClick={onSessionComment}>Değerlendirme</HistoryButton>
+            </>
+          );
+        }
       } else {
-
         buttonGroup = (
-          <>
-            <HistoryButton onClick={onApprove}>{rateText}</HistoryButton>
-            <HistoryButton onClick={onSessionComment}>Değerlendirme</HistoryButton>
-          </>
+          <div style={{ display: 'flex' }}>
+            <ApproveButton style={{ margin: 0 }} approved onClick={onStatusChange(1)}>
+              Yapıldı
+            </ApproveButton>
+            <ApproveButton style={{ margin: 0 }} reject onClick={onStatusChange(0)}>
+              Yapılmadı
+            </ApproveButton>
+
+          </div>
         );
       }
       break;

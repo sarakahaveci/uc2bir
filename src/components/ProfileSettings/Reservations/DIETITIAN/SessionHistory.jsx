@@ -33,6 +33,9 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
       <SessionComment session_id={id} goBack={() => { setSubPage() }}></SessionComment>
     );
   }
+  function onStatusChange(){
+    
+  }
   useEffect(() => {
     if (window.innerWidth <= 760) {
       setIsSmallScreen(true);
@@ -69,6 +72,8 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
               <ApproveCard
                 type="history"
                 date={elm?.hour}
+                session_status={elm?.session_status}
+                onStatusChange={onStatusChange}
                 customerName={elm?.student}
                 has_comment={elm?.dt?.has_comment}
                 rateText="Puanla"
@@ -98,8 +103,9 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
                 date={elm?.hour}
                 customerName={elm?.student}
                 has_comment={elm?.dt?.has_comment}
+                session_status={elm?.session_status}
+                onStatusChange={onStatusChange}
                 onSessionComment={() => { openSessionComment(elm?.id) }}
-
                 rateText="Puanla"
                 onApprove={() => {
                   setAppointmentAll(elm)

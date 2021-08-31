@@ -27,6 +27,9 @@ const SessionHistory = ({setSubPage = () => { }}) => {
       return [];
     }
   };
+  function onStatusChange(){
+    
+  }
   function openSessionComment(id) {
     setSubPage(
       <SessionComment openRateModal={setOpenRateModal} setOpenRateModal={setOpenRateModal} session_id={id} goBack={() => { setSubPage() }}></SessionComment>
@@ -48,6 +51,7 @@ const SessionHistory = ({setSubPage = () => { }}) => {
   function getSelectedDate() {
     dispatch(getSessionHistorys(moment(selectedDate).format('DD.MM.YYYY')));
   }
+
   function _renderTab(date) {
     if (items?.appointment?.[
       moment(date).format('DD.MM.YYYY')
@@ -69,6 +73,8 @@ const SessionHistory = ({setSubPage = () => { }}) => {
                   customerName={elm?.student}
                   user_id={elm?.student_id}
                   onSessionComment={() => { openSessionComment(elm?.id) }}
+                  session_status={elm?.session_status}
+                  onStatusChange={onStatusChange}
 
                   type="history"
                   rateText="Puanla"
@@ -98,6 +104,8 @@ const SessionHistory = ({setSubPage = () => { }}) => {
                 customerName={elm?.student}
                 user_id={elm?.student_id}
                 onSessionComment={() => { openSessionComment(elm?.id) }}
+                session_status={elm?.session_status}
+                onStatusChange={onStatusChange}
 
                 type="history"
                 rateText="Puanla"
@@ -126,6 +134,8 @@ const SessionHistory = ({setSubPage = () => { }}) => {
                 customerName={elm?.student}
                 user_id={elm?.student_id}
                 onSessionComment={() => { openSessionComment(elm?.id) }}
+                session_status={elm?.session_status}
+                onStatusChange={onStatusChange}
 
                 type="history"
                 rateText="Puanla"
