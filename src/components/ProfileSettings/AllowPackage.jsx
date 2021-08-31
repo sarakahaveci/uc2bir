@@ -9,7 +9,8 @@ import { Switch } from 'components';
 export default function AllowPackage() {
   const dispatch = useDispatch();
   const accept_package = useSelector(
-    (state) => state.profileSettings2.profileDetail?.detail?.data?.accept_package
+    (state) =>
+      state.profileSettings2.profileDetail?.detail?.data?.accept_package
   );
   return (
     <div className="w-100 h-100">
@@ -17,7 +18,10 @@ export default function AllowPackage() {
         <text
           style={{ fontSize: '13px', fontFamily: 'Poppins', color: '#7B7B7B' }}
         >
-          "Pakete İzin Ver" açık olduğunda kullanıcılar üç2bir.com tarafından oluşturulan paketler üzerinden size randevu oluşturabilir."
+          "Pakete İzin Ver" açık olduğunda kullanıcılar üç2bir.com tarafından
+          oluşturulan paketler üzerinden size randevu oluşturabilir. Paket
+          katılımına onay vermeniz durumunda Ücretlendirme kalsifikasyonunuza
+          göre standart fiyatlar üzerinden belirlenecektir.
         </text>
       </div>
       <div

@@ -167,7 +167,11 @@ export default function GroupRightSelections({
           />
         )}
         {userTypeId !== DIETITIAN && (
-          <ReservationAccordion defaultOpen title="Rezervasyon Tarihi & Saati" mt="10px">
+          <ReservationAccordion
+            defaultOpen
+            title="Rezervasyon Tarihi & Saati"
+            mt="10px"
+          >
             <CollapseItem>
               <Span pr="10px" mr="10px" fontWeight="500" color="dark">
                 Ders
@@ -189,7 +193,10 @@ export default function GroupRightSelections({
         )}
 
         {userTypeId !== DIETITIAN && (
-          <ReservationAccordion defaultOpen title="Seçili Spor Alanı Grup Ders Kontenjanları">
+          <ReservationAccordion
+            defaultOpen
+            title="Seçili Spor Alanı Grup Ders Kontenjanları"
+          >
             {classSelection ? (
               <>
                 <CollapseItem>
@@ -314,20 +321,15 @@ export default function GroupRightSelections({
           </>
         )}
 
-        {/*<Text color="red" fontSize="0.9rem">*/}
-        {/*  *Max 50 TL fiyat giriniz*/}
-        {/*</Text>*/}
-        <DarkTitle  style={{marginTop:'5px'}}>Fiyat Belirleyiniz</DarkTitle>
+        <DarkTitle style={{ marginTop: '5px' }}>Fiyat Belirleyiniz</DarkTitle>
         {userTypeId == DIETITIAN && (
           <>
             <Material.TextField
-             
               onChange={(e) => selectDataHandler('seancePrice', e.target.value)}
               error={price > 50}
               label="Giriniz"
               type="number"
             />
-
           </>
         )}
         {userTypeId !== DIETITIAN && (
@@ -339,11 +341,11 @@ export default function GroupRightSelections({
               label="Giriniz"
               type="number"
             />
-            {branchSelection.max_request_price && (
+            {/* {branchSelection.max_request_price && (
               <Text color="red" fontSize="0.9rem">
                 *Max {branchSelection.max_request_price} TL fiyat giriniz
               </Text>
-            )}
+            )} */}
           </>
         )}
         <Button
@@ -366,9 +368,9 @@ export default function GroupRightSelections({
         </Text>
 
         <Text textAlign="center" mb="30px">
-          {userTypeId == DIETITIAN ? "Paket Seansınız oluşturuldu.":"Grup Dersi etkinliğiniz oluşturuldu."}
-          
-
+          {userTypeId == DIETITIAN
+            ? 'Paket Seansınız oluşturuldu.'
+            : 'Grup Dersi etkinliğiniz oluşturuldu.'}
         </Text>
 
         <Modal.Footer>
