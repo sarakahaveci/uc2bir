@@ -5,7 +5,7 @@ import styled from 'styled-components/macro';
 import { ApproveCard, DatePicker, RateModal, Svg,SessionComment } from 'components';
 import { device } from 'utils';
 import { useSelector, useDispatch } from 'react-redux';
-import { getGymSessionHistorys, rateAndComment } from 'actions';
+import { getGymSessionHistorys, rateAndComment,SessionStatusResponse } from 'actions';
 import moment from 'moment';
 
 const SessionHistory = ({setSubPage = () => { }}) => {
@@ -33,8 +33,11 @@ const SessionHistory = ({setSubPage = () => { }}) => {
       <SessionComment session_id={id} goBack={() => { setSubPage() }}></SessionComment>
     );
   }
-  function onStatusChange(){
-    
+  function onStatusChange(status, elm) {
+    dispatch(SessionStatusResponse({
+      appointment_id: elm?.id,
+      sessionStatus: status
+    }))
   }
   function _renderTab(date) {
     if (items?.appointment?.[
@@ -56,7 +59,9 @@ const SessionHistory = ({setSubPage = () => { }}) => {
                 user_id={elm?.student_id}
                 onSessionComment={() => { openSessionComment(elm?.id) }}
                 session_status={elm?.session_status}
-                onStatusChange={onStatusChange}
+                onStatusChange={(status) => {
+                  onStatusChange(status, elm)
+                }}
 
                 type="history"
                 date={elm?.hour}
@@ -85,7 +90,9 @@ const SessionHistory = ({setSubPage = () => { }}) => {
                 user_id={elm?.student_id}
                 onSessionComment={() => { openSessionComment(elm?.id) }}
                 session_status={elm?.session_status}
-                onStatusChange={onStatusChange}
+                onStatusChange={(status) => {
+                  onStatusChange(status, elm)
+                }}
 
                 type="history"
                 date={elm?.hour}

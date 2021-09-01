@@ -4,7 +4,7 @@ import ReservationAccordion from '../ReservationAccordion';
 import styled from 'styled-components/macro';
 import { ApproveCard, DatePicker, RateModal, Svg , SessionComment} from 'components';
 import { device } from 'utils';
-import { getSessionHistorys, rateAndComment,rateAndCommentSession } from 'actions';
+import { getSessionHistorys, rateAndComment,rateAndCommentSession,SessionStatusResponse } from 'actions';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 const SessionHistory = ({setSubPage = () => { }}) => {
@@ -27,8 +27,11 @@ const SessionHistory = ({setSubPage = () => { }}) => {
       return [];
     }
   };
-  function onStatusChange(){
-    
+  function onStatusChange(status, elm) {
+    dispatch(SessionStatusResponse({
+      appointment_id: elm?.id,
+      sessionStatus: status
+    }))
   }
   function openSessionComment(id) {
     setSubPage(
@@ -74,8 +77,9 @@ const SessionHistory = ({setSubPage = () => { }}) => {
                   user_id={elm?.student_id}
                   onSessionComment={() => { openSessionComment(elm?.id) }}
                   session_status={elm?.session_status}
-                  onStatusChange={onStatusChange}
-
+                  onStatusChange={(status) => {
+                    onStatusChange(status, elm)
+                  }}
                   type="history"
                   rateText="Puanla"
                   has_comment={elm?.pt?.has_comment}
@@ -105,8 +109,9 @@ const SessionHistory = ({setSubPage = () => { }}) => {
                 user_id={elm?.student_id}
                 onSessionComment={() => { openSessionComment(elm?.id) }}
                 session_status={elm?.session_status}
-                onStatusChange={onStatusChange}
-
+                onStatusChange={(status) => {
+                  onStatusChange(status, elm)
+                }}
                 type="history"
                 rateText="Puanla"
                 has_comment={elm?.pt?.has_comment}
@@ -135,8 +140,9 @@ const SessionHistory = ({setSubPage = () => { }}) => {
                 user_id={elm?.student_id}
                 onSessionComment={() => { openSessionComment(elm?.id) }}
                 session_status={elm?.session_status}
-                onStatusChange={onStatusChange}
-
+                onStatusChange={(status) => {
+                  onStatusChange(status, elm)
+                }}
                 type="history"
                 rateText="Puanla"
                 has_comment={elm?.pt?.has_comment}

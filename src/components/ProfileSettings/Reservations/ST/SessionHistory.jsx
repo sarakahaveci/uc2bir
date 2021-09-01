@@ -7,7 +7,7 @@ import { device } from 'utils';
 import { getUserSessionHistorys } from 'actions';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
-import { rateAndComment, rateAndCommentSession } from 'actions';
+import { rateAndComment, rateAndCommentSession, SessionStatusResponse } from 'actions';
 
 const SessionHistory = ({ setSubPage = () => { } }) => {
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
@@ -29,8 +29,11 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
       return [];
     }
   };
-  function onStatusChange() {
-
+  function onStatusChange(status, elm) {
+    dispatch(SessionStatusResponse({
+      appointment_id: elm?.id,
+      sessionStatus: status
+    }))
   }
   useEffect(() => {
     if (window.innerWidth <= 760) {
@@ -89,6 +92,10 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
                   });
                   setOpenRateModal('index');
                 }}
+                onStatusChange={(status) => {
+                  onStatusChange(status, elm)
+                }}
+
               />
             </ApproveCardContainer>
           )) || <></>}
@@ -120,6 +127,10 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
                   });
                   setOpenRateModal('index');
                 }}
+                onStatusChange={(status) => {
+                  onStatusChange(status, elm)
+                }}
+
               />
             </ApproveCardContainer>
           )) || <></>}
@@ -140,7 +151,7 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
                 type="history"
                 rateText="Puanla"
                 has_comment={elm?.dt?.has_comment}
-                onStatusChange={onStatusChange}
+
                 onSessionComment={() => {
 
                   openSessionComment(elm?.id)
@@ -153,6 +164,9 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
                     userId: elm?.dt?.id || elm?.pt?.id,
                   });
                   setOpenRateModal('index');
+                }}
+                onStatusChange={(status) => {
+                  onStatusChange(status, elm)
                 }}
               />
             </ApproveCardContainer>
@@ -170,7 +184,6 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
                 user_id={elm?.dt?.id}
                 onSessionComment={() => { openSessionComment(elm?.id) }}
                 session_status={elm?.session_status}
-                onStatusChange={onStatusChange}
 
                 type="history"
                 rateText="Diyetisyeni Puanla"
@@ -180,6 +193,9 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
                   setAppointmentAll(elm)
                   setAppointment({ id: elm?.id, userId: elm?.dt?.id });
                   setOpenRateModal('index');
+                }}
+                onStatusChange={(status) => {
+                  onStatusChange(status, elm)
                 }}
               />
             </ApproveCardContainer>

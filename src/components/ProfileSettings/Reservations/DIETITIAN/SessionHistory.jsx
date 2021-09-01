@@ -5,7 +5,7 @@ import styled from 'styled-components/macro';
 import { ApproveCard, DatePicker, RateModal, Svg, SessionComment } from 'components';
 import { device } from 'utils';
 import { useSelector, useDispatch } from 'react-redux';
-import { getDtSessionHistorys, rateAndComment } from 'actions';
+import { getDtSessionHistorys, rateAndComment, SessionStatusResponse } from 'actions';
 import moment from 'moment';
 
 const SessionHistory = ({ setSubPage = () => { } }) => {
@@ -33,8 +33,11 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
       <SessionComment session_id={id} goBack={() => { setSubPage() }}></SessionComment>
     );
   }
-  function onStatusChange(){
-    
+  function onStatusChange(status, elm) {
+    dispatch(SessionStatusResponse({
+      appointment_id: elm?.id,
+      sessionStatus: status
+    }))
   }
   useEffect(() => {
     if (window.innerWidth <= 760) {
@@ -73,8 +76,9 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
                 type="history"
                 date={elm?.hour}
                 session_status={elm?.session_status}
-                onStatusChange={onStatusChange}
-                customerName={elm?.student}
+                onStatusChange={(status) => {
+                  onStatusChange(status, elm)
+                }}                customerName={elm?.student}
                 has_comment={elm?.dt?.has_comment}
                 rateText="Puanla"
                 onSessionComment={() => { openSessionComment(elm?.id) }}
@@ -104,7 +108,9 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
                 customerName={elm?.student}
                 has_comment={elm?.dt?.has_comment}
                 session_status={elm?.session_status}
-                onStatusChange={onStatusChange}
+                onStatusChange={(status) => {
+                  onStatusChange(status, elm)
+                }}
                 onSessionComment={() => { openSessionComment(elm?.id) }}
                 rateText="Puanla"
                 onApprove={() => {

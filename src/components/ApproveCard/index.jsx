@@ -106,10 +106,11 @@ const ApproveCard = ({
       } else {
         buttonGroup = (
           <div style={{ display: 'flex' }}>
-            <ApproveButton style={{ margin: 0 }} approved onClick={onStatusChange(1)}>
+            <ApproveButton style={{ margin: 0 }} approved onClick={()=>{
+              onStatusChange(1)}}>
               Yapıldı
             </ApproveButton>
-            <ApproveButton style={{ margin: 0 }} reject onClick={onStatusChange(0)}>
+            <ApproveButton style={{ margin: 0 }} reject onClick={()=>{onStatusChange(0)}}>
               Yapılmadı
             </ApproveButton>
 
