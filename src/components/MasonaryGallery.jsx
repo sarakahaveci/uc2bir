@@ -193,7 +193,9 @@ const MasonaryGallery = ({
   const New = () => {
     if (content.file_type === 'image') {
       return (
-        <img style={{ width: '100%', height: 'auto' }} src={content.path} />
+        <div style={{ display: "flex", width: '80vw', height: '80vh' }} >
+          <img style={{ width: '100%', height: 'auto', objectFit: "contain" }} src={content.path} />
+        </div>
       );
     } else {
       let results = content.path.match('[\\?&]v=([^&#]*)');
