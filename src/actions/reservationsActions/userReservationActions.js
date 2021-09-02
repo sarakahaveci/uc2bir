@@ -268,7 +268,6 @@ export const SessionStatusResponse = (
   var myId = getState().auth?.user?.id
 
   url = `/appointment/sess-calendar/comment`;  // pt
-  console.log('sdsdısıddsıdsıdıdsıdsıdsıdsı:::::')
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
