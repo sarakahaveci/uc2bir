@@ -162,14 +162,22 @@ export default function ActivityCard({
       dispatch(
         updatePTBranch(
           branchData,
-          () => {
-            toast.success(
-              'Talebiniz gönderildi incelendikten sonra tarafınıza bildirim gönderilecektir.',
-              {
+          (data) => {
+            console.log(data?.data?.status);
+            if (data?.data?.status === 'pending') {
+              toast.success(
+                'Talebiniz gönderildi incelendikten sonra tarafınıza bildirim gönderilecektir.',
+                {
+                  position: 'bottom-right',
+                  autoClose: 7000,
+                }
+              );
+            } else if (data?.data?.status === 'approved') {
+              toast.success('Fiyat talebiniz onaylanmıştır.', {
                 position: 'bottom-right',
                 autoClose: 7000,
-              }
-            );
+              });
+            }
           },
           (error) => {
             toast.error(error, {
