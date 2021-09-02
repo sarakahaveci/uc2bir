@@ -37,7 +37,7 @@ export default function ActivityCard({
       <ToolTipLabel>
         {classification} sınıfı {name} branşı için{' '}
         <div style={{ color: '#00b2a9' }}>
-          minimum {minPrice } TL{' '}
+          minimum {minPrice} TL{' '}
           {classification !== 'A' ? `,maksimum ${maxPrice} TL` : null}
         </div>
         aralığında fiyat girebilirisiniz.
