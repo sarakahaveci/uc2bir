@@ -4,9 +4,10 @@ import cx from 'classnames';
 import { useSelector } from 'react-redux';
 import { HomeUserSlider, Title } from 'components';
 import { useHistory } from 'react-router-dom';
-
+import { useTranslation } from 'react-i18next'
 const PT = ({ className }) => {
   const history = useHistory();
+  const { t } = useTranslation()
   const handleSeeMoreClick = () => {
     history.push('/find?type=pt');
   };
@@ -30,10 +31,10 @@ const PT = ({ className }) => {
           letterSpacing="100"
           fontWeight="600"
         >
-          EĞİTMENLER
+          {t('trainers')}
         </Title>
         <Title variant="h6" component="h6" fontWeight="500">
-          EN İYİ EĞİTMENLER İLE ÇALIŞMA FIRSATI
+          {t('trainers_slogan')}
         </Title>
       </Container>
 

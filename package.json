@@ -21,6 +21,7 @@
     "date-fns": "^2.16.1",
     "firebase": "^8.6.1",
     "html-entities": "^2.1.1",
+    "i18next": "^20.6.0",
     "infinite-react-carousel": "^1.2.11",
     "instagram-login-react": "^2.0.0",
     "lodash": "^4.17.20",
@@ -44,6 +45,7 @@
     "react-google-login": "^5.2.2",
     "react-google-maps": "^9.4.5",
     "react-html-parser": "^2.0.2",
+    "react-i18next": "^11.11.4",
     "react-image-file-resizer": "^0.4.3",
     "react-input-mask": "^2.0.4",
     "react-redux": "^7.2.1",
@@ -67,7 +69,8 @@
     "use-places-autocomplete": "^1.9.1",
     "utf8": "^3.0.0",
     "uuid": "^8.3.2",
-    "webpack": "^4.44.1"
+    "webpack": "^4.44.1",
+    "yarn": "^1.22.11"
   },
   "scripts": {
     "start": "react-scripts start",

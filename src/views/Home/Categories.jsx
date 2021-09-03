@@ -5,8 +5,9 @@ import { useDispatch } from 'react-redux';
 import { Title, DefBackground, Svg } from 'components';
 import { useHistory } from 'react-router';
 import { getSearchResults } from 'actions';
-
+import { useTranslation } from 'react-i18next';
 const Categories = ({ className, background, children }) => {
+  const { t } = useTranslation();
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -33,7 +34,7 @@ const Categories = ({ className, background, children }) => {
           lineDisable={false}
           letterSpacing="100"
         >
-          Tarzını Seç, Hemen Branşlara Göz At
+          {t('slogan_1')}
         </Title>
         <div className="over-flow-y-auto">
           <ul>

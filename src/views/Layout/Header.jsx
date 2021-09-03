@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
@@ -8,16 +8,33 @@ import logo from '../../assets/logo.png';
 import { AwesomeIcon, IconLabel, Button, HeaderLogin, Svg } from 'components';
 import { toast } from 'react-toastify';
 import { animateScroll as scroll } from 'react-scroll';
+import { useTranslation } from 'react-i18next';
+import i18nx from 'i18next';
 
 const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
   const { infoData } = useSelector((state) => state.footer);
   const { isAuthenticated, user } = useSelector((state) => state.auth);
-
+  const { t, i18n } = useTranslation()
   const [menuActive, setMenuActive] = useState(false);
-
+  const ref = useRef()
   const [toggle, setToggle] = useState(false);
   const [keyword, setKeyword] = useState('');
   const history = useHistory();
+  const [langOpen, setLangOpen] = useState(false)
+  useEffect(() => {
+    const checkIfClickedOutside = e => {
+      if (langOpen && ref.current && !ref.current.contains(e.target)) {
+        setLangOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', checkIfClickedOutside)
+    return () => {
+      document.removeEventListener('mousedown', checkIfClickedOutside)
+    }
+  }, [langOpen])
+  function getCurrentLocale() {
+    return i18nx.languages[0]?.toLocaleUpperCase()
+  }
   const handleSearchWhatClick = () => {
     setIsSearchBarOpen(!isSearchBarOpen);
     setMenuActive(false);
@@ -25,7 +42,7 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
 
   const handleSearch = () => {
     if (keyword.length >= 3) {
-     
+
       history.push('/search/' + keyword);
       setIsSearchBarOpen(!isSearchBarOpen);
       setKeyword('');
@@ -42,7 +59,55 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
       setMenuActive(false);
     });
   }, [history.location.pathname]);
-
+  function _langChanger() {
+    return (
+      <div style={{ position: 'relative', marginLeft: '20px', height: '30px' }} ref={ref}>
+        <div
+          style={{
+            display: 'flex',
+            fontWeight: 'bold',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '30px',
+            width: '40px',
+            color: 'var(--blue)',
+            cursor: 'pointer'
+          }}
+          onClick={() => setLangOpen(oldState => !oldState)}
+        >
+          {/* {router.locale?.toUpperCase()} */}
+          {getCurrentLocale()}
+          <span style={{}}>
+            <text style={{ fontSize: '30px' }}> ̬</text>
+          </span>
+        </div>
+        {langOpen && (
+          <div
+            style={{ position: 'absolute', width: '40px', zIndex: '999999999' }}
+          >
+            <ul
+              style={{
+                padding: '5px',
+                display: 'flex',
+                background: 'white',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              {['tr', 'en'].map(locale => (
+                <li onClick={() => {
+                  i18n.changeLanguage(locale)
+                }} style={{ marginTop: '5px' }} key={locale}>
+                  <Lang>{locale?.toUpperCase()}</Lang>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    )
+  }
   const nav_logo = {
     status: true,
     className: 'col logo justify-content-center',
@@ -120,7 +185,7 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
                   <li>
                     <Button
                       icon={AwesomeIcon.Search}
-                      text="Ne arıyorsun?"
+                      text={t('what are you looking for')}
                       className="blue"
                       onClick={() => {
                         handleSearchWhatClick();
@@ -132,7 +197,7 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
                       to="/info"
                       style={{ fontWeight: 'normal', color: 'black' }}
                     >
-                      Üç2Bir HAKKINDA
+                      {t('aboutUs')}
                     </Link>
                   </li>
                   <li>
@@ -158,7 +223,7 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
                           to="/login"
                           style={{ fontWeight: 'normal', color: 'black' }}
                         >
-                          Giriş Yap
+                          {t('login')}
                         </Link>
                       </li>
                       <li className="line">
@@ -173,7 +238,7 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
                         to="/register"
                         style={{ fontWeight: 'normal', color: 'black' }}
                       >
-                        Üye Ol
+                        {t('signup')}
                       </Link>
                     </li>
                   )}
@@ -182,7 +247,7 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
                     <li>
                       <Button
                         style={{ fontWeight: 'normal', color: 'white' }}
-                        text="Profesyonel Üyelik"
+                        text={t('proSignup')}
                         className="dark"
                         fontWeight="500"
                         onClick={() => history.push('/profesyonel/register')}
@@ -190,7 +255,12 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
                     </li>
                   )}
                 </ul>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                  {_langChanger()}
+                </div>
               </div>
+
+
             </Row>
           </div>
         </>
@@ -317,5 +387,13 @@ const StyledInput = styled.input`
     height: 30px;
   }
 `;
-
+const Lang = styled.text`
+  font-size: 16px;
+  font-weight: bold;
+  color: black;
+  cursor: pointer;
+  &:hover {
+    color: var(--blue);
+  }
+`
 export default Header;

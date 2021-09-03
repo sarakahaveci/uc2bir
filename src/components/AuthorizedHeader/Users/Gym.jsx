@@ -6,11 +6,13 @@ import Item from '../HeaderItem';
 import TABS from 'constants/tabUri';
 import { useSelector } from 'react-redux';
 import defaultImage from '../../../assets/default-profile.jpg'
-
+import { useTranslation } from 'react-i18next'
 const Gym = ({ user_name, user_img = null, logoutHandler }) => {
   const { data: allRooms } = useSelector(
     (state) => state.profileSettings2.messages.rooms
   );
+  const { t } = useTranslation();
+
   const [count, setCount] = useState(0);
   useEffect(() => {
     setCount(allRooms?.filter(value => value.unread_messages === 1).length);
@@ -58,20 +60,20 @@ const Gym = ({ user_name, user_img = null, logoutHandler }) => {
 
   const list = [
     {
-      name: 'Bildirimler',
+      name: t('notifications'),
       icon: <Svg.Notification />,
       notify: [],
       linkPath: TABS.notificationPath,
     },
     {
-      name: 'Mesajlarım',
+      name: t('messages'),
       icon: <Svg.CommentBlack />,
       pulse: true,
       notify: count,
       linkPath: TABS.proMessagesPath,
     },
     {
-      name: 'Rezervasyonlarım',
+      name: t('reservations'),
       icon: <Svg.Date />,
       notify: [],
       linkPath: TABS.reservationsPath,
