@@ -7,8 +7,8 @@ import { useHistory } from 'react-router-dom';
 const ApproveCard = ({
   user_id,
   customerName = '',
- // has_comment = 0,
-  onStatusChange = () => { },
+  // has_comment = 0,
+  onStatusChange = () => {},
   date = '',
   session_status = null,
   cardType,
@@ -32,13 +32,13 @@ const ApproveCard = ({
   useEffect(() => {}, []);
   function getRejectReason() {
     if (status_bs) {
-      return 'Spor Salonu Tarafından ';
+      return t('By Gym');
     } else if (status_pt) {
-      return 'Eğitmen Tarafından ';
+      return t('By Trainer');
     } else if (status_st) {
-      return 'Kullanıcı  Tarafından ';
+      return t('By User');
     } else if (status_dt) {
-      return 'Diyetisyen Tarafından ';
+      return t('By Dietitian');
     } else {
       return '';
     }
@@ -50,18 +50,18 @@ const ApproveCard = ({
         buttonGroup = (
           <>
             <ApproveButton disabled onClick={onApprove}>
-              Onay Bekleniyor
+              {t('Awaiting Approval')}
             </ApproveButton>
             <ApproveButton reject onClick={onReject}>
-              İptal Et
+              {t('cancel')}
             </ApproveButton>
           </>
         );
       } else {
         buttonGroup = (
           <>
-            <AwaitButton onClick={onApprove}>Onayla</AwaitButton>
-            <AwaitButton onClick={onReject}>Reddet</AwaitButton>
+            <AwaitButton onClick={onApprove}>{t('Approve')}</AwaitButton>
+            <AwaitButton onClick={onReject}>{t('Reject')}</AwaitButton>
           </>
         );
       }
@@ -70,9 +70,12 @@ const ApproveCard = ({
       buttonGroup = (
         <>
           <ApproveButton reject onClick={onReject}>
-            İptal Et
+            {t('cancel')}
           </ApproveButton>
-          <ApproveButton onClick={onApprove}>Randevu Detayı</ApproveButton>
+          <ApproveButton onClick={onApprove}>
+            {' '}
+            {t('Appointment Details')}
+          </ApproveButton>
         </>
       );
       break;
@@ -81,39 +84,49 @@ const ApproveCard = ({
         userType == 'user' ? (
           <>
             {transaction_id && (
-              <ButtonText onClick={onTransfer}>Para Iadesi</ButtonText>
+              <ButtonText onClick={onTransfer}>{t('refund')}</ButtonText>
             )}{' '}
-            {getRejectReason()} Reddedildi
+            {getRejectReason()} {t('Denied')}
           </>
         ) : (
-          <> {getRejectReason() + 'Reddedildi'}</>
+          <> {getRejectReason() + t('Denied')}</>
         );
       break;
     case 'history':
       if (session_status) {
         if (session_status == 0) {
-          buttonGroup = (
-            <>Ders Yapılmadı</>
-          );
+          buttonGroup = <>{t('Lesson Not Held')}</>;
         } else if (session_status == 1) {
           buttonGroup = (
             <>
               <HistoryButton onClick={onApprove}>{rateText}</HistoryButton>
-              <HistoryButton onClick={onSessionComment}>Değerlendirme</HistoryButton>
+              <HistoryButton onClick={onSessionComment}>
+                {t('Evaluation')}
+              </HistoryButton>
             </>
           );
         }
       } else {
         buttonGroup = (
           <div style={{ display: 'flex' }}>
-            <ApproveButton style={{ margin: 0 }} approved onClick={()=>{
-              onStatusChange(1)}}>
-              Yapıldı
+            <ApproveButton
+              style={{ margin: 0 }}
+              approved
+              onClick={() => {
+                onStatusChange(1);
+              }}
+            >
+              {t('done')}
             </ApproveButton>
-            <ApproveButton style={{ margin: 0 }} reject onClick={()=>{onStatusChange(0)}}>
-              Yapılmadı
+            <ApproveButton
+              style={{ margin: 0 }}
+              reject
+              onClick={() => {
+                onStatusChange(0);
+              }}
+            >
+              {t('notDone')}
             </ApproveButton>
-
           </div>
         );
       }

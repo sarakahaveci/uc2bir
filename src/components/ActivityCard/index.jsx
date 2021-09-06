@@ -364,7 +364,7 @@ export default function ActivityCard({
         style={{ display: 'flex', width: '100%', justifyContent: 'flex-end' }}
       >
         <StyledButton
-          text={t('Save')}
+          text={t('save')}
           fontWeight="500"
           onClick={submitChange}
           disabled={!isAccepted || waitingPrice || isInitialForm}
