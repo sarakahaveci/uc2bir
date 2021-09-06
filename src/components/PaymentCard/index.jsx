@@ -21,12 +21,13 @@ import {
 } from 'actions';
 import { getWallet } from 'actions/userProfileActions/walletActions';
 import moment from 'moment';
+import { useTranslation } from 'react-i18next'
 export default function PaymentCard({ type, subType, dateOption, disabledPayment = false }) {
   const formRef = useRef(null);
   const groupFormRef = useRef(null);
   const packetFormRef = useRef(null);
   const upgradeForm = useRef(null);
-
+  const { t } = useTranslation()
   const history = useHistory();
   const dispatch = useDispatch();
   const reservation = useSelector((state) => state.reservation);
@@ -674,7 +675,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
     <Container>
       {dateOption && (
         <ReservationContainer disable={reservation?.data?.payment_type}>
-          <AddHeader>Tarih Seçiniz</AddHeader>
+          <AddHeader>{t('selectDate')}</AddHeader>
           <DateContainer>
             <DatePicker
               selected={selectedDate || new Date()}

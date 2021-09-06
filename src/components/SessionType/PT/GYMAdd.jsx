@@ -13,6 +13,7 @@ import { Row, Col, Form, FormGroup } from 'react-bootstrap';
 import styled from 'styled-components/macro';
 
 import image from '../../../assets/session-type.jpg';
+import { useTranslation} from 'react-i18next'
 
 const GYMAdd = ({ setSubPage, setBannerActive }) => {
   const stars = 4;

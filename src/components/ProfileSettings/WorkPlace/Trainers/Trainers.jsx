@@ -8,7 +8,6 @@ import { device } from 'utils';
 import { Button, Pagination, Svg, ChooseDateModal } from 'components';
 import LongUserCard from 'components/UserCards/LongUserCard';
 import SearchFilters from 'components/SearchProfessional/SearchFilters';
-
 const Trainers = ({
   type,
   onClickHover = () => { },

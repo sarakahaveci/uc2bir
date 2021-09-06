@@ -10,6 +10,20 @@
     "notifications":"Notifications",
     "messages":"Messages",
     "reservations":"Reservations",
-    "favorites":"Favorites"
+    "favorites":"Favorites",
+    "findTrainer":"Find Trainer",
+    "location":"Location",
+    "findByCategory":"Find by category",
+    "trainer":"TRAINER",
+    "gym":"GYM",
+    "dietitian":"DIETITIAN",
+    "map":"MAP",
+    "packages":"PACKAGES",
+    "groupLessons":"GROUP LESSONS",
+    "allCategories":"ALL CATEGORIES",
+    "selectDate":"Select Date"
+
+  
+
 
 }

@@ -8,13 +8,17 @@ import { device } from 'utils';
 import { Button, Pagination, Svg, ChooseDateModal } from 'components';
 import LongUserCard from 'components/UserCards/LongUserCard';
 import SearchFilters from 'components/SearchProfessional/SearchFilters';
+import { useTranslation } from 'react-i18next'
 
 const MyTrainers = ({
   type,
-  onClickHover = () => {},
+  onClickHover = () => { },
   level = 'A',
-  onClickUpgrageClass = () => {},
+  onClickUpgrageClass = () => { },
 }) => {
+
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const [packetLevel, setPacketLevel] = useState(level);
   const allBranchList = useSelector(
@@ -59,7 +63,7 @@ const MyTrainers = ({
         classification: packetLevel || level,
         startDate,
         endDate,
-        bs_id:user?.id
+        bs_id: user?.id
       })
     );
   }, [packetLevel]);
@@ -105,7 +109,7 @@ const MyTrainers = ({
         endDate,
         type: 'pt',
         classification: packetLevel || level,
-        bs_id:user?.id
+        bs_id: user?.id
 
       })
     );
@@ -126,7 +130,7 @@ const MyTrainers = ({
                 className="search-trainer__search-input"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="Eğitmen Ara"
+                placeholder={t('findTrainer')}
               />
             </SearchCol>
             <SearchCol>
@@ -141,7 +145,7 @@ const MyTrainers = ({
                   className="search-trainer__search-input"
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
-                  placeholder="Lokasyon..."
+                  placeholder={t('location') + '...'}
                 />
               </div>
             </SearchCol>

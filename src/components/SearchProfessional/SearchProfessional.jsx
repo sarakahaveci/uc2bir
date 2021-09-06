@@ -18,6 +18,7 @@ import {
 } from 'components';
 import { searchProffesional } from 'actions';
 import Filter from './SearchFilters';
+import { useTranslation } from 'react-i18next'
 
 const SearchProfessional = () => {
   const allBranchList = useSelector(
@@ -27,6 +28,7 @@ const SearchProfessional = () => {
   const { totalPage, data, totalData } = useSelector(
     (state) => state.searchProfessional.listInfo
   );
+  const { t } = useTranslation();
 
   const [title, setTitle] = useState('');
   const [location, setLocation] = useState('');
@@ -196,7 +198,7 @@ const SearchProfessional = () => {
                 onChange={(e) => {
                   setLocation(e);
                 }}
-                placeholder="Lokasyon"
+                placeholder={t('location')}
               />
             </SearchCol>
 

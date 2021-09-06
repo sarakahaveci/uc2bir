@@ -8,8 +8,7 @@ import {
   Button, IconLabel, AwesomeIcon, Svg, Material, LocationInput, ChooseDateModal
 } from 'components';
 import { objectToParamCoverter } from 'utils';
-
-
+import { useTranslation} from 'react-i18next'
 const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
 
   const [value, setValue] = useState('')
@@ -18,6 +17,7 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const history = useHistory();
+  const { t } = useTranslation();
 
   const allBranchList = useSelector(
     (state) => state.profileSettings.ptBranchList.allList
@@ -76,22 +76,22 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
       <div className="search-container">
         <ul className="top-items">
           <li className={`${virtual === 'pt' ? 'active' : ''}`}>
-            <a onClick={() => setVirtual('pt')}>EĞİTMEN</a>
+            <a onClick={() => setVirtual('pt')}>{t('trainer')}</a>
           </li>
           <li className={`${virtual === 'gym' ? 'active' : ''}`}>
-            <a onClick={() => setVirtual('gym')}>SALON</a>
+            <a onClick={() => setVirtual('gym')}>{t('gym')}</a>
           </li>
           <li className={`${virtual === 'dt' ? 'active' : ''}`}>
-            <a onClick={() => setVirtual('dt')}>DİYETİSYEN</a>
+            <a onClick={() => setVirtual('dt')}>{t('dietitian')}</a>
           </li>
           <li className={`${virtual === 'map' ? 'active' : ''}`}>
-            <a onClick={() => setVirtual('map')}>HARİTA</a>
+            <a onClick={() => setVirtual('map')}>{t('map')}</a>
           </li>
           <li className={`${virtual === 'packets' ? 'active' : ''}`}>
-            <a onClick={() => setVirtual('packets')}>PAKETLER</a>
+            <a onClick={() => setVirtual('packets')}>{t('packages')}</a>
           </li>
           <li className={`${virtual === 'group-lessons' ? 'active' : ''}`}>
-            <a onClick={() => setVirtual('group-lessons')}>GRUP DERSLERİ</a>
+            <a onClick={() => setVirtual('group-lessons')}>{t('groupLessons')}</a>
           </li>
         </ul>
         <div className="search-items">
@@ -118,7 +118,7 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
                   onChange={(e) => {
                     setValue(e)
                   }}
-                  placeholder="Lokasyon"
+                  placeholder={t('location')}
                 />
               </li>
             )}
@@ -130,7 +130,7 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
                     style={{ paddingTop: '5px' }}
                   />
                   <Material.SimpleSelect
-                    label="Tüm Kategoriler"
+                    label={t('allCategories')}
                     items={allBranchList}
                     onChange={(event) => setBranch(event.target.value)}
                   />

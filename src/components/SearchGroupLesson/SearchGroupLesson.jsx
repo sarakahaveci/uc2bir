@@ -11,12 +11,14 @@ import GroupLessonCard from 'components/UserCards/GroupLessonCard';
 import { Button, Svg, Pagination, BackLink, Text,ChooseDateModal } from 'components';
 import { searchProffesional } from 'actions';
 import Filter from './SearchFilters';
+import { useTranslation} from 'react-i18next'
 
 const SearchGroupLesson = () => {
   const { totalPage, data, totalData } = useSelector(
     (state) => state.searchProfessional.listInfo
   );
   const [openDateModal, setOpenDateModal] = useState(false);
+  const { t } = useTranslation();
 
   const [dateFilterText, setDateFilterText] = useState('Tarih Seçiniz');
   const [startDate, setStartDate] = useState(null);
@@ -167,7 +169,7 @@ const SearchGroupLesson = () => {
                   className="search-trainer__search-input"
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
-                  placeholder="Lokasyon..."
+                  placeholder={t('location')+'....'}
                 />
               </div>
             </SearchCol>

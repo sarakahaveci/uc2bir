@@ -146,20 +146,20 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
                   onClick={() => setToggle(!toggle)}
                   className="d-xl-none dropdown flex-column"
                 >
-                  Kategoriye Göre Arama
+                  {t('findByCategory')}
                   <ul className={`dropdown ${toggle ? 'open' : 'close'}`}>
                     <li>
                       {/* TODO: Add function */}
-                      <a>EĞİTMEN</a>
+                      <a>{t('trainer')}</a>
                     </li>
                     <li>
-                      <a>SALON</a>
+                      <a>{t('gym')}</a>
                     </li>
                     <li>
-                      <a>DİYETİSYEN</a>
+                      <a>{t('dietitian')}</a>
                     </li>
                     <li>
-                      <a>HARİTA</a>
+                      <a>{t('map')}</a>
                     </li>
                   </ul>
                 </li>

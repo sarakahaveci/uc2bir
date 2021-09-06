@@ -13,6 +13,7 @@ import s3 from '../../assets/banner/dw2.jpg';
 import s4 from '../../assets/blog/image-1.png';
 
 import vid from '../../assets/girisvideo1920x660.mp4';
+import {useTranslation} from 'react-i18next'
 const Banner = () => {
   const dispatch = useDispatch();
   const [virtual, setVirtual] = useState('pt');
@@ -22,6 +23,8 @@ const Banner = () => {
     setVirtual(value);
 
   };
+  const { t } = useTranslation();
+
   useEffect(() => {
     dispatch(
       searchProffesional({ title: '', type: 'map', minPrice: 0, maxPrice: 1000 })
@@ -40,7 +43,7 @@ const Banner = () => {
   const virtuals = {
     pt: {
       className: '',
-      text: 'Eğitmen Ara',
+      text: t('findTrainer'),
       component: () => {
         return (
           <>

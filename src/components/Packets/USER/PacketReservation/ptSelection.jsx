@@ -5,10 +5,13 @@ import styled from 'styled-components/macro';
 import { device } from 'utils';
 import Trainers from 'components/ProfileSettings/WorkPlace/Trainers/Trainers';
 import { setReservation,setPacketReservation } from 'actions';
+import {useTranslation} from 'react-i18next'
 
 const PtSelection = ({
   setField = () => {},
 }) => {
+  const { t } = useTranslation();
+
   //Local States
   const dispatch = useDispatch();
   const reservation = useSelector((state) => state.reservation);
@@ -21,7 +24,7 @@ const PtSelection = ({
       <BackLink onClick={() => setField('main')}>
         <Svg.ArrowLeftIcon />
 
-        <span>Eğitmen Arayın</span>
+        <span>{t('findTrainer')}</span>
       </BackLink>
       <Trainers
         type="selection"

@@ -13,6 +13,7 @@ import {
   getAllPTBranchList,
   searchGymWithDetail,
 } from 'actions';
+import { useTranslation} from 'react-i18next'
 
 const AddGym = ({ setSubPage, setBannerActive }) => {
   const dispatch = useDispatch();

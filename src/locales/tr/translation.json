@@ -10,7 +10,21 @@
     "notifications":"Bildirimler",
     "messages":"Mesajlar",
     "reservations":"Rezervasyonlar",
-    "favorites":"Favoriler"
+    "favorites":"Favoriler",
+    "findTrainer":"Eğitmen Ara",
+    "location":"Lokasyon",
+    "findByCategory":"Kategoriye göre arama",
+    "trainer":"EĞİTMEN",
+    "gym":"SALON",
+    "dietitian":"DİYETİSYEN",
+    "map":"HARİTA",
+    "packages":"PAKETLER",
+    "groupLessons":"GRUP DERSLERİ",
+    "allCategories":"Tüm Kategoriler",
+    "selectDate":"Tarih Seçiniz"
+
+
+
 
 
 }
