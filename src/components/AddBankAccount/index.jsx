@@ -2,18 +2,22 @@ import React from 'react';
 import styled from 'styled-components/macro';
 import { device } from 'utils';
 import { Material, Button } from 'components';
+import { useTranslation } from 'react-i18next';
+
 export default function AddBankAccount({
   setCardName,
   setCardNo,
   setSaveName,
   handleSubmit,
 }) {
+  const { t } = useTranslation();
+
   return (
     <Container>
       <DataContainer>
-        <BoldText>Alıcı Hesap Bilgileri</BoldText>
+        <BoldText>{t('Buyer Account Information')}</BoldText>
         <Material.TextField
-          label="Alıcı Adı Soyadı"
+          label={t("recipient's name and surname")}
           type="text"
           name="holder_name"
           onBlur={(e) => {
@@ -22,17 +26,17 @@ export default function AddBankAccount({
         />
         <Material.TextField
           mask="TR 99 9999 9999 9999 9999 9999 99"
-          label="IBAN Numarası Giriniz"
+          label={t('Enter IBAN Number')}
           type="text"
           name="card_number"
           onBlur={(e) => {
-            var temp = e.target.value.replace(/ /g, '')
+            var temp = e.target.value.replace(/ /g, '');
 
             setCardNo(temp.replace('TR', ''));
           }}
         />
         <Material.TextField
-          label="Kayıt Adı"
+          label={t('Registration Name')}
           type="text"
           name="bank_title"
           onBlur={(e) => {
@@ -43,7 +47,7 @@ export default function AddBankAccount({
       <Button
         style={{ width: '100%', padding: '20px', marginTop: '20px' }}
         className="blue"
-        text="IBAN No Kaydet"
+        text={t('Save IBAN No')}
         onClick={() => {
           handleSubmit();
         }}

@@ -3,7 +3,11 @@ import styled from 'styled-components/macro';
 import { Text, Svg } from 'components';
 import { Link } from 'react-router-dom';
 import { device } from 'utils';
+import { useTranslation } from 'react-i18next';
+
 const ApproveModal = ({ elm, open, approve = () => {}, cancel = () => {} }) => {
+  const { t } = useTranslation();
+
   return (
     <Root style={{ display: open ? 'flex' : 'none' }}>
       <MainContainer>
@@ -22,7 +26,7 @@ const ApproveModal = ({ elm, open, approve = () => {}, cancel = () => {} }) => {
             fontWeight="500"
             textAlign="center"
           >
-            Rezervasyonu onaylamak istediğinize emin misiniz?
+            {t('Are you sure you want to confirm the reservation?')}
           </Text>
 
           {elm && (
@@ -40,7 +44,7 @@ const ApproveModal = ({ elm, open, approve = () => {}, cancel = () => {} }) => {
               approve(open);
             }}
           >
-            ONAYLA
+            {t('approve')}
           </StyledButton>
         </div>
         <div className="modal-footer" closeIcon={false}>
@@ -49,7 +53,7 @@ const ApproveModal = ({ elm, open, approve = () => {}, cancel = () => {} }) => {
               cancel();
             }}
           >
-            VAZGEÇ
+            {t('Give Up')}
           </StyledButton>
         </div>
       </MainContainer>
@@ -97,6 +101,7 @@ const StyledButton = styled(Link)`
   text-align: center;
   display: block;
   width: 100%;
+  text-transform: uppercase;
 
   &:hover {
     color: var(--blue);

@@ -6,7 +6,7 @@ import { ProgressBar } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
-
+import { useTranslation } from 'react-i18next';
 import { deleteFile } from 'actions';
 import { Text, Button, Svg } from 'components';
 import { resizeFile } from 'utils';
@@ -18,6 +18,8 @@ const FileUpload = ({
   showRegisterInfo,
   title,
 }) => {
+  const { t } = useTranslation();
+
   const { accessToken, isAuthenticated } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
@@ -34,7 +36,7 @@ const FileUpload = ({
 
     try {
       if (!isAuthenticated) {
-        toast.error('Giriş yapma sayfasına yönlendiriliyorsunuz.', {
+        toast.error(t('You are redirected to the login page'), {
           position: 'bottom-right',
           autoClose: 2000,
           onClose: () => history.push('/login'),
@@ -86,7 +88,7 @@ const FileUpload = ({
           ...acc,
           [files[index].name]: {
             fileId: curr.id,
-            fileUrl:curr.path,
+            fileUrl: curr.path,
             progressPercentage: 100,
           },
         };
@@ -125,7 +127,7 @@ const FileUpload = ({
   const { getRootProps, getInputProps } = useDropzone({
     onDropAccepted,
     onDropRejected: () =>
-      toast.error('Desteklenmeyen dosya türü', {
+      toast.error(t('Unsupported file type'), {
         position: 'bottom-right',
       }),
     accept: ['image/*', '.pdf'],
@@ -179,11 +181,11 @@ const FileUpload = ({
   });
 
   return (
-    <div  className="file-upload">
+    <div className="file-upload">
       <div className="file-upload__text-wrapper">
         {showRegisterInfo && (
           <Text color="dark" fontSize="1.2rem" fontWeight="300">
-            Lütfen Kayıt İçin Gerekli Belgeleri Yükleyin
+            {t('Please Upload Documents Required for Registration')}
           </Text>
         )}
 
@@ -204,13 +206,13 @@ const FileUpload = ({
             textAlign="center"
             margin="15px 0"
           >
-            Sürükle Bırak
+            {t('Drap Drop')}
           </Text>
 
-          <span className={'file-upload__or'}>Veya</span>
+          <span className={'file-upload__or'}> {t('or')}</span>
 
           <Button
-            text="Bilgisayardan Yükle"
+            text={t('Upload from computer')}
             fontWeight="600"
             className="blue"
             fontSize="0.8rem"
@@ -226,7 +228,7 @@ const FileUpload = ({
 FileUpload.defaultProps = {
   fileTypeId: null,
   uploadedFiles: {},
-  setUploadedFiles: () => { },
+  setUploadedFiles: () => {},
   title: '',
   showRegisterInfo: true,
 };

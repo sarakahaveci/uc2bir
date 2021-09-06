@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
 import { Text, Svg } from 'components';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { device } from 'utils';
+
 const CancalletionModal = ({
   open,
   cancelStepOne,
@@ -14,6 +16,8 @@ const CancalletionModal = ({
   cancelProcessLabel = '',
   cancelLabel = '',
 }) => {
+  const { t } = useTranslation();
+
   const [selectedPage, setSelectedPage] = useState('start');
 
   let content;
@@ -24,14 +28,14 @@ const CancalletionModal = ({
   function hourFormatter(hour) {
     if (hour) {
       if (hour > 24) {
-        var day = Math.floor(hour / 24)
+        var day = Math.floor(hour / 24);
         var remaining = hour - day * 24;
-        return (day + ' gün ' + remaining + ' saat')
+        return day + t('day') + remaining + t('hour');
       } else {
-        return (hour + ' saat')
+        return hour + t('hour');
       }
     } else {
-      return null
+      return null;
     }
   }
   switch (selectedPage) {
@@ -106,13 +110,15 @@ const CancalletionModal = ({
             </Text>
 
             <Text textAlign="center" fontSize="1rem" color="dark">
-              {hourFormatter(stepTwoData?.remaining_hour)}  sonraki randevunuzu iptal etmek üzeresiniz.
+              {hourFormatter(stepTwoData?.remaining_hour)} sonraki randevunuzu
+              iptal etmek üzeresiniz.
             </Text>
-            {
-              stepTwoData?.penalty_fee && stepTwoData?.penalty_fee > 0 && <Text textAlign="center" fontSize="1rem" color="dark">
-                İşlemi onaylamanız halinde {stepTwoData?.penalty_fee} tl ceza ücreti hesabınıza yansıyacaktır.
+            {stepTwoData?.penalty_fee && stepTwoData?.penalty_fee > 0 && (
+              <Text textAlign="center" fontSize="1rem" color="dark">
+                İşlemi onaylamanız halinde {stepTwoData?.penalty_fee} tl ceza
+                ücreti hesabınıza yansıyacaktır.
               </Text>
-            }
+            )}
           </ContextContainer>
           <div style={{ display: 'flex', width: '100%' }}>
             <StyledButton
@@ -121,14 +127,14 @@ const CancalletionModal = ({
                 cancelProcess();
               }}
             >
-              İPTAL
+              {t('cancel')}
             </StyledButton>
             <StyledButton
               onClick={() => {
                 cancelStepTwo(open);
               }}
             >
-              GÖNDER
+              {t('send')}
             </StyledButton>
           </div>
         </MainContainer>
@@ -191,7 +197,7 @@ const StyledButton = styled(Link)`
   text-align: center;
   display: block;
   width: 100%;
-
+  text-transform: uppercase;
   &:hover {
     color: var(--blue);
   }

@@ -14,6 +14,7 @@ import {
   Spinner,
 } from 'components';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components/macro';
 import axios from 'axios';
 import FormData from 'form-data';
@@ -25,6 +26,7 @@ import moment from 'moment';
 import { resizeFile } from '../../utils';
 
 const Blog = () => {
+  const { t } = useTranslation();
   const history = useHistory();
   const [page, setPage] = useState('');
   const [file, setFile] = useState('');
@@ -76,7 +78,7 @@ const Blog = () => {
           setPage('');
           setFile('');
           dispatch(getMyBlogs());
-          toast.success('Yeni blog eklendi.', {
+          toast.success(t('New blog added'), {
             position: 'bottom-right',
             autoClose: 2000,
           });
@@ -90,7 +92,8 @@ const Blog = () => {
       .catch((err) => {
         setLoading(false);
         toast.error(
-          err.response?.data?.message || 'Blog eklenirken hata oluştu',
+          err.response?.data?.message ||
+            t('An error occurred while adding the blog'),
           {
             position: 'bottom-right',
             autoClose: 2000,
@@ -114,7 +117,7 @@ const Blog = () => {
       .then(function (response) {
         dispatch(getMyBlogs());
         setPage('');
-        toast.success('Blog güncellendi eklendi.', {
+        toast.success(t('Blog updated, added'), {
           position: 'bottom-right',
           autoClose: 2000,
         });
@@ -122,7 +125,7 @@ const Blog = () => {
       .catch((err) => {
         toast.error(
           err.response?.data?.message?.detail?.[0] ||
-          'Blog güncellenirken hata oluştu',
+            t('An error occurred while updating the blog'),
           {
             position: 'bottom-right',
             autoClose: 2000,
@@ -145,7 +148,7 @@ const Blog = () => {
         setPage('edit');
       })
       .catch(function (err) {
-        toast.error('Blog getirilirken hata oluştu', {
+        toast.error(t('An error occurred while fetching the blog'), {
           position: 'bottom-right',
           autoClose: 2000,
         });
@@ -161,13 +164,13 @@ const Blog = () => {
       })
       .then(function (response) {
         dispatch(getMyBlogs());
-        toast.success('Blog silindi.', {
+        toast.success(t('The blog has been deleted"'), {
           position: 'bottom-right',
           autoClose: 2000,
         });
       })
       .catch(function (err) {
-        toast.error('Blog eklenirken hata oluştu', {
+        toast.error(t('An error occurred while adding the blog'), {
           position: 'bottom-right',
           autoClose: 2000,
         });
@@ -206,12 +209,15 @@ const Blog = () => {
                   <Row>
                     <Col>
                       <>
-                        Blog ekleyebilir, profilinizi güncel ve önde
-                        tutabilirsiniz
+                        {t(
+                          'You can add a blog, keep your profile up-to-date and prominent'
+                        )}
                       </>
                       <br />
                       <>
-                        Blog yazılarınız ile ilgili güncelleme yapmak için blog@uc2bir.com ihtiyacınızınızı iletebilirsiniz.
+                        {t(
+                          'You can send your need to blog@uc2bir.com to update your blog posts'
+                        )}
                       </>
                     </Col>
                     <Col>
@@ -245,7 +251,7 @@ const Blog = () => {
                               component="label"
                               startIcon={<Svg.Pencil />}
                             >
-                              Fotoğraf Yükle
+                              {t('Upload Photo')}
                               <input
                                 type="file"
                                 hidden
@@ -260,7 +266,7 @@ const Blog = () => {
                           )}
 
                           <Material.TextField
-                            label="Başlık giriniz"
+                            label={t('Enter title')}
                             name="title"
                             required
                             defaultValue={data?.blog?.title}
@@ -268,7 +274,7 @@ const Blog = () => {
                           />
                         </div>
                         <Material.TexAreaField
-                          label="Detay Giriniz"
+                          label={t('Enter details')}
                           name="detail"
                           defaultValue={data?.blog?.detail}
                           required
@@ -280,7 +286,7 @@ const Blog = () => {
                         >
                           <Button
                             className="blue"
-                            text="Güncelle"
+                            text={t('update')}
                             type="submit"
                           />
                         </div>
@@ -312,12 +318,15 @@ const Blog = () => {
                 <Row>
                   <Col>
                     <>
-                      Blog ekleyebilir, profilinizi güncel ve önde
-                      tutabilirsiniz
+                      {t(
+                        'You can add a blog, keep your profile up-to-date and prominent'
+                      )}
                     </>
                     <br />
                     <>
-                      Blog yazılarınız ile ilgili güncelleme yapmak için blog@uc2bir.com ihtiyacınızınızı iletebilirsiniz.
+                      {t(
+                        'You can send your need to blog@uc2bir.com to update your blog posts'
+                      )}
                     </>
                   </Col>
                   <Col>
@@ -331,7 +340,7 @@ const Blog = () => {
                         fontSize="0.8rem"
                         mr="7px"
                       >
-                        Yeni Yazı Ekle
+                        {t('Add New Post')}
                       </Span>
                       <PlusButton onClick={() => setPage('create')} />
                     </div>
@@ -355,7 +364,7 @@ const Blog = () => {
                                       go(val?.id);
                                     }}
                                   >
-                                    Tümünü Gör
+                                    {t('See All')}
                                   </LinkText>
                                 </div>
                               </div>
@@ -365,7 +374,7 @@ const Blog = () => {
                               />
                               <Footer>
                                 <div className="footer-title">
-                                  Yazar : {user.name}
+                                  {t('writer')} : {user.name}
                                 </div>
                                 <div className="date">{val.created_at}</div>
                               </Footer>
@@ -417,12 +426,15 @@ const Blog = () => {
                 <Row>
                   <Col>
                     <>
-                      Blog ekleyebilir, profilinizi güncel ve önde
-                      tutabilirsiniz
+                      {t(
+                        'You can add a blog, keep your profile up-to-date and prominent'
+                      )}
                     </>
                     <br />
                     <>
-                      Blog yazılarınız ile ilgili güncelleme yapmak için blog@uc2bir.com ihtiyacınızınızı iletebilirsiniz.
+                      {t(
+                        'You can send your need to blog@uc2bir.com to update your blog posts'
+                      )}
                     </>
                   </Col>
                   <Col>
@@ -452,7 +464,7 @@ const Blog = () => {
                             component="label"
                             startIcon={<Svg.Pencil />}
                           >
-                            Fotoğraf Yükle
+                            {t('Upload Photo')}
                             <input
                               type="file"
                               accept="image/png, image/jpeg"
@@ -468,14 +480,14 @@ const Blog = () => {
                         )}
 
                         <Material.TextField
-                          label="Başlık giriniz"
+                          label={t('Enter title')}
                           name="title"
                           required
                           onChange={(e) => setTitle(e.target.value)}
                         />
                       </div>
                       <Material.TexAreaField
-                        label="Detay Giriniz"
+                        label={t('Enter details')}
                         name="detail"
                         required
                         onChange={(e) => setDetail(e.target.value)}

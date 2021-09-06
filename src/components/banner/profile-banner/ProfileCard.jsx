@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { useEffect, useState } from 'react';
-
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components/macro';
 import { Svg, Spinner } from 'components';
 import { NavLink } from 'react-router-dom';
@@ -23,6 +23,8 @@ const ProfileCard = ({
   location = null,
   children,
 }) => {
+  const { t } = useTranslation();
+
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const accessToken = auth?.accessToken;
@@ -47,7 +49,9 @@ const ProfileCard = ({
       .then(function () {
         dispatch(information());
         toast.success(
-          'Profil resminiz güncellendi. Onay verildiğinde size bildirim gelecektir.',
+          t(
+            'Your profile picture has been updated. You will be notified when approval is given'
+          ),
           {
             position: 'bottom-right',
             autoClose: 2000,
@@ -58,7 +62,7 @@ const ProfileCard = ({
       .catch(function () {
         setLoading(false);
 
-        toast.error('Dosya gönderilemedi.', {
+        toast.error(t('The file could not be sent'), {
           position: 'bottom-right',
           autoClose: 2000,
         });

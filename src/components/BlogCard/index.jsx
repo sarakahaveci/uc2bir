@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Title } from 'components';
 import TwitterIcon from 'assets/twitter.svg';
 import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 // import { Button } from 'react-scroll';
 // import { right } from 'styled-system';
 
@@ -14,6 +15,8 @@ export default function BlogCard({
   userName,
   detail_url = '',
 }) {
+  const { t } = useTranslation();
+
   const history = useHistory();
 
   return (
@@ -52,7 +55,7 @@ export default function BlogCard({
               }}
               style={{ display: 'flex', cursor: 'pointer' }}
             >
-              Devamını Oku
+              {t('Read More')}
             </ButtonWrapper>
           </div>
         </div>
@@ -77,7 +80,7 @@ export default function BlogCard({
           color="gray8"
           fontWeight="normal"
         >
-          Yazar: {userName}
+          {t('writer')} : {userName}
         </Title>
         <Title
           fontSize="11px"

@@ -4,8 +4,16 @@ import { Text, Svg } from 'components';
 import { Link } from 'react-router-dom';
 import { device } from 'utils';
 import BlockedIcon from 'assets/blocked.png';
+import { useTranslation } from 'react-i18next';
 
-const BlockUserModal = ({isBlocked,open, approve = () => {}, cancel = () => {} }) => {
+const BlockUserModal = ({
+  isBlocked,
+  open,
+  approve = () => {},
+  cancel = () => {},
+}) => {
+  const { t } = useTranslation();
+
   return (
     <Root style={{ display: open ? 'flex' : 'none' }}>
       <MainContainer>
@@ -24,10 +32,10 @@ const BlockUserModal = ({isBlocked,open, approve = () => {}, cancel = () => {} }
             fontWeight="500"
             textAlign="center"
           >
-            {isBlocked ? "Kullanıcının engelini kaldırmak istediginizden emin misin ?": "Kullanıcıyı engellemek istediginden emin misin ?" }
+            {isBlocked
+              ? t('Are you sure you want to unblock the user?')
+              : t('Are you sure you want to block the user?')}
           </Text>
-
-          
         </ContextContainer>
 
         <div className="modal-footer" closeIcon={false}>
@@ -37,7 +45,7 @@ const BlockUserModal = ({isBlocked,open, approve = () => {}, cancel = () => {} }
               approve(open);
             }}
           >
-            ONAYLA
+            {t('Approve')}
           </StyledButton>
         </div>
         <div className="modal-footer" closeIcon={false}>
@@ -46,7 +54,7 @@ const BlockUserModal = ({isBlocked,open, approve = () => {}, cancel = () => {} }
               cancel();
             }}
           >
-            VAZGEÇ
+            {t('Give Up')}
           </StyledButton>
         </div>
       </MainContainer>
@@ -94,16 +102,17 @@ const StyledButton = styled(Link)`
   text-align: center;
   display: block;
   width: 100%;
+  text-transform: uppercase;
 
   &:hover {
-    color: #F01C62;
+    color: #f01c62;
   }
 `;
 const Icon = styled.img`
-  width:70px;
-  height:70px;
-  margin-bottom:10px;
-`
+  width: 70px;
+  height: 70px;
+  margin-bottom: 10px;
+`;
 const ContextContainer = styled.div`
   display: flex;
   flex-direction: column;

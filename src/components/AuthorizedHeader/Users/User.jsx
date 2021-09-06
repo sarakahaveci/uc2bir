@@ -5,8 +5,8 @@ import List from '../HeaderList';
 import Item from '../HeaderItem';
 import TABS from 'constants/tabUri';
 import { useSelector } from 'react-redux';
-import defaultImage from '../../../assets/default-profile.jpg'
-import { useTranslation } from 'react-i18next'
+import defaultImage from '../../../assets/default-profile.jpg';
+import { useTranslation } from 'react-i18next';
 const User = ({ user_name, user_img = null, logoutHandler }) => {
   const { t } = useTranslation();
   /*const { data: allRooms } = useSelector(
@@ -22,29 +22,29 @@ const User = ({ user_name, user_img = null, logoutHandler }) => {
   }, [allRooms]);*/
   const userDependentMenu = [
     {
-      name: 'Profilim',
+      name: t('my profile'),
       icon: <Svg.UsernameIcon />,
       // It will be updated
       link: TABS.profilePath,
       pulse: true,
     },
     {
-      name: 'Rezervasyonlarım',
+      name: t('my reservations'),
       icon: <Svg.Date />,
       link: TABS.reservationsPath,
     },
     {
-      name: 'Paketlerim',
+      name: t('my packages'),
       icon: <Svg.Packet />,
       link: TABS.packetsPath,
     },
     {
-      name: 'Hesap Hareketleri',
+      name: t('Account Activities'),
       icon: <Svg.Wallet />,
       link: TABS.walletPath,
     },
     {
-      name: 'Çıkış Yap',
+      name: t('logout'),
       icon: <Svg.Closed />,
       onClick: logoutHandler,
     },
@@ -73,11 +73,14 @@ const User = ({ user_name, user_img = null, logoutHandler }) => {
     },
     {
       name: user_name,
-      icon: user_img ? <img style={{ objectFit: 'cover' }} src={user_img} /> : <img style={{ objectFit: 'cover' }} src={defaultImage} />,
+      icon: user_img ? (
+        <img style={{ objectFit: 'cover' }} src={user_img} />
+      ) : (
+        <img style={{ objectFit: 'cover' }} src={defaultImage} />
+      ),
       menu: userDependentMenu,
       pulse: true,
-      isUserMenu: true
-
+      isUserMenu: true,
     },
   ];
 
@@ -91,14 +94,17 @@ const User = ({ user_name, user_img = null, logoutHandler }) => {
             dropDown={val.menu || val.notify}
             linkPath={val?.linkPath}
           >
-            <Item isUserMenu={val?.isUserMenu} icon={val.icon} text={val.name} notify={val.notify} />
+            <Item
+              isUserMenu={val?.isUserMenu}
+              icon={val.icon}
+              text={val.name}
+              notify={val.notify}
+            />
           </List>
         );
       })}
-
     </>
   );
 };
-
 
 export default User;

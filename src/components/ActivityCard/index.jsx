@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { Tooltip, MenuItem, Input, Select } from '@material-ui/core';
 import styled from 'styled-components/macro';
 import { withStyles } from '@material-ui/core/styles';
-
+import { useTranslation } from 'react-i18next';
 import { Material, Button, Title, Svg } from 'components';
 import { sportTypeIconGenerator } from 'utils';
 import { updateWorkPlaceActivity, updatePTBranch } from 'actions';
@@ -27,6 +27,7 @@ export default function ActivityCard({
   userBranchList,
   icon,
 }) {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const { data: registerData } = useSelector((state) => state.registerData);
   const { isloading, subBranches } = useSelector(
@@ -49,8 +50,9 @@ export default function ActivityCard({
     )
   ) : (
     <ToolTipLabel>
-      Seçtiğin branş için sınıfın taramızca belirlendikten sonra sana bilgi
-      vereceğiz.
+      {t(
+        'We will inform you once the class for the branch you have chosen has been determined by us'
+      )}
     </ToolTipLabel>
   );
 
@@ -64,13 +66,13 @@ export default function ActivityCard({
 
   switch (status) {
     case 'pending':
-      statusText = 'Onay Bekliyor';
+      statusText = t('Waiting for approval');
       break;
     case 'active':
-      statusText = 'Onaylandı';
+      statusText = t('Approved');
       break;
     case 'passive':
-      statusText = 'Reddedildi';
+      statusText = t('Denied');
       break;
 
     default:
@@ -137,7 +139,9 @@ export default function ActivityCard({
             },
             () => {
               toast.success(
-                'Talebiniz gönderildi incelendikten sonra tarafınıza bildirim gönderilecektir.',
+                t(
+                  'After your request has been submitted, a notification will be sent to you'
+                ),
                 {
                   position: 'bottom-right',
                   autoClose: 7000,
@@ -153,7 +157,7 @@ export default function ActivityCard({
           )
         );
       } else {
-        toast.error('Lütfen Tüm Alanları Eksiksiz Doldurunuz', {
+        toast.error(t('Please fill all the blanks'), {
           position: 'bottom-right',
           autoClose: 7000,
         });
@@ -166,14 +170,16 @@ export default function ActivityCard({
             console.log(data?.data?.status);
             if (data?.data?.status === 'pending') {
               toast.success(
-                'Talebiniz gönderildi incelendikten sonra tarafınıza bildirim gönderilecektir.',
+                t(
+                  'After your request has been submitted, a notification will be sent to you'
+                ),
                 {
                   position: 'bottom-right',
                   autoClose: 7000,
                 }
               );
             } else if (data?.data?.status === 'approved') {
-              toast.success('Fiyat talebiniz onaylanmıştır.', {
+              toast.success(t('Your price request has been approved'), {
                 position: 'bottom-right',
                 autoClose: 7000,
               });
@@ -219,7 +225,7 @@ export default function ActivityCard({
         {isWorkPlace ? (
           <>
             <Select
-              placeholder="Aktivite Branşları"
+              placeholder={t('Activity Branches')}
               multiple
               value={selectedBranch}
               input={<Input />}
@@ -237,7 +243,7 @@ export default function ActivityCard({
             {capacity === 0 ? (
               <div>
                 <Material.TextField
-                  label="Kontenjan"
+                  label={t('Quota')}
                   type="number"
                   name="capacity"
                   onChange={handleFormOnChange}
@@ -250,7 +256,7 @@ export default function ActivityCard({
             ) : (
               <div>
                 <Material.TextField
-                  label="Kontenjan"
+                  label={t('Quota')}
                   type="number"
                   name="capacity"
                   onChange={handleFormOnChange}
@@ -264,7 +270,7 @@ export default function ActivityCard({
             {price === 0 ? (
               <div>
                 <Material.TextField
-                  label="Alan Kiralama Bedeli (TL)"
+                  label={t('Area Rental Fee (TL)')}
                   type="number"
                   name="price"
                   onChange={handleFormOnChange}
@@ -277,7 +283,7 @@ export default function ActivityCard({
             ) : (
               <div>
                 <Material.TextField
-                  label="Alan Kiralama Bedeli (TL)"
+                  label={t('Area Rental Fee (TL)')}
                   type="number"
                   name="price"
                   onChange={handleFormOnChange}
@@ -292,7 +298,7 @@ export default function ActivityCard({
         ) : (
           <>
             <Material.TextField
-              label="KLASİFİKASYON"
+              label={t('CLASSIFICATION')}
               type="text"
               name="class"
               changeValue={classification}
@@ -305,7 +311,7 @@ export default function ActivityCard({
                 {' '}
                 <HtmlTooltip title={tooltipLabel}>
                   <PriceLabel>
-                    ÜCRET <Svg.InfoIcon className="ml-1" />
+                    {t('FEE')} <Svg.InfoIcon className="ml-1" />
                   </PriceLabel>
                 </HtmlTooltip>
                 <Material.TextField
@@ -323,7 +329,7 @@ export default function ActivityCard({
                 {' '}
                 <HtmlTooltip title={tooltipLabel}>
                   <PriceLabel>
-                    ÜCRET <Svg.InfoIcon className="ml-1" />
+                    {t('FEE')} <Svg.InfoIcon className="ml-1" />
                   </PriceLabel>
                 </HtmlTooltip>
                 <Material.TextField
@@ -358,7 +364,7 @@ export default function ActivityCard({
         style={{ display: 'flex', width: '100%', justifyContent: 'flex-end' }}
       >
         <StyledButton
-          text="Kaydet"
+          text={t('save')}
           fontWeight="500"
           onClick={submitChange}
           disabled={!isAccepted || waitingPrice || isInitialForm}

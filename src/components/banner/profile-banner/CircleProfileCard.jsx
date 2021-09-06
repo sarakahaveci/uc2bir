@@ -1,11 +1,10 @@
 // @ts-nocheck
 import React, { useEffect, useState } from 'react';
-
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components/macro';
 import { Svg, Spinner } from 'components';
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-
 
 import { useFileUpload } from 'use-file-upload';
 import FormData from 'form-data';
@@ -16,106 +15,116 @@ import defaultImg from '../../../assets/default-profile.jpg';
 import { information } from 'actions';
 import { resizeFile } from '../../../utils';
 
-const CircleProfileCard = ({
-}) => {
-    const auth = useSelector((state) => state.auth);
-    const dispatch = useDispatch();
-    const accessToken = auth?.accessToken;
-    const [loading, setLoading] = useState(false);
+const CircleProfileCard = ({}) => {
+  const { t } = useTranslation();
 
-    const [files, selectFiles] = useFileUpload();
-    const config = {
-        method: 'post',
-        url: `${process.env.REACT_APP_API_URL}/user/profile/file`,
-        headers: {
-            Authorization: `Bearer ${accessToken}`,
-        },
-    };
-    const createData = new FormData();
+  const auth = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const accessToken = auth?.accessToken;
+  const [loading, setLoading] = useState(false);
 
-    const upload = async () => {
-        setLoading(true);
-        const resizedFile = await resizeFile(files?.file);
-        createData.append('files[]', resizedFile);
-        createData.append('type_id', '1');
-        axios({ ...config, data: createData })
-            .then(function () {
-                dispatch(information());
-                toast.success(
-                    'Profil resminiz güncellendi. Onay verildiğinde size bildirim gelecektir.',
-                    {
-                        position: 'bottom-right',
-                        autoClose: 2000,
-                    }
-                );
-                setLoading(false);
-            })
-            .catch(function () {
-                setLoading(false);
+  const [files, selectFiles] = useFileUpload();
+  const config = {
+    method: 'post',
+    url: `${process.env.REACT_APP_API_URL}/user/profile/file`,
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  };
+  const createData = new FormData();
 
-                toast.error('Dosya gönderilemedi.', {
-                    position: 'bottom-right',
-                    autoClose: 2000,
-                });
-            });
-    };
+  const upload = async () => {
+    setLoading(true);
+    const resizedFile = await resizeFile(files?.file);
+    createData.append('files[]', resizedFile);
+    createData.append('type_id', '1');
+    axios({ ...config, data: createData })
+      .then(function () {
+        dispatch(information());
+        toast.success(
+          t(
+            'Your profile picture has been updated. You will be notified when approval is given'
+          ),
+          {
+            position: 'bottom-right',
+            autoClose: 2000,
+          }
+        );
+        setLoading(false);
+      })
+      .catch(function () {
+        setLoading(false);
 
-    useEffect(() => {
-        if (files?.file) {
-            upload();
-        }
-    }, [files]);
+        toast.error(t('The file could not be sent'), {
+          position: 'bottom-right',
+          autoClose: 2000,
+        });
+      });
+  };
 
-    return (
-        <CircleImage img={auth?.user?.photo || defaultImg} >
-            <CameraContainer style={{position:'absolute',bottom:'20px',background:'white',padding:'5px',borderRadius:'5px',right:'-5px'}} className="span background camera">
-                {!loading ? (
-                    <Svg.Camera
-                        onClick={() => {
-                            selectFiles(
-                                { accept: 'image/*' },
-                                ({ name, size, source, file }) => {
-                                    return {
-                                        name,
-                                        size,
-                                        source,
-                                        file,
-                                    };
-                                }
-                            );
-                        }}
-                    />
-                ) : (
-                    <Spinner type="static" />
-                )}
-            </CameraContainer>
+  useEffect(() => {
+    if (files?.file) {
+      upload();
+    }
+  }, [files]);
 
-            <NotificationLink
-                activeClassName="active-bell"
-                to="/myprofile/settings/notifications"
-            >
-                <Svg.Notification />
-            </NotificationLink>
+  return (
+    <CircleImage img={auth?.user?.photo || defaultImg}>
+      <CameraContainer
+        style={{
+          position: 'absolute',
+          bottom: '20px',
+          background: 'white',
+          padding: '5px',
+          borderRadius: '5px',
+          right: '-5px',
+        }}
+        className="span background camera"
+      >
+        {!loading ? (
+          <Svg.Camera
+            onClick={() => {
+              selectFiles(
+                { accept: 'image/*' },
+                ({ name, size, source, file }) => {
+                  return {
+                    name,
+                    size,
+                    source,
+                    file,
+                  };
+                }
+              );
+            }}
+          />
+        ) : (
+          <Spinner type="static" />
+        )}
+      </CameraContainer>
 
-        </CircleImage>
-    );
+      <NotificationLink
+        activeClassName="active-bell"
+        to="/myprofile/settings/notifications"
+      >
+        <Svg.Notification />
+      </NotificationLink>
+    </CircleImage>
+  );
 };
 
-
-
 const CircleImage = styled.div`
-width:160px;
-height:160px;
-border-radius:100%;
-background-image: url('${(props) => props.img}');
-background-repeat: no-repeat;
-background-size: cover;
-position:relative;
-`
+  width: 160px;
+  height: 160px;
+  border-radius: 100%;
+  background-image: url('${(props) => props.img}');
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+`;
 const CameraContainer = styled.span`
-cursor:pointer;
-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-`
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+`;
 const NotificationLink = styled(NavLink)`
   position: absolute;
   right: -5px;

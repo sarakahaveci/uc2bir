@@ -6,6 +6,7 @@ import { Material } from 'components';
 import { getStaticPage } from 'actions';
 import { Modal } from 'react-bootstrap';
 import MultiContractWallet from '../Confirmations/MultiContractWallet';
+import { useTranslation } from 'react-i18next';
 
 const CashTransferUser = ({
   setCardName,
@@ -19,6 +20,8 @@ const CashTransferUser = ({
   defaultCVV,
   setAmount,
 }) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   // const reservation = useSelector((state) => state.reservation);
   const [openModal, setOpenModal] = useState(false);
@@ -35,11 +38,11 @@ const CashTransferUser = ({
       <InfoContainer>
         <DataContainer>
           <Info borderDisable>
-            <Text style={{ fontWeight: 800 }}>Kart Bilgileri</Text>
+            <Text style={{ fontWeight: 800 }}>{t('Card Information')}</Text>
           </Info>
 
           <Material.TextField
-            label="Kart Üzerindeki İsim"
+            label={t('name on the card')}
             type="text"
             name="holder_name"
             defaultValue={defaultCardName}
@@ -51,7 +54,7 @@ const CashTransferUser = ({
 
           <Material.TextField
             mask="9999 9999 9999 9999"
-            label="Kart No Giriniz"
+            label={t('Enter Card Number')}
             type="text"
             name="card_number"
             defaultValue={defaultCardNo} /*reservation?.data?.card_number*/
@@ -62,7 +65,7 @@ const CashTransferUser = ({
           />
           <Info borderDisable>
             <Material.TextField
-              label="SKT"
+              label={t('EXP')}
               type="text"
               name="skt"
               mask="99/99"
@@ -97,7 +100,7 @@ const CashTransferUser = ({
           </Info>
           <Material.TextField
             style={{ marginBottom: '20px' }}
-            label="Yüklenecek Tutarı Giriniz (TL)"
+            label={t('Enter Amount to Load (TL)')}
             type="number"
             name="amount"
             // defaultValue={}
@@ -108,8 +111,9 @@ const CashTransferUser = ({
         </DataContainer>
         <div style={{ padding: '10px' }}>
           <text>
-            Güvenliğiniz sebebi ile bu işleminiz 3D secure ile
-            gerçekleştirilecektir.
+            {t(
+              'For your security, this transaction will be carried out with 3D secure'
+            )}
           </text>
         </div>
         <div style={{ padding: '10px' }}>
@@ -121,8 +125,9 @@ const CashTransferUser = ({
             label={
               <div>
                 <span className="underline-text" onClick={() => {}}>
-                  Ön Bilgilendirme Koşulları’nı ve Mesafeli Satış Sözleşmesini
-                  okudum, onaylıyorum.
+                  {t(
+                    'I have read and approve the Preliminary Information Conditions and the Distance Sales Agreement'
+                  )}
                 </span>
               </div>
             }

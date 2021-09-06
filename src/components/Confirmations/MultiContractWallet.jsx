@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactHtmlParser from 'react-html-parser';
 import { decode } from 'html-entities';
+import { useTranslation } from 'react-i18next';
 
 import { Button, Title, Box, Svg } from 'components';
 import {
@@ -13,6 +14,8 @@ import {
 import styled from 'styled-components/macro';
 
 const MultiContract = ({ setOpenModal, confirmationData, setAccept }) => {
+  const { t } = useTranslation();
+
   return (
     <Container>
       <Svg.CloseIcon
@@ -27,7 +30,7 @@ const MultiContract = ({ setOpenModal, confirmationData, setAccept }) => {
         letterSpacing={false}
         textAlign="left"
       >
-        Sözleşmeler ve Formlar
+        {t('Contracts and Forms')}
       </Title>
       <ContractsContainer>
         {confirmationData['uye-on-bilgilendirme-formu'] && (
