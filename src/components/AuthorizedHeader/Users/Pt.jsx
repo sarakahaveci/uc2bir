@@ -5,8 +5,8 @@ import List from '../HeaderList';
 import Item from '../HeaderItem';
 import TABS from 'constants/tabUri';
 import { useSelector } from 'react-redux';
-import defaultImage from '../../../assets/default-profile.jpg'
-import { useTranslation } from 'react-i18next'
+import defaultImage from '../../../assets/default-profile.jpg';
+import { useTranslation } from 'react-i18next';
 const Pt = ({ user_name, user_img = null, logoutHandler }) => {
   const { t } = useTranslation();
 
@@ -15,44 +15,43 @@ const Pt = ({ user_name, user_img = null, logoutHandler }) => {
   );
   const [count, setCount] = useState(0);
   useEffect(() => {
-    setCount(allRooms?.filter(value => value.unread_messages === 1).length);
-
+    setCount(allRooms?.filter((value) => value.unread_messages === 1).length);
   }, [allRooms]);
   const userDependentMenu = [
     {
-      name: 'Profilim',
+      name: t('my profile'),
       icon: <Svg.UsernameIcon />,
       link: TABS.profileDetailPath,
       pulse: true,
     },
 
-       {
-      name: 'Paketlerim',
+    {
+      name: t('my packages'),
       icon: <Svg.Packet />,
       link: TABS.packetsPath,
     },
     {
-      name: 'Oturum Türleri & Çalıştığım Yerler',
+      name: t('Session Types & Where I Work'),
       icon: <Svg.PtHome />,
       link: TABS.sessiontypePath,
     },
     {
-      name: 'Branşlarım & Ücretlerim',
+      name: t('My Branches & Fees'),
       icon: <Svg.PtBranch />,
       link: TABS.branchPath,
     },
     {
-      name: 'Uzmanlıklarım',
+      name: t('my specialties'),
       icon: <Svg.Expert />,
       link: TABS.specialtiesPath,
     },
-   {
-      name: 'Cüzdan',
+    {
+      name: t('my wallet'),
       icon: <Svg.Wallet />,
       link: TABS.walletPath,
     },
     {
-      name: 'Galeri',
+      name: t('Gallery'),
       icon: <Svg.Gallery />,
       link: TABS.galleryPath,
     },
@@ -62,7 +61,7 @@ const Pt = ({ user_name, user_img = null, logoutHandler }) => {
       link: TABS.blogPath,
     },
     {
-      name: 'Çıkış Yap',
+      name: t('logout'),
       icon: <Svg.Closed />,
       onClick: logoutHandler,
     },
@@ -89,9 +88,13 @@ const Pt = ({ user_name, user_img = null, logoutHandler }) => {
       linkPath: TABS.reservationsPath,
     },
     {
-      isUserMenu:true,
+      isUserMenu: true,
       name: user_name,
-      icon: user_img ? <img style={{objectFit:'cover'}} src={user_img}/> : <img style={{objectFit:'cover'}} src={defaultImage}/>,
+      icon: user_img ? (
+        <img style={{ objectFit: 'cover' }} src={user_img} />
+      ) : (
+        <img style={{ objectFit: 'cover' }} src={defaultImage} />
+      ),
       menu: userDependentMenu,
       pulse: true,
     },
@@ -108,7 +111,6 @@ const Pt = ({ user_name, user_img = null, logoutHandler }) => {
             linkPath={val?.linkPath}
           >
             <Item
-
               icon={val.icon}
               text={val.name}
               notify={val.notify}

@@ -1,6 +1,6 @@
 {
   "slogan_1": "Tarzını Seç, Hemen Branşlara Göz At",
-  "trainers": "EĞİTMENLER",
+  "trainers": "Eğitmenler",
   "trainers_slogan": "EN İYİ EĞİTMENLER İLE ÇALIŞMA FIRSATI",
   "what are you looking for": "Ne arıyorsun ? ",
   "aboutUs": "Üç2Bir HAKKINDA",
@@ -17,6 +17,7 @@
   "Approve": "Onayla",
   "Denied": "Reddedildi",
   "Reject": "Reddet",
+  "Give Up": "Vazgeç",
   "After your request has been submitted, a notification will be sent to you": "Talebiniz gönderildi incelendikten sonra tarafınıza bildirim gönderilecektir.",
   "Please fill all the blanks": "Lütfen Tüm Alanları Eksiksiz Doldurunuz",
   "Your price request has been approved": "Fiyat talebiniz onaylanmıştır.",
@@ -47,5 +48,19 @@
   "Lesson Not Held": "Ders Yapılmadı",
   "Evaluation": "Değerlendirme",
   "done": "Yapıldı",
-  "notDone": "Yapılmadı"
+  "notDone": "Yapılmadı",
+  "Are you sure you want to confirm the reservation?": " Rezervasyonu onaylamak istediğinize emin misiniz?",
+  "my profile": "Profilim",
+  "my packages": "Paketlerim",
+  "Session Types & Where I Work": "Oturum Türleri & Çalıştığım Yerler",
+  "my fees": "Ücretlerim",
+  "my specialties": "Uzmanlıklarım",
+  "my wallet": "Cüzdanım",
+  "Gallery": "Galeri",
+  "logout": "Çıkış Yap",
+  "Facilities": "Facilities",
+  "Fields of Activity": "Faaliyet Alanları",
+  "My Branches & Fees": "Branşlarım & Ücretlerim",
+  "my reservations": "Rezervasyonlarım",
+  "Account Activities": "Hesap hareketleri"
 }

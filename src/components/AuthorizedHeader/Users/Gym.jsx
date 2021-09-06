@@ -5,8 +5,9 @@ import List from '../HeaderList';
 import Item from '../HeaderItem';
 import TABS from 'constants/tabUri';
 import { useSelector } from 'react-redux';
-import defaultImage from '../../../assets/default-profile.jpg'
-import { useTranslation } from 'react-i18next'
+import defaultImage from '../../../assets/default-profile.jpg';
+import { useTranslation } from 'react-i18next';
+
 const Gym = ({ user_name, user_img = null, logoutHandler }) => {
   const { data: allRooms } = useSelector(
     (state) => state.profileSettings2.messages.rooms
@@ -15,44 +16,43 @@ const Gym = ({ user_name, user_img = null, logoutHandler }) => {
 
   const [count, setCount] = useState(0);
   useEffect(() => {
-    setCount(allRooms?.filter(value => value.unread_messages === 1).length);
-
+    setCount(allRooms?.filter((value) => value.unread_messages === 1).length);
   }, [allRooms]);
 
   const userDependentMenu = [
     {
-      name: 'Profilim',
+      name: t('my profile'),
       icon: <Svg.UsernameIcon />,
       link: TABS.profileDetailPath,
       pulse: true,
     },
     {
-      name: 'Olanaklar',
+      name: t('Facilities'),
       icon: <Svg.TickTick />,
       link: TABS.facilityPath,
     },
     {
-      name: 'Faaliyet Alanları',
+      name: t('Fields of Activity'),
       icon: <Svg.PtHome />,
       link: TABS.activityPath,
     },
     {
-      name: 'Eğitmenler',
+      name: t('Trainers'),
       icon: <Svg.PeopleGroups />,
       link: TABS.trainersPath,
     },
     {
-      name: 'Cüzdanım',
+      name: t('my wallet'),
       icon: <Svg.Wallet />,
       link: TABS.walletPath,
     },
     {
-      name: 'Galeri',
+      name: t('Gallery'),
       icon: <Svg.Gallery />,
       link: TABS.galleryPath,
     },
     {
-      name: 'Çıkış Yap',
+      name: t('logout'),
       icon: <Svg.Closed />,
       onClick: logoutHandler,
     },
@@ -80,11 +80,14 @@ const Gym = ({ user_name, user_img = null, logoutHandler }) => {
     },
     {
       name: user_name,
-      icon: user_img ? <img style={{ objectFit: 'cover' }} src={user_img} /> : <img style={{ objectFit: 'cover' }} src={defaultImage} />,
+      icon: user_img ? (
+        <img style={{ objectFit: 'cover' }} src={user_img} />
+      ) : (
+        <img style={{ objectFit: 'cover' }} src={defaultImage} />
+      ),
       menu: userDependentMenu,
       pulse: true,
-      isUserMenu: true
-
+      isUserMenu: true,
     },
   ];
 
@@ -104,7 +107,6 @@ const Gym = ({ user_name, user_img = null, logoutHandler }) => {
               notify={val.notify}
               pulse={val.pulse}
               isUserMenu={val?.isUserMenu}
-
             />
           </List>
         );

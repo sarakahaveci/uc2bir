@@ -1,6 +1,6 @@
 {
   "slogan_1": "Tarzını Seç, Hemen Branşlara Göz At",
-  "trainers": "TRAİNERS",
+  "trainers": "Trainers",
   "trainers_slogan": "EN İYİ EĞİTMENLER İLE ÇALIŞMA FIRSATI",
   "what are you looking for": "What are you looking for ?",
   "aboutUs": "About Üç2Bir",
@@ -17,6 +17,7 @@
   "Approve": "Approve",
   "Denied": "Denied",
   "Reject": "Reject",
+  "Give Up": "Give Up",
   "After your request has been submitted, a notification will be sent to you": "After your request has been submitted, a notification will be sent to you.",
   "Please fill all the blanks": "Please fill all the blanks",
   "Your price request has been approved": "Your price request has been approved.",
@@ -47,5 +48,19 @@
   "Lesson Not Held": "Lesson Not Held",
   "Evaluation": "Evaluation",
   "done": "Done",
-  "notDone": "Not Done"
+  "notDone": "Not Done",
+  "Are you sure you want to confirm the reservation?": "Are you sure you want to confirm the reservation?",
+  "my profile": "My Profile",
+  "my packages": "My Packages",
+  "Session Types & Where I Work": "Session Types & Where I Work",
+  "my fees": "My Fees",
+  "my specialties": "My Specialties",
+  "my wallet": "My wallet",
+  "Gallery": "Gallery",
+  "logout": "Log Out",
+  "Facilities": "Facilities",
+  "Fields of Activity": "Fields of Activity",
+  "My Branches & Fees": "My Branches & Fees",
+  "my reservations": "My Reservations",
+  "Account Activities": "Account Activities"
 }

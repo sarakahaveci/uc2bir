@@ -3,6 +3,7 @@ import styled from 'styled-components/macro';
 import Svg from '../statics/svg';
 import { device } from 'utils';
 import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const ApproveCard = ({
   user_id,
@@ -28,6 +29,8 @@ const ApproveCard = ({
   type = 'await',
   rateText = '',
 }) => {
+  const { t } = useTranslation();
+
   const history = useHistory();
   useEffect(() => {}, []);
   function getRejectReason() {
