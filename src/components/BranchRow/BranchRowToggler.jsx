@@ -3,13 +3,14 @@ import { useSelector } from 'react-redux';
 
 import styled, { css } from 'styled-components/macro';
 import { Svg, AwesomeIcon, Box } from 'components';
-import { DIETITIAN,WORK_PLACE } from '../../constants';
+import { DIETITIAN, WORK_PLACE } from '../../constants';
 import moment from 'moment';
+import { useTranslation } from 'react-i18next';
 
 const BranchRowToggler = ({ isActive, data, typeId }) => {
-  const { userInfo } = useSelector(
-    (state) => state.userProfile.userInfo
-  );
+  const { t } = useTranslation();
+
+  const { userInfo } = useSelector((state) => state.userProfile.userInfo);
   return (
     <StyledCardHeader isActive={isActive}>
       {typeId === DIETITIAN ? (
@@ -23,9 +24,11 @@ const BranchRowToggler = ({ isActive, data, typeId }) => {
         </StyledRow>
       )}
 
-      {userInfo?.type_id !== DIETITIAN  &&  userInfo?.type_id !== WORK_PLACE ?  (
+      {userInfo?.type_id !== DIETITIAN && userInfo?.type_id !== WORK_PLACE ? (
         <Box row>
-          <RightCell>{data.classification} Seviye</RightCell>
+          <RightCell>
+            {data.classification} {t('Level')}
+          </RightCell>
           <RightCell className="mid">
             <span>{data.price}</span>
             <AwesomeIcon.Tl />

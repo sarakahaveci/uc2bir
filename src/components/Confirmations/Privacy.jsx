@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactHtmlParser from 'react-html-parser';
 import { decode } from 'html-entities';
+import { useTranslation } from 'react-i18next';
 
 import { Button, Title, Material, Box, Text, Svg } from 'components';
 import {
@@ -27,6 +28,8 @@ const Privacy = ({
   confirmationData,
   userTypeId,
 }) => {
+  const { t } = useTranslation();
+
   const [acceptFirst, setAcceptFirst] = useState(false);
 
   const privacyData = confirmationData.find(
@@ -53,7 +56,7 @@ const Privacy = ({
         letterSpacing={false}
         textAlign="left"
       >
-        Sözleşmeler ve Formlar
+        {t('Contracts and Forms')}
       </Title>
 
       {userTypeId ? (
@@ -80,15 +83,17 @@ const Privacy = ({
               textAlign="left"
               margin="0 0 0 40px"
             >
-              Ön Bilgilendirme Koşullarını ve Mesafeli Satış Sözleşmesi’ni
-              okudum.
+              {t(
+                'I have read and approve the Preliminary Information Conditions and the Distance Sales Agreement'
+              )}
             </Text>
           </ConfirmContainer>
         </>
       ) : (
         <Text color="dark" fontWeight="500" my="20px" lineHeight="20px">
-          Üye sözleşmelerini görebilmeniz için üyelik tipinden birini seçmeniz
-          gerekmektedir.
+          {t(
+            'In order to see the member agreements, you need to choose one of the membership types'
+          )}
         </Text>
       )}
 

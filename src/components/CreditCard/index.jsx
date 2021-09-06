@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Material, MultiContract } from 'components';
 import { getStaticPage, setReservation } from 'actions';
 import { Modal } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 const CreditCard = ({
   onCardName = () => {},
@@ -16,6 +17,8 @@ const CreditCard = ({
   defaultSKT,
   defaultCVV,
 }) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const reservation = useSelector((state) => state.reservation);
   const [openModal, setOpenModal] = useState(false);
@@ -31,11 +34,11 @@ const CreditCard = ({
       <InfoContainer>
         <DataContainer>
           <Info borderDisable>
-            <Text style={{ fontWeight: 800 }}>Kart Bilgileri</Text>
+            <Text style={{ fontWeight: 800 }}>{t('Card Information')}</Text>
           </Info>
 
           <Material.TextField
-            label="Kart Üzerindeki İsim"
+            label={t('name on the card')}
             type="text"
             name="holder_name"
             defaultValue={defaultCardName}
@@ -47,7 +50,7 @@ const CreditCard = ({
 
           <Material.TextField
             mask="9999 9999 9999 9999"
-            label="Kart No Giriniz"
+            label={t('Enter Card Number')}
             type="text"
             name="card_number"
             defaultValue={defaultCardNo} /*reservation?.data?.card_number*/
@@ -58,7 +61,7 @@ const CreditCard = ({
           />
           <Info borderDisable>
             <Material.TextField
-              label="SKT"
+              label={t('EXP')}
               type="text"
               name="skt"
               mask="99/99"
@@ -93,8 +96,9 @@ const CreditCard = ({
         </DataContainer>
         <div style={{ padding: '10px' }}>
           <text>
-            Güvenliğiniz sebebi ile bu işleminiz 3D secure ile
-            gerçekleştirilecektir.
+            {t(
+              'For your security, this transaction will be carried out with 3D secure'
+            )}
           </text>
         </div>
         <div style={{ padding: '10px' }}>
@@ -110,8 +114,9 @@ const CreditCard = ({
             label={
               <div>
                 <span className="underline-text" onClick={() => {}}>
-                  Ön Bilgilendirme Koşulları’nı ve Mesafeli Satış Sözleşmesini
-                  okudum, onaylıyorum.
+                  {t(
+                    'I have read and approve the Preliminary Information Conditions and the Distance Sales Agreement'
+                  )}
                 </span>
               </div>
             }

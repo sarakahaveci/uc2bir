@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactHtmlParser from 'react-html-parser';
 import { decode } from 'html-entities';
+import { useTranslation } from 'react-i18next';
 
 import { Button, Title, Material, Box, Text, Svg } from 'components';
 import {
@@ -19,6 +20,8 @@ const MultiContract = ({
   acceptKvkk,
   confirmationData,
 }) => {
+  const { t } = useTranslation();
+
   const [acceptFirst, setAcceptFirst] = useState(false);
 
   useEffect(() => {
@@ -41,7 +44,7 @@ const MultiContract = ({
         letterSpacing={false}
         textAlign="left"
       >
-        Sözleşmeler ve Formlar
+        {t('Contracts and Forms')}
       </Title>
       <ContractsContainer>
         {confirmationData['uye-on-bilgilendirme-formu'] && (
@@ -95,8 +98,9 @@ const MultiContract = ({
                 textAlign="left"
                 margin="0 0 0 40px"
               >
-                Ön Bilgilendirme Koşullarını ve Mesafeli Satış Sözleşmesi’ni
-                okudum.
+                {t(
+                  'I have read and approve the Preliminary Information Conditions and the Distance Sales Agreement'
+                )}
               </Text>
             </ConfirmContainer>
           </>

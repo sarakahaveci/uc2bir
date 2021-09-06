@@ -5,6 +5,7 @@ import { Button } from 'components';
 import { getWallet } from 'actions/userProfileActions/walletActions';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 
 export default function CashTransferConfirmUser({
   amount,
@@ -14,6 +15,8 @@ export default function CashTransferConfirmUser({
   sktYY,
   CVV,
 }) {
+  const { t } = useTranslation();
+
   const wallet = useSelector((state) => state?.userProfile?.wallet);
   const { accessToken } = useSelector((state) => state.auth);
   const formRef = useRef(null);
@@ -56,7 +59,7 @@ export default function CashTransferConfirmUser({
       <InfoContainer>
         <DataContainer>
           <Info>
-            <Text style={{ fontWeight: 600 }}>Cüzdanınız</Text>
+            <Text style={{ fontWeight: 600 }}>{t('your wallet')}</Text>
             <br />
             <Text style={{ fontWeight: 400 }}>
               Cüzdanınızda <u>{wallet?.data?.balance}₺</u> bulunmaktadır.
@@ -65,7 +68,7 @@ export default function CashTransferConfirmUser({
 
           <ConfirmContainer>
             <BottomContainer>
-              <Text style={{ fontWeight: 800 }}>Toplam Ücret</Text>
+              <Text style={{ fontWeight: 800 }}>{t('Total Fee')}</Text>
               <Text color="#00B2A9" style={{ fontWeight: 600, fontSize: 20 }}>
                 {amount ? amount : 0}₺
               </Text>
