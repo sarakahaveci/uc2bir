@@ -72,5 +72,21 @@
   "About me": "About me",
   "Profile not found": "Profile not found",
   "Are you sure you want to unblock the user?": "Are you sure you want to unblock the user?",
-  "Are you sure you want to block the user?": "Are you sure you want to block the user?"
+  "Are you sure you want to block the user?": "Are you sure you want to block the user?",
+  "Read more": "Read more",
+  "New blog added": "New blog added.",
+  "An error occurred while adding the blog": "An error occurred while adding the blog.",
+  "Blog updated, added": "Blog updated, added.",
+  "An error occurred while updating the blog": "An error occurred while updating the blog.",
+  "An error occurred while fetching the blog": "An error occurred while fetching the blog.",
+  "The blog has been deleted": "The blog has been deleted.",
+  "You can add a blog, keep your profile up-to-date and prominent": "You can add a blog, keep your profile up-to-date and prominent",
+  "You can send your need to blog@uc2bir.com to update your blog posts": "You can send your need to blog@uc2bir.com to update your blog posts.",
+  "Upload Photo": "Upload Photo",
+  "Enter title": "Enter title",
+  "Enter details": "Enter details",
+  "update": "Update",
+  "Add New Post": "Add New Post",
+  "See All": "See All",
+  "writer": "Writer"
 }

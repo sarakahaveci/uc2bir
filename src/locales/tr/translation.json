@@ -72,5 +72,21 @@
   "About me": "Hakkımda",
   "Profile not found": "Profil bulunamamaktadır",
   "Are you sure you want to unblock the user?": "Kullanıcının engelini kaldırmak istediğinizden emin misin?",
-  "Are you sure you want to block the user?": "Kullanıcıyı engellemek istediğinden emin misin?"
+  "Are you sure you want to block the user?": "Kullanıcıyı engellemek istediğinden emin misin?",
+  "Read more": "Devamını Oku",
+  "New blog added": "Yeni blog eklendi.",
+  "An error occurred while adding the blog": "Blog eklenirken hata oluştu.",
+  "Blog updated, added": "Blog güncellendi, eklendi.",
+  "An error occurred while updating the blog": "Blog güncellenirken hata oluştu.",
+  "An error occurred while fetching the blog": "Blog getirilirken hata oluştu.",
+  "The blog has been deleted": "Blog silindi",
+  "You can add a blog, keep your profile up-to-date and prominent": "Blog ekleyebilir, profilinizi güncel ve önde tutabilirsiniz",
+  "You can send your need to blog@uc2bir.com to update your blog posts": "Blog yazılarınız ile ilgili güncelleme yapmak için blog@uc2bir.com ihtiyacınızınızı iletebilirsiniz",
+  "Upload Photo": "Fotoğraf Yükle",
+  "Enter title": "Başlık Giriniz",
+  "Enter details": "Detay Giriniz",
+  "update": "Güncelle",
+  "Add New Post": "Yeni Yazı Ekle",
+  "See All": "Tümünü Gör",
+  "writer": "Yazar"
 }

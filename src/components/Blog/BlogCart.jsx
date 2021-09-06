@@ -2,10 +2,12 @@ import React from 'react';
 import Button from '../buttons/button';
 import { useHistory } from 'react-router-dom';
 import cx from 'classnames';
-
+import { useTranslation } from 'react-i18next';
 import isNumberEven from 'utils/isNumberEven';
 
 const BlogCart = ({ blogOrder, data = [] }) => {
+  const { t } = useTranslation();
+
   const history = useHistory();
   const go = () => {
     return history.push('/blog-detail/' + data?.seo_friendly_url);
@@ -28,7 +30,7 @@ const BlogCart = ({ blogOrder, data = [] }) => {
         <Button
           perspective
           className="bl-btn"
-          text="Devamını Oku"
+          text={t('Read More')}
           onClick={go}
         />
       </div>
