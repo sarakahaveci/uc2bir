@@ -62,5 +62,15 @@
   "Fields of Activity": "Faaliyet Alanları",
   "My Branches & Fees": "Branşlarım & Ücretlerim",
   "my reservations": "Rezervasyonlarım",
-  "Account Activities": "Hesap hareketleri"
+  "Account Activities": "Hesap hareketleri",
+  "Address information has not been entered yet": "Adres bilgileri henüz girmedi.",
+  "Your profile picture has been updated. You will be notified when approval is given": "Profil resminiz güncellendi. Onay verildiğinde size bildirim gelecektir.",
+  "The file could not be sent": "Dosya gönderilemedi.",
+  "unblock": "Engeli kaldır",
+  "block": "Engelle",
+  "Create Calendar": "Takvim Oluştur",
+  "About me": "Hakkımda",
+  "Profile not found": "Profil bulunamamaktadır",
+  "Are you sure you want to unblock the user?": "Kullanıcının engelini kaldırmak istediğinizden emin misin?",
+  "Are you sure you want to block the user?": "Kullanıcıyı engellemek istediğinden emin misin?"
 }

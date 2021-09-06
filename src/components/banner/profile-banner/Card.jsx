@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import { Title, AwesomeIcon, IconLabel, PriceInfo } from 'components';
 
@@ -13,6 +14,8 @@ export const CardInfo = ({
   location,
   jobType,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <>
       {name && (
@@ -70,10 +73,14 @@ export const CardInfo = ({
           ))}
         </Categories>
       )}
-      {(location && location !== "null,null") ? <IconLabel text={location} icon={AwesomeIcon.Map} />
-        :
-        <IconLabel text={"Adres bilgileri henüz girilmedi."} icon={AwesomeIcon.Map} />
-      }
+      {location && location !== 'null,null' ? (
+        <IconLabel text={location} icon={AwesomeIcon.Map} />
+      ) : (
+        <IconLabel
+          text={t('Address information has not been entered yet')}
+          icon={AwesomeIcon.Map}
+        />
+      )}
     </>
   );
 };

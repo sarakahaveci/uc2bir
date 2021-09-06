@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import styled, { css } from 'styled-components/macro';
 import { Button, Svg, Stars } from 'components';
-
+import { useTranslation } from 'react-i18next';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { BlockUserModal } from 'components';
@@ -24,6 +24,8 @@ const ProfileBanner = ({
   setPage = () => {},
   isUserDetail = false,
 }) => {
+  const { t } = useTranslation();
+
   const [isFavorited, setIsFavorited] = useState(info.has_favorite === 1);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
@@ -113,9 +115,7 @@ const ProfileBanner = ({
                               openBlockModal();
                             }}
                           >
-                            {info?.isBlocked
-                              ? 'Engeli kaldır'
-                              : 'Kullanıcıyı Engelle'}
+                            {info?.isBlocked ? t('unblock') : t('block')}
                           </BlockUser>
                         </BlockContainer>
                       </Wrapper>
@@ -167,7 +167,7 @@ const ProfileBanner = ({
                           dispatch(setReservation({ isSelected: false }));
                           setPage('Reservation');
                         }}
-                        text="Takvim Oluştur"
+                        text={t('Create Calendar')}
                         className="blue list"
                         style={{ fontSize: '9pt' }}
                       />
@@ -191,7 +191,7 @@ const ProfileBanner = ({
         </Cols> */}
 
             <Cols lg={4} style={{ borderLeft: 'ridge' }}>
-              {about && <TitleWrapper>Hakkımda</TitleWrapper>}
+              {about && <TitleWrapper>{t('About me')}</TitleWrapper>}
               <TextWrapper>{about}</TextWrapper>
             </Cols>
           </Rows>
@@ -199,7 +199,7 @@ const ProfileBanner = ({
       )) || (
         <div style={{ margin: '50px' }}>
           <text style={{ fontSize: '25px', fontWeight: 'bold' }}>
-            Profil bulunamamaktadır
+            {t('Profile not found')}
           </text>
         </div>
       )}
