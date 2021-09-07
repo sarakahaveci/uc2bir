@@ -6,8 +6,11 @@ import { searchMessage, resetProductSearch } from 'actions';
 import { useDebounce } from 'utils';
 import { SearchInput, Box } from 'components';
 import DefaultProfileImg from 'assets/default-profile.jpg';
+import { useTranslation } from 'react-i18next';
 
 const MessageSearch = () => {
+  const { t } = useTranslation();
+
   const photo = useSelector((state) => state.auth.user.photo);
 
   const [searchValue, setSearchValue] = useState('');
@@ -32,7 +35,7 @@ const MessageSearch = () => {
           <SearchInput
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
-            placeholder="Ne arıyorsun?"
+            placeholder={t('what are you looking for')}
           />
         </Box>
       </InnerWrapper>

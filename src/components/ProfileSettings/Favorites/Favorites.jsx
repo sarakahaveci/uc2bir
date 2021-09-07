@@ -2,29 +2,33 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
 import styled from 'styled-components/macro';
+import { useTranslation } from 'react-i18next';
 
 import { Title, Pagination, Spinner, Box } from 'components';
 import { getFavoriteUsers } from 'actions';
 import { PERSONAL_TRAINER, WORK_PLACE, DIETITIAN } from '../../../constants';
 import LongUserCard from 'components/UserCards/LongUserCard';
 import SubTabs from 'components/SubTabs/SubTabs';
+const { t } = useTranslation();
 
 const subTabsData = [
   {
-    label: 'Eğitmenler',
+    label: t('trainers'),
     value: PERSONAL_TRAINER,
   },
   {
-    label: 'Spor Alanları',
+    label: t('sports fields'),
     value: WORK_PLACE,
   },
   {
-    label: 'Diyetisyenler',
+    label: t('dietitiansCapitalize'),
     value: DIETITIAN,
   },
 ];
 
 const Favorites = () => {
+  const { t } = useTranslation();
+
   const {
     data: { data: favoriteUsers, totalPage },
     isLoading,
@@ -66,7 +70,7 @@ const Favorites = () => {
       ))
     ) : (
       <Col style={{ paddingLeft: '35px' }}>
-        Herhangi bir favori kullancınız bulunmamaktır.
+        {t('You do not have any favorite users')}
       </Col>
     );
   }

@@ -1,11 +1,14 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { Svg, Title, Text, svgBackground, Button } from 'components';
 import { logout } from 'actions';
 
 const CancellationFinalize = () => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
 
   return (
@@ -15,7 +18,7 @@ const CancellationFinalize = () => {
           <Svg.SadFaceIcon />
         </RedBackground>
 
-        <Title component="h5">Merhaba..</Title>
+        <Title component="h5">{t('hello')}..</Title>
 
         <Text
           textAlign="center"
@@ -23,15 +26,16 @@ const CancellationFinalize = () => {
           fontWeight="500"
           lineHeight="25px"
         >
-          Üyelik iptal talebin tarafımızca incelendikten sonra seni
-          bilgilendireceğiz.
+          {t(
+            'We will inform you once your membership cancellation request has been reviewed by us'
+          )}
         </Text>
       </Wrapper>
 
       <Footer>
         <Button
           onClick={() => dispatch(logout())}
-          text="Çıkış Yap"
+          text={t('logout')}
           fontWeight="500"
         />
       </Footer>

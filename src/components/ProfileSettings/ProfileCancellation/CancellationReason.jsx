@@ -4,6 +4,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { useSelector, useDispatch } from 'react-redux';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import {
   CancellationFinalize,
@@ -19,6 +20,8 @@ import {
 import { getCancellationReasons, cancelProfile } from 'actions';
 
 const CancellationReason = () => {
+  const { t } = useTranslation();
+
   const {
     reasons: { data: reasons, isLoading: reasonsLoading },
     cancelProfile: { isLoading: cancelLoading },
@@ -60,20 +63,20 @@ const CancellationReason = () => {
         <Svg.ArrowLeftIcon />
 
         <Span ml="10px" color="softDark" fontWeight="600" fontSize="1.2rem">
-          Üyelik İptali
+          {t('Membership Cancellation')}
         </Span>
       </BackLink>
 
       <Text fontSize="1.5rem" color="softDark" fontWeight="500">
-        Merhaba <Span textTransform="capitalize">{name}</Span>,
+        {t('hello')} <Span textTransform="capitalize">{name}</Span>,
       </Text>
 
       <Text fontSize="1.5rem" color="softDark" fontWeight="500" mb="20px">
-        Gittiğini Görmek Çok Üzücü!
+        {t('So Sad to See You Go!')}
       </Text>
 
       <Text color="softDark" fontWeight="500" fontSize="1.1rem">
-        Hesabını silmek istediğine emin misin?
+        {t('Are you sure you want to delete your account?')}
       </Text>
 
       <Text
@@ -84,11 +87,13 @@ const CancellationReason = () => {
         borderColor="gray7"
         fontWeight="0.9rem"
       >
-        Hesabı silerseniz, profil bilgileriniz beraberinde silinecektir.
+        {t(
+          'If you delete the account, your profile information will be deleted along with it'
+        )}
       </Text>
 
       <Text color="softDark" fontSize="1.1rem" fontWeight="500" mb="10px">
-        Lütfen üyelik iptal nedeninizi bizimle paylaşın.
+        {t('Please share your membership cancellation reason with us')}
       </Text>
 
       <MaterialWrapper>
@@ -105,13 +110,15 @@ const CancellationReason = () => {
             <FormControlLabel
               value="Other"
               control={<Material.RadioButton />}
-              label="Diğer"
+              label={t('other')}
             />
 
             <TextArea
               readOnly={reason !== 'Other'}
               rows={6}
-              placeholder="Lütfen üyeliğinizi neden iptal etmek istediğinizi kısaca belirtin"
+              placeholder={t(
+                'Please briefly describe why you want to cancel your membership'
+              )}
               onChange={inputChangeHandler}
             />
           </Box>
@@ -122,7 +129,7 @@ const CancellationReason = () => {
         <Button
           className="blue"
           width="300px"
-          text="Üyeliğimi İptal Et"
+          text={t('Cancel my membership')}
           disabled={!reason || (reason === 'Other' && !otherReasonValue)}
           onClick={cancellationHandler}
           isLoading={cancelLoading}

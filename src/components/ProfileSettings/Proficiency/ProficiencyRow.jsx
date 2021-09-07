@@ -1,13 +1,17 @@
 import React, { useState, useRef } from 'react';
 import styled, { css } from 'styled-components/macro';
 import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { Accordion, Svg, Modal, Title } from 'components';
 import ProficiencyToggler from './ProficiencyToggler';
 import ProficiencyCollapser from './ProficiencyCollapser';
 import { addProficiency } from 'actions';
 import { toast } from 'react-toastify';
+
 const ProficiencyRow = ({ data }) => {
+  const { t } = useTranslation();
+
   const [addedProficiencies, setAddedProficiencies] = useState({});
   const [showInputError, setShowInputError] = useState(false);
 
@@ -52,8 +56,7 @@ const ProficiencyRow = ({ data }) => {
     if (duplicates.length > 0) {
       duplicates.forEach((res) => {
         toast.error(
-          addedProficiencies[res] +
-            ' iki kez eklenemez. Lütfen kontrol ediniz..',
+          addedProficiencies[res] + t('cannot be added twice. Please check..'),
           {
             position: 'bottom-right',
             autoClose: 4000,
@@ -72,7 +75,7 @@ const ProficiencyRow = ({ data }) => {
         const tempValue = addedProficiencies[d];
         var deleted = delete addedProficiencies[d];
         setAddedProficiencies(deleted);
-        toast.error(tempValue + ' zaten var oldugundan eklenemedi.', {
+        toast.error(tempValue + t('couldnt add because it already exists'), {
           position: 'bottom-right',
           autoClose: 4000,
         });
@@ -125,11 +128,14 @@ const ProficiencyRow = ({ data }) => {
           <div className="proficiency-row__modal__body">
             <Svg.SmileyFaceIcon className="icon" />
 
-            <Title component="h5">Merhaba Sevgili Üyemiz</Title>
+            <Title component="h5"> {t('Hello Dear Member')}</Title>
 
             <div className="proficiency-row__modal__info">
-              Girmiş olduğun uzmanlıklar tarafımızca incelendikten sonra sana
-              bilgi vereceğiz. Bildirimlerini açmayı unutma :)
+              {t(
+                'We will inform you after the specializations you have entered are reviewed by us.'
+              )}
+
+              <span>{t('Dont forget to turn on notifications')} :)</span>
             </div>
           </div>
 
@@ -137,7 +143,7 @@ const ProficiencyRow = ({ data }) => {
             className="proficiency-row__modal__footer"
             onClick={closeProficiencyResponseModal}
           >
-            Devam Et
+            {t('continue')}
           </div>
         </>
       </Modal>

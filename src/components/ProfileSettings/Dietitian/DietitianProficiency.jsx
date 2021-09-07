@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { Modal } from 'react-bootstrap';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import { Title, Button, Svg, Text } from 'components';
 import {
@@ -18,41 +19,40 @@ import ProficiencyCard from 'components/ProficiencyCard/ProficiencyCard';
 import ProficiencyIcon from 'assets/proficiency.png';
 import BluePlusIcon from 'assets/blue-plus.svg';
 
+const { t } = useTranslation();
+
 const subTabData = [
   {
-    label: 'Tümü',
+    label: t('all'),
     value: 1,
   },
   {
-    label: 'ONAYDAKİLER',
+    label: t('APPROVALS'),
     value: 2,
   },
   {
-    label: 'ONAYLANANLAR',
+    label: t('APPROVED'),
     value: 3,
   },
 ];
 
 export default function DietitianProficiency() {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
 
-  const {
-    allProficiencyList,
-    userProficiencyList,
-    subProficiencyList,
-  } = useSelector(
-    (state) => state?.profileSettings2?.dietitianProficiency?.proficiency
-  );
+  const { allProficiencyList, userProficiencyList, subProficiencyList } =
+    useSelector(
+      (state) => state?.profileSettings2?.dietitianProficiency?.proficiency
+    );
 
   const [showAddProficiency, setShowAddProficiency] = useState(false);
   const [showSubProficiency, setShowSubProficiency] = useState(false);
   const [open, setOpen] = useState(false);
   const [selectedProficiency, setSelectedProficiency] = useState();
   const [selectedSubProficiency, setSelectedSubPro] = useState([]);
-  const [
-    modifiedUserProficiencyList,
-    setModifiedUserProficiencyList,
-  ] = useState(null);
+  const [modifiedUserProficiencyList, setModifiedUserProficiencyList] =
+    useState(null);
 
   useEffect(() => {
     setModifiedUserProficiencyList(userProficiencyList);
@@ -118,7 +118,9 @@ export default function DietitianProficiency() {
         () => setOpen(true),
         () => {
           toast.error(
-            'Yeni uzmanlık eklenirken bir hata ile karşılaşıldı daha sonra tekrar deneyiniz.',
+            t(
+              'An error was encountered while adding a new specialization, please try again later'
+            ),
             {
               position: 'bottom-right',
               autoClose: 4000,
@@ -173,7 +175,7 @@ export default function DietitianProficiency() {
             }}
           />
         )}
-        Uzmanlıklarım
+        {t('my specialties')}
       </Title>
       <div className="row d-flex w-100">
         <div className="col-lg-4 col-md-12 col-sm-12">
@@ -188,7 +190,7 @@ export default function DietitianProficiency() {
             fontWeight="500"
             textAlign="left"
           >
-            Uzmanlıklarınızı ve uzmanlık konularınızı belirtiniz.{' '}
+            {t('Specify your specializations and areas of expertise')}
           </Title>
           {!(showSubProficiency || showAddProficiency) && (
             <>
@@ -199,7 +201,7 @@ export default function DietitianProficiency() {
                 fontWeight="400"
                 textAlign="left"
               >
-                Yeni Uzmanlık Ekle{' '}
+                {t('Add New Specialization')}
                 <img
                   className="cp"
                   src={BluePlusIcon}
@@ -231,7 +233,7 @@ export default function DietitianProficiency() {
                     fontWeight="400"
                     textAlign="left"
                   >
-                    Aramaya uygun bir uzmanlık bulunamadı.
+                    {t('No specializations were found suitable for the search')}
                   </Title>
                 )}
               </div>
@@ -267,7 +269,9 @@ export default function DietitianProficiency() {
                   />
                 ))
               ) : (
-                <div> Bu uzmanlık için alt dal bulunmamaktadır</div>
+                <div>
+                  {t(' There are no sub-branches for this specialization')}
+                </div>
               )}
             </div>
           )}
@@ -301,13 +305,15 @@ export default function DietitianProficiency() {
             fontWeight="500"
             textAlign="center"
           >
-            Merhaba Sevgili Üyemiz{' '}
+            {t('Hello Dear Member')}
           </Text>
 
           <Text textAlign="center" fontSize="1rem" color="dark">
-            Seçmiş Olduğun uzmanlıklar tarafımızca incelendikten sonra bilgi
-            vereceğiz.
-            <span> Bildirimleri açmayı unutma :)</span>
+            {t(
+              ' We will inform you after the session fee you have entered is reviewed by us'
+            )}
+
+            <span>{t('Dont forget to turn on notifications')} :)</span>
           </Text>
         </Container>
 
@@ -320,7 +326,7 @@ export default function DietitianProficiency() {
               dispatch(getDietitianProficiency());
             }}
           >
-            Devam Et
+            {t('continue')}
           </StyledLink>
         </div>
       </Modal>

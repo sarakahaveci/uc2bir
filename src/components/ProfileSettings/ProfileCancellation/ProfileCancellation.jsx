@@ -1,16 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
+import { useTranslation } from 'react-i18next';
 
 import { Box, Text } from 'components';
 
 export default function ProfileCancellation() {
+  const { t } = useTranslation();
   return (
     <Box col mx="10px">
-      <StyledLink to="/myprofile/settings/cancel">Üyelik İptali</StyledLink>
+      <StyledLink to="/myprofile/settings/cancel">
+        {' '}
+        {t('Membership Cancellation')}
+      </StyledLink>
 
       <Text color="gray4" fontWeight="300" fontSize="0.8rem">
-        Üyelik iptali durumunda kişiler size ulaşamayacaklardır.
+        {t(
+          'In case of membership cancellation, people will not be able to reach you'
+        )}
       </Text>
     </Box>
   );

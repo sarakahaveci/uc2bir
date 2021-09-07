@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { DIETITIAN, WORK_PLACE } from '../../../constants';
+import { useTranslation } from 'react-i18next';
 
 import { getUserInfo } from 'actions';
 import profileImg from 'assets/default-profile.jpg';
@@ -26,6 +27,8 @@ import MyCalendar from 'components/Profile/MyCalendar/MyCalendar';
 
 export default function Profile() {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
+
   const [page, setPage] = useState('Start');
 
   const { userInfo, isLoading } = useSelector(
@@ -201,7 +204,7 @@ export default function Profile() {
       content = <ProfileReservation setPage={setPage} />;
       break;
   }
-  return isLoading ? <div>Yükleniyor</div> : <>{content}</>;
+  return isLoading ? <div>{t('Loading')}</div> : <>{content}</>;
 }
 
 const TabContainers = styled.div`

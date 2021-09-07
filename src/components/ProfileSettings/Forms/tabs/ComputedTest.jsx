@@ -1,6 +1,7 @@
 // @ts-nocheck
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
+import { useTranslation } from 'react-i18next';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -14,6 +15,8 @@ import { Spinner, Title } from 'components';
 import search from '../../../statics/svg/images/player.svg';
 
 const ComputedTest = () => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const { test } = useSelector((state) => state.profileSettings);
   const { testDetail } = useSelector((state) => state.profileSettings);
@@ -84,7 +87,7 @@ const ComputedTest = () => {
       getTest(
         () => {},
         () =>
-          toast.error('Profil Bilgileri Getirilemedi.', {
+          toast.error(t('Failed to Fetch Profile Information'), {
             position: 'bottom-right',
             autoClose: 2000,
           })
@@ -101,7 +104,7 @@ const ComputedTest = () => {
           setModal(true);
         },
         () =>
-          toast.error('Profil Bilgileri Getirilemedi.', {
+          toast.error(t('Failed to Fetch Profile Information'), {
             position: 'bottom-right',
             autoClose: 2000,
           })
@@ -125,7 +128,7 @@ const ComputedTest = () => {
               className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled"
               data-shrink="true"
             >
-              Başlık
+              {t('headline')}
             </label>
             <div className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl">
               {test.data.length > 0 &&
