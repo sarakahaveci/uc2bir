@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { default as MaterialTextField } from '@material-ui/core/TextField';
 
 import { symbolsArr } from '../../../constants';
+import { useTranslation } from 'react-i18next';
 
 import editIcon from '../../statics/svg/images/pencil.svg';
 import closeIcon from '../../statics/svg/images/big-close.svg';
@@ -34,6 +35,8 @@ const TextField = ({
   rows = 6,
   ...restProps
 }) => {
+  const { t } = useTranslation();
+
   const [val, setVal] = useState(defaultValue);
   const [newType, setNewType] = useState(type);
 
@@ -145,7 +148,7 @@ const TextField = ({
             onClick={() => save(name, val)}
             edit={edit}
           >
-            Kaydet
+            {t('save')}
           </Save>
           {loading && (
             <StyledSpinner

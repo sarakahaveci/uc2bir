@@ -1,5 +1,6 @@
 // @ts-nocheck
 import React, { useState, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import DateFnsUtils from '@date-io/date-fns';
 import {
@@ -40,6 +41,8 @@ const DateField = ({
   shouldDisableDate = () => {},
   onError = () => {},
 }) => {
+  const { t } = useTranslation();
+
   const [selectedDate, setSelectedDate] = useState(
     value ? new Date(moment(value, 'DD.MM.YYYY').toDate()) : null
   );
@@ -127,7 +130,7 @@ const DateField = ({
             className={`${name} save`}
             onClick={() => save(name, selectedDate)}
           >
-            Kaydet
+            {t('save')}
           </Save>
           {loading && (
             <StyledSpinner
