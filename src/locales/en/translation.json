@@ -138,5 +138,22 @@
   "Name and surname": "Name and surname",
   "Phone": "Phone",
   "Topic title": "Topic title",
-  "Your Message": "Your Message"
+  "Your Message": "Your Message",
+  "Cookies are used on our site to provide you with a better service": "Cookies are used on our site to provide you with a better service.",
+  "You can click to read the cookie policy": "You can click to read the cookie policy.",
+  "accept": "Accept",
+  "hello": "Hello",
+  "Please enter the domain information you want to make available": "Please enter the domain information you want to make available.",
+  "Please Select the Type of Course You Want to Teach": "Please Select the Type of Course You Want to Teach",
+  "CREATE PACKAGE SESSION": "CREATE PACKAGE SESSION",
+  "CREATE A GROUP LESSON": "CREATE A GROUP LESSON",
+  "You do not have a price request": "You do not have a price request",
+  "Clinic": "Clinic",
+  "Enter Fee (TL)": "Enter Fee (TL)",
+  "Installation Error": "Installation Error",
+  "Loading": "Loading",
+  "Search by Neighborhood, Street or Street name": "Search by Neighborhood, Street or Street name",
+  "enlarge": "enlarge",
+  "shrink": "shrink",
+  "themap": "The Map: "
 }

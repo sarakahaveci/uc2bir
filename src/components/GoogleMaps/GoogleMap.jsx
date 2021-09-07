@@ -5,6 +5,7 @@ import {
   Marker,
   InfoWindow,
 } from '@react-google-maps/api';
+import { useTranslation } from 'react-i18next';
 import { getGeocode } from 'use-places-autocomplete';
 import { useDebounce } from 'use-debounce';
 import SearchBar from 'material-ui-search-bar';
@@ -24,6 +25,8 @@ export default function MyComponent({
   disabled = false,
   locationFromUser,
 }) {
+  const { t } = useTranslation();
+
   const [position, setPosition] = useState({
     lat: 41.0428465,
     lng: 29.0075283,
@@ -57,9 +60,8 @@ export default function MyComponent({
     if (position) {
       Geocode.fromLatLng(position.lat, position.lng).then(
         (response) => {
-          const address_detail = response.results[0].formatted_address?.split(
-            '/'
-          )?.[0];
+          const address_detail =
+            response.results[0].formatted_address?.split('/')?.[0];
 
           let city, district, town;
 
@@ -137,8 +139,8 @@ export default function MyComponent({
     googleMapsApiKey: GoogleMapsAPI,
   });
 
-  if (loadError) return 'Yüklenme Hatası';
-  if (!isLoaded) return 'Yükleniyor';
+  if (loadError) return t('Installation Error');
+  if (!isLoaded) return t('Loading');
 
   const wrapperClass = showSearchBox
     ? 'mx-auto map-wrapper'
@@ -153,7 +155,7 @@ export default function MyComponent({
           className="search-box"
           value={searchAdress}
           onChange={(value) => setSearchAdress(value)}
-          placeholder="Mahalle, Cadde veya Sokak adı ile arayın"
+          placeholder={t('Search by Neighborhood, Street or Street name')}
           onCancelSearch={() => setSearchAdress()}
         />
       )}

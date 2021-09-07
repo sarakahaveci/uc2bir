@@ -6,6 +6,7 @@ import { device } from 'utils';
 import { useSelector } from 'react-redux';
 import * as KEYS from '../../constants/userKeys';
 import CloseIcon from '@material-ui/icons/Close';
+import { useTranslation } from 'react-i18next';
 
 const CreateCalenderModal = ({
   open,
@@ -13,6 +14,8 @@ const CreateCalenderModal = ({
   approve = () => {},
   cancel = () => {},
 }) => {
+  const { t } = useTranslation();
+
   const { name: name, type_id: type_id } = useSelector(
     (state) => state.auth.user
   );
@@ -43,15 +46,17 @@ const CreateCalenderModal = ({
             fontWeight="500"
             textAlign="center"
           >
-            Merhaba {name}
+            {t('hello')} {name}
           </Text>
           {type[0]?.key == KEYS.GYM ? (
             <Text textAlign="center" fontSize="1rem" color="dark">
-              Lütfen kullanıma açmak istediğiniz alan bilgilerini giriniz.
+              {t(
+                'Please enter the domain information you want to make available'
+              )}{' '}
             </Text>
           ) : (
             <Text textAlign="center" fontSize="1rem" color="dark">
-              Lütfen Vermek İstediğiniz Ders Tipini Seçiniz
+              {t('Please Select the Type of Course You Want to Teach')}
             </Text>
           )}
         </ContextContainer>
@@ -77,8 +82,8 @@ const CreateCalenderModal = ({
               }}
             >
               {type[0]?.key === KEYS.DIETIAN
-                ? 'PAKET SEANS OLUŞTUR'
-                : 'GRUP DERSİ OLUŞTUR'}
+                ? t('CREATE PACKAGE SESSION')
+                : t('CREATE A GROUP LESSON')}
             </StyledButton>
           </div>
         )}

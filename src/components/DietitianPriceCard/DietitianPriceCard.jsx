@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import onlineClinicIcon from 'assets/onlineClinic.svg';
 import clinickIcon from 'assets/clinickIcon.svg';
@@ -6,14 +7,16 @@ import clinickIcon from 'assets/clinickIcon.svg';
 import { Material, Title } from 'components';
 
 export default function DietitianPriceCard({ price, waitingPrice, setPrice }) {
+  const { t } = useTranslation();
+
   let statusText;
 
   if (!price && !waitingPrice) {
-    statusText = 'Fiyat Talebiniz Bulunmamaktadır';
+    statusText = t('You do not have a price request');
   } else if (price) {
-    statusText = 'Onaylandı';
+    statusText = t('Approved');
   } else if (waitingPrice) {
-    statusText = 'Onay Bekliyor';
+    statusText = t('Waiting for approval');
   }
 
   const cardClass = !price
@@ -38,7 +41,7 @@ export default function DietitianPriceCard({ price, waitingPrice, setPrice }) {
         </figure>
         <figure className="ml-5">
           <img src={clinickIcon} alt="" width="90px" />
-          <figcaption className="text-center">Klinik</figcaption>
+          <figcaption className="text-center"> {t('Clinic')}</figcaption>
         </figure>
       </div>
 
@@ -46,7 +49,7 @@ export default function DietitianPriceCard({ price, waitingPrice, setPrice }) {
         <Material.TextField
           id="price"
           name="price"
-          label="Ücret Giriniz (TL)"
+          label={t('Enter Fee (TL)')}
           type="number"
           changeValue={price}
           onChange={(event) => setPrice(event.target.value)}

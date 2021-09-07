@@ -3,7 +3,11 @@ import styled from 'styled-components/macro';
 import { device } from 'utils';
 import { localStorage } from 'utils';
 import { CookiePolicyModal } from 'components';
+import { useTranslation } from 'react-i18next';
+
 const CookieConsent = () => {
+  const { t } = useTranslation();
+
   const [visibity, setVisibity] = useState(false);
   const [openModal, setOpenModal] = useState(false);
 
@@ -23,8 +27,9 @@ const CookieConsent = () => {
     <Container style={{ display: visibity ? 'initial' : 'none' }}>
       <Wrapper>
         <Text>
-          Sizlere daha iyi bir hizmet vermek adına sitemizde çerez
-          kullanılmaktadır.
+          {t(
+            'Cookies are used on our site to provide you with a better service'
+          )}
         </Text>
         <Text
           style={{ textDecoration: 'underline', cursor: 'pointer' }}
@@ -32,9 +37,9 @@ const CookieConsent = () => {
             setOpenModal(true);
           }}
         >
-          Çerez politikasını okumak için tıklayabilirsin.
+          {t('You can click to read the cookie policy')}
         </Text>
-        <Button onClick={setPerm}>Kabul Et</Button>
+        <Button onClick={setPerm}>{t('accept')}</Button>
       </Wrapper>
       <CookiePolicyModal
         open={openModal}

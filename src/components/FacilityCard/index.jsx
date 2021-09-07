@@ -1,9 +1,12 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import GreenTickIcon from 'assets/green-tick.svg';
 import { Title } from 'components';
 
 export default function FacilityCard({ isAccepted, name = 'Duş', status }) {
+  const { t } = useTranslation();
+
   const cardClass = isAccepted
     ? 'facility-card-wrapper'
     : 'facility-card-wrapper not-accepted-card';
@@ -11,10 +14,10 @@ export default function FacilityCard({ isAccepted, name = 'Duş', status }) {
   const statusTextClass = isAccepted ? 'accepted-text' : 'waiting-accept-text';
 
   const statusText = isAccepted
-    ? 'Onaylandı'
+    ? t('Approved')
     : status === 'pending'
-    ? 'Onay Bekliyor'
-    : 'Reddedildi';
+    ? t('Waiting for approval')
+    : t('Denied');
 
   return (
     <div className={`d-flex mb-2 mr-2 justify-content-between ${cardClass}`}>

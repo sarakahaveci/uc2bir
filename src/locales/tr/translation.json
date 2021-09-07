@@ -138,5 +138,22 @@
   "Name and surname": "Adı Soyadı",
   "Phone": "Telefon",
   "Topic title": "Konu Başlığı",
-  "Your Message": "Mesajınız"
+  "Your Message": "Mesajınız",
+  "Cookies are used on our site to provide you with a better service": "Sizlere daha iyi bir hizmet vermek adına sitemizde çerez kullanılmaktadır.",
+  "You can click to read the cookie policy": "Çerez politikasını okumak için tıklayabilirsin.",
+  "accept": "Kabul Et",
+  "hello": "Merhaba",
+  "Please enter the domain information you want to make available": "Lütfen kullanıma açmak istediğiniz alan bilgilerini giriniz.",
+  "Please Select the Type of Course You Want to Teach": "Lütfen Vermek İstediğiniz Ders Tipini Seçiniz",
+  "CREATE PACKAGE SESSION": "PAKET SEANS OLUŞTUR",
+  "CREATE A GROUP LESSON": "GRUP DERSİ OLUŞTUR",
+  "You do not have a price request": "Fiyat Talebiniz Bulunmamaktadır",
+  "Clinic": "Klinik",
+  "Enter Fee (TL)": "Ücret Giriniz (TL)",
+  "Installation Error": "Yüklenme Hatası",
+  "Loading": "Yükleniyor",
+  "Search by Neighborhood, Street or Street name": "Mahalle, Cadde veya Sokak adı ile arayın",
+  "enlarge": "büyüt",
+  "shrink": "küçült",
+  "themap": "Haritayı"
 }
