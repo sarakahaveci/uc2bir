@@ -4,8 +4,11 @@ import { Text, Svg } from 'components';
 import { Link } from 'react-router-dom';
 import { device } from 'utils';
 import CloseIcon from '@material-ui/icons/Close';
+import { useTranslation } from 'react-i18next';
 
 const CongratsModal = ({ open, cancel = () => {} }) => {
+  const { t } = useTranslation();
+
   return (
     <Root style={{ display: open ? 'flex' : 'none' }}>
       <MainContainer>
@@ -25,12 +28,13 @@ const CongratsModal = ({ open, cancel = () => {} }) => {
             fontWeight="500"
             textAlign="center"
           >
-            Tabrikler
+            {t('Congratulations')}
           </Text>
 
           <Text textAlign="center" fontSize="1rem" color="dark">
-            Para iade talebi başarı ile oluşturuldu. İşlem gerçekleştirilince
-            bilgilendirileceksiniz.
+            {t(
+              'Refund request created successfully. You will be notified when the transaction is completed'
+            )}
           </Text>
         </ContextContainer>
 
@@ -40,7 +44,7 @@ const CongratsModal = ({ open, cancel = () => {} }) => {
               cancel();
             }}
           >
-            Tamam
+            {t('ok')}
           </StyledButton>
         </div>
       </MainContainer>
@@ -87,7 +91,7 @@ const StyledButton = styled(Link)`
   text-align: center;
   display: block;
   width: 100%;
-
+  text-transform: capitalize;
   &:hover {
     color: var(--blue);
   }

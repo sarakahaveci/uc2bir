@@ -110,7 +110,7 @@ const MultiContract = ({
       <Box center margin="20px 0">
         <Button
           className="blue"
-          text="Onaylıyorum"
+          text={t('I Approve')}
           width="300px"
           disabled={!acceptFirst}
           fontWeight="500"
