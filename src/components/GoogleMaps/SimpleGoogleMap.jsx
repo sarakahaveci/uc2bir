@@ -4,8 +4,11 @@ import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { GoogleMapsAPI } from '../../utils/config';
 import mapStyles from './mapStyles';
 import MarkerSvg from './markerSvg.svg';
+import { useTranslation } from 'react-i18next';
 
 export default function SimpleGoogleMap({ location }) {
+  const { t } = useTranslation();
+
   const [position, setPosition] = useState({ lat: 41.015137, lng: 28.97953 });
 
   const mapContainerStyle = {
@@ -28,8 +31,8 @@ export default function SimpleGoogleMap({ location }) {
     googleMapsApiKey: GoogleMapsAPI,
   });
 
-  if (loadError) return 'Yüklenme Hatası';
-  if (!isLoaded) return 'Yükleniyor';
+  if (loadError) return t('Installation Error');
+  if (!isLoaded) return t('Loading');
 
   return (
     <div className="mx-auto w-100">

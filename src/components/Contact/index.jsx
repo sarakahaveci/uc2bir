@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import InputMask from 'react-input-mask';
 import { TextField } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
-
+import { useTranslation } from 'react-i18next';
 import { Material, Button } from 'components';
 import GoogleMap from 'components/GoogleMaps/GoogleMap';
 import { sendTicket } from 'actions';
@@ -15,6 +15,8 @@ import LinkedinIcon from 'assets/linkedin.svg';
 import TwitterIcon from 'assets/twitter.svg';
 
 export default function Contact() {
+  const { t } = useTranslation();
+
   const [shrink, setShrink] = useState(false);
 
   const [name_surname, setName] = useState('');
@@ -58,7 +60,7 @@ export default function Contact() {
           phone: phoneNumberNormalize(phone),
         },
         () => {
-          toast.success('Mesajınız başarı ile iletildi', {
+          toast.success(t('Your message has been successfully delivered'), {
             position: 'bottom-right',
             autoClose: 7000,
           });
@@ -77,8 +79,8 @@ export default function Contact() {
   return (
     <div className="d-flex w-100 flex-column contact-header">
       <div className="d-flex w-75 flex-column mx-auto contact-header__title-wrapper">
-        <p className="contact-header__title">Bizimle İletişime</p>
-        <p className="contact-header__subtitle">GEÇİN</p>
+        <p className="contact-header__title"> {t('contactUs')}</p>
+        <p className="contact-header__subtitle"> {t('contactUs2')}</p>
       </div>
       <div className="d-flex w-25 mx-auto contact-header__social-icons-wrapper">
         <img src={FacebookIcon} alt="facebook" />
@@ -124,7 +126,7 @@ export default function Contact() {
       </div>
       <div className="d-flex w-100 flex-column mt-5">
         <span className="contact-header__contact-title">
-          Bize Mesaj Bırakın
+          {t('Leave us a Message')}
         </span>
         <form className="d-flex row w-100" onSubmit={submitForm}>
           {!isAuthenticated ? (
@@ -132,7 +134,7 @@ export default function Contact() {
               <div className="col-md-6 col-sm-12">
                 <Material.TextField
                   required
-                  label="Adı Soyadı"
+                  label={t('Name and surname')}
                   type="text"
                   name="name_surname"
                   onBlur={(e) => setName(e.target.value)}
@@ -162,7 +164,7 @@ export default function Contact() {
                     {() => (
                       <TextField
                         InputLabelProps={{ shrink }}
-                        label="Telefon *"
+                        label={t('Phone')}
                         className="material-inputs"
                       />
                     )}
@@ -171,7 +173,7 @@ export default function Contact() {
 
                 <Material.TextField
                   required
-                  label="Konu Başlığı"
+                  label={t('Topic title')}
                   type="text"
                   name="subject"
                   defaultValue={subject}
@@ -182,7 +184,7 @@ export default function Contact() {
               <div className="d-flex  flex-column col-md-6 col-sm-12 mt-2">
                 <Material.TexAreaField
                   name="message"
-                  label="Mesajınız"
+                  label={t('Your Message')}
                   rows={8}
                   onChange={(e) => setMessage(e.target.value)}
                   required
@@ -191,7 +193,7 @@ export default function Contact() {
                 <Button
                   type="submit"
                   className="blue mt-3 ml-auto contact-header__save-button"
-                  text="Gönder"
+                  text={t('send')}
                   fontWeight="500"
                 />
               </div>
@@ -200,7 +202,7 @@ export default function Contact() {
             <div className="d-flex  flex-column col-12 mt-2">
               <Material.TextField
                 required
-                label="Konu Başlığı"
+                label={t('Topic title')}
                 type="text"
                 name="subject"
                 defaultValue={subject}
@@ -209,7 +211,7 @@ export default function Contact() {
               />
               <Material.TexAreaField
                 name="message"
-                label="Mesajınız"
+                label={t('Your Message')}
                 onChange={(e) => setMessage(e.target.value)}
                 required
                 inputProps={{ minLength: 10, maxLength: 2500 }}
@@ -217,7 +219,7 @@ export default function Contact() {
               <Button
                 type="submit"
                 className="blue w-50 mt-3 mx-auto contact-header__save-button"
-                text="Gönder"
+                text={t('send')}
                 fontWeight="500"
               />
             </div>

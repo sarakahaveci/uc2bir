@@ -3,6 +3,8 @@ import { AwesomeIcon, Title, IconLabel } from 'components';
 import { Col } from 'react-bootstrap';
 import styled from 'styled-components/macro';
 import defaultImage from '../../assets/default-profile.jpg'
+import { useTranslation } from 'react-i18next';
+
 const WorkAreaCard = ({
   stars = 0,
   capacity,
@@ -13,6 +15,8 @@ const WorkAreaCard = ({
   price,
   image
 }) => {
+  const { t } = useTranslation();
+
   return (
     <>
       <Card>
@@ -42,7 +46,7 @@ const WorkAreaCard = ({
               {title}
             </Title>
             <Title textAlign="left" fontSize="10pt" fontWeight="400">
-              {area_measure} m2 , {capacity} kişi kapasiteli
+              {area_measure} m2 , {capacity}{t('person')} 
             </Title>
           </div>
           <div className="footer-and">

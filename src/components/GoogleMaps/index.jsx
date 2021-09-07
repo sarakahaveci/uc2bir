@@ -8,6 +8,7 @@ import {
 } from '@react-google-maps/api';
 import styled from 'styled-components/macro';
 import { device } from 'utils';
+import { useTranslation } from 'react-i18next';
 
 import SaloonSvg from './fitness.svg';
 import TrainerSvg from './trainer.svg';
@@ -23,6 +24,8 @@ export default function GoogleMapClusterer({
   isSaloonMap,
   disableMinOption = false,
 }) {
+  const { t } = useTranslation();
+
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [isMapMin, setIsMapMin] = useState(true && !disableMinOption);
   const mapContainerStyle = { width: '100%', height: '100%' };
@@ -41,8 +44,8 @@ export default function GoogleMapClusterer({
     else setSelectedMarker(id);
   };
 
-  if (loadError) return 'Yüklenme Hatası';
-  if (!isLoaded) return 'Yükleniyor';
+  if (loadError) return t('Installation Error');
+  if (!isLoaded) return t('Loading');
 
   const wrapperClass = 'mx-auto map-wrapper';
   return (
@@ -58,7 +61,12 @@ export default function GoogleMapClusterer({
               setIsMapMin(!isMapMin);
             }}
           >
-            Haritayı {isMapMin ? <span>büyüt</span> : <span>küçült</span>}
+            {t('themap')}
+            {isMapMin ? (
+              <span> {t('enlarge')}</span>
+            ) : (
+              <span>{t('shrink')}</span>
+            )}
           </span>
         </div>
       )}

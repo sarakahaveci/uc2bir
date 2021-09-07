@@ -20,7 +20,7 @@ const Accounts = ({
   handleSubmitDelete,
 }) => {
   const [editMode, setEditMode] = useState(false);
-
+// translate burada kaldım
   const splitIbanNumber = (text) => {
     return text.match(/.{1,4}/g)?.join(' ');
   };
