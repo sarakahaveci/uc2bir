@@ -9,8 +9,11 @@ import DetailLesson from './DetailLesson';
 import Exercises from './Exercises';
 import ExerciseDetail from './ExerciseDetail';
 import PacketReservation from './PacketReservation';
+import { useTranslation } from 'react-i18next';
 
 const User = ({ icons, setBannerActive }) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const [selected, setSelected] = useState([]);
   const [types, setTypes] = useState([]);
@@ -47,7 +50,7 @@ const User = ({ icons, setBannerActive }) => {
         { types: new_types },
         () => setPage('Adds'),
         () =>
-          toast.error('Bir sorun oluştu lütfen daha sonra tekrar deneyiniz.', {
+          toast.error(t('There was a problem, please try again later'), {
             position: 'bottom-right',
             autoClose: 2000,
           })
@@ -94,7 +97,7 @@ const User = ({ icons, setBannerActive }) => {
           />
         </div>
       );
-     
+
     case 'ExerciseDetail':
       return (
         <div>

@@ -7,7 +7,8 @@ import { space } from 'styled-system';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { animateScroll as scroll } from 'react-scroll';
-import { useHistory } from 'react-router-dom'
+import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
 import {
   setReservation,
   deleteSlot,
@@ -21,13 +22,17 @@ import {
 } from 'actions';
 import { getWallet } from 'actions/userProfileActions/walletActions';
 import moment from 'moment';
-import { useTranslation } from 'react-i18next'
-export default function PaymentCard({ type, subType, dateOption, disabledPayment = false }) {
+export default function PaymentCard({
+  type,
+  subType,
+  dateOption,
+  disabledPayment = false,
+}) {
   const formRef = useRef(null);
   const groupFormRef = useRef(null);
   const packetFormRef = useRef(null);
   const upgradeForm = useRef(null);
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const history = useHistory();
   const dispatch = useDispatch();
   const reservation = useSelector((state) => state.reservation);
@@ -63,7 +68,6 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
     if (payment?.request?.data?.merchant_id) {
       if (type == 'upgrade_packet') {
         upgradeForm.current.submit();
-
       } else {
         formRef.current.submit();
       }
@@ -73,14 +77,10 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
   useEffect(() => {
     if (paymentPacket?.request?.data?.merchant_id) {
       if (type == 'buy_group_lesson') {
-
         groupFormRef.current.submit();
-
       } else {
         packetFormRef.current.submit();
       }
-
-
     }
   }, [paymentPacket?.request]);
   useEffect(() => {
@@ -90,7 +90,12 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
           setReservation({
             [`${type}_price`]:
               reservation?.data?.slot?.length *
-              (branchList?.branches?.filter(item => item?.id == reservation.data?.branch_id)?.[0]?.price || reservationCalendar?.resData?.branches.filter(item => item?.id == reservation.data?.branch_id)?.[0]?.price),
+              (branchList?.branches?.filter(
+                (item) => item?.id == reservation.data?.branch_id
+              )?.[0]?.price ||
+                reservationCalendar?.resData?.branches.filter(
+                  (item) => item?.id == reservation.data?.branch_id
+                )?.[0]?.price),
           })
         );
       } else {
@@ -196,7 +201,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
         if (reservation?.data?.slot.length > 0) {
           dispatch(setReservation({ payment_type: payment_type }));
         } else {
-          toast.error('Sepetiniz Boş', {
+          toast.error(t('Your Cart Is Empty'), {
             position: 'bottom-right',
             autoClose: 4000,
           });
@@ -206,13 +211,13 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
           if (reservation?.data?.totals_amount > 0) {
             dispatch(setReservation({ payment_type: payment_type }));
           } else {
-            toast.error('Sepetiniz Boş', {
+            toast.error(t('Your Cart Is Empty'), {
               position: 'bottom-right',
               autoClose: 4000,
             });
           }
         } else {
-          toast.error('Lütfen seçimlerinizi eksiksiz yapınız!', {
+          toast.error(t('Please make your selections completely!'), {
             position: 'bottom-right',
             autoClose: 4000,
           });
@@ -222,7 +227,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
       if (buyPacket?.reservation?.totals_amount > 0) {
         dispatch(setPacketReservation({ payment_type: payment_type }));
       } else {
-        toast.error('Sepetiniz Boş', {
+        toast.error(t('Your Cart Is Empty'), {
           position: 'bottom-right',
           autoClose: 4000,
         });
@@ -234,17 +239,16 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
       if (reservation?.data?.totals_amount > 0) {
         dispatch(setPacketReservation({ payment_type: payment_type }));
       } else {
-        toast.error('Sepetiniz Boş', {
+        toast.error(t('Your Cart Is Empty'), {
           position: 'bottom-right',
           autoClose: 4000,
         });
       }
     } else {
       if (buyPacket?.reservation?.totals_amount > 0) {
-
         dispatch(setPacketReservation({ payment_type: payment_type }));
       } else {
-        toast.error('Sepetiniz Boş', {
+        toast.error(t('Your Cart Is Empty'), {
           position: 'bottom-right',
           autoClose: 4000,
         });
@@ -255,7 +259,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
     if (buyGroupLesson?.reservation?.totals_amount > 0) {
       dispatch(setGroupLessonReservation({ payment_type: payment_type }));
     } else {
-      toast.error('Sepetiniz Boş', {
+      toast.error(t('Your Cart Is Empty'), {
         position: 'bottom-right',
         autoClose: 4000,
       });
@@ -300,15 +304,20 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
       reservation?.data?.expiration_year &&
       reservation?.data?.cvc
     ) {
-      dispatch(sendReservation('pt', removeEmpty(json), () => {
-        if (json.payment_type == 'wallet') {
-          history.push('/buy/success')
-        }
-      }));
+      dispatch(
+        sendReservation('pt', removeEmpty(json), () => {
+          if (json.payment_type == 'wallet') {
+            history.push('/buy/success');
+          }
+        })
+      );
     } else {
-      if (reservation?.data?.session == 'gym' || reservation?.data?.session == 'home_park') {
+      if (
+        reservation?.data?.session == 'gym' ||
+        reservation?.data?.session == 'home_park'
+      ) {
         if (!reservation?.data?.location_id) {
-          toast.error('Lokasyon seçimi yapmadınız!', {
+          toast.error(t('You did not choose a location!'), {
             position: 'bottom-right',
             autoClose: 4000,
           });
@@ -317,11 +326,13 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
       }
 
       if (reservation?.data?.payment_type == 'wallet') {
-        dispatch(sendReservation('pt', removeEmpty(json), () => {
-          history.push('/buy/success')
-        }));
+        dispatch(
+          sendReservation('pt', removeEmpty(json), () => {
+            history.push('/buy/success');
+          })
+        );
       } else {
-        toast.error('Eksik Kart Bilgilerini Doldurunuz !', {
+        toast.error(t('Fill in the Missing Card Information!'), {
           position: 'bottom-right',
           autoClose: 4000,
         });
@@ -359,19 +370,22 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
       reservation?.data?.expiration_year &&
       reservation?.data?.cvc
     ) {
-      dispatch(sendReservation('bs', removeEmpty(json), () => {
-        if (json.payment_type == 'wallet') {
-          history.push('/buy/success')
-        }
-      }));
+      dispatch(
+        sendReservation('bs', removeEmpty(json), () => {
+          if (json.payment_type == 'wallet') {
+            history.push('/buy/success');
+          }
+        })
+      );
     } else {
-
       if (reservation?.data?.payment_type == 'wallet') {
-        dispatch(sendReservation('bs', removeEmpty(json), () => {
-          history.push('/buy/success')
-        }));
+        dispatch(
+          sendReservation('bs', removeEmpty(json), () => {
+            history.push('/buy/success');
+          })
+        );
       } else {
-        toast.error('Eksik Kart Bilgilerini Doldurunuz !', {
+        toast.error(t('Fill in the Missing Card Information!'), {
           position: 'bottom-right',
           autoClose: 4000,
         });
@@ -401,20 +415,22 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
       buyPacket?.reservation?.expiration_year &&
       buyPacket?.reservation?.cvc
     ) {
-      dispatch(sendReservation('upgrade_packet', removeEmpty(json), () => {
-        if (json.payment_type == 'wallet') {
-          history.push('/buy/success')
-        }
-      }));
+      dispatch(
+        sendReservation('upgrade_packet', removeEmpty(json), () => {
+          if (json.payment_type == 'wallet') {
+            history.push('/buy/success');
+          }
+        })
+      );
     } else {
       if (buyPacket?.reservation?.payment_type == 'wallet') {
         dispatch(
           sendReservation('upgrade_packet', removeEmpty(json), () => {
-            history.push('/buy/success')
+            history.push('/buy/success');
           })
         );
       } else {
-        toast.error('Eksik Kart Bilgilerini Doldurunuz !', {
+        toast.error(t('Fill in the Missing Card Information!'), {
           position: 'bottom-right',
           autoClose: 4000,
         });
@@ -428,11 +444,13 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
       is_contracts_accepted: true,
       payment_type: buyPacket.reservation?.payment_type,
     };
-    dispatch(sendPackageReservation(subType, removeEmpty(json), () => {
-      if (json.payment_type == 'wallet') {
-        history.push('/buy/success')
-      }
-    })); //Burasını değiş
+    dispatch(
+      sendPackageReservation(subType, removeEmpty(json), () => {
+        if (json.payment_type == 'wallet') {
+          history.push('/buy/success');
+        }
+      })
+    ); //Burasını değiş
   }
   function sendPaymentPtGroup() {
     var json = {
@@ -440,12 +458,13 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
       is_contracts_accepted: true,
       payment_type: buyGroupLesson.reservation?.payment_type,
     };
-    dispatch(sendGroupReservation(removeEmpty(json), () => {
-
-      if (json.payment_type == 'wallet') {
-        history.push('/buy/success')
-      }
-    })); //Burasını değiş
+    dispatch(
+      sendGroupReservation(removeEmpty(json), () => {
+        if (json.payment_type == 'wallet') {
+          history.push('/buy/success');
+        }
+      })
+    ); //Burasını değiş
   }
   function sendPaymentDT() {
     var json = {
@@ -471,23 +490,22 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
       reservation?.data?.expiration_year &&
       reservation?.data?.cvc
     ) {
-
-      dispatch(sendReservation('dt', removeEmpty(json), () => {
-        if (json.payment_type == 'wallet') {
-          history.push('/buy/success')
-        }
-      }));
+      dispatch(
+        sendReservation('dt', removeEmpty(json), () => {
+          if (json.payment_type == 'wallet') {
+            history.push('/buy/success');
+          }
+        })
+      );
     } else {
-
       if (reservation?.data?.payment_type == 'wallet') {
-
-        dispatch(sendReservation('dt', removeEmpty(json), () => {
-
-          history.push('/buy/success')
-
-        }));
+        dispatch(
+          sendReservation('dt', removeEmpty(json), () => {
+            history.push('/buy/success');
+          })
+        );
       } else {
-        toast.error('Eksik Kart Bilgilerini Doldurunuz !', {
+        toast.error(t('Fill in the Missing Card Information!'), {
           position: 'bottom-right',
           autoClose: 4000,
         });
@@ -504,62 +522,94 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
     switch (tempType) {
       case 'pt':
         if (!reservation?.data?.session) {
-          // setIsNotOkReason('Oturum türü seçilmedi.')
+          // setIsNotOkReason(t('The session type is not selected'))
 
-          return { reason: 'Oturum türü seçilmedi.' }
-        };
-        if ((reservation?.data.session == 'gym' || reservation?.data.session == 'home_park') && !reservation?.data?.location_id) {
-          // setIsNotOkReason('Seçilen oturum türü lokasyon seçimi gerektirmektedir')
-          return { reason: 'Seçilen oturum türü lokasyon seçimi gerektirmektedir' }
-        };
-        //setIsNotOkReason('')
-        if (!(reservationCalendar?.data?.slice &&
-          reservationCalendar?.data?.slice?.length > 0)) {
-          return { reason: 'Seçimlerinize uygun rezervasyon takvimi bulunamadı.' }
+          return { reason: t('The session type is not selected') };
         }
-        return true
+        if (
+          (reservation?.data.session == 'gym' ||
+            reservation?.data.session == 'home_park') &&
+          !reservation?.data?.location_id
+        ) {
+          // setIsNotOkReason(t('The selected session type requires location selection.'))
+          return {
+            reason: t('The selected session type requires location selection.'),
+          };
+        }
+        //setIsNotOkReason('')
+        if (
+          !(
+            reservationCalendar?.data?.slice &&
+            reservationCalendar?.data?.slice?.length > 0
+          )
+        ) {
+          return {
+            reason: t('No reservation calendar found for your selections'),
+          };
+        }
+        return true;
 
       case 'dt':
         if (!reservation?.data?.session) {
-          // setIsNotOkReason('Oturum türü seçilmedi.')
+          // setIsNotOkReason(t('The session type is not selected'))
 
-          return { reason: 'Oturum türü seçilmedi.' }
-        };
-        if ((reservation?.data.session == 'clinic') && !reservation?.data?.location_id) {
-          // setIsNotOkReason('Seçilen oturum türü lokasyon seçimi gerektirmektedir')
-          return { reason: 'Seçilen oturum türü lokasyon seçimi gerektirmektedir' }
-        };
-        //setIsNotOkReason('')
-        if (!(reservationCalendar?.data?.slice &&
-          reservationCalendar?.data?.slice?.length > 0)) {
-          return { reason: 'Seçimlerinize uygun rezervasyon takvimi bulunamadı.' }
+          return { reason: t('The session type is not selected') };
         }
-        return true
+        if (
+          reservation?.data.session == 'clinic' &&
+          !reservation?.data?.location_id
+        ) {
+          // setIsNotOkReason(t('The selected session type requires location selection.'))
+          return {
+            reason: t('The selected session type requires location selection.'),
+          };
+        }
+        //setIsNotOkReason('')
+        if (
+          !(
+            reservationCalendar?.data?.slice &&
+            reservationCalendar?.data?.slice?.length > 0
+          )
+        ) {
+          return {
+            reason: 'No reservation calendar found for your selections',
+          };
+        }
+        return true;
       case 'gym':
-
-        if (disabledPayment == true) return { reason: 'Eğitmen seçimi yapmadınız' }
-        if ((reservation?.data.session == 'gym' || reservation?.data.session == 'home_park') && !reservation?.data?.location_id) {
-          // setIsNotOkReason('Seçilen oturum türü lokasyon seçimi gerektirmektedir')
-          return { reason: 'Seçilen oturum türü lokasyon seçimi gerektirmektedir' }
-        };
-        //setIsNotOkReason('')
-        if (!(reservationCalendar?.data?.slice &&
-          reservationCalendar?.data?.slice?.length > 0)) {
-          return { reason: 'Seçimlerinize uygun rezervasyon takvimi bulunamadı.' }
+        if (disabledPayment == true)
+          return { reason: t('You did not choose an instructor') };
+        if (
+          (reservation?.data.session == 'gym' ||
+            reservation?.data.session == 'home_park') &&
+          !reservation?.data?.location_id
+        ) {
+          // setIsNotOkReason(t('The selected session type requires location selection.'))
+          return {
+            reason: t('The selected session type requires location selection.'),
+          };
         }
-        return true
+        //setIsNotOkReason('')
+        if (
+          !(
+            reservationCalendar?.data?.slice &&
+            reservationCalendar?.data?.slice?.length > 0
+          )
+        ) {
+          return {
+            reason: 'No reservation calendar found for your selections',
+          };
+        }
+        return true;
 
       default:
         break;
     }
-
-
-
   }
   function _renderReservationState() {
-    var reason = isOkForRes()?.reason
+    var reason = isOkForRes()?.reason;
     return (
-      (!(reason) && (
+      (!reason && (
         <div
           style={{
             width: '100%',
@@ -569,7 +619,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
         >
           <Svg.TickLesson></Svg.TickLesson>
           <text style={{ marginLeft: '5px' }}>
-            Seçiminiz Rezervasyon İçin Uygundur
+            {t('Your Choice is Available For Reservation')}
           </text>
         </div>
       )) || (
@@ -583,18 +633,31 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
           }}
         >
           <Svg.InfoIcon></Svg.InfoIcon>
-          <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '20px' }}>
-            <text style={{ marginLeft: '5px', textAlign: 'center', marginTop: '6px', fontWeight: 'bold' }}>
-              Rezervasyon için uygun değildir.
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              marginBottom: '20px',
+            }}
+          >
+            <text
+              style={{
+                marginLeft: '5px',
+                textAlign: 'center',
+                marginTop: '6px',
+                fontWeight: 'bold',
+              }}
+            >
+              {t('Not available for reservation')}
             </text>
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              <Svg.CencelIcon ></Svg.CencelIcon>
+              <Svg.CencelIcon></Svg.CencelIcon>
               <text style={{ marginLeft: '5px' }}>{reason}</text>
             </div>
           </div>
         </div>
       )
-    )
+    );
   }
   function sendPaymentPtPacketReservation() {
     var json = {
@@ -602,7 +665,10 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
       pt_id: reservation?.data?.selectedPt?.id,
       dt_id: reservationCalendar?.data?.dt?.id,
 
-      payment_type: reservation?.data?.payment_type == 'credit_card' ? 'credit_card' : 'package',
+      payment_type:
+        reservation?.data?.payment_type == 'credit_card'
+          ? 'credit_card'
+          : 'package',
       is_contracts_accepted: true,
       session: reservation?.data?.session,
       location_id: reservation?.data?.location_id,
@@ -624,33 +690,32 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
       reservation?.data?.cvc
     ) {
       dispatch(
-
         sendReservation(
           reservation?.data?.packetInfo?.type,
           removeEmpty(json),
           () => {
             if (json.payment_type == 'wallet') {
-              history.push('/buy/success')
+              history.push('/buy/success');
             }
           }
         )
       );
     } else {
-      if (reservation?.data?.payment_type == 'wallet' || reservation?.data?.payment_type == 'no_money') {
-
+      if (
+        reservation?.data?.payment_type == 'wallet' ||
+        reservation?.data?.payment_type == 'no_money'
+      ) {
         dispatch(
           sendReservation(
             reservation?.data?.packetInfo?.type,
             removeEmpty(json),
             () => {
-              history.push('/buy/success')
-
-
+              history.push('/buy/success');
             }
           )
         );
       } else {
-        toast.error('Eksik Kart Bilgilerini Doldurunuz !', {
+        toast.error(t('Fill in the Missing Card Information!'), {
           position: 'bottom-right',
           autoClose: 4000,
         });
@@ -693,36 +758,42 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
           </DateContainer>
           {reservation?.data?.date && (
             <>
-              <AddHeader>Saat Seçiniz</AddHeader>
+              <AddHeader>{t('Select Time')}</AddHeader>
               <Hours>
                 {(reservation?.data?.date &&
                   reservationCalendar?.data?.slice?.length > 0 &&
-                  reservationCalendar?.data?.slice?.filter(item => item.date == reservation?.data?.date)?.map((item, indx) => (
-                    <Hour
-                      onClick={() => {
-                        handleHourClick(item);
-                      }}
-                      key={indx}
-                      selected={selectedSlotControl(item)}
-                    >
-                      {item.time}
-                    </Hour>
-                  ))) || (
-                    <text>Seçtiğiniz koşullara uygun boş zaman bulunamadı..</text>
-                  )}
+                  reservationCalendar?.data?.slice
+                    ?.filter((item) => item.date == reservation?.data?.date)
+                    ?.map((item, indx) => (
+                      <Hour
+                        onClick={() => {
+                          handleHourClick(item);
+                        }}
+                        key={indx}
+                        selected={selectedSlotControl(item)}
+                      >
+                        {item.time}
+                      </Hour>
+                    ))) || (
+                  <text>
+                    {t('No free time found for the conditions you selected')}
+                  </text>
+                )}
               </Hours>
             </>
           )}
         </ReservationContainer>
       )}
       <AddTextContainer>
-        {(type === 'pt') &&
+        {type === 'pt' &&
           reservation?.data?.session !== 'online' &&
           !reservation?.data?.payment_type && (
             <>
-              <AddHeader>Misafir Ekle</AddHeader>
+              <AddHeader>{t('Add Guest')}</AddHeader>
               <AddDesc>
-                Dilersen istediğin bir arkadaşınla beraber derse gelebilirsin.
+                {t(
+                  'If you wish, you can come to class with a friend of your choice'
+                )}
               </AddDesc>
               <Switch
                 checked={reservation?.data?.guest}
@@ -743,20 +814,20 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
           <DataContainer>
             <>
               <Info>
-                <Text style={{ fontWeight: 800 }}>Eğitmen Ücreti</Text>
+                <Text style={{ fontWeight: 800 }}>{t('Trainer Fee')}</Text>
                 <Text style={{ fontWeight: 800 }}>
                   {reservation?.data?.pt_price}
                 </Text>
               </Info>
               <Info borderDisable>
-                <Text style={{ fontWeight: 800 }}>Salon Ücreti</Text>
+                <Text style={{ fontWeight: 800 }}>{t('Gym Fee')}</Text>
                 <Text style={{ fontWeight: 800 }}>
                   {reservation?.data?.gym_price}
                 </Text>
               </Info>
               {reservation?.data?.guest && (
                 <Info borderDisable>
-                  <Text style={{ fontWeight: 800 }}>Misafir Ücreti</Text>
+                  <Text style={{ fontWeight: 800 }}>{t('Guest Fee')}</Text>
                   <Text style={{ fontWeight: 800 }}>
                     {(reservation?.data?.gym_price || 0) +
                       reservation?.data?.pt_price || 0}
@@ -772,7 +843,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
           <DataContainer>
             <>
               <Info borderDisable>
-                <Text style={{ fontWeight: 800 }}>Salon Ücreti</Text>
+                <Text style={{ fontWeight: 800 }}>{t('Gym Fee')}</Text>
                 <Text style={{ fontWeight: 800 }}>
                   {reservation?.data?.gym_price}
                 </Text>
@@ -785,7 +856,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
         <InfoContainer>
           <DataContainer>
             <Info>
-              <Text style={{ fontWeight: 800 }}>Diyetisyen Ücreti</Text>
+              <Text style={{ fontWeight: 800 }}>{t('Dietitian Fee')}</Text>
               <Text style={{ fontWeight: 800 }}>
                 {reservation?.data?.dt_price}
               </Text>
@@ -808,7 +879,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
                       >
                         <div style={{ display: 'flex', alignItems: 'center' }}>
                           {/*miniIcon*/}
-                          <DarkTitle>{'Rezervasyonlarınız'}</DarkTitle>
+                          <DarkTitle>{t('Your reservations')}</DarkTitle>
                         </div>
                         {toggleState ? (
                           <Svg.ArrowDownIcon />
@@ -841,7 +912,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
                                   padding: '0 7px',
                                 }}
                               >
-                                Tarih:
+                                {t('date')}:
                               </Text>
                               <Text
                                 color="gray"
@@ -859,7 +930,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
                                   padding: '0 7px',
                                 }}
                               >
-                                Saat:
+                                {t('Hour')}:
                               </Text>
                               <Text
                                 color="gray"
@@ -888,23 +959,29 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
             </DataContainer>
             {(dateOption && type === 'pt' && (
               <AddTextContainer>
-                <AddHeader onClick={scrollToTop}>Ders Ekle</AddHeader>
-                <AddDesc>Aynı eğitmen ve salondan daha fazla ders alın</AddDesc>
+                <AddHeader onClick={scrollToTop}>{t('Add Lessons')}</AddHeader>
+                <AddDesc>
+                  {t('Take more lessons from the same trainer and gym')}
+                </AddDesc>
               </AddTextContainer>
             )) ||
               (dateOption && type === 'dt' && (
                 <AddTextContainer onClick={scrollToTop}>
-                  <AddHeader>Seans Ekle</AddHeader>
+                  <AddHeader>{t('Add Session')}</AddHeader>
                   <AddDesc>
-                    Aynı diyetisyen ve klinikten daha fazla randevu alın
+                    {t(
+                      'Make more appointments with the same dietitian and clinic'
+                    )}
                   </AddDesc>
                 </AddTextContainer>
               )) ||
               (type === 'dt' && (
                 <AddTextContainer>
-                  <AddHeader>Seans Ekle</AddHeader>
+                  <AddHeader>{t('Add Session')}</AddHeader>
                   <AddDesc>
-                    Aynı diyetisyen ve klinikten daha fazla randevu alın
+                    {t(
+                      'Make more appointments with the same dietitian and clinic'
+                    )}
                   </AddDesc>
                 </AddTextContainer>
               ))}
@@ -912,7 +989,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
         )}
       <ConfirmContainer>
         <BottomContainer>
-          <Text style={{ fontWeight: 800 }}>Toplam Ücret</Text>
+          <Text style={{ fontWeight: 800 }}>{t('Total Fee')}</Text>
           <Text color="#00B2A9" style={{ fontWeight: 800, fontSize: 30 }}>
             {(type == 'buy_packet' || type == 'upgrade_packet') &&
               (buyPacket?.reservation?.totals_amount
@@ -937,7 +1014,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
               <Button
                 style={{ width: '100%', padding: '20px' }}
                 className="blue"
-                text="Rezervasyonu Onayla"
+                text={t('Confirm Reservation')}
                 onClick={() => {
                   switch (type) {
                     case 'pt':
@@ -961,15 +1038,14 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
             </BottomContainer>
           ) : (
             <>
-              {
-                _renderReservationState()
-              }
-              {false && (wallet?.data?.balance >= reservation?.data?.totals_amount) ? ( //Şimdilik cüzdanım kapatıldı
+              {_renderReservationState()}
+              {false &&
+              wallet?.data?.balance >= reservation?.data?.totals_amount ? ( //Şimdilik cüzdanım kapatıldı
                 <BottomContainer>
                   <Button
                     style={{ width: '100%', padding: '20px' }}
                     className="blue"
-                    text="Cüzdanımdan Öde"
+                    text={t('Pay From My Wallet')}
                     onClick={() => {
                       if (reservation?.data?.session) {
                         if (
@@ -985,7 +1061,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
                             selectPaymentType('wallet');
                           }
                         } else {
-                          toast.error('Lütfen Seçiminizi Gözden Geçiriniz!', {
+                          toast.error(t('Please Review Your Selection!'), {
                             position: 'bottom-right',
                             autoClose: 4000,
                           });
@@ -1009,7 +1085,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
                           selectPaymentType('wallet');
                         }
                       } else {
-                        toast.error('Lütfen Oturum Türü Seçiniz!', {
+                        toast.error(t('Please Select Session Type!'), {
                           position: 'bottom-right',
                           autoClose: 4000,
                         });
@@ -1025,7 +1101,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
                   <Button
                     style={{ width: '100%', padding: '20px' }}
                     className="blue"
-                    text={"Rezervasyon Oluştur"}
+                    text={t('Make a Reservation')}
                     onClick={() => {
                       if (reservation?.data?.session) {
                         if (
@@ -1034,13 +1110,13 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
                         ) {
                           selectPaymentType('no_money');
                         } else {
-                          toast.error('Lütfen Seçiminizi Gözden Geçiriniz!', {
+                          toast.error(t('Please Review Your Selection!'), {
                             position: 'bottom-right',
                             autoClose: 4000,
                           });
                         }
                       } else {
-                        toast.error('Lütfen Oturum Türü Seçiniz!', {
+                        toast.error(t('Please Select Session Type!'), {
                           position: 'bottom-right',
                           autoClose: 4000,
                         });
@@ -1049,38 +1125,40 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
                   />
                 </BottomContainer>
               )}
-              {!(type == 'packet' && reservation?.data?.totals_amount == 0) && <BottomContainer style={{ margin: '5px' }}>
-                <Button
-                  style={{ width: '100%', padding: '20px' }}
-                  className="blue"
-                  text={"Kredi Kartından Öde"}
-                  onClick={() => {
-                    if (reservation?.data?.session) {
-                      if (
-                        reservationCalendar?.data?.slice &&
-                        reservationCalendar?.data?.slice?.length > 0
-                      ) {
-                        scrollToTop();
+              {!(type == 'packet' && reservation?.data?.totals_amount == 0) && (
+                <BottomContainer style={{ margin: '5px' }}>
+                  <Button
+                    style={{ width: '100%', padding: '20px' }}
+                    className="blue"
+                    text={t('Pay by Credit Card')}
+                    onClick={() => {
+                      if (reservation?.data?.session) {
+                        if (
+                          reservationCalendar?.data?.slice &&
+                          reservationCalendar?.data?.slice?.length > 0
+                        ) {
+                          scrollToTop();
+                          selectPaymentType('credit_card');
+                        } else {
+                          toast.error(t('Please Review Your Selection!'), {
+                            position: 'bottom-right',
+                            autoClose: 4000,
+                          });
+                        }
+                      } else if (type == 'gym') {
+                        selectPaymentType('credit_card');
+                      } else if (type == 'upgrade_packet') {
                         selectPaymentType('credit_card');
                       } else {
-                        toast.error('Lütfen Seçiminizi Gözden Geçiriniz!', {
+                        toast.error(t('Please Select Session Type!'), {
                           position: 'bottom-right',
                           autoClose: 4000,
                         });
                       }
-                    } else if (type == 'gym') {
-                      selectPaymentType('credit_card');
-                    } else if (type == 'upgrade_packet') {
-                      selectPaymentType('credit_card');
-                    } else {
-                      toast.error('Lütfen Oturum Türü Seçiniz!', {
-                        position: 'bottom-right',
-                        autoClose: 4000,
-                      });
-                    }
-                  }}
-                />
-              </BottomContainer>}
+                    }}
+                  />
+                </BottomContainer>
+              )}
             </>
           ))}
         {type == 'buy_group_lesson' &&
@@ -1089,7 +1167,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
               <Button
                 style={{ width: '100%', padding: '20px' }}
                 className="blue"
-                text="Ödeme Yap"
+                text={t('pay')}
                 onClick={() => {
                   sendPaymentPtGroup();
                 }}
@@ -1097,13 +1175,14 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
             </BottomContainer>
           ) : (
             <>
-              {false && (wallet?.data?.balance >= //Cüzdanım şimdilik kapatıldı
-                buyGroupLesson?.reservation?.totals_amount) ? (
+              {false &&
+              wallet?.data?.balance >= //Cüzdanım şimdilik kapatıldı
+                buyGroupLesson?.reservation?.totals_amount ? (
                 <BottomContainer>
                   <Button
                     style={{ width: '100%', padding: '20px' }}
                     className="blue"
-                    text="Cüzdanımdan Öde"
+                    text={t('Pay From My Wallet')}
                     onClick={() => {
                       var wallet_balance = wallet?.data?.balance || 0;
                       var amount =
@@ -1125,7 +1204,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
                 <Button
                   style={{ width: '100%', padding: '20px' }}
                   className="blue"
-                  text="Kredi Kartından Öde"
+                  text={t('Pay by Credit Card')}
                   onClick={() => {
                     scrollToTop();
                     selectPaymentTypeGroupLesson('credit_card');
@@ -1140,7 +1219,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
               <Button
                 style={{ width: '100%', padding: '20px' }}
                 className="blue"
-                text="Ödeme Yap"
+                text={t('pay')}
                 onClick={() => {
                   switch (type) {
                     case 'upgrade_packet':
@@ -1160,12 +1239,13 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
             </BottomContainer>
           ) : (
             <>
-              {false && (wallet?.data?.balance >= buyPacket?.reservation?.totals_amount) ? ( //Cüzdanım Şimdilik kapatıldı
+              {false &&
+              wallet?.data?.balance >= buyPacket?.reservation?.totals_amount ? ( //Cüzdanım Şimdilik kapatıldı
                 <BottomContainer>
                   <Button
                     style={{ width: '100%', padding: '20px' }}
                     className="blue"
-                    text="Cüzdanımdan Öde"
+                    text={t('Pay From My Wallet')}
                     onClick={() => {
                       var wallet_balance = wallet?.data?.balance || 0;
                       var amount = buyPacket?.reservation?.totals_amount || 0;
@@ -1186,7 +1266,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
                 <Button
                   style={{ width: '100%', padding: '20px' }}
                   className="blue"
-                  text="Kredi Kartından Öde"
+                  text={t('Pay by Credit Card')}
                   onClick={() => {
                     scrollToTop();
                     selectPaymentTypePacket('credit_card');
@@ -1204,168 +1284,144 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
                 <input type="hidden" name="cvv" value="000" />*/}
         <input
           type="hidden"
-
           name="cc_owner"
           value={reservation?.data?.holder_name}
         />
         <input
           type="hidden"
-
           name="card_number"
           value={reservation?.data?.card_number?.replace(/\s/g, '')}
         />
         <input
           type="hidden"
-
           name="expiry_month"
           value={reservation?.data?.expiration_month}
         />
         <input
           type="hidden"
-
           name="expiry_year"
           value={reservation?.data?.expiration_year}
         />
-        <input type="hidden"
-          name="cvv" value={reservation?.data?.cvc} />
+        <input type="hidden" name="cvv" value={reservation?.data?.cvc} />
 
         <input
           type="hidden"
-
           name="card_type"
           value={payment?.request?.data?.card_type}
         />
         <input
           type="hidden"
-
           name="currency"
           value={payment?.request?.data?.currency}
         />
         <input
           type="hidden"
-
           name="debug_on"
           value={payment?.request?.data?.debug_on}
         />
         <input
           type="hidden"
-
           name="email"
           value={payment?.request?.data?.email}
         />
         <input
           type="hidden"
-
           name="installment_count"
           value={payment?.request?.data?.installment_count}
         />
-        <input type="hidden"
-          name="lang" value={payment?.request?.data?.lang} />
+        <input type="hidden" name="lang" value={payment?.request?.data?.lang} />
         <input
           type="hidden"
-
           name="max_installment"
           value={payment?.request?.data?.max_installment}
         />
         <input
           type="hidden"
-
           name="merchant_fail_url"
           value={payment?.request?.data?.merchant_fail_url}
         />
         <input
           type="hidden"
-
           name="merchant_id"
           value={payment?.request?.data?.merchant_id}
         />
         <input
           type="hidden"
-
           name="merchant_oid"
           value={payment?.request?.data?.merchant_oid}
         />
         <input
           type="hidden"
-
           name="merchant_ok_url"
           value={payment?.request?.data?.merchant_ok_url}
         />
         <input
           type="hidden"
-
           name="no_installment"
           value={payment?.request?.data?.no_installment}
         />
         <input
           type="hidden"
-
           name="non3d_test_failed"
           value={payment?.request?.data?.non3d_test_failed}
         />
         <input
           type="hidden"
-
           name="non_3d"
           value={payment?.request?.data?.non_3d}
         />
         <input
           type="hidden"
-
           name="payment_amount"
           value={payment?.request?.data?.payment_amount}
         />
         <input
           type="hidden"
-
           name="payment_type"
           value={payment?.request?.data?.payment_type}
         />
         <input
           type="hidden"
-
           name="paytr_token"
           value={payment?.request?.data?.paytr_token}
         />
 
         <input
           type="hidden"
-
           name="test_mode"
           value={payment?.request?.data?.test_mode}
         />
         <input
-
           type="hidden"
           name="user_address"
           value={payment?.request?.data?.user_address}
         />
         <input
           type="hidden"
-
           name="user_basket"
           value={payment?.request?.data?.user_basket}
         />
         <input
           type="hidden"
-
           name="user_ip"
           value={payment?.request?.data?.user_ip}
         />
         <input
           type="hidden"
-
           name="user_name"
           value={payment?.request?.data?.user_name}
         />
         <input
           type="hidden"
-
           name="user_phone"
           value={payment?.request?.data?.user_phone}
         />
       </form>
-      <form ref={upgradeForm} action="https://www.paytr.com/odeme" method="POST">
+      <form
+        ref={upgradeForm}
+        action="https://www.paytr.com/odeme"
+        method="POST"
+      >
         {/*<input type="text" name="cc_owner" value="PAYTR TEST" />
         <input type="hidden" name="card_number" value="9792030394440796" />
         <input type="hidden" name="expiry_month" value="12" />
@@ -1536,8 +1592,7 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
           name="expiry_year"
           value={buyPacket?.reservation?.expiration_year}
         />
-        <input type="hidden"
-          name="cvv" value={buyPacket?.reservation?.cvc} />
+        <input type="hidden" name="cvv" value={buyPacket?.reservation?.cvc} />
 
         <input
           type="hidden"
@@ -1688,7 +1743,11 @@ export default function PaymentCard({ type, subType, dateOption, disabledPayment
           name="expiry_year"
           value={buyGroupLesson?.reservation?.expiration_year}
         />
-        <input type="hidden" name="cvv" value={buyGroupLesson?.reservation?.cvc} />
+        <input
+          type="hidden"
+          name="cvv"
+          value={buyGroupLesson?.reservation?.cvc}
+        />
 
         <input
           type="hidden"
@@ -1885,9 +1944,9 @@ const AccordionItemWrapper = styled.div`
   .accordion-toggler {
     display: flex;
     background: ${(p) =>
-    p.parent
-      ? '#EFEFEF'
-      : p.accordionBackground
+      p.parent
+        ? '#EFEFEF'
+        : p.accordionBackground
         ? p.accordionBackground
         : '#F8F8F8'};
     justify-content: space-between;

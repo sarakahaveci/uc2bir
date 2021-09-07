@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import styled from 'styled-components/macro';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { Title } from 'components';
 import Pt from './PT';
@@ -13,6 +14,8 @@ import * as KEYS from '../../constants/userKeys';
 import image from '../../assets/session-type.jpg';
 
 const Packets = () => {
+  const { t } = useTranslation();
+
   const type_id = useSelector((state) => state.auth)?.user?.type_id;
   const [bannerActive, setBannerActive] = useState(true);
 
@@ -33,7 +36,6 @@ const Packets = () => {
   let content;
 
   switch (type[0]?.key) {
-    
     case KEYS.USER:
       content = (
         <>
@@ -58,7 +60,7 @@ const Packets = () => {
         </>
       );
       break;
-      case KEYS.DIETIAN:
+    case KEYS.DIETIAN:
       content = (
         <>
           <Col lg="4" style={{ display: bannerActive ? '' : 'none' }}>
@@ -82,7 +84,7 @@ const Packets = () => {
         <Row>
           <Col lg="12">
             <Title fontSize="14pt" style={{ padding: 15 }} textAlign="left">
-              Paketlerim
+              {t('my packages')}
             </Title>
           </Col>
           {content}

@@ -10,14 +10,21 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { device } from 'utils';
 import image from '../../../assets/session-type.jpg';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserMyPacketDetail, getUserTestDetail, setPackageSurvey ,clearReservation,setReservation} from 'actions';
+import {
+  getUserMyPacketDetail,
+  getUserTestDetail,
+  setPackageSurvey,
+  clearReservation,
+  setReservation,
+} from 'actions';
 import ReactHtmlParser from 'react-html-parser';
 import { decode } from 'html-entities';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { toast } from 'react-toastify';
-
+import { useTranslation } from 'react-i18next';
 import DialogContent from '@material-ui/core/DialogContent';
+
 const fullWidth = true;
 const maxWidth = 'sm';
 const useStyles = makeStyles({
@@ -31,6 +38,8 @@ const DetailLesson = ({
   globalState,
   setGlobalState,
 }) => {
+  const { t } = useTranslation();
+
   const [question, _question] = useState([]);
   const [answer, _answer] = useState({});
   const dispatch = useDispatch();
@@ -74,11 +83,10 @@ const DetailLesson = ({
     dispatch(setReservation({ package_uuid: globalState?.package_uuid }));
     dispatch(setReservation({ packetInfo: globalState }));
     setPage('PacketReservation');
-   
   }
   const succsess = () => {
     setModal(false);
-    toast.success(`Soru cevapları gönderildi.`, {
+    toast.success(t(`Question answers have been sent`), {
       position: 'bottom-right',
       autoClose: 2000,
       hideProgressBar: false,
@@ -91,7 +99,7 @@ const DetailLesson = ({
 
   const err = () => {
     setModal(false);
-    toast.error(`Soru cevapları gönderilemedi!`, {
+    toast.error(t(`Question answers could not be sent!`), {
       position: 'bottom-right',
       autoClose: 2000,
       hideProgressBar: false,
@@ -170,7 +178,10 @@ const DetailLesson = ({
         <Right>
           <ImageContainer>
             <ImageBanner src={image}></ImageBanner>
-            <Button onClick={handleReservationButton}>Rezervasyon Yap</Button>
+            <Button onClick={handleReservationButton}>
+              {' '}
+              {t('Make a Reservation')}{' '}
+            </Button>
           </ImageContainer>
           <TextContainer>
             <Title>{detailData?.package?.title}</Title>
@@ -186,7 +197,7 @@ const DetailLesson = ({
       <Wrapper>
         <StyledRow header style={{}}>
           <Col lg="12" style={{ padding: 0 }}>
-            <HeaderText>Dersler</HeaderText>
+            <HeaderText>{t('lessons')}</HeaderText>
             <LinearProgress
               classes={{ barColorPrimary: classes.barColorPrimary }}
               variant="determinate"
@@ -344,7 +355,7 @@ const DetailLesson = ({
                   >
                     <Button
                       type="submit"
-                      text={`Testi Tamamla`}
+                      text={t('Complete the Test')}
                       className="blue"
                       width={'90%'}
                     />
@@ -358,7 +369,7 @@ const DetailLesson = ({
                     }}
                   >
                     <Button
-                      text={`Yükleniyor...`}
+                      text={t('Loading')}
                       className="blue"
                       width={'90%'}
                     />

@@ -18,7 +18,7 @@ import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import GoogleMap from 'components/GoogleMaps/GoogleMap';
 import { space } from 'styled-system';
-
+import { useTranslation } from 'react-i18next';
 import { device } from 'utils';
 import { Modal } from 'react-bootstrap';
 import {
@@ -36,6 +36,8 @@ import PtSelection from './ptSelection';
 import UpgradeClass from './upgradeClass';
 
 const PacketReservation = ({ setPage, setBannerActive }) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   //Local States
   const [clinicState, setClinicState] = useState([]);
@@ -152,7 +154,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
       case 'gym':
         return (
           <GymWrapper disable={reservation?.data?.slot?.length > 0}>
-            <Text color="#9B9B9B">{'Spor Alanı Seçiniz:'}</Text>
+            <Text color="#9B9B9B">{t('Choose Sports Field')}:</Text>
             <RadioGroup
               row
               aria-label="workArea"
@@ -194,7 +196,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
                 </>
               ))}
               {!(gymListState?.length > 0) && (
-                <text>Uygun Spor Alanı bulunmamaktadır</text>
+                <text>{t('There is no suitable sports area')}</text>
               )}
             </RadioGroup>
           </GymWrapper>
@@ -202,7 +204,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
       case 'home_park':
         return (
           <GymWrapper disable={reservation?.data?.slot?.length > 0}>
-            <Text color="#9B9B9B">{'Ev Park Seçiniz:'}</Text>
+            <Text color="#9B9B9B">{t('Select Home/Park')}:</Text>
             <RadioGroup
               row
               aria-label="workArea"
@@ -249,7 +251,8 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
                       </Accordion.Item>
                     </AccordionItemWrapper>
                   </Accordion>
-                  {reservation?.data?.location_id && reservation?.data?.location_id === item.location_id ? (
+                  {reservation?.data?.location_id &&
+                  reservation?.data?.location_id === item.location_id ? (
                     <RadioButtonCheckedIcon
                       style={{ marginLeft: '5px', cursor: 'pointer' }}
                     />
@@ -267,7 +270,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
                     />
                   )}
                 </div>
-              )) || <text>Uygun Alan bulunmamaktadır</text>}
+              )) || <text>{t('There is no suitable area')}</text>}
             </RadioGroup>
           </GymWrapper>
         );
@@ -277,7 +280,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
         return (
           <>
             <GymWrapper disable={reservation?.data?.slot?.length > 0}>
-              <Text color="#9B9B9B">{'Klinik Seçiniz:'}</Text>
+              <Text color="#9B9B9B">{t('Select Clinic')}:</Text>
               <RadioGroup
                 row
                 aria-label="workArea"
@@ -323,7 +326,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
                   </div>
                 )) || (
                   <text style={{ padding: '10px 0' }}>
-                    Bu kullanıcının uygun klinigi bulunmamaktadır.
+                    {t('This user does not have available clinics')}
                   </text>
                 )}
               </RadioGroup>
@@ -347,15 +350,19 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
             <InfoContainer>
               <DataContainer>
                 <Info>
-                  <Text style={{ fontWeight: 800 }}>Cüzdanım</Text>
+                  <Text style={{ fontWeight: 800 }}>{t('my wallet')}</Text>
                   <Text style={{ fontWeight: 800 }}>{wallet_balance}</Text>
                 </Info>
                 <Info>
-                  <Text style={{ fontWeight: 800 }}>İşlem Tutarı</Text>
+                  <Text style={{ fontWeight: 800 }}>
+                    {t('Transaction amount')}
+                  </Text>
                   <Text style={{ fontWeight: 800 }}>{amount}</Text>
                 </Info>
                 <Info>
-                  <Text style={{ fontWeight: 800 }}>Kalan Tutar</Text>
+                  <Text style={{ fontWeight: 800 }}>
+                    {t('Remaining amount')}
+                  </Text>
                   <Text
                     style={{
                       fontWeight: 800,
@@ -368,8 +375,10 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
               </DataContainer>
               <div style={{ padding: '10px' }}>
                 <text>
-                  Yapacağınız işlem sonrası cüdanınızda kalacak olan toplam
-                  tutar {diff} TL’dir
+                  {t(
+                    'The total amount that will remain in your wallet after the transaction is'
+                  )}
+                  {diff} TL
                 </text>
               </div>
             </InfoContainer>
@@ -451,8 +460,9 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
           >
             <Svg.SmileyFaceIcon style={{ marginRight: '20px' }} />
             <text>
-              Paketten rezervasyon yaparken extra hizmetler dışında ücret
-              ödemezsin.
+              {t(
+                'When making a reservation from the package, you do not pay any fees other than extra services'
+              )}
             </text>
           </div>
         );
@@ -466,7 +476,9 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
             <SelectionContainer>
               {reservation?.data?.isSelected && (
                 <InputContainer>
-                  <Text color="#9B9B9B">{'Tarih ve Saat Seçiminiz'}</Text>
+                  <Text color="#9B9B9B">
+                    {t('Your Choice of Date and Time')}:
+                  </Text>
                   <Material.TextField
                     type="text"
                     defaultValue={
@@ -482,7 +494,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
               )}
               {type == 'pt' && (
                 <InputContainer>
-                  <Text color="#9B9B9B">{'Eğitmen Seçiniz:'}</Text>
+                  <Text color="#9B9B9B">{t('Select Trainer')}:</Text>
                   <div
                     style={{ cursor: 'pointer' }}
                     onClick={() => {
@@ -492,7 +504,9 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
                     <div style={{ pointerEvents: 'none' }}>
                       <Material.SimpleSelect
                         name="pt"
-                        label={reservation?.data?.selectedPt?.name || 'Seçiniz'}
+                        label={
+                          reservation?.data?.selectedPt?.name || t('choose')
+                        }
                         onClick={() => {}}
                       />
                     </div>
@@ -519,17 +533,17 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
                 </InputContainer>
               )}
               <InputContainer>
-                <Text color="#9B9B9B">{'Oturum Türü Seçiniz:'}</Text>
+                <Text color="#9B9B9B">{'Select Session Type'}:</Text>
                 <Material.SimpleSelect
                   items={
                     type == 'pt'
                       ? [
-                          { id: 'home_park', name: 'Ev / Park' },
-                          { id: 'gym', name: 'Spor Salonu' },
+                          { id: 'home_park', name: t('Home / Park') },
+                          { id: 'gym', name: t('Gym') },
                           { id: 'online', name: 'Online' },
                         ]
                       : [
-                          { id: 'clinic', name: 'Klinik' },
+                          { id: 'clinic', name: t('clinic') },
                           { id: 'online', name: 'Online' },
                         ]
                   }
@@ -560,7 +574,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
           <BackLink onClick={() => setPage('Home')}>
             <Svg.ArrowLeftIcon />
 
-            <span>Rezervasyon Oluşturun</span>
+            <span>{t('Make a Reservation')}</span>
           </BackLink>
           <Container>
             <LeftWrapper>{_renderLeftArea()}</LeftWrapper>

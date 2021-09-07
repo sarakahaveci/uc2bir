@@ -9,43 +9,48 @@ import { getUserExerciseDetail } from 'actions';
 import { useDispatch, useSelector } from 'react-redux';
 import ReactHtmlParser from 'react-html-parser';
 import { decode } from 'html-entities';
+import { useTranslation } from 'react-i18next';
+
 const useStyles = makeStyles({
   barColorPrimary: {
     backgroundColor: '#00B2A9',
   },
 });
-const ExerciseDetail = ({ setPage = () => { }, globalState }) => {
+const ExerciseDetail = ({ setPage = () => {}, globalState }) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const detailData = useSelector(
     (state) => state.myPackets?.user?.exerciseDetail?.data
   );
   const classes = useStyles();
   useEffect(() => {
-    dispatch(getUserExerciseDetail(globalState?.training_id, globalState?.package_uuid, globalState?.lesson_id));
+    dispatch(
+      getUserExerciseDetail(
+        globalState?.training_id,
+        globalState?.package_uuid,
+        globalState?.lesson_id
+      )
+    );
   }, []);
   return (
     <Main>
       <BackLink onClick={() => setPage('Exercises')}>
         <Svg.ArrowLeftIcon />
 
-        <span>Egzersiz Detayı</span>
+        <span>{t('Exercise Detail')}</span>
       </BackLink>
 
       <Container>
         <Side>
           <TextContent>
-            <Text bold>Nasıl Yapılır ? </Text>
+            <Text bold>{t('How is it done?')}</Text>
             <LinearProgress
               classes={{ barColorPrimary: classes.barColorPrimary }}
               variant="determinate"
               value={20}
             />
-            <Text>
-
-              {ReactHtmlParser(
-                decode(detailData?.detail)
-              )}
-            </Text>
+            <Text>{ReactHtmlParser(decode(detailData?.detail))}</Text>
           </TextContent>
           <Info>
             <Text bold>{detailData?.title}</Text>
@@ -53,14 +58,14 @@ const ExerciseDetail = ({ setPage = () => { }, globalState }) => {
               <PropertyContainer>
                 <Svg.Difficulty></Svg.Difficulty>
                 <TextWrapper>
-                  <Text>Zorluk</Text>
+                  <Text>{t('difficulty')}</Text>
                   <Text bold>{detailData?.level}</Text>
                 </TextWrapper>
               </PropertyContainer>
               <PropertyContainer>
                 <Svg.Weight></Svg.Weight>
                 <TextWrapper>
-                  <Text>Ağırlık</Text>
+                  <Text>{t('Weight')}</Text>
                   <Text bold>{detailData?.weight} kg</Text>
                 </TextWrapper>
               </PropertyContainer>
@@ -74,15 +79,15 @@ const ExerciseDetail = ({ setPage = () => { }, globalState }) => {
               <PropertyContainer>
                 <Svg.Break></Svg.Break>
                 <TextWrapper>
-                  <Text>Mola</Text>
+                  <Text>{t('break')}</Text>
                   <Text bold>{detailData?.break}</Text>
                 </TextWrapper>
               </PropertyContainer>
               <PropertyContainer>
                 <Svg.Repetition></Svg.Repetition>
                 <TextWrapper>
-                  <Text>Tekrar</Text>
-                  <Text bold>  {detailData?.repetition}</Text>
+                  <Text>{t('repeat')}</Text>
+                  <Text bold> {detailData?.repetition}</Text>
                 </TextWrapper>
               </PropertyContainer>
             </Properties>

@@ -278,7 +278,7 @@ const EditLesson = ({
                       lineDisable
                       style={{ marginTop: '7px', marginLeft: '5px' }}
                     >
-                      {classDetail?.package?.lesson_amount} Ders
+                      {classDetail?.package?.lesson_amount} {t('lesson')}
                     </Title>
                   </div>
                 </div>
@@ -299,7 +299,7 @@ const EditLesson = ({
                 setBannerActive(true);
               }}
             >
-              {`< Geri`}
+              {'<'} {t('Back')}
             </Title>
             <StyledRow header style={{}}>
               <Col lg="12" style={{ padding: 0 }}>
@@ -462,7 +462,7 @@ const EditLesson = ({
                   >
                     <Button
                       type="submit"
-                      text={`Testi Tamamla`}
+                      text={t('Complete the Test')}
                       className="blue"
                       width={'90%'}
                     />
@@ -476,7 +476,7 @@ const EditLesson = ({
                     }}
                   >
                     <Button
-                      text={`Yükleniyor...`}
+                      text={t('Loading')}
                       className="blue"
                       width={'90%'}
                     />

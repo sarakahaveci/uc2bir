@@ -7,6 +7,8 @@ import { Container, Row, Col } from 'react-bootstrap';
 import ExerciseCard from '../ExerciseCard/ExerciseCard';
 import { device } from 'utils';
 import Svg from 'components/statics/svg';
+import { useTranslation } from 'react-i18next';
+
 import {
   getUserPacketLessonDetail,
   // setUserPacketLessonComplete,
@@ -18,10 +20,12 @@ const useStyles = makeStyles({
   },
 });
 const Exercises = ({
-  setPage = () => { },
-  setGlobalState = () => { },
+  setPage = () => {},
+  setGlobalState = () => {},
   globalState,
 }) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const detailData = useSelector(
     (state) => state.myPackets?.user?.lessonDetail?.data
@@ -54,25 +58,32 @@ const Exercises = ({
       return detailData?.trainings?.map((elm, index) => (
         <Col key={index} style={{ padding: 0 }} lg="4">
           <CustomProgress
-            location={detailData?.trainings?.length - 1 == index ? 'end' : locationSelector(index)}
+            location={
+              detailData?.trainings?.length - 1 == index
+                ? 'end'
+                : locationSelector(index)
+            }
             active="false"
           ></CustomProgress>
-          <ExerciseCard data={elm} type="user" onClickExercise={onClickExercise} />
+          <ExerciseCard
+            data={elm}
+            type="user"
+            onClickExercise={onClickExercise}
+          />
           <TickContainer
-            // onClick={() => {
-            //   if(!(elm?.is_completed)){
-            //     dispatch(setUserPacketLessonComplete(elm?.training_id));
-            //   }
-            // }}
+          // onClick={() => {
+          //   if(!(elm?.is_completed)){
+          //     dispatch(setUserPacketLessonComplete(elm?.training_id));
+          //   }
+          // }}
           >
             {elm?.is_completed ? <Svg.TickLesson /> : <Svg.TickLessonDisable />}
-            <TickLabel enable>Tamamlandı</TickLabel>
+            <TickLabel enable>{t('completed')}</TickLabel>
           </TickContainer>
         </Col>
-      ))
+      ));
     } else {
-      return (<>Eğitmeniniz henüz çalışmanızı hazırlamamıştır.</>
-      )
+      return <>{t('Your instructor has not yet prepared your work')}</>;
     }
   }
   return (
@@ -85,7 +96,7 @@ const Exercises = ({
       <Wrapper>
         <StyledRow header style={{}}>
           <Col lg="12" style={{ padding: 0 }}>
-            <HeaderText>EGZERSİZLER</HeaderText>
+            <HeaderText>{t('Exercises')}</HeaderText>
             <LinearProgress
               classes={{ barColorPrimary: classes.barColorPrimary }}
               variant="determinate"
@@ -119,6 +130,7 @@ const Wrapper = styled(Container)`
 const HeaderText = styled.text`
   color: #00b2a9;
   font-size: 16px;
+  text-transform: uppercase;
 `;
 const TickContainer = styled.div`
   display: flex;

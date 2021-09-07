@@ -11,9 +11,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUpdatePackage, setPacketReservation } from 'actions';
 import { getWallet } from 'actions/userProfileActions/walletActions';
 import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import { device } from 'utils';
-const UpgradeClass = ({ setField = () => { } /* globalState */ }) => {
+const UpgradeClass = ({ setField = () => {} /* globalState */ }) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const packet = useSelector((state) => state.buyPacket);
   const wallet = useSelector((state) => state.userProfile.wallet);
@@ -22,21 +25,29 @@ const UpgradeClass = ({ setField = () => { } /* globalState */ }) => {
 
   useEffect(() => {
     dispatch(getWallet());
-    dispatch(getUpdatePackage(reservation?.data?.packetInfo?.package_id, packet?.reservation?.level));
-
+    dispatch(
+      getUpdatePackage(
+        reservation?.data?.packetInfo?.package_id,
+        packet?.reservation?.level
+      )
+    );
   }, []);
   useEffect(() => {
     dispatch(
       setPacketReservation({
         package_uuid: reservation?.data?.packetInfo?.package_uuid,
-        totals_amount: (packet?.data?.package?.price || 0)
+        totals_amount: packet?.data?.package?.price || 0,
       })
     );
   }, [packet?.data?.package?.price]);
   useEffect(() => {
-    dispatch(getUpdatePackage(reservation?.data?.packetInfo?.package_id, packet?.reservation?.level));
-
-  }, [packet?.reservation?.level])
+    dispatch(
+      getUpdatePackage(
+        reservation?.data?.packetInfo?.package_id,
+        packet?.reservation?.level
+      )
+    );
+  }, [packet?.reservation?.level]);
   function onChangeLevel(level) {
     dispatch(
       setPacketReservation({
@@ -57,15 +68,20 @@ const UpgradeClass = ({ setField = () => { } /* globalState */ }) => {
             <InfoContainer_Wallet>
               <DataContainer>
                 <Info>
-                  <Text style={{ fontWeight: 800 }}>Cüzdanım</Text>
+                  <Text style={{ fontWeight: 800 }}>{t('my wallet')}</Text>
                   <Text style={{ fontWeight: 800 }}>{wallet_balance}</Text>
                 </Info>
                 <Info>
-                  <Text style={{ fontWeight: 800 }}>İşlem Tutarı</Text>
+                  <Text style={{ fontWeight: 800 }}>
+                    {t('Transaction amount')}
+                  </Text>
                   <Text style={{ fontWeight: 800 }}>{amount}</Text>
                 </Info>
                 <Info>
-                  <Text style={{ fontWeight: 800 }}>Kalan Tutar</Text>
+                  <Text style={{ fontWeight: 800 }}>
+                    {' '}
+                    {t('Remaining amount')}
+                  </Text>
                   <Text
                     style={{
                       fontWeight: 800,
@@ -78,8 +94,10 @@ const UpgradeClass = ({ setField = () => { } /* globalState */ }) => {
               </DataContainer>
               <div style={{ padding: '10px' }}>
                 <text>
-                  Yapacağınız işlem sonrası cüdanınızda kalacak olan toplam
-                  tutar {diff} TL’dir
+                  {t(
+                    'The total amount that will remain in your wallet after the transaction is'
+                  )}
+                  {diff} TL
                 </text>
               </div>
             </InfoContainer_Wallet>
@@ -162,10 +180,10 @@ const UpgradeClass = ({ setField = () => { } /* globalState */ }) => {
                   </text>
                   <Svg.ClockMediumIcon></Svg.ClockMediumIcon>
                   <text style={{ margin: '0 5px' }}>
-                    {packet?.data?.package?.lesson_amount} Ders
+                    {packet?.data?.package?.lesson_amount} {t('lesson')}
                   </text>
                 </SubInfo>
-                <LabelText>İçerik</LabelText>
+                <LabelText>{t('content')}</LabelText>
                 <Seperator />
 
                 <DescText>
@@ -192,9 +210,9 @@ const UpgradeClass = ({ setField = () => { } /* globalState */ }) => {
             <Svg.ArrowLeftIcon />
 
             {packet?.reservation?.payment_type ? (
-              <span>Onayla</span>
+              <span>{t('Approve')}</span>
             ) : (
-              <span>Paket Detayı</span>
+              <span>{t('Package Detail')}</span>
             )}
           </BackLink>
         </div>
@@ -204,7 +222,7 @@ const UpgradeClass = ({ setField = () => { } /* globalState */ }) => {
             <TrainerGroupContainer>
               <TrainerGroupWrapper>
                 <div>
-                  <LabelText>Seviyenizi Seçiniz </LabelText>
+                  <LabelText>{t('Choose Your Level')}</LabelText>
                   <Seperator></Seperator>
                   <LevelContainer>
                     <LevelCircle
@@ -220,7 +238,10 @@ const UpgradeClass = ({ setField = () => { } /* globalState */ }) => {
                       onClick={() => {
                         onChangeLevel('B');
                       }}
-                      enable={packet?.reservation?.level == 'B' || packet?.reservation?.level == 'A'}
+                      enable={
+                        packet?.reservation?.level == 'B' ||
+                        packet?.reservation?.level == 'A'
+                      }
                     >
                       B
                     </LevelCircle>
@@ -230,7 +251,11 @@ const UpgradeClass = ({ setField = () => { } /* globalState */ }) => {
                       onClick={() => {
                         onChangeLevel('C');
                       }}
-                      enable={packet?.reservation?.level == 'A' || packet?.reservation?.level == 'B' || packet?.reservation?.level == 'C'}
+                      enable={
+                        packet?.reservation?.level == 'A' ||
+                        packet?.reservation?.level == 'B' ||
+                        packet?.reservation?.level == 'C'
+                      }
                     >
                       C
                     </LevelCircle>
@@ -246,7 +271,7 @@ const UpgradeClass = ({ setField = () => { } /* globalState */ }) => {
                   </PtIconsContainer>
                   <Button
                     blueborder
-                    text="Eğitmenleri Gör"
+                    text={t('See Instructors')}
                     fontSize="11pt"
                     color="blue"
                     onClick={() => {
