@@ -76,7 +76,7 @@ const App = () => {
     dispatch(getAllPTBranchList());
   }, []);
 
-  if (loading) {
+  if (false) {
     return (
       <LoadingWrapper>
         <img width="20%" src={LoadingImage} alt="Üç2Bir" />
