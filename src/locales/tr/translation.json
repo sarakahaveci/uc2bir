@@ -125,7 +125,10 @@
     "or": "veya",
     "Upload from computer": "Bilgisayardan Yükle",
     "Contracts and Forms": "Sözleşmeler ve Formlar",
-    "In order to see the member agreements, you need to choose one of the membership types": "Üye sözleşmelerini görebilmeniz için üyelik tipinden birini seçmeniz gerekmektedir."
-
+    "In order to see the member agreements, you need to choose one of the membership types": "Üye sözleşmelerini görebilmeniz için üyelik tipinden birini seçmeniz gerekmektedir.",
+    "Photo / Video Upload": "Fotoğraf / Video Yükle",
+    "The photos and videos you add to your gallery will be informative about you.": "Galerinize eklediğiniz fotoğraf ve videolar sizin hakkınızda bilgi verici olacaktır.",
+    "File Upload": "Dosya Yükle",
+    "person": "kişi"
 
 }

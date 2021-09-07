@@ -27,6 +27,8 @@ import FormData from 'form-data';
 import { Material } from './inputs/material';
 import { resizeFile } from '../utils';
 
+import { useTranslation } from 'react-i18next';
+
 const MasonaryGallery = ({
   categories = [
     {
@@ -49,6 +51,7 @@ const MasonaryGallery = ({
   style = {},
   children = null,
 }) => {
+  const { t } = useTranslation();
   const [activePage, setActivePage] = useState('index');
   const [active, setActive] = useState('all');
   const [type] = useState('');
@@ -235,7 +238,7 @@ const MasonaryGallery = ({
             >
               {`<`}
             </Span>
-            <Span>Fotoğraf / Video Yükle</Span>
+            <Span>{t('Photo / Video Upload')}</Span>
           </Title>
         </Div>
       )}
@@ -243,8 +246,7 @@ const MasonaryGallery = ({
         <Text style={{ padding: 15 }}>children</Text>
       ) : (
         <Text style={{ padding: 15 }}>
-          Galerinize eklediğiniz fotoğraf ve videolar sizin hakkınızda bilgi
-          verici olacaktır.
+          {t('The photos and videos you add to your gallery will be informative about you.')}
         </Text>
       )}
       {activePage === 'index' && (
@@ -256,7 +258,7 @@ const MasonaryGallery = ({
             className="justify-content-start"
           >
             <Span color="dark" fontWeight="500" fontSize="0.8rem" mr="7px">
-              Dosya yükle
+              {t('File Upload')}
             </Span>
 
             <PlusButton onClick={() => setActivePage('create')} />
@@ -419,7 +421,7 @@ const MasonaryGallery = ({
                 variant="contained"
                 component="label"
               >
-                Bilgisayarımdan Yükle
+                {t('Upload from computer')}
                 <input
                   type="file"
                   hidden
