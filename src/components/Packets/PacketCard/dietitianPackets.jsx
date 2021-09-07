@@ -4,47 +4,56 @@ import Svg from '../../statics/svg';
 import { device } from 'utils';
 import { Span } from '../../index';
 import { SESSION_KEYS } from '../../../constants';
+import { useTranslation } from 'react-i18next';
 
 const DietitianPacketCard = ({ onClickEdit, data }) => {
+  const { t } = useTranslation();
+
   useEffect(() => {}, []);
 
   return (
     <Container>
       <Column>
         <Row>
-          <BoldText style={{fontWeight:'700'}}>PAKET ADI:</BoldText>
-          <Span> {data?.title.toUpperCase() }</Span>
+          <BoldText style={{ fontWeight: '700' }}>
+            {' '}
+            {t('package name')}:
+          </BoldText>
+          <Span> {data?.title.toUpperCase()}</Span>
         </Row>
       </Column>
       <Column>
         <Row>
-          <BoldText>SEANS SAYISI:</BoldText>
-          <Span > {data?.quantity}</Span>
+          <BoldText>{t('number of sessions')}:</BoldText>
+          <Span> {data?.quantity}</Span>
         </Row>
       </Column>
 
       <Column>
         <Row>
-          <BoldText>OTURUM TÜRÜ:</BoldText>
-          {data?.sessions?.map((item, index)=>(
+          <BoldText>{t('session type')}:</BoldText>
+          {data?.sessions?.map((item, index) => (
             <Span fontSize={'18px'} key={index}>
-              {SESSION_KEYS[item?.session_type?.type] }
-              {(data?.sessions?.length !== index+1) ? ',' : ''}
+              {SESSION_KEYS[item?.session_type?.type]}
+              {data?.sessions?.length !== index + 1 ? ',' : ''}
               &nbsp;
-            </Span>))}
+            </Span>
+          ))}
         </Row>
       </Column>
 
       <Column borderDisable>
         <FlexSpace>
-          <Svg.LocationIcon/>
-          {data?.session_type !== 'online' &&
-          <AdressText>{data?.address_detail}</AdressText>
-          }
+          <Svg.LocationIcon />
+          {data?.session_type !== 'online' && (
+            <AdressText>{data?.address_detail}</AdressText>
+          )}
         </FlexSpace>
-        <Seperator/>
+        <Seperator />
         <FlexSpace position={'END'}>
-          <Button onClick={()=>onClickEdit(data)}>Paketi Sil</Button>
+          <Button onClick={() => onClickEdit(data)}>
+            {t('Delete Package')}
+          </Button>
         </FlexSpace>
       </Column>
     </Container>
@@ -96,6 +105,7 @@ const Seperator = styled.div`
 const BoldText = styled(Span)`
   font-weight: bold;
   margin-right: 15px;
+  text-transform: uppercase;
 `;
 const AdressText = styled.text`
   color: #909090;
@@ -112,7 +122,7 @@ const FlexSpace = styled.div`
   align-items: center;
   width: 100%;
   justify-content: ${(props) =>
-  props.position === 'END' ? 'flex-end' : 'flex-start'};
+    props.position === 'END' ? 'flex-end' : 'flex-start'};
   padding: 0 20px 0 20px;
   flex-grow: 2;
   @media ${device.sm} {
@@ -123,8 +133,8 @@ const Button = styled.button`
   width: 180px;
   height: 34px;
   background: white;
-  color: #F01C62;
+  color: #f01c62;
   border-radius: 5px;
-  border: 1px solid #F01C62;
+  border: 1px solid #f01c62;
 `;
 export default DietitianPacketCard;

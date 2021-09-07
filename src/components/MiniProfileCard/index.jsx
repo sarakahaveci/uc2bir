@@ -4,8 +4,11 @@ import { Title, AwesomeIcon } from 'components';
 import Rating from '@material-ui/lab/Rating';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import defaultImage from '../../assets/default-profile.jpg';
+import { useTranslation } from 'react-i18next';
 
 const MiniProfileCard = ({ photo, name, rating, type_id, price }) => {
+  const { t } = useTranslation();
+
   return (
     <Container>
       <ImageContainer>
@@ -28,10 +31,10 @@ const MiniProfileCard = ({ photo, name, rating, type_id, price }) => {
           fontWeight="normal"
           lineDisable
         >
-          {type_id === 1 ? 'Kullanıcı' : null}
-          {type_id === 2 ? 'Spor Eğitmeni' : null}
-          {type_id === 3 ? 'Spor Alanı' : null}
-          {type_id === 4 ? 'Diyetisyen' : null}
+          {type_id === 1 ? t('user') : null}
+          {type_id === 2 ? t('sports trainer') : null}
+          {type_id === 3 ? t('sports field') : null}
+          {type_id === 4 ? t('dietitianCapitalize') : null}
         </Title>
         <Rating
           name="customized-empty"

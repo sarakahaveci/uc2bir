@@ -2,8 +2,11 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
 import Svg from '../../statics/svg';
 import { device } from 'utils';
+import { useTranslation } from 'react-i18next';
 
 const PacketCard = ({ onClickEdit, data }) => {
+  const { t } = useTranslation();
+
   useEffect(() => {}, []);
 
   return (
@@ -13,11 +16,11 @@ const PacketCard = ({ onClickEdit, data }) => {
           <Svg.ClockIcon style={{ marginRight: '9px', marginBottom: '2px' }} />
           <BoldText>{data?.hour}</BoldText>
         </Row>
-        <Seperator/>
+        <Seperator />
         <Row>
           <BoldText>{data?.branch}</BoldText>
         </Row>
-        <Seperator/>
+        <Seperator />
         <FlexSpace position={'END'}>
           <Dot />
           <BoldText>{data?.user}</BoldText>
@@ -25,19 +28,21 @@ const PacketCard = ({ onClickEdit, data }) => {
       </Column>
       <Column>
         <Row>
-          <BoldText>{data?.title.toUpperCase() }</BoldText>
+          <BoldText>{data?.title.toUpperCase()}</BoldText>
         </Row>
         <FlexSpace position={'END'}>
-          <BoldText color={'#00B2A9'}>{data?.lesson}/{data?.quantity} DERS</BoldText>
+          <BoldText color={'#00B2A9'}>
+            {data?.lesson}/{data?.quantity} {t('lesson')}
+          </BoldText>
         </FlexSpace>
       </Column>
-      {data?.session_type !== 'online' &&
-      <Column>
-        <Row>
-          <BoldText>SPOR ALANI: FIGHTNING FIT CLUB</BoldText>
-        </Row>
-      </Column>
-      }
+      {data?.session_type !== 'online' && (
+        <Column>
+          <Row>
+            <BoldText>SPOR ALANI: FIGHTNING FIT CLUB</BoldText>
+          </Row>
+        </Column>
+      )}
 
       {/*{data?.session_type !== 'online' &&*/}
       {/*<Column>*/}
@@ -48,16 +53,17 @@ const PacketCard = ({ onClickEdit, data }) => {
       {/*}*/}
 
       <Column borderDisable>
-          <FlexSpace>
-            <Svg.LocationIcon/>
-            {data?.session_type !== 'online' ?
-            <AdressText>{data?.address}</AdressText> :
-            <AdressText>Online Ders</AdressText>
-            }
-          </FlexSpace>
-        <Seperator/>
+        <FlexSpace>
+          <Svg.LocationIcon />
+          {data?.session_type !== 'online' ? (
+            <AdressText>{data?.address}</AdressText>
+          ) : (
+            <AdressText>{t('online lesson')}</AdressText>
+          )}
+        </FlexSpace>
+        <Seperator />
         <Row>
-          <Button onClick={()=>onClickEdit(data)}>Dersleri Düzenle</Button>
+          <Button onClick={() => onClickEdit(data)}>{t('Edit Lessons')}</Button>
         </Row>
       </Column>
     </Container>

@@ -3,8 +3,11 @@ import styled from 'styled-components/macro';
 import Svg from 'components/statics/svg';
 import Slider from 'react-slick';
 import { device } from 'utils';
+import { useTranslation } from 'react-i18next';
 
-const ExerciseCard = ({ onClickExercise, type, data, onDeleteExercise}) => {
+const ExerciseCard = ({ onClickExercise, type, data, onDeleteExercise }) => {
+  const { t } = useTranslation();
+
   const settings = {
     dots: true,
     infinite: true,
@@ -14,7 +17,11 @@ const ExerciseCard = ({ onClickExercise, type, data, onDeleteExercise}) => {
   };
   return (
     <Container>
-      <ExerciseCardContainer onClick={()=>{onClickExercise(data?.training_id)}}>
+      <ExerciseCardContainer
+        onClick={() => {
+          onClickExercise(data?.training_id);
+        }}
+      >
         <ImagesContainer>
           <Carousel {...settings}>
             <Svg.ExerciseIcon style={{ width: '80px', height: '80px' }} />
@@ -23,54 +30,59 @@ const ExerciseCard = ({ onClickExercise, type, data, onDeleteExercise}) => {
         <InfoContainer>
           <BoldText color="#00B2A9">{data?.title}</BoldText>
           <table>
-            {data?.weight&&
-            <tr>
-              <th>Ağırlık</th>
-              <td>{data?.weight}kg</td>
-            </tr>
-            }
+            {data?.weight && (
+              <tr>
+                <th>{t('Weight')}</th>
+                <td>{data?.weight}kg</td>
+              </tr>
+            )}
 
-            {data?.set&&
-            <tr>
-              <th>Set</th>
-              <td>{data?.set}</td>
-            </tr>
-            }
+            {data?.set && (
+              <tr>
+                <th>Set</th>
+                <td>{data?.set}</td>
+              </tr>
+            )}
 
-            {data?.break&&
-            <tr>
-              <th>Mola</th>
-              <td>{data?.break}dk</td>
-            </tr>
-            }
+            {data?.break && (
+              <tr>
+                <th>{t('break')}</th>
+                <td>
+                  {data?.break} {t('min')}
+                </td>
+              </tr>
+            )}
 
-            {data?.repetition&&
-            <tr>
-              <th>Tekrar</th>
-              <td>{data?.repetition}</td>
-            </tr>
-            }
+            {data?.repetition && (
+              <tr>
+                <th>{t('repeat')}</th>
+                <td>{data?.repetition}</td>
+              </tr>
+            )}
 
-            {data?.range&&
-            <tr>
-              <th>Aralık</th>
-              <td>{data?.range}</td>
-            </tr>
-            }
+            {data?.range && (
+              <tr>
+                <th>{t('range')}</th>
+                <td>{data?.range}</td>
+              </tr>
+            )}
 
-            {data?.time&&
-            <tr>
-              <th>Zaman</th>
-              <td>{data?.time}dk</td>
-            </tr>
-            }
+            {data?.time && (
+              <tr>
+                <th>{t('time')}</th>
+                <td>
+                  {data?.time}
+                  {t('min')}
+                </td>
+              </tr>
+            )}
           </table>
         </InfoContainer>
         <Svg.ArrowRightIcon style={{ marginRight: '13px' }} />
       </ExerciseCardContainer>
       {type !== 'user' && (
-        <DeleteIcon onClick={()=>onDeleteExercise(data)}>
-          <Svg.TrashIcon/>
+        <DeleteIcon onClick={() => onDeleteExercise(data)}>
+          <Svg.TrashIcon />
         </DeleteIcon>
       )}
     </Container>

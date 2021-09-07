@@ -7,7 +7,11 @@ import { AddExercise, Button, Title } from 'components';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Svg from 'components/statics/svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPackageClassDetail, getPackageExerciseList, setPackageExerciseList } from '../../../actions';
+import {
+  getPackageClassDetail,
+  getPackageExerciseList,
+  setPackageExerciseList,
+} from '../../../actions';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
@@ -19,12 +23,16 @@ import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import ReactHtmlParser from 'react-html-parser';
 import { decode } from 'html-entities';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
+
 const useStyles = makeStyles({
   barColorPrimary: {
     backgroundColor: '#00B2A9',
   },
 });
-const ExerciseDetail = ({ setPage = () => {},packageData, lessonId }) => {
+const ExerciseDetail = ({ setPage = () => {}, packageData, lessonId }) => {
+  const { t } = useTranslation();
+
   const classes = useStyles();
   const [categorySelection, setCategorySelection] = useState('');
   const [exerciseItem, setExerciseItem] = useState('');
@@ -36,14 +44,25 @@ const ExerciseDetail = ({ setPage = () => {},packageData, lessonId }) => {
   );
 
   useEffect(() => {
-    dispatch(getPackageExerciseList({package_uuid:packageData?.package_uuid, appointment_id:packageData?.appointment_id}));
+    dispatch(
+      getPackageExerciseList({
+        package_uuid: packageData?.package_uuid,
+        appointment_id: packageData?.appointment_id,
+      })
+    );
   }, []);
 
-
   const succsess = () => {
-    dispatch(getPackageClassDetail({package_uuid:packageData?.package_uuid, appointment_id:packageData?.appointment_id, lesson_id:lessonId, type:'lesson'}));
-    setPage('Exercises')
-    toast.success(`Dersiniz Kaydedilmiştir`, {
+    dispatch(
+      getPackageClassDetail({
+        package_uuid: packageData?.package_uuid,
+        appointment_id: packageData?.appointment_id,
+        lesson_id: lessonId,
+        type: 'lesson',
+      })
+    );
+    setPage('Exercises');
+    toast.success(t(`Your lesson has been saved`), {
       position: 'bottom-right',
       autoClose: 2000,
       hideProgressBar: false,
@@ -54,18 +73,18 @@ const ExerciseDetail = ({ setPage = () => {},packageData, lessonId }) => {
     });
   };
 
-
-  const saveExercise = () =>{
-    dispatch(setPackageExerciseList(
+  const saveExercise = () => {
+    dispatch(
+      setPackageExerciseList(
         {
           ...data,
           training_id: trainingId,
-          lesson_id:lessonId
+          lesson_id: lessonId,
         },
-        succsess,
+        succsess
       )
     );
-  }
+  };
 
   return (
     <Container>
@@ -80,122 +99,132 @@ const ExerciseDetail = ({ setPage = () => {},packageData, lessonId }) => {
         </Title>
         <FormControlWrapper>
           <FormControl>
-            <InputLabel>Kategori Seçiniz</InputLabel>
+            <InputLabel>{t('Select Category')}</InputLabel>
             <Select
               value={categorySelection}
               input={<Input />}
-              onChange={(e) => setCategorySelection(e.target.value)}>
+              onChange={(e) => setCategorySelection(e.target.value)}
+            >
               {exerciseList?.categories?.map((exercise) => (
-                <MenuItem key={exercise?.category_id} value={exercise?.category_id}>
+                <MenuItem
+                  key={exercise?.category_id}
+                  value={exercise?.category_id}
+                >
                   {exercise.title}
                 </MenuItem>
               ))}
             </Select>
           </FormControl>
         </FormControlWrapper>
-        <RadioGroup
-          row
-          aria-label="workArea"
-          name="workArea"
-          defaultValue="0l">
-          {categorySelection && exerciseList?.trainings[categorySelection].map((item, index) => (
-            <>
-              <CardGroup style={{ padding: 0 }}>
-                <AddExercise
-                  index={index+1}
-                  item={item}
-                  setData={setData}
-                  exerciseItem={exerciseItem}
-                  data={data}/>
-                {exerciseItem === index+1 ? (
-                  <RadioButtonCheckedIcon
-                    style={{ marginLeft: '5px', cursor: 'pointer' }}
+        <RadioGroup row aria-label="workArea" name="workArea" defaultValue="0l">
+          {(categorySelection &&
+            exerciseList?.trainings[categorySelection].map((item, index) => (
+              <>
+                <CardGroup style={{ padding: 0 }}>
+                  <AddExercise
+                    index={index + 1}
+                    item={item}
+                    setData={setData}
+                    exerciseItem={exerciseItem}
+                    data={data}
                   />
-                ) : (
-                  <RadioButtonUncheckedIcon
-                    onClick={() => {
-                     setExerciseItem(index+1);
-                     setTrainingId(item.training_id);
-                     setData({});
-                    }}
-                    style={{ marginLeft: '5px', cursor: 'pointer' }}
-                  />
-                )}
-              </CardGroup>
-            </>
-          )) || null}
+                  {exerciseItem === index + 1 ? (
+                    <RadioButtonCheckedIcon
+                      style={{ marginLeft: '5px', cursor: 'pointer' }}
+                    />
+                  ) : (
+                    <RadioButtonUncheckedIcon
+                      onClick={() => {
+                        setExerciseItem(index + 1);
+                        setTrainingId(item.training_id);
+                        setData({});
+                      }}
+                      style={{ marginLeft: '5px', cursor: 'pointer' }}
+                    />
+                  )}
+                </CardGroup>
+              </>
+            ))) ||
+            null}
         </RadioGroup>
       </Side>
       <Side>
         <TextContent>
-          <Text bold>Nasıl Yapılır ? </Text>
+          <Text bold>{t('How is it done?')}</Text>
           <LinearProgress
             classes={{ barColorPrimary: classes.barColorPrimary }}
             variant="determinate"
             value={20}
           />
-          {exerciseItem&&
-          <Text>
-            {ReactHtmlParser(
-              decode(exerciseList?.trainings[categorySelection][exerciseItem-1]?.detail)
-            )}
-          </Text>
-          }
+          {exerciseItem && (
+            <Text>
+              {ReactHtmlParser(
+                decode(
+                  exerciseList?.trainings[categorySelection][exerciseItem - 1]
+                    ?.detail
+                )
+              )}
+            </Text>
+          )}
         </TextContent>
         <Info>
           <Text bold>Squat</Text>
           <Properties>
-            {exerciseItem&&
+            {exerciseItem && (
+              <PropertyContainer>
+                <Svg.Difficulty />
+                <TextWrapper>
+                  <Text>{t('difficulty')}</Text>
+                  <Text bold>
+                    {
+                      exerciseList?.trainings[categorySelection][
+                        exerciseItem - 1
+                      ]?.level
+                    }
+                  </Text>
+                </TextWrapper>
+              </PropertyContainer>
+            )}
             <PropertyContainer>
-              <Svg.Difficulty/>
+              <Svg.Weight />
               <TextWrapper>
-                <Text>Zorluk</Text>
-                <Text bold>{exerciseList?.trainings[categorySelection][exerciseItem-1]?.level}</Text>
-              </TextWrapper>
-            </PropertyContainer>
-            }
-            <PropertyContainer>
-              <Svg.Weight/>
-              <TextWrapper>
-                <Text>Ağırlık</Text>
+                <Text>{t('Weight')}</Text>
                 <Text bold>{data?.weight} kg</Text>
               </TextWrapper>
             </PropertyContainer>
             <PropertyContainer>
-              <Svg.Set/>
+              <Svg.Set />
               <TextWrapper>
                 <Text>Set</Text>
                 <Text bold>{data?.set}</Text>
               </TextWrapper>
             </PropertyContainer>
             <PropertyContainer>
-              <Svg.Break/>
+              <Svg.Break />
               <TextWrapper>
-                <Text>Mola</Text>
+                <Text>{t('break')}</Text>
                 <Text bold>{data?.breakTime}</Text>
               </TextWrapper>
             </PropertyContainer>
             <PropertyContainer>
-              <Svg.Repetition/>
+              <Svg.Repetition />
               <TextWrapper>
-                <Text>Tekrar</Text>
+                <Text>{t('repeat')}</Text>
                 <Text bold>{data?.repetition}</Text>
               </TextWrapper>
             </PropertyContainer>
           </Properties>
         </Info>
 
-        <div style={{display:'flex', alignContent:'center'}}>
+        <div style={{ display: 'flex', alignContent: 'center' }}>
           <Button
             className="blue dietitan-price__saveButton"
             text="Kaydet"
             fontSize="10pt"
-            style={{width:'90%'}}
-            onClick={()=>saveExercise()}
+            style={{ width: '90%' }}
+            onClick={() => saveExercise()}
           />
         </div>
-
-
       </Side>
     </Container>
   );
@@ -273,6 +302,5 @@ const FormControlWrapper = styled.div`
     margin-bottom: 20px;
   }
 `;
-
 
 export default ExerciseDetail;
