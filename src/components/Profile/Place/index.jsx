@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/macro';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import SubTabs from 'components/SubTabs/SubTabs';
 import WorkPlaceIcon from 'assets/work-place.svg';
@@ -9,15 +10,20 @@ import OnlineWorkIcon from 'assets/online-work.svg';
 import SportFields from './SportFields';
 import WorkPlaceList from './WorkPlaceList';
 
+const { t } = useTranslation();
 const iconMap = {
   gym: WorkPlaceIcon,
   online: OnlineWorkIcon,
   home_park: HomeParkIcon,
 };
 const descriptionMap = {
-  gym: "Spor yapmak istediğin salonu burada göremedin mi? Eğitmene mesaj göndererek tercih ettiğin spor salonunda ders verip veremeyeceğini sorabilirsin.",
-  online: "Bu eğitmenden online görüntülü ders alabilirsiniz.",  
-  home_park: "Spor yapmak istediğin yeri burada göremedin mi? Eğitmene mesaj göndererek tercih ettiğin yerde ders vermenin uygun olup olmadığını sorabilirsin. ",
+  gym: t(
+    'Didnt you see the gym where you want to do sports here? You can send a message to the instructor and ask if you can teach at your preferred gym.'
+  ),
+  online: t('You can take online video lessons from this instructor'),
+  home_park: t(
+    'Didnt see the place you want to do sports here? You can send a message to the instructor and ask if it is appropriate to teach at your preferred location'
+  ),
 };
 
 const Place = ({ userId }) => {
@@ -38,7 +44,7 @@ const Place = ({ userId }) => {
       case 'home_park':
         newContent = <WorkPlaceList isOnline={false} userId={userId} />;
         newDesc = descriptionMap.home_park;
-        break; 
+        break;
       case 'online':
         newContent = <WorkPlaceList isOnline={true} userId={userId} />;
         newDesc = descriptionMap.online;
@@ -52,7 +58,7 @@ const Place = ({ userId }) => {
   };
 
   return (
-    <div> 
+    <div>
       <SubTabs
         className="mt-3"
         data={userInfo?.session}
@@ -64,9 +70,7 @@ const Place = ({ userId }) => {
           </>
         )}
       />
-      {description && <Description>
-        {description}
-      </Description>}
+      {description && <Description>{description}</Description>}
       {content}
     </div>
   );

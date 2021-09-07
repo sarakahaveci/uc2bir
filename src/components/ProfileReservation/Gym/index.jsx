@@ -7,6 +7,7 @@ import {
   CreditCard,
   Pagination,
 } from 'components';
+import { useTranslation } from 'react-i18next';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
@@ -24,6 +25,8 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import { getWallet } from 'actions/userProfileActions/walletActions';
 
 const Gym = ({ dateOption = true }) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   //Local States
   const [wantPt, setWantPt] = useState(2);
@@ -110,15 +113,21 @@ const Gym = ({ dateOption = true }) => {
             <InfoContainer>
               <DataContainer>
                 <Info>
-                  <Text style={{ fontWeight: 800 }}>Cüzdanım</Text>
+                  <Text style={{ fontWeight: 800 }}>{t('my wallet')}</Text>
                   <Text style={{ fontWeight: 800 }}>{wallet_balance}</Text>
                 </Info>
                 <Info>
-                  <Text style={{ fontWeight: 800 }}>İşlem Tutarı</Text>
+                  <Text style={{ fontWeight: 800 }}>
+                    {' '}
+                    {t('Transaction amount')}
+                  </Text>
                   <Text style={{ fontWeight: 800 }}>{amount}</Text>
                 </Info>
                 <Info>
-                  <Text style={{ fontWeight: 800 }}>Kalan Tutar</Text>
+                  <Text style={{ fontWeight: 800 }}>
+                    {' '}
+                    {t('Remaining amount')}
+                  </Text>
                   <Text
                     style={{
                       fontWeight: 800,
@@ -131,8 +140,10 @@ const Gym = ({ dateOption = true }) => {
               </DataContainer>
               <div style={{ padding: '10px' }}>
                 <text>
-                  Yapacağınız işlem sonrası cüdanınızda kalacak olan toplam
-                  tutar {diff} TL’dir
+                  {t(
+                    'The total amount that will remain in your wallet after the transaction is'
+                  )}
+                  {diff} TL
                 </text>
               </div>
             </InfoContainer>
@@ -211,7 +222,10 @@ const Gym = ({ dateOption = true }) => {
             <SelectionContainer>
               {!dateOption && (
                 <InputContainer>
-                  <Text color="#9B9B9B">{'Tarih ve Saat Seçiminiz'}</Text>
+                  <Text color="#9B9B9B">
+                    {' '}
+                    {t('Your Choice of Date and Time')}:
+                  </Text>
                   <Material.TextField
                     type="text"
                     defaultValue={
@@ -226,7 +240,7 @@ const Gym = ({ dateOption = true }) => {
                 </InputContainer>
               )}
               <InputContainer disable={reservation?.data?.isSelected}>
-                <Text color="#9B9B9B">{'Branş Seçiniz:'}</Text>
+                <Text color="#9B9B9B">{t('Select Branch')}:</Text>
                 <Material.SimpleSelect
                   items={reservationCalendar?.resData?.branches}
                   name="branch"
@@ -237,11 +251,11 @@ const Gym = ({ dateOption = true }) => {
                 />
               </InputContainer>
               <InputContainer>
-                <Text color="#9B9B9B">{'Eğitmen İstiyor musunuz ?'}</Text>
+                <Text color="#9B9B9B">{t('Want a Trainer?')}</Text>
                 <Material.SimpleSelect
                   items={[
-                    { id: 1, name: 'Evet' },
-                    { id: 2, name: 'Hayır' },
+                    { id: 1, name: t('yes') },
+                    { id: 2, name: t('no') },
                   ]}
                   name="branch"
                   defaultValue={wantPt}
@@ -266,7 +280,7 @@ const Gym = ({ dateOption = true }) => {
   function _renderTrainerSelections() {
     return (
       <>
-        <Text color="#9B9B9B">{'Egitmen Seçiniz:'}</Text>
+        <Text color="#9B9B9B">{t('Select Trainer')}:</Text>
         <RadioGroup row aria-label="workArea" name="workArea" defaultValue="0l">
           {ptListState ? (
             ptListState?.map((item) => (
@@ -303,7 +317,9 @@ const Gym = ({ dateOption = true }) => {
               </>
             ))
           ) : (
-            <text>Seçimlerinize uygun eğitmen bulunmamaktadır!</text>
+            <text>
+              {t('There is no trainer available for your selections!')}
+            </text>
           )}
         </RadioGroup>
         {ptListState && (
@@ -405,8 +421,6 @@ const CardGroup = styled.div`
   justify-content: center;
   align-items: center;
 `;
-
-//
 
 const InfoContainer = styled.div`
   margin-top: 40px;

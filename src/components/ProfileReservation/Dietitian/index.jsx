@@ -9,6 +9,7 @@ import {
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
+import { useTranslation } from 'react-i18next';
 
 import { device } from 'utils';
 import { Modal } from 'react-bootstrap';
@@ -27,6 +28,8 @@ import { getWallet } from 'actions/userProfileActions/walletActions';
 const dateOption = true;
 
 const Dietitian = () => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   //Local States
   const [sessionTypes, setSessionTypes] = useState(undefined);
@@ -54,11 +57,11 @@ const Dietitian = () => {
     dispatch(getStaticPage('uye-mesafeli-hizmet-sozlesmesi'));
     dispatch(getStaticPage('uye-on-bilgilendirme-formu'));
   }, [userInfo]);
-  useEffect(()=>{
-    if(!reservation?.data?.location_id){
-      setClinicState(clinics)
+  useEffect(() => {
+    if (!reservation?.data?.location_id) {
+      setClinicState(clinics);
     }
-  },[clinics])
+  }, [clinics]);
   useEffect(() => {
     if (reservation?.data?.location_id) {
       dispatch(
@@ -94,7 +97,7 @@ const Dietitian = () => {
             !reservation?.data?.isSelected
           }
         >
-          <Text color="#9B9B9B">{'Klinik Seçiniz:'}</Text>
+          <Text color="#9B9B9B">{t('Select Clinic')}:</Text>
           <RadioGroup
             row
             aria-label="workArea"
@@ -116,7 +119,8 @@ const Dietitian = () => {
                   address={item.town + ' ' + item.district + ' ' + item.city}
                 />
                 <RadioWrapper>
-                  {reservation?.data?.location_id && (reservation?.data?.location_id === item.location_id )? (
+                  {reservation?.data?.location_id &&
+                  reservation?.data?.location_id === item.location_id ? (
                     <RadioButtonCheckedIcon
                       style={{ marginLeft: '5px', cursor: 'pointer' }}
                     />
@@ -135,7 +139,11 @@ const Dietitian = () => {
                   )}
                 </RadioWrapper>
               </div>
-            )) || <text style={{padding:'10px 0'}}>Bu kullanıcının uygun klinigi bulunmamaktadır.</text>}
+            )) || (
+              <text style={{ padding: '10px 0' }}>
+                {t('This user does not have available clinics')}
+              </text>
+            )}
           </RadioGroup>
         </GymWrapper>
       );
@@ -156,15 +164,20 @@ const Dietitian = () => {
             <InfoContainer>
               <DataContainer>
                 <Info>
-                  <Text style={{ fontWeight: 800 }}>Cüzdanım</Text>
+                  <Text style={{ fontWeight: 800 }}>{t('my wallet')}</Text>
                   <Text style={{ fontWeight: 800 }}>{wallet_balance}</Text>
                 </Info>
                 <Info>
-                  <Text style={{ fontWeight: 800 }}>İşlem Tutarı</Text>
+                  <Text style={{ fontWeight: 800 }}>
+                    {' '}
+                    {t('Transaction amount')}
+                  </Text>
                   <Text style={{ fontWeight: 800 }}>{amount}</Text>
                 </Info>
                 <Info>
-                  <Text style={{ fontWeight: 800 }}>Kalan Tutar</Text>
+                  <Text style={{ fontWeight: 800 }}>
+                    {t('Remaining amount')}
+                  </Text>
                   <Text
                     style={{
                       fontWeight: 800,
@@ -177,8 +190,10 @@ const Dietitian = () => {
               </DataContainer>
               <div style={{ padding: '10px' }}>
                 <text>
-                  Yapacağınız işlem sonrası cüdanınızda kalacak olan toplam
-                  tutar {diff} TL’dir
+                  {t(
+                    'The total amount that will remain in your wallet after the transaction is'
+                  )}
+                  {diff} TL
                 </text>
               </div>
             </InfoContainer>
@@ -257,7 +272,10 @@ const Dietitian = () => {
             <SelectionContainer>
               {!dateOption && (
                 <InputContainer>
-                  <Text color="#9B9B9B">{'Tarih ve Saat Seçiminiz'}</Text>
+                  <Text color="#9B9B9B">
+                    {' '}
+                    {t('Your Choice of Date and Time')}:
+                  </Text>
                   <Material.TextField
                     type="text"
                     defaultValue={
@@ -273,7 +291,7 @@ const Dietitian = () => {
               )}
 
               <InputContainer>
-                <Text color="#9B9B9B">{'Oturum Türü Seçiniz:'}</Text>
+                <Text color="#9B9B9B">{t('Select Session Type')}:</Text>
                 <Material.SimpleSelect
                   items={sessionTypes}
                   name="sessionType"
