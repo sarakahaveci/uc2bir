@@ -32,7 +32,8 @@ import { useTranslation } from 'react-i18next';
 
 const MasonaryGallery = ({ className = null, style = {}, children = null }) => {
   const { t } = useTranslation();
-  categories = [
+
+  const categories = [
     {
       id: 1,
       item: 'all',

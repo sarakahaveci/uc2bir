@@ -25,6 +25,8 @@ import {
 } from 'components';
 
 const Notifications = () => {
+  const { t } = useTranslation();
+
   const notificationSettingsTypes = [
     {
       key: 'sms',
@@ -47,7 +49,6 @@ const Notifications = () => {
       types: notificationSettings,
     },
   } = useSelector((state) => state.profileSettings2.notifications);
-  const { t } = useTranslation();
 
   const [pageNumber, setPageNumber] = useState(1);
   const [date, setDate] = useState(7);
