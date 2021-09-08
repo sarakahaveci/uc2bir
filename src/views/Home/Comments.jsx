@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import { default as SlickSlider } from 'react-slick';
 import { decode } from 'html-entities';
 import ReactHtmlParser from 'react-html-parser';
+import { useTranslation } from 'react-i18next';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -29,6 +30,7 @@ const Comments = (props) => {
   const data = useSelector((state) => state?.systemComments?.data);
 
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   useEffect(() => {
     dispatch(getSystemComments());
@@ -38,7 +40,7 @@ const Comments = (props) => {
     <section className={`comments ${props.className}`}>
       <Container>
         <Title variant="h3" component="h3" lineDisable={false} fontWeight={500}>
-          Sizden Gelen Yorumlar
+          {t('Comments From You')}
         </Title>
         <SlickSlider {...settings}>
           {data.map((item, index) => {

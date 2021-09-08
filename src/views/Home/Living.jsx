@@ -2,9 +2,12 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import { HomeUserSlider, Title } from 'components';
 const Living = (props) => {
+  const { t } = useTranslation();
+
   const history = useHistory();
   const handleSeeMoreClick = () => {
     history.push('/find?type=gym');
@@ -29,10 +32,10 @@ const Living = (props) => {
           letterSpacing="100"
           fontWeight="600"
         >
-          SALONLAR
+          {t('GYMS')}
         </Title>
         <Title variant="h6" component="h6" fontWeight="500">
-          İSTEDİĞİN SALONDA ÇALIŞMA FIRSATI
+          {t('OPPORTUNITY TO WORK IN THE HALL YOU WANT')}
         </Title>
       </Container>
       <HomeUserSlider

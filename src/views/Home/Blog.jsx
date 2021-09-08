@@ -3,6 +3,7 @@ import { Container } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import cx from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 import { BlogCartList, Button, Title } from 'components';
 import { getBlogList } from 'actions';
@@ -16,6 +17,7 @@ const Blog = ({ className }) => {
   useEffect(() => {
     dispatch(getBlogList());
   }, []);
+  const { t } = useTranslation();
 
   return (
     <section className={cx('blog', { [`${className}`]: className })}>
@@ -29,7 +31,7 @@ const Blog = ({ className }) => {
         <div className="col d-flex justify-content-center">
           <Button
             lineButton
-            text="Tümünü Gör"
+            text={t('See All')}
             onClick={() => history.push('/blog-list')}
           />
         </div>

@@ -16,8 +16,11 @@ import { USER } from '../../constants/userTypes';
 import { device } from 'utils';
 import { useHistory } from 'react-router-dom';
 import DefaultProfileImg from 'assets/default-profile.jpg';
+import { useTranslation } from 'react-i18next';
 
 const BuyPacket = ({ match }) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const packet = useSelector((state) => state.buyPacket);
   const userTypeId = useSelector((state) => state.auth?.user?.type_id);
@@ -54,15 +57,19 @@ const BuyPacket = ({ match }) => {
             <InfoContainer_Wallet>
               <DataContainer>
                 <Info>
-                  <Text style={{ fontWeight: 800 }}>Cüzdanım</Text>
+                  <Text style={{ fontWeight: 800 }}>{t('my wallet')}</Text>
                   <Text style={{ fontWeight: 800 }}>{wallet_balance}</Text>
                 </Info>
                 <Info>
-                  <Text style={{ fontWeight: 800 }}>İşlem Tutarı</Text>
+                  <Text style={{ fontWeight: 800 }}>
+                    {t('Transaction amount')}
+                  </Text>
                   <Text style={{ fontWeight: 800 }}>{amount}</Text>
                 </Info>
                 <Info>
-                  <Text style={{ fontWeight: 800 }}>Kalan Tutar</Text>
+                  <Text style={{ fontWeight: 800 }}>
+                    {t('Remaining amount')}
+                  </Text>
                   <Text
                     style={{
                       fontWeight: 800,
@@ -75,8 +82,10 @@ const BuyPacket = ({ match }) => {
               </DataContainer>
               <div style={{ padding: '10px' }}>
                 <text>
-                  Yapacağınız işlem sonrası cüdanınızda kalacak olan toplam
-                  tutar {diff} TL’dir
+                  {t(
+                    'The total amount that will remain in your wallet after the transaction is'
+                  )}
+                  {diff} TL
                 </text>
               </div>
             </InfoContainer_Wallet>
@@ -157,10 +166,10 @@ const BuyPacket = ({ match }) => {
                   <SubInfo>
                     <Svg.ClockMediumIcon></Svg.ClockMediumIcon>
                     <text style={{ margin: '0 5px' }}>
-                      {packet?.data?.quantity} Seans
+                      {packet?.data?.quantity} {t('Session')}
                     </text>
                   </SubInfo>
-                  <LabelText>İçerik</LabelText>
+                  <LabelText>{t('content')}</LabelText>
                   <Seperator />
 
                   <DescText>
@@ -184,10 +193,11 @@ const BuyPacket = ({ match }) => {
                     </text>
                     <Svg.ClockMediumIcon></Svg.ClockMediumIcon>
                     <text style={{ margin: '0 5px' }}>
-                      {packet?.data?.lesson_amount} Ders
+                      {packet?.data?.lesson_amount}
+                      {t('lesson')}
                     </text>
                   </SubInfo>
-                  <LabelText>İçerik</LabelText>
+                  <LabelText>{t('content')}</LabelText>
                   <Seperator />
 
                   <DescText>
@@ -216,9 +226,9 @@ const BuyPacket = ({ match }) => {
           <Svg.ArrowLeftIcon />
 
           {packet?.reservation?.payment_type ? (
-            <span>Onayla</span>
+            <span> {t('Approve')}</span>
           ) : (
-            <span>Paket Detayı</span>
+            <span>{t('Package Detail')}</span>
           )}
         </BackLink>
       </div>
@@ -229,7 +239,7 @@ const BuyPacket = ({ match }) => {
             <TrainerGroupWrapper>
               {match?.params?.type == 'pt' && (
                 <div>
-                  <LabelText>Seviye Seçiniz </LabelText>
+                  <LabelText>{t('Select Level')} </LabelText>
                   <Seperator></Seperator>
                   <LevelContainer>
                     <LevelCircle
@@ -297,8 +307,8 @@ const BuyPacket = ({ match }) => {
                     blueborder
                     text={
                       match?.params?.type == 'pt'
-                        ? 'Eğitmenleri Gör'
-                        : 'Diyetisyenleri Gör'
+                        ? t('See Instructors')
+                        : t('See Dietitians')
                     }
                     fontSize="11pt"
                     color="blue"
@@ -308,25 +318,25 @@ const BuyPacket = ({ match }) => {
                   />
                 </BottomContainer>
               )) || (
-                  <BottomContainer>
-                    <div>
-                      <PtIcon
-                        style={{ margin: '0', marginRight: '5px' }}
-                        src={packet?.data?.dt?.photo || DefaultProfileImg}
-                      />
-                      {packet?.data?.dt?.name}
-                    </div>
-                    <Button
-                      blueborder
-                      text={'Profili Gör'}
-                      fontSize="11pt"
-                      color="blue"
-                      onClick={() => {
-                        history.push('/user/' + packet?.data?.dt?.id);
-                      }}
+                <BottomContainer>
+                  <div>
+                    <PtIcon
+                      style={{ margin: '0', marginRight: '5px' }}
+                      src={packet?.data?.dt?.photo || DefaultProfileImg}
                     />
-                  </BottomContainer>
-                )}
+                    {packet?.data?.dt?.name}
+                  </div>
+                  <Button
+                    blueborder
+                    text={t('View Profile')}
+                    fontSize="11pt"
+                    color="blue"
+                    onClick={() => {
+                      history.push('/user/' + packet?.data?.dt?.id);
+                    }}
+                  />
+                </BottomContainer>
+              )}
             </TrainerGroupWrapper>
           </TrainerGroupContainer>
           {userTypeId === USER && (

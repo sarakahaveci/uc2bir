@@ -5,6 +5,7 @@ import { RESET_FORGOT_PASSWORD_STORE } from 'constants/actionTypes';
 import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -15,6 +16,8 @@ import background from '../../components/statics/background/images/login.jpg';
 import { forgotPassword, resetPassword } from '../../actions';
 
 const ForgotPassword = () => {
+  const { t } = useTranslation();
+
   const [email, setEmail] = useState();
   const getForgotPassword = useSelector((state) => state.forgotPassword);
   const getResetPassword = useSelector((state) => state.resetPassword);
@@ -40,13 +43,13 @@ const ForgotPassword = () => {
   }, []);
 
   const rSuccsess = () => {
-    toast.success('Parolanız güncellendi...', {
+    toast.success(t('Your password has been updated...'), {
       position: 'bottom-right',
       autoClose: 2500,
     });
 
     setTimeout(() => {
-      toast.info('Lütfen Bekleyiniz! Yönlendiriliyorsunuz...', {
+      toast.info(t('Please wait! You are redirected...'), {
         position: 'bottom-right',
         autoClose: 2500,
         onClose: () => history.push('/'),
@@ -55,25 +58,21 @@ const ForgotPassword = () => {
   };
 
   const rErr = (e) => {
-
-     if (e?.password?.length > 0) {
+    if (e?.password?.length > 0) {
       toast.error(e?.password[0], {
         position: 'bottom-right',
         autoClose: 4500,
       });
+    } else if (e) {
+      toast.error(t('Check the code, make sure the passwords match'), {
+        position: 'bottom-right',
+        autoClose: 4500,
+      });
     }
-    else
-      if (e) {
-        toast.error("Kodu kontrol ediniz, şifrelerin eş olduğundan emin olunuz.", {
-          position: 'bottom-right',
-          autoClose: 4500,
-        });
-      }
-
-  }
+  };
 
   const succsess = () =>
-    toast.success('Mail gönderildi', {
+    toast.success(t('Email has been sent'), {
       position: 'bottom-right',
       autoClose: 4500,
       onClose: setOpen(true),
@@ -105,36 +104,78 @@ const ForgotPassword = () => {
 
   return (
     <>
-      <div style={{ width: '100%', minHeight: '110vh', backgroundSize: 'cover', backgroundImage: `url(${background})`, justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
-
-
-
+      <div
+        style={{
+          width: '100%',
+          minHeight: '110vh',
+          backgroundSize: 'cover',
+          backgroundImage: `url(${background})`,
+          justifyContent: 'center',
+          alignItems: 'center',
+          display: 'flex',
+        }}
+      >
         <div className="row">
           <div className="page-content">
             <Contain>
-              <div style={{ display: 'flex', flexDirection: 'column', width: '671px', height: '601px', background: 'white', borderRadius: '30px', padding: '80px', alignItems: 'center' }}>
-                <text style={{ fontFamily: 'Bebas Neue', fontSize: '40px', fontWeight: 'bold' }}>HESABINIZI BULMAMIZ İÇİN EPOSTA ADRESİNİZİ GİRİN</text>
-                <text style={{ fontFamily: 'Poppins', fontSize: '20px' }}>Öncelikle size ait hesabı bulmamız gerekiyor. Lütfen e-posta adresinizi yazın ve devam edin.</text>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width: '671px',
+                  height: '601px',
+                  background: 'white',
+                  borderRadius: '30px',
+                  padding: '80px',
+                  alignItems: 'center',
+                }}
+              >
+                <text
+                  style={{
+                    fontFamily: 'Bebas Neue',
+                    fontSize: '40px',
+                    fontWeight: 'bold',
+                  }}
+                >
+                  {t('ENTER YOUR EMAIL ADDRESS TO FIND YOUR ACCOUNT')}
+                </text>
+                <text style={{ fontFamily: 'Poppins', fontSize: '20px' }}>
+                  {t(
+                    'First, we need to find your account. Please write your e-mail address and continue'
+                  )}
+                </text>
                 {!getForgotPassword.isSuccsess && !getResetPassword.isSuccsess && (
-                  <form style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', marginTop: '50px' }} onSubmit={onSubmit}>
+                  <form
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      flexDirection: 'column',
+                      marginTop: '50px',
+                    }}
+                    onSubmit={onSubmit}
+                  >
                     <Material.TextField
                       required
                       onChange={(e) => setEmail(e.target.value)}
                       id="email"
                       name="email"
-                      label="E-mail'inizi giriniz."
+                      label={t('Enter your e-mail')}
                       type="text"
                       icon={AwesomeIcon.User}
                       style={{ marginBottom: '15px', width: '500px' }}
                     />
                     {getForgotPassword.isLoading ? (
-                      <Button style={{ marginBottom: '15px', width: '500px' }}
-                        text={`Yükleniyor...`} className="blue" />
+                      <Button
+                        style={{ marginBottom: '15px', width: '500px' }}
+                        text={t('Loading')}
+                        className="blue"
+                      />
                     ) : (
                       <Button
                         style={{ marginBottom: '15px', width: '500px' }}
                         type="submit"
-                        text={`Kod Gönder`}
+                        text={t('Submit Code')}
                         className="blue"
                       />
                     )}
@@ -149,7 +190,7 @@ const ForgotPassword = () => {
                       mb="15px"
                       onClick={handleClickOpen}
                       fontSize="11pt"
-                      text="Kodu Gir!"
+                      text={t('Enter Code!')}
                     />
                     <Dialog
                       className="material-dialog"
@@ -159,7 +200,7 @@ const ForgotPassword = () => {
                       onClose={handleClose}
                     >
                       <DialogTitle className="text-center">
-                        Parolanızı Sıfırlayın!
+                        {t('Reset Your Password!')}
                       </DialogTitle>
                       <DialogContent id="forgot-pass">
                         <div className="d-flex flex-wrap dialog-center">
@@ -169,7 +210,7 @@ const ForgotPassword = () => {
                           >
                             <form
                               key="customForm-1"
-                              id={"forgot-pass"}
+                              id={'forgot-pass'}
                               className="d-flex flex-wrap"
                               onSubmit={onClick}
                             >
@@ -178,9 +219,8 @@ const ForgotPassword = () => {
                                 type="text"
                                 name="code"
                                 key="customCode1"
-
                                 className="forgot-input-custom"
-                                label="Kodu giriniz."
+                                label={t('Enter Code!')}
                                 autocomplete="new-password"
                                 onChange={(e) =>
                                   setCode({
@@ -195,7 +235,7 @@ const ForgotPassword = () => {
                                 key="customInput1"
                                 className="forgot-input-custom"
                                 name="password"
-                                label="Yeni Şifre"
+                                label={t('Your New Password')}
                                 type="password"
                                 icon={Svg.PasswordIcon}
                                 password={Svg.EyeIcon}
@@ -207,17 +247,13 @@ const ForgotPassword = () => {
                                 }
                               />
 
-
-
-
                               <Material.TextField
                                 required
                                 type="password"
                                 key="customInput2"
-
                                 name="password_retry"
                                 className="forgot-input-custom"
-                                label="Yeni Şifre Tekrar"
+                                label={t('New Password Again')}
                                 autoComplete="new-password"
                                 onChange={(e) =>
                                   setCode({
@@ -227,19 +263,22 @@ const ForgotPassword = () => {
                                 }
                                 icon={Svg.PasswordIcon}
                                 password={Svg.EyeIcon}
-
                               />
-                              <span style={{ fontWeight: 300, fontSize: 14 }} >Şifreniz en az 6 karakter olmalı. Büyük harf, küçük harf ve rakam içermelidir.</span>
+                              <span style={{ fontWeight: 300, fontSize: 14 }}>
+                                {t(
+                                  'Your password must be at least 6 characters. It should contain uppercase, lowercase letters and numbers'
+                                )}
+                              </span>
                               {getResetPassword.isLoading ? (
                                 <Button
-                                  text={`Yükleniyor...`}
+                                  text={t('Loading')}
                                   className="blue w-100"
                                   mt="30px"
                                 />
                               ) : (
                                 <Button
                                   type="submit"
-                                  text={`Şifremi Güncelle`}
+                                  text={t('Update My Password')}
                                   className="blue w-100"
                                   mt="30px"
                                 />
@@ -252,27 +291,18 @@ const ForgotPassword = () => {
                   </React.Fragment>
                 )}
               </div>
-
             </Contain>
           </div>
         </div>
-
-
-
-
-
-
       </div>
-
-
     </>
   );
 };
 const Contain = styled.div`
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-  width:100%;
-`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+`;
 export default ForgotPassword;

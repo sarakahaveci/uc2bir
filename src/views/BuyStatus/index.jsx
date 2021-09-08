@@ -5,22 +5,26 @@ import profileImg from '../../assets/banner/slider-item-1.png';
 import { Svg, svgBackground } from 'components';
 import { Main } from 'components';
 import { useHistory, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
 const BuyStatus = ({ match }) => {
   let history = useHistory();
+  const { t } = useTranslation();
+
   const location = useLocation();
 
   function SuccessCard() {
     return (
       <CardContainer>
         <Svg.SmileyFaceIcon></Svg.SmileyFaceIcon>
-        <h4 style={{ marginTop: '10px' }}>Teşekkürler!</h4>
-        <h5>Ödeme işleminiz başarı ile tamamlandı</h5>
+        <h4 style={{ marginTop: '10px' }}>{t('Thanks!')}</h4>
+        <h5>{t('Your payment transaction has been completed successfully')}</h5>
         <RouteLink
           onClick={() => {
             history.push('/myprofile/settings/reservation');
           }}
         >
-          Rezervasyonlarıma Git
+          {t('Go to My Reservations')}
         </RouteLink>
       </CardContainer>
     );
@@ -29,19 +33,20 @@ const BuyStatus = ({ match }) => {
     return (
       <CardContainer>
         <RedBackground mb="25px">
-          <Svg.SadFaceIcon></Svg.SadFaceIcon>
+          æ<Svg.SadFaceIcon></Svg.SadFaceIcon>
         </RedBackground>
-        <h4 style={{ marginTop: '10px' }}>Malesef!</h4>
+        <h4 style={{ marginTop: '10px' }}>{t('Unfortunately!')}</h4>
         <h5>
-          Ödeme işlemi başarısız oldu. Lütfen Kart bilgilerinizi kontrol edip
-          tekrar deneyiniz.
+          {t(
+            'Payment transaction failed. Please check your card information and try again'
+          )}
         </h5>
         <RouteLink
           onClick={() => {
             history.push('/');
           }}
         >
-          Anasayfaya Git
+          {t('Go to Homepage')}
         </RouteLink>
       </CardContainer>
     );

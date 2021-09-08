@@ -12,8 +12,11 @@ import { getWallet } from 'actions/userProfileActions/walletActions';
 import { device } from 'utils';
 import { useHistory } from 'react-router-dom';
 import { USER } from '../../constants/userTypes';
+import { useTranslation } from 'react-i18next';
 
 const BuyGroupLesson = ({ match }) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const group = useSelector((state) => state.buyGroupLesson);
   const userTypeId = useSelector((state) => state.auth?.user?.type_id);
@@ -46,15 +49,19 @@ const BuyGroupLesson = ({ match }) => {
             <InfoContainer_Wallet>
               <DataContainer>
                 <Info>
-                  <Text style={{ fontWeight: 800 }}>Cüzdanım</Text>
+                  <Text style={{ fontWeight: 800 }}> {t('my wallet')}</Text>
                   <Text style={{ fontWeight: 800 }}>{wallet_balance}</Text>
                 </Info>
                 <Info>
-                  <Text style={{ fontWeight: 800 }}>İşlem Tutarı</Text>
+                  <Text style={{ fontWeight: 800 }}>
+                    {t('Transaction amount')}
+                  </Text>
                   <Text style={{ fontWeight: 800 }}>{amount}</Text>
                 </Info>
                 <Info>
-                  <Text style={{ fontWeight: 800 }}>Kalan Tutar</Text>
+                  <Text style={{ fontWeight: 800 }}>
+                    {t('Remaining amount')}
+                  </Text>
                   <Text
                     style={{
                       fontWeight: 800,
@@ -67,8 +74,10 @@ const BuyGroupLesson = ({ match }) => {
               </DataContainer>
               <div style={{ padding: '10px' }}>
                 <text>
-                  Yapacağınız işlem sonrası cüdanınızda kalacak olan toplam
-                  tutar {diff} TL’dir
+                  {t(
+                    'The total amount that will remain in your wallet after the transaction is'
+                  )}
+                  {diff} TL
                 </text>
               </div>
             </InfoContainer_Wallet>
@@ -154,17 +163,17 @@ const BuyGroupLesson = ({ match }) => {
                     <Svg.UsersGym></Svg.UsersGym>
                     <text style={{ margin: '0 5px' }}>
                       {group?.data?.slot?.min_capacity} /{' '}
-                      {group?.data?.slot?.max_capacity} Kişilik
+                      {group?.data?.slot?.max_capacity} {t('people')}
                     </text>
 
                     <text style={{ margin: '0 5px' }}>
-                      {group?.data?.pt?.classification} Sınıf Eğitmen
+                      {group?.data?.pt?.classification} {t('Class Instructor')}
                     </text>
                   </SubInfo>
                 </PtInfoContainer>
               </PtCardContainer>
               <InfoContainer>
-                <HeaderText>Oturum Türü</HeaderText>
+                <HeaderText>{t('session type')}</HeaderText>
                 <BigSeperator />
                 {
                   {
@@ -177,7 +186,7 @@ const BuyGroupLesson = ({ match }) => {
                         }}
                       >
                         <Svg.SessionType.Gym style={{ marginRight: '10px' }} />{' '}
-                        Spor Alanı
+                        {t('sports field')}
                       </div>
                     ),
                     home_park: (
@@ -189,7 +198,7 @@ const BuyGroupLesson = ({ match }) => {
                         }}
                       >
                         <Svg.SessionType.Park style={{ marginRight: '10px' }} />{' '}
-                        Ev / Park
+                        {t('Home / Park')}
                       </div>
                     ),
                     online: (
@@ -208,10 +217,12 @@ const BuyGroupLesson = ({ match }) => {
                     ),
                   }[group?.data?.slot?.session]
                 }
-                <LabelText>İçerik</LabelText>
+                <LabelText>{t('content')}</LabelText>
                 <Seperator />
                 <h5>{group?.data?.title}</h5>
-                <DescText style={{ marginTop: '6px' }}>{group?.data?.slot?.detail}</DescText>
+                <DescText style={{ marginTop: '6px' }}>
+                  {group?.data?.slot?.detail}
+                </DescText>
               </InfoContainer>
             </SideContainer>
           </>
@@ -234,9 +245,9 @@ const BuyGroupLesson = ({ match }) => {
           <Svg.ArrowLeftIcon />
 
           {group?.reservation?.payment_type ? (
-            <span>Ödeme Yap</span>
+            <span>{t('pay')}</span>
           ) : (
-            <span>Grup Ders Rezervasyon Oluşturun</span>
+            <span>{t('Create a Group Lesson Reservation')}</span>
           )}
         </BackLink>
       </div>
@@ -254,7 +265,7 @@ const BuyGroupLesson = ({ match }) => {
               <text style={{ fontSize: 19 }}>
                 {group?.data?.bs?.title
                   ? group?.data?.bs?.title + ' >'
-                  : 'Ev / Park'}
+                  : t('Home / Park')}
               </text>
               <Seperator />
             </div>
@@ -270,10 +281,10 @@ const BuyGroupLesson = ({ match }) => {
               )}
             </MapWrapper>
             <ResDetailContainer>
-              <text>Grup Ders Tarih ve Saati</text>
+              <text>{t('Group Lesson Date and Time')}</text>
               <Line />
               <div style={{ display: 'flex', alignItems: 'center' }}>
-                Ders
+                {t('lesson')}
                 <div
                   style={{
                     height: '18px',
@@ -287,7 +298,7 @@ const BuyGroupLesson = ({ match }) => {
                   {group?.data?.slot?.date}
                 </text>
                 <text style={{ marginRight: '5px', color: '#00b2a9' }}>
-                  Saat
+                  {t('Hour')}
                 </text>
                 <text style={{ color: '#00b2a9' }}>
                   {group?.data?.slot?.hour}

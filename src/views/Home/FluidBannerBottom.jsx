@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 // @ts-ignore
 import { default as NativeFluidBanner } from '../../components/banner/fluid-banner';
@@ -10,6 +11,8 @@ import backgroundImage from '../../components/statics/background/images/banner-b
 import { Container } from 'react-bootstrap';
 
 const FluidBanner = (props) => {
+  const { t } = useTranslation();
+
   const history = useHistory();
   const handleClick = () => {
     history.push('/login');
@@ -28,7 +31,7 @@ const FluidBanner = (props) => {
             style={{ maxWidth: '50%', marginLeft: 'auto', marginRight: 'auto' }}
             lineDisable
           >
-            Sen neredeysen spor ve eğitmen orada!
+            {t('Wherever you are, the sport and the trainer are there!')}
           </Title>
           <Text
             textAlign="center"
@@ -37,18 +40,19 @@ const FluidBanner = (props) => {
             letterSpacing="1px"
             lineHeight="30px"
           >
-            Sporseverler, eğitmen seçiyor, yeri ve zamanı belirliyor.
+            {t('Sports fans choose trainers, determine the place and time')}
             <br />
-            Bire bir ilgi, diyetisyen desteği, spor salonu seçenekleri hepsi
-            burada.
+            {t(
+              'One-on-one attention, dietitian support, gym options are all here'
+            )}
             <br />
-            Başarmak için hemen başla!
+            {t('Get started now to succeed!')}
           </Text>
           <br />
 
           <Button
             // style={{ paddingLeft: '70px', paddingRight: '70px' }}
-            text="ÜYE OL"
+            text={t('SIGN UP')}
             soft
             onClick={() => handleClick()}
           />

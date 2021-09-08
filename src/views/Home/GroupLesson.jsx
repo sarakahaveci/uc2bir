@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import { Container } from 'react-bootstrap';
 import Title from '../../components/typography/Titles';
 import PacketSlider from '../../components/sliders/PacketSlider';
 import { useSelector } from 'react-redux';
-import {FITNESS,PILATES,YOGA,TENNIS} from '../../constants/sportTypes'
-
+import { FITNESS, PILATES, YOGA, TENNIS } from '../../constants/sportTypes';
 
 const GroupLesson = (props) => {
+  const { t } = useTranslation();
+
   const history = useHistory();
   const handleSeeMoreClick = () => {
     history.push('/group-lessons?type=group-lessons');
@@ -25,7 +27,7 @@ const GroupLesson = (props) => {
   const categories = [
     {
       id: 1,
-      name: 'Tümü',
+      name: t('all'),
       activeClass: activeCategory == 1 ? 'active' : '',
       // link: '#all',
     },
@@ -57,32 +59,23 @@ const GroupLesson = (props) => {
   function dataSelector() {
     switch (activeCategory) {
       case 1:
-        return (
-          content?.group_lesson?.concat(content?.group_lesson)
-
-
-        )
+        return content?.group_lesson?.concat(content?.group_lesson);
       case 2:
-        return (
-          content?.group_lesson?.filter(item=>item?.slot?.branch?.id == FITNESS)
-
-        )
+        return content?.group_lesson?.filter(
+          (item) => item?.slot?.branch?.id == FITNESS
+        );
       case 3:
-        return (
-          content?.group_lesson?.filter(item=>item?.slot?.branch?.id == YOGA)
-
-        )
+        return content?.group_lesson?.filter(
+          (item) => item?.slot?.branch?.id == YOGA
+        );
       case 4:
-        return (
-          content?.group_lesson?.filter(item=>item?.slot?.branch?.id == TENNIS)
-
-        )
+        return content?.group_lesson?.filter(
+          (item) => item?.slot?.branch?.id == TENNIS
+        );
       case 5:
-        return (
-          content?.group_lesson?.filter(item=>item?.slot?.branch?.id == PILATES)
-
-        )
-     
+        return content?.group_lesson?.filter(
+          (item) => item?.slot?.branch?.id == PILATES
+        );
 
       default:
         break;
@@ -98,11 +91,12 @@ const GroupLesson = (props) => {
           letterSpacing="100"
           fontWeight="600"
         >
-          GRUP DERSLERİ
+          {t('groupLessons')}
         </Title>
         <Title variant="h6" component="h6" fontWeight="500">
-          ARKADAŞLARINLA BERABER, İSTEDİĞİN SALONDA, İSTEDİĞİN EĞİTMENDEN DERS
-          ALMA FIRSATI
+          {t(
+            ' THE OPPORTUNITY TO TAKE LESSONS WITH YOUR FRIENDS, IN THE HALL YOU WANT, FROM THE TRAINER YOU WANT'
+          )}
         </Title>
       </Container>
       <PacketSlider
@@ -112,7 +106,7 @@ const GroupLesson = (props) => {
         categories={categories}
         link={link}
         handleClickCategory={(id) => {
-          setActiveCategory(id)
+          setActiveCategory(id);
         }}
         handleSeeMoreClick={handleSeeMoreClick}
       />

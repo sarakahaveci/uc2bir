@@ -8,8 +8,11 @@ import {
   Button,
   Material,
 } from '../../components';
+import { useTranslation } from 'react-i18next';
 
 const VKI = () => {
+  const { t } = useTranslation();
+
   const [size, setSize] = useState();
   const [weight, setWeight] = useState();
   const [result, setResult] = useState(0);
@@ -20,7 +23,7 @@ const VKI = () => {
         <div className="col vki-col hight">
           <div className="elements">
             <Title variant="h5" component="h5" lineDisable textLeft>
-              VKI HESAPLAMA
+              {t('BMI CALCULATION')}
             </Title>
             <Title
               variant="h3"
@@ -35,11 +38,12 @@ const VKI = () => {
                   ' -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black',
               }}
             >
-              VKI Nedir?
+              {t('What is BMI?')}
             </Title>
             <Text fontSize="10pt" className="p-0">
-              Vücut kitle endeksi, yetişkin bir insanın ağırlığının, boyuna göre
-              normal olup olmadığını gösteren bir parametredir.
+              {t(
+                'Body mass index is a parameter that shows whether an adult persons weight is normal for their height'
+              )}
             </Text>
             <div className="d-flex el-flex">
               <div className="col">
@@ -50,7 +54,7 @@ const VKI = () => {
                   value={size}
                   onChange={(e) => setSize(e.target.value)}
                   mask="9.99"
-                  label="Boyunuz"
+                  label={t('your height')}
                   className="material-vki"
                 />
               </div>
@@ -62,7 +66,7 @@ const VKI = () => {
                   value={weight}
                   onChange={(e) => setWeight(e.target.value)}
                   mask="999"
-                  label="Kilonuz"
+                  label={t('your weight')}
                   className="material-vki"
                 />
               </div>
@@ -71,7 +75,7 @@ const VKI = () => {
               <div className="col">
                 <InputText
                   inputVal={result > 0 ? result : ''}
-                  labelText="Sonuç:"
+                  label={t('Result:')}
                   labelName="width"
                   inputName="width"
                 />
@@ -81,7 +85,7 @@ const VKI = () => {
                   onClick={() =>
                     setResult(Number(weight / (size * size)).toFixed(2))
                   }
-                  text="Hesapla"
+                  text={t('Calculate')}
                   className="blue"
                 />
               </div>
@@ -92,8 +96,8 @@ const VKI = () => {
           <div className="full-elements">
             <div className="elements">
               <div className="d-flex result-flex">
-                <span style={{ color: '#00B2A9' }}>VKI - kg / m2</span>
-                <span style={{ color: '#00B2A9' }}>Sonuçlar</span>
+                <span style={{ color: '#00B2A9' }}>{t('BMI')} - kg / m2</span>
+                <span style={{ color: '#00B2A9' }}>{t('Results')}</span>
               </div>
               <div
                 style={{
@@ -102,7 +106,7 @@ const VKI = () => {
                 className="d-flex result-flex"
               >
                 <span>0 - 18,4</span>
-                <span>Zayıf</span>
+                <span>{t('thin')}</span>
               </div>
               <div
                 style={{
@@ -121,14 +125,14 @@ const VKI = () => {
                 className="d-flex result-flex"
               >
                 <span>25,0 - 29,9</span>
-                <span>Fazla Kilolu</span>
+                <span>{t('Overweight')}</span>
               </div>
               <div
                 style={{ color: result >= 30 ? '#00b209' : '#525252' }}
                 className="d-flex result-flex"
               >
                 <span>30,0 - 34,9</span>
-                <span>Obezite</span>
+                <span>{t('Obesity')}</span>
               </div>
             </div>
           </div>

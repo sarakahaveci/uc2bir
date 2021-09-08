@@ -1,11 +1,12 @@
 /* eslint-disable react/display-name */
 import React, { useLayoutEffect, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { default as NativeBanner } from '../../components/sliders/Banner';
 import SearchBar from '../../components/sliders/SearchBar';
 import GoogleApp from 'components/GoogleMaps';
-import { searchProffesional } from 'actions'
+import { searchProffesional } from 'actions';
 import { SET_SEARCH_PROFESSIONAL_TYPE } from 'constants/actionTypes';
 //bunları şimdilik ekliyoruz
 import s2 from '../../assets/banner/download.jpg';
@@ -13,23 +14,30 @@ import s3 from '../../assets/banner/dw2.jpg';
 import s4 from '../../assets/blog/image-1.png';
 
 import vid from '../../assets/girisvideo1920x660.mp4';
-import {useTranslation} from 'react-i18next'
+
 const Banner = () => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const [virtual, setVirtual] = useState('pt');
-  const mapData = useSelector((state) => state.searchProfessional?.listInfo?.data)
+  const mapData = useSelector(
+    (state) => state.searchProfessional?.listInfo?.data
+  );
   const handleChangeVirtual = (value) => {
     dispatch({ type: SET_SEARCH_PROFESSIONAL_TYPE, payload: value });
     setVirtual(value);
-
   };
-  const { t } = useTranslation();
 
   useEffect(() => {
     dispatch(
-      searchProffesional({ title: '', type: 'map', minPrice: 0, maxPrice: 1000 })
+      searchProffesional({
+        title: '',
+        type: 'map',
+        minPrice: 0,
+        maxPrice: 1000,
+      })
     );
-  }, [])
+  }, []);
   useLayoutEffect(() => {
     const player = document.getElementById('vd-io');
     if (player) {
@@ -65,7 +73,7 @@ const Banner = () => {
     },
     gym: {
       className: '',
-      text: 'Salon Ara',
+      text: t('Search Gym'),
       component: () => {
         return (
           <>
@@ -79,7 +87,7 @@ const Banner = () => {
     },
     dt: {
       className: '',
-      text: 'Diyetisyen Ara',
+      text: t('Search for a Dietitian'),
       component: () => {
         return (
           <>
@@ -93,7 +101,7 @@ const Banner = () => {
     },
     map: {
       className: 'have-map',
-      text: 'Kelime Ara',
+      text: t('Word Search'),
       component: () => {
         return (
           <div className="img">
@@ -104,7 +112,7 @@ const Banner = () => {
     },
     packets: {
       className: '',
-      text: 'Paket Ara',
+      text: t('Search Package'),
       component: () => {
         return (
           <div className="img" style={{ backgroundImage: `url(${s2})` }}></div>
@@ -113,7 +121,7 @@ const Banner = () => {
     },
     'group-lessons': {
       className: '',
-      text: 'Grup Ders Ara',
+      text: t('Search Group Lessons'),
       component: () => {
         return (
           <div className="img" style={{ backgroundImage: `url(${s4})` }}></div>

@@ -2,10 +2,13 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import { HomeUserSlider, Title } from 'components';
 
 const Dietitians = (props) => {
+  const { t } = useTranslation();
+
   const history = useHistory();
   const handleSeeMoreClick = () => {
     history.push('/find?type=dt');
@@ -31,10 +34,12 @@ const Dietitians = (props) => {
           letterSpacing="100"
           fontWeight="600"
         >
-          DİYETİSYENLER
+          {t('dietitians')}
         </Title>
         <Title variant="h6" component="h6" fontWeight="500">
-          SANA UYGUN DİYET PROGRAMINI, SANA ÖZEL DİYETİSYENLERLE BELİRLE
+          {t(
+            ' DETERMINE THE DIET PROGRAM THAT IS SUITABLE FOR YOU WITH YOUR SPECIAL DIETICIANS'
+          )}
         </Title>
       </Container>
       <HomeUserSlider

@@ -5,8 +5,11 @@ import { useHistory } from 'react-router-dom';
 import Main from 'components/Main';
 import Contact from 'components/Contact';
 import JoinUs from 'assets/join-us.png';
+import { useTranslation } from 'react-i18next';
 
 const Info = () => {
+  const { t } = useTranslation();
+
   const history = useHistory();
 
   return (
@@ -31,13 +34,15 @@ const Info = () => {
           }}
         >
           <span className="contact-header__footer-title">
-            Başarmak İçin Sende Hemen Başla
+            {t('Get Started Now To Succeed!')}
           </span>
           <div
             className="contact-header__footer-button"
             onClick={() => history.push('/register')}
           >
-            <span className="contact-header__footer-button-text">ÜYE OL</span>
+            <span className="contact-header__footer-button-text">
+              {t('SIGN UP')}
+            </span>
           </div>
         </div>
       </div>

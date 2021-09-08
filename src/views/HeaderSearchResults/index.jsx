@@ -10,6 +10,8 @@ import {
   pulse,
   GoogleMapClusterer,
 } from 'components';
+import { useTranslation } from 'react-i18next';
+
 import { getSearchResults } from 'actions';
 import PtPackagesTab from '../../components/HeaderSearchResults/PtPackagesTab';
 import DtPackagesTab from '../../components/HeaderSearchResults/DtPackagesTab';
@@ -22,14 +24,20 @@ import styled, { css } from 'styled-components/macro';
 import { useHistory, useParams } from 'react-router-dom';
 
 const HeaderSearchResults = () => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const data = useSelector((state) => state.searchResults.data);
-  const pts = data?.users?.data?.filter(item=>item.type == 'pt');
-  const dts =  data?.users?.data?.filter(item=>item.type == 'dt');
-  const gyms =  data?.users?.data?.filter(item=>item.type == 'bs');
-  
-  const ptPackages = data?.packages?.data?.filter(item=>item.type == 'pt-package');
-  const dtPackages = data?.packages?.data?.filter(item=>item.type == 'dt-package');
+  const pts = data?.users?.data?.filter((item) => item.type == 'pt');
+  const dts = data?.users?.data?.filter((item) => item.type == 'dt');
+  const gyms = data?.users?.data?.filter((item) => item.type == 'bs');
+
+  const ptPackages = data?.packages?.data?.filter(
+    (item) => item.type == 'pt-package'
+  );
+  const dtPackages = data?.packages?.data?.filter(
+    (item) => item.type == 'dt-package'
+  );
   const blogs = data?.blogs?.data;
   const history = useHistory();
   const { keyword } = useParams();
@@ -41,7 +49,7 @@ const HeaderSearchResults = () => {
 
   if (pts?.length > 0) {
     Tabs.push({
-      settingsName: 'Eğitmenler (' + pts?.length + ')',
+      settingsName: t('trainers') + '(' + pts?.length + ')',
       body: <PTTab pts={pts} />,
       size: pts?.length,
       type: 'pt',
@@ -50,7 +58,7 @@ const HeaderSearchResults = () => {
 
   if (gyms?.length > 0) {
     Tabs.push({
-      settingsName: 'Spor Salonları (' + gyms?.length + ')',
+      settingsName: t('Gyms') + '(' + gyms?.length + ')',
       body: <GymTab gyms={gyms} />,
       size: gyms?.length,
       type: 'gym',
@@ -59,7 +67,7 @@ const HeaderSearchResults = () => {
 
   if (dts?.length > 0) {
     Tabs.push({
-      settingsName: 'Diyetisyenler (' + dts?.length + ')',
+      settingsName: t('dietitiansCapitalize') + '(' + dts?.length + ')',
       body: <DietitiansTab dts={dts} />,
       size: dts?.length,
       type: 'dt',
@@ -68,7 +76,7 @@ const HeaderSearchResults = () => {
 
   if (ptPackages?.length) {
     Tabs.push({
-      settingsName: 'Eğitmen Paketleri (' + ptPackages?.length + ')',
+      settingsName: t('Trainer Package') + ptPackages?.length + ')',
       body: <PtPackagesTab packages={ptPackages} />,
       size: ptPackages?.length,
       type: 'packets',
@@ -76,7 +84,7 @@ const HeaderSearchResults = () => {
   }
   if (dtPackages?.length > 0) {
     Tabs.push({
-      settingsName: 'Diyetisyen Paketleri (' + dtPackages?.length + ')',
+      settingsName: t('Dietitian Package') + dtPackages?.length + ')',
       body: <DtPackagesTab packages={dtPackages} />,
       size: dtPackages?.length,
       type: 'packets',
@@ -85,7 +93,7 @@ const HeaderSearchResults = () => {
 
   if (blogs?.length > 0) {
     Tabs.push({
-      settingsName: 'Bloglar (' + blogs?.length + ')',
+      settingsName: t('Blogs') + blogs?.length + ')',
       body: <BlogsTab blogs={blogs} />,
       size: blogs?.length,
       type: 'blog-list',
@@ -122,7 +130,7 @@ const HeaderSearchResults = () => {
                         go(item.type);
                       }}
                     >
-                      Tümünü Gör
+                      {t('See All')}
                     </LinkText>
                   )}
                   <Svg.ArrowUpIcon />
@@ -151,9 +159,9 @@ const HeaderSearchResults = () => {
               paddingRight: 30,
             }}
           >
-            Arama sonuçlarınız,
+            {t('Your search results')},
           </Text>
-          {data && <GoogleMapClusterer  data={data?.users?.data} />}
+          {data && <GoogleMapClusterer data={data?.users?.data} />}
 
           <Accordion>{results}</Accordion>
         </Container>

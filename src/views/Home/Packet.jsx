@@ -4,9 +4,11 @@ import { useHistory } from 'react-router-dom';
 import Title from '../../components/typography/Titles';
 import PacketSlider from '../../components/sliders/PacketSlider';
 import { useSelector } from 'react-redux';
-//mocdata
+import { useTranslation } from 'react-i18next';
 
 const Packet = (props) => {
+  const { t } = useTranslation();
+
   const history = useHistory();
   const handleSeeMoreClick = () => {
     history.push('/packets?type=packets');
@@ -23,19 +25,19 @@ const Packet = (props) => {
   const categories = [
     {
       id: 1,
-      name: 'Tümü',
+      name: t('all'),
       activeClass: activeCategory == 1 ? 'active' : '',
       //link: '#all',
     },
     {
       id: 2,
-      name: 'Eğitmen Paketleri',
+      name: t('Trainer Packages'),
       activeClass: activeCategory == 2 ? 'active' : '',
       // link: '#all',
     },
     {
       id: 3,
-      name: 'Diyetisyen Paketleri',
+      name: t('Dietitian Packages'),
       activeClass: activeCategory == 3 ? 'active' : '',
       // link: '#all',
     },
@@ -70,10 +72,10 @@ const Packet = (props) => {
           letterSpacing="100"
           fontWeight="600"
         >
-          PAKETLER
+          {t('packages')}
         </Title>
         <Title variant="h6" component="h6" fontWeight="500">
-          SANA UYGUN OLAN PAKETİ SEÇ, HEMEN ÇALIŞMAYA BAŞLA
+          {t('CHOOSE THE PACKAGE THAT IS SUITABLE FOR YOU, START WORK NOW')}
         </Title>
       </Container>
       <PacketSlider
