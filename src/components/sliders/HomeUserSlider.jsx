@@ -4,6 +4,7 @@ import { default as SlickSlider } from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { Button } from 'components';
+import { useTranslation } from 'react-i18next';
 
 import CardSlider from './CardSlider';
 import AwesomeIcon from '../statics/icon';
@@ -12,6 +13,7 @@ import UserCard from './UserCard';
 const HomeUserSlider = ({ className, data = [], handleSeeMoreClick }) => {
   const slider1 = useRef();
   const slider2 = useRef();
+  const { t } = useTranslation();
 
   return (
     <>
@@ -65,7 +67,7 @@ const HomeUserSlider = ({ className, data = [], handleSeeMoreClick }) => {
             <Button
               lineButton
               onClick={() => handleSeeMoreClick()}
-              text="Tümünü Gör"
+              text={t('See All')}
             />
           </div>
         </div>

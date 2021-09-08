@@ -4,9 +4,11 @@ import React from 'react';
 import Title from '../../typography/Titles';
 import AwesomeIcon from '../../statics/icon';
 import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const GroupLesson = ({ val }) => {
   const history = useHistory();
+  const { t } = useTranslation();
 
   return (
     <>
@@ -82,7 +84,7 @@ const GroupLesson = ({ val }) => {
                       right: '0',
                     }}
                   >
-                    {val?.slot?.max_capacity} Kişilik
+                    {val?.slot?.max_capacity} {t('people')}
                   </span>
 
                   <span>
@@ -97,16 +99,16 @@ const GroupLesson = ({ val }) => {
           <div className="back-card">
             <div className="back-card__title">{val?.slot?.branch?.name}</div>
             <div className="back-card__detail">
-              Eğitmen Adı: {val?.pt?.name}
+              {t('Trainer name')}: {val?.pt?.name}
             </div>
             <div className="back-card__detail">Ünvanı: {val?.pt?.title}</div>
             <div className="back-card__detail">Tarih: {val?.slot?.date}</div>
             <div className="back-card__detail">Saat: {val?.slot?.hour}</div>
             <div className="back-card__detail">
-              Maksimum Kapasite: {val?.slot?.max_capacity}
+              {t('Maximum Capacity')}: {val?.slot?.max_capacity}
             </div>
             <div className="back-card__detail">
-              Yer: {val?.address?.city}/{val?.address?.district}
+              {t('location')}: {val?.address?.city}/{val?.address?.district}
             </div>
           </div>
         </div>

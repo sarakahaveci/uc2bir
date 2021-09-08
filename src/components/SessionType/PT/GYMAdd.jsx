@@ -13,9 +13,11 @@ import { Row, Col, Form, FormGroup } from 'react-bootstrap';
 import styled from 'styled-components/macro';
 
 import image from '../../../assets/session-type.jpg';
-import { useTranslation} from 'react-i18next'
+import { useTranslation } from 'react-i18next';
 
 const GYMAdd = ({ setSubPage, setBannerActive }) => {
+  const { t } = useTranslation();
+
   const stars = 4;
   return (
     <div>
@@ -33,7 +35,7 @@ const GYMAdd = ({ setSubPage, setBannerActive }) => {
             <SearchCol>
               <input
                 className="search-trainer__search-input"
-                placeholder="Eğitmen adı..."
+                placeholder={t('Trainer name...')}
               />
             </SearchCol>
 
@@ -43,14 +45,14 @@ const GYMAdd = ({ setSubPage, setBannerActive }) => {
 
                 <input
                   className="search-trainer__search-input"
-                  placeholder="Lokasyon..."
+                  placeholder={t('Location...')}
                 />
               </div>
             </SearchCol>
 
             <SearchCol>
               <Form.Control as="select" className="search-trainer__select">
-                <option hidden>Branşlar</option>
+                <option hidden>{t('Branches')}</option>
               </Form.Control>
             </SearchCol>
 
@@ -60,7 +62,7 @@ const GYMAdd = ({ setSubPage, setBannerActive }) => {
                 display="flex"
                 className="blue"
                 alignItems="center"
-                text="Ara"
+                text={t('Search')}
                 search
                 width="100%"
                 maxWidth="150px"
@@ -83,7 +85,7 @@ const GYMAdd = ({ setSubPage, setBannerActive }) => {
                   }}
                   className="search-trainer__select search-trainer__select--bg"
                 >
-                  <option hidden>Filtreler</option>
+                  <option hidden>{t('Filters')}</option>
                 </Form.Control>
               </FormGroup>
             </Col>
@@ -99,7 +101,7 @@ const GYMAdd = ({ setSubPage, setBannerActive }) => {
                   }}
                   className="search-trainer__select search-trainer__select--bg"
                 >
-                  <option hidden>Sırala</option>
+                  <option hidden>{t('sorting')}</option>
                 </Form.Control>
               </FormGroup>
             </Col>
@@ -132,7 +134,7 @@ const GYMAdd = ({ setSubPage, setBannerActive }) => {
             </Star>
           </Stars>
           <div style={{ backgroundImage: `url(${image})` }} className="img">
-            <div className="adss">Salonu Ekle</div>
+            <div className="adss">{t('+ Add Gym')}</div>
           </div>
           <div className="title">
             <Title textAlign="left" fontSize="14pt">

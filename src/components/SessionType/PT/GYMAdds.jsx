@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { AwesomeIcon, Title, IconLabel } from 'components';
 import { Col, Row } from 'react-bootstrap';
 import styled from 'styled-components/macro';
+import { useTranslation } from 'react-i18next';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -11,6 +12,8 @@ import { addGym, getGymList } from 'actions';
 import defaultImg from 'assets/default-profile.jpg';
 
 const GYMAdds = ({ setSubPage }) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
 
   const { gymList } = useSelector(
@@ -27,13 +30,13 @@ const GYMAdds = ({ setSubPage }) => {
         { gym: [id] },
         () => {
           setSubPage('page');
-          toast.success('Gym başarı ile eklendi.', {
+          toast.success(t('Gym successfully added'), {
             position: 'bottom-right',
             autoClose: 2000,
           });
         },
         () => {
-          toast.error('Bir sorun oluştu.', {
+          toast.error(t('There is a problem'), {
             position: 'bottom-right',
             autoClose: 2000,
           });
@@ -69,14 +72,14 @@ const GYMAdds = ({ setSubPage }) => {
                 style={{ backgroundImage: `url(${val.photo || defaultImg})` }}
                 className="img"
               >
-                <div className="adss">Salonu Ekle</div>
+                <div className="adss">{t('+ Add Gym')}</div>
               </div>
               <div className="title">
                 <Title textAlign="left" fontSize="14pt">
                   {val.title}
                 </Title>
                 <Title textAlign="left" fontSize="10pt">
-                  {val.capacity} kapasite
+                  {val.capacity} {t('Capacity')}
                 </Title>
               </div>
               <div className="footer-and">

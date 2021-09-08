@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Text, Title, Button } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import styled from 'styled-components/macro';
 import image from '../../assets/my-wallet.jpg';
@@ -16,6 +17,8 @@ import { DialogActions } from '@material-ui/core';
 import { getWalletTransactions } from 'actions/userProfileActions/walletActions';
 import { USER } from '../../constants';
 const Activities = ({ setPage }) => {
+  const { t } = useTranslation();
+
   const transactionsData = useSelector(
     (state) => state?.userProfile?.wallet.transactionsData.data
   );
@@ -42,7 +45,7 @@ const Activities = ({ setPage }) => {
         <Row>
           <Col lg="12">
             <Title fontSize="13pt" style={{ padding: 15 }} textAlign="left">
-              Hesap Hareketleri
+              {t('Account activities')}
             </Title>
           </Col>
           <Col lg="4">
@@ -56,7 +59,7 @@ const Activities = ({ setPage }) => {
                 textAlign="left"
                 // onClick={() => setPage('home')} ŞİMDİLİK KAPATILDI
               >
-                {`Hesap Hareketlerim`}
+                {t('My Account Activity')}
               </Title>
             )) || (
               <Title
@@ -65,12 +68,12 @@ const Activities = ({ setPage }) => {
                 textAlign="left"
                 onClick={() => setPage('home')}
               >
-                {`< Hesap Hareketlerim`}
+                {'< '} {t('My Account Activity')}
               </Title>
             )}
             <>
               <Text fontSize="10pt">
-                Bütün hesap hareketlerinizi bu alanda görüntüleyebilirsiniz.
+                {t('You can view all your account activities in this area')}
               </Text>
 
               {transactionsData?.length > 0 ? (
@@ -83,14 +86,14 @@ const Activities = ({ setPage }) => {
                           setPaymentType(e.target.value);
                           changedTypes();
                         }}
-                        label="Ödeme Şekli"
+                        label={t('Payment method')}
                         items={[
-                          { id: 'all', name: 'Hepsi' },
+                          { id: 'all', name: t('all') },
                           // { id: 'wallet', name: 'Cüzdan' },
-                          { id: 'card', name: 'Kredi Kartı' },
-                          { id: 'package', name: 'Paket' },
+                          { id: 'card', name: t('Credit Card') },
+                          { id: 'package', name: t('package') },
                         ]}
-                        value={{ id: 'all', name: 'Hepsi' }}
+                        value={{ id: 'all', name: t('all') }}
                       />
                     </Col>
                     <Col>
@@ -101,28 +104,28 @@ const Activities = ({ setPage }) => {
                         }}
                         label="Dönem"
                         items={[
-                          { id: 'all', name: 'Hepsi' },
-                          { id: 'today', name: 'Bugün' },
-                          { id: 'one_week', name: 'Bu Hafta İçinde' },
+                          { id: 'all', name: t('all') },
+                          { id: 'today', name: t('Today') },
+                          { id: 'one_week', name: t('In this week') },
                           {
                             id: 'start_to_fifteen_this_month',
-                            name: 'Bu Ayın Başından 15ine Kadar',
+                            name: t('Beginning of This Month Until 15th'),
                           },
                           {
                             id: 'sixteen_to_end_this_month',
-                            name: 'Bu Ayın 16sından Sonuna Kadar',
+                            name: t('16th To End Of This Month'),
                           },
-                          { id: 'one_month', name: 'Son 1 Ay' },
+                          { id: 'one_month', name: t('Last 1 Month') },
                           {
                             id: 'three_month',
-                            name: 'Son 3 Ay',
+                            name: t('Last 3 Month'),
                           },
                           {
                             id: 'one_year',
-                            name: 'Son 1 Yıl',
+                            name: 'Last 1 Year',
                           },
                         ]}
-                        value={{ id: 'all', name: 'Hepsi' }}
+                        value={{ id: 'all', name: t('all') }}
                       />
                     </Col>
                     {/* <Button className="blue" text="Listele" onClick={handleClick} /> */}
@@ -152,7 +155,7 @@ const Activities = ({ setPage }) => {
                       fontWeight="500"
                       p="5px"
                     >
-                      Herhangi bir veri bulunamadı.
+                      {t('No data found')}
                     </Text>
                   </CapsuleItem>
                 </Capsule>
@@ -169,7 +172,7 @@ const Activities = ({ setPage }) => {
           maxWidth="sm"
           open={open}
         >
-          <DialogTitle className="text-center">Cüzdanım</DialogTitle>
+          <DialogTitle className="text-center">{t('my wallet')}</DialogTitle>
           <DialogContent>
             <Data />
           </DialogContent>
@@ -181,13 +184,13 @@ const Activities = ({ setPage }) => {
               <Button
                 style={{ borderRadius: 0, marginRight: '10px' }}
                 className="blue"
-                text="Yazdır"
+                text={t('Print')}
                 onClick={() => window.print()}
               />
               <Button
                 style={{ borderRadius: 0 }}
                 className="blue"
-                text="Kapat"
+                text={t('Close')}
                 onClick={() => setOpen(false)}
               />
             </div>

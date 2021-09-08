@@ -1,11 +1,12 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import MockImage from 'assets/default-profile.jpg';
 import { Title, AwesomeIcon, Span } from 'components';
 import { useHistory } from 'react-router-dom';
 
 const PtPacketCard = ({
-  data, 
+  data,
   hoverText = 'Pakete Git',
   isGym,
   onClickHover = () => {},
@@ -18,6 +19,7 @@ const PtPacketCard = ({
     const userId = data?.id || data?.user_id;
     history.push('/packets/detail/' + userId);
   };
+  const { t } = useTranslation();
 
   return (
     <div className={selected ? 'long-user-card scale-t' : 'long-user-card'}>
@@ -55,11 +57,11 @@ const PtPacketCard = ({
 
         <div className="long-user-card__location-wrapper">
           <div className="long-user-card__location-text">
-            Min. Ders Ücreti: {data?.lesson_amount}
+            {t('Minimum Course Fee')}: {data?.lesson_amount}
           </div>
 
           <div className="long-user-card__fee">
-            {data?.price_c || data?.price_b || data?.price_a } <AwesomeIcon.Tl />
+            {data?.price_c || data?.price_b || data?.price_a} <AwesomeIcon.Tl />
           </div>
         </div>
       </div>

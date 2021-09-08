@@ -17,6 +17,7 @@ import {
   Button,
   Box,
 } from 'components';
+
 import { default as MaterialButton } from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -29,29 +30,26 @@ import { resizeFile } from '../utils';
 
 import { useTranslation } from 'react-i18next';
 
-const MasonaryGallery = ({
+const MasonaryGallery = ({ className = null, style = {}, children = null }) => {
+  const { t } = useTranslation();
   categories = [
     {
       id: 1,
       item: 'all',
-      name: 'Tümü',
+      name: t('all'),
     },
     {
       id: 2,
       item: 'image',
-      name: 'Fotoğraflar',
+      name: t('Photos'),
     },
     {
       id: 3,
       item: 'youtube',
-      name: 'Videolar',
+      name: t('Videos'),
     },
-  ],
-  className = null,
-  style = {},
-  children = null,
-}) => {
-  const { t } = useTranslation();
+  ];
+
   const [activePage, setActivePage] = useState('index');
   const [active, setActive] = useState('all');
   const [type] = useState('');
@@ -100,13 +98,13 @@ const MasonaryGallery = ({
         dispatch(getMyGalleries());
         setActivePage('index');
         setFile(false);
-        toast.success('Dosya yüklendi.', {
+        toast.success(t('The file has been uploaded'), {
           position: 'bottom-right',
           autoClose: 2000,
         });
       })
       .catch(function () {
-        toast.error('Dosya gönderilemedi.', {
+        toast.error(t('The file could not be sent'), {
           position: 'bottom-right',
           autoClose: 2000,
         });
@@ -127,14 +125,14 @@ const MasonaryGallery = ({
         setActivePage('index');
         setFile(false);
         setLoading(false);
-        toast.success('Dosya yüklendi.', {
+        toast.success(t('The file has been uploaded'), {
           position: 'bottom-right',
           autoClose: 2000,
         });
       })
       .catch(function () {
         setLoading(false);
-        toast.error('Dosya gönderilemedi.', {
+        toast.error(t('The file could not be sent'), {
           position: 'bottom-right',
           autoClose: 2000,
         });
@@ -145,7 +143,7 @@ const MasonaryGallery = ({
     axios({ ...delete_config, data: { gallery_id } })
       .then(function () {
         dispatch(getMyGalleries());
-        toast.success('Dosya silindi.', {
+        toast.success(t('The file has been deleted'), {
           position: 'bottom-right',
           autoClose: 2000,
           onClose: () => {
@@ -154,7 +152,7 @@ const MasonaryGallery = ({
         });
       })
       .catch(function () {
-        toast.error('Dosya silinemedi.', {
+        toast.error(t('The file could not be deleted'), {
           position: 'bottom-right',
           autoClose: 2000,
         });
@@ -196,8 +194,11 @@ const MasonaryGallery = ({
   const New = () => {
     if (content.file_type === 'image') {
       return (
-        <div style={{ display: "flex", width: '80vw', height: '80vh' }} >
-          <img style={{ width: '100%', height: 'auto', objectFit: "contain" }} src={content.path} />
+        <div style={{ display: 'flex', width: '80vw', height: '80vh' }}>
+          <img
+            style={{ width: '100%', height: 'auto', objectFit: 'contain' }}
+            src={content.path}
+          />
         </div>
       );
     } else {
@@ -246,7 +247,9 @@ const MasonaryGallery = ({
         <Text style={{ padding: 15 }}>children</Text>
       ) : (
         <Text style={{ padding: 15 }}>
-          {t('The photos and videos you add to your gallery will be informative about you.')}
+          {t(
+            'The photos and videos you add to your gallery will be informative about you.'
+          )}
         </Text>
       )}
       {activePage === 'index' && (
@@ -393,7 +396,7 @@ const MasonaryGallery = ({
         <Div padding={15}>
           <AddButton onClick={() => setActivePage('action-video')}>
             <img src={BluePlusIcon} alt="" width="25px" height="25px" />
-            <Button text="Video Yükle" fontSize="11pt" color="blue" />
+            <Button text={t('Upload Video')} fontSize="11pt" color="blue" />
           </AddButton>
 
           <AddButton
@@ -401,7 +404,7 @@ const MasonaryGallery = ({
             onClick={() => setActivePage('action')}
           >
             <img src={BluePlusIcon} alt="" width="25px" height="25px" />
-            <Button text="Fotoğraf Yükle" fontSize="11pt" color="blue" />
+            <Button text={t('Upload Photo')} fontSize="11pt" color="blue" />
           </AddButton>
         </Div>
       )}
@@ -409,7 +412,10 @@ const MasonaryGallery = ({
         <Div padding={15}>
           {!file && (
             <>
-              <Button text="< Geri" onClick={() => setActivePage('index')} />
+              <Button
+                text={t('< Back')}
+                onClick={() => setActivePage('index')}
+              />
               <MaterialButton
                 style={{
                   border: '1px solid var(--blue)',
@@ -449,13 +455,16 @@ const MasonaryGallery = ({
         <Div padding={15}>
           {!file && (
             <>
-              <Button text="< Geri" onClick={() => setActivePage('index')} />
+              <Button
+                text={t('< Back')}
+                onClick={() => setActivePage('index')}
+              />
             </>
           )}
           <>
             <div className="w-100" style={{ marginTop: 15 }}>
               <Material.TextField
-                label="Youtube link' i gir veya boş bırak."
+                label={t('Enter youtube link or leave it blank')}
                 name="link"
                 onChange={(e) => setLink(e.target.value)}
               />

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Text, Title, Accordion, Button } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import styled from 'styled-components/macro';
 import image from '../../assets/my-wallet.jpg';
@@ -9,6 +10,8 @@ import Wrapper from './Wrapper';
 import { getWallet } from 'actions/userProfileActions/walletActions';
 
 const Home = ({ setPage }) => {
+  const { t } = useTranslation();
+
   const { balance } = useSelector((state) => state?.userProfile?.wallet.data);
 
   const { user } = useSelector((state) => state.auth);
@@ -25,7 +28,7 @@ const Home = ({ setPage }) => {
         <Row>
           <Col lg="12">
             <Title fontSize="13pt" style={{ padding: 15 }} textAlign="left">
-              Cüzdanım
+              {t('my wallet')}
             </Title>
           </Col>
           <Col lg="4">
@@ -33,17 +36,19 @@ const Home = ({ setPage }) => {
           </Col>
           <Col lg="7">
             <Title fontSize="12pt" textAlign="left">
-              Cüzdanım
+              {t('my wallet')}
             </Title>
-
             <>
               <Text fontSize="10pt">
-                Hesabınızda bulunan tutarı ve hesap hareketlerinizi
-                görüntüleyebilir, bankanıza TL aktarabilirsiniz.
+                {t(
+                  'You can view the amount in your account and your account activities, and transfer TL to your bank'
+                )}
               </Text>
-            <Explanation>
+              <Explanation>
                 <Col>
-                  <Title textAlign="left">Cüzdanımdaki Toplam Tutar:</Title>
+                  <Title textAlign="left">
+                    {t('Total Amount in My Wallet')}:
+                  </Title>
                 </Col>
                 <Col>
                   <TitleWrapper>
@@ -64,15 +69,15 @@ const Home = ({ setPage }) => {
                 }}
                 fontWeight="600"
                 color="blue"
-                text="Hesap Hareketlerime Git >"
+                text={t('Go to My Account Activity >')}
                 onClick={() => setPage('activities')}
               />
-              {user?.type_id === 1 && ( 
+              {user?.type_id === 1 && (
                 <Button
                   style={{ textDecoration: 'underline', display: 'block' }}
                   fontWeight="600"
                   color="blue"
-                  text="Cüzdanıma Bakiye Yükle >"
+                  text={t('Top Up My Wallet >')}
                   onClick={() => setPage('UserTransfer')}
                 />
               )}
@@ -87,7 +92,7 @@ const Home = ({ setPage }) => {
                       }}
                       fontWeight="600"
                       color="blue"
-                      text="Hesabımdaki Bakiyeyi Aktar >"
+                      text={t('Transfer Balance in My Account >')}
                       onClick={() => setPage('TransferInfo')}
                     />
                   )}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import MockImage from 'assets/default-profile.jpg';
 import { Title, AwesomeIcon, Span } from 'components';
@@ -15,6 +16,7 @@ const PacketCard = ({
   type,
 }) => {
   const history = useHistory();
+  const { t } = useTranslation();
 
   const navigateToPacket = () => {
     const userId = data?.id || data?.user_id;
@@ -64,15 +66,18 @@ const PacketCard = ({
             <div>
               {' '}
               {data?.branch_name ? (
-                <div> {data?.branch_name} Branşı</div>
+                <div>
+                  {' '}
+                  {data?.branch_name} t{'Branch'}
+                </div>
               ) : (
-                <div>Diyet Programı</div>
+                <div>{t('Diet Program')}</div>
               )}
             </div>
 
             <div>
               {data?.price || 0} <AwesomeIcon.Tl /> / {data?.lesson_amount}{' '}
-              {data?.type === 'pt' ? 'Ders' : 'Seans'}
+              {data?.type === 'pt' ? t('Session') : t('lesson')}
             </div>
           </div>
         </div>

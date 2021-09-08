@@ -11,8 +11,11 @@ import {
   getBankAccount,
   deleteBankAccount,
 } from 'actions/userProfileActions/walletActions';
+import { useTranslation } from 'react-i18next';
 
 const TransferInfo = ({ setPage }) => {
+  const { t } = useTranslation();
+
   const [cardName, setCardName] = useState(null);
   const [cardNo, setCardNo] = useState(null);
   const [saveName, setSaveName] = useState(null);
@@ -43,7 +46,7 @@ const TransferInfo = ({ setPage }) => {
   };
 
   const handleSuccess = () => {
-    toast.success('Hesap bilgileriniz başarıyla güncellendi.', {
+    toast.success(t('Your account information has been successfully updated'), {
       position: 'bottom-right',
       autoClose: 1500,
     });
@@ -54,10 +57,13 @@ const TransferInfo = ({ setPage }) => {
   };
 
   const handleFailure = () => {
-    toast.error('Girdiğiniz kart bilgileri hatalı veya eksik.', {
-      position: 'bottom-right',
-      autoClose: 7000,
-    });
+    toast.error(
+      t('The card information you entered is incorrect or incomplete'),
+      {
+        position: 'bottom-right',
+        autoClose: 7000,
+      }
+    );
   };
 
   const handleSubmitDelete = (idParam) => {
@@ -73,7 +79,7 @@ const TransferInfo = ({ setPage }) => {
   };
 
   const handleSuccessDelete = () => {
-    toast.success('Hesabınız başarıyla silindi.', {
+    toast.success(t('Your account has been successfully deleted'), {
       position: 'bottom-right',
       autoClose: 1500,
     });
@@ -81,7 +87,7 @@ const TransferInfo = ({ setPage }) => {
   };
 
   const handleFailureDelete = () => {
-    toast.error('Bilgiler hatalı veya eksik.', {
+    toast.error(t('Information is incorrect or incomplete'), {
       position: 'bottom-right',
       autoClose: 7000,
     });
@@ -93,7 +99,7 @@ const TransferInfo = ({ setPage }) => {
         <Row>
           <Col lg="12">
             <Title fontSize="13pt" style={{ padding: 15 }} textAlign="left">
-              Cüzdanım
+              {t('my wallet')}
             </Title>
           </Col>
           <Col lg="4">
@@ -106,12 +112,12 @@ const TransferInfo = ({ setPage }) => {
               textAlign="left"
               onClick={() => setPage('home')}
             >
-              {`< Hesabımdaki Bakiyeyi Aktar`}
+              {'< '} {t('Transfer Balance in My Account >')}
             </Title>
             <Title fontSize="12pt" textAlign="left" fontWeight="500">
-              Hesaba para aktarma işlemi tarafımızca her ayın 15. ve 20. günleri
-              arasında yapılır. Aktarım yapabilmemiz için lütfen hesap
-              bilgilerinizi giriniz.
+              {t(
+                'Money transfer to the account is done by us between the 15th and 20th days of each month. Please enter your account information so that we can transfer'
+              )}
             </Title>
             {data &&
               data.map((item, index) => (
@@ -136,7 +142,7 @@ const TransferInfo = ({ setPage }) => {
                   <Button
                     style={{ width: '100%', padding: '20px' }}
                     className="blue"
-                    text="Hesap Ekle"
+                    text={t('Add Account')}
                     onClick={() => setPage('transfer')}
                   />
                 )}

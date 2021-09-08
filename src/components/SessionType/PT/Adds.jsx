@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { getGeocode } from 'use-places-autocomplete';
 import BluePlusIcon from 'assets/blue-plus.svg';
+import { useTranslation } from 'react-i18next';
 
 import { Svg } from 'components';
 import AddAdress from '../AddAdress';
@@ -10,6 +11,8 @@ import Edit from './Edit';
 import GYMEdit from './GYMEdit';
 import { device } from 'utils';
 const Adds = ({ icons, setBannerActive, setPage, get, selected }) => {
+  const { t } = useTranslation();
+
   const [subPage, setSubPage] = useState('Adds');
 
   useEffect(() => {
@@ -21,12 +24,12 @@ const Adds = ({ icons, setBannerActive, setPage, get, selected }) => {
       return (
         <>
           <div style={{ display: 'flex', cursor: 'pointer' }}>
-            <Svg.EditIcon/>
+            <Svg.EditIcon />
             <BoldText
               style={{ marginLeft: '5px' }}
               onClick={() => setPage('Home')}
             >
-              Oturum Türü Ekle / Kaldır
+              {t('Add / Remove Session Type')}
             </BoldText>
           </div>
 
@@ -53,7 +56,7 @@ const Adds = ({ icons, setBannerActive, setPage, get, selected }) => {
                               <text
                                 style={{ marginLeft: '5px', color: 'white' }}
                               >
-                                Adreslerimi düzenle
+                                {t('Edit my addresses')}
                               </text>
                             </Edits>
                           </Link>

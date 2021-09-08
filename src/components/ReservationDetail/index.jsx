@@ -11,8 +11,11 @@ import ReactHtmlParser from 'react-html-parser';
 import { decode } from 'html-entities';
 import DefaultProfileImg from 'assets/default-profile.jpg';
 import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const ReservationDetail = ({ type, goBack = () => {}, isOnline }) => {
+  const { t } = useTranslation();
+
   const [detailData, setDetailData] = useState({});
   const professionalReservation = useSelector(
     (state) => state.professionalReservation
@@ -52,7 +55,7 @@ const ReservationDetail = ({ type, goBack = () => {}, isOnline }) => {
           }}
           style={{ cursor: 'pointer' }}
         >
-          {'<  Randevu Detayı'}
+          {'< '} {t('Appointment Details')}
         </BoldText>
       </Header>
       <Sections>
@@ -132,7 +135,7 @@ const ReservationDetail = ({ type, goBack = () => {}, isOnline }) => {
           <RightAreaWrapper style={{ padding: '20px 0 20px 0' }}>
             {!detailData?.dt && (
               <DescTextWrapper>
-                <DescHeader>Ders Hakkında</DescHeader>
+                <DescHeader>{t('About the Course')}</DescHeader>
                 <DescText>
                   {ReactHtmlParser(decode(detailData?.detail))}
                 </DescText>
@@ -149,7 +152,7 @@ const ReservationDetail = ({ type, goBack = () => {}, isOnline }) => {
                   )
                 }
               >
-                <MessageButton>Mesaj Gönder</MessageButton>
+                <MessageButton>{t('Send Message')}</MessageButton>
               </Link>
               {isOnline && (
                 <Link
@@ -157,7 +160,7 @@ const ReservationDetail = ({ type, goBack = () => {}, isOnline }) => {
                   onClick={() => dispatch(setReservationDetail(detailData))}
                 >
                   <OnlineClassButton color={'blue2'}>
-                    Derse Gir
+                    {t('Enter the Course')}
                   </OnlineClassButton>
                 </Link>
               )}
@@ -167,10 +170,10 @@ const ReservationDetail = ({ type, goBack = () => {}, isOnline }) => {
                 {' '}
                 {professionalReservation?.dtReservation?.res_detail ||
                 professionalReservation?.userReservation?.res_detail?.dt
-                  ? 'Seans'
-                  : 'Ders'}{' '}
+                  ? t('Session')
+                  : t('lesson')}{' '}
                 {startDate.fromNow()}{' '}
-                {startDate > moment() ? 'başlayacaktır.' : 'sonlanmıştır.'}
+                {startDate > moment() ? t('will start') : t('has ended')}
               </DescText>
             </TextWrapper>
           </RightAreaWrapper>
