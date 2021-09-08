@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import { getTemplates, saveTemplate } from 'actions';
 import { Box, Modal, Button, Title, Material } from 'components';
+import { useTranslation } from 'react-i18next';
 
 const TemplateNamingModal = forwardRef(
   ({ openSuccessTemplateModal, templateName, setTemplateName }, ref) => {
@@ -15,21 +16,22 @@ const TemplateNamingModal = forwardRef(
       ref.current.closeModal();
     };
 
-    const saveClickHandler = () =>{
+    const saveClickHandler = () => {
       dispatch(saveTemplate(templateName, saveSuccessCallback));
-    }
+    };
 
+    const { t } = useTranslation();
 
     return (
       <StyledTemplateNamingModal activateFooter ref={ref}>
         <div className="reservation-template__naming-modal">
           <Title textAlign="left" color="blue">
-            Şablonunuza İsim Verin
+            {t('Name Your Template')}
           </Title>
 
           <Box my="30px">
             <Material.TextField
-              label="Yazınız"
+              label={t('Write')}
               onChange={(e) => setTemplateName(e.target.value)}
             />
           </Box>
@@ -43,7 +45,7 @@ const TemplateNamingModal = forwardRef(
               type="text"
               onClick={saveClickHandler}
               disabled={templateName.trim() === ''}
-              text="KAYDET"
+              text={t('save')}
             />
           </Box>
         </Modal.Footer>

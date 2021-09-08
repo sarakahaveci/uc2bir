@@ -10,6 +10,7 @@ import {
   Svg,
 } from 'components';
 import moment from 'moment';
+import { useTranslation } from 'react-i18next';
 
 import { device } from 'utils';
 import {
@@ -19,6 +20,8 @@ import {
 } from 'actions';
 import { useDispatch, useSelector } from 'react-redux';
 const Awaitings = ({ setAwaitingCount }) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const items = useSelector(
     (state) => state.professionalReservation?.userReservation?.awaitings
@@ -85,7 +88,7 @@ const Awaitings = ({ setAwaitingCount }) => {
                   customerName={elm?.pt?.name}
                   optionalField_1={elm?.branch}
                   optionalField_2={{
-                    label: 'SALON',
+                    label: t('gym'),
                     value: elm?.bs?.name,
                   }}
                   optionalField_3={{
@@ -117,7 +120,7 @@ const Awaitings = ({ setAwaitingCount }) => {
                 optionalField_1={elm?.branch}
                 cardType="userCard"
                 optionalField_2={{
-                  label: 'YER',
+                  label: t('LOCATION'),
                   value: elm?.district,
                 }}
                 optionalField_3={{
@@ -170,7 +173,7 @@ const Awaitings = ({ setAwaitingCount }) => {
                   optionalField_1={elm?.branch}
                   cardType="userCard"
                   optionalField_2={{
-                    label: 'KLİNİK',
+                    label: t('CLINIC'),
                     value: elm?.address_title,
                   }}
                   optionalField_3={{
@@ -201,7 +204,7 @@ const Awaitings = ({ setAwaitingCount }) => {
             {startOfWeeksArr().map((date) => _renderTab(date))}
             {!(startOfWeeksArr()?.length > 0) && (
               <text style={{ padding: '20px' }}>
-                Onay bekleyen hiçbir rezervasyon talebi yoktur
+                {t('There are no pending reservation requests')}
               </text>
             )}
           </AccordionContainer>
@@ -234,10 +237,10 @@ const Awaitings = ({ setAwaitingCount }) => {
       </StyledRow>
       <RejectModal
         elm={choosenElm}
-        headerText="Rezervasyonu iptal etmek istediğinize emin misiniz?"
+        headerText={t('Are you sure you want to cancel your appointment?')}
         descText=""
-        cancelLabel="VAZGEÇ"
-        rejectLabel="İPTAL ET"
+        cancelLabel={t('Give Up')}
+        rejectLabel={t('cancel')}
         open={openReject}
         reject={(id, status) => {
           dispatch(UserAwaitingReject(id, status, getSelectedDate));

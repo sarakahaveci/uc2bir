@@ -9,25 +9,24 @@ import { getFavoriteUsers } from 'actions';
 import { PERSONAL_TRAINER, WORK_PLACE, DIETITIAN } from '../../../constants';
 import LongUserCard from 'components/UserCards/LongUserCard';
 import SubTabs from 'components/SubTabs/SubTabs';
-const { t } = useTranslation();
-
-const subTabsData = [
-  {
-    label: t('trainers'),
-    value: PERSONAL_TRAINER,
-  },
-  {
-    label: t('sports fields'),
-    value: WORK_PLACE,
-  },
-  {
-    label: t('dietitiansCapitalize'),
-    value: DIETITIAN,
-  },
-];
 
 const Favorites = () => {
   const { t } = useTranslation();
+
+  const subTabsData = [
+    {
+      label: t('trainers'),
+      value: PERSONAL_TRAINER,
+    },
+    {
+      label: t('sports fields'),
+      value: WORK_PLACE,
+    },
+    {
+      label: t('dietitiansCapitalize'),
+      value: DIETITIAN,
+    },
+  ];
 
   const {
     data: { data: favoriteUsers, totalPage },

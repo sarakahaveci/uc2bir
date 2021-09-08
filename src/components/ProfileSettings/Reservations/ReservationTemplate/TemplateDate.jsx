@@ -6,11 +6,14 @@ import { setSelectedDay } from 'actions';
 import { theme } from 'utils';
 import { DAYS } from '../../../../constants';
 import SelectHourCells from './SelectHourCells';
+import { useTranslation } from 'react-i18next';
 
 export default function TemplateDate({
   selectedDayHours,
   setSelectedDayHours,
 }) {
+  const { t } = useTranslation();
+
   const { selectedDay } = useSelector(
     (state) => state.profileSettings2.reservationTemplate
   );
@@ -38,7 +41,7 @@ export default function TemplateDate({
 
       <Box row justifyContent="space-between">
         <Title color={theme.colors.gray10} component="h5" textAlign="left">
-          Saat Aralığı Seçiniz
+          {t('Select Time Range')}
         </Title>
 
         <Text
@@ -49,7 +52,7 @@ export default function TemplateDate({
           p="0"
           onClick={() => setSelectedDayHours([])}
         >
-          Temizle
+          {t('clear')}
         </Text>
       </Box>
 

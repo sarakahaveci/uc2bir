@@ -6,6 +6,7 @@ import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
+import { useTranslation } from 'react-i18next';
 
 import {
   getMyBranches,
@@ -49,6 +50,7 @@ export default function TemplateSelections({
   const { type_id: userTypeId } = useSelector((state) => state.auth.user);
 
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (userTypeId !== WORK_PLACE) {
@@ -80,7 +82,7 @@ export default function TemplateSelections({
     <FormControlWrapper>
       {userTypeId === WORK_PLACE && (
         <FormControl>
-          <InputLabel>Sınıfları Seçiniz</InputLabel>
+          <InputLabel>{t('Select Classes')}</InputLabel>
 
           <Select
             disabled={!enable}
@@ -100,68 +102,69 @@ export default function TemplateSelections({
 
       {userTypeId === PERSONAL_TRAINER && (
         <FormControl>
-          <InputLabel>Branşları Seçiniz</InputLabel>
+          <InputLabel>{t('Select Branches')}</InputLabel>
 
           <Select
             disabled={!enable}
-
             multiple
             value={branchSelection}
             input={<Input />}
             onChange={(e) => setBranchSelection(e.target.value)}
           >
-            {
-              sessionSelection.filter(item => item.type == 'online').length > 0 &&
-              (myBranches.filter(item => item.id !== 35).map((branch) => (
+            {(sessionSelection.filter((item) => item.type == 'online').length >
+              0 &&
+              myBranches
+                .filter((item) => item.id !== 35)
+                .map((branch) => (
+                  <MenuItem key={branch.id} value={branch}>
+                    {branch.name}
+                  </MenuItem>
+                ))) ||
+              myBranches.map((branch) => (
                 <MenuItem key={branch.id} value={branch}>
                   {branch.name}
                 </MenuItem>
-              ))) || (myBranches.map((branch) => (
-                <MenuItem key={branch.id} value={branch}>
-                  {branch.name}
-                </MenuItem>
-              )))
-            }
+              ))}
           </Select>
         </FormControl>
       )}
 
       {userTypeId !== WORK_PLACE && (
         <FormControl>
-          <InputLabel>Oturum Türlerini Seçiniz</InputLabel>
+          <InputLabel>{t('Select Session Types')}</InputLabel>
 
           <Select
             disabled={!enable}
-
             multiple
             value={sessionSelection}
             input={<Input />}
             onChange={(e) => {
-              setSessionSelection(e.target.value)
+              setSessionSelection(e.target.value);
             }}
           >
-            {branchSelection.filter((item) => item.id == 35).length > 0 &&
-              (sessionTypes?.data?.data?.filter((item) => item.type !== 'online').map((sessionType) => (
+            {(branchSelection.filter((item) => item.id == 35).length > 0 &&
+              sessionTypes?.data?.data
+                ?.filter((item) => item.type !== 'online')
+                .map((sessionType) => (
+                  <MenuItem key={sessionType.id} value={sessionType}>
+                    {sessionType.title}
+                  </MenuItem>
+                ))) ||
+              sessionTypes?.data?.data?.map((sessionType) => (
                 <MenuItem key={sessionType.id} value={sessionType}>
                   {sessionType.title}
                 </MenuItem>
-              ))) || (sessionTypes?.data?.data?.map((sessionType) => (
-                <MenuItem key={sessionType.id} value={sessionType}>
-                  {sessionType.title}
-                </MenuItem>
-              )))
-            }
+              ))}
           </Select>
         </FormControl>
       )}
 
       {showSessionDependentInputs('clinic') && (
         <FormControl>
-          <InputLabel>Klinik Seçiniz</InputLabel>
+          <InputLabel>{t('Select Clinic')}</InputLabel>
 
           <Select
             disabled={!enable}
-
             multiple
             value={workPlaceSelection}
             input={<Input />}
@@ -182,7 +185,6 @@ export default function TemplateSelections({
 
           <Select
             disabled={!enable}
-
             multiple
             value={workPlaceSelection}
             input={<Input />}
@@ -199,11 +201,10 @@ export default function TemplateSelections({
 
       {showSessionDependentInputs('home_park') && (
         <FormControl>
-          <InputLabel>Ev / Park Seçiniz</InputLabel>
+          <InputLabel>{t('Select Home/Park')}</InputLabel>
 
           <Select
             disabled={!enable}
-
             multiple
             value={locationSelection}
             input={<Input />}

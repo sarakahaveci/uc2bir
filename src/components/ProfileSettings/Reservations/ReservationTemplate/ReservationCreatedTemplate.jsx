@@ -3,6 +3,7 @@ import { Row, Col, Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import { Box, Button, Modal, Span, Svg, Text, Title } from 'components';
 import image from '../../../../assets/wave-background.png';
@@ -21,6 +22,8 @@ export default function ReservationCreatedTemplate({
   setTab = () => {},
   setTabPage = () => {},
 }) {
+  const { t } = useTranslation();
+
   const [subPage, setSubPage] = useState();
   const applyTemplateModalRef = useRef();
   const successReservationModalRef = useRef();
@@ -43,7 +46,7 @@ export default function ReservationCreatedTemplate({
   }, []);
 
   const updateTemplateDefaultFail = () => {
-    toast.error('Varsayılan Şablon Oluştururken Hata Oluştu', {
+    toast.error(t('Error While Creating Default Template'), {
       position: 'bottom-right',
       autoClose: 3000,
     });
@@ -51,7 +54,7 @@ export default function ReservationCreatedTemplate({
 
   const updateTemplateDefaultSuccess = () => {
     dispatch(getTemplates());
-    toast.success('Varsayılan Şablonunuz Oluşuturuldu', {
+    toast.success(t('Your Default Template Has Been Created'), {
       position: 'bottom-right',
       autoClose: 3000,
     });
@@ -66,7 +69,7 @@ export default function ReservationCreatedTemplate({
 
   const deleteTemplateSuccess = () => {
     dispatch(getTemplates());
-    toast.success('Şablon Silme İşleminiz Başarılı', {
+    toast.success(t('Your Template Deletion Successful'), {
       position: 'bottom-right',
       autoClose: 3000,
     });
@@ -79,7 +82,7 @@ export default function ReservationCreatedTemplate({
       <BackLink onClick={() => setTabPage('')}>
         <Svg.ArrowLeftIcon />
 
-        <span>Şablonlar</span>
+        <span>{t('Templates')}</span>
       </BackLink>
       <Row>
         <Col lg={6}>
@@ -126,8 +129,7 @@ export default function ReservationCreatedTemplate({
                   color={'blue'}
                 >
                   <Span underline lineWidth={'100%'}>
-                    {' '}
-                    Varsayılan Şablon Olarak Seç{' '}
+                    {t('Select as Default Template')}
                   </Span>
                   <Span
                     style={{ marginBottom: '-10px' }}
@@ -152,8 +154,7 @@ export default function ReservationCreatedTemplate({
                   fontWeight="500"
                 >
                   <Span underline lineWidth={'100%'}>
-                    {' '}
-                    Şablon Hakkında{' '}
+                    {t('Şablon Hakkında')}
                   </Span>
                 </Title>
 
@@ -162,8 +163,10 @@ export default function ReservationCreatedTemplate({
                   fontWeight="300"
                   color={'grey'}
                 >
-                  Merhaba {name}, rezervasyon takvimini tamamlamak için
-                  oluşturduğun şablonlardan birini kullanabilirsin
+                  {t('hello')} {name},{' '}
+                  {t(
+                    'you can use one of the templates you created to complete your booking calendar'
+                  )}
                 </Text>
               </Row>
             </AppointmentDate>
@@ -171,7 +174,7 @@ export default function ReservationCreatedTemplate({
             <AcceptButton src={image}>
               <Button
                 onClick={openApplyTemplateModal}
-                text="Haftalık Rezervasyon Takvimimi Oluştur"
+                text={t('Create My Weekly Reservation Calendar')}
                 className="blue"
                 width={'496px'}
                 height={'66px'}
@@ -182,7 +185,7 @@ export default function ReservationCreatedTemplate({
                 onClick={() => {
                   setSubPage('create');
                 }}
-                text="Yeni Şablon Oluşturmak İstiyorum"
+                text={t('I Want to Create a New Template')}
                 width={'496px'}
                 height={'66px'}
                 style={{ marginTop: '15px' }}
@@ -206,11 +209,11 @@ export default function ReservationCreatedTemplate({
             </Box>
 
             <Text textAlign="center" fontSize="1.1rem" fontWeight="600">
-              Tebrikler
+              {t('Congratulations')}
             </Text>
 
             <Text textAlign="center" fontSize="1.1rem" mb="15px">
-              Rezervasyonlarınız oluşturuldu.
+              {t('Your reservations have been created')}
             </Text>
           </div>
 
@@ -222,11 +225,11 @@ export default function ReservationCreatedTemplate({
               cursor="pointer"
               onClick={closeSuccessReservationModal}
             >
-              REZERVASYON TAKVİMİMİ GÖR
+              {t('SEE MY BOOKING CALENDAR')}
             </Text>
 
             <Link to="/" className="reservation__return-homepage">
-              ANASAYFA
+              {t('HOME PAGE')}
             </Link>
           </Modal.Footer>
         </SuccessReservationModal>

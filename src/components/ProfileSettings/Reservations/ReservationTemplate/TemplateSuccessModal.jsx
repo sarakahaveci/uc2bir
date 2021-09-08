@@ -1,10 +1,13 @@
 import React, { forwardRef } from 'react';
 import styled from 'styled-components/macro';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import { Box, Modal, Text, Svg } from 'components';
 
 const TemplateSuccessModal = forwardRef(({ openApplyTemplateModal }, ref) => {
+  const { t } = useTranslation();
+
   return (
     <StyledTemplateSuccessModal activateFooter ref={ref}>
       <div className="reservation-template__success-modal">
@@ -13,11 +16,11 @@ const TemplateSuccessModal = forwardRef(({ openApplyTemplateModal }, ref) => {
         </Box>
 
         <Text textAlign="center" fontSize="1.1rem" fontWeight="600">
-          Tebrikler
+          {t('Congratulations')}
         </Text>
 
         <Text textAlign="center" fontSize="1.1rem" mb="15px">
-          Şablonunuz başarıyla kaydedildi.
+          {t('Your template has been successfully saved')}
         </Text>
       </div>
 
@@ -29,11 +32,11 @@ const TemplateSuccessModal = forwardRef(({ openApplyTemplateModal }, ref) => {
           cursor="pointer"
           onClick={openApplyTemplateModal}
         >
-          ŞABLONUMU TAKVIMIME UYGULA
+          {t('APPLY MY TEMPLATE TO MY CALENDAR')}
         </Text>
 
         <Link to="/" className="reservation-template__return-homepage">
-          ANASAYFA
+          {t('HOME PAGE')}
         </Link>
       </Modal.Footer>
     </StyledTemplateSuccessModal>

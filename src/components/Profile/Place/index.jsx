@@ -10,23 +10,23 @@ import OnlineWorkIcon from 'assets/online-work.svg';
 import SportFields from './SportFields';
 import WorkPlaceList from './WorkPlaceList';
 
-const { t } = useTranslation();
 const iconMap = {
   gym: WorkPlaceIcon,
   online: OnlineWorkIcon,
   home_park: HomeParkIcon,
 };
-const descriptionMap = {
-  gym: t(
-    'Didnt you see the gym where you want to do sports here? You can send a message to the instructor and ask if you can teach at your preferred gym.'
-  ),
-  online: t('You can take online video lessons from this instructor'),
-  home_park: t(
-    'Didnt see the place you want to do sports here? You can send a message to the instructor and ask if it is appropriate to teach at your preferred location'
-  ),
-};
 
 const Place = ({ userId }) => {
+  const { t } = useTranslation();
+  const descriptionMap = {
+    gym: t(
+      'Didnt you see the gym where you want to do sports here? You can send a message to the instructor and ask if you can teach at your preferred gym.'
+    ),
+    online: t('You can take online video lessons from this instructor'),
+    home_park: t(
+      'Didnt see the place you want to do sports here? You can send a message to the instructor and ask if it is appropriate to teach at your preferred location'
+    ),
+  };
   const { userInfo } = useSelector((state) => state.userProfile.userInfo);
 
   const [description, setDescription] = useState(descriptionMap.gym);

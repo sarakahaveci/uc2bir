@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import styled from 'styled-components/macro';
 
@@ -20,11 +21,12 @@ export default function Services() {
   function pageChangeHandler(event, value) {
     setPage(value);
   }
+  const { t } = useTranslation();
 
   return (
     <div className="w-100 h-100">
       <Title variant={'h4'} component={'h4'} textLeft lineDisable>
-        {'Danışanlar'}
+        {t('Clients')}
       </Title>
       <CardContainer>
         {services?.data?.data?.map((service, index) => (
@@ -33,7 +35,7 @@ export default function Services() {
             image={service?.photo}
             name={service?.name}
             data={service}
-            desc="Danışan"
+            desc={t('Client')}
           />
         ))}
       </CardContainer>

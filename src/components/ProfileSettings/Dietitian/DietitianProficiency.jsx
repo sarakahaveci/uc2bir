@@ -19,25 +19,23 @@ import ProficiencyCard from 'components/ProficiencyCard/ProficiencyCard';
 import ProficiencyIcon from 'assets/proficiency.png';
 import BluePlusIcon from 'assets/blue-plus.svg';
 
-const { t } = useTranslation();
-
-const subTabData = [
-  {
-    label: t('all'),
-    value: 1,
-  },
-  {
-    label: t('APPROVALS'),
-    value: 2,
-  },
-  {
-    label: t('APPROVED'),
-    value: 3,
-  },
-];
-
 export default function DietitianProficiency() {
   const { t } = useTranslation();
+
+  const subTabData = [
+    {
+      label: t('all'),
+      value: 1,
+    },
+    {
+      label: t('APPROVALS'),
+      value: 2,
+    },
+    {
+      label: t('APPROVED'),
+      value: 3,
+    },
+  ];
 
   const dispatch = useDispatch();
 

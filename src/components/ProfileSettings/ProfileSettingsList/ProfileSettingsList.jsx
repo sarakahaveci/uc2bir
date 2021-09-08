@@ -35,120 +35,119 @@ import {
 } from '../../../constants';
 import Notifications from 'components/ProfileSettings/Notifications';
 
-const { t } = useTranslation();
-
-const trainerAndDietitanData = [
-  {
-    settingsName: t('Profile'),
-    body: <SettingsForm />,
-  },
-  {
-    settingsName: t('About me'),
-    body: <About />,
-  },
-  {
-    settingsName: t('contact'),
-    body: <Phone />,
-  },
-  {
-    settingsName: t('password operations'),
-    body: <Password />,
-  },
-  {
-    settingsName: t('documents'),
-    body: <Files />,
-    pulse: true,
-  },
-  {
-    settingsName: t('My address'),
-    body: <Address />,
-  },
-  {
-    settingsName: t('Blocked Users'),
-    route: '/myprofile/settings/blocked',
-  },
-  {
-    settingsName: t('Company information'),
-    body: <CompanyInf />,
-  },
-  {
-    settingsName: t('Package Reservation'),
-    body: <AllowPackage />,
-  },
-];
-
-const regularUserTabs = [
-  {
-    settingsName: t('Profile'),
-    body: <SettingsForm />,
-  },
-  {
-    settingsName: t('contact'),
-    body: <Phone />,
-  },
-  {
-    settingsName: t('password operations'),
-    body: <Password />,
-  },
-  {
-    settingsName: t('Your Height & Weight & BMI Information'),
-    body: <VKI />,
-  },
-  {
-    settingsName: t('Completed Tests'),
-    body: <ComputedTest />,
-  },
-  {
-    settingsName: t('Blocked Users'),
-    route: '/myprofile/settings/blocked',
-  },
-  {
-    settingsName: t('My address'),
-    body: <Address locationDisable />,
-  },
-  {
-    settingsName: t('privacy'),
-    body: <ShowPersonalInfo />,
-  },
-];
-
-const workPlaceData = [
-  {
-    settingsName: t('Workplace Profile'),
-    body: <SettingsForm />,
-  },
-  {
-    settingsName: t('About the Workplace'),
-    body: <About />,
-  },
-  {
-    settingsName: t('contact'),
-    body: <Phone />,
-  },
-  {
-    settingsName: t('Workplace Information'),
-    body: <CompanyInf />,
-  },
-  {
-    settingsName: t('password operations'),
-    body: <Password />,
-  },
-  {
-    settingsName: t('Workplace Documents'),
-    body: <Files />,
-    pulse: true,
-  },
-  {
-    settingsName: t('Blocked Users'),
-    route: '/myprofile/settings/blocked',
-  },
-  {
-    settingsName: t('Work Place Address'),
-    body: <Address />,
-  },
-];
-
 const ProfileSettingsList = () => {
+  const { t } = useTranslation();
+  const trainerAndDietitanData = [
+    {
+      settingsName: t('Profile'),
+      body: <SettingsForm />,
+    },
+    {
+      settingsName: t('About me'),
+      body: <About />,
+    },
+    {
+      settingsName: t('contact'),
+      body: <Phone />,
+    },
+    {
+      settingsName: t('password operations'),
+      body: <Password />,
+    },
+    {
+      settingsName: t('documents'),
+      body: <Files />,
+      pulse: true,
+    },
+    {
+      settingsName: t('My address'),
+      body: <Address />,
+    },
+    {
+      settingsName: t('Blocked Users'),
+      route: '/myprofile/settings/blocked',
+    },
+    {
+      settingsName: t('Company information'),
+      body: <CompanyInf />,
+    },
+    {
+      settingsName: t('Package Reservation'),
+      body: <AllowPackage />,
+    },
+  ];
+
+  const regularUserTabs = [
+    {
+      settingsName: t('Profile'),
+      body: <SettingsForm />,
+    },
+    {
+      settingsName: t('contact'),
+      body: <Phone />,
+    },
+    {
+      settingsName: t('password operations'),
+      body: <Password />,
+    },
+    {
+      settingsName: t('Your Height & Weight & BMI Information'),
+      body: <VKI />,
+    },
+    {
+      settingsName: t('Completed Tests'),
+      body: <ComputedTest />,
+    },
+    {
+      settingsName: t('Blocked Users'),
+      route: '/myprofile/settings/blocked',
+    },
+    {
+      settingsName: t('My address'),
+      body: <Address locationDisable />,
+    },
+    {
+      settingsName: t('privacy'),
+      body: <ShowPersonalInfo />,
+    },
+  ];
+
+  const workPlaceData = [
+    {
+      settingsName: t('Workplace Profile'),
+      body: <SettingsForm />,
+    },
+    {
+      settingsName: t('About the Workplace'),
+      body: <About />,
+    },
+    {
+      settingsName: t('contact'),
+      body: <Phone />,
+    },
+    {
+      settingsName: t('Workplace Information'),
+      body: <CompanyInf />,
+    },
+    {
+      settingsName: t('password operations'),
+      body: <Password />,
+    },
+    {
+      settingsName: t('Workplace Documents'),
+      body: <Files />,
+      pulse: true,
+    },
+    {
+      settingsName: t('Blocked Users'),
+      route: '/myprofile/settings/blocked',
+    },
+    {
+      settingsName: t('Work Place Address'),
+      body: <Address />,
+    },
+  ];
+
   const user = useSelector((state) => state.auth.user);
 
   const { activeTabKey } = useParams();

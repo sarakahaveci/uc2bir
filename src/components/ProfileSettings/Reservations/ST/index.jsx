@@ -6,7 +6,11 @@ import SessionHistory from './SessionHistory';
 import Rejecteds from './Rejecteds';
 import styled from 'styled-components/macro';
 import { Tabbar } from 'components';
+import { useTranslation } from 'react-i18next';
+
 const ST = () => {
+  const { t } = useTranslation();
+
   const [tab, setTab] = useState('Awaitings');
   const [subPage, setSubPage] = useState();
   const [awaitingCount, setAwaitingCount] = useState(0);
@@ -14,23 +18,29 @@ const ST = () => {
   const [approvedCount, setApprovedCount] = useState(0);
   const [sessionHistoryCount, setSessionHistoryCount] = useState(0);
 
-
   useEffect(() => {
     getGeocode();
   }, []);
   let content;
   switch (tab) {
     case 'Awaitings':
-      content = <Awaitings setAwaitingCount={setAwaitingCount}/>;
+      content = <Awaitings setAwaitingCount={setAwaitingCount} />;
       break;
     case 'Approved':
-      content = <Approved setApprovedCount={setApprovedCount} setSubPage={setSubPage} />;
+      content = (
+        <Approved setApprovedCount={setApprovedCount} setSubPage={setSubPage} />
+      );
       break;
     case 'Rejecteds':
       content = <Rejecteds setRejectCount={setRejectCount} />;
       break;
     case 'SessionHistory':
-      content = <SessionHistory setSubPage={setSubPage}  setSessionHistoryCount={setSessionHistoryCount} />;
+      content = (
+        <SessionHistory
+          setSubPage={setSubPage}
+          setSessionHistoryCount={setSessionHistoryCount}
+        />
+      );
       break;
     default:
       return <></>;
@@ -49,10 +59,26 @@ const ST = () => {
               setTab(value);
             }}
             tabs={[
-              { text: 'ONAYDAKİLER', value: 'Awaitings', notify:awaitingCount },
-              { text: 'ONAYLANANLAR', value: 'Approved', notify:approvedCount },
-              { text: 'REDDEDİLENLER', value: 'Rejecteds',notify:rejectCount },
-              { text: 'DERS GEÇMİŞİ', value: 'SessionHistory' ,notify:sessionHistoryCount},
+              {
+                text: t('APPROVALS'),
+                value: 'Awaitings',
+                notify: awaitingCount,
+              },
+              {
+                text: t('APPROVED'),
+                value: 'Approved',
+                notify: approvedCount,
+              },
+              {
+                text: t('REJECTED'),
+                value: 'Rejecteds',
+                notify: rejectCount,
+              },
+              {
+                text: t('SESSION HISTORY'),
+                value: 'SessionHistory',
+                notify: sessionHistoryCount,
+              },
             ]}
           />
           {content}

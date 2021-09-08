@@ -3,8 +3,9 @@ import { Row, Col } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
-import { addHoursToTemplate, setSelectedDay,clearTemplate } from 'actions';
+import { addHoursToTemplate, setSelectedDay, clearTemplate } from 'actions';
 import {
   DIETITIAN,
   HOURS,
@@ -20,9 +21,11 @@ import TemplateNamingModal from './TemplateNamingModal';
 import ApplyTemplateModal from './ApplyTemplateModal';
 
 export default function ReservationTemplate({
-  setTab = () => { },
-  setTabPage = () => { },
+  setTab = () => {},
+  setTabPage = () => {},
 }) {
+  const { t } = useTranslation();
+
   const { selectedDay, appliedDays } = useSelector(
     (state) => state.profileSettings2.reservationTemplate
   );
@@ -50,10 +53,10 @@ export default function ReservationTemplate({
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(clearTemplate())
+    dispatch(clearTemplate());
     dispatch(setSelectedDay(0));
   }, []);
- 
+
   useEffect(() => {
     sessionSelection.map((session) => {
       if (session.type === 'online' && sessionSelection.length === 1) {
@@ -154,7 +157,6 @@ export default function ReservationTemplate({
     }
 
     if (userTypeId === WORK_PLACE) {
-
       return !classSelection.length;
     }
 
@@ -169,12 +171,15 @@ export default function ReservationTemplate({
 
     if (userTypeId === DIETITIAN) {
       var isExistClinicAddress;
-      sessionSelection.forEach(element => {
-        if (element.type == "clinic") {
+      sessionSelection.forEach((element) => {
+        if (element.type == 'clinic') {
           isExistClinicAddress = true;
         }
       });
-      return !sessionSelection.length || (isExistClinicAddress ? !workPlaceSelection.length : false);
+      return (
+        !sessionSelection.length ||
+        (isExistClinicAddress ? !workPlaceSelection.length : false)
+      );
     }
   };
 
@@ -183,7 +188,7 @@ export default function ReservationTemplate({
       <BackLink onClick={() => setTabPage('')}>
         <Svg.ArrowLeftIcon />
 
-        <span>Haftalık Şablon Oluştur</span>
+        <span>{t('Create Weekly Template')}</span>
       </BackLink>
 
       <Row>
@@ -212,7 +217,7 @@ export default function ReservationTemplate({
               width="200px"
               m="10px 0 30px 0"
               className="blue"
-              text="Kaydet"
+              text={t('save')}
               onClick={saveDayToTemplateHandler}
               disabled={disableSaveButtonHandler()}
             />
@@ -228,7 +233,7 @@ export default function ReservationTemplate({
                 <Box mt="40px" px="20px">
                   <Box row>
                     <Text color="dark" fontWeight="500">
-                      Misafir Kabul Ediyorum
+                      {t('I Accept Guests')}
                     </Text>
 
                     <Box row alignItems="center">
@@ -289,7 +294,7 @@ export default function ReservationTemplate({
             textAlign="center"
             lineHeight="20px"
           >
-            Seçilmeyen günler çalışmıyorum olarak değerlendirelecek.
+            {t('Days not selected will be considered as not working')}
           </Text>
 
           <Button
@@ -308,7 +313,7 @@ export default function ReservationTemplate({
             cursor="pointer"
             onClick={() => weekDetailsInfoModalRef.current.closeModal()}
           >
-            Vazgeç
+            {t('Give Up')}
           </Text>
         </WeekDetailsInfoModal>
 
@@ -322,11 +327,11 @@ export default function ReservationTemplate({
             </Box>
 
             <Text textAlign="center" fontSize="1.1rem" fontWeight="600">
-              Tebrikler
+              {t('Congratulations')}
             </Text>
 
             <Text textAlign="center" fontSize="1.1rem" mb="15px">
-              Rezervasyonlarınız oluşturuldu.
+              {t('Your reservations have been created')}
             </Text>
           </div>
 
@@ -338,11 +343,11 @@ export default function ReservationTemplate({
               cursor="pointer"
               onClick={closeSuccessReservationModal}
             >
-              REZERVASYON TAKVİMİMİ GÖR
+              {t('SEE MY BOOKING CALENDAR')}
             </Text>
 
             <Link to="/" className="reservation__return-homepage">
-              ANASAYFA
+              {t('HOME PAGE')}
             </Link>
           </Modal.Footer>
         </SuccessReservationModal>

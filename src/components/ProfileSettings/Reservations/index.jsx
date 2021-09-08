@@ -7,10 +7,13 @@ import Pt from './PT';
 import DIETITIAN from './DIETITIAN';
 import GYM from './GYM';
 import ST from './ST';
+import { useTranslation } from 'react-i18next';
 
 import * as KEYS from '../../../constants/userKeys';
 
 const Reservations = () => {
+  const { t } = useTranslation();
+
   const type_id = useSelector((state) => state.auth)?.user?.type_id;
 
   const {
@@ -52,7 +55,7 @@ const Reservations = () => {
         <Row>
           <Col lg="12">
             <Title fontSize="14pt" style={{ padding: 15 }} textAlign="left">
-              Rezervasyon
+              {t('reservation')}
             </Title>
           </Col>
           {content}

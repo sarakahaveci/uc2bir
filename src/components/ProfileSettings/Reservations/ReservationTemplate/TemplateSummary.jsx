@@ -6,8 +6,11 @@ import { deleteTemplateItem } from 'actions';
 import { Svg, Box, Span, Text } from 'components';
 import ReservationAccordion from '../ReservationAccordion';
 import { PERSONAL_TRAINER, WORK_PLACE } from '../../../../constants';
+import { useTranslation } from 'react-i18next';
 
 const TemplateSummary = () => {
+  const { t } = useTranslation();
+
   const { selectedDay } = useSelector(
     (state) => state.profileSettings2.reservationTemplate
   );
@@ -51,7 +54,7 @@ const TemplateSummary = () => {
           {userTypeId === PERSONAL_TRAINER && (
             <Box>
               <Span fontWeight="600" mr="5px">
-                Branşlar:
+                {t('Branches')}:
               </Span>
               {item.branch.map((branch, index) => (
                 <span key={index}>
@@ -80,7 +83,7 @@ const TemplateSummary = () => {
               </div>
 
               <Text fontWeight="600">
-                <Span mr="5px">Seçili Yerler:</Span>
+                <Span mr="5px">{t('Selected Places')}:</Span>
 
                 {selectedLocations(item.session_type)}
               </Text>
@@ -89,7 +92,7 @@ const TemplateSummary = () => {
 
           {userTypeId === WORK_PLACE && (
             <Text fontWeight="600">
-              <Span mr="5px">Sınıflar:</Span>
+              <Span mr="5px">{t('Classes')}:</Span>
 
               {item?.location?.map((location, index) => (
                 <Span key={index} fontWeight="400">
@@ -105,7 +108,7 @@ const TemplateSummary = () => {
     )) || [];
 
   return (
-    <ReservationAccordion title="Rezervasyonlarınız" defaultOpen={true}>
+    <ReservationAccordion title={t('Your reservations')} defaultOpen={true}>
       {templateItems.length ? (
         <AccordionCollapseWrapper>{templateItems}</AccordionCollapseWrapper>
       ) : (
