@@ -13,8 +13,11 @@ import { device } from 'utils';
 import { useSelector, useDispatch } from 'react-redux';
 import { getDtRejects } from 'actions';
 import moment from 'moment';
+import { useTranslation } from 'react-i18next';
 
 const Rejecteds = () => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const items = useSelector(
     (state) => state.professionalReservation?.dtReservation?.rejecteds
@@ -49,68 +52,67 @@ const Rejecteds = () => {
     dispatch(getDtRejects(moment(selectedDate).format('DD.MM.YYYY')));
   }
   function _renderTab(date) {
-    if(items?.appointment?.[
-      moment(date).format('DD.MM.YYYY')
-    ]){
-    return (
-      <ReservationAccordion
-        defaultOpen={true}
-        parent
-        title={moment(date).format('DD.MM.YYYY')}
-      >
-        {items?.appointment?.[
-          moment(date).format('DD.MM.YYYY')
-        ]?.clinic?.map((elm, i) => (
-          <ApproveCardContainer key={i}>
-            <Svg.SessionType.Clinic style={{ marginRight: '10px' }} />
-            <ApproveCard
-              type="rejecteds"
-              date={elm?.hour}
-              customerName={elm?.student}
-              onApprove={() => {
-                setOpenApprove(true);
-              }}
-              onReject={() => {
-                setOpenReject(true);
-              }}
-            />
-          </ApproveCardContainer>
-        )) || <></>}
+    if (items?.appointment?.[moment(date).format('DD.MM.YYYY')]) {
+      return (
+        <ReservationAccordion
+          defaultOpen={true}
+          parent
+          title={moment(date).format('DD.MM.YYYY')}
+        >
+          {items?.appointment?.[moment(date).format('DD.MM.YYYY')]?.clinic?.map(
+            (elm, i) => (
+              <ApproveCardContainer key={i}>
+                <Svg.SessionType.Clinic style={{ marginRight: '10px' }} />
+                <ApproveCard
+                  type="rejecteds"
+                  date={elm?.hour}
+                  customerName={elm?.student}
+                  onApprove={() => {
+                    setOpenApprove(true);
+                  }}
+                  onReject={() => {
+                    setOpenReject(true);
+                  }}
+                />
+              </ApproveCardContainer>
+            )
+          ) || <></>}
 
-        {items?.appointment?.[
-          moment(date).format('DD.MM.YYYY')
-        ]?.online?.map((elm, i) => (
-          <ApproveCardContainer key={i}>
-            <Svg.SessionType.Online style={{ marginRight: '10px' }} />
-            <ApproveCard
-              type="rejecteds"
-              date={elm?.hour}
-              customerName={elm?.student}
-              onApprove={() => {
-                setOpenApprove(true);
-              }}
-              onReject={() => {
-                setOpenReject(true);
-              }}
-            />
-          </ApproveCardContainer>
-        )) || <></>}
-      </ReservationAccordion>
-    )}else{return(<></>)}
+          {items?.appointment?.[moment(date).format('DD.MM.YYYY')]?.online?.map(
+            (elm, i) => (
+              <ApproveCardContainer key={i}>
+                <Svg.SessionType.Online style={{ marginRight: '10px' }} />
+                <ApproveCard
+                  type="rejecteds"
+                  date={elm?.hour}
+                  customerName={elm?.student}
+                  onApprove={() => {
+                    setOpenApprove(true);
+                  }}
+                  onReject={() => {
+                    setOpenReject(true);
+                  }}
+                />
+              </ApproveCardContainer>
+            )
+          ) || <></>}
+        </ReservationAccordion>
+      );
+    } else {
+      return <></>;
+    }
   }
   return (
     <StyledContainer>
       <StyledRow>
         <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
           <AccordionContainer>
-          {
-              startOfWeeksArr().map((date) => (
-                _renderTab(date)
-              ))
-
-            }
-            {!(startOfWeeksArr()?.length > 0) && <text style={{ padding: '20px' }}>Onay bekleyen hiçbir rezervasyon talebi yoktur</text>}
-
+            {startOfWeeksArr().map((date) => _renderTab(date))}
+            {!(startOfWeeksArr()?.length > 0) && (
+              <text style={{ padding: '20px' }}>
+                {t('There are no pending reservation requests')}
+              </text>
+            )}
           </AccordionContainer>
         </StyledCol>
         <StyledCol
@@ -169,14 +171,14 @@ const AccordionContainer = styled.div`
   flex-direction: column;
 `;
 const ApproveCardContainer = styled.div`
-display: flex;
-align-items: center;
-justify-content:space-between;
-margin: 20px 0;
-padding:5px;
-@media ${device.sm} {
-  margin: 0;
-}
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 0;
+  padding: 5px;
+  @media ${device.sm} {
+    margin: 0;
+  }
 `;
 
 const StyledCol = styled(Col)`

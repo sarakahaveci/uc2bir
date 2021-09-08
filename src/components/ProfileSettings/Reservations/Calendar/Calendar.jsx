@@ -38,6 +38,7 @@ import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
+import { useTranslation } from 'react-i18next';
 import {
   DIETITIAN,
   PERSONAL_TRAINER,
@@ -48,6 +49,8 @@ import {
 moment.locale('tr');
 
 const Calendar = () => {
+  const { t } = useTranslation();
+
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
   const [activePage, setActivePage] = useState('index');
   const [openApprove, setOpenApprove] = useState(false);
@@ -129,7 +132,7 @@ const Calendar = () => {
   const deleteHourSuccess = () => {
     dispatch(getDayOfCalendar(moment(startDate).format('DD.MM.YYYY')));
     setActivePage('index');
-    toast.success('Saat Silme İşlemi Başarılı Bir Şekilde Tamamlanmıştır', {
+    toast.success(t('Hours Deletion Successfully Completed'), {
       position: 'bottom-right',
       autoClose: 3000,
     });
@@ -138,17 +141,20 @@ const Calendar = () => {
   const addHourSuccess = () => {
     dispatch(getDayOfCalendar(moment(startDate).format('DD.MM.YYYY')));
     setActivePage('index');
-    toast.success('Saat Ekleme İşlemi Başarılı Bir Şekilde Tamamlanmıştır', {
+    toast.success(t('Adding Hour Operation Successfully Completed'), {
       position: 'bottom-right',
       autoClose: 3000,
     });
   };
 
   const deleteHourFail = () => {
-    toast.error('Seçilen Saat Silinirken Hata Oluştu Hata Oluştu', {
-      position: 'bottom-right',
-      autoClose: 3000,
-    });
+    toast.error(
+      t('Error Occurred While Deleting Selected Time Error Occurred'),
+      {
+        position: 'bottom-right',
+        autoClose: 3000,
+      }
+    );
   };
 
   const showSessionDependentInputs = (sessionType) =>
@@ -208,14 +214,14 @@ const Calendar = () => {
               >
                 {`<`}
               </Span>
-              <Span>Rezervasyon Oluştur</Span>
+              <Span>{t('Make a Reservation')}</Span>
             </Title>
 
             <AppointmentContainer>
               <Material.TextField
                 name="appointmentDate"
                 forHtml="appointmentDate"
-                label="Tarih & Saat"
+                label={t('Date & Time')}
                 defaultValue={
                   moment(startDate).format('DD MMMM dddd') +
                   ',' +
@@ -226,7 +232,7 @@ const Calendar = () => {
 
               {userTypeId === PERSONAL_TRAINER && (
                 <FormControl>
-                  <InputLabel>Branşları Seçiniz</InputLabel>
+                  <InputLabel>{t('Select Branches')}</InputLabel>
 
                   <Select
                     multiple
@@ -244,7 +250,7 @@ const Calendar = () => {
               )}
               {userTypeId === WORK_PLACE && (
                 <FormControl>
-                  <InputLabel>Sınıfları Seçiniz</InputLabel>
+                  <InputLabel>{t('Select Classes')}</InputLabel>
                   <Select
                     multiple
                     value={classSelection}
@@ -262,7 +268,7 @@ const Calendar = () => {
 
               {userTypeId !== WORK_PLACE && (
                 <FormControl>
-                  <InputLabel>Oturum Türlerini Seçiniz</InputLabel>
+                  <InputLabel>{t('Select Session Types')}</InputLabel>
 
                   <Select
                     multiple
@@ -281,7 +287,7 @@ const Calendar = () => {
 
               {showSessionDependentInputs('gym') && (
                 <FormControl>
-                  <InputLabel>Spor Alanı Seçiniz</InputLabel>
+                  <InputLabel>{t('Choose Sports Field')}</InputLabel>
 
                   <Select
                     multiple
@@ -302,7 +308,7 @@ const Calendar = () => {
 
               {showSessionDependentInputs('clinic') && (
                 <FormControl>
-                  <InputLabel>Klinik Seçiniz</InputLabel>
+                  <InputLabel>{t('Select Clinic')}</InputLabel>
 
                   <Select
                     multiple
@@ -321,7 +327,7 @@ const Calendar = () => {
 
               {showSessionDependentInputs('home_park') && (
                 <FormControl>
-                  <InputLabel>Ev / Park Seçiniz</InputLabel>
+                  <InputLabel>{t('Select Home/Park')}</InputLabel>
 
                   <Select
                     multiple
@@ -350,7 +356,7 @@ const Calendar = () => {
                 <Row>
                   <ReservationAccordion
                     defaultOpen={true}
-                    title="Rezervasyon Tarihi"
+                    title={t('Reservation Date')}
                     accordionBackground={'#ffffff'}
                     accordionRadius={'20px'}
                   >
@@ -358,7 +364,7 @@ const Calendar = () => {
                     <Row style={{ padding: '10px' }}>
                       <Col lg={2}>
                         <Text color="dark" fontWeight="500" fontSize="0.9rem">
-                          1 Ders
+                          1 {t('lesson')}
                         </Text>
                       </Col>
                       <Col lg={1}>
@@ -369,7 +375,7 @@ const Calendar = () => {
                           <Calender />
                           <Text color="#707070" fontWeight="200">
                             {moment(startDate).format('DD MMMM dddd') +
-                              ' Saat ' +
+                              t('hour') +
                               selectedHour?.hour}
                           </Text>
                         </ReservationText>
@@ -382,7 +388,7 @@ const Calendar = () => {
               <AcceptButton src={image}>
                 <Button
                   onClick={() => addHourToCalender()}
-                  text="Tamamla"
+                  text={t('complete')}
                   className="blue"
                   width={'496px'}
                   height={'66px'}
@@ -427,7 +433,7 @@ const Calendar = () => {
                     <AvailableButton
                       onClick={() => setActivePage('showAvailableHour')}
                     >
-                      Boş Saatlerimi Gör
+                      {t('See My Free Hours')}
                     </AvailableButton>
                   </Box>
                 </ReservationAccordion>
@@ -452,7 +458,7 @@ const Calendar = () => {
                   parent
                   title={
                     moment(startDate).format('DD MMMM dddd') +
-                    ' / BOŞ SAATLERİM'
+                    t('/ MY FREE HOURS')
                   }
                 >
                   <Box row flexWrap="wrap" center>
@@ -505,7 +511,7 @@ const Calendar = () => {
                     {userTypeId === PERSONAL_TRAINER && (
                       <Box>
                         <Span fontWeight="600" mr="15px" fontSize={'20px'}>
-                          Branşlar:
+                          {t('Branches')}:
                         </Span>
                         <Span fontSize={'18px'}>{selectedHour?.branch}</Span>
                       </Box>
@@ -514,7 +520,7 @@ const Calendar = () => {
                     {userTypeId !== WORK_PLACE && (
                       <Box>
                         <Span fontWeight="600" mr="15px" fontSize={'20px'}>
-                          Oturum Türleri:
+                          {t('Session Types')}:
                         </Span>
                         {detailHour?.slice?.[0]?.session
                           ?.split(',')
@@ -534,8 +540,8 @@ const Calendar = () => {
                     <Box>
                       <Span fontWeight="600" mr="15px" fontSize={'20px'}>
                         {userTypeId !== WORK_PLACE
-                          ? 'Seçilmiş Yerler'
-                          : 'Seçilmiş Sınıflar'}
+                          ? t('Selected Places')
+                          : t('Selected Classes')}
                       </Span>
                       <Span fontSize={'18px'}>
                         {detailHour?.slice?.[0]?.location?.gym?.map(
@@ -586,7 +592,7 @@ const Calendar = () => {
                     >
                       <Button
                         disableborder
-                        text={'Sil'}
+                        text={t('delete')}
                         width={'120px'}
                         height={'35px'}
                         onClick={() =>
@@ -631,7 +637,7 @@ const Calendar = () => {
                     {userTypeId === PERSONAL_TRAINER && (
                       <Box>
                         <Span fontWeight="600" mr="15px" fontSize={'20px'}>
-                          Branş:
+                          {t('branch')}:
                         </Span>
                         <Span fontSize={'18px'}>{selectedHour?.branch}</Span>
                       </Box>
@@ -640,7 +646,7 @@ const Calendar = () => {
                     <Box row style={{ justifyContent: 'space-between' }}>
                       <Span>
                         <Span fontWeight="600" mr="15px" fontSize={'20px'}>
-                          Salon:
+                          {t('Gyms')}:
                         </Span>
                         <Span fontSize={'18px'}>
                           {detailHour?.slice?.[0]?.location?.gym?.map(
@@ -685,11 +691,11 @@ const Calendar = () => {
                           fontSize={'20px'}
                           color={'blue'}
                         >
-                          Grup Ders:
+                          {t('Group Lesson')}:
                         </Span>
                         <Span fontSize={'18px'} color={'blue'}>
                           {detailHour?.min_capacity} /{' '}
-                          {detailHour?.max_capacity} Kontenjan
+                          {detailHour?.max_capacity} {t('Quota')}
                         </Span>
                       </Span>
                     </Box>
@@ -813,7 +819,6 @@ const Seperator = styled.div`
 const AccordionContainer = styled.div`
   display: flex;
   flex-direction: column;
-
 `;
 
 const AppointmentContainer = styled.div`

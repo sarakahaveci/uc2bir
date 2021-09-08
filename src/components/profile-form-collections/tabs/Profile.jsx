@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Material } from 'components';
 import { genderData } from '../../../constants/formData';
+import { useTranslation } from 'react-i18next';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -8,6 +9,8 @@ import { setProfile } from 'actions';
 import { unMaskPhone } from 'utils';
 
 const Profile = ({ about = false, st = true }) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const { detail } = useSelector(
     (state) => state.profileSettings2.profileDetail
@@ -21,13 +24,13 @@ const Profile = ({ about = false, st = true }) => {
       setProfile(
         { [name]: value },
         () => {
-          toast.success('Bilgileriniz güncellendi.', {
+          toast.success(t('Your information has been updated'), {
             position: 'bottom-right',
             autoClose: 2000,
           });
         },
         () => {
-          toast.error('Güncelleme işlemi yapılamadı.', {
+          toast.error(t('Failed to update'), {
             position: 'bottom-right',
             autoClose: 2000,
           });
@@ -46,7 +49,7 @@ const Profile = ({ about = false, st = true }) => {
         {detail.isSuccess && (
           <>
             <Material.TexAreaField
-              label="Hakkında"
+              label={t('About')}
               type="text"
               name="about"
               defaultValue={detail?.data?.about}
@@ -64,7 +67,7 @@ const Profile = ({ about = false, st = true }) => {
         {detail.isSuccess && (
           <>
             <Material.TextField
-              label="Adınız Soyadınız"
+              label={t('your name and your surname')}
               type="text"
               name="name"
               defaultValue={detail?.data?.name}
@@ -74,7 +77,7 @@ const Profile = ({ about = false, st = true }) => {
             />
             {!st && (
               <Material.TextField
-                label="Ünvan"
+                label={t('title')}
                 type="text"
                 name="title"
                 defaultValue={detail?.data?.title}
@@ -85,7 +88,7 @@ const Profile = ({ about = false, st = true }) => {
             )}
             {st && (
               <Material.TextField
-                label="Mail Adresiniz"
+                label={t('Your Email Address')}
                 type="email"
                 name="name"
                 defaultValue={detail?.data?.email}
@@ -95,7 +98,7 @@ const Profile = ({ about = false, st = true }) => {
               />
             )}
             <Material.TextField
-              label="Telefon Numaranız"
+              label={t('Your telephone number')}
               type="text"
               name="phone"
               mask="\0(999) 999 99 99"
@@ -105,7 +108,7 @@ const Profile = ({ about = false, st = true }) => {
               state={detail}
             />
             <Material.SimpleSelect
-              label="Cinsiyetiniz"
+              label={t('Your gender')}
               items={genderData}
               name="genre"
               defaultValue={detail?.data?.genre}
@@ -114,7 +117,7 @@ const Profile = ({ about = false, st = true }) => {
               state={detail}
             />
             <Material.MaterialDateField
-              label="Doğum Tarihiniz"
+              label={t('Your Date of Birth')}
               type="text"
               name="birthday"
               defaultValue={detail?.data?.birthday}

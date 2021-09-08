@@ -1,9 +1,12 @@
 import React from 'react';
 import styled from 'styled-components/macro';
+import { useTranslation } from 'react-i18next';
 
 import { Svg, Title, Text, svgBackground } from 'components';
 
 const CancellationInformation = () => {
+  const { t } = useTranslation();
+
   return (
     <div>
       <RedBackground>
@@ -11,12 +14,12 @@ const CancellationInformation = () => {
       </RedBackground>
 
       <Title component="h5">
-        Üyelik iptali işlemini şuanda gerçekleştiremiyoruz.
+        {t('We are unable to process membership cancellation at this time')}
       </Title>
 
-      <Text>Rezervasyon takvimime git</Text>
+      <Text>{t('Go to my booking calendar')}</Text>
 
-      <Text>Cüzdanıma Git</Text>
+      <Text>{t('Go to My Wallet')}</Text>
     </div>
   );
 };

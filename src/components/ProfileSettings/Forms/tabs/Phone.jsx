@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 import { Material, Button } from 'components';
 import { setProfile, verifyCode } from 'actions';
@@ -9,6 +10,8 @@ import { unMaskPhone } from 'utils';
 import { StepTwo } from 'views/Register/steps';
 
 const ProfileForms = () => {
+  const { t } = useTranslation();
+
   const { detail } = useSelector(
     (state) => state.profileSettings2.profileDetail
   );
@@ -34,7 +37,7 @@ const ProfileForms = () => {
       setProfile(
         { phone: unMaskedPhone },
         () => {
-          toast.success('Bilgileriniz güncellendi.', {
+          toast.success(t('Your information has been updated'), {
             position: 'bottom-right',
             autoClose: 2000,
           });
@@ -44,7 +47,7 @@ const ProfileForms = () => {
           setModal(false);
         },
         () => {
-          toast.error('Güncelleme işlemi yapılamadı.', {
+          toast.error(t('Failed to update'), {
             position: 'bottom-right',
             autoClose: 2000,
           });
@@ -61,7 +64,7 @@ const ProfileForms = () => {
           { phone },
           () => setModal(true),
           () =>
-            toast.error('Kod gönderilemedi', {
+            toast.error(t('Could not send code'), {
               position: 'bottom-right',
               autoClose: 2000,
             })
@@ -74,7 +77,7 @@ const ProfileForms = () => {
       {detail.isSuccess && (
         <form onSubmit={onSubmit}>
           <Material.TextField
-            label="Telefon Numaranız"
+            label={t('Your telephone number')}
             type="text"
             name="phone"
             mask="\0(999) 999 99 99"
@@ -85,7 +88,7 @@ const ProfileForms = () => {
             <Button
               fontWeight="600"
               type="submit"
-              text="KAYDET"
+              text={t('save')}
               fontSize="15px"
               color="blue"
               transparentDisabled={invalidPhoneNumber}

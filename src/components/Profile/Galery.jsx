@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
+import { useTranslation } from 'react-i18next';
 
 import { getUserGalery } from 'actions';
 import { Pagination } from 'components';
@@ -9,6 +10,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 
 function Galery({ userId }) {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const [page, setPage] = useState(1);
   const [content, setContent] = useState('');
@@ -63,13 +66,13 @@ function Galery({ userId }) {
       let video = results === null ? content.path : results[1];
       return (
         <iframe
-          width='1280'
-          height='720'
+          width="1280"
+          height="720"
           src={`https://www.youtube.com/embed/${video}`}
-          frameBorder='0'
-          allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
-          />
+        />
       );
     }
   };
@@ -84,12 +87,17 @@ function Galery({ userId }) {
       <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}>
         <Masonry>
           {data?.data?.map((image, i) => (
-            <div className="img" onClick={() => openModal(image)} key={i} style={{cursor:'pointer'}} >
+            <div
+              className="img"
+              onClick={() => openModal(image)}
+              key={i}
+              style={{ cursor: 'pointer' }}
+            >
               <img
                 key={image?.name}
                 src={`${getImage(image)}`}
                 alt={image?.name}
-                style={{ width: '90%', display: 'block', borderRadius:'10px'}}
+                style={{ width: '90%', display: 'block', borderRadius: '10px' }}
               />
             </div>
           ))}
@@ -105,7 +113,7 @@ function Galery({ userId }) {
       ) : (
         <div className="d-flex">
           <strong className="mx-auto">
-            Kullanıcının eklediği görsel bulunmamaktadır.
+            {t('There are no images added by the user')}
           </strong>
         </div>
       )}

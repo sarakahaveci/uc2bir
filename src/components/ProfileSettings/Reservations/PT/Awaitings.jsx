@@ -13,7 +13,11 @@ import moment from 'moment';
 import { device } from 'utils';
 import { getPtAwaitings, PtAwaitingApprove, PtAwaitingReject } from 'actions';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+
 const Awaitings = ({ setAwaitingCount }) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const items = useSelector(
     (state) => state.professionalReservation?.ptReservation?.awaitings
@@ -80,7 +84,7 @@ const Awaitings = ({ setAwaitingCount }) => {
                     user_id={elm?.student_id}
                     optionalField_1={elm?.branch}
                     optionalField_2={{
-                      label: 'SALON',
+                      label: t('gym'),
                       value: elm?.bs?.name,
                     }}
                     optionalField_3={{
@@ -112,7 +116,7 @@ const Awaitings = ({ setAwaitingCount }) => {
                 user_id={elm?.student_id}
                 optionalField_1={elm?.branch}
                 optionalField_2={{
-                  label: 'EV / PARK',
+                  label: t('HOME / PARK'),
                   value: elm?.bs?.name,
                 }}
                 optionalField_3={{
@@ -166,7 +170,7 @@ const Awaitings = ({ setAwaitingCount }) => {
             {startOfWeeksArr().map((date) => _renderTab(date))}
             {!(startOfWeeksArr()?.length > 0) && (
               <text style={{ padding: '20px' }}>
-                Onay bekleyen hiçbir rezervasyon talebi yoktur
+                {t('There are no pending reservation requests')}
               </text>
             )}
           </AccordionContainer>
@@ -199,10 +203,10 @@ const Awaitings = ({ setAwaitingCount }) => {
       </StyledRow>
       <RejectModal
         elm={choosenElm}
-        headerText="Rezervasyonu iptal etmek istediğinize emin misiniz?"
+        headerText={t('Are you sure you want to cancel your appointment?')}
         descText=""
-        cancelLabel="VAZGEÇ"
-        rejectLabel="İPTAL ET"
+        cancelLabel={t('Give Up')}
+        rejectLabel={t('cancel')}
         open={openReject}
         reject={(id, status) => {
           dispatch(PtAwaitingReject(id, status, getSelectedDate));

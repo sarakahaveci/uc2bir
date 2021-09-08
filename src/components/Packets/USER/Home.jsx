@@ -7,7 +7,11 @@ import { clearReservation, setReservation, getUserMyPacket } from 'actions';
 import { useDispatch } from 'react-redux';
 import UserPacketCard from '../UserPacketCard';
 import { Pagination } from 'components';
+import { useTranslation } from 'react-i18next';
+
 const Home = ({ setPage = () => {}, setGlobalState = () => {} }) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const myPackets = useSelector((state) => state.myPackets.user?.data);
   const [listPage, setListPage] = useState(1);
@@ -46,7 +50,7 @@ const Home = ({ setPage = () => {}, setGlobalState = () => {} }) => {
       </Col>
       {!(myPackets?.data?.data?.length > 0) && (
         <div style={{ padding: '10px', height: '120px' }}>
-          <text>Satın aldığınız her hangi bir paket bulunmamaktadır</text>
+          <text>{t('There are no packages you have purchased')}</text>
         </div>
       )}
       {myPackets?.data?.data?.length > 0 && (

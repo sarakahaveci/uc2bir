@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { DIETITIAN, WORK_PLACE } from '../../../constants';
+import { useTranslation } from 'react-i18next';
 
 import { getUserInfo } from 'actions';
 import profileImg from 'assets/default-profile.jpg';
@@ -26,6 +27,8 @@ import MyCalendar from 'components/Profile/MyCalendar/MyCalendar';
 
 export default function Profile() {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
+
   const [page, setPage] = useState('Start');
 
   const { userInfo, isLoading } = useSelector(
@@ -162,12 +165,12 @@ export default function Profile() {
                       setTab(value);
                     }}
                     tabs={[
-                      { text: 'BRANŞLAR', value: 'Branches' },
-                      { text: 'SERTİFİKALAR', value: 'Certificates' },
-                      { text: 'ÇALIŞTIĞI YERLER', value: 'WorkPlace' },
-                      { text: 'TAKVİM', value: 'Calendar' },
-                      { text: 'YORUMLAR', value: 'Comments' },
-                      { text: 'GALERİ', value: 'Gallery' },
+                      { text: t('BRANCHES'), value: 'Branches' },
+                      { text: t('CERTIFICATES'), value: 'Certificates' },
+                      { text: t('WORKING PLACES'), value: 'WorkPlace' },
+                      { text: t('CALENDAR'), value: 'Calendar' },
+                      { text: t('COMMENTS'), value: 'Comments' },
+                      { text: t('GALLERY'), value: 'Gallery' },
                       { text: 'BLOG', value: 'Blog' },
                     ]}
                   />
@@ -178,14 +181,14 @@ export default function Profile() {
                       setTab(value);
                     }}
                     tabs={[
-                      { text: 'OLANAKLAR', value: 'Facility' },
-                      { text: 'SERTİFİKALAR', value: 'Certificates' },
-                      { text: 'SINIFLAR', value: 'WorkPlace' },
-                      { text: 'EĞİTMENLER', value: 'Trainers' },
-                      { text: 'TAKVİM', value: 'Calendar' },
-                      { text: 'YORUMLAR', value: 'Comments' },
-                      { text: 'GALERİ', value: 'Gallery' },
-                      { text: 'KONUM', value: 'Location' },
+                      { text: t('FACILITIES'), value: 'Facility' },
+                      { text: t('CERTIFICATES'), value: 'Certificates' },
+                      { text: t('CLASSES'), value: 'WorkPlace' },
+                      { text: t('TRAINERS'), value: 'Trainers' },
+                      { text: t('CALENDAR'), value: 'Calendar' },
+                      { text: t('COMMENTS'), value: 'Comments' },
+                      { text: t('GALLERY'), value: 'Gallery' },
+                      { text: t('LOCATION'), value: 'Location' },
                     ]}
                   />
                 )}
@@ -201,7 +204,7 @@ export default function Profile() {
       content = <ProfileReservation setPage={setPage} />;
       break;
   }
-  return isLoading ? <div>Yükleniyor</div> : <>{content}</>;
+  return isLoading ? <div>{t('Loading')}</div> : <>{content}</>;
 }
 
 const TabContainers = styled.div`

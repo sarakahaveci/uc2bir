@@ -2,12 +2,22 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import ReservationAccordion from '../ReservationAccordion';
 import styled from 'styled-components/macro';
-import { ApproveCard, DatePicker, RateModal, Svg , SessionComment} from 'components';
+import {
+  ApproveCard,
+  DatePicker,
+  RateModal,
+  Svg,
+  SessionComment,
+} from 'components';
 import { device } from 'utils';
-import { getSessionHistorys, rateAndComment,rateAndCommentSession,SessionStatusResponse,getSessionComment } from 'actions';
+import { getSessionHistorys, rateAndComment, rateAndCommentSession, SessionStatusResponse, getSessionComment } from 'actions';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
-const SessionHistory = ({setSubPage = () => { }}) => {
+import { useTranslation } from 'react-i18next';
+
+const SessionHistory = ({ setSubPage = () => { } }) => {
+  const { t } = useTranslation();
+
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
   const [openRateModal, setOpenRateModal] = useState(null);
   const [appointment, setAppointment] = useState(undefined);
@@ -31,11 +41,18 @@ const SessionHistory = ({setSubPage = () => { }}) => {
     dispatch(SessionStatusResponse({
       appointment_id: elm?.id,
       sessionStatus: status
-    },()=>{dispatch(getSessionHistorys())}))
+    }, () => { dispatch(getSessionHistorys()) }))
   }
   function openSessionComment(id) {
     setSubPage(
-      <SessionComment openRateModal={setOpenRateModal} setOpenRateModal={setOpenRateModal} session_id={id} goBack={() => { setSubPage() }}></SessionComment>
+      <SessionComment
+        openRateModal={setOpenRateModal}
+        setOpenRateModal={setOpenRateModal}
+        session_id={id}
+        goBack={() => {
+          setSubPage();
+        }}
+      ></SessionComment>
     );
   }
   useEffect(() => {
@@ -56,9 +73,7 @@ const SessionHistory = ({setSubPage = () => { }}) => {
   }
 
   function _renderTab(date) {
-    if (items?.appointment?.[
-      moment(date).format('DD.MM.YYYY')
-    ]) {
+    if (items?.appointment?.[moment(date).format('DD.MM.YYYY')]) {
       return (
         <ReservationAccordion
           defaultOpen={true}
@@ -109,17 +124,18 @@ const SessionHistory = ({setSubPage = () => { }}) => {
                 date={elm?.hour}
                 customerName={elm?.student}
                 user_id={elm?.student_id}
-                onSessionComment={() => { openSessionComment(elm?.id) }}
+                onSessionComment={() => {
+                  openSessionComment(elm?.id);
+                }}
                 session_status={elm?.session_status}
                 onStatusChange={(status) => {
-                  onStatusChange(status, elm)
+                  onStatusChange(status, elm);
                 }}
                 type="history"
                 rateText="Puanla"
                 has_comment={elm?.pt?.has_comment}
-
                 onApprove={() => {
-                  setAppointmentAll(elm)
+                  setAppointmentAll(elm);
                   setAppointment({
                     id: elm?.id,
                     userId: elm?.pt?.id,
@@ -165,22 +181,22 @@ const SessionHistory = ({setSubPage = () => { }}) => {
             </ApproveCardContainer>
           )) || <></>}
         </ReservationAccordion>
-      )
+      );
     } else {
-      return (<></>)
+      return <></>;
     }
-  } return (
+  }
+  return (
     <StyledContainer>
       <StyledRow>
         <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
           <AccordionContainer>
-            {
-              startOfWeeksArr().map((date) => (
-                _renderTab(date)
-              ))
-
-            }
-            {!(startOfWeeksArr()?.length > 0) && <text style={{ padding: '20px' }}>Onay bekleyen hiçbir rezervasyon talebi yoktur</text>}
+            {startOfWeeksArr().map((date) => _renderTab(date))}
+            {!(startOfWeeksArr()?.length > 0) && (
+              <text style={{ padding: '20px' }}>
+                {t('There are no pending reservation requests')}
+              </text>
+            )}
           </AccordionContainer>
         </StyledCol>
         <StyledCol
@@ -211,21 +227,21 @@ const SessionHistory = ({setSubPage = () => { }}) => {
       <RateModal
         appointmentAll={appointmentAll}
         appointment_id={appointment?.id}
-        descText="Öğrencinizi puanlamak ister misiniz?"
-        rateLabel="PUANLA"
-        cancelLabel="VAZGEÇ"
+        descText={t('Would you like to rate your student?')}
+        rateLabel={t('rate it')}
+        cancelLabel={t('Give Up')}
         open={openRateModal}
-        rate={({ rate, comment, commented_id,rateType,session_file,session_status }) => {
+        rate={({ rate, comment, commented_id, rateType, session_file, session_status }) => {
 
-          if(rateType == 'session'){
+          if (rateType == 'session') {
             dispatch(
               rateAndCommentSession(
                 {
                   appointment_id: appointment?.id,
                   rating: rate,
                   comment: comment,
-                  session_file:session_file,
-                  session_status:session_status
+                  session_file: session_file,
+                  session_status: session_status
                 },
                 () => {
                   setAppointment(undefined);
@@ -237,8 +253,7 @@ const SessionHistory = ({setSubPage = () => { }}) => {
                 }
               )
             );
-          }else{
-
+          } else {
             dispatch(
               rateAndComment(
                 {
@@ -274,17 +289,16 @@ const DateContainer = styled.div`
 const AccordionContainer = styled.div`
   display: flex;
   flex-direction: column;
-
 `;
 const ApproveCardContainer = styled.div`
-display: flex;
-align-items: center;
-justify-content:space-between;
-margin: 20px 0;
-padding:5px;
-@media ${device.sm} {
-  margin: 0;
-}
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 0;
+  padding: 5px;
+  @media ${device.sm} {
+    margin: 0;
+  }
 `;
 
 const StyledCol = styled(Col)`

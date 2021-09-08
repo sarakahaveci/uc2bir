@@ -1,12 +1,16 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
+import { useTranslation } from 'react-i18next';
 
 import { Accordion, Box, Text } from 'components';
 import { getDietitionSpecialties } from 'actions';
 import BranchCardHeader from '../../../BranchRow/BranchRowToggler';
 import BranchCardBody from '../../../BranchRow/BranchRowCollapser';
+
 function DietitionFacilityList({ userId }) {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const { data } = useSelector(
     (state) => state.userProfile?.dietitionSpeciality
@@ -42,7 +46,7 @@ function DietitionFacilityList({ userId }) {
             })
           ) : (
             <Text fontWeight="bolder" textAlign="center">
-              Branş bulunmamaktadır.
+              {t('There is no branch')}
             </Text>
           )}
         </Accordion>

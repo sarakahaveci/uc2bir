@@ -2,13 +2,22 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import ReservationAccordion from '../ReservationAccordion';
 import styled from 'styled-components/macro';
-import { ApproveCard, DatePicker, RateModal, Svg, SessionComment } from 'components';
+import {
+  ApproveCard,
+  DatePicker,
+  RateModal,
+  Svg,
+  SessionComment,
+} from 'components';
 import { device } from 'utils';
 import { useSelector, useDispatch } from 'react-redux';
-import { getDtSessionHistorys, rateAndComment, SessionStatusResponse,rateAndCommentSession,getSessionComment} from 'actions';
+import { getDtSessionHistorys, rateAndComment, SessionStatusResponse, rateAndCommentSession, getSessionComment } from 'actions';
 import moment from 'moment';
+import { useTranslation } from 'react-i18next';
 
 const SessionHistory = ({ setSubPage = () => { } }) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const items = useSelector(
     (state) => state.professionalReservation?.dtReservation?.session_historys
@@ -30,14 +39,19 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
   };
   function openSessionComment(id) {
     setSubPage(
-      <SessionComment session_id={id} goBack={() => { setSubPage() }}></SessionComment>
+      <SessionComment
+        session_id={id}
+        goBack={() => {
+          setSubPage();
+        }}
+      ></SessionComment>
     );
   }
   function onStatusChange(status, elm) {
     dispatch(SessionStatusResponse({
       appointment_id: elm?.id,
       sessionStatus: status
-    },()=>{dispatch(getDtSessionHistorys())}))
+    }, () => { dispatch(getDtSessionHistorys()) }))
   }
   useEffect(() => {
     if (window.innerWidth <= 760) {
@@ -56,15 +70,14 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
     dispatch(getDtSessionHistorys(moment(selectedDate).format('DD.MM.YYYY')));
   }
   function _renderTab(date) {
-    if (items?.appointment?.[
-      moment(date).format('DD.MM.YYYY')
-    ]) {
+    if (items?.appointment?.[moment(date).format('DD.MM.YYYY')]) {
       return (
         <ReservationAccordion
           defaultOpen={true}
           parent
           title={moment(date).format('DD.MM.YYYY')}
         >
+
 
           {items?.appointment?.[
             moment(date).format('DD.MM.YYYY')
@@ -78,7 +91,7 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
                 session_status={elm?.session_status}
                 onStatusChange={(status) => {
                   onStatusChange(status, elm)
-                }}                customerName={elm?.student}
+                }} customerName={elm?.student}
                 has_comment={elm?.dt?.has_comment}
                 rateText="Puanla"
                 onSessionComment={() => { openSessionComment(elm?.id) }}
@@ -96,7 +109,6 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
               />
             </ApproveCardContainer>
           )) || <></>}
-
 
           {items?.appointment?.[
             moment(date).format('DD.MM.YYYY')
@@ -129,9 +141,9 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
             </ApproveCardContainer>
           )) || <></>}
         </ReservationAccordion>
-      )
+      );
     } else {
-      return (<></>)
+      return <></>;
     }
   }
   return (
@@ -139,13 +151,12 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
       <StyledRow>
         <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
           <AccordionContainer>
-            {
-              startOfWeeksArr().map((date) => (
-                _renderTab(date)
-              ))
-
-            }
-            {!(startOfWeeksArr()?.length > 0) && <text style={{ padding: '20px' }}>Onay bekleyen hiçbir rezervasyon talebi yoktur</text>}
+            {startOfWeeksArr().map((date) => _renderTab(date))}
+            {!(startOfWeeksArr()?.length > 0) && (
+              <text style={{ padding: '20px' }}>
+                {t('There are no pending reservation requests')}
+              </text>
+            )}
           </AccordionContainer>
         </StyledCol>
         <StyledCol
@@ -176,11 +187,11 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
       <RateModal
         appointmentAll={appointmentAll}
         appointment_id={appointment?.id}
-        descText="Danışanızı puanlamak ister misiniz?"
-        rateLabel="PUANLA"
-        cancelLabel="VAZGEÇ"
+        descText={t('Would you like to rate your client?')}
+        rateLabel={t('rate it')}
+        cancelLabel={t('Give Up')}
         open={openRateModal}
-        rate={({ rate, comment, commented_id, rateType, session_file,session_status }) => {
+        rate={({ rate, comment, commented_id, rateType, session_file, session_status }) => {
 
           if (rateType == 'session') {
             dispatch(
@@ -190,7 +201,7 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
                   rating: rate,
                   comment: comment,
                   session_file: session_file,
-                  session_status:session_status
+                  session_status: session_status
                 },
                 () => {
                   setAppointment(undefined);
@@ -203,7 +214,6 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
               )
             );
           } else {
-
             dispatch(
               rateAndComment(
                 {
@@ -239,17 +249,16 @@ const DateContainer = styled.div`
 const AccordionContainer = styled.div`
   display: flex;
   flex-direction: column;
-
 `;
 const ApproveCardContainer = styled.div`
-display: flex;
-align-items: center;
-justify-content:space-between;
-margin: 20px 0;
-padding:5px;
-@media ${device.sm} {
-  margin: 0;
-}
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 0;
+  padding: 5px;
+  @media ${device.sm} {
+    margin: 0;
+  }
 `;
 
 const StyledCol = styled(Col)`

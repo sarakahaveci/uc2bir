@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { Title } from 'components';
 import { setReservation, clearReservation } from 'actions';
@@ -11,6 +12,8 @@ import Dietitian from './Dietitian';
 import * as KEYS from '../../constants/userKeys';
 
 const ProfileReservation = ({ setPage = () => {} }) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userProfile.userInfo);
   const reservation = useSelector((state) => state.reservation);
@@ -77,7 +80,7 @@ const ProfileReservation = ({ setPage = () => {} }) => {
                 clearPaymentInfo();
               }}
             >
-              {'< Ödeme İşlemleri'}
+              {'<'} {t('Payment Transactions')}
             </Title>
           ) : (
             <Title
@@ -88,7 +91,7 @@ const ProfileReservation = ({ setPage = () => {} }) => {
                 setPage('Start');
               }}
             >
-              {'< Rezervasyon Oluştur'}
+              {'<'} {t('Make a Reservation')}
             </Title>
           )}
         </Row>

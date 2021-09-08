@@ -5,6 +5,7 @@ import Masonry from 'react-responsive-masonry';
 import { getGroupImages } from 'actions';
 import { useDispatch } from 'react-redux';
 import { Svg, Box, Modal, Button, SearchInput, Title } from 'components';
+import { useTranslation } from 'react-i18next';
 
 const TemplateNamingModal = forwardRef(
   (
@@ -21,9 +22,11 @@ const TemplateNamingModal = forwardRef(
       setFile(event.target.files[0])
       setSelectedImageId(undefined)
     };*/
+    const { t } = useTranslation();
+
     return (
       <SelectPictureModal ref={ref}>
-        <Title variant="h5"> FOTOĞRAF SEÇİNİZ</Title>
+        <Title variant="h5"> {t('SELECT PHOTO')}</Title>
 
         {/*{!!selectedImageId && (*/}
         {/*  <Box fontWeight="500" my="10px" fontSize="1.1rem">*/}
@@ -33,7 +36,7 @@ const TemplateNamingModal = forwardRef(
 
         <SearchInput
           m="20px 0 30px 0"
-          placeholder="Fotoğraf ara"
+          placeholder={t('Search photos')}
           showClearInput
           searchValue={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
@@ -84,14 +87,13 @@ const TemplateNamingModal = forwardRef(
           </Masonry>
         ) : (
           <div style={{ alignSelf: 'center' }}>
-            "Fotoğraf eklemek için profilim &gt; galeri sekmesine gitmeniz
-            gerekmektedir"
+            "{t('To add a photo, you need to go to my profile > gallery tab')}"
           </div>
         )}
 
         <Box center mt="40px">
           <Button
-            text={images?.length > 0 ? 'İleri' : 'Kapat'}
+            text={images?.length > 0 ? t('Forward') : t('Close')}
             className="blue"
             width="280px"
             onClick={() => ref.current.closeModal()}

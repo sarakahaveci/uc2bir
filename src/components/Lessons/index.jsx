@@ -6,6 +6,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { CustomProgress } from 'components';
 import { Container, Row, Col } from 'react-bootstrap';
 import { device } from 'utils';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
   barColorPrimary: {
@@ -13,6 +14,8 @@ const useStyles = makeStyles({
   },
 });
 const Lessons = ({ onClickLesson }) => {
+  const { t } = useTranslation();
+
   useEffect(() => {}, []);
   const classes = useStyles();
   var temp = ['55', '55s5d', '626', 'd', 'sdsd', 'sdasd', 'sdad'];
@@ -42,11 +45,13 @@ const Lessons = ({ onClickLesson }) => {
                   <BoldText color={'#C5C4C4'}>1.</BoldText>
                 </Number>
               )}
-              <BoldText style={{ marginLeft: '9px' }}>Gelişim Testi</BoldText>
+              <BoldText style={{ marginLeft: '9px' }}>
+                {t('Progress Test')}
+              </BoldText>
             </HeaderArea>
             <DescArea>
               <IconArea></IconArea>
-              <DescText>Denememasdoa ösasd oasöodoöasasdsad </DescText>
+              <DescText>Deneme</DescText>
             </DescArea>
           </MainField>
           <RightSideField>
@@ -60,7 +65,7 @@ const Lessons = ({ onClickLesson }) => {
     <Wrapper>
       <StyledRow header style={{}}>
         <Col lg="12" style={{ padding: 0 }}>
-          <HeaderText>Dersler</HeaderText>
+          <HeaderText> {t('lessons')}</HeaderText>
           <LinearProgress
             classes={{ barColorPrimary: classes.barColorPrimary }}
             variant="determinate"

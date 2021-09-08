@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
+import { useTranslation } from 'react-i18next';
 
 import { PlusButton, Text, Svg } from 'components';
 
@@ -9,6 +10,8 @@ const ProficiencyToggler = ({
   setAddedProficiencies,
   isActive,
 }) => {
+  const { t } = useTranslation();
+
   const addProficiencyHandler = (e) => {
     if (isActive) {
       e.stopPropagation();
@@ -39,7 +42,7 @@ const ProficiencyToggler = ({
 
       <div className="proficiency-row__right-wrapper">
         <Text mr="10px" color="dark" fontSize="0.9rem">
-          Uzmanlık Ekle
+          {t('Add Specialization')}
         </Text>
 
         <PlusButton onClick={addProficiencyHandler} />

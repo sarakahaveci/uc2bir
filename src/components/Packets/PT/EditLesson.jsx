@@ -5,18 +5,24 @@ import styled from 'styled-components/macro';
 import Svg from '../../statics/svg';
 import { makeStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import { Button, CustomProgress, Material, Title} from 'components';
+import { Button, CustomProgress, Material, Title } from 'components';
 import { Container, Row, Col } from 'react-bootstrap';
 import { device } from 'utils';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPackageClass, getPackageClassDetail, getPackageTestQuestions, setPackageSurvey } from '../../../actions';
-import Card  from '../../banner/profile-banner/Card';
+import {
+  getPackageClass,
+  getPackageClassDetail,
+  getPackageTestQuestions,
+  setPackageSurvey,
+} from '../../../actions';
+import Card from '../../banner/profile-banner/Card';
 import ReactHtmlParser from 'react-html-parser';
 import { decode } from 'html-entities';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
   barColorPrimary: {
@@ -24,9 +30,17 @@ const useStyles = makeStyles({
   },
 });
 
-const EditLesson = ({ setBannerActive = () => {}, setPage = () => {}, packageData, lessonId,  setLessonId}) => {
+const EditLesson = ({
+  setBannerActive = () => {},
+  setPage = () => {},
+  packageData,
+  lessonId,
+  setLessonId,
+}) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
-  // eslint-disable-next-line 
+  // eslint-disable-next-line
   const [testName, setTestName] = useState('');
   const [changeable, setChangeable] = useState(false);
   const [question, _question] = useState([]);
@@ -39,18 +53,27 @@ const EditLesson = ({ setBannerActive = () => {}, setPage = () => {}, packageDat
     setBannerActive(false);
   }, []);
 
-  const { classDetail, classDetailItem, testQuestion, isQuestionLoading } = useSelector(
-    (state) => state.professionalReservation.ptReservation
-  );
+  const { classDetail, classDetailItem, testQuestion, isQuestionLoading } =
+    useSelector((state) => state.professionalReservation.ptReservation);
 
   useEffect(() => {
-    dispatch(getPackageClass({package_uuid:packageData?.package_uuid, appointment_id:packageData?.appointment_id}));
-  },[]);
+    dispatch(
+      getPackageClass({
+        package_uuid: packageData?.package_uuid,
+        appointment_id: packageData?.appointment_id,
+      })
+    );
+  }, []);
 
   const succsess = () => {
     setModal(false);
-    dispatch(getPackageClass({package_uuid:packageData?.package_uuid, appointment_id:packageData?.appointment_id}));
-    toast.success(`Soru cevapları gönderildi.`, {
+    dispatch(
+      getPackageClass({
+        package_uuid: packageData?.package_uuid,
+        appointment_id: packageData?.appointment_id,
+      })
+    );
+    toast.success(t(`Question answers have been sent`), {
       position: 'bottom-right',
       autoClose: 2000,
       hideProgressBar: false,
@@ -63,7 +86,7 @@ const EditLesson = ({ setBannerActive = () => {}, setPage = () => {}, packageDat
 
   const err = () => {
     setModal(false);
-    toast.error(`Soru cevapları gönderilemedi!`, {
+    toast.error(t(`Question answers could not be sent!`), {
       position: 'bottom-right',
       autoClose: 2000,
       hideProgressBar: false,
@@ -80,9 +103,9 @@ const EditLesson = ({ setBannerActive = () => {}, setPage = () => {}, packageDat
       setPackageSurvey(
         {
           answer: answer,
-          package_uuid:classDetail?.package_uuid,
-          appointment_id:classDetail?.appointment_id,
-          lesson_id:lessonId
+          package_uuid: classDetail?.package_uuid,
+          appointment_id: classDetail?.appointment_id,
+          lesson_id: lessonId,
         },
         succsess,
         err
@@ -90,24 +113,42 @@ const EditLesson = ({ setBannerActive = () => {}, setPage = () => {}, packageDat
     );
   };
 
-
   function onClickLesson(package_uuid, appointment_id, item) {
-    setChangeable(item.is_changeable)
-    if(item?.type==='lesson'){
+    setChangeable(item.is_changeable);
+    if (item?.type === 'lesson') {
       setPage('Exercises');
-      dispatch(getPackageClassDetail({package_uuid, appointment_id, lesson_id:item?.id, type:item?.type}));
-      setLessonId(item?.id)
-    }else if(item.is_changeable){
-      setModal(true)
-      dispatch(getPackageTestQuestions({package_uuid, appointment_id, lesson_id:item?.id}));
-      setTestName(item?.title)
-      setLessonId(item?.id)
-    }else {
-      dispatch(getPackageClassDetail({package_uuid, appointment_id, lesson_id:item?.id, type:item?.type}));
-      setModal(true)
-      setTestName(item?.title)
+      dispatch(
+        getPackageClassDetail({
+          package_uuid,
+          appointment_id,
+          lesson_id: item?.id,
+          type: item?.type,
+        })
+      );
+      setLessonId(item?.id);
+    } else if (item.is_changeable) {
+      setModal(true);
+      dispatch(
+        getPackageTestQuestions({
+          package_uuid,
+          appointment_id,
+          lesson_id: item?.id,
+        })
+      );
+      setTestName(item?.title);
+      setLessonId(item?.id);
+    } else {
+      dispatch(
+        getPackageClassDetail({
+          package_uuid,
+          appointment_id,
+          lesson_id: item?.id,
+          type: item?.type,
+        })
+      );
+      setModal(true);
+      setTestName(item?.title);
     }
-
   }
   const classes = useStyles();
   function locationSelector(index) {
@@ -122,44 +163,64 @@ const EditLesson = ({ setBannerActive = () => {}, setPage = () => {}, packageDat
   function _renderLessons() {
     return classDetail?.lessons.map((elm, index) => (
       <Col key={index} style={{ padding: 0 }} lg="4">
-        <CustomProgress location={classDetail?.lessons.length - 1 === index ? 'end' : locationSelector(index)} active='true' />
-        <LessonCardContainer onClick={()=>onClickLesson(classDetail?.package_uuid, classDetail?.appointment_id, elm)}>
+        <CustomProgress
+          location={
+            classDetail?.lessons.length - 1 === index
+              ? 'end'
+              : locationSelector(index)
+          }
+          active="true"
+        />
+        <LessonCardContainer
+          onClick={() =>
+            onClickLesson(
+              classDetail?.package_uuid,
+              classDetail?.appointment_id,
+              elm
+            )
+          }
+        >
           <MainField>
             <HeaderArea>
-              {
-                elm?.type === 'lesson'?
-                  <Number>
-                    <BoldText color={'#C5C4C4'}>{elm?.lesson + '.' }</BoldText>
-                    <BoldText style={{ marginLeft: '9px' }}>{'Ders' }</BoldText>
-                  </Number>:
-                  <div style={{display:'flex'}}>
-                    {elm?.is_completed === true ? <Svg.TickLesson /> : <Svg.TickLessonDisable />}
-                    <BoldText style={{ marginLeft: '9px' }}>{elm.title}</BoldText>
-                  </div>
-              }
-
+              {elm?.type === 'lesson' ? (
+                <Number>
+                  <BoldText color={'#C5C4C4'}>{elm?.lesson + '.'}</BoldText>
+                  <BoldText style={{ marginLeft: '9px' }}>
+                    {t('lesson')}
+                  </BoldText>
+                </Number>
+              ) : (
+                <div style={{ display: 'flex' }}>
+                  {elm?.is_completed === true ? (
+                    <Svg.TickLesson />
+                  ) : (
+                    <Svg.TickLessonDisable />
+                  )}
+                  <BoldText style={{ marginLeft: '9px' }}>{elm.title}</BoldText>
+                </div>
+              )}
             </HeaderArea>
             <DescArea>
-              <IconArea/>
-              {
-                elm?.type === 'lesson'?
-                  elm?.is_completed === true?
-                    <div style={{display:'flex'}}>
-                      <Svg.TickLesson />
-                      <DescText> Tamamlandı </DescText>
-                    </div>
-                 :
-                    <div style={{display:'flex'}}>
-                      <Svg.TickLessonDisable />
-                      <DescText>Devam Ediyor... </DescText>
-                    </div>
-                  :
-                  <DescText>{elm?.description?.substr(0, 70)}</DescText>
-              }
+              <IconArea />
+              {elm?.type === 'lesson' ? (
+                elm?.is_completed === true ? (
+                  <div style={{ display: 'flex' }}>
+                    <Svg.TickLesson />
+                    <DescText> {t('completed')} </DescText>
+                  </div>
+                ) : (
+                  <div style={{ display: 'flex' }}>
+                    <Svg.TickLessonDisable />
+                    <DescText>{t('continues')}... </DescText>
+                  </div>
+                )
+              ) : (
+                <DescText>{elm?.description?.substr(0, 70)}</DescText>
+              )}
             </DescArea>
           </MainField>
           <RightSideField>
-            <Svg.ArrowRightIcon/>
+            <Svg.ArrowRightIcon />
           </RightSideField>
         </LessonCardContainer>
       </Col>
@@ -167,91 +228,100 @@ const EditLesson = ({ setBannerActive = () => {}, setPage = () => {}, packageDat
   }
   return (
     <Row>
-      {classDetail?.package && (
+      {(classDetail?.package && (
         <>
-        <Containers>
-        <Rows>
-          <Col lg={4}>
-            <Card img={classDetail?.package?.photo}>
-              <span className="team">{classDetail?.package?.classification}</span>
-            </Card>
-          </Col>
-          <Col lg={3}>
-            <Title
-              variant={'h4'}
-              component={'h4'}
-              textAlign="left"
-              fontWeight="bold"
-              margin="0"
-              lineDisable>
-              {classDetail?.package?.title}
-            </Title>
-            <div className="proficiency-row__left-wrapper">
-              <div className="proficiency-row__left-wrapper">
-                <img src={classDetail?.package?.branch.icon} alt={classDetail?.package?.branch.name} className="proficiency-row__img" />
+          <Containers>
+            <Rows>
+              <Col lg={4}>
+                <Card img={classDetail?.package?.photo}>
+                  <span className="team">
+                    {classDetail?.package?.classification}
+                  </span>
+                </Card>
+              </Col>
+              <Col lg={3}>
                 <Title
-                  variant={'h7'}
-                  component={'h7'}
+                  variant={'h4'}
+                  component={'h4'}
                   textAlign="left"
-                  fontWeight="normal"
+                  fontWeight="bold"
+                  margin="0"
                   lineDisable
-                  style={{marginTop:'5px', marginLeft:'5px'}}
                 >
-                  {classDetail?.package?.branch.name}
+                  {classDetail?.package?.title}
                 </Title>
-              </div>
-              <div className="proficiency-row__left-wrapper">
-                <ClockMediumIcon/>
-                <Title
-                  variant={'h7'}
-                  component={'h7'}
-                  textAlign="left"
-                  fontWeight="normal"
-                  lineDisable
-                  style={{marginTop:'7px', marginLeft:'5px'}}>
-                  {classDetail?.package?.lesson_amount}  Ders
-                </Title>
-              </div>
-            </div>
-          </Col>
-          <Col lg={5} style={{display:'flex'}}>
-            <Line style={{marginRight:'10px'}}/>
-            {ReactHtmlParser(
-              decode(classDetail?.package?.detail)
-            )}
-          </Col>
-        </Rows>
-      </Containers>
-      <Wrapper>
-        <Title
-          style={{ cursor: 'pointer', padding: 15 }}
-          fontSize="14pt"
-          textAlign="left"
-          onClick={() => {
-            setPage('Home');
-            setBannerActive(true);}}>
-          {`< Geri`}
-        </Title>
-        <StyledRow header style={{}}>
-          <Col lg="12" style={{ padding: 0 }}>
-            <HeaderText>Dersler</HeaderText>
-            <LinearProgress
-              classes={{ barColorPrimary: classes.barColorPrimary }}
-              variant="determinate"
-              value={20}
-            />
-          </Col>
-        </StyledRow>
-        <StyledRow style={{}}>{_renderLessons()}</StyledRow>
-      </Wrapper>
+                <div className="proficiency-row__left-wrapper">
+                  <div className="proficiency-row__left-wrapper">
+                    <img
+                      src={classDetail?.package?.branch.icon}
+                      alt={classDetail?.package?.branch.name}
+                      className="proficiency-row__img"
+                    />
+                    <Title
+                      variant={'h7'}
+                      component={'h7'}
+                      textAlign="left"
+                      fontWeight="normal"
+                      lineDisable
+                      style={{ marginTop: '5px', marginLeft: '5px' }}
+                    >
+                      {classDetail?.package?.branch.name}
+                    </Title>
+                  </div>
+                  <div className="proficiency-row__left-wrapper">
+                    <ClockMediumIcon />
+                    <Title
+                      variant={'h7'}
+                      component={'h7'}
+                      textAlign="left"
+                      fontWeight="normal"
+                      lineDisable
+                      style={{ marginTop: '7px', marginLeft: '5px' }}
+                    >
+                      {classDetail?.package?.lesson_amount} {t('lesson')}
+                    </Title>
+                  </div>
+                </div>
+              </Col>
+              <Col lg={5} style={{ display: 'flex' }}>
+                <Line style={{ marginRight: '10px' }} />
+                {ReactHtmlParser(decode(classDetail?.package?.detail))}
+              </Col>
+            </Rows>
+          </Containers>
+          <Wrapper>
+            <Title
+              style={{ cursor: 'pointer', padding: 15 }}
+              fontSize="14pt"
+              textAlign="left"
+              onClick={() => {
+                setPage('Home');
+                setBannerActive(true);
+              }}
+            >
+              {'<'} {t('Back')}
+            </Title>
+            <StyledRow header style={{}}>
+              <Col lg="12" style={{ padding: 0 }}>
+                <HeaderText>Dersler</HeaderText>
+                <LinearProgress
+                  classes={{ barColorPrimary: classes.barColorPrimary }}
+                  variant="determinate"
+                  value={20}
+                />
+              </Col>
+            </StyledRow>
+            <StyledRow style={{}}>{_renderLessons()}</StyledRow>
+          </Wrapper>
         </>
-      ) || <>Bu alan şuan için gösterime uygun değildir.</>}
+      )) || <>{t('This area is currently unavailable for display')}</>}
       <React.Fragment>
         <Dialog
           className="material-dialog"
           fullWidth={fullWidth}
           maxWidth={maxWidth}
-          open={modal}>
+          open={modal}
+        >
           <DialogTitle className="text-center">
             <Title textAlign="left" variant="h5" component="h5">
               {'Test'}
@@ -265,135 +335,161 @@ const EditLesson = ({ setBannerActive = () => {}, setPage = () => {}, packageDat
                 fontWeight: 'bold',
                 padding: '5px 15px',
               }}
-              onClick={() => setModal(false)}>
+              onClick={() => setModal(false)}
+            >
               x
             </span>
           </DialogTitle>
           <DialogContent>
-            {!changeable?(
-            <Table>
-              <table>
-                <tbody>
-                {classDetailItem?.length>0 && classDetailItem?.map((val) => {
-                    return (
-                      <>
-                        <tr>
-                          <th>{val.title}</th>
-                        </tr>
-                        <tr>
-                          <td>
-                            {val.answer}
-                          </td>
-                        </tr>
-                      </>
-                    );
+            {!changeable ? (
+              <Table>
+                <table>
+                  <tbody>
+                    {classDetailItem?.length > 0 &&
+                      classDetailItem?.map((val) => {
+                        return (
+                          <>
+                            <tr>
+                              <th>{val.title}</th>
+                            </tr>
+                            <tr>
+                              <td>{val.answer}</td>
+                            </tr>
+                          </>
+                        );
+                      })}
+                  </tbody>
+                </table>
+              </Table>
+            ) : (
+              <form onSubmit={onSubmit} autoComplete="off">
+                {testQuestion?.survey?.questions?.length &&
+                  testQuestion?.survey?.questions?.map((val, key) => {
+                    if (val.answer_type === 'radio') {
+                      return (
+                        <Material.RadioButtonsGroup
+                          required={val.required}
+                          val={val.name}
+                          key={key}
+                          name={val.name}
+                          label={`${++key}. ${val.name}`}
+                          items={val.options}
+                          onChange={(e) => {
+                            _question([...question, val.id]);
+                            _answer({ ...answer, [val.id]: [e.target.value] });
+                          }}
+                        />
+                      );
+                    } else if (val.answer_type === 'string') {
+                      return (
+                        <div style={{ marginTop: 15, marginBottom: 30 }}>
+                          <div style={{ fontSize: '11pt' }} className="label">
+                            {`${++key}. ${val.name}`}
+                          </div>
+                          <Material.TextField
+                            required={val.required}
+                            key={key}
+                            name={val.name}
+                            onChange={(e) => {
+                              _question([...question, val.id]);
+                              _answer({
+                                ...answer,
+                                [e.target.name]: [e.target.value],
+                              });
+                            }}
+                          />
+                        </div>
+                      );
+                    } else if (val.answer_type === 'numeric') {
+                      return (
+                        <div style={{ marginTop: 15, marginBottom: 30 }}>
+                          <div style={{ fontSize: '11pt' }} className="label">
+                            {`${++key}. ${val.name}`}
+                          </div>
+                          <Material.TextField
+                            required={val.required}
+                            type="text"
+                            key={key}
+                            name={val.name}
+                            onChange={(e) => {
+                              _question([...question, val.id]);
+                              _answer({
+                                ...answer,
+                                [val.id]: [e.target.value],
+                              });
+                            }}
+                          />
+                        </div>
+                      );
+                    } else if (val.answer_type === 'checkbox') {
+                      return (
+                        <div style={{ marginTop: 15, marginBottom: 30 }}>
+                          <div style={{ fontSize: '11pt' }} className="label">
+                            {`${++key}. ${val.text}`}
+                          </div>
+                          <div style={{ margin: '15px 20px 0' }}>
+                            {val.options.map((item, key) => {
+                              return (
+                                <>
+                                  <Material.CheckBoxGroup
+                                    style={{ color: 'red' }}
+                                    key={`checkbox-key-${key}`}
+                                    name={val.name}
+                                    label={item.name}
+                                    onChange={(e) => {
+                                      _question([...question, val.id]);
+                                      _answer({
+                                        ...answer,
+                                        [e.target.name]: [item.id],
+                                      });
+                                    }}
+                                  />
+                                </>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      );
+                    }
                   })}
-                </tbody>
-              </table>
-            </Table>)
-            :(<form onSubmit={onSubmit} autoComplete="off">
-              {testQuestion?.survey?.questions?.length &&
-              testQuestion?.survey?.questions?.map((val, key) => {
-                if (val.answer_type === 'radio') {
-                  return (
-                    <Material.RadioButtonsGroup
-                      required={val.required}
-                      val={val.name}
-                      key={key}
-                      name={val.name}
-                      label={`${++key}. ${val.name}`}
-                      items={val.options}
-                      onChange={(e) => {
-                        _question([...question, val.id]);
-                        _answer({ ...answer, [val.id]: [e.target.value] });
-                      }}
+                {!isQuestionLoading ? (
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      flex: '1',
+                    }}
+                  >
+                    <Button
+                      type="submit"
+                      text={t('Complete the Test')}
+                      className="blue"
+                      width={'90%'}
                     />
-                  );
-                } else if (val.answer_type === 'string'  ) {
-                  return (
-                    <div style={{ marginTop: 15, marginBottom: 30 }}>
-                      <div style={{ fontSize: '11pt' }} className="label">
-                        {`${++key}. ${val.name}`}
-                      </div>
-                      <Material.TextField
-                        required={val.required}
-                        key={key}
-                        name={val.name}
-                        onChange={(e) => {
-                          _question([...question, val.id]);
-                          _answer({ ...answer, [e.target.name]: [e.target.value] });
-                        }}
-                      />
-                    </div>
-                  );
-                } else if(val.answer_type === 'numeric'){
-                  return (
-                    <div style={{ marginTop: 15, marginBottom: 30 }}>
-                      <div style={{ fontSize: '11pt' }} className="label">
-                        {`${++key}. ${val.name}`}
-                      </div>
-                      <Material.TextField
-                        required={val.required}
-                        type="text"
-                        key={key}
-                        name={val.name}
-                        onChange={(e) => {
-                          _question([...question, val.id]);
-                          _answer({ ...answer, [val.id]: [e.target.value] });
-                        }}
-                      />
-                    </div>
-                  );
-                }
-                else if (val.answer_type === 'checkbox') {
-                  return (
-                    <div style={{ marginTop: 15, marginBottom: 30 }}>
-                      <div style={{ fontSize: '11pt' }} className="label">
-                        {`${++key}. ${val.text}`}
-                      </div>
-                      <div style={{ margin: '15px 20px 0' }}>
-                        {val.options.map((item, key) => {
-                          return (
-                            <>
-                              <Material.CheckBoxGroup
-                                style={{ color: 'red' }}
-                                key={`checkbox-key-${key}`}
-                                name={val.name}
-                                label={item.name}
-                                onChange={(e) => {
-                                  _question([...question, val.id]);
-                                  _answer({
-                                    ...answer,
-                                    [e.target.name]: [item.id],
-                                  });
-                                }}
-                              />
-                            </>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  );
-                }
-              })}
-              {!isQuestionLoading ? (
-                <div style={{display:'flex', justifyContent:'center', flex:'1'}}>
-                  <Button type="submit" text={`Testi Tamamla`} className="blue" width={'90%'} />
-                </div>
-              ) : (
-                <div style={{display:'flex', justifyContent:'center', flex:'1'}}>
-                  <Button text={`Yükleniyor...`} className="blue"  width={'90%'} />
-                </div>
-              )}
-            </form>)}
+                  </div>
+                ) : (
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      flex: '1',
+                    }}
+                  >
+                    <Button
+                      text={t('Loading')}
+                      className="blue"
+                      width={'90%'}
+                    />
+                  </div>
+                )}
+              </form>
+            )}
           </DialogContent>
         </Dialog>
       </React.Fragment>
     </Row>
   );
 };
-
-
 
 const Containers = styled(Container)`
   min-height: 340px;
@@ -437,7 +533,6 @@ const ClockMediumIcon = styled(Svg.ClockMediumIcon)`
     height: 20px;
   }
 `;
-
 
 const HeaderText = styled.text`
   color: #00b2a9;

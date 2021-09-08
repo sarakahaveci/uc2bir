@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import {
   Box,
@@ -24,6 +25,8 @@ const EditFiles = ({
   fileGroupsArr,
   fileTypeId,
 }) => {
+  const { t } = useTranslation();
+
   const [files, setFiles] = useState(fileGroup?.files || []);
   const deleteFileModalRef = useRef();
   const fileId = useRef(null);
@@ -73,12 +76,8 @@ const EditFiles = ({
               openDeleteModal();
             }}
             onEditComplete={(value) => {
-              dispatch(
-                updateFile(file.id, value)
-
-              );
-              dispatch(getMyProfileFiles())
-
+              dispatch(updateFile(file.id, value));
+              dispatch(getMyProfileFiles());
             }}
             value={file.name}
           />
@@ -91,7 +90,7 @@ const EditFiles = ({
           width={['100%', '45%', '45%']}
         >
           <Span color="dark" fontWeight="500" fontSize="0.8rem" mr="7px">
-            Dosya yükle
+            {t('Upload file')}
           </Span>
           <PlusButton onClick={(e) => addFileHandler(e, fileGroup.id)} />
         </Box>
@@ -102,16 +101,22 @@ const EditFiles = ({
           <Svg.WarningIcon />
 
           <Text my="30px" textAlign="center" color="dark" lineHeight="27px">
-            Seçtiğiniz belgeyi silmek üzeresiniz. Bu işlemi yapmak istediğinize
-            emin misiniz?
+            {t(
+              'You are about to delete the selected document. Are you sure you want to do this?'
+            )}
           </Text>
         </Box>
 
         <Box row mb="40px" width="100%">
-          <Button color="red" light text="VAZGEÇ" onClick={closeDeleteModal} />
+          <Button
+            color="red"
+            light
+            text={t('Give Up')}
+            onClick={closeDeleteModal}
+          />
           <Button
             light
-            text="SİL"
+            text={t('delete')}
             onClick={() =>
               dispatch(deleteFile(fileId.current, deleteFileSuccessHandler))
             }

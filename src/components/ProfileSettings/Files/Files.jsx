@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { isEmpty } from 'lodash';
+import { useTranslation } from 'react-i18next';
 
 import { Box, Modal, Title, Text, Button, FileUpload } from 'components';
 import { getMyProfileFiles } from 'actions';
@@ -9,6 +10,8 @@ import EditFiles from './EditFiles';
 import { fileDetails } from '../../../constants';
 
 const Files = () => {
+  const { t } = useTranslation();
+
   const { data: fileGroupsArr } = useSelector(
     (state) => state.profileSettings2.fileSettings.files
   );
@@ -48,7 +51,7 @@ const Files = () => {
   const modalContent = (
     <>
       <Title variant="h5" textAlign="left" fontSize="1.3rem" fontWeight="600">
-        Belge Yükle
+        {t('Upload Document')}
       </Title>
 
       <Text color="dark" fontSize="0.9rem">
@@ -67,7 +70,7 @@ const Files = () => {
           disabled={!isValidProgress}
           className="blue"
           width="200px"
-          text="Tamam"
+          text={t('ok')}
           onClick={() => fileRef.current.closeModal()}
         />
       </Box>

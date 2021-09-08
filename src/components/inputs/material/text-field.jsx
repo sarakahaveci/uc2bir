@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 
 import { default as MaterialTextField } from '@material-ui/core/TextField';
 import InputMask from 'react-input-mask';
+import { useTranslation } from 'react-i18next';
 
 import { symbolsArr } from '../../../constants';
 
@@ -37,6 +38,8 @@ const TextField = ({
   helperText,
   ...restProps
 }) => {
+  const { t } = useTranslation();
+
   const [val, setVal] = useState(defaultValue);
   const [newType, setNewType] = useState(type);
 
@@ -146,7 +149,7 @@ const TextField = ({
             className={`${name} save`}
             onClick={() => save(name, val)}
           >
-            Kaydet
+            {t('save')}
           </Save>
 
           {loading && (

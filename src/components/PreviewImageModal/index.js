@@ -1,42 +1,39 @@
 import React from 'react';
 
 import styled from 'styled-components/macro';
- import { device } from 'utils';
+import { device } from 'utils';
 import CloseIcon from '@material-ui/icons/Close';
 
-const PreviewImageModal = ({
-    open,
-    imgSrc,
-    closeModal = () => { },
-}) => {
-
-    return <Root style={{ display: open ? 'flex' : 'none' }}>
-        <>
-            <MainContainer>
-                <ContextContainer>
-                    <CloseIcon
-                        style={{ alignSelf: 'flex-end', cursor: 'pointer' }}
-                        onClick={closeModal}
-                    />
-                    <img style={{ width: '100%', height: '100%' }} src={imgSrc}></img>
-                </ContextContainer>
-            </MainContainer>
-        </>
-    </Root>;
+const PreviewImageModal = ({ open, imgSrc, closeModal = () => {} }) => {
+  return (
+    <Root style={{ display: open ? 'flex' : 'none' }}>
+      <>
+        <MainContainer>
+          <ContextContainer>
+            <CloseIcon
+              style={{ alignSelf: 'flex-end', cursor: 'pointer' }}
+              onClick={closeModal}
+            />
+            <img style={{ width: '100%', height: '100%' }} src={imgSrc}></img>
+          </ContextContainer>
+        </MainContainer>
+      </>
+    </Root>
+  );
 };
 
 const Root = styled.div`
-        display: flex;
-        position: fixed;
-        background: rgba(0, 0, 0, 0.5);
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        z-index: 99999;
-        `;
+  display: flex;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.5);
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 99999;
+`;
 const MainContainer = styled.div`
         display: flex;
         flex-direction: column;
@@ -57,7 +54,7 @@ const MainContainer = styled.div`
         height: 95vh;
         overflow: scroll;
   }
-        `; 
+        `;
 const ContextContainer = styled.div`
         display: flex;
         flex-direction: column;
@@ -72,6 +69,6 @@ const ContextContainer = styled.div`
             padding: 20px 0;
         width: 80vw;
   }
-        `; 
+        `;
 
 export default PreviewImageModal;

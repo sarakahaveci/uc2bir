@@ -17,8 +17,11 @@ import {
 } from 'actions';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
+import { useTranslation } from 'react-i18next';
 
 const Awaitings = ({ setAwaitingCount }) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const items = useSelector(
     (state) => state.professionalReservation?.gymReservation?.awaitings
@@ -87,13 +90,13 @@ const Awaitings = ({ setAwaitingCount }) => {
                 optionalField_2={
                   elm?.pt
                     ? {
-                        label: 'EĞİTMEN',
+                        label: t('trainer'),
                         value: elm?.pt?.name,
                       }
                     : undefined
                 }
                 optionalField_3={{
-                  label: 'SINIF',
+                  label: t('CLASS'),
                   value: elm?.class,
                   value2: `${elm?.class_total_appointment}/${elm?.class_capacity}`,
                 }}
@@ -121,11 +124,11 @@ const Awaitings = ({ setAwaitingCount }) => {
                 customerName={elm?.student}
                 optionalField_1={elm?.branch} //Sport Type || NULL
                 optionalField_2={{
-                  label: 'EĞİTMEN',
-                  value: elm?.pt?.name || ' (Eğitmen seçimi yapılmadı)',
+                  label: t('trainer'),
+                  value: elm?.pt?.name || t('Instructor not selected'),
                 }}
                 optionalField_3={{
-                  label: 'SINIF',
+                  label: t('CLASS'),
                   value: elm?.class,
                   value2:
                     elm?.class_total_appointment + '/' + elm?.class_capacity,
@@ -155,7 +158,7 @@ const Awaitings = ({ setAwaitingCount }) => {
             {startOfWeeksArr().map((date) => _renderTab(date))}
             {!(startOfWeeksArr()?.length > 0) && (
               <text style={{ padding: '20px' }}>
-                Onay bekleyen hiçbir rezervasyon talebi yoktur
+                {t('There are no pending reservation requests')}
               </text>
             )}
           </AccordionContainer>
@@ -188,10 +191,10 @@ const Awaitings = ({ setAwaitingCount }) => {
       </StyledRow>
       <RejectModal
         elm={choosenElm}
-        headerText="Rezervasyonu iptal etmek istediğinize emin misiniz?"
+        headerText={t('Are you sure you want to cancel your appointment?')}
         descText=""
-        cancelLabel="VAZGEÇ"
-        rejectLabel="İPTAL ET"
+        cancelLabel={t('Give Up')}
+        rejectLabel={t('cancel')}
         open={openReject}
         reject={(id, status) => {
           dispatch(GymAwaitingReject(id, status, getSelectedDate));

@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
+import { useTranslation } from 'react-i18next';
 
 import Facility from 'components/FacilityList/Facility';
 import { getGymFacility } from 'actions';
 
 function FacilityList({ userId }) {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const { list } = useSelector((state) => state.userProfile.gymFacility);
 
@@ -22,7 +25,7 @@ function FacilityList({ userId }) {
   ) : (
     <div className="d-flex">
       <strong className="mx-auto">
-        İş Yerine kayıtlı herhangi bir olanak bulunmamaktadır.
+        {t('There are no facilities registered with the Workplace')}
       </strong>
     </div>
   );

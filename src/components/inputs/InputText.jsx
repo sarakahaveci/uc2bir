@@ -1,5 +1,6 @@
 // @ts-nocheck
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const InputText = ({
   className = '',
@@ -13,6 +14,8 @@ const InputText = ({
   onChange = () => {},
   maxLength = '',
 }) => {
+  const { t } = useTranslation();
+
   return (
     <div className={`component-inputs form-groups ${className}`}>
       <label className="label" htmlFor={labelName}>
@@ -29,7 +32,7 @@ const InputText = ({
         onKeyUp={onKeyUp}
       />
       <small style={{ display: 'none' }} className="error hidden form-text">
-        Lütfen {labelText} Giriniz!
+        {t('please')} {labelText} {t('enter')}!
       </small>
     </div>
   );

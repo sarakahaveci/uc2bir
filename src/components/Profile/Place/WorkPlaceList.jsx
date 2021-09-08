@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { LocationCard } from 'components';
 import { getPtWorkingHomePlace } from 'actions';
 
 export default function WorkPlace({ userId, isOnline }) {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
 
   const { data } = useSelector(
@@ -30,9 +33,11 @@ export default function WorkPlace({ userId, isOnline }) {
         ))
       ) : (
         <div className="d-flex">
-          {!isOnline && <strong className="mx-auto">
-            Kullanıcının bu çalışmaya yerine ait bilgisi bulunmamaktadır.
-          </strong>}
+          {!isOnline && (
+            <strong className="mx-auto">
+              {t('The user has no information about the place of this study')}
+            </strong>
+          )}
         </div>
       )}
     </div>

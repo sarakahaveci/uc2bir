@@ -1,22 +1,23 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 import { Svg, Text } from 'components';
 import GroupLeftSelections from './GroupLeftSelections';
 import GroupRightSelections from './GroupRightSelections';
 import styled from 'styled-components/macro';
 
-export default function GroupSlot({
-  type,
-  setTabPage,
-  setTab,
-}) {
+export default function GroupSlot({ type, setTabPage, setTab }) {
+  const { t } = useTranslation();
+
   return (
     <>
       <BackLink onClick={() => setTabPage('')}>
         <Svg.ArrowLeftIcon />
 
-        <span>{type == 'dt' && "Paket Oluştur "|| "Grup Ders Oluştur"}</span>
+        <span>
+          {(type == 'dt' && t('Create Package')) || t('Create Group Lessons')}
+        </span>
       </BackLink>
 
       <Row>
@@ -25,7 +26,11 @@ export default function GroupSlot({
         </Col>
 
         <Col lg={6}>
-          <GroupRightSelections type={type} setTabPage={setTabPage} setTab={setTab} />
+          <GroupRightSelections
+            type={type}
+            setTabPage={setTabPage}
+            setTab={setTab}
+          />
         </Col>
       </Row>
     </>

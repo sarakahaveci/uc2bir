@@ -8,15 +8,19 @@ import {
   sendMessageToRoom,
   getRooms,
   sendFileToRoom,
-  setRoomName, updateUserRead
+  setRoomName,
+  updateUserRead,
 } from 'actions';
 import MessageRow from './MessageRow';
 import ChatBoxHeader from './ChatBoxHeader';
 import DefaultProfileImg from 'assets/default-profile.jpg';
 import { PlusButton, PreviewImageModal } from 'components';
 import { resizeFile } from 'utils';
+import { useTranslation } from 'react-i18next';
 
 export default function MessageArea() {
+  const { t } = useTranslation();
+
   // eslint-disable-next-line
   const [file, setFile] = useState();
   const [previewImg, setPreviewImg] = useState(null);
@@ -40,74 +44,91 @@ export default function MessageArea() {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userProfile.userInfo);
   const [isFirstTime, setIsFirstTime] = useState(true);
-  const rooms = useSelector(state => state.profileSettings2.messages.rooms.data)
-  useEffect(()=>{
-    setIsFirstTime(true)
-  },[])
+  const rooms = useSelector(
+    (state) => state.profileSettings2.messages.rooms.data
+  );
+  useEffect(() => {
+    setIsFirstTime(true);
+  }, []);
   useEffect(() => {
     if (selectedRoomName) {
+      dispatch(
+        getRoomMessages(selectedRoomName, () => {
+          dispatch(
+            updateUserRead(() => {
+              dispatch(
+                getRooms((data) => {
+                  const allRooms = data.data;
 
-      dispatch(getRoomMessages(selectedRoomName, () => {
-        dispatch(updateUserRead(() => {
-          dispatch(getRooms((data) => {
-            const allRooms = data.data;
-
-            if(isFirstTime){
-              if (userInfo) {
-                var temparr = rooms?.filter(item=>item?.user_meta?.id == userInfo.id)
-                if(temparr?.length>0){
-                
-                }else{
-                  dispatch(
-                    setRoomName(userInfo.id + 'tempRoom', userInfo)
-                  );
-                }
-                
-              } else {
-
-                dispatch(
-                  setRoomName(allRooms?.[0]?.room_name, data.data?.[0]?.user_meta)
-                );
-              }
-              setIsFirstTime(false)
-            }
-
-          }))
-        }))
-      }));
+                  if (isFirstTime) {
+                    if (userInfo) {
+                      var temparr = rooms?.filter(
+                        (item) => item?.user_meta?.id == userInfo.id
+                      );
+                      if (temparr?.length > 0) {
+                      } else {
+                        dispatch(
+                          setRoomName(userInfo.id + 'tempRoom', userInfo)
+                        );
+                      }
+                    } else {
+                      dispatch(
+                        setRoomName(
+                          allRooms?.[0]?.room_name,
+                          data.data?.[0]?.user_meta
+                        )
+                      );
+                    }
+                    setIsFirstTime(false);
+                  }
+                })
+              );
+            })
+          );
+        })
+      );
     }
   }, [selectedRoomName]);
 
   const successMessageCallback = () => {
     setMessage('');
-    dispatch(getRoomMessages(selectedRoomName, () => {
-      dispatch(updateUserRead(() => {
+    dispatch(
+      getRoomMessages(selectedRoomName, () => {
+        dispatch(
+          updateUserRead(() => {
+            dispatch(
+              getRooms((data) => {
+                if (isFirstTime) {
+                  const allRooms = data.data;
 
-        dispatch(getRooms((data) => {
-          if (isFirstTime) {
-            const allRooms = data.data;
+                  if (userInfo) {
+                    dispatch(
+                      setRoomName(
+                        userInfo.id + 'tempRoom',
+                        data.data?.[0]?.user_meta
+                      )
+                    );
+                  } else {
+                    dispatch(
+                      setRoomName(
+                        allRooms?.[0]?.room_name,
+                        data.data?.[0]?.user_meta
+                      )
+                    );
+                  }
+                  setIsFirstTime(false);
+                }
+              })
+            );
+          })
+        );
+      })
+    );
 
-            if (userInfo) {
-              dispatch(
-                setRoomName(userInfo.id + 'tempRoom', data.data?.[0]?.user_meta)
-              );
-            } else {
-
-              dispatch(
-                setRoomName(allRooms?.[0]?.room_name, data.data?.[0]?.user_meta)
-              );
-            }
-            setIsFirstTime(false)
-          }
-        }))
-      }))
-    }));
-
-   
     setFile();
     setPreviewImg(null);
     setShowPreviewImg(false);
-    setFileSendButtonsEnabled(true)
+    setFileSendButtonsEnabled(true);
   };
 
   const handleSubmitMessage = (event) => {
@@ -117,27 +138,25 @@ export default function MessageArea() {
   };
 
   const handleSubmitPhoto = () => {
-    setFileSendButtonsEnabled(false)
+    setFileSendButtonsEnabled(false);
     dispatch(sendFileToRoom(file, successMessageCallback));
   };
 
   const handleCancelSubmitPhoto = () => {
-    setFileSendButtonsEnabled(false)
+    setFileSendButtonsEnabled(false);
     setPreviewImg(null);
     setShowPreviewImg(false);
   };
-
-
 
   const fileChangeHandler = async (e) => {
     const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
     if (allowedExtensions.exec(e.target.value)) {
       const resizedFile = await resizeFile(e.target.files[0]);
       setFile(resizedFile);
-      setPreviewImg(URL.createObjectURL(e.target.files[0]))
-      setShowPreviewImg(true)
+      setPreviewImg(URL.createObjectURL(e.target.files[0]));
+      setShowPreviewImg(true);
     } else {
-      toast.error('Yalnızca fotoğraf gönderebilirsiniz.');
+      toast.error(t('You can only send photos'));
     }
   };
 
@@ -150,20 +169,41 @@ export default function MessageArea() {
     >
       <ChatBoxHeader />
       <div className="message-page__message__wrapper">
-        {showPreviewImg &&
+        {showPreviewImg && (
           <StyledPreview>
-            <img onClick={() => {
-              setPreviewImageModalOpen(true);
-            }} className="preview-img" src={previewImg} />
+            <img
+              onClick={() => {
+                setPreviewImageModalOpen(true);
+              }}
+              className="preview-img"
+              src={previewImg}
+            />
 
-            {fileSendButtonsEnabled ?
-              <StyledPreviewButtons>  <span onClick={() => { handleCancelSubmitPhoto() }} className="button-container left" >Vazgeç</span>
-                <span onClick={() => { handleSubmitPhoto() }} className="button-container right" >Fotoğrafı Gönder</span>
+            {fileSendButtonsEnabled ? (
+              <StyledPreviewButtons>
+                {' '}
+                <span
+                  onClick={() => {
+                    handleCancelSubmitPhoto();
+                  }}
+                  className="button-container left"
+                >
+                  {t('Give Up')}
+                </span>
+                <span
+                  onClick={() => {
+                    handleSubmitPhoto();
+                  }}
+                  className="button-container right"
+                >
+                  {t('Send the photo')}
+                </span>
               </StyledPreviewButtons>
-              : <StyledPreviewButtons></StyledPreviewButtons>
-            }
+            ) : (
+              <StyledPreviewButtons></StyledPreviewButtons>
+            )}
           </StyledPreview>
-        }
+        )}
         <div className="message-page__chat__row">
           {allMessages?.map((message, index) => {
             const time = ISOToTimeConverter(message.created_at);
@@ -186,7 +226,7 @@ export default function MessageArea() {
         </div>
         <InputWrapper>
           <input
-            placeholder="Mesaj yaz"
+            placeholder={t('Write message')}
             className="message-input w-100 mt-2"
             value={message}
             onChange={(event) => setMessage(event.target.value)}
@@ -211,7 +251,7 @@ export default function MessageArea() {
         imgSrc={previewImg}
         open={previewImageModalOpen}
         closeModal={() => {
-          setPreviewImageModalOpen(false)
+          setPreviewImageModalOpen(false);
         }}
       />
     </div>
@@ -235,53 +275,53 @@ const FileInput = styled.input`
 `;
 
 const StyledPreview = styled.div`
-border-top-right-radius:25px;
-border-top-left-radius:25px;
-border-bottom-left-radius:25px;
-margin-bottom:40px;
-z-index:999;
-position:absolute;
-background-color:#00b2a9;
-display:flex;
-flex-direction:column;
-width:96%;
-height:47%;
-align-items:center;
-justify-content:center; 
-.preview-img{ 
-  cursor:pointer;
-border-top-right-radius:25px;
-border-top-left-radius:25px;
-border-bottom-left-radius:25px;
-width:auto;
-max-width:80%;
-height:90%;
-margin-top:30px; 
-}
+  border-top-right-radius: 25px;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  margin-bottom: 40px;
+  z-index: 999;
+  position: absolute;
+  background-color: #00b2a9;
+  display: flex;
+  flex-direction: column;
+  width: 96%;
+  height: 47%;
+  align-items: center;
+  justify-content: center;
+  .preview-img {
+    cursor: pointer;
+    border-top-right-radius: 25px;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    width: auto;
+    max-width: 80%;
+    height: 90%;
+    margin-top: 30px;
+  }
 `;
 
 const StyledPreviewButtons = styled.div`
-margin-bottom:30px;
-width:100%;
-justify-content:space-between;
-display:flex;
-min-height:0.9rem;
-background-color:transparent; 
-.button-container{
-  width:100%;
-  background-color:transparent;
-  color:white;
-  font-size:0.9rem;
-  font-weight:600;    
-  cursor:pointer; 
-}
-.left{
-  margin-left:10%; 
-  text-align:start;
-}
-.right{ 
-  cursor:pointer; ;
-  margin-right:10%;
-  text-align:end;
-}
+  margin-bottom: 30px;
+  width: 100%;
+  justify-content: space-between;
+  display: flex;
+  min-height: 0.9rem;
+  background-color: transparent;
+  .button-container {
+    width: 100%;
+    background-color: transparent;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .left {
+    margin-left: 10%;
+    text-align: start;
+  }
+  .right {
+    cursor: pointer;
+    margin-right: 10%;
+    text-align: end;
+  }
 `;

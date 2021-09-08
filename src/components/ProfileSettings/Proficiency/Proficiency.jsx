@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { getProficiency } from 'actions';
 import { Text, Accordion, Title } from 'components';
@@ -8,6 +9,8 @@ import ProficiencyImage from 'assets/proficiency.png';
 import ProficiencyRow from './ProficiencyRow';
 
 const Proficiency = () => {
+  const { t } = useTranslation();
+
   const { data: proficiencyData } = useSelector(
     (state) => state.profileSettings2.proficiencySettings.proficiency
   );
@@ -21,7 +24,7 @@ const Proficiency = () => {
   return (
     <div className="proficiency">
       <Title variant="h5" textAlign="left" className="proficiency__title">
-        Uzmanlıklarım
+        {t('my specialties')}
       </Title>
 
       <Row>
@@ -35,11 +38,11 @@ const Proficiency = () => {
 
         <Col lg={6} className="proficiency__info">
           <Text color="dark" fontSize="1rem">
-            Uzmanlıklarım
+            {t('my specialties')}
           </Text>
 
           <Text color="dark" fontSize="0.9rem" fontWeight="500" mb="10px">
-            Branşlarınıza ait uzmanlıklarınızı giriniz.
+            {t('Enter your specializations for your branches')}
           </Text>
 
           <Accordion>

@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
 import { useSelector, useDispatch } from 'react-redux';
 import { device } from 'utils';
+import { useTranslation } from 'react-i18next';
 
 import { getGymPtList } from 'actions';
 import { Pagination } from 'components';
 import LongUserCard from 'components/UserCards/LongUserCard';
 
 function FindPt({ userId }) {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const { data } = useSelector((state) => state.userProfile.gymPtList);
 
@@ -44,7 +47,7 @@ function FindPt({ userId }) {
       ) : (
         <div className="d-flex">
           <strong className="mx-auto">
-            İş Yerine kayıtlı herhangi bir eğitmen bulunmamaktadır.
+            {t('There are no trainers registered with the Workplace')}
           </strong>
         </div>
       )}

@@ -18,7 +18,11 @@ import {
 } from 'actions';
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+
 const Approved = ({ setSubPage }) => {
+  const { t } = useTranslation();
+
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
   const [openCancellation, setOpenCancellation] = useState(undefined);
   const [selectedDate, setSelectedDate] = useState(undefined);
@@ -85,11 +89,11 @@ const Approved = ({ setSubPage }) => {
                 customerName={elm?.student}
                 optionalField_1={elm?.branch} //Sport Type || NULL
                 optionalField_2={{
-                  label: 'EĞİTMEN',
+                  label: t('trainer'),
                   value: elm?.pt?.name,
                 }}
                 optionalField_3={{
-                  label: 'SINIF',
+                  label: t('CLASS'),
                   value: elm?.class,
                   value2:
                     elm?.class_total_appointment + '/' + elm?.class_capacity,
@@ -115,7 +119,7 @@ const Approved = ({ setSubPage }) => {
                 customerName={elm?.student}
                 optionalField_1={elm?.branch}
                 optionalField_3={{
-                  label: 'SINIF',
+                  label: t('CLASS'),
                   value: elm?.class,
                   value2:
                     elm?.class_total_appointment + '/' + elm?.class_capacity,
@@ -143,7 +147,7 @@ const Approved = ({ setSubPage }) => {
             {startOfWeeksArr().map((date) => _renderTab(date))}
             {!(startOfWeeksArr()?.length > 0) && (
               <text style={{ padding: '20px' }}>
-                Onay bekleyen hiçbir rezervasyon talebi yoktur
+                {t('There are no pending reservation requests')}
               </text>
             )}
           </AccordionContainer>
@@ -175,11 +179,12 @@ const Approved = ({ setSubPage }) => {
         </StyledCol>
       </StyledRow>
       <CancellationModal
-        headerText="Randevunuzu iptal etmek istediğinize
-        emin misiniz?"
-        descText={`Seçili oluşturulan rezervasyonunuz iptal edilecektir. Lütfen iptal koşulları’nı okuduğunuzdan emin olun.`}
-        cancelLabel="RANDEVUMU İPTAL ET"
-        cancelProcessLabel="Vazgeç"
+        headerText={t('Are you sure you want to cancel your appointment?')}
+        descText={t(
+          'Your selected reservation will be cancelled. Please be sure to read the cancellation policies'
+        )}
+        cancelLabel={t('CANCEL MY APPOINTMENT')}
+        cancelProcessLabel={t('Give Up')}
         open={openCancellation}
         cancelStepOne={(id) => {
           dispatch(GymApproveCancelStepOne(id));

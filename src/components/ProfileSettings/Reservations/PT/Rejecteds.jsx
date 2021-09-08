@@ -13,8 +13,11 @@ import { device } from 'utils';
 import { getPtRejects } from 'actions';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
+import { useTranslation } from 'react-i18next';
 
 const Rejecteds = () => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const items = useSelector(
     (state) => state.professionalReservation?.ptReservation?.rejecteds
@@ -48,40 +51,37 @@ const Rejecteds = () => {
     dispatch(getPtRejects());
   }, []);
   function _renderTab(date) {
-    if (items?.appointment?.[
-      moment(date).format('DD.MM.YYYY')
-    ]) {
+    if (items?.appointment?.[moment(date).format('DD.MM.YYYY')]) {
       return (
         <ReservationAccordion
           defaultOpen={true}
           parent
           title={moment(date).format('DD.MM.YYYY')}
         >
-          {items?.appointment?.[
-            moment(date).format('DD.MM.YYYY')
-          ]?.gym?.map((elm, i) => (
-            <ApproveCardContainer key={i}>
-              <Svg.SessionType.Gym style={{ marginRight: '10px' }} />
+          {items?.appointment?.[moment(date).format('DD.MM.YYYY')]?.gym?.map(
+            (elm, i) => (
+              <ApproveCardContainer key={i}>
+                <Svg.SessionType.Gym style={{ marginRight: '10px' }} />
 
-              <ApproveCard
-                status_bs={elm?.status_bs}
-                status_st={elm?.status_st}
-                date={elm?.hour}
-                customerName={elm?.student}
-                user_id={elm?.student_id}
-
-                type="rejecteds"
-                onApprove={() => {
-                  setChoosenElm(elm);
-                  setOpenApprove(true);
-                }}
-                onReject={() => {
-                  setChoosenElm(elm);
-                  setOpenReject(true);
-                }}
-              />
-            </ApproveCardContainer>
-          )) || <></>}
+                <ApproveCard
+                  status_bs={elm?.status_bs}
+                  status_st={elm?.status_st}
+                  date={elm?.hour}
+                  customerName={elm?.student}
+                  user_id={elm?.student_id}
+                  type="rejecteds"
+                  onApprove={() => {
+                    setChoosenElm(elm);
+                    setOpenApprove(true);
+                  }}
+                  onReject={() => {
+                    setChoosenElm(elm);
+                    setOpenReject(true);
+                  }}
+                />
+              </ApproveCardContainer>
+            )
+          ) || <></>}
 
           {items?.appointment?.[
             moment(date).format('DD.MM.YYYY')
@@ -92,7 +92,6 @@ const Rejecteds = () => {
                 date={elm?.hour}
                 customerName={elm?.student}
                 user_id={elm?.student_id}
-
                 status_bs={elm?.status_bs}
                 status_st={elm?.status_st}
                 type="rejecteds"
@@ -108,51 +107,47 @@ const Rejecteds = () => {
             </ApproveCardContainer>
           )) || <></>}
 
-          {items?.appointment?.[
-            moment(date).format('DD.MM.YYYY')
-          ]?.online?.map((elm, i) => (
-            <ApproveCardContainer key={i}>
-              <Svg.SessionType.Online style={{ marginRight: '10px' }} />
-              <ApproveCard
-                date={elm?.hour}
-                status_bs={elm?.status_bs}
-                status_st={elm?.status_st}
-                customerName={elm?.student}
-                user_id={elm?.student_id}
-
-                type="rejecteds"
-                onApprove={() => {
-                  setChoosenElm(elm);
-                  setOpenApprove(true);
-                }}
-                onReject={() => {
-                  setChoosenElm(elm);
-                  setOpenReject(true);
-                }}
-              />
-            </ApproveCardContainer>
-          )) || <></>}
+          {items?.appointment?.[moment(date).format('DD.MM.YYYY')]?.online?.map(
+            (elm, i) => (
+              <ApproveCardContainer key={i}>
+                <Svg.SessionType.Online style={{ marginRight: '10px' }} />
+                <ApproveCard
+                  date={elm?.hour}
+                  status_bs={elm?.status_bs}
+                  status_st={elm?.status_st}
+                  customerName={elm?.student}
+                  user_id={elm?.student_id}
+                  type="rejecteds"
+                  onApprove={() => {
+                    setChoosenElm(elm);
+                    setOpenApprove(true);
+                  }}
+                  onReject={() => {
+                    setChoosenElm(elm);
+                    setOpenReject(true);
+                  }}
+                />
+              </ApproveCardContainer>
+            )
+          ) || <></>}
         </ReservationAccordion>
-      )
+      );
     } else {
-      return (<></>)
+      return <></>;
     }
-
   }
   return (
     <StyledContainer>
       <StyledRow>
         <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
           <AccordionContainer>
-            {
-              startOfWeeksArr().map((date) => (
-                _renderTab(date)
-              ))
-
-            }
-            {!(startOfWeeksArr()?.length > 0) && <text style={{ padding: '20px' }}>Onay bekleyen hiçbir rezervasyon talebi yoktur</text>}
+            {startOfWeeksArr().map((date) => _renderTab(date))}
+            {!(startOfWeeksArr()?.length > 0) && (
+              <text style={{ padding: '20px' }}>
+                {t('There are no pending reservation requests')}
+              </text>
+            )}
           </AccordionContainer>
-
         </StyledCol>
         <StyledCol
           style={{
@@ -210,17 +205,16 @@ const DateContainer = styled.div`
 const AccordionContainer = styled.div`
   display: flex;
   flex-direction: column;
-
 `;
 const ApproveCardContainer = styled.div`
-display: flex;
-align-items: center;
-justify-content:space-between;
-margin: 20px 0;
-padding:5px;
-@media ${device.sm} {
-  margin: 0;
-}
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 0;
+  padding: 5px;
+  @media ${device.sm} {
+    margin: 0;
+  }
 `;
 
 const StyledCol = styled(Col)`

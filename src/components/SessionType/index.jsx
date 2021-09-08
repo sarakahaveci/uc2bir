@@ -99,7 +99,7 @@ const SessionType = () => {
         },
         {
           id: 'home_park',
-          name: 'Ev / Park',
+          name: t('HOME / PARK'),
           active: false,
           icon: <Svg.SessionType.Park />,
           create: {
@@ -142,7 +142,7 @@ const SessionType = () => {
         <Row>
           <Col lg="12">
             <Title fontSize="14pt" style={{ padding: 15 }} textAlign="left">
-              Oturum Türleri & Çalıştığım Yerler
+              {t('Session Types & Where I Work')}
             </Title>
           </Col>
           {content}

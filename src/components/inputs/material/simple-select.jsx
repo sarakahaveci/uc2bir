@@ -5,6 +5,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { useTranslation } from 'react-i18next';
 
 import styled from 'styled-components/macro';
 import { Spinner } from 'react-bootstrap';
@@ -38,8 +39,12 @@ const SimpleSelect = ({
   labelFontSize = '',
   action = () => {},
 }) => {
+  const { t } = useTranslation();
+
   const classes = useStyles();
-  const [val, setVal] = useState(multiple? defaultValueMultiple:defaultValue);
+  const [val, setVal] = useState(
+    multiple ? defaultValueMultiple : defaultValue
+  );
 
   const handleChange = (event) => {
     setVal(event.target.value);
@@ -94,7 +99,10 @@ const SimpleSelect = ({
     >
       <FormControl className={classes.formControl}>
         {icon && icon({ className: 'material-inputs-icon' })}
-        <InputLabel id={name} style={{ fontSize: labelFontSize && labelFontSize }}>
+        <InputLabel
+          id={name}
+          style={{ fontSize: labelFontSize && labelFontSize }}
+        >
           {label}
           {required && <> *</>}
         </InputLabel>
@@ -127,7 +135,7 @@ const SimpleSelect = ({
             className={`${name} save`}
             onClick={() => save(name, val)}
           >
-            Kaydet
+            {t('save')}
           </Save>
           {loading && (
             <StyledSpinner

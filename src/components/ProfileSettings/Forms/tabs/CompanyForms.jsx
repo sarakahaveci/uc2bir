@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { Material, Button } from 'components';
 import styled from 'styled-components/macro';
@@ -9,6 +10,8 @@ import { setProfile } from 'actions';
 import { yesNo } from 'constants/formData';
 
 const ProfileForms = ({ type }) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const { detail } = useSelector(
     (state) => state.profileSettings2.profileDetail
@@ -26,14 +29,14 @@ const ProfileForms = ({ type }) => {
       setProfile(
         { ...data },
         () => {
-          toast.success('Bilgileriniz güncellendi.', {
+          toast.success(t('Your information has been updated'), {
             position: 'bottom-right',
             autoClose: 2000,
           });
           setData({});
         },
         () => {
-          toast.error('Güncelleme işlemi yapılamadı.', {
+          toast.error(t('Failed to update'), {
             position: 'bottom-right',
             autoClose: 2000,
           });
@@ -50,7 +53,7 @@ const ProfileForms = ({ type }) => {
             required
             name="tax"
             forHtml="tax"
-            label="Vergi Mükellefi misiniz?"
+            label={t('Are you a Taxpayer?')}
             onChange={(event) => setHasTaxNumber(!!event.target.value)}
             changeValue={hasTaxNumber ? 1 : 0}
             items={yesNo}
@@ -58,7 +61,7 @@ const ProfileForms = ({ type }) => {
           {(type === 'PERSONAL_TRAINER' || 'WORK_PLACE') && (
             <>
               <Material.TextField
-                label="Şirket Ünvanı"
+                label={t('Company Title')}
                 type="text"
                 name="title"
                 defaultValue={detail?.data?.title}
@@ -70,7 +73,7 @@ const ProfileForms = ({ type }) => {
                 inputProps={{ maxLength: 100 }}
               />
               <Material.TextField
-                label="Vergi Dairesi"
+                label={t('Tax Administration')}
                 type="text"
                 name="tax_office"
                 defaultValue={detail?.data?.tax_office}
@@ -82,7 +85,7 @@ const ProfileForms = ({ type }) => {
                 inputProps={{ maxLength: 100 }}
               />
               <Material.TextField
-                label="Vergi No"
+                label={t('Tax number')}
                 type="text"
                 name="tax_number"
                 defaultValue={detail?.data?.tax_number}
@@ -97,7 +100,7 @@ const ProfileForms = ({ type }) => {
                 <Button
                   fontWeight="600"
                   type="submit"
-                  text="KAYDET"
+                  text={t('save')}
                   fontSize="15px"
                   color="blue"
                   transparentDisabled={

@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import styled from 'styled-components/macro';
+import { useTranslation } from 'react-i18next';
 
 import { setPassword } from 'actions';
 import { Material, Svg, Button } from 'components';
 
 const Password = (props) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const password = useSelector((state) => state.profileSettings.password);
 
@@ -17,14 +20,14 @@ const Password = (props) => {
       setPassword(
         { ...data },
         () => {
-          toast.success('Şifreniz güncellendi.', {
+          toast.success(t('Your password has been updated'), {
             position: 'bottom-right',
             autoClose: 2000,
           });
           setData({});
         },
         () => {
-          toast.error('Güncelleme işlemi yapılamadı.', {
+          toast.error(t('Failed to update'), {
             position: 'bottom-right',
             autoClose: 2000,
           });
@@ -39,16 +42,19 @@ const Password = (props) => {
       if (data.new_password === data.new_password_confirmation) {
         actionSetData();
       } else {
-        toast.info(() => 'Tekrarlanan Şifre Uymuyor.', {
+        toast.info(() => t('Duplicate Password Does Not Match'), {
           position: 'bottom-right',
           autoClose: 2000,
         });
       }
     } else {
-      toast.info(() => 'Şifreniz bir önceki şifreniz ile aynı olamaz!', {
-        position: 'bottom-right',
-        autoClose: 2000,
-      });
+      toast.info(
+        () => t('Your password cannot be the same as your previous password!'),
+        {
+          position: 'bottom-right',
+          autoClose: 2000,
+        }
+      );
     }
   };
 
@@ -57,7 +63,7 @@ const Password = (props) => {
       <form onSubmit={onSubmit}>
         <Material.TextField
           required
-          label="Şifreniz"
+          label={t('Your password')}
           type="password"
           settings="current"
           name="password"
@@ -68,7 +74,7 @@ const Password = (props) => {
         />
         <Material.TextField
           required
-          label="Yeni Şifreniz"
+          label={t('Your New Password')}
           type="password"
           settings="current"
           name="new_password"
@@ -79,7 +85,7 @@ const Password = (props) => {
         />
         <Material.TextField
           required
-          label="Yeni Şifre Tekrar"
+          label={t('New Password Again')}
           type="password"
           settings="current"
           name="new_password_confirmation"
@@ -92,7 +98,7 @@ const Password = (props) => {
           <Button
             fontWeight="600"
             type="submit"
-            text="KAYDET"
+            text={t('save')}
             fontSize="15px"
             color="blue"
             transparentDisabled={Object.keys(data).length === 0 ? true : false}

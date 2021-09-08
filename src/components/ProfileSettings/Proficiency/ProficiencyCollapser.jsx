@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components/macro';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { Material, scrollbar, Spinner } from 'components';
 
@@ -11,13 +12,16 @@ const ProficiencyCollapser = ({
   saveProficiencyHandler,
   showInputError,
 }) => {
+  const { t } = useTranslation();
+
   const { isLoading } = useSelector(
     (state) => state.profileSettings2.proficiencySettings.addProficiency
   );
 
-  const addedProficiencyKeys = useMemo(() => Object.keys(addedProficiencies), [
-    addedProficiencies,
-  ]);
+  const addedProficiencyKeys = useMemo(
+    () => Object.keys(addedProficiencies),
+    [addedProficiencies]
+  );
 
   const inputsFromData = data?.speciality?.map((item, index) => (
     <Material.TextField
@@ -25,9 +29,9 @@ const ProficiencyCollapser = ({
       defaultValue={item.name}
       rightTextNode={
         <StatusInfo status={item.status}>
-          {item.status === 'active' && 'Onaylandı'}
-          {item.status === 'pending' && 'Onay Bekliyor'}
-          {item.status === 'passive' && 'Reddedildi'}
+          {item.status === 'active' && t('Approved')}
+          {item.status === 'pending' && t('Waiting for approval')}
+          {item.status === 'passive' && t('Denied')}
         </StatusInfo>
       }
     />
@@ -57,7 +61,7 @@ const ProficiencyCollapser = ({
       <div className="proficiency-row__save-wrapper">
         {showInputError && (
           <div className="proficiency-row__error">
-            Lütfen boş alanları doldurunuz.
+            {t('Please fill in the blanks')}
           </div>
         )}
 

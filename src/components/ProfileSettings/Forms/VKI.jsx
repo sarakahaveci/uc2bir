@@ -7,8 +7,11 @@ import styled from 'styled-components/macro';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { getVKI, setVKI } from 'actions';
+import { useTranslation } from 'react-i18next';
 
 const VKI = () => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const { vki } = useSelector((state) => state.profileSettings);
   const [data, setData] = useState({});
@@ -19,7 +22,7 @@ const VKI = () => {
       getVKI(
         () => {},
         () => {
-          toast.error('Profil Bilgileri Getirilemedi.', {
+          toast.error(t('Failed to Fetch Profile Information'), {
             position: 'bottom-right',
             autoClose: 2000,
           });
@@ -43,7 +46,7 @@ const VKI = () => {
           height: data.height || vki.data.height,
         },
         () => {
-          toast.success('Bilgileriniz güncellendi.', {
+          toast.success(t('Your information has been updated'), {
             position: 'bottom-right',
             autoClose: 2000,
           });
@@ -51,7 +54,7 @@ const VKI = () => {
           actionGetData();
         },
         () =>
-          toast.error('Profil Bilgileri Getirilemedi.', {
+          toast.error(t('Failed to update'), {
             position: 'bottom-right',
             autoClose: 2000,
           })
@@ -68,7 +71,7 @@ const VKI = () => {
       {vki.isSuccess && (
         <form onSubmit={onSubmit}>
           <Material.TextField
-            label="Boy (cm)"
+            label={t('Height (cm)')}
             type="text"
             name="height"
             mask="999"
@@ -79,7 +82,7 @@ const VKI = () => {
             }
           />
           <Material.TextField
-            label="Ağırlık (kg)"
+            label={t('Weight (kg)')}
             type="text"
             mask="999"
             name="weight"
@@ -91,14 +94,14 @@ const VKI = () => {
           />
           <Span>
             <p style={{ fontWeight: '400', fontSize: '14px' }}>
-              VKI (Vücut Kitle Endeksi ) : {vki?.data?.vki || result}
+              {t('BMI (Body Mass Index)')} : {vki?.data?.vki || result}
             </p>{' '}
           </Span>
           <Footer>
             <Button
               fontWeight="600"
               type="submit"
-              text="KAYDET"
+              text={t('save')}
               fontSize="15px"
               color="blue"
               transparentDisabled={

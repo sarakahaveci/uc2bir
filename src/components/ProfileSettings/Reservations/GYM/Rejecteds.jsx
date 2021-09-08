@@ -13,7 +13,11 @@ import { device } from 'utils';
 import { getGymRejects } from 'actions';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
+import { useTranslation } from 'react-i18next';
+
 const Rejecteds = () => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const items = useSelector(
     (state) => state.professionalReservation?.gymReservation?.rejecteds
@@ -48,16 +52,13 @@ const Rejecteds = () => {
   }, [selectedDate]);
 
   function _renderTab(date) {
-    if (items?.appointment?.[
-      moment(date).format('DD.MM.YYYY')
-    ]) {
+    if (items?.appointment?.[moment(date).format('DD.MM.YYYY')]) {
       return (
         <ReservationAccordion
           defaultOpen={true}
           parent
           title={moment(date).format('DD.MM.YYYY')}
         >
-
           {items?.appointment?.[
             moment(date).format('DD.MM.YYYY')
           ]?.with_pt?.map((elm, i) => (
@@ -68,20 +69,19 @@ const Rejecteds = () => {
                 type="rejecteds"
                 date={elm?.hour}
                 user_id={elm?.student_id}
-
                 status_bs={elm?.status_bs}
                 status_pt={elm?.status_pt}
                 customerName={elm?.student}
                 optionalField_1={elm?.branch} //Sport Type || NULL
                 optionalField_2={{
-                  label: 'EĞİTMEN',
+                  label: t('trainer'),
                   value: elm?.pt?.name,
                 }}
                 optionalField_3={{
-                  label: 'SINIF',
+                  label: t('CLASS'),
                   value: elm?.class,
-                  value2: elm?.class_total_appointment + '/' + elm?.class_capacity,
-
+                  value2:
+                    elm?.class_total_appointment + '/' + elm?.class_capacity,
                 }}
                 onApprove={() => {
                   setChoosenElm(elm);
@@ -102,20 +102,18 @@ const Rejecteds = () => {
               <Svg.SessionType.Gym style={{ marginRight: '10px' }} />
 
               <ApproveCard
-                              user_id={elm?.student_id}
-
+                user_id={elm?.student_id}
                 type="rejecteds"
                 date={elm?.hour}
                 status_bs={elm?.status_bs}
                 status_pt={elm?.status_pt}
                 customerName={elm?.student}
                 optionalField_1={elm?.branch} //Sport Type || NULL
-
                 optionalField_3={{
-                  label: 'SINIF',
+                  label: t('CLASS'),
                   value: elm?.class,
-                  value2: elm?.class_total_appointment + '/' + elm?.class_capacity,
-
+                  value2:
+                    elm?.class_total_appointment + '/' + elm?.class_capacity,
                 }}
                 onApprove={() => {
                   setChoosenElm(elm);
@@ -128,11 +126,10 @@ const Rejecteds = () => {
               />
             </ApproveCardContainer>
           )) || <></>}
-
         </ReservationAccordion>
-      )
+      );
     } else {
-      return (<></>)
+      return <></>;
     }
   }
   return (
@@ -140,15 +137,13 @@ const Rejecteds = () => {
       <StyledRow>
         <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
           <AccordionContainer>
-            {
-              startOfWeeksArr().map((date) => (
-                _renderTab(date)
-              ))
-
-            }
-            {!(startOfWeeksArr()?.length > 0) && <text style={{ padding: '20px' }}>Onay bekleyen hiçbir rezervasyon talebi yoktur</text>}
+            {startOfWeeksArr().map((date) => _renderTab(date))}
+            {!(startOfWeeksArr()?.length > 0) && (
+              <text style={{ padding: '20px' }}>
+                {t('There are no pending reservation requests')}
+              </text>
+            )}
           </AccordionContainer>
-
         </StyledCol>
         <StyledCol
           style={{
@@ -207,14 +202,14 @@ const AccordionContainer = styled.div`
   flex-direction: column;
 `;
 const ApproveCardContainer = styled.div`
-display: flex;
-align-items: center;
-justify-content:space-between;
-margin: 20px 0;
-padding:5px;
-@media ${device.sm} {
-  margin: 0;
-}
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 0;
+  padding: 5px;
+  @media ${device.sm} {
+    margin: 0;
+  }
 `;
 
 const StyledCol = styled(Col)`

@@ -1,15 +1,18 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { Title, Box } from 'components';
 import DefaultProfileImg from 'assets/default-profile.jpg';
 import { setMessageSideBarOpen } from 'actions';
 import Svg from 'components/statics/svg';
 import { device } from 'utils';
- import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const ChatBoxHeader = () => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
 
   const { selectedRoomUser } = useSelector(
@@ -19,7 +22,6 @@ const ChatBoxHeader = () => {
     (state) => state.profileSettings2.messages
   );
   const photo = selectedRoomUser?.profile_image?.path || DefaultProfileImg;
-
 
   let history = useHistory();
   return (
@@ -44,12 +46,20 @@ const ChatBoxHeader = () => {
             )}
           </IconWrapper>
 
-          <div style={{ width: '100%', display: "flex", cursor: selectedRoomUser?.name ? "pointer" : "unset" }} onClick={() => {
-            if (selectedRoomUser?.name) {
-
-              history.push('/user/' + selectedRoomUser?.profile_image?.user_id);
-            }
-          }} >
+          <div
+            style={{
+              width: '100%',
+              display: 'flex',
+              cursor: selectedRoomUser?.name ? 'pointer' : 'unset',
+            }}
+            onClick={() => {
+              if (selectedRoomUser?.name) {
+                history.push(
+                  '/user/' + selectedRoomUser?.profile_image?.user_id
+                );
+              }
+            }}
+          >
             <Avatar src={photo} />
             <Title
               className="ml-2 mt-auto mb-auto"
@@ -58,7 +68,7 @@ const ChatBoxHeader = () => {
               textAlign="left"
               color="gray3"
             >
-              {selectedRoomUser?.name ?? 'Müşteri temsilcisi'}
+              {selectedRoomUser?.name ?? t('customer representative')}
             </Title>
           </div>
         </Box>

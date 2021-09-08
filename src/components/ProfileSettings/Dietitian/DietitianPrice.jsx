@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 import {
   Title,
@@ -16,6 +17,8 @@ import { getDietitianPrice, updateDietitianPrice } from 'actions';
 import BannerPhoto from 'assets/activityPicture.png';
 
 export default function DietitianPrice() {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const [newPrice, setPrice] = useState();
   const [open, setOpen] = useState(false);
@@ -48,11 +51,11 @@ export default function DietitianPrice() {
   };
 
   return isLoading ? (
-    <div>Yükleniyor</div>
+    <div>{t('Loading')}</div>
   ) : (
     <div className="p-3">
       <Title fontSize="24px" fontWeight="600" textAlign="left">
-        Ücretlerim
+        {t('my fees')}
       </Title>
       <div className="d-flex row">
         <div className="col-md-4 col-sm-12">
@@ -66,7 +69,7 @@ export default function DietitianPrice() {
             fontWeight="500"
             textAlign="left"
           >
-            Seans ücretinizi belirleyiniz
+            {t('Set your session fee')}
           </Title>{' '}
           <Title
             className="mb-3"
@@ -74,7 +77,9 @@ export default function DietitianPrice() {
             fontWeight="500"
             textAlign="left"
           >
-            Tek bir seans için verdiğiniz hizmetin ücretini belirleyiniz
+            {t(
+              'Determine the price of the service you provide for a single session'
+            )}
           </Title>
           <DietitianPriceCard
             price={price}
@@ -103,13 +108,15 @@ export default function DietitianPrice() {
             fontWeight="500"
             textAlign="center"
           >
-            Merhaba Sevgili Üyemiz{' '}
+            {t('Hello Dear Member')}
           </Text>
 
           <Text textAlign="center" fontSize="1rem" color="dark">
-            Girmiş olduğun seans ücreti tarafımızca incelendikten sonra sana
-            bilgi vereceğiz.
-            <span> Bildirimleri açmayı unutma :)</span>
+            {t(
+              ' We will inform you after the session fee you have entered is reviewed by us'
+            )}
+
+            <span>{t('Dont forget to turn on notifications')} :)</span>
           </Text>
         </Container>
 
@@ -119,7 +126,7 @@ export default function DietitianPrice() {
               setOpen(false);
             }}
           >
-            Devam Et
+            {t('continue')}
           </StyledLink>
         </div>
       </Modal>

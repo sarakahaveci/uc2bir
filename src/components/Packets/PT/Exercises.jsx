@@ -8,8 +8,12 @@ import ExerciseCard from '../ExerciseCard/ExerciseCard';
 import { device } from 'utils';
 import Svg from '../../statics/svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { deletePackageExerciseList, getPackageClassDetail } from '../../../actions';
+import {
+  deletePackageExerciseList,
+  getPackageClassDetail,
+} from '../../../actions';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles({
   barColorPrimary: {
@@ -17,7 +21,9 @@ const useStyles = makeStyles({
   },
 });
 
-const Exercises = ({ setPage = () => {} , packageData}) => {
+const Exercises = ({ setPage = () => {}, packageData }) => {
+  const { t } = useTranslation();
+
   const { classDetailItem } = useSelector(
     (state) => state.professionalReservation.ptReservation
   );
@@ -38,43 +44,68 @@ const Exercises = ({ setPage = () => {} , packageData}) => {
   function onClickExerciseEdit() {
     setPage('ExerciseEdit');
   }
-  const onDeleteExercise =(data)=>{
-    dispatch(deletePackageExerciseList({lesson_id:data?.lesson, training_id:data?.training_id},
-      ()=> toast.success(`Egzersiz Başarılı Bir Şekilde Silindi`, {
-        position: 'bottom-right',
-        autoClose: 2000,
-        onClose:dispatch(getPackageClassDetail({package_uuid:packageData?.package_uuid, appointment_id:packageData?.appointment_id, lesson_id:data?.lesson, type:'lesson'}))
-      })));
-
-  }
+  const onDeleteExercise = (data) => {
+    dispatch(
+      deletePackageExerciseList(
+        { lesson_id: data?.lesson, training_id: data?.training_id },
+        () =>
+          toast.success(t('Exercise Successfully Deleted'), {
+            position: 'bottom-right',
+            autoClose: 2000,
+            onClose: dispatch(
+              getPackageClassDetail({
+                package_uuid: packageData?.package_uuid,
+                appointment_id: packageData?.appointment_id,
+                lesson_id: data?.lesson,
+                type: 'lesson',
+              })
+            ),
+          })
+      )
+    );
+  };
 
   function _renderExercises() {
     return classDetailItem?.trainings?.map((elm, index) => (
       <Col key={index} style={{ padding: 0 }} lg="4">
-        <CustomProgress location={classDetailItem?.trainings.length - 1 === index ? 'end' : locationSelector(index)} active='false' />
-        <ExerciseCard data={elm} onClickExercise={onClickExerciseEdit} onDeleteExercise={(data)=> {onDeleteExercise(data);}}/>
+        <CustomProgress
+          location={
+            classDetailItem?.trainings.length - 1 === index
+              ? 'end'
+              : locationSelector(index)
+          }
+          active="false"
+        />
+        <ExerciseCard
+          data={elm}
+          onClickExercise={onClickExerciseEdit}
+          onDeleteExercise={(data) => {
+            onDeleteExercise(data);
+          }}
+        />
       </Col>
     ));
   }
   return (
     <Wrapper>
       <StyledRow header style={{}}>
-        <div style={{display:'flex', flex:'1', marginTop:'10px'}}>
+        <div style={{ display: 'flex', flex: '1', marginTop: '10px' }}>
           <Title
             style={{ cursor: 'pointer', padding: 5 }}
             fontSize="14pt"
             textAlign="left"
-            onClick={() => setPage('EditLesson')}>
+            onClick={() => setPage('EditLesson')}
+          >
             {`< Geri`}
           </Title>
           <ExerciseCreateBtn onClick={onClickExercise}>
             <Svg.BluePlusIcon />
-            <ButtonText>Egzersiz Ekle</ButtonText>
+            <ButtonText>{t('Add Exercise')}</ButtonText>
           </ExerciseCreateBtn>
         </div>
 
         <Col lg="12" style={{ padding: 10 }}>
-          <HeaderText>Egzersizler</HeaderText>
+          <HeaderText>{t('Exercises')}</HeaderText>
 
           <LinearProgress
             classes={{ barColorPrimary: classes.barColorPrimary }}

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import styled from 'styled-components/macro';
 import { format } from 'date-fns';
+import { useTranslation } from 'react-i18next';
 
 import { Accordion, Button, DatePicker } from 'components';
 import BranchRowToggler from 'components/BranchRow/BranchRowToggler';
@@ -21,6 +22,8 @@ export default function MyCalendar({
   setPage = () => {},
   isUserDetail = false,
 }) {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const [startDate, setStartDate] = useState(new Date());
   const [selectedHour, setSelectedHour] = useState();
@@ -122,7 +125,7 @@ export default function MyCalendar({
 
                 setPage('Reservation');
               }}
-              text="Devam Et"
+              text={t('continue')}
               className="blue"
               width={'476px'}
               height={'66px'}

@@ -1,5 +1,6 @@
 // @ts-nocheck
-import React from 'react'; 
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import styled from 'styled-components/macro';
 import BlogCard from 'components/UserCards/BlogCard';
@@ -8,26 +9,31 @@ import { device } from 'utils';
 // import {
 //     Pagination,
 // } from 'components';
-const BlogsTab = ({ blogs, }) => {
+const BlogsTab = ({ blogs }) => {
+  const { t } = useTranslation();
 
-    return (
-        <div>
-            {blogs?.length>0?<GymListWrapper>
-                {blogs?.map((professional) => (
-                    <BlogCard
-                        favoriteId={professional?.user_id}
-                        showHeartBg
-                        key={professional?.id || professional?.user_id}
-                        data={professional}
-                        city={professional?.city}
-                        district={professional?.district}
-                    />
-                ))}
-            </GymListWrapper>:
-            <span style={{marginLeft:8,color:"var(--blue)"}} >Aramanız ile ilgili blog yazısı bulunamadı.</span>
-            }
+  return (
+    <div>
+      {blogs?.length > 0 ? (
+        <GymListWrapper>
+          {blogs?.map((professional) => (
+            <BlogCard
+              favoriteId={professional?.user_id}
+              showHeartBg
+              key={professional?.id || professional?.user_id}
+              data={professional}
+              city={professional?.city}
+              district={professional?.district}
+            />
+          ))}
+        </GymListWrapper>
+      ) : (
+        <span style={{ marginLeft: 8, color: 'var(--blue)' }}>
+          {t('No blog posts related to your search were found')}
+        </span>
+      )}
 
-            {/*     <div className="d-flex w-100 mt-3">
+      {/*     <div className="d-flex w-100 mt-3">
                     <Pagination
                         className="mx-auto"
                         mt="50px"
@@ -36,9 +42,8 @@ const BlogsTab = ({ blogs, }) => {
                         onChange={handleChangePage}
                     /> 
                 </div>*/}
-
-        </div>
-    );
+    </div>
+  );
 };
 
 export default BlogsTab;
@@ -48,7 +53,7 @@ const GymListWrapper = styled.div`
   grid-column-gap: 10px;
   grid-template-columns: 300px 300px 300px 300px;
   grid-row-gap: 20px;
-  padding: 20px;  
+  padding: 20px;
 
   @media (max-width: 1200px) {
     grid-template-columns: auto auto;
@@ -57,4 +62,3 @@ const GymListWrapper = styled.div`
     grid-template-columns: auto;
   }
 `;
-

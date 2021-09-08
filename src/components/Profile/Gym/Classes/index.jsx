@@ -6,8 +6,11 @@ import { Accordion, Box } from 'components';
 import { getGymClassList } from 'actions';
 import BranchCardHeader from '../../../BranchRow/BranchRowToggler';
 import BranchCardBody from '../../../BranchRow/BranchRowCollapser';
+import { useTranslation } from 'react-i18next';
 
 const GymClass = ({ userId }) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const { data } = useSelector((state) => state.userProfile.gymClass);
   const { user } = useSelector((state) => state.auth);
@@ -58,7 +61,7 @@ const GymClass = ({ userId }) => {
       ) : (
         <div className="d-flex">
           <strong className="mx-auto">
-            İş Yerine kayıtlı herhangi bir sınıf bulunmamaktadır.
+            {t('There is no class registered to the Workplace')}
           </strong>
         </div>
       )}

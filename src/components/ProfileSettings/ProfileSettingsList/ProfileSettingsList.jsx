@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import styled, { css } from 'styled-components/macro';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import Password from 'components/ProfileSettings/Forms/tabs/Password';
 import SettingsForm from 'components/ProfileSettings/Forms/SettingsForm';
@@ -13,7 +14,7 @@ import About from 'components/ProfileSettings/About';
 import ShowPersonalInfo from 'components/ProfileSettings/ShowPersonalInfo';
 import AllowPackage from 'components/ProfileSettings/AllowPackage';
 
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import VKI from 'components/ProfileSettings/Forms/VKI';
 import {
   Accordion,
@@ -34,116 +35,115 @@ import {
 } from '../../../constants';
 import Notifications from 'components/ProfileSettings/Notifications';
 
+const { t } = useTranslation();
+
 const trainerAndDietitanData = [
   {
-    settingsName: 'Profil',
+    settingsName: t('Profile'),
     body: <SettingsForm />,
   },
   {
-    settingsName: 'Hakkımda',
+    settingsName: t('About me'),
     body: <About />,
   },
   {
-    settingsName: 'İletişim',
+    settingsName: t('contact'),
     body: <Phone />,
   },
   {
-    settingsName: 'Şifre İşlemleri',
+    settingsName: t('password operations'),
     body: <Password />,
   },
   {
-    settingsName: 'Belgeler',
+    settingsName: t('documents'),
     body: <Files />,
     pulse: true,
   },
   {
-    settingsName: 'Adresim',
+    settingsName: t('My address'),
     body: <Address />,
   },
   {
-    settingsName: 'Engellenen Kullanıcılar ',
-    route: "/myprofile/settings/blocked"
-
+    settingsName: t('Blocked Users'),
+    route: '/myprofile/settings/blocked',
   },
   {
-    settingsName: 'Şirket Bilgileri',
+    settingsName: t('Company information'),
     body: <CompanyInf />,
   },
   {
-    settingsName: 'Paketten Rezervasyon',
+    settingsName: t('Package Reservation'),
     body: <AllowPackage />,
   },
 ];
 
 const regularUserTabs = [
   {
-    settingsName: 'Profil',
+    settingsName: t('Profile'),
     body: <SettingsForm />,
   },
   {
-    settingsName: 'İletişim',
+    settingsName: t('contact'),
     body: <Phone />,
   },
   {
-    settingsName: 'Şifre İşlemleri',
+    settingsName: t('password operations'),
     body: <Password />,
   },
   {
-    settingsName: 'Boy & Ağırlık & VKI Bilgileriniz',
+    settingsName: t('Your Height & Weight & BMI Information'),
     body: <VKI />,
   },
   {
-    settingsName: 'Tamamlanmış Testler ',
+    settingsName: t('Completed Tests'),
     body: <ComputedTest />,
   },
   {
-    settingsName: 'Engellenen Kullanıcılar ',
-    route: "/myprofile/settings/blocked"
-
+    settingsName: t('Blocked Users'),
+    route: '/myprofile/settings/blocked',
   },
   {
-    settingsName: 'Adresim',
+    settingsName: t('My address'),
     body: <Address locationDisable />,
   },
   {
-    settingsName: 'Gizlilik',
+    settingsName: t('privacy'),
     body: <ShowPersonalInfo />,
-  }
+  },
 ];
 
 const workPlaceData = [
   {
-    settingsName: 'İş Yeri Profil',
+    settingsName: t('Workplace Profile'),
     body: <SettingsForm />,
   },
   {
-    settingsName: 'İş Yeri Hakkında',
+    settingsName: t('About the Workplace'),
     body: <About />,
   },
   {
-    settingsName: 'İletişim',
+    settingsName: t('contact'),
     body: <Phone />,
   },
   {
-    settingsName: 'İş Yeri Bilgileri',
+    settingsName: t('Workplace Information'),
     body: <CompanyInf />,
   },
   {
-    settingsName: 'Şifre İşlemleri',
+    settingsName: t('password operations'),
     body: <Password />,
   },
   {
-    settingsName: 'İş Yeri Belgeler',
+    settingsName: t('Workplace Documents'),
     body: <Files />,
     pulse: true,
   },
   {
-    settingsName: 'Engellenen Kullanıcılar ',
-    route: "/myprofile/settings/blocked"
-
+    settingsName: t('Blocked Users'),
+    route: '/myprofile/settings/blocked',
   },
   {
-    settingsName: 'İş Yeri Adres',
+    settingsName: t('Work Place Address'),
     body: <Address />,
   },
 ];
@@ -175,20 +175,23 @@ const ProfileSettingsList = () => {
       break;
   }
 
-  const settings = tabData?.map((item, index) => (
-    item.route ? <Link style={{ color: 'black' }} to={item?.route}>
-      <ButtonWrapper>
-        <SettingsRow pulse={item.pulse}>
-          <Box col>
-            <Text color="dark" textAlign="left" fontWeight="500" p="2px">
-              {item.settingsName}
-            </Text>
-          </Box>
+  const settings = tabData?.map((item, index) =>
+    item.route ? (
+      <Link style={{ color: 'black' }} to={item?.route}>
+        <ButtonWrapper>
+          <SettingsRow pulse={item.pulse}>
+            <Box col>
+              <Text color="dark" textAlign="left" fontWeight="500" p="2px">
+                {item.settingsName}
+              </Text>
+            </Box>
 
-          <Svg.ArrowRightIcon />
-        </SettingsRow>
-      </ButtonWrapper>             </Link>
-      : <Wrapper key={'wrapper' + index}>
+            <Svg.ArrowRightIcon />
+          </SettingsRow>
+        </ButtonWrapper>{' '}
+      </Link>
+    ) : (
+      <Wrapper key={'wrapper' + index}>
         <Accordion.Item>
           <Accordion.Toggle>
             <SettingsRow pulse={item.pulse}>
@@ -206,7 +209,8 @@ const ProfileSettingsList = () => {
           </Accordion.Collapse>
         </Accordion.Item>
       </Wrapper>
-  ));
+    )
+  );
 
   return (
     <>
@@ -272,10 +276,10 @@ const BodyWrapper = styled.div`
   padding: 10px 15px;
 `;
 const ButtonWrapper = styled.div`
-border-radius: 15px;
-background: #fff;
-box-shadow: 2px 3px 18px rgb(0 0 0 / 9%);
-margin-bottom: 25px;
-width: 622px;
-cursor:pointer;
+  border-radius: 15px;
+  background: #fff;
+  box-shadow: 2px 3px 18px rgb(0 0 0 / 9%);
+  margin-bottom: 25px;
+  width: 622px;
+  cursor: pointer;
 `;

@@ -6,8 +6,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { setProfile } from 'actions';
 import { WORK_PLACE } from '../../../../constants';
+import { useTranslation } from 'react-i18next';
 
 const ProfileForms = ({ type }) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const { detail } = useSelector(
     (state) => state.profileSettings2.profileDetail
@@ -17,9 +20,8 @@ const ProfileForms = ({ type }) => {
   const [data, setData] = useState({});
   const [isDiff, setIsDiff] = useState();
 
-
   useEffect(() => {
-    setData({ ...data, name: detail?.data?.name })
+    setData({ ...data, name: detail?.data?.name });
   }, [detail]);
 
   const diffHandler = () => {
@@ -34,16 +36,16 @@ const ProfileForms = ({ type }) => {
   };
 
   const checkDateRange = (minYY, maxYY, value) => {
-    if (value !== "Invalid date" &&
+    if (
+      value !== 'Invalid date' &&
       Number(value.substring(6, 10)) >= minYY &&
       Number(value.substring(6, 10)) <= maxYY
     ) {
       setSaveEnable(true);
-    }
-    else {
+    } else {
       setSaveEnable(false);
     }
-  }
+  };
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -52,13 +54,13 @@ const ProfileForms = ({ type }) => {
         setProfile(
           { ...data },
           () => {
-            toast.success('Bilgileriniz güncellendi.', {
+            toast.success(t('Your information has been updated'), {
               position: 'bottom-right',
               autoClose: 2000,
             });
           },
           () => {
-            toast.error('Güncelleme işlemi yapılamadı.', {
+            toast.error(t('Failed to update'), {
               position: 'bottom-right',
               autoClose: 2000,
             });
@@ -66,12 +68,11 @@ const ProfileForms = ({ type }) => {
         )
       );
     } else {
-      toast.error('İsim Alanı Boş Girilemez', {
+      toast.error(t('Name Field Cannot Be Entered Empty'), {
         position: 'bottom-right',
         autoClose: 2000,
       });
     }
-
   };
 
   return (
@@ -79,7 +80,7 @@ const ProfileForms = ({ type }) => {
       {!detail.isLoading && (
         <form onSubmit={onSubmit}>
           <Material.TextField
-            label="Adınız Soyadınız"
+            label={t('Name and surname')}
             type="text"
             name="name"
             defaultValue={detail?.data?.name}
@@ -91,7 +92,7 @@ const ProfileForms = ({ type }) => {
           />
           {type !== 'USER' && (
             <Material.TextField
-              label="Ünvan"
+              label={t('title')}
               type="text"
               name="title"
               defaultValue={detail?.data?.title}
@@ -103,7 +104,7 @@ const ProfileForms = ({ type }) => {
             />
           )}
           <Material.TextField
-            label="Mail Adresiniz"
+            label={t('Your Email Address')}
             type="email"
             name="email"
             defaultValue={detail?.data?.email}
@@ -116,10 +117,10 @@ const ProfileForms = ({ type }) => {
               readOnly: true,
             }}
           />
-          
+
           {type == 'WORK_PLACE' && (
             <Material.number
-              label="Kapasite"
+              label={t('Capacity')}
               type="number"
               name="capacity"
               defaultValue={detail?.data?.capacity}
@@ -132,7 +133,7 @@ const ProfileForms = ({ type }) => {
           )}
           {type == 'WORK_PLACE' && (
             <Material.number
-              label="İş Yeri Alanı (m2)"
+              label={t('Workplace Area (m2)')}
               type="number"
               name="area_measure"
               defaultValue={detail?.data?.area_measure}
@@ -145,7 +146,7 @@ const ProfileForms = ({ type }) => {
           )}
           {type !== 'WORK_PLACE' && (
             <Material.SimpleSelect
-              label="Cinsiyetiniz"
+              label={t('your gender')}
               items={genderData}
               name="genre"
               defaultValue={detail?.data?.genre}
@@ -159,7 +160,7 @@ const ProfileForms = ({ type }) => {
 
           {user?.type_id === WORK_PLACE ? (
             <Material.MaterialDateField
-              label="Şirket Kuruluş Tarihi"
+              label={t('Company Establishment Date')}
               type="text"
               name="company_date"
               value={detail?.data?.company_date}
@@ -172,14 +173,14 @@ const ProfileForms = ({ type }) => {
             />
           ) : (
             <Material.MaterialDateField
-              label="Doğum Tarihiniz"
+              label={t('Your Date of Birth')}
               type="text"
               name="birthday"
               value={detail?.data?.birthday}
               defaultValue={detail?.data?.birthday}
               onChange={(e) => {
                 if (e.target.value !== 'Invalid date') {
-                  checkDateRange(1945, 2014, e.target.value)
+                  checkDateRange(1945, 2014, e.target.value);
                   setData({ ...data, [e.target.name]: e.target.value });
                   //diffHandler(e);
                 }
@@ -193,7 +194,7 @@ const ProfileForms = ({ type }) => {
             <Button
               fontWeight="600"
               type="submit"
-              text="KAYDET"
+              text={t('save')}
               fontSize="15px"
               color="blue"
               transparentDisabled={!saveEnable}

@@ -8,6 +8,7 @@ import FormControl from '@material-ui/core/FormControl';
 import { useDispatch, useSelector } from 'react-redux';
 import { addDays, startOfWeek, format } from 'date-fns';
 import tr from 'date-fns/locale/tr';
+import { useTranslation } from 'react-i18next';
 
 import { Text, Title, Button, Modal, DatePicker, Span } from 'components';
 import {
@@ -32,6 +33,7 @@ const ApplyTemplateModal = forwardRef(
     const templateDays = templateDetails?.slot?.map((slot) => slot.day) || [];
 
     const dispatch = useDispatch();
+    const { t } = useTranslation();
 
     useEffect(() => {
       dispatch(getTemplates());
@@ -41,7 +43,7 @@ const ApplyTemplateModal = forwardRef(
       if (date.getDay() === 1) {
         handleDateChange(date);
       } else {
-        toast.error('Şablon seçiminiz pazartesiden başlamalıdır.', {
+        toast.error(t('Your template selection should start from Monday'), {
           position: 'bottom-right',
         });
       }
@@ -91,7 +93,7 @@ const ApplyTemplateModal = forwardRef(
     return (
       <StyledModal ref={ref}>
         <Title component="h5" style={{ marginBottom: '30px' }}>
-          Şablonu Takvimime Uygula
+          {t('Apply Template to My Calendar')}
         </Title>
 
         <DatePicker
@@ -109,11 +111,15 @@ const ApplyTemplateModal = forwardRef(
               'react-datepicker__day--highlighted': startOfWeeksArr,
             },
           ]}
-          minDate={new Date(currentDate.setDate(currentDate.getDate() - currentDate.getDay()))}
+          minDate={
+            new Date(
+              currentDate.setDate(currentDate.getDate() - currentDate.getDay())
+            )
+          }
         />
 
         <FormControl>
-          <InputLabel>Şablon Seçiniz</InputLabel>
+          <InputLabel> {t('Choose Template')}</InputLabel>
 
           <Select
             onChange={templateChangeHandler}
@@ -129,12 +135,14 @@ const ApplyTemplateModal = forwardRef(
         </FormControl>
 
         <Text color="dark" mt="10px">
-          Tarih Seçiminiz
+          {t('Your Date Selection')}
         </Text>
 
         <div>
           {sameStartAndEndDate ? (
-            <Text color="red">Şablon seçiminiz pazartesiden başlamalıdır.</Text>
+            <Text color="red">
+              {t('Your template selection should start from Monday')}
+            </Text>
           ) : (
             <>
               {formatDay(startDate)}
@@ -148,7 +156,7 @@ const ApplyTemplateModal = forwardRef(
 
         <Button
           className="blue"
-          text="Tamamla"
+          text={t('complete')}
           mt="30px"
           onClick={completeApplyTemplateHandler}
           disabled={!selectedTemplateId || sameStartAndEndDate}
@@ -161,7 +169,7 @@ const ApplyTemplateModal = forwardRef(
           cursor="pointer"
           onClick={() => ref.current.closeModal()}
         >
-          Vazgeç
+          {t('Give Up')}
         </Text>
       </StyledModal>
     );
