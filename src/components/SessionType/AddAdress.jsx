@@ -8,11 +8,13 @@ import { addAddress } from 'actions';
 import GoogleMap from 'components/GoogleMaps/GoogleMap';
 import { Material, Button, AwesomeIcon } from 'components';
 import axios from 'axios';
+import { getGeocode } from 'use-places-autocomplete';
 
 const AddAdress = ({ setSubPage, type }) => {
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({});
+
   const [adressFromMap, setAdressFromMap] = useState({});
 
   const [city, setCity] = useState(false);
@@ -79,7 +81,7 @@ const AddAdress = ({ setSubPage, type }) => {
                 name: val.name,
               };
             });
-            setTown(new_data);
+            setDistrict(new_data);
           });
         axios
           .post(uri, { district_id })
@@ -93,7 +95,7 @@ const AddAdress = ({ setSubPage, type }) => {
                 name: val.name,
               };
             });
-            setDistrict(new_data);
+            setTown(new_data);
           });
         setFormData({
           ...formData,
@@ -102,6 +104,7 @@ const AddAdress = ({ setSubPage, type }) => {
           town: data.town.id,
           address_detail: adressFromMap.address_detail,
         });
+
       })
       .catch((err) =>
         toast.error(err, {
@@ -113,9 +116,21 @@ const AddAdress = ({ setSubPage, type }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    var lat = null;
+    var lng = null;
+
+
+    const results = await getGeocode({
+      address:
+        district?.find(item => item.id == formData?.district)?.name + ', ' + town?.find(item => item.id == formData?.town)?.name + ', ' + city?.find(item => item.id == formData?.city)?.name
+    });
+    lat = results?.[0]?.geometry?.location?.lat();
+    lng = results?.[0]?.geometry?.location?.lng();
+
+
     dispatch(
       addAddress(
-        { ...formData, type },
+        { ...formData, lat, lng, type },
         () => {
           setSubPage('Adds');
           toast.success('Adres başarıyla eklendi', {
@@ -176,7 +191,7 @@ const AddAdress = ({ setSubPage, type }) => {
                           name: val.name,
                         };
                       });
-                      return setTown(new_data);
+                      return setDistrict(new_data);
                     });
                   return setFormData({
                     ...formData,
@@ -186,8 +201,8 @@ const AddAdress = ({ setSubPage, type }) => {
               />
               <Material.SimpleSelect
                 required
-                label={town ? 'Önce İl Seçiniz' : 'İlçe Seçiniz'}
-                items={town ? town : []}
+                label={district ? 'Önce İl Seçiniz' : 'İlçe Seçiniz'}
+                items={district ? district : []}
                 name="district"
                 changeValue={formData?.district || ''}
                 onChange={(e) => {
@@ -203,7 +218,7 @@ const AddAdress = ({ setSubPage, type }) => {
                           name: val.name,
                         };
                       });
-                      return setDistrict(new_data);
+                      return setTown(new_data);
                     });
                   return setFormData({
                     ...formData,
@@ -213,12 +228,15 @@ const AddAdress = ({ setSubPage, type }) => {
               />
               <Material.SimpleSelect
                 required
-                label={district ? 'Önce İlçe Seçiniz' : 'Mahalle Seçiniz'}
-                items={district ? district : []}
+                label={town ? 'Önce İlçe Seçiniz' : 'Mahalle Seçiniz'}
+                items={town ? town : []}
                 name="town"
                 changeValue={formData?.town || ''}
-                onChange={(e) =>
+                onChange={(e) => {
+
                   setFormData({ ...formData, [e.target.name]: e.target.value })
+
+                }
                 }
               />
               <Material.TextField

@@ -5,7 +5,7 @@ import styled from 'styled-components/macro';
 import { ApproveCard, DatePicker, RateModal, Svg,SessionComment } from 'components';
 import { device } from 'utils';
 import { useSelector, useDispatch } from 'react-redux';
-import { getGymSessionHistorys, rateAndComment,SessionStatusResponse } from 'actions';
+import { getGymSessionHistorys, rateAndComment,SessionStatusResponse,rateAndCommentSession,getSessionComment } from 'actions';
 import moment from 'moment';
 
 const SessionHistory = ({setSubPage = () => { }}) => {
@@ -37,7 +37,7 @@ const SessionHistory = ({setSubPage = () => { }}) => {
     dispatch(SessionStatusResponse({
       appointment_id: elm?.id,
       sessionStatus: status
-    }))
+    },()=>{dispatch(getGymSessionHistorys())}))
   }
   function _renderTab(date) {
     if (items?.appointment?.[
@@ -74,6 +74,8 @@ const SessionHistory = ({setSubPage = () => { }}) => {
                     id: elm?.id,
                     userId: elm?.bs?.id,
                   });
+                  dispatch(getSessionComment(elm?.id))
+
                   setOpenRateModal('index');
                 }}
               />
@@ -106,6 +108,8 @@ const SessionHistory = ({setSubPage = () => { }}) => {
                     id: elm?.id,
                     userId: elm?.bs?.id,
                   });
+                  dispatch(getSessionComment(elm?.id))
+
                   setOpenRateModal('index');
                 }}
               />
@@ -177,7 +181,7 @@ const SessionHistory = ({setSubPage = () => { }}) => {
         rateLabel="PUANLA"
         cancelLabel="VAZGEÇ"
         open={openRateModal}
-        rate={({ rate, comment, commented_id,rateType,session_file }) => {
+        rate={({ rate, comment, commented_id,rateType,session_file,session_status }) => {
 
           if(rateType == 'session'){
             dispatch(
@@ -186,7 +190,8 @@ const SessionHistory = ({setSubPage = () => { }}) => {
                   appointment_id: appointment?.id,
                   rating: rate,
                   comment: comment,
-                  session_file:session_file
+                  session_file:session_file,
+                  session_status:session_status
                 },
                 () => {
                   setAppointment(undefined);

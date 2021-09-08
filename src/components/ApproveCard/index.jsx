@@ -22,7 +22,6 @@ const ApproveCard = ({
   optionalField_3 = null,
   transaction_id,
   userType,
-  onSessionComment = () => {},
   onApprove = () => {},
   onReject = () => {},
   onTransfer = () => {},
@@ -96,16 +95,14 @@ const ApproveCard = ({
         );
       break;
     case 'history':
-      if (session_status) {
+      if (session_status || session_status == 0) {
         if (session_status == 0) {
+
           buttonGroup = <>{t('Lesson Not Held')}</>;
         } else if (session_status == 1) {
           buttonGroup = (
             <>
               <HistoryButton onClick={onApprove}>{rateText}</HistoryButton>
-              <HistoryButton onClick={onSessionComment}>
-                {t('Evaluation')}
-              </HistoryButton>
             </>
           );
         }
