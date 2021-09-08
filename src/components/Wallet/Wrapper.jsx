@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { Text, Accordion, Box, Svg } from 'components';
 import styled from 'styled-components/macro';
@@ -7,6 +8,8 @@ import moment from 'moment';
 import { getWalletTransactions } from 'actions/userProfileActions/walletActions';
 
 const Wrapper = () => {
+  const { t } = useTranslation();
+
   const transactionsData = useSelector(
     (state) => state?.userProfile?.wallet.transactionsData.data
   );
@@ -41,7 +44,7 @@ const Wrapper = () => {
               <SettingsRow>
                 <Box col>
                   <Text color="dark" textAlign="left" fontWeight="800" p="2px">
-                    Son Hareket
+                    {t('Last Movement')}
                   </Text>
                 </Box>
                 <Svg.ArrowUpIcon />
@@ -67,7 +70,7 @@ const Wrapper = () => {
                       <CapsuleItem>
                         <Text textAlign="left" fontWeight="600">
                           {' '}
-                          Oluşturulma Tarihi |{' '}
+                          |{t('Creation Date')}|{' '}
                           {moment(
                             transactionsData[0]?.created_at,
                             'DD.MM.YYYY hh:mm'
@@ -81,7 +84,7 @@ const Wrapper = () => {
                         <tbody>
                           {transactionsData[0]?.earning?.amount && (
                             <tr>
-                              <td>Hizmet Bedeli</td>
+                              <td>{t('Service Fee')}</td>
                               <td className="text-right">
                                 {parseFloat(
                                   transactionsData[0]?.earning?.amount
@@ -93,7 +96,7 @@ const Wrapper = () => {
                           {transactionsData[0]?.earning?.commission_amount && (
                             <tr>
                               <td>
-                                Komisyon (%
+                                {t('Commission')} (%
                                 {
                                   transactionsData[0]?.earning
                                     ?.commission_percent
@@ -112,7 +115,7 @@ const Wrapper = () => {
                           {transactionsData[0]?.earning?.vat_amount && (
                             <tr>
                               <td>
-                                KDV (%
+                                {t('VAT')}(%
                                 {transactionsData[0]?.earning?.vat_percent})
                               </td>
 
@@ -127,7 +130,7 @@ const Wrapper = () => {
                           {transactionsData[0]?.earning?.withholding_amount && (
                             <tr>
                               <td>
-                                Stopaj (%
+                                {t('Stoppage')} (%
                                 {
                                   transactionsData[0]?.earning
                                     ?.withholding_percent
@@ -145,7 +148,7 @@ const Wrapper = () => {
                           )}
                           {transactionsData[0]?.earning?.net_income_amount && (
                             <tr>
-                              <td>Net Kazanç</td>
+                              <td>{t('Net Earnings')}</td>
                               <td
                                 className="text-right"
                                 style={{ fontWeight: 'bold' }}
@@ -182,7 +185,7 @@ const Wrapper = () => {
                       <CapsuleItem>
                         <Text textAlign="left" fontWeight="600">
                           {' '}
-                          Oluşturulma Tarihi |{' '}
+                          |{t('Creation Date')}
                           {moment(
                             transactionsData[0]?.created_at,
                             'DD.MM.YYYY hh:mm'
@@ -196,7 +199,7 @@ const Wrapper = () => {
                         <tbody>
                           {transactionsData[0]?.payment_type && (
                             <tr>
-                              <td>Ödeme Şekli</td>
+                              <td>{t('Payment method')}</td>
                               <td className="text-right">
                                 {transactionsData[0]?.payment_type?.title}
                               </td>
@@ -204,7 +207,7 @@ const Wrapper = () => {
                           )}
                           {transactionsData[0]?.status && (
                             <tr>
-                              <td>Durumu</td>
+                              <td>{t('Status')}</td>
                               <td className="text-right">
                                 {transactionsData[0]?.status?.title}
                               </td>
@@ -212,7 +215,7 @@ const Wrapper = () => {
                           )}
                           {transactionsData[0]?.amount ? (
                             <tr>
-                              <td>Tutar</td>
+                              <td>{t('Amount')}</td>
                               <td className="text-right">
                                 {transactionsData[0]?.amount_type}
                                 {parseFloat(
@@ -223,7 +226,7 @@ const Wrapper = () => {
                             </tr>
                           ) : (
                             <tr>
-                              <td>Tutar</td>
+                              <td>{t('Amount')}</td>
                               <td className="text-right">
                                 {transactionsData[0]?.amount_type}
                                 {parseFloat(
@@ -247,7 +250,7 @@ const Wrapper = () => {
           {' '}
           <CapsuleItem>
             <Text color="dark" textAlign="left" fontWeight="500" p="5px">
-              Herhangi bir veri bulunamadı.
+              {t('No data found')}
             </Text>
           </CapsuleItem>
         </Capsule>

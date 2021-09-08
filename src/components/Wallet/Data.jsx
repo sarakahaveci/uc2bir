@@ -4,8 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Pagination, Text } from 'components';
 import { getWalletTransactionsPerPage } from 'actions/userProfileActions/walletActions';
 import moment from 'moment';
+import { useTranslation } from 'react-i18next';
 
 const Data = ({ paymentType, range, changed }) => {
+  const { t } = useTranslation();
+
   const { data, totalPage } = useSelector(
     (state) => state?.userProfile?.wallet?.transactionsPerPage
   );
@@ -48,10 +51,10 @@ const Data = ({ paymentType, range, changed }) => {
             <table>
               <tbody>
                 <tr>
-                  <th>Tarih</th>
-                  <th>İşlem Türü</th>
-                  <th>Ödeme Şekli</th>
-                  <th>Tutar</th>
+                  <th> {t('date')}</th>
+                  <th>{t('Operation type')}</th>
+                  <th>{t('Payment method')}</th>
+                  <th>{t('Amount')}</th>
                 </tr>
                 {data &&
                   data.map((item, index) => (
@@ -92,7 +95,7 @@ const Data = ({ paymentType, range, changed }) => {
           {' '}
           <CapsuleItem>
             <Text color="dark" textAlign="left" fontWeight="500" p="5px">
-              Herhangi bir veri bulunamadı.
+              {t('No data found')}
             </Text>
           </CapsuleItem>
         </Capsule>

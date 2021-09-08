@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 import { Col, Container, Row } from 'react-bootstrap';
 import { AddBankAccount } from 'components';
@@ -13,6 +14,8 @@ import {
 } from 'actions/userProfileActions/walletActions';
 
 const Transfer = ({ setPage }) => {
+  const { t } = useTranslation();
+
   const [cardName, setCardName] = useState(null);
   const [cardNo, setCardNo] = useState(null);
   const [saveName, setSaveName] = useState(null);
@@ -40,7 +43,7 @@ const Transfer = ({ setPage }) => {
   };
 
   const handleSuccess = () => {
-    toast.success('Hesap bilgileriniz başarıyla güncellendi.', {
+    toast.success(t('Your account information has been successfully updated'), {
       position: 'bottom-right',
       autoClose: 1500,
     });
@@ -48,10 +51,13 @@ const Transfer = ({ setPage }) => {
   };
 
   const handleFailure = () => {
-    toast.error('Girdiğiniz kart bilgileri hatalı veya eksik.', {
-      position: 'bottom-right',
-      autoClose: 7000,
-    });
+    toast.error(
+      t('The card information you entered is incorrect or incomplete'),
+      {
+        position: 'bottom-right',
+        autoClose: 7000,
+      }
+    );
   };
 
   return (
@@ -60,7 +66,7 @@ const Transfer = ({ setPage }) => {
         <Row>
           <Col lg="12">
             <Title fontSize="13pt" style={{ padding: 15 }} textAlign="left">
-              Cüzdanım
+              {t('my wallet')}
             </Title>
           </Col>
           <Col lg={4}>
@@ -72,16 +78,23 @@ const Transfer = ({ setPage }) => {
                 style={{ cursor: 'pointer' }}
                 fontSize="12pt"
                 textAlign="left"
-                onClick={() => setPage('TransferInfo')} ŞİMDİLİK KAPATILDI
+                onClick={() => setPage('TransferInfo')}
+                ŞİMDİLİK
+                KAPATILDI
               >
-                {`< Hesap Hareketlerim`}
+                {'< '} {t('My Account Activity')}
               </Title>
               <Text fontSize="10pt" fontWeight="400">
-                Lütfen hesap bilgilerini doğru ve eksiksiz bir biçimde giriniz.
+                {t(
+                  'Please enter your account information correctly and completely'
+                )}
               </Text>
-           <Explanation>
-                  <Col> 
-                  <Title textAlign="left">Cüzdanımdaki Toplam Tutar: </Title>
+              <Explanation>
+                <Col>
+                  <Title textAlign="left">
+                    {' '}
+                    {t('Total Amount in My Wallet')}:
+                  </Title>
                 </Col>
                 <Col>
                   <TitleWrapper>

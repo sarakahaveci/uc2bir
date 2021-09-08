@@ -3,8 +3,11 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { Title } from 'components';
 import CashTransferUser from 'components/CashTransferUser';
 import CashTransferConfirmUser from 'components/CashTransferConfirmUser';
+import { useTranslation } from 'react-i18next';
 
 const UserTransfer = ({ setPage }) => {
+  const { t } = useTranslation();
+
   const [amount, setAmount] = useState(null);
   const [defaultCardName] = useState(null);
   const [defaultSKT] = useState(null);
@@ -26,7 +29,7 @@ const UserTransfer = ({ setPage }) => {
             textAlign="left"
             onClick={() => setPage('home')}
           >
-            {`< Cüzdanıma Bakiye Yükle`}
+            {t('< Top Up My Wallet')}
           </Title>
           <Col lg={12} xl={6}>
             <CashTransferUser
