@@ -272,7 +272,7 @@ const SessionHistory = ({ setSubPage = () => {} }) => {
         appointment_id={appointment?.id}
         descText={t('Want to rate the selected professional?')}
         rateLabel={t('rate it')}
-        cancelLabel="VAZGEÇ"
+        cancelLabel={t('Give Up')}
         open={openRateModal}
         rate={({
           rate,
