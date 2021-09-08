@@ -14,8 +14,11 @@ import {
 } from 'actions';
 import GoogleMap from 'components/GoogleMaps/GoogleMap';
 import { Material, Button } from 'components';
+import { useTranslation } from 'react-i18next';
 
 export default function Address({ locationDisable = false }) {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
 
   const { cities, distict, town, cityId, districtId, townId, isSuccessGetId } =
@@ -127,7 +130,7 @@ export default function Address({ locationDisable = false }) {
 
   const updateAddressFail = () => {
     toast.error(
-      'Adres güncellenirken hata ile karşılaşıldı. Bilgileri kontrol ediniz',
+      t('Error encountered while updating address. Check the information'),
       {
         position: 'bottom-right',
         autoClose: 3000,
@@ -136,7 +139,7 @@ export default function Address({ locationDisable = false }) {
   };
 
   const updateAddressSuccess = () => {
-    toast.success('Haritadan adres başarı ile eklendi', {
+    toast.success(t('Address added from map with success'), {
       position: 'bottom-right',
       autoClose: 3000,
     });
@@ -178,10 +181,13 @@ export default function Address({ locationDisable = false }) {
   };
 
   const isFailGetIds = () => {
-    toast.error('Haritadan adres eklenirken bir sorun ile karışlaşıldı', {
-      position: 'bottom-right',
-      autoClose: 3000,
-    });
+    toast.error(
+      t('A problem was encountered while adding an address from the map'),
+      {
+        position: 'bottom-right',
+        autoClose: 3000,
+      }
+    );
   };
 
   const useAdressFromMap = () => {
@@ -223,7 +229,7 @@ export default function Address({ locationDisable = false }) {
   };
 
   return isLoading ? (
-    <>Yükleniyor</>
+    <>{t('Loading')}</>
   ) : (
     <div className="w-100 h-100">
       <div className="w-100">
@@ -236,7 +242,7 @@ export default function Address({ locationDisable = false }) {
             required
             name="city"
             forHtml="city"
-            label="İl Seçiniz"
+            label={t('Select City')}
             changeValue={formData?.city || ''}
             onChange={handleSelectRelion}
             items={cities}
@@ -245,7 +251,7 @@ export default function Address({ locationDisable = false }) {
             required
             name="district"
             forHtml="district"
-            label="İlçe Seçiniz"
+            label={t('Select District')}
             changeValue={formData?.district || ''}
             onChange={handleSelectRelion}
             items={distict ?? []}
@@ -254,7 +260,7 @@ export default function Address({ locationDisable = false }) {
             required
             name="town"
             forHtml="town"
-            label="Mahalle Seçiniz"
+            label={t('Select Neighborhood')}
             changeValue={formData?.town || ''}
             onChange={handleTownChange}
             items={townList ?? []}
@@ -263,7 +269,7 @@ export default function Address({ locationDisable = false }) {
             required
             id="addressDetail"
             name="address_detail"
-            label="Açık Adres"
+            label={t('Open address')}
             type="text"
             changeValue={formData?.address_detail || ''}
             onChange={handleFormOnChange}
@@ -273,7 +279,7 @@ export default function Address({ locationDisable = false }) {
               <Material.TextField
                 id="apartmentNo"
                 name="apt_no"
-                label="Bina"
+                label={t('Building')}
                 type="text"
                 changeValue={formData?.apt_no || ''}
                 onChange={handleFormOnChange}
@@ -283,7 +289,7 @@ export default function Address({ locationDisable = false }) {
               <Material.TextField
                 id="buildNo"
                 name="build_no"
-                label="Daire"
+                label={t('Apartment')}
                 type="text"
                 changeValue={formData?.build_no || ''}
                 onChange={handleFormOnChange}
@@ -293,7 +299,7 @@ export default function Address({ locationDisable = false }) {
           <div className="d-flex w-100">
             <Button
               type="submit"
-              text="Adresi Güncelle"
+              text={t('Update Address')}
               className="blue marginTop mx-auto mb-2 w-50"
               fontWeight="bold"
             />
@@ -311,7 +317,7 @@ export default function Address({ locationDisable = false }) {
             <Button
               fontWeight="bold"
               className="blue mx-auto mt-2 w-50"
-              text="Haritadaki adresi listeye aktar"
+              text={t('Export address on map to list')}
               disabled={isEmpty(adressFromMap)}
               onClick={useAdressFromMap}
             />

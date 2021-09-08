@@ -5,8 +5,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { setProfile } from 'actions';
 import { Switch } from 'components';
+import { useTranslation } from 'react-i18next';
 
 export default function AllowPackage() {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const accept_package = useSelector(
     (state) =>
@@ -18,10 +21,9 @@ export default function AllowPackage() {
         <text
           style={{ fontSize: '13px', fontFamily: 'Poppins', color: '#7B7B7B' }}
         >
-          "Pakete İzin Ver" açık olduğunda kullanıcılar üç2bir.com tarafından
-          oluşturulan paketler üzerinden size randevu oluşturabilir. Paket
-          katılımına onay vermeniz durumunda Ücretlendirme kalsifikasyonunuza
-          göre standart fiyatlar üzerinden belirlenecektir.
+          {t(
+            "When 'Allow Package' is turned on, users can create an appointment for you through packages created by uc2bir.com. If you approve the package participation, Pricing will be determined at standard prices according to your qualification."
+          )}
         </text>
       </div>
       <div
@@ -31,7 +33,7 @@ export default function AllowPackage() {
           alignItems: 'center',
         }}
       >
-        <text style={{ fontFamily: 'Poppins' }}>Pakete İzin Ver</text>
+        <text style={{ fontFamily: 'Poppins' }}>{t('Allow Package')}</text>
         <Switch
           checked={accept_package == 'yes'}
           onChange={() => {
@@ -41,13 +43,13 @@ export default function AllowPackage() {
                   accept_package: accept_package == 'yes' ? 'no' : 'yes',
                 },
                 () => {
-                  toast.success('Bilgileriniz güncellendi.', {
+                  toast.success(t('Your information has been updated'), {
                     position: 'bottom-right',
                     autoClose: 2000,
                   });
                 },
                 () => {
-                  toast.error('Güncelleme işlemi yapılamadı.', {
+                  toast.error(t('Failed to update'), {
                     position: 'bottom-right',
                     autoClose: 2000,
                   });
