@@ -2,6 +2,7 @@ import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { Button } from 'components';
 import SelectiveButton from '../../buttons/SelectiveButton';
+import { useTranslation } from 'react-i18next';
 
 const Home = ({
   icons = [],
@@ -11,6 +12,8 @@ const Home = ({
   create,
   submit = () => {},
 }) => {
+  const { t } = useTranslation();
+
   return (
     <>
       {icons.map((val) => (
@@ -19,10 +22,7 @@ const Home = ({
           id={val.id}
           name={val.name}
           selectButtonHandler={select}
-          isActive={
-            selected.includes(val.id)
-            
-          }
+          isActive={selected.includes(val.id)}
         />
       ))}
       <Col>
@@ -32,7 +32,7 @@ const Home = ({
         >
           <Button
             className="blue"
-            text="İleri"
+            text={t('Forward')}
             disabled={
               selected.length > 0
                 ? false

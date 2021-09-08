@@ -6,8 +6,11 @@ import styled from 'styled-components/macro';
 import Checkbox from '@material-ui/core/Checkbox';
 import { withStyles } from '@material-ui/core/styles';
 import { removeGymFromPt } from 'actions';
+import { useTranslation } from 'react-i18next';
 
 const GYMEdit = ({ setSubPage, setBannerActive }) => {
+  const { t } = useTranslation();
+
   const stars = 5;
   const dispatch = useDispatch();
 
@@ -29,7 +32,7 @@ const GYMEdit = ({ setSubPage, setBannerActive }) => {
 
   return (
     <>
-      <BackLink text="Geri" onClick={() => setSubPage('Adds')} />
+      <BackLink text={t('Back')} onClick={() => setSubPage('Adds')} />
 
       <div className="d-flex flex-wrap">
         {gym?.map((data) => (

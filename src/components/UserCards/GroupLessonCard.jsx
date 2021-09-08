@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled, { css } from 'styled-components/macro';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import MockImage from 'assets/default-profile.jpg';
 import { addFavoriteUser, removeFavoriteUser } from 'actions';
@@ -20,6 +21,8 @@ const GroupLessonCard = ({
   type,
   favoriteId,
 }) => {
+  const { t } = useTranslation();
+
   const [isFavorited, setIsFavorited] = useState(favoritedUser);
 
   const dispatch = useDispatch();
@@ -93,7 +96,7 @@ const GroupLessonCard = ({
           <div>
             {' '}
             <Title textAlign="left" component="h6">
-              {data?.branch_name} Dersi
+              {data?.branch_name} {t('lesson')}
             </Title>
             <SubTitle textAlign="left" component="h6">
               {data?.date} / {data?.hour}

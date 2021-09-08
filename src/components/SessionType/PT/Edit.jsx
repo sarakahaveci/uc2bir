@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
+import { useTranslation } from 'react-i18next';
 
 import { Button, Box, Svg, Spinner, Span } from 'components';
 import { deleteAddressList, getPtWorkingHomePlace } from 'actions';
@@ -9,6 +10,8 @@ import { toast } from 'react-toastify';
 import BackLink from 'components/common/BackLink';
 
 const Edit = ({ setSubPage }) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
 
   // const { getAddress } = useSelector(
@@ -18,7 +21,6 @@ const Edit = ({ setSubPage }) => {
   const { data } = useSelector(
     (state) => state.userProfile.workPlace.ptHomePlace
   );
-
 
   useEffect(() => {
     dispatch(getPtWorkingHomePlace());
@@ -30,7 +32,7 @@ const Edit = ({ setSubPage }) => {
         id,
         () => {
           dispatch(getPtWorkingHomePlace());
-          toast.success('Adres başarı ile silindi.', {
+          toast.success(t('Address deleted successfully'), {
             position: 'bottom-right',
             autoClose: 2000,
           });
@@ -73,9 +75,7 @@ const Edit = ({ setSubPage }) => {
                   </>
                 ))
               ) : (
-                <strong>
-                  Girilmiş herhangi bir adresiniz bulunmamaktadır.
-                </strong>
+                <strong>{t('You do not have any address entered')}</strong>
               )}
             </List>
           </div>

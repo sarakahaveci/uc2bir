@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { isEmpty } from 'lodash';
+import { useTranslation } from 'react-i18next';
 
 import { addAddress } from 'actions';
 import GoogleMap from 'components/GoogleMaps/GoogleMap';
@@ -11,6 +12,8 @@ import axios from 'axios';
 import { getGeocode } from 'use-places-autocomplete';
 
 const AddAdress = ({ setSubPage, type }) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({});
@@ -104,7 +107,6 @@ const AddAdress = ({ setSubPage, type }) => {
           town: data.town.id,
           address_detail: adressFromMap.address_detail,
         });
-
       })
       .catch((err) =>
         toast.error(err, {
@@ -119,27 +121,29 @@ const AddAdress = ({ setSubPage, type }) => {
     var lat = null;
     var lng = null;
 
-
     const results = await getGeocode({
       address:
-        district?.find(item => item.id == formData?.district)?.name + ', ' + town?.find(item => item.id == formData?.town)?.name + ', ' + city?.find(item => item.id == formData?.city)?.name
+        district?.find((item) => item.id == formData?.district)?.name +
+        ', ' +
+        town?.find((item) => item.id == formData?.town)?.name +
+        ', ' +
+        city?.find((item) => item.id == formData?.city)?.name,
     });
     lat = results?.[0]?.geometry?.location?.lat();
     lng = results?.[0]?.geometry?.location?.lng();
-
 
     dispatch(
       addAddress(
         { ...formData, lat, lng, type },
         () => {
           setSubPage('Adds');
-          toast.success('Adres başarıyla eklendi', {
+          toast.success(t('Address added successfully'), {
             position: 'bottom-right',
             autoClose: 3000,
           });
         },
         () =>
-          toast.error('Adres eklenirken hata oluştu', {
+          toast.error(t('An error occurred while adding the address'), {
             position: 'bottom-right',
             autoClose: 3000,
           })
@@ -163,7 +167,7 @@ const AddAdress = ({ setSubPage, type }) => {
         >
           <Material.TextField
             required
-            label="Adres Başlığı giriniz"
+            label={t('Enter Address Title')}
             type="text"
             name="title"
             onChange={(e) =>
@@ -174,7 +178,7 @@ const AddAdress = ({ setSubPage, type }) => {
             <>
               <Material.SimpleSelect
                 required
-                label="İl Seçiniz"
+                label={t('Select City')}
                 items={city}
                 name="city"
                 changeValue={formData?.city || ''}
@@ -201,7 +205,7 @@ const AddAdress = ({ setSubPage, type }) => {
               />
               <Material.SimpleSelect
                 required
-                label={district ? 'Önce İl Seçiniz' : 'İlçe Seçiniz'}
+                label={district ? t('Select City First') : t('Select District')}
                 items={district ? district : []}
                 name="district"
                 changeValue={formData?.district || ''}
@@ -228,20 +232,19 @@ const AddAdress = ({ setSubPage, type }) => {
               />
               <Material.SimpleSelect
                 required
-                label={town ? 'Önce İlçe Seçiniz' : 'Mahalle Seçiniz'}
+                label={
+                  town ? t('Select District First') : t('Select Neighborhood')
+                }
                 items={town ? town : []}
                 name="town"
                 changeValue={formData?.town || ''}
                 onChange={(e) => {
-
-                  setFormData({ ...formData, [e.target.name]: e.target.value })
-
-                }
-                }
+                  setFormData({ ...formData, [e.target.name]: e.target.value });
+                }}
               />
               <Material.TextField
                 required
-                label="Açık Adres"
+                label={t('Open address')}
                 name="address_detail"
                 icon={AwesomeIcon.Map}
                 changeValue={formData.address_detail}
@@ -252,7 +255,7 @@ const AddAdress = ({ setSubPage, type }) => {
               <div className="d-flex w-100 justify-content-between">
                 <div className="col-5 p-0">
                   <Material.TextField
-                    label="Bina"
+                    label={t('Building')}
                     name="build_no"
                     onChange={(e) =>
                       setFormData({
@@ -265,7 +268,7 @@ const AddAdress = ({ setSubPage, type }) => {
                 </div>
                 <div className="col-5 p-0">
                   <Material.TextField
-                    label="Daire"
+                    label={t('Apartment')}
                     name="apt_no"
                     onChange={(e) =>
                       setFormData({
@@ -282,7 +285,7 @@ const AddAdress = ({ setSubPage, type }) => {
           <div className="d-flex w-100">
             <Button
               type="submit"
-              text="Adres Ekle"
+              text={t('Add Address')}
               className="blue marginTop mx-auto w-75"
               fontWeight="bold"
             />
@@ -299,7 +302,7 @@ const AddAdress = ({ setSubPage, type }) => {
           <Button
             fontWeight="bold"
             className="blue mx-auto mt-2 w-75"
-            text="Haritadaki adresi listeye aktar"
+            text={t('Export address on map to list')}
             disabled={isEmpty(adressFromMap)}
             onClick={useAdressFromMap}
           />

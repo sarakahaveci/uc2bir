@@ -3,11 +3,14 @@ import { createTypes, getSessionTypes } from 'actions';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { getGeocode } from 'use-places-autocomplete';
+import { useTranslation } from 'react-i18next';
 
 import Home from './Home';
 import Adds from './Adds';
 
 const PT = ({ icons, setBannerActive }) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const [selected, setSelected] = useState([]);
   const [types, setTypes] = useState([]);
@@ -27,17 +30,16 @@ const PT = ({ icons, setBannerActive }) => {
     if (get?.data?.data?.length > 0) {
       setPage('Adds');
     }
-    if(get?.data?.data?.length > 0) {
-      get?.data?.data?.forEach(item => {
-        if (item?.status == "active") {
+    if (get?.data?.data?.length > 0) {
+      get?.data?.data?.forEach((item) => {
+        if (item?.status == 'active') {
           if (!selected?.includes(item?.type)) {
             var temp = selected;
-            temp.push(item.type)
-            setSelected(temp)
+            temp.push(item.type);
+            setSelected(temp);
           }
         }
       });
-    
     }
   }, [get]);
   const select = (key) => {
@@ -60,7 +62,7 @@ const PT = ({ icons, setBannerActive }) => {
           setPage('Adds');
         },
         () =>
-          toast.error('Bir sorun oluştu lütfen daha sonra tekrar deneyiniz.', {
+          toast.error(t('There was a problem, please try again later'), {
             position: 'bottom-right',
             autoClose: 2000,
           })

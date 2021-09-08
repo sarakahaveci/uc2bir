@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import styled from 'styled-components/macro';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { Text, Title, Svg } from 'components';
 import Pt from './PT';
@@ -10,6 +11,8 @@ import Dietitian from './Dietitian';
 import image from '../../assets/session-type.jpg';
 
 const SessionType = () => {
+  const { t } = useTranslation();
+
   const type_id = useSelector((state) => state.auth)?.user?.type_id;
   const [bannerActive, setBannerActive] = useState(true);
 
@@ -40,13 +43,13 @@ const SessionType = () => {
         },
         {
           id: 'clinic',
-          name: 'Klinik',
+          name: t('Clinic'),
           active: false,
           icon: <Svg.SessionType.Clinic />,
           create: {
             key: 'DIETIAN',
             action: 'home_park',
-            name: 'Klinik ekle',
+            name: t('Add clinic'),
             subPage: 'home-park-edit',
           },
         },
@@ -66,10 +69,10 @@ const SessionType = () => {
           </Col>
           <Col lg={bannerActive ? 7 : 12}>
             <Title fontSize="12pt" textAlign="left" mb="10px">
-              Oturum Türleri
+              {t('Session Types')}
             </Title>
             <Text fontSize="10pt">
-              {'Hizmet vereceğiniz oturum türlerini seçin.'}
+              {t('Choose the types of sessions you will serve')}
             </Text>
             <Dietitian icons={icons} setBannerActive={setBannerActive} />
           </Col>
@@ -87,13 +90,13 @@ const SessionType = () => {
         },
         {
           id: 'gym',
-          name: 'Spor Alanı',
+          name: t('sports field'),
           active: false,
           icon: <Svg.SessionType.Gym />,
           create: {
             key: 'gym',
             action: 'gym',
-            name: 'Spor Alanı Ekle +',
+            name: t('Add Sports Field +'),
             subPage: 'gym-edit',
           },
         },
@@ -105,7 +108,7 @@ const SessionType = () => {
           create: {
             key: 'home_park',
             action: 'home_park',
-            name: 'Adres Ekle +',
+            name: t('Add Address +'),
             subPage: 'home-park-edit',
           },
         },

@@ -9,6 +9,7 @@ import {
 } from 'actions/userProfileActions/walletActions';
 import styled from 'styled-components/macro';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 const Accounts = ({
   setCardName,
@@ -20,15 +21,16 @@ const Accounts = ({
   handleSubmitDelete,
 }) => {
   const [editMode, setEditMode] = useState(false);
-// translate burada kaldım
+  // translate burada kaldım
   const splitIbanNumber = (text) => {
     return text.match(/.{1,4}/g)?.join(' ');
   };
 
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const handleSuccess = () => {
-    toast.success('Varsayılan hesabınız başarılı bir şekilde güncellendi.', {
+    toast.success(t('Your default account has been successfully updated'), {
       position: 'bottom-right',
       autoClose: 1500,
     });
@@ -36,7 +38,7 @@ const Accounts = ({
   };
 
   const handleFailure = () => {
-    toast.error('Varsayılan hesabınız güncellenemedi.', {
+    toast.error(t('Your default account could not be updated'), {
       position: 'bottom-right',
       autoClose: 7000,
     });
@@ -77,7 +79,7 @@ const Accounts = ({
         >
           <Explanation>
             <Col>
-              <Title textAlign="left">Kayıt Adı </Title>
+              <Title textAlign="left">{t('Registration Name')}</Title>
             </Col>
             |
             <Col>
@@ -106,7 +108,9 @@ const Accounts = ({
 
           <Explanation>
             <Col>
-              <Title textAlign="left">Alıcı Adı Soyadı </Title>
+              <Title textAlign="left">
+                {t("recipient's name and surname")}{' '}
+              </Title>
             </Col>
             |
             <Col>
@@ -138,7 +142,7 @@ const Accounts = ({
 
           <Explanation>
             <Col>
-              <Title textAlign="left">Alıcı IBAN No </Title>
+              <Title textAlign="left"> {t('Recipient IBAN No')} </Title>
             </Col>
             |
             <Col>
@@ -171,7 +175,7 @@ const Accounts = ({
               <Button
                 style={{ width: '50%', padding: '10px', marginTop: '20px' }}
                 className="blue"
-                text="Kaydet"
+                text={t('save')}
                 type="submit"
               />
             </div>
@@ -204,7 +208,7 @@ const Accounts = ({
                     }
                   }}
                 >
-                  Varsayılan Hesap Olarak Ayarla
+                  {t('Set as Default Account')}
                 </span>
               </div>
             }

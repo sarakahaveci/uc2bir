@@ -5,13 +5,18 @@ import styled from 'styled-components/macro';
 import InputBase from '@material-ui/core/InputBase';
 
 import {
-  Button, IconLabel, AwesomeIcon, Svg, Material, LocationInput, ChooseDateModal
+  Button,
+  IconLabel,
+  AwesomeIcon,
+  Svg,
+  Material,
+  LocationInput,
+  ChooseDateModal,
 } from 'components';
 import { objectToParamCoverter } from 'utils';
-import { useTranslation} from 'react-i18next'
+import { useTranslation } from 'react-i18next';
 const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
-
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState('');
   const [dateFilterText, setDateFilterText] = useState('Tarih Seçiniz');
   const [openDateModal, setOpenDateModal] = useState(false);
   const [startDate, setStartDate] = useState(null);
@@ -31,8 +36,7 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
       const formData = {
         title,
         location: value,
-        branch
-       
+        branch,
       };
 
       let baseUrl = `/packets?type=${virtual}`;
@@ -46,7 +50,7 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
         location: value,
         branch,
         startDate,
-        endDate
+        endDate,
       };
 
       let baseUrl = `/group-lessons?type=${virtual}`;
@@ -60,7 +64,7 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
         location: value,
         branch,
         startDate,
-        endDate
+        endDate,
       };
 
       let baseUrl = `/find?type=${virtual}`;
@@ -91,7 +95,9 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
             <a onClick={() => setVirtual('packets')}>{t('packages')}</a>
           </li>
           <li className={`${virtual === 'group-lessons' ? 'active' : ''}`}>
-            <a onClick={() => setVirtual('group-lessons')}>{t('groupLessons')}</a>
+            <a onClick={() => setVirtual('group-lessons')}>
+              {t('groupLessons')}
+            </a>
           </li>
         </ul>
         <div className="search-items">
@@ -116,37 +122,42 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
                 <LocationInput
                   defaultValue={value}
                   onChange={(e) => {
-                    setValue(e)
+                    setValue(e);
                   }}
                   placeholder={t('location')}
                 />
               </li>
             )}
-            {
-              virtual !== 'dt' && (
-                <li>
-                  <IconLabel
-                    icon={Svg.SearchBranches}
-                    style={{ paddingTop: '5px' }}
-                  />
-                  <Material.SimpleSelect
-                    label={t('allCategories')}
-                    items={allBranchList}
-                    onChange={(event) => setBranch(event.target.value)}
-                  />
-                </li>
-              )
-            }
-            {
-              virtual !== 'packets' && virtual !== 'group_lessons'  && (
-                <li style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
-                  <FilterButton onClick={() => setOpenDateModal(true)}>
-                    {dateFilterText}
-                    <div style={{ marginLeft: 20, transform: "rotate(90deg)" }}> {'>'} </div>
-                  </FilterButton>
-                </li>
-              )
-            }
+            {virtual !== 'dt' && (
+              <li>
+                <IconLabel
+                  icon={Svg.SearchBranches}
+                  style={{ paddingTop: '5px' }}
+                />
+                <Material.SimpleSelect
+                  label={t('allCategories')}
+                  items={allBranchList}
+                  onChange={(event) => setBranch(event.target.value)}
+                />
+              </li>
+            )}
+            {virtual !== 'packets' && virtual !== 'group_lessons' && (
+              <li
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <FilterButton onClick={() => setOpenDateModal(true)}>
+                  {dateFilterText}
+                  <div style={{ marginLeft: 20, transform: 'rotate(90deg)' }}>
+                    {' '}
+                    {'>'}{' '}
+                  </div>
+                </FilterButton>
+              </li>
+            )}
             <li className="buttons">
               <Button
                 className="col blue"
@@ -184,12 +195,12 @@ const FilterButton = styled.button`
   cursor: pointer;
   border: none;
   z-index: 2;
-  display:flex;
+  display: flex;
   background: transparent;
   font-size: 18px;
   color: black;
-  justift-content:center;
-  align-items:center;
- `;
+  justify-content: center;
+  align-items: center;
+`;
 
 export default SearchBar;

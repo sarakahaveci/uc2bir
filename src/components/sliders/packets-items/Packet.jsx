@@ -1,10 +1,13 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import Title from '../../typography/Titles';
 import AwesomeIcon from '../../statics/icon';
 import { useHistory } from 'react-router-dom';
 const Packet = ({ val }) => {
   const history = useHistory();
+  const { t } = useTranslation();
+
   return (
     <>
       <div
@@ -39,14 +42,18 @@ const Packet = ({ val }) => {
               <div className="row info">
                 <div className="col">
                   <ul>
-                    {val?.type === 'pt' && <li>{val.branch} Branşı</li>}
-                    {val?.type === 'dt' && <li>Diyet Programı</li>}
+                    {val?.type === 'pt' && (
+                      <li>
+                        {val.branch} t{'Branch'}
+                      </li>
+                    )}
+                    {val?.type === 'dt' && <li>{t('Diet Program')}</li>}
                   </ul>
                 </div>
                 <div className="col-auto">
                   <span>
                     {val.price} <AwesomeIcon.Tl /> / {val.lesson_amount}{' '}
-                    {val?.type === 'dt' ? 'Seans' : 'Ders'}
+                    {val?.type === 'dt' ? t('Session') : t('lesson')}
                   </span>
                 </div>
               </div>

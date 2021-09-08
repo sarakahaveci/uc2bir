@@ -4,6 +4,7 @@ import { Row, Col, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import { device } from 'utils';
+import { useTranslation } from 'react-i18next';
 
 import LongUserCard from 'components/UserCards/LongUserCard';
 import { Button, GoogleMapClusterer, Pagination, Svg, Title } from 'components';
@@ -13,9 +14,10 @@ import {
   getAllPTBranchList,
   searchGymWithDetail,
 } from 'actions';
-import { useTranslation} from 'react-i18next'
 
 const AddGym = ({ setSubPage, setBannerActive }) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const { totalPage, data } = useSelector(
     (state) => state.profileSettings2.sessionType.searchGym
@@ -40,7 +42,7 @@ const AddGym = ({ setSubPage, setBannerActive }) => {
 
   useEffect(() => {
     setBannerActive(false);
-    dispatch(searchGymForPt(null,pageNumber));
+    dispatch(searchGymForPt(null, pageNumber));
     dispatch(getAllPTBranchList());
   }, []);
 
@@ -67,7 +69,7 @@ const AddGym = ({ setSubPage, setBannerActive }) => {
           fontWeight="bold"
         />
         <Title fontSize="14pt" fontWeight="bold" color="#00b2a9">
-          Spor Salonu Seçiniz.
+          {t('Select Gym')}
         </Title>
       </div>
       <div className="d-flex w-75 mb-3 mx-auto">
@@ -77,7 +79,7 @@ const AddGym = ({ setSubPage, setBannerActive }) => {
               className="search-trainer__search-input"
               value={trainerName}
               onChange={(e) => setTrainerName(e.target.value)}
-              placeholder="Spor Salonu adı..."
+              placeholder={t('Gym name...')}
             />
           </SearchCol>
 
@@ -89,7 +91,7 @@ const AddGym = ({ setSubPage, setBannerActive }) => {
                 className="search-trainer__search-input"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
-                placeholder="Lokasyon..."
+                placeholder={t('Location...')}
               />
             </div>
           </SearchCol>
@@ -101,7 +103,7 @@ const AddGym = ({ setSubPage, setBannerActive }) => {
               value={branch}
               onChange={(e) => setBranch(e.target.value)}
             >
-              <option hidden>Branşlar</option>
+              <option hidden>{t('Branches')}</option>
               {allBranchList?.map((item, index) => (
                 <option key={'option' + index} value={item.id}>
                   {item.name}
@@ -116,7 +118,7 @@ const AddGym = ({ setSubPage, setBannerActive }) => {
               display="flex"
               className="blue w-100 ml-auto"
               alignItems="center"
-              text="Ara"
+              text={t('Search')}
               search
               width="100%"
               maxWidth="150px"
@@ -134,8 +136,6 @@ const AddGym = ({ setSubPage, setBannerActive }) => {
         data={data}
       />
       <GymListWrapper>
-        
-
         {data?.map((item, i) => (
           <LongUserWrapper key={item?.user_id}>
             <LongUserCard
@@ -143,7 +143,7 @@ const AddGym = ({ setSubPage, setBannerActive }) => {
               data={item}
               city={item?.address?.city}
               district={item?.address?.district}
-              hoverText="+ Salonu Ekle"
+              hoverText={t('+ Add Gym')}
               showHeartBg
               isGym
               onClickHover={(id) => addGymHandler(id)}

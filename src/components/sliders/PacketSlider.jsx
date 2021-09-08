@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Container } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 import { default as SlickSlider } from 'react-slick';
 
@@ -13,7 +14,7 @@ import { Button } from 'components';
 import Packet from './packets-items';
 
 function PacketSlider(props) {
-  const { data, query, categories,handleSeeMoreClick, handleClickCategory } =
+  const { data, query, categories, handleSeeMoreClick, handleClickCategory } =
     props;
   let slider;
 
@@ -65,6 +66,7 @@ function PacketSlider(props) {
       },
     ],
   };
+  const { t } = useTranslation();
 
   return (
     <div className={`packet-slider ${props.className}`}>
@@ -123,7 +125,7 @@ function PacketSlider(props) {
             <Button
               lineButton
               onClick={() => handleSeeMoreClick()}
-              text="Tümünü Gör"
+              text={t('See All')}
             />
           </div>
         </div>

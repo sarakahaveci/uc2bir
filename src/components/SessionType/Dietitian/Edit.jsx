@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components/macro';
+import { useTranslation } from 'react-i18next';
 
 import { Button, Svg, Spinner } from 'components';
 import { deleteAddressList, getAddressList } from 'actions';
@@ -8,6 +9,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 
 const Edit = ({ setSubPage }) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
 
   const { getAddress } = useSelector(
@@ -24,7 +27,7 @@ const Edit = ({ setSubPage }) => {
         id,
         () => {
           dispatch(getAddressList());
-          toast.success('Adres başarı ile silindi.', {
+          toast.success(t('Address deleted successfully'), {
             position: 'bottom-right',
             autoClose: 2000,
           });
@@ -46,7 +49,7 @@ const Edit = ({ setSubPage }) => {
                   <>
                     <Item>
                       <div className="line-left">
-                        <div>{val?.title || 'Klinik'}</div>
+                        <div>{val?.title || t('Clinic')}</div>
                         <div>
                           <span>
                             <Svg.LocationIcon />
@@ -64,9 +67,7 @@ const Edit = ({ setSubPage }) => {
                   </>
                 ))
               ) : (
-                <strong>
-                  Girilmiş herhangi bir adresiniz bulunmamaktadır.
-                </strong>
+                <strong>{t('You do not have any address entered')} </strong>
               )}
             </List>
           </div>
