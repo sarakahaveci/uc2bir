@@ -175,7 +175,7 @@ const BuyPacket = ({ match }) => {
                 <Image src={packet?.data?.photo}></Image>
                 <InfoContainer>
                   <HeaderText>{packet?.data?.name}</HeaderText>
-                  <TitleText>12 Günde 8 Kilo Verin!</TitleText>
+                  <TitleText>{packet?.data?.slogan}</TitleText>
                   <BigSeperator />
                   <SubInfo>
                     <Svg.FitnessMediumIcon></Svg.FitnessMediumIcon>
@@ -308,25 +308,25 @@ const BuyPacket = ({ match }) => {
                   />
                 </BottomContainer>
               )) || (
-                <BottomContainer>
-                  <div>
-                    <PtIcon
-                      style={{ margin: '0', marginRight: '5px' }}
-                      src={packet?.data?.dt?.photo || DefaultProfileImg}
+                  <BottomContainer>
+                    <div>
+                      <PtIcon
+                        style={{ margin: '0', marginRight: '5px' }}
+                        src={packet?.data?.dt?.photo || DefaultProfileImg}
+                      />
+                      {packet?.data?.dt?.name}
+                    </div>
+                    <Button
+                      blueborder
+                      text={'Profili Gör'}
+                      fontSize="11pt"
+                      color="blue"
+                      onClick={() => {
+                        history.push('/user/' + packet?.data?.dt?.id);
+                      }}
                     />
-                    {packet?.data?.dt?.name}
-                  </div>
-                  <Button
-                    blueborder
-                    text={'Profili Gör'}
-                    fontSize="11pt"
-                    color="blue"
-                    onClick={() => {
-                      history.push('/user/' + packet?.data?.dt?.id);
-                    }}
-                  />
-                </BottomContainer>
-              )}
+                  </BottomContainer>
+                )}
             </TrainerGroupWrapper>
           </TrainerGroupContainer>
           {userTypeId === USER && (
