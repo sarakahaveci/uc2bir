@@ -18,7 +18,7 @@ import {
 } from 'components';
 import { searchProffesional } from 'actions';
 import Filter from './SearchFilters';
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next';
 
 const SearchProfessional = () => {
   const allBranchList = useSelector(
@@ -42,7 +42,7 @@ const SearchProfessional = () => {
   const [showFilters, setShowFilters] = useState(false);
   const [openDateModal, setOpenDateModal] = useState(false);
 
-  const [dateFilterText, setDateFilterText] = useState('Tarih Seçiniz');
+  const [dateFilterText, setDateFilterText] = useState(t('selectDate'));
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
 
@@ -55,21 +55,21 @@ const SearchProfessional = () => {
 
   let userTypeText;
   const sortingStates = [
-    { id: 'asc', name: 'Fiyat Artan' },
-    { id: 'desc', name: 'Fiyat Azalan' },
+    { id: 'asc', name: t('Price Increasing') },
+    { id: 'desc', name: t('Price Descending') },
   ];
   switch (type) {
     case 'gym':
-      userTypeText = 'Salon';
+      userTypeText = t('Gym');
       break;
     case 'pt':
-      userTypeText = 'Eğitmen';
+      userTypeText = t('trainerCapitalize');
       break;
     case 'dt':
-      userTypeText = 'Diyetisyen';
+      userTypeText = t('dietitianCapitalize');
       break;
     case 'map':
-      userTypeText = 'Harita';
+      userTypeText = t('Map');
     default:
       break;
   }
@@ -186,7 +186,7 @@ const SearchProfessional = () => {
                 className="search-trainer__search-input"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder={`Ara ...`}
+                placeholder={t('Search')}
               />
             </SearchCol>
 
@@ -211,7 +211,7 @@ const SearchProfessional = () => {
                   value={branch}
                   onChange={(e) => setBranch(e.target.value)}
                 >
-                  <option hidden>Branşlar</option>
+                  <option hidden>{t('Branches')}</option>
                   {allBranchList?.map((item, index) => (
                     <option key={'option' + index} value={item.id}>
                       {item.name}
@@ -231,7 +231,7 @@ const SearchProfessional = () => {
                   linkChangeHandler(page);
                 }}
               >
-                <option hidden>Sıralama</option>
+                <option hidden>{t('sorting')}</option>
                 {sortingStates.map((item, index) => (
                   <option key={'option' + index} value={item.id}>
                     {item.name}
@@ -241,7 +241,7 @@ const SearchProfessional = () => {
             </SearchCol>
             <SearchCol>
               <FilterButton onClick={() => setShowFilters(!showFilters)}>
-                Filtrele
+                {t('Filter')}
               </FilterButton>
               {showFilters && (
                 <Filter
@@ -265,7 +265,7 @@ const SearchProfessional = () => {
                 display="flex"
                 className="blue w-100 ml-md-auto"
                 alignItems="center"
-                text="Ara"
+                text={t('Search')}
                 search
                 width="100%"
                 maxWidth="200px"
@@ -304,7 +304,9 @@ const SearchProfessional = () => {
             </div>
           </>
         ) : (
-          <strong className="mt-3">Arama türüne uygun sonuç bulunamadı.</strong>
+          <strong className="mt-3">
+            {t('No results matching your search type were found')}
+          </strong>
         )}
       </Container>
       <ChooseDateModal

@@ -1,10 +1,9 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components/macro';
+import { useTranslation } from 'react-i18next';
 
 import { Material, AwesomeIcon, Text, Button, Slider, Box } from 'components';
 import { useCheckOutsideClick } from 'utils';
-
-const packetTypes = ['Eğitmen Paketi', 'Diyetisyen Paketi'];
 
 const SearchFilters = ({
   setShowFilters,
@@ -18,6 +17,7 @@ const SearchFilters = ({
   linkChangeHandler,
 }) => {
   const filterWrapperRef = useRef();
+  const packetTypes = [t('Trainer Package'), t('Dietitian Package')];
 
   useCheckOutsideClick(filterWrapperRef, () => setShowFilters(false));
 
@@ -30,12 +30,13 @@ const SearchFilters = ({
   };
 
   const priceChangeHandler = (event, newValue) => setPrice(newValue);
+  const { t } = useTranslation();
 
   return (
     <FiltersWrapper ref={filterWrapperRef}>
       <>
         <Text color="dark" fontSize="0.9rem" mb="15px">
-          PAKET TİPİ SEÇİNİZ
+          {t('SELECT PACKAGE TYPE')}
         </Text>
 
         <Box col>
@@ -54,7 +55,7 @@ const SearchFilters = ({
       </>
 
       <Text color="dark" fontSize="0.9rem" m="15px 0 5px 0">
-        FİYATA GÖRE LİSTELE ( TL )
+        {t('LIST BY PRICE ( TL )')}
       </Text>
 
       <Slider
@@ -67,7 +68,7 @@ const SearchFilters = ({
       />
 
       <Text color="dark" fontSize="0.9rem" m="15px 0 5px 0">
-        DEĞERLENDİRME PUANI
+        {t('EVALUATION SCORE')}
       </Text>
 
       {[5, 4, 3, 2, 1].map((starCount, index) => (
@@ -87,7 +88,7 @@ const SearchFilters = ({
 
       <Button
         mt="10px"
-        text="Uygula"
+        text={t('Apply')}
         className="blue"
         onClick={() => {
           setShowFilters(false);

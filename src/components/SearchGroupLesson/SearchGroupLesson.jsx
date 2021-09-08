@@ -5,20 +5,29 @@ import styled from 'styled-components/macro';
 import { device } from 'utils';
 import { useLocation, useHistory } from 'react-router-dom';
 import queryString from 'query-string';
+import { useTranslation } from 'react-i18next';
 
 import GroupLessonCard from 'components/UserCards/GroupLessonCard';
 
-import { Button, Svg, Pagination, BackLink, Text,ChooseDateModal } from 'components';
+import {
+  Button,
+  Svg,
+  Pagination,
+  BackLink,
+  Text,
+  ChooseDateModal,
+} from 'components';
 import { searchProffesional } from 'actions';
 import Filter from './SearchFilters';
-import { useTranslation} from 'react-i18next'
 
 const SearchGroupLesson = () => {
+  const { t } = useTranslation();
+  const userTypeText = t('Group Lesson');
+
   const { totalPage, data, totalData } = useSelector(
     (state) => state.searchProfessional.listInfo
   );
   const [openDateModal, setOpenDateModal] = useState(false);
-  const { t } = useTranslation();
 
   const [dateFilterText, setDateFilterText] = useState('Tarih Seçiniz');
   const [startDate, setStartDate] = useState(null);
@@ -39,8 +48,6 @@ const SearchGroupLesson = () => {
   const searchParams = queryString.parse(useLocation().search);
 
   const { subType } = searchParams;
-
-  const userTypeText = 'Grup Ders';
 
   useEffect(() => {
     const {
@@ -169,14 +176,14 @@ const SearchGroupLesson = () => {
                   className="search-trainer__search-input"
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
-                  placeholder={t('location')+'....'}
+                  placeholder={t('location') + '....'}
                 />
               </div>
             </SearchCol>
 
             <SearchCol sm={12}>
               <FilterButton onClick={() => setShowFilters(!showFilters)}>
-                Filtrele
+                {t('Filter')}
               </FilterButton>
 
               {showFilters && (
@@ -200,7 +207,7 @@ const SearchGroupLesson = () => {
                 display="flex"
                 className="blue w-100 ml-md-auto"
                 alignItems="center"
-                text="Ara"
+                text={t('Search')}
                 search
                 width="100%"
                 maxWidth="200px"
@@ -217,7 +224,7 @@ const SearchGroupLesson = () => {
                 <GroupLessonCard
                   showHeartBg
                   subType={subType}
-                  hoverText="Grup Derse Git"
+                  hoverText={t('Go to Group Lesson')}
                   key={group?.id || group?.user_id}
                   data={group}
                   city={group?.city}
@@ -237,7 +244,9 @@ const SearchGroupLesson = () => {
             </div>
           </>
         ) : (
-          <strong className="mt-3">Arama türüne uygun sonuç bulunamadı.</strong>
+          <strong className="mt-3">
+            {t('No results matching your search type were found')}
+          </strong>
         )}
       </Container>
       <ChooseDateModal
@@ -300,7 +309,7 @@ const FilterButton = styled.button`
   border: none;
   background-color: white;
   z-index: 2;
-  display:flex;
+  display: flex;
 `;
 
 export default SearchGroupLesson;

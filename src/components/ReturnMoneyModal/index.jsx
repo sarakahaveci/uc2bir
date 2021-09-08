@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 // import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import styled from 'styled-components/macro';
 import { Text, Svg, Button } from 'components';
@@ -20,6 +21,7 @@ const ReturnMoneyModal = ({
   // useEffect(() => {
   //   dispatch(getWallet());
   // }, []);
+  const { t } = useTranslation();
 
   const [page, setPage] = useState('main');
   useEffect(() => {
@@ -44,8 +46,9 @@ const ReturnMoneyModal = ({
               fontWeight="500"
               textAlign="center"
             >
-              Rezervasyon için ödediğiniz tutar AYNI kredi kartınıza tekrar
-              yatırılacaktır.Onaylıyor musunuz?
+              {t(
+                'The amount you paid for the reservation will be credited again to your SAME credit card. Do you approve?'
+              )}
             </Text>
           </ContextContainer>
           <Button
@@ -81,12 +84,13 @@ const ReturnMoneyModal = ({
                 fontWeight="500"
                 textAlign="center"
               >
-                Para iadesini ne şekilde yapalım ?
+                {t('How do we make a refund?')}
               </Text>
 
               <Text textAlign="center" fontSize="1rem" color="dark">
-                İsterseniz tekrar hızlı bir şekilde kullanabilmek için cüzdana ,
-                istersenizde kart hesabınıza aktarabiliriz.
+                {t(
+                  'If you want, we can transfer it to your wallet or to your card account so that you can use it quickly again'
+                )}
               </Text>
             </ContextContainer>
             <div className="modal-footer" closeIcon={false}>
@@ -96,7 +100,7 @@ const ReturnMoneyModal = ({
                   setPage('wallet');
                 }}
               >
-                Cüzdan'a Transfer
+                {t('Transfer to Wallet')}
               </StyledButton>
             </div>
             <div className="modal-footer" closeIcon={false}>
@@ -106,7 +110,7 @@ const ReturnMoneyModal = ({
                   setPage('card');
                 }}
               >
-                Karta Transfer
+                {t('Transfer to Card')}
               </StyledButton>
             </div>
           </MainContainer>
@@ -125,10 +129,14 @@ const ReturnMoneyModal = ({
             />
             <ContextContainer>
               <WalletContainer>
-                <Header>Cüzdana Transfer</Header>
+                <Header> {t('Transfer to Wallet')}</Header>
                 <Info>
-                  <Text>Rezervasyon için ödediğiniz tutar cüzdanınıza geri aktarılacak.</Text>
-                 </Info>
+                  <Text>
+                    {t(
+                      ' The amount you paid for the reservation will be credited back to your wallet'
+                    )}
+                  </Text>
+                </Info>
                 <Button
                   className="blue mt-3"
                   text="Onayla"
@@ -245,7 +253,7 @@ const Header = styled.text`
   font-size: 20px;
   margin: 10px 0px;
 `;
- 
+
 // const Data = styled.div`
 //   display: flex;
 //   justify-content: space-between;

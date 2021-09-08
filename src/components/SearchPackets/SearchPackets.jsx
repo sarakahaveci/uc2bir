@@ -5,6 +5,7 @@ import styled from 'styled-components/macro';
 import { device } from 'utils';
 import { useLocation, useHistory } from 'react-router-dom';
 import queryString from 'query-string';
+import { useTranslation } from 'react-i18next';
 
 import PacketCard from 'components/UserCards/PacketCard';
 import { Button, Pagination, BackLink, Text } from 'components';
@@ -15,6 +16,7 @@ const SearchProfessional = () => {
   const { totalPage, data, totalData } = useSelector(
     (state) => state.searchProfessional.listInfo
   );
+  const { t } = useTranslation();
 
   const [title, setTitle] = useState('');
   const [location, setLocation] = useState('');
@@ -160,14 +162,14 @@ const SearchProfessional = () => {
                   name="packet-type"
                   id="packet-type"
                 >
-                  <option value="pt">Eğitmen Paketleri</option>
-                  <option value="dt">Diyetisyen Paketleri</option>
+                  <option value="pt">{t('Trainer Package')}</option>
+                  <option value="dt">{t('Dietitian Package')}</option>
                 </select>
               </div>
             </SearchCol>
             <SearchCol sm={12}>
               <FilterButton onClick={() => setShowFilters(!showFilters)}>
-                Filtrele
+                {t('Filter')}
               </FilterButton>
 
               {showFilters && (
@@ -191,7 +193,7 @@ const SearchProfessional = () => {
                 display="flex"
                 className="blue w-100 ml-md-auto"
                 alignItems="center"
-                text="Ara"
+                text={t('Search')}
                 search
                 width="100%"
                 maxWidth="200px"
@@ -227,7 +229,10 @@ const SearchProfessional = () => {
             </div>
           </>
         ) : (
-          <strong className="mt-3">Arama türüne uygun sonuç bulunamadı.</strong>
+          <strong className="mt-3">
+            {' '}
+            {t('No results matching your search type were found')}
+          </strong>
         )}
       </Container>
     </div>

@@ -3,6 +3,8 @@ import styled from 'styled-components/macro';
 import { Text, Svg } from 'components';
 import { Link } from 'react-router-dom';
 import { device } from 'utils';
+import { useTranslation } from 'react-i18next';
+
 const RejectModal = ({
   open,
   reject,
@@ -13,14 +15,16 @@ const RejectModal = ({
   rejectLabel = '',
   elm,
 }) => {
+  const { t } = useTranslation();
+
   const [selectedPage, setSelectedPage] = useState('start');
   const [rejectStatus, setRejectStatus] = useState(undefined);
   const situations = [
-    { id: 1, text: 'Lokasyon Bana Uygun Değil' },
-    { id: 2, text: 'Sistemden Memnun Değilim' },
-    { id: 3, text: 'Toplumsal Kurallara Aykırı Bir Durumla Karşılaştım' },
-    { id: 4, text: 'Saatler Bana Uygun Değil' },
-    { id: 5, text: 'Sebep Belirtmek İstemiyorum' },
+    { id: 1, text: t('Location is not suitable for me') },
+    { id: 2, text: t('Im Not Satisfied With The System') },
+    { id: 3, text: t('I Encountered a Situation Contrary to Social Rules') },
+    { id: 4, text: t('Hours Arent Right For Me') },
+    { id: 5, text: t('I dont want to specify reason') },
   ];
   let content;
 
@@ -93,7 +97,9 @@ const RejectModal = ({
               }}
             />
             <TextContainer>
-              <StyledText>Lütfen Red Sebebinizi Seçiniz</StyledText>
+              <StyledText>
+                {t('Please Select Your Rejection Reason')}
+              </StyledText>
             </TextContainer>
             <ReasonContainer>
               {situations.map((item, indx) => (
@@ -114,7 +120,7 @@ const RejectModal = ({
                 reject(open, rejectStatus);
               }}
             >
-              GÖNDER
+              {t('send')}
             </StyledButton>
           </div>
         </MainContainer>
@@ -175,7 +181,7 @@ const StyledButton = styled(Link)`
   text-align: center;
   display: block;
   width: 100%;
-
+  text-transform: uppercase;
   &:hover {
     color: var(--blue);
   }
