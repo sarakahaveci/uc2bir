@@ -165,12 +165,12 @@ export default function Profile() {
                       setTab(value);
                     }}
                     tabs={[
-                      { text: 'BRANŞLAR', value: 'Branches' },
-                      { text: 'SERTİFİKALAR', value: 'Certificates' },
-                      { text: 'ÇALIŞTIĞI YERLER', value: 'WorkPlace' },
-                      { text: 'TAKVİM', value: 'Calendar' },
-                      { text: 'YORUMLAR', value: 'Comments' },
-                      { text: 'GALERİ', value: 'Gallery' },
+                      { text: t('BRANCHES'), value: 'Branches' },
+                      { text: t('CERTIFICATES'), value: 'Certificates' },
+                      { text: t('WORKING PLACES'), value: 'WorkPlace' },
+                      { text: t('CALENDAR'), value: 'Calendar' },
+                      { text: t('COMMENTS'), value: 'Comments' },
+                      { text: t('GALLERY'), value: 'Gallery' },
                       { text: 'BLOG', value: 'Blog' },
                     ]}
                   />
@@ -181,14 +181,14 @@ export default function Profile() {
                       setTab(value);
                     }}
                     tabs={[
-                      { text: 'OLANAKLAR', value: 'Facility' },
-                      { text: 'SERTİFİKALAR', value: 'Certificates' },
-                      { text: 'SINIFLAR', value: 'WorkPlace' },
-                      { text: 'EĞİTMENLER', value: 'Trainers' },
-                      { text: 'TAKVİM', value: 'Calendar' },
-                      { text: 'YORUMLAR', value: 'Comments' },
-                      { text: 'GALERİ', value: 'Gallery' },
-                      { text: 'KONUM', value: 'Location' },
+                      { text: t('FACILITIES'), value: 'Facility' },
+                      { text: t('CERTIFICATES'), value: 'Certificates' },
+                      { text: t('CLASSES'), value: 'WorkPlace' },
+                      { text: t('TRAINERS'), value: 'Trainers' },
+                      { text: t('CALENDAR'), value: 'Calendar' },
+                      { text: t('COMMENTS'), value: 'Comments' },
+                      { text: t('GALLERY'), value: 'Gallery' },
+                      { text: t('LOCATION'), value: 'Location' },
                     ]}
                   />
                 )}

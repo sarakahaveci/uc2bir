@@ -12,7 +12,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getTemplates } from '../../../../actions';
 import ReservationCreatedTemplate from '../ReservationTemplate/ReservationCreatedTemplate';
 import GroupSlot from '../GroupSlot/GroupSlot';
+import { useTranslation } from 'react-i18next';
+
 const PT = () => {
+  const { t } = useTranslation();
+
   const [tab, setTab] = useState('Awaitings');
   const [subPage, setSubPage] = useState();
   const [openCreateCalender, setOpenCreateCalender] = useState(false);
@@ -31,7 +35,7 @@ const PT = () => {
   let content;
   switch (tab) {
     case 'Awaitings':
-      content = <Awaitings setAwaitingCount={setAwaitingCount}/>;
+      content = <Awaitings setAwaitingCount={setAwaitingCount} />;
       break;
     case 'Calendar':
       content = <Calendar />;
@@ -43,7 +47,7 @@ const PT = () => {
       content = <Rejecteds />;
       break;
     case 'SessionHistory':
-      content = <SessionHistory  setSubPage={setSubPage} />;
+      content = <SessionHistory setSubPage={setSubPage} />;
       break;
     default:
       return <></>;
@@ -62,11 +66,15 @@ const PT = () => {
               setTab(value);
             }}
             tabs={[
-              { text: 'ONAYDAKİLER', value: 'Awaitings', notify:awaitingCount },
-              { text: 'TAKVİMİM', value: 'Calendar'},
-              { text: 'ONAYLANANLAR', value: 'Approved' },
-              { text: 'REDDEDİLENLER', value: 'Rejecteds' },
-              { text: 'DERS GEÇMİŞİ', value: 'SessionHistory'},
+              {
+                text: t('APPROVALS'),
+                value: 'Awaitings',
+                notify: awaitingCount,
+              },
+              { text: t('MY CALENDAR'), value: 'Calendar' },
+              { text: t('APPROVED'), value: 'Approved' },
+              { text: t('REJECTED'), value: 'Rejecteds' },
+              { text: t('SESSION HISTORY'), value: 'SessionHistory' },
             ]}
             rightButton={
               <DateCreateButton
@@ -75,7 +83,7 @@ const PT = () => {
                 }}
               >
                 <Svg.BluePlusIcon />
-                <ButtonText>Takvim Oluştur</ButtonText>
+                <ButtonText>{t('Create Calendar')}</ButtonText>
               </DateCreateButton>
             }
           />

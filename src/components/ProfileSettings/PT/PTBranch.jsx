@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { isEmpty } from 'lodash';
 import { device } from 'utils';
+import { useTranslation } from 'react-i18next';
 
 import {
   getAllPTBranchList,
@@ -20,6 +21,8 @@ import ActivityImage from 'assets/activityPicture.png';
 import BluePlusIcon from 'assets/blue-plus.svg';
 
 export default function WorkPlaceActivity() {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
 
   const { data, allList } = useSelector(
@@ -94,7 +97,7 @@ export default function WorkPlaceActivity() {
             onClick={() => setShowAddBranch(false)}
           />
         )}{' '}
-        Branşlarım & Ücretlerim
+        {t('My Branches & Fees')}
       </Title>
       <div className="row d-flex w-100">
         {showAddBranch && (
@@ -111,7 +114,7 @@ export default function WorkPlaceActivity() {
             fontWeight="500"
             textAlign="left"
           >
-            Hizmet verdiğiniz faaliyet alanlarını ve ücretlerini belirleyin.{' '}
+            {t('Determine the areas of activity you serve and their fees')}
           </Title>
           {!showAddBranch && (
             <Title
@@ -121,7 +124,7 @@ export default function WorkPlaceActivity() {
               fontWeight="400"
               textAlign="left"
             >
-              Yeni Branş Ekle{' '}
+              {t('Add New Branch')}
               <img
                 className="cp"
                 src={BluePlusIcon}
@@ -161,7 +164,7 @@ export default function WorkPlaceActivity() {
                   <Material.TextField
                     id="branch"
                     name="branch"
-                    label="Diğer Branş Talepleriniz"
+                    label={t('Other Branch Requests')}
                     type="text"
                     onChange={(event) => setBranchSuggest(event.target.value)}
                   />
@@ -169,7 +172,7 @@ export default function WorkPlaceActivity() {
                 <div className="d-flex w-100">
                   <Button
                     className="blue ml-auto"
-                    text="Kaydet"
+                    text={t('save')}
                     disabled={
                       selectedBranch.length === 0 && branchSuggest.length < 1
                     }
@@ -189,7 +192,7 @@ export default function WorkPlaceActivity() {
                 fontWeight="500"
                 textAlign="left"
               >
-                Diğer Branşlar
+                {t('Other Branches')}
               </Title>
               <Title
                 fontWeight="600"
@@ -197,14 +200,15 @@ export default function WorkPlaceActivity() {
                 fontSize="11px"
                 color="black3"
               >
-                Talepte bulunduğun diğer branşlar aktif olduğunda tarafına bilgi
-                vereceğiz
+                {t(
+                  'We will inform you when the other branches you request are active'
+                )}
               </Title>
               <ResponsiveDiv>
                 <Material.TextField
                   id="branch"
                   name="branch"
-                  label="Diğer Branş Talepleriniz"
+                  label={t('Other Branch Requests')}
                   type="text"
                   changeValue={data?.suggested}
                   inputProps={{
@@ -227,13 +231,15 @@ export default function WorkPlaceActivity() {
             fontWeight="500"
             textAlign="center"
           >
-            Merhaba Sevgili Üyemiz{' '}
+            {t('Hello Dear Member')}
           </Text>
 
           <Text textAlign="center" fontSize="1rem" color="dark">
-            Seçmiş Olduğun faaliyet alanı tarafımızca incelendikten sonra bilgi
-            vereceğiz.
-            <span> Bildirimleri açmayı unutma :)</span>
+            {t(
+              'We will inform you after the field of activity you have chosen is reviewed by us'
+            )}
+
+            <span>{t('Dont forget to turn on notifications')} :)</span>
           </Text>
         </Container>
 
@@ -245,7 +251,7 @@ export default function WorkPlaceActivity() {
               setSelectedBranch([]);
             }}
           >
-            Devam Et
+            {t('continue')}
           </StyledLink>
         </div>
       </Modal>

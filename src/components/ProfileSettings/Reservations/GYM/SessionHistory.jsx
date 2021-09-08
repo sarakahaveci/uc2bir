@@ -2,13 +2,26 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import ReservationAccordion from '../ReservationAccordion';
 import styled from 'styled-components/macro';
-import { ApproveCard, DatePicker, RateModal, Svg,SessionComment } from 'components';
+import {
+  ApproveCard,
+  DatePicker,
+  RateModal,
+  Svg,
+  SessionComment,
+} from 'components';
 import { device } from 'utils';
 import { useSelector, useDispatch } from 'react-redux';
-import { getGymSessionHistorys, rateAndComment,SessionStatusResponse } from 'actions';
+import {
+  getGymSessionHistorys,
+  rateAndComment,
+  SessionStatusResponse,
+} from 'actions';
 import moment from 'moment';
+import { useTranslation } from 'react-i18next';
 
-const SessionHistory = ({setSubPage = () => { }}) => {
+const SessionHistory = ({ setSubPage = () => {} }) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const items = useSelector(
     (state) => state.professionalReservation?.dtReservation?.session_historys
@@ -30,19 +43,24 @@ const SessionHistory = ({setSubPage = () => { }}) => {
   };
   function openSessionComment(id) {
     setSubPage(
-      <SessionComment session_id={id} goBack={() => { setSubPage() }}></SessionComment>
+      <SessionComment
+        session_id={id}
+        goBack={() => {
+          setSubPage();
+        }}
+      ></SessionComment>
     );
   }
   function onStatusChange(status, elm) {
-    dispatch(SessionStatusResponse({
-      appointment_id: elm?.id,
-      sessionStatus: status
-    }))
+    dispatch(
+      SessionStatusResponse({
+        appointment_id: elm?.id,
+        sessionStatus: status,
+      })
+    );
   }
   function _renderTab(date) {
-    if (items?.appointment?.[
-      moment(date).format('DD.MM.YYYY')
-    ]) {
+    if (items?.appointment?.[moment(date).format('DD.MM.YYYY')]) {
       return (
         <ReservationAccordion
           defaultOpen={true}
@@ -57,19 +75,20 @@ const SessionHistory = ({setSubPage = () => { }}) => {
 
               <ApproveCard
                 user_id={elm?.student_id}
-                onSessionComment={() => { openSessionComment(elm?.id) }}
+                onSessionComment={() => {
+                  openSessionComment(elm?.id);
+                }}
                 session_status={elm?.session_status}
                 onStatusChange={(status) => {
-                  onStatusChange(status, elm)
+                  onStatusChange(status, elm);
                 }}
-
                 type="history"
                 date={elm?.hour}
                 customerName={elm?.student}
                 has_comment={elm?.bs?.has_comment}
-                rateText="Puanla"
+                rateText={t('rate it')}
                 onApprove={() => {
-                  setAppointmentAll(elm)
+                  setAppointmentAll(elm);
                   setAppointment({
                     id: elm?.id,
                     userId: elm?.bs?.id,
@@ -88,20 +107,20 @@ const SessionHistory = ({setSubPage = () => { }}) => {
 
               <ApproveCard
                 user_id={elm?.student_id}
-                onSessionComment={() => { openSessionComment(elm?.id) }}
+                onSessionComment={() => {
+                  openSessionComment(elm?.id);
+                }}
                 session_status={elm?.session_status}
                 onStatusChange={(status) => {
-                  onStatusChange(status, elm)
+                  onStatusChange(status, elm);
                 }}
-
                 type="history"
                 date={elm?.hour}
                 customerName={elm?.student}
                 has_comment={elm?.bs?.has_comment}
-
-                rateText="Puanla"
+                rateText={t('rate it')}
                 onApprove={() => {
-                  setAppointmentAll(elm)
+                  setAppointmentAll(elm);
                   setAppointment({
                     id: elm?.id,
                     userId: elm?.bs?.id,
@@ -112,8 +131,10 @@ const SessionHistory = ({setSubPage = () => { }}) => {
             </ApproveCardContainer>
           )) || <></>}
         </ReservationAccordion>
-      )
-    } else { return (<></>) }
+      );
+    } else {
+      return <></>;
+    }
   }
   useEffect(() => {
     if (window.innerWidth <= 760) {
@@ -136,13 +157,12 @@ const SessionHistory = ({setSubPage = () => { }}) => {
       <StyledRow>
         <StyledCol xs={{ order: IsSmallScreen ? 2 : 1 }} lg={8}>
           <AccordionContainer>
-            {
-              startOfWeeksArr().map((date) => (
-                _renderTab(date)
-              ))
-
-            }
-            {!(startOfWeeksArr()?.length > 0) && <text style={{ padding: '20px' }}>Onay bekleyen hiçbir rezervasyon talebi yoktur</text>}
+            {startOfWeeksArr().map((date) => _renderTab(date))}
+            {!(startOfWeeksArr()?.length > 0) && (
+              <text style={{ padding: '20px' }}>
+                {t('There are no pending reservation requests')}
+              </text>
+            )}
           </AccordionContainer>
         </StyledCol>
         <StyledCol
@@ -173,20 +193,19 @@ const SessionHistory = ({setSubPage = () => { }}) => {
       <RateModal
         appointmentAll={appointmentAll}
         appointment_id={appointment?.id}
-        descText="Danışanızı puanlamak ister misiniz?"
-        rateLabel="PUANLA"
-        cancelLabel="VAZGEÇ"
+        descText={t('Would you like to rate your client?')}
+        rateLabel={t('rate it')}
+        cancelLabel={t('Give Up')}
         open={openRateModal}
-        rate={({ rate, comment, commented_id,rateType,session_file }) => {
-
-          if(rateType == 'session'){
+        rate={({ rate, comment, commented_id, rateType, session_file }) => {
+          if (rateType == 'session') {
             dispatch(
               rateAndCommentSession(
                 {
                   appointment_id: appointment?.id,
                   rating: rate,
                   comment: comment,
-                  session_file:session_file
+                  session_file: session_file,
                 },
                 () => {
                   setAppointment(undefined);
@@ -198,8 +217,7 @@ const SessionHistory = ({setSubPage = () => { }}) => {
                 }
               )
             );
-          }else{
-
+          } else {
             dispatch(
               rateAndComment(
                 {
@@ -235,17 +253,16 @@ const DateContainer = styled.div`
 const AccordionContainer = styled.div`
   display: flex;
   flex-direction: column;
-
 `;
 const ApproveCardContainer = styled.div`
-display: flex;
-align-items: center;
-justify-content:space-between;
-margin: 20px 0;
-padding:5px;
-@media ${device.sm} {
-  margin: 0;
-}
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 0;
+  padding: 5px;
+  @media ${device.sm} {
+    margin: 0;
+  }
 `;
 
 const StyledCol = styled(Col)`

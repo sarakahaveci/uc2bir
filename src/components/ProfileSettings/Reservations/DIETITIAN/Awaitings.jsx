@@ -13,8 +13,11 @@ import { device } from 'utils';
 import { useSelector, useDispatch } from 'react-redux';
 import { getDtAwaitings, DtAwaitingApprove, DtAwaitingReject } from 'actions';
 import moment from 'moment';
+import { useTranslation } from 'react-i18next';
 
 const Awaitings = ({ setAwaitingCount }) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const items = useSelector(
     (state) => state.professionalReservation?.dtReservation?.awaitings
@@ -124,7 +127,7 @@ const Awaitings = ({ setAwaitingCount }) => {
             {startOfWeeksArr().map((date) => _renderTab(date))}
             {!(startOfWeeksArr()?.length > 0) && (
               <text style={{ padding: '20px' }}>
-                Onay bekleyen hiçbir rezervasyon talebi yoktur
+                {t('There are no pending reservation requests')}
               </text>
             )}
           </AccordionContainer>
@@ -157,10 +160,10 @@ const Awaitings = ({ setAwaitingCount }) => {
       </StyledRow>
       <RejectModal
         elm={choosenElm}
-        headerText="Rezervasyonu iptal etmek istediğinize emin misiniz?"
+        headerText={t('Are you sure you want to cancel your appointment?')}
         descText=""
-        cancelLabel="VAZGEÇ"
-        rejectLabel="İPTAL ET"
+        cancelLabel={t('CANCEL MY APPOINTMENT')}
+        rejectLabel={t('cancel')}
         open={openReject}
         reject={(id, status) => {
           dispatch(DtAwaitingReject(id, status, getSelectedDate));

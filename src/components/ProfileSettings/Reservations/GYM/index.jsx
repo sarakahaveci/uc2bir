@@ -13,7 +13,11 @@ import ReservationCreatedTemplate from '../ReservationTemplate/ReservationCreate
 import { useDispatch, useSelector } from 'react-redux';
 import { getTemplates } from '../../../../actions';
 import GroupSlot from '../GroupSlot/GroupSlot';
+import { useTranslation } from 'react-i18next';
+
 const GYM = () => {
+  const { t } = useTranslation();
+
   const [tab, setTab] = useState('Awaitings');
   const [subPage, setSubPage] = useState();
   const [openCreateCalender, setOpenCreateCalender] = useState(false);
@@ -64,14 +68,14 @@ const GYM = () => {
             }}
             tabs={[
               {
-                text: 'ONAYDAKİLER',
+                text: t('APPROVALS'),
                 value: 'Awaitings',
                 notify: awaitingCount,
               },
-              { text: 'TAKVİMİM', value: 'Calendar' },
-              { text: 'ONAYLANANLAR', value: 'Approved' },
-              { text: 'REDDEDİLENLER', value: 'Rejecteds' },
-              { text: 'DERS GEÇMİŞİ', value: 'SessionHistory' },
+              { text: t('MY CALENDAR'), value: 'Calendar' },
+              { text: t('APPROVED'), value: 'Approved' },
+              { text: t('REJECTED'), value: 'Rejecteds' },
+              { text: t('SESSION HISTORY'), value: 'SessionHistory' },
             ]}
             rightButton={
               <DateCreateButton
@@ -80,7 +84,7 @@ const GYM = () => {
                 }}
               >
                 <Svg.BluePlusIcon />
-                <ButtonText>Takvim Oluştur</ButtonText>
+                <ButtonText>{t('Create Calendar')}</ButtonText>
               </DateCreateButton>
             }
           />

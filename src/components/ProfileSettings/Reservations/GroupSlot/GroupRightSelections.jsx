@@ -3,6 +3,7 @@ import styled from 'styled-components/macro';
 import { Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import {
   Text,
@@ -42,6 +43,7 @@ export default function GroupRightSelections({
     courseDetails,
     group_slot_image_id,
   } = useSelector((state) => state.profileSettings2.reservationGroupSlot);
+  const { t } = useTranslation();
 
   const dispatch = useDispatch();
   const { type_id: userTypeId } = useSelector((state) => state.auth.user);
@@ -107,7 +109,7 @@ export default function GroupRightSelections({
 
       default:
         if (!group_slot_image_id) {
-          toast.error('Lütfen fotoğraf seçiniz! ', {
+          toast.error(t('Please select a photo!'), {
             position: 'bottom-right',
             autoClose: 1500,
           });
@@ -123,13 +125,10 @@ export default function GroupRightSelections({
             courseDetails,
           ].some((item) => !item)
         ) {
-          toast.error(
-            'Lütfen eksik veya yanlış şeçimlerinizi kontrol ediniz! ',
-            {
-              position: 'bottom-right',
-              autoClose: 1500,
-            }
-          );
+          toast.error(t('Please check your missing or wrong selections!'), {
+            position: 'bottom-right',
+            autoClose: 1500,
+          });
 
           return;
         }
@@ -169,12 +168,12 @@ export default function GroupRightSelections({
         {userTypeId !== DIETITIAN && (
           <ReservationAccordion
             defaultOpen
-            title="Rezervasyon Tarihi & Saati"
+            title={t('Reservation Date & Time')}
             mt="10px"
           >
             <CollapseItem>
               <Span pr="10px" mr="10px" fontWeight="500" color="dark">
-                Ders
+                {t('lesson')}
               </Span>
 
               <Box row alignItems="center">
@@ -185,7 +184,7 @@ export default function GroupRightSelections({
                 </Span>
 
                 <Span color="blue" ml="5px" fontWeight="500">
-                  Saat: {selectedHour}
+                  {t('Hour')}: {selectedHour}
                 </Span>
               </Box>
             </CollapseItem>
@@ -195,7 +194,7 @@ export default function GroupRightSelections({
         {userTypeId !== DIETITIAN && (
           <ReservationAccordion
             defaultOpen
-            title="Seçili Spor Alanı Grup Ders Kontenjanları"
+            title={t('Selected Sports Field Group Course Quotas')}
           >
             {classSelection ? (
               <>
@@ -208,7 +207,7 @@ export default function GroupRightSelections({
                     </Span>
 
                     <Span color="blue" fontWeight="500" ml="8px">
-                      {classSelection.capacity} Kişilik
+                      {classSelection.capacity} {t('people')}
                     </Span>
                   </WorkPlaceInfoRow>
                   <Span ml="auto" color="blue" fontWeight="500">
@@ -217,7 +216,7 @@ export default function GroupRightSelections({
                 </CollapseItem>
 
                 <Box row justifyContent="flex-end" color="red" fontWeight="500">
-                  *Salon kiralama bedeli
+                  *{t('Gym rental fee')}
                 </Box>
               </>
             ) : (
@@ -227,12 +226,12 @@ export default function GroupRightSelections({
         )}
         {userTypeId !== DIETITIAN && (
           <>
-            <DarkTitle className="mt-4">Kontenjan Belirleyiniz</DarkTitle>
+            <DarkTitle className="mt-4">{t('Determine Quota')}</DarkTitle>
 
             <Row>
               <Col lg={6}>
                 <Text fontWeight="300" color="black3" my="5px">
-                  Minumum
+                  Minimum
                 </Text>
 
                 <ButtonWrapper>
@@ -270,7 +269,7 @@ export default function GroupRightSelections({
               </Col>
               <Col lg={6}>
                 <Text fontWeight="300" color="black3" my="5px">
-                  Maksimum
+                  {t('Maximum')}
                 </Text>
 
                 <ButtonWrapper>
@@ -311,23 +310,23 @@ export default function GroupRightSelections({
       <RightFooter>
         {userTypeId === DIETITIAN && (
           <>
-            <DarkTitle>Seans Sayısını Belirletiniz</DarkTitle>
+            <DarkTitle>{t('Determine the Number of Sessions')}</DarkTitle>
 
             <Material.TextField
               onChange={(e) => selectDataHandler('seanceCount', e.target.value)}
-              label="Giriniz"
+              label={t('enter')}
               type="number"
             />
           </>
         )}
 
-        <DarkTitle style={{ marginTop: '5px' }}>Fiyat Belirleyiniz</DarkTitle>
+        <DarkTitle style={{ marginTop: '5px' }}>{t('Set Price')}</DarkTitle>
         {userTypeId == DIETITIAN && (
           <>
             <Material.TextField
               onChange={(e) => selectDataHandler('seancePrice', e.target.value)}
               error={price > 50}
-              label="Giriniz"
+              label={t('enter')}
               type="number"
             />
           </>
@@ -338,7 +337,7 @@ export default function GroupRightSelections({
               changeValue={price}
               onChange={(e) => setPrice(e.target.value)}
               error={price > branchSelection.max_request_price}
-              label="Giriniz"
+              label={t('enter')}
               type="number"
             />
             {/* {branchSelection.max_request_price && (
@@ -350,7 +349,7 @@ export default function GroupRightSelections({
         )}
         <Button
           onClick={createGroupSlotHandler}
-          text="Tamamla"
+          text={t('complete')}
           className="blue"
           width="100%"
           height="65px"
@@ -364,13 +363,13 @@ export default function GroupRightSelections({
         </Box>
 
         <Text fontWeight="600" fontSize="1.1rem" textAlign="center">
-          Tebrikler
+          {t('Congratulations')}
         </Text>
 
         <Text textAlign="center" mb="30px">
           {userTypeId == DIETITIAN
-            ? 'Paket Seansınız oluşturuldu.'
-            : 'Grup Dersi etkinliğiniz oluşturuldu.'}
+            ? t('Your Package Session has been created')
+            : t('Your Group Lesson event has been created')}
         </Text>
 
         <Modal.Footer>
@@ -381,11 +380,11 @@ export default function GroupRightSelections({
             cursor="pointer"
             onClick={closeSuccessReservationModal}
           >
-            REZERVASYON TAKVİMİMİ GÖR
+            {t('SEE MY BOOKING CALENDAR')}
           </Text>
 
           <Link to="/" className="group-right-selections__homepage">
-            ANASAYFA
+            {t('HOME PAGE')}
           </Link>
         </Modal.Footer>
       </SuccessModal>
