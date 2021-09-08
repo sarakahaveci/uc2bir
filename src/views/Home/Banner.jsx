@@ -12,7 +12,6 @@ import s2 from '../../assets/banner/download.jpg';
 import s3 from '../../assets/banner/dw2.jpg';
 import s4 from '../../assets/blog/image-1.png';
 
-import vid from '../../assets/girisvideo1920x660.mp4';
 import {useTranslation} from 'react-i18next'
 const Banner = () => {
   const dispatch = useDispatch();
@@ -56,7 +55,7 @@ const Banner = () => {
               }
             >
               <video id="vd-io" autoPlay loop>
-                <source src={vid} type="video/mp4" />
+                <source src={"https://file.uc2bir.com/uploads/pt-points/videos/6UdO40Bmqp7EMe2VlDCZxy5YP91HiTsf.mp4"} type="video/mp4" />
               </video>
             </div>
           </>
