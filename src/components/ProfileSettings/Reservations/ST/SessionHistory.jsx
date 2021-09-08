@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col, Container } from 'react-bootstrap';
 import ReservationAccordion from '../ReservationAccordion';
 import styled from 'styled-components/macro';
+import { useTranslation } from 'react-i18next';
+
 import {
   ApproveCard,
   DatePicker,
@@ -17,8 +19,8 @@ import {
   rateAndComment,
   rateAndCommentSession,
   SessionStatusResponse,
+  getSessionComment,
 } from 'actions';
-import { useTranslation } from 'react-i18next';
 
 const SessionHistory = ({ setSubPage = () => {} }) => {
   const { t } = useTranslation();
@@ -44,10 +46,15 @@ const SessionHistory = ({ setSubPage = () => {} }) => {
   };
   function onStatusChange(status, elm) {
     dispatch(
-      SessionStatusResponse({
-        appointment_id: elm?.id,
-        sessionStatus: status,
-      })
+      SessionStatusResponse(
+        {
+          appointment_id: elm?.id,
+          sessionStatus: status,
+        },
+        () => {
+          dispatch(getUserSessionHistorys());
+        }
+      )
     );
   }
   useEffect(() => {
@@ -106,6 +113,8 @@ const SessionHistory = ({ setSubPage = () => {} }) => {
                       id: elm?.id,
                       userId: elm?.pt?.id,
                     });
+                    dispatch(getSessionComment(elm?.id));
+
                     setOpenRateModal('index');
                   }}
                   onStatusChange={(status) => {
@@ -139,6 +148,8 @@ const SessionHistory = ({ setSubPage = () => {} }) => {
                     id: elm?.id,
                     userId: elm?.pt?.id,
                   });
+                  dispatch(getSessionComment(elm?.id));
+
                   setOpenRateModal('index');
                 }}
                 onStatusChange={(status) => {
@@ -159,7 +170,7 @@ const SessionHistory = ({ setSubPage = () => {} }) => {
                   user_id={elm?.pt?.id || elm?.dt?.id}
                   session_status={elm?.session_status}
                   type="history"
-                  rateText={t('rate it')}
+                  rateText="Puanla"
                   has_comment={elm?.dt?.has_comment}
                   onSessionComment={() => {
                     openSessionComment(elm?.id);
@@ -170,6 +181,8 @@ const SessionHistory = ({ setSubPage = () => {} }) => {
                       id: elm?.id,
                       userId: elm?.dt?.id || elm?.pt?.id,
                     });
+                    dispatch(getSessionComment(elm?.id));
+
                     setOpenRateModal('index');
                   }}
                   onStatusChange={(status) => {
@@ -199,6 +212,8 @@ const SessionHistory = ({ setSubPage = () => {} }) => {
                   onApprove={() => {
                     setAppointmentAll(elm);
                     setAppointment({ id: elm?.id, userId: elm?.dt?.id });
+                    dispatch(getSessionComment(elm?.id));
+
                     setOpenRateModal('index');
                   }}
                   onStatusChange={(status) => {
@@ -255,11 +270,18 @@ const SessionHistory = ({ setSubPage = () => {} }) => {
       <RateModal
         appointmentAll={appointmentAll}
         appointment_id={appointment?.id}
-        descText={t('Would you like to rate the selected professional?')}
+        descText={t('Want to rate the selected professional?')}
         rateLabel={t('rate it')}
-        cancelLabel={t('Give Up')}
+        cancelLabel="VAZGEÇ"
         open={openRateModal}
-        rate={({ rate, comment, commented_id, rateType, session_file }) => {
+        rate={({
+          rate,
+          comment,
+          commented_id,
+          rateType,
+          session_file,
+          session_status,
+        }) => {
           if (rateType == 'session') {
             dispatch(
               rateAndCommentSession(
@@ -268,6 +290,7 @@ const SessionHistory = ({ setSubPage = () => {} }) => {
                   rating: rate,
                   comment: comment,
                   session_file: session_file,
+                  session_status: session_status,
                 },
                 () => {
                   setAppointment(undefined);

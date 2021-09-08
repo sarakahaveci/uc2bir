@@ -213,7 +213,7 @@ export const rateAndComment = (
   });
 };
 export const rateAndCommentSession = (
-  { appointment_id, session_file, comment, rating }
+  { appointment_id, session_file, comment, rating, session_status }
   , successCallback = () => { }, errorCallBack = () => { }
 ) => async (dispatch, getState) => {
   let url;
@@ -233,7 +233,8 @@ export const rateAndCommentSession = (
         commenter_id: myId,
         comment: comment,
         rating: rating,
-        session_file: urls
+        session_file: urls,
+        session_status: session_status
       },
       url,
       label: USER_RESERVATION_FUNC,
@@ -278,7 +279,8 @@ export const SessionStatusResponse = (
         session_status: sessionStatus,
         commented_id: myId,
         commenter_id: myId,
-        session_file:''
+        session_file: [],
+        comment:''
 
       },
       url,

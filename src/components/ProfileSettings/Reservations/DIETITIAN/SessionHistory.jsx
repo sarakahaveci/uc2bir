@@ -11,15 +11,11 @@ import {
 } from 'components';
 import { device } from 'utils';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  getDtSessionHistorys,
-  rateAndComment,
-  SessionStatusResponse,
-} from 'actions';
+import { getDtSessionHistorys, rateAndComment, SessionStatusResponse, rateAndCommentSession, getSessionComment } from 'actions';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 
-const SessionHistory = ({ setSubPage = () => {} }) => {
+const SessionHistory = ({ setSubPage = () => { } }) => {
   const { t } = useTranslation();
 
   const dispatch = useDispatch();
@@ -52,12 +48,10 @@ const SessionHistory = ({ setSubPage = () => {} }) => {
     );
   }
   function onStatusChange(status, elm) {
-    dispatch(
-      SessionStatusResponse({
-        appointment_id: elm?.id,
-        sessionStatus: status,
-      })
-    );
+    dispatch(SessionStatusResponse({
+      appointment_id: elm?.id,
+      sessionStatus: status
+    }, () => { dispatch(getDtSessionHistorys()) }))
   }
   useEffect(() => {
     if (window.innerWidth <= 760) {
@@ -83,67 +77,69 @@ const SessionHistory = ({ setSubPage = () => {} }) => {
           parent
           title={moment(date).format('DD.MM.YYYY')}
         >
-          {items?.appointment?.[moment(date).format('DD.MM.YYYY')]?.clinic?.map(
-            (elm, i) => (
-              <ApproveCardContainer key={i}>
-                <Svg.SessionType.Clinic style={{ marginRight: '10px' }} />
 
-                <ApproveCard
-                  type="history"
-                  date={elm?.hour}
-                  session_status={elm?.session_status}
-                  onStatusChange={(status) => {
-                    onStatusChange(status, elm);
-                  }}
-                  customerName={elm?.student}
-                  has_comment={elm?.dt?.has_comment}
-                  rateText={t('rate it')}
-                  onSessionComment={() => {
-                    openSessionComment(elm?.id);
-                  }}
-                  onApprove={() => {
-                    setAppointmentAll(elm);
-                    setAppointment({
-                      id: elm?.id,
-                      userId: elm?.dt?.id,
-                    });
-                    setOpenRateModal('index');
-                  }}
-                />
-              </ApproveCardContainer>
-            )
-          ) || <></>}
 
-          {items?.appointment?.[moment(date).format('DD.MM.YYYY')]?.online?.map(
-            (elm, i) => (
-              <ApproveCardContainer key={i}>
-                <Svg.SessionType.Online style={{ marginRight: '10px' }} />
+          {items?.appointment?.[
+            moment(date).format('DD.MM.YYYY')
+          ]?.clinic?.map((elm, i) => (
+            <ApproveCardContainer key={i}>
+              <Svg.SessionType.Clinic style={{ marginRight: '10px' }} />
 
-                <ApproveCard
-                  type="history"
-                  date={elm?.hour}
-                  customerName={elm?.student}
-                  has_comment={elm?.dt?.has_comment}
-                  session_status={elm?.session_status}
-                  onStatusChange={(status) => {
-                    onStatusChange(status, elm);
-                  }}
-                  onSessionComment={() => {
-                    openSessionComment(elm?.id);
-                  }}
-                  rateText={t('rate it')}
-                  onApprove={() => {
-                    setAppointmentAll(elm);
-                    setAppointment({
-                      id: elm?.id,
-                      userId: elm?.dt?.id,
-                    });
-                    setOpenRateModal('index');
-                  }}
-                />
-              </ApproveCardContainer>
-            )
-          ) || <></>}
+              <ApproveCard
+                type="history"
+                date={elm?.hour}
+                session_status={elm?.session_status}
+                onStatusChange={(status) => {
+                  onStatusChange(status, elm)
+                }} customerName={elm?.student}
+                has_comment={elm?.dt?.has_comment}
+                rateText="Puanla"
+                onSessionComment={() => { openSessionComment(elm?.id) }}
+
+                onApprove={() => {
+                  setAppointmentAll(elm)
+                  setAppointment({
+                    id: elm?.id,
+                    userId: elm?.dt?.id,
+                  });
+                  dispatch(getSessionComment(elm?.id))
+
+                  setOpenRateModal('index');
+                }}
+              />
+            </ApproveCardContainer>
+          )) || <></>}
+
+          {items?.appointment?.[
+            moment(date).format('DD.MM.YYYY')
+          ]?.online?.map((elm, i) => (
+            <ApproveCardContainer key={i}>
+              <Svg.SessionType.Online style={{ marginRight: '10px' }} />
+
+              <ApproveCard
+                type="history"
+                date={elm?.hour}
+                customerName={elm?.student}
+                has_comment={elm?.dt?.has_comment}
+                session_status={elm?.session_status}
+                onStatusChange={(status) => {
+                  onStatusChange(status, elm)
+                }}
+                onSessionComment={() => { openSessionComment(elm?.id) }}
+                rateText="Puanla"
+                onApprove={() => {
+                  setAppointmentAll(elm)
+                  setAppointment({
+                    id: elm?.id,
+                    userId: elm?.dt?.id,
+                  });
+                  dispatch(getSessionComment(elm?.id))
+
+                  setOpenRateModal('index');
+                }}
+              />
+            </ApproveCardContainer>
+          )) || <></>}
         </ReservationAccordion>
       );
     } else {
@@ -195,7 +191,8 @@ const SessionHistory = ({ setSubPage = () => {} }) => {
         rateLabel={t('rate it')}
         cancelLabel={t('Give Up')}
         open={openRateModal}
-        rate={({ rate, comment, commented_id, rateType, session_file }) => {
+        rate={({ rate, comment, commented_id, rateType, session_file, session_status }) => {
+
           if (rateType == 'session') {
             dispatch(
               rateAndCommentSession(
@@ -204,6 +201,7 @@ const SessionHistory = ({ setSubPage = () => {} }) => {
                   rating: rate,
                   comment: comment,
                   session_file: session_file,
+                  session_status: session_status
                 },
                 () => {
                   setAppointment(undefined);

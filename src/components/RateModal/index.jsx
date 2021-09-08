@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
 import { Text, Svg } from 'components';
@@ -14,23 +15,24 @@ const RateModal = ({
   open,
   rate,
   cancel,
-  headerText = '',
-  descText = '',
   cancelLabel = '',
   rateLabel = '',
 }) => {
   const [selectedPage, setSelectedPage] = useState('start');
-  const [toBeRatedUserType, setToBeRatedUserType] = useState(null);
+  // eslint-disable-next-line
+  const [toBeRatedUserType, setToBeRatedUserType] = useState('session');
   const [star, setStar] = useState(undefined);
   const [comment, setComment] = useState(undefined);
-  const auth = useSelector((state) => state.auth)
   const [uploadedFiles, setUploadedFiles] = useState({});
-
+  const sessionComment = useSelector(
+    (state) => state.userProfile?.sessionComment
+  );
   useEffect(() => {
     if (!open) {
       setStar(undefined);
       setComment(undefined);
       setSelectedPage('start');
+
     }
   }, [open]);
   let content;
@@ -49,14 +51,11 @@ const RateModal = ({
           <Svg.CloseIcon
             className="close-icon"
             onClick={() => {
-              setToBeRatedUserType(null)
               cancel();
             }}
           />
           <ContextContainer>
-            <IconContainer>
-              <Svg.Approve />
-            </IconContainer>
+
 
             <Text
               variant="h2"
@@ -64,34 +63,62 @@ const RateModal = ({
               color="dark"
               fontWeight="500"
               textAlign="center"
+              style={{marginBottom:'25px'}}
             >
-              {headerText}
+              Ders Değerlendirme
             </Text>
 
-            <Text textAlign="center" fontSize="1rem" color="dark">
-              {descText}
-            </Text>
+
+            {!(sessionComment?.isLoading) && sessionComment?.data?.length > 0 && sessionComment?.data?.map((comment, key) => (
+              <CommentCard key={key}>
+                <CommenterPhoto src={comment?.commenter?.photo}></CommenterPhoto>
+                <CommentBody>
+                  <Rating
+                    name="customized-empty"
+                    defaultValue={comment?.rating}
+                    precision={0.5}
+                    emptyIcon={<StarBorderIcon fontSize="inherit" />}
+                    readOnly
+                  />
+                  <CommentText>
+                    {comment?.comment}
+                  </CommentText>
+                  <AttachList>
+                    {comment?.session_file?.length > 0 && comment?.session_file?.map((file, key) => (
+                      <Attach key={key} onClick={() => { setSelectedItem(file) }}>
+                        <div style={{ height: '20px', width: '20px', marginRight: '5px' }}>
+                          <Svg.PaperClip />
+                        </div>
+                        {file?.file?.slice(-15)}
+                      </Attach>
+                    ))}
+                  </AttachList>
+                </CommentBody>
+              </CommentCard>
+            ))}
+            {sessionComment?.isLoading && <Text>Loading...</Text>}
           </ContextContainer>
 
-          <div className="modal-footer" closeIcon={false}>
-            <StyledButton
-              rate
-              onClick={() => {
-                setSelectedPage('second');
-              }}
-            >
-              {rateLabel}
-            </StyledButton>
-          </div>
-          <div className="modal-footer" closeIcon={false}>
-            <StyledButton
-              onClick={() => {
-                setToBeRatedUserType(null)
-                cancel();
-              }}
-            >
-              {cancelLabel}
-            </StyledButton>
+          <div style={{display: 'flex'}}> 
+            <div className="modal-footer" closeIcon={false}>
+              <StyledButton
+                rate
+                onClick={() => {
+                  setSelectedPage('second');
+                }}
+              >
+                {rateLabel}
+              </StyledButton>
+            </div>
+            <div className="modal-footer" closeIcon={false}>
+              <StyledButton
+                onClick={() => {
+                  cancel();
+                }}
+              >
+                {cancelLabel}
+              </StyledButton>
+            </div>
           </div>
         </MainContainer>
       );
@@ -101,7 +128,7 @@ const RateModal = ({
         <MainContainer>
           <>
             <ReasonContextContainer>
-              <TextContainer>
+              {/* <TextContainer>
                 <StyledText>{toBeRatedUserType ? "Puan & Yorum" : "Bu rezervasyon ile ilgili kimi puanlamak istersiniz?"}</StyledText>
               </TextContainer>
               {!toBeRatedUserType &&
@@ -113,7 +140,7 @@ const RateModal = ({
                   <span className="choose-type-span" onClick={() => { setToBeRatedUserType('session') }}>Dersi Değerlendir</span>
 
                 </>
-              }
+              } */}
               {toBeRatedUserType && toBeRatedUserType !== 'session' &&
                 <>
                   <StarContainer>
@@ -182,7 +209,6 @@ const RateModal = ({
               <FooterButton
                 onClick={() => {
                   cancel();
-                  setToBeRatedUserType(null)
                 }}
               >
                 VAZGEÇ
@@ -190,8 +216,7 @@ const RateModal = ({
               {toBeRatedUserType && <FooterButton
                 rate
                 onClick={() => {
-                  setToBeRatedUserType(null)
-                  rate({ rate: star, comment: comment, commented_id: getCommentedId(), rateType: toBeRatedUserType, session_file: uploadedFiles });
+                  rate({ rate: star, comment: comment, commented_id: getCommentedId(), rateType: toBeRatedUserType, session_file: uploadedFiles, session_status: 1 });
                 }}
               >
                 GÖNDER
@@ -205,7 +230,7 @@ const RateModal = ({
       break;
   }
 
-  return <Root style={{ display: open !==null ? 'flex' : 'none' }}>{content}</Root>;
+  return <Root style={{ display: open !== null ? 'flex' : 'none' }}>{content}</Root>;
 };
 
 const Root = styled.div`
@@ -224,6 +249,7 @@ const Root = styled.div`
 `;
 const MainContainer = styled.div`
   display: flex;
+  width:75%;
   flex-direction: column;
   border-radius: 30px;
   justify-content: center;
@@ -243,15 +269,7 @@ const MainContainer = styled.div`
     overflow: scroll;
   }
 `;
-const IconContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 120px;
-  height: 120px;
-  border-radius: 200px;
-  background: var(--blue);
-`;
+
 const StyledButton = styled(Link)`
   font-size: 1.2rem;
   color: ${(p) => (p.rate ? 'var(--blue)' : 'black')};
@@ -266,12 +284,10 @@ const StyledButton = styled(Link)`
 
 const ContextContainer = styled.div`
   display: flex;
+  width: 60%;
   flex-direction: column;
-  width: 30vw;
   justify-content: center;
   align-items: center;
-  padding: 50px 70px 30px;
-
   @media ${device.sm} {
     padding: 20px 0;
     width: 80vw;
@@ -300,15 +316,7 @@ const ReasonContextContainer = styled.div`
   }
 `;
 
-const TextContainer = styled.div`
-  width: 100%;
-  margin-bottom: 20px;
-`;
-const StyledText = styled.text`
-  font-family: 'Poppins', sans-serif;
-  font-size: 20px;
-  color: var(--blue);
-`;
+
 const ModalFooter = styled.div`
   display: flex;
   width: 100%;
@@ -325,4 +333,54 @@ const FooterButton = styled.button`
 const StarContainer = styled.div`
   display: flex;
 `;
+
+
+
+const CommentCard = styled.div`
+display:flex;
+width: 100%;
+height: 200px;
+background:white;
+border-radius: 10px;
+-webkit-box-shadow: 0px 0px 4px 3px rgba(197, 196, 196, 0.28);
+box-shadow: 0px 0px 4px 3px rgba(197, 196, 196, 0.28);
+
+`
+const CommenterPhoto = styled.img`
+height: 200px;
+width:200px;
+
+
+`
+const CommentBody = styled.div`
+display:flex;
+flex-direction:column;
+ flex-grow:1;
+ height: 100%;
+ padding:10px;
+
+`
+const CommentText = styled.text`
+width: 100%;
+height:110px;
+border-style:solid;
+border-width: 1px;
+border-radius: 10px;
+margin-top:10px;
+padding:10px;
+
+`
+const Attach = styled.div`
+display:flex;
+height:20px;
+background:re;
+margin-left:10px;
+cursor:pointer;
+`
+const AttachList = styled.div`
+display:flex;
+width:100%;
+margin-top:15px;
+
+`
 export default RateModal;
