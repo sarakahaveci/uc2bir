@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 import { setProfile } from 'actions';
 import { Box } from 'components';
 import TextField from '@material-ui/core/TextField';
 
 export default function About() {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const { userInfo, isLoading } = useSelector((state) => state?.profile);
 
@@ -17,14 +20,14 @@ export default function About() {
   }, [userInfo]);
 
   const isFailUpdate = (message) => {
-    toast.error(message || 'Güncelleme yapılırken hata ile karşılaşıldı.', {
+    toast.error(message || t('Error encountered while updating'), {
       position: 'bottom-right',
       autoClose: 4500,
     });
   };
 
   const isSuccess = () => {
-    toast.success('Başarı ile güncellendi.', {
+    toast.success(t('Updated successfully'), {
       position: 'bottom-right',
       autoClose: 4500,
     });
@@ -38,7 +41,7 @@ export default function About() {
   };
 
   return isLoading ? (
-    <div>Yükleniyor..</div>
+    <div>{t('Loading')}..</div>
   ) : (
     <div className="about-wrapper">
       <TextField
@@ -63,7 +66,7 @@ export default function About() {
             userInfo?.about === newAbout ? 'saveButton disable' : 'saveButton'
           }
         >
-          KAYDET
+          {t('save')}
         </span>
       </Box>
     </div>

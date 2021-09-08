@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
 import { Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { subDays } from 'date-fns';
 import { subMonths } from 'date-fns';
@@ -23,22 +24,22 @@ import {
   Select,
 } from 'components';
 
-const notificationSettingsTypes = [
-  {
-    key: 'sms',
-    title: 'Sms almak istiyorum',
-  },
-  {
-    key: 'email',
-    title: 'E-posta almak istiyorum',
-  },
-  {
-    key: 'push',
-    title: 'Uygulama içi bildirimler',
-  },
-];
-
 const Notifications = () => {
+  const notificationSettingsTypes = [
+    {
+      key: 'sms',
+      title: t('I want to receive sms'),
+    },
+    {
+      key: 'email',
+      title: t('I want to receive e-mail'),
+    },
+    {
+      key: 'push',
+      title: t('In-app notifications'),
+    },
+  ];
+
   const {
     notifications: {
       data: notifications,
@@ -46,6 +47,7 @@ const Notifications = () => {
       types: notificationSettings,
     },
   } = useSelector((state) => state.profileSettings2.notifications);
+  const { t } = useTranslation();
 
   const [pageNumber, setPageNumber] = useState(1);
   const [date, setDate] = useState(7);
@@ -129,18 +131,17 @@ const Notifications = () => {
       </tr>
     ))
   ) : (
-    <Box mt="15px"> Bildirim bulunmamaktadır.</Box>
+    <Box mt="15px"> {t('There are no notifications')}</Box>
   );
 
   return (
     <div>
       <Title component="h5" textAlign="left">
-        Bildirimlerim
+        {t('my notifications')}
       </Title>
 
       <Text color="dark" fontSize="0.9rem" fontWeight="500" mb="15px">
-        Tüm bildirimlerinizi görüntüleyebilir, ayarlarınızı
-        güncelleyebilirsiniz.
+        {t('You can view all your notifications and update your settings')}
       </Text>
 
       <SwitchRowWrapper>
@@ -170,10 +171,10 @@ const Notifications = () => {
             className="notification__date"
             onChange={(e) => setDate(e.target.value)}
           >
-            <option value={7}>Son 7 Gün</option>
-            <option value={15}>Son 15 Gün</option>
-            <option value={1}>Son 1 Ay</option>
-            <option value={3}>Son 3 Ay</option>
+            <option value={7}>{t('Last 7 Days')}</option>
+            <option value={15}>{t('Last 15 Days')}</option>
+            <option value={1}>{t('Last 1 Month')}</option>
+            <option value={3}>{t('Last 3 Month')}</option>
           </Select>
         </Col>
 
@@ -192,7 +193,7 @@ const Notifications = () => {
         <thead>
           <tr>
             <Th>
-              Tarih <Svg.UpDownIcon />
+              {t('date')} <Svg.UpDownIcon />
             </Th>
           </tr>
         </thead>
