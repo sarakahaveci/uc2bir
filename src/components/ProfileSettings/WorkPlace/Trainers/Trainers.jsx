@@ -8,12 +8,16 @@ import { device } from 'utils';
 import { Button, Pagination, Svg, ChooseDateModal } from 'components';
 import LongUserCard from 'components/UserCards/LongUserCard';
 import SearchFilters from 'components/SearchProfessional/SearchFilters';
+import { useTranslation } from 'react-i18next';
+
 const Trainers = ({
   type,
-  onClickHover = () => { },
+  onClickHover = () => {},
   level = 'A',
-  onClickUpgrageClass = () => { },
+  onClickUpgrageClass = () => {},
 }) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const [packetLevel, setPacketLevel] = useState(level);
   const allBranchList = useSelector(
@@ -30,7 +34,7 @@ const Trainers = ({
   const [page, setPage] = useState(1);
   const [price, setPrice] = useState('[0, 1000]');
   const [openDateModal, setOpenDateModal] = useState(false);
-  const [dateFilterText, setDateFilterText] = useState('Tarih Seçiniz');
+  const [dateFilterText, setDateFilterText] = useState(t('selectDate'));
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [ratings, setRatings] = useState('[]');
@@ -56,7 +60,7 @@ const Trainers = ({
         classification: packetLevel || level,
         startDate,
         endDate,
-        accept_package: type == 'selection' ? 'yes' : null
+        accept_package: type == 'selection' ? 'yes' : null,
       })
     );
   }, [packetLevel]);
@@ -102,8 +106,7 @@ const Trainers = ({
         endDate,
         type: 'pt',
         classification: packetLevel || level,
-        accept_package: type == 'selection' ? 'yes' : null
-
+        accept_package: type == 'selection' ? 'yes' : null,
       })
     );
   };
@@ -123,7 +126,7 @@ const Trainers = ({
                 className="search-trainer__search-input"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="Eğitmen Ara"
+                placeholder={t('findTrainer')}
               />
             </SearchCol>
             <SearchCol>
@@ -138,7 +141,7 @@ const Trainers = ({
                   className="search-trainer__search-input"
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
-                  placeholder="Lokasyon..."
+                  placeholder={t('Location...')}
                 />
               </div>
             </SearchCol>
@@ -163,7 +166,7 @@ const Trainers = ({
 
             <SearchCol sm={12}>
               <FilterButton onClick={() => setShowFilters(!showFilters)}>
-                Filtrele
+                {t('Filter')}
               </FilterButton>
               {showFilters && (
                 <SearchFilters
@@ -186,7 +189,7 @@ const Trainers = ({
                 display="flex"
                 className="blue w-100 ml-md-auto"
                 alignItems="center"
-                text="Ara"
+                text={t('Search')}
                 search
                 width="100%"
                 maxWidth="200px"
@@ -197,7 +200,7 @@ const Trainers = ({
         </SearchWrapper>
         {type == 'selection' && (
           <div style={{ width: '40%', margin: '20px' }}>
-            <LabelText>Seviyenizi Seçiniz</LabelText>
+            <LabelText>{t('Choose Your Level')}</LabelText>
             <Seperator></Seperator>
             <LevelContainer>
               <LevelCircle
@@ -257,8 +260,8 @@ const Trainers = ({
                   hoverText={
                     type == 'selection'
                       ? levelCompare(level, professional?.classification)
-                        ? '+ Eğitmeni Seç'
-                        : 'Paket Yükselt'
+                        ? t('+ Select Trainer')
+                        : t('Upgrade Package')
                       : undefined
                   }
                   key={professional?.id || professional?.user_id}
@@ -285,7 +288,9 @@ const Trainers = ({
             </div>
           </>
         ) : (
-          <strong className="mt-3">Arama türüne uygun sonuç bulunamadı.</strong>
+          <strong className="mt-3">
+            {t('No results matching your search type were found')}
+          </strong>
         )}
       </Container>
       <ChooseDateModal

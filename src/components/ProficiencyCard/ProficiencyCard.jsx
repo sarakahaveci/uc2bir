@@ -1,7 +1,10 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { Title } from 'components';
 export default function ProficiencyCard({ title, data }) {
+  const { t } = useTranslation();
+
   return (
     <div className="proficiencyCard__wrapper">
       <Title
@@ -36,7 +39,9 @@ export default function ProficiencyCard({ title, data }) {
                 textAlign="right"
                 color={value?.status === 'pending' ? '#f01c62' : '#00b2a9'}
               >
-                {value?.status === 'pending' ? 'Onay Bekliyor' : 'Onaylandı'}
+                {value?.status === 'pending'
+                  ? t('Waiting for approval')
+                  : t('Approved')}
               </Title>
             </div>
           ))}

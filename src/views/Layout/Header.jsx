@@ -310,11 +310,11 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
                 onChange={(e) => {
                   setKeyword(e.target.value);
                 }}
-                placeholder={'Ne arıyorsun?'}
+                placeholder={t('what are you looking for')}
               />
             </StyledDiv>
             <Button
-              text="Ara"
+              text={t('Search')}
               icon={AwesomeIcon.Search}
               className="blue"
               onClick={() => {

@@ -184,7 +184,7 @@ const Notifications = () => {
             fontWeight="bold"
             width="110px"
             className="blue"
-            text="Listele"
+            text={t('list')}
             onClick={listHandler}
           />
         </DateCol>

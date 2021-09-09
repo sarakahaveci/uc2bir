@@ -768,5 +768,8 @@
   "my posts": "My Posts",
   "CREATE SESSION": "CREATE SESSION",
   "CREATE PRIVATE LESSON": "CREATE PRIVATE LESSON",
-  "HIRE SPORTS AREA": "HIRE SPORTS AREA"
+  "HIRE SPORTS AREA": "HIRE SPORTS AREA",
+  "list": "List",
+  "+ Select Trainer": "+ Select Trainer",
+  "Upgrade Package": "Upgrade Package"
 }

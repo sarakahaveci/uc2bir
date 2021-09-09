@@ -29,7 +29,7 @@ const SearchGroupLesson = () => {
   );
   const [openDateModal, setOpenDateModal] = useState(false);
 
-  const [dateFilterText, setDateFilterText] = useState('Tarih Seçiniz');
+  const [dateFilterText, setDateFilterText] = useState(t('selectDate'));
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [title, setTitle] = useState('');

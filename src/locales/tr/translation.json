@@ -766,5 +766,8 @@
   "my posts": "Yazılarım",
   "CREATE SESSION": "SEANS OLUŞTUR",
   "CREATE PRIVATE LESSON": "ÖZEL DERS OLUŞTUR",
-  "HIRE SPORTS AREA": "SPOR ALANI KİRALA"
+  "HIRE SPORTS AREA": "SPOR ALANI KİRALA",
+  "list": "Listele",
+  "+ Select Trainer": "+ Eğitmeni Seç",
+  "Upgrade Package": "Paket Yükselt"
 }

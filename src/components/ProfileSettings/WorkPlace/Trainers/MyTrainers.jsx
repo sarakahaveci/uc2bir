@@ -8,15 +8,14 @@ import { device } from 'utils';
 import { Button, Pagination, Svg, ChooseDateModal } from 'components';
 import LongUserCard from 'components/UserCards/LongUserCard';
 import SearchFilters from 'components/SearchProfessional/SearchFilters';
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next';
 
 const MyTrainers = ({
   type,
-  onClickHover = () => { },
+  onClickHover = () => {},
   level = 'A',
-  onClickUpgrageClass = () => { },
+  onClickUpgrageClass = () => {},
 }) => {
-
   const { t } = useTranslation();
 
   const dispatch = useDispatch();
@@ -24,9 +23,7 @@ const MyTrainers = ({
   const allBranchList = useSelector(
     (state) => state.profileSettings.ptBranchList.allList
   );
-  const user = useSelector(
-    (state) => state.auth?.user
-  );
+  const user = useSelector((state) => state.auth?.user);
   const { totalPage, data } = useSelector(
     (state) => state.searchProfessional.listInfo
   );
@@ -37,7 +34,7 @@ const MyTrainers = ({
   const [page, setPage] = useState(1);
   const [price, setPrice] = useState('[0, 1000]');
   const [openDateModal, setOpenDateModal] = useState(false);
-  const [dateFilterText, setDateFilterText] = useState('Tarih Seçiniz');
+  const [dateFilterText, setDateFilterText] = useState(t('selectDate'));
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [ratings, setRatings] = useState('[]');
@@ -63,7 +60,7 @@ const MyTrainers = ({
         classification: packetLevel || level,
         startDate,
         endDate,
-        bs_id: user?.id
+        bs_id: user?.id,
       })
     );
   }, [packetLevel]);
@@ -109,8 +106,7 @@ const MyTrainers = ({
         endDate,
         type: 'pt',
         classification: packetLevel || level,
-        bs_id: user?.id
-
+        bs_id: user?.id,
       })
     );
   };
@@ -170,7 +166,7 @@ const MyTrainers = ({
 
             <SearchCol sm={12}>
               <FilterButton onClick={() => setShowFilters(!showFilters)}>
-                Filtrele
+                {t('Filter')}
               </FilterButton>
               {showFilters && (
                 <SearchFilters
@@ -193,7 +189,7 @@ const MyTrainers = ({
                 display="flex"
                 className="blue w-100 ml-md-auto"
                 alignItems="center"
-                text="Ara"
+                text={t('Search')}
                 search
                 width="100%"
                 maxWidth="200px"
@@ -204,7 +200,7 @@ const MyTrainers = ({
         </SearchWrapper>
         {type == 'selection' && (
           <div style={{ width: '40%', margin: '20px' }}>
-            <LabelText>Seviyenizi Seçiniz</LabelText>
+            <LabelText>{t('Choose Your Level')}</LabelText>
             <Seperator></Seperator>
             <LevelContainer>
               <LevelCircle
@@ -264,8 +260,8 @@ const MyTrainers = ({
                   hoverText={
                     type == 'selection'
                       ? levelCompare(level, professional?.classification)
-                        ? '+ Eğitmeni Seç'
-                        : 'Paket Yükselt'
+                        ? t('+ Select Trainer')
+                        : t('Upgrade Package')
                       : undefined
                   }
                   key={professional?.id || professional?.user_id}
@@ -292,7 +288,9 @@ const MyTrainers = ({
             </div>
           </>
         ) : (
-          <strong className="mt-3">Arama türüne uygun sonuç bulunamadı.</strong>
+          <strong className="mt-3">
+            {t('No results matching your search type were found')}
+          </strong>
         )}
       </Container>
       <ChooseDateModal

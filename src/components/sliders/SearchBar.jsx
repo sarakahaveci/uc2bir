@@ -15,9 +15,10 @@ import {
 } from 'components';
 import { objectToParamCoverter } from 'utils';
 import { useTranslation } from 'react-i18next';
+
 const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
   const [value, setValue] = useState('');
-  const [dateFilterText, setDateFilterText] = useState('Tarih Seçiniz');
+  const [dateFilterText, setDateFilterText] = useState(t('selectDate'));
   const [openDateModal, setOpenDateModal] = useState(false);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
