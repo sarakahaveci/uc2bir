@@ -90,7 +90,7 @@ export default function DietitianPrice() {
         <div className="d-flex w-75 mt-5">
           <Button
             className="blue dietitan-price__saveButton"
-            text="Kaydet"
+            text={t('save')}
             fontSize="10pt"
             disabled={price === newPrice}
             onClick={updatePrice}

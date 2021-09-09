@@ -63,7 +63,7 @@ const AddGym = ({ setSubPage, setBannerActive }) => {
     <>
       <div className="row">
         <Button
-          text="< Geri"
+          text={t('< Back')}
           onClick={() => setSubPage('Adds')}
           fontSize="14pt"
           fontWeight="bold"

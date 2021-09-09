@@ -778,5 +778,9 @@
   "You havent added an Activity Area (Class) yet": "Henüz Faaliyet Alanı (Sınıf) Eklemediniz.",
   "Session Fee": "Seans Ücreti",
   "Session for all branches (TL)": "Tüm branşlar için seans (TL)",
-  "Enter and save the value to update the session cost": "Seans ücretini güncellemek için değeri girin ve kaydedin."
+  "Enter and save the value to update the session cost": "Seans ücretini güncellemek için değeri girin ve kaydedin.",
+  "Successfully added": "Başarıyla Eklendi",
+  "Workplace Facilities": "İş Yeri Olanaklar",
+  "Determine the opportunities for the sports field you serve; You can add new possibilities": "Hizmet verdiğiniz spor alanı için olanakları belirleyebilir; yeni olanaklar ekleyebilirsiniz.",
+  "Add New Facilities": "Yeni Olanak Ekle"
 }
