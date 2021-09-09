@@ -9,7 +9,6 @@ import { decode } from 'html-entities';
 import { Button, Svg, PaymentCard, CreditCard } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUpdatePackage, setPacketReservation } from 'actions';
-import { getWallet } from 'actions/userProfileActions/walletActions';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -24,7 +23,6 @@ const UpgradeClass = ({ setField = () => {} /* globalState */ }) => {
   let history = useHistory();
 
   useEffect(() => {
-    dispatch(getWallet());
     dispatch(
       getUpdatePackage(
         reservation?.data?.packetInfo?.package_id,

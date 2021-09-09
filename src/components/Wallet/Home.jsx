@@ -1,26 +1,17 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Text, Title, Accordion, Button } from 'components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import styled from 'styled-components/macro';
 import image from '../../assets/my-wallet.jpg';
 import Wrapper from './Wrapper';
-import { getWallet } from 'actions/userProfileActions/walletActions';
 
 const Home = ({ setPage }) => {
   const { t } = useTranslation();
-
   const { balance } = useSelector((state) => state?.userProfile?.wallet.data);
-
   const { user } = useSelector((state) => state.auth);
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getWallet());
-  }, []);
 
   return (
     <>

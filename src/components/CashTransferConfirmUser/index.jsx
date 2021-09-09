@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {  useRef, useState } from 'react';
 import styled from 'styled-components/macro';
 import { device } from 'utils';
 import { Button } from 'components';
-import { getWallet } from 'actions/userProfileActions/walletActions';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 
@@ -21,11 +20,7 @@ export default function CashTransferConfirmUser({
   const { accessToken } = useSelector((state) => state.auth);
   const formRef = useRef(null);
   const [paymentData, setPaymentData] = useState(null);
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getWallet());
-  }, []);
 
   const getPaymentData = () => {
     const config = {

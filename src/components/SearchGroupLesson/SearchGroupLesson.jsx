@@ -36,7 +36,7 @@ const SearchGroupLesson = () => {
   const [location, setLocation] = useState('');
   const [branch, setBranch] = useState('');
   const [page, setPage] = useState(1);
-  const [price, setPrice] = useState([0, 1000]);
+  const [price, setPrice] = useState([0, 10000]);
 
   const [ratings, setRatings] = useState([]);
   const [classification, setClassification] = useState('');
@@ -55,7 +55,7 @@ const SearchGroupLesson = () => {
       location,
       branch,
       page = 1,
-      price = '[0, 1000]',
+      price = '[0, 10000]',
       ratings = '[]',
       classification,
       type = 'group-lessons',

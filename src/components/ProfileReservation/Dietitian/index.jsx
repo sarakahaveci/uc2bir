@@ -23,7 +23,6 @@ import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import RadioGroup from '@material-ui/core/RadioGroup';
 
-import { getWallet } from 'actions/userProfileActions/walletActions';
 
 const dateOption = true;
 
@@ -52,7 +51,6 @@ const Dietitian = () => {
     }));
     setSessionTypes([...items]);
     dispatch(getDietitianClinics(userInfo.id));
-    dispatch(getWallet());
     dispatch(setReservation({ dt_id: userInfo.id }));
     dispatch(getStaticPage('uye-mesafeli-hizmet-sozlesmesi'));
     dispatch(getStaticPage('uye-on-bilgilendirme-formu'));
