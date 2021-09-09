@@ -6,6 +6,7 @@ import ReactHtmlParser from 'react-html-parser';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { getBlogDetail } from 'actions';
+import { useTranslation } from 'react-i18next';
 
 import {
   FacebookShareButton,
@@ -14,6 +15,8 @@ import {
 } from 'react-share';
 
 const BlogDetail = ({ match }) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const blogs = useSelector((state) => state?.myBlogs?.blogs);
   const detail = useSelector((state) => state?.myBlogs?.detail);
@@ -55,7 +58,7 @@ const BlogDetail = ({ match }) => {
                         style={{ marginBottom: '10px' }}
                         className="blog-detail__share-title"
                       >
-                        Paylaş
+                        {t('Share')}
                       </span>
                       <FacebookShareButton
                         style={{ marginBottom: '10px' }}

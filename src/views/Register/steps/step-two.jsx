@@ -7,6 +7,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { Button, Otp, Box, Svg } from '../../../components';
+import { useTranslation } from 'react-i18next';
 
 import { toast } from 'react-toastify';
 
@@ -15,6 +16,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setStepTwo, verifyCode } from '../../../actions';
 
 const StepTwo = (props) => {
+  const { t } = useTranslation();
+
   const getStepOne = useSelector((state) => state.stepOne);
   const getStepTwo = useSelector((state) => state.stepTwo);
   const {
@@ -123,7 +126,8 @@ const StepTwo = (props) => {
           open={modal}
         >
           <DialogTitle className="text-center" style={{ color: 'black' }}>
-            Telefon Numaranızı Doğrulayın
+            {t('Verify Your Phone Number')}
+
             <span
               style={{
                 position: 'absolute',
@@ -143,8 +147,8 @@ const StepTwo = (props) => {
               style={{ padding: '15px 30px', color: 'black' }}
               className="text-center"
             >
-              <b>{phone}</b> numaralı telefona <br />
-              gönderdiğimiz 6 haneli kodu girin.
+              <b>{phone}</b>{' '}
+              {t('Enter the 6-digit code we sent to the phone number')}
             </DialogContentText>
             <div className="d-flex flex-wrap dialog-center">
               <form
@@ -158,30 +162,31 @@ const StepTwo = (props) => {
                   <Button
                     variant="link"
                     color="#00b2a9"
-                    text={`Güvenlik kodunu girmek için kalan süreniz ${Math.floor(
-                      counter / 60
-                    )}:${Math.ceil(counter % 60) < 10 ? 0 : ''}${Math.ceil(
-                      counter % 60
-                    )}`}
+                    text={
+                      t('Your remaining time to enter the security code') +
+                      `${Math.floor(counter / 60)}:${
+                        Math.ceil(counter % 60) < 10 ? 0 : ''
+                      }${Math.ceil(counter % 60)}`
+                    }
                   />
                 ) : (
                   <Button
                     color="#00b2a9"
                     onClick={vrf_response}
                     variant="link"
-                    text={`Güvenlik kodunu tekrar gönder.`}
+                    text={t('Resend security code')}
                   />
                 )}
                 <Box center width="100%" my="15px">
                   {!getStepTwo.isLoading ? (
                     <Button
                       type="submit"
-                      text={`İleri`}
+                      text={t('Forward')}
                       className="blue"
                       disabled={!(typeof code === 'number')}
                     />
                   ) : (
-                    <Button className="blue" text={`Lütfen Bekleyiniz...`} />
+                    <Button className="blue" text={t('Please wait...')} />
                   )}
                 </Box>
               </form>

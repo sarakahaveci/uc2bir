@@ -1,10 +1,13 @@
 /* eslint-disable react/no-children-prop */
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { Button, Text, AwesomeIcon } from '../../../components';
 import { useHistory } from 'react-router-dom';
 
 const StepFinish = () => {
+  const { t } = useTranslation();
+
   const history = useHistory();
   return (
     <>
@@ -20,24 +23,24 @@ const StepFinish = () => {
       </span>
       <Text
         style={{ marginBottom: 5, fontSize: '18px', letterSpacing: '1px' }}
-        children="Tebrikler"
+        children={t('Congratulations')}
         blue
         textAlign="center"
       />
       <Text
         fontSize="11pt"
-        children="Başlangıç yapmak için harika bir gün..."
+        children={t('A great day to start...')}
         textAlign="center"
       />
       <Text
         style={{ marginBottom: 25 }}
         fontSize="11pt"
-        children="Şimdinin gücüne inan!"
+        children={t('Believe in the power of now!')}
         textAlign="center"
       />
       <Button
         onClick={() => history.push('/')}
-        text={`Anasayfa`}
+        text={t('Go to Homepage')}
         className="blue"
       />
     </>

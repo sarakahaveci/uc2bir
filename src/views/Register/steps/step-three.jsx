@@ -3,12 +3,15 @@ import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { Button, Material, AwesomeIcon } from 'components';
+import { useTranslation } from 'react-i18next';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { setStepThree } from '../../../actions';
 import { genderData } from '../../../constants';
 
 const StepThree = (props) => {
+  const { t } = useTranslation();
+
   const { setSteps } = props;
   const dispatch = useDispatch();
 
@@ -18,7 +21,7 @@ const StepThree = (props) => {
   const [isBirthdaySafe, setIsBirthdaySafe] = useState(false);
 
   const isSuccess = () => {
-    toast.success('Bilgileriniz güncellendi.', {
+    toast.success(t('Your information has been updated'), {
       position: 'bottom-right',
       autoClose: 2000,
       hideProgressBar: false,
@@ -29,7 +32,7 @@ const StepThree = (props) => {
     });
 
     setTimeout(() => {
-      toast.info('Lütfen Bekleyiniz! Yönlendiriliyorsunuz...', {
+      toast.info(t('Please wait! You are redirected...'), {
         position: 'bottom-right',
         autoClose: 2000,
         hideProgressBar: false,
@@ -42,7 +45,7 @@ const StepThree = (props) => {
     }, 1000);
   };
   const isError = () => {
-    toast.error('Hatalı Giriş', {
+    toast.error(t('Incorrect entry'), {
       position: 'bottom-right',
       autoClose: 2000,
       hideProgressBar: false,
@@ -74,7 +77,7 @@ const StepThree = (props) => {
             required
             name="birthday"
             forHtml="birthday"
-            label="Doğum Tarihi"
+            label={t('Your Date of Birth')}
             minDate="01.01.1945"
             maxDate="01.15.2014"
             onError={(err) => setIsBirthdaySafe(!!err)}
@@ -84,7 +87,7 @@ const StepThree = (props) => {
             required
             name="genre"
             forHtml="gender"
-            label="Cinsiyet"
+            label={t('gender')}
             items={genderData}
             icon={AwesomeIcon.Gender}
             onChange={handleFormOnChange}
@@ -93,7 +96,7 @@ const StepThree = (props) => {
         {!getStepThree.isLoading || !getStepThree.isSuccess ? (
           <Button
             type="submit"
-            text={`İleri`}
+            text={t('Forward')}
             className="blue"
             disabled={isBirthdaySafe}
           />

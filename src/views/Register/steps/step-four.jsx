@@ -1,5 +1,6 @@
 // @ts-nocheck
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
@@ -9,6 +10,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setStepFour } from '../../../actions';
 
 const StepFour = (props) => {
+  const { t } = useTranslation();
+
   const { setSteps, registerData } = props;
   const dispatch = useDispatch();
 
@@ -46,7 +49,7 @@ const StepFour = (props) => {
   }, [registerData]);
 
   const succsess = () => {
-    toast.success(`Soru cevapları gönderildi.`, {
+    toast.success(t(`Question answers have been sent`), {
       position: 'bottom-right',
       autoClose: 2000,
       hideProgressBar: false,
@@ -57,7 +60,7 @@ const StepFour = (props) => {
     });
 
     setTimeout(() => {
-      toast.info('Lütfen Bekleyiniz! Yönlendiriliyorsunuz...', {
+      toast.info(t('Please wait! You are redirected...'), {
         position: 'bottom-right',
         autoClose: 2000,
         hideProgressBar: false,
@@ -71,7 +74,7 @@ const StepFour = (props) => {
   };
 
   const err = () => {
-    toast.error(`Soru cevapları gönderilemedi!`, {
+    toast.error(t(`Question answers could not be sent!`), {
       position: 'bottom-right',
       autoClose: 2000,
       hideProgressBar: false,
@@ -98,7 +101,10 @@ const StepFour = (props) => {
   return (
     <>
       <Text>
-        *Sağlığınız için 5 dakikanızı ayırıp, testimizi çözmenizi rica ederiz.
+        *
+        {t(
+          'For your health, we ask you to take 5 minutes of your time and solve our test'
+        )}
       </Text>
       <form onSubmit={onSubmit} autoComplete="off">
         {macro.length &&
@@ -169,7 +175,11 @@ const StepFour = (props) => {
             }
           })}
         {!getStepFour.isLoading || !getStepFour.isSuccess ? (
-          <Button type="submit" text={`Kaydı Tamamla`} className="blue" />
+          <Button
+            type="submit"
+            text={t('Complete Registration')}
+            className="blue"
+          />
         ) : (
           <Button text={t('Loading')} className="blue" />
         )}

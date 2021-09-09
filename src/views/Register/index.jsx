@@ -2,8 +2,11 @@ import React from 'react';
 
 import { Main, Text, FormPages } from '../../components';
 import RegisterSteps from './RegisterSteps';
+import { useTranslation } from 'react-i18next';
 
 const Register = () => {
+  const { t } = useTranslation();
+
   return (
     <Main>
       <FormPages>
@@ -15,20 +18,19 @@ const Register = () => {
                 fontFamily="'Montserrat', sans-serif"
                 color="trunge"
               >
-                321 ve Yeni Bir Sen!
+                {t('321 and a New You')}!
               </Text>
               <Text
                 fontFamily="'Bebas Neue', cursive"
                 fontSize="2em"
                 color="softDark"
               >
-                HER AN HER YERDE İSTEDİĞİN GİBİ ANTRENMAN YAP
+                {t('TRAIN WHEN YOU WANT ANYTIME ANYWHERE')}
               </Text>
-              <Text
-                fontFamily="'Montserrat', sans-serif"
-                fontSize="10pt"
-              >
-                Hedeflerine uygun antrenman planları ile İçindeki atleti özgür bırak
+              <Text fontFamily="'Montserrat', sans-serif" fontSize="10pt">
+                {t(
+                  'Unleash your inner athlete with training plans that fit your goals'
+                )}
               </Text>
             </div>
           </div>

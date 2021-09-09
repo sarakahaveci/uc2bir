@@ -10,6 +10,7 @@ import {
   Information,
   Privacy,
 } from '../../../components';
+import { useTranslation } from 'react-i18next';
 
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
@@ -30,6 +31,8 @@ import FacebookIcon from 'assets/facebook-login.png';
 import AppleIcon from 'assets/apple-login.png';
 import AppleSignin from 'react-apple-signin-auth';
 const StepOne = (props) => {
+  const { t } = useTranslation();
+
   const { setSteps, registerData } = props;
   const dispatch = useDispatch();
 
@@ -61,7 +64,7 @@ const StepOne = (props) => {
     }
   };
   const isError = () => {
-    toast.error('Hatalı Giriş', {
+    toast.error(t('Incorrect entry'), {
       position: 'bottom-right',
       autoClose: 2000,
     });
@@ -190,7 +193,7 @@ const StepOne = (props) => {
         return response;
       }
     } else {
-      toast.error('Bir sorun oluştu lütfen daha sonra tekrar deneyiniz.', {
+      toast.error(t('There was a problem, please try again later'), {
         position: 'bottom-right',
         autoClose: 2000,
       });
@@ -448,9 +451,9 @@ const StepOne = (props) => {
         gray
         textAlign="center"
       >
-        Hesabınız var mı?{' '}
+        {t('Do you have an account?')}
         <Link style={{ color: 'var(--blue)', marginLeft: '5px' }} to="/login">
-          Giriş Yap
+          {t('login')}
         </Link>
       </Text>
       <StyledModal show={openModal} onHide={() => setOpenModal(false)}>

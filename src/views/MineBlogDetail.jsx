@@ -7,6 +7,8 @@ import {
   AwesomeIcon,
   Svg,
 } from 'components';
+import { useTranslation } from 'react-i18next';
+
 import { Col, Container, Row } from 'react-bootstrap';
 import { decode } from 'html-entities';
 import ReactHtmlParser from 'react-html-parser';
@@ -18,6 +20,8 @@ import { useHistory } from 'react-router-dom';
 import { FacebookShareButton, TwitterShareButton } from 'react-share';
 
 const MineBlogDetail = ({ match }) => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const blogs = useSelector((state) => state?.myBlogs?.blogs);
   const detail = useSelector((state) => state?.myBlogs?.detail);
@@ -46,7 +50,7 @@ const MineBlogDetail = ({ match }) => {
               }}
             >
               <Svg.ArrowLeftIcon />
-              <h6 style={{ marginLeft: '5px' }}>Yazılarım</h6>
+              <h6 style={{ marginLeft: '5px' }}>{t('my posts')}</h6>
             </div>
           </Row>
           {!detail.isLoading ? (
@@ -58,7 +62,7 @@ const MineBlogDetail = ({ match }) => {
               <Row>
                 <Col xs="auto">
                   <div className="blog-detail__share-buttons">
-                    <Title fontSize="9pt">Paylaş</Title>
+                    <Title fontSize="9pt">{t('Share')}</Title>
                     <FacebookShareButton
                       url={`${window?.location?.origin}/${match?.url}`}
                       media={detail?.data?.blog?.photo}
