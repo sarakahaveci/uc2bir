@@ -769,5 +769,7 @@
   "HIRE SPORTS AREA": "SPOR ALANI KİRALA",
   "list": "Listele",
   "+ Select Trainer": "+ Eğitmeni Seç",
-  "Upgrade Package": "Paket Yükselt"
+  "Upgrade Package": "Paket Yükselt",
+  "An Error Occurred While Deleting Your Template": "Şablonunuz Silinirken Hata Oluştu",
+  "Your Date of Birth": "Doğum Tarihiniz"
 }

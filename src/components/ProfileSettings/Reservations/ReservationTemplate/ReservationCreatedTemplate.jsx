@@ -61,7 +61,7 @@ export default function ReservationCreatedTemplate({
   };
 
   const deleteTemplateFail = () => {
-    toast.error('Şablonunuz Silinirken Hata Oluştu', {
+    toast.error(t('An Error Occurred While Deleting Your Template'), {
       position: 'bottom-right',
       autoClose: 3000,
     });
@@ -95,7 +95,7 @@ export default function ReservationCreatedTemplate({
                   </Text>
                   <Button
                     redborder={'true'}
-                    text={'Sil'}
+                    text={t('delete')}
                     width={'120px'}
                     height={'35px'}
                     onClick={() =>

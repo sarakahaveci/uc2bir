@@ -706,7 +706,7 @@ const Calendar = () => {
                     >
                       <Button
                         disableborder
-                        text={'Sil'}
+                        text={t('delete')}
                         width={'120px'}
                         height={'35px'}
                         onClick={() =>

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import InputBase from '@material-ui/core/InputBase';
-
+import { useTranslation } from 'react-i18next';
 import {
   Button,
   IconLabel,
@@ -14,16 +14,16 @@ import {
   ChooseDateModal,
 } from 'components';
 import { objectToParamCoverter } from 'utils';
-import { useTranslation } from 'react-i18next';
 
 const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
+  const { t } = useTranslation();
+
   const [value, setValue] = useState('');
   const [dateFilterText, setDateFilterText] = useState(t('selectDate'));
   const [openDateModal, setOpenDateModal] = useState(false);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const history = useHistory();
-  const { t } = useTranslation();
 
   const allBranchList = useSelector(
     (state) => state.profileSettings.ptBranchList.allList
@@ -162,7 +162,7 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
             <li className="buttons">
               <Button
                 className="col blue"
-                text="Ara"
+                text={t('Search')}
                 icon={AwesomeIcon.Search}
                 onClick={searchProfessionalHandler}
               />
