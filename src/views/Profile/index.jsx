@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { WORK_PLACE, PERSONAL_TRAINER, DIETITIAN } from '../../constants';
+import { useTranslation } from 'react-i18next';
 
 import { getUserInfo } from 'actions';
 import profileImg from 'assets/default-profile.jpg';
@@ -28,6 +29,8 @@ import IndividualImprint from 'components/IndividualImprint';
 import MyCalendar from 'components/Profile/MyCalendar/MyCalendar';
 
 export default function Profile({ match }) {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const [page, setPage] = useState('Start');
   const { userInfo, isLoading } = useSelector(
@@ -41,7 +44,7 @@ export default function Profile({ match }) {
   const trainerAndDitetionTabs = [
     {
       eventKey: 'branch',
-      title: 'BRANŞLAR',
+      title: t('BRANCHES'),
       component:
         userInfo?.type_id === DIETITIAN ? (
           <DietitionSpeciality userId={match?.params?.id} />
@@ -51,12 +54,12 @@ export default function Profile({ match }) {
     },
     {
       eventKey: 'certificate',
-      title: 'SERTİFİKALAR',
+      title: t('CERTIFICATES'),
       component: <ProfileCertificate userId={match?.params?.id} />,
     },
     {
       eventKey: 'workplace',
-      title: 'ÇALIŞTIĞI YERLER',
+      title: t('WORKING PLACES'),
       component:
         userInfo?.type_id === DIETITIAN ? (
           <DietitionPlace userId={match?.params?.id} />
@@ -66,7 +69,7 @@ export default function Profile({ match }) {
     },
     {
       eventKey: 'calendar',
-      title: 'TAKVİM',
+      title: t('CALENDAR'),
       component: (
         <MyCalendar
           userId={match?.params?.id}
@@ -77,17 +80,17 @@ export default function Profile({ match }) {
     },
     {
       eventKey: 'comments',
-      title: 'YORUMLAR',
+      title: t('COMMENTS'),
       component: <Comment userId={match?.params?.id} />,
     },
     {
       eventKey: 'gallery',
-      title: 'GALERİ',
+      title: t('GALLERY'),
       component: <Galery userId={match?.params?.id} />,
     },
     {
       eventKey: 'blog',
-      title: 'BLOG',
+      title: t('BLOG'),
       component: <Blog userId={match?.params?.id} userName={userInfo?.name} />,
     },
   ];
@@ -95,28 +98,28 @@ export default function Profile({ match }) {
   const workPlaceTabs = [
     {
       eventKey: 'facility',
-      title: 'OLANAKLAR',
+      title: t('FACILITIES'),
       component: <FacilityList userId={match?.params?.id} />,
     },
     /*{
       eventKey: 'certificate',
-      title: 'SERTİFİKALAR',
+      title: t('CERTIFICATES'),,
       component: <ProfileCertificate userId={match?.params?.id} />,
     },*/
     {
       eventKey: 'workplace',
-      title: 'SINIFLAR',
+      title: t('CLASSES'),
       component: <Classes userId={match?.params?.id} />,
     },
 
     {
       eventKey: 'trainers',
-      title: 'EĞİTMENLER',
+      title: t('TRAINERS'),
       component: <FindPt userId={match?.params?.id} />,
     },
     {
       eventKey: 'calendar',
-      title: 'TAKVİM',
+      title: t('CALENDAR'),
       component: (
         <MyCalendar
           userId={match?.params?.id}
@@ -127,17 +130,17 @@ export default function Profile({ match }) {
     },
     {
       eventKey: 'comments',
-      title: 'YORUMLAR',
+      title: t('COMMENTS'),
       component: <Comment userId={match?.params?.id} />,
     },
     {
       eventKey: 'gallery',
-      title: 'GALERİ',
+      title: t('GALLERY'),
       component: <Galery userId={match?.params?.id} />,
     },
     {
       eventKey: 'location',
-      title: 'KONUM',
+      title: t('LOCATION'),
       component: <GymLocation />,
     },
   ];
@@ -167,7 +170,7 @@ export default function Profile({ match }) {
             <Row>
               <ProfileBanner
                 setPage={setPage}
-                onBlockUser={() => { }}
+                onBlockUser={() => {}}
                 info={{
                   team: userInfo?.classification,
                   img: userInfo?.photo || profileImg,
@@ -196,8 +199,9 @@ export default function Profile({ match }) {
                   match?.params?.activeTabKey || tabData?.[0]?.eventKey
                 }
               />
-              {userInfo?.type_id == 1 && <IndividualImprint userInfo={userInfo} />}
-
+              {userInfo?.type_id == 1 && (
+                <IndividualImprint userInfo={userInfo} />
+              )}
             </TabContainers>
           </Container>
         </>

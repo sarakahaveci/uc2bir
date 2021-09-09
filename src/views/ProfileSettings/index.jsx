@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import {
   Tab,
@@ -36,277 +37,275 @@ import ProfileDetail from 'components/ProfileSettings/ProfileDetail/ProfileDetai
 import Services from 'components/ProfileSettings/Services';
 import Blocked from 'components/ProfileSettings/Blocked';
 
-const regularUserTabs = [
-  {
-    eventKey: 'profile',
-    title: 'Profilim',
-    component: <ProfileSettingsList />,
-  },
-
-  {
-    eventKey: 'reservation',
-    title: 'Rezervasyonlarım',
-    component: <Reservations />,
-  },
-  {
-    eventKey: 'packets',
-    title: 'Paketlerim',
-    component: <Packets />,
-  },
-  {
-    eventKey: 'wallet',
-    title: 'Hesap Hareketleri',
-    component: <Wallet />,
-  },
-  {
-    eventKey: 'favorites',
-    title: 'Favorilerim',
-    component: <Favorites />,
-  },
-  {
-    eventKey: 'notifications',
-    title: 'Bildirimlerim',
-    component: <RegularNotifications />,
-  },
-  {
-    eventKey: 'message',
-    title: 'Mesajlarım',
-    component: <Message />,
-  },
-  {
-    eventKey: 'cancel',
-    component: <CancellationReason />,
-  },
-  {
-    eventKey: 'blocked',
-    title: 'Engellenenler',
-    component: <Blocked />,
-    hidden:true
-  },
-];
-
-const workPlaceTabs = [
-  {
-    eventKey: 'profileDetail',
-    title: 'Profilim',
-    component: <ProfileDetail />,
-  },
-  {
-    eventKey: 'profile',
-    component: <ProfileSettingsList />,
-  },
-  {
-    eventKey: 'favorites',
-    title: 'Favorilerim',
-    component: <Favorites />,
-  },
-  {
-    eventKey: 'reservation',
-    title: 'Rezervasyonlarım',
-    component: <Reservations />,
-  },
-  {
-    eventKey: 'notifications',
-    component: <ProfileSettingsList />,
-  },
-  {
-    eventKey: 'cancel',
-    component: <CancellationReason />,
-  },
-
-  {
-    eventKey: 'facility',
-    title: 'Olanaklar',
-    component: <WorkPlaceFacility />,
-  },
-  {
-    eventKey: 'activity',
-    title: 'Faaliyet Alanları',
-    component: <WorkPlaceActivity />,
-  },
-  {
-    eventKey: 'trainers',
-    title: 'Eğitmenler',
-    component: <MyTrainers />,
-  },
-  {
-    eventKey: 'message',
-    title: 'Mesajlarım',
-    component: <Message />,
-  },
-
-  {
-    eventKey: 'wallet',
-    title: 'Cüzdan',
-    component: <Wallet />,
-  },
-  {
-    eventKey: 'gallery',
-    title: 'Galeri',
-    component: <MasonaryGallery />,
-  },
-  {
-    eventKey: 'blocked',
-    title: 'Engellenenler',
-    component: <Blocked />,
-    hidden:true
-
-  },
-];
-
-const dietitianTabs = [
-  {
-    eventKey: 'profileDetail',
-    title: 'Profilim',
-    component: <ProfileDetail />,
-  },
-  {
-    eventKey: 'profile',
-    component: <ProfileSettingsList />,
-  },
-  {
-    eventKey: 'notifications',
-    component: <ProfileSettingsList />,
-  },
-  {
-    eventKey: 'cancel',
-    component: <CancellationReason />,
-  },
-  {
-    eventKey: 'reservation',
-    title: 'Rezervasyonlarım',
-    component: <Reservations />,
-  },
-  {
-    eventKey: 'packets',
-    title: 'Paketlerim',
-    component: <Packets />,
-  },
-  {
-    eventKey: 'service',
-    title: 'Danışanlar',
-    component: <Services />,
-  },
-  {
-    eventKey: 'location',
-    title: 'Oturum Türleri & Çalıştığım Yerler',
-    component: <SessionType />,
-  },
-  {
-    eventKey: 'price',
-    title: 'Ücretlerim',
-    component: <DietitianPrice />,
-  },
-  {
-    eventKey: 'specialties',
-    title: 'Uzmanlıklarım',
-    component: <DietitianProficiency />,
-  },
-  // TODO: Tab will active after BE ready
-  {
-    eventKey: 'wallet',
-    title: 'Cüzdan',
-    component: <Wallet />,
-  },
-  {
-    eventKey: 'gallery',
-    title: 'Galeri',
-    component: <MasonaryGallery />,
-  },
-  {
-    eventKey: 'blog',
-    title: 'Blog',
-    component: <Blog />,
-  },
-  {
-    eventKey: 'blocked',
-    title: 'Engellenenler',
-    component: <Blocked />,
-    hidden:true
-
-  },
-  {
-    eventKey: 'message',
-    title: 'Mesajlarım',
-    component: <Message />,
-  },
-];
-
-const trainerTabs = [
-  {
-    eventKey: 'profileDetail',
-    title: 'Profilim',
-    component: <ProfileDetail />,
-  },
-  {
-    eventKey: 'profile',
-    component: <ProfileSettingsList />,
-  },
-  {
-    eventKey: 'notifications',
-    component: <ProfileSettingsList />,
-  },
-  {
-    eventKey: 'reservation',
-    title: 'Rezervasyonlarım',
-    component: <Reservations />,
-  },
-  {
-    eventKey: 'packets',
-    title: 'Paketlerim',
-    component: <Packets />,
-  },
-
-  {
-    eventKey: 'location',
-    title: 'Oturum Türleri & Çalıştığım Yerler',
-    component: <SessionType />,
-  },
-  {
-    eventKey: 'cancel',
-    component: <CancellationReason />,
-  },
-  {
-    eventKey: 'branch',
-    title: 'Branşlarım & Ücretlerim',
-    component: <PTBranch />,
-  },
-
-  {
-    eventKey: 'specialties',
-    title: 'Uzmanlıklarım',
-    component: <Proficiency />,
-  },
-  {
-    eventKey: 'wallet',
-    title: 'Cüzdan',
-    component: <Wallet />,
-  },
-  {
-    eventKey: 'gallery',
-    title: 'Galeri',
-    component: <MasonaryGallery />,
-  },
-  {
-    eventKey: 'blog',
-    title: 'Blog',
-    component: <Blog />,
-  },
-  {
-    eventKey: 'blocked',
-    title: 'Engellenenler',
-    component: <Blocked />,
-    hidden:true
-
-  },
-  {
-    eventKey: 'message',
-    title: 'Mesajlarım',
-    component: <Message />,
-  },
-];
-
 export default function UserProfile({ match }) {
+  const { t } = useTranslation();
+
+  const regularUserTabs = [
+    {
+      eventKey: 'profile',
+      title: t('my profile'),
+      component: <ProfileSettingsList />,
+    },
+
+    {
+      eventKey: 'reservation',
+      title: t('my reservations'),
+      component: <Reservations />,
+    },
+    {
+      eventKey: 'packets',
+      title: t('my packages'),
+      component: <Packets />,
+    },
+    {
+      eventKey: 'wallet',
+      title: t('Account Activities'),
+      component: <Wallet />,
+    },
+    {
+      eventKey: 'favorites',
+      title: t('my favorites'),
+      component: <Favorites />,
+    },
+    {
+      eventKey: 'notifications',
+      title: t('my notifications'),
+      component: <RegularNotifications />,
+    },
+    {
+      eventKey: 'message',
+      title: t('My Messages'),
+      component: <Message />,
+    },
+    {
+      eventKey: 'cancel',
+      component: <CancellationReason />,
+    },
+    {
+      eventKey: 'blocked',
+      title: t('Blocked'),
+      component: <Blocked />,
+      hidden: true,
+    },
+  ];
+
+  const workPlaceTabs = [
+    {
+      eventKey: 'profileDetail',
+      title: t('my profile'),
+      component: <ProfileDetail />,
+    },
+    {
+      eventKey: 'profile',
+      component: <ProfileSettingsList />,
+    },
+    {
+      eventKey: 'favorites',
+      title: t('my favorites'),
+      component: <Favorites />,
+    },
+    {
+      eventKey: 'reservation',
+      title: t('my reservations'),
+      component: <Reservations />,
+    },
+    {
+      eventKey: 'notifications',
+      component: <ProfileSettingsList />,
+    },
+    {
+      eventKey: 'cancel',
+      component: <CancellationReason />,
+    },
+
+    {
+      eventKey: 'facility',
+      title: t('Facilities'),
+      component: <WorkPlaceFacility />,
+    },
+    {
+      eventKey: 'activity',
+      title: t('Fields of Activity'),
+      component: <WorkPlaceActivity />,
+    },
+    {
+      eventKey: 'trainers',
+      title: t('trainers'),
+      component: <MyTrainers />,
+    },
+    {
+      eventKey: 'message',
+      title: t('My Messages'),
+      component: <Message />,
+    },
+
+    {
+      eventKey: 'wallet',
+      title: t('my wallet'),
+      component: <Wallet />,
+    },
+    {
+      eventKey: 'gallery',
+      title: t('Gallery'),
+      component: <MasonaryGallery />,
+    },
+    {
+      eventKey: 'blocked',
+      title: t('Blocked'),
+      component: <Blocked />,
+      hidden: true,
+    },
+  ];
+
+  const dietitianTabs = [
+    {
+      eventKey: 'profileDetail',
+      title: t('my profile'),
+      component: <ProfileDetail />,
+    },
+    {
+      eventKey: 'profile',
+      component: <ProfileSettingsList />,
+    },
+    {
+      eventKey: 'notifications',
+      component: <ProfileSettingsList />,
+    },
+    {
+      eventKey: 'cancel',
+      component: <CancellationReason />,
+    },
+    {
+      eventKey: 'reservation',
+      title: t('my reservations'),
+      component: <Reservations />,
+    },
+    {
+      eventKey: 'packets',
+      title: t('my packages'),
+      component: <Packets />,
+    },
+    {
+      eventKey: 'service',
+      title: t('Clients'),
+      component: <Services />,
+    },
+    {
+      eventKey: 'location',
+      title: t('Session Types & Where I Work'),
+      component: <SessionType />,
+    },
+    {
+      eventKey: 'price',
+      title: t('my fees'),
+      component: <DietitianPrice />,
+    },
+    {
+      eventKey: 'specialties',
+      title: t('my specialties'),
+      component: <DietitianProficiency />,
+    },
+    // TODO: Tab will active after BE ready
+    {
+      eventKey: 'wallet',
+      title: t('my wallet'),
+      component: <Wallet />,
+    },
+    {
+      eventKey: 'gallery',
+      title: t('Gallery'),
+      component: <MasonaryGallery />,
+    },
+    {
+      eventKey: 'blog',
+      title: t('Blog'),
+      component: <Blog />,
+    },
+    {
+      eventKey: 'blocked',
+      title: t('Blocked'),
+      component: <Blocked />,
+      hidden: true,
+    },
+    {
+      eventKey: 'message',
+      title: t('My Messages'),
+      component: <Message />,
+    },
+  ];
+
+  const trainerTabs = [
+    {
+      eventKey: 'profileDetail',
+      title: t('my profile'),
+      component: <ProfileDetail />,
+    },
+    {
+      eventKey: 'profile',
+      component: <ProfileSettingsList />,
+    },
+    {
+      eventKey: 'notifications',
+      component: <ProfileSettingsList />,
+    },
+    {
+      eventKey: 'reservation',
+      title: t('my reservations'),
+      component: <Reservations />,
+    },
+    {
+      eventKey: 'packets',
+      title: t('my packages'),
+      component: <Packets />,
+    },
+
+    {
+      eventKey: 'location',
+      title: t('Session Types & Where I Work'),
+      component: <SessionType />,
+    },
+    {
+      eventKey: 'cancel',
+      component: <CancellationReason />,
+    },
+    {
+      eventKey: 'branch',
+      title: t('My Branches & Fees'),
+      component: <PTBranch />,
+    },
+
+    {
+      eventKey: 'specialties',
+      title: t('my specialties'),
+      component: <Proficiency />,
+    },
+    {
+      eventKey: 'wallet',
+      title: t('my wallet'),
+      component: <Wallet />,
+    },
+    {
+      eventKey: 'gallery',
+      title: t('Gallery'),
+      component: <MasonaryGallery />,
+    },
+    {
+      eventKey: 'blog',
+      title: t('Blog'),
+      component: <Blog />,
+    },
+    {
+      eventKey: 'blocked',
+      title: t('Blocked'),
+      component: <Blocked />,
+      hidden: true,
+    },
+    {
+      eventKey: 'message',
+      title: t('My Messages'),
+      component: <Message />,
+    },
+  ];
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.auth.user);

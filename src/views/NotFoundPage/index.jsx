@@ -1,5 +1,6 @@
 // @ts-nocheck
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import styled from 'styled-components/macro';
 import { Main, Title, Text, Button, Svg } from 'components';
@@ -7,6 +8,8 @@ import img from '../../assets/404.jpg';
 import { useHistory } from 'react-router-dom';
 
 const NotFoundPage = () => {
+  const { t } = useTranslation();
+
   const history = useHistory();
   return (
     <Main>
@@ -23,7 +26,7 @@ const NotFoundPage = () => {
           >
             404
           </Title>
-          <div style={{marginTop: 90}}>
+          <div style={{ marginTop: 90 }}>
             <Title
               variant={'h4'}
               component={'h4'}
@@ -42,15 +45,15 @@ const NotFoundPage = () => {
                 />
               }
             >
-              Üzgünüz!
+              {t('Sorry!')}
             </Title>
           </div>
           <Text textAlign="center" color="white">
-            Sayfa silinmiş ya da hiç var olmamış olabilir.
+            {t('The page may have been deleted or never existed')}
           </Text>
           <Button
             onClick={() => history.push('/')}
-            text="Anasayfa"
+            text={t('Go to Homepage')}
             style={{
               color: 'white',
               margin: 30,

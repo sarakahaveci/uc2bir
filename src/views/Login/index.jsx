@@ -4,25 +4,21 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
 import { login, socialLogin } from 'actions';
 //import Svg from 'components/statics/svg';
+import { useTranslation } from 'react-i18next';
 
-import {
-  FormPages,
-  Text,
-  Button,
-  Material,
-  Box,
-  Svg,
-} from 'components';
+import { FormPages, Text, Button, Material, Box, Svg } from 'components';
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 //import InstagramLogin from 'instagram-login-react';
 import GoogleIcon from 'assets/google-login.png';
 import FacebookIcon from 'assets/facebook-login.png';
 //import InstagramIcon from 'assets/instagram-login.png'
-import AppleIcon from 'assets/apple-login.png'
-import AppleLogin from 'react-apple-login'
+import AppleIcon from 'assets/apple-login.png';
+import AppleLogin from 'react-apple-login';
 
 const Login = () => {
+  const { t } = useTranslation();
+
   const { isLoading } = useSelector((state) => state.auth);
 
   const history = useHistory();
@@ -33,14 +29,12 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const loginSuccessHandler = (data) => {
-    if(data?.data?.user?.type_id ==1){
-      history.push('/')
-    }else{
+    if (data?.data?.user?.type_id == 1) {
+      history.push('/');
+    } else {
       history.push('/myprofile/settings/reservation');
-
     }
-
-  }
+  };
 
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -50,7 +44,6 @@ const Login = () => {
     dispatch(login({ email: trimmedEmail, password }, loginSuccessHandler));
   };
   const responseSocial = async (type, res) => {
-
     var user = {
       type: type,
       accessToken: res?.accessToken || res?.authorization?.id_token,
@@ -80,7 +73,7 @@ const Login = () => {
                 fontWeight="500"
                 color="dark"
               >
-                HER AN HER YERDE İSTEDİĞİN GİBİ ANTRENMAN YAP
+                {t('TRAIN WHEN YOU WANT ANYTIME ANYWHERE')}
               </Text>
 
               <Text
@@ -90,8 +83,9 @@ const Login = () => {
                 fontWeight="500"
                 color="dark"
               >
-                Hedeflerine uygun antrenman planları ile İçindeki atleti özgür
-                bırak
+                {t(
+                  'Unleash your inner athlete with training plans that fit your goals'
+                )}
               </Text>
 
               {/* <Title
@@ -123,11 +117,10 @@ const Login = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   id="login-password"
                   name="login-password"
-                  label="Şifre"
+                  label={t('password')}
                   type="password"
                   icon={Svg.PasswordIcon}
                   password={Svg.EyeIcon}
-
                 />
 
                 <Box
@@ -140,29 +133,32 @@ const Login = () => {
                     <Material.CheckBox
                       checked={rememberMe}
                       onChange={(e) => setRememberMe(e.target.checked)}
-                      label="Beni Hatırla"
+                      label={t('Remember me')}
                     />
                   </div>
 
                   <div className="col-auto remember-password">
-                    <Link to="/forgot-password">Şifremi Unuttum</Link>
+                    <Link to="/forgot-password">
+                      {t('I forgot my password')}
+                    </Link>
                   </div>
                 </Box>
 
                 <Button
                   isLoading={isLoading}
                   type="submit"
-                  text="Giriş Yap"
+                  text={t('login')}
                   className="blue"
                 />
               </form>
 
               <NoAccountText>
-                Hesabınız yok mu? <Link to="/register">Üye ol</Link>
+                {t('Dont have an account?signup')}{' '}
+                <Link to="/register">{t('signup')}</Link>
               </NoAccountText>
 
               <div className="identfy">
-                <span>Veya</span>
+                <span>{t('or')}</span>
               </div>
               <div
                 style={{
@@ -221,24 +217,27 @@ const Login = () => {
                   )}
                   />*/}
                 <AppleLogin
-                  clientId='com.ucikibir.web'
-                  scope='email'
-                  redirectURI='https://321.4alabs.com'
-                  state='state'
-                  nonce='nonce'
+                  clientId="com.ucikibir.web"
+                  scope="email"
+                  redirectURI="https://321.4alabs.com"
+                  state="state"
+                  nonce="nonce"
                   usePopup={true}
-
-                  responseType={"code"}
-                  responseMode={"query"}
+                  responseType={'code'}
+                  responseMode={'query'}
                   callback={(response) => responseSocial('apple', response)} // default = undefined
                   //onError={(error) => console.error(error)} // default = undefined
-                  render={renderProps => (
-                    <img onClick={renderProps.onClick} style={{ height: '40px', cursor: 'pointer' }} src={AppleIcon}></img>
+                  render={(renderProps) => (
+                    <img
+                      onClick={renderProps.onClick}
+                      style={{ height: '40px', cursor: 'pointer' }}
+                      src={AppleIcon}
+                    ></img>
                   )}
                 />
               </div>
               <Link className="login-footer" to="/profesyonel/register">
-                Sistemimizde hizmet vermek için tıklayın
+                {t('Click to serve in our system')}
               </Link>
             </div>
           </div>

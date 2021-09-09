@@ -14,26 +14,26 @@ import i18nx from 'i18next';
 const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
   const { infoData } = useSelector((state) => state.footer);
   const { isAuthenticated, user } = useSelector((state) => state.auth);
-  const { t, i18n } = useTranslation()
+  const { t, i18n } = useTranslation();
   const [menuActive, setMenuActive] = useState(false);
-  const ref = useRef()
+  const ref = useRef();
   const [toggle, setToggle] = useState(false);
   const [keyword, setKeyword] = useState('');
   const history = useHistory();
-  const [langOpen, setLangOpen] = useState(false)
+  const [langOpen, setLangOpen] = useState(false);
   useEffect(() => {
-    const checkIfClickedOutside = e => {
+    const checkIfClickedOutside = (e) => {
       if (langOpen && ref.current && !ref.current.contains(e.target)) {
-        setLangOpen(false)
+        setLangOpen(false);
       }
-    }
-    document.addEventListener('mousedown', checkIfClickedOutside)
+    };
+    document.addEventListener('mousedown', checkIfClickedOutside);
     return () => {
-      document.removeEventListener('mousedown', checkIfClickedOutside)
-    }
-  }, [langOpen])
+      document.removeEventListener('mousedown', checkIfClickedOutside);
+    };
+  }, [langOpen]);
   function getCurrentLocale() {
-    return i18nx.languages[0]?.toLocaleUpperCase()
+    return i18nx.languages[0]?.toLocaleUpperCase();
   }
   const handleSearchWhatClick = () => {
     setIsSearchBarOpen(!isSearchBarOpen);
@@ -42,12 +42,11 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
 
   const handleSearch = () => {
     if (keyword.length >= 3) {
-
       history.push('/search/' + keyword);
       setIsSearchBarOpen(!isSearchBarOpen);
       setKeyword('');
     } else {
-      toast.error('3 Harf ve daha fazlasıyla arama yapabilirsiniz.', {
+      toast.error(t('You can search with 3 letters or more'), {
         position: 'bottom-right',
         autoClose: 2000,
       });
@@ -61,7 +60,10 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
   }, [history.location.pathname]);
   function _langChanger() {
     return (
-      <div style={{ position: 'relative', marginLeft: '20px', height: '30px' }} ref={ref}>
+      <div
+        style={{ position: 'relative', marginLeft: '20px', height: '30px' }}
+        ref={ref}
+      >
         <div
           style={{
             display: 'flex',
@@ -71,9 +73,9 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
             height: '30px',
             width: '40px',
             color: 'var(--blue)',
-            cursor: 'pointer'
+            cursor: 'pointer',
           }}
-          onClick={() => setLangOpen(oldState => !oldState)}
+          onClick={() => setLangOpen((oldState) => !oldState)}
         >
           {/* {router.locale?.toUpperCase()} */}
           {getCurrentLocale()}
@@ -92,13 +94,17 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
                 background: 'white',
                 flexDirection: 'column',
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
               }}
             >
-              {['tr', 'en'].map(locale => (
-                <li onClick={() => {
-                  i18n.changeLanguage(locale)
-                }} style={{ marginTop: '5px' }} key={locale}>
+              {['tr', 'en'].map((locale) => (
+                <li
+                  onClick={() => {
+                    i18n.changeLanguage(locale);
+                  }}
+                  style={{ marginTop: '5px' }}
+                  key={locale}
+                >
                   <Lang>{locale?.toUpperCase()}</Lang>
                 </li>
               ))}
@@ -106,7 +112,7 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
           </div>
         )}
       </div>
-    )
+    );
   }
   const nav_logo = {
     status: true,
@@ -255,12 +261,16 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
                     </li>
                   )}
                 </ul>
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
                   {_langChanger()}
                 </div>
               </div>
-
-
             </Row>
           </div>
         </>
@@ -284,10 +294,10 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
         toggle={menuActive}
         setToggle={
           (() => setMenuActive(!menuActive),
-            scroll.scrollToTop({
-              duration: 1000,
-              smooth: true,
-            }))
+          scroll.scrollToTop({
+            duration: 1000,
+            smooth: true,
+          }))
         }
       />
       {isSearchBarOpen && (
@@ -308,7 +318,7 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
               icon={AwesomeIcon.Search}
               className="blue"
               onClick={() => {
-                handleSearch()
+                handleSearch();
               }}
             />
           </div>
@@ -395,5 +405,5 @@ const Lang = styled.text`
   &:hover {
     color: var(--blue);
   }
-`
+`;
 export default Header;

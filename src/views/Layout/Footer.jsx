@@ -10,8 +10,11 @@ import { AwesomeIcon, IconLabel, Title, Box } from 'components';
 import AppStore from 'assets/app-store.png';
 import GooglePlay from 'assets/google-play.png';
 import { device } from 'utils';
+import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
+  const { t } = useTranslation();
+
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -30,6 +33,7 @@ const Footer = () => {
         <div className="item-lists">
           <div className="list">
             <Title
+              style={{ textTransform: 'capitalize' }}
               color="white"
               textAlign="left"
               lineDisable
@@ -38,7 +42,7 @@ const Footer = () => {
               className="cp"
               onClick={() => history.push('/info')}
             >
-              Üç2Bir Hakkında
+              {t('aboutUs')}
             </Title>
             <Title
               color="white"
@@ -48,17 +52,21 @@ const Footer = () => {
               component="h6"
               paddingTop="10px"
             >
-              Bilgilendirme
+              {t('Information')}
             </Title>
             <ul>
               <li>
-                <Link to="/privacy-policy">Gizlilik Politikası</Link>
+                <Link to="/privacy-policy">{t('Privacy Policy')}</Link>
               </li>
               <li>
-                <Link to="/membership-agreement">Üyelik Sözleşmesi</Link>
+                <Link to="/membership-agreement">
+                  {t('Membership Agreement')}
+                </Link>
               </li>
               <li>
-                <Link to="/kvkk-sozlesmesi">Kişisel Verilerin Korunması</Link>
+                <Link to="/kvkk-sozlesmesi">
+                  {t('Protection of Personal Data')}
+                </Link>
               </li>
             </ul>
           </div>
@@ -73,7 +81,7 @@ const Footer = () => {
               className="cp"
               onClick={() => history.push('/contact')}
             >
-              İletişim
+              {t('contact')}
             </Title>
             <ul className="footer-contact__wrapper">
               <li>
@@ -107,7 +115,7 @@ const Footer = () => {
         <div className="item d-flex align-items-center">
           <div className="item-lists">
             <Title color="blue" textAlign="left" lineDisable fontSize="28px">
-              Popüler Etiketler
+              {t('Popular Tags')}
             </Title>
             <ul>
               {tags.map((tag) => (
