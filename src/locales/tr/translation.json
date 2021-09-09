@@ -14,6 +14,7 @@
   "groupLessons": "GRUP DERSLERİ",
   "lessons": "Dersler",
   "lesson": "Ders",
+  "LESSON": "DERS",
   "allCategories": "Tüm Kategoriler",
   "selectDate": "Tarih Seçiniz",
   "date": "Tarih",
@@ -520,6 +521,7 @@
   "will start": "başlayacaktır.",
   "has ended": "sonlanmıştır.",
   "Session": "Seans",
+  "SESSION": "SEANS",
   "The amount you paid for the reservation will be credited again to your SAME credit card. Do you approve?": "Rezervasyon için ödediğiniz tutar AYNI kredi kartınıza tekrar yatırılacaktır.Onaylıyor musunuz?",
   "How do we make a refund?": "Para iadesini ne şekilde yapalım?",
   "If you want, we can transfer it to your wallet or to your card account so that you can use it quickly again": "İsterseniz tekrar hızlı bir şekilde kullanabilmek için cüzdana, isterseniz de kart hesabınıza aktarabiliriz.",
@@ -790,5 +792,12 @@
   "Login successful. Welcome!": "Giriş Başarılı. Hoş geldiniz!",
   "Login Failed, Please make sure your account is registered": "Giriş Başarısız, Lütfen hesabınızın kayıtlı olduğundan emin olun.",
   "Operation failed": "İşlem başarısız",
-  "Review your information": "Bilgilerinizi gözden geçiriniz."
+  "Review your information": "Bilgilerinizi gözden geçiriniz.",
+  "Add your health report from the relevant institutions": "İlgili kurumlardan aldığınız sağlık raporunuzu ekleyin.",
+  "The sports field has been successfully removed": "The sports field has been successfully removed.Spor alanı başarı ile kaldırıldı.",
+  "Sports area has been successfully added": "Spor alanı başarı ile eklendi.",
+  "CLASS INSTRUCTOR": "SINIFI EĞİTMEN",
+  "SESSION TYPES": "OTURUM TÜRLERİ",
+  "This package has been upgraded": "Bu paket yükseltilmiştir",
+  "Buy Again": "Tekrar Al"
 }

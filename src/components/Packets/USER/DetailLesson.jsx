@@ -155,7 +155,9 @@ const DetailLesson = ({
                 </>
               )}
               <BoldText style={{ marginLeft: '9px', display: 'block' }}>
-                {elm?.type == 'lesson' ? elm?.lesson + ' .Ders' : elm?.title}
+                {elm?.type == 'lesson'
+                  ? elm?.lesson + ' .' + t('lesson')
+                  : elm?.title}
               </BoldText>
             </HeaderArea>
             <DescArea>

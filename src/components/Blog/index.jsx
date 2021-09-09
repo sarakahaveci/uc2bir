@@ -502,7 +502,7 @@ const Blog = () => {
                       >
                         <Button
                           className="blue"
-                          text="Ekle"
+                          text={t('Add')}
                           type="submit"
                           isLoading={loading}
                           disabled={loading}

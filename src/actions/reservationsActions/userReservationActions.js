@@ -4,7 +4,7 @@ import {
   USER_RESERVATION_FUNC,
 } from '../../constants';
 import { toast } from 'react-toastify';
-import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
 
 export const getUserAwaitings = (date) => async (dispatch) => {
   let url = '/appointment/calendar/pending';
@@ -169,7 +169,7 @@ export const rateAndComment =
     errorCallBack = () => {}
   ) =>
   async (dispatch, getState) => {
-    const { t } = useTranslation();
+    // const { t } = useTranslation();
 
     let url;
     const userType = getState().auth.user.type_id;
@@ -193,7 +193,7 @@ export const rateAndComment =
         callBack: () => {
           successCallback();
           toast.success(
-            t('Your rating and comment has been successfully submitted'),
+            'Your rating and comment has been successfully submitted',
             {
               position: 'bottom-right',
               autoClose: 7000,
@@ -222,7 +222,7 @@ export const rateAndCommentSession =
     errorCallBack = () => {}
   ) =>
   async (dispatch, getState) => {
-    const { t } = useTranslation();
+    // const { t } = useTranslation();
 
     let url;
     url = `/appointment/sess-calendar/comment`; // pt
@@ -249,7 +249,7 @@ export const rateAndCommentSession =
         callBack: () => {
           successCallback();
           toast.success(
-            t('Your rating and comment has been successfully submitted'),
+            'Your rating and comment has been successfully submitted',
             {
               position: 'bottom-right',
               autoClose: 7000,
@@ -259,7 +259,7 @@ export const rateAndCommentSession =
         errorHandler: (res) => {
           errorCallBack();
           toast.error(
-            res?.message || t('Error Encountered While Commenting and Rating'),
+            res?.message || 'Error Encountered While Commenting and Rating',
             {
               position: 'bottom-right',
               autoClose: 4000,
@@ -279,7 +279,7 @@ export const SessionStatusResponse =
     errorCallBack = () => {}
   ) =>
   async (dispatch, getState) => {
-    const { t } = useTranslation();
+    // const { t } = useTranslation();
 
     let url;
     var myId = getState().auth?.user?.id;
@@ -303,7 +303,7 @@ export const SessionStatusResponse =
         callBack: () => {
           successCallback();
           toast.success(
-            t('Your rating and comment has been successfully submitted'),
+            'Your rating and comment has been successfully submitted',
             {
               position: 'bottom-right',
               autoClose: 7000,
@@ -313,7 +313,7 @@ export const SessionStatusResponse =
         errorHandler: (res) => {
           errorCallBack();
           toast.error(
-            res?.message || t('Error Encountered While Commenting and Rating'),
+            res?.message || 'Error Encountered While Commenting and Rating',
             {
               position: 'bottom-right',
               autoClose: 4000,

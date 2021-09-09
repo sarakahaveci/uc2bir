@@ -13,12 +13,12 @@ import {
   REFRESH_LOGIN,
 } from '../constants';
 import { localStorage } from 'utils';
-import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
 
 export const login =
   ({ email, password }, successCallback) =>
   async (dispatch) => {
-    const { t } = useTranslation();
+    // const { t } = useTranslation();
 
     const url = '/login';
 
@@ -34,7 +34,7 @@ export const login =
         },
         transformData: (data) => data.data,
         callBack: (data) => {
-          toast.success(t('Login successful. Welcome!'), {
+          toast.success('Login successful. Welcome!', {
             position: 'bottom-right',
             autoClose: 1500,
           });
@@ -137,7 +137,7 @@ export const setUserDetailsFromStorage = () => (dispatch) => {
 export const socialLogin =
   (user, successCallback = () => {}) =>
   async (dispatch) => {
-    const { t } = useTranslation();
+    // const { t } = useTranslation();
 
     const url = '/social-login';
     await dispatch({
@@ -150,7 +150,7 @@ export const socialLogin =
         callBack: () => successCallback(),
         errorHandler: () => {
           toast.error(
-            t('Login Failed, Please make sure your account is registered'),
+            'Login Failed, Please make sure your account is registered',
             {
               position: 'bottom-right',
               autoClose: 2000,

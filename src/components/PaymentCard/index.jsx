@@ -899,8 +899,8 @@ export default function PaymentCard({
                                 }}
                               >
                                 {key + 1}.
-                                {(type === 'pt' && 'Ders') ||
-                                  (type === 'dt' && 'Seans')}
+                                {(type === 'pt' && t('lesson')) ||
+                                  (type === 'dt' && t('Session'))}
                               </Text>
                               <Svg.Date style={{ marginLeft: '5px' }} />
                               <Text
