@@ -15,7 +15,7 @@ import {
   SEARCH_PROFESSIONAL,
 } from '../../constants';
 import { toast } from 'react-toastify';
-import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
 
 export const getSessionTypes =
   (successCallback) => async (dispatch, getState) => {
@@ -168,7 +168,7 @@ export const addGym =
   };
 
 export const removeGymFromPt = (data) => async (dispatch, getState) => {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
 
   const url = `/user/address/remove-working-gym`;
 
@@ -180,7 +180,7 @@ export const removeGymFromPt = (data) => async (dispatch, getState) => {
       body: { gym: data },
       label: REMOVE_GTM_FROM_PT,
       callBack: () => {
-        toast.success(t('The sports field has been successfully removed.'), {
+        toast.success('The sports field has been successfully removed.', {
           position: 'bottom-right',
           delay: 2500,
         });
@@ -194,7 +194,7 @@ export const removeGymFromPt = (data) => async (dispatch, getState) => {
 
 export const addGymFromPt =
   (id, successCallback) => async (dispatch, getState) => {
-    const { t } = useTranslation();
+    // const { t } = useTranslation();
 
     const url = `/user/address/add-working-gym`;
     await dispatch({
@@ -205,7 +205,7 @@ export const addGymFromPt =
         body: { gym: [id] },
         label: ADD_GTM_FROM_PT,
         callBack: () => {
-          toast.success(t('Sports area has been successfully added'), {
+          toast.success('Sports area has been successfully added', {
             position: 'bottom-right',
             delay: 2500,
           });

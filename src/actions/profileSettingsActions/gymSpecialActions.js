@@ -1,12 +1,12 @@
 import { HTTP_REQUEST, UPDATE_GYM_SPECIAL_PRICE } from '../../constants';
 import { toast } from 'react-toastify';
-import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
 
 export const updateGymSpecialPrice =
   ({ price }) =>
   async (dispatch) => {
     const url = `/user/bs-price`;
-    const { t } = useTranslation();
+    // const { t } = useTranslation();
 
     await dispatch({
       type: HTTP_REQUEST,
@@ -17,9 +17,7 @@ export const updateGymSpecialPrice =
         label: UPDATE_GYM_SPECIAL_PRICE,
         callBack: () =>
           toast.success(
-            t(
-              'After your request has been submitted, a notification will be sent to you'
-            ),
+            'After your request has been submitted, a notification will be sent to you',
             {
               position: 'bottom-right',
               autoClose: 7000,
@@ -27,7 +25,7 @@ export const updateGymSpecialPrice =
           ),
         errorHandler: (res) =>
           toast.error(
-            res?.message || t('Error encountered while sending price request'),
+            res?.message || 'Error encountered while sending price request',
             {
               position: 'bottom-right',
               autoClose: 4000,

@@ -5,11 +5,11 @@ import {
   HTTP_REQUEST,
 } from '../constants';
 import { toast } from 'react-toastify';
-import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
 
 export const blockUser = (id) => async (dispatch) => {
   const url = '/user/block/add';
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
 
   await dispatch({
     type: HTTP_REQUEST,
@@ -20,14 +20,14 @@ export const blockUser = (id) => async (dispatch) => {
       body: { block_id: id },
       transformData: (data) => data.data,
       callBack: () => {
-        toast.success(t('Processing successful!'), {
+        toast.success('Processing successful!', {
           position: 'bottom-right',
           autoClose: 4000,
         });
         // successCallback();
       },
       errorHandler: (err) => {
-        toast.error(err?.message || t('Operation failed'), {
+        toast.error(err?.message || 'Operation failed', {
           position: 'bottom-right',
           autoClose: 4000,
         });
@@ -37,7 +37,7 @@ export const blockUser = (id) => async (dispatch) => {
 };
 export const unblockUser = (id, successCallback) => async (dispatch) => {
   const url = '/user/block/remove';
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
 
   await dispatch({
     type: HTTP_REQUEST,
@@ -48,14 +48,14 @@ export const unblockUser = (id, successCallback) => async (dispatch) => {
       body: { block_id: id },
       transformData: (data) => data.data,
       callBack: () => {
-        toast.success(t('Processing successful!'), {
+        toast.success('Processing successful!', {
           position: 'bottom-right',
           autoClose: 4000,
         });
         successCallback();
       },
       errorHandler: (err) => {
-        toast.error(err?.message || t('Operation failed'), {
+        toast.error(err?.message || 'Operation failed', {
           position: 'bottom-right',
           autoClose: 4000,
         });

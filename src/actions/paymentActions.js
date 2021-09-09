@@ -6,11 +6,11 @@ import {
   PAYTR_RESPONSE,
 } from '../constants';
 import { toast } from 'react-toastify';
-import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
 
 export const sendReservation =
   (type, body, successCallback) => async (dispatch) => {
-    const { t } = useTranslation();
+    // const { t } = useTranslation();
 
     let url = `/appointment/${type}-calendar`;
     if (type == 'upgrade_packet') url = '/user/pt-package/upgrade';
@@ -22,7 +22,7 @@ export const sendReservation =
         body: { ...body },
         label: SEND_RESERVATION,
         callBack: () => {
-          toast.success(t('Processing successful!'), {
+          toast.success('Processing successful!', {
             position: 'bottom-right',
             autoClose: 1500,
           });
@@ -42,7 +42,7 @@ export const sendReservation =
   };
 export const sendPackageReservation =
   (type, body, successCallback) => async (dispatch) => {
-    const { t } = useTranslation();
+    // const { t } = useTranslation();
     let url;
 
     switch (type) {
@@ -64,14 +64,14 @@ export const sendPackageReservation =
         body: { ...body },
         label: SEND_PACKET_RESERVATION,
         callBack: () => {
-          toast.success(t('Processing successful!'), {
+          toast.success('Processing successful!', {
             position: 'bottom-right',
             autoClose: 4000,
           });
           successCallback();
         },
         errorHandler: (err) => {
-          toast.error(err?.message || t('Review your information'), {
+          toast.error(err?.message || 'Review your information', {
             position: 'bottom-right',
             autoClose: 4000,
           });
@@ -83,7 +83,7 @@ export const sendPackageReservation =
   };
 export const sendGroupReservation =
   (body, successCallback) => async (dispatch) => {
-    const { t } = useTranslation();
+    // const { t } = useTranslation();
     let url = '/appointment/pt-calendar/group';
 
     await dispatch({
@@ -94,14 +94,14 @@ export const sendGroupReservation =
         body: { ...body },
         label: SEND_PACKET_RESERVATION,
         callBack: () => {
-          toast.success(t('Processing successful!'), {
+          toast.success('Processing successful!', {
             position: 'bottom-right',
             autoClose: 4000,
           });
           successCallback();
         },
         errorHandler: (err) => {
-          toast.error(err?.message || t('Review your information'), {
+          toast.error(err?.message || 'Review your information', {
             position: 'bottom-right',
             autoClose: 4000,
           });
@@ -113,7 +113,7 @@ export const sendGroupReservation =
   };
 export const sendPaytr = (body, successCallback) => async (dispatch) => {
   const url = `https://www.paytr.com/odeme`;
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
   await dispatch({
     type: HTTP_REQUEST,
     payload: {
@@ -123,7 +123,7 @@ export const sendPaytr = (body, successCallback) => async (dispatch) => {
       label: SEND_PAYTR,
       callBack: () => successCallback(),
       errorHandler: () => {
-        toast.error(t('Review your information'), {
+        toast.error('Review your information', {
           position: 'bottom-right',
           autoClose: 4000,
         });

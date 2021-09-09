@@ -1,9 +1,9 @@
 import { HTTP_REQUEST, TRANSFER_REFUND } from '../constants';
 import { toast } from 'react-toastify';
-import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
 
 export const transferRefund = (body, successCallback) => async (dispatch) => {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
 
   const url = `user/wallet/transfer-refund`;
 
@@ -15,7 +15,7 @@ export const transferRefund = (body, successCallback) => async (dispatch) => {
       body: { ...body },
       label: TRANSFER_REFUND,
       callBack: () => {
-        toast.success(t('Processing successful!'), {
+        toast.success('Processing successful!', {
           position: 'bottom-right',
           autoClose: 1500,
         });
