@@ -772,5 +772,12 @@
   "list": "List",
   "+ Select Trainer": "+ Select Trainer",
   "Upgrade Package": "Upgrade Package",
-  "An Error Occurred While Deleting Your Template": "An Error Occurred While Deleting Your Template"
+  "An Error Occurred While Deleting Your Template": "An Error Occurred While Deleting Your Template",
+  "Workplace Activity Areas": "Workplace Activity Areas",
+  "Add new field of activity (Class)": "Add new field of activity (Class)",
+  "Please specify the classes and quotas you want to make available in your gym. Write down the hourly rental price of the class for group lesson use": "Please specify the classes and quotas you want to make available in your gym. Write down the hourly rental price of the class for group lesson use.",
+  "You havent added an Activity Area (Class) yet": "You haven't added an Activity Area (Class) yet.",
+  "Session Fee": "Session Fee",
+  "Session for all branches (TL)": "Session for all branches (TL)",
+  "Enter and save the value to update the session cost": "Enter and save the value to update the session cost."
 }
