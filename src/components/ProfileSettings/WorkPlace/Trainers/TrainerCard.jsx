@@ -26,7 +26,7 @@ const TrainerCard = ({ data }) => {
             className="trainer-card__profile-navigator"
             to={`/user/${data.user_id}`}
           >
-            Profile Git
+            {t('Go to profile')}
           </Link>
         )}
       </div>
