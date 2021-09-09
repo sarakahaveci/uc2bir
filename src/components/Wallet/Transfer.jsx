@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
@@ -10,7 +10,6 @@ import image from '../../assets/my-wallet.jpg';
 import styled from 'styled-components/macro';
 import {
   addBankAccount,
-  getWallet,
 } from 'actions/userProfileActions/walletActions';
 
 const Transfer = ({ setPage }) => {
@@ -22,10 +21,6 @@ const Transfer = ({ setPage }) => {
 
   const { balance } = useSelector((state) => state?.userProfile?.wallet.data);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getWallet());
-  }, []);
 
   const handleSubmit = () => {
     dispatch(
