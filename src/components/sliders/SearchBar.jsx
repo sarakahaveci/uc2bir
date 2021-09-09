@@ -30,7 +30,7 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
   );
 
   const [title, setTitle] = useState('');
-  const [branch, setBranch] = useState('');
+  const [branch, setBranch] = useState(''); 
 
   const searchProfessionalHandler = () => {
     if (virtual == 'packets') {
