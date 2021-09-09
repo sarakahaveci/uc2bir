@@ -22,7 +22,7 @@ const GYMAdd = ({ setSubPage, setBannerActive }) => {
   return (
     <div>
       <BackLink
-        text="Geri"
+        text={t('< Back')}
         onClick={() => {
           setBannerActive(true);
           setSubPage('Adds');

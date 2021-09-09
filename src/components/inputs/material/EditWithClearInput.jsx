@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import styled, { css } from 'styled-components/macro';
 import { layout } from 'styled-system';
+import { useTranslation } from 'react-i18next';
 
 import { Material } from './';
 import { Svg, Box, Button } from 'components';
@@ -13,6 +14,8 @@ const EditWithClearInput = ({
   showTickIcon,
   ...rest
 }) => {
+  const { t } = useTranslation();
+
   const [readOnly, setReadOnly] = useState(true);
   const [inputValue, setInputValue] = useState(value);
 
@@ -42,8 +45,7 @@ const EditWithClearInput = ({
           inputProps={{
             readOnly,
           }}
-          onBlur={() => {
-          }}
+          onBlur={() => {}}
         />
         {showEditButtons && (
           <>
@@ -51,26 +53,28 @@ const EditWithClearInput = ({
             <InputClearIcon onClick={onClear} />
           </>
         )}
-
       </InputWrapper>
       {showEditButtons && !readOnly && (
-        <StyledButton disabled={valueCopy.current == inputValue} text="Kaydet" onClick={()=>{
-          setReadOnly(true);
-          onEditComplete(inputValue);
-          valueCopy.current = inputValue;
-        }} />
+        <StyledButton
+          disabled={valueCopy.current == inputValue}
+          text={t('save')}
+          onClick={() => {
+            setReadOnly(true);
+            onEditComplete(inputValue);
+            valueCopy.current = inputValue;
+          }}
+        />
       )}
     </Container>
-
   );
 };
 
 export default EditWithClearInput;
 
 EditWithClearInput.defaultProps = {
-  onEditComplete: () => { },
+  onEditComplete: () => {},
   data: {},
-  onClear: () => { },
+  onClear: () => {},
 };
 
 const InputWrapper = styled(Box)`
@@ -118,13 +122,13 @@ const EditIcon = styled(Svg.EditIcon)`
   }
 `;
 const Container = styled.div`
-  display:flex;
-  width:100%;
-  margin-top:20px;
-`
+  display: flex;
+  width: 100%;
+  margin-top: 20px;
+`;
 const StyledButton = styled(Button)`
-  color:var(--blue);
+  color: var(--blue);
   background: white !important;
-  width:80px;
-  margin-left:3px;
-`
+  width: 80px;
+  margin-left: 3px;
+`;

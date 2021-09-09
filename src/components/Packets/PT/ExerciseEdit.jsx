@@ -95,7 +95,7 @@ const ExerciseDetail = ({ setPage = () => {}, packageData, lessonId }) => {
           textAlign="left"
           onClick={() => setPage('Exercises')}
         >
-          {`<Geri`}
+          {t('< Back')}
         </Title>
         <FormControlWrapper>
           <FormControl>
@@ -219,7 +219,7 @@ const ExerciseDetail = ({ setPage = () => {}, packageData, lessonId }) => {
         <div style={{ display: 'flex', alignContent: 'center' }}>
           <Button
             className="blue dietitan-price__saveButton"
-            text="Kaydet"
+            text={t('save')}
             fontSize="10pt"
             style={{ width: '90%' }}
             onClick={() => saveExercise()}

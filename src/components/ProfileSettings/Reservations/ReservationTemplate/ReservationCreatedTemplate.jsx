@@ -154,7 +154,7 @@ export default function ReservationCreatedTemplate({
                   fontWeight="500"
                 >
                   <Span underline lineWidth={'100%'}>
-                    {t('Şablon Hakkında')}
+                    {t('About the Template')}
                   </Span>
                 </Title>
 

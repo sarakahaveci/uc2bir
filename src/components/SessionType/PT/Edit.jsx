@@ -44,7 +44,7 @@ const Edit = ({ setSubPage }) => {
 
   return (
     <>
-      <BackLink text="Geri" onClick={() => setSubPage('Adds')} />
+      <BackLink text={t('< Back')} onClick={() => setSubPage('Adds')} />
 
       {!data?.isLoading ? (
         <>

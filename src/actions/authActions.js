@@ -13,90 +13,89 @@ import {
   REFRESH_LOGIN,
 } from '../constants';
 import { localStorage } from 'utils';
+import { useTranslation } from 'react-i18next';
 
-export const login = ({ email, password }, successCallback) => async (
-  dispatch
-) => {
-  const url = '/login';
+export const login =
+  ({ email, password }, successCallback) =>
+  async (dispatch) => {
+    const { t } = useTranslation();
 
-  await dispatch({
-    type: HTTP_REQUEST,
-    payload: {
-      method: 'POST',
-      url,
-      label: LOGIN,
-      body: {
-        email,
-        password,
+    const url = '/login';
+
+    await dispatch({
+      type: HTTP_REQUEST,
+      payload: {
+        method: 'POST',
+        url,
+        label: LOGIN,
+        body: {
+          email,
+          password,
+        },
+        transformData: (data) => data.data,
+        callBack: (data) => {
+          toast.success(t('Login successful. Welcome!'), {
+            position: 'bottom-right',
+            autoClose: 1500,
+          });
+
+          successCallback(data);
+        },
+        errorHandler: (error) =>
+          toast.error(error.message, {
+            position: 'bottom-right',
+            autoClose: 2000,
+          }),
       },
-      transformData: (data) => data.data,
-      callBack: (data) => {
-        toast.success('Giriş Başarılı. Hoş geldiniz!', {
-          position: 'bottom-right',
-          autoClose: 1500,
-        });
-
-        successCallback(data);
-      },
-      errorHandler: (error) =>
-        toast.error(error.message, {
-          position: 'bottom-right',
-          autoClose: 2000,
-        }),
-    },
-  });
-};
+    });
+  };
 
 export const logout = () => (dispatch) => dispatch({ type: LOGOUT });
 
-export const forgotPassword = (
-  { email },
-  successCallback,
-  errorCallback
-) => async (dispatch) => {
-  const url = '/forgot-password';
+export const forgotPassword =
+  ({ email }, successCallback, errorCallback) =>
+  async (dispatch) => {
+    const url = '/forgot-password';
 
-  await dispatch({
-    type: HTTP_REQUEST,
-    payload: {
-      method: 'POST',
-      url,
-      label: FORGOT_PASSWORD,
-      body: {
-        email,
+    await dispatch({
+      type: HTTP_REQUEST,
+      payload: {
+        method: 'POST',
+        url,
+        label: FORGOT_PASSWORD,
+        body: {
+          email,
+        },
+        transformData: (data) => data.data,
+        callBack: () => successCallback(),
+        errorHandler: () => errorCallback(),
       },
-      transformData: (data) => data.data,
-      callBack: () => successCallback(),
-      errorHandler: () => errorCallback(),
-    },
-  });
-};
+    });
+  };
 
-export const resetPassword = (
-  { email, code, password, password_retry },
-  successCallback,
-  errorCallback
-) => async (dispatch) => {
-  const url = '/password-reset';
+export const resetPassword =
+  ({ email, code, password, password_retry }, successCallback, errorCallback) =>
+  async (dispatch) => {
+    const url = '/password-reset';
 
-  await dispatch({
-    type: HTTP_REQUEST,
-    payload: {
-      method: 'POST',
-      url,
-      label: RESET_PASSWORD,
-      body: {
-        email,
-        code,
-        password,
-        password_retry,
+    await dispatch({
+      type: HTTP_REQUEST,
+      payload: {
+        method: 'POST',
+        url,
+        label: RESET_PASSWORD,
+        body: {
+          email,
+          code,
+          password,
+          password_retry,
+        },
+        transformData: (data) => data.data,
+        callBack: () => successCallback(),
+        errorHandler: (e) => errorCallback(e.message),
       },
-      transformData: (data) => data.data,
-      callBack: () => successCallback(),
-      errorHandler: (e) => errorCallback(e.message),
-    },
-  });
-};
+    });
+  };
 
 export const information = () => async (dispatch) => {
   const url = '/user/profile/detail';
@@ -135,44 +134,50 @@ export const setUserDetailsFromStorage = () => (dispatch) => {
   }
 };
 
-export const socialLogin = (user, successCallback = () => { }) => async (dispatch) => {
-  const url = '/social-login';
-  await dispatch({
-    type: HTTP_REQUEST,
-    payload: {
-      method: 'POST',
-      url,
-      label: SOCIAL_LOGIN,
-      transformData: (data) => data.data,
-      callBack: () => successCallback(),
-      errorHandler: (error) => {
-        toast.error('Giriş Başarısız, Lütfen hesabınızın kayıtlı olduğundan emin olun.', {
-          position: 'bottom-right',
-          autoClose: 2000,
-        })
+export const socialLogin =
+  (user, successCallback = () => {}) =>
+  async (dispatch) => {
+    const { t } = useTranslation();
+
+    const url = '/social-login';
+    await dispatch({
+      type: HTTP_REQUEST,
+      payload: {
+        method: 'POST',
+        url,
+        label: SOCIAL_LOGIN,
+        transformData: (data) => data.data,
+        callBack: () => successCallback(),
+        errorHandler: () => {
+          toast.error(
+            t('Login Failed, Please make sure your account is registered'),
+            {
+              position: 'bottom-right',
+              autoClose: 2000,
+            }
+          );
+        },
+        body: user,
       },
-      body: user,
-    },
-  });
-};
+    });
+  };
 
-export const refreshLogin = (redirectToLogin = () => { }) => async (
-  dispatch,
-  getState
-) => {
-  const { refreshToken } = getState().auth;
+export const refreshLogin =
+  (redirectToLogin = () => {}) =>
+  async (dispatch, getState) => {
+    const { refreshToken } = getState().auth;
 
-  try {
-    const { data } = await axios.post(
-      `${process.env.REACT_APP_API_URL}/refresh-login`,
-      {
-        refresh_token: refreshToken,
-      }
-    );
+    try {
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_API_URL}/refresh-login`,
+        {
+          refresh_token: refreshToken,
+        }
+      );
 
-    dispatch({ type: REFRESH_LOGIN, payload: data.data });
-  } catch (error) {
-    dispatch(logout());
-    redirectToLogin();
-  }
-};
+      dispatch({ type: REFRESH_LOGIN, payload: data.data });
+    } catch (error) {
+      dispatch(logout());
+      redirectToLogin();
+    }
+  };
