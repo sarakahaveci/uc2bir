@@ -1,22 +1,27 @@
 /* eslint-disable react/jsx-no-target-blank */
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import RegisterFileUpload from '../UserSteps/RegisterFileUpload';
 import Svg from 'components/statics/svg';
 import { CRIMINAL_RECORD } from '../../../constants';
 
 const WorkPlaceCriminalRecordStep = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="step-six">
       <RegisterFileUpload
-        title="E-devlet üzerinden alabileceğiniz adli sicil kaydınızı ekleyin. 
-        Aşağıdaki linkten e-devlete ulaşabilirsiniz."
+        title={t(
+          'Add your criminal record, which you can get via e-government. You can reach e-government from the link below'
+        )}
         fileTypeId={CRIMINAL_RECORD}
       >
         <div className="step-six__criminal-record">
           <Svg.InfoIcon />
-          E-devlet üzerinden alabileceğiniz adli sicil kaydınızı ekleyin.
-          Aşağıdaki linkten e-devlete ulaşabilirsiniz.
+          {t(
+            'Add your criminal record, which you can get via e-government. You can reach e-government from the link below'
+          )}
         </div>
 
         <a
@@ -24,7 +29,7 @@ const WorkPlaceCriminalRecordStep = () => {
           target="_blank"
           className="step-six__criminal-record-link"
         >
-          E-devlet’e giriş yapmak için tıklayınız
+          {t('Click to login to e-government')}
         </a>
       </RegisterFileUpload>
     </div>

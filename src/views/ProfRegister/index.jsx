@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 import { Text, FormPages, Main, Title } from 'components';
 import { DIETITIAN, WORK_PLACE } from '../../constants';
@@ -16,6 +17,8 @@ const List = styled.ul`
 `;
 
 const ProfRegister = () => {
+  const { t } = useTranslation();
+
   const [userTypeId, setUserTypeId] = useState(null);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -36,42 +39,38 @@ const ProfRegister = () => {
                 color="trunge"
                 lineDisable
               >
-                HAYDİ ÜÇ2BİR&apos;E
+                {t('Come to ÜÇ2BİR')}
               </Title>
 
               <Text color="black2" fontSize="1rem" fontWeight="500">
-                Üç2bir’e hemen üye olup daha fazla sporsevere ulaş, daha fazla
-                kazanmaya başla! Üç2bir, tüm spor branş eğitmenleriyle üyelerini
-                bir araya getiren ve onlara özel ders verme olanağı sağlayan,
-                spor odaklı bir dijital platformdur. Sen de gerçek hedef
-                kitlenle buluşmak, hayalindeki spor kariyerini yaşamak için
-                hemen katıl. Yapman gereken sadece aşağıdaki belgeleri
-                doldurmak. Burası tam sana göre!
+                {t(
+                  'Become a member of Üç2bir now and reach more sports fans, start earning more! Üç2bir is a sports-oriented digital platform that brings together all sports branch trainers and members and provides them with the opportunity to give private lessons. Join now to meet your real target audience and live your dream sports career. All you have to do is fill out the following documents. This place is for you!'
+                )}
               </Text>
 
               {userTypeId && (
                 <>
                   <Text color="black2" fontWeight="700">
-                    Kayıt için Gerekli Belgeler
+                    {t('Documents Required for Registration')}
                   </Text>
 
                   <List>
                     {userTypeId === WORK_PLACE ? (
                       <>
-                        <li>- Kira Kontratı / Tapu</li>
-                        <li>- İş Yeri Ruhsatı</li>
-                        <li>- İş Yeri Kiralama Kararı</li>
+                        <li>- {t('Lease Contract / Deed')}</li>
+                        <li>- {t('Business License')}</li>
+                        <li>- {t('Office Rental Decision')}</li>
                       </>
                     ) : (
                       <>
-                        <li>- Sertifika</li>
-                        <li>- Diploma</li>
-                        <li>- Adli Sicil Kaydı</li>
-                        <li>- Nüfus Cüzdanı</li>
+                        <li>- {t('Certificate')}</li>
+                        <li>- {t('Diploma')}</li>
+                        <li>- {t('Criminal Records')}</li>
+                        <li>- {t('Birth certificate')}</li>
                         {userTypeId !== DIETITIAN ? (
-                          <li>- Sağlık Raporu </li>
+                          <li>- {t('Health report')} </li>
                         ) : null}
-                        <li>- Fotoğraf</li>
+                        <li>- {t('Photo')}</li>
                       </>
                     )}
                   </List>

@@ -1,10 +1,13 @@
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 import { StepContext } from '../RegisterSteps';
 import { Button, FileUpload } from 'components';
 
 const RegisterFileUpload = ({ title, children, buttonText, fileTypeId }) => {
+  const { t } = useTranslation();
+
   const { setStepNumber } = useContext(StepContext) || {};
 
   const [uploadedFiles, setUploadedFiles] = useState({});
@@ -34,7 +37,7 @@ const RegisterFileUpload = ({ title, children, buttonText, fileTypeId }) => {
 
         <div className="file-upload__next-link">
           <button onClick={() => setStepNumber((value) => value + 1)}>
-            Geç
+            {t('skip')}
           </button>
         </div>
       </div>
@@ -48,7 +51,7 @@ RegisterFileUpload.propTypes = {
 };
 
 RegisterFileUpload.defaultProps = {
-  buttonText: 'Devam Et',
+  buttonText: t('continue'),
   title: '',
 };
 

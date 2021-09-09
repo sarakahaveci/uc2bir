@@ -1,9 +1,12 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import RegisterFileUpload from './RegisterFileUpload';
 import { HEALTH_REPORT } from '../../../constants';
 
 const HealthReportStep = () => {
+  const { t } = useTranslation();
+
   return (
     <>
       <RegisterFileUpload
@@ -11,8 +14,7 @@ const HealthReportStep = () => {
         title="İlgili kurumlardan aldığınız sağlık raporunuzu ekleyin."
       >
         <div className="health-report">
-          Sağlık raporunuzu 30 gün içerisinde sistemimize yüklemeniz
-          gerekmektedir.
+          {t('You must upload your health report to our system within 30 days')}
         </div>
       </RegisterFileUpload>
     </>

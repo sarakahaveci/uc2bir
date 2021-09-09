@@ -7,16 +7,16 @@ import InputMask from 'react-input-mask';
 import styled from 'styled-components/macro';
 import { TextField } from '@material-ui/core';
 import GoogleLogin from 'react-google-login';
-import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 //import InstagramLogin from 'instagram-login-react';
-import GoogleIcon from 'assets/google-login.png'
-import FacebookIcon from 'assets/facebook-login.png'
+import GoogleIcon from 'assets/google-login.png';
+import FacebookIcon from 'assets/facebook-login.png';
 //import InstagramIcon from 'assets/instagram-login.png'
-import AppleIcon from 'assets/apple-login.png'
+import AppleIcon from 'assets/apple-login.png';
 import AppleSignin from 'react-apple-signin-auth';
 
 import { StepContext } from '../RegisterSteps';
-import { setStepOne, getAuthFiles,setStepOneSocial } from 'actions';
+import { setStepOne, getAuthFiles, setStepOneSocial } from 'actions';
 import {
   Button,
   Text,
@@ -30,32 +30,33 @@ import {
 import StepTwo from './StepTwo';
 import { WORK_PLACE, DIETITIAN } from '../../../constants';
 import { macroConverter, unMaskPhone } from 'utils';
-
-const macro = [
-  {
-    type: 'text',
-    name: 'name',
-    required: true,
-    text: 'Ad Soyad',
-    icon: Svg.UsernameIcon,
-    inputProps: {
-      minLength: 3,
-      maxLength: 35,
-    },
-  },
-  {
-    type: 'email',
-    name: 'email',
-    text: 'E mail',
-    required: true,
-    icon: Svg.EmailIcon,
-    inputProps: {
-      maxLength: 40,
-    },
-  },
-];
+import { useTranslation } from 'react-i18next';
 
 const StepOne = ({ userTypeId, setUserTypeId }) => {
+  const { t } = useTranslation();
+  const macro = [
+    {
+      type: 'text',
+      name: 'name',
+      required: true,
+      text: t('Name surname'),
+      icon: Svg.UsernameIcon,
+      inputProps: {
+        minLength: 3,
+        maxLength: 35,
+      },
+    },
+    {
+      type: 'email',
+      name: 'email',
+      text: 'E mail',
+      required: true,
+      icon: Svg.EmailIcon,
+      inputProps: {
+        maxLength: 40,
+      },
+    },
+  ];
   const { data: registerData } = useSelector((state) => state.registerData);
 
   const confirmationData = useSelector((state) => state.registerData.authFiles);
@@ -79,7 +80,7 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
   const [openModal, setOpenModal] = useState(false);
 
   const [confirmationType, setConfirmationType] = useState('');
-  const [socialMode,setSocialMode] = useState(false);
+  const [socialMode, setSocialMode] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -104,10 +105,10 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
       accessToken: res?.accessToken,
       email: res?.profileObj?.email || res?.email,
       uid: res?.googleId || res?.userID,
-      name:manipulateName(res?.name || res?.profileObj?.name)
-    }
-    setSocialMode(true)
-    setForm({ ...form, ...user })
+      name: manipulateName(res?.name || res?.profileObj?.name),
+    };
+    setSocialMode(true);
+    setForm({ ...form, ...user });
 
     //dispatch(setStepOneSocial(user))
   };
@@ -131,7 +132,7 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
     );
   };
   const registerSuccessCallback = () => {
-    toast.info('Lütfen Bekleyiniz! Yönlendiriliyorsunuz...', {
+    toast.info(t('Please wait! You are redirected...'), {
       position: 'bottom-right',
       autoClose: 1000,
       onClose: () => {
@@ -151,51 +152,51 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
     });
 
   const manipulateName = (name) => {
-    if (name?.search(" ") == -1) {
+    if (name?.search(' ') == -1) {
       const capitalized = name.charAt(0).toUpperCase() + name.slice(1);
 
-
       return capitalized;
-    }
-    else {
-      var res = name.toLowerCase().split(" ");
+    } else {
+      var res = name.toLowerCase().split(' ');
 
       const tmpArr = [];
-      res.forEach(element => {
-        const capitalizedWord = element.charAt(0).toUpperCase() + element.slice(1);
-        tmpArr.push(capitalizedWord)
+      res.forEach((element) => {
+        const capitalizedWord =
+          element.charAt(0).toUpperCase() + element.slice(1);
+        tmpArr.push(capitalizedWord);
       });
-      var res2 = "";
+      var res2 = '';
       tmpArr.forEach((element, key) => {
         if (key == tmpArr.length - 1) {
-          res2 = res2 + element
-        }
-        else {
-          res2 = res2 + element + " "
+          res2 = res2 + element;
+        } else {
+          res2 = res2 + element + ' ';
         }
       });
 
       return res2;
     }
-  }
+  };
 
   const submitHandler = (e) => {
     e.preventDefault();
     const regex = new RegExp('^(?=.{6,})(?=.*[a-z])(?=.*[A-Z]).*$');
     if (!(password === repassword)) {
-      setErrorMessage('2 şifre uyuşmamaktadır.');
+      setErrorMessage(t('The 2 passwords do not match'));
       return;
     }
 
     if (!regex.test(password)) {
       setErrorMessage(
-        'Şifrenizin en az 6 karakter olmalı, büyük harf, küçük harf ve rakam içermelidir.'
+        t(
+          'Your password must be at least 6 characters. It should contain uppercase, lowercase letters and numbers'
+        )
       );
       return;
     }
 
     if (!unMaskPhone(phone)) {
-      setErrorMessage('Telefon Numarası Giriniz.');
+      setErrorMessage(t('Enter Phone Number'));
       return;
     }
 
@@ -207,15 +208,15 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
         acceptPermissions,
       ].every((value) => value)
     ) {
-      setErrorMessage('Lütfen sözleşmeleri kabul ediniz.');
+      setErrorMessage(t('Please accept the agreements.'));
       return;
     }
 
     setErrorMessage('');
 
-    if(socialMode){
-      actionStepOneSocial()
-    }else{
+    if (socialMode) {
+      actionStepOneSocial();
+    } else {
       dispatch(
         setStepOne(
           {
@@ -294,28 +295,44 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
 
   return (
     <div className="step-one-wrapper">
-     
-
-      <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between', padding: '10px 20px' }}>
+      <div
+        style={{
+          display: 'flex',
+          width: '100%',
+          justifyContent: 'space-between',
+          padding: '10px 20px',
+        }}
+      >
         <GoogleLogin
           clientId="197190928694-blqpc6dnsr5lsefk7aptk3iq9tjjna8f.apps.googleusercontent.com"
-          onSuccess={(res) => { responseSocial('google', res) }}
+          onSuccess={(res) => {
+            responseSocial('google', res);
+          }}
           //onFailure={() => { alert('Hata ile karşılaşıldı') }}
           //cookiePolicy={'single_host_origin'}
-          render={renderProps => (
-            <img onClick={renderProps.onClick} style={{  height: '40px', cursor: 'pointer' }} src={GoogleIcon}></img>
+          render={(renderProps) => (
+            <img
+              onClick={renderProps.onClick}
+              style={{ height: '40px', cursor: 'pointer' }}
+              src={GoogleIcon}
+            ></img>
           )}
         />
         <FacebookLogin
           appId="911942052953063"
           //autoLoad={true}
           fields="name,email,picture"
-          render={renderProps => (
-            <img onClick={renderProps.onClick} style={{  height: '40px', cursor: 'pointer' }} src={FacebookIcon}></img>
+          render={(renderProps) => (
+            <img
+              onClick={renderProps.onClick}
+              style={{ height: '40px', cursor: 'pointer' }}
+              src={FacebookIcon}
+            ></img>
           )}
-
           //onClick={componentClicked}
-          callback={(res) => { responseSocial('facebook', res) }}
+          callback={(res) => {
+            responseSocial('facebook', res);
+          }}
         />
         {/*<InstagramLogin
           clientId="5fd2f11482844c5eba963747a5f34556"
@@ -333,7 +350,7 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
             redirectURI: 'https://321.4alabs.com',
             state: 'state',
             nonce: 'nonce',
-            usePopup: true
+            usePopup: true,
           }} // REQUIRED
           /** General props */
           uiType="dark"
@@ -344,27 +361,33 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
           //onError={(error) => console.error(error)} // default = undefined
           skipScript={false} // default = undefined
           iconProp={{ style: { marginTop: '10px' } }} // default = undefined
-          render={renderProps => (
-            <img onClick={renderProps.onClick} style={{  height: '40px', cursor: 'pointer' }} src={AppleIcon}></img>
+          render={(renderProps) => (
+            <img
+              onClick={renderProps.onClick}
+              style={{ height: '40px', cursor: 'pointer' }}
+              src={AppleIcon}
+            ></img>
           )}
         />
       </div>
       <div className="identfy">
-        <span>Veya</span>
-      </div> 
+        <span>{t('or')}</span>
+      </div>
       <form onSubmit={submitHandler}>
         <Material.select
           required
           name="userType"
           forHtml="userType"
-          label="Üyelik Tipi Seçiniz"
+          label={t('Select Membership Type')}
           onChange={(e) => setUserTypeId(e.target.value)}
           items={registerData?.['user-type']?.filter(
             (userType) => userType.key !== 'st'
           )}
         />
         {macro.map((item, index) => (
-          <Fragment key={index}>{macroConverter(form, setForm, item,socialMode)}</Fragment>
+          <Fragment key={index}>
+            {macroConverter(form, setForm, item, socialMode)}
+          </Fragment>
         ))}
         <div className="materials">
           <InputMask
@@ -383,7 +406,7 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
             {() => (
               <TextField
                 InputLabelProps={{ shrink }}
-                label="Telefon *"
+                label={t('Phone')}
                 className="material-inputs has-icon"
                 InputProps={{
                   startAdornment: (
@@ -400,7 +423,7 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
 
         <Material.TextField
           required
-          name="password"
+          name={t('password')}
           type="password"
           forHtml="password"
           value={password}
@@ -408,7 +431,7 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
           inputProps={{
             maxLength: 15,
           }}
-          label="Şifre"
+          label={t('password')}
           icon={Svg.PasswordIcon}
           password={Svg.EyeIcon}
         />
@@ -422,7 +445,7 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
           inputProps={{
             maxLength: 15,
           }}
-          label="Şifreyi tekrar giriniz."
+          label={t('password again')}
           icon={Svg.PasswordIcon}
           password={Svg.EyeIcon}
         />
@@ -543,13 +566,12 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
         color="gray"
         textAlign="center"
       >
-        Hesabınız var mı?
+        {t('Do you have an account?')}
         <Link style={{ color: 'var(--blue)', marginLeft: '5px' }} to="/login">
-          Giriş Yap
+          {t('login')}
         </Link>
       </Text>
 
-     
       {/* STEP TWO  */}
 
       {isOtpModalActive && (

@@ -6,16 +6,20 @@ import { device } from 'utils';
 import { StepBar, Text, Svg } from 'components';
 import RegisterPage from './RegisterPage';
 import { PERSONAL_TRAINER, WORK_PLACE } from '../../constants';
+import { useTranslation } from 'react-i18next';
 
 export const StepContext = createContext();
 
 const RegisterSteps = ({ userTypeId, setUserTypeId }) => {
+  const { t } = useTranslation();
+
   const [stepNumber, setStepNumber] = useState(1);
   const [open, setOpen] = useState(false);
 
-  const setUserTypeIdHandler = useCallback((value) => setUserTypeId(value), [
-    userTypeId,
-  ]);
+  const setUserTypeIdHandler = useCallback(
+    (value) => setUserTypeId(value),
+    [userTypeId]
+  );
 
   let stepCount;
 
@@ -60,17 +64,20 @@ const RegisterSteps = ({ userTypeId, setUserTypeId }) => {
             fontWeight="500"
             textAlign="center"
           >
-            ARAMIZA HOŞGELDİN!
+            {t('WELCOME TO THE CLUB!')}
           </Text>
 
           <Text textAlign="center" fontSize="1rem" color="dark">
-            Sistem onayın için ilgili arkadaşlarımız en kısa zamanda seninle
-            iletişime geçecek.
+            {t(
+              'Our related friends will contact you as soon as possible for your system approval'
+            )}
           </Text>
         </Container>
 
         <div className="modal-footer" closeIcon={false}>
-          <StyledLink to="/myprofile/settings/profile">PROFİL</StyledLink>
+          <StyledLink to="/myprofile/settings/profile">
+            {t('PROFILE')}
+          </StyledLink>
         </div>
       </Modal>
     </StepContext.Provider>

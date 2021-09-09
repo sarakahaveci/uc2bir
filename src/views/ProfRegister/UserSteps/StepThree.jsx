@@ -19,8 +19,11 @@ import { Button, Material, IconLabel, AwesomeIcon, Text } from 'components';
 import GoogleMap from 'components/GoogleMaps/GoogleMap';
 import { genderData, yesNo, inputProps } from '../../../constants';
 import { StepContext } from '../RegisterSteps';
+import { useTranslation } from 'react-i18next';
 
 const StepThree = () => {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const {
     data: registerData,
@@ -99,7 +102,7 @@ const StepThree = () => {
   };
 
   const isError = () => {
-    toast.error('Girilen bilgileri kontrol ediniz.', {
+    toast.error(t('Check the entered information'), {
       position: 'bottom-right',
       autoClose: 2000,
       hideProgressBar: false,
@@ -196,15 +199,18 @@ const StepThree = () => {
   };
 
   const isFailGetIds = () => {
-    toast.error('Haritadan adres eklenirken bir sorun ile karışlaşıldı', {
-      position: 'bottom-right',
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+    toast.error(
+      t('A problem was encountered while adding an address from the map'),
+      {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      }
+    );
   };
 
   const onPositionChange = (data) => {
@@ -230,16 +236,16 @@ const StepThree = () => {
   };
 
   return isLoading ? (
-    <div>Yükleniyor</div>
+    <div>{t('Loading')}</div>
   ) : (
     <>
       <StyledModal show={open} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title textAlign="center">Haritadan Seçin!</Modal.Title>
+          <Modal.Title textAlign="center">{t('Choose From Map!')}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Text textAlign="center">
-            Mahalle, Cadde veya Sokak adı ile arayın yada Pini Sürükleyin
+            {t('Search by Neighborhood, Street or Street name or Drag Pin')}{' '}
           </Text>
           <GoogleMap
             onPositionChange={onPositionChange}
@@ -250,7 +256,7 @@ const StepThree = () => {
             <Button
               fontWeight="bold"
               className="blue mx-auto"
-              text="Bu Adresi Kullan"
+              text={t('Use This Address')}
               disabled={isEmpty(adressFromMap)}
               onClick={useAdressFromMap}
             />
@@ -266,7 +272,9 @@ const StepThree = () => {
         <Material.MaterialDateField
           required
           name={isWorkPlace ? 'company_date' : 'birthday'}
-          label={isWorkPlace ? 'İş Yeri Kuruluş tarihi' : 'Doğum Tarihi'}
+          label={
+            isWorkPlace ? t('Workplace Establishment date') : t('Date of Birth')
+          }
           onChange={handleBirthdayChange}
           minDate="01.01.1945"
           maxDate={isWorkPlace ? new Date() : '01.15.2014'}
@@ -281,7 +289,7 @@ const StepThree = () => {
               required
               name="genre"
               forHtml="gender"
-              label="Cinsiyet"
+              label={t('gender')}
               onChange={handleFormOnChange}
               items={genderData}
               icon={AwesomeIcon.Gender}
@@ -290,7 +298,7 @@ const StepThree = () => {
               required
               name="tax"
               forHtml="tax"
-              label="Vergi Mükellefi misiniz?"
+              label={t('Are you a Taxpayer?')}
               onChange={(event) => setHasTaxNumber(!!event.target.value)}
               items={yesNo}
             />
@@ -302,7 +310,7 @@ const StepThree = () => {
             textDecoration: 'underline',
           }}
           icon={AwesomeIcon.Map}
-          text="Haritadan Ekle"
+          text={t('Add From Map')}
           onClick={handleClickOpen}
         />
 
@@ -310,7 +318,7 @@ const StepThree = () => {
           required
           name="city"
           forHtml="city"
-          label="İl Seçiniz"
+          label={t('Select City')}
           changeValue={cityId}
           onChange={handleSelectRelion}
           items={cities}
@@ -319,7 +327,7 @@ const StepThree = () => {
           required
           name="district"
           forHtml="district"
-          label="İlçe Seçiniz"
+          label={t('Select District')}
           changeValue={districtId}
           onChange={handleSelectRelion}
           items={distict ?? []}
@@ -328,7 +336,7 @@ const StepThree = () => {
           required
           name="town"
           forHtml="rown"
-          label="Mahalle Seçiniz"
+          label={t('Select Neighborhood')}
           changeValue={townId}
           onChange={handleFormOnChange}
           items={town ?? []}
@@ -339,7 +347,7 @@ const StepThree = () => {
               required
               id="title"
               name="title"
-              label="Şirket Ünvanı"
+              label={t('Company Title')}
               type="text"
               onChange={handleFormOnChange}
               inputProps={inputProps}
@@ -348,7 +356,7 @@ const StepThree = () => {
               required
               id="taxOffice"
               name="tax_office"
-              label="Vergi Dairesi"
+              label={t('Tax Administration')}
               type="text"
               onChange={handleFormOnChange}
               inputProps={inputProps}
@@ -357,7 +365,7 @@ const StepThree = () => {
               required
               id="taxNumber"
               name="tax_number"
-              label="Vergi No"
+              label={t('Tax number')}
               type="tel"
               onChange={handleFormOnChange}
               inputProps={{ maxLength: 11 }}
@@ -368,7 +376,7 @@ const StepThree = () => {
           required
           id="addressDetail"
           name="address_detail"
-          label="Açık Adres"
+          label={t('Open address')}
           type="text"
           changeValue={formData?.address_detail}
           onChange={handleFormOnChange}
@@ -380,7 +388,7 @@ const StepThree = () => {
               required
               id="apartmentNo"
               name="apt_no"
-              label="Bina"
+              label={t('Building')}
               type="text"
               onChange={handleFormOnChange}
               inputProps={{ maxLength: 5 }}
@@ -391,7 +399,7 @@ const StepThree = () => {
               required
               id="buildNo"
               name="build_no"
-              label="Daire"
+              label={t('Apartment')}
               type="text"
               onChange={handleFormOnChange}
               inputProps={{ maxLength: 5 }}
@@ -400,7 +408,7 @@ const StepThree = () => {
         </div>
         <Button
           type="submit"
-          text="İleri"
+          text={t('Forward')}
           className="blue"
           fontWeight="bold"
           disabled={isBirthdaySafe}
@@ -412,7 +420,7 @@ const StepThree = () => {
         className="material-dialog"
       >
         <Modal.Header closeButton>
-          <Modal.Title>Lütfen Branş Seçiminizi Yapınız</Modal.Title>
+          <Modal.Title>{t('Please Make Your Branch Selection')}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="branchWrapper">
@@ -433,36 +441,37 @@ const StepThree = () => {
             <Material.CheckBox
               onChange={(e) => setShowAddBranchArea(e.target.checked)}
               checked={showAddBranchArea}
-              label="Diğer Branşlar"
+              label={t('Other Branches')}
             />
             {showAddBranchArea && (
               <>
                 <Text fontSize="13px" fontWeight="500" className="no-margin">
-                  Ekleyin
+                  {t('Add')}
                 </Text>
                 <Material.TextField
                   id="branch"
                   name="branch"
-                  label="Eklemek istediğiniz branşı yazınız"
+                  label={t('Enter the branch you want to add')}
                   type="text"
                   onChange={(event) => setOfferedBranch(event.target.value)}
                 />
 
                 <span className="text-danger mt-2 mb-2 infoText">
-                  Eklemiş olduğunuz branşlar çok yakında hizmette olacak! En
-                  kısa sürede seninle iletişime geçeceeğiz
+                  {t(
+                    'The branches you have added will be in service very soon! We will contact you as soon as possible'
+                  )}
                 </span>
               </>
             )}
             <div className="buttonWrapper">
               <div className="col-3 col-md-3 col-sm-12 d-flex align-items-center">
-                <IconLabel text="Vazgeç" onClick={onCloseBranchModal} />
+                <IconLabel text={t('Give Up')} onClick={onCloseBranchModal} />
               </div>
               <div className="col-8 col-md-8 col-sm-12">
                 <Button
                   fontWeight="bold"
                   className="blue ml-auto w-100"
-                  text="İleri"
+                  text={t('Forward')}
                   size="lg"
                   disabled={
                     offeredBranch.length < 3 && !selectedButtons.length > 0
@@ -481,7 +490,7 @@ const StepThree = () => {
         className="material-dialog"
       >
         <Modal.Header closeButton>
-          <Modal.Title>İş Yeri Olanaklarını seçiniz</Modal.Title>
+          <Modal.Title>{t('Select the Work Place Facilities')}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="branchWrapper">
@@ -502,13 +511,16 @@ const StepThree = () => {
 
             <div className="buttonWrapper">
               <div className="col-3 col-md-3 col-sm-12 d-flex align-items-center">
-                <IconLabel text="Vazgeç" onClick={handleCloseBenefitModal} />
+                <IconLabel
+                  text={t('Give Up')}
+                  onClick={handleCloseBenefitModal}
+                />
               </div>
               <div className="col-8 col-md-8 col-sm-12">
                 <Button
                   fontWeight="bold"
                   className="blue ml-auto w-100"
-                  text="İleri"
+                  text={t('Forward')}
                   size="lg"
                   onClick={submitBenefitsHandler}
                   disabled={selectedBenefits.length === 0}

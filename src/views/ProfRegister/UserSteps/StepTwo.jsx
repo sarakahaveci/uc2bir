@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { toast } from 'react-toastify';
 import { Modal } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { Otp, Text, Svg, Button } from 'components';
 import { setStepTwo, verifyCode } from 'actions';
@@ -12,6 +13,8 @@ const StepTwo = ({
   setIsOtpModalActive,
   setStepNumber,
 }) => {
+  const { t } = useTranslation();
+
   const { isLoading: registerLoading } = useSelector((state) => state.auth);
 
   const [counter, setCounter] = useState(119);
@@ -46,7 +49,7 @@ const StepTwo = ({
       return () => {
         clearInterval(interval.current);
 
-        toast.info('Telefon Doğrulama Başarısız.', {
+        toast.info(t('Phone Verification Failed'), {
           position: 'bottom-right',
           autoClose: 2000,
         });
@@ -69,7 +72,7 @@ const StepTwo = ({
         () => {
           setStepNumber((val) => val + 1);
 
-          toast.success('Kayıt Alındı.', {
+          toast.success(t('Registered'), {
             position: 'bottom-right',
             autoClose: 1500,
           });
@@ -91,12 +94,12 @@ const StepTwo = ({
         <Svg.CloseIcon className="close-icon" onClick={modalCloseHandler} />
 
         <Text variant="h2" fontSize="1.2rem" color="dark">
-          Telefon Numaranızı Doğrulayın
+          {t('Verify Your Phone Number')}
         </Text>
 
         <Text textAlign="center" fontSize="1rem" color="dark">
           <span className="prof-register-modal__phone">{formData.phone}</span>
-          &nbsp; numaralı telefona gönderdiğimiz 6 haneli kodu girin.
+          &nbsp; {t('Enter the 6-digit code we sent to the phone number')}
         </Text>
 
         <div>
@@ -105,7 +108,7 @@ const StepTwo = ({
 
         {counter !== 0 ? (
           <Text fontSize="0.9rem" color="blue" textAlign="center">
-            Kalan süre {Math.floor(counter / 60)}:
+            {t('remaining time')} {Math.floor(counter / 60)}:
             {`${Math.ceil(counter % 60) < 10 ? 0 : ''}${Math.ceil(
               counter % 60
             )}`}
@@ -121,7 +124,7 @@ const StepTwo = ({
                 verifyCode(
                   { phone: formData.phone },
                   () => {
-                    toast.success('Kod Gönderildi.', {
+                    toast.success(t('Code Sent'), {
                       position: 'bottom-right',
                       autoClose: 2000,
                     });
@@ -133,15 +136,18 @@ const StepTwo = ({
                     }, 1000);
                   },
                   () =>
-                    toast.error('Mesaj gönderilirken hata oluştu...', {
-                      position: 'bottom-right',
-                      autoClose: 2000,
-                    })
+                    toast.error(
+                      t('An error occurred while sending the message...'),
+                      {
+                        position: 'bottom-right',
+                        autoClose: 2000,
+                      }
+                    )
                 )
               )
             }
           >
-            Güvenlik kodunu tekrar gönder ({Math.floor(counter / 60)}:
+            {t('Resend security code')}({Math.floor(counter / 60)}:
             {`${Math.ceil(counter % 60) < 10 ? 0 : ''}${Math.ceil(
               counter % 60
             )}`}
@@ -150,7 +156,7 @@ const StepTwo = ({
         )}
 
         <Button
-          text="İleri"
+          text={t('Forward')}
           margin="15px 0 0 0"
           className="blue"
           disabled={isVerifyButtonDisabled}

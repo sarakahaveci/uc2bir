@@ -1,17 +1,20 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const Lobby = ({
-     username,
-     handleUsernameChange,
-     roomName,
-     handleRoomNameChange,
-     handleSubmit
-   }) => {
+  username,
+  handleUsernameChange,
+  roomName,
+  handleRoomNameChange,
+  handleSubmit,
+}) => {
+  const { t } = useTranslation();
+
   return (
     <form onSubmit={handleSubmit}>
-      <h2>Enter a room</h2>
+      <h2>{t('Enter a room')}</h2>
       <div>
-        <label htmlFor="name">Name:</label>
+        <label htmlFor="name">{t('name')}:</label>
         <input
           type="text"
           id="field"
@@ -22,7 +25,7 @@ const Lobby = ({
       </div>
 
       <div>
-        <label htmlFor="room">Room name:</label>
+        <label htmlFor="room">{t('Room name')}:</label>
         <input
           type="text"
           id="room"
@@ -31,7 +34,7 @@ const Lobby = ({
           required
         />
       </div>
-      <button type="submit">Submit</button>
+      <button type="submit">{t('Submit')}</button>
     </form>
   );
 };

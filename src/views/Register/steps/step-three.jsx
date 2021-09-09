@@ -98,7 +98,7 @@ const StepThree = (props) => {
             disabled={isBirthdaySafe}
           />
         ) : (
-          <Button text={`Yükleniyor...`} className="blue" />
+          <Button text={t('Loading')} className="blue" />
         )}
       </form>
     </>

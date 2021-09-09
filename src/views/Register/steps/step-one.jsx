@@ -22,12 +22,12 @@ import StepTwo from './step-two';
 
 import { Modal } from 'react-bootstrap';
 import GoogleLogin from 'react-google-login';
-import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 //import InstagramLogin from 'instagram-login-react';
-import GoogleIcon from 'assets/google-login.png'
-import FacebookIcon from 'assets/facebook-login.png'
+import GoogleIcon from 'assets/google-login.png';
+import FacebookIcon from 'assets/facebook-login.png';
 //import InstagramIcon from 'assets/instagram-login.png'
-import AppleIcon from 'assets/apple-login.png'
+import AppleIcon from 'assets/apple-login.png';
 import AppleSignin from 'react-apple-signin-auth';
 const StepOne = (props) => {
   const { setSteps, registerData } = props;
@@ -55,12 +55,10 @@ const StepOne = (props) => {
 
   const isSuccess = (response) => {
     if (response?.data?.token) {
-      setSteps('step3')
-
+      setSteps('step3');
     } else {
       return setModal(true);
     }
-
   };
   const isError = () => {
     toast.error('Hatalı Giriş', {
@@ -89,32 +87,31 @@ const StepOne = (props) => {
     }
   }, [getStepOne.error]);
   const manipulateName = (name) => {
-    if (name?.search(" ") == -1) {
+    if (name?.search(' ') == -1) {
       const capitalized = name.charAt(0).toUpperCase() + name.slice(1);
 
       return capitalized;
-    }
-    else {
-      var res = name.toLowerCase().split(" ");
+    } else {
+      var res = name.toLowerCase().split(' ');
 
       const tmpArr = [];
-      res.forEach(element => {
-        const capitalizedWord = element.charAt(0).toUpperCase() + element.slice(1);
-        tmpArr.push(capitalizedWord)
+      res.forEach((element) => {
+        const capitalizedWord =
+          element.charAt(0).toUpperCase() + element.slice(1);
+        tmpArr.push(capitalizedWord);
       });
-      var res2 = "";
+      var res2 = '';
       tmpArr.forEach((element, key) => {
         if (key == tmpArr.length - 1) {
-          res2 = res2 + element
-        }
-        else {
-          res2 = res2 + element + " "
+          res2 = res2 + element;
+        } else {
+          res2 = res2 + element + ' ';
         }
       });
 
       return res2;
     }
-  }
+  };
   const responseSocial = async (type, res) => {
     // eslint-disable-next-line
 
@@ -123,10 +120,16 @@ const StepOne = (props) => {
       accessToken: res?.accessToken || res?.identityToken,
       email: res?.profileObj?.email || res?.email,
       uid: res?.googleId || res?.userID || (type == 'apple' ? res?.user : ''),
-      name: manipulateName(res?.name || res?.profileObj?.name || (res?.fullName.givenName ? `${res?.fullName?.givenName} ${res?.fullName?.familyName}` : ''))
-    }
-    setSocialMode(true)
-    setData({ ...data, ...user })
+      name: manipulateName(
+        res?.name ||
+          res?.profileObj?.name ||
+          (res?.fullName.givenName
+            ? `${res?.fullName?.givenName} ${res?.fullName?.familyName}`
+            : '')
+      ),
+    };
+    setSocialMode(true);
+    setData({ ...data, ...user });
   };
   const actionStepOneSocial = () => {
     dispatch(
@@ -252,27 +255,44 @@ const StepOne = (props) => {
 
   return (
     <>
-
-      <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between', padding: '10px 20px' }}>
+      <div
+        style={{
+          display: 'flex',
+          width: '100%',
+          justifyContent: 'space-between',
+          padding: '10px 20px',
+        }}
+      >
         <GoogleLogin
           clientId="197190928694-blqpc6dnsr5lsefk7aptk3iq9tjjna8f.apps.googleusercontent.com"
-          onSuccess={(res) => { responseSocial('google', res) }}
+          onSuccess={(res) => {
+            responseSocial('google', res);
+          }}
           //onFailure={() => { alert('Hata ile karşılaşıldı') }}
           //cookiePolicy={'single_host_origin'}
-          render={renderProps => (
-            <img onClick={renderProps.onClick} style={{ height: '40px', cursor: 'pointer' }} src={GoogleIcon}></img>
+          render={(renderProps) => (
+            <img
+              onClick={renderProps.onClick}
+              style={{ height: '40px', cursor: 'pointer' }}
+              src={GoogleIcon}
+            ></img>
           )}
         />
         <FacebookLogin
           appId="911942052953063"
           //autoLoad={true}
           fields="name,email,picture"
-          render={renderProps => (
-            <img onClick={renderProps.onClick} style={{ height: '40px', cursor: 'pointer' }} src={FacebookIcon}></img>
+          render={(renderProps) => (
+            <img
+              onClick={renderProps.onClick}
+              style={{ height: '40px', cursor: 'pointer' }}
+              src={FacebookIcon}
+            ></img>
           )}
-
           //onClick={componentClicked}
-          callback={(res) => { responseSocial('facebook', res) }}
+          callback={(res) => {
+            responseSocial('facebook', res);
+          }}
         />
         {/* <InstagramLogin
           clientId="5fd2f11482844c5eba963747a5f34556"
@@ -290,7 +310,7 @@ const StepOne = (props) => {
             redirectURI: 'https://321.4alabs.com',
             state: 'state',
             nonce: 'nonce',
-            usePopup: true
+            usePopup: true,
           }} // REQUIRED
           /** General props */
           uiType="dark"
@@ -300,21 +320,29 @@ const StepOne = (props) => {
           //onSuccess={(response) => console.log(response)} // default = undefined
           //onError={(error) => console.error(error)} // default = undefined
           skipScript={false} // default = undefined
-          onSuccess={(response) => { responseSocial('apple', response) }} // default = undefined
-
+          onSuccess={(response) => {
+            responseSocial('apple', response);
+          }} // default = undefined
           iconProp={{ style: { marginTop: '10px' } }} // default = undefined
-          render={renderProps => (
-            <img onClick={renderProps.onClick} style={{ height: '40px', cursor: 'pointer' }} src={AppleIcon}></img>
+          render={(renderProps) => (
+            <img
+              onClick={renderProps.onClick}
+              style={{ height: '40px', cursor: 'pointer' }}
+              src={AppleIcon}
+            ></img>
           )}
         />
-
-
       </div>
       <div className="identfy">
         <span>Veya</span>
       </div>
       <form className="step-one-wrapper" onSubmit={onSubmit} autoComplete="off">
-        <MacroCollections social={socialMode} macro={macro.macro} data={data} setData={setData} />
+        <MacroCollections
+          social={socialMode}
+          macro={macro.macro}
+          data={data}
+          setData={setData}
+        />
         <div className="step-one-wrapper__checkbox-wrapper">
           <Material.CheckBox
             checked={acceptMemberAgreement}
@@ -402,7 +430,7 @@ const StepOne = (props) => {
         {!getStepOne.isLoading ? (
           <Button type="submit" text={`İleri`} className="blue" />
         ) : (
-          <Button text={`Yükleniyor...`} className="blue" />
+          <Button text={t('Loading')} className="blue" />
         )}
       </form>
       {modal && (
@@ -428,7 +456,6 @@ const StepOne = (props) => {
       <StyledModal show={openModal} onHide={() => setOpenModal(false)}>
         {confirmation}
       </StyledModal>
-
     </>
   );
 };

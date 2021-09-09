@@ -212,7 +212,7 @@ export default function Profile({ match }) {
       break;
   }
   return isLoading ? (
-    <div>Yükleniyor</div>
+    <div>{t('Loading')}</div>
   ) : (
     <Main>
       <img src={profileBannerImg} alt="" className="banner-image" />

@@ -171,7 +171,7 @@ const StepFour = (props) => {
         {!getStepFour.isLoading || !getStepFour.isSuccess ? (
           <Button type="submit" text={`Kaydı Tamamla`} className="blue" />
         ) : (
-          <Button text={`Yükleniyor...`} className="blue" />
+          <Button text={t('Loading')} className="blue" />
         )}
       </form>
     </>
