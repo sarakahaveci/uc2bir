@@ -782,5 +782,13 @@
   "Successfully added": "Başarıyla Eklendi",
   "Workplace Facilities": "İş Yeri Olanaklar",
   "Determine the opportunities for the sports field you serve; You can add new possibilities": "Hizmet verdiğiniz spor alanı için olanakları belirleyebilir; yeni olanaklar ekleyebilirsiniz.",
-  "Add New Facilities": "Yeni Olanak Ekle"
+  "Add New Facilities": "Yeni Olanak Ekle",
+  "Processing successful!": "İşleminiz başarılı!",
+  "Error encountered while sending price request": "Fiyat talebi gönderilirken hata ile karşılaşıldı",
+  "Your rating and comment has been successfully submitted": "Puanınız ve yorumunuz başarıyla gönderildi",
+  "Error Encountered While Commenting and Rating": "Yorum ve Puanlama Yaparken Hata ile karşılaşıldı",
+  "Login successful. Welcome!": "Giriş Başarılı. Hoş geldiniz!",
+  "Login Failed, Please make sure your account is registered": "Giriş Başarısız, Lütfen hesabınızın kayıtlı olduğundan emin olun.",
+  "Operation failed": "İşlem başarısız",
+  "Review your information": "Bilgilerinizi gözden geçiriniz."
 }

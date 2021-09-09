@@ -783,5 +783,13 @@
   "Successfully added": "Successfully added",
   "Workplace Facilities": "Workplace Facilities",
   "Determine the opportunities for the sports field you serve; You can add new possibilities": "Determine the opportunities for the sports field you serve; You can add new possibilities.",
-  "Add New Facilities": "Add New Facilities"
+  "Add New Facilities": "Add New Facilities",
+  "Processing successful!": "Processing successful!",
+  "Error encountered while sending price request": "Error encountered while sending price request",
+  "Your rating and comment has been successfully submitted": "Your rating and comment has been successfully submitted",
+  "Error Encountered While Commenting and Rating": "Error Encountered While Commenting and Rating",
+  "Login successful. Welcome!": "Login successful. Welcome!",
+  "Login Failed, Please make sure your account is registered": "Login Failed, Please make sure your account is registered",
+  "Operation failed": "Operation failed",
+  "Review your information": "Review your information."
 }
