@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { StepContext } from '../RegisterSteps';
 import { Button, FileUpload } from 'components';
 
-const RegisterFileUpload = ({ title, children, buttonText, fileTypeId }) => {
+const RegisterFileUpload = ({ title = '', children, buttonText = t('continue'), fileTypeId }) => {
   const { t } = useTranslation();
 
   const { setStepNumber } = useContext(StepContext) || {};
@@ -43,6 +43,8 @@ const RegisterFileUpload = ({ title, children, buttonText, fileTypeId }) => {
       </div>
     </>
   );
+
+
 };
 
 RegisterFileUpload.propTypes = {
@@ -50,9 +52,5 @@ RegisterFileUpload.propTypes = {
   title: PropTypes.string,
 };
 
-RegisterFileUpload.defaultProps = {
-  buttonText: t('continue'),
-  title: '',
-};
 
 export default RegisterFileUpload;
