@@ -70,7 +70,7 @@ const ProficiencyCollapser = ({
             className="proficiency-row__save"
             onClick={saveProficiencyHandler}
           >
-            {isLoading ? <Spinner type="static" /> : 'Kaydet'}
+            {isLoading ? <Spinner type="static" /> : t('save')}
           </span>
         )}
       </div>

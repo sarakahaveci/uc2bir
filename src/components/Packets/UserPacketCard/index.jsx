@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components/macro';
 import { device } from 'utils';
 import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
 const PacketCard = ({
   type,
   trainerClass, //typeözel
@@ -15,22 +17,22 @@ const PacketCard = ({
   onClickDetail,
   onClickReservation,
 }) => {
+  const { t } = useTranslation();
+
   const history = useHistory();
   const getSessionTypes = () => {
-    let tmpString = "";
-    var res = sessionTypes?.split(",");
-    res?.forEach(element => {
-      if (element == "gym")
-        tmpString = tmpString + "Spor Alanı, "
-      if (element == "home_park")
-        tmpString = tmpString + "Ev / Park    , "
-      if (element == "online")
-        tmpString = tmpString + "Online, "
+    let tmpString = '';
+    var res = sessionTypes?.split(',');
+    res?.forEach((element) => {
+      if (element == 'gym') tmpString = tmpString + t('sports field') + ', ';
+      if (element == 'home_park')
+        tmpString = tmpString + t('Home / Park') + '    , ';
+      if (element == 'online') tmpString = tmpString + 'Online, ';
     });
     tmpString = tmpString.substring(0, tmpString.length - 2);
 
     return tmpString;
-  }
+  };
 
   let content;
   switch (type) {
@@ -39,7 +41,9 @@ const PacketCard = ({
         <>
           <Column>
             <Row>
-              <BoldText>{trainerClass} SINIFI EĞİTMEN:</BoldText>
+              <BoldText>
+                {trainerClass} {t('CLASS INSTRUCTOR')}:
+              </BoldText>
 
               <BoldText style={{ marginLeft: '5px' }}>{packetName}</BoldText>
             </Row>
@@ -51,29 +55,42 @@ const PacketCard = ({
 
           <Column>
             <Row>
-              <BoldText color={'gray'}>OTURUM TÜRLERİ:{getSessionTypes()}</BoldText>
+              <BoldText color={'gray'}>
+                {t('SESSION TYPES')}:{getSessionTypes()}
+              </BoldText>
             </Row>
           </Column>
           <Column borderDisable>
             <FlexSpace>
-              <BoldText color={'gray'}>DERS : {currentLesson}/{totalLesson} DERS</BoldText>
+              <BoldText color={'gray'}>
+                {t('LESSON')} : {currentLesson}/{totalLesson} {t('LESSON')}
+              </BoldText>
             </FlexSpace>
 
             <Row>
-              {
-                {
-                  'active': <>
-                    <Button onClick={onClickReservation}>Rezervasyon Yap</Button>
+              {{
+                active: (
+                  <>
+                    <Button onClick={onClickReservation}>
+                      {t('Make a Reservation')}
+                    </Button>
                     <ApproveButton onClick={onClickDetail}>
-                      Paket Detayı
+                      {t('Package Detail')}
                     </ApproveButton>
-                  </>,
-                  'upgraded': <BoldText >Bu paket yükseltilmiştir</BoldText>
-
-                }[status] || <Button onClick={() => { history.push(`/packets/${type}/detail/`+package_id) }}>Tekrar Al</Button>
-              }
-
-
+                  </>
+                ),
+                upgraded: (
+                  <BoldText>{t('This package has been upgraded')}</BoldText>
+                ),
+              }[status] || (
+                <Button
+                  onClick={() => {
+                    history.push(`/packets/${type}/detail/` + package_id);
+                  }}
+                >
+                  {t('Buy Again')}
+                </Button>
+              )}
             </Row>
           </Column>
         </>
@@ -84,34 +101,37 @@ const PacketCard = ({
         <>
           <Column>
             <Row>
-              <BoldText>DİYETİSYEN:</BoldText>
+              <BoldText>{t('dietitian')}:</BoldText>
 
-              <BoldText style={{ marginLeft: '5px' }}>
-                {packetName}
-              </BoldText>
+              <BoldText style={{ marginLeft: '5px' }}>{packetName}</BoldText>
             </Row>
 
-            <FlexSpace position={'END'}>
-            </FlexSpace>
+            <FlexSpace position={'END'}></FlexSpace>
           </Column>
 
           <Column>
             <Row>
-              <BoldText color={'gray'}>OTURUM TÜRLERİ: {getSessionTypes()}</BoldText>
+              <BoldText color={'gray'}>
+                {t('SESSION TYPES')}: {getSessionTypes()}
+              </BoldText>
             </Row>
           </Column>
           <Column borderDisable>
             <FlexSpace>
-              <BoldText color={'gray'}>SEANS : {currentLesson}/{totalLesson}  SEANS</BoldText>
+              <BoldText color={'gray'}>
+                {t('SESSION')} : {currentLesson}/{totalLesson} {t('SESSION')}
+              </BoldText>
             </FlexSpace>
 
             <Row>
               {status == 'active' ? (
                 <>
-                  <Button onClick={onClickReservation}>Rezervasyon Yap</Button>
+                  <Button onClick={onClickReservation}>
+                    {t('Make a Reservation')}
+                  </Button>
                 </>
               ) : (
-                <Button >Tekrar Al</Button>
+                <Button> {t('Buy Again')}</Button>
               )}
             </Row>
           </Column>

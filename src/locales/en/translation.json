@@ -28,6 +28,7 @@
   "groupLessons": "GROUP LESSONS",
   "lessons": "Lessons",
   "lesson": "Lesson",
+  "LESSON": "LESSON",
   "allCategories": "ALL CATEGORIES",
   "selectDate": "Select Date",
   "date": "Date",
@@ -179,7 +180,7 @@
   "Completed Tests": "Completed Tests",
   "This user has not completed the PARQ test": "This user has not completed the PARQ test.",
   "Number of Courses Completed": "Number of Courses Completed",
-  "This user has not completed any lessons on the 321 system": "This user has not completed any lessons on the 321 system.",
+  "This user has not completedLESSONs on ESSON21 system": "This user has not completed any lessons on the 321 system.",
   "please": "Please",
   "enter": "enter",
   "Progress Test": "Progress Test",
@@ -521,6 +522,7 @@
   "will start": "will start",
   "has ended": "has ended.",
   "Session": "Session",
+  "SESSION": "SESSION",
   "The amount you paid for the reservation will be credited again to your SAME credit card. Do you approve?": "The amount you paid for the reservation will be credited again to your SAME credit card. Do you approve?",
   "How do we make a refund?": "How do we make a refund?",
   "If you want, we can transfer it to your wallet or to your card account so that you can use it quickly again": "If you want, we can transfer it to your wallet or to your card account so that you can use it quickly again.",
@@ -791,5 +793,12 @@
   "Login successful. Welcome!": "Login successful. Welcome!",
   "Login Failed, Please make sure your account is registered": "Login Failed, Please make sure your account is registered",
   "Operation failed": "Operation failed",
-  "Review your information": "Review your information."
+  "Review your information": "Review your information.",
+  "Add your health report from the relevant institutions": "Add your health report from the relevant institutions.",
+  "The sports field has been successfully removed": "The sports field has been successfully removed.",
+  "Sports area has been successfully added": "Sports area has been successfully added.",
+  "CLASS INSTRUCTOR": "CLASS INSTRUCTOR",
+  "SESSION TYPES": "SESSION TYPES",
+  "This package has been upgraded": "This package has been upgraded",
+  "Buy Again": "Buy Again"
 }
