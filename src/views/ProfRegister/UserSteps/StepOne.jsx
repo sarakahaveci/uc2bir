@@ -142,13 +142,14 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
   };
 
   const registerErrorCallback = (errorMessages) =>
-    Object.keys(errorMessages)?.forEach((errorKey) => {
-      errorMessages?.[errorKey].forEach((error) =>
+    Object.keys(JSON.parse(errorMessages))?.forEach((errorKey) => {
+      JSON.parse(errorMessages)?.[errorKey].forEach((error) =>
         toast.error(error, {
           position: 'bottom-right',
           autoClose: 2000,
         })
       );
+
     });
 
   const manipulateName = (name) => {
