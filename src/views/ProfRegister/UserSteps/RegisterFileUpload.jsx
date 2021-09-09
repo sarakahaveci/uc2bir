@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { StepContext } from '../RegisterSteps';
 import { Button, FileUpload } from 'components';
 
-const RegisterFileUpload = ({ title = '', children, buttonText = t('continue'), fileTypeId }) => {
+const RegisterFileUpload = ({ title = '', children, buttonText = 'Devam', fileTypeId }) => { // Buraya translate yazma sunucuda patlıyor
   const { t } = useTranslation();
 
   const { setStepNumber } = useContext(StepContext) || {};
