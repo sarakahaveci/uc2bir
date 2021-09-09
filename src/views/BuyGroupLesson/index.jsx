@@ -173,8 +173,12 @@ const BuyGroupLesson = ({ match }) => {
                 </PtInfoContainer>
               </PtCardContainer>
               <InfoContainer>
-                <HeaderText>{t('session type')}</HeaderText>
+                <div style={{ display: 'flex' }}>
+                  Grup Ders : <h5>{group?.data?.title}</h5>
+
+                </div>
                 <BigSeperator />
+                <HeaderText style={{ marginBottom: '20px' }}>{t('session type')}</HeaderText>
                 {
                   {
                     gym: (
