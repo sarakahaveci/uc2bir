@@ -68,9 +68,9 @@ const CreateCalenderModal = ({
               approve();
             }}
           >
-            {type[0]?.key === KEYS.DIETIAN && 'SEANS OLUŞTUR'}
-            {type[0]?.key === KEYS.PT && 'ÖZEL DERS OLUŞTUR'}
-            {type[0]?.key === KEYS.GYM && 'SPOR ALANI KİRALA'}
+            {type[0]?.key === KEYS.DIETIAN && t('CREATE SESSION')}
+            {type[0]?.key === KEYS.PT && t('CREATE PRIVATE LESSON')}
+            {type[0]?.key === KEYS.GYM && t('HIRE SPORTS AREA')}
           </StyledButton>
         </div>
         {type[0]?.key !== KEYS.GYM && (

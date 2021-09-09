@@ -12,8 +12,9 @@ const CriminalRecordStep = () => {
   return (
     <div className="step-six">
       <RegisterFileUpload
-        title="E-devlet üzerinden alabileceğiniz adli sicil kaydınızı ekleyin. 
-        Aşağıdaki linkten e-devlete ulaşabilirsiniz."
+        title={t(
+          'Add your criminal record, which you can get via e-government. You can reach e-government from the link below'
+        )}
         fileTypeId={CRIMINAL_RECORD}
       >
         <div className="step-six__criminal-record">
