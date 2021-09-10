@@ -15,7 +15,7 @@ const LongUserCard = ({
   district,
   hoverText = 'Profile Git',
   isGym,
-  onClickHover = () => { },
+  onClickHover = () => {},
   selected = false,
   type,
   favoriteId,
@@ -57,7 +57,13 @@ const LongUserCard = ({
 
         <img
           className="long-user-card__img"
-          src={data?.photo?.path ? data?.photo?.path : data?.photo ? data?.photo : MockImage}
+          src={
+            data?.photo?.path
+              ? data?.photo?.path
+              : data?.photo
+              ? data?.photo
+              : MockImage
+          }
         />
 
         <div className="long-user-card__navigator-wrapper">
@@ -89,13 +95,13 @@ const LongUserCard = ({
         <Span underline>{data?.title}</Span>
 
         <div className="long-user-card__location-wrapper">
-          <div className="long-user-card__location-text"> 
-            {(data?.district || district) &&
-             <>
-             <Svg.LocationIcon /> {data?.city || city},{' '}
-            {data?.district || district}
-            </>
-            }
+          <div className="long-user-card__location-text">
+            {(data?.district || district) && (
+              <>
+                <Svg.LocationIcon /> {data?.city || city},{' '}
+                {data?.district || district}
+              </>
+            )}
           </div>
 
           <div className="long-user-card__fee">
