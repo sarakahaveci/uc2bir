@@ -64,9 +64,10 @@ const GYMEdit = ({ setSubPage, setBannerActive }) => {
             <Button
               disabled={!checked.length}
               style={{ margin: 5, borderStyle: 'solid', borderWidth: '1px' }}
-              text={`Kaldır ${
-                checked.length ? '(' + checked.length + ')' : ''
-              }`}
+              text={
+                t('remove') +
+                `${checked.length ? '(' + checked.length + ')' : ''}`
+              }
               onClick={() => dispatch(removeGymFromPt(checked))}
             />
           </div>

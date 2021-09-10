@@ -12,8 +12,11 @@ import SelectiveButton from 'components/buttons/SelectiveButton';
 import ArrowLeftIcon from 'components/statics/svg/images/arrow-left.svg';
 import FacilityImage from 'assets/facility.png';
 import BluePlusIcon from 'assets/blue-plus.svg';
+import { useTranslation } from 'react-i18next';
 
 export default function WorkPlaceFacility() {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
 
   const { data } = useSelector((state) => state.registerData);
@@ -35,7 +38,7 @@ export default function WorkPlaceFacility() {
   );
 
   const isSuccessAddNewFacilitiesCallback = () => {
-    toast.success('Başarı ile eklendi', {
+    toast.success(t('Successfully added'), {
       position: 'bottom-right',
       delay: 2000,
     });
@@ -70,7 +73,7 @@ export default function WorkPlaceFacility() {
         fontWeight="600"
         textAlign="left"
       >
-        İş Yeri Olanaklar
+        {t('Workplace Facilities')}
       </Title>
       <div className="row d-flex w-100">
         <div className="col-lg-4 col-md-12 col-sm-12">
@@ -93,7 +96,7 @@ export default function WorkPlaceFacility() {
                 onClick={() => setShowAddFacilty(false)}
               />
             )}{' '}
-            İş Yeri Olanaklar
+            {t('Workplace Facilities')}
           </Title>
 
           <Title
@@ -103,8 +106,9 @@ export default function WorkPlaceFacility() {
             fontWeight="500"
             textAlign="left"
           >
-            Hizmet verdiğiniz spor alanı için olanakları belirleyebilir; yeni
-            olanaklar ekleyebilirsiniz.{' '}
+            {t(
+              'Determine the opportunities for the sports field you serve; You can add new possibilities'
+            )}
           </Title>
 
           {!showAddFacilty && (
@@ -115,7 +119,7 @@ export default function WorkPlaceFacility() {
               fontWeight="400"
               textAlign="left"
             >
-              Yeni Olanak Ekle{' '}
+              {t('Add New Facilities')}
               <img
                 className="cp"
                 src={BluePlusIcon}
@@ -148,7 +152,7 @@ export default function WorkPlaceFacility() {
                 <div className="d-flex w-100">
                   <Button
                     className="blue ml-auto"
-                    text="Kaydet"
+                    text={t('save')}
                     disabled={selectedFacilty.length === 0}
                     fontWeight="500"
                     onClick={submitNewFacilities}

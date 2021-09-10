@@ -142,7 +142,7 @@ const ProfileBanner = ({
                           dispatch(setReservation({ isSelected: false }));
                           setPage('Reservation');
                         }}
-                        text="Rezervasyon Yap"
+                        text={t('Make a Reservation')}
                         className="blue list"
                         style={{ fontSize: '9pt' }}
                       />

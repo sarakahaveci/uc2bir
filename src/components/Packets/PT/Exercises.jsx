@@ -96,7 +96,7 @@ const Exercises = ({ setPage = () => {}, packageData }) => {
             textAlign="left"
             onClick={() => setPage('EditLesson')}
           >
-            {`< Geri`}
+            {t('< Back')}
           </Title>
           <ExerciseCreateBtn onClick={onClickExercise}>
             <Svg.BluePlusIcon />

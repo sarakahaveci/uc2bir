@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { Modal } from 'react-bootstrap';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import {
   getWorkPlaceActivityList,
@@ -19,6 +20,8 @@ import ActivityImage from 'assets/activityPicture.png';
 import BluePlusIcon from 'assets/blue-plus.svg';
 
 export default function WorkPlaceActivity() {
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
 
   const { data, allList, isLoading } = useSelector(
@@ -69,7 +72,7 @@ export default function WorkPlaceActivity() {
           getActivityList();
         },
         (error) => {
-          toast.error('.', {
+          toast.error('İşlem Başarısız!!', {
             position: error,
             autoClose: 2000,
           });
@@ -92,8 +95,8 @@ export default function WorkPlaceActivity() {
             alt=""
             onClick={() => setShowAddActivity(false)}
           />
-        )}{' '}
-        İş Yeri Faaliyet Alanları
+        )}
+        {t('Workplace Activity Areas')}
       </Title>
 
       <div className="row d-flex w-100">
@@ -111,7 +114,7 @@ export default function WorkPlaceActivity() {
             fontWeight="500"
             textAlign="left"
           >
-            Hizmet verdiğiniz faaliyet alanlarını ve ücretlerini belirleyin.{' '}
+            {t('Determine the areas of activity you serve and their fees')}
           </Title>
 
           {!showAddActivity && (
@@ -123,7 +126,8 @@ export default function WorkPlaceActivity() {
               textAlign="left"
             >
               <div>
-                Yeni faaliyet alanı (Sınıf) Ekle
+                {t('Add new field of activity (Class)')}
+
                 <img
                   className="cp ml-2"
                   src={BluePlusIcon}
@@ -141,9 +145,9 @@ export default function WorkPlaceActivity() {
                   marginBottom: '10px',
                 }}
               >
-                "Lütfen spor salonunuzda kullanıma açmak istediğiniz sınıflar ve
-                kontenjan sayılarını belirtiniz. Grup ders kullanımları için
-                sınıfın saatlik kiralama fiyatını yazınız."
+                {t(
+                  'Please specify the classes and quotas you want to make available in your gym. Write down the hourly rental price of the class for group lesson use'
+                )}
               </div>
             </Title>
           )}
@@ -174,7 +178,7 @@ export default function WorkPlaceActivity() {
                   textAlign="left"
                   color="red"
                 >
-                  Henüz Faaliyet Alanı (Sınıf) Eklemediniz.
+                  {t('You havent added an Activity Area (Class) yet')}
                 </Title>
               )
             ) : (
@@ -191,7 +195,7 @@ export default function WorkPlaceActivity() {
                 <div className="d-flex w-100">
                   <Button
                     className="blue ml-auto"
-                    text="Kaydet"
+                    text={t('save')}
                     disabled={selectedActivity?.length === 0}
                     fontWeight="500"
                     onClick={submitNewActivity}
@@ -214,12 +218,12 @@ export default function WorkPlaceActivity() {
               fontSize="13px"
               color="black3"
             >
-              Seans Ücreti
+              {t('Session Fee')}
             </Title>
           </div>
           <div>
             <Material.TextField
-              label="Tüm branşlar için seans (TL)"
+              label={t('Session for all branches (TL)')}
               type="number"
               name="price"
               onChange={handleFormOnChange}
@@ -240,7 +244,7 @@ export default function WorkPlaceActivity() {
           </div>
           <Button
             className="blue mt-3"
-            text="Kaydet"
+            text={t('save')}
             fontWeight="500"
             onClick={submitSpicialPrice}
           />
@@ -252,7 +256,7 @@ export default function WorkPlaceActivity() {
             fontSize="10px"
             color="red"
           >
-            *Seans ücretini güncellemek için değeri girin ve kaydedin.
+            *{t('Enter and save the value to update the session cost')}
           </Title>
         </div>
       )}
@@ -267,18 +271,22 @@ export default function WorkPlaceActivity() {
             fontWeight="500"
             textAlign="center"
           >
-            Merhaba Sevgili Üyemiz{' '}
+            {t('Hello Dear Member')}
           </Text>
 
           <Text textAlign="center" fontSize="1rem" color="dark">
-            Seçmiş Olduğun faaliyet alanı tarafımızca incelendikten sonra bilgi
-            vereceğiz.
-            <span> Bildirimleri açmayı unutma :)</span>
+            {t(
+              'We will inform you after the field of activity you have chosen is reviewed by us'
+            )}
+            <span>{t('Dont forget to turn on notifications')} :)</span>
           </Text>
         </Container>
 
         <div className="modal-footer" closeIcon={false}>
-          <StyledLink onClick={() => setOpen(false)}>Devam Et</StyledLink>
+          <StyledLink onClick={() => setOpen(false)}>
+            {' '}
+            {t('continue')}
+          </StyledLink>
         </div>
       </Modal>
 
@@ -297,18 +305,22 @@ export default function WorkPlaceActivity() {
             fontWeight="500"
             textAlign="center"
           >
-            Merhaba Sevgili Üyemiz{' '}
+            {t('Hello Dear Member')}
           </Text>
 
           <Text textAlign="center" fontSize="1rem" color="dark">
-            Girmiş Olduğun seans ücreti tarafımızca incelendikten sonra bilgi
-            vereceğiz.
-            <span> Bildirimleri açmayı unutma :)</span>
+            {t(
+              ' We will inform you after the session fee you have entered is reviewed by us'
+            )}
+            <span>{t('Dont forget to turn on notifications')} :)</span>
           </Text>
         </Container>
 
         <div className="modal-footer" closeIcon={false}>
-          <StyledLink onClick={() => setOpenModal(false)}>Devam Et</StyledLink>
+          <StyledLink onClick={() => setOpenModal(false)}>
+            {' '}
+            {t('continue')}
+          </StyledLink>
         </div>
       </Modal>
     </div>

@@ -11,7 +11,7 @@ const HealthReportStep = () => {
     <>
       <RegisterFileUpload
         fileTypeId={HEALTH_REPORT}
-        title="İlgili kurumlardan aldığınız sağlık raporunuzu ekleyin."
+        title={t('Add your health report from the relevant institutions')}
       >
         <div className="health-report">
           {t('You must upload your health report to our system within 30 days')}

@@ -178,7 +178,7 @@ export const getProfileDetails =
           // localStorage.set('auth', userData);
         },
         errorHandler: () =>
-          toast.error('Profil Bilgileri Getirilemedi.', {
+          toast.error('İşlem Başarısız!!', {
             position: 'bottom-right',
             autoClose: 2000,
           }),

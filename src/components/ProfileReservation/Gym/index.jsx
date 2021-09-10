@@ -22,7 +22,6 @@ import {
   getGymDataForRes,
 } from 'actions';
 import RadioGroup from '@material-ui/core/RadioGroup';
-import { getWallet } from 'actions/userProfileActions/walletActions';
 
 const Gym = ({ dateOption = true }) => {
   const { t } = useTranslation();
@@ -54,7 +53,7 @@ const Gym = ({ dateOption = true }) => {
   const pageChangeHandler = (event, value) => setPage(value);
 
   useEffect(() => {
-    dispatch(getWallet());
+    //dispatch(getWallet());
     dispatch(setReservation({ bs_id: userInfo.id }));
     dispatch(getStaticPage('uye-mesafeli-hizmet-sozlesmesi'));
     dispatch(getStaticPage('uye-on-bilgilendirme-formu'));

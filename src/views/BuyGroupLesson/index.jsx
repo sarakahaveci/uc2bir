@@ -8,7 +8,6 @@ import GoogleMap from 'components/GoogleMaps/GoogleMap';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getGroupLessonDetail, setGroupLessonReservation } from 'actions';
-import { getWallet } from 'actions/userProfileActions/walletActions';
 import { device } from 'utils';
 import { useHistory } from 'react-router-dom';
 import { USER } from '../../constants/userTypes';
@@ -25,7 +24,6 @@ const BuyGroupLesson = ({ match }) => {
   let history = useHistory();
 
   useEffect(() => {
-    dispatch(getWallet());
     dispatch(getGroupLessonDetail(match?.params?.id));
   }, []);
   useEffect(() => {
@@ -173,8 +171,12 @@ const BuyGroupLesson = ({ match }) => {
                 </PtInfoContainer>
               </PtCardContainer>
               <InfoContainer>
-                <HeaderText>{t('session type')}</HeaderText>
+                <div style={{ display: 'flex' }}>
+                  Grup Ders : <h5>{group?.data?.title}</h5>
+
+                </div>
                 <BigSeperator />
+                <HeaderText style={{ marginBottom: '20px' }}>{t('session type')}</HeaderText>
                 {
                   {
                     gym: (

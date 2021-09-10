@@ -222,7 +222,10 @@ const Blog = () => {
                     </Col>
                     <Col>
                       <div className="d-flex justify-content-end">
-                        <Button text="< Geri" onClick={() => setPage('')} />
+                        <Button
+                          text={t('< Back')}
+                          onClick={() => setPage('')}
+                        />
                       </div>
                     </Col>
                     <FormGroups>
@@ -439,7 +442,7 @@ const Blog = () => {
                   </Col>
                   <Col>
                     <div className="d-flex justify-content-end">
-                      <Button text="< Geri" onClick={() => setPage('')} />
+                      <Button text={t('< Back')} onClick={() => setPage('')} />
                     </div>
                   </Col>
                   <FormGroups>
@@ -499,7 +502,7 @@ const Blog = () => {
                       >
                         <Button
                           className="blue"
-                          text="Ekle"
+                          text={t('Add')}
                           type="submit"
                           isLoading={loading}
                           disabled={loading}

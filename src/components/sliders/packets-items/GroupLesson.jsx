@@ -67,8 +67,12 @@ const GroupLesson = ({ val }) => {
                   <ul>
                     <li style={{ fontSize: '10pt' }}>{val.content}</li>
                     <li style={{ fontSize: '8pt', marginTop: 5 }}>
-                      <AwesomeIcon.Map /> {val?.address?.district} /{' '}
-                      {val?.address?.city}
+                      {(val?.address?.city || val?.address?.district) && <>
+                        <AwesomeIcon.Map /> {val?.address?.district} /{' '}
+                        {val?.address?.city}
+                      </>
+                      }
+
                     </li>
                   </ul>
                 </div>

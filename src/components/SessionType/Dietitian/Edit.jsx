@@ -39,7 +39,7 @@ const Edit = ({ setSubPage }) => {
 
   return (
     <>
-      <Button text="< Geri" onClick={() => setSubPage('Adds')} />
+      <Button text={t('< Back')} onClick={() => setSubPage('Adds')} />
       {!getAddress?.isLoading ? (
         <>
           <div className="d-flex flex-wrap">

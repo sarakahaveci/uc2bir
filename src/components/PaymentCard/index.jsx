@@ -20,7 +20,6 @@ import {
   setGroupLessonReservation,
   sendGroupReservation,
 } from 'actions';
-import { getWallet } from 'actions/userProfileActions/walletActions';
 import moment from 'moment';
 export default function PaymentCard({
   type,
@@ -53,7 +52,6 @@ export default function PaymentCard({
   const [selectedDate, setSelectedDate] = useState(new Date());
   useEffect(() => {
     dispatch(clearReservationCalendar());
-    dispatch(getWallet());
   }, []);
   useEffect(() => {
     if (reservation?.data?.isSelected && reservation?.data?.isSelectedDate) {
@@ -901,8 +899,8 @@ export default function PaymentCard({
                                 }}
                               >
                                 {key + 1}.
-                                {(type === 'pt' && 'Ders') ||
-                                  (type === 'dt' && 'Seans')}
+                                {(type === 'pt' && t('lesson')) ||
+                                  (type === 'dt' && t('Session'))}
                               </Text>
                               <Svg.Date style={{ marginLeft: '5px' }} />
                               <Text

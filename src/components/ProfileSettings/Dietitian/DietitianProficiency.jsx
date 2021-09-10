@@ -278,7 +278,7 @@ export default function DietitianProficiency() {
           <div className="d-flex w-100">
             <Button
               className="blue ml-auto"
-              text={showSubProficiency ? 'Kaydet' : 'İlerle'}
+              text={showSubProficiency ? t('save') : t('Forward')}
               disabled={
                 showSubProficiency
                   ? selectedSubProficiency.length === 0

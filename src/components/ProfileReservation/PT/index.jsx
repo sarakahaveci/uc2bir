@@ -25,7 +25,6 @@ import GoogleMap from 'components/GoogleMaps/GoogleMap';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import { AwesomeIcon } from 'components';
 import axios from 'axios';
-import { getWallet } from 'actions/userProfileActions/walletActions';
 
 const uri = `${process.env.REACT_APP_API_URL}/regions`;
 
@@ -69,7 +68,7 @@ const PT = () => {
     }
     dispatch(getUserBranchList(userInfo.id));
     dispatch(getPtWorkingHomePlace(userInfo.id));
-    dispatch(getWallet());
+   // dispatch(getWallet());
     //dispatch(getTemplates()); HATA VARSA BURAYA Bİ BAK
     dispatch(setReservation({ pt_id: userInfo.id }));
   }, [userInfo]);
