@@ -61,27 +61,34 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
   function _langChanger() {
     return (
       <div
-        style={{ position: 'relative', marginLeft: '20px', height: '30px' }}
+        style={{
+          position: 'relative',
+          padding:'0 15px',
+          height: '25px',
+          borderRightStyle: 'solid',
+          borderRightColor: 'rgba(197, 196, 196, 0.5)',
+          borderRightWidth: '1px',
+          borderLeftStyle: 'solid',
+          borderLeftColor: 'rgba(197, 196, 196, 0.5)',
+          borderLeftWidth: '1px'
+        }}
         ref={ref}
       >
         <div
           style={{
             display: 'flex',
-            fontWeight: 'bold',
             alignItems: 'center',
             justifyContent: 'center',
             height: '30px',
             width: '40px',
-            color: 'var(--blue)',
             cursor: 'pointer',
+            fontSize: '14px'
           }}
           onClick={() => setLangOpen((oldState) => !oldState)}
         >
           {/* {router.locale?.toUpperCase()} */}
-          {getCurrentLocale()}
-          <span style={{}}>
-            <text style={{ fontSize: '30px' }}> ̬</text>
-          </span>
+          {getCurrentLocale() + "/" + (getCurrentLocale() == 'EN' ? "TR" : "EN")}
+
         </div>
         {langOpen && (
           <div
@@ -170,6 +177,15 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
                   </ul>
                 </li>
               </ul>
+            </div>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              {_langChanger()}
             </div>
           </Row>
         </div>
@@ -261,15 +277,7 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
                     </li>
                   )}
                 </ul>
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
-                  {_langChanger()}
-                </div>
+
               </div>
             </Row>
           </div>
@@ -294,10 +302,10 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
         toggle={menuActive}
         setToggle={
           (() => setMenuActive(!menuActive),
-          scroll.scrollToTop({
-            duration: 1000,
-            smooth: true,
-          }))
+            scroll.scrollToTop({
+              duration: 1000,
+              smooth: true,
+            }))
         }
       />
       {isSearchBarOpen && (
