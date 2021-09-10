@@ -72,7 +72,7 @@ export default function WorkPlaceActivity() {
           getActivityList();
         },
         (error) => {
-          toast.error('.', {
+          toast.error('İşlem Başarısız!!', {
             position: error,
             autoClose: 2000,
           });

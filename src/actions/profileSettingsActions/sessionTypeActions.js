@@ -180,7 +180,7 @@ export const removeGymFromPt = (data) => async (dispatch, getState) => {
       body: { gym: data },
       label: REMOVE_GTM_FROM_PT,
       callBack: () => {
-        toast.success('The sports field has been successfully removed.', {
+        toast.success('İşlem Başarılı!.', {
           position: 'bottom-right',
           delay: 2500,
         });
@@ -205,7 +205,7 @@ export const addGymFromPt =
         body: { gym: [id] },
         label: ADD_GTM_FROM_PT,
         callBack: () => {
-          toast.success('Sports area has been successfully added', {
+          toast.success('İşlem Başarılı!', {
             position: 'bottom-right',
             delay: 2500,
           });

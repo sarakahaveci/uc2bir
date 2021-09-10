@@ -22,7 +22,7 @@ export const sendReservation =
         body: { ...body },
         label: SEND_RESERVATION,
         callBack: () => {
-          toast.success('Processing successful!', {
+          toast.success('İşlem Başarılı!', {
             position: 'bottom-right',
             autoClose: 1500,
           });
@@ -64,7 +64,7 @@ export const sendPackageReservation =
         body: { ...body },
         label: SEND_PACKET_RESERVATION,
         callBack: () => {
-          toast.success('Processing successful!', {
+          toast.success('İşlem Başarılı!', {
             position: 'bottom-right',
             autoClose: 4000,
           });
@@ -94,7 +94,7 @@ export const sendGroupReservation =
         body: { ...body },
         label: SEND_PACKET_RESERVATION,
         callBack: () => {
-          toast.success('Processing successful!', {
+          toast.success('İşlem Başarılı!', {
             position: 'bottom-right',
             autoClose: 4000,
           });
@@ -123,7 +123,7 @@ export const sendPaytr = (body, successCallback) => async (dispatch) => {
       label: SEND_PAYTR,
       callBack: () => successCallback(),
       errorHandler: () => {
-        toast.error('Review your information', {
+        toast.error('İşlem Başarısız!!', {
           position: 'bottom-right',
           autoClose: 4000,
         });

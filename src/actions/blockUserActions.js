@@ -20,7 +20,7 @@ export const blockUser = (id) => async (dispatch) => {
       body: { block_id: id },
       transformData: (data) => data.data,
       callBack: () => {
-        toast.success('Processing successful!', {
+        toast.success('İşlem Başarılı!', {
           position: 'bottom-right',
           autoClose: 4000,
         });
@@ -48,7 +48,7 @@ export const unblockUser = (id, successCallback) => async (dispatch) => {
       body: { block_id: id },
       transformData: (data) => data.data,
       callBack: () => {
-        toast.success('Processing successful!', {
+        toast.success('İşlem Başarılı!', {
           position: 'bottom-right',
           autoClose: 4000,
         });

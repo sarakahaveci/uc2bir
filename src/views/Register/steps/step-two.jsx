@@ -50,7 +50,7 @@ const StepTwo = (props) => {
   };
 
   const isResultSuccess = () => {
-    toast.success('Kayıt alındı.', {
+    toast.success('İşlem Başarılı!', {
       position: 'bottom-right',
       autoClose: 2000,
       onClose: setSteps('step3'),

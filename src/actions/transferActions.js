@@ -15,7 +15,7 @@ export const transferRefund = (body, successCallback) => async (dispatch) => {
       body: { ...body },
       label: TRANSFER_REFUND,
       callBack: () => {
-        toast.success('Processing successful!', {
+        toast.success('İşlem Başarılı!', {
           position: 'bottom-right',
           autoClose: 1500,
         });

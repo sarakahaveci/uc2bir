@@ -34,7 +34,7 @@ export const login =
           },
           transformData: (data) => data.data,
           callBack: (data) => {
-            toast.success('Login successful. Welcome!', {
+            toast.success('Giriş başarılı. Hoş geldiniz!', {
               position: 'bottom-right',
               autoClose: 1500,
             });
