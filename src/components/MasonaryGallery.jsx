@@ -104,8 +104,8 @@ const MasonaryGallery = ({ className = null, style = {}, children = null }) => {
           autoClose: 2000,
         });
       })
-      .catch(function () {
-        toast.error(t('The file could not be sent'), {
+      .catch(function (err) {
+        toast.error(err?.message || t('The file could not be sent'), {
           position: 'bottom-right',
           autoClose: 2000,
         });
@@ -131,9 +131,9 @@ const MasonaryGallery = ({ className = null, style = {}, children = null }) => {
           autoClose: 2000,
         });
       })
-      .catch(function () {
+      .catch(function (err) {
         setLoading(false);
-        toast.error(t('The file could not be sent'), {
+        toast.error(err?.message || t('The file could not be sent'), {
           position: 'bottom-right',
           autoClose: 2000,
         });
@@ -153,7 +153,7 @@ const MasonaryGallery = ({ className = null, style = {}, children = null }) => {
         });
       })
       .catch(function () {
-        toast.error(t('The file could not be deleted'), {
+        toast.error(err?.message || t('The file could not be deleted'), {
           position: 'bottom-right',
           autoClose: 2000,
         });
