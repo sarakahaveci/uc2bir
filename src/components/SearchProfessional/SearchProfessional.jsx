@@ -34,7 +34,7 @@ const SearchProfessional = () => {
   const [location, setLocation] = useState('');
   const [branch, setBranch] = useState('');
   const [page, setPage] = useState(1);
-  const [price, setPrice] = useState([0, 10000]);
+  const [price, setPrice] = useState([0, 2000]);
   const [sortBy, setSortBy] = useState(undefined);
 
   const [ratings, setRatings] = useState([]);
@@ -80,7 +80,7 @@ const SearchProfessional = () => {
       location,
       branch,
       page = 1,
-      price = '[0, 10000]',
+      price = '[0, 2000]',
       ratings = '[]',
       classification,
       startDate,

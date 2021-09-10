@@ -68,7 +68,7 @@ const SearchFilters = ({
         valueLabelDisplay="on"
         aria-labelledby="range-slider"
         min={0}
-        max={10000}
+        max={2000}
       />
 
       <Text color="dark" fontSize="0.9rem" m="15px 0 5px 0">
