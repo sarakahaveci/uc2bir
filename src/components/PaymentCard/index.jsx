@@ -91,7 +91,7 @@ export default function PaymentCard({
               (branchList?.branches?.filter(
                 (item) => item?.id == reservation.data?.branch_id
               )?.[0]?.price ||
-                reservationCalendar?.resData?.branches.filter(
+                reservationCalendar?.resData?.branches?.filter(
                   (item) => item?.id == reservation.data?.branch_id
                 )?.[0]?.price),
           })

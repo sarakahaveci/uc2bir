@@ -111,7 +111,7 @@ export default function TemplateSelections({
             input={<Input />}
             onChange={(e) => setBranchSelection(e.target.value)}
           >
-            {(sessionSelection.filter((item) => item.type == 'online').length >
+            {(sessionSelection?.filter((item) => item.type == 'online').length >
               0 &&
               myBranches
                 .filter((item) => item.id !== 35)
@@ -142,7 +142,7 @@ export default function TemplateSelections({
               setSessionSelection(e.target.value);
             }}
           >
-            {(branchSelection.filter((item) => item.id == 35).length > 0 &&
+            {(branchSelection?.filter((item) => item.id == 35).length > 0 &&
               sessionTypes?.data?.data
                 ?.filter((item) => item.type !== 'online')
                 .map((sessionType) => (

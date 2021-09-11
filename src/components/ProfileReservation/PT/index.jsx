@@ -551,7 +551,7 @@ const PT = () => {
               <InputContainer disable={reservation?.data?.isSelected}>
                 <Text color="#9B9B9B">{'Branş Seçiniz:'}</Text>
                 <Material.SimpleSelect
-                  items={reservation?.data?.session == 'online' ? branchList.branches.filter(item => item.id !== 35) : branchList.branches}
+                  items={reservation?.data?.session == 'online' ? branchList.branches?.filter(item => item.id !== 35) : branchList.branches}
                   name="branch"
                   defaultValue={reservation?.data?.branch_id}
                   onChange={(e) =>

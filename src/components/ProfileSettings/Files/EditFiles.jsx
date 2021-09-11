@@ -42,7 +42,7 @@ const EditFiles = ({
   const closeDeleteModal = () => deleteFileModalRef.current.closeModal();
 
   const deleteFileSuccessHandler = () => {
-    setFiles(files.filter((file) => file.id !== fileId.current));
+    setFiles(files?.filter((file) => file.id !== fileId.current));
     closeDeleteModal();
     dispatch(getMyProfileFiles());
   };

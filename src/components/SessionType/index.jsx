@@ -24,7 +24,7 @@ const SessionType = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      setType(userKeys.filter((f) => f.id === type_id));
+      setType(userKeys?.filter((f) => f.id === type_id));
     }
   }, [isSuccess]);
 

@@ -23,7 +23,7 @@ const SearchFilters = ({
 
   const ratingChangeHandler = (starCount) => {
     if (ratings.includes(starCount)) {
-      setRatings(ratings.filter((rating) => rating !== starCount));
+      setRatings(ratings?.filter((rating) => rating !== starCount));
     } else {
       setRatings([...ratings, starCount]);
     }

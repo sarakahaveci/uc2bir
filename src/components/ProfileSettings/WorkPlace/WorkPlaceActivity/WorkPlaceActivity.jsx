@@ -50,7 +50,7 @@ export default function WorkPlaceActivity() {
 
   const selectActivityHandler = (key) => {
     if (selectedActivity.includes(key)) {
-      setSelectedActivity(selectedActivity.filter((item) => item !== key));
+      setSelectedActivity(selectedActivity?.filter((item) => item !== key));
     } else {
       setSelectedActivity((selecteds) => [...selecteds, key]);
     }

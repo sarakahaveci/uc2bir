@@ -58,7 +58,7 @@ export const addHoursToTemplate = (dayIndex, addedDate) => async (
   };
 
   const filteredAppliedTemplate = [
-    ...appliedDays.filter((day) => day.day !== dayIndex),
+    ...appliedDays?.filter((day) => day.day !== dayIndex),
     editedSelectedDay,
   ];
 
@@ -86,7 +86,7 @@ export const deleteTemplateItem = (dayIndex, hourIndex) => async (
   };
 
   const filteredAppliedTemplate = [
-    ...appliedDays.filter((day) => day.day !== dayIndex),
+    ...appliedDays?.filter((day) => day.day !== dayIndex),
     editedSelectedDay,
   ];
 

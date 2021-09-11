@@ -83,7 +83,7 @@ export default function DietitianProficiency() {
 
   const selectSubProHandler = (key) => {
     if (selectedSubProficiency.includes(key)) {
-      setSelectedSubPro(selectedSubProficiency.filter((item) => item !== key));
+      setSelectedSubPro(selectedSubProficiency?.filter((item) => item !== key));
     } else {
       setSelectedSubPro((selecteds) => [...selecteds, key]);
     }
@@ -136,7 +136,7 @@ export default function DietitianProficiency() {
         setModifiedUserProficiencyList(userProficiencyList);
         break;
       case 2:
-        newList = userProficiencyList.filter((proficiency) =>
+        newList = userProficiencyList?.filter((proficiency) =>
           proficiency.speciality.some(
             (speciality) => speciality.status === 'pending'
           )
@@ -144,7 +144,7 @@ export default function DietitianProficiency() {
         setModifiedUserProficiencyList(newList);
         break;
       case 3:
-        newList = userProficiencyList.filter((proficiency) =>
+        newList = userProficiencyList?.filter((proficiency) =>
           proficiency.speciality.every(
             (speciality) => speciality.status === 'active'
           )

@@ -32,11 +32,10 @@ const Adds = ({ icons, selected, get, setPage }) => {
           </div>
 
           <CreateList className="row">
-            {icons
-              .filter(
+            {icons?.filter(
                 (item) =>
-                  get.data.data.filter((e) => e.type === item.id).length > 0 ||
-                  selected.filter((e) => e === item.id).length > 0 //Bu fonksiyon sadece get den gelen iconları renderlamayı saglar (içerdeki filter sadece sorgu amaçlıdır)
+                  get.data.data?.filter((e) => e.type === item.id).length > 0 ||
+                  selected?.filter((e) => e === item.id).length > 0 //Bu fonksiyon sadece get den gelen iconları renderlamayı saglar (içerdeki filter sadece sorgu amaçlıdır)
               )
               .map((val) => {
                 return (

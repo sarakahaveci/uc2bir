@@ -33,7 +33,7 @@ const User = ({ icons, setBannerActive }) => {
 
   const select = (key) => {
     if (selected.includes(key)) {
-      setSelected(selected.filter((item) => item !== key));
+      setSelected(selected?.filter((item) => item !== key));
     } else {
       setSelected((selecteds) => [...selecteds, key]);
       setTypes([...types, key]);

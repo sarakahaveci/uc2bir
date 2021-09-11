@@ -56,7 +56,7 @@ export default function WorkPlaceActivity() {
 
   const selectActivityHandler = (key) => {
     if (selectedBranch.includes(key)) {
-      setSelectedBranch(selectedBranch.filter((item) => item !== key));
+      setSelectedBranch(selectedBranch?.filter((item) => item !== key));
     } else {
       setSelectedBranch((selecteds) => [...selecteds, key]);
     }
