@@ -30,7 +30,7 @@ const Reservations = () => {
 
   let content;
 
-  switch (type[0]?.key) {
+  switch (type?.[0]?.key) {
     case KEYS.DIETIAN:
       content = <DIETITIAN />;
       break;

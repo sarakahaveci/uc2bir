@@ -35,7 +35,7 @@ const Packets = () => {
 
   let content;
 
-  switch (type[0]?.key) {
+  switch (type?.[0]?.key) {
     case KEYS.USER:
       content = (
         <>

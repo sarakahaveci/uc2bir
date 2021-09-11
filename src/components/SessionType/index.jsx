@@ -32,7 +32,7 @@ const SessionType = () => {
 
   let content;
 
-  switch (type[0]?.key) {
+  switch (type?.[0]?.key) {
     case KEYS.DIETIAN:
       icons = [
         {

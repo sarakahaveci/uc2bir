@@ -51,7 +51,7 @@ const ProfileReservation = ({ setPage = () => {} }) => {
 
   let content;
 
-  switch (type[0]?.key) {
+  switch (type?.[0]?.key) {
     case KEYS.DIETIAN:
       content = <Dietitian />;
       break;
