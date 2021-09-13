@@ -44,7 +44,7 @@ const ApproveModal = ({ elm, open, approve = () => {}, cancel = () => {} }) => {
               approve(open);
             }}
           >
-            {t('approve')}
+            {t('Approve')}
           </StyledButton>
         </div>
         <div className="modal-footer" closeIcon={false}>

@@ -153,7 +153,7 @@ const MasonaryGallery = ({ className = null, style = {}, children = null }) => {
         });
       })
       .catch(function () {
-        toast.error(err?.message || t('The file could not be deleted'), {
+        toast.error(err?.message || t('The file could not be deleted'), {
           position: 'bottom-right',
           autoClose: 2000,
         });
@@ -262,7 +262,7 @@ const MasonaryGallery = ({ className = null, style = {}, children = null }) => {
             className="justify-content-start"
           >
             <Span color="dark" fontWeight="500" fontSize="0.8rem" mr="7px">
-              {t('File Upload')}
+              {t('Upload file')}
             </Span>
 
             <PlusButton onClick={() => setActivePage('create')} />
