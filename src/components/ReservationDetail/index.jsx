@@ -63,8 +63,11 @@ const ReservationDetail = ({ type, goBack = () => {}, isOnline }) => {
           <InfoItem
             onClick={() => {
               if (type == 'st') {
-                history.push(`/user/${detailData.pt?.id}`);
+                history.push(`/user/${detailData.pt?.id}`) ||
+                  history.push(`/user/${detailData.dt?.id}`);
               } else if (type == 'pt') {
+                history.push(`/user/${detailData.student?.id}`);
+              } else if (type == 'dt') {
                 history.push(`/user/${detailData.student?.id}`);
               }
             }}
@@ -86,6 +89,7 @@ const ReservationDetail = ({ type, goBack = () => {}, isOnline }) => {
               <BoldText>
                 {detailData?.student?.name ||
                   detailData?.pt?.name ||
+                  detailData?.dt?.name ||
                   detailData?.bs?.title}
               </BoldText>
             </InfoMain>
