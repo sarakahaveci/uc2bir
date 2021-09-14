@@ -118,7 +118,7 @@ const CircleImage = styled.div`
   border-radius: 100%;
   background-image: url('${(props) => props.img}');
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   position: relative;
 `;
 const CameraContainer = styled.span`
