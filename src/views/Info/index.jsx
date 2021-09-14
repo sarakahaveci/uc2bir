@@ -201,7 +201,7 @@ const Info = () => {
               {t('Whoweare2')}
             </Title>
 
-            <Text fontSize="11pt" lineHeight="20px" textAlign="justify">
+            <Text fontSize="16px" lineHeight="20px" textAlign="justify">
               {t(
                 'We see and live that all the systems we know, from economy to social life, from education to health, are changing and transforming. Technology and digitalization have become more important than anything today. In the process of digital transformation, in order to be in the professions of the future, it is necessary to read the present well and to be at the center of change today. The socio-economic change we live in makes digital transformation inevitable in customers expectations. This digital transformation should not only digitize business processes, but also ensure that it creates benefit and value. Emir Digital Investment was established in 2020 with the mission of technology and digitality to create benefit and value. Our aim; to invest in projects that we believe will create common value and benefit for our customers, colleagues and business partners, and implement them with 100% Turkish capital'
               )}
