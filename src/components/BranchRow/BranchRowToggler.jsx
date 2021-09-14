@@ -29,7 +29,9 @@ const BranchRowToggler = ({ isActive, data, typeId }) => {
           <RightCell>
             {data.classification} {t('Level')}
           </RightCell>
-          <RightCell className="mid">
+          <RightCell style={{
+            width: '80px'
+          }} className="mid">
             <span>{data.price}</span>
             <AwesomeIcon.Tl />
           </RightCell>
@@ -64,7 +66,7 @@ const StyledRow = styled(Box)`
 const RightCell = styled.div`
   border-left: 1px solid #d3d3d3;
   padding: 0 10px;
-
+  width:100px;
   &:last-child {
     padding-right: 0;
   }
