@@ -153,7 +153,7 @@ const Login = () => {
               </form>
 
               <NoAccountText>
-                {t('Dont have an account?signup')}{' '}
+                {t('Dont have an account?')}{' '}
                 <Link to="/register">{t('signup')}</Link>
               </NoAccountText>
 
