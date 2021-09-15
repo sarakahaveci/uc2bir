@@ -161,7 +161,7 @@ const RateModal = ({
                     {t('Give Stars')} :{' '}
                     <Rating
                       name="customized-empty"
-                      precision={0.5}
+                      precision={1}
                       onChange={(event, newValue) => {
                         setStar(newValue);
                       }}

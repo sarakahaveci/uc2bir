@@ -72,6 +72,8 @@ export { default as CookiePolicyModal } from './CookiePolicyModal';
 export { default as CreateCalenderModal } from './CreateCalenderModal';
 export { default as RejectModal } from './RejectModal';
 export { default as RateModal } from './RateModal';
+export { default as RejectStatusModal } from './RejectStatusModal';
+
 export { default as ChooseDateModal } from './ChooseDateModal';
 export { default as CongratsModal } from './CongratsModal';
 export { default as MiniProfileCard } from './MiniProfileCard';

@@ -8,6 +8,7 @@ import {
   RateModal,
   Svg,
   SessionComment,
+  RejectStatusModal
 } from 'components';
 import { device } from 'utils';
 import { useSelector, useDispatch } from 'react-redux';
@@ -27,6 +28,7 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
   const [selectedDate, setSelectedDate] = useState(undefined);
   const [appointment, setAppointment] = useState(undefined);
   const [appointmentAll, setAppointmentAll] = useState(undefined);
+  const [openRejectModal, setOpenRejectModal] = useState(null);
 
   const startOfWeeksArr = () => {
     if (items?.date) {
@@ -47,10 +49,11 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
       ></SessionComment>
     );
   }
-  function onStatusChange(status, elm) {
+  function onStatusChange(status, elm,comment) {
     dispatch(SessionStatusResponse({
       appointment_id: elm?.id,
-      sessionStatus: status
+      type: status == 0 ? 'rejected' : 'approved',
+      reason: comment
     }, () => { dispatch(getGymSessionHistorys()) }))
   }
   function _renderTab(date) {
@@ -81,6 +84,10 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
                 customerName={elm?.student}
                 has_comment={elm?.bs?.has_comment}
                 rateText={t('rate it')}
+                onReject={() => {
+                  setAppointmentAll(elm)
+                  setOpenRejectModal('index');
+                }}
                 onApprove={() => {
                   setAppointmentAll(elm);
                   setAppointment({
@@ -114,6 +121,10 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
                 date={elm?.hour}
                 customerName={elm?.student}
                 has_comment={elm?.bs?.has_comment}
+                onReject={() => {
+                  setAppointmentAll(elm)
+                  setOpenRejectModal('index');
+                }}
                 rateText={t('rate it')}
                 onApprove={() => {
                   setAppointmentAll(elm);
@@ -188,7 +199,22 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
           </DateContainer>
         </StyledCol>
       </StyledRow>
-      <RateModal
+      <RejectStatusModal
+        open={openRejectModal}
+        appointmentAll={appointmentAll}
+        appointment_id={appointment?.id}
+
+        reject={(comment) => {
+          onStatusChange(0, appointmentAll, comment)
+          setAppointment(undefined);
+          setOpenRejectModal(null)
+        }}
+        cancel={() => {
+          setAppointment(undefined);
+          setOpenRejectModal(null)
+        }}
+      ></RejectStatusModal>
+       <RateModal
         appointmentAll={appointmentAll}
         appointment_id={appointment?.id}
         descText={t('Would you like to rate your client?')}
@@ -196,7 +222,6 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
         cancelLabel={t('Give Up')}
         open={openRateModal}
         rate={(multipart) => {
-
 
           dispatch(
             rateAndCommentSession(

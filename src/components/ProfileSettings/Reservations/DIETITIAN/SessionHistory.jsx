@@ -6,6 +6,7 @@ import {
   ApproveCard,
   DatePicker,
   RateModal,
+  RejectStatusModal,
   Svg,
   SessionComment,
 } from 'components';
@@ -24,10 +25,11 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
   );
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
   const [openRateModal, setOpenRateModal] = useState(null);
+  const [openRejectModal, setOpenRejectModal] = useState(null);
+
   const [selectedDate, setSelectedDate] = useState();
   const [appointment, setAppointment] = useState(undefined);
   const [appointmentAll, setAppointmentAll] = useState(undefined);
-
   const startOfWeeksArr = () => {
     if (items?.date) {
       return Object.keys(items?.date).map(
@@ -47,10 +49,11 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
       ></SessionComment>
     );
   }
-  function onStatusChange(status, elm) {
+  function onStatusChange(status, elm, comment) {
     dispatch(SessionStatusResponse({
       appointment_id: elm?.id,
-      sessionStatus: status
+      type: status == 0 ? 'rejected' : 'approved',
+      reason: comment
     }, () => { dispatch(getDtSessionHistorys()) }))
   }
   useEffect(() => {
@@ -88,14 +91,17 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
               <ApproveCard
                 type="history"
                 date={elm?.hour}
-                elm={elm}
+                session_status={elm?.session_status}
                 onStatusChange={(status) => {
                   onStatusChange(status, elm)
                 }} customerName={elm?.student}
                 has_comment={elm?.dt?.has_comment}
                 rateText="Puanla"
                 onSessionComment={() => { openSessionComment(elm?.id) }}
-
+                onReject={() => {
+                  setAppointmentAll(elm)
+                  setOpenRejectModal('index');
+                }}
                 onApprove={() => {
                   setAppointmentAll(elm)
                   setAppointment({
@@ -121,13 +127,16 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
                 date={elm?.hour}
                 customerName={elm?.student}
                 has_comment={elm?.dt?.has_comment}
-                elm={elm}
-
+                session_status={elm?.session_status}
                 onStatusChange={(status) => {
                   onStatusChange(status, elm)
                 }}
                 onSessionComment={() => { openSessionComment(elm?.id) }}
                 rateText="Puanla"
+                onReject={() => {
+                  setAppointmentAll(elm)
+                  setOpenRejectModal('index');
+                }}
                 onApprove={() => {
                   setAppointmentAll(elm)
                   setAppointment({
@@ -185,6 +194,21 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
           </DateContainer>
         </StyledCol>
       </StyledRow>
+      <RejectStatusModal
+        open={openRejectModal}
+        appointmentAll={appointmentAll}
+        appointment_id={appointment?.id}
+
+        reject={(comment) => {
+          onStatusChange(0, appointmentAll, comment)
+          setAppointment(undefined);
+          setOpenRejectModal(null)
+        }}
+        cancel={() => {
+          setAppointment(undefined);
+          setOpenRejectModal(null)
+        }}
+      ></RejectStatusModal>
       <RateModal
         appointmentAll={appointmentAll}
         appointment_id={appointment?.id}

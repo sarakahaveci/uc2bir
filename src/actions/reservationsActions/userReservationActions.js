@@ -261,7 +261,7 @@ export const rateAndCommentSession =
 
 export const SessionStatusResponse =
   (
-    { appointment_id },
+    { appointment_id, type, reason },
     successCallback = () => { },
     errorCallBack = () => { }
   ) =>
@@ -277,7 +277,7 @@ export const SessionStatusResponse =
         payload: {
           method: 'PATCH',
           body:
-            { "type": "approve", "reason": "" },
+            { "type": type, "reason": reason },
           url,
           label: USER_RESERVATION_FUNC,
           callBack: () => {

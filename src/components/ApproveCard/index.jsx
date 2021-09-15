@@ -6,12 +6,12 @@ import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 const ApproveCard = ({
-  elm,
   user_id,
   customerName = '',
   // has_comment = 0,
-  onStatusChange = () => { },
+  onStatusChange = () => {},
   date = '',
+  session_status = null,
   cardType,
   status_bs,
   status_pt,
@@ -22,16 +22,16 @@ const ApproveCard = ({
   optionalField_3 = null,
   transaction_id,
   userType,
-  onApprove = () => { },
-  onReject = () => { },
-  onTransfer = () => { },
+  onApprove = () => {},
+  onReject = () => {},
+  onTransfer = () => {},
   type = 'await',
   rateText = '',
 }) => {
   const { t } = useTranslation();
 
   const history = useHistory();
-  useEffect(() => { }, []);
+  useEffect(() => {}, []);
   function getRejectReason() {
     if (status_bs) {
       return t('By Gym');
@@ -95,11 +95,11 @@ const ApproveCard = ({
         );
       break;
     case 'history':
-      if (!(elm?.approval_status == 'pending')) {
-        if (elm?.approval_status == 'rejected') {
+      if (session_status || session_status == 0) {
+        if (session_status == 0) {
 
           buttonGroup = <>{t('Lesson Not Held')}</>;
-        } else if (elm?.approval_status == 'approved') {
+        } else if (session_status == 1) {
           buttonGroup = (
             <>
               <HistoryButton onClick={onApprove}>{rateText}</HistoryButton>
@@ -122,7 +122,7 @@ const ApproveCard = ({
               style={{ margin: 0 }}
               reject
               onClick={() => {
-                onStatusChange(0);
+                onReject()
               }}
             >
               {t('notDone')}
