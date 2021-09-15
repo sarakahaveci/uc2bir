@@ -41,7 +41,6 @@ const RateModal = ({
     }
   }, [open]);
   let content;
-
   // const getCommentedId = () => {
   //   if (toBeRatedUserType == 'pt') return appointmentAll.pt.id;
   //   if (toBeRatedUserType == 'dt') return appointmentAll.dt.id;
@@ -207,7 +206,7 @@ const RateModal = ({
 
                   <div>
                     {file ? (
-                      <ImageShow image={file} />
+                      <Uploaded src={URL.createObjectURL(file)} ></Uploaded>
                     ) : (
                       <MaterialButton
                         style={{
@@ -357,7 +356,11 @@ const ReasonContextContainer = styled.div`
     text-align: center;
   }
 `;
+const Uploaded = styled.img`
+width: 200px;
+height: 200px;
 
+`
 const ModalFooter = styled.div`
   display: flex;
   width: 100%;
@@ -417,23 +420,5 @@ const AttachList = styled.div`
   width: 100%;
   margin-top: 15px;
 `;
-const ImageShow = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 120px;
-  background-image: url('${(props) => props.image}');
-  background-repeat: no-repeat;
-  position: relative;
-  background-size: contain;
-  margin-right: 15px;
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-`;
 export default RateModal;
