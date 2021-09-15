@@ -118,9 +118,10 @@ const CircleImage = styled.div`
   border-radius: 100%;
   background-image: url('${(props) => props.img}');
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
   position: relative;
-`;
+  background-position: center;
+  `;
 const CameraContainer = styled.span`
   cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
