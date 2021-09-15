@@ -11,7 +11,7 @@ import {
 } from 'components';
 import { device } from 'utils';
 import { useSelector, useDispatch } from 'react-redux';
-import { getDtSessionHistorys, rateAndComment, SessionStatusResponse, rateAndCommentSession, getSessionComment } from 'actions';
+import { getDtSessionHistorys, SessionStatusResponse, rateAndCommentSession, getSessionComment } from 'actions';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 
@@ -88,7 +88,7 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
               <ApproveCard
                 type="history"
                 date={elm?.hour}
-                session_status={elm?.session_status}
+                elm={elm}
                 onStatusChange={(status) => {
                   onStatusChange(status, elm)
                 }} customerName={elm?.student}
@@ -121,7 +121,8 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
                 date={elm?.hour}
                 customerName={elm?.student}
                 has_comment={elm?.dt?.has_comment}
-                session_status={elm?.session_status}
+                elm={elm}
+
                 onStatusChange={(status) => {
                   onStatusChange(status, elm)
                 }}
@@ -191,48 +192,22 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
         rateLabel={t('rate it')}
         cancelLabel={t('Give Up')}
         open={openRateModal}
-        rate={({ rate, comment, commented_id, rateType, session_file, session_status }) => {
+        rate={(multipart) => {
 
-          if (rateType == 'session') {
-            dispatch(
-              rateAndCommentSession(
-                {
-                  appointment_id: appointment?.id,
-                  rating: rate,
-                  comment: comment,
-                  session_file: session_file,
-                  session_status: session_status
-                },
-                () => {
-                  setAppointment(undefined);
-                  setOpenRateModal(null);
-                },
-                () => {
-                  setAppointment(undefined);
-                  setOpenRateModal(null);
-                }
-              )
-            );
-          } else {
-            dispatch(
-              rateAndComment(
-                {
-                  appointment_id: appointment?.id,
-                  rating: rate,
-                  comment: comment,
-                  commented_id: commented_id,
-                },
-                () => {
-                  setAppointment(undefined);
-                  setOpenRateModal(null);
-                },
-                () => {
-                  setAppointment(undefined);
-                  setOpenRateModal(null);
-                }
-              )
-            );
-          }
+          dispatch(
+            rateAndCommentSession(
+              multipart,
+              () => {
+                setAppointment(undefined);
+                setOpenRateModal(null);
+              },
+              () => {
+                setAppointment(undefined);
+                setOpenRateModal(null);
+              }
+            )
+          );
+
         }}
         cancel={() => {
           setAppointment(undefined);

@@ -3,15 +3,17 @@ import styled from 'styled-components/macro';
 import { Text, Svg } from 'components';
 import { Link } from 'react-router-dom';
 import { device } from 'utils';
-import { Material, FileUpload } from 'components';
+import { Material } from 'components';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { default as MaterialButton } from '@material-ui/core/Button';
 
 import Rating from '@material-ui/lab/Rating';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 
 const RateModal = ({
-  appointmentAll,
+  //appointmentAll,
+  appointment_id,
   open,
   rate,
   cancel,
@@ -19,13 +21,13 @@ const RateModal = ({
   rateLabel = '',
 }) => {
   const { t } = useTranslation();
+  const [file, setFile] = useState('');
 
   const [selectedPage, setSelectedPage] = useState('start');
   // eslint-disable-next-line
   const [toBeRatedUserType, setToBeRatedUserType] = useState('session');
   const [star, setStar] = useState(undefined);
   const [comment, setComment] = useState(undefined);
-  const [uploadedFiles, setUploadedFiles] = useState({});
   const sessionComment = useSelector(
     (state) => state.userProfile?.sessionComment
   );
@@ -33,17 +35,19 @@ const RateModal = ({
     if (!open) {
       setStar(undefined);
       setComment(undefined);
+      setFile(undefined);
+
       setSelectedPage('start');
     }
   }, [open]);
   let content;
 
-  const getCommentedId = () => {
-    if (toBeRatedUserType == 'pt') return appointmentAll.pt.id;
-    if (toBeRatedUserType == 'dt') return appointmentAll.dt.id;
-    if (toBeRatedUserType == 'st') return appointmentAll.student_id;
-    if (toBeRatedUserType == 'bs') return appointmentAll.bs.id;
-  };
+  // const getCommentedId = () => {
+  //   if (toBeRatedUserType == 'pt') return appointmentAll.pt.id;
+  //   if (toBeRatedUserType == 'dt') return appointmentAll.dt.id;
+  //   if (toBeRatedUserType == 'st') return appointmentAll.student_id;
+  //   if (toBeRatedUserType == 'bs') return appointmentAll.bs.id;
+  // };
   switch (selectedPage) {
     case 'start':
       content = (
@@ -202,13 +206,32 @@ const RateModal = ({
                   />
 
                   <div>
-                    <FileUpload
-                      style={{ display: 'none' }}
-                      showRegisterInfo={false}
-                      uploadedFiles={uploadedFiles}
-                      setUploadedFiles={setUploadedFiles}
-                      fileTypeId={10}
-                    />
+                    {file ? (
+                      <ImageShow image={file} />
+                    ) : (
+                      <MaterialButton
+                        style={{
+                          marginRight: 15,
+                          width: 192,
+                          height: 120,
+                        }}
+                        variant="contained"
+                        color="default"
+                        component="label"
+                        startIcon={<Svg.Pencil />}
+                      >
+                        {t('Upload Photo')}
+                        <input
+                          type="file"
+                          hidden
+                          onChange={(event) => {
+                            setFile(event.target.files[0]);
+
+                          }}
+                        />
+                      </MaterialButton>
+                    )}
+
                   </div>
                 </>
               )}
@@ -226,14 +249,14 @@ const RateModal = ({
                 <FooterButton
                   rate
                   onClick={() => {
-                    rate({
-                      rate: star,
-                      comment: comment,
-                      commented_id: getCommentedId(),
-                      rateType: toBeRatedUserType,
-                      session_file: uploadedFiles,
-                      session_status: 1,
-                    });
+                    const createData = new FormData();
+                    createData.append('type', 'appointment');
+                    createData.append('appointment_id', appointment_id);
+                    createData.append('comment', comment);
+                    createData.append('rating', star);
+                    createData.append('files[]', file);
+                    //createData.append('detail', '');
+                    rate(createData);
                   }}
                 >
                   {t('send')}
@@ -393,5 +416,24 @@ const AttachList = styled.div`
   display: flex;
   width: 100%;
   margin-top: 15px;
+`;
+const ImageShow = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 120px;
+  background-image: url('${(props) => props.image}');
+  background-repeat: no-repeat;
+  position: relative;
+  background-size: contain;
+  margin-right: 15px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
 `;
 export default RateModal;

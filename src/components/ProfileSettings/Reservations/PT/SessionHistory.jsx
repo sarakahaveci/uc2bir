@@ -10,7 +10,7 @@ import {
   SessionComment,
 } from 'components';
 import { device } from 'utils';
-import { getSessionHistorys, rateAndComment, rateAndCommentSession, SessionStatusResponse, getSessionComment } from 'actions';
+import { getSessionHistorys, rateAndCommentSession, SessionStatusResponse, getSessionComment } from 'actions';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
@@ -91,7 +91,7 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
                   customerName={elm?.student}
                   user_id={elm?.student_id}
                   onSessionComment={() => { openSessionComment(elm?.id) }}
-                  session_status={elm?.session_status}
+                  elm={elm}
                   onStatusChange={(status) => {
                     onStatusChange(status, elm)
                   }}
@@ -127,7 +127,7 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
                 onSessionComment={() => {
                   openSessionComment(elm?.id);
                 }}
-                session_status={elm?.session_status}
+                elm={elm}
                 onStatusChange={(status) => {
                   onStatusChange(status, elm);
                 }}
@@ -159,7 +159,7 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
                 customerName={elm?.student}
                 user_id={elm?.student_id}
                 onSessionComment={() => { openSessionComment(elm?.id) }}
-                session_status={elm?.session_status}
+                elm={elm}
                 onStatusChange={(status) => {
                   onStatusChange(status, elm)
                 }}
@@ -231,18 +231,11 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
         rateLabel={t('rate it')}
         cancelLabel={t('Give Up')}
         open={openRateModal}
-        rate={({ rate, comment, commented_id, rateType, session_file, session_status }) => {
+        rate={(multipart) => {
 
-          if (rateType == 'session') {
             dispatch(
               rateAndCommentSession(
-                {
-                  appointment_id: appointment?.id,
-                  rating: rate,
-                  comment: comment,
-                  session_file: session_file,
-                  session_status: session_status
-                },
+                multipart,
                 () => {
                   setAppointment(undefined);
                   setOpenRateModal(null);
@@ -253,26 +246,7 @@ const SessionHistory = ({ setSubPage = () => { } }) => {
                 }
               )
             );
-          } else {
-            dispatch(
-              rateAndComment(
-                {
-                  appointment_id: appointment?.id,
-                  rating: rate,
-                  comment: comment,
-                  commented_id: commented_id,
-                },
-                () => {
-                  setAppointment(undefined);
-                  setOpenRateModal(null);
-                },
-                () => {
-                  setAppointment(undefined);
-                  setOpenRateModal(null);
-                }
-              )
-            );
-          }
+        
         }}
         cancel={() => {
           setAppointment(undefined);

@@ -16,7 +16,6 @@ import { getUserSessionHistorys } from 'actions';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import {
-  rateAndComment,
   rateAndCommentSession,
   SessionStatusResponse,
   getSessionComment,
@@ -100,7 +99,7 @@ const SessionHistory = ({ setSubPage = () => {} }) => {
                   date={elm?.hour}
                   customerName={elm?.address_title}
                   user_id={elm?.bs?.id}
-                  session_status={elm?.session_status}
+                  elm={elm}
                   has_comment={elm?.pt?.has_comment}
                   type="history"
                   rateText={t('rate it')}
@@ -138,7 +137,7 @@ const SessionHistory = ({ setSubPage = () => {} }) => {
                 onSessionComment={() => {
                   openSessionComment(elm?.id);
                 }}
-                session_status={elm?.session_status}
+                elm={elm}
                 type="history"
                 rateText={t('rate it')}
                 has_comment={elm?.pt?.has_comment}
@@ -168,7 +167,7 @@ const SessionHistory = ({ setSubPage = () => {} }) => {
                   date={elm?.hour}
                   customerName={elm?.pt?.name || elm?.dt?.name}
                   user_id={elm?.pt?.id || elm?.dt?.id}
-                  session_status={elm?.session_status}
+                  elm={elm}
                   type="history"
                   rateText="Puanla"
                   has_comment={elm?.dt?.has_comment}
@@ -205,7 +204,7 @@ const SessionHistory = ({ setSubPage = () => {} }) => {
                   onSessionComment={() => {
                     openSessionComment(elm?.id);
                   }}
-                  session_status={elm?.session_status}
+                  elm={elm}
                   type="history"
                   rateText={t('Rate the Dietitian')}
                   has_comment={elm?.dt?.has_comment}
@@ -274,24 +273,11 @@ const SessionHistory = ({ setSubPage = () => {} }) => {
         rateLabel={t('rate it')}
         cancelLabel={t('Give Up')}
         open={openRateModal}
-        rate={({
-          rate,
-          comment,
-          commented_id,
-          rateType,
-          session_file,
-          session_status,
-        }) => {
-          if (rateType == 'session') {
+        rate={(multipart) => {
+        
             dispatch(
               rateAndCommentSession(
-                {
-                  appointment_id: appointment?.id,
-                  rating: rate,
-                  comment: comment,
-                  session_file: session_file,
-                  session_status: session_status,
-                },
+                multipart,
                 () => {
                   setAppointment(undefined);
                   setOpenRateModal(null);
@@ -302,26 +288,7 @@ const SessionHistory = ({ setSubPage = () => {} }) => {
                 }
               )
             );
-          } else {
-            dispatch(
-              rateAndComment(
-                {
-                  appointment_id: appointment?.id,
-                  rating: rate,
-                  comment: comment,
-                  commented_id: commented_id,
-                },
-                () => {
-                  setAppointment(undefined);
-                  setOpenRateModal(null);
-                },
-                () => {
-                  setAppointment(undefined);
-                  setOpenRateModal(null);
-                }
-              )
-            );
-          }
+        
         }}
         cancel={() => {
           setAppointment(undefined);

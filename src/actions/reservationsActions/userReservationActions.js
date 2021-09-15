@@ -217,33 +217,20 @@ export const rateAndComment =
     };
 export const rateAndCommentSession =
   (
-    { appointment_id, session_file, comment, rating, session_status },
+    data,
     successCallback = () => { },
     errorCallBack = () => { }
   ) =>
-    async (dispatch, getState) => {
+    async (dispatch) => {
       // const { t } = useTranslation();
-
       let url;
-      url = `/appointment/sess-calendar/comment`; // pt
-      var myId = getState().auth?.user?.id;
-      const urls = Object.keys(session_file).map(function (key) {
-        return `${session_file[key]?.fileUrl}`;
-      });
+      url = `/appointment/calendar/comment`; // pt
+
       await dispatch({
         type: HTTP_REQUEST,
         payload: {
           method: 'POST',
-          body: {
-            appointment_id: appointment_id,
-            session_id: appointment_id,
-            commented_id: myId,
-            commenter_id: myId,
-            comment: comment,
-            rating: rating,
-            session_file: urls,
-            session_status: session_status,
-          },
+          body: data,
           url,
           label: USER_RESERVATION_FUNC,
           callBack: () => {
@@ -274,30 +261,23 @@ export const rateAndCommentSession =
 
 export const SessionStatusResponse =
   (
-    { appointment_id, sessionStatus },
+    { appointment_id },
     successCallback = () => { },
     errorCallBack = () => { }
   ) =>
-    async (dispatch, getState) => {
+    async (dispatch) => {
       // const { t } = useTranslation();
 
       let url;
-      var myId = getState().auth?.user?.id;
+      // var myId = getState().auth?.user?.id;
 
-      url = `/appointment/sess-calendar/comment`; // pt
+      url = `/appointment/calendar/approve-appointment/${appointment_id}`; // pt
       await dispatch({
         type: HTTP_REQUEST,
         payload: {
-          method: 'POST',
-          body: {
-            appointment_id: appointment_id,
-            session_id: appointment_id,
-            session_status: sessionStatus,
-            commented_id: myId,
-            commenter_id: myId,
-            session_file: [],
-            comment: '',
-          },
+          method: 'PATCH',
+          body:
+            { "type": "approve", "reason": "" },
           url,
           label: USER_RESERVATION_FUNC,
           callBack: () => {
