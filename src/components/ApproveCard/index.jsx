@@ -9,9 +9,9 @@ const ApproveCard = ({
   user_id,
   customerName = '',
   // has_comment = 0,
+  elm,
   onStatusChange = () => {},
   date = '',
-  session_status = null,
   cardType,
   status_bs,
   status_pt,
@@ -95,11 +95,11 @@ const ApproveCard = ({
         );
       break;
     case 'history':
-      if (session_status || session_status == 0) {
-        if (session_status == 0) {
+      if (!(elm?.approval_status == 'pending')) {
+        if (elm?.approval_status == 'objected') {
 
           buttonGroup = <>{t('Lesson Not Held')}</>;
-        } else if (session_status == 1) {
+        } else if (elm?.approval_status == 'approved') {
           buttonGroup = (
             <>
               <HistoryButton onClick={onApprove}>{rateText}</HistoryButton>

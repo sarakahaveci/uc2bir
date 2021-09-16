@@ -50,7 +50,7 @@ const SessionHistory = ({ setSubPage = () => {} }) => {
       SessionStatusResponse(
         {
           appointment_id: elm?.id,
-          type: status == 0 ? 'rejected' : 'approved',
+          type: status == 0 ? 'object' : 'approve',
           reason: comment
         },
         () => {
