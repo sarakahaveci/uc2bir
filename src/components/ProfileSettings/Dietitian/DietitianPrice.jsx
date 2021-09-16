@@ -39,7 +39,13 @@ export default function DietitianPrice() {
     dispatch(
       updateDietitianPrice(
         { price: newPrice },
-        () => setOpen(true),
+        () => {
+          toast.success('İşlem Başarılı!', {
+            position: 'bottom-right',
+            autoClose: 4000,
+          });
+          setOpen(true)
+        },
         (error) => {
           toast.error(error, {
             position: 'bottom-right',
