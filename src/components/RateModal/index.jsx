@@ -7,7 +7,7 @@ import { Material } from 'components';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { default as MaterialButton } from '@material-ui/core/Button';
-
+import axios from 'axios';
 import Rating from '@material-ui/lab/Rating';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 
@@ -24,6 +24,11 @@ const RateModal = ({
   const [file, setFile] = useState('');
 
   const [selectedPage, setSelectedPage] = useState('start');
+    // eslint-disable-next-line
+  const [appointmentInfo, setAppointmentInfo] = useState(null);
+
+  // eslint-disable-next-line
+  const { accessToken, isAuthenticated } = useSelector((state) => state.auth);
   // eslint-disable-next-line
   const [toBeRatedUserType, setToBeRatedUserType] = useState('session');
   const [star, setStar] = useState(undefined);
@@ -31,13 +36,29 @@ const RateModal = ({
   const sessionComment = useSelector(
     (state) => state.userProfile?.sessionComment
   );
+  async function getInfo() {
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_API_URL}/appointment/calendar/commentable/${appointment_id}`,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${accessToken}`,
+        },
+        // Setting file objects progress during upload
+
+      }
+    );
+    setAppointmentInfo(data)
+  }
   useEffect(() => {
     if (!open) {
       setStar(undefined);
       setComment(undefined);
       setFile(undefined);
-
       setSelectedPage('start');
+    } else {
+      getInfo()
+
     }
   }, [open]);
   let content;

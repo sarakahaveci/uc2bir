@@ -69,7 +69,7 @@ const Star = styled.li`
     p.isActive &&
     css`
       svg {
-        color: ${p.theme.colors.yellow};
+        color: #FFBA00;
       }
     `}
 `;
