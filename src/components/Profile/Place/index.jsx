@@ -20,7 +20,7 @@ const Place = ({ userId }) => {
   const { t } = useTranslation();
   const descriptionMap = {
     gym: t(
-      'Didnt you see the gym where you want to do sports here? You can send a message to the instructor and ask if you can teach at your preferred gym.'
+      'Didnt you see the gym where you want to do sports here? You can send a message to the instructor and ask if you can teach at your preferred gym'
     ),
     online: t('You can take online video lessons from this instructor'),
     home_park: t(

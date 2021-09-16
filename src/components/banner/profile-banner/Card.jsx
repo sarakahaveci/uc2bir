@@ -107,6 +107,7 @@ const StyledCard = styled(Col)`
           position: relative;
           background-image: url('${(props) => props.img}');
           background-repeat: no-repeat;
+          background-position: center; /* Center the image */
 
           background-size: cover;
 

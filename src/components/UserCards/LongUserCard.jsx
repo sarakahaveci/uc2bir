@@ -15,7 +15,7 @@ const LongUserCard = ({
   district,
   hoverText = 'Profile Git',
   isGym,
-  onClickHover = () => {},
+  onClickHover = () => { },
   selected = false,
   type,
   favoriteId,
@@ -28,10 +28,10 @@ const LongUserCard = ({
 
   const favoriteClickHandler = () => {
     if (isFavorited) {
-      dispatch(removeFavoriteUser(favoriteId));
+      dispatch(removeFavoriteUser(data?.id));
       setIsFavorited(false);
     } else {
-      dispatch(addFavoriteUser(favoriteId));
+      dispatch(addFavoriteUser(data?.id));
       setIsFavorited(true);
     }
   };
@@ -61,8 +61,8 @@ const LongUserCard = ({
             data?.photo?.path
               ? data?.photo?.path
               : data?.photo
-              ? data?.photo
-              : MockImage
+                ? data?.photo
+                : MockImage
           }
         />
 
