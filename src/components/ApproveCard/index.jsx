@@ -99,12 +99,17 @@ const ApproveCard = ({
         if (elm?.approval_status == 'objected') {
 
           buttonGroup = <>{t('Lesson Not Held')}</>;
-        } else if (elm?.approval_status == 'approved' && elm?.can_write_appointment_comment) {
-          buttonGroup = (
-            <>
-              <HistoryButton onClick={onApprove}>{rateText}</HistoryButton>
-            </>
-          );
+        } else if (elm?.approval_status == 'approved' ) {
+          if(elm?.can_write_appointment_comment){
+            buttonGroup = (
+              <>
+                <HistoryButton onClick={onApprove}>{rateText}</HistoryButton>
+              </>
+            );
+          }else{
+            buttonGroup = <>{t('commented')}</>;
+
+          }
         }
       } else {
         buttonGroup = (
