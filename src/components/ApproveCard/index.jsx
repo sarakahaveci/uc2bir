@@ -10,7 +10,7 @@ const ApproveCard = ({
   customerName = '',
   // has_comment = 0,
   elm,
-  onStatusChange = () => {},
+  onStatusChange = () => { },
   date = '',
   cardType,
   status_bs,
@@ -22,16 +22,16 @@ const ApproveCard = ({
   optionalField_3 = null,
   transaction_id,
   userType,
-  onApprove = () => {},
-  onReject = () => {},
-  onTransfer = () => {},
+  onApprove = () => { },
+  onReject = () => { },
+  onTransfer = () => { },
   type = 'await',
   rateText = '',
 }) => {
   const { t } = useTranslation();
 
   const history = useHistory();
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
   function getRejectReason() {
     if (status_bs) {
       return t('By Gym');
@@ -99,7 +99,7 @@ const ApproveCard = ({
         if (elm?.approval_status == 'objected') {
 
           buttonGroup = <>{t('Lesson Not Held')}</>;
-        } else if (elm?.approval_status == 'approved') {
+        } else if (elm?.approval_status == 'approved' && elm?.can_write_appointment_comment) {
           buttonGroup = (
             <>
               <HistoryButton onClick={onApprove}>{rateText}</HistoryButton>
