@@ -80,7 +80,7 @@ const ProfileForms = ({ type }) => {
       {!detail.isLoading && (
         <form onSubmit={onSubmit}>
           <Material.TextField
-            label={t('Name and surname')}
+            label={t(type == 'WORK_PLACE' ? 'Company Name' : 'Name and surname')}
             type="text"
             name="name"
             defaultValue={detail?.data?.name}
@@ -90,7 +90,7 @@ const ProfileForms = ({ type }) => {
             }}
             settings="current"
           />
-          {type !== 'USER' && (
+          {type !== 'USER' && type !== 'WORK_PLACE' && (
             <Material.TextField
               label={t('title')}
               type="text"
@@ -120,7 +120,7 @@ const ProfileForms = ({ type }) => {
 
           {type == 'WORK_PLACE' && (
             <Material.number
-              label={t('Capacity')}
+              label={t('Work Place Capacity')}
               type="number"
               name="capacity"
               defaultValue={detail?.data?.capacity}
