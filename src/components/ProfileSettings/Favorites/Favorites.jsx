@@ -15,7 +15,7 @@ const Favorites = () => {
 
   const subTabsData = [
     {
-      label: t('trainers'),
+      label: t('trainersCapitalize'),
       value: PERSONAL_TRAINER,
     },
     {
@@ -84,17 +84,17 @@ const Favorites = () => {
           fontSize="1.1rem"
           paddingLeft="20px"
         >
-          Favorilerim
+          {t('my favorites')}
         </Title>
 
         <SubTabs
-          style={{ color: 'red' }}
           data={subTabsData}
           onChange={(item) => {
             setUserType(item.value);
             setCurrentPage(1);
           }}
           lineWidth="50%"
+          textTransform="capitalize"
         />
       </div>
 

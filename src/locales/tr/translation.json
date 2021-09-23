@@ -4,6 +4,7 @@
   "findByCategory": "Kategoriye göre arama",
   "trainer": "EĞİTMEN",
   "trainerCapitalize": "Eğitmen",
+  "trainersCapitalize": "Eğitmenler",
   "gym": "SALON",
   "dietitian": "DİYETİSYEN",
   "dietitians": "DİYETİSYENLER",
@@ -284,7 +285,7 @@
   "There are no trainers registered with the Workplace": "İş Yerine kayıtlı herhangi bir eğitmen bulunmamaktadır.",
   "Didnt you see the gym where you want to do sports here? You can send a message to the instructor and ask if you can teach at your preferred gym": "Spor yapmak istediğin salonu burada göremedin mi? Eğitmene mesaj göndererek tercih ettiğin spor salonunda ders verip veremeyeceğini sorabilirsin.",
   "You can take online video lessons from this instructor": "Bu eğitmenden online görüntülü ders alabilirsiniz.",
-  "Didnt see the place you want to do sports here? You can send a message to the instructor and ask if it is appropriate to teach at your preferred location": "Spor yapmak istediğin yeri burada göremedin mi? Eğitmene mesaj göndererek tercih ettiğin yerde ders vermenin uygun olup olmadığını sorabilirsin.",
+  "Didn't see the place you want to do sports here? You can send a message to the instructor and ask if it is appropriate to teach at your preferred location": "Spor yapmak istediğin yeri burada göremedin mi? Eğitmene mesaj göndererek tercih ettiğin yerde ders vermenin uygun olup olmadığını sorabilirsin.",
   "The user has no information about the place of this study": "Kullanıcının bu çalışmaya yerine ait bilgisi bulunmamaktadır.",
   "There are no images added by the user": "Kullanıcının eklediği görsel bulunmamaktadır.",
   "There is no certificate registered to the Workplace": "İş Yerine kayıtlı herhangi bir sertifika bulunmamaktadır.",
@@ -594,6 +595,7 @@
   "Go to My Account Activity >": "Hesap Hareketlerime Git >",
   "Top Up My Wallet >": "Cüzdanıma Bakiye Yükle >",
   "< Top Up My Wallet": "< Cüzdanıma Bakiye Yükle",
+  "Transfer Balance in My Account": "Hesabımdaki Bakiyeyi Aktar",
   "Transfer Balance in My Account >": "Hesabımdaki Bakiyeyi Aktar >",
   "Please enter your account information correctly and completely": "Lütfen hesap bilgilerini doğru ve eksiksiz bir biçimde giriniz.",
   "Your account information has been successfully updated": "Hesap bilgileriniz başarıyla güncellendi.",
@@ -799,6 +801,5 @@
   "This package has been upgraded": "Bu paket yükseltilmiştir",
   "Buy Again": "Tekrar Al",
   "Go to profile": "Pofile Git",
-  "commented":"Yorumlandı"
-
+  "commented": "Yorumlandı"
 }

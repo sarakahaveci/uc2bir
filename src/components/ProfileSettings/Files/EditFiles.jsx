@@ -50,7 +50,7 @@ const EditFiles = ({
   return (
     <>
       <Text onClick={() => setIsEditClicked(false)}>
-        <BackLink text={t('< Back')} to="/myprofile/settings/profile" />
+        <BackLink text={t('Back')} to="/myprofile/settings/profile" />
       </Text>
 
       <Text

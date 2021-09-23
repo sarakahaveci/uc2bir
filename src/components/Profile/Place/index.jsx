@@ -24,7 +24,7 @@ const Place = ({ userId }) => {
     ),
     online: t('You can take online video lessons from this instructor'),
     home_park: t(
-      'Didnt see the place you want to do sports here? You can send a message to the instructor and ask if it is appropriate to teach at your preferred location'
+      "Didn't see the place you want to do sports here? You can send a message to the instructor and ask if it is appropriate to teach at your preferred location"
     ),
   };
   const { userInfo } = useSelector((state) => state.userProfile.userInfo);

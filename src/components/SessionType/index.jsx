@@ -102,7 +102,7 @@ const SessionType = () => {
         },
         {
           id: 'home_park',
-          name: t('HOME / PARK'),
+          name: t('Home / Park'),
           active: false,
           icon: <Svg.SessionType.Park />,
           create: {

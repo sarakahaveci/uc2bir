@@ -19,23 +19,24 @@ const UserDetails = ({ userId }) => {
 
   return (
     <Accordion>
-      {branchList?.branches?.map((item, index) => {
-        return (
-          <StyledRow enabled={item?.speciality?.length > 0} key={index}>
-            <Order>{index + 1}.</Order>
-            <AccordionItem>
-              <Accordion.Item>
-                <Accordion.Toggle>
-                  <BranchCardHeader data={item} />
-                </Accordion.Toggle>
-                <Accordion.Collapse>
-                  <BranchCardBody speciality={item.speciality} />
-                </Accordion.Collapse>
-              </Accordion.Item>
-            </AccordionItem>
-          </StyledRow>
-        );
-      })}
+      {branchList?.branches?.length > 0 &&
+        branchList?.branches?.map((item, index) => {
+          return (
+            <StyledRow enabled={item?.speciality?.length > 0} key={index}>
+              <Order>{index + 1}.</Order>
+              <AccordionItem>
+                <Accordion.Item>
+                  <Accordion.Toggle>
+                    <BranchCardHeader data={item} />
+                  </Accordion.Toggle>
+                  <Accordion.Collapse>
+                    <BranchCardBody speciality={item.speciality} />
+                  </Accordion.Collapse>
+                </Accordion.Item>
+              </AccordionItem>
+            </StyledRow>
+          );
+        })}
     </Accordion>
   );
 };

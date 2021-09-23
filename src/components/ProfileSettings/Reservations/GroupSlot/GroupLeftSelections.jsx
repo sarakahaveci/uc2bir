@@ -196,14 +196,15 @@ export default function GroupLeftSelections() {
                 selectDataHandler('branchSelection', e.target.value)
               }
             >
-              {data?.branches?.map(
-                (branch) =>
-                  branch?.status_id === 2 && (
-                    <MenuItem key={branch.id} value={branch}>
-                      {branch.name}
-                    </MenuItem>
-                  )
-              )}
+              {data?.branches?.length > 0 &&
+                data?.branches?.map(
+                  (branch) =>
+                    branch?.status_id === 2 && (
+                      <MenuItem key={branch.id} value={branch}>
+                        {branch.name}
+                      </MenuItem>
+                    )
+                )}
             </Select>
           </FormControl>
         </>

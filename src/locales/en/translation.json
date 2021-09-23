@@ -2,6 +2,7 @@
   "slogan_1": "Choose Your Style, Browse Branches Now",
   "trainers": "TRAINERS",
   "trainerCapitalize": "Trainer",
+  "trainersCapitalize": "Trainers",
   "trainers_slogan": "OPPORTUNITY TO WORK WITH THE BEST INSTRUCTORS",
   "what are you looking for": "What are you looking for ?",
   "aboutUs": "About Üç2Bir",
@@ -186,8 +187,8 @@
   "Progress Test": "Progress Test",
   "user": "User",
   "sports trainer": "Sports Trainer",
-  "sports field": "sports field",
-  "sports fields": "sports fields",
+  "sports field": "Sports Field",
+  "sports fields": "Sports Fields",
   "dietitianCapitalize": "Dietitian",
   "dietitiansCapitalize": "Dietitians",
   "Exercise Successfully Deleted": "Exercise Successfully Deleted",
@@ -283,7 +284,7 @@
   "There are no trainers registered with the Workplace": "There are no trainers registered with the Workplace.",
   "Didnt you see the gym where you want to do sports here? You can send a message to the instructor and ask if you can teach at your preferred gym": "Didn't you see the gym where you want to do sports here? You can send a message to the instructor and ask if you can teach at your preferred gym.",
   "You can take online video lessons from this instructor": "You can take online video lessons from this instructor.",
-  "Didnt see the place you want to do sports here? You can send a message to the instructor and ask if it is appropriate to teach at your preferred location": "Didn't see the place you want to do sports here? You can send a message to the instructor and ask if it is appropriate to teach at your preferred location.",
+  "Didn't see the place you want to do sports here? You can send a message to the instructor and ask if it is appropriate to teach at your preferred location": "Didn't see the place you want to do sports here? You can send a message to the instructor and ask if it is appropriate to teach at your preferred location.",
   "The user has no information about the place of this study": "The user has no information about the place of this study.",
   "There are no images added by the user": "There are no images added by the user.",
   "There is no certificate registered to the Workplace": "There is no certificate registered to the Workplace.",
@@ -594,6 +595,7 @@
   "Go to My Account Activity >": "Go to My Account Activity >",
   "Top Up My Wallet >": "Top Up My Wallet >",
   "< Top Up My Wallet": "< Top Up My Wallet",
+  "Transfer Balance in My Account": "Transfer Balance in My Account",
   "Transfer Balance in My Account >": "Transfer Balance in My Account >",
   "Please enter your account information correctly and completely": "Please enter your account information correctly and completely.",
   "Your account information has been successfully updated": "Your account information has been successfully updated.",
@@ -800,5 +802,5 @@
   "This package has been upgraded": "This package has been upgraded",
   "Buy Again": "Buy Again",
   "Go to profile": "Go to profile",
-  "commented":"Commented"
+  "commented": "Commented"
 }
