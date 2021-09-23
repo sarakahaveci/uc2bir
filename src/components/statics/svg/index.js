@@ -47,7 +47,7 @@ import FitnessMedium from './images/fitnessMedium.svg';
 
 import Yoga from './images/yoga.svg';
 import KickBoks from './images/kick-boks.svg';
-// import AthleticPerformance from './images/athletic-performance.svg';
+import AthleticPerformance from './images/athletic-performance.svg';
 import Tennis from './images/tennis.svg';
 import Athlete from './images/athlete.svg';
 import Swimming from './images/swimming.svg';
@@ -130,7 +130,6 @@ import Ql from './images/quote-left.svg';
 import Qr from './images/quote-right.svg';
 import PhoneMissed from './images/phone-missed.svg';
 import PaperClip from './images/paperclip.svg';
-
 
 import DotsIcon from './images/dots.svg';
 import InfoIcon from './images/infoIcon.svg';
@@ -289,10 +288,6 @@ const Svg = {
       name: 'BOKS',
       svg: (props) => <ReactSVG {...props} src={KickBoks} />,
     },
-    // {
-    //   name: 'ATLETİK PERFORMANS',
-    //   svg: (props) => <ReactSVG {...props} src={AthleticPerformance} />,
-    // },
     {
       name: 'CİMNASTİK',
       svg: (props) => <ReactSVG {...props} src={Athlete} />,
@@ -300,6 +295,10 @@ const Svg = {
     {
       name: 'YÜZME',
       svg: (props) => <ReactSVG {...props} src={Swimming} />,
+    },
+    {
+      name: 'ATLETİK PERFORMANS',
+      svg: (props) => <ReactSVG {...props} src={AthleticPerformance} />,
     },
   ],
 };

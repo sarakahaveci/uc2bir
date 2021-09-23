@@ -6,16 +6,18 @@ import { Title, DefBackground, Svg } from 'components';
 import { useHistory } from 'react-router';
 import { getSearchResults } from 'actions';
 import { useTranslation } from 'react-i18next';
+
 const Categories = ({ className, background, children }) => {
   const { t } = useTranslation();
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const handleSuccessSearch = () => {
-  };
+  const handleSuccessSearch = () => {};
 
   const handleSearch = async (val) => {
-    await dispatch(getSearchResults(val.toLocaleLowerCase(), handleSuccessSearch));
+    await dispatch(
+      getSearchResults(val.toLocaleLowerCase(), handleSuccessSearch)
+    );
     history.push('/search/' + val.toLocaleLowerCase('tr'));
   };
 
@@ -27,7 +29,7 @@ const Categories = ({ className, background, children }) => {
           style={{ backgroundImage: `url(${DefBackground.elementBackground})` }}
         ></div>
       )}
-      <Container >
+      <Container>
         <Title
           variant="h5"
           component="h5"

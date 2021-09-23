@@ -95,7 +95,7 @@ const GroupLesson = (props) => {
         </Title>
         <Title variant="h6" component="h6" fontWeight="500">
           {t(
-            ' THE OPPORTUNITY TO TAKE LESSONS WITH YOUR FRIENDS, IN THE HALL YOU WANT, FROM THE TRAINER YOU WANT'
+            'THE OPPORTUNITY TO TAKE LESSONS WITH YOUR FRIENDS, IN THE HALL YOU WANT, FROM THE TRAINER YOU WANT'
           )}
         </Title>
       </Container>
