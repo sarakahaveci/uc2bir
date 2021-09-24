@@ -14,6 +14,7 @@ import FacebookIcon from 'assets/facebook-login.png';
 //import InstagramIcon from 'assets/instagram-login.png'
 import AppleIcon from 'assets/apple-login.png';
 import AppleSignin from 'react-apple-signin-auth';
+import fileDownload from 'js-file-download'
 
 import { StepContext } from '../RegisterSteps';
 import { setStepOne, getAuthFiles, setStepOneSocial } from 'actions';
@@ -31,7 +32,7 @@ import StepTwo from './StepTwo';
 import { WORK_PLACE, DIETITIAN } from '../../../constants';
 import { macroConverter, unMaskPhone } from 'utils';
 import { useTranslation } from 'react-i18next';
-
+import axios from 'axios'
 const StepOne = ({ userTypeId, setUserTypeId }) => {
   const { t } = useTranslation();
   const macro = [
@@ -178,7 +179,14 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
       return res2;
     }
   };
-
+  function handleDownload(url, filename) {
+    axios.get(url, {
+      responseType: 'blob',
+    })
+      .then((res) => {
+        fileDownload(res?.data, filename)
+      })
+  }
   const submitHandler = (e) => {
     e.preventDefault();
     const regex = new RegExp('^(?=.{6,})(?=.*[a-z])(?=.*[A-Z]).*$');
@@ -470,12 +478,16 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
                   <>
                     ve &nbsp;
                     <a
-                      href={
-                        userTypeId === WORK_PLACE
-                          ? 'https://file.uc2bir.com/uploads/pt-points/files/spor-alani.pptx'
-                          : 'https://file.uc2bir.com/uploads/pt-points/files/egitmen.pptx'
-                      }
-                      target="_blank"
+                      onClick={() => {
+                        if (userTypeId === WORK_PLACE) {
+                          handleDownload("https://file.uc2bir.com/uploads/pt-points/files/spor-alani.pdf", "spor-alani.pdf")
+
+                        } else {
+                          handleDownload("https://file.uc2bir.com/uploads/pt-points/files/egitmen.pdf", "egitmen.pdf")
+
+                        }
+                      }}
+                  
                       className="underline-text"
                     >
                       Ekleri&apos;ni

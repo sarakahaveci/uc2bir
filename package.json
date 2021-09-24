@@ -24,6 +24,7 @@
     "i18next": "^20.6.0",
     "infinite-react-carousel": "^1.2.11",
     "instagram-login-react": "^2.0.0",
+    "js-file-download": "^0.4.12",
     "lodash": "^4.17.20",
     "material-ui-search-bar": "^1.0.0",
     "moment": "^2.29.1",
