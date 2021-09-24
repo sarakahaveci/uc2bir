@@ -31,7 +31,7 @@ export const searchProffesional =
       startDate,
       endDate,
       bs_id,
-      accept_package
+      accept_package,
     },
     successCallback = () => {}
   ) =>
@@ -84,16 +84,18 @@ export const searchProffesional =
     const urlWithStartDate = `&startDate=${startDate}`;
     const urlWithEndDate = `&endDate=${endDate}`;
     const urlWithBsId = `&bs_id=${bs_id}`;
-    const urlWithaccept_package = `&accept_package=${accept_package}`
+    const urlWithaccept_package = `&accept_package=${accept_package}`;
     const finalUrls = `${url}${location ? urlWithLocation : ''}${
       title ? urlWithTitle : ''
     }${ratings?.length > 0 ? urlWithRating : ''}${urlWithMinPrice}${
       maxPrice ? urlWithMaxPrice : ''
     }${sortBy ? urlWithSortBy : ''}${
       classification ? urlWithClassification : ''
-    }${page ? urlWithPage : ''}${accept_package ? urlWithaccept_package : ''}${bs_id ? urlWithBsId : ''}${startDate ? urlWithStartDate : ''}${
-      endDate ? urlWithEndDate : ''
-    }${branch ? urlWithBranch : ''}&per_page=200`.trim();
+    }${page ? urlWithPage : ''}${accept_package ? urlWithaccept_package : ''}${
+      bs_id ? urlWithBsId : ''
+    }${startDate ? urlWithStartDate : ''}${endDate ? urlWithEndDate : ''}${
+      branch ? urlWithBranch : ''
+    }&per_page=200`.trim();
     await dispatch({
       type: HTTP_REQUEST,
       payload: {
