@@ -735,7 +735,7 @@
   "Phone Verification Failed": "Telefon Doğrulama Başarısız",
   "Registered": "Kayıt Alındı",
   "Verify Your Phone Number": "Telefon Numaranızı Doğrulayın",
-  "Enter the 6-digit code we sent to the phone number.": "numaralı telefona gönderdiğimiz 6 haneli kodu girin.",
+  "Enter the 6-digit code we sent to the phone number": "numaralı telefona gönderdiğimiz 6 haneli kodu girin.",
   "remaining time": "Kalan Süre",
   "Code Sent": "Kod Gönderildi",
   "An error occurred while sending the message...": "Mesaj gönderilirken hata oluştu...",
