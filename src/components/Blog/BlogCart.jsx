@@ -30,7 +30,7 @@ const BlogCart = ({ blogOrder, data = [] }) => {
         <Button
           perspective
           className="bl-btn"
-          text={t('Read More')}
+          text={t('ReadMore')}
           onClick={go}
         />
       </div>

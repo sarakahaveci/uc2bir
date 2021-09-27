@@ -44,7 +44,7 @@ const Packet = ({ val }) => {
                   <ul>
                     {val?.type === 'pt' && (
                       <li>
-                        {val.branch} t{'Branch'}
+                        {val.branch} {t('branch of')}
                       </li>
                     )}
                     {val?.type === 'dt' && <li>{t('Diet Program')}</li>}

@@ -38,7 +38,7 @@ const Dietitians = (props) => {
         </Title>
         <Title variant="h6" component="h6" fontWeight="500">
           {t(
-            ' DETERMINE THE DIET PROGRAM THAT IS SUITABLE FOR YOU WITH YOUR SPECIAL DIETICIANS'
+            'DETERMINE THE DIET PROGRAM THAT IS SUITABLE FOR YOU WITH YOUR SPECIAL DIETICIANS'
           )}
         </Title>
       </Container>

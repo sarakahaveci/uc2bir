@@ -55,7 +55,7 @@ export default function BlogCard({
               }}
               style={{ display: 'flex', cursor: 'pointer' }}
             >
-              {t('Read More')}
+              {t('ReadMore')}
             </ButtonWrapper>
           </div>
         </div>

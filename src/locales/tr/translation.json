@@ -21,6 +21,7 @@
   "date": "Tarih",
   "ok": "tamam",
   "branch": "Branş",
+  "branch of": "Branşı",
   "slogan_1": "Tarzını Seç, Hemen Branşlara Göz At",
   "trainers": "Eğitmenler",
   "trainers_slogan": "EN İYİ EĞİTMENLER İLE ÇALIŞMA FIRSATI",
@@ -98,7 +99,6 @@
   "Profile not found": "Profil bulunamamaktadır",
   "Are you sure you want to unblock the user?": "Kullanıcının engelini kaldırmak istediğinizden emin misin?",
   "Are you sure you want to block the user?": "Kullanıcıyı engellemek istediğinden emin misin?",
-  "Read more": "Devamını Oku",
   "New blog added": "Yeni blog eklendi.",
   "An error occurred while adding the blog": "Blog eklenirken hata oluştu.",
   "Blog updated, added": "Blog güncellendi, eklendi.",
@@ -801,5 +801,6 @@
   "This package has been upgraded": "Bu paket yükseltilmiştir",
   "Buy Again": "Tekrar Al",
   "Go to profile": "Pofile Git",
-  "commented": "Yorumlandı"
+  "commented": "Yorumlandı",
+  "ReadMore": "Devamını Oku"
 }
