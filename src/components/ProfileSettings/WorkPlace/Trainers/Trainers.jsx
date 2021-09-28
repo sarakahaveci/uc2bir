@@ -193,7 +193,7 @@ const Trainers = ({
                 search
                 width="100%"
                 maxWidth="200px"
-                onClick={() => linkChangeHandler(page)}
+                onClick={() => linkChangeHandler(1)}
               />
             </SearchCol>
           </Row>
