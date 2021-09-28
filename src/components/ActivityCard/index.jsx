@@ -167,7 +167,6 @@ export default function ActivityCard({
         updatePTBranch(
           branchData,
           (data) => {
-            console.log(data?.data?.status);
             if (data?.data?.status === 'pending') {
               toast.success(
                 t(

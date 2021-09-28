@@ -56,7 +56,7 @@ const SearchProfessional = () => {
     setTitle(title);
     setLocation(location);
     setBranch(branch);
-    setPage(page);
+    setPage(Number(page));
     setPrice(parsedPrice);
     setRatings(parsedRatings);
     setClassification(classification);
@@ -111,8 +111,6 @@ const SearchProfessional = () => {
   };
 
   const handleChangePage = (event, pageNumber) => {
-    setPage(pageNumber);
-
     linkChangeHandler(pageNumber);
   };
 

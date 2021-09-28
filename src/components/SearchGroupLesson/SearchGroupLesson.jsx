@@ -70,7 +70,7 @@ const SearchGroupLesson = () => {
     setTitle(title);
     setLocation(location);
     setBranch(branch);
-    setPage(page);
+    setPage(Number(page));
     setPrice(parsedPrice);
     setRatings(parsedRatings);
     setClassification(classification);
@@ -131,8 +131,6 @@ const SearchGroupLesson = () => {
   };
 
   const handleChangePage = (event, pageNumber) => {
-    setPage(pageNumber);
-
     linkChangeHandler(pageNumber);
   };
 
