@@ -61,6 +61,8 @@ const MyTrainers = ({
         startDate,
         endDate,
         bs_id: user?.id,
+        perPage:200,
+
       })
     );
   }, [packetLevel]);
@@ -107,6 +109,7 @@ const MyTrainers = ({
         type: 'pt',
         classification: packetLevel || level,
         bs_id: user?.id,
+        perPage:200,
       })
     );
   };

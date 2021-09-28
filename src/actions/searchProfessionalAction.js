@@ -32,6 +32,7 @@ export const searchProffesional =
       endDate,
       bs_id,
       accept_package,
+      perPage = 40,
     },
     successCallback = () => { }
   ) =>
@@ -90,7 +91,7 @@ export const searchProffesional =
         }${sortBy ? urlWithSortBy : ''}${classification ? urlWithClassification : ''
         }${page ? urlWithPage : ''}${accept_package ? urlWithaccept_package : ''}${bs_id ? urlWithBsId : ''
         }${startDate ? urlWithStartDate : ''}${endDate ? urlWithEndDate : ''}${branch ? urlWithBranch : ''
-        }&per_page=40`.trim();
+        }&per_page=${perPage}`.trim();
       await dispatch({
         type: HTTP_REQUEST,
         payload: {

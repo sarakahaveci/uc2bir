@@ -61,6 +61,7 @@ const Trainers = ({
         startDate,
         endDate,
         accept_package: type == 'selection' ? 'yes' : null,
+        perPage:200
       })
     );
   }, [packetLevel]);
@@ -93,6 +94,7 @@ const Trainers = ({
   const linkChangeHandler = () => {
     const parsedPrice = JSON.parse(price);
     const parsedRatings = JSON.parse(ratings);
+    
     dispatch(
       searchProffesional({
         title,
@@ -107,6 +109,7 @@ const Trainers = ({
         type: 'pt',
         classification: packetLevel || level,
         accept_package: type == 'selection' ? 'yes' : null,
+        perPage:200
       })
     );
   };
@@ -193,7 +196,7 @@ const Trainers = ({
                 search
                 width="100%"
                 maxWidth="200px"
-                onClick={() => linkChangeHandler(1)}
+                onClick={() => linkChangeHandler(page)}
               />
             </SearchCol>
           </Row>
