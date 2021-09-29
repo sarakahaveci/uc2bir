@@ -82,9 +82,7 @@ const Information = ({
               textAlign="left"
               margin="0 0 0 10px"
             >
-              {t(
-                'I have read and approve the Preliminary Information Conditions and the Distance Sales Agreement'
-              )}
+              {t('I have read and approve the Illumination Statement')}
             </Text>
           </ConfirmContainer>
         </>

@@ -34,10 +34,10 @@ const RadioButtonsGroup = ({
           value={val}
           onChange={(e) => handleChange(e, onChange)}
         >
-          {items.map((val, key) => (
+          {items?.map((val, key) => (
             <FormControlLabel
               key={`radio-${name}-${key}`}
-              value={val.val? val.val: val.name}
+              value={val.val ? val.val : val.name}
               control={<BlueRadio required={required} />}
               label={val.name}
             />

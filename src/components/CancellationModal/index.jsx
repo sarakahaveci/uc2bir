@@ -134,7 +134,7 @@ const CancalletionModal = ({
                 cancelStepTwo(open);
               }}
             >
-              {t('send')}
+              {t('yes')}
             </StyledButton>
           </div>
         </MainContainer>

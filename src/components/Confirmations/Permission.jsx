@@ -85,7 +85,7 @@ const Permission = ({
               margin="0 0 0 10px"
             >
               {t(
-                'I have read and approve the Preliminary Information Conditions and the Distance Sales Agreement'
+                'I have read and approve the Open Consent and Enlightenment Texts'
               )}
             </Text>{' '}
           </ConfirmContainer>

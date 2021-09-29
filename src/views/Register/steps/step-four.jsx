@@ -149,7 +149,7 @@ const StepFour = (props) => {
                     {`${++key}. ${val.text}`}
                   </div>
                   <div style={{ margin: '15px 20px 0' }}>
-                    {val.items.map((item, key) => {
+                    {val?.items?.map((item, key) => {
                       return (
                         <>
                           <Material.CheckBoxGroup

@@ -83,9 +83,7 @@ const Privacy = ({
               textAlign="left"
               margin="0 0 0 40px"
             >
-              {t(
-                'I have read and approve the Preliminary Information Conditions and the Distance Sales Agreement'
-              )}
+              {t('I have read and approve the Privacy Policy')}
             </Text>
           </ConfirmContainer>
         </>

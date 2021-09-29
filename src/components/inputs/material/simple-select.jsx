@@ -116,13 +116,13 @@ const SimpleSelect = ({
           required={required}
           disabled={disabled}
         >
-          {items.map((val, key) => (
+          {items?.map((val, key) => (
             <MenuItem
               key={`select-${name}-${key}`}
-              value={val.id}
-              selected={val.selected}
+              value={val?.id}
+              selected={val?.selected}
             >
-              {val.name}
+              {val?.name}
             </MenuItem>
           ))}
         </Select>

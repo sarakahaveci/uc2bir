@@ -802,5 +802,9 @@
   "Buy Again": "Tekrar Al",
   "Go to profile": "Pofile Git",
   "commented": "Yorumlandı",
-  "ReadMore": "Devamını Oku"
+  "ReadMore": "Devamını Oku",
+  "I have read and approve the Open Consent and Enlightenment Texts": "Açık Rıza ve Aydınlatma Metinlerini okudum, onaylıyorum.",
+  "I have read and approve the Privacy Policy": "Gizlilik Politikasını okudum ve onaylıyorum.",
+  "I have read and approve the Illumination Statement": "Aydınlatma Beyanını okudum ve onaylıyorum.",
+  "I have read and approve the Membership Agreement and its annexes": "Üyelik Sözleşmesini ve eklerini okudum, onaylıyorum."
 }

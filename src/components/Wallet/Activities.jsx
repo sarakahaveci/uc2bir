@@ -122,7 +122,7 @@ const Activities = ({ setPage }) => {
                           },
                           {
                             id: 'one_year',
-                            name: 'Last 1 Year',
+                            name: t('Last 1 Year'),
                           },
                         ]}
                         value={{ id: 'all', name: t('all') }}
