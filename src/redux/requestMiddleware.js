@@ -26,7 +26,7 @@ export default ({ getState }) => (next) => async ({ payload = {}, type }) => {
 
   const { isAuthenticated, accessToken } = getState().auth || {};
 
-  if (isAuthenticated) {
+  if (isAuthenticated && accessToken) {
     headers.Authorization = `Bearer ${accessToken}`;
     //Accept-Language = tr
   }
