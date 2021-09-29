@@ -86,7 +86,7 @@ const Agreement = ({
               margin="0 0 0 10px"
             >
               {t(
-                'I have read and approved the Membership Agreement and its annexes'
+                'I have read and approve the Membership Agreement and its annexes'
               )}
             </Text>
           </ConfirmContainer>
