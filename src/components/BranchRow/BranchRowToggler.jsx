@@ -41,6 +41,15 @@ const BranchRowToggler = ({ isActive, data, typeId }) => {
         </Box>
       ) : (
         <Box row>
+           <RightCell style={{
+             display: 'flex',
+             border:'none',
+             alignItems: 'center',
+             justifyContent: 'flex-end'
+          }} className="mid">
+            <span>{data.price}</span>
+            <AwesomeIcon.Tl />
+          </RightCell>
           <RightCell className="last">
             <Svg.ArrowRightIcon />
           </RightCell>
