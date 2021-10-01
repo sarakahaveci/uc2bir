@@ -236,7 +236,7 @@ export default function WorkPlaceActivity() {
 
           <Text textAlign="center" fontSize="1rem" color="dark">
             {t(
-              'We will inform you after the field of activity you have chosen is reviewed by us'
+              'After the field of activity you have chosen is reviewed by us, you can enter your quota and area rental cost'
             )}
 
             <span>{t('Dont forget to turn on notifications')} :)</span>
