@@ -308,7 +308,7 @@ export default function DietitianProficiency() {
 
           <Text textAlign="center" fontSize="1rem" color="dark">
             {t(
-              ' We will inform you after the session fee you have entered is reviewed by us'
+              'We will inform you after the session fee you have entered is reviewed by us'
             )}
 
             <span>{t('Dont forget to turn on notifications')} :)</span>

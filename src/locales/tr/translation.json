@@ -488,7 +488,7 @@
   "Select City": "İl Seçiniz",
   "Select District": "İlçe Seçiniz",
   "Select Neighborhood": "Mahalle Seçiniz",
-  "Open address": "Açık Adres",
+  "Full address": "Açık Adres",
   "Building": "Bina",
   "Apartment": "Daire",
   "Update Address": "Adresi Güncelle",
@@ -806,5 +806,6 @@
   "I have read and approve the Open Consent and Enlightenment Texts": "Açık Rıza ve Aydınlatma Metinlerini okudum, onaylıyorum.",
   "I have read and approve the Privacy Policy": "Gizlilik Politikasını okudum ve onaylıyorum.",
   "I have read and approve the Illumination Statement": "Aydınlatma Beyanını okudum ve onaylıyorum.",
-  "I have read and approve the Membership Agreement and its annexes": "Üyelik Sözleşmesini ve eklerini okudum, onaylıyorum."
+  "I have read and approve the Membership Agreement and its annexes": "Üyelik Sözleşmesini ve eklerini okudum, onaylıyorum.",
+  "The user could not find the appropriate Session Type for these conditions": "Kullanıcının bu koşullara göre uygun Oturum Türü bulunamadı."
 }

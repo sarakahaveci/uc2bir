@@ -488,7 +488,7 @@
   "Select City": "Select City",
   "Select District": "Select District",
   "Select Neighborhood": "Select Neighborhood",
-  "Open address": "Open address",
+  "Full address": "Full address",
   "Building": "Building",
   "Apartment": "Apartment",
   "Update Address": "Update Address",
@@ -807,5 +807,6 @@
   "I have read and approve the Open Consent and Enlightenment Texts": "I have read and approve the Open Consent and Enlightenment Texts.",
   "I have read and approve the Privacy Policy": "I have read and approve the Privacy Policy.",
   "I have read and approve the Illumination Statement": "I have read and approve the Illumination Statement.",
-  "I have read and approve the Membership Agreement and its annexes": "I have read and approve the Membership Agreement and its annexes."
+  "I have read and approve the Membership Agreement and its annexes": "I have read and approve the Membership Agreement and its annexes.",
+  "The user could not find the appropriate Session Type for these conditions": "The user could not find the appropriate Session Type for these conditions."
 }

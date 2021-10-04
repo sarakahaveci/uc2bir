@@ -68,7 +68,7 @@ const PT = () => {
     }
     dispatch(getUserBranchList(userInfo.id));
     dispatch(getPtWorkingHomePlace(userInfo.id));
-   // dispatch(getWallet());
+    // dispatch(getWallet());
     //dispatch(getTemplates()); HATA VARSA BURAYA Bİ BAK
     dispatch(setReservation({ pt_id: userInfo.id }));
   }, [userInfo]);
@@ -205,7 +205,7 @@ const PT = () => {
               !reservation?.data?.isSelected
             }
           >
-            <Text color="#9B9B9B">{'Spor Alanı Seçiniz:'}</Text>
+            <Text color="#9B9B9B">{t('Choose Sports Field')}:</Text>
             <RadioGroup
               row
               aria-label="workArea"
@@ -245,7 +245,7 @@ const PT = () => {
                     )}
                   </CardGroup>
                 </>
-              )) || <text>Uygun Spor Alanı bulunmamaktadır</text>}
+              )) || <text>{t('There is no suitable sports area')}</text>}
             </RadioGroup>
           </GymWrapper>
         );
@@ -257,7 +257,7 @@ const PT = () => {
               !reservation?.data?.isSelected
             }
           >
-            <Text color="#9B9B9B">{'Ev Park Seçiniz:'}</Text>
+            <Text color="#9B9B9B">{t('Select Home/Park')}:</Text>
             <RadioGroup
               row
               aria-label="workArea"
@@ -323,7 +323,7 @@ const PT = () => {
                     />
                   )}
                 </div>
-              )) || <text>Uygun Alan bulunmamaktadır</text>}
+              )) || <text>{t('There is no suitable area')}</text>}
             </RadioGroup>
           </GymWrapper>
         );
@@ -335,7 +335,7 @@ const PT = () => {
             <>
               <Material.SimpleSelect
                 required
-                label="İl Seçiniz"
+                label={t('Select City')}
                 items={city}
                 name="city"
                 changeValue={formData?.city || ''}
@@ -362,7 +362,7 @@ const PT = () => {
               />
               <Material.SimpleSelect
                 required
-                label={town ? 'İlçe Seçiniz' : 'Önce İl Seçiniz'}
+                label={town ? t('Select District') : t('Select City First')}
                 items={town ? town : []}
                 name="district"
                 changeValue={formData?.district || ''}
@@ -389,7 +389,11 @@ const PT = () => {
               />
               <Material.SimpleSelect
                 required
-                label={district ? 'Mahalle Seçiniz' : 'Önce İlçe Seçiniz'}
+                label={
+                  district
+                    ? t('Select Neighborhood')
+                    : t('Select District First')
+                }
                 items={district ? district : []}
                 name="town"
                 changeValue={formData?.town || ''}
@@ -402,7 +406,7 @@ const PT = () => {
               />
               <Material.TextField
                 required
-                label="Açık Adres"
+                label={t('Full address')}
                 name="address_detail"
                 icon={AwesomeIcon.Map}
                 changeValue={formData.address_detail}
@@ -433,15 +437,19 @@ const PT = () => {
             <InfoContainer>
               <DataContainer>
                 <Info>
-                  <Text style={{ fontWeight: 800 }}>Cüzdanım</Text>
+                  <Text style={{ fontWeight: 800 }}>{t('my wallet')}</Text>
                   <Text style={{ fontWeight: 800 }}>{wallet_balance}</Text>
                 </Info>
                 <Info>
-                  <Text style={{ fontWeight: 800 }}>İşlem Tutarı</Text>
+                  <Text style={{ fontWeight: 800 }}>
+                    {t('Transaction amount')}
+                  </Text>
                   <Text style={{ fontWeight: 800 }}>{amount}</Text>
                 </Info>
                 <Info>
-                  <Text style={{ fontWeight: 800 }}>Kalan Tutar</Text>
+                  <Text style={{ fontWeight: 800 }}>
+                    {t('Remaining amount')}
+                  </Text>
                   <Text
                     style={{
                       fontWeight: 800,
@@ -549,9 +557,13 @@ const PT = () => {
                 </InputContainer>
                   )*/}
               <InputContainer disable={reservation?.data?.isSelected}>
-                <Text color="#9B9B9B">{'Branş Seçiniz:'}</Text>
+                <Text color="#9B9B9B">{t('Select Branch')}:</Text>
                 <Material.SimpleSelect
-                  items={reservation?.data?.session == 'online' ? branchList.branches?.filter(item => item.id !== 35) : branchList.branches}
+                  items={
+                    reservation?.data?.session == 'online'
+                      ? branchList.branches?.filter((item) => item.id !== 35)
+                      : branchList.branches
+                  }
                   name="branch"
                   defaultValue={reservation?.data?.branch_id}
                   onChange={(e) =>
@@ -560,10 +572,14 @@ const PT = () => {
                 />
               </InputContainer>
               <InputContainer>
-                <Text color="#9B9B9B">{'Oturum Türü Seçiniz:'}</Text>
+                <Text color="#9B9B9B">{t('Select Session Types')}:</Text>
                 {(sessionTypes && sessionTypes.length > 0 && (
                   <Material.SimpleSelect
-                    items={reservation?.data?.branch_id == 35 ? sessionTypes?.filter(item => item.id !== 'online') : sessionTypes}
+                    items={
+                      reservation?.data?.branch_id == 35
+                        ? sessionTypes?.filter((item) => item.id !== 'online')
+                        : sessionTypes
+                    }
                     name="sessionType"
                     defaultValue={reservation?.data?.session}
                     onChange={(e) =>
@@ -578,7 +594,9 @@ const PT = () => {
                   />
                 )) || (
                   <text>
-                    Kullanıcının bu koşullara göre uygun Oturum Türü bulunamadı.
+                    {t(
+                      'The user could not find the appropriate Session Type for these conditions'
+                    )}
                   </text>
                 )}
               </InputContainer>
@@ -594,7 +612,15 @@ const PT = () => {
     <Container>
       <LeftWrapper>{_renderLeftArea()}</LeftWrapper>
       <RightWrapper>
-        <PaymentCard disabledPayment={((reservation?.data?.session == 'home_park' || reservation?.data?.session == 'gym') && !reservation?.data?.location_id)} type="pt" dateOption={!reservation?.data?.isSelected} />
+        <PaymentCard
+          disabledPayment={
+            (reservation?.data?.session == 'home_park' ||
+              reservation?.data?.session == 'gym') &&
+            !reservation?.data?.location_id
+          }
+          type="pt"
+          dateOption={!reservation?.data?.isSelected}
+        />
       </RightWrapper>
     </Container>
   );

@@ -244,7 +244,7 @@ const AddAdress = ({ setSubPage, type }) => {
               />
               <Material.TextField
                 required
-                label={t('Open address')}
+                label={t('Full address')}
                 name="address_detail"
                 icon={AwesomeIcon.Map}
                 changeValue={formData.address_detail}

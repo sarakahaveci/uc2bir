@@ -376,7 +376,7 @@ const StepThree = () => {
           required
           id="addressDetail"
           name="address_detail"
-          label={t('Open address')}
+          label={t('Full address')}
           type="text"
           changeValue={formData?.address_detail}
           onChange={handleFormOnChange}

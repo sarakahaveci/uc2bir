@@ -68,7 +68,7 @@ const PacketCard = ({
               {data?.branch_name ? (
                 <div>
                   {' '}
-                  {data?.branch_name} t{'Branch'}
+                  {data?.branch_name} {t('Branch')}
                 </div>
               ) : (
                 <div>{t('Diet Program')}</div>

@@ -40,7 +40,8 @@ export default function AllowPackage() {
             dispatch(
               setProfile(
                 {
-                  accept_package: accept_package == 'yes' ? 'no' : 'yes',
+                  accept_package:
+                    accept_package == t('yes') ? t('no') : t('yes'),
                 },
                 () => {
                   toast.success(t('Your information has been updated'), {
