@@ -150,7 +150,6 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
           autoClose: 2000,
         })
       );
-
     });
 
   const manipulateName = (name) => {
@@ -479,7 +478,11 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
                     ve &nbsp;
                     <a
                       target="_blank"
-                      href={userTypeId === WORK_PLACE ? "https://file.uc2bir.com/uploads/pt-points/files/spor-alani.pdf" : "https://file.uc2bir.com/uploads/pt-points/files/egitmen.pdf"}
+                      href={
+                        userTypeId === WORK_PLACE
+                          ? 'https://file.uc2bir.com/uploads/pt-points/files/spor-alani.pdf'
+                          : 'https://file.uc2bir.com/uploads/pt-points/files/egitmen.pdf'
+                      }
                       // onClick={() => {
                       //   if (userTypeId === WORK_PLACE) {
                       //     handleDownload("https://file.uc2bir.com/uploads/pt-points/files/spor-alani.pdf", "spor-alani.pdf")
@@ -554,9 +557,9 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
                     setOpenModal(true);
                   }}
                 >
-                  Açık rıza ve aydınlatma metinlerini
+                  {t('Open Consent Form and Clarification texts')}{' '}
                 </span>
-                , okudum onaylıyorum.
+                , {t('I have read and I approve')}
               </div>
             }
           />

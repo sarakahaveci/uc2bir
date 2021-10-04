@@ -804,9 +804,10 @@
   "Go to profile": "Go to profile",
   "commented": "Commented",
   "ReadMore": "Read More",
-  "I have read and approve the Open Consent and Enlightenment Texts": "I have read and approve the Open Consent and Enlightenment Texts.",
+  "I have read and approve the Explicit Consent Form and Clarification Texts": "I have read and approve the Explicit Consent Form and Clarification Texts.",
   "I have read and approve the Privacy Policy": "I have read and approve the Privacy Policy.",
   "I have read and approve the Illumination Statement": "I have read and approve the Illumination Statement.",
   "I have read and approve the Membership Agreement and its annexes": "I have read and approve the Membership Agreement and its annexes.",
-  "The user could not find the appropriate Session Type for these conditions": "The user could not find the appropriate Session Type for these conditions."
+  "The user could not find the appropriate Session Type for these conditions": "The user could not find the appropriate Session Type for these conditions.",
+  "The two passwords do not match": "The two passwords do not match."
 }

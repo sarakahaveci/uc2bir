@@ -174,7 +174,7 @@ const StepOne = (props) => {
   const onSubmit = async (event) => {
     event.preventDefault();
     if (!(data.password === data.repassword)) {
-      toast.error('İki şifre uyuşmamaktadır', {
+      toast.error(t('The two passwords do not match'), {
         position: 'bottom-right',
         autoClose: 2000,
       });
@@ -337,7 +337,7 @@ const StepOne = (props) => {
         />
       </div>
       <div className="identfy">
-        <span>Veya</span>
+        <span>{t('or')}</span>
       </div>
       <form className="step-one-wrapper" onSubmit={onSubmit} autoComplete="off">
         <MacroCollections
@@ -422,7 +422,7 @@ const StepOne = (props) => {
                     setOpenModal(true);
                   }}
                 >
-                  Açık rıza ve aydınlatma metinlerini
+                  Açık Rıza Formunu ve Aydınlatma Metinlerini
                 </span>
                 , okudum onaylıyorum.
               </div>
