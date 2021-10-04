@@ -37,7 +37,7 @@ const Gym = ({ user_name, user_img = null, logoutHandler }) => {
       link: TABS.activityPath,
     },
     {
-      name: t('Trainers'),
+      name: t('trainers'),
       icon: <Svg.PeopleGroups />,
       link: TABS.trainersPath,
     },
