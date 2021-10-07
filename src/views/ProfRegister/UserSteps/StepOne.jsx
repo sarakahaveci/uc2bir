@@ -537,7 +537,7 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
                     setOpenModal(true);
                   }}
                 >
-                  Gizlilik sözleşmesini
+                  Gizlilik Sözleşmesini
                 </span>
                 , okudum onaylıyorum.
               </div>
@@ -557,9 +557,9 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
                     setOpenModal(true);
                   }}
                 >
-                  {t('Open Consent Form and Clarification texts')}{' '}
+                  Açık Rıza Formunu ve Aydınlatma Metinlerini
                 </span>
-                , {t('I have read and I approve')}
+                , okudum onaylıyorum.
               </div>
             }
           />

@@ -85,7 +85,7 @@ const Permission = ({
               margin="0 0 0 10px"
             >
               {t(
-                'I have read and approve the Open Consent and Enlightenment Texts'
+                'I have read and approve the Explicit Consent Form and Clarification Texts'
               )}
             </Text>{' '}
           </ConfirmContainer>

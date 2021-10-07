@@ -401,7 +401,7 @@ const StepOne = (props) => {
                     setOpenModal(true);
                   }}
                 >
-                  Gizlilik sözleşmesini
+                  Gizlilik Sözleşmesini
                 </span>
                 , okudum onaylıyorum.
               </div>
