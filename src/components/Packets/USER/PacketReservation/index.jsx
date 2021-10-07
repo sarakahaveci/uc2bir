@@ -533,7 +533,7 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
                 </InputContainer>
               )}
               <InputContainer>
-                <Text color="#9B9B9B">{'Select Session Type'}:</Text>
+                <Text color="#9B9B9B">{t('Select Session Type')}:</Text>
                 <Material.SimpleSelect
                   items={
                     type == 'pt'
