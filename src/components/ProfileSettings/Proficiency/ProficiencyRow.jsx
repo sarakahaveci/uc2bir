@@ -132,7 +132,7 @@ const ProficiencyRow = ({ data }) => {
 
             <div className="proficiency-row__modal__info">
               {t(
-                'We will inform you after the specializations you have entered are reviewed by us.'
+                'We will inform you after the specializations you have entered are reviewed by us'
               )}
 
               <span>{t('Dont forget to turn on notifications')} :)</span>
