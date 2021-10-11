@@ -92,9 +92,9 @@ const SearchBar = ({ className, virtual, setVirtual, virtuals }) => {
           <li className={`${virtual === 'map' ? 'active' : ''}`}>
             <a onClick={() => setVirtual('map')}>{t('map')}</a>
           </li>
-          <li className={`${virtual === 'packets' ? 'active' : ''}`}>
+          {/* <li className={`${virtual === 'packets' ? 'active' : ''}`}>
             <a onClick={() => setVirtual('packets')}>{t('packages')}</a>
-          </li>
+          </li> */}
           <li className={`${virtual === 'group-lessons' ? 'active' : ''}`}>
             <a onClick={() => setVirtual('group-lessons')}>
               {t('groupLessons')}

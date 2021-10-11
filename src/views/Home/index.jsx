@@ -36,7 +36,7 @@ const Home = () => {
       <PT />
       {isAuthenticated ? '' : <FluidBanner />}
       <Living />
-      <Packet />
+      {/* <Packet /> */}
       <GroupLesson />
       <Dietitians />
       <VKI />
