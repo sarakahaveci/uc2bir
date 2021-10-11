@@ -102,7 +102,7 @@ export default function TemplateSelections({
 
       {userTypeId === PERSONAL_TRAINER && (
         <FormControl>
-          <InputLabel>{t('Select Branches')} <text style={{marginLeft:'15px',fontSize:'12px',color:'red'}}>  *Lütfen seçim yapınız</text></InputLabel>
+          <InputLabel>{t('Select Branches')} <text style={{marginLeft:'15px',fontSize:'12px',color:'red'}}>  *Lütfen seçim yapınız.</text></InputLabel>
 
           <Select
             disabled={!enable}
@@ -131,7 +131,7 @@ export default function TemplateSelections({
 
       {userTypeId !== WORK_PLACE && (
         <FormControl>
-          <InputLabel>{t('Select Session Types')}<text style={{marginLeft:'15px',fontSize:'12px',color:'red'}}>  *Lütfen seçim yapınız</text>
+          <InputLabel>{t('Select Session Types')}<text style={{marginLeft:'15px',fontSize:'12px',color:'red'}}>  *Lütfen seçim yapınız.</text>
           </InputLabel>
 
           <Select
