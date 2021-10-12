@@ -39,15 +39,11 @@ import Contact from 'views/Contact';
 import SearchProfessional from 'views/SearchProfessional';
 import Interceptor from './Interceptor';
 import CookieConsent from './components/CookieConsent';
-
 import MembershipAgreement from './views/Footer/MembershipAgreement';
-import Kvkk from 'views/Footer/Kvkk';
-import PrivacyPolicy from './views/Footer/PrivacyPolicy';
+import StaticPage from './views/Footer/StaticPage';
 import Online from 'views/Online';
 import ReactGA from 'react-ga';
-// import UyeAydinlatmaBildirimi from 'views/Footer/UyeAydinlatmaBildirimi';
-// import UyeOnBilgilendirmeFormu from './views/Footer/UyeOnBilgilendirmeFormu';
-// import UyeMesafeliHizmetSozlesmesi from './views/Footer/UyeMesafeliHizmetSozlesmesi';
+
 
 import BuyStatus from './views/BuyStatus';
 const App = () => {
@@ -150,8 +146,7 @@ const App = () => {
                   path="/membership-agreement"
                   component={MembershipAgreement}
                 />
-                <Route exact path="/privacy-policy" component={PrivacyPolicy} />
-                <Route exact path="/kvkk-sozlesmesi" component={Kvkk} />
+                <Route exact path="/static/:link" component={StaticPage} />
 
                 {/* <Route
                   exact

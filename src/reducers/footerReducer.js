@@ -9,6 +9,7 @@ const initialState = {
   isLoading: false,
   error: null,
   infoData: {},
+  pages:{}
 };
 
 export default (state = initialState, action) => {
@@ -24,6 +25,7 @@ export default (state = initialState, action) => {
         ...state,
         infoData: action.payload.config,
         tags: action.payload.tag,
+        pages:action.payload.pages,
         isLoading: false,
         error: null,
       };

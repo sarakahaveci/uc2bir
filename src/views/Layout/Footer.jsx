@@ -18,7 +18,7 @@ const Footer = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const { tags, infoData } = useSelector((state) => state.footer);
+  const { tags, infoData, pages } = useSelector((state) => state.footer);
 
   useEffect(() => {
     dispatch(getFooterInfo());
@@ -55,19 +55,12 @@ const Footer = () => {
               {t('Information')}
             </Title>
             <ul>
-              <li>
-                <Link to="/privacy-policy">{t('Privacy Policy')}</Link>
-              </li>
-              <li>
-                <Link to="/membership-agreement">
-                  {t('Membership Agreement')}
-                </Link>
-              </li>
-              <li>
-                <Link to="/kvkk-sozlesmesi">
-                  {t('Protection of Personal Data')}
-                </Link>
-              </li>
+
+              {pages?.length > 0 && pages?.map((elm,index) => (
+                <li key={index}>
+                  <Link  to={'/static/' + elm?.seo_friendly_url}>{elm?.title}</Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -152,7 +145,7 @@ const Footer = () => {
         //justifyContent="space-between"
         background="gray12"
         width="100%"
-        //flexWrap="wrap"
+      //flexWrap="wrap"
       >
         <div id="ETBIS" style={{ textAlign: 'center' }}>
           <div id="3625302186051115">
