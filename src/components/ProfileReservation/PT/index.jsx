@@ -25,11 +25,14 @@ import GoogleMap from 'components/GoogleMaps/GoogleMap';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import { AwesomeIcon } from 'components';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 
 const uri = `${process.env.REACT_APP_API_URL}/regions`;
 
 const PT = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
+
   //Local States
   const [toggleState, setToggleState] = useState(false);
   const [formData, setFormData] = useState({});
