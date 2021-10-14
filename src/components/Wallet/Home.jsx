@@ -10,7 +10,7 @@ import Wrapper from './Wrapper';
 
 const Home = ({ setPage }) => {
   const { t } = useTranslation();
-  const { balance } = useSelector((state) => state?.userProfile?.wallet.data);
+  // const { balance } = useSelector((state) => state?.userProfile?.wallet.data);
   const { user } = useSelector((state) => state.auth);
 
   return (
@@ -35,7 +35,7 @@ const Home = ({ setPage }) => {
                   'You can view the amount in your account and your account activities, and transfer TL to your bank'
                 )}
               </Text>
-              <Explanation>
+              {/* <Explanation>
                 <Col>
                   <Title textAlign="left">
                     {t('Total Amount in My Wallet')}:
@@ -48,7 +48,7 @@ const Home = ({ setPage }) => {
                     </Title>
                   </TitleWrapper>
                 </Col>
-              </Explanation>
+              </Explanation> */}
               <Accordion>
                 <Wrapper />
               </Accordion>
@@ -83,7 +83,7 @@ const Home = ({ setPage }) => {
                       }}
                       fontWeight="600"
                       color="blue"
-                      text={t('Transfer Balance in My Account >')}
+                      text={t('Bank Account Information >')}
                       onClick={() => setPage('TransferInfo')}
                     />
                   )}
@@ -107,29 +107,29 @@ const ImageBanner = styled.section`
   background-repeat: no-repeat;
 `;
 
-const Explanation = styled.section`
-  width: 100%;
-  height: auto;
-  position: relative;
-  display: flex;
-  padding: 15px;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
+// const Explanation = styled.section`
+//   width: 100%;
+//   height: auto;
+//   position: relative;
+//   display: flex;
+//   padding: 15px;
+//   justify-content: center;
+//   align-items: center;
+//   overflow: hidden;
 
-  &:before {
-    content: '';
-    background: var(--blue3);
-    position: absolute;
-    width: calc(100%);
-    height: 100%;
-    left: -15px;
-    transform: matrix(1, 0, -0.4, 1, 0, 0);
-  }
-`;
+//   &:before {
+//     content: '';
+//     background: var(--blue3);
+//     position: absolute;
+//     width: calc(100%);
+//     height: 100%;
+//     left: -15px;
+//     transform: matrix(1, 0, -0.4, 1, 0, 0);
+//   }
+// `;
 
-const TitleWrapper = styled.div`
-  display: flex;
-  align-items: center;
-`;
+// const TitleWrapper = styled.div`
+//   display: flex;
+//   align-items: center;
+// `;
 export default Home;

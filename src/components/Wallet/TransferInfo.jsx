@@ -112,7 +112,7 @@ const TransferInfo = ({ setPage }) => {
               textAlign="left"
               onClick={() => setPage('home')}
             >
-              {'< '} {t('Transfer Balance in My Account')}
+              {'< '} {t('Bank Account Information')}
             </Title>
             <Title fontSize="12pt" textAlign="left" fontWeight="500">
               {t(

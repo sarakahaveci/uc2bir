@@ -1,5 +1,5 @@
 import React, {useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 
@@ -19,7 +19,7 @@ const Transfer = ({ setPage }) => {
   const [cardNo, setCardNo] = useState(null);
   const [saveName, setSaveName] = useState(null);
 
-  const { balance } = useSelector((state) => state?.userProfile?.wallet.data);
+  // const { balance } = useSelector((state) => state?.userProfile?.wallet.data);
   const dispatch = useDispatch();
 
   const handleSubmit = () => {
@@ -84,7 +84,7 @@ const Transfer = ({ setPage }) => {
                   'Please enter your account information correctly and completely'
                 )}
               </Text>
-              <Explanation>
+              {/* <Explanation>
                 <Col>
                   <Title textAlign="left">
                     {' '}
@@ -98,7 +98,7 @@ const Transfer = ({ setPage }) => {
                     </Title>
                   </TitleWrapper>
                 </Col>
-              </Explanation>
+              </Explanation> */}
             </>
             <AddBankAccount
               setCardName={setCardName}
@@ -124,28 +124,28 @@ const ImageBanner = styled.section`
   background-size: cover;
   background-repeat: no-repeat;
 `;
-const Explanation = styled.section`
-  width: 100%;
-  height: auto;
-  position: relative;
-  display: flex;
-  padding: 15px;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
+// const Explanation = styled.section`
+//   width: 100%;
+//   height: auto;
+//   position: relative;
+//   display: flex;
+//   padding: 15px;
+//   justify-content: center;
+//   align-items: center;
+//   overflow: hidden;
 
-  &:before {
-    content: '';
-    background: var(--blue3);
-    position: absolute;
-    width: calc(100%);
-    height: 100%;
-    left: -15px;
-    transform: matrix(1, 0, -0.4, 1, 0, 0);
-  }
-`;
+//   &:before {
+//     content: '';
+//     background: var(--blue3);
+//     position: absolute;
+//     width: calc(100%);
+//     height: 100%;
+//     left: -15px;
+//     transform: matrix(1, 0, -0.4, 1, 0, 0);
+//   }
+// `;
 
-const TitleWrapper = styled.div`
-  display: flex;
-  align-items: center;
-`;
+// const TitleWrapper = styled.div`
+//   display: flex;
+//   align-items: center;
+// `;
