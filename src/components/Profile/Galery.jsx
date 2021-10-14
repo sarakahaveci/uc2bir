@@ -23,7 +23,7 @@ function Galery({ userId }) {
   const pageChangeHandler = (event, value) => setPage(value);
 
   useEffect(() => {
-    dispatch(getUserGalery(userId));
+    dispatch(getUserGalery(userId,page));
   }, [page]);
 
   const getImage = (image) => {
@@ -89,15 +89,16 @@ function Galery({ userId }) {
           {data?.data?.map((image, i) => (
             <div
               className="img"
+              
               onClick={() => openModal(image)}
               key={i}
-              style={{ cursor: 'pointer' }}
+              style={{ cursor: 'pointer',marginTop:'30px' }}
             >
               <img
                 key={image?.name}
                 src={`${getImage(image)}`}
                 alt={image?.name}
-                style={{ width: '90%', display: 'block', borderRadius: '10px' }}
+                style={{ width: '350px',height:'230px', display: 'block', borderRadius: '10px', objectFit: 'cover' }}
               />
             </div>
           ))}
