@@ -2,6 +2,8 @@ import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { GYM } from '../../../constants';
 
 import { Title, AwesomeIcon, IconLabel, PriceInfo } from 'components';
 
@@ -13,6 +15,7 @@ export const CardInfo = ({
   location,
   jobType,
 }) => {
+  const user = useSelector((state) => state.auth.user);
 
   return (
     <>
@@ -71,7 +74,7 @@ export const CardInfo = ({
           ))}
         </Categories>
       )}
-      {location && location !== 'null,null' ? (
+      {user?.type_id == GYM && location && location !== 'null,null' ? (
         <IconLabel text={location} icon={AwesomeIcon.Map} />
       ) : (
         <></>
