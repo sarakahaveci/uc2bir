@@ -52,6 +52,7 @@ const Data = ({ paymentType, range, changed }) => {
               <tbody>
                 <tr>
                   <th> {t('date')}</th>
+                  <th>{t('Service provider')}</th>
                   <th>{t('Operation type')}</th>
                   <th>{t('Payment method')}</th>
                   <th>{t('Amount')}</th>
@@ -64,6 +65,7 @@ const Data = ({ paymentType, range, changed }) => {
                           'LLL'
                         )}
                       </td>
+                      <td>{item?.service_provider?.name}</td>
 
                       <td>
                         {getPaymentInfoString(
