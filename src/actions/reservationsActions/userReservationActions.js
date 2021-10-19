@@ -193,7 +193,7 @@ export const rateAndComment =
           callBack: () => {
             successCallback();
             toast.success(
-              'Your rating and comment has been successfully submitted',
+              'İşlem başarılı!',
               {
                 position: 'bottom-right',
                 autoClose: 7000,
@@ -236,7 +236,7 @@ export const rateAndCommentSession =
           callBack: () => {
             successCallback();
             toast.success(
-              'Your rating and comment has been successfully submitted',
+              'İşlem başarılı!',
               {
                 position: 'bottom-right',
                 autoClose: 7000,
@@ -283,7 +283,7 @@ export const SessionStatusResponse =
           callBack: () => {
             successCallback();
             toast.success(
-              'Your rating and comment has been successfully submitted',
+              'İşlem başarılı!',
               {
                 position: 'bottom-right',
                 autoClose: 7000,
