@@ -1,19 +1,22 @@
 /* eslint-disable react/no-children-prop */
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import {
-  // Svg,
+  Svg,
   Button,
-  // Box,
+  Box,
   Text,
   Title,
   AwesomeIcon,
-  // IconLabel,
+  IconLabel,
   Stars,
 } from 'components';
+import { GYM } from '../../constants';
 
 const UserCard = ({ top = false, bottom = false, data = {}, className }) => {
+  const user = useSelector((state) => state.auth.user)
   return (
     <>
       {top && (
@@ -78,19 +81,19 @@ const UserCard = ({ top = false, bottom = false, data = {}, className }) => {
               {data?.branch?.map((branch, index) => (
                 index < 3 && (
                   <li key={index}>
-                  <Button text={branch} />
-                </li>
+                    <Button text={branch} />
+                  </li>
                 )
               ))}
             </ul>
 
-            {/* <Box width="100%" my="15px">
+            {user?.type_id == GYM && <Box width="100%" my="15px">
               <IconLabel
                 className="d-flex"
                 text={`${data.city} ${data.district}`}
                 icon={Svg.LocationIcon}
               />
-            </Box> */}
+            </Box>}
           </div>
         </div>
       )}
