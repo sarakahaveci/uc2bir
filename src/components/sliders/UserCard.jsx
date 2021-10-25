@@ -3,13 +3,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import {
-  Svg,
+  // Svg,
   Button,
-  Box,
+  // Box,
   Text,
   Title,
   AwesomeIcon,
-  IconLabel,
+  // IconLabel,
   Stars,
 } from 'components';
 
@@ -84,13 +84,13 @@ const UserCard = ({ top = false, bottom = false, data = {}, className }) => {
               ))}
             </ul>
 
-            <Box width="100%" my="15px">
+            {/* <Box width="100%" my="15px">
               <IconLabel
                 className="d-flex"
                 text={`${data.city} ${data.district}`}
                 icon={Svg.LocationIcon}
               />
-            </Box>
+            </Box> */}
           </div>
         </div>
       )}
