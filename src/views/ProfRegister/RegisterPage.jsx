@@ -3,6 +3,8 @@ import React from 'react';
 import StepOne from './UserSteps/StepOne';
 import StepThree from './UserSteps/StepThree';
 import CertificateStep from './UserSteps/CertificateStep';
+import CvStep from './UserSteps/CvStep';
+
 import CriminalRecordStep from './UserSteps/CriminalRecordStep';
 import IdentityCardStep from './UserSteps/IdentityCardStep';
 import HealthReportStep from './UserSteps/HealthReportStep';
@@ -36,12 +38,13 @@ const setPageByStepNumber = {
   personalTrainer: {
     4: <StepThree />,
     5: <CertificateStep />,
-    6: <DegreeStep />,
-    7: <CriminalRecordStep />,
-    8: <IdentityCardStep />,
-    9: <HealthReportStep />,
-    10: <FacePictureStep />,
+    6: <CvStep/>,
+    7: <DegreeStep />,
+    8: <CriminalRecordStep />,
+    9: <IdentityCardStep />,
+    10: <HealthReportStep />,
     11: <FacePictureStep />,
+    12: <FacePictureStep />,
   },
 };
 

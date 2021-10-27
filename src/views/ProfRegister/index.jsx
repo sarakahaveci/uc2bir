@@ -71,6 +71,9 @@ const ProfRegister = () => {
                           <li>- {t('Health report')} </li>
                         ) : null}
                         <li>- {t('Photo')}</li>
+                        {userTypeId !== DIETITIAN ? (
+                          <li>- CV</li>
+                        ) : null}
                       </>
                     )}
                   </List>
