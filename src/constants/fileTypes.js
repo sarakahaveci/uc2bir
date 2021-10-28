@@ -55,7 +55,7 @@ export const workPlaceRequiredFileCount = {
 };
 
 export const filesForProfileType = {
-  [PERSONAL_TRAINER]: [1, 2, 3, 4, 5, 6, 8],
+  [PERSONAL_TRAINER]: [1, 2, 3, 4, 5, 6, 8,10],
   [WORK_PLACE]: [3, 7, 9],
   [DIETITIAN]: [1, 2, 3, 4, 5, 8],
 };
