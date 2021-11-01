@@ -57,8 +57,9 @@ const ProfRegister = () => {
                   <List>
                     {userTypeId === WORK_PLACE ? (
                       <>
-                        <li>- {t('Lease Contract / Deed')}</li>
+                        <li>- {t('Provincial Youth and Sports General Directorate Working License')}</li>
                         <li>- {t('Business License')}</li>
+                        <li>- {t('Tax Plate')}</li>
                         <li>- {t('Office Rental Decision')}</li>
                       </>
                     ) : (
