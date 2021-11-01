@@ -10,8 +10,8 @@ export const HEALTH_REPORT = 6;
 export const CONTRACT = 7;
 export const GALLERY = 8;
 export const LICENSE = 9;
-export const CV = 10; 
-export const TAXPLATE = 11; 
+export const CV = 10;
+export const TAXPLATE = 11;
 
 
 export const fileDetails = {
@@ -60,7 +60,7 @@ export const workPlaceRequiredFileCount = {
 };
 
 export const filesForProfileType = {
-  [PERSONAL_TRAINER]: [1, 2, 3, 4, 5, 6, 8,10],
-  [WORK_PLACE]: [3, 7, 9],
+  [PERSONAL_TRAINER]: [1, 2, 3, 4, 5, 6, 8, 10],
+  [WORK_PLACE]: [3, 7, 9, 11],
   [DIETITIAN]: [1, 2, 3, 4, 5, 8],
 };
