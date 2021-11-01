@@ -9,7 +9,7 @@ const WorkPlaceContractStep = () => {
 
   return (
     <RegisterFileUpload
-      title={t('Upload Lease or deed')}
+      title={t('Upload Provincial Youth and Sports General Directorate Working License')}
       fileTypeId={CONTRACT}
     />
   );

@@ -11,6 +11,7 @@ export const CONTRACT = 7;
 export const GALLERY = 8;
 export const LICENSE = 9;
 export const CV = 10; 
+export const TAXPLATE = 11; 
 
 
 export const fileDetails = {
@@ -21,8 +22,10 @@ export const fileDetails = {
   [DEGREE]: 'Diplomanızı ekleyin.',
   [CERTIFICATE]: 'Sertifikalarınızı yükleyin',
   [HEALTH_REPORT]: 'İlgili kurumlardan aldığınız sağlık raporunuzu ekleyin.',
-  [CONTRACT]: 'İş Yeri Kiralama Kararını yükleyin',
-  [LICENSE]: 'İş Yeri Ruhsatını yükleyin',
+  [CONTRACT]: 'İl Gençlik Spor Genel Müdürlüğü Çalışma Ruhsatı',
+  [LICENSE]: 'İlgili Belediye İş Yeri Ruhsatını yükleyin',
+  [TAXPLATE]: 'Vergi Levhası yükleyin',
+
 };
 
 export const trainerRequiredFileCount = {
@@ -52,6 +55,8 @@ export const workPlaceRequiredFileCount = {
   [CRIMINAL_RECORD]: 1,
   [CONTRACT]: 1,
   [LICENSE]: 1,
+  [TAXPLATE]: 1,
+
 };
 
 export const filesForProfileType = {
