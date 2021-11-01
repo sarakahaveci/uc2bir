@@ -60,7 +60,6 @@ const ProfRegister = () => {
                         <li>- {t('Provincial Youth and Sports General Directorate Working License')}</li>
                         <li>- {t('Business License')}</li>
                         <li>- {t('Tax Plate')}</li>
-                        <li>- {t('Office Rental Decision')}</li>
                       </>
                     ) : (
                       <>
