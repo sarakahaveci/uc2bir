@@ -17,7 +17,7 @@ import { ConfirmContainer } from './Common.styles.jsx';
 const fileIdMap = {
   [USER]: 17,
   [PERSONAL_TRAINER]: 11,
-  [WORK_PLACE]: 17,
+  [WORK_PLACE]: 31,
   [DIETITIAN]: 8,
 };
 
