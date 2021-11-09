@@ -63,7 +63,7 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
       <div
         style={{
           position: 'relative',
-          padding:'0 15px',
+          padding: '0 15px',
           height: '25px',
           borderRightStyle: 'solid',
           borderRightColor: 'rgba(197, 196, 196, 0.5)',
@@ -156,7 +156,9 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
                 </li>
 
                 <li
-                  onClick={() => setToggle(!toggle)}
+                  onClick={() => {
+                    setToggle(!toggle)
+                  }}
                   className="d-xl-none dropdown flex-column"
                 >
                   {t('findByCategory')}
@@ -300,13 +302,13 @@ const Header = ({ isSearchBarOpen, setIsSearchBarOpen }) => {
         navLogo={nav_logo}
         navMenu={nav_menu}
         toggle={menuActive}
-        setToggle={
-          (() => setMenuActive(!menuActive),
-            scroll.scrollToTop({
-              duration: 1000,
-              smooth: true,
-            }))
-        }
+        setToggle={() => {
+          setMenuActive(!menuActive)
+          scroll.scrollToTop({
+            duration: 1000,
+            smooth: true,
+          })
+        }}
       />
       {isSearchBarOpen && (
         <Wrapper>

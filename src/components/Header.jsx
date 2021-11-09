@@ -5,7 +5,7 @@ import styled from 'styled-components/macro';
 
 import { Svg } from 'components';
 
-const Header = ({ className, navLogo, navMenu, toggle, setToggle }) => {
+const Header = ({ className, navLogo, navMenu, toggle, setToggle=()=>{} }) => {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
 
   const [page, setPage] = useState(false);
@@ -33,6 +33,7 @@ const Header = ({ className, navLogo, navMenu, toggle, setToggle }) => {
       page.classList.remove('open-hamburger-menu');
       menu.classList.remove('open');
     }
+
     return setToggle(!toggle);
   };
 
