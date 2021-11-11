@@ -117,7 +117,7 @@ const Info = () => {
               </Title>
 
               <ul className="animation-text">
-                <li className="active">
+                <li>
                   {t('Trainers certified by expert teams')}
                 </li>
                 <li>
