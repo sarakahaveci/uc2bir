@@ -16,6 +16,8 @@ import styled from 'styled-components/macro';
 import { device } from '../../../../utils';
 import image from '../../../../assets/wave-background.png';
 import Svg from '../../../statics/svg';
+import CounterInput from "react-counter-input";
+
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getTemplateFromCalender,
@@ -54,6 +56,7 @@ const Calendar = () => {
   const [IsSmallScreen, setIsSmallScreen] = useState(false);
   const [activePage, setActivePage] = useState('index');
   const [openApprove, setOpenApprove] = useState(false);
+  const [editMode, setEditMode] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
   const [selectedHour, setSelectedHour] = useState();
   const [branchSelection, setBranchSelection] = useState([]);
@@ -165,16 +168,16 @@ const Calendar = () => {
     userTypeId === WORK_PLACE
       ? { location: classSelection }
       : sessionSelection.map((session) => ({
-          session,
-          ...(session.type !== 'online' && {
-            location:
-              session.type === 'gym'
-                ? workPlaceSelection || classSelection
-                : session.type === 'clinic'
+        session,
+        ...(session.type !== 'online' && {
+          location:
+            session.type === 'gym'
+              ? workPlaceSelection || classSelection
+              : session.type === 'clinic'
                 ? workPlaceSelection
                 : locationSelection,
-          }),
-        }));
+        }),
+      }));
 
   const addHourToCalender = () => {
     dispatch(
@@ -528,7 +531,7 @@ const Calendar = () => {
                             <Span fontSize={'18px'} key={index}>
                               {SESSION_KEYS[item.replace(/\s+/g, '')]}
                               {selectedHour?.session?.split(',').length !==
-                              index + 1
+                                index + 1
                                 ? ', '
                                 : ''}
                             </Span>
@@ -557,7 +560,7 @@ const Calendar = () => {
                               {item + ' '}
                               {detailHour?.slice?.[0]?.location?.class
                                 ?.length !==
-                              index + 1
+                                index + 1
                                 ? ', '
                                 : ''}
                             </Span>
@@ -576,7 +579,7 @@ const Calendar = () => {
                               {item}
                               {detailHour?.slice?.[0]?.location?.clinic
                                 ?.length !==
-                              index + 1
+                                index + 1
                                 ? ', '
                                 : ''}
                             </Span>
@@ -634,92 +637,152 @@ const Calendar = () => {
                   }
                 >
                   <HourDetailContainer>
-                    {userTypeId === PERSONAL_TRAINER && (
-                      <Box>
-                        <Span fontWeight="600" mr="15px" fontSize={'20px'}>
-                          {t('branch')}:
+                    {!editMode && (<>
+                      {userTypeId === PERSONAL_TRAINER && (
+                        <Box>
+                          <Span fontWeight="600" mr="15px" fontSize={'20px'}>
+                            {t('branch')}:
+                          </Span>
+                          <Span fontSize={'18px'}>{selectedHour?.branch}</Span>
+                        </Box>
+                      )}
+
+                      <Box row style={{ justifyContent: 'space-between' }}>
+                        <Span>
+                          <Span fontWeight="600" mr="15px" fontSize={'20px'}>
+                            {t('Gyms')}:
+                          </Span>
+                          <Span fontSize={'18px'}>
+                            {detailHour?.slice?.[0]?.location?.gym?.map(
+                              (item, index) => (
+                                <Span
+                                  fontSize={'18px'}
+                                  key={index}
+                                  color={'blue'}
+                                  underline
+                                  lineWidth={'100%'}
+                                >
+                                  {item + ' '}
+                                </Span>
+                              )
+                            )}
+                            {detailHour?.slice?.[0]?.location?.home_park?.map(
+                              (item, index) => (
+                                <Span fontSize={'18px'} key={index}>
+                                  {item}
+                                </Span>
+                              )
+                            )}
+                            {detailHour?.slice?.[0]?.location?.clinic?.map(
+                              (item, index) => (
+                                <Span fontSize={'18px'} key={index}>
+                                  {item}
+                                  {detailHour?.slice?.[0]?.location?.clinic
+                                    ?.length !==
+                                    index + 1
+                                    ? ', '
+                                    : ''}
+                                </Span>
+                              )
+                            )}
+                          </Span>
                         </Span>
-                        <Span fontSize={'18px'}>{selectedHour?.branch}</Span>
+
+                        <Span>
+                          <Span
+                            fontWeight="600"
+                            mr="15px"
+                            fontSize={'20px'}
+                            color={'blue'}
+                          >
+                            {t('Group Lesson')}:
+                          </Span>
+                          <Span fontSize={'18px'} color={'blue'}>
+                            {detailHour?.min_capacity} /{' '}
+                            {detailHour?.max_capacity} {t('Quota')}
+                          </Span>
+                        </Span>
                       </Box>
-                    )}
 
-                    <Box row style={{ justifyContent: 'space-between' }}>
-                      <Span>
-                        <Span fontWeight="600" mr="15px" fontSize={'20px'}>
-                          {t('Gyms')}:
-                        </Span>
-                        <Span fontSize={'18px'}>
-                          {detailHour?.slice?.[0]?.location?.gym?.map(
-                            (item, index) => (
-                              <Span
-                                fontSize={'18px'}
-                                key={index}
-                                color={'blue'}
-                                underline
-                                lineWidth={'100%'}
-                              >
-                                {item + ' '}
-                              </Span>
+                      <hr />
+                      <Row
+                        style={{ display: 'flex', justifyContent: 'flex-end' }}
+                      >
+                        <Button
+                          disableborder
+                          text={t('delete')}
+                          width={'120px'}
+                          height={'35px'}
+                          onClick={() =>
+                            dispatch(
+                              deleteHourOfCalendar(
+                                selectedHour?.id,
+                                deleteHourSuccess,
+                                deleteHourFail
+                              )
                             )
-                          )}
-                          {detailHour?.slice?.[0]?.location?.home_park?.map(
-                            (item, index) => (
-                              <Span fontSize={'18px'} key={index}>
-                                {item}
-                              </Span>
-                            )
-                          )}
-                          {detailHour?.slice?.[0]?.location?.clinic?.map(
-                            (item, index) => (
-                              <Span fontSize={'18px'} key={index}>
-                                {item}
-                                {detailHour?.slice?.[0]?.location?.clinic
-                                  ?.length !==
-                                index + 1
-                                  ? ', '
-                                  : ''}
-                              </Span>
-                            )
-                          )}
-                        </Span>
-                      </Span>
+                          }
+                        />
+                        <Button
+                          disableborder
+                          style={{ marginLeft: '10px' }}
+                          text={t('edit')}
+                          width={'120px'}
+                          height={'35px'}
+                          onClick={() => {
+                            setEditMode(true)
+                          }}
+                        />
+                      </Row>
+                    </>) || <>
+                        <EditModeContainer>
+                          <EditModeHeaderText style={{ marginBottom: '15px' }}>Grup Dersi Düzenle</EditModeHeaderText>
+                          <EditModeInputs>
+                            <text style={{ marginBottom: '5px', fontWeight: 'bold' }}>Kontenjan Belirleyiniz</text>
+                            <div style={{ display: 'flex', marginTop: '10px' }}>
 
-                      <Span>
-                        <Span
-                          fontWeight="600"
-                          mr="15px"
-                          fontSize={'20px'}
-                          color={'blue'}
-                        >
-                          {t('Group Lesson')}:
-                        </Span>
-                        <Span fontSize={'18px'} color={'blue'}>
-                          {detailHour?.min_capacity} /{' '}
-                          {detailHour?.max_capacity} {t('Quota')}
-                        </Span>
-                      </Span>
-                    </Box>
+                              <div style={{}}>
+                                <text>Minimum</text>
+                                <div style={{ display: 'flex', marginRight: '10px', width: '200px', borderColor: 'black', borderStyle: 'solid', padding: '10px', justifyContent: 'center', alignItems: 'center', border: '1px solid #c6c6c6', borderRadius: '5px' }}>
+                                  <CounterInput
+                                    btnStyle={{ background: 'var(--blue)', borderRadius: '50%', width: '30px', height: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center', paddingBottom: '6px', color: 'white' }}
+                                    count={detailHour?.min_capacity}
+                                    min={0}
+                                    max={1000000}
+                                  //onCountChange={count => console.log(count)}
+                                  />
+                                </div>
 
-                    <hr />
-                    <Row
-                      style={{ display: 'flex', justifyContent: 'flex-end' }}
-                    >
-                      <Button
-                        disableborder
-                        text={t('delete')}
-                        width={'120px'}
-                        height={'35px'}
-                        onClick={() =>
-                          dispatch(
-                            deleteHourOfCalendar(
-                              selectedHour?.id,
-                              deleteHourSuccess,
-                              deleteHourFail
-                            )
-                          )
-                        }
-                      />
-                    </Row>
+                              </div>
+
+
+                              <div>
+                                <text>Maximum</text>
+                                <div style={{ display: 'flex', marginRight: '10px', width: '200px', borderColor: 'black', borderStyle: 'solid', padding: '10px', justifyContent: 'center', alignItems: 'center', border: '1px solid #c6c6c6', borderRadius: '5px' }}>
+                                  <CounterInput
+                                    btnStyle={{ background: 'var(--blue)', borderRadius: '50%', width: '30px', height: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center', paddingBottom: '6px', color: 'white' }}
+                                    count={detailHour?.max_capacity}
+                                    min={0}
+                                    max={1000000}
+                                  //onCountChange={count => console.log(count)}
+                                  />
+                                </div>
+
+                              </div>
+                            </div>
+                          </EditModeInputs>
+                          <EditModeBottomContainer>
+                            <ApproveButton onClick={() => { }}>
+                              {t('Approve')}
+                            </ApproveButton>
+                            <ApproveButton reject onClick={() => {
+                              setEditMode(false)
+                            }}>
+                              {t('cancel')}
+                            </ApproveButton>
+                          </EditModeBottomContainer>
+                        </EditModeContainer>
+                      </>}
                   </HourDetailContainer>
                 </ReservationAccordion>
               </AccordionContainer>
@@ -858,10 +921,40 @@ const AvailableButton = styled.button`
     border-radius: 4px;
   }
 `;
+const EditModeContainer = styled.div`
+  display:flex;
+  flex-direction: column;
+  width:100%;
+`
+const EditModeHeaderText = styled.text`
+  font-size:18px;
+`
+const EditModeInputs = styled.div`
 
+
+`
+const EditModeBottomContainer = styled.div`
+display:flex;
+flex-direction:row-reverse;
+`
 const Calender = styled(Svg.CalendarIcon)`
   margin-top: 3px;
   margin-right: 5px;
 `;
-
+const ApproveButton = styled.button`
+  width: 120px;
+  height: 34px;
+  color: ${(p) => (p.reject ? '#F01C62' : 'var(--blue)')};
+  border-radius: 5px;
+  margin-right: 10px;
+  background: transparent;
+  text-decoration: underline;
+  white-space: nowrap;
+  @media ${device.sm} {
+    width: 90px;
+    height: 17px;
+    font-size: 10px;
+    border-radius: 4px;
+  }
+`;
 export default Calendar;
