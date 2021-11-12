@@ -19,7 +19,8 @@ const BlogDetail = ({ match }) => {
 
   const dispatch = useDispatch();
   const blogs = useSelector((state) => state?.myBlogs?.blogs);
-  const detail = useSelector((state) => state?.myBlogs?.detail);
+  const detail = useSelector((state) => state?.myBlogs?.detail); 
+  const {  infoData } = useSelector((state) => state.footer);
 
   useEffect(() => {
     dispatch(getBlogDetail(match?.params?.seo));
@@ -99,6 +100,7 @@ const BlogDetail = ({ match }) => {
                   <Desc className="blog-detail__text">
                     {ReactHtmlParser(decode(detail?.data?.blog?.detail))}
                   </Desc>
+                  <FixedText>{infoData?.['fixed-blog-text']}</FixedText>
                   <div className="blog-detail__img">
                     <img src={detail?.data?.blog?.photo} />
                   </div>
@@ -180,3 +182,11 @@ const Desc = styled.p`
   font-weight: normal;
   margin-top: 30px;
 `;
+const FixedText = styled.p`
+  font-size: 14px;
+  text-align: left;
+  font-weight: normal;
+  margin-top: 30px;
+  color:gray;
+`;
+
