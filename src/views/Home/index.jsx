@@ -36,7 +36,7 @@ const Home = () => {
       <PT />
       {isAuthenticated ? '' : <FluidBanner />}
       <Living />
-      {/* <Packet /> */}
+      {process.env.REACT_APP_PACKAGE_ENABLE =='true' && <Packet />}
       <GroupLesson />
       <Dietitians />
       <VKI />
