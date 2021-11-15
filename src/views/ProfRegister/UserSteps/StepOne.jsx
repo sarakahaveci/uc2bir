@@ -40,7 +40,7 @@ const StepOne = ({ userTypeId, setUserTypeId }) => {
       type: 'text',
       name: 'name',
       required: true,
-      text: t('Name surname'),
+      text: userTypeId == WORK_PLACE? t('Gym/Studio Name'):t('Name surname'),
       icon: Svg.UsernameIcon,
       inputProps: {
         minLength: 3,
