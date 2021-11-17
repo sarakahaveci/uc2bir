@@ -31,6 +31,7 @@ import {
   getDayDetailOfCalendar,
   getMyClassifications,
   getDietitianClinics,
+  updateGroupLesson
 } from '../../../../actions';
 import moment from 'moment';
 import 'moment/locale/tr';
@@ -64,6 +65,10 @@ const Calendar = () => {
   const [sessionSelection, setSessionSelection] = useState([]);
   const [workPlaceSelection, setWorkPlaceSelection] = useState([]);
   const [locationSelection, setLocationSelection] = useState([]);
+  const [editCapacity, setEditCapacity] = useState({
+    max_capacity: null,
+    min_capacity: null,
+  });
 
   const dispatch = useDispatch();
   const {
@@ -93,6 +98,9 @@ const Calendar = () => {
     dispatch(getTemplateFromCalender());
     setStartDate(new Date());
   }, []);
+  useEffect(() => {
+    setEditCapacity({ max_capacity: detailHour?.max_capacity, min_capacity: detailHour?.min_capacity })
+  }, [detailHour]);
 
   useEffect(() => {
     dispatch(getDayOfCalendar(moment(startDate).format('DD.MM.YYYY')));
@@ -749,7 +757,9 @@ const Calendar = () => {
                                     count={detailHour?.min_capacity}
                                     min={0}
                                     max={1000000}
-                                  //onCountChange={count => console.log(count)}
+                                    onCountChange={count => {
+                                      setEditCapacity((prev) => ({ ...prev, min_capacity: count }))
+                                    }}
                                   />
                                 </div>
 
@@ -764,7 +774,9 @@ const Calendar = () => {
                                     count={detailHour?.max_capacity}
                                     min={0}
                                     max={1000000}
-                                  //onCountChange={count => console.log(count)}
+                                    onCountChange={count => {
+                                      setEditCapacity((prev) => ({ ...prev, max_capacity: count }))
+                                    }}
                                   />
                                 </div>
 
@@ -772,9 +784,14 @@ const Calendar = () => {
                             </div>
                           </EditModeInputs>
                           <EditModeBottomContainer>
-                            <ApproveButton onClick={() => { }}>
-                              {t('Approve')}
-                            </ApproveButton>
+                            {editCapacity?.min_capacity && editCapacity?.max_capacity && ((editCapacity?.min_capacity !== detailHour?.min_capacity) || (editCapacity?.max_capacity !== detailHour?.max_capacity)) &&
+                              < ApproveButton onClick={() => {
+                                dispatch(updateGroupLesson(selectedHour?.id, editCapacity, () => { }, () => { }))
+                              }}>
+                                {t('Approve')}
+                              </ApproveButton>
+                            }
+
                             <ApproveButton reject onClick={() => {
                               setEditMode(false)
                             }}>
@@ -810,8 +827,9 @@ const Calendar = () => {
             </DateContainer>
           </Col>
         </Row>
-      )}
-    </Container>
+      )
+      }
+    </Container >
   );
 };
 

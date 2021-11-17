@@ -284,6 +284,29 @@ export const getDayDetailOfCalendar = (id) => async (dispatch,getState) => {
     },
   });
 };
+export const updateGroupLesson = (
+  id,
+  data,
+  successCallback,
+  errorCallback
+
+) => async (dispatch) => {
+
+  const url = `/appointment/pt/${id}`;
+
+  await dispatch({
+    type: HTTP_REQUEST,
+    payload: {
+      method: 'PUT',
+      body:data,
+      url,
+      label: UPDATE_TEMPLATE_DEFAULT,
+      callBack: () => successCallback(),
+      errorHandler: () => errorCallback(),
+      transformData: (data) => data.data,
+    },
+  });
+};
 
 export const deleteHourOfCalendar = (id, successCallback, errorCallback) => async (
   dispatch, getState
