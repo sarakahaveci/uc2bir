@@ -494,7 +494,7 @@ const Blog = () => {
                         name="detail"
                         required
                         onChange={(e) => setDetail(e.target.value)}
-                        inputProps={{ minLength: 1500 }}
+                        inputProps={{ minLength: 600 }}
                       />
                       <div
                         style={{ marginTop: 15 }}
