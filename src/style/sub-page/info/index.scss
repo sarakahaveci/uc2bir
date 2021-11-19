@@ -45,8 +45,12 @@
   .content {
     padding-top: 15px;
     padding-bottom: 120px;
-    position: relative;
+    padding-left: 50px;
+    padding-right: 50px;
 
+
+    position: relative;
+    
     @media (max-width: 1200px) {
       .row {
         padding-left: 15px;
