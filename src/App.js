@@ -39,6 +39,7 @@ import Contact from 'views/Contact';
 import SearchProfessional from 'views/SearchProfessional';
 import Interceptor from './Interceptor';
 import CookieConsent from './components/CookieConsent';
+import MobileAppOpen from './components/MobileAppOpen';
 import MembershipAgreement from './views/Footer/MembershipAgreement';
 import StaticPage from './views/Footer/StaticPage';
 import Online from 'views/Online';
@@ -82,6 +83,7 @@ const App = () => {
 
   return (
     <Router>
+      <MobileAppOpen/>
       <CookieConsent />
       <Interceptor>
         <ScrollToTop>
