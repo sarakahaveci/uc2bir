@@ -519,6 +519,11 @@ export default function PaymentCard({
     if (type == 'packet') tempType = subType;
     switch (tempType) {
       case 'pt':
+        if (!reservation?.data?.branch_id) {
+          // setIsNotOkReason(t('The session type is not selected'))
+
+          return { reason: t('The branch is not selected') };
+        }
         if (!reservation?.data?.session) {
           // setIsNotOkReason(t('The session type is not selected'))
 
@@ -570,7 +575,7 @@ export default function PaymentCard({
           )
         ) {
           return {
-            reason: 'No reservation calendar found for your selections',
+            reason: t('No reservation calendar found for your selections.'),
           };
         }
         return true;
@@ -626,11 +631,14 @@ export default function PaymentCard({
             width: '100%',
             display: 'flex',
             flexDirection: 'column',
-            padding:'10px',
+            padding: '10px',
             alignItems: 'center',
             justifyContent: 'center',
-            borderColor:'red',
-            borderStyle:'solid', borderWidth: '1px',borderWidth: '1px',borderRadius:'10px'
+            borderColor: 'red',
+            borderStyle: 'solid',
+            borderWidth: '1px',
+            borderWidth: '1px',
+            borderRadius: '10px',
           }}
         >
           <Svg.InfoIcon></Svg.InfoIcon>
@@ -652,8 +660,7 @@ export default function PaymentCard({
               {t('Not available for reservation')}
             </text>
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              •
-              <text style={{ marginLeft: '5px' }}>{reason}</text>
+              •<text style={{ marginLeft: '5px' }}>{reason}</text>
             </div>
           </div>
         </div>

@@ -252,6 +252,8 @@
   "You did not choose a location!": "Lokasyon seçimi yapmadınız!",
   "Fill in the Missing Card Information!": "Eksik Kart Bilgilerini Doldurunuz!",
   "The session type is not selected": "Oturum türü seçilmedi.",
+  "The branch is not selected": "Branş seçilmedi.",
+
   "The selected session type requires location selection.": "Seçilen oturum türü lokasyon seçimi gerektirmektedir.",
   "No reservation calendar found for your selections": "Seçimlerinize uygun rezervasyon takvimi bulunamadı.",
   "You did not choose an instructor": "Eğitmen seçimi yapmadınız",
