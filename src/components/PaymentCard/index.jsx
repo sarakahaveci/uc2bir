@@ -626,8 +626,11 @@ export default function PaymentCard({
             width: '100%',
             display: 'flex',
             flexDirection: 'column',
+            padding:'10px',
             alignItems: 'center',
             justifyContent: 'center',
+            borderColor:'red',
+            borderStyle:'solid', borderWidth: '1px',borderWidth: '1px',borderRadius:'10px'
           }}
         >
           <Svg.InfoIcon></Svg.InfoIcon>
@@ -649,7 +652,7 @@ export default function PaymentCard({
               {t('Not available for reservation')}
             </text>
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              <Svg.CencelIcon></Svg.CencelIcon>
+              •
               <text style={{ marginLeft: '5px' }}>{reason}</text>
             </div>
           </div>
@@ -736,6 +739,8 @@ export default function PaymentCard({
   }
   return (
     <Container>
+      {_renderReservationState()}
+
       {dateOption && (
         <ReservationContainer disable={reservation?.data?.payment_type}>
           <AddHeader>{t('selectDate')}</AddHeader>
@@ -1036,7 +1041,6 @@ export default function PaymentCard({
             </BottomContainer>
           ) : (
             <>
-              {_renderReservationState()}
               {false &&
               wallet?.data?.balance >= reservation?.data?.totals_amount ? ( //Şimdilik cüzdanım kapatıldı
                 <BottomContainer>

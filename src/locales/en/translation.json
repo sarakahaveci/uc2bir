@@ -251,7 +251,7 @@
   "You did not choose a location!": "You did not choose a location!",
   "Fill in the Missing Card Information!": "Fill in the Missing Card Information!",
   "The session type is not selected": "The session type is not selected.",
-  "The selected session type requires location selection": "The selected session type requires location selection.",
+  "The selected session type requires location selection.": "The selected session type requires location selection.",
   "No reservation calendar found for your selections": "No reservation calendar found for your selections.",
   "You did not choose an instructor": "You did not choose an instructor.",
   "Your Choice is Available For Reservation": "Your Choice is Available For Reservation",
