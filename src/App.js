@@ -1,15 +1,15 @@
-import React, { useLayoutEffect,useState } from 'react';
+import React, { useLayoutEffect, useState, useEffect } from 'react';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
-import { useDispatch,useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled, { ThemeProvider } from 'styled-components';
-
+import {Helmet} from "react-helmet";
 import { ScrollToTop, ProtectedRoute } from 'components';
 import LoadingImage from 'assets/321-loading.gif';
 import {
   setUserDetailsFromStorage,
   getAllPTBranchList,
   getRegisterData,
-  getNotificationCount
+  getNotificationCount,
 } from 'actions';
 //views
 import Layout from './views/Layout';
@@ -19,7 +19,7 @@ import Info from './views/Info';
 import Register from './views/Register';
 import ProfRegister from './views/ProfRegister';
 import NotFoundPage from './views/NotFoundPage';
-import HeaderSearchResults from './views/HeaderSearchResults'
+import HeaderSearchResults from './views/HeaderSearchResults';
 import ForgotPassword from 'views/ForgotPassword';
 import Profile from 'views/Profile';
 import UserProfile from 'views/ProfileSettings';
@@ -45,11 +45,10 @@ import StaticPage from './views/Footer/StaticPage';
 import Online from 'views/Online';
 import ReactGA from 'react-ga';
 
-
 import BuyStatus from './views/BuyStatus';
 const App = () => {
   const [loading, setLoading] = useState(true);
-  const auth = useSelector((state) => state.auth)
+  const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   ReactGA.initialize('G-RG1WMQBY0S');
 
@@ -61,18 +60,18 @@ const App = () => {
     dispatch(setUserDetailsFromStorage());
     dispatch(getRegisterData());
     if (auth?.isAuthenticated) {
-      dispatch(getNotificationCount())
-
+      dispatch(getNotificationCount());
     }
     setInterval(() => {
       if (auth?.isAuthenticated) {
-        dispatch(getNotificationCount())
-
+        dispatch(getNotificationCount());
       }
-    }, (3 * 60000));
+    }, 3 * 60000);
     dispatch(getAllPTBranchList());
   }, []);
-
+  useEffect(() => {
+    
+  }, []);
   if (loading) {
     return (
       <LoadingWrapper>
@@ -82,8 +81,12 @@ const App = () => {
   }
 
   return (
+    <>
+    <Helmet>
+    <script src='/test.js' type="text/javascript" />
+    </Helmet>
     <Router>
-      <MobileAppOpen/>
+      <MobileAppOpen />
       <CookieConsent />
       <Interceptor>
         <ScrollToTop>
@@ -135,8 +138,16 @@ const App = () => {
                   component={SearchGroupLesson}
                 />
 
-                <Route exact path="/packets/:type/detail/:id" component={BuyPacket} />
-                <Route exact path="/group-lessons/detail/:id" component={BuyGroupLesson} />
+                <Route
+                  exact
+                  path="/packets/:type/detail/:id"
+                  component={BuyPacket}
+                />
+                <Route
+                  exact
+                  path="/group-lessons/detail/:id"
+                  component={BuyGroupLesson}
+                />
 
                 <Route exact path="/contact" component={Contact} />
                 <Route exact path="/buy/:status" component={BuyStatus} />
@@ -165,7 +176,10 @@ const App = () => {
                   path="/uye-on-bilgilendirme-formu"
                   component={UyeOnBilgilendirmeFormu}
                 /> */}
-                <Route path="/search/:keyword" component={HeaderSearchResults} />
+                <Route
+                  path="/search/:keyword"
+                  component={HeaderSearchResults}
+                />
                 <Route component={NotFoundPage} />
               </Switch>
             </Layout>
@@ -173,6 +187,7 @@ const App = () => {
         </ScrollToTop>
       </Interceptor>
     </Router>
+    </>
   );
 };
 
