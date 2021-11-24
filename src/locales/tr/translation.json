@@ -196,7 +196,7 @@
   "Exercises": "Egzersizler",
   "Package Deletion Completed Successfully": "Paket Silme İşlemi Başarılı Bir Şekilde Tamamlanmıştır.",
   "Error Occurred While Deleting Package!": "Paket Silinirken Hata Oluştu!",
-  "You do not have any reservations from the packages": "Paketlerden Herhangi bir Rezervasyonunuz Bulunmamaktadır.",
+  "You do not have any reservations from the packages": "Kişisel paket oluşturma imkanı eklenecektir, o zamana dek mevcut paketlere katılmak için profilinizden paket katılımlarını açınız.",
   "min": "dk",
   "package name": "paket adı",
   "number of sessions": "seans sayısı",
