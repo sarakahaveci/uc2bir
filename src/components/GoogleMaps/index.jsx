@@ -43,7 +43,9 @@ export default function GoogleMapClusterer({
     if (id === selectedMarker) setSelectedMarker(null);
     else setSelectedMarker(id);
   };
-
+  function randomDif(key){
+    return -0.00001*key;
+  }
   if (loadError) return t('Installation Error');
   if (!isLoaded) return t('Loading');
 
@@ -80,9 +82,9 @@ export default function GoogleMapClusterer({
           {(clusterer) =>
             data?.length > 0 &&
             data?.map((prof) => {
-              return prof?.addresses?.map((adress) => {
-                const lat = +adress?.lat;
-                const lng = +adress.lng;
+              return prof?.addresses?.map((adress,index) => {
+                const lat = +adress?.lat + randomDif(index);
+                const lng = +adress.lng +randomDif(index);
                 const addressDetail = adress?.address_detail;
                 const id = prof?.id || prof?.user_id;
 

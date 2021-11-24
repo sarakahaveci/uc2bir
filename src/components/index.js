@@ -32,6 +32,7 @@ export { Material } from './inputs/material';
 export { default as Span } from './Span/Span';
 export { default as SubTabs } from './SubTabs/SubTabs';
 export { default as Files } from './ProfileSettings/Files/Files';
+
 export { default as ActivityCard } from './ActivityCard';
 export { default as FacilityCard } from './FacilityCard';
 export { default as DietitianPriceCard } from './DietitianPriceCard/DietitianPriceCard';
