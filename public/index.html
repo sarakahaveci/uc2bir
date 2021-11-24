@@ -17,17 +17,7 @@
   <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaBNlX1oeEjr6Ae_Qs1WfDVHoO26PHNRo&libraries=places&callback=initMap">
   </script>
-<script type="text/javascript">
-(function(w,d,s,r,k,h,m){
-	if(w.performance && w.performance.timing && w.performance.navigation) {
-		w[r] = w[r] || function(){(w[r].q = w[r].q || []).push(arguments)};
-		h=d.createElement('script');h.async=true;h.setAttribute('src',s+k);
-		d.getElementsByTagName('head')[0].appendChild(h);
-		(m = window.onerror),(window.onerror = function (b, c, d, f, g) {
-		m && m(b, c, d, f, g),g || (g = new Error(b)),(w[r].q = w[r].q || []).push(["captureException",g]);})
-	}
-})
-</script>
+
   <meta name="description"
     content="Sporseverler, eğitmen seçiyor, yeri ve zamanı belirliyor. Bire bir ilgi, diyetisyen desteği, spor salonu seçenekleri Üç2bir uygulamasında. Ücretsiz indir, hayatını değiştir." />
   <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
@@ -50,7 +40,17 @@
 
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
-
+  <script type="text/javascript">
+    (function(w,d,s,r,k,h,m){
+      if(w.performance && w.performance.timing && w.performance.navigation) {
+        w[r] = w[r] || function(){(w[r].q = w[r].q || []).push(arguments)};
+        h=d.createElement('script');h.async=true;h.setAttribute('src',s+k);
+        d.getElementsByTagName('head')[0].appendChild(h);
+        (m = window.onerror),(window.onerror = function (b, c, d, f, g) {
+        m && m(b, c, d, f, g),g || (g = new Error(b)),(w[r].q = w[r].q || []).push(["captureException",g]);})
+      }
+    })
+    </script>
   <div id="root"></div>
   <!--
       This HTML file is a template.
@@ -63,8 +63,6 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
 </body>
-<script type="text/javascript" language="javascript">
 
-</script>
 
 </html>
