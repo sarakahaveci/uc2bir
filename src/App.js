@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useState, useEffect } from 'react';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { ThemeProvider } from 'styled-components';
-import {Helmet} from "react-helmet";
+// import {Helmet} from "react-helmet";
 import { ScrollToTop, ProtectedRoute } from 'components';
 import LoadingImage from 'assets/321-loading.gif';
 import {
@@ -82,9 +82,6 @@ const App = () => {
 
   return (
     <>
-    <Helmet>
-    <script src='/test.js' type="text/javascript" />
-    </Helmet>
     <Router>
       <MobileAppOpen />
       <CookieConsent />
