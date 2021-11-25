@@ -1,4 +1,3 @@
-import { toast } from 'react-toastify';
 
 import {
   HTTP_REQUEST,
@@ -177,11 +176,8 @@ export const getProfileDetails =
 
           // localStorage.set('auth', userData);
         },
-        errorHandler: () =>
-          toast.error('İşlem Başarısız!!', {
-            position: 'bottom-right',
-            autoClose: 2000,
-          }),
+        errorHandler: () =>{}
+         
       },
     });
   };
