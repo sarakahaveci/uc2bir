@@ -521,9 +521,9 @@ const PacketReservation = ({ setPage, setBannerActive }) => {
                     stars={reservation?.data?.rating}
                     category={reservation?.data?.selectedPt?.title}
                     address={
-                      reservation?.data?.selectedPt?.addresses[0]?.district +
+                      reservation?.data?.selectedPt?.addresses?.[0]?.district +
                       ' / ' +
-                      reservation?.data?.selectedPt?.addresses[0]?.city
+                      reservation?.data?.selectedPt?.addresses?.[0]?.city
                     }
                     price={reservation?.data?.selectedPt?.price}
                     classification={

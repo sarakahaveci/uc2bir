@@ -311,7 +311,19 @@ const BuyPacket = ({ match }) => {
                     fontSize="11pt"
                     color="blue"
                     onClick={() => {
-                      history.push('/find?type=' + match?.params?.type);
+                      let addParam =''
+                      if(match?.params?.type == 'pt'){
+                        addParam ='&'
+                        let urlJSON = {};
+                        if (packet?.data?.branch_id) {
+                          urlJSON.branch = packet?.data?.branch_id;
+                        }
+                        if (packet?.reservation?.level) {
+                          urlJSON.classification = packet?.reservation?.level;
+                        }
+                        addParam += new URLSearchParams(urlJSON);
+                      }
+                      history.push('/find?type=' + match?.params?.type+addParam);
                     }}
                   />
                 </BottomContainer>
