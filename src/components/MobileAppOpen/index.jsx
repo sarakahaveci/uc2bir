@@ -15,15 +15,18 @@ const MobileAppOpen = () => {
 
   return (
     <>
-      {isMobile  && (
+      {isMobile && (
         <Container style={{ display: visibity ? 'flex' : 'none' }}>
-          <div style={{ width: '90%', height: '50px' }}>
-            <text style={{ color: 'white', marginRight: '15px' }}>
-              Mobil uygulamamızı açın.
+          <div style={{ display: 'flex', width: '90%', height: '50px' }}>
+            <text
+              style={{ color: 'white', marginRight: '15px', fontSize: '15px' }}
+            >
+              Daha iyi bir deneyim için mobil uygulamamızı kullanın
             </text>
             {
               isAndroid && infoData?.android_app_link && (
                 <StyledButton
+                  style={{ marginRight: '10px' }}
                   text={t('open')}
                   fontWeight="500"
                   onClick={() => {
@@ -37,6 +40,7 @@ const MobileAppOpen = () => {
             {
               isIOS && infoData?.ios_app_link && (
                 <StyledButton
+                  style={{ marginRight: '10px' }}
                   text={t('open')}
                   fontWeight="500"
                   onClick={() => {
