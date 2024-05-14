@@ -243,7 +243,7 @@ export default function WorkPlaceActivity() {
           </Text>
         </Container>
 
-        <div className="modal-footer" closeIcon={false}>
+        <div className="modal-footer"  >
           <StyledLink
             onClick={() => {
               setOpen(false);

@@ -131,19 +131,19 @@ export default function IndividualImprint({ userInfo }) {
 
   const settings = tabData?.map((item, index) =>
     item.route ? (
-      <Link style={{ color: 'black' }} to={item?.route}>
-        <ButtonWrapper>
-          <SettingsRow pulse={item.pulse}>
-            <Box col>
-              <Text color="dark" textAlign="left" fontWeight="500" p="2px">
-                {item.settingsName}
-              </Text>
-            </Box>
-
-            <Svg.ArrowRightIcon />
-          </SettingsRow>
-        </ButtonWrapper>{' '}
-      </Link>
+      <Link key={item.id} style={{ color: 'black' }} to={item?.route}>
+      <ButtonWrapper key={item.id}>
+        <SettingsRow pulse={item.pulse}>
+          <Box col>
+            <Text color="dark" textAlign="left" fontWeight="500" p="2px">
+              {item.settingsName}
+            </Text>
+          </Box>
+          <Svg.ArrowRightIcon />
+        </SettingsRow>
+      </ButtonWrapper>
+    </Link>
+    
     ) : (
       <Wrapper key={'wrapper' + index}>
         <Accordion.Item>

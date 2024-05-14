@@ -24,7 +24,7 @@ const BlockUserModal = ({
           }}
         />
         <ContextContainer>
-          <Icon src={BlockedIcon}></Icon>
+          <Icon src={BlockedIcon} alt="Blocked Icon" />
           <Text
             variant="h2"
             fontSize="1.2rem"
@@ -38,7 +38,7 @@ const BlockUserModal = ({
           </Text>
         </ContextContainer>
 
-        <div className="modal-footer" closeIcon={false}>
+        <div className="modal-footer">
           <StyledButton
             approve
             onClick={() => {
@@ -48,7 +48,7 @@ const BlockUserModal = ({
             {t('Approve')}
           </StyledButton>
         </div>
-        <div className="modal-footer" closeIcon={false}>
+        <div className="modal-footer">
           <StyledButton
             onClick={() => {
               cancel();
@@ -74,6 +74,7 @@ const Root = styled.div`
   left: 0;
   z-index: 99999;
 `;
+
 const MainContainer = styled.div`
   display: flex;
   border-radius: 30px;
@@ -82,6 +83,7 @@ const MainContainer = styled.div`
   align-items: center;
   padding: 20px;
   background: white;
+
   .close-icon {
     align-self: flex-end;
 
@@ -96,6 +98,7 @@ const MainContainer = styled.div`
     overflow: scroll;
   }
 `;
+
 const StyledButton = styled(Link)`
   font-size: 1.2rem;
   color: ${(p) => (p.approve ? '#F01C62' : 'black')};
@@ -108,11 +111,13 @@ const StyledButton = styled(Link)`
     color: #f01c62;
   }
 `;
+
 const Icon = styled.img`
   width: 70px;
   height: 70px;
   margin-bottom: 10px;
 `;
+
 const ContextContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -120,9 +125,11 @@ const ContextContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding: 50px 70px 30px;
+
   svg {
     margin-bottom: 15px;
   }
+
   @media ${device.sm} {
     padding: 20px 0;
     width: 80vw;

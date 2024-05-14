@@ -64,7 +64,7 @@ const RejectModal = ({
             </Text>
           </ContextContainer>
 
-          <div className="modal-footer" closeIcon={false}>
+          <div className="modal-footer">
             <StyledButton
               reject
               onClick={() => {
@@ -74,7 +74,7 @@ const RejectModal = ({
               {rejectLabel}
             </StyledButton>
           </div>
-          <div className="modal-footer" closeIcon={false}>
+          <div className="modal-footer">
             <StyledButton
               onClick={() => {
                 cancel();
@@ -114,7 +114,7 @@ const RejectModal = ({
             </ReasonContainer>
           </ReasonContextContainer>
 
-          <div className="modal-footer" closeIcon={false}>
+          <div className="modal-footer">
             <StyledButton
               onClick={() => {
                 reject(open, rejectStatus);

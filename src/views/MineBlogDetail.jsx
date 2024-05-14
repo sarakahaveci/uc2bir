@@ -86,7 +86,7 @@ const MineBlogDetail = ({ match }) => {
                   <Title variant="h3" component="h3" lineDisable={false}>
                     {detail?.data?.blog?.title}
                   </Title>
-                  <div lassName="blog-detail__text">
+                  <div className="blog-detail__text">
                     {ReactHtmlParser(decode(detail?.data?.blog?.detail))}
                   </div>
                 </Col>

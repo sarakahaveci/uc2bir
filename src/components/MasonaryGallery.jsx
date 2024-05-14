@@ -268,10 +268,10 @@ const MasonaryGallery = ({ className = null, style = {}, children = null }) => {
             <PlusButton onClick={() => setActivePage('create')} />
           </Box>
           <StyledCategories>
-            {categories.map((category, i) => (
+            {categories.map((category) => (
               <Item
+              key={category.id}
                 active={active === category.item}
-                key={i}
                 onClick={() => setActive(category.item)}
               >
                 {category.name}
@@ -316,79 +316,78 @@ const MasonaryGallery = ({ className = null, style = {}, children = null }) => {
                 );
               })}
             {active === 'image' &&
-              myGalleries?.data?.data?.map((image, i) => {
+              myGalleries?.data?.data?.map((image) => {
                 if (image.file_type == 'image') {
                   return (
-                    <StyledCard>
-                      <Div padding={15} id={image.id}>
-                        {image.status && (
-                          <Icon
-                            img={tickIcon}
-                            name={image.id}
-                            top="35px"
-                            cursor="default"
-                          />
-                        )}
+                    <StyledCard key={image.id}> {/* Added key prop to StyledCard */}
+                    <Div padding={15} id={image.id}>
+                      {image.status && (
                         <Icon
-                          img={closeIcon}
+                          img={tickIcon}
                           name={image.id}
-                          top="0px"
-                          onClick={(e) => deleted(e.target.name)}
-                          cursor="pointer"
+                          top="35px"
+                          cursor="default"
                         />
-                        <div className="img" onClick={() => openModal(image)}>
-                          <img
-                            key={i}
-                            src={`${getImage(image)}`}
-                            style={{
-                              width: '100%',
-                              display: 'block',
-                              objectFit: 'cover',
-                            }}
-                            alt={image.name}
-                          />
-                        </div>
-                      </Div>
-                    </StyledCard>
+                      )}
+                      <Icon
+                        img={closeIcon}
+                        name={image.id}
+                        top="0px"
+                        onClick={() => deleted(image.id)} 
+                        cursor="pointer"
+                      />
+                      <div className="img" onClick={() => openModal(image)}>
+                        <img
+                          src={`${getImage(image)}`}
+                          style={{
+                            width: '100%',
+                            display: 'block',
+                            objectFit: 'cover',
+                          }}
+                          alt={image.name}
+                        />
+                      </div>
+                    </Div>
+                  </StyledCard>                  
                   );
                 }
               })}
             {active === 'youtube' &&
-              myGalleries?.data?.data?.map((image, i) => {
+              myGalleries?.data?.data?.map((image ) => {
                 if (image.file_type == 'youtube')
                   return (
-                    <StyledCard>
-                      <Div padding={15} id={image.id}>
-                        {image.status && (
-                          <Icon
-                            img={tickIcon}
-                            name={image.id}
-                            top="35px"
-                            cursor="default"
-                          />
-                        )}
+                    <StyledCard key={image.id}>
+                    <Div padding={15} id={image.id}>
+                      {image.status && (
                         <Icon
-                          img={closeIcon}
+                          img={tickIcon}
                           name={image.id}
-                          top="0px"
-                          onClick={(e) => deleted(e.target.name)}
-                          cursor="pointer"
+                          top="35px"
+                          cursor="default"
                         />
-                        <div className="img" onClick={() => openModal(image)}>
-                          <img
-                            key={i}
-                            src={`${getImage(image)}`}
-                            style={{
-                              width: '100%',
-                              display: 'block',
-                              objectFit: 'cover',
-                            }}
-                            alt={image.name}
-                          />
-                        </div>
-                      </Div>
-                    </StyledCard>
-                  );
+                      )}
+                      <Icon
+                        img={closeIcon}
+                        name={image.id}
+                        top="0px"
+                        onClick={(e) => deleted(e.target.name)}
+                        cursor="pointer"
+                      />
+                      <div className="img" onClick={() => openModal(image)}>
+                        <img
+                          key={i} 
+                          src={`${getImage(image)}`}
+                          style={{
+                            width: '100%',
+                            display: 'block',
+                            objectFit: 'cover',
+                          }}
+                          alt={image.name}
+                        />
+                      </div>
+                    </Div>
+                  </StyledCard>
+                                    );
               })}
           </GridWrapper>
         </>

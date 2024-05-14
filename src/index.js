@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import createRoot from 'react-dom';
 import App from './App';
 
 import { Provider } from 'react-redux';
@@ -9,7 +9,7 @@ import './i18n';
 import { BrowserRouter } from 'react-router-dom';
 const store = createStore();
 
-ReactDOM.render(
+createRoot.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>

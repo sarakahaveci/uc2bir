@@ -67,7 +67,7 @@ const RejectStatusModal = ({
           />
           <div style={{ display: 'flex' }}>
 
-            <div className="modal-footer" closeIcon={false}>
+            <div className="modal-footer">
               <StyledButton
                 rate
                 onClick={() => {
@@ -77,7 +77,7 @@ const RejectStatusModal = ({
                 {t('ok')}
               </StyledButton>
             </div>
-            <div className="modal-footer" closeIcon={false}>
+            <div className="modal-footer">
               <StyledButton
                 onClick={() => {
                   cancel();

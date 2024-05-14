@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
 import { Text, Svg } from 'components';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { device } from 'utils';
 
@@ -20,7 +19,6 @@ const CancalletionModal = ({
 
   const [selectedPage, setSelectedPage] = useState('start');
 
-  let content;
   useEffect(() => {
     setSelectedPage('start');
   }, [open]);
@@ -38,6 +36,8 @@ const CancalletionModal = ({
       return null;
     }
   }
+
+  let content;
   switch (selectedPage) {
     case 'start':
       content = (
@@ -52,23 +52,14 @@ const CancalletionModal = ({
             <IconContainer>
               <Svg.Reject />
             </IconContainer>
-
-            <Text
-              variant="h2"
-              fontSize="1.2rem"
-              color="dark"
-              fontWeight="500"
-              textAlign="center"
-            >
+            <Text variant="h2" fontSize="1.2rem" color="dark" fontWeight="500" textAlign="center">
               {headerText}
             </Text>
-
             <Text textAlign="center" fontSize="1rem" color="dark">
               {descText}
             </Text>
           </ContextContainer>
-
-          <div className="modal-footer" closeIcon={false}>
+          <div className="modal-footer">
             <StyledButton
               cancel
               onClick={() => {
@@ -78,8 +69,6 @@ const CancalletionModal = ({
             >
               {cancelLabel}
             </StyledButton>
-          </div>
-          <div className="modal-footer" closeIcon={false}>
             <StyledButton
               onClick={() => {
                 cancelProcess();
@@ -98,25 +87,15 @@ const CancalletionModal = ({
             <IconContainer>
               <Svg.Reject />
             </IconContainer>
-
-            <Text
-              variant="h2"
-              fontSize="1.2rem"
-              color="dark"
-              fontWeight="500"
-              textAlign="center"
-            >
+            <Text variant="h2" fontSize="1.2rem" color="dark" fontWeight="500" textAlign="center">
               {headerText}
             </Text>
-
             <Text textAlign="center" fontSize="1rem" color="dark">
-              {hourFormatter(stepTwoData?.remaining_hour)} sonraki randevunuzu
-              iptal etmek üzeresiniz.
+              {hourFormatter(stepTwoData?.remaining_hour)} sonraki randevunuzu iptal etmek üzeresiniz.
             </Text>
             {stepTwoData?.penalty_fee && stepTwoData?.penalty_fee > 0 && (
               <Text textAlign="center" fontSize="1rem" color="dark">
-                İşlemi onaylamanız halinde {stepTwoData?.penalty_fee} tl ceza
-                ücreti hesabınıza yansıyacaktır.
+                İşlemi onaylamanız halinde {stepTwoData?.penalty_fee} tl ceza ücreti hesabınıza yansıyacaktır.
               </Text>
             )}
           </ContextContainer>
@@ -159,6 +138,7 @@ const Root = styled.div`
   left: 0;
   z-index: 99999;
 `;
+
 const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -167,19 +147,21 @@ const MainContainer = styled.div`
   align-items: center;
   padding: 20px;
   background: white;
+
   .close-icon {
     align-self: flex-end;
-
     svg {
       cursor: pointer;
     }
   }
+
   @media ${device.sm} {
     width: 95vw;
     height: 95vh;
     overflow: scroll;
   }
 `;
+
 const IconContainer = styled.div`
   display: flex;
   align-items: center;
@@ -190,14 +172,18 @@ const IconContainer = styled.div`
   background: #f01c62;
   margin-bottom: 15px;
 `;
-const StyledButton = styled(Link)`
+
+const StyledButton = styled.button`
   font-size: 1.2rem;
   color: ${(p) => (p.cancel ? '#F01C62' : 'black')};
-
   text-align: center;
   display: block;
   width: 100%;
   text-transform: uppercase;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+
   &:hover {
     color: var(--blue);
   }

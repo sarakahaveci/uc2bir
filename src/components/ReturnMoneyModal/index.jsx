@@ -93,23 +93,23 @@ const ReturnMoneyModal = ({
                 )}
               </Text>
             </ContextContainer>
-            <div className="modal-footer" closeIcon={false}>
-              <StyledButton
-                approve
-                onClick={() => {
-                  setPage('wallet');
-                }}
-              >
-                {t('Transfer to Wallet')}
-              </StyledButton>
-            </div>
-            <div className="modal-footer" closeIcon={false}>
-              <StyledButton
-                approve
-                onClick={() => {
-                  setPage('card');
-                }}
-              >
+            <div className="modal-footer">
+            <StyledButton
+              approve
+              onClick={() => {
+                setPage('wallet');
+              }}
+            >
+              {t('Transfer to Wallet')}
+            </StyledButton>
+          </div>
+          <div className="modal-footer">
+            <StyledButton
+              approve
+              onClick={() => {
+                setPage('card');
+              }}
+            >          
                 {t('Transfer to Card')}
               </StyledButton>
             </div>

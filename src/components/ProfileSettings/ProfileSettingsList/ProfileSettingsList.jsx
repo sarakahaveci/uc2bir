@@ -176,7 +176,7 @@ const ProfileSettingsList = () => {
 
   const settings = tabData?.map((item, index) =>
     item.route ? (
-      <Link style={{ color: 'black' }} to={item?.route}>
+      <Link key={item.settingsName} style={{ color: 'black' }} to={item?.route}>
         <ButtonWrapper>
           <SettingsRow pulse={item.pulse}>
             <Box col>
@@ -184,10 +184,9 @@ const ProfileSettingsList = () => {
                 {item.settingsName}
               </Text>
             </Box>
-
             <Svg.ArrowRightIcon />
           </SettingsRow>
-        </ButtonWrapper>{' '}
+        </ButtonWrapper>
       </Link>
     ) : (
       <Wrapper key={'wrapper' + index}>

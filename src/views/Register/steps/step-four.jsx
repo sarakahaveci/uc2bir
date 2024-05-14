@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -15,9 +14,9 @@ const StepFour = (props) => {
   const { setSteps, registerData } = props;
   const dispatch = useDispatch();
 
-  const [survey_id, _survey_id] = useState(0);
-  const [question, _question] = useState([]);
-  const [answer, _answer] = useState({});
+  const [survey_id, setSurveyId] = useState(0);
+  const [question, setQuestion] = useState([]);
+  const [answer, setAnswer] = useState({});
 
   const getStepFour = useSelector((state) => state.stepFour);
   const [macro, setMacro] = useState(false);
@@ -48,7 +47,7 @@ const StepFour = (props) => {
     }
   }, [registerData]);
 
-  const succsess = () => {
+  const success = () => {
     toast.success(t(`Question answers have been sent`), {
       position: 'bottom-right',
       autoClose: 2000,
@@ -73,7 +72,7 @@ const StepFour = (props) => {
     }, 1000);
   };
 
-  const err = () => {
+  const error = () => {
     toast.error(t(`Question answers could not be sent!`), {
       position: 'bottom-right',
       autoClose: 2000,
@@ -93,11 +92,12 @@ const StepFour = (props) => {
           survey_id: survey_id,
           answer: answer,
         },
-        succsess,
-        err
+        success,
+        error
       )
     );
   };
+
   return (
     <>
       <Text>
@@ -108,95 +108,95 @@ const StepFour = (props) => {
       </Text>
       <form onSubmit={onSubmit} autoComplete="off">
         {macro.length &&
-          macro.map((val, key) => {
+          macro.map((val, index) => {
             if (val.type === 'radio') {
               return (
                 <Material.RadioButtonsGroup
+                  key={index}
                   required={val.required}
-                  key={key}
                   name={val.name}
-                  label={`${++key}. ${val.text}`}
+                  label={`${index + 1}. ${val.text}`}
                   items={val.items}
                   onChange={(e) => {
-                    _survey_id(val.survey_id);
-                    _question([...question, val.id]);
-                    _answer({ ...answer, [e.target.name]: [e.target.value] });
+                    setSurveyId(val.survey_id);
+                    setQuestion([...question, val.id]);
+                    setAnswer({ ...answer, [e.target.name]: [e.target.value] });
                   }}
                 />
               );
             } else if (val.type === 'string') {
               return (
-                <div style={{ marginTop: 15, marginBottom: 30 }}>
+                <div key={index} style={{ marginTop: 15, marginBottom: 30 }}>
                   <div style={{ fontSize: '11pt' }} className="label">
-                    {`${++key}. ${val.text}`}
+                    {`${index + 1}. ${val.text}`}
                   </div>
                   <Material.TextField
+                    key={index}
                     required={val.required}
-                    key={key}
                     name={val.name}
                     onChange={(e) => {
-                      _survey_id(val.survey_id);
-                      _question([...question, val.id]);
-                      _answer({ ...answer, [e.target.name]: [e.target.value] });
+                      setSurveyId(val.survey_id);
+                      setQuestion([...question, val.id]);
+                      setAnswer({ ...answer, [e.target.name]: [e.target.value] });
                     }}
                   />
                 </div>
               );
             } else if (val.type === 'checkbox') {
               return (
-                <div style={{ marginTop: 15, marginBottom: 30 }}>
+                <div key={index} style={{ marginTop: 15, marginBottom: 30 }}>
                   <div style={{ fontSize: '11pt' }} className="label">
-                    {`${++key}. ${val.text}`}
+                    {`${index + 1}. ${val.text}`}
                   </div>
                   <div style={{ margin: '15px 20px 0' }}>
-                    {val?.items?.map((item, key) => {
+                    {val?.items?.map((item, idx) => {
                       return (
-                        <>
-                          <Material.CheckBoxGroup
-                            style={{ color: 'red' }}
-                            key={`checkbox-key-${key}`}
-                            name={val.name}
-                            label={item.name}
-                            onChange={(e) => {
-                              _survey_id(val.survey_id);
-                              _question([...question, val.id]);
-                              _answer({
-                                ...answer,
-                                [e.target.name]: [item.id],
-                              });
-                            }}
-                          />
-                        </>
+                        <Material.CheckBoxGroup
+                          key={`${index}-${idx}`}
+                          style={{ color: 'red' }}
+                          name={val.name}
+                          label={item.name}
+                          onChange={(e) => {
+                            setSurveyId(val.survey_id);
+                            setQuestion([...question, val.id]);
+                            setAnswer({
+                              ...answer,
+                              [e.target.name]: [item.id],
+                            });
+                          }}
+                        />
                       );
                     })}
                   </div>
                 </div>
               );
             }
+            return null; // Added to satisfy React's requirement for returning a value from map
           })}
-        {!getStepFour.isLoading || !getStepFour.isSuccess ? (
-          <Button
-            type="submit"
-            text={t('Complete Registration')}
-            className="blue"
-          />
-        ) : (
-          <Button text={t('Loading')} className="blue" />
-        )}
-      </form>
-    </>
-  );
-};
+          {!getStepFour.isLoading || !getStepFour.isSuccess ? (
+            <Button
+              type="submit"
+              text={t('Complete Registration')}
+              className="blue"
+            />
+          ) : (
+            <Button text={t('Loading')} className="blue" />
+          )}
+        </form>
+      </>
+    );
+  };
+  
+  export default StepFour;
+  
+  const Text = styled.div`
+    font-family: 'Poppins', sans-serif;
+    font-size: 11pt;
+    color: #181818;
+    line-height: 175%;
+    color: #00b2a9;
+    margin-bottom: 15px;
+  `;
+  
+  export { StepFour };
 
-export default StepFour;
-
-const Text = styled.div`
-  font-family: 'Poppins', sans-serif;
-  font-size: 11pt;
-  color: #181818;
-  line-height: 175%;
-  color: #00b2a9;
-  margin-bottom: 15px;
-  /* font-style: italic; */
-  /* font-weight: 600; */
-`;

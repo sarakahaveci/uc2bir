@@ -282,7 +282,7 @@ export default function WorkPlaceActivity() {
           </Text>
         </Container>
 
-        <div className="modal-footer" closeIcon={false}>
+        <div className="modal-footer"  >
           <StyledLink onClick={() => setOpen(false)}>
             {' '}
             {t('continue')}
@@ -316,7 +316,7 @@ export default function WorkPlaceActivity() {
           </Text>
         </Container>
 
-        <div className="modal-footer" closeIcon={false}>
+        <div className="modal-footer"  >
           <StyledLink onClick={() => setOpenModal(false)}>
             {' '}
             {t('continue')}

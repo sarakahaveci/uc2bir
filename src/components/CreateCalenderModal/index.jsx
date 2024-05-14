@@ -16,9 +16,7 @@ const CreateCalenderModal = ({
 }) => {
   const { t } = useTranslation();
 
-  const { name: name, type_id: type_id } = useSelector(
-    (state) => state.auth.user
-  );
+  const { name, type_id } = useSelector((state) => state.auth.user);
   const {
     userKeys: { data: userKeys, isSuccess },
   } = useSelector((state) => state.registerData);
@@ -30,6 +28,7 @@ const CreateCalenderModal = ({
       setType(userKeys?.filter((f) => f.id === type_id));
     }
   }, [isSuccess]);
+
   return (
     <Root style={{ display: open ? 'flex' : 'none' }}>
       <MainContainer>
@@ -50,9 +49,7 @@ const CreateCalenderModal = ({
           </Text>
           {type[0]?.key == KEYS.GYM ? (
             <Text textAlign="center" fontSize="1rem" color="dark">
-              {t(
-                'Please enter the domain information you want to make available'
-              )}{' '}
+              {t('Please enter the domain information you want to make available')}
             </Text>
           ) : (
             <Text textAlign="center" fontSize="1rem" color="dark">
@@ -60,36 +57,31 @@ const CreateCalenderModal = ({
             </Text>
           )}
         </ContextContainer>
-
-        <div className="modal-footer" closeIcon={false}>
-          <StyledButton
-            approve
-            onClick={() => {
-              approve();
-            }}
-          >
+        <  div>
+          <StyledButton approve onClick={approveAction}>
             {type[0]?.key === KEYS.DIETIAN && t('CREATE SESSION')}
             {type[0]?.key === KEYS.PT && t('CREATE PRIVATE LESSON')}
             {type[0]?.key === KEYS.GYM && t('HIRE SPORTS AREA')}
           </StyledButton>
         </div>
         {type[0]?.key !== KEYS.GYM && (
-          <div className="modal-footer" closeIcon={false}>
-            <StyledButton
-              approve
-              onClick={() => {
-                cancel();
-              }}
-            >
-              {type[0]?.key === KEYS.DIETIAN
-                ? t('CREATE PACKAGE SESSION')
-                : t('CREATE A GROUP LESSON')}
+          <  div>
+            <StyledButton approve onClick={cancelAction}>
+              {type[0]?.key === KEYS.DIETIAN ? t('CREATE PACKAGE SESSION') : t('CREATE A GROUP LESSON')}
             </StyledButton>
           </div>
         )}
       </MainContainer>
     </Root>
   );
+
+  function approveAction() {
+    approve();
+  }
+
+  function cancelAction() {
+    cancel();
+  }
 };
 
 const Root = styled.div`
@@ -104,6 +96,7 @@ const Root = styled.div`
   left: 0;
   z-index: 99999;
 `;
+
 const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -113,12 +106,14 @@ const MainContainer = styled.div`
   background: white;
   border-radius: 20px;
   width: 35vw;
+
   @media ${device.sm} {
     width: 55vw;
     height: 55vh;
     overflow: scroll;
   }
 `;
+
 const StyledButton = styled(Link)`
   font-size: 1.2rem;
   color: ${(p) => (p.approve ? 'var(--blue)' : 'black')};
@@ -138,9 +133,11 @@ const ContextContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding: 60px 110px 30px;
+
   svg {
     margin-bottom: 15px;
   }
+
   @media ${device.sm} {
     padding: 20px 0;
     width: 80vw;

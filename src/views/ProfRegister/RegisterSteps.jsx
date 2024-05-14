@@ -74,11 +74,11 @@ const RegisterSteps = ({ userTypeId, setUserTypeId }) => {
           </Text>
         </Container>
 
-        <div className="modal-footer" closeIcon={false}>
+        <Modal.Footer closeButton={false}>
           <StyledLink to="/myprofile/settings/profile">
             {t('PROFILE')}
           </StyledLink>
-        </div>
+        </Modal.Footer>
       </Modal>
     </StepContext.Provider>
   );

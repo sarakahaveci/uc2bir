@@ -17,7 +17,6 @@ const RateModal = ({
   open,
   rate,
   cancel,
-  cancelLabel = '',
   rateLabel = '',
 }) => {
   const { t } = useTranslation();
@@ -135,26 +134,26 @@ const RateModal = ({
           </ContextContainer>
 
           <div style={{ display: 'flex' }}>
-            <div className="modal-footer" closeIcon={false}>
-              <StyledButton
-                rate
-                onClick={() => {
-                  setSelectedPage('second');
-                }}
-              >
-                {rateLabel}
-              </StyledButton>
-            </div>
-            <div className="modal-footer" closeIcon={false}>
-              <StyledButton
-                onClick={() => {
-                  cancel();
-                }}
-              >
-                {cancelLabel}
-              </StyledButton>
-            </div>
-          </div>
+  <div className="modal-footer">
+    <StyledButton
+      rate
+      onClick={() => {
+        setSelectedPage('second');
+      }}
+    >
+      {rateLabel}
+    </StyledButton>
+  </div>
+  <div className="modal-footer">
+    <StyledButton
+      onClick={() => {
+        cancel();
+      }}
+    >
+      {/* Button content */}
+    </StyledButton>
+  </div>
+    </div>
         </MainContainer>
       );
       break;

@@ -37,7 +37,7 @@ const ApproveModal = ({ elm, open, approve = () => {}, cancel = () => {} }) => {
           )}
         </ContextContainer>
 
-        <div className="modal-footer" closeIcon={false}>
+        <div className="modal-footer">
           <StyledButton
             approve
             onClick={() => {
@@ -47,7 +47,7 @@ const ApproveModal = ({ elm, open, approve = () => {}, cancel = () => {} }) => {
             {t('Approve')}
           </StyledButton>
         </div>
-        <div className="modal-footer" closeIcon={false}>
+        <div className="modal-footer">
           <StyledButton
             onClick={() => {
               cancel();
